@@ -1,0 +1,821 @@
+[
+ {
+  "id": "right-atrium",
+  "name": "Right atrium",
+  "latin": "Atrium dextrum",
+  "blurb": "Upper right chamber that receives deoxygenated systemic blood from the venae cavae and coronary sinus, then fills the right ventricle.",
+  "pearl": "Houses the SA node in its upper wall near the SVC opening — the heart's natural pacemaker that sets sinus rhythm.",
+  "organ": "heart",
+  "view": "heart"
+ },
+ {
+  "id": "right-ventricle",
+  "name": "Right ventricle",
+  "latin": "Ventriculus dexter",
+  "blurb": "Anterior-most chamber that pumps deoxygenated blood through the pulmonary valve into the pulmonary trunk toward the lungs.",
+  "pearl": "Thin-walled, low-pressure pump; affected in inferior MI (RCA) and acutely strained in massive PE (cor pulmonale).",
+  "organ": "heart",
+  "view": "heart"
+ },
+ {
+  "id": "left-atrium",
+  "name": "Left atrium",
+  "latin": "Atrium sinistrum",
+  "blurb": "Most posterior chamber; receives oxygenated blood from the four pulmonary veins and delivers it to the left ventricle.",
+  "pearl": "Enlarges in mitral stenosis (can cause dysphagia/AFib); its appendage is the top site of thrombus in atrial fibrillation.",
+  "organ": "heart",
+  "view": "heart"
+ },
+ {
+  "id": "left-ventricle",
+  "name": "Left ventricle",
+  "latin": "Ventriculus sinister",
+  "blurb": "Thick-walled chamber forming the apex; ejects oxygenated blood through the aortic valve into the aorta for systemic circulation.",
+  "pearl": "Thickest myocardium (highest pressure); hypertrophies in chronic HTN/aortic stenosis and drives most heart failure.",
+  "organ": "heart",
+  "view": "heart"
+ },
+ {
+  "id": "aorta",
+  "name": "Aorta (aortic arch)",
+  "latin": "Arcus aortae",
+  "blurb": "Largest artery; arches over the heart carrying oxygenated blood from the left ventricle to the entire systemic circulation.",
+  "pearl": "Arch branches L→R: brachiocephalic, left common carotid, left subclavian. Common dissection site (tearing chest-to-back pain).",
+  "organ": "heart",
+  "view": "heart"
+ },
+ {
+  "id": "pulmonary-trunk",
+  "name": "Pulmonary trunk",
+  "latin": "Truncus pulmonalis",
+  "blurb": "Large vessel arising from the right ventricle that carries deoxygenated blood and bifurcates into the right and left pulmonary arteries.",
+  "pearl": "Carries deoxygenated blood (like the umbilical arteries); tethered to the aortic arch by the ligamentum arteriosum (former ductus arteriosus).",
+  "organ": "heart",
+  "view": "heart"
+ },
+ {
+  "id": "superior-vena-cava",
+  "name": "Superior vena cava",
+  "latin": "Vena cava superior",
+  "blurb": "Large vein draining deoxygenated blood from the head, neck, and upper limbs into the right atrium.",
+  "pearl": "SVC syndrome (often lung cancer/mediastinal mass) causes facial swelling, plethora, and distended neck veins.",
+  "organ": "heart",
+  "view": "heart"
+ },
+ {
+  "id": "inferior-vena-cava",
+  "name": "Inferior vena cava",
+  "latin": "Vena cava inferior",
+  "blurb": "Largest vein; returns deoxygenated blood from the abdomen, pelvis, and lower limbs to the inferior right atrium.",
+  "pearl": "Pierces the diaphragm at T8, the highest of its three openings — \"I 8 (ate) 10 eggs at 12\": IVC T8, esophagus T10, aorta T12.",
+  "organ": "heart",
+  "view": "heart"
+ },
+ {
+  "id": "pulmonary-arteries",
+  "name": "Pulmonary arteries",
+  "latin": "Arteriae pulmonales",
+  "blurb": "Right and left branches of the pulmonary trunk that carry deoxygenated blood from the right heart to each lung.",
+  "pearl": "Main site of pulmonary embolism; a large saddle embolus lodging at the bifurcation can cause sudden death.",
+  "organ": "heart",
+  "view": "heart"
+ },
+ {
+  "id": "pulmonary-veins",
+  "name": "Pulmonary veins",
+  "latin": "Venae pulmonales",
+  "blurb": "Four veins (two per lung) returning oxygenated blood from the lungs to the left atrium.",
+  "pearl": "Only veins carrying oxygenated blood; ectopic foci near their ostia trigger AFib (targeted in PV isolation ablation).",
+  "organ": "heart",
+  "view": "heart"
+ },
+ {
+  "id": "lad-artery",
+  "name": "Left anterior descending artery",
+  "latin": "Ramus interventricularis anterior",
+  "blurb": "Branch of the left coronary artery running in the anterior interventricular groove, supplying the anterior LV and septum.",
+  "pearl": "The \"widow-maker\" — supplies the most myocardium; occlusion causes large anterior MI (ST elevation in V1-V4).",
+  "organ": "heart",
+  "view": "heart"
+ },
+ {
+  "id": "right-coronary-artery",
+  "name": "Right coronary artery",
+  "latin": "Arteria coronaria dextra",
+  "blurb": "Runs in the right atrioventricular groove, supplying the right heart, inferior LV, and (usually) the SA and AV nodes.",
+  "pearl": "Supplies SA/AV nodes in most people; inferior MI (leads II, III, aVF) often causes bradycardia/heart block.",
+  "organ": "heart",
+  "view": "heart"
+ },
+ {
+  "id": "apex",
+  "name": "Apex of the heart",
+  "latin": "Apex cordis",
+  "blurb": "Inferolateral tip formed by the left ventricle, pointing down-left toward the 5th intercostal space at the midclavicular line.",
+  "pearl": "Site of the point of maximal impulse (PMI); displaced laterally in LV hypertrophy/dilated cardiomyopathy (cardiomegaly).",
+  "organ": "heart",
+  "view": "heart"
+ },
+ {
+  "id": "frontal-lobe",
+  "name": "Frontal lobe",
+  "latin": "Lobus frontalis",
+  "blurb": "Anterior-most cerebral lobe (front of central sulcus) governing motor control, executive function, planning, and personality.",
+  "pearl": "Houses Broca's area (dominant hemisphere) for speech production; damage = expressive (Broca) aphasia with intact comprehension.",
+  "organ": "brain-lateral",
+  "view": "brain-lateral"
+ },
+ {
+  "id": "parietal-lobe",
+  "name": "Parietal lobe",
+  "latin": "Lobus parietalis",
+  "blurb": "Cerebral lobe behind central sulcus integrating somatosensory input, spatial awareness, and navigation.",
+  "pearl": "Non-dominant lesion causes contralateral hemineglect; dominant lesion = Gerstmann syndrome (agraphia, acalculia, finger agnosia, L/R confusion).",
+  "organ": "brain-lateral",
+  "view": "brain-lateral"
+ },
+ {
+  "id": "temporal-lobe",
+  "name": "Temporal lobe",
+  "latin": "Lobus temporalis",
+  "blurb": "Inferolateral lobe below the lateral sulcus handling hearing, memory encoding, and language comprehension.",
+  "pearl": "Wernicke's area (dominant) lesion = receptive aphasia (fluent but nonsensical speech); contains hippocampus, key to new memory formation.",
+  "organ": "brain-lateral",
+  "view": "brain-lateral"
+ },
+ {
+  "id": "occipital-lobe",
+  "name": "Occipital lobe",
+  "latin": "Lobus occipitalis",
+  "blurb": "Posterior-most cerebral lobe containing the primary visual cortex for processing visual information.",
+  "pearl": "Primary visual cortex lies along the calcarine sulcus; PCA stroke causes contralateral homonymous hemianopia with macular sparing.",
+  "organ": "brain-lateral",
+  "view": "brain-lateral"
+ },
+ {
+  "id": "cerebellum",
+  "name": "Cerebellum",
+  "latin": "Cerebellum",
+  "blurb": "Posterior fossa structure behind the brainstem coordinating balance, posture, and smooth, accurate movement.",
+  "pearl": "Lesions cause IPSILATERAL deficits: ataxia, dysmetria, intention tremor, dysdiadochokinesia; vermis damage = truncal/gait ataxia.",
+  "organ": "brain-lateral",
+  "view": "brain-lateral"
+ },
+ {
+  "id": "pons",
+  "name": "Pons",
+  "latin": "Pons",
+  "blurb": "Middle brainstem segment bridging cerebrum and cerebellum; relays signals and houses pontine respiratory centers and REM-sleep nuclei.",
+  "pearl": "Origin of CN V-VIII; basilar pons infarct (or central pontine myelinolysis from rapid Na+ correction) can cause locked-in syndrome.",
+  "organ": "brain-lateral",
+  "view": "brain-lateral"
+ },
+ {
+  "id": "medulla",
+  "name": "Medulla oblongata",
+  "latin": "Medulla oblongata",
+  "blurb": "Lowest brainstem segment continuous with spinal cord, controlling cardiac, respiratory, and vasomotor reflexes.",
+  "pearl": "Site of pyramidal (motor) decussation; houses vital cardiorespiratory centers, so injury is often fatal. Origin of CN IX-XII.",
+  "organ": "brain-lateral",
+  "view": "brain-lateral"
+ },
+ {
+  "id": "precentral-gyrus",
+  "name": "Precentral gyrus (primary motor cortex)",
+  "latin": "Gyrus precentralis",
+  "blurb": "Gyrus immediately anterior to the central sulcus; the primary motor cortex (M1) initiating voluntary movement.",
+  "pearl": "Controls CONTRALATERAL body via corticospinal tract; somatotopically mapped (motor homunculus), with face/hand having large representation.",
+  "organ": "brain-lateral",
+  "view": "brain-lateral"
+ },
+ {
+  "id": "postcentral-gyrus",
+  "name": "Postcentral gyrus (primary somatosensory cortex)",
+  "latin": "Gyrus postcentralis",
+  "blurb": "Gyrus immediately posterior to the central sulcus; primary somatosensory cortex (S1) receiving touch, pain, and proprioception.",
+  "pearl": "Receives CONTRALATERAL sensation via thalamus (VPL/VPM); somatotopically organized as the sensory homunculus, lips/hands magnified.",
+  "organ": "brain-lateral",
+  "view": "brain-lateral"
+ },
+ {
+  "id": "central-sulcus",
+  "name": "Central sulcus",
+  "latin": "Sulcus centralis",
+  "blurb": "Deep groove (sulcus of Rolando) separating the frontal lobe from the parietal lobe.",
+  "pearl": "Landmark dividing motor (precentral) from sensory (postcentral) cortex; boundary between frontal and parietal lobes.",
+  "organ": "brain-lateral",
+  "view": "brain-lateral"
+ },
+ {
+  "id": "lateral-sulcus",
+  "name": "Lateral sulcus (Sylvian fissure)",
+  "latin": "Sulcus lateralis",
+  "blurb": "Prominent deep cleft separating the temporal lobe below from the frontal and parietal lobes above.",
+  "pearl": "Overlies the insula; the MCA runs within it, making it a key vascular and surgical landmark on the lateral surface.",
+  "organ": "brain-lateral",
+  "view": "brain-lateral"
+ },
+ {
+  "id": "corpus-callosum",
+  "name": "Corpus callosum",
+  "latin": "Corpus callosum",
+  "blurb": "Large arched band of white matter (commissural fibers) connecting the left and right cerebral hemispheres.",
+  "pearl": "Largest commissure in the brain; surgical section (callosotomy) for intractable epilepsy can produce split-brain syndrome.",
+  "organ": "brain-sagittal",
+  "view": "brain-sagittal"
+ },
+ {
+  "id": "thalamus",
+  "name": "Thalamus",
+  "latin": "Thalamus",
+  "blurb": "Paired egg-shaped gray-matter mass forming most of the diencephalon; relays sensory and motor signals to the cortex.",
+  "pearl": "Relays ALL ascending sensory input except smell; lesions can cause Dejerine-Roussy (thalamic pain) syndrome.",
+  "organ": "brain-sagittal",
+  "view": "brain-sagittal"
+ },
+ {
+  "id": "hypothalamus",
+  "name": "Hypothalamus",
+  "latin": "Hypothalamus",
+  "blurb": "Small region below the thalamus controlling homeostasis, autonomic function, and the endocrine system via the pituitary.",
+  "pearl": "Master regulator of temperature, hunger, thirst, and circadian rhythm; links the nervous and endocrine systems via the pituitary.",
+  "organ": "brain-sagittal",
+  "view": "brain-sagittal"
+ },
+ {
+  "id": "pituitary-gland",
+  "name": "Pituitary gland",
+  "latin": "Hypophysis (Glandula pituitaria)",
+  "blurb": "Pea-sized endocrine gland in the sella turcica below the hypothalamus; the body's 'master gland.'",
+  "pearl": "Adenoma compressing the optic chiasm causes bitemporal hemianopia; anterior lobe makes hormones, posterior stores ADH/oxytocin.",
+  "organ": "brain-sagittal",
+  "view": "brain-sagittal"
+ },
+ {
+  "id": "midbrain",
+  "name": "Midbrain",
+  "latin": "Mesencephalon",
+  "blurb": "Uppermost brainstem segment connecting pons to diencephalon; relays motor/sensory traffic and controls eye movement and reflexes.",
+  "pearl": "Houses CN III & IV nuclei and the substantia nigra (dopamine); nigral degeneration underlies Parkinson disease.",
+  "organ": "brain-sagittal",
+  "view": "brain-sagittal"
+ },
+ {
+  "id": "pons",
+  "name": "Pons",
+  "latin": "Pons",
+  "blurb": "Bulging middle brainstem region linking medulla to midbrain and cerebrum to cerebellum; aids relay and breathing control.",
+  "pearl": "Contains pontine respiratory (pneumotaxic) centers and CN V-VIII nuclei; central pontine myelinolysis follows rapid hyponatremia correction.",
+  "organ": "brain-sagittal",
+  "view": "brain-sagittal"
+ },
+ {
+  "id": "medulla",
+  "name": "Medulla oblongata",
+  "latin": "Medulla oblongata",
+  "blurb": "Lowest brainstem segment continuous with the spinal cord; houses vital autonomic centers.",
+  "pearl": "Controls heart rate, breathing, and blood pressure; site of the pyramidal (motor) decussation giving contralateral control.",
+  "organ": "brain-sagittal",
+  "view": "brain-sagittal"
+ },
+ {
+  "id": "cerebellum",
+  "name": "Cerebellum",
+  "latin": "Cerebellum",
+  "blurb": "Folded structure dorsal to the brainstem that coordinates movement, balance, posture, and motor learning.",
+  "pearl": "Coordinates movement ipsilaterally; lesions cause ataxia, intention tremor, dysmetria, and dysdiadochokinesia.",
+  "organ": "brain-sagittal",
+  "view": "brain-sagittal"
+ },
+ {
+  "id": "fornix",
+  "name": "Fornix",
+  "latin": "Fornix",
+  "blurb": "Arching C-shaped white-matter tract carrying signals from the hippocampus to the mammillary bodies and hypothalamus.",
+  "pearl": "Major efferent of the hippocampus and part of the limbic (Papez) circuit; damage impairs forming new memories.",
+  "organ": "brain-sagittal",
+  "view": "brain-sagittal"
+ },
+ {
+  "id": "pineal-gland",
+  "name": "Pineal gland",
+  "latin": "Glandula pinealis (Corpus pineale)",
+  "blurb": "Small endocrine gland on the epithalamus that secretes melatonin to regulate circadian rhythm.",
+  "pearl": "Often calcifies (radiographic midline marker); a pineal tumor can cause Parinaud syndrome (upward gaze palsy) and hydrocephalus.",
+  "organ": "brain-sagittal",
+  "view": "brain-sagittal"
+ },
+ {
+  "id": "cingulate-gyrus",
+  "name": "Cingulate gyrus",
+  "latin": "Gyrus cinguli",
+  "blurb": "Arching cortical gyrus just above the corpus callosum; a core component of the limbic system.",
+  "pearl": "Involved in emotion, motivation, and pain processing; a key node of the limbic Papez circuit.",
+  "organ": "brain-sagittal",
+  "view": "brain-sagittal"
+ },
+ {
+  "id": "corpora-quadrigemina",
+  "name": "Corpora quadrigemina (tectum)",
+  "latin": "Lamina tecti (Corpora quadrigemina)",
+  "blurb": "Four bumps on the dorsal midbrain (paired superior and inferior colliculi) handling visual and auditory reflexes.",
+  "pearl": "Superior colliculi = visual/eye-movement reflexes; inferior colliculi = auditory relay; dorsal lesion causes Parinaud syndrome.",
+  "organ": "brain-sagittal",
+  "view": "brain-sagittal"
+ },
+ {
+  "id": "larynx",
+  "name": "Larynx",
+  "latin": "Larynx",
+  "blurb": "Cartilaginous 'voice box' between pharynx and trachea (C3-C6) that produces sound and guards the airway during swallowing.",
+  "pearl": "Intrinsic muscles are all CN X (recurrent laryngeal) except cricothyroid (external br. of superior laryngeal); RLN injury = hoarseness.",
+  "organ": "respiratory",
+  "view": "respiratory"
+ },
+ {
+  "id": "trachea",
+  "name": "Trachea",
+  "latin": "Trachea",
+  "blurb": "Flexible windpipe (~10-12 cm) from larynx to the carina, held open by C-shaped hyaline cartilage rings, conducting air to the bronchi.",
+  "pearl": "Bifurcates at the carina (~T4/T5, sternal angle); posterior trachealis muscle bridges the C-ring gap. Lined by pseudostratified ciliated columnar epithelium.",
+  "organ": "respiratory",
+  "view": "respiratory"
+ },
+ {
+  "id": "right-main-bronchus",
+  "name": "Right main bronchus",
+  "latin": "Bronchus principalis dexter",
+  "blurb": "First airway branch to the right lung; wider, shorter, and more vertical than the left, arising at the carina.",
+  "pearl": "More vertical/wider = aspirated objects and mis-placed ET tubes preferentially lodge here. Gives 3 lobar bronchi (vs 2 on left).",
+  "organ": "respiratory",
+  "view": "respiratory"
+ },
+ {
+  "id": "left-main-bronchus",
+  "name": "Left main bronchus",
+  "latin": "Bronchus principalis sinister",
+  "blurb": "First airway branch to the left lung; narrower, longer, and more horizontal as it passes under the aortic arch.",
+  "pearl": "Passes beneath the aortic arch; an enlarged left atrium can splay the carina (widened carina on CXR). Branches into only 2 lobar bronchi.",
+  "organ": "respiratory",
+  "view": "respiratory"
+ },
+ {
+  "id": "right-upper-lobe",
+  "name": "Right superior lobe",
+  "latin": "Lobus superior pulmonis dextri",
+  "blurb": "Uppermost lobe of the three-lobed right lung, bounded below by the horizontal fissure (and oblique fissure).",
+  "pearl": "Classic site for reactivation TB (apical/posterior segments) and Pancoast tumors compressing the brachial plexus/sympathetic chain (Horner syndrome).",
+  "organ": "respiratory",
+  "view": "respiratory"
+ },
+ {
+  "id": "right-middle-lobe",
+  "name": "Right middle lobe",
+  "latin": "Lobus medius pulmonis dextri",
+  "blurb": "Small wedge-shaped lobe unique to the right lung, lying between the horizontal and oblique fissures.",
+  "pearl": "The only middle lobe (no left counterpart). 'Right middle lobe syndrome' = recurrent atelectasis/infection from its long, narrow, poorly-draining bronchus.",
+  "organ": "respiratory",
+  "view": "respiratory"
+ },
+ {
+  "id": "right-lower-lobe",
+  "name": "Right inferior lobe",
+  "latin": "Lobus inferior pulmonis dextri",
+  "blurb": "Largest, most posteroinferior lobe of the right lung, below the oblique fissure, sitting on the diaphragm.",
+  "pearl": "Aspiration while supine favors the superior segment of the lower lobes; gravity makes the bases the zone of greatest ventilation and perfusion.",
+  "organ": "respiratory",
+  "view": "respiratory"
+ },
+ {
+  "id": "left-upper-lobe",
+  "name": "Left superior lobe",
+  "latin": "Lobus superior pulmonis sinistri",
+  "blurb": "Upper lobe of the two-lobed left lung, bearing the lingula and the cardiac notch that accommodates the heart.",
+  "pearl": "The lingula is the left-lung homolog of the right middle lobe; the cardiac notch and thin lingular margin make room for the left-shifted heart.",
+  "organ": "respiratory",
+  "view": "respiratory"
+ },
+ {
+  "id": "left-lower-lobe",
+  "name": "Left inferior lobe",
+  "latin": "Lobus inferior pulmonis sinistri",
+  "blurb": "Lower lobe of the left lung, separated from the superior lobe by the single oblique fissure, resting on the diaphragm.",
+  "pearl": "Left lung has only one (oblique) fissure and 2 lobes because cardiac space displaces the middle lobe; lower-lobe bases collapse first when bedridden.",
+  "organ": "respiratory",
+  "view": "respiratory"
+ },
+ {
+  "id": "bronchioles",
+  "name": "Bronchioles",
+  "latin": "Bronchioli",
+  "blurb": "Small (<1 mm) cartilage-free airways distal to bronchi, walled by smooth muscle, that regulate airflow and end in respiratory bronchioles/alveoli.",
+  "pearl": "Lack cartilage so they constrict in asthma (beta-2 agonists dilate); terminal bronchiole = end of conducting zone, respiratory bronchiole = start of gas exchange.",
+  "organ": "respiratory",
+  "view": "respiratory"
+ },
+ {
+  "id": "diaphragm",
+  "name": "Diaphragm",
+  "latin": "Diaphragma",
+  "blurb": "Dome-shaped skeletal muscle separating thorax from abdomen; the primary muscle of inspiration, flattening to draw air in.",
+  "pearl": "Innervated by the phrenic nerve (C3-C5, 'C3-4-5 keeps the diaphragm alive'); openings: IVC T8, esophagus T10, aorta T12.",
+  "organ": "respiratory",
+  "view": "respiratory"
+ },
+ {
+  "id": "renal-cortex",
+  "name": "Renal cortex",
+  "latin": "Cortex renalis",
+  "blurb": "Outer reddish-brown layer of the kidney beneath the capsule; contains glomeruli and convoluted tubules for blood filtration.",
+  "pearl": "Houses all glomeruli (renal corpuscles) and PCT/DCT; high cortical perfusion per gram makes it the prime site of ATN from ischemia/toxins.",
+  "organ": "kidney",
+  "view": "kidney"
+ },
+ {
+  "id": "renal-medulla",
+  "name": "Renal medulla",
+  "latin": "Medulla renalis",
+  "blurb": "Inner kidney region organized into pyramids; contains loops of Henle and collecting ducts that concentrate urine.",
+  "pearl": "Steep medullary osmotic gradient (countercurrent multiplier) concentrates urine; relatively hypoxic, so prone to ischemic injury and papillary necrosis.",
+  "organ": "kidney",
+  "view": "kidney"
+ },
+ {
+  "id": "renal-pyramid",
+  "name": "Renal pyramid",
+  "latin": "Pyramides renales",
+  "blurb": "Cone-shaped striated subunits of the medulla whose apex (papilla) drains urine into a minor calyx.",
+  "pearl": "Each kidney has ~8-18 pyramids; one pyramid plus overlying cortex = a renal lobe; papillae fail in papillary necrosis (diabetes, NSAIDs, sickle cell).",
+  "organ": "kidney",
+  "view": "kidney"
+ },
+ {
+  "id": "renal-column",
+  "name": "Renal column",
+  "latin": "Columnae renales",
+  "blurb": "Cortical tissue (columns of Bertin) extending inward between adjacent renal pyramids, carrying interlobar vessels.",
+  "pearl": "Interlobar arteries/veins run within renal columns; a hypertrophied column of Bertin can mimic a renal mass on imaging.",
+  "organ": "kidney",
+  "view": "kidney"
+ },
+ {
+  "id": "renal-pelvis",
+  "name": "Renal pelvis",
+  "latin": "Pelvis renalis",
+  "blurb": "Funnel-shaped collecting space formed by the major calyces that funnels urine into the ureter at the hilum.",
+  "pearl": "Distention from outflow obstruction = hydronephrosis; urothelial (transitional cell) carcinoma can arise here, classically with painless hematuria.",
+  "organ": "kidney",
+  "view": "kidney"
+ },
+ {
+  "id": "major-calyx",
+  "name": "Major calyx",
+  "latin": "Calices renales majores",
+  "blurb": "Two to three large urine-collecting chambers formed by merging minor calyces, draining into the renal pelvis.",
+  "pearl": "Blunting/clubbing of calyces on imaging suggests chronic pyelonephritis or reflux nephropathy; usually 2-3 major calyces per kidney.",
+  "organ": "kidney",
+  "view": "kidney"
+ },
+ {
+  "id": "minor-calyx",
+  "name": "Minor calyx",
+  "latin": "Calices renales minores",
+  "blurb": "Small cup-shaped chambers that surround each renal papilla and collect urine, then merge into major calyces.",
+  "pearl": "First to receive urine from the papilla; ~7-9 per kidney, and calyceal blunting indicates papillary/parenchymal damage.",
+  "organ": "kidney",
+  "view": "kidney"
+ },
+ {
+  "id": "ureter",
+  "name": "Ureter",
+  "latin": "Ureter",
+  "blurb": "Muscular tube carrying urine from the renal pelvis to the bladder via peristalsis of its smooth-muscle wall.",
+  "pearl": "Three constrictions (UPJ, pelvic brim/iliac vessels, ureterovesical junction) are the classic sites where kidney stones impact; UVJ is narrowest.",
+  "organ": "kidney",
+  "view": "kidney"
+ },
+ {
+  "id": "renal-artery",
+  "name": "Renal artery",
+  "latin": "Arteria renalis",
+  "blurb": "Paired artery branching from the abdominal aorta (~L1-L2) supplying oxygenated blood to the kidney.",
+  "pearl": "Renal artery stenosis causes secondary HTN via renin release; fibromuscular dysplasia (young women, 'string of beads') vs atherosclerosis (older).",
+  "organ": "kidney",
+  "view": "kidney"
+ },
+ {
+  "id": "renal-vein",
+  "name": "Renal vein",
+  "latin": "Vena renalis",
+  "blurb": "Paired vein draining the kidney into the inferior vena cava; the longer left vein crosses anterior to the aorta.",
+  "pearl": "Left renal vein takes the left gonadal/suprarenal veins and is compressed in nutcracker syndrome (between SMA and aorta); left varicocele clue.",
+  "organ": "kidney",
+  "view": "kidney"
+ },
+ {
+  "id": "renal-capsule",
+  "name": "Renal capsule",
+  "latin": "Capsula fibrosa renalis",
+  "blurb": "Tough fibrous outer covering enclosing the kidney parenchyma and protecting it from infection and trauma.",
+  "pearl": "Non-distensible capsule means swelling (pyelonephritis, obstruction) stretches it, causing flank pain; subcapsular hematoma can cause Page kidney HTN.",
+  "organ": "kidney",
+  "view": "kidney"
+ },
+ {
+  "id": "renal-hilum",
+  "name": "Renal hilum",
+  "latin": "Hilum renale",
+  "blurb": "Medial concave indentation where vessels, nerves, lymphatics, and the ureter enter and exit the kidney.",
+  "pearl": "Anterior-to-posterior order = renal Vein, Artery, then ureter/Pelvis; the vein is most anterior and the ureter most posterior.",
+  "organ": "kidney",
+  "view": "kidney"
+ },
+ {
+  "id": "dendrites",
+  "name": "Dendrites",
+  "latin": "Dendritum",
+  "blurb": "Branched tapering processes extending from the soma that receive incoming signals and conduct graded potentials toward the cell body.",
+  "pearl": "Receptive zone of the neuron; dendritic spines are sites of synaptic plasticity (LTP) and are reduced/abnormal in fragile X and intellectual disability.",
+  "organ": "neuron",
+  "view": "neuron"
+ },
+ {
+  "id": "soma",
+  "name": "Soma (cell body)",
+  "latin": "Soma neuronis (perikaryon)",
+  "blurb": "Metabolic center of the neuron housing the nucleus and most organelles; integrates inputs and maintains the cell.",
+  "pearl": "Contains Nissl bodies (rough ER); chromatolysis (Nissl dispersal) signals axonal injury and follows axotomy.",
+  "organ": "neuron",
+  "view": "neuron"
+ },
+ {
+  "id": "nucleus",
+  "name": "Nucleus",
+  "latin": "Nucleus",
+  "blurb": "Membrane-bound organelle in the soma containing the neuron's DNA and a prominent nucleolus; directs gene expression and protein synthesis.",
+  "pearl": "Large, pale, with a prominent nucleolus ('owl-eye'); neurons are post-mitotic (G0), so most cannot replace themselves if lost.",
+  "organ": "neuron",
+  "view": "neuron"
+ },
+ {
+  "id": "axon-hillock",
+  "name": "Axon hillock",
+  "latin": "Colliculus axonis",
+  "blurb": "Cone-shaped region of the soma where the axon originates; summed graded potentials converge here before the initial segment.",
+  "pearl": "The adjacent initial segment is the trigger zone: highest Na+ channel density and lowest threshold, so the action potential is initiated there.",
+  "organ": "neuron",
+  "view": "neuron"
+ },
+ {
+  "id": "axon",
+  "name": "Axon",
+  "latin": "Axon (neuritum)",
+  "blurb": "Single long process conducting action potentials away from the soma toward the axon terminals.",
+  "pearl": "Conduction velocity rises with diameter and myelination; lacks rough ER, so it relies on axonal transport (kinesin anterograde, dynein retrograde).",
+  "organ": "neuron",
+  "view": "neuron"
+ },
+ {
+  "id": "myelin-sheath",
+  "name": "Myelin sheath",
+  "latin": "Vagina myelini",
+  "blurb": "Lipid-rich insulating wrapping around the axon, made by Schwann cells (PNS) or oligodendrocytes (CNS), that speeds conduction.",
+  "pearl": "Enables saltatory conduction; CNS loss in MS, PNS loss in Guillain-Barre; one oligodendrocyte myelinates many axons, one Schwann cell one segment.",
+  "organ": "neuron",
+  "view": "neuron"
+ },
+ {
+  "id": "node-of-ranvier",
+  "name": "Node of Ranvier",
+  "latin": "Nodus neurofibrae (Ranvieri)",
+  "blurb": "Periodic unmyelinated gap in the sheath, densely packed with voltage-gated Na+ channels, where the action potential regenerates.",
+  "pearl": "Site of saltatory conduction: the impulse 'jumps' node to node; demyelination disrupts nodal channels and slows or blocks conduction.",
+  "organ": "neuron",
+  "view": "neuron"
+ },
+ {
+  "id": "axon-terminal",
+  "name": "Axon terminals",
+  "latin": "Terminationes axonis (telodendria)",
+  "blurb": "Distal branched endings of the axon that form synapses and release neurotransmitter to communicate with target cells.",
+  "pearl": "Voltage-gated Ca2+ influx triggers SNARE-mediated vesicle fusion; botulinum and tetanus toxins cleave SNAREs to block transmitter release.",
+  "organ": "neuron",
+  "view": "neuron"
+ },
+ {
+  "id": "schwann-cell",
+  "name": "Schwann cell",
+  "latin": "Gliocytus periphericus (neurolemmocytus)",
+  "blurb": "Peripheral glial cell that myelinates or ensheaths PNS axons and forms the neurilemma needed for nerve regeneration.",
+  "pearl": "Myelinates ONE PNS segment (vs many for oligodendrocytes); its neurilemma guides PNS axon regrowth; transformed in schwannomas (e.g. vestibular schwannoma).",
+  "organ": "neuron",
+  "view": "neuron"
+ },
+ {
+  "id": "cornea",
+  "name": "Cornea",
+  "latin": "Cornea",
+  "blurb": "Transparent avascular dome at the front of the eye that refracts incoming light and protects the anterior structures.",
+  "pearl": "Provides ~two-thirds of the eye's refractive power; avascular, gets O2 from tears/aqueous; ideal for transplant (low rejection).",
+  "organ": "eye",
+  "view": "eye"
+ },
+ {
+  "id": "iris",
+  "name": "Iris",
+  "latin": "Iris",
+  "blurb": "Pigmented contractile diaphragm between cornea and lens that controls pupil size and thus how much light enters.",
+  "pearl": "Sphincter pupillae (parasympathetic, CN III) constricts; dilator pupillae (sympathetic) dilates. Stromal melanin sets eye color.",
+  "organ": "eye",
+  "view": "eye"
+ },
+ {
+  "id": "pupil",
+  "name": "Pupil",
+  "latin": "Pupilla",
+  "blurb": "Central adjustable aperture in the iris through which light passes to reach the lens and retina.",
+  "pearl": "Constricts to light (CN II afferent / CN III efferent); fixed dilated pupil suggests CN III compression (e.g. uncal herniation).",
+  "organ": "eye",
+  "view": "eye"
+ },
+ {
+  "id": "lens",
+  "name": "Lens",
+  "latin": "Lens",
+  "blurb": "Transparent biconvex body behind the iris that fine-tunes focus by changing shape (accommodation).",
+  "pearl": "Accommodation: ciliary muscle contracts (CN III) to round the lens for near vision. Opacification = cataract.",
+  "organ": "eye",
+  "view": "eye"
+ },
+ {
+  "id": "retina",
+  "name": "Retina",
+  "latin": "Tunica interna bulbi (Retina)",
+  "blurb": "Innermost neural layer lining the posterior eye that transduces light into neural signals via photoreceptors.",
+  "pearl": "Rods (dim/peripheral), cones (color/acuity); light hyperpolarizes photoreceptors. Detachment is an ophthalmologic emergency.",
+  "organ": "eye",
+  "view": "eye"
+ },
+ {
+  "id": "optic-nerve",
+  "name": "Optic nerve",
+  "latin": "Nervus opticus",
+  "blurb": "Cranial nerve II carrying visual signals from the retinal ganglion cells to the brain, exiting at the optic disc.",
+  "pearl": "Optic disc = blind spot (no photoreceptors); CN II is a CNS tract myelinated by oligodendrocytes, hence optic neuritis in MS.",
+  "organ": "eye",
+  "view": "eye"
+ },
+ {
+  "id": "sclera",
+  "name": "Sclera",
+  "latin": "Sclera",
+  "blurb": "Tough opaque white outer fibrous coat that maintains eye shape and serves as attachment for extraocular muscles.",
+  "pearl": "Continuous anteriorly with the cornea at the limbus; yellowing (icterus) signals hyperbilirubinemia/jaundice.",
+  "organ": "eye",
+  "view": "eye"
+ },
+ {
+  "id": "choroid",
+  "name": "Choroid",
+  "latin": "Choroidea",
+  "blurb": "Highly vascular pigmented middle layer between sclera and retina that nourishes the outer retina and absorbs stray light.",
+  "pearl": "Part of the uveal tract (with iris + ciliary body); supplies outer retinal layers. Inflammation = uveitis.",
+  "organ": "eye",
+  "view": "eye"
+ },
+ {
+  "id": "vitreous-body",
+  "name": "Vitreous body",
+  "latin": "Corpus vitreum",
+  "blurb": "Clear gel filling the large posterior cavity behind the lens, maintaining eye shape and supporting the retina.",
+  "pearl": "Does not regenerate if removed. Posterior vitreous detachment causes floaters/flashes and can lead to retinal tears.",
+  "organ": "eye",
+  "view": "eye"
+ },
+ {
+  "id": "ciliary-body",
+  "name": "Ciliary body",
+  "latin": "Corpus ciliare",
+  "blurb": "Ring of muscle and epithelium behind the iris that secretes aqueous humor and controls lens shape via zonular fibers.",
+  "pearl": "Ciliary epithelium makes aqueous humor; muscle contraction (CN III) enables accommodation. Drug target in glaucoma.",
+  "organ": "eye",
+  "view": "eye"
+ },
+ {
+  "id": "fovea",
+  "name": "Fovea centralis",
+  "latin": "Fovea centralis",
+  "blurb": "Tiny central pit within the macula of the retina that provides the sharpest, most detailed central vision.",
+  "pearl": "Highest acuity: all cones, near 1:1 cone-to-ganglion ratio, no overlying vessels. Degenerates in age-related macular degeneration.",
+  "organ": "eye",
+  "view": "eye"
+ },
+ {
+  "id": "anterior-chamber",
+  "name": "Anterior chamber",
+  "latin": "Camera anterior bulbi",
+  "blurb": "Aqueous-humor-filled space between the cornea and the iris that nourishes the cornea and lens.",
+  "pearl": "Aqueous drains via trabecular meshwork into the canal of Schlemm; blocked outflow raises IOP, causing glaucoma.",
+  "organ": "eye",
+  "view": "eye"
+ },
+ {
+  "id": "auricle",
+  "name": "Auricle (pinna)",
+  "latin": "Auricula",
+  "blurb": "Visible elastic-cartilage flap of the outer ear that collects and funnels sound waves into the external acoustic meatus.",
+  "pearl": "Made of elastic cartilage (not bone); the lobule is the only fleshy, cartilage-free part, used for piercings and blood draws.",
+  "organ": "ear",
+  "view": "ear"
+ },
+ {
+  "id": "external-acoustic-meatus",
+  "name": "External acoustic meatus",
+  "latin": "Meatus acusticus externus",
+  "blurb": "~2.5 cm canal from the auricle to the tympanic membrane that conducts sound and houses cerumen-producing glands.",
+  "pearl": "Lateral third cartilaginous, medial two-thirds bony; pull pinna up/back in adults (down/back in kids) to straighten it for otoscopy.",
+  "organ": "ear",
+  "view": "ear"
+ },
+ {
+  "id": "tympanic-membrane",
+  "name": "Tympanic membrane",
+  "latin": "Membrana tympani",
+  "blurb": "Thin cone-shaped membrane separating outer from middle ear that vibrates in response to sound and drives the ossicles.",
+  "pearl": "Cone of light points anteroinferior; sensory innervation by CN V3, IX, X; bulging/erythema seen in acute otitis media.",
+  "organ": "ear",
+  "view": "ear"
+ },
+ {
+  "id": "malleus",
+  "name": "Malleus",
+  "latin": "Malleus",
+  "blurb": "First and largest auditory ossicle; its handle attaches to the tympanic membrane and its head articulates with the incus.",
+  "pearl": "First ossicle in the chain (\"hammer\"); tensor tympani (CN V3) inserts on it and dampens loud sounds to protect the ear.",
+  "organ": "ear",
+  "view": "ear"
+ },
+ {
+  "id": "incus",
+  "name": "Incus",
+  "latin": "Incus",
+  "blurb": "Middle anvil-shaped ossicle that bridges the malleus and stapes, transmitting vibrations across the middle ear.",
+  "pearl": "Long process is the most common ossicle to undergo avascular necrosis/erosion in chronic otitis media or cholesteatoma.",
+  "organ": "ear",
+  "view": "ear"
+ },
+ {
+  "id": "stapes",
+  "name": "Stapes",
+  "latin": "Stapes",
+  "blurb": "Smallest bone in the body; its footplate sits in the oval window, transferring vibration into the inner-ear fluid.",
+  "pearl": "Stapedius (CN VII) dampens it; otosclerosis fixes the footplate causing conductive hearing loss, treated by stapedectomy.",
+  "organ": "ear",
+  "view": "ear"
+ },
+ {
+  "id": "cochlea",
+  "name": "Cochlea",
+  "latin": "Cochlea",
+  "blurb": "Spiral inner-ear structure containing the organ of Corti, which transduces fluid vibrations into auditory nerve signals.",
+  "pearl": "Tonotopic: base detects high frequencies, apex low; outer hair cell loss from noise/aminoglycosides causes sensorineural loss.",
+  "organ": "ear",
+  "view": "ear"
+ },
+ {
+  "id": "semicircular-canals",
+  "name": "Semicircular canals",
+  "latin": "Canales semicirculares",
+  "blurb": "Three orthogonal fluid-filled loops of the inner ear that sense rotational (angular) head acceleration for balance.",
+  "pearl": "Crista ampullaris/cupula detect angular acceleration; displaced otoconia here cause BPPV (Dix-Hallpike, treated by Epley).",
+  "organ": "ear",
+  "view": "ear"
+ },
+ {
+  "id": "vestibule",
+  "name": "Vestibule",
+  "latin": "Vestibulum",
+  "blurb": "Central inner-ear chamber housing the utricle and saccule, sensing linear acceleration and head position relative to gravity.",
+  "pearl": "Macula of utricle (horizontal) and saccule (vertical) contain otoliths detecting linear acceleration and static head tilt.",
+  "organ": "ear",
+  "view": "ear"
+ },
+ {
+  "id": "eustachian-tube",
+  "name": "Eustachian (auditory) tube",
+  "latin": "Tuba auditiva (tuba pharyngotympanica)",
+  "blurb": "Canal linking the middle ear to the nasopharynx that equalizes middle-ear pressure with atmospheric pressure.",
+  "pearl": "Shorter, more horizontal in children, so infections ascend easily, predisposing to recurrent otitis media.",
+  "organ": "ear",
+  "view": "ear"
+ },
+ {
+  "id": "vestibulocochlear-nerve",
+  "name": "Vestibulocochlear nerve (CN VIII)",
+  "latin": "Nervus vestibulocochlearis",
+  "blurb": "Cranial nerve VIII carrying hearing (cochlear) and balance (vestibular) signals from the inner ear to the brainstem.",
+  "pearl": "Vestibular schwannoma (acoustic neuroma) at the cerebellopontine angle causes unilateral SNHL, tinnitus; linked to NF2.",
+  "organ": "ear",
+  "view": "ear"
+ }
+]

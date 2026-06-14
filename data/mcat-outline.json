@@ -1,0 +1,80 @@
+{
+  "source": "AAMC — What's on the MCAT Exam? Content Outline",
+  "sections": {
+    "chemPhys": { "abbr": "C/P", "name": "Chemical & Physical Foundations of Biological Systems", "questions": 59, "minutes": 95 },
+    "cars": { "abbr": "CARS", "name": "Critical Analysis & Reasoning Skills", "questions": 53, "minutes": 90 },
+    "bioBiochem": { "abbr": "B/B", "name": "Biological & Biochemical Foundations of Living Systems", "questions": 59, "minutes": 95 },
+    "psychSoc": { "abbr": "P/S", "name": "Psychological, Social & Biological Foundations of Behavior", "questions": 59, "minutes": 95 }
+  },
+  "scienceSkills": [
+    { "id": "skill-1", "title": "Knowledge of scientific concepts and principles", "summary": "Recognize, recall, define, and connect core science concepts." },
+    { "id": "skill-2", "title": "Scientific reasoning and problem-solving", "summary": "Use theories, models, formulas, and mechanisms to solve unfamiliar problems." },
+    { "id": "skill-3", "title": "Design and execution of research", "summary": "Evaluate hypotheses, variables, controls, measurement, validity, reliability, and ethics." },
+    { "id": "skill-4", "title": "Data-based and statistical reasoning", "summary": "Read tables, graphs, figures, data patterns, statistics, and experimental results." }
+  ],
+  "carsSkills": [
+    { "id": "cars-1", "title": "Foundations of comprehension", "summary": "Understand main ideas, details, structure, and rhetorical purpose." },
+    { "id": "cars-2", "title": "Reasoning within the text", "summary": "Infer meaning, evaluate arguments, and follow the author's logic." },
+    { "id": "cars-3", "title": "Reasoning beyond the text", "summary": "Apply ideas to new contexts and judge implications outside the passage." }
+  ],
+  "concepts": [
+    { "id": 1, "section": "bioBiochem", "title": "Biomolecules have unique properties that determine how they contribute to living systems.", "summary": "Amino acids, proteins, enzymes, DNA/RNA, gene expression, and bioenergetics.", "categories": [
+      { "id": "1A", "title": "Structure and function of proteins and their constituent amino acids", "topics": ["Amino acids", "Protein structure", "Enzymes", "Nonenzymatic protein function"] },
+      { "id": "1B", "title": "Transmission of genetic information from the gene to the protein", "topics": ["DNA and RNA", "Replication and repair", "Transcription", "Translation", "Eukaryotic chromosomes"] },
+      { "id": "1C", "title": "Transmission of heritable information from generation to generation", "topics": ["Mendelian genetics", "Meiosis and recombination", "Genetic diversity", "Evolution"] },
+      { "id": "1D", "title": "Principles of bioenergetics and fuel molecule metabolism", "topics": ["Thermodynamics", "Carbohydrate metabolism", "Lipid and amino acid metabolism", "Oxidative phosphorylation"] }
+    ]},
+    { "id": 2, "section": "bioBiochem", "title": "Highly organized assemblies of molecules, cells, and organs interact to carry out life processes.", "summary": "Cells, membranes, organ systems, and biological organization.", "categories": [
+      { "id": "2A", "title": "Assemblies of molecules, cells, and groups of cells within organisms", "topics": ["Cell theory", "Eukaryotic cells", "Prokaryotes and viruses", "Membranes"] },
+      { "id": "2B", "title": "The structure, growth, physiology, and genetics of prokaryotes and viruses", "topics": ["Microbial growth", "Viral life cycles", "Genetic exchange"] },
+      { "id": "2C", "title": "Processes of cell division, differentiation, and specialization", "topics": ["Mitosis", "Stem cells", "Cell cycle control", "Cancer biology"] }
+    ]},
+    { "id": 3, "section": "bioBiochem", "title": "Complex systems of tissues and organs sense environments and maintain internal stability.", "summary": "Nervous, endocrine, sensory, muscular, skeletal, immune, digestive, excretory, reproductive, respiratory, and circulatory systems.", "categories": [
+      { "id": "3A", "title": "Structure and functions of nervous and endocrine systems", "topics": ["Neurons", "Brain organization", "Endocrine signaling", "Feedback"] },
+      { "id": "3B", "title": "Structure and integrative functions of main organ systems", "topics": ["Muscle", "Skeleton", "Immune system", "Digestive system", "Respiration", "Circulation", "Reproduction"] }
+    ]},
+    { "id": 4, "section": "chemPhys", "title": "Physical principles explain interactions among fluids, gases, charges, and light in living systems.", "summary": "Fluids, gases, electrochemistry, circuits, light, optics, and sound.", "categories": [
+      { "id": "4A", "title": "Translational motion, forces, work, energy, and equilibrium", "topics": ["Kinematics", "Newton's laws", "Work and energy", "Equilibrium"] },
+      { "id": "4B", "title": "Importance of fluids for circulation, gas movement, and gas exchange", "topics": ["Fluids", "Pressure", "Flow", "Gas laws"] },
+      { "id": "4C", "title": "Electrochemistry and electrical circuits", "topics": ["Electrostatics", "Circuits", "Membrane potentials", "Electrochemical cells"] },
+      { "id": "4D", "title": "How light and sound interact with matter", "topics": ["Waves", "Sound", "Geometric optics", "Atomic absorption and emission"] },
+      { "id": "4E", "title": "Atoms, nuclear decay, electronic structure, and atomic chemical behavior", "topics": ["Atomic structure", "Periodic trends", "Nuclear decay", "Electronic structure"] }
+    ]},
+    { "id": 5, "section": "chemPhys", "title": "Chemical principles govern the behavior of molecules in biological systems.", "summary": "Bonding, solutions, thermodynamics, kinetics, equilibrium, acids/bases, separations, and organic reactivity.", "categories": [
+      { "id": "5A", "title": "Unique nature of water and its solutions", "topics": ["Solubility", "Concentration", "Acids and bases", "Buffers"] },
+      { "id": "5B", "title": "Molecular structure and interactions", "topics": ["Bonding", "Intermolecular forces", "Stereochemistry", "Isomers"] },
+      { "id": "5C", "title": "Separation and purification methods", "topics": ["Chromatography", "Electrophoresis", "Extraction", "Spectroscopy"] },
+      { "id": "5D", "title": "Structure, function, and reactivity of biologically relevant molecules", "topics": ["Amino acids", "Carbohydrates", "Lipids", "Nucleotides", "Organic reactions"] },
+      { "id": "5E", "title": "Principles of chemical thermodynamics and kinetics", "topics": ["Free energy", "Equilibrium", "Reaction rates", "Le Chatelier's principle"] }
+    ]},
+    { "id": 6, "section": "psychSoc", "title": "Biological, psychological, and sociocultural factors influence perception and behavior.", "summary": "Sensing, perception, consciousness, cognition, emotion, stress, and behavior.", "categories": [
+      { "id": "6A", "title": "Sensing the environment", "topics": ["Sensory processing", "Vision", "Hearing", "Other senses"] },
+      { "id": "6B", "title": "Making sense of the environment", "topics": ["Perception", "Attention", "Cognition"] },
+      { "id": "6C", "title": "Responding to the world", "topics": ["Consciousness", "Sleep", "Motivation", "Emotion", "Stress"] }
+    ]},
+    { "id": 7, "section": "psychSoc", "title": "Behavior is shaped by learning, memory, identity, attitudes, and social processes.", "summary": "Learning, memory, identity, social thinking, attitudes, and behavior change.", "categories": [
+      { "id": "7A", "title": "Individual influences on behavior", "topics": ["Learning", "Memory", "Language", "Decision-making"] },
+      { "id": "7B", "title": "Social processes that influence behavior", "topics": ["Socialization", "Self-concept", "Identity", "Social interaction"] },
+      { "id": "7C", "title": "Attitude and behavior change", "topics": ["Attitudes", "Persuasion", "Social influence", "Group behavior"] }
+    ]},
+    { "id": 8, "section": "psychSoc", "title": "Psychological, sociocultural, and biological factors influence health and illness.", "summary": "Health behavior, mental health, social determinants, and healthcare access.", "categories": [
+      { "id": "8A", "title": "Self-identity", "topics": ["Personality", "Self-esteem", "Identity formation"] },
+      { "id": "8B", "title": "Social thinking", "topics": ["Attribution", "Stereotypes", "Prejudice", "Discrimination"] },
+      { "id": "8C", "title": "Social interactions", "topics": ["Groups", "Networks", "Organizations", "Social support"] }
+    ]},
+    { "id": 9, "section": "psychSoc", "title": "Social structures and demographics shape human behavior and population health.", "summary": "Culture, society, social institutions, demographics, and social stratification.", "categories": [
+      { "id": "9A", "title": "Understanding social structure", "topics": ["Culture", "Social institutions", "Demographics", "Urbanization"] },
+      { "id": "9B", "title": "Demographic characteristics and processes", "topics": ["Population dynamics", "Migration", "Fertility", "Mortality"] },
+      { "id": "9C", "title": "Social inequality", "topics": ["Class", "Race and ethnicity", "Gender", "Poverty", "Health disparities"] }
+    ]},
+    { "id": 10, "section": "psychSoc", "title": "Social stratification and access to resources influence well-being.", "summary": "Inequality, social class, privilege, mobility, and institutional effects on health.", "categories": [
+      { "id": "10A", "title": "Social inequality", "topics": ["Social class", "Power", "Prestige", "Cultural capital", "Social mobility"] },
+      { "id": "10B", "title": "Social institutions and health", "topics": ["Education", "Medicine", "Family", "Religion", "Government"] }
+    ]},
+    { "id": 101, "section": "cars", "title": "CARS measures comprehension, analysis, and reasoning from humanities and social science passages.", "summary": "Passage-bound reasoning, author logic, claims, evidence, implications, and careful answer-choice evaluation.", "categories": [
+      { "id": "CARS-1", "title": "Foundations of comprehension", "topics": ["Main idea", "Passage structure", "Author purpose", "Tone", "Explicit details"] },
+      { "id": "CARS-2", "title": "Reasoning within the text", "topics": ["Inference", "Argument evaluation", "Evidence use", "Assumptions", "Function of paragraphs"] },
+      { "id": "CARS-3", "title": "Reasoning beyond the text", "topics": ["Application", "Implications", "New scenarios", "Strengthen or weaken", "Boundary of claims"] }
+    ]}
+  ]
+}

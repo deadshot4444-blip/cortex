@@ -1,0 +1,662 @@
+[
+ {
+  "id": "frontal",
+  "name": "Frontal bone",
+  "latin": "Os frontale",
+  "paired": false,
+  "blurb": "Forms the forehead, anterior cranial floor, and orbital roofs; articulates posteriorly with both parietals at the coronal suture.",
+  "pearl": "Houses the frontal sinuses; supraorbital notch/foramen transmits the supraorbital nerve/vessels (V1). Persistent metopic suture can mimic a fracture.",
+  "region": "cranial",
+  "view": "skull"
+ },
+ {
+  "id": "parietal",
+  "name": "Parietal bone",
+  "latin": "Os parietale",
+  "paired": true,
+  "blurb": "Paired bones forming the bulk of the cranial vault roof and sides; meet at the sagittal suture and join the frontal at the coronal suture.",
+  "pearl": "The pterion (frontal-parietal-temporal-sphenoid junction) is the thinnest skull point; fracture can rupture the middle meningeal artery -> epidural hematoma.",
+  "region": "cranial",
+  "view": "skull"
+ },
+ {
+  "id": "temporal",
+  "name": "Temporal bone",
+  "latin": "Os temporale",
+  "paired": true,
+  "blurb": "Paired bones at the lower lateral skull housing the middle/inner ear; squamous, petrous, tympanic, and mastoid parts plus the zygomatic process.",
+  "pearl": "Petrous part holds the cochlea/vestibule; basilar fracture causes Battle sign (mastoid bruising) and CSF otorrhea. Facial nerve exits the stylomastoid foramen.",
+  "region": "cranial",
+  "view": "skull"
+ },
+ {
+  "id": "occipital",
+  "name": "Occipital bone",
+  "latin": "Os occipitale",
+  "paired": false,
+  "blurb": "Forms the back and base of the skull around the foramen magnum; articulates with C1 (atlas) via occipital condyles and with both parietals.",
+  "pearl": "Foramen magnum transmits the medulla/spinal cord, vertebral arteries, and spinal roots of CN XI. Atlanto-occipital joint enables head nodding ('yes').",
+  "region": "cranial",
+  "view": "skull"
+ },
+ {
+  "id": "sphenoid",
+  "name": "Sphenoid bone",
+  "latin": "Os sphenoidale",
+  "paired": false,
+  "blurb": "Butterfly-shaped keystone of the cranial base; central body with greater/lesser wings and pterygoid processes, articulating with most skull bones.",
+  "pearl": "Sella turcica houses the pituitary (transsphenoidal route). Optic canal (CN II), superior orbital fissure (III, IV, V1, VI), foramina rotundum/ovale/spinosum.",
+  "region": "cranial",
+  "view": "skull"
+ },
+ {
+  "id": "ethmoid",
+  "name": "Ethmoid bone",
+  "latin": "Os ethmoidale",
+  "paired": false,
+  "blurb": "Light, spongy midline bone between the orbits forming part of the nasal cavity roof, medial orbital walls, and the upper nasal septum.",
+  "pearl": "Cribriform plate transmits olfactory nerves (CN I); fracture can shear them (anosmia) and cause CSF rhinorrhea. Crista galli anchors the falx cerebri.",
+  "region": "cranial",
+  "view": "skull"
+ },
+ {
+  "id": "maxilla",
+  "name": "Maxilla",
+  "latin": "Maxilla",
+  "paired": true,
+  "blurb": "Paired upper-jaw bones fused at the midline that form the upper teeth sockets, hard palate, orbital floor, and nasal aperture margins.",
+  "pearl": "Infraorbital foramen transmits the infraorbital nerve (CN V2); the maxillary sinus is the largest paranasal sinus and roots of upper molars project into it.",
+  "region": "facial",
+  "view": "skull"
+ },
+ {
+  "id": "zygomatic",
+  "name": "Zygomatic bone",
+  "latin": "Os zygomaticum",
+  "paired": true,
+  "blurb": "The cheekbone forming the lateral orbital wall and rim; joins the maxilla, frontal, sphenoid, and temporal bones (zygomatic arch).",
+  "pearl": "Common site of the tripod (zygomaticomaxillary complex) fracture from lateral facial trauma; transmits zygomaticofacial and zygomaticotemporal nerves.",
+  "region": "facial",
+  "view": "skull"
+ },
+ {
+  "id": "nasal",
+  "name": "Nasal bone",
+  "latin": "Os nasale",
+  "paired": true,
+  "blurb": "Two small rectangular bones forming the bony bridge of the nose, articulating superiorly with the frontal bone and the maxillary frontal processes.",
+  "pearl": "Most commonly fractured facial bone; distal nose is cartilage, so a 'broken nose' usually involves the nasal bones plus septal cartilage.",
+  "region": "facial",
+  "view": "skull"
+ },
+ {
+  "id": "lacrimal",
+  "name": "Lacrimal bone",
+  "latin": "Os lacrimale",
+  "paired": true,
+  "blurb": "The smallest, most fragile facial bone in the medial orbital wall; its groove helps form the fossa for the lacrimal sac.",
+  "pearl": "Lacrimal groove + maxillary frontal process form the nasolacrimal canal draining tears to the inferior meatus; key landmark in dacryocystorhinostomy.",
+  "region": "facial",
+  "view": "skull"
+ },
+ {
+  "id": "palatine",
+  "name": "Palatine bone",
+  "latin": "Os palatinum",
+  "paired": true,
+  "blurb": "L-shaped bone deep in the face whose horizontal plate forms the posterior hard palate and vertical plate the lateral nasal wall.",
+  "pearl": "Greater palatine foramen transmits the greater palatine nerve/vessels — landmark for maxillary nerve block; forms part of pterygopalatine fossa.",
+  "region": "facial",
+  "view": "skull"
+ },
+ {
+  "id": "inferior-nasal-concha",
+  "name": "Inferior nasal concha",
+  "latin": "Concha nasalis inferior",
+  "paired": true,
+  "blurb": "A separate scroll-like bone on the lateral nasal wall, distinct from the superior/middle conchae which belong to the ethmoid.",
+  "pearl": "Forms the inferior meatus, the drainage site of the nasolacrimal duct; hypertrophy is a frequent cause of nasal airway obstruction.",
+  "region": "facial",
+  "view": "skull"
+ },
+ {
+  "id": "vomer",
+  "name": "Vomer",
+  "latin": "Vomer",
+  "paired": false,
+  "blurb": "A thin plough-shaped midline bone forming the posteroinferior part of the bony nasal septum, sitting on the maxilla and palatine bones.",
+  "pearl": "With the ethmoid perpendicular plate it makes the bony septum; deviation here causes a deviated septum. Vomer = Latin for 'ploughshare.'",
+  "region": "facial",
+  "view": "skull"
+ },
+ {
+  "id": "mandible",
+  "name": "Mandible",
+  "latin": "Mandibula",
+  "paired": false,
+  "blurb": "The lower jaw and only movable skull bone; its condyle forms the temporomandibular joint with the temporal bone.",
+  "pearl": "Inferior alveolar nerve (CN V3) enters the mandibular foramen and exits the mental foramen — target of the inferior alveolar nerve block in dentistry.",
+  "region": "facial",
+  "view": "skull"
+ },
+ {
+  "id": "malleus",
+  "name": "Malleus",
+  "latin": "Malleus",
+  "paired": true,
+  "blurb": "Outermost, largest ear ossicle, hammer-shaped; its handle attaches to the tympanic membrane and its head articulates with the incus.",
+  "pearl": "Tensor tympani (CN V3) inserts on the malleus handle to dampen loud sound; the handle ends at the umbo, the otoscopic origin of the cone of light.",
+  "region": "ossicles-hyoid",
+  "view": "skull"
+ },
+ {
+  "id": "incus",
+  "name": "Incus",
+  "latin": "Incus",
+  "paired": true,
+  "blurb": "Anvil-shaped middle ossicle bridging malleus and stapes; its short process anchors it while the long process connects to the stapes.",
+  "pearl": "The long process is most vulnerable to ischemic necrosis; incus erosion is the commonest ossicular defect in chronic otitis/cholesteatoma.",
+  "region": "ossicles-hyoid",
+  "view": "skull"
+ },
+ {
+  "id": "stapes",
+  "name": "Stapes",
+  "latin": "Stapes",
+  "paired": true,
+  "blurb": "Smallest bone in the body, stirrup-shaped; its footplate sits in the oval window transmitting vibration to the inner ear.",
+  "pearl": "Stapedius (CN VII) dampens the stapes; otosclerosis fixes the footplate causing conductive hearing loss, treated by stapedectomy.",
+  "region": "ossicles-hyoid",
+  "view": "skull"
+ },
+ {
+  "id": "hyoid",
+  "name": "Hyoid bone",
+  "latin": "Os hyoideum",
+  "paired": false,
+  "blurb": "U-shaped neck bone at the C3 level that articulates with no other bone, suspended by muscles and ligaments above the larynx.",
+  "pearl": "Only bone with no bony articulation; fracture is a forensic hallmark of manual strangulation. Suprahyoid/infrahyoid muscles anchor it for swallowing.",
+  "region": "ossicles-hyoid",
+  "view": "skull"
+ },
+ {
+  "id": "atlas",
+  "name": "Atlas (C1)",
+  "latin": "Atlas (vertebra cervicalis I)",
+  "paired": false,
+  "blurb": "Ring-shaped first cervical vertebra with no body or spinous process; cradles the skull at the atlanto-occipital joint.",
+  "pearl": "Jefferson fracture = burst of the C1 ring from axial load; the transverse ligament holds the dens against the anterior arch.",
+  "region": "vertebral",
+  "view": "spine"
+ },
+ {
+  "id": "axis",
+  "name": "Axis (C2)",
+  "latin": "Axis (vertebra cervicalis II)",
+  "paired": false,
+  "blurb": "Second cervical vertebra bearing the dens (odontoid), the peg the atlas pivots around for head rotation.",
+  "pearl": "Hangman's fracture = bilateral pars/pedicle fracture from hyperextension; odontoid (dens) fractures are common in elderly falls.",
+  "region": "vertebral",
+  "view": "spine"
+ },
+ {
+  "id": "cervical-vertebrae",
+  "name": "Cervical vertebrae (C3–C7)",
+  "latin": "Vertebrae cervicales (III–VII)",
+  "paired": false,
+  "blurb": "Small typical neck vertebrae with bifid spinous processes and transverse foramina transmitting the vertebral arteries.",
+  "pearl": "Vertebral artery runs through foramina transversaria of C6–C1 (skips C7); C7 is the vertebra prominens with a long non-bifid spine.",
+  "region": "vertebral",
+  "view": "spine"
+ },
+ {
+  "id": "thoracic-vertebrae",
+  "name": "Thoracic vertebrae (T1–T12)",
+  "latin": "Vertebrae thoracicae (I–XII)",
+  "paired": false,
+  "blurb": "Twelve mid-spine vertebrae with costal facets on bodies and transverse processes that articulate with the ribs.",
+  "pearl": "Heart-shaped body, long downward-sloping spines, and demifacets for rib heads; the only region articulating directly with ribs.",
+  "region": "vertebral",
+  "view": "spine"
+ },
+ {
+  "id": "lumbar-vertebrae",
+  "name": "Lumbar vertebrae (L1–L5)",
+  "latin": "Vertebrae lumbales (I–V)",
+  "paired": false,
+  "blurb": "Five large weight-bearing lower-back vertebrae with kidney-shaped bodies and stout horizontal spinous processes.",
+  "pearl": "Lumbar puncture done at L3–L4 or L4–L5 (below conus medullaris ~L1/L2); L4–L5 and L5–S1 are the most common disc herniation sites.",
+  "region": "vertebral",
+  "view": "spine"
+ },
+ {
+  "id": "sacrum",
+  "name": "Sacrum",
+  "latin": "Os sacrum",
+  "paired": false,
+  "blurb": "Triangular bone of five fused vertebrae forming the posterior pelvis; articulates with the ilia at the sacroiliac joints.",
+  "pearl": "Sacral promontory is a key obstetric/pelvimetry landmark; S2 marks the dural sac end and the posterior superior iliac spines.",
+  "region": "vertebral",
+  "view": "spine"
+ },
+ {
+  "id": "coccyx",
+  "name": "Coccyx",
+  "latin": "Os coccygis",
+  "paired": false,
+  "blurb": "Small terminal tailbone of 3–5 fused rudimentary vertebrae hanging from the sacral apex via the sacrococcygeal joint.",
+  "pearl": "Coccydynia follows falls/childbirth; the coccyx is an attachment point for pelvic floor muscles and the anococcygeal ligament.",
+  "region": "vertebral",
+  "view": "spine"
+ },
+ {
+  "id": "manubrium",
+  "name": "Manubrium",
+  "latin": "Manubrium sterni",
+  "paired": false,
+  "blurb": "Uppermost broad part of the sternum; bears the jugular notch and articulates with the clavicles and 1st ribs.",
+  "pearl": "Joins the body at the sternal angle (of Louis) at the T4/T5 disc — landmark for rib 2, the aortic arch, and the tracheal bifurcation (carina).",
+  "region": "thorax",
+  "view": "thorax"
+ },
+ {
+  "id": "sternum-body",
+  "name": "Body of sternum",
+  "latin": "Corpus sterni",
+  "paired": false,
+  "blurb": "Long flat midline segment of the sternum; its costal notches articulate with the costal cartilages of ribs 2–7.",
+  "pearl": "Overlies the heart and is the target of chest compressions in CPR; usable for bone marrow aspiration, though the posterior iliac crest is preferred.",
+  "region": "thorax",
+  "view": "thorax"
+ },
+ {
+  "id": "xiphoid-process",
+  "name": "Xiphoid process",
+  "latin": "Processus xiphoideus",
+  "paired": false,
+  "blurb": "Small cartilaginous-to-bony tip at the inferior sternum; marks the xiphisternal joint at the T9 level.",
+  "pearl": "CPR hand placement sits just above it; can fracture and injure the liver or diaphragm; ossifies and fuses with the sternal body with age.",
+  "region": "thorax",
+  "view": "thorax"
+ },
+ {
+  "id": "true-ribs",
+  "name": "True ribs (1–7)",
+  "latin": "Costae verae (I–VII)",
+  "paired": true,
+  "blurb": "Upper seven ribs that attach directly to the sternum via their own costal cartilage (vertebrosternal ribs).",
+  "pearl": "Rib 1 is shortest/most curved; its scalene tubercle separates grooves for the subclavian vein (front) and artery (back) — site of thoracic outlet syndrome.",
+  "region": "thorax",
+  "view": "thorax"
+ },
+ {
+  "id": "false-ribs",
+  "name": "False ribs (8–10)",
+  "latin": "Costae spuriae (VIII–X)",
+  "paired": true,
+  "blurb": "Ribs 8–10 whose costal cartilages join the cartilage of the rib above rather than the sternum directly (vertebrochondral).",
+  "pearl": "Their joined cartilages form the costal margin (subcostal angle); rib 10 is typically the lowest rib reaching the costal arch anteriorly.",
+  "region": "thorax",
+  "view": "thorax"
+ },
+ {
+  "id": "floating-ribs",
+  "name": "Floating ribs (11–12)",
+  "latin": "Costae fluctuantes (XI–XII)",
+  "paired": true,
+  "blurb": "Lowest two ribs with no anterior cartilage attachment; their tips end freely in the posterior abdominal wall musculature.",
+  "pearl": "Lack a tubercle and articulate with only one vertebral body (single facet, no costotransverse joint); the rib 12 tip overlies the kidney.",
+  "region": "thorax",
+  "view": "thorax"
+ },
+ {
+  "id": "clavicle",
+  "name": "Clavicle",
+  "latin": "Clavicula",
+  "paired": true,
+  "blurb": "S-shaped strut bone bridging the sternal manubrium to the scapular acromion, forming the only bony link of the arm to the axial skeleton.",
+  "pearl": "Most commonly fractured bone in childhood; classic break at the junction of middle and lateral thirds, its weakest point.",
+  "region": "upper-limb",
+  "view": "mixed"
+ },
+ {
+  "id": "scapula",
+  "name": "Scapula",
+  "latin": "Scapula",
+  "paired": true,
+  "blurb": "Flat triangular shoulder-blade on the posterior thorax; its glenoid cavity articulates with the humeral head at the shoulder joint.",
+  "pearl": "Winged scapula = long thoracic nerve (C5-C7) injury paralyzing serratus anterior; tests as a protruding medial border.",
+  "region": "upper-limb",
+  "view": "mixed"
+ },
+ {
+  "id": "humerus",
+  "name": "Humerus",
+  "latin": "Humerus",
+  "paired": true,
+  "blurb": "Long bone of the arm; its head meets the glenoid proximally and its trochlea/capitulum meet the ulna and radius at the elbow.",
+  "pearl": "Midshaft fracture risks radial nerve injury (wrist drop); surgical neck fracture risks axillary nerve and posterior circumflex humeral artery.",
+  "region": "upper-limb",
+  "view": "mixed"
+ },
+ {
+  "id": "radius",
+  "name": "Radius",
+  "latin": "Radius",
+  "paired": true,
+  "blurb": "Lateral (thumb-side) forearm bone; its head pivots at the elbow and its distal end forms most of the wrist joint with the scaphoid and lunate.",
+  "pearl": "Colles fracture: distal radius fracture with dorsal displacement ('dinner-fork' deformity), classic FOOSH injury in older adults.",
+  "region": "upper-limb",
+  "view": "mixed"
+ },
+ {
+  "id": "ulna",
+  "name": "Ulna",
+  "latin": "Ulna",
+  "paired": true,
+  "blurb": "Medial (pinky-side) forearm bone; its trochlear notch grips the humeral trochlea, making it the main bone of the elbow hinge.",
+  "pearl": "The olecranon is the bony point of the elbow; the ulnar nerve runs in the groove behind the medial epicondyle ('funny bone').",
+  "region": "upper-limb",
+  "view": "mixed"
+ },
+ {
+  "id": "scaphoid",
+  "name": "Scaphoid",
+  "latin": "Os scaphoideum",
+  "paired": true,
+  "blurb": "Boat-shaped lateral bone of the proximal carpal row; articulates with the radius and is the largest proximal-row carpal.",
+  "pearl": "Most commonly fractured carpal; tenderness in the anatomical snuffbox. Retrograde blood supply risks avascular necrosis of the proximal pole.",
+  "region": "upper-limb",
+  "view": "mixed"
+ },
+ {
+  "id": "lunate",
+  "name": "Lunate",
+  "latin": "Os lunatum",
+  "paired": true,
+  "blurb": "Crescent-moon-shaped carpal in the center of the proximal row, articulating with the radius above and the capitate below.",
+  "pearl": "Most commonly dislocated carpal; lunate dislocation can compress the median nerve and cause acute carpal tunnel syndrome.",
+  "region": "upper-limb",
+  "view": "mixed"
+ },
+ {
+  "id": "triquetrum",
+  "name": "Triquetrum",
+  "latin": "Os triquetrum",
+  "paired": true,
+  "blurb": "Pyramidal carpal at the medial end of the proximal row; its palmar surface bears a facet for the pisiform.",
+  "pearl": "Second most commonly fractured carpal, typically a dorsal chip avulsion; key part of the medial wrist column.",
+  "region": "upper-limb",
+  "view": "mixed"
+ },
+ {
+  "id": "pisiform",
+  "name": "Pisiform",
+  "latin": "Os pisiforme",
+  "paired": true,
+  "blurb": "Pea-shaped sesamoid bone sitting on the palmar surface of the triquetrum, embedded in the flexor carpi ulnaris tendon.",
+  "pearl": "It is a sesamoid within the FCU tendon and forms the medial border of Guyon's canal, which transmits the ulnar nerve and artery.",
+  "region": "upper-limb",
+  "view": "mixed"
+ },
+ {
+  "id": "trapezium",
+  "name": "Trapezium",
+  "latin": "Os trapezium",
+  "paired": true,
+  "blurb": "Lateral carpal of the distal row articulating with the first metacarpal to form the highly mobile saddle joint of the thumb.",
+  "pearl": "Its saddle (carpometacarpal) joint of the thumb is a frequent site of osteoarthritis; the FCR tendon grooves its palmar tubercle.",
+  "region": "upper-limb",
+  "view": "mixed"
+ },
+ {
+  "id": "trapezoid",
+  "name": "Trapezoid",
+  "latin": "Os trapezoideum",
+  "paired": true,
+  "blurb": "Small wedge-shaped carpal of the distal row, articulating mainly with the base of the second metacarpal.",
+  "pearl": "Smallest bone of the distal carpal row and the least commonly fractured/dislocated carpal due to its protected, wedged position.",
+  "region": "upper-limb",
+  "view": "mixed"
+ },
+ {
+  "id": "capitate",
+  "name": "Capitate",
+  "latin": "Os capitatum",
+  "paired": true,
+  "blurb": "Largest carpal bone, sitting centrally in the distal row with a rounded head that fits into the lunate and scaphoid.",
+  "pearl": "Largest carpal and the first to ossify; central location makes it the keystone of the wrist and a pivot in carpal kinematics.",
+  "region": "upper-limb",
+  "view": "mixed"
+ },
+ {
+  "id": "hamate",
+  "name": "Hamate",
+  "latin": "Os hamatum",
+  "paired": true,
+  "blurb": "Wedge-shaped medial carpal of the distal row with a palmar hook (hamulus), articulating with the 4th and 5th metacarpals.",
+  "pearl": "Hook of hamate fractures occur in golfers/racquet sports; it forms the lateral wall of Guyon's canal and can injure the ulnar nerve.",
+  "region": "upper-limb",
+  "view": "mixed"
+ },
+ {
+  "id": "metacarpals",
+  "name": "Metacarpals (I-V)",
+  "latin": "Ossa metacarpi (I-V)",
+  "paired": true,
+  "blurb": "Five miniature long bones of the palm, numbered thumb to little finger, linking the carpus to the proximal phalanges.",
+  "pearl": "Boxer's fracture is a 5th metacarpal neck fracture from punching; the heads form the knuckles when the fist is clenched.",
+  "region": "upper-limb",
+  "view": "mixed"
+ },
+ {
+  "id": "hand-proximal-phalanges",
+  "name": "Proximal phalanges (hand)",
+  "latin": "Phalanges proximales manus",
+  "paired": true,
+  "blurb": "The first row of finger bones, one per digit including the thumb, articulating with the metacarpal heads at the MCP joints.",
+  "pearl": "Each digit has a proximal phalanx; only the thumb lacks a middle phalanx, giving the hand 14 phalanges total per side.",
+  "region": "upper-limb",
+  "view": "mixed"
+ },
+ {
+  "id": "hand-middle-phalanges",
+  "name": "Middle phalanges (hand)",
+  "latin": "Phalanges mediae manus",
+  "paired": true,
+  "blurb": "The intermediate finger bones present in digits 2-5, lying between the proximal and distal phalanges at the PIP joints.",
+  "pearl": "Absent in the thumb; the central slip of the extensor expansion inserts on its base, and its rupture causes boutonniere deformity.",
+  "region": "upper-limb",
+  "view": "mixed"
+ },
+ {
+  "id": "hand-distal-phalanges",
+  "name": "Distal phalanges (hand)",
+  "latin": "Phalanges distales manus",
+  "paired": true,
+  "blurb": "The fingertip bones of all five digits, bearing the flattened ungual tuberosity that supports the nail bed and pulp.",
+  "pearl": "Avulsion of the terminal extensor tendon at its base causes mallet finger (drooping fingertip); FDP inserts on its palmar base.",
+  "region": "upper-limb",
+  "view": "mixed"
+ },
+ {
+  "id": "ilium",
+  "name": "Ilium",
+  "latin": "Os ilium",
+  "paired": true,
+  "blurb": "Largest, fan-shaped superior part of the hip bone; its body forms the upper acetabulum and the wing forms the iliac crest and fossa.",
+  "pearl": "ASIS is the origin of sartorius and the lateral end of the inguinal ligament; the iliac crest is a key bone-marrow biopsy site.",
+  "region": "lower-limb",
+  "view": "mixed"
+ },
+ {
+  "id": "ischium",
+  "name": "Ischium",
+  "latin": "Os ischii",
+  "paired": true,
+  "blurb": "Posteroinferior part of the hip bone; its body forms the posteroinferior acetabulum and bears the ischial tuberosity and spine.",
+  "pearl": "Ischial tuberosity bears weight when seated and anchors the hamstrings; ischial spine is the landmark for a pudendal nerve block.",
+  "region": "lower-limb",
+  "view": "mixed"
+ },
+ {
+  "id": "pubis",
+  "name": "Pubis",
+  "latin": "Os pubis",
+  "paired": true,
+  "blurb": "Anteromedial part of the hip bone; meets its partner at the pubic symphysis and forms the anteroinferior acetabulum.",
+  "pearl": "Pubic tubercle anchors the medial inguinal ligament; a groin hernia above and medial to it is inguinal, below and lateral is femoral.",
+  "region": "lower-limb",
+  "view": "mixed"
+ },
+ {
+  "id": "femur",
+  "name": "Femur",
+  "latin": "Os femoris (Femur)",
+  "paired": true,
+  "blurb": "Longest, strongest bone in the body; head articulates with the acetabulum, condyles meet the tibia and patella at the knee.",
+  "pearl": "Femoral neck fractures risk avascular necrosis of the head by disrupting the medial femoral circumflex artery's retinacular supply.",
+  "region": "lower-limb",
+  "view": "mixed"
+ },
+ {
+  "id": "patella",
+  "name": "Patella",
+  "latin": "Patella",
+  "paired": true,
+  "blurb": "Largest sesamoid bone, embedded in the quadriceps/patellar tendon; glides in the femoral trochlear groove anterior to the knee.",
+  "pearl": "It increases the quadriceps' extension lever arm; patellar reflex tests the L2-L4 (femoral nerve) spinal segments.",
+  "region": "lower-limb",
+  "view": "mixed"
+ },
+ {
+  "id": "tibia",
+  "name": "Tibia",
+  "latin": "Tibia",
+  "paired": true,
+  "blurb": "Medial, weight-bearing leg bone; plateau articulates with the femur, distal end forms the medial malleolus of the ankle.",
+  "pearl": "Most commonly fractured long bone and most common open fracture due to its subcutaneous anteromedial (shin) surface.",
+  "region": "lower-limb",
+  "view": "mixed"
+ },
+ {
+  "id": "fibula",
+  "name": "Fibula",
+  "latin": "Fibula",
+  "paired": true,
+  "blurb": "Slender lateral leg bone; bears little weight, distal end forms the lateral malleolus and stabilizes the ankle mortise.",
+  "pearl": "Common fibular nerve wraps the fibular neck - fracture there causes foot drop with loss of dorsiflexion and eversion.",
+  "region": "lower-limb",
+  "view": "mixed"
+ },
+ {
+  "id": "calcaneus",
+  "name": "Calcaneus",
+  "latin": "Calcaneus (Os calcis)",
+  "paired": true,
+  "blurb": "Largest tarsal bone forming the heel; articulates superiorly with the talus and anteriorly with the cuboid, anchors the Achilles tendon.",
+  "pearl": "Most fractured tarsal, classically from a fall onto the heels; look for an associated lumbar compression fracture (Lover's leap).",
+  "region": "lower-limb",
+  "view": "mixed"
+ },
+ {
+  "id": "talus",
+  "name": "Talus",
+  "latin": "Talus",
+  "paired": true,
+  "blurb": "Transmits body weight to the foot; sits in the ankle mortise between tibia, fibula, and calcaneus, with no muscle attachments.",
+  "pearl": "Largely retrograde blood supply means neck fractures (aviator's astragalus) risk avascular necrosis of the body.",
+  "region": "lower-limb",
+  "view": "mixed"
+ },
+ {
+  "id": "navicular",
+  "name": "Navicular",
+  "latin": "Os naviculare",
+  "paired": true,
+  "blurb": "Boat-shaped medial midfoot tarsal lying between the talus head and the three cuneiforms, in the medial longitudinal arch.",
+  "pearl": "Its tuberosity is the insertion of tibialis posterior; an accessory navicular is a common cause of medial midfoot pain.",
+  "region": "lower-limb",
+  "view": "mixed"
+ },
+ {
+  "id": "cuboid",
+  "name": "Cuboid",
+  "latin": "Os cuboideum",
+  "paired": true,
+  "blurb": "Lateral midfoot tarsal between the calcaneus and the 4th/5th metatarsals, forming part of the lateral longitudinal arch.",
+  "pearl": "Its inferior groove transmits the fibularis (peroneus) longus tendon toward the medial cuneiform/first metatarsal.",
+  "region": "lower-limb",
+  "view": "mixed"
+ },
+ {
+  "id": "medial-cuneiform",
+  "name": "Medial cuneiform",
+  "latin": "Os cuneiforme mediale",
+  "paired": true,
+  "blurb": "Largest wedge-shaped cuneiform; articulates with the navicular proximally and the 1st (and partly 2nd) metatarsal distally.",
+  "pearl": "Receives the tibialis anterior insertion and the fibularis longus tendon, which converge to control the medial arch.",
+  "region": "lower-limb",
+  "view": "mixed"
+ },
+ {
+  "id": "intermediate-cuneiform",
+  "name": "Intermediate cuneiform",
+  "latin": "Os cuneiforme intermedium",
+  "paired": true,
+  "blurb": "Smallest cuneiform, recessed between the medial and lateral cuneiforms; articulates with the 2nd metatarsal base.",
+  "pearl": "Its recessed position locks the 2nd metatarsal base into a keystone, the pivot point disrupted in Lisfranc injuries.",
+  "region": "lower-limb",
+  "view": "mixed"
+ },
+ {
+  "id": "lateral-cuneiform",
+  "name": "Lateral cuneiform",
+  "latin": "Os cuneiforme laterale",
+  "paired": true,
+  "blurb": "Middle-sized cuneiform between the intermediate cuneiform and cuboid; articulates with the 3rd metatarsal base.",
+  "pearl": "Forms part of the transverse arch and helps stabilize the Lisfranc (tarsometatarsal) joint complex.",
+  "region": "lower-limb",
+  "view": "mixed"
+ },
+ {
+  "id": "metatarsals",
+  "name": "Metatarsals (I-V)",
+  "latin": "Ossa metatarsi (I-V)",
+  "paired": true,
+  "blurb": "Five long bones of the forefoot, each with base, shaft, and head; bridge the tarsals proximally to the phalanges distally.",
+  "pearl": "5th metatarsal base avulsion (pseudo-Jones) vs Jones fracture at the metaphyseal-diaphyseal junction, which heals poorly.",
+  "region": "lower-limb",
+  "view": "mixed"
+ },
+ {
+  "id": "foot-proximal-phalanges",
+  "name": "Proximal phalanges (foot)",
+  "latin": "Phalanges proximales (pedis)",
+  "paired": true,
+  "blurb": "First row of toe bones; articulate with metatarsal heads at the MTP joints and with middle phalanges (or distal in the hallux).",
+  "pearl": "The great toe (hallux) has only two phalanges, so each foot has 14 phalanges total, not 15.",
+  "region": "lower-limb",
+  "view": "mixed"
+ },
+ {
+  "id": "foot-middle-phalanges",
+  "name": "Middle phalanges (foot)",
+  "latin": "Phalanges mediae (pedis)",
+  "paired": true,
+  "blurb": "Short intermediate toe bones present in toes 2-5; sit between the proximal and distal phalanges at the PIP joints.",
+  "pearl": "Absent in the hallux; flexor digitorum brevis inserts here, splitting to let flexor digitorum longus pass to the distal phalanx.",
+  "region": "lower-limb",
+  "view": "mixed"
+ },
+ {
+  "id": "foot-distal-phalanges",
+  "name": "Distal phalanges (foot)",
+  "latin": "Phalanges distales (pedis)",
+  "paired": true,
+  "blurb": "Terminal toe bones bearing the nails; each has a flattened distal tuberosity and forms the tip of each toe.",
+  "pearl": "Distal phalanx of the hallux receives flexor hallucis longus and extensor hallucis longus, key for push-off in gait.",
+  "region": "lower-limb",
+  "view": "mixed"
+ }
+]

@@ -1,0 +1,306 @@
+[
+ {
+  "id": "temporalis",
+  "name": "Temporalis",
+  "latin": "Musculus temporalis",
+  "paired": true,
+  "blurb": "From temporal fossa to coronoid process and ramus of mandible; elevates and retracts the mandible (closes jaw).",
+  "pearl": "Mandibular division of trigeminal (CN V3) via deep temporal nerves. Posterior fibers retract jaw; wasting hollows the temple above the zygomatic arch."
+ },
+ {
+  "id": "masseter",
+  "name": "Masseter",
+  "latin": "Musculus masseter",
+  "paired": true,
+  "blurb": "From zygomatic arch to lateral ramus and angle of mandible; powerful elevator of the mandible (closes jaw).",
+  "pearl": "Mandibular division of trigeminal (CN V3) via masseteric nerve. Generates the strongest bite force of the masticatory muscles; easily palpated on clenching."
+ },
+ {
+  "id": "sternocleidomastoid",
+  "name": "Sternocleidomastoid",
+  "latin": "Musculus sternocleidomastoideus",
+  "paired": true,
+  "blurb": "From manubrium and medial clavicle to mastoid process; ipsilateral tilt with contralateral rotation, plus bilateral neck flexion.",
+  "pearl": "Spinal accessory nerve (CN XI) for motor, with C2-C3 proprioception. Spasm causes torticollis; divides the anterior and posterior cervical triangles."
+ },
+ {
+  "id": "trapezius",
+  "name": "Trapezius",
+  "latin": "Musculus trapezius",
+  "paired": true,
+  "blurb": "From external occipital protuberance, nuchal ligament, and C7-T12 spinous processes to clavicle, acromion, and scapular spine; elevates, retracts, depresses, and rotates scapula.",
+  "pearl": "Motor: spinal accessory nerve (CN XI); C3-C4 proprioception. Posterior triangle injury (e.g., node biopsy) causes shoulder droop and weak overhead abduction."
+ },
+ {
+  "id": "deltoid",
+  "name": "Deltoid",
+  "latin": "Musculus deltoideus",
+  "paired": true,
+  "blurb": "From lateral clavicle, acromion, and scapular spine to deltoid tuberosity of humerus; chief abductor (15-90 deg); anterior fibers flex/medially rotate, posterior extend/laterally rotate.",
+  "pearl": "Axillary nerve (C5-C6). Vulnerable to surgical neck fracture or anterior dislocation; lesion causes deltoid atrophy, loss of abduction, and regimental-badge sensory loss."
+ },
+ {
+  "id": "pectoralis-major",
+  "name": "Pectoralis major",
+  "latin": "Musculus pectoralis major",
+  "paired": true,
+  "blurb": "From medial clavicle, sternum, and upper costal cartilages to crest of greater tubercle (lateral lip of bicipital groove); adducts, medially rotates, and flexes the humerus.",
+  "pearl": "Lateral (C5-C7) and medial (C8-T1) pectoral nerves. Forms anterior axillary fold; clavicular vs sternocostal head crossover gives its twisted, bilaminar insertion."
+ },
+ {
+  "id": "serratus-anterior",
+  "name": "Serratus anterior",
+  "latin": "Musculus serratus anterior",
+  "paired": true,
+  "blurb": "From outer surfaces of ribs 1-8/9 to costal (deep) surface of medial border of scapula; protracts scapula and rotates it upward for overhead abduction.",
+  "pearl": "Long thoracic nerve (C5-C7). Injury (axillary surgery, trauma) causes winged scapula and inability to raise the arm above horizontal."
+ },
+ {
+  "id": "latissimus-dorsi",
+  "name": "Latissimus dorsi",
+  "latin": "Musculus latissimus dorsi",
+  "paired": true,
+  "blurb": "From T7-L5 spinous processes, thoracolumbar fascia, iliac crest, and lower ribs to floor of bicipital groove; extends, adducts, and medially rotates the humerus.",
+  "pearl": "Thoracodorsal nerve (C6-C8). The 'handcuff/climbing muscle'; forms posterior axillary fold and crosses the inferior angle of the scapula."
+ },
+ {
+  "id": "infraspinatus",
+  "name": "Infraspinatus",
+  "latin": "Musculus infraspinatus",
+  "paired": true,
+  "blurb": "From infraspinous fossa of scapula to middle facet of greater tubercle of humerus; laterally (externally) rotates the arm as a rotator cuff muscle.",
+  "pearl": "Suprascapular nerve (C5-C6). Tested by resisted external rotation; commonly torn in cuff disease, giving a positive external rotation lag sign (lift-off tests subscapularis)."
+ },
+ {
+  "id": "teres-major",
+  "name": "Teres major",
+  "latin": "Musculus teres major",
+  "paired": true,
+  "blurb": "From inferior angle/lower lateral border of scapula to crest of lesser tubercle (medial lip of bicipital groove); adducts and medially rotates the humerus.",
+  "pearl": "Lower subscapular nerve (C5-C6). Forms the inferior border of the quadrangular space and helps bound the triangular space (the 'lat's little helper')."
+ },
+ {
+  "id": "biceps-brachii",
+  "name": "Biceps brachii",
+  "latin": "Musculus biceps brachii",
+  "paired": true,
+  "blurb": "Long head from supraglenoid tubercle, short head from coracoid process -> radial tuberosity & bicipital aponeurosis; flexes elbow, supinates forearm.",
+  "pearl": "Musculocutaneous nerve (C5-C6). 'Popeye' sign from long-head tendon rupture; biceps reflex tests C5-C6 (mainly C5); strongest supinator with elbow flexed."
+ },
+ {
+  "id": "brachioradialis",
+  "name": "Brachioradialis",
+  "latin": "Musculus brachioradialis",
+  "paired": true,
+  "blurb": "Lateral supracondylar ridge of humerus -> styloid process of radius; flexes elbow, strongest in mid-pronation ('hammer' grip).",
+  "pearl": "Radial nerve (C5-C6) — the only flexor it supplies. Forms lateral border of cubital fossa; brachioradialis reflex tests C5-C6; inverted reflex suggests C5/C6 cord lesion."
+ },
+ {
+  "id": "triceps-brachii",
+  "name": "Triceps brachii",
+  "latin": "Musculus triceps brachii",
+  "paired": true,
+  "blurb": "Long head from infraglenoid tubercle, lateral & medial heads from humerus -> olecranon of ulna; main extensor of the elbow.",
+  "pearl": "Radial nerve (C6-C8, mainly C7). Triceps reflex tests C7; radial nerve runs in the spiral (radial) groove — at risk in midshaft humeral fracture."
+ },
+ {
+  "id": "forearm-flexors",
+  "name": "Forearm flexors (anterior compartment)",
+  "latin": "Musculi compartimenti antebrachii anterioris",
+  "paired": true,
+  "blurb": "Mostly from medial epicondyle (common flexor origin) -> carpals, metacarpals and phalanges; flex wrist and digits, pronate forearm.",
+  "pearl": "Median nerve (C6-T1), except FCU and medial half of FDP (ulnar nerve, C8-T1). Median nerve runs between FDS and FDP; medial epicondylitis = 'golfer's elbow.'"
+ },
+ {
+  "id": "forearm-extensors",
+  "name": "Forearm extensors (posterior compartment)",
+  "latin": "Musculi compartimenti antebrachii posterioris",
+  "paired": true,
+  "blurb": "Mostly from lateral epicondyle (common extensor origin) -> metacarpals and phalanges; extend wrist and digits, supinate, abduct thumb.",
+  "pearl": "Radial nerve & its posterior interosseous branch (C5-T1; PIN mainly C7-C8). Lateral epicondylitis = 'tennis elbow'; high radial palsy causes wrist drop, PIN lesion spares wrist extension."
+ },
+ {
+  "id": "rectus-abdominis",
+  "name": "Rectus abdominis",
+  "latin": "Musculus rectus abdominis",
+  "paired": true,
+  "blurb": "Pubic crest/symphysis -> xiphoid process and costal cartilages 5-7; flexes trunk and compresses abdomen.",
+  "pearl": "Anterior rami T7-T12 (thoracoabdominal nn.). Tendinous intersections form the 'six-pack'; lies in rectus sheath. Inferior epigastric a. runs deep within sheath."
+ },
+ {
+  "id": "external-oblique",
+  "name": "External oblique",
+  "latin": "Musculus obliquus externus abdominis",
+  "paired": true,
+  "blurb": "Ribs 5-12 (outer surface) -> linea alba, pubic tubercle, iliac crest; compresses abdomen and rotates trunk to opposite side.",
+  "pearl": "Anterior rami T7-T12 (incl. subcostal T12). Fibers run 'hands-in-pockets.' Free lower border rolls into inguinal ligament (ASIS to pubic tubercle)."
+ },
+ {
+  "id": "erector-spinae",
+  "name": "Erector spinae",
+  "latin": "Musculus erector spinae",
+  "paired": true,
+  "blurb": "Common tendon on sacrum/iliac crest/lumbar spinous processes -> ribs, transverse/spinous processes, mastoid; extends and laterally flexes spine.",
+  "pearl": "Posterior (dorsal) rami of spinal nerves, segmental. Columns I Love Spaghetti = Iliocostalis, Longissimus, Spinalis (lateral to medial). Epaxial postural muscle."
+ },
+ {
+  "id": "iliopsoas",
+  "name": "Iliopsoas",
+  "latin": "Musculus iliopsoas",
+  "paired": true,
+  "blurb": "Iliacus (iliac fossa) + psoas major (T12-L5 bodies/discs/transverse processes) to lesser trochanter; chief hip flexor.",
+  "pearl": "Psoas: anterior rami L1-L3; iliacus: femoral nerve L2-L4. Psoas abscess (TB/Crohn) gives a positive psoas sign with hip-extension pain."
+ },
+ {
+  "id": "tensor-fasciae-latae",
+  "name": "Tensor fasciae latae",
+  "latin": "Musculus tensor fasciae latae",
+  "paired": true,
+  "blurb": "From ASIS/anterior iliac crest to the iliotibial tract; tenses the IT band and assists hip flexion, abduction, and medial rotation.",
+  "pearl": "Superior gluteal nerve (L4-S1). With glute medius/minimus it steadies the pelvis in gait; weakness contributes to Trendelenburg."
+ },
+ {
+  "id": "sartorius",
+  "name": "Sartorius",
+  "latin": "Musculus sartorius",
+  "paired": true,
+  "blurb": "From ASIS to medial tibia (pes anserinus); flexes, abducts, and laterally rotates the hip and flexes the knee.",
+  "pearl": "Femoral nerve (L2-L3). Longest muscle in the body; the 'tailor's muscle' producing the cross-legged sitting position."
+ },
+ {
+  "id": "rectus-femoris",
+  "name": "Rectus femoris",
+  "latin": "Musculus rectus femoris",
+  "paired": true,
+  "blurb": "From AIIS (and supra-acetabular ilium) to tibial tuberosity via patellar ligament; extends the knee and flexes the hip.",
+  "pearl": "Femoral nerve (L2-L4). Only biarticular quad head; weakest as a knee extensor when the hip is already flexed (active insufficiency)."
+ },
+ {
+  "id": "vastus-lateralis",
+  "name": "Vastus lateralis",
+  "latin": "Musculus vastus lateralis",
+  "paired": true,
+  "blurb": "From greater trochanter/lateral lip of linea aspera to tibial tuberosity via patellar ligament; extends the knee.",
+  "pearl": "Femoral nerve (L2-L4). Largest quad component and a common IM injection site (lateral mid-thigh) in infants and adults."
+ },
+ {
+  "id": "vastus-medialis",
+  "name": "Vastus medialis",
+  "latin": "Musculus vastus medialis",
+  "paired": true,
+  "blurb": "From medial lip of linea aspera to tibial tuberosity via patellar ligament; extends knee, VMO oblique fibers stabilize the patella.",
+  "pearl": "Femoral nerve (L2-L4). VMO atrophies fast after knee injury; weakness allows lateral patellar maltracking and subluxation."
+ },
+ {
+  "id": "adductor-longus",
+  "name": "Adductor longus",
+  "latin": "Musculus adductor longus",
+  "paired": true,
+  "blurb": "From body of pubis to middle third of linea aspera; adducts and assists flexion of the thigh.",
+  "pearl": "Obturator nerve (L2-L4). Forms the medial border of the femoral triangle; common site of groin strain ('rider's strain')."
+ },
+ {
+  "id": "adductor-magnus",
+  "name": "Adductor magnus",
+  "latin": "Musculus adductor magnus",
+  "paired": true,
+  "blurb": "From ischiopubic ramus + ischial tuberosity to linea aspera and adductor tubercle; powerful adductor with a hamstring part.",
+  "pearl": "Adductor part: obturator nerve (L2-L4); hamstring part: tibial division of sciatic (L4). Adductor hiatus transmits femoral vessels to popliteal."
+ },
+ {
+  "id": "gracilis",
+  "name": "Gracilis",
+  "latin": "Musculus gracilis",
+  "paired": true,
+  "blurb": "From body/inferior ramus of pubis to medial tibia (pes anserinus); adducts the thigh and flexes/medially rotates the knee.",
+  "pearl": "Obturator nerve (L2-L3). Most superficial medial muscle; commonly harvested as a graft for tendon/free-flap reconstruction."
+ },
+ {
+  "id": "gluteus-maximus",
+  "name": "Gluteus maximus",
+  "latin": "Musculus gluteus maximus",
+  "paired": true,
+  "blurb": "From ilium, sacrum, sacrotuberous ligament to gluteal tuberosity + IT tract; chief hip extensor and lateral rotator.",
+  "pearl": "Inferior gluteal nerve (L5-S2). Powers rising/stair-climbing; safe IM injection in the upper outer quadrant avoids the sciatic nerve."
+ },
+ {
+  "id": "gluteus-medius",
+  "name": "Gluteus medius",
+  "latin": "Musculus gluteus medius",
+  "paired": true,
+  "blurb": "From outer ilium between gluteal lines to greater trochanter; abducts and medially rotates the hip, steadies pelvis in gait.",
+  "pearl": "Superior gluteal nerve (L4-S1). Injury causes a positive Trendelenburg sign: pelvis drops on the contralateral (unsupported) side."
+ },
+ {
+  "id": "iliotibial-tract",
+  "name": "Iliotibial tract (IT band)",
+  "latin": "Tractus iliotibialis",
+  "paired": true,
+  "blurb": "Thickened longitudinal band of fascia lata from iliac tubercle to Gerdy's tubercle on the lateral tibia; stabilizes the knee laterally.",
+  "pearl": "Receives gluteus maximus and TFL insertions. IT band syndrome (lateral knee pain) is a common overuse injury in runners and cyclists."
+ },
+ {
+  "id": "biceps-femoris",
+  "name": "Biceps femoris",
+  "latin": "Musculus biceps femoris",
+  "paired": true,
+  "blurb": "Long head from ischial tuberosity, short head from linea aspera, to head of fibula; flexes knee, laterally rotates leg, extends hip.",
+  "pearl": "Long head: tibial division of sciatic (L5-S2); short head: common fibular division (L5-S2). Forms the lateral border of the popliteal fossa."
+ },
+ {
+  "id": "semitendinosus",
+  "name": "Semitendinosus",
+  "latin": "Musculus semitendinosus",
+  "paired": true,
+  "blurb": "From ischial tuberosity to medial tibia (pes anserinus); extends the hip and flexes/medially rotates the knee.",
+  "pearl": "Tibial division of sciatic nerve (L5-S2). Its long cord-like tendon is a classic ACL reconstruction autograft source."
+ },
+ {
+  "id": "semimembranosus",
+  "name": "Semimembranosus",
+  "latin": "Musculus semimembranosus",
+  "paired": true,
+  "blurb": "From ischial tuberosity to medial tibial condyle; extends the hip and flexes/medially rotates the knee.",
+  "pearl": "Tibial division of sciatic nerve (L5-S2). A Baker's (popliteal) cyst classically arises in the semimembranosus-gastrocnemius bursa."
+ },
+ {
+  "id": "tibialis-anterior",
+  "name": "Tibialis anterior",
+  "latin": "Musculus tibialis anterior",
+  "paired": true,
+  "blurb": "From lateral tibia/interosseous membrane to medial cuneiform & base of 1st metatarsal; dorsiflexes and inverts the foot.",
+  "pearl": "Deep fibular (peroneal) nerve, L4-L5. Foot drop with deep fibular injury; strongest dorsiflexor; loss causes steppage gait."
+ },
+ {
+  "id": "gastrocnemius",
+  "name": "Gastrocnemius",
+  "latin": "Musculus gastrocnemius",
+  "paired": true,
+  "blurb": "Two heads from femoral condyles to calcaneus via calcaneal tendon; plantarflexes foot and flexes knee.",
+  "pearl": "Tibial nerve, S1-S2. Crosses knee + ankle; \"tennis leg\" = medial head tear; ankle-jerk (S1) reflex muscle."
+ },
+ {
+  "id": "soleus",
+  "name": "Soleus",
+  "latin": "Musculus soleus",
+  "paired": true,
+  "blurb": "From soleal line of tibia/posterior fibula to calcaneus via calcaneal tendon; powerful plantarflexor of the foot.",
+  "pearl": "Tibial nerve, S1-S2. Calf \"peripheral heart\" muscle pump; key DVT site (soleal venous plexus); maintains standing posture."
+ },
+ {
+  "id": "fibularis-longus",
+  "name": "Fibularis longus (peroneus longus)",
+  "latin": "Musculus fibularis longus",
+  "paired": true,
+  "blurb": "From head/upper lateral fibula, crosses sole to medial cuneiform & 1st metatarsal base; everts and plantarflexes foot.",
+  "pearl": "Superficial fibular (peroneal) nerve, L5-S1. Supports transverse & lateral longitudinal arches; nerve vulnerable at fibular neck."
+ },
+ {
+  "id": "calcaneal-tendon",
+  "name": "Calcaneal (Achilles) tendon",
+  "latin": "Tendo calcaneus",
+  "paired": true,
+  "blurb": "Shared tendon of gastrocnemius and soleus (triceps surae) inserting on the calcaneal tuberosity; powerful ankle plantarflexion.",
+  "pearl": "Driven by tibial nerve (S1-S2) muscles. Strongest/thickest tendon in body; rupture gives positive Thompson test (no plantarflexion on calf squeeze)."
+ }
+]

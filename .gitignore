@@ -1,0 +1,10 @@
+# Regenerable generation artifacts (large, not needed to run or deploy)
+data/raw/
+
+# OS / editor junk
+.DS_Store
+*.swp
+
+# Local build outputs
+node_modules/
+*.zip

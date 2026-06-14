@@ -1,0 +1,1522 @@
+[
+ {
+  "name": "Staphylococcus aureus",
+  "type": "Gram-positive cocci in clusters",
+  "morphology": "Catalase +, coagulase +, beta-hemolytic, golden-yellow colonies, ferments mannitol (yellow on MSA), protein A",
+  "diseases": "Skin/soft tissue infx, abscesses, acute endocarditis (tricuspid in IVDU), osteomyelitis, septic arthritis, pneumonia, food poisoning, TSS, scalded skin syndrome",
+  "treatment": "MSSA: nafcillin/oxacillin/cefazolin. MRSA: vancomycin, linezolid, or daptomycin",
+  "pearl": "Coagulase + clusters; preformed enterotoxin (heat-stable) → rapid food poisoning; TSST-1 superantigen; protein A binds Fc of IgG to evade opsonization/phagocytosis",
+  "id": "gram-pos-cocci-1",
+  "cat": "gram-pos-cocci"
+ },
+ {
+  "name": "Staphylococcus epidermidis",
+  "type": "Gram-positive cocci in clusters",
+  "morphology": "Catalase +, coagulase NEGATIVE, novobiocin SENSITIVE, forms biofilm (extracellular polysaccharide slime), urease +; white colonies, non-hemolytic",
+  "diseases": "Prosthetic device/joint & IV catheter infections, prosthetic valve endocarditis; frequent blood culture contaminant (normal skin flora)",
+  "treatment": "Vancomycin (usually methicillin-resistant); remove infected hardware/catheter",
+  "pearl": "Biofilm on indwelling devices/catheters; coag-negative + novobiocin SENSITIVE = epidermidis",
+  "id": "gram-pos-cocci-2",
+  "cat": "gram-pos-cocci"
+ },
+ {
+  "name": "Staphylococcus saprophyticus",
+  "type": "Gram-positive cocci in clusters",
+  "morphology": "Catalase +, coagulase NEGATIVE, novobiocin RESISTANT, urease +",
+  "diseases": "2nd most common cause of uncomplicated UTI/cystitis in sexually active young women (E. coli is #1)",
+  "treatment": "TMP-SMX or nitrofurantoin (uncomplicated cystitis)",
+  "pearl": "Coag-negative + novobiocin RESISTANT = saprophyticus; 'honeymoon cystitis' in young women",
+  "id": "gram-pos-cocci-3",
+  "cat": "gram-pos-cocci"
+ },
+ {
+  "name": "Streptococcus pyogenes (Group A strep)",
+  "type": "Gram-positive cocci in chains/pairs",
+  "morphology": "Catalase NEGATIVE, beta-hemolytic, bacitracin SENSITIVE, PYR +, Lancefield group A",
+  "diseases": "Pharyngitis, scarlet fever, impetigo, erysipelas, cellulitis, necrotizing fasciitis, strep TSS; sequelae: rheumatic fever, PSGN",
+  "treatment": "Penicillin or amoxicillin (no documented penicillin resistance); add clindamycin for severe/necrotizing/TSS (toxin suppression)",
+  "pearl": "Bacitracin sensitive, PYR +; M protein = antiphagocytic + molecular mimicry → rheumatic fever; ASO/anti-DNase B titers; PSGN not prevented by treatment",
+  "id": "gram-pos-cocci-4",
+  "cat": "gram-pos-cocci"
+ },
+ {
+  "name": "Streptococcus agalactiae (Group B strep)",
+  "type": "Gram-positive cocci in chains",
+  "morphology": "Catalase NEGATIVE, beta-hemolytic, bacitracin RESISTANT, CAMP test +, hippurate hydrolysis +, Lancefield group B",
+  "diseases": "Neonatal meningitis, pneumonia & sepsis; chorioamnionitis/postpartum infx; UTI/sepsis/soft tissue infx in elderly & diabetics",
+  "treatment": "Penicillin/ampicillin; intrapartum penicillin prophylaxis for colonized mothers",
+  "pearl": "CAMP test + (arrowhead-shaped enhancement near S. aureus), hippurate +; rectovaginal screen of pregnant women at 36-37 wks (updated from 35-37)",
+  "id": "gram-pos-cocci-5",
+  "cat": "gram-pos-cocci"
+ },
+ {
+  "name": "Streptococcus pneumoniae",
+  "type": "Gram-positive lancet-shaped diplococci",
+  "morphology": "Catalase NEGATIVE, alpha-hemolytic, optochin SENSITIVE, bile SOLUBLE, polysaccharide capsule (quellung +), IgA protease",
+  "diseases": "#1 cause of community-acquired pneumonia, otitis media & sinusitis (kids), adult bacterial meningitis; sepsis (esp. asplenic/sickle cell)",
+  "treatment": "Ceftriaxone (+ vancomycin for meningitis); amoxicillin for non-severe; vaccines PCV (e.g., PCV15/20) and PPSV23",
+  "pearl": "MOPS (Meningitis, Otitis media, Pneumonia, Sinusitis); optochin sensitive + bile soluble; rusty sputum; encapsulated → overwhelming sepsis in asplenia",
+  "id": "gram-pos-cocci-6",
+  "cat": "gram-pos-cocci"
+ },
+ {
+  "name": "Streptococcus viridans group (e.g., S. mutans, S. sanguinis, S. mitis)",
+  "type": "Gram-positive cocci in chains",
+  "morphology": "Catalase NEGATIVE, alpha-hemolytic, optochin RESISTANT, bile INSOLUBLE",
+  "diseases": "Subacute bacterial endocarditis (on damaged/prosthetic valves), dental caries (S. mutans), brain/dental abscess",
+  "treatment": "Penicillin G (+ gentamicin) for endocarditis",
+  "pearl": "Optochin RESISTANT + bile INSOLUBLE (distinguishes from pneumococcus); S. sanguinis makes dextrans → adheres to fibrin-platelet vegetations after dental work; S. mutans → caries",
+  "id": "gram-pos-cocci-7",
+  "cat": "gram-pos-cocci"
+ },
+ {
+  "name": "Enterococcus faecalis / faecium",
+  "type": "Gram-positive cocci in pairs/short chains",
+  "morphology": "Catalase NEGATIVE, gamma (non)-hemolytic, PYR +, Lancefield group D, grows in 6.5% NaCl & bile-esculin +",
+  "diseases": "UTI, biliary tract infections, subacute endocarditis (esp. after GI/GU procedures), nosocomial bacteremia/line infx",
+  "treatment": "Ampicillin + aminoglycoside (gentamicin) synergy; VRE: linezolid or daptomycin",
+  "pearl": "Grows in bile + 6.5% NaCl (hardy gut flora); VRE = vanA (D-ala-D-lac); E. faecium more resistant than E. faecalis (incl. VRE)",
+  "id": "gram-pos-cocci-8",
+  "cat": "gram-pos-cocci"
+ },
+ {
+  "name": "Streptococcus gallolyticus (formerly S. bovis biotype I)",
+  "type": "Gram-positive cocci in chains",
+  "morphology": "Catalase NEGATIVE, gamma-hemolytic, Lancefield group D, bile-esculin +, grows in bile but NOT in 6.5% NaCl",
+  "diseases": "Bacteremia & endocarditis associated with colorectal cancer; also colonic adenoma/IBD",
+  "treatment": "Penicillin G (+/- aminoglycoside); colonoscopy to evaluate for colorectal malignancy",
+  "pearl": "'Bovis in the blood = cancer in the colon'; group D but salt-intolerant (6.5% NaCl negative, unlike Enterococcus)",
+  "id": "gram-pos-cocci-9",
+  "cat": "gram-pos-cocci"
+ },
+ {
+  "name": "Staphylococcus lugdunensis",
+  "type": "Gram-positive cocci in clusters",
+  "morphology": "Catalase +, tube coagulase NEGATIVE (slide/clumping factor may be +); behaves aggressively like S. aureus",
+  "diseases": "Aggressive native & prosthetic valve endocarditis (often destructive), skin/soft tissue & prosthetic device infections",
+  "treatment": "Often beta-lactam susceptible (penicillin/nafcillin) but treat aggressively; valve surgery often required",
+  "pearl": "Coag-negative staph that behaves like S. aureus — virulent, destructive endocarditis; PYR + and ornithine decarboxylase +",
+  "id": "gram-pos-cocci-10",
+  "cat": "gram-pos-cocci"
+ },
+ {
+  "name": "Streptococcus anginosus group (S. anginosus, intermedius, constellatus)",
+  "type": "Gram-positive cocci in chains",
+  "morphology": "Catalase NEGATIVE, variable hemolysis (alpha/beta/gamma), small colonies, caramel/butterscotch (honey) odor",
+  "diseases": "Pyogenic abscesses (brain, liver, dental, abdominal), empyema; bacteremia",
+  "treatment": "Penicillin/ceftriaxone +/- metronidazole; drain abscess (source control)",
+  "pearl": "Abscess-forming 'milleri/anginosus' group; butterscotch/caramel smell; think pus collections",
+  "id": "gram-pos-cocci-11",
+  "cat": "gram-pos-cocci"
+ },
+ {
+  "name": "Clostridium tetani",
+  "type": "Gram-positive rod, spore-forming, obligate anaerobe",
+  "morphology": "Terminal spores -> 'tennis racket'/drumstick appearance; motile (peritrichous); grows on anaerobic blood agar",
+  "diseases": "Tetanus (spastic paralysis): lockjaw/trismus, risus sardonicus, opisthotonos; from puncture wounds/soil",
+  "treatment": "Antitoxin (human TIG), metronidazole or penicillin, wound debridement, benzodiazepines; toxoid vaccine (DTaP/Tdap)",
+  "pearl": "Tetanospasmin (a zinc protease) cleaves SNARE (synaptobrevin/VAMP), blocking GABA/glycine release from Renshaw-cell inhibitory neurons -> spastic paralysis.",
+  "id": "gram-pos-rods-1",
+  "cat": "gram-pos-rods"
+ },
+ {
+  "name": "Clostridium botulinum",
+  "type": "Gram-positive rod, spore-forming, obligate anaerobe",
+  "morphology": "Subterminal spores; anaerobic; toxin is heat-LABILE (destroyed by boiling ~10 min); spores are heat-resistant",
+  "diseases": "Botulism: symmetric DESCENDING flaccid paralysis, diplopia, dysphagia, dry mouth. Floppy baby (honey). Canned/home-preserved foods",
+  "treatment": "Antitoxin (equine heptavalent) for adults; infant: human-derived BabyBIG; supportive mechanical ventilation",
+  "pearl": "Toxin (zinc protease) cleaves SNARE proteins -> blocks ACh release at NMJ. '4 D's': diplopia, dysphagia, dysarthria, dysphonia. Honey -> infants (<1 yr).",
+  "id": "gram-pos-rods-2",
+  "cat": "gram-pos-rods"
+ },
+ {
+  "name": "Clostridium perfringens",
+  "type": "Gram-positive rod, spore-forming, anaerobe (aerotolerant); NON-motile",
+  "morphology": "Double zone of hemolysis on blood agar; 'stormy fermentation' in litmus milk; boxcar-shaped rods; spores rarely seen",
+  "diseases": "Gas gangrene (myonecrosis, crepitus), late-onset food poisoning (reheated meat), clostridial cellulitis, enteritis necroticans",
+  "treatment": "Surgical debridement, penicillin + clindamycin; hyperbaric O2 adjunct",
+  "pearl": "Alpha toxin = lecithinase (phospholipase C) -> myonecrosis & crepitant gas. Food poisoning self-limited ~24h; one of the most common causes of US foodborne illness.",
+  "id": "gram-pos-rods-3",
+  "cat": "gram-pos-rods"
+ },
+ {
+  "name": "Clostridioides difficile",
+  "type": "Gram-positive rod, spore-forming, obligate anaerobe",
+  "morphology": "Spores resistant to alcohol gel (use soap/water); diagnose with stool GDH + toxin EIA and/or NAAT/PCR (toxins A & B)",
+  "diseases": "Pseudomembranous colitis, antibiotic-associated diarrhea; toxic megacolon",
+  "treatment": "Oral fidaxomicin or oral vancomycin (both 1st-line; fidaxomicin preferred); stop offending antibiotic; FMT for recurrence",
+  "pearl": "Follows clindamycin, fluoroquinolones, cephalosporins, PPIs. Toxin A=enterotoxin, B=cytotoxin (B is the key virulence factor). Pseudomembranes on colonoscopy.",
+  "id": "gram-pos-rods-4",
+  "cat": "gram-pos-rods"
+ },
+ {
+  "name": "Bacillus anthracis",
+  "type": "Gram-positive rod, spore-forming, aerobic (facultative anaerobe); NON-motile",
+  "morphology": "Boxcar rods in long chains ('serpentine/medusa-head' colonies); poly-D-glutamate (polypeptide) capsule; non-hemolytic on blood agar",
+  "diseases": "Cutaneous anthrax (painless black eschar), inhalational 'woolsorter's disease' (mediastinal widening, hemorrhagic mediastinitis), GI anthrax",
+  "treatment": "Ciprofloxacin or doxycycline; add antitoxin (raxibacumab) for systemic disease; bioterror agent",
+  "pearl": "Only bacterium with a protein (poly-D-glutamate) capsule. Tripartite toxin: protective antigen (PA) + edema factor (calmodulin-dependent adenylate cyclase) + lethal factor (zinc protease/MAPKK protease).",
+  "id": "gram-pos-rods-5",
+  "cat": "gram-pos-rods"
+ },
+ {
+  "name": "Bacillus cereus",
+  "type": "Gram-positive rod, spore-forming, aerobic (facultative anaerobe); motile",
+  "morphology": "Beta-hemolytic, motile; spores survive cooking/reheating",
+  "diseases": "Food poisoning: emetic type (reheated fried rice) & diarrheal type (meats/sauces); rare keratitis/endophthalmitis (esp. IV drug use, trauma)",
+  "treatment": "Supportive/self-limited; for severe/ocular: vancomycin or clindamycin (resistant to beta-lactams via beta-lactamase)",
+  "pearl": "'Reheated fried rice' -> heat-STABLE preformed cerulide toxin -> emesis in 1-5h. Diarrheal (heat-labile) enterotoxin acts like cholera/E. coli LT (cAMP), onset 8-18h.",
+  "id": "gram-pos-rods-6",
+  "cat": "gram-pos-rods"
+ },
+ {
+  "name": "Listeria monocytogenes",
+  "type": "Gram-positive rod, facultative intracellular, non-spore-forming, facultative anaerobe",
+  "morphology": "Tumbling motility (22-28C, not 37C); cold growth (4C, 'cold enrichment'); narrow zone of beta-hemolysis; catalase +",
+  "diseases": "Neonatal meningitis/sepsis (granulomatosis infantiseptica), meningitis in elderly/immunosuppressed/neonates, febrile gastroenteritis, amnionitis/abortion in pregnancy",
+  "treatment": "Ampicillin (+/- gentamicin); intrinsically resistant to ALL cephalosporins",
+  "pearl": "Uses ActA to polymerize host actin 'rocket tails' for cell-to-cell spread (avoids antibody). Unpasteurized dairy, deli meats, soft cheeses. Only GP rod producing endotoxin (LPS)-like LTA; pregnancy & immunocompromised risk.",
+  "id": "gram-pos-rods-7",
+  "cat": "gram-pos-rods"
+ },
+ {
+  "name": "Corynebacterium diphtheriae",
+  "type": "Gram-positive rod (club-shaped), non-spore-forming, aerobic (facultative anaerobe); non-motile",
+  "morphology": "Club-shaped, 'Chinese letter'/palisade arrangement; metachromatic granules (Babes-Ernst/volutin) on Loeffler medium; black/gray colonies on cystine-tellurite agar",
+  "diseases": "Diphtheria: gray pseudomembrane on pharynx/tonsils, 'bull neck' lymphadenopathy, myocarditis, neuropathy (e.g., palatal/recurrent laryngeal palsy)",
+  "treatment": "Diphtheria antitoxin FIRST, then penicillin or erythromycin; prevent with toxoid (DTaP/Tdap)",
+  "pearl": "Exotoxin (beta-corynephage/lysogen encoded) ADP-ribosylates EF-2 -> halts protein synthesis (same target as Pseudomonas exotoxin A). Elek test detects toxin. 'ABCDEFG': ADP-ribosylation, Beta-prophage, Corynebacterium, Diphtheriae, Elongation Factor 2, Granules.",
+  "id": "gram-pos-rods-8",
+  "cat": "gram-pos-rods"
+ },
+ {
+  "name": "Actinomyces israelii",
+  "type": "Gram-positive branching rod (filamentous), anaerobe/microaerophilic, non-spore-forming",
+  "morphology": "Branching filaments; yellow 'sulfur granules' (microcolonies) in pus/sinus tracts; slow-growing anaerobe; NOT acid-fast",
+  "diseases": "Cervicofacial abscess ('lumpy jaw') after dental work/trauma, thoracic & abdominopelvic actinomycosis (IUDs), draining sinus tracts",
+  "treatment": "Prolonged high-dose penicillin G (weeks-months); surgical drainage of abscesses",
+  "pearl": "'Sulfur granules' + normal oral/GI flora. Mnemonic: Actinomyces=Penicillin / Nocardia=Sulfonamides. Anaerobe, NOT acid-fast (vs aerobic, partially acid-fast Nocardia).",
+  "id": "gram-pos-rods-9",
+  "cat": "gram-pos-rods"
+ },
+ {
+  "name": "Nocardia (asteroides complex / N. brasiliensis)",
+  "type": "Gram-positive branching rod (filamentous), strict aerobe, partially (weakly) acid-fast",
+  "morphology": "Partially acid-fast (modified Kinyoun/Fite, acid-fast with weak decolorizer); thin beaded branching filaments; aerobic; catalase + & urease +",
+  "diseases": "Pulmonary nocardiosis (cavitary, immunocompromised), hematogenous brain abscess, cutaneous/lymphocutaneous (soil; N. brasiliensis in gardeners)",
+  "treatment": "TMP-SMX (sulfonamides) first-line; add imipenem/amikacin for severe/CNS disease",
+  "pearl": "Partially acid-fast aerobe in immunocompromised/transplant/chronic steroid pts; classic brain abscess. Mnemonic: SNAP - Sulfonamides, Nocardia, Acid-fast (partial), Pulmonary/aerobe.",
+  "id": "gram-pos-rods-10",
+  "cat": "gram-pos-rods"
+ },
+ {
+  "name": "Clostridium septicum",
+  "type": "Gram-positive rod, spore-forming, obligate anaerobe; motile",
+  "morphology": "Anaerobic; produces gas; alpha-toxin (pore-forming); subterminal spores",
+  "diseases": "Spontaneous (atraumatic, non-traumatic) gas gangrene/myonecrosis; bacteremia strongly linked to occult colon cancer",
+  "treatment": "Penicillin + clindamycin, aggressive surgical debridement; evaluate for colorectal malignancy",
+  "pearl": "C. septicum bacteremia/atraumatic myonecrosis = red flag -> work up for colorectal cancer or hematologic malignancy (neutropenia facilitates gut translocation).",
+  "id": "gram-pos-rods-11",
+  "cat": "gram-pos-rods"
+ },
+ {
+  "name": "Cutibacterium acnes (formerly Propionibacterium acnes)",
+  "type": "Gram-positive rod, anaerobic/aerotolerant, non-spore-forming",
+  "morphology": "Slow-growing diphtheroid; lipophilic; normal skin flora; catalase + & indole +",
+  "diseases": "Acne vulgaris; prosthetic-joint (esp. shoulder), spinal hardware and CSF-shunt infections; common blood-culture contaminant",
+  "treatment": "Acne: topical/oral antibiotics (e.g., clindamycin/doxycycline) + retinoids; deep infection: penicillin or vancomycin + hardware removal",
+  "pearl": "Anaerobic diphtheroid colonizing sebaceous glands; drives acne via inflammation & comedogenesis. Indolent prosthetic shoulder-joint infections (long incubation cultures). Frequent contaminant.",
+  "id": "gram-pos-rods-12",
+  "cat": "gram-pos-rods"
+ },
+ {
+  "name": "Erysipelothrix rhusiopathiae",
+  "type": "Gram-positive rod, non-spore-forming, facultative anaerobe; non-motile",
+  "morphology": "Thin pleomorphic rods, often in chains; H2S production on TSI (rare for a GPR); catalase NEGATIVE (vs Listeria catalase +)",
+  "diseases": "Erysipeloid (violaceous, well-demarcated hand/finger cellulitis) in fishermen/butchers/vets; rarely septicemia and endocarditis",
+  "treatment": "Penicillin (1st-line); intrinsically resistant to vancomycin",
+  "pearl": "'Fish/swine handler' violaceous finger lesion. Catalase-NEGATIVE, H2S+, non-motile GPR; intrinsically vancomycin-resistant (notable, since most GP organisms are vanc-susceptible).",
+  "id": "gram-pos-rods-13",
+  "cat": "gram-pos-rods"
+ },
+ {
+  "name": "Neisseria meningitidis",
+  "type": "Gram-negative diplococcus (kidney/coffee-bean shaped)",
+  "morphology": "Ferments maltose AND glucose; oxidase +; grows on Thayer-Martin (VPN) agar; polysaccharide capsule; LOS endotoxin",
+  "diseases": "Meningitis, meningococcemia (Waterhouse-Friderichsen syndrome), petechial/purpuric rash",
+  "treatment": "Ceftriaxone (or penicillin G); rifampin/cipro/ceftriaxone for close-contact prophylaxis",
+  "pearl": "Waterhouse-Friderichsen: bilateral adrenal hemorrhage + DIC. Asplenic & terminal complement (C5-C9) deficiency at high risk. Vaccine covers capsular serogroups (separate MenB vaccine for serogroup B).",
+  "id": "gram-neg-cocci-1",
+  "cat": "gram-neg-cocci"
+ },
+ {
+  "name": "Neisseria gonorrhoeae",
+  "type": "Gram-negative diplococcus",
+  "morphology": "Ferments glucose ONLY (not maltose); oxidase +; Thayer-Martin agar; NO polysaccharide capsule; no vaccine; pili & Opa undergo antigenic/phase variation",
+  "diseases": "Gonorrhea (urethritis/cervicitis), PID, septic arthritis, neonatal conjunctivitis (ophthalmia neonatorum), disseminated gonococcal infection",
+  "treatment": "Ceftriaxone (add doxycycline if chlamydia not excluded)",
+  "pearl": "Intracellular GNC within neutrophils on Gram stain. No vaccine (antigenic variation). Causes Fitz-Hugh-Curtis (perihepatitis). Neonatal eye prophylaxis with erythromycin ointment.",
+  "id": "gram-neg-cocci-2",
+  "cat": "gram-neg-cocci"
+ },
+ {
+  "name": "Haemophilus influenzae",
+  "type": "Gram-negative (pleomorphic) coccobacillus",
+  "morphology": "Requires factor V (NAD+) and factor X (hematin); grows on chocolate agar; satellites around S. aureus on blood agar; type b capsule = polyribosylribitol phosphate (PRP)",
+  "diseases": "Epiglottitis, meningitis, otitis media, pneumonia, sinusitis (nontypeable strains common in mucosal disease)",
+  "treatment": "Ceftriaxone (meningitis); amoxicillin +/- clavulanate (mucosal); rifampin prophylaxis for close contacts",
+  "pearl": "'Thumbprint sign' on lateral neck x-ray (epiglottitis); cherry-red epiglottis. Hib conjugate vaccine (PRP conjugated to protein). Invasive disease in unvaccinated/asplenic.",
+  "id": "gram-neg-cocci-3",
+  "cat": "gram-neg-cocci"
+ },
+ {
+  "name": "Haemophilus ducreyi",
+  "type": "Gram-negative coccobacillus",
+  "morphology": "'School of fish'/railroad-track Gram stain arrangement; fastidious; requires factor X (hematin)",
+  "diseases": "Chancroid: painful genital ulcer with ragged/undermined borders + suppurative inguinal lymphadenopathy (buboes)",
+  "treatment": "Azithromycin or ceftriaxone (single dose); also ciprofloxacin or erythromycin",
+  "pearl": "'You DO cry with ducreyi' — PAINFUL ulcer (vs. painless chancre of syphilis). Soft chancre + buboes.",
+  "id": "gram-neg-cocci-4",
+  "cat": "gram-neg-cocci"
+ },
+ {
+  "name": "Bordetella pertussis",
+  "type": "Gram-negative coccobacillus",
+  "morphology": "Bordet-Gengou (potato) agar or Regan-Lowe agar; PCR is diagnostic test of choice; encapsulated",
+  "diseases": "Whooping cough (pertussis): catarrhal -> paroxysmal (whoop, post-tussive emesis) -> convalescent phases",
+  "treatment": "Macrolide (azithromycin/erythromycin); supportive care",
+  "pearl": "Pertussis toxin ADP-ribosylates Gi -> disinhibited adenylate cyclase -> increased cAMP -> lymphocytosis. Inspiratory 'whoop.' Acellular vaccine (DTaP/Tdap). Marked lymphocytosis on CBC.",
+  "id": "gram-neg-cocci-5",
+  "cat": "gram-neg-cocci"
+ },
+ {
+  "name": "Moraxella catarrhalis",
+  "type": "Gram-negative diplococcus",
+  "morphology": "Oxidase +; DNase +; catalase +; 'hockey puck' colonies slide intact across agar; beta-lactamase producer",
+  "diseases": "Otitis media, sinusitis, COPD exacerbations, bronchitis/pneumonia in elderly",
+  "treatment": "Amoxicillin-clavulanate, 2nd/3rd-gen cephalosporins, or macrolides (resistant to plain amoxicillin due to beta-lactamase)",
+  "pearl": "Top 3 cause of otitis media & sinusitis (with S. pneumoniae and H. influenzae). Common COPD exacerbation pathogen.",
+  "id": "gram-neg-cocci-6",
+  "cat": "gram-neg-cocci"
+ },
+ {
+  "name": "Brucella spp. (B. melitensis)",
+  "type": "Gram-negative coccobacillus",
+  "morphology": "Facultative intracellular; slow-growing aerobe; requires prolonged blood culture; BSL-3",
+  "diseases": "Brucellosis (undulant fever): cyclic fevers, night sweats, arthralgias, hepatosplenomegaly",
+  "treatment": "Doxycycline + rifampin (+/- aminoglycoside such as streptomycin/gentamicin)",
+  "pearl": "Unpasteurized dairy/contact with livestock (goats, cattle). 'Undulant' (rising-falling) fever. Survives in macrophages -> noncaseating granulomas. Zoonosis.",
+  "id": "gram-neg-cocci-7",
+  "cat": "gram-neg-cocci"
+ },
+ {
+  "name": "Francisella tularensis",
+  "type": "Gram-negative coccobacillus",
+  "morphology": "Facultative intracellular; requires cysteine-enriched media; highly infectious (very low inoculum); BSL-3",
+  "diseases": "Tularemia: ulceroglandular disease (ulcer + regional lymphadenopathy), pneumonic, typhoidal, oculoglandular forms",
+  "treatment": "Streptomycin or gentamicin (aminoglycosides)",
+  "pearl": "Ticks (Dermacentor) and rabbits ('rabbit fever'); also deer flies. Caseating granulomas. Potential bioterror agent.",
+  "id": "gram-neg-cocci-8",
+  "cat": "gram-neg-cocci"
+ },
+ {
+  "name": "Pasteurella multocida",
+  "type": "Gram-negative coccobacillus",
+  "morphology": "Bipolar 'safety-pin' staining; oxidase +; catalase +; grows on blood agar; encapsulated",
+  "diseases": "Cellulitis/wound infection after cat or dog bites; can progress to osteomyelitis/septic arthritis",
+  "treatment": "Amoxicillin-clavulanate",
+  "pearl": "Rapidly progressive cellulitis within hours of a cat/dog bite or scratch. Classic 'cat bite' organism.",
+  "id": "gram-neg-cocci-9",
+  "cat": "gram-neg-cocci"
+ },
+ {
+  "name": "Bartonella henselae",
+  "type": "Gram-negative bacillus/coccobacillus",
+  "morphology": "Fastidious, slow-growing; Warthin-Starry silver stain; facultative intracellular",
+  "diseases": "Cat-scratch disease (tender regional lymphadenopathy); bacillary angiomatosis in HIV/immunocompromised",
+  "treatment": "Cat-scratch disease often self-limited (azithromycin if treated); bacillary angiomatosis: doxycycline or erythromycin",
+  "pearl": "Cat scratch/bite. Bacillary angiomatosis (vascular proliferation) mimics Kaposi sarcoma in AIDS. Warthin-Starry stain.",
+  "id": "gram-neg-cocci-10",
+  "cat": "gram-neg-cocci"
+ },
+ {
+  "name": "Acinetobacter baumannii",
+  "type": "Gram-negative coccobacillus",
+  "morphology": "Strictly aerobic; oxidase NEGATIVE; non-fermenter; catalase +; often multidrug-resistant",
+  "diseases": "Ventilator-associated/nosocomial pneumonia, bloodstream & wound infections (combat/burn wounds)",
+  "treatment": "Carbapenems; carbapenem-resistant strains -> colistin/polymyxin, sulbactam (or newer agents)",
+  "pearl": "Notorious nosocomial MDR/XDR organism in ICUs; 'Iraqibacter' in wounded soldiers. Survives on dry surfaces for long periods.",
+  "id": "gram-neg-cocci-11",
+  "cat": "gram-neg-cocci"
+ },
+ {
+  "name": "Kingella kingae",
+  "type": "Gram-negative coccobacillus",
+  "morphology": "HACEK group member; beta-hemolytic; oxidase +; catalase NEGATIVE; fastidious; improved recovery when inoculated into blood culture bottles",
+  "diseases": "Pediatric septic arthritis/osteomyelitis (<4 yrs); subacute (HACEK) endocarditis",
+  "treatment": "Beta-lactams (ceftriaxone / ampicillin)",
+  "pearl": "HACEK endocarditis (formerly culture-negative/slow-growing) and a leading cause of septic arthritis in young children.",
+  "id": "gram-neg-cocci-12",
+  "cat": "gram-neg-cocci"
+ },
+ {
+  "name": "Eikenella corrodens",
+  "type": "Gram-negative bacillus/coccobacillus",
+  "morphology": "HACEK group; 'pits/corrodes' agar; bleach-like (hypochlorite) odor; oxidase +; catalase NEGATIVE; facultative anaerobe",
+  "diseases": "Human bite/clenched-fist wound infections; HACEK endocarditis; abscesses",
+  "treatment": "Amoxicillin-clavulanate (or ampicillin); resistant to clindamycin, aminoglycosides, and metronidazole",
+  "pearl": "Classic human-bite ('fight bite'/clenched-fist) pathogen. 'Corrodes' agar; part of HACEK endocarditis group.",
+  "id": "gram-neg-cocci-13",
+  "cat": "gram-neg-cocci"
+ },
+ {
+  "name": "Escherichia coli",
+  "type": "Gram-negative rod (facultative anaerobe, Enterobacteriaceae)",
+  "morphology": "Lactose-fermenter (pink on MacConkey); green metallic sheen on EMB; indole +; motile; catalase +, oxidase -",
+  "diseases": "#1 cause of UTI/cystitis & gram-neg sepsis; neonatal meningitis (K1 capsule); traveler's diarrhea (ETEC, LT/ST toxins); HUS (EHEC O157:H7); pneumonia",
+  "treatment": "3rd-gen cephalosporins, fluoroquinolones, TMP-SMX, aminoglycosides, nitrofurantoin (cystitis); EHEC supportive only (avoid abx/antimotility - raise HUS risk)",
+  "pearl": "O157:H7 (EHEC, Shiga-like toxin) = bloody diarrhea + HUS; does NOT ferment sorbitol on sorbitol-MacConkey agar (clear colonies)",
+  "id": "enterics-1",
+  "cat": "enterics"
+ },
+ {
+  "name": "Salmonella enterica (Typhi & non-typhoidal)",
+  "type": "Gram-negative rod (facultative anaerobe, Enterobacteriaceae)",
+  "morphology": "Non-lactose fermenter; H2S producer (black colonies on TSI/HE/XLD); motile (flagella); acid-labile (large inoculum needed); has Vi capsule (Typhi)",
+  "diseases": "Typhoid/enteric fever (Typhi); enterocolitis/gastroenteritis (non-typhoidal); osteomyelitis in sickle cell disease",
+  "treatment": "Ceftriaxone or fluoroquinolone for typhoid/invasive disease; gastroenteritis usually supportive (abx prolong fecal carriage)",
+  "pearl": "Rose spots, pea-soup diarrhea, relative bradycardia; chronic gallbladder carriage (Typhoid Mary); poultry/eggs/turtles/reptiles",
+  "id": "enterics-2",
+  "cat": "enterics"
+ },
+ {
+  "name": "Shigella (dysenteriae, flexneri, sonnei)",
+  "type": "Gram-negative rod (facultative anaerobe, Enterobacteriaceae)",
+  "morphology": "Non-lactose fermenter; H2S NEGATIVE; NON-motile (no flagella); acid-stable (very low infectious dose)",
+  "diseases": "Bacillary dysentery (bloody, mucoid diarrhea with fever, tenesmus); Shiga toxin -> HUS (esp. S. dysenteriae type 1)",
+  "treatment": "Fluoroquinolone or ceftriaxone (azithromycin alternative); avoid antimotility agents",
+  "pearl": "Lowest infectious dose (~10-100 organisms); invades M cells of Peyer patches, cell-to-cell spread via actin polymerization; daycare/fecal-oral",
+  "id": "enterics-3",
+  "cat": "enterics"
+ },
+ {
+  "name": "Klebsiella pneumoniae",
+  "type": "Gram-negative rod (facultative anaerobe, Enterobacteriaceae)",
+  "morphology": "Lactose-fermenter (mucoid pink colonies); large polysaccharide capsule; non-motile; urease +; indole -",
+  "diseases": "Lobar pneumonia (alcoholics/aspiration); UTI; nosocomial sepsis; liver abscess; major carbapenem-resistant organism (KPC, CRE)",
+  "treatment": "Carbapenem for ESBL strains; 3rd-gen cephalosporin if susceptible; CRE -> ceftazidime-avibactam, meropenem-vaborbactam, or colistin",
+  "pearl": "Currant-jelly (thick, bloody) sputum; positive mucoid string test in hypervirulent strains; 4 A's: Aspiration, Alcoholics, Abscess, diAbetes",
+  "id": "enterics-4",
+  "cat": "enterics"
+ },
+ {
+  "name": "Proteus mirabilis",
+  "type": "Gram-negative rod (facultative anaerobe, Enterobacteriaceae)",
+  "morphology": "Swarming motility (concentric bull's-eye waves) on agar; strongly urease +; non-lactose fermenter; H2S +; fishy/burnt-chocolate odor",
+  "diseases": "UTI (esp. with struvite/staghorn stones); catheter-associated UTI; pyelonephritis",
+  "treatment": "TMP-SMX or fluoroquinolone; ampicillin or 3rd-gen cephalosporin if susceptible (intrinsically nitrofurantoin-resistant)",
+  "pearl": "Urease splits urea -> alkaline urine -> struvite (magnesium-ammonium-phosphate) staghorn calculi; OX antigens cross-react with Rickettsia (Weil-Felix)",
+  "id": "enterics-5",
+  "cat": "enterics"
+ },
+ {
+  "name": "Pseudomonas aeruginosa",
+  "type": "Gram-negative rod (obligate aerobe, non-Enterobacteriaceae, non-fermenter)",
+  "morphology": "Oxidase POSITIVE; non-lactose fermenter; blue-green pigment (pyocyanin + yellow-green pyoverdine); grape/corn-tortilla odor; obligate aerobe",
+  "diseases": "Nosocomial PNA; CF & ventilator pneumonia; burn wound sepsis; otitis externa/malignant OE (diabetics); hot-tub folliculitis; ecthyma gangrenosum; osteomyelitis (IVDU, diabetic foot)",
+  "treatment": "Antipseudomonal beta-lactam (pip-tazo, cefepime, ceftazidime, meropenem) +/- antipseudomonal aminoglycoside or fluoroquinolone (cipro/levo)",
+  "pearl": "Exotoxin A inhibits EF-2 (like diphtheria toxin); ecthyma gangrenosum in neutropenics; thrives in water/biofilms; classic nosocomial workhorse",
+  "id": "enterics-6",
+  "cat": "enterics"
+ },
+ {
+  "name": "Enterobacter (cloacae / Klebsiella aerogenes)",
+  "type": "Gram-negative rod (facultative anaerobe, Enterobacteriaceae)",
+  "morphology": "Lactose-fermenter; motile; inducible chromosomal AmpC beta-lactamase; oxidase -",
+  "diseases": "Nosocomial UTI, pneumonia, bacteremia, wound/device infections",
+  "treatment": "Cefepime or carbapenem (avoid 3rd-gen cephalosporins -> AmpC derepression/resistance); fluoroquinolone alternative",
+  "pearl": "SPACE/SPICE organism with inducible AmpC; resistance can emerge during 3rd-gen cephalosporin therapy; E. aerogenes reclassified as Klebsiella aerogenes",
+  "id": "enterics-7",
+  "cat": "enterics"
+ },
+ {
+  "name": "Serratia marcescens",
+  "type": "Gram-negative rod (facultative anaerobe, Enterobacteriaceae)",
+  "morphology": "Non-lactose fermenter (slow/late); red pigment (prodigiosin) at room temp ~25C; DNase +; gelatinase/lipase +; motile",
+  "diseases": "Nosocomial UTI, pneumonia, wound/line infections; right-sided endocarditis in IV drug users",
+  "treatment": "Carbapenem or cefepime (inducible AmpC, often multidrug-resistant); fluoroquinolone or aminoglycoside per susceptibility",
+  "pearl": "Red-pigmented colonies (prodigiosin); SPACE/SPICE member with inducible AmpC; classic in catheters & IV drug users",
+  "id": "enterics-8",
+  "cat": "enterics"
+ },
+ {
+  "name": "Yersinia enterocolitica",
+  "type": "Gram-negative rod / coccobacillus (facultative anaerobe, Enterobacteriaceae)",
+  "morphology": "Non-lactose fermenter; grows at cold temps (4C, cold enrichment); bipolar (safety-pin) staining; urease +; motile at 25C, non-motile at 37C",
+  "diseases": "Enterocolitis (esp. young children); mesenteric adenitis mimicking appendicitis (pseudoappendicitis); fever, bloody diarrhea; reactive arthritis",
+  "treatment": "Usually self-limited; severe/systemic -> fluoroquinolone or TMP-SMX or 3rd-gen cephalosporin +/- aminoglycoside",
+  "pearl": "Pseudoappendicitis in kids; transmitted via pork (chitterlings), unpasteurized milk, puppy/pet feces; cold growth (contaminated refrigerated blood transfusions)",
+  "id": "enterics-9",
+  "cat": "enterics"
+ },
+ {
+  "name": "Vibrio cholerae",
+  "type": "Gram-negative comma/curved-shaped rod (oxidase +, facultative anaerobe)",
+  "morphology": "Oxidase POSITIVE; comma/curved rod; grows on TCBS agar (yellow colonies from sucrose fermentation); darting/shooting-star motility; alkaline-tolerant, acid-labile",
+  "diseases": "Cholera -- profuse watery 'rice-water stool', massive secretory diarrhea, rapid dehydration",
+  "treatment": "Aggressive oral/IV rehydration is the mainstay; doxycycline or azithromycin to shorten duration & shedding",
+  "pearl": "Cholera toxin (A-B subunit; ADP-ribosylates Gs -> permanent up cAMP -> Cl-/H2O efflux); rice-water stools; contaminated water/undercooked shellfish",
+  "id": "enterics-10",
+  "cat": "enterics"
+ },
+ {
+  "name": "Vibrio parahaemolyticus / vulnificus",
+  "type": "Gram-negative curved rod (oxidase +, halophilic, facultative anaerobe)",
+  "morphology": "Oxidase +; comma-shaped; salt-loving (halophilic); grows on TCBS (parahaemolyticus green/non-sucrose, vulnificus blue-green)",
+  "diseases": "parahaemolyticus: seafood gastroenteritis (watery diarrhea). vulnificus: wound infection/cellulitis & fulminant sepsis (esp. cirrhosis, hemochromatosis/iron overload)",
+  "treatment": "Doxycycline + ceftriaxone (vulnificus sepsis/severe wound); supportive rehydration for gastroenteritis",
+  "pearl": "Raw oysters/shellfish & seawater wound exposure; V. vulnificus -> hemorrhagic bullae & sepsis in iron-overload/chronic liver disease",
+  "id": "enterics-11",
+  "cat": "enterics"
+ },
+ {
+  "name": "Campylobacter jejuni",
+  "type": "Gram-negative curved/S-shaped rod (microaerophilic, oxidase +)",
+  "morphology": "Oxidase +; comma/S-shaped (seagull-wing) rods; grows at 42C on Skirrow/Campy agar, microaerophilic; motile (darting, single polar flagellum)",
+  "diseases": "Most common bacterial cause of gastroenteritis -- bloody diarrhea, cramps, fever; antecedent of Guillain-Barre syndrome & reactive arthritis",
+  "treatment": "Usually supportive; azithromycin (first-line if abx needed) or fluoroquinolone (rising resistance) for severe disease",
+  "pearl": "Comma/seagull-shaped; grows at 42C; #1 antecedent of Guillain-Barre (molecular mimicry of gangliosides) & reactive arthritis; from poultry, unpasteurized milk, puppies",
+  "id": "enterics-12",
+  "cat": "enterics"
+ },
+ {
+  "name": "Helicobacter pylori",
+  "type": "Gram-negative curved/helical rod (microaerophilic, oxidase +)",
+  "morphology": "Strongly urease POSITIVE (basis of urea breath test); curved/spiral; highly motile (multiple polar flagella); oxidase + and catalase +",
+  "diseases": "Chronic gastritis, peptic & duodenal ulcers; risk factor for gastric adenocarcinoma & gastric MALT lymphoma",
+  "treatment": "Triple therapy: PPI + clarithromycin + amoxicillin; OR bismuth quadruple therapy (PPI + bismuth + metronidazole + tetracycline) where clarithromycin resistance is high",
+  "pearl": "Urease generates ammonia cloud buffering gastric acid; risk factor for gastric cancer & MALToma; diagnose via urea breath test or stool antigen",
+  "id": "enterics-13",
+  "cat": "enterics"
+ },
+ {
+  "name": "Vibrio cholerae",
+  "type": "Gram-negative curved (comma-shaped) rod",
+  "morphology": "Oxidase +; grows on alkaline TCBS agar (yellow colonies, sucrose fermenter); single polar (monotrichous) flagellum; rapid darting \"shooting star\" motility",
+  "diseases": "Cholera: profuse watery \"rice-water\" stool diarrhea, rapid dehydration, hypovolemic shock",
+  "treatment": "Prompt oral/IV rehydration (mainstay); doxycycline or azithromycin shortens duration/shedding",
+  "pearl": "Rice-water stools; cholera toxin permanently activates Gs (ADP-ribosylation) -> rising cAMP -> Cl-/H2O efflux into gut lumen; acid-labile (large inoculum needed)",
+  "id": "curved-gn-1",
+  "cat": "curved-gn"
+ },
+ {
+  "name": "Vibrio parahaemolyticus",
+  "type": "Gram-negative curved rod (halophilic)",
+  "morphology": "Oxidase +; salt-loving; TCBS green colonies (sucrose non-fermenter); Kanagawa phenomenon = beta-hemolysis on Wagatsuma agar from thermostable direct hemolysin (TDH)",
+  "diseases": "Acute watery (sometimes bloody) self-limited gastroenteritis from raw/undercooked seafood (esp. shellfish/oysters)",
+  "treatment": "Supportive rehydration; doxycycline or fluoroquinolone if severe/prolonged",
+  "pearl": "Leading cause of seafood-associated gastroenteritis (raw oysters); halophilic marine Vibrio; TDH (Kanagawa+) marks pathogenic strains",
+  "id": "curved-gn-2",
+  "cat": "curved-gn"
+ },
+ {
+  "name": "Vibrio vulnificus",
+  "type": "Gram-negative curved rod (halophilic)",
+  "morphology": "Oxidase +; salt-loving marine organism; lactose fermenter (key feature distinguishing it from most other vibrios)",
+  "diseases": "Rapidly progressive necrotizing fasciitis/cellulitis (seawater wound exposure); fulminant sepsis with hemorrhagic bullae after raw oyster ingestion",
+  "treatment": "Doxycycline + 3rd-gen cephalosporin (ceftriaxone/ceftazidime); urgent surgical debridement",
+  "pearl": "Deadly in cirrhotics/hemochromatosis (iron overload promotes growth); hemorrhagic bullae + sepsis after raw oysters or seawater wound",
+  "id": "curved-gn-3",
+  "cat": "curved-gn"
+ },
+ {
+  "name": "Campylobacter jejuni",
+  "type": "Gram-negative curved/S-shaped (\"seagull-wing\") rod",
+  "morphology": "Oxidase +, catalase +; microaerophilic; grows at 42C on Skirrow/Campy (CVA) agar; corkscrew/darting motility",
+  "diseases": "Bloody/inflammatory diarrhea with cramping abdominal pain and fever (most common bacterial enteritis in US)",
+  "treatment": "Usually self-limited/supportive; azithromycin (or erythromycin) first-line if severe; fluoroquinolone (rising resistance)",
+  "pearl": "#1 antecedent of Guillain-Barre (molecular mimicry: LOS vs gangliosides) & reactive arthritis; seagull-shaped; from poultry, unpasteurized milk, puppies; thermophilic at 42C",
+  "id": "curved-gn-4",
+  "cat": "curved-gn"
+ },
+ {
+  "name": "Helicobacter pylori",
+  "type": "Gram-negative curved/spiral rod",
+  "morphology": "Oxidase +, catalase +, strongly urease +; microaerophilic; multiple sheathed polar (lophotrichous) flagella",
+  "diseases": "Chronic (antral) gastritis, peptic ulcers (esp. duodenal); risk for gastric adenocarcinoma & MALT lymphoma",
+  "treatment": "Quadruple therapy now preferred: PPI + bismuth + tetracycline + metronidazole; or PPI + clarithromycin + amoxicillin where clarithromycin resistance is low",
+  "pearl": "Urease + (urea breath/stool antigen tests; ammonia buffers acid for colonization); class I carcinogen for gastric cancer & MALT lymphoma; curved rod in gastric antrum",
+  "id": "curved-gn-5",
+  "cat": "curved-gn"
+ },
+ {
+  "name": "Bacteroides fragilis",
+  "type": "Gram-negative pleomorphic rod (obligate anaerobe)",
+  "morphology": "Obligate anaerobe; non-spore-forming; bile-resistant (grows in 20% bile); LPS lipid A has reduced endotoxin potency; antiphagocytic polysaccharide capsule",
+  "diseases": "Intra-abdominal & pelvic abscesses, peritonitis (post-surgery/perforation); polymicrobial infections below the diaphragm",
+  "treatment": "Metronidazole; carbapenems or piperacillin-tazobactam (commonly beta-lactamase producer)",
+  "pearl": "Most common anaerobe in abscesses below the diaphragm; major colonic flora; resistant to aminoglycosides (O2-dependent uptake fails anaerobically)",
+  "id": "curved-gn-6",
+  "cat": "curved-gn"
+ },
+ {
+  "name": "Campylobacter fetus",
+  "type": "Gram-negative curved/S-shaped rod",
+  "morphology": "Oxidase +; microaerophilic; grows at 25C and 37C but NOT at 42C (opposite of C. jejuni); S-layer surface protein",
+  "diseases": "Systemic infection - bacteremia, endovascular/vascular infections, septic abortion, meningitis (esp. elderly/immunocompromised)",
+  "treatment": "Systemic disease: ampicillin or a carbapenem; add aminoglycoside (e.g., gentamicin) for bacteremia/endovascular infection",
+  "pearl": "Spreads systemically (vascular tropism) rather than causing diarrhea; capsule-like S-layer protein resists complement/phagocytosis; fails to grow at 42C",
+  "id": "curved-gn-7",
+  "cat": "curved-gn"
+ },
+ {
+  "name": "Prevotella / Porphyromonas spp.",
+  "type": "Gram-negative anaerobic rods",
+  "morphology": "Obligate anaerobes; oral/genital flora; foul-smelling (short-chain fatty acid) pus; produce black-pigmented colonies",
+  "diseases": "Oral/dental abscesses, aspiration pneumonia & lung abscess, periodontitis, head & neck infections",
+  "treatment": "Metronidazole, clindamycin, or beta-lactam/beta-lactamase inhibitor (amox-clav, pip-tazo)",
+  "pearl": "Foul-smelling anaerobes ABOVE the diaphragm (oral/respiratory) vs B. fragilis below; aspiration pneumonia/lung abscess in alcoholics with poor dentition",
+  "id": "curved-gn-8",
+  "cat": "curved-gn"
+ },
+ {
+  "name": "Fusobacterium necrophorum",
+  "type": "Gram-negative anaerobic rod (long, slender, spindle/pointed ends)",
+  "morphology": "Obligate anaerobe; pleomorphic filamentous rods with tapered ends; oropharyngeal flora",
+  "diseases": "Lemierre syndrome (septic thrombophlebitis of internal jugular vein after pharyngitis with septic pulmonary emboli); periodontal/aspiration infections, abscesses",
+  "treatment": "Beta-lactam/beta-lactamase inhibitor or metronidazole (+/- carbapenem); anticoagulation controversial/case-by-case",
+  "pearl": "Lemierre syndrome: post-pharyngitis sepsis -> internal jugular vein thrombosis + septic pulmonary emboli in a young, previously healthy adult",
+  "id": "curved-gn-9",
+  "cat": "curved-gn"
+ },
+ {
+  "name": "Vibrio alginolyticus",
+  "type": "Gram-negative curved rod (halophilic marine)",
+  "morphology": "Oxidase +; halophilic (highly salt-tolerant); TCBS yellow colonies (sucrose fermenter)",
+  "diseases": "Otitis externa/media and wound/soft-tissue infections after marine or recreational saltwater exposure",
+  "treatment": "Doxycycline +/- ceftazidime; wound care/debridement as needed",
+  "pearl": "Marine Vibrio causing ear and wound infections in swimmers/fishermen after saltwater exposure",
+  "id": "curved-gn-10",
+  "cat": "curved-gn"
+ },
+ {
+  "name": "Brucella (B. melitensis, abortus, suis)",
+  "type": "Gram-negative coccobacillus, facultative intracellular, aerobic",
+  "morphology": "Tiny GNC, slow-growing, urease+, oxidase+, catalase+; survives in macrophages; prolonged blood/bone-marrow culture (alert lab - biosafety hazard)",
+  "diseases": "Brucellosis: undulant (cyclic) fever, night sweats, arthralgia, hepatosplenomegaly; vertebral osteomyelitis (sacroiliitis)",
+  "treatment": "Doxycycline + rifampin (or doxy + streptomycin/gentamicin) x6 weeks",
+  "pearl": "Undulant fever from unpasteurized dairy/goat cheese; affects farmers, vets, abattoir workers. Macrophage survival = relapse/chronicity",
+  "id": "zoonotic-gn-1",
+  "cat": "zoonotic-gn"
+ },
+ {
+  "name": "Francisella tularensis",
+  "type": "Gram-negative coccobacillus, facultative intracellular, aerobic",
+  "morphology": "Tiny pleomorphic GNC; needs cysteine-enriched media (e.g. cysteine-glucose-blood/chocolate); highly infectious (<10 organisms); Category A bioterror; dx by serology (culture hazardous)",
+  "diseases": "Tularemia: ulceroglandular (ulcer + regional lymphadenopathy), pneumonic, typhoidal, oculoglandular",
+  "treatment": "Streptomycin (or gentamicin); doxy/cipro alternatives",
+  "pearl": "Rabbits/ticks (Dermacentor) + Martha's Vineyard; 'rabbit/deerfly fever.' Forms caseating granulomas mimicking TB",
+  "id": "zoonotic-gn-2",
+  "cat": "zoonotic-gn"
+ },
+ {
+  "name": "Yersinia pestis",
+  "type": "Gram-negative bacillus, facultative intracellular, Enterobacterales",
+  "morphology": "Bipolar 'safety pin' staining (Wright/Giemsa/Wayson); facultative anaerobe; F1 capsule; Yop virulence factors (type III secretion)",
+  "diseases": "Plague: bubonic (painful bubo), septicemic (DIC, acral gangrene = 'black death'), pneumonic (person-to-person, fatal)",
+  "treatment": "Streptomycin or gentamicin; doxycycline/cipro alternatives",
+  "pearl": "Fleas (Xenopsylla) from prairie dogs/rodents; Southwest US. 'Safety pin' bipolar staining; buboes",
+  "id": "zoonotic-gn-3",
+  "cat": "zoonotic-gn"
+ },
+ {
+  "name": "Yersinia enterocolitica",
+  "type": "Gram-negative bacillus, Enterobacterales",
+  "morphology": "Motile at 25C (not 37C); grows at 4C (cold enrichment); bipolar staining; CIN agar (bull's-eye colonies)",
+  "diseases": "Enterocolitis (bloody diarrhea); pseudoappendicitis (mesenteric adenitis/terminal ileitis); reactive arthritis",
+  "treatment": "Usually self-limited; TMP-SMX or fluoroquinolone if severe",
+  "pearl": "Pork (chitterlings), contaminated milk; pet feces. Mimics appendicitis in kids; iron overload (hemochromatosis/transfusion) predisposes",
+  "id": "zoonotic-gn-4",
+  "cat": "zoonotic-gn"
+ },
+ {
+  "name": "Bartonella henselae",
+  "type": "Gram-negative bacillus, facultative intracellular, fastidious",
+  "morphology": "Slow-growing, fastidious; Warthin-Starry silver stain; oxidase-negative; dx mainly by serology/PCR",
+  "diseases": "Cat-scratch disease (regional lymphadenopathy + papule); bacillary angiomatosis & peliosis hepatis in HIV/AIDS",
+  "treatment": "Cat-scratch: azithromycin; bacillary angiomatosis: doxycycline or erythromycin",
+  "pearl": "Kittens/cat scratch. Bacillary angiomatosis (vascular tumors) mimics Kaposi sarcoma in HIV - distinguish on biopsy",
+  "id": "zoonotic-gn-5",
+  "cat": "zoonotic-gn"
+ },
+ {
+  "name": "Bartonella quintana",
+  "type": "Gram-negative bacillus, facultative intracellular, fastidious",
+  "morphology": "Fastidious; blood culture/serology; Warthin-Starry stain on tissue",
+  "diseases": "Trench fever (relapsing 5-day fever, shin pain); bacillary angiomatosis; culture-negative endocarditis",
+  "treatment": "Doxycycline +/- gentamicin (endocarditis); erythromycin/doxy for angiomatosis",
+  "pearl": "Body louse (Pediculus) - homeless/wartime; 'quintana' = quintan (5-day) fever cycle",
+  "id": "zoonotic-gn-6",
+  "cat": "zoonotic-gn"
+ },
+ {
+  "name": "Pasteurella multocida",
+  "type": "Gram-negative coccobacillus, facultative anaerobe",
+  "morphology": "Bipolar staining GNC; catalase+, oxidase+, indole+; grows on blood agar but NOT MacConkey; mousy/musty odor",
+  "diseases": "Rapidly progressive cellulitis after cat/dog bites; lymphangitis; osteomyelitis; abscess",
+  "treatment": "Amoxicillin-clavulanate (penicillin-sensitive)",
+  "pearl": "Cat/dog bites/scratches - cellulitis within hours (faster than staph/strep). Penicillin-susceptible (unusual for GNR)",
+  "id": "zoonotic-gn-7",
+  "cat": "zoonotic-gn"
+ },
+ {
+  "name": "Coxiella burnetii",
+  "type": "Obligate intracellular gram-negative (Coxiella/Legionellales; formerly grouped with Rickettsia)",
+  "morphology": "Does not stain well on Gram; spore-like form (environmentally stable); phase I/II antigen serology; no vector needed",
+  "diseases": "Q fever: atypical pneumonia, granulomatous hepatitis, flu-like illness; chronic = culture-negative endocarditis",
+  "treatment": "Acute: doxycycline; chronic/endocarditis: doxycycline + hydroxychloroquine (months to years)",
+  "pearl": "Inhaled aerosols from cattle/sheep/goat birth products (placenta); NO arthropod vector; 'Q' = query fever",
+  "id": "zoonotic-gn-8",
+  "cat": "zoonotic-gn"
+ },
+ {
+  "name": "Capnocytophaga canimorsus",
+  "type": "Gram-negative bacillus (fusiform), capnophilic",
+  "morphology": "Thin fusiform GNR; requires CO2 (capnophilic); slow-growing; oxidase+, catalase+",
+  "diseases": "Fulminant sepsis/DIC after dog bites, esp. asplenic, cirrhotic, or alcoholic patients; meningitis",
+  "treatment": "Amoxicillin-clavulanate, penicillin G, or a beta-lactam/beta-lactamase inhibitor; carbapenem for severe sepsis",
+  "pearl": "Dog bites in ASPLENIC patients - overwhelming sepsis with purpura fulminans; classic post-splenectomy killer",
+  "id": "zoonotic-gn-9",
+  "cat": "zoonotic-gn"
+ },
+ {
+  "name": "Leptospira interrogans",
+  "type": "Spirochete (zoonotic); thin, poorly Gram-staining",
+  "morphology": "Thin tightly-coiled spirochete with hooked ends; seen on dark-field microscopy; EMJH culture (slow); serology (MAT)",
+  "diseases": "Leptospirosis: flu-like + conjunctival suffusion; Weil disease (jaundice, AKI, hemorrhage)",
+  "treatment": "Doxycycline (mild) or penicillin G/ceftriaxone (severe)",
+  "pearl": "Rat urine in fresh water; surfers/triathletes/Hawaii. Conjunctival suffusion + jaundice (Weil's)",
+  "id": "zoonotic-gn-10",
+  "cat": "zoonotic-gn"
+ },
+ {
+  "name": "Borrelia burgdorferi",
+  "type": "Spirochete (zoonotic); stains with Giemsa, poorly with Gram",
+  "morphology": "Large loose-coiled spirochete; Giemsa/dark-field; serology (ELISA -> Western blot, 2-tier)",
+  "diseases": "Lyme disease: erythema migrans (target rash); later - facial palsy, AV block (carditis), arthritis, neuroborreliosis",
+  "treatment": "Doxycycline (early); ceftriaxone for CNS/cardiac disease",
+  "pearl": "Ixodes tick (mice/deer reservoir), Northeast US; bull's-eye/target erythema migrans rash",
+  "id": "zoonotic-gn-11",
+  "cat": "zoonotic-gn"
+ },
+ {
+  "name": "Bacillus anthracis (zoonotic GNR mimic)",
+  "type": "Gram-POSITIVE spore-forming rod (zoonotic, included for contrast)",
+  "morphology": "Large boxcar GPR in chains; polypeptide (poly-D-glutamate) capsule; 'Medusa head' colonies; nonhemolytic; spores",
+  "diseases": "Cutaneous anthrax (painless black eschar); inhalation (woolsorter's, mediastinal widening); GI",
+  "treatment": "Ciprofloxacin or doxycycline (+ raxibacumab/antitoxin for systemic)",
+  "pearl": "Hides/wool/livestock; bioterror. Painless black eschar; toxin = protective antigen + edema factor (adenylate cyclase) + lethal factor",
+  "id": "zoonotic-gn-12",
+  "cat": "zoonotic-gn"
+ },
+ {
+  "name": "Erysipelothrix rhusiopathiae",
+  "type": "Gram-positive rod (zoonotic, special handler organism)",
+  "morphology": "Thin pleomorphic GPR; H2S+ on TSI; nonmotile; alpha-hemolytic; catalase-negative",
+  "diseases": "Erysipeloid: violaceous, well-demarcated hand cellulitis (no suppuration); rarely endocarditis",
+  "treatment": "Penicillin (intrinsically resistant to vancomycin)",
+  "pearl": "Fish handlers, butchers, pig farmers; 'seal finger.' Vancomycin-RESISTANT - key board distractor",
+  "id": "zoonotic-gn-13",
+  "cat": "zoonotic-gn"
+ },
+ {
+  "name": "Mycoplasma pneumoniae",
+  "type": "No cell wall (not Gram-stainable); smallest self-replicating/free-living organism",
+  "morphology": "No peptidoglycan; sterol (cholesterol)-containing membrane; 'fried-egg' colonies on Eaton agar; cold agglutinins (IgM); PCR is now test of choice (slow to culture)",
+  "diseases": "Atypical 'walking' pneumonia in young adults/military/dorms; bullous myringitis; extrapulmonary: Mycoplasma-induced rash & mucositis (MIRM/SJS-like), cold-agglutinin hemolytic anemia",
+  "treatment": "Macrolide (azithromycin) or doxycycline (or respiratory fluoroquinolone); NO beta-lactams (no cell wall target)",
+  "pearl": "Walking pneumonia in teens/military barracks; CXR looks worse than exam; IgM cold agglutinins cause cold-agglutinin hemolysis",
+  "id": "atypicals-1",
+  "cat": "atypicals"
+ },
+ {
+  "name": "Chlamydia trachomatis",
+  "type": "Obligate intracellular; Gram-negative-like but lacks classic muramic acid/peptidoglycan sacculus ('chlamydial anomaly'); biphasic EB/RB cycle",
+  "morphology": "Cytoplasmic inclusions on Giemsa/iodine; NAAT is test of choice; 'energy parasite' (uses host ATP)",
+  "diseases": "Serovars A-C: trachoma (leading infectious cause of blindness); D-K: urethritis/cervicitis, PID, neonatal conjunctivitis & pneumonia; L1-L3: lymphogranuloma venereum (LGV)",
+  "treatment": "Azithromycin single dose or doxycycline 7 days; treat partners; co-treat empirically for gonorrhea",
+  "pearl": "Elementary body = infectious/Enters; Reticulate body = Replicates. #1 reportable bacterial STI; reactive arthritis (can't see/pee/climb a tree)",
+  "id": "atypicals-2",
+  "cat": "atypicals"
+ },
+ {
+  "name": "Chlamydophila pneumoniae",
+  "type": "Obligate intracellular; biphasic EB/RB cycle; lacks classic peptidoglycan",
+  "morphology": "Cytoplasmic inclusions; diagnosed mainly by serology/PCR; uses host ATP",
+  "diseases": "Atypical community-acquired pneumonia (often mild, prolonged cough); bronchitis; pharyngitis/sinusitis",
+  "treatment": "Macrolide or doxycycline (respiratory fluoroquinolone alternative)",
+  "pearl": "Atypical pneumonia spread person-to-person via respiratory droplets; hoarseness/sore throat often precedes the cough",
+  "id": "atypicals-3",
+  "cat": "atypicals"
+ },
+ {
+  "name": "Chlamydophila psittaci",
+  "type": "Obligate intracellular; biphasic EB/RB cycle; lacks classic peptidoglycan",
+  "morphology": "Cytoplasmic inclusions; serology/PCR; avian reservoir (zoonotic, no person-to-person)",
+  "diseases": "Psittacosis: atypical pneumonia + high fever, severe headache, often hepatosplenomegaly; can cause severe systemic illness",
+  "treatment": "Doxycycline (first-line)",
+  "pearl": "Bird/parrot exposure (pet stores, poultry/turkey processing); 'parrot fever'",
+  "id": "atypicals-4",
+  "cat": "atypicals"
+ },
+ {
+  "name": "Rickettsia rickettsii",
+  "type": "Obligate intracellular Gram-negative coccobacillus (stains poorly)",
+  "morphology": "Hard to Gram-stain; Giemsa; diagnosis by serology/PCR/skin biopsy IHC; Weil-Felix (historical, spotted fever group = OX-19 AND OX-2 +); Dermacentor tick vector",
+  "diseases": "Rocky Mountain spotted fever: fever, headache, then rash starting on wrists/ankles (centripetal) spreading to trunk, palms & soles; can progress to vasculitis/multiorgan failure",
+  "treatment": "Doxycycline (drug of choice even in children & pregnancy; start empirically, don't wait for labs)",
+  "pearl": "Rash on palms/soles spreading inward; most cases in southeastern/south-central US (e.g., the Carolinas), not the Rockies; endothelial invasion -> vasculitis",
+  "id": "atypicals-5",
+  "cat": "atypicals"
+ },
+ {
+  "name": "Rickettsia prowazekii",
+  "type": "Obligate intracellular Gram-negative coccobacillus",
+  "morphology": "Stains poorly; serology/PCR; Weil-Felix OX-19 + (typhus group); human body louse (Pediculus) vector; flying squirrel reservoir (US)",
+  "diseases": "Epidemic typhus: fever, headache, centrifugal rash (trunk -> outward) sparing palms/soles/face; Brill-Zinsser = late recrudescence",
+  "treatment": "Doxycycline (chloramphenicol alternative)",
+  "pearl": "Body louse in war/refugee/crowding settings; rash starts on trunk and spreads outward, sparing palms & soles (opposite of RMSF)",
+  "id": "atypicals-6",
+  "cat": "atypicals"
+ },
+ {
+  "name": "Rickettsia typhi",
+  "type": "Obligate intracellular Gram-negative coccobacillus",
+  "morphology": "Stains poorly; serology/PCR; Weil-Felix OX-19 + (typhus group); rat flea (Xenopsylla) vector, rat/opossum reservoir",
+  "diseases": "Endemic (murine) typhus: milder fever, headache, central rash sparing palms/soles",
+  "treatment": "Doxycycline",
+  "pearl": "Rat/cat flea; endemic along the Gulf Coast/Texas & southern California; milder course than epidemic typhus",
+  "id": "atypicals-7",
+  "cat": "atypicals"
+ },
+ {
+  "name": "Orientia tsutsugamushi",
+  "type": "Obligate intracellular Gram-negative (former Rickettsia; lacks LPS & peptidoglycan)",
+  "morphology": "Stains poorly; serology/PCR; Weil-Felix OX-K + (only OX-K reactive); chigger (larval trombiculid mite) vector",
+  "diseases": "Scrub typhus: fever, eschar at bite site, regional lymphadenopathy, rash; can cause pneumonitis/meningoencephalitis",
+  "treatment": "Doxycycline (azithromycin alternative, including in pregnancy)",
+  "pearl": "Chigger bite -> eschar; confined to the 'tsutsugamushi triangle' of SE Asia/Asia-Pacific",
+  "id": "atypicals-8",
+  "cat": "atypicals"
+ },
+ {
+  "name": "Coxiella burnetii",
+  "type": "Obligate intracellular Gram-negative; forms a highly resistant spore-like small-cell variant (not a true endospore)",
+  "morphology": "Stains poorly on Gram; Gimenez stain; phase variation (phase I virulent / phase II); diagnosis by serology (phase I vs II IgG); replicates in acidified phagolysosome; environmentally stable",
+  "diseases": "Q fever: acute = atypical pneumonia, granulomatous hepatitis, flu-like illness; chronic = culture-negative endocarditis (high phase I IgG)",
+  "treatment": "Doxycycline (acute); doxycycline + hydroxychloroquine, prolonged (chronic/endocarditis)",
+  "pearl": "Inhaled from cattle/sheep/goat birth fluids, placenta & dust; NO arthropod vector and NO rash (unlike Rickettsia); very low infectious dose",
+  "id": "atypicals-9",
+  "cat": "atypicals"
+ },
+ {
+  "name": "Legionella pneumophila",
+  "type": "Gram-negative rod (stains poorly with standard Gram)",
+  "morphology": "Silver stain (Dieterle); grows on buffered charcoal yeast extract (BCYE) agar with cysteine + iron; urine antigen test detects serogroup 1 ONLY; facultative intracellular in alveolar macrophages",
+  "diseases": "Legionnaires' disease: severe pneumonia + high fever, hyponatremia, diarrhea, elevated LFTs, confusion; Pontiac fever (self-limited flu-like, no pneumonia)",
+  "treatment": "Respiratory fluoroquinolone (levofloxacin) or macrolide (azithromycin)",
+  "pearl": "Aerosolized water (cooling towers, AC, hot tubs); smokers/elderly/immunocompromised; hyponatremia + diarrhea + relative bradycardia; no person-to-person spread",
+  "id": "atypicals-10",
+  "cat": "atypicals"
+ },
+ {
+  "name": "Anaplasma phagocytophilum",
+  "type": "Obligate intracellular Gram-negative (family Anaplasmataceae)",
+  "morphology": "Morulae in granulocytes/neutrophils on blood smear; diagnosis by PCR/serology; Ixodes tick vector",
+  "diseases": "Human granulocytic anaplasmosis: fever, headache, myalgia, leukopenia, thrombocytopenia, elevated LFTs (rash rare)",
+  "treatment": "Doxycycline",
+  "pearl": "Ixodes tick (same as Lyme/Babesia) -> consider co-infection; morulae in neutrophils; Upper Midwest/Northeast US",
+  "id": "atypicals-11",
+  "cat": "atypicals"
+ },
+ {
+  "name": "Ehrlichia chaffeensis",
+  "type": "Obligate intracellular Gram-negative (family Anaplasmataceae)",
+  "morphology": "Morulae in monocytes/macrophages; diagnosis by PCR/serology; Lone Star tick (Amblyomma americanum) vector",
+  "diseases": "Human monocytic ehrlichiosis: fever, headache, myalgia, leukopenia, thrombocytopenia, elevated LFTs; rash uncommon ('spotless')",
+  "treatment": "Doxycycline",
+  "pearl": "Morulae in monocytes; Lone Star tick, southeastern/south-central US; 'spotless' RMSF-like illness",
+  "id": "atypicals-12",
+  "cat": "atypicals"
+ },
+ {
+  "name": "Mycobacterium tuberculosis",
+  "type": "Acid-fast bacillus (weakly gram+, obligate aerobe, non-motile rod)",
+  "morphology": "Acid-fast (Ziehl-Neelsen/auramine-rhodamine); mycolic acid-rich wall; serpentine 'cord factor' (trehalose dimycolate) cords; slow growth (~3-6 wk) on Lowenstein-Jensen (buff, rough, tough colonies); niacin+, catalase neg at 68C",
+  "diseases": "Pulmonary TB (apical/cavitary 2ndary); Ghon/miliary & extrapulmonary; Pott disease (vertebral); scrofula (cervical lymphadenitis); TB meningitis; renal/adrenal (Addison)",
+  "treatment": "RIPE x2 mo: Rifampin, Isoniazid (+pyridoxine B6), Pyrazinamide, Ethambutol; then Rifampin+Isoniazid x4 mo (total 6 mo)",
+  "pearl": "Ghon complex (calcified focus + hilar node); caseating granuloma w/ Langhans giant cells; PPD/IGRA+; reactivates in apices (high O2 tension)",
+  "id": "mycobacteria-spiro-1",
+  "cat": "mycobacteria-spiro"
+ },
+ {
+  "name": "Mycobacterium leprae",
+  "type": "Acid-fast bacillus (obligate intracellular; cannot be cultured in vitro)",
+  "morphology": "Unculturable in vitro; grows in armadillos & mouse footpad; prefers cool temps (~30C, skin/extremities/nerves); acid-fast bacilli in skin/nerve biopsy (Schwann cell tropism)",
+  "diseases": "Leprosy (Hansen disease): tuberculoid (paucibacillary, strong Th1/cell-mediated, few well-defined hypopigmented lesions) vs lepromatous (multibacillary, Th2/humoral, diffuse, communicable)",
+  "treatment": "Tuberculoid (paucibacillary): Dapsone + Rifampin x6 mo. Lepromatous (multibacillary): Dapsone + Rifampin + Clofazimine x12 mo",
+  "pearl": "Lepromatous = 'leonine facies', symmetric anesthetic lesions, glove-and-stocking sensory loss, madarosis (loss of lateral eyebrows); armadillo reservoir; cool-temp tropism",
+  "id": "mycobacteria-spiro-2",
+  "cat": "mycobacteria-spiro"
+ },
+ {
+  "name": "Mycobacterium avium-intracellulare (MAC)",
+  "type": "Acid-fast bacillus (nontuberculous mycobacteria; slow-growing environmental)",
+  "morphology": "Acid-fast; slow-growing ubiquitous environmental mycobacteria (soil/water); causes disseminated disease in advanced AIDS",
+  "diseases": "Disseminated infection (fever, night sweats, weight loss, diarrhea, hepatosplenomegaly) in AIDS CD4<50; chronic pulmonary disease in COPD/elderly & bronchiectasis (Lady Windermere syndrome)",
+  "treatment": "Macrolide (azithromycin or clarithromycin) + ethambutol +/- rifabutin; azithromycin or clarithromycin prophylaxis if CD4<50",
+  "pearl": "Most common NTM causing disseminated disease in AIDS; prophylaxis with azithromycin when CD4<50; rifabutin preferred over rifampin (less CYP induction with antiretrovirals)",
+  "id": "mycobacteria-spiro-3",
+  "cat": "mycobacteria-spiro"
+ },
+ {
+  "name": "Treponema pallidum",
+  "type": "Spirochete (thin, gram-indeterminate; structurally gram-negative-like)",
+  "morphology": "Too thin to see on light microscopy/Gram stain; visualized by darkfield microscopy or direct fluorescent antibody (DFA); cannot be cultured in vitro",
+  "diseases": "Syphilis: 1deg painless chancre; 2deg maculopapular rash (incl. palms/soles) + condylomata lata + lymphadenopathy; 3deg gummas, ascending aortitis (vasa vasorum), neurosyphilis/tabes dorsalis; congenital syphilis",
+  "treatment": "Penicillin G (benzathine IM for early; IV aqueous penicillin G for neurosyphilis); penicillin-desensitize if pregnant & allergic",
+  "pearl": "Screen with nontreponemal RPR/VDRL -> confirm with treponemal FTA-ABS/TPPA; Jarisch-Herxheimer reaction after tx; Argyll Robertson pupil (accommodates but does NOT react to light); VDRL false positives (Viruses, Drugs, Rheumatic fever/RA, Lupus/Leprosy)",
+  "id": "mycobacteria-spiro-4",
+  "cat": "mycobacteria-spiro"
+ },
+ {
+  "name": "Borrelia burgdorferi",
+  "type": "Spirochete (large, loosely coiled, microaerophilic)",
+  "morphology": "Large spirochete; visible on Giemsa/Wright stain; diagnosis is clinical + serology (ELISA screen -> confirmatory Western blot/immunoblot)",
+  "diseases": "Lyme disease: early localized = erythema migrans + flu-like; early disseminated = carditis (transient AV block), bilateral facial (Bell) palsy, migratory arthralgias; late = monoarticular/oligoarticular arthritis, encephalopathy",
+  "treatment": "Doxycycline (early/localized); ceftriaxone (or cefotaxime) for carditis/CNS/disseminated; amoxicillin or cefuroxime in kids/pregnancy",
+  "pearl": "'Bull's-eye'/target erythema migrans; Ixodes (deer) tick vector (also transmits Anaplasma & Babesia); reservoir = white-footed mouse, deer required for tick life cycle; bilateral Bell palsy is classic",
+  "id": "mycobacteria-spiro-5",
+  "cat": "mycobacteria-spiro"
+ },
+ {
+  "name": "Borrelia recurrentis / hermsii",
+  "type": "Spirochete (large, loosely coiled)",
+  "morphology": "Large spirochete directly visible on peripheral blood smear (Giemsa/Wright) during febrile spikes",
+  "diseases": "Relapsing fever: recurrent fever spikes from antigenic variation of surface (Vmp) lipoproteins, each relapse from a new antigenic variant",
+  "treatment": "Doxycycline, tetracycline, or erythromycin (anticipate Jarisch-Herxheimer reaction, can be severe)",
+  "pearl": "B. recurrentis = louse-borne (epidemic, human-to-human via Pediculus, no animal reservoir); B. hermsii = soft (Ornithodoros) tick-borne (endemic); relapses due to antigenic variation",
+  "id": "mycobacteria-spiro-6",
+  "cat": "mycobacteria-spiro"
+ },
+ {
+  "name": "Leptospira interrogans",
+  "type": "Spirochete (thin, tightly coiled, with hooked/question-mark ends; obligate aerobe)",
+  "morphology": "Tightly coiled spirochete with hooked ends ('question mark' shape); darkfield microscopy; diagnosis by serology (microscopic agglutination test, MAT) or PCR; culture in EMJH media (slow)",
+  "diseases": "Leptospirosis (biphasic: septicemic then immune phase); severe form = Weil disease (jaundice, acute kidney injury/azotemia, hemorrhage); conjunctival suffusion",
+  "treatment": "Penicillin G or doxycycline (IV ceftriaxone/penicillin for severe; doxycycline for prophylaxis)",
+  "pearl": "Acquired via water contaminated with animal (rodent) urine; surfers/tropics/Hawaii, classic flu-like illness + conjunctival suffusion + severe calf/myalgia",
+  "id": "mycobacteria-spiro-7",
+  "cat": "mycobacteria-spiro"
+ },
+ {
+  "name": "Mycobacterium kansasii",
+  "type": "Acid-fast bacillus (nontuberculous, slow-growing photochromogen)",
+  "morphology": "Acid-fast; photochromogen (produces yellow-orange pigment only after light exposure); slow-growing; long beaded/banded bacilli",
+  "diseases": "Chronic cavitary pulmonary disease clinically/radiographically resembling TB (often in COPD/middle-aged men); occasionally disseminated in immunocompromised",
+  "treatment": "Rifampin + isoniazid + ethambutol (typically prolonged, ~12 mo after culture conversion)",
+  "pearl": "Classic TB mimic in the lungs; photochromogen = pigment develops only with light exposure",
+  "id": "mycobacteria-spiro-8",
+  "cat": "mycobacteria-spiro"
+ },
+ {
+  "name": "Mycobacterium marinum",
+  "type": "Acid-fast bacillus (nontuberculous, photochromogen)",
+  "morphology": "Acid-fast; slow-growing; grows best at cooler temperatures (~30-32C), favoring skin of extremities",
+  "diseases": "Cutaneous granulomas ('fish tank'/'swimming pool' granuloma); nodular (sporotrichoid) lymphangitis ascending the hand/arm",
+  "treatment": "Clarithromycin (often combined with ethambutol or rifampin)",
+  "pearl": "'Fish tank/aquarium granuloma' in aquarium handlers & fishermen; cool-temperature tropism (extremities)",
+  "id": "mycobacteria-spiro-9",
+  "cat": "mycobacteria-spiro"
+ },
+ {
+  "name": "Mycobacterium scrofulaceum",
+  "type": "Acid-fast bacillus (nontuberculous, slow-growing scotochromogen)",
+  "morphology": "Acid-fast; scotochromogen (yellow-orange pigment in both dark and light); slow-growing",
+  "diseases": "Cervical lymphadenitis (scrofula) in young children",
+  "treatment": "Surgical excision of affected node(s) is first-line; antimycobacterials if extensive/recurrent",
+  "pearl": "Named NTM cause of pediatric cervical lymphadenitis (though MAC is now the most common NTM cause overall); surgery preferred over drugs",
+  "id": "mycobacteria-spiro-10",
+  "cat": "mycobacteria-spiro"
+ },
+ {
+  "name": "Mycobacterium abscessus / fortuitum / chelonae (rapid growers)",
+  "type": "Acid-fast bacilli (rapidly growing NTM)",
+  "morphology": "Acid-fast; rapid growers forming visible colonies in <7 days on subculture",
+  "diseases": "Skin/soft-tissue, catheter & surgical/cosmetic wound infections; chronic pulmonary disease (esp. cystic fibrosis & bronchiectasis)",
+  "treatment": "Macrolide-based multidrug (e.g., azithromycin/clarithromycin) + amikacin +/- cefoxitin/imipenem/tigecycline; M. abscessus is highly drug-resistant",
+  "pearl": "Post-procedure (cosmetic surgery, tattoo, injection, pedicure) wound infections; M. abscessus is notoriously multidrug-resistant",
+  "id": "mycobacteria-spiro-11",
+  "cat": "mycobacteria-spiro"
+ },
+ {
+  "name": "Treponema pallidum subsp. pertenue (& endemic treponematoses)",
+  "type": "Spirochete (nonvenereal Treponema, morphologically identical to T. pallidum)",
+  "morphology": "Morphologically & serologically indistinguishable from syphilis; darkfield; cross-reacts on RPR/VDRL & FTA-ABS; unculturable",
+  "diseases": "Yaws (subsp. pertenue, skin/bone, tropical); pinta (T. carateum, skin pigment changes); bejel/endemic syphilis (subsp. endemicum, oral/skin) - nonvenereal, spread by skin contact, mostly children",
+  "treatment": "Penicillin (single-dose benzathine penicillin G); single-dose oral azithromycin used in WHO mass-treatment campaigns",
+  "pearl": "Nonvenereal 'cousins' of syphilis; produce positive syphilis serology without sexual transmission; affect children in tropical/poor-hygiene settings",
+  "id": "mycobacteria-spiro-12",
+  "cat": "mycobacteria-spiro"
+ },
+ {
+  "name": "Herpes simplex virus 1 (HSV-1)",
+  "type": "Enveloped, linear dsDNA virus (Herpesviridae)",
+  "morphology": "Tzanck smear: multinucleated giant cells; Cowdry A intranuclear inclusions. PCR most sensitive (esp. CSF in encephalitis). Latent in trigeminal ganglia.",
+  "diseases": "Gingivostomatitis, herpes labialis (cold sores), keratoconjunctivitis, temporal lobe encephalitis, herpetic whitlow, esophagitis.",
+  "treatment": "Acyclovir, valacyclovir, famciclovir; IV acyclovir for encephalitis; foscarnet if resistant.",
+  "pearl": "Most common cause of sporadic fatal encephalitis in US; hemorrhagic temporal lobe necrosis. Dendritic corneal ulcers (avoid steroids alone).",
+  "id": "dna-viruses-1",
+  "cat": "dna-viruses"
+ },
+ {
+  "name": "Herpes simplex virus 2 (HSV-2)",
+  "type": "Enveloped, linear dsDNA virus (Herpesviridae)",
+  "morphology": "Tzanck smear: multinucleated giant cells, Cowdry A inclusions. Latent in sacral (dorsal root) ganglia. PCR confirms.",
+  "diseases": "Genital herpes (painful vesicles/ulcers), neonatal herpes, aseptic (Mollaret) recurrent meningitis.",
+  "treatment": "Acyclovir, valacyclovir, famciclovir; IV acyclovir for neonatal/disseminated disease.",
+  "pearl": "Neonatal transmission via vaginal delivery; C-section if active lesions. Most common cause of genital ulcers in US.",
+  "id": "dna-viruses-2",
+  "cat": "dna-viruses"
+ },
+ {
+  "name": "Varicella-zoster virus (VZV / HHV-3)",
+  "type": "Enveloped, linear dsDNA virus (Herpesviridae)",
+  "morphology": "Tzanck smear: multinucleated giant cells, Cowdry A inclusions. Latent in dorsal root/trigeminal ganglia.",
+  "diseases": "Chickenpox (varicella); shingles (zoster) in dermatomal distribution; post-herpetic neuralgia; encephalitis, pneumonia (esp. adults).",
+  "treatment": "Acyclovir/valacyclovir/famciclovir; live attenuated vaccine (varicella) & recombinant Shingrix (zoster).",
+  "pearl": "'Dewdrops on a rose petal'; lesions in all stages. Ramsay Hunt (CN VII + ear); Hutchinson sign (nose tip = nasociliary/ocular involvement).",
+  "id": "dna-viruses-3",
+  "cat": "dna-viruses"
+ },
+ {
+  "name": "Epstein-Barr virus (EBV / HHV-4)",
+  "type": "Enveloped, linear dsDNA virus (Herpesviridae)",
+  "morphology": "Atypical (Downey) lymphocytes = reactive CD8+ T cells; positive Monospot (heterophile antibodies). Infects B cells via CD21 (CR2).",
+  "diseases": "Infectious mononucleosis; Burkitt & Hodgkin lymphoma; nasopharyngeal carcinoma; CNS lymphoma in AIDS; oral hairy leukoplakia; PTLD.",
+  "treatment": "Supportive (self-limited); avoid contact sports ~3-4 wks (splenic rupture). Avoid ampicillin/amoxicillin (morbilliform rash).",
+  "pearl": "Triad: fever, pharyngitis (exudative), posterior cervical lymphadenopathy. Burkitt = 'starry sky', t(8;14) c-myc.",
+  "id": "dna-viruses-4",
+  "cat": "dna-viruses"
+ },
+ {
+  "name": "Cytomegalovirus (CMV / HHV-5)",
+  "type": "Enveloped, linear dsDNA virus (Herpesviridae)",
+  "morphology": "'Owl's eye' intranuclear inclusions; cytomegaly. Latent in mononuclear cells. PCR for viral load; Monospot-negative.",
+  "diseases": "Congenital CMV (#1 congenital infection); heterophile-negative mononucleosis; retinitis, colitis, esophagitis, pneumonitis in AIDS/transplant.",
+  "treatment": "Ganciclovir, valganciclovir; foscarnet or cidofovir if resistant.",
+  "pearl": "Owl's eye inclusions. Congenital: periventricular calcifications, sensorineural deafness, 'blueberry muffin' rash. Retinitis when CD4 <50.",
+  "id": "dna-viruses-5",
+  "cat": "dna-viruses"
+ },
+ {
+  "name": "Human herpesvirus 6 (HHV-6)",
+  "type": "Enveloped, linear dsDNA virus (Herpesviridae)",
+  "morphology": "Infects CD4+ T cells (uses CD46); largely clinical diagnosis. Latent, reactivates in transplant patients. HHV-6B causes most childhood disease.",
+  "diseases": "Roseola infantum (exanthem subitum / sixth disease); febrile seizures; encephalitis in immunocompromised/transplant.",
+  "treatment": "Supportive; ganciclovir/foscarnet for severe disease in immunocompromised.",
+  "pearl": "High fever for several days, then rash appears AFTER fever breaks (spares face); classic cause of febrile seizures in infants.",
+  "id": "dna-viruses-6",
+  "cat": "dna-viruses"
+ },
+ {
+  "name": "Human herpesvirus 8 (HHV-8 / KSHV)",
+  "type": "Enveloped, linear dsDNA virus (Herpesviridae)",
+  "morphology": "Spindle cells on biopsy; LANA-1 immunostain. Associated with HIV/AIDS, MSM, and Mediterranean/Sub-Saharan endemic forms.",
+  "diseases": "Kaposi sarcoma; primary effusion (body cavity) lymphoma; HHV-8-associated multicentric Castleman disease.",
+  "treatment": "Antiretroviral therapy (restore immunity); chemo (e.g., liposomal doxorubicin)/radiation for extensive KS.",
+  "pearl": "Kaposi = violaceous vascular skin/mucosal lesions in AIDS. Vascular tumor (vs bacillary angiomatosis = Bartonella, neutrophilic infiltrate).",
+  "id": "dna-viruses-7",
+  "cat": "dna-viruses"
+ },
+ {
+  "name": "Human papillomavirus (HPV)",
+  "type": "Non-enveloped, circular dsDNA virus (Papillomaviridae)",
+  "morphology": "Koilocytes (perinuclear halo, raisinoid/wrinkled nuclei) on Pap smear/biopsy. E6 (degrades p53), E7 (inhibits Rb).",
+  "diseases": "Common/plantar warts (1,2,4); condyloma acuminata (6,11); cervical/anal/vulvar/oropharyngeal/penile cancer (16,18).",
+  "treatment": "Cryotherapy, imiquimod, podophyllin/salicylic acid for warts; Gardasil-9 vaccine (prevention); LEEP/cone for high-grade dysplasia.",
+  "pearl": "16 & 18 = high-risk oncogenic; 6 & 11 = anogenital warts/laryngeal papillomatosis. E6/E7 inactivate p53/Rb.",
+  "id": "dna-viruses-8",
+  "cat": "dna-viruses"
+ },
+ {
+  "name": "Hepatitis B virus (HBV)",
+  "type": "Enveloped, partially dsDNA (circular) virus (Hepadnaviridae); uses reverse transcriptase",
+  "morphology": "'Ground-glass' hepatocytes; serology (HBsAg, anti-HBs, HBeAg, anti-HBe, anti-HBc). Dane particle = complete infectious virion.",
+  "diseases": "Acute & chronic hepatitis; cirrhosis; hepatocellular carcinoma; serum-sickness-like syndrome, PAN, membranous GN.",
+  "treatment": "Entecavir, tenofovir, peginterferon-alpha; recombinant HBsAg vaccine (prevention).",
+  "pearl": "Only DNA virus using reverse transcriptase. Anti-HBc IgM = sole marker in window period. HBeAg = high infectivity/replication.",
+  "id": "dna-viruses-9",
+  "cat": "dna-viruses"
+ },
+ {
+  "name": "Adenovirus",
+  "type": "Non-enveloped, linear dsDNA virus (Adenoviridae)",
+  "morphology": "Naked icosahedral capsid with penton-base fibers; basophilic 'smudge cell' intranuclear inclusions. Cytopathic effect in culture.",
+  "diseases": "Febrile pharyngoconjunctival fever; epidemic keratoconjunctivitis ('pink eye'); URI/pneumonia; hemorrhagic cystitis; gastroenteritis (serotypes 40/41).",
+  "treatment": "Supportive (self-limited); cidofovir for severe disease in immunocompromised; live oral vaccine for military recruits.",
+  "pearl": "Outbreaks in military barracks, swimming pools ('pool conjunctivitis'). Non-enveloped = survives chlorination, fomites.",
+  "id": "dna-viruses-10",
+  "cat": "dna-viruses"
+ },
+ {
+  "name": "Parvovirus B19",
+  "type": "Non-enveloped, linear ssDNA virus (Parvoviridae); smallest DNA virus",
+  "morphology": "Binds P antigen (globoside) on RBC precursors; PCR/serology (IgM). Infects erythroid progenitors in marrow.",
+  "diseases": "Erythema infectiosum (fifth disease); transient aplastic crisis in chronic hemolysis (e.g., sickle cell); hydrops fetalis; arthropathy in adults.",
+  "treatment": "Supportive; IVIG for chronic infection/PRCA in immunocompromised; intrauterine transfusion for hydrops fetalis.",
+  "pearl": "'Slapped-cheek' rash in kids (lacy reticular rash on body). Aplastic crisis in chronic hemolytic anemia; pure red cell aplasia (drops Hb).",
+  "id": "dna-viruses-11",
+  "cat": "dna-viruses"
+ },
+ {
+  "name": "Poxvirus (Smallpox / Molluscum contagiosum)",
+  "type": "Enveloped, linear dsDNA virus (Poxviridae); largest/most complex DNA virus, brick-shaped",
+  "morphology": "Replicates in CYTOPLASM (carries own DNA-dependent RNA polymerase). Guarnieri bodies (variola); Molluscum: Henderson-Paterson cytoplasmic inclusion bodies.",
+  "diseases": "Smallpox (variola, eradicated 1980); molluscum contagiosum (umbilicated papules); mpox (monkeypox); cowpox; orf.",
+  "treatment": "Tecovirimat (smallpox/mpox); molluscum self-limited or curettage/cryotherapy/cantharidin.",
+  "pearl": "Only DNA virus replicating in cytoplasm. Molluscum = flesh-colored umbilicated papules; widespread/giant lesions in HIV/AIDS.",
+  "id": "dna-viruses-12",
+  "cat": "dna-viruses"
+ },
+ {
+  "name": "Influenza virus (A/B)",
+  "type": "Virus — enveloped, (-) ssRNA, segmented (8 segments), Orthomyxovirus",
+  "morphology": "Helical nucleocapsid; surface HA (attachment/hemagglutination) & NA (release) spikes; 8-segment genome enables reassortment",
+  "diseases": "Influenza: fever, myalgias, dry cough; complications—primary viral pneumonia, secondary bacterial pneumonia (S. aureus, S. pneumoniae, H. influenzae)",
+  "treatment": "Oseltamivir/zanamivir/peramivir (NA inhibitors), baloxavir (endonuclease inhibitor); annual vaccine (killed IM or live attenuated intranasal)",
+  "pearl": "Antigenic DRIFT (minor point mutations→epidemics) vs SHIFT (major reassortment→pandemics). Only segmented genomes reassort; Reye syndrome if given aspirin.",
+  "id": "rna-viruses-1",
+  "cat": "rna-viruses"
+ },
+ {
+  "name": "Rhinovirus",
+  "type": "Virus — naked, (+) ssRNA, icosahedral, Picornavirus",
+  "morphology": ">100 serotypes; acid-LABILE (destroyed by stomach acid, unlike enterovirus); replicates best at 33°C (cooler nasal passages); binds ICAM-1",
+  "diseases": "Common cold (most frequent cause); can trigger asthma/COPD exacerbations",
+  "treatment": "Supportive only",
+  "pearl": "Acid-labile + cooler-temp preference = why it stays in the nose. Binds ICAM-1. #1 cause of the common cold.",
+  "id": "rna-viruses-2",
+  "cat": "rna-viruses"
+ },
+ {
+  "name": "Poliovirus",
+  "type": "Virus — naked, (+) ssRNA, icosahedral, Enterovirus (Picornavirus)",
+  "morphology": "Acid-STABLE (survives stomach, fecal-oral); replicates in GI/oropharynx then spreads to CNS anterior horn cells",
+  "diseases": "Mostly asymptomatic/minor febrile illness; aseptic meningitis; flaccid paralysis (LMN, asymmetric) destroying anterior horn motor neurons; bulbar→respiratory failure",
+  "treatment": "Supportive; prevent with Salk (IPV, killed/IM) or Sabin (OPV, live oral—gives mucosal IgA but rare vaccine-associated paralytic polio)",
+  "pearl": "Asymmetric flaccid paralysis + intact sensation. Sabin OPV→herd immunity but can revert to virulence (VAPP/cVDPV).",
+  "id": "rna-viruses-3",
+  "cat": "rna-viruses"
+ },
+ {
+  "name": "Coxsackievirus (A & B)",
+  "type": "Virus — naked, (+) ssRNA, icosahedral, Enterovirus (Picornavirus)",
+  "morphology": "Acid-stable, fecal-oral; type A vs B distinguish clinical syndromes",
+  "diseases": "A: hand-foot-mouth disease, herpangina, acute hemorrhagic conjunctivitis. B: myocarditis, pericarditis, dilated cardiomyopathy, pleurodynia (Bornholm/'devil's grip'); both→aseptic meningitis; A24→associated with T1DM",
+  "treatment": "Supportive",
+  "pearl": "Coxsackie B → 'B' for Body/heart (myocarditis/pleurodynia). Hand-foot-mouth = vesicles on palms, soles, oral mucosa. Major cause of viral (aseptic) meningitis.",
+  "id": "rna-viruses-4",
+  "cat": "rna-viruses"
+ },
+ {
+  "name": "Hepatitis A virus (HAV)",
+  "type": "Virus — naked, (+) ssRNA, icosahedral, Hepatovirus (Picornavirus)",
+  "morphology": "Acid-stable, fecal-oral; no chronic carrier state; anti-HAV IgM = acute infection, IgG = recovery/immunity",
+  "diseases": "Acute self-limited hepatitis; often from contaminated water/shellfish/travel/daycare; no chronicity, no cirrhosis, no carcinoma; rare fulminant hepatitis",
+  "treatment": "Supportive; killed (inactivated) vaccine; post-exposure prophylaxis with vaccine ± Ig",
+  "pearl": "'A = Asymptomatic (esp. kids)/Acute/Alimentary.' Short incubation, no chronic state. Travelers, shellfish, daycare.",
+  "id": "rna-viruses-5",
+  "cat": "rna-viruses"
+ },
+ {
+  "name": "Measles virus (Rubeola)",
+  "type": "Virus — enveloped, (-) ssRNA, helical, Paramyxovirus (Morbillivirus)",
+  "morphology": "Single serotype; H & F surface glycoproteins (no neuraminidase); F protein→multinucleated Warthin-Finkeldey giant cells",
+  "diseases": "Measles: high fever, 3 C's (cough, coryza, conjunctivitis), Koplik spots, then cephalocaudal maculopapular rash; complications—pneumonia (#1 cause of death), encephalitis, SSPE (years later); immune amnesia",
+  "treatment": "Supportive + vitamin A; prevent with MMR (live attenuated)",
+  "pearl": "Koplik spots (blue-white buccal spots) precede rash = pathognomonic. SSPE = late fatal sequela. Vitamin A reduces mortality.",
+  "id": "rna-viruses-6",
+  "cat": "rna-viruses"
+ },
+ {
+  "name": "Mumps virus",
+  "type": "Virus — enveloped, (-) ssRNA, helical, Paramyxovirus (Rubulavirus/Orthorubulavirus)",
+  "morphology": "Single serotype; HN (hemagglutinin-neuraminidase) & F (fusion) glycoproteins",
+  "diseases": "Parotitis (often bilateral), orchitis (sterility risk in post-pubertal males), aseptic meningitis/meningoencephalitis, pancreatitis; deafness",
+  "treatment": "Supportive; prevent with MMR (live attenuated)",
+  "pearl": "'Mumps makes your parotid glands and testes as big as POM-poms.' Parotitis + orchitis + aseptic meningitis. Has HN (unlike measles).",
+  "id": "rna-viruses-7",
+  "cat": "rna-viruses"
+ },
+ {
+  "name": "Respiratory syncytial virus (RSV)",
+  "type": "Virus — enveloped, (-) ssRNA, helical, Pneumovirus (Pneumoviridae; formerly Paramyxovirus family)",
+  "morphology": "F (fusion) protein→fused multinucleated syncytia; NO hemagglutinin/neuraminidase (G protein for attachment, unlike other paramyxos)",
+  "diseases": "#1 cause of bronchiolitis & pneumonia in infants <1 yr; wheezing, respiratory distress, apnea; URI in older children/adults",
+  "treatment": "Supportive (ribavirin reserved/rarely used); prevent with palivizumab or nirsevimab (anti-F mAbs) in high-risk infants; maternal/older-adult vaccines available",
+  "pearl": "Syncytia formation. Bronchiolitis in infants <1 yr. Nirsevimab/palivizumab prophylaxis for high-risk/preemies.",
+  "id": "rna-viruses-8",
+  "cat": "rna-viruses"
+ },
+ {
+  "name": "Rabies virus",
+  "type": "Virus — enveloped, (-) ssRNA, helical, bullet-shaped, Rhabdovirus (Lyssavirus)",
+  "morphology": "Bullet-shaped virion; Negri bodies = eosinophilic cytoplasmic inclusions in hippocampal (pyramidal) & cerebellar Purkinje neurons",
+  "diseases": "Rabies: long/variable incubation, prodrome, then encephalitic (furious: hydrophobia, pharyngeal spasms, agitation) or paralytic form→coma/death; binds nAChR, travels retrograde up peripheral nerves to CNS",
+  "treatment": "Post-exposure prophylaxis: wound cleaning + rabies Ig (into wound) + killed vaccine series (effective before symptoms); near-100% fatal once symptomatic",
+  "pearl": "Negri bodies (cytoplasmic, pathognomonic). Bat (most common US source)/dog/raccoon. Retrograde axonal transport. Hydrophobia.",
+  "id": "rna-viruses-9",
+  "cat": "rna-viruses"
+ },
+ {
+  "name": "Flavivirus group (Dengue, Zika, Yellow fever, WNV)",
+  "type": "Virus — enveloped, (+) ssRNA, icosahedral, Flavivirus (mostly arboviruses)",
+  "morphology": "Arthropod-borne (Aedes aegypti for dengue/Zika/YF; Culex for WNV/SLE); Zika also sexual/vertical transmission; detect via serology/RT-PCR",
+  "diseases": "Dengue: breakbone fever, retro-orbital pain; severe dengue/DHF-DSS on 2nd heterotypic infection (ADE). Zika: congenital microcephaly, Guillain-Barré. Yellow fever: jaundice, black vomit, Councilman bodies. WNV: encephalitis (esp. elderly), flaccid paralysis",
+  "treatment": "Supportive (avoid NSAIDs/aspirin in dengue); Yellow fever live-attenuated vaccine; dengue vaccine (Dengvaxia) only for seropositive",
+  "pearl": "Dengue antibody-dependent enhancement (ADE)→worse 2nd infection. Zika→microcephaly. Yellow fever→Councilman (apoptotic) bodies.",
+  "id": "rna-viruses-10",
+  "cat": "rna-viruses"
+ },
+ {
+  "name": "Hepatitis C virus (HCV)",
+  "type": "Virus — enveloped, (+) ssRNA, icosahedral, Flavivirus family (Hepacivirus)",
+  "morphology": "High genomic variability (no proofreading RNA polymerase, hypervariable E2 envelope)→immune evasion, no effective vaccine; dx by anti-HCV Ab screen then HCV RNA PCR (confirm/quantify)",
+  "diseases": "Chronic hepatitis (~80% of acute→chronic), cirrhosis, hepatocellular carcinoma; extrahepatic—mixed cryoglobulinemia, membranoproliferative GN, porphyria cutanea tarda",
+  "treatment": "Direct-acting antivirals (e.g., sofosbuvir + ledipasvir or velpatasvir)—curative >95%; no vaccine",
+  "pearl": "'C = Chronic.' Lack of proofreading→antigenic variation→no vaccine. DAAs are curative. Cryoglobulinemia. Bloodborne (IVDU).",
+  "id": "rna-viruses-11",
+  "cat": "rna-viruses"
+ },
+ {
+  "name": "HIV (Human Immunodeficiency Virus)",
+  "type": "Virus — enveloped, (+) ssRNA, diploid (2 copies), Retrovirus (Lentivirus)",
+  "morphology": "Reverse transcriptase, integrase, protease; gp120 (attachment to CD4 + co-receptor CCR5/CXCR4) & gp41 (fusion); p24 capsid; screen 4th-gen Ag/Ab combo, confirm with Ab differentiation assay (+/- RNA), Western blot now largely replaced",
+  "diseases": "AIDS (CD4 <200 or AIDS-defining illness): opportunistic infections (PCP <200, toxo/cryptococcus <100, CMV/MAC <50), Kaposi sarcoma (HHV-8), CNS lymphoma (EBV), HIV dementia",
+  "treatment": "ART: 2 NRTIs + integrase strand-transfer inhibitor (e.g., tenofovir/emtricitabine + dolutegravir or bictegravir); PrEP for prevention",
+  "pearl": "Diploid (+) ssRNA but replicates via DNA intermediate. CCR5-Δ32 homozygotes resistant. p24 antigen earliest serum marker (after RNA).",
+  "id": "rna-viruses-12",
+  "cat": "rna-viruses"
+ },
+ {
+  "name": "Rotavirus",
+  "type": "Virus — naked, dsRNA, segmented (11 segments), double-shelled wheel-shaped, Reovirus",
+  "morphology": "Wheel-like (rota=wheel) on EM; double protein capsid; 11 dsRNA segments; carries own RNA-dependent RNA polymerase; fecal-oral, environmentally stable",
+  "diseases": "#1 cause of severe infantile/childhood gastroenteritis worldwide; watery (osmotic + secretory) diarrhea→dehydration; NSP4 acts as viral enterotoxin",
+  "treatment": "Oral rehydration; prevent with live oral attenuated vaccine (slight intussusception risk)",
+  "pearl": "Wheel-shaped virion. Leading cause of fatal childhood diarrhea (esp. winter). NSP4 = first described viral enterotoxin.",
+  "id": "rna-viruses-13",
+  "cat": "rna-viruses"
+ },
+ {
+  "name": "Coronavirus (SARS-CoV-2 / MERS / SARS)",
+  "type": "Virus — enveloped, (+) ssRNA (largest RNA genome), helical nucleocapsid, Coronavirus",
+  "morphology": "Club-shaped spike (S) glycoproteins → 'corona/crown' on EM; SARS-CoV-2 S protein binds ACE2 (MERS binds DPP4); dx by RT-PCR/antigen",
+  "diseases": "COVID-19: fever, dry cough, anosmia/ageusia, ARDS, hypercoagulable state, MIS-C in children; endemic coronaviruses cause common cold/URI",
+  "treatment": "Supportive; nirmatrelvir/ritonavir (Paxlovid), remdesivir, dexamethasone in severe/hypoxic; mRNA & other vaccines",
+  "pearl": "Spike binds ACE2 (SARS-CoV-2). Largest RNA genome. 'Crown' of spikes on EM. Anosmia is a tip-off; has proofreading exonuclease (rare among RNA viruses).",
+  "id": "rna-viruses-14",
+  "cat": "rna-viruses"
+ },
+ {
+  "name": "Candida albicans",
+  "type": "Fungus (yeast; thermally dimorphic-like, forms pseudohyphae/true hyphae)",
+  "morphology": "Germ tube positive at 37C; budding yeast + pseudohyphae at 20C, true hyphae/germ tubes at 37C; chlamydospores on cornmeal/Tween agar",
+  "diseases": "Oral thrush, esophagitis, vulvovaginitis, diaper rash, intertrigo, candidemia/disseminated disease, endocarditis (IVDU), chronic mucocutaneous candidiasis",
+  "treatment": "Nystatin or fluconazole (mucocutaneous); echinocandin (caspofungin/micafungin) for invasive/candidemia; amphotericin B for severe",
+  "pearl": "Germ tube positive. Oral thrush in HIV at CD4<200; esophagitis is AIDS-defining. Disseminated in neutropenics; IVDU/indwelling-line endocarditis.",
+  "id": "fungi-1",
+  "cat": "fungi"
+ },
+ {
+  "name": "Aspergillus fumigatus",
+  "type": "Mold (monomorphic filamentous fungus)",
+  "morphology": "Septate hyphae branching at acute (~45-degree) V-shaped angles; conidiophores with radiating chains of conidia; NOT dimorphic",
+  "diseases": "Invasive aspergillosis (angioinvasive lung/sinus), aspergilloma (fungus ball) in old cavity, ABPA, allergic sinusitis; aflatoxin (A. flavus) linked to hepatocellular carcinoma",
+  "treatment": "Voriconazole (first-line invasive); isavuconazole or liposomal amphotericin B alternatives; surgery/embolization for aspergilloma; steroids +/- itraconazole for ABPA",
+  "pearl": "Acute ~45-degree branching septate hyphae. Aspergilloma = fungus ball in old TB cavity; air-crescent / Monod sign, mobile with positioning. ABPA in asthma/CF with high IgE & eosinophilia.",
+  "id": "fungi-2",
+  "cat": "fungi"
+ },
+ {
+  "name": "Cryptococcus neoformans",
+  "type": "Fungus (encapsulated yeast)",
+  "morphology": "Heavily encapsulated narrow-based budding yeast; India ink shows clear halo; mucicarmine stains capsule red; melanin/Fontana-Masson positive; urease positive; CrAg latex agglutination antigen test",
+  "diseases": "Cryptococcal meningitis/meningoencephalitis (esp HIV CD4<100), pneumonia; C. gattii affects immunocompetent (Pacific NW/eucalyptus)",
+  "treatment": "Amphotericin B + flucytosine (induction), then fluconazole consolidation/maintenance; serial LPs for elevated ICP",
+  "pearl": "India ink halo; 'soap bubble' brain lesions. Urease+ and melanin+ (laccase). Pigeon/bird droppings & soil. Serum/CSF CrAg is most sensitive & specific test.",
+  "id": "fungi-3",
+  "cat": "fungi"
+ },
+ {
+  "name": "Histoplasma capsulatum",
+  "type": "Dimorphic fungus",
+  "morphology": "Mold in soil/cold (tuberculate macroconidia + microconidia), yeast in tissue at 37C; small oval yeast clustered INSIDE macrophages",
+  "diseases": "Pulmonary histoplasmosis (TB-like, can calcify), disseminated disease in immunocompromised with hepatosplenomegaly, pancytopenia, oral/tongue ulcers, adrenal involvement",
+  "treatment": "Itraconazole (mild-moderate); liposomal amphotericin B (severe/disseminated/CNS)",
+  "pearl": "Macrophages stuffed with intracellular yeast. Mississippi/Ohio River valleys; bird & BAT droppings, caves/spelunking. Urine/serum antigen for diagnosis.",
+  "id": "fungi-4",
+  "cat": "fungi"
+ },
+ {
+  "name": "Blastomyces dermatitidis",
+  "type": "Dimorphic fungus",
+  "morphology": "Mold in cold, yeast in tissue at 37C; large broad-based budding yeast with thick, doubly-refractile wall, roughly same size as the nucleus",
+  "diseases": "Pulmonary blastomycosis (acute/chronic pneumonia), verrucous/ulcerated skin lesions, osteomyelitis, GU disease (prostatitis)",
+  "treatment": "Itraconazole (mild-moderate); liposomal amphotericin B (severe/CNS/disseminated)",
+  "pearl": "Broad-based budding ('Big Bad Blasto, broad base'). Great Lakes, Ohio & Mississippi River basins, eastern US. Granulomatous skin lesions mimic SCC.",
+  "id": "fungi-5",
+  "cat": "fungi"
+ },
+ {
+  "name": "Coccidioides immitis / posadasii",
+  "type": "Dimorphic fungus",
+  "morphology": "Mold in soil (barrel-shaped arthroconidia/arthrospores), large spherules packed with endospores in tissue",
+  "diseases": "Valley fever (pneumonia), erythema nodosum + arthralgias ('desert rheumatism / bumps') as hypersensitivity, disseminated disease incl meningitis (risk: dark-skinned/Filipino, pregnancy 3rd trimester, immunocompromised)",
+  "treatment": "Often self-limited; fluconazole or itraconazole; amphotericin B for severe; LIFELONG fluconazole for meningitis (intrathecal ampho B if refractory)",
+  "pearl": "Spherules with endospores. Southwestern US (Arizona, California San Joaquin Valley); arthroconidia inhaled after dust storms, earthquakes, archaeology digs.",
+  "id": "fungi-6",
+  "cat": "fungi"
+ },
+ {
+  "name": "Paracoccidioides brasiliensis",
+  "type": "Dimorphic fungus",
+  "morphology": "Mold in cold, yeast in tissue at 37C; large central yeast with multiple narrow-based buds = 'captain's wheel' / 'mariner's wheel' (pilot's wheel) morphology",
+  "diseases": "Paracoccidioidomycosis: chronic pulmonary disease, mucocutaneous (oral/nasal) ulcers, lymphadenopathy",
+  "treatment": "Itraconazole; amphotericin B for severe disease (sulfonamides historically)",
+  "pearl": "'Captain's/pilot's wheel' budding yeast. Rural Latin America (esp Brazil); affects adult men (estrogen is protective, so symptomatic disease rare in women).",
+  "id": "fungi-7",
+  "cat": "fungi"
+ },
+ {
+  "name": "Sporothrix schenckii",
+  "type": "Dimorphic fungus",
+  "morphology": "Mold with rosette/'daisy'-arranged conidia on delicate conidiophores in cold; cigar-shaped budding yeast in tissue at 37C",
+  "diseases": "Sporotrichosis: subcutaneous nodule/papule that ulcerates, then ascending nodular lesions along lymphatics (nodular lymphangitis); rarely pulmonary/disseminated",
+  "treatment": "Itraconazole (first-line); saturated potassium iodide (SSKI) solution (classic/low-cost); amphotericin B if disseminated/severe",
+  "pearl": "'Rose gardener's disease' — thorn prick / sphagnum moss / gardening. Cigar-shaped yeast; nodules ascend along lymphatic chain.",
+  "id": "fungi-8",
+  "cat": "fungi"
+ },
+ {
+  "name": "Pneumocystis jirovecii",
+  "type": "Fungus (atypical; historically classified/treated as a protozoan)",
+  "morphology": "Cannot be cultured; cup/disc-shaped cysts ('crushed ping-pong balls') on methenamine silver (GMS), toluidine blue, or DFA; obtained via BAL or induced sputum",
+  "diseases": "Pneumocystis pneumonia (PCP): diffuse bilateral interstitial 'ground-glass' pneumonia in AIDS (CD4<200) and other immunocompromised",
+  "treatment": "TMP-SMX (treatment & prophylaxis); ADD corticosteroids if PaO2 <70 mmHg or A-a gradient >=35; alternatives pentamidine, atovaquone, clindamycin-primaquine, dapsone",
+  "pearl": "AIDS-defining; start prophylaxis at CD4<200. Diffuse bilateral ground-glass infiltrates, elevated LDH, beta-D-glucan positive; disc/cup-shaped cysts on silver stain.",
+  "id": "fungi-9",
+  "cat": "fungi"
+ },
+ {
+  "name": "Mucor / Rhizopus (Mucormycosis)",
+  "type": "Mold (Mucorales; 'Zygomycetes')",
+  "morphology": "Broad, ribbon-like NON-septate (sparsely septate/aseptate) hyphae branching at wide (~90-degree) right angles",
+  "diseases": "Rhinocerebral mucormycosis (DKA/diabetics), pulmonary (neutropenic), cutaneous, GI; angioinvasive with tissue necrosis",
+  "treatment": "Liposomal amphotericin B (or isavuconazole/posaconazole) + aggressive surgical debridement; reverse underlying DKA/acidosis/neutropenia",
+  "pearl": "Wide-angle (~90-degree) aseptate ribbon-like hyphae. DKA & neutropenia; iron overload / deferoxamine therapy is a risk factor. Black necrotic eschar on palate/turbinates.",
+  "id": "fungi-10",
+  "cat": "fungi"
+ },
+ {
+  "name": "Malassezia furfur",
+  "type": "Fungus (lipophilic yeast)",
+  "morphology": "'Spaghetti and meatballs' / 'ziti and meatballs' on KOH: short curved hyphae + clusters of round yeast; KOH of skin scrapings",
+  "diseases": "Tinea (pityriasis) versicolor (hypo/hyperpigmented patches), seborrheic dermatitis/dandruff, catheter-related fungemia (esp neonates/adults on lipid-rich TPN)",
+  "treatment": "Topical selenium sulfide, topical/oral azoles (ketoconazole), or terbinafine",
+  "pearl": "'Spaghetti and meatballs.' Lipophilic; produces azelaic acid that inhibits tyrosinase causing hypopigmented patches that fail to tan. Worse in hot/humid weather.",
+  "id": "fungi-11",
+  "cat": "fungi"
+ },
+ {
+  "name": "Dermatophytes (Trichophyton, Microsporum, Epidermophyton)",
+  "type": "Mold (filamentous fungi)",
+  "morphology": "Septate hyphae on KOH of skin/hair/nail; culture on Sabouraud dextrose agar; some Microsporum fluoresce green under Wood lamp",
+  "diseases": "Tinea (corporis/ringworm, pedis/athlete's foot, cruris/jock itch, capitis, unguium/onychomycosis); pruritic ring with central clearing",
+  "treatment": "Topical azoles or terbinafine; oral terbinafine or griseofulvin for nail (unguium) & scalp (capitis)",
+  "pearl": "Pruritic ring with central clearing; KOH prep of scrapings. Trichophyton is most common cause; only some Microsporum (not Trichophyton) fluoresce on Wood lamp.",
+  "id": "fungi-12",
+  "cat": "fungi"
+ },
+ {
+  "name": "Candida (non-albicans, esp. C. glabrata / C. krusei / C. auris)",
+  "type": "Fungus (yeast)",
+  "morphology": "Budding yeast; germ tube NEGATIVE; C. glabrata small with no pseudohyphae; identify by chromogenic agar / MALDI-TOF; C. auris is multidrug-resistant & hard to ID",
+  "diseases": "Candidemia, UTI, mucosal candidiasis (often azole-resistant); C. auris causes nosocomial outbreaks",
+  "treatment": "Echinocandin preferred (esp C. glabrata/krusei/auris); C. krusei is intrinsically fluconazole-resistant; C. auris often multidrug-resistant",
+  "pearl": "Think azole resistance: C. krusei = intrinsic fluconazole resistance; rises after prior azole exposure. Echinocandins are go-to; C. auris is an emerging MDR nosocomial threat.",
+  "id": "fungi-13",
+  "cat": "fungi"
+ },
+ {
+  "name": "Plasmodium falciparum",
+  "type": "Protozoa (apicomplexan, blood/sporozoan)",
+  "morphology": "Thick/thin Giemsa blood smear; banana/crescent-shaped gametocytes; multiply-infected RBCs; normal-sized RBCs; high parasitemia; rings only, no later forms; no Schuffner dots; Maurer's clefts",
+  "diseases": "Severe (malignant) malaria: cerebral malaria, blackwater fever, irregular/continuous fevers; most deadly Plasmodium species",
+  "treatment": "Artemisinin-based combination therapy (ACT); IV artesunate for severe disease",
+  "pearl": "Cytoadherence/rosetting -> cerebral malaria; sickle trait & HbC protective. No hypnozoites = no true relapse (recrudescence only).",
+  "id": "parasites-1",
+  "cat": "parasites"
+ },
+ {
+  "name": "Plasmodium vivax / ovale",
+  "type": "Protozoa (apicomplexan, blood/sporozoan)",
+  "morphology": "Giemsa smear; Schuffner dots; enlarged/oval infected RBCs; amoeboid trophozoites; tertian (48h) fever cycle",
+  "diseases": "Benign tertian malaria; dormant liver hypnozoites cause relapse",
+  "treatment": "Chloroquine (blood stage) + primaquine (kills hypnozoites)",
+  "pearl": "Check G6PD before primaquine (hemolysis). Vivax needs Duffy antigen -> rare in West Africans (Duffy-negative); ovale relapses in W. Africa.",
+  "id": "parasites-2",
+  "cat": "parasites"
+ },
+ {
+  "name": "Babesia microti",
+  "type": "Protozoa (apicomplexan, blood/sporozoan)",
+  "morphology": "Giemsa smear: ring forms (resemble falciparum) + pathognomonic Maltese cross tetrad; NO gametocytes; NO hemozoin pigment",
+  "diseases": "Babesiosis: fever, hemolytic anemia; severe/fulminant in asplenic patients; NO periodic fever cycle",
+  "treatment": "Atovaquone + azithromycin (mild); clindamycin + quinine (severe)",
+  "pearl": "Ixodes scapularis tick (same as Lyme, NE USA); asplenia = severe disease; Maltese cross is the buzzword; can co-infect with Borrelia.",
+  "id": "parasites-3",
+  "cat": "parasites"
+ },
+ {
+  "name": "Entamoeba histolytica",
+  "type": "Protozoa (amoeba, intestinal)",
+  "morphology": "Trophozoite with ingested RBCs (erythrophagocytosis); mature cyst with 4 nuclei; flask-shaped colon ulcers",
+  "diseases": "Amebic dysentery (bloody diarrhea); anchovy-paste right-lobe liver abscess",
+  "treatment": "Metronidazole/tinidazole + luminal agent (paromomycin or iodoquinol) to clear cysts",
+  "pearl": "Fecal-oral cysts; RUQ liver abscess; serology positive. Few/no fecal leukocytes (trophozoites lyse them).",
+  "id": "parasites-4",
+  "cat": "parasites"
+ },
+ {
+  "name": "Giardia lamblia (duodenalis)",
+  "type": "Protozoa (flagellate, intestinal)",
+  "morphology": "Pear-shaped trophozoite, 2 nuclei + 4 pairs flagella = falling-leaf motility; 'owl/old-man' face; stool antigen/ELISA",
+  "diseases": "Giardiasis: fatty, foul-smelling, non-bloody steatorrhea; bloating, malabsorption",
+  "treatment": "Metronidazole (or tinidazole, nitazoxanide)",
+  "pearl": "Hikers/campers (mountain streams), daycare, IgA deficiency. Cysts resist chlorination. Found in duodenum.",
+  "id": "parasites-5",
+  "cat": "parasites"
+ },
+ {
+  "name": "Toxoplasma gondii",
+  "type": "Protozoa (apicomplexan, tissue)",
+  "morphology": "Tachyzoites (acute) and tissue cysts with bradyzoites (latent); ring-enhancing brain lesions on MRI; serology IgM/IgG",
+  "diseases": "Congenital: chorioretinitis, hydrocephalus, intracranial calcifications. AIDS (CD4<100): brain abscess/encephalitis",
+  "treatment": "Sulfadiazine + pyrimethamine (+ leucovorin); TMP-SMX for prophylaxis in HIV",
+  "pearl": "Cat feces (oocysts) & undercooked meat (tissue cysts); avoid litter boxes in pregnancy. Multiple ring-enhancing lesions.",
+  "id": "parasites-6",
+  "cat": "parasites"
+ },
+ {
+  "name": "Cryptosporidium parvum",
+  "type": "Protozoa (apicomplexan, intestinal)",
+  "morphology": "Acid-fast oocysts in stool; small round red oocysts on modified acid-fast (Kinyoun) stain",
+  "diseases": "Severe chronic watery diarrhea in AIDS (CD4<100); mild self-limited watery diarrhea if immunocompetent",
+  "treatment": "Supportive + restore immunity (ART); nitazoxanide (effective mainly in immunocompetent)",
+  "pearl": "Acid-fast oocysts; chlorine-resistant -> waterborne outbreaks (Milwaukee 1993). HIV opportunist.",
+  "id": "parasites-7",
+  "cat": "parasites"
+ },
+ {
+  "name": "Trichomonas vaginalis",
+  "type": "Protozoa (flagellate, urogenital)",
+  "morphology": "Motile pear-shaped trophozoite on wet mount (jerky/twitching motility); no cyst form; vaginal pH >4.5",
+  "diseases": "Vaginitis: frothy yellow-green malodorous discharge, strawberry cervix, dysuria; men usually asymptomatic",
+  "treatment": "Metronidazole or tinidazole (treat partner too)",
+  "pearl": "STI, motile trophozoite on wet prep, strawberry cervix. No cyst stage -> transmitted only as trophozoite.",
+  "id": "parasites-8",
+  "cat": "parasites"
+ },
+ {
+  "name": "Enterobius vermicularis (pinworm)",
+  "type": "Helminth (nematode/roundworm)",
+  "morphology": "Scotch-tape test: eggs flattened on one side (D-shaped/asymmetric); small white worms in perianal region",
+  "diseases": "Perianal pruritus, especially nocturnal; common in children",
+  "treatment": "Pyrantel pamoate or albendazole/mebendazole; repeat in 2 weeks; treat household",
+  "pearl": "Scotch-tape test; nighttime perianal itching in kids; fecal-oral autoinfection.",
+  "id": "parasites-9",
+  "cat": "parasites"
+ },
+ {
+  "name": "Ancylostoma / Necator (hookworm)",
+  "type": "Helminth (nematode/roundworm)",
+  "morphology": "Oval thin-shelled eggs in stool; larvae penetrate skin of feet; buccal teeth (Ancylostoma) / cutting plates (Necator)",
+  "diseases": "Microcytic iron-deficiency anemia; pruritic feet (ground itch); Loeffler-like pneumonitis during lung migration",
+  "treatment": "Albendazole or mebendazole + iron supplementation",
+  "pearl": "Larvae penetrate bare feet (walking barefoot); chronic GI blood loss -> iron-deficiency anemia. (Cutaneous larva migrans is from animal Ancylostoma braziliense.)",
+  "id": "parasites-10",
+  "cat": "parasites"
+ },
+ {
+  "name": "Ascaris lumbricoides",
+  "type": "Helminth (nematode/roundworm)",
+  "morphology": "Largest intestinal nematode; knobby/mammillated oval eggs in stool; lung migration (Loeffler eosinophilia)",
+  "diseases": "Often asymptomatic; intestinal/biliary obstruction; Loeffler pneumonitis during larval lung phase",
+  "treatment": "Albendazole or mebendazole",
+  "pearl": "Knobby eggs; fecal-oral; can obstruct bowel/bile duct; larvae migrate through lungs and are reswallowed.",
+  "id": "parasites-11",
+  "cat": "parasites"
+ },
+ {
+  "name": "Strongyloides stercoralis",
+  "type": "Helminth (nematode/roundworm)",
+  "morphology": "Rhabditiform LARVAE in stool (not eggs); autoinfection cycle; high eosinophilia",
+  "diseases": "Pruritus, diarrhea; disseminated hyperinfection in immunosuppressed (steroids, HTLV-1)",
+  "treatment": "Ivermectin (drug of choice); albendazole alternative",
+  "pearl": "Larvae in stool + autoinfection -> chronic decades-long infection; steroids/HTLV-1 trigger lethal hyperinfection.",
+  "id": "parasites-12",
+  "cat": "parasites"
+ },
+ {
+  "name": "Taenia solium",
+  "type": "Helminth (cestode/tapeworm)",
+  "morphology": "Scolex with 4 suckers + rostellum with hooklets (armed); gravid proglottids; eggs in stool",
+  "diseases": "Intestinal taeniasis (eat undercooked pork w/ cysticerci). Cysticercosis/neurocysticercosis (ingest eggs)",
+  "treatment": "Praziquantel (intestinal taeniasis); albendazole + steroids for neurocysticercosis",
+  "pearl": "Pork tapeworm; ingesting EGGS -> cysticercosis (brain cysts, seizures); eating CYSTICERCI in pork -> intestinal worm.",
+  "id": "parasites-13",
+  "cat": "parasites"
+ },
+ {
+  "name": "Diphyllobothrium latum",
+  "type": "Helminth (cestode/tapeworm)",
+  "morphology": "Longest tapeworm; operculated eggs; scolex with 2 grooves (bothria); proglottids wider than long",
+  "diseases": "Vitamin B12 deficiency -> megaloblastic (macrocytic) anemia; intestinal infection",
+  "treatment": "Praziquantel",
+  "pearl": "Fish tapeworm (raw/undercooked freshwater fish); competes for B12 -> macrocytic anemia.",
+  "id": "parasites-14",
+  "cat": "parasites"
+ },
+ {
+  "name": "Echinococcus granulosus",
+  "type": "Helminth (cestode/tapeworm)",
+  "morphology": "Hydatid cysts with daughter cysts + hydatid sand on imaging; eggs from dog feces",
+  "diseases": "Hydatid cyst disease (liver/lung); cyst rupture -> anaphylaxis & seeding",
+  "treatment": "Albendazole + PAIR (puncture-aspiration-injection-reaspiration) or careful surgery; inject scolicidal (hypertonic saline) before removal",
+  "pearl": "Dogs (definitive) + sheep (intermediate); eggshell-calcified liver cyst; don't spill cyst (anaphylaxis).",
+  "id": "parasites-15",
+  "cat": "parasites"
+ },
+ {
+  "name": "Schistosoma (mansoni/japonicum/haematobium)",
+  "type": "Helminth (trematode/blood fluke)",
+  "morphology": "Eggs by spine: mansoni lateral spine, haematobium terminal spine, japonicum small/rudimentary lateral knob; snail intermediate host",
+  "diseases": "mansoni/japonicum: portal HTN, hepatosplenic ('pipe-stem') fibrosis. haematobium: hematuria, bladder squamous cell carcinoma",
+  "treatment": "Praziquantel",
+  "pearl": "Cercariae penetrate skin in fresh water (snails); S. haematobium -> bladder squamous cell cancer; 'pipe-stem' fibrosis is from mansoni/japonicum.",
+  "id": "parasites-16",
+  "cat": "parasites"
+ }
+]
