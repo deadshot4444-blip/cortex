@@ -33,7 +33,7 @@ const NAME_BY_KEY = Object.fromEntries(SPECIALTIES.map(s => [s.key, s.name]));
 // Sections gated as "Coming soon" for the public launch. Remove a key here to make it live.
 const COMING_SOON = new Set(['anatomy', 'reference', 'socrates']);
 const SECTION_LABELS = { anatomy: 'Anatomy', reference: 'Medicine', socrates: 'Learn how to learn' };
-const APP_VERSION = '1.0';
+const APP_VERSION = '1.1';
 
 const SECONDS_PER_QUESTION = 90;
 const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F'];
@@ -193,7 +193,7 @@ function topbar(active) {
       <button class="navlink soon ${active === 'reference' ? 'active' : ''}" data-go="reference">Medicine<sup>soon</sup></button>
       <button class="navlink soon ${active === 'socrates' ? 'active' : ''}" data-go="socrates">Learn to Learn<sup>soon</sup></button>
     </nav>
-    <div class="bar-right">${stat ? `<span class="topstat">${stat}</span>` : ''}<span class="ver">v${APP_VERSION}</span></div>
+    <div class="bar-right">${stat ? `<span class="topstat">${stat}</span>` : ''}<button class="ver" data-go="updates" title="What's new">v${APP_VERSION}</button></div>
   </header>`);
   root.querySelector('.wordmark').addEventListener('click', e => { e.preventDefault(); renderMission(); });
   root.querySelector('[data-go="practice"]').addEventListener('click', renderHome);
@@ -203,6 +203,7 @@ function topbar(active) {
   root.querySelector('[data-go="socrates"]').addEventListener('click', () => COMING_SOON.has('socrates') ? renderComingSoon('socrates') : renderSocrates());
   root.querySelector('[data-go="mcat"]').addEventListener('click', () => { if (typeof renderMCAT === 'function') renderMCAT(); });
   root.querySelector('[data-go="stats"]').addEventListener('click', renderStats);
+  root.querySelector('[data-go="updates"]').addEventListener('click', renderUpdates);
   return root;
 }
 
@@ -328,6 +329,97 @@ const PRINCIPLES = [
   ['High agency compounds', 'Daily action beats heroic cramming. The people who treat this like a mission outrun everyone else — we just hand them the instrument.'],
 ];
 
+/* ---------- what's new / changelog (newest first) ---------- */
+const CHANGELOG = [
+  {
+    date: 'June 15, 2026', version: '1.1', tag: 'NEW',
+    title: 'A "What’s New" page',
+    items: [
+      'Added this updates feed so you can see exactly what’s changing — Cortex is actively built and maintained.',
+      'Click the version number in the top-right corner anytime to come back here.',
+    ],
+  },
+  {
+    date: 'June 15, 2026', version: '1.0', tag: 'NEW',
+    title: 'The Academy, officially v1.0',
+    items: [
+      'A new mission home page that lays out what Cortex is and why it stays free.',
+      'A live visitor counter and mission-progress tracker.',
+      'A fully mobile-friendly layout, top to bottom.',
+    ],
+  },
+  {
+    date: 'June 14, 2026', version: '0.9', tag: 'NEW',
+    title: 'MCAT prep suite — free forever',
+    items: [
+      '504 high-yield flashcards with built-in spaced repetition.',
+      '263 practice questions with full explanations and answer-by-answer breakdowns.',
+      'CARS Studio, a full-length Exam Simulator, AAMC-style science passages, and a study planner.',
+    ],
+  },
+  {
+    date: 'June 14, 2026', version: '0.9', tag: 'NEW',
+    title: '2,599 clinical cases across 26 specialties',
+    items: [
+      'Interactive, step-by-step case scenarios from emergency medicine to neurosurgery.',
+      'Bookmarks, missed-question review, full-text search, a stats dashboard, and a daily streak.',
+    ],
+  },
+  {
+    date: 'June 14, 2026', version: '0.9', tag: 'NEW',
+    title: 'Live at cortexmedical.academy',
+    items: [
+      'The site went public — no account needed, and it works offline.',
+      'Added a suggestion box so you can help shape what gets built next.',
+    ],
+  },
+  {
+    date: 'Coming soon', version: '', tag: 'SOON',
+    title: 'In the works',
+    items: [
+      'Anatomy — interactive, clickable diagrams.',
+      'Medicine — pharmacology, microbiology, lab values, and EKG reference.',
+      'Learn to Learn — guided, Socratic study sessions.',
+    ],
+  },
+];
+
+function renderUpdates() {
+  stopTimer(); session = null;
+  const root = el('<div></div>');
+  root.appendChild(topbar('updates'));
+  const entries = CHANGELOG.map(c => `
+    <article class="upd ${c.tag === 'SOON' ? 'upd-soon' : ''}">
+      <div class="upd-meta">
+        <span class="upd-date">${esc(c.date)}</span>
+        ${c.version ? `<span class="upd-ver">v${esc(c.version)}</span>` : ''}
+        <span class="upd-tag tag-${c.tag.toLowerCase()}">${esc(c.tag)}</span>
+      </div>
+      <div class="upd-body">
+        <h3>${esc(c.title)}</h3>
+        <ul>${c.items.map(i => `<li>${esc(i)}</li>`).join('')}</ul>
+      </div>
+    </article>`).join('');
+  const main = el(`<main class="panel updates">
+    <div class="updates-head">
+      <span class="label">What's new</span>
+      <h1>Updates &amp; changelog.</h1>
+      <p class="sub">Cortex is actively built and maintained. Here&rsquo;s everything that&rsquo;s shipped &mdash; newest first.</p>
+    </div>
+    <div class="updates-list">${entries}</div>
+    <div class="endbtns">
+      <button class="btn btn-solid" id="up-mcat">MCAT prep</button>
+      <button class="btn" id="up-cases">Clinical scenarios</button>
+      <button class="btn" id="up-suggest">&#128161; Suggest a feature</button>
+    </div>
+  </main>`);
+  main.querySelector('#up-mcat').addEventListener('click', () => { if (typeof renderMCAT === 'function') renderMCAT(); });
+  main.querySelector('#up-cases').addEventListener('click', renderHome);
+  main.querySelector('#up-suggest').addEventListener('click', openFeedback);
+  root.appendChild(main);
+  setView(root);
+}
+
 function renderMission() {
   stopTimer(); session = null;
   const root = el('<div></div>');
@@ -362,14 +454,16 @@ function renderMission() {
       <h2>Talent is everywhere. Opportunity shouldn&rsquo;t be the bottleneck.</h2>
       <p>Start with the MCAT suite &mdash; rigorous, complete, and free forever &mdash; and grow from there. The only thing required is the discipline to begin.</p>
       <button class="btn btn-solid" id="m-enter">Enter the Academy &rarr;</button>
+      <p class="mission-whatsnew"><button class="ghostbtn" id="m-updates">See what&rsquo;s new &rarr;</button></p>
     </section>
 
-    <p class="anat-credit">Cortex Medical Academy &middot; MCAT prep, free forever &middot; v${APP_VERSION}. Original study content, AI-generated and fact-checked. For study; not a substitute for official AAMC materials or clinical judgment.</p>
+    <p class="anat-credit">Cortex Medical Academy &middot; MCAT prep, free forever &middot; v${APP_VERSION} &middot; Last updated ${CHANGELOG[0].date}. Original study content, AI-generated and fact-checked. For study; not a substitute for official AAMC materials or clinical judgment.</p>
   </main>`);
 
   main.querySelector('#m-mcat').addEventListener('click', () => { if (typeof renderMCAT === 'function') renderMCAT(); });
   main.querySelector('#m-cases').addEventListener('click', renderHome);
   main.querySelector('#m-enter').addEventListener('click', renderHome);
+  main.querySelector('#m-updates').addEventListener('click', renderUpdates);
   root.appendChild(main);
   setView(root);
   startFactRotator(main.querySelector('.js-fact'));
