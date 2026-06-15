@@ -842,3 +842,43 @@ button.ver:hover { color: var(--text); }
   .upd { grid-template-columns: 1fr; gap: 12px; }
   .upd-meta { flex-direction: row; align-items: center; gap: 10px; }
 }
+
+/* ---------- art / motion polish (v1.1) — minimal, on-brand ---------- */
+html { scroll-behavior: smooth; }
+
+@keyframes fadeup { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+#app main { animation: fadeup .34s ease both; }
+
+/* button hover lift */
+.btn { transition: border-color .12s, background .12s, transform .12s, color .12s; }
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: translateY(0); }
+
+/* nav underline affordance on hover */
+.navlink { transition: color .15s, border-color .15s; }
+.navlink:hover { border-bottom-color: var(--line-bright); }
+
+/* focus rings — sharp + on-brand */
+button:focus-visible, a:focus-visible, textarea:focus-visible, input:focus-visible {
+  outline: 2px solid var(--text); outline-offset: 2px;
+}
+
+/* live telemetry indicator (square dot = sharp-corner system) */
+.livetag {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--green); margin-left: 9px; white-space: nowrap;
+}
+.livedot {
+  display: inline-block; width: 6px; height: 6px; background: var(--green);
+  margin-right: 5px; vertical-align: middle; animation: livepulse 2.2s ease-in-out infinite;
+}
+@keyframes livepulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(26,127,55,.45); }
+  50% { opacity: .5; box-shadow: 0 0 0 5px rgba(26,127,55,0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #app main, .livedot { animation: none; }
+  .btn:hover { transform: none; }
+  html { scroll-behavior: auto; }
+}

@@ -437,7 +437,7 @@ function renderMission() {
     </section>
 
     <div class="mission-meter">
-      <div class="mm-counter"><span class="mm-num js-visits">&middot;&middot;&middot;</span><span class="mm-lab">people have visited</span></div>
+      <div class="mm-counter"><span class="mm-num js-visits">&middot;&middot;&middot;</span><span class="mm-lab">people have visited<span class="livetag"><i class="livedot"></i>live</span></span></div>
       <div class="mm-progress">
         <div class="mm-progress-head"><span class="label">Mission progress</span><span class="js-progresslab">on the way to 100,000 future doctors reached</span></div>
         <span class="bar"><i class="js-progressbar" style="width:0%"></i></span>
