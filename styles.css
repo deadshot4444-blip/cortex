@@ -480,6 +480,54 @@ button:focus-visible, .opt:focus-visible { outline: 1px solid var(--text); outli
 .mod-name { font-size: 16px; font-weight: 600; }
 .mod-desc { font-size: 13px; color: var(--dim); flex: 1; }
 .mod-stat { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--faint); }
+
+/* ---------- MCAT commercial landing ---------- */
+.panel.mcat-landing { max-width: 980px; }
+.mcat-hero { max-width: 740px; padding: 18px 0 6px; }
+.mcat-eyebrow { display: block; font-family: var(--mono); font-size: 10.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--dim); }
+.mcat-hero h1 { font-size: clamp(33px, 4.8vw, 52px); font-weight: 300; letter-spacing: -.018em; line-height: 1.07; margin-top: 16px; }
+.mcat-lede { margin-top: 18px; font-size: 16px; line-height: 1.62; color: var(--body); max-width: 680px; }
+.mcat-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.mcat-cta .btn { padding: 12px 24px; }
+
+.mcat-statband { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); margin: 46px 0 8px; }
+.mcat-stat { background: var(--bg); padding: 18px 14px; display: flex; flex-direction: column; gap: 7px; }
+.ms-num { font-family: var(--mono); font-size: 26px; letter-spacing: .01em; color: var(--text); }
+.ms-lab { font-family: var(--mono); font-size: 8.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); line-height: 1.45; }
+
+.mcat-group { margin-top: 48px; }
+.mcat-group-head { max-width: 720px; margin-bottom: 18px; }
+.mcat-group-head .label { display: block; }
+.mcat-group-head p { margin-top: 9px; color: var(--dim); font-size: 14px; line-height: 1.55; }
+.mcat-group .mcat-mods { background: transparent; border: 0; gap: 14px; margin-top: 0; }
+.mcat-group .modcard { border: 1px solid var(--line); transition: border-color .12s, background .12s; }
+.mcat-group .modcard:hover:not(:disabled) { border-color: var(--line-bright); background: var(--surface); }
+
+.mcat-method { margin-top: 70px; border-top: 1px solid var(--line); padding-top: 38px; }
+.mcat-method > .label { display: block; }
+.mcat-method-intro { margin-top: 14px; font-size: 15.5px; line-height: 1.62; color: var(--body); max-width: 740px; }
+.method-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 28px; }
+.method-pt { border: 1px solid var(--line); padding: 18px 20px; }
+.mp-name { font-size: 15px; font-weight: 600; }
+.method-pt p { margin-top: 7px; font-size: 13.5px; line-height: 1.55; color: var(--dim); }
+
+.mcat-extras { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 48px; }
+.mcat-extra { border: 1px solid var(--line); padding: 22px 20px; }
+.mcat-extra .label { display: block; margin-bottom: 11px; }
+.mcat-extra p { font-size: 13.5px; line-height: 1.62; color: var(--body); }
+
+.mcat-closing { margin-top: 60px; text-align: center; border: 1px solid var(--line-bright); background: var(--surface); padding: 48px 28px; }
+.mcat-closing h2 { font-size: 28px; font-weight: 300; letter-spacing: -.01em; }
+.mcat-closing p { margin: 14px auto 26px; max-width: 580px; color: var(--dim); font-size: 15px; line-height: 1.6; }
+
+@media (max-width: 780px) {
+  .mcat-statband { grid-template-columns: repeat(3, 1fr); }
+  .method-grid { grid-template-columns: 1fr; }
+  .mcat-extras { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .mcat-statband { grid-template-columns: repeat(2, 1fr); }
+}
 .mcat-soon { display: flex; flex-wrap: wrap; gap: 8px; }
 .soon { font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); border: 1px dashed var(--line-bright); padding: 6px 10px; }
 

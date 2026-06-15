@@ -60,36 +60,106 @@ async function renderMCAT() {
   const qn = MCAT.questions.length, cn = MCAT.cards.length;
   const t = mcatTotals();
 
+  const carsN = MCAT.cars.length, sciN = MCAT.sci.length;
+  const conceptsN = MCAT.outline ? MCAT.outline.concepts.length : 0;
+
+  const groups = [
+    { title: 'Foundations &middot; Acquire',
+      blurb: 'Build durable knowledge through active retrieval, not passive review. Every fact is earned on a schedule; every question is dissected down to the wrong answers engineered to tempt you.',
+      mods: [
+        { name: 'Flashcard Reactor', desc: '504 cards on SM-2 spaced scheduling, surfaced the moment they start to fade', stat: cn ? `${due} due &middot; ${fresh} new` : 'generating&hellip;', go: renderFlashHome, on: cn > 0 },
+        { name: 'Question Drills', desc: '263 discrete questions, interleaved, with a full distractor autopsy', stat: qn ? `${qn} questions` : 'generating&hellip;', go: renderDrillSetup, on: qn > 0 },
+        { name: 'CARS Library', desc: '32 original passages, 96+ questions, with a blind-review workflow', stat: carsN ? `${carsN} passages` : 'generating&hellip;', go: renderCarsHome, on: carsN > 0 },
+        { name: 'Science Passages', desc: '34 AAMC-style passages with live data tables', stat: sciN ? `${sciN} passages` : 'generating&hellip;', go: renderPassageHome, on: sciN > 0 },
+      ] },
+    { title: 'Examination &middot; Prove',
+      blurb: 'Move from knowing to performing under test-day conditions. Train the stamina the real exam demands &mdash; then face yourself honestly in review, before the AAMC charges you to find out.',
+      mods: [
+        { name: 'Exam Simulator', desc: 'Real-time countdown, flag navigator, stamina &amp; full-length chains, periodic table', stat: 'section &amp; full-length', go: renderSimHome, on: qn > 0 },
+        { name: 'Mistake Lab', desc: 'Confidence-vs-accuracy calibration, weakest categories, root-cause analysis', stat: t.answered ? `${t.answered} answered &middot; ${t.acc}%` : 'no data yet', go: renderMistakeLab, on: true },
+      ] },
+    { title: 'Navigation &middot; Direct',
+      blurb: 'Know exactly where you stand against the full AAMC blueprint, and exactly what to do next &mdash; every day, no guesswork.',
+      mods: [
+        { name: 'Blueprint Navigator', desc: 'The complete AAMC content map with a live coverage heat-check', stat: `${conceptsN} concepts`, go: renderBlueprint, on: !!MCAT.outline },
+        { name: 'Guide Engine', desc: 'A personalized day-by-day campaign on 120 / 90 / 60-day tracks', stat: guidePlan() ? 'plan active' : 'build a plan', go: renderGuide, on: true },
+        { name: 'Course Mapper', desc: 'Rate your coursework, generate a pre-study coverage heat map', stat: 'pre-study check', go: renderMapper, on: true },
+      ] },
+  ];
+
+  const stats = [
+    [String(cn || 504), 'Spaced-repetition cards'],
+    [String(qn || 263), 'Questions &middot; distractor autopsy'],
+    [String(carsN || 32), 'Original CARS passages'],
+    [String(sciN || 34), 'AAMC-style science passages'],
+    ['9', 'Integrated instruments'],
+    ['$0', 'Cost &middot; no account'],
+  ];
+
+  const method = {
+    intro: 'Most MCAT tools stop at one technique and call it a study system. This one is engineered around the techniques cognitive science rates highest-utility &mdash; the same principles Dunlosky and colleagues found most reliably improve real retention and transfer. Nothing here is decoration; every instrument exists to exploit a known mechanism of learning.',
+    points: [
+      ['Spaced repetition', 'Material returns at the precise interval before you would forget it. SM-2 scheduling fights the forgetting curve instead of ignoring it.'],
+      ['Active retrieval practice', 'Recalling an answer strengthens memory far more than re-reading it. Every drill forces you to produce, not recognize.'],
+      ['Interleaving', 'Mixed topics build the discrimination the real exam requires &mdash; you learn to tell similar concepts apart, not just repeat them in blocks.'],
+      ['Confidence calibration', 'You log how sure you were, then see confidence plotted against accuracy. Overconfidence is the silent score-killer; this makes it visible.'],
+      ['Distractor autopsy', 'For every question, we explain why each wrong answer was engineered to be tempting &mdash; so you stop falling for the same trap twice.'],
+      ['Blind review', 'Re-attempt flagged questions with no feedback before reading explanations. It separates true understanding from lucky recognition.'],
+      ['Teach-back', 'Explaining a concept in your own words is the strongest test of mastery there is. The system prompts you to teach, not just answer.'],
+    ],
+  };
+
+  const extras = [
+    ['Built on the full AAMC blueprint', 'This is not a curated highlight reel. Every instrument is mapped to the official AAMC content outline, and the Blueprint Navigator shows your measured coverage across every category &mdash; what you have mastered, what you have merely touched, and what you have not yet faced.'],
+    ['One integrated system, not nine apps', 'The nine instruments share one record of your performance. A miss in Question Drills surfaces in the Mistake Lab, reshapes your Blueprint coverage, and changes what the Guide Engine assigns tomorrow. You study; the system keeps the bookkeeping.'],
+    ['The free promise', 'Cortex Medical Academy is free, with no account required and nothing behind a paywall &mdash; by design, for humanity. The cost of becoming a physician should never be the price of preparing for the exam that begins it.'],
+  ];
+
   const root = el('<div></div>');
   root.appendChild(topbar('mcat'));
-  const main = el(`<main class="panel mcat-home">
-    <div class="hero"><h1>MCAT PRIME.</h1><p class="sub">An evidence-based command center — spaced recall, retrieval practice, and brutal feedback on your weak spots.</p></div>
-    <div class="mcat-mods"></div>
+  const main = el(`<main class="panel mcat-landing">
+    <section class="mcat-hero">
+      <span class="mcat-eyebrow">MCAT Preparation &middot; Evidence-Based &middot; Free for all</span>
+      <h1>Prepare the way the science says you should.</h1>
+      <p class="mcat-lede">A complete, research-grade MCAT preparation system built on the cognitive science of how memory actually works &mdash; spaced retrieval, calibrated feedback, full AAMC coverage. Most MCAT tools are flashcard toys. This is the whole instrument. No account. No paywall. No gimmicks.</p>
+      <div class="mcat-cta"><button class="btn btn-solid" id="mc-enter">Enter the system</button><button class="btn" id="mc-method">Read the method</button></div>
+    </section>
+    <div class="mcat-statband">${stats.map(s => `<div class="mcat-stat"><span class="ms-num">${s[0]}</span><span class="ms-lab">${s[1]}</span></div>`).join('')}</div>
+    <div id="mcat-groups"></div>
+    <section class="mcat-method" id="mcat-method">
+      <span class="label">The Method</span>
+      <p class="mcat-method-intro">${method.intro}</p>
+      <div class="method-grid">${method.points.map(p => `<div class="method-pt"><span class="mp-name">${p[0]}</span><p>${p[1]}</p></div>`).join('')}</div>
+    </section>
+    <div class="mcat-extras">${extras.map(e => `<div class="mcat-extra"><span class="label">${e[0]}</span><p>${e[1]}</p></div>`).join('')}</div>
+    <section class="mcat-closing">
+      <h2>Begin with the system, not the syllabus.</h2>
+      <p>The complete, evidence-based MCAT preparation system &mdash; every instrument, every passage, every card, open and free. The only thing required is the discipline to start.</p>
+      <button class="btn btn-solid" id="mc-enter2">Enter the system</button>
+    </section>
     <p class="anat-credit">Original content, generated and fact-checked, tagged to the AAMC blueprint. For study, not a substitute for AAMC official materials.</p>
   </main>`);
 
-  const carsN = MCAT.cars.length;
-  const mods = [
-    { key: 'flash', name: 'Flashcard Reactor', desc: 'Spaced-repetition active recall', stat: cn ? `${due} due &middot; ${fresh} new` : 'generating&hellip;', go: () => renderFlashHome(), on: cn > 0 },
-    { key: 'drill', name: 'Question Drills', desc: 'Retrieval practice, interleaved, with distractor autopsy', stat: qn ? `${qn} questions` : 'generating&hellip;', go: () => renderDrillSetup(), on: qn > 0 },
-    { key: 'cars', name: 'CARS Studio', desc: 'Original passages — pure reading & reasoning', stat: carsN ? `${carsN} passages` : 'generating&hellip;', go: () => renderCarsHome(), on: carsN > 0 },
-    { key: 'passage', name: 'Passage Lab', desc: 'AAMC-style science passages with data', stat: MCAT.sci.length ? `${MCAT.sci.length} passages` : 'generating&hellip;', go: () => renderPassageHome(), on: MCAT.sci.length > 0 },
-    { key: 'sim', name: 'Exam Simulator', desc: 'Test-day environment — timer, flags, stamina', stat: 'section & full-length', go: () => renderSimHome(), on: qn > 0 },
-    { key: 'blueprint', name: 'Blueprint Navigator', desc: 'The full AAMC map — your coverage heat-check', stat: `${MCAT.outline ? MCAT.outline.concepts.length : 0} concepts`, go: () => renderBlueprint(), on: !!MCAT.outline },
-    { key: 'mistake', name: 'Mistake Lab', desc: 'Calibration, weak areas & next actions', stat: t.answered ? `${t.answered} answered &middot; ${t.acc}%` : 'no data yet', go: () => renderMistakeLab(), on: true },
-    { key: 'guide', name: 'Guide Engine', desc: 'Personalized day-by-day study campaign', stat: guidePlan() ? 'plan active' : 'build a plan', go: () => renderGuide(), on: true },
-    { key: 'mapper', name: 'Course Mapper', desc: 'Coursework → coverage heat map', stat: 'pre-study check', go: () => renderMapper(), on: true },
-  ];
-  const mc = main.querySelector('.mcat-mods');
-  mods.forEach(m => {
-    const card = el(`<button class="modcard" ${m.on ? '' : 'disabled'}>
-      <span class="mod-name">${esc(m.name)}</span>
-      <span class="mod-desc">${esc(m.desc)}</span>
-      <span class="mod-stat">${m.stat}</span>
-    </button>`);
-    if (m.on) card.addEventListener('click', m.go);
-    mc.appendChild(card);
+  const gWrap = main.querySelector('#mcat-groups');
+  groups.forEach(g => {
+    const sec = el(`<section class="mcat-group"><div class="mcat-group-head"><span class="label">${g.title}</span><p>${g.blurb}</p></div><div class="mcat-mods"></div></section>`);
+    const mc = sec.querySelector('.mcat-mods');
+    g.mods.forEach(m => {
+      const card = el(`<button class="modcard" ${m.on ? '' : 'disabled'}>
+        <span class="mod-name">${m.name}</span>
+        <span class="mod-desc">${m.desc}</span>
+        <span class="mod-stat">${m.stat}</span>
+      </button>`);
+      if (m.on) card.addEventListener('click', m.go);
+      mc.appendChild(card);
+    });
+    gWrap.appendChild(sec);
   });
+
+  const enter = () => renderDrillSetup();
+  main.querySelector('#mc-enter').addEventListener('click', enter);
+  main.querySelector('#mc-enter2').addEventListener('click', enter);
+  main.querySelector('#mc-method').addEventListener('click', () => main.querySelector('#mcat-method').scrollIntoView({ behavior: 'smooth', block: 'start' }));
 
   root.appendChild(main);
   setView(root);
