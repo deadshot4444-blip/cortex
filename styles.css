@@ -50,10 +50,10 @@ button:focus-visible, .opt:focus-visible { outline: 1px solid var(--text); outli
 .topbar .side.right { justify-content: flex-end; }
 .topbar .center { flex: 0 0 auto; }
 .wordmark {
-  font-family: var(--mono); font-size: 12.5px; letter-spacing: .16em; font-weight: 700;
+  font-family: var(--mono); font-size: 12.5px; letter-spacing: .16em; font-weight: 600;
   text-transform: uppercase; color: #000; text-decoration: none; white-space: nowrap;
 }
-.wm-sub { font-weight: 400; color: #000; }
+.wm-sub { color: #000; }
 
 /* main nav bar: name far left, tabs + version pushed to the right */
 .topbar.mainbar { justify-content: flex-start; gap: 24px; }
@@ -534,6 +534,40 @@ button:focus-visible, .opt:focus-visible { outline: 1px solid var(--text); outli
 @media (max-width: 600px) {
   .mcat-statband { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* ---------- mission / front page ---------- */
+.panel.mission { max-width: 940px; }
+.mission-hero { max-width: 770px; padding: 22px 0 4px; }
+.mission-hero h1 { font-size: clamp(36px, 5.6vw, 60px); font-weight: 300; letter-spacing: -.022em; line-height: 1.04; margin-top: 16px; }
+.mission-lede { margin-top: 20px; font-size: 16.5px; line-height: 1.62; color: var(--body); max-width: 690px; }
+.mission-hero .mcat-cta { margin-top: 26px; }
+.mission-fact { margin-top: 26px; font-size: 13px; color: var(--dim); display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; max-width: 680px; }
+.mission-fact .label { flex: 0 0 auto; }
+.mission-fact .js-fact { transition: opacity .3s; line-height: 1.5; }
+
+.mission-meter { display: grid; grid-template-columns: auto 1fr; gap: 36px; align-items: center; margin: 46px 0; padding: 22px 26px; border: 1px solid var(--line); background: var(--surface); }
+.mm-counter { display: flex; flex-direction: column; gap: 5px; }
+.mm-num { font-family: var(--mono); font-size: 34px; letter-spacing: .01em; color: var(--text); }
+.mm-lab { font-family: var(--mono); font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); }
+.mm-progress-head { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; margin-bottom: 9px; }
+.mm-progress-head .js-progresslab { font-family: var(--mono); font-size: 10px; letter-spacing: .05em; color: var(--dim); }
+.mm-progress .bar { display: block; height: 6px; background: var(--line); }
+.mm-progress .bar i { display: block; height: 100%; background: var(--text); transition: width .7s ease; }
+
+.mission-principles { margin-top: 58px; }
+.mission-principles > .label { display: block; }
+.mission-principles h2 { font-size: 26px; font-weight: 300; letter-spacing: -.01em; margin: 8px 0 24px; }
+.principle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.principle { border: 1px solid var(--line); padding: 20px 22px; transition: border-color .12s; }
+.principle:hover { border-color: var(--line-bright); }
+.p-name { font-size: 15.5px; font-weight: 600; }
+.principle p { margin-top: 8px; font-size: 13.5px; line-height: 1.6; color: var(--dim); }
+.mission .mcat-closing { margin-top: 58px; }
+
+@media (max-width: 720px) {
+  .mission-meter { grid-template-columns: 1fr; gap: 22px; }
+  .principle-grid { grid-template-columns: 1fr; }
+}
 .mcat-soon { display: flex; flex-wrap: wrap; gap: 8px; }
 .soon { font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); border: 1px dashed var(--line-bright); padding: 6px 10px; }
 
@@ -751,6 +785,12 @@ button:focus-visible, .opt:focus-visible { outline: 1px solid var(--text); outli
   .nav { gap: 0; }
   .navlink { padding: 7px 9px; }
   .topbar { padding: 0 16px; }
+  /* main nav bar: wordmark + version on row 1, tabs in a swipeable row below */
+  .topbar.mainbar { flex-wrap: wrap; height: auto; padding: 8px 16px; row-gap: 6px; }
+  .topbar.mainbar .bar-right { order: 2; }
+  .topbar.mainbar .nav { order: 3; flex-basis: 100%; flex-wrap: nowrap; overflow-x: auto; padding-bottom: 2px; scrollbar-width: none; }
+  .topbar.mainbar .nav::-webkit-scrollbar { display: none; }
+  .topbar.mainbar .navlink { flex: 0 0 auto; padding: 7px 11px 7px 0; }
 }
 @media (max-width: 600px) {
   .grid { grid-template-columns: 1fr; }

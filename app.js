@@ -155,6 +155,7 @@ function totals() {
 /* ---------- data ---------- */
 
 async function boot() {
+  fetchVisits();
   try {
     const [m, i] = await Promise.all([
       fetch('data/manifest.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : {}),
@@ -162,12 +163,8 @@ async function boot() {
     ]);
     store.manifest = m;
     store.index = i;
-  } catch {
-    $app.replaceChildren(el(`<div class="notice">Couldn&rsquo;t load case data &mdash; this app needs to be served over http.
-      Double-click <code>start.command</code> in the folder, or run <code>python3 -m http.server</code> inside it.</div>`));
-    return;
-  }
-  renderHome();
+  } catch { /* case data unavailable; the mission page still renders, sections handle it */ }
+  renderMission();
 }
 
 async function loadSpecialty(key) {
@@ -198,7 +195,7 @@ function topbar(active) {
     </nav>
     <div class="bar-right">${stat ? `<span class="topstat">${stat}</span>` : ''}<span class="ver">v${APP_VERSION}</span></div>
   </header>`);
-  root.querySelector('.wordmark').addEventListener('click', e => { e.preventDefault(); renderHome(); });
+  root.querySelector('.wordmark').addEventListener('click', e => { e.preventDefault(); renderMission(); });
   root.querySelector('[data-go="practice"]').addEventListener('click', renderHome);
   root.querySelector('[data-go="review"]').addEventListener('click', () => renderReview());
   root.querySelector('[data-go="anatomy"]').addEventListener('click', () => COMING_SOON.has('anatomy') ? renderComingSoon('anatomy') : renderAnatomy());
@@ -273,6 +270,100 @@ function openFeedback() {
   document.addEventListener('keydown', onKey);
   document.body.appendChild(back);
   setTimeout(() => back.querySelector('#fb-msg').focus(), 30);
+}
+
+/* ---------- mission / front page ---------- */
+
+let visitCount = null;
+async function fetchVisits() {
+  try {
+    const r = await fetch('https://abacus.jasoncameron.dev/hit/cortexmedacademy/visits', { cache: 'no-store' });
+    if (r.ok) { const j = await r.json(); if (typeof j.value === 'number') { visitCount = j.value; updateVisitUI(); } }
+  } catch { /* counter is best-effort; page works without it */ }
+}
+function updateVisitUI() {
+  if (visitCount == null) return;
+  document.querySelectorAll('.js-visits').forEach(e => e.textContent = visitCount.toLocaleString());
+  const goal = 100000, pct = Math.max(1.5, Math.min(100, visitCount / goal * 100));
+  document.querySelectorAll('.js-progressbar').forEach(e => e.style.width = pct.toFixed(2) + '%');
+  document.querySelectorAll('.js-progresslab').forEach(e => e.textContent = `${visitCount.toLocaleString()} of 100,000 future doctors reached`);
+}
+
+const FACTS = [
+  'Quizzing yourself beats re-reading — and the gap only widens the longer you wait.',
+  'Spacing your reviews can roughly double what you remember long-term, versus cramming.',
+  'Explaining an idea in your own words predicts mastery better than reading it again.',
+  'Mixing topics instead of studying them in blocks trains you to tell similar concepts apart.',
+  'Recalling an answer strengthens the memory more than simply seeing it again.',
+  'Small daily reps compound; marathon cram sessions fade fast.',
+];
+function startFactRotator(node) {
+  let i = Math.floor(Math.random() * FACTS.length);
+  node.textContent = FACTS[i];
+  const tick = () => {
+    if (!node.isConnected) return;            // self-cleans when the page changes
+    i = (i + 1) % FACTS.length;
+    node.style.opacity = '0';
+    setTimeout(() => { node.textContent = FACTS[i]; node.style.opacity = '1'; }, 300);
+    setTimeout(tick, 7000);
+  };
+  setTimeout(tick, 7000);
+}
+
+const PRINCIPLES = [
+  ['First principles, not memorized dogma', 'We break medicine down to its mechanisms and rebuild it from the ground up — no curated highlight reels, no "just memorize this." Only what is actually true, and what actually works.'],
+  ['Truth over comfort', 'The system shows you exactly where you stand — what you have mastered and what you have only touched. Honest feedback stings, and it is the only kind that makes you better.'],
+  ['Abundance, by design', 'Elite preparation should not be scarce or expensive. We make it abundant and free, so the sharpest minds rise — regardless of zip code or bank balance.'],
+  ['Long-term human flourishing', 'Better-trained doctors mean longer, healthier, stronger lives. Every concept you master strengthens the pipeline of people who will one day heal the rest of us.'],
+  ['High agency compounds', 'Daily action beats heroic cramming. The people who treat this like a mission outrun everyone else — we just hand them the instrument.'],
+];
+
+function renderMission() {
+  stopTimer(); session = null;
+  const root = el('<div></div>');
+  root.appendChild(topbar('mission'));
+  const main = el(`<main class="panel mission">
+    <section class="mission-hero">
+      <span class="mcat-eyebrow">Cortex Medical Academy &middot; The mission</span>
+      <h1>Master the human machine.</h1>
+      <p class="mission-lede">Cortex Medical Academy exists to remove every barrier between a capable mind and real medical mastery. Built from first principles, grounded in how learning actually works, and free for everyone &mdash; forever. The future of medicine shouldn&rsquo;t belong to whoever can afford a $500 prep course. It should belong to whoever is willing to do the work.</p>
+      <div class="mcat-cta">
+        <button class="btn btn-solid" id="m-mcat">MCAT Prep</button>
+        <button class="btn" id="m-cases">Clinical Scenarios</button>
+      </div>
+      <p class="mission-fact"><span class="label">Did you know</span><span class="js-fact"></span></p>
+    </section>
+
+    <div class="mission-meter">
+      <div class="mm-counter"><span class="mm-num js-visits">&middot;&middot;&middot;</span><span class="mm-lab">people have visited</span></div>
+      <div class="mm-progress">
+        <div class="mm-progress-head"><span class="label">Mission progress</span><span class="js-progresslab">on the way to 100,000 future doctors reached</span></div>
+        <span class="bar"><i class="js-progressbar" style="width:0%"></i></span>
+      </div>
+    </div>
+
+    <section class="mission-principles">
+      <span class="label">How we think &middot; first principles</span>
+      <h2>The principles behind everything.</h2>
+      <div class="principle-grid">${PRINCIPLES.map(p => `<div class="principle"><span class="p-name">${p[0]}</span><p>${p[1]}</p></div>`).join('')}</div>
+    </section>
+
+    <section class="mcat-closing">
+      <h2>Talent is everywhere. Opportunity shouldn&rsquo;t be the bottleneck.</h2>
+      <p>Every case, every passage, every card &mdash; open, rigorous, and free. Pick a section and start. The only thing required is the discipline to begin.</p>
+      <button class="btn btn-solid" id="m-enter">Enter the Academy &rarr;</button>
+    </section>
+
+    <p class="anat-credit">Cortex Medical Academy &middot; free for humanity &middot; v${APP_VERSION}. Original study content, AI-generated and fact-checked. For study; not a substitute for official AAMC materials or clinical judgment.</p>
+  </main>`);
+
+  main.querySelector('#m-mcat').addEventListener('click', () => { if (typeof renderMCAT === 'function') renderMCAT(); });
+  main.querySelector('#m-cases').addEventListener('click', renderHome);
+  main.querySelector('#m-enter').addEventListener('click', renderHome);
+  root.appendChild(main);
+  setView(root);
+  startFactRotator(main.querySelector('.js-fact'));
+  updateVisitUI();
 }
 
 /* ---------- home / practice ---------- */
