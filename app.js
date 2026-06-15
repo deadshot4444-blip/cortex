@@ -33,6 +33,7 @@ const NAME_BY_KEY = Object.fromEntries(SPECIALTIES.map(s => [s.key, s.name]));
 // Sections gated as "Coming soon" for the public launch. Remove a key here to make it live.
 const COMING_SOON = new Set(['anatomy', 'reference', 'socrates']);
 const SECTION_LABELS = { anatomy: 'Anatomy', reference: 'Medicine', socrates: 'Learn how to learn' };
+const APP_VERSION = '1.0';
 
 const SECONDS_PER_QUESTION = 90;
 const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F'];
@@ -184,9 +185,9 @@ function topbar(active) {
   const t = totals();
   const streak = store.streak.current > 0 ? `${store.streak.current}&#128293; &middot; ` : '';
   const stat = t.answered ? `${streak}${t.xp.toLocaleString()} XP` : '';
-  const root = el(`<header class="topbar">
-    <div class="side"><a class="wordmark" href="#">Cortex <span class="wm-sub">Medical Academy</span></a></div>
-    <div class="center"><nav class="nav">
+  const root = el(`<header class="topbar mainbar">
+    <a class="wordmark" href="#">Cortex <span class="wm-sub">Medical Academy</span></a>
+    <nav class="nav">
       <button class="navlink ${active === 'practice' ? 'active' : ''}" data-go="practice">Practice</button>
       <button class="navlink ${active === 'mcat' ? 'active' : ''}" data-go="mcat">MCAT</button>
       <button class="navlink ${active === 'review' ? 'active' : ''}" data-go="review">Review</button>
@@ -194,8 +195,8 @@ function topbar(active) {
       <button class="navlink soon ${active === 'anatomy' ? 'active' : ''}" data-go="anatomy">Anatomy<sup>soon</sup></button>
       <button class="navlink soon ${active === 'reference' ? 'active' : ''}" data-go="reference">Medicine<sup>soon</sup></button>
       <button class="navlink soon ${active === 'socrates' ? 'active' : ''}" data-go="socrates">Learn to Learn<sup>soon</sup></button>
-    </nav></div>
-    <div class="side right"><span class="topstat">${stat}</span></div>
+    </nav>
+    <div class="bar-right">${stat ? `<span class="topstat">${stat}</span>` : ''}<span class="ver">v${APP_VERSION}</span></div>
   </header>`);
   root.querySelector('.wordmark').addEventListener('click', e => { e.preventDefault(); renderHome(); });
   root.querySelector('[data-go="practice"]').addEventListener('click', renderHome);
