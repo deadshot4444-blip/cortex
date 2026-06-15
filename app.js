@@ -313,7 +313,7 @@ function startFactRotator(node) {
 const PRINCIPLES = [
   ['First principles, not memorized dogma', 'We break medicine down to its mechanisms and rebuild it from the ground up — no curated highlight reels, no "just memorize this." Only what is actually true, and what actually works.'],
   ['Truth over comfort', 'The system shows you exactly where you stand — what you have mastered and what you have only touched. Honest feedback stings, and it is the only kind that makes you better.'],
-  ['Abundance, by design', 'Elite preparation should not be scarce or expensive. We make it abundant and free, so the sharpest minds rise — regardless of zip code or bank balance.'],
+  ['Abundance, by design', 'What decides who becomes a great physician should be effort, not money. Our MCAT preparation is free forever; anything we ever charge for exists only to sustain that promise and fund the mission.'],
   ['Long-term human flourishing', 'Better-trained doctors mean longer, healthier, stronger lives. Every concept you master strengthens the pipeline of people who will one day heal the rest of us.'],
   ['High agency compounds', 'Daily action beats heroic cramming. The people who treat this like a mission outrun everyone else — we just hand them the instrument.'],
 ];
@@ -326,7 +326,7 @@ function renderMission() {
     <section class="mission-hero">
       <span class="mcat-eyebrow">Cortex Medical Academy &middot; The mission</span>
       <h1>Master the human machine.</h1>
-      <p class="mission-lede">Cortex Medical Academy exists to remove every barrier between a capable mind and real medical mastery. Built from first principles, grounded in how learning actually works, and free for everyone &mdash; forever. The future of medicine shouldn&rsquo;t belong to whoever can afford a $500 prep course. It should belong to whoever is willing to do the work.</p>
+      <p class="mission-lede">Cortex Medical Academy exists to remove every barrier between a capable mind and real medical mastery. Built from first principles and grounded in how learning actually works. The future of medicine shouldn&rsquo;t belong to whoever can afford a $500 prep course &mdash; it should belong to whoever is willing to do the work. That&rsquo;s why our MCAT preparation is, and always will be, free for everyone.</p>
       <div class="mcat-cta">
         <button class="btn btn-solid" id="m-mcat">MCAT Prep</button>
         <button class="btn" id="m-cases">Clinical Scenarios</button>
@@ -350,11 +350,11 @@ function renderMission() {
 
     <section class="mcat-closing">
       <h2>Talent is everywhere. Opportunity shouldn&rsquo;t be the bottleneck.</h2>
-      <p>Every case, every passage, every card &mdash; open, rigorous, and free. Pick a section and start. The only thing required is the discipline to begin.</p>
+      <p>Start with the MCAT suite &mdash; rigorous, complete, and free forever &mdash; and grow from there. The only thing required is the discipline to begin.</p>
       <button class="btn btn-solid" id="m-enter">Enter the Academy &rarr;</button>
     </section>
 
-    <p class="anat-credit">Cortex Medical Academy &middot; free for humanity &middot; v${APP_VERSION}. Original study content, AI-generated and fact-checked. For study; not a substitute for official AAMC materials or clinical judgment.</p>
+    <p class="anat-credit">Cortex Medical Academy &middot; MCAT prep, free forever &middot; v${APP_VERSION}. Original study content, AI-generated and fact-checked. For study; not a substitute for official AAMC materials or clinical judgment.</p>
   </main>`);
 
   main.querySelector('#m-mcat').addEventListener('click', () => { if (typeof renderMCAT === 'function') renderMCAT(); });

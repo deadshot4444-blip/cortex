@@ -93,7 +93,7 @@ async function renderMCAT() {
     [String(carsN || 32), 'Original CARS passages'],
     [String(sciN || 34), 'AAMC-style science passages'],
     ['9', 'Integrated instruments'],
-    ['$0', 'Cost &middot; no account'],
+    ['$0', 'Free forever &middot; no account'],
   ];
 
   const method = {
@@ -112,14 +112,14 @@ async function renderMCAT() {
   const extras = [
     ['Built on the full AAMC blueprint', 'This is not a curated highlight reel. Every instrument is mapped to the official AAMC content outline, and the Blueprint Navigator shows your measured coverage across every category &mdash; what you have mastered, what you have merely touched, and what you have not yet faced.'],
     ['One integrated system, not nine apps', 'The nine instruments share one record of your performance. A miss in Question Drills surfaces in the Mistake Lab, reshapes your Blueprint coverage, and changes what the Guide Engine assigns tomorrow. You study; the system keeps the bookkeeping.'],
-    ['The free promise', 'Cortex Medical Academy is free, with no account required and nothing behind a paywall &mdash; by design, for humanity. The cost of becoming a physician should never be the price of preparing for the exam that begins it.'],
+    ['The free promise', 'MCAT preparation on Cortex is free forever &mdash; no account, no paywall, no catch. Other parts of the Academy may one day be part of a membership that helps fund the mission, but everything in the MCAT suite stays free. The cost of becoming a physician should never be the price of preparing for the exam that begins it.'],
   ];
 
   const root = el('<div></div>');
   root.appendChild(topbar('mcat'));
   const main = el(`<main class="panel mcat-landing">
     <section class="mcat-hero">
-      <span class="mcat-eyebrow">MCAT Preparation &middot; Evidence-Based &middot; Free for all</span>
+      <span class="mcat-eyebrow">MCAT Preparation &middot; Evidence-Based &middot; Free forever</span>
       <h1>Prepare the way the science says you should.</h1>
       <p class="mcat-lede">A complete, research-grade MCAT preparation system built on the cognitive science of how memory actually works &mdash; spaced retrieval, calibrated feedback, full AAMC coverage. Most MCAT tools are flashcard toys. This is the whole instrument. No account. No paywall. No gimmicks.</p>
       <div class="mcat-cta"><button class="btn btn-solid" id="mc-enter">Enter the system</button><button class="btn" id="mc-method">Read the method</button></div>
@@ -134,7 +134,7 @@ async function renderMCAT() {
     <div class="mcat-extras">${extras.map(e => `<div class="mcat-extra"><span class="label">${e[0]}</span><p>${e[1]}</p></div>`).join('')}</div>
     <section class="mcat-closing">
       <h2>Begin with the system, not the syllabus.</h2>
-      <p>The complete, evidence-based MCAT preparation system &mdash; every instrument, every passage, every card, open and free. The only thing required is the discipline to start.</p>
+      <p>The complete, evidence-based MCAT preparation system &mdash; every instrument, every passage, every card, open and free forever. The only thing required is the discipline to start.</p>
       <button class="btn btn-solid" id="mc-enter2">Enter the system</button>
     </section>
     <p class="anat-credit">Original content, generated and fact-checked, tagged to the AAMC blueprint. For study, not a substitute for AAMC official materials.</p>
