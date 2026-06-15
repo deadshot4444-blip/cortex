@@ -275,10 +275,20 @@ function openFeedback() {
 /* ---------- mission / front page ---------- */
 
 let visitCount = null;
+// Counts each browser once (not every refresh): increment on first-ever visit, read-only after.
 async function fetchVisits() {
   try {
-    const r = await fetch('https://abacus.jasoncameron.dev/hit/cortexmedacademy/visits', { cache: 'no-store' });
-    if (r.ok) { const j = await r.json(); if (typeof j.value === 'number') { visitCount = j.value; updateVisitUI(); } }
+    const counted = localStorage.getItem('cs-counted');
+    const action = counted ? 'get' : 'hit';
+    const r = await fetch(`https://abacus.jasoncameron.dev/${action}/cortexmedacademy/people`, { cache: 'no-store' });
+    if (r.ok) {
+      const j = await r.json();
+      if (typeof j.value === 'number') {
+        visitCount = j.value;
+        if (!counted) { try { localStorage.setItem('cs-counted', '1'); } catch {} }
+        updateVisitUI();
+      }
+    }
   } catch { /* counter is best-effort; page works without it */ }
 }
 function updateVisitUI() {
@@ -286,7 +296,7 @@ function updateVisitUI() {
   document.querySelectorAll('.js-visits').forEach(e => e.textContent = visitCount.toLocaleString());
   const goal = 100000, pct = Math.max(1.5, Math.min(100, visitCount / goal * 100));
   document.querySelectorAll('.js-progressbar').forEach(e => e.style.width = pct.toFixed(2) + '%');
-  document.querySelectorAll('.js-progresslab').forEach(e => e.textContent = `${visitCount.toLocaleString()} of 100,000 future doctors reached`);
+  document.querySelectorAll('.js-progresslab').forEach(e => e.textContent = `${visitCount.toLocaleString()} reached · goal: 100,000 future doctors`);
 }
 
 const FACTS = [
