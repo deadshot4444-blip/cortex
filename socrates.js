@@ -29,7 +29,7 @@ async function renderSocrates() {
   const total = SOC.dialogues.length;
   const done = SOC.dialogues.filter(d => SOC_DONE[d.id]).length;
   const main = el(`<main class="panel">
-    <div class="hero"><h1>Socrates.</h1><p class="sub">Don&rsquo;t memorize &mdash; reason. Every topic is a chain of questions that builds understanding before it hands you the answer.</p></div>
+    <div class="hero"><h1>Learn how to learn.</h1><p class="sub">Don&rsquo;t memorize &mdash; reason. Every topic is a chain of questions that builds understanding before it hands you the answer.</p></div>
     ${total ? `<div class="socbar"><span class="label">Progress</span><span class="bar"><i style="width:${total ? Math.round(100 * done / total) : 0}%"></i></span><span class="topstat">${done}/${total} dialogues</span></div>` : ''}
     <div class="mcat-mods"></div>
     <p class="anat-credit">Original Socratic dialogues, AI-generated and fact-checked. Attempt each question before revealing the answer &mdash; the struggle is the point.</p>
@@ -61,7 +61,7 @@ function renderSocDiscipline(key) {
   root.appendChild(topbar('socrates'));
   const main = el(`<main class="panel">
     <div class="hero"><h1>${esc(discName(key))}.</h1><p class="sub">${list.length} topics. Pick one and reason it out step by step.</p></div>
-    <div class="tabs"><button class="ghostbtn" id="socback" style="margin-left:auto">&larr; Socrates</button></div>
+    <div class="tabs"><button class="ghostbtn" id="socback" style="margin-left:auto">&larr; Learn to Learn</button></div>
     <div class="rows" id="socrows"></div>
   </main>`);
   main.querySelector('#socback').addEventListener('click', renderSocrates);

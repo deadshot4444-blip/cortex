@@ -32,7 +32,7 @@ const NAME_BY_KEY = Object.fromEntries(SPECIALTIES.map(s => [s.key, s.name]));
 
 // Sections gated as "Coming soon" for the public launch. Remove a key here to make it live.
 const COMING_SOON = new Set(['anatomy', 'reference', 'socrates']);
-const SECTION_LABELS = { anatomy: 'Anatomy', reference: 'Reference', socrates: 'Socrates' };
+const SECTION_LABELS = { anatomy: 'Anatomy', reference: 'Medicine', socrates: 'Learn how to learn' };
 
 const SECONDS_PER_QUESTION = 90;
 const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F'];
@@ -185,15 +185,15 @@ function topbar(active) {
   const streak = store.streak.current > 0 ? `${store.streak.current}&#128293; &middot; ` : '';
   const stat = t.answered ? `${streak}${t.xp.toLocaleString()} XP` : '';
   const root = el(`<header class="topbar">
-    <div class="side"><a class="wordmark" href="#">Cortex</a></div>
+    <div class="side"><a class="wordmark" href="#">Cortex <span class="wm-sub">Medical Academy</span></a></div>
     <div class="center"><nav class="nav">
       <button class="navlink ${active === 'practice' ? 'active' : ''}" data-go="practice">Practice</button>
       <button class="navlink ${active === 'mcat' ? 'active' : ''}" data-go="mcat">MCAT</button>
       <button class="navlink ${active === 'review' ? 'active' : ''}" data-go="review">Review</button>
       <button class="navlink ${active === 'stats' ? 'active' : ''}" data-go="stats">Stats</button>
       <button class="navlink soon ${active === 'anatomy' ? 'active' : ''}" data-go="anatomy">Anatomy<sup>soon</sup></button>
-      <button class="navlink soon ${active === 'reference' ? 'active' : ''}" data-go="reference">Reference<sup>soon</sup></button>
-      <button class="navlink soon ${active === 'socrates' ? 'active' : ''}" data-go="socrates">Socrates<sup>soon</sup></button>
+      <button class="navlink soon ${active === 'reference' ? 'active' : ''}" data-go="reference">Medicine<sup>soon</sup></button>
+      <button class="navlink soon ${active === 'socrates' ? 'active' : ''}" data-go="socrates">Learn to Learn<sup>soon</sup></button>
     </nav></div>
     <div class="side right"><span class="topstat">${stat}</span></div>
   </header>`);
@@ -245,6 +245,7 @@ function openFeedback() {
         <button class="btn btn-solid" id="fb-send">Send</button>
       </div>
       <div class="fbmodal-status" id="fb-status"></div>
+      <p class="fbmodal-mail">Or email us: <a href="mailto:cortexmedical.academy.support@gmail.com">cortexmedical.academy.support@gmail.com</a></p>
     </div>
   </div>`);
   const close = () => { back.remove(); document.removeEventListener('keydown', onKey); };

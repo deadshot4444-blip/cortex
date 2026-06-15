@@ -76,7 +76,7 @@ async function renderReference() {
   const root = el('<div></div>');
   root.appendChild(topbar('reference'));
   const main = el(`<main class="panel">
-    <div class="hero"><h1>Reference.</h1><p class="sub">High-yield, fact-checked decks — pharmacology, microbiology and lab interpretation. Browse, search, or drill.</p></div>
+    <div class="hero"><h1>Medicine.</h1><p class="sub">High-yield, fact-checked decks — pharmacology, microbiology and lab interpretation. Browse, search, or drill.</p></div>
     <div class="mcat-mods"></div>
     <p class="anat-credit">Original study content, AI-generated and fact-checked. For study, not a substitute for prescribing references or your clinical judgment.</p>
   </main>`);
@@ -119,7 +119,7 @@ function renderRefSet(key, tab = 'browse') {
     <div class="tabs">
       <button class="tab ${tab === 'browse' ? 'active' : ''}" data-tab="browse">Browse</button>
       <button class="tab ${tab === 'quiz' ? 'active' : ''}" data-tab="quiz">Drill</button>
-      <button class="ghostbtn refback" id="refback" style="margin-left:auto">&larr; Reference</button>
+      <button class="ghostbtn refback" id="refback" style="margin-left:auto">&larr; Medicine</button>
     </div>
     <div id="refbody"></div>
   </main>`);
