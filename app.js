@@ -231,6 +231,48 @@ function renderComingSoon(key) {
   setView(root);
 }
 
+/* ---------- suggestion box (emails via Netlify Forms) ---------- */
+function openFeedback() {
+  const back = el(`<div class="fbmodal-back">
+    <div class="fbmodal" role="dialog" aria-modal="true">
+      <span class="label">Suggestion box</span>
+      <h3>What would make Cortex better?</h3>
+      <p class="fbmodal-sub">Ideas, bugs, requests &mdash; anything. It goes straight to the team.</p>
+      <textarea id="fb-msg" rows="4" placeholder="Type your suggestion&hellip;"></textarea>
+      <input id="fb-email" type="email" placeholder="Your email (optional &mdash; only if you want a reply)">
+      <div class="fbmodal-btns">
+        <button class="btn" id="fb-cancel">Cancel</button>
+        <button class="btn btn-solid" id="fb-send">Send</button>
+      </div>
+      <div class="fbmodal-status" id="fb-status"></div>
+    </div>
+  </div>`);
+  const close = () => { back.remove(); document.removeEventListener('keydown', onKey); };
+  const onKey = (e) => { if (e.key === 'Escape') close(); };
+  back.addEventListener('click', e => { if (e.target === back) close(); });
+  back.querySelector('#fb-cancel').addEventListener('click', close);
+  back.querySelector('#fb-send').addEventListener('click', async () => {
+    const msg = back.querySelector('#fb-msg').value.trim();
+    const email = back.querySelector('#fb-email').value.trim();
+    const status = back.querySelector('#fb-status');
+    const sendBtn = back.querySelector('#fb-send');
+    if (msg.length < 3) { status.textContent = 'Add a little more detail first.'; status.className = 'modal-status err'; return; }
+    sendBtn.disabled = true; status.textContent = 'Sending…'; status.className = 'modal-status';
+    try {
+      const body = new URLSearchParams({ 'form-name': 'suggestions', message: msg, email, 'bot-field': '' }).toString();
+      const r = await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body });
+      if (!r.ok) throw new Error('status ' + r.status);
+      status.textContent = 'Thanks — got it! 🙏'; status.className = 'modal-status ok';
+      setTimeout(close, 1500);
+    } catch {
+      status.textContent = 'Couldn’t send right now — try again in a moment.'; status.className = 'modal-status err'; sendBtn.disabled = false;
+    }
+  });
+  document.addEventListener('keydown', onKey);
+  document.body.appendChild(back);
+  setTimeout(() => back.querySelector('#fb-msg').focus(), 30);
+}
+
 /* ---------- home / practice ---------- */
 
 function renderHome() {
@@ -264,6 +306,7 @@ function renderHome() {
     <div class="grid"></div>
     <div class="homefoot">
       <span class="ghostbtn" style="cursor:default">Progress saved on this device</span>
+      <button class="ghostbtn suggestbtn" id="suggest">&#128161; Suggest a feature</button>
       <button class="ghostbtn" id="reset">Reset progress</button>
     </div>
   </main>`);
@@ -301,6 +344,7 @@ function renderHome() {
     localStorage.setItem('cs-mode', store.mode);
     main.querySelectorAll('.mode[data-mode]').forEach(x => x.classList.toggle('active', x === b));
   }));
+  main.querySelector('#suggest').addEventListener('click', openFeedback);
   main.querySelector('#mixed').addEventListener('click', startMixedCase);
   main.querySelector('#reset').addEventListener('click', () => {
     if (confirm('Reset ALL progress, stats, streak and bookmarks?')) {

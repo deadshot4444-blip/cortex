@@ -145,6 +145,21 @@ button:focus-visible, .opt:focus-visible { outline: 1px solid var(--text); outli
   text-transform: uppercase; color: var(--faint); padding: 6px 0;
 }
 .ghostbtn:hover { color: var(--red); }
+.suggestbtn:hover { color: var(--text); }
+
+/* suggestion box modal */
+.fbmodal-back { position: fixed; inset: 0; z-index: 100; background: rgba(17,17,19,.45); display: flex; align-items: center; justify-content: center; padding: 24px; }
+.fbmodal { background: var(--bg); border: 1px solid var(--line-bright); width: 100%; max-width: 460px; padding: 26px 26px 22px; }
+.fbmodal h3 { font-size: 20px; font-weight: 450; margin-top: 10px; }
+.fbmodal-sub { font-size: 13px; color: var(--dim); margin: 8px 0 16px; }
+.fbmodal textarea, .fbmodal input { width: 100%; background: var(--surface); border: 1px solid var(--line); padding: 11px 13px; color: var(--text); font: 14px/1.5 var(--sans); }
+.fbmodal textarea { resize: vertical; }
+.fbmodal input { margin-top: 10px; }
+.fbmodal textarea:focus, .fbmodal input:focus { outline: none; border-color: var(--line-bright); }
+.fbmodal-btns { display: flex; justify-content: flex-end; gap: 10px; margin-top: 16px; }
+.fbmodal-status { font-size: 13px; margin-top: 12px; min-height: 16px; color: var(--dim); }
+.fbmodal-status.ok { color: var(--green); }
+.fbmodal-status.err { color: var(--red); }
 
 /* ---------- case view ---------- */
 
