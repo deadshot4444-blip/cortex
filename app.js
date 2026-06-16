@@ -33,7 +33,7 @@ const NAME_BY_KEY = Object.fromEntries(SPECIALTIES.map(s => [s.key, s.name]));
 // Sections gated as "Coming soon" for the public launch. Remove a key here to make it live.
 const COMING_SOON = new Set(['anatomy', 'reference', 'socrates']);
 const SECTION_LABELS = { anatomy: 'Anatomy', reference: 'Medicine', socrates: 'Learn how to learn' };
-const APP_VERSION = '1.3';
+const APP_VERSION = '1.5';
 // Logo mark — matches the favicon (dark square + white cross) so the brand reads as one system.
 const MARK_SVG = '<svg class="wm-glyph" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" fill="currentColor"/><path d="M14 8h4v6h6v4h-6v6h-4v-6H8v-4h6z" fill="#fff"/></svg>';
 
@@ -238,7 +238,7 @@ function topbar(active) {
       <button class="navlink soon ${active === 'reference' ? 'active' : ''}" data-go="reference">Medicine<sup>soon</sup></button>
       <button class="navlink soon ${active === 'socrates' ? 'active' : ''}" data-go="socrates">Learn to Learn<sup>soon</sup></button>
     </nav>
-    <div class="bar-right">${stat ? `<span class="topstat">${stat}</span>` : ''}<button class="ver" data-go="updates" title="What's new">v${APP_VERSION}</button></div>
+    <div class="bar-right">${stat ? `<span class="topstat">${stat}</span>` : ''}<button class="acctbtn" data-acct hidden>Sign in</button><button class="ver" data-go="updates" title="What's new">v${APP_VERSION}</button></div>
   </header>`);
   root.querySelector('.wordmark').addEventListener('click', e => { e.preventDefault(); renderMission(); });
   root.querySelector('[data-go="practice"]').addEventListener('click', renderHome);
@@ -249,10 +249,11 @@ function topbar(active) {
   root.querySelector('[data-go="mcat"]').addEventListener('click', () => { if (typeof renderMCAT === 'function') renderMCAT(); });
   root.querySelector('[data-go="stats"]').addEventListener('click', renderStats);
   root.querySelector('[data-go="updates"]').addEventListener('click', renderUpdates);
+  if (window.refreshAuthUI) window.refreshAuthUI();
   return root;
 }
 
-function setView(node) { $app.replaceChildren(node); window.scrollTo(0, 0); setupCountUps(node); revealOnScroll(node); }
+function setView(node) { $app.replaceChildren(node); window.scrollTo(0, 0); setupCountUps(node); revealOnScroll(node); if (window.refreshAuthUI) window.refreshAuthUI(); }
 
 function renderComingSoon(key) {
   stopTimer(); session = null;
@@ -288,6 +289,7 @@ function siteFooter() {
       </nav>
     </div>
     <p class="sf-tag">Free, evidence-based medical study for everyone &mdash; our MCAT preparation is, and always will be, free.</p>
+    <p class="sf-founder">Founded by Kevin Vigil</p>
     <p class="sf-legal">&copy; ${yr} Cortex Medical Academy &middot; v${APP_VERSION} &middot; Last updated ${CHANGELOG[0].date} &middot; Original study content, AI-generated and fact-checked. Not a substitute for official AAMC materials or clinical judgment.</p>
   </footer>`);
   f.querySelector('.sf-brand').addEventListener('click', e => { e.preventDefault(); renderMission(); });
@@ -401,6 +403,22 @@ const PRINCIPLES = [
 
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
+  {
+    date: 'June 15, 2026', version: '1.5', tag: 'NEW',
+    title: 'Optional accounts & sync',
+    items: [
+      'Save your progress to your email and sync it across all your devices — completely optional.',
+      'No passwords: sign in with a one-tap link sent to your email.',
+      'Signed out? Nothing changes — your progress still saves on your device, as always.',
+    ],
+  },
+  {
+    date: 'June 15, 2026', version: '1.4', tag: 'NEW',
+    title: 'A note from the founder',
+    items: [
+      'Cortex is now openly founder-led — a short note on the mission behind the Academy, and a founder credit throughout.',
+    ],
+  },
   {
     date: 'June 15, 2026', version: '1.3', tag: 'NEW',
     title: 'Brand & identity',
@@ -537,6 +555,17 @@ function renderMission() {
       <span class="label">How we think &middot; first principles</span>
       <h2>The principles behind everything.</h2>
       <div class="principle-grid" data-reveal-stagger>${PRINCIPLES.map(p => `<div class="principle"><span class="p-name">${p[0]}</span><p>${p[1]}</p></div>`).join('')}</div>
+    </section>
+
+    <section class="founder" data-reveal>
+      <span class="label">From the founder</span>
+      <div class="founder-note">
+        <p>I started Cortex on a simple first-principles conviction: the path into medicine should never be decided by how much money you have.</p>
+        <p>Human progress depends on extending healthy human lifespan and training the highest-agency minds possible. That is why everything here is built differently. The full MCAT suite is, and always will be, completely free. No barriers. No gatekeeping. Just rigorous, evidence-based mastery grounded in reality.</p>
+        <p>Cortex exists to rip down every artificial limit and accelerate the development of the physicians and scientists who will push civilization forward at maximum velocity.</p>
+      </div>
+      <p class="founder-tagline">Master the Human Machine.</p>
+      <p class="founder-sign">&mdash; Kevin Vigil, Founder</p>
     </section>
 
     <section class="mcat-closing" data-reveal>

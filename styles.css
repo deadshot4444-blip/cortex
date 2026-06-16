@@ -917,8 +917,7 @@ button:focus-visible, a:focus-visible, textarea:focus-visible, input:focus-visib
 /* crisp, non-jittering numbers */
 .mm-num, .ms-num, .m-num, .topstat, .upd-ver, .co-val, .upd-date { font-variant-numeric: tabular-nums; }
 
-/* branded text selection + thin scrollbar */
-::selection { background: rgba(17, 17, 19, .13); }
+/* thin scrollbar (branded ::selection already defined at top) */
 * { scrollbar-width: thin; scrollbar-color: var(--line-bright) transparent; }
 ::-webkit-scrollbar { width: 10px; height: 10px; }
 ::-webkit-scrollbar-thumb { background: var(--line-bright); }
@@ -965,3 +964,29 @@ button:focus-visible, a:focus-visible, textarea:focus-visible, input:focus-visib
 @media (max-width: 600px) {
   .sf-top { flex-direction: column; align-items: flex-start; gap: 16px; }
 }
+
+/* ---------- founder note + credit (v1.4) ---------- */
+.founder { margin-top: 58px; max-width: 760px; border-left: 2px solid var(--text); padding-left: 26px; }
+.founder > .label { display: block; }
+.founder-note { margin-top: 14px; }
+.founder-note p { font-size: 18px; line-height: 1.62; color: var(--text); font-weight: 300; }
+.founder-note p + p { margin-top: 14px; }
+.founder-tagline { margin-top: 20px; font-size: 22px; font-weight: 400; letter-spacing: -.012em; color: var(--text); }
+.founder-sign { margin-top: 16px; font-family: var(--mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); }
+.sf-founder { margin-top: 12px; font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--dim); }
+
+/* ---------- account button (optional sign-in) ---------- */
+.acctbtn {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--dim); border: 1px solid var(--line-bright); padding: 5px 10px;
+  display: inline-flex; align-items: center; gap: 6px; transition: color .12s, border-color .12s;
+}
+.acctbtn:hover { color: var(--text); border-color: var(--text); }
+.acctbtn[hidden] { display: none; }
+.acct-dot { width: 6px; height: 6px; background: var(--faint); display: inline-block; }
+.acct-dot.synced { background: var(--green); }
+.acct-dot.syncing { background: var(--amber); }
+.acct-dot.error { background: var(--red); }
+.acct-state { font-size: 13px; line-height: 1.5; margin: 4px 0 2px; color: var(--dim); }
+.acct-state.acct-synced { color: var(--green); }
+.acct-state.acct-error { color: var(--amber); }
