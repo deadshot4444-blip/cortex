@@ -50,14 +50,15 @@ button:focus-visible, .opt:focus-visible { outline: 1px solid var(--text); outli
 .topbar .side.right { justify-content: flex-end; }
 .topbar .center { flex: 0 0 auto; }
 .wordmark {
-  font-family: var(--mono); font-size: 12.5px; letter-spacing: .16em; font-weight: 600;
+  font-family: var(--mono); font-size: 11px; letter-spacing: .15em; font-weight: 600;
   text-transform: uppercase; color: #000; text-decoration: none; white-space: nowrap;
 }
 .wm-sub { color: #000; }
 
-/* main nav bar: name far left, tabs + version pushed to the right */
-.topbar.mainbar { justify-content: flex-start; gap: 24px; }
-.topbar.mainbar .wordmark { margin-right: auto; }
+/* main nav bar: wordmark left, nav (with Explore dropdown) in the middle, account/version pinned right */
+.topbar.mainbar { justify-content: flex-start; gap: 16px; }
+.topbar.mainbar .wordmark { flex: 0 0 auto; margin-right: 2px; }
+.topbar.mainbar .nav { flex: 1 1 auto; min-width: 0; align-items: center; }
 .bar-right { display: flex; align-items: center; gap: 16px; flex: 0 0 auto; }
 .ver { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; color: var(--faint); }
 .topstat { font-family: var(--mono); font-size: 11.5px; letter-spacing: .08em; color: var(--dim); }
@@ -788,9 +789,9 @@ button:focus-visible, .opt:focus-visible { outline: 1px solid var(--text); outli
   /* main nav bar: wordmark + version on row 1, tabs in a swipeable row below */
   .topbar.mainbar { flex-wrap: wrap; height: auto; padding: 8px 16px; row-gap: 6px; }
   .topbar.mainbar .bar-right { order: 2; }
-  .topbar.mainbar .nav { order: 3; flex-basis: 100%; flex-wrap: nowrap; overflow-x: auto; padding-bottom: 2px; scrollbar-width: none; }
-  .topbar.mainbar .nav::-webkit-scrollbar { display: none; }
-  .topbar.mainbar .navlink { flex: 0 0 auto; padding: 7px 11px 7px 0; }
+  .topbar.mainbar .nav { order: 3; flex-basis: 100%; flex-wrap: wrap; padding-bottom: 2px; gap: 2px 2px; }
+  .topbar.mainbar .navlink { flex: 0 0 auto; padding: 7px 10px 7px 0; }
+  .menupanel { right: 0; left: auto; min-width: 0; width: min(264px, calc(100vw - 24px)); }
 }
 @media (max-width: 600px) {
   .grid { grid-template-columns: 1fr; }
@@ -990,3 +991,80 @@ button:focus-visible, a:focus-visible, textarea:focus-visible, input:focus-visib
 .acct-state { font-size: 13px; line-height: 1.5; margin: 4px 0 2px; color: var(--dim); }
 .acct-state.acct-synced { color: var(--green); }
 .acct-state.acct-error { color: var(--amber); }
+
+/* ---------- nav v1.6: special chip + smaller mark ---------- */
+.wm-glyph { width: 16px; height: 16px; }
+.navlink.special { display: inline-flex; align-items: center; gap: 7px; flex: 0 0 auto; border: 1px solid var(--line-bright); padding: 5px 12px; color: var(--text); transition: color .12s, border-color .12s, background .12s; }
+.navlink.special:hover { border-color: var(--text); }
+.navlink.special.active { background: var(--text); color: #fff; border-color: var(--text); }
+.neuro-ico { width: 13px; height: 13px; flex: 0 0 auto; }
+
+/* coming-soon: wider for real descriptions */
+.cs-box { max-width: 580px; }
+.cs-box .sub { line-height: 1.62; }
+
+/* ---------- UTSA access page ---------- */
+.panel.utsa { max-width: 940px; }
+.utsa-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); margin-top: 40px; }
+.utsa-card { background: var(--bg); padding: 26px 24px; }
+.uc-name { display: block; font-size: 16px; font-weight: 600; letter-spacing: -.01em; margin-bottom: 12px; }
+.utsa-card p { font-size: 14.5px; line-height: 1.62; color: var(--body); }
+@media (max-width: 760px) { .utsa-grid { grid-template-columns: 1fr; } }
+
+/* ---------- Neuroengineering: special dark division ---------- */
+.neuro-page { background: #0a0a0c; color: #e8e8ea; min-height: calc(100vh - 56px); }
+.neuro-hero { position: relative; min-height: 480px; display: flex; align-items: center; overflow: hidden; padding: 70px 0; }
+.neuro-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; opacity: .55; }
+.neuro-veil { position: absolute; inset: 0; z-index: 1; background: radial-gradient(130% 110% at 18% 0%, rgba(10,10,12,.45), rgba(10,10,12,.93)); }
+.neuro-hero-inner { position: relative; z-index: 2; width: 100%; max-width: 940px; margin: 0 auto; padding: 0 28px; }
+.neuro-eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: #9a9aa2; }
+.neuro-hero h1 { margin-top: 20px; font-size: clamp(40px, 5.8vw, 70px); font-weight: 300; letter-spacing: -.026em; line-height: 1.02; color: #fff; }
+.neuro-lede { margin-top: 22px; max-width: 660px; font-size: 18px; line-height: 1.6; color: #c4c4c8; }
+.neuro-soon { display: inline-block; margin-top: 28px; font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: #0a0a0c; background: #e8e8ea; padding: 6px 12px; }
+.neuro-body { max-width: 940px; margin: 0 auto; padding: 64px 28px 96px; }
+.neuro-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: #1d1d22; border: 1px solid #1d1d22; }
+.neuro-pt { background: #0a0a0c; padding: 28px 24px; }
+.np-name { display: block; font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 10px; }
+.neuro-pt p { font-size: 14px; line-height: 1.6; color: #a8a8ae; }
+@media (max-width: 760px) { .neuro-grid { grid-template-columns: 1fr; } }
+
+/* nav v1.6: compact on small screens */
+@media (max-width: 720px) {
+  .topbar.mainbar .topstat { display: none; }
+  .navlink.special .neuro-label { display: none; }
+  .navlink.special { padding: 5px 9px; }
+  .bar-right { gap: 10px; }
+}
+
+/* ---------- Explore dropdown (v1.6) ---------- */
+.navmenu { position: relative; flex: 0 0 auto; }
+.menubtn { display: inline-flex; align-items: center; gap: 5px; }
+.menubtn .caret { font-size: 9px; line-height: 1; transition: transform .16s ease; color: var(--faint); }
+.menubtn.open .caret, .menubtn:hover .caret { color: var(--text); }
+.menubtn.open .caret { transform: rotate(180deg); }
+.menupanel { position: absolute; top: calc(100% + 10px); left: 0; min-width: 232px; background: var(--bg); border: 1px solid var(--line-bright); box-shadow: 0 10px 30px rgba(17,17,19,.10); z-index: 60; padding: 8px; }
+.menu-head { display: block; font-family: var(--mono); font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: var(--faint); padding: 8px 12px 5px; }
+.menuitem { display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%; text-align: left; font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--dim); padding: 10px 12px; transition: background .12s, color .12s; }
+.menuitem:hover { background: var(--surface); color: var(--text); }
+.mi-soon { font-size: 8px; letter-spacing: .12em; color: var(--amber); border: 1px solid var(--line); padding: 2px 6px; }
+.mi-tag { font-size: 8px; letter-spacing: .12em; color: var(--green); border: 1px solid var(--line); padding: 2px 6px; }
+
+/* ---------- UTSA campus photos ---------- */
+.utsa-photos { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 36px; }
+.utsa-photo { border: 1px solid var(--line); overflow: hidden; background: var(--bg); }
+.utsa-photo img { display: block; width: 100%; height: 240px; object-fit: cover; }
+.utsa-photo figcaption { font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); padding: 13px 15px; border-top: 1px solid var(--line); }
+.utsa-note { margin-top: 34px; font-family: var(--mono); font-size: 10.5px; line-height: 1.65; letter-spacing: .02em; color: var(--faint); }
+@media (max-width: 760px) { .utsa-photo img { height: 200px; } }
+
+/* ---------- Practice / Review sub-tabs ---------- */
+.scn-tabs { border-bottom: 0; margin-bottom: 14px; }
+.scn-tabs .tab:first-child { padding-left: 0; }
+
+/* ---------- Neuroengineering: Atlas caption line ---------- */
+.neuro-tagline { margin-top: 14px; font-family: var(--mono); font-size: 13px; letter-spacing: .08em; color: #8f8f96; }
+
+/* ---------- X / updates handle ---------- */
+.updates-x { margin-top: 14px; font-family: var(--mono); font-size: 12px; letter-spacing: .04em; color: var(--dim); }
+.updates-x a { color: var(--text); text-decoration: none; border-bottom: 1px solid var(--line-bright); }
+.updates-x a:hover { border-bottom-color: var(--text); }

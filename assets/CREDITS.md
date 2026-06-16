@@ -18,3 +18,6 @@ lines were programmatically removed; some were cropped.
 The foot image is CC BY-SA 3.0 (attribution + share-alike). The muscle images are
 CC BY 4.0 (attribution); leader lines were removed via image processing and inpainting.
 | periodic-table.svg | Offnfopt — "Simple Periodic Table Chart-blocks" | CC BY-SA 4.0 |
+
+## UTSA page (v1.6)
+- assets/utsa.jpg — UTSA Main Campus monument; assets/uthealth.jpg — UT Health San Antonio (Lozano Long Campus). Provided by Kevin; cropped/resized to 1200x800. Trademarks/imagery belong to their respective owners; verify usage rights before public deploy.

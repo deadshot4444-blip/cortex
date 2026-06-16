@@ -33,7 +33,24 @@ const NAME_BY_KEY = Object.fromEntries(SPECIALTIES.map(s => [s.key, s.name]));
 // Sections gated as "Coming soon" for the public launch. Remove a key here to make it live.
 const COMING_SOON = new Set(['anatomy', 'reference', 'socrates']);
 const SECTION_LABELS = { anatomy: 'Anatomy', reference: 'Medicine', socrates: 'Learn how to learn' };
-const APP_VERSION = '1.5';
+const SECTION_INFO = {
+  anatomy: {
+    label: 'Anatomy',
+    headline: 'Master the body, visually.',
+    desc: 'Evidence-based, interactive anatomy. Click into every bone, muscle, and organ system and study it the way the science says you’ll actually retain it — active recall and spaced repetition over passive review.',
+  },
+  reference: {
+    label: 'Medicine',
+    headline: 'Master pharmacology.',
+    desc: 'Every drug a physician reaches for — mechanisms, classes, interactions, and the clinical reasoning behind them — alongside microbiology, lab-value interpretation, and EKG. A complete, evidence-based pharmacology and clinical-reference engine, built for retention.',
+  },
+  socrates: {
+    label: 'Learn to Learn',
+    headline: 'Learn how to learn.',
+    desc: 'Guided, Socratic study sessions that train the skill beneath every other skill — how to question, reason, and remember. Metacognition and proven learning technique, applied directly to medicine.',
+  },
+};
+const APP_VERSION = '1.6';
 // Logo mark — matches the favicon (dark square + white cross) so the brand reads as one system.
 const MARK_SVG = '<svg class="wm-glyph" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" fill="currentColor"/><path d="M14 8h4v6h6v4h-6v6h-4v-6H8v-4h6z" fill="#fff"/></svg>';
 
@@ -232,23 +249,48 @@ function topbar(active) {
     <nav class="nav">
       <button class="navlink ${active === 'practice' ? 'active' : ''}" data-go="practice">Practice</button>
       <button class="navlink ${active === 'mcat' ? 'active' : ''}" data-go="mcat">MCAT</button>
-      <button class="navlink ${active === 'review' ? 'active' : ''}" data-go="review">Review</button>
       <button class="navlink ${active === 'stats' ? 'active' : ''}" data-go="stats">Stats</button>
-      <button class="navlink soon ${active === 'anatomy' ? 'active' : ''}" data-go="anatomy">Anatomy<sup>soon</sup></button>
-      <button class="navlink soon ${active === 'reference' ? 'active' : ''}" data-go="reference">Medicine<sup>soon</sup></button>
-      <button class="navlink soon ${active === 'socrates' ? 'active' : ''}" data-go="socrates">Learn to Learn<sup>soon</sup></button>
+      <div class="navmenu">
+        <button class="navlink menubtn ${['anatomy', 'reference', 'socrates', 'utsa'].includes(active) ? 'active' : ''}" data-menu aria-haspopup="true">Explore<span class="caret">&#9662;</span></button>
+        <div class="menupanel" hidden>
+          <span class="menu-head">Sections</span>
+          <button class="menuitem" data-go="anatomy"><span>Anatomy</span><span class="mi-soon">Soon</span></button>
+          <button class="menuitem" data-go="reference"><span>Medicine</span><span class="mi-soon">Soon</span></button>
+          <button class="menuitem" data-go="socrates"><span>Learn to Learn</span><span class="mi-soon">Soon</span></button>
+          <span class="menu-head">Access</span>
+          <button class="menuitem" data-go="utsa"><span>UTSA &amp; UT Health</span><span class="mi-tag">Free</span></button>
+        </div>
+      </div>
     </nav>
-    <div class="bar-right">${stat ? `<span class="topstat">${stat}</span>` : ''}<button class="acctbtn" data-acct hidden>Sign in</button><button class="ver" data-go="updates" title="What's new">v${APP_VERSION}</button></div>
+    <div class="bar-right">
+      <button class="navlink special ${active === 'neuro' ? 'active' : ''}" data-go="neuro" title="Neuroengineering"><svg class="neuro-ico" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2L17 6V14L10 18L3 14V6Z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span class="neuro-label">Neuroengineering</span></button>
+      ${stat ? `<span class="topstat">${stat}</span>` : ''}<button class="acctbtn" data-acct hidden>Sign in</button><button class="ver" data-go="updates" title="What's new">v${APP_VERSION}</button>
+    </div>
   </header>`);
   root.querySelector('.wordmark').addEventListener('click', e => { e.preventDefault(); renderMission(); });
   root.querySelector('[data-go="practice"]').addEventListener('click', renderHome);
-  root.querySelector('[data-go="review"]').addEventListener('click', () => renderReview());
   root.querySelector('[data-go="anatomy"]').addEventListener('click', () => COMING_SOON.has('anatomy') ? renderComingSoon('anatomy') : renderAnatomy());
   root.querySelector('[data-go="reference"]').addEventListener('click', () => COMING_SOON.has('reference') ? renderComingSoon('reference') : renderReference());
   root.querySelector('[data-go="socrates"]').addEventListener('click', () => COMING_SOON.has('socrates') ? renderComingSoon('socrates') : renderSocrates());
   root.querySelector('[data-go="mcat"]').addEventListener('click', () => { if (typeof renderMCAT === 'function') renderMCAT(); });
   root.querySelector('[data-go="stats"]').addEventListener('click', renderStats);
+  root.querySelector('[data-go="utsa"]').addEventListener('click', renderUTSA);
+  root.querySelector('[data-go="neuro"]').addEventListener('click', renderNeuro);
   root.querySelector('[data-go="updates"]').addEventListener('click', renderUpdates);
+  const navmenu = root.querySelector('.navmenu');
+  if (navmenu) {
+    const mbtn = navmenu.querySelector('[data-menu]');
+    const panel = navmenu.querySelector('.menupanel');
+    const close = () => { panel.hidden = true; mbtn.classList.remove('open'); document.removeEventListener('click', onDoc); document.removeEventListener('keydown', onEsc); };
+    const onDoc = (e) => { if (!navmenu.contains(e.target)) close(); };
+    const onEsc = (e) => { if (e.key === 'Escape') close(); };
+    mbtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (panel.hidden) { panel.hidden = false; mbtn.classList.add('open'); setTimeout(() => { document.addEventListener('click', onDoc); document.addEventListener('keydown', onEsc); }, 0); }
+      else close();
+    });
+    panel.querySelectorAll('.menuitem').forEach(mi => mi.addEventListener('click', close));
+  }
   if (window.refreshAuthUI) window.refreshAuthUI();
   return root;
 }
@@ -257,22 +299,95 @@ function setView(node) { $app.replaceChildren(node); window.scrollTo(0, 0); setu
 
 function renderComingSoon(key) {
   stopTimer(); session = null;
+  const info = SECTION_INFO[key] || { label: SECTION_LABELS[key] || key, headline: 'Coming soon.', desc: 'This part of Cortex is in the works.' };
   const root = el('<div></div>');
   root.appendChild(topbar(key));
   const main = el(`<main class="panel comingsoon">
     <div class="cs-box">
-      <span class="label">${esc(SECTION_LABELS[key] || key)}</span>
-      <h1>Coming soon.</h1>
-      <p class="sub">This part of Cortex is in the works. In the meantime, two full sections are live and loaded &mdash; jump in.</p>
+      <span class="label">${esc(info.label)} &middot; Coming soon</span>
+      <h1>${esc(info.headline)}</h1>
+      <p class="sub">${esc(info.desc)}</p>
       <div class="endbtns">
-        <button class="btn btn-solid" id="cs-prac">Clinical scenarios</button>
-        <button class="btn" id="cs-mcat">MCAT prep</button>
+        <button class="btn btn-solid" id="cs-mcat">Start with MCAT prep</button>
+        <button class="btn" id="cs-prac">Clinical scenarios</button>
       </div>
     </div>
   </main>`);
   main.querySelector('#cs-prac').addEventListener('click', renderHome);
   main.querySelector('#cs-mcat').addEventListener('click', () => { if (typeof renderMCAT === 'function') renderMCAT(); });
   root.appendChild(main);
+  root.appendChild(siteFooter());
+  setView(root);
+}
+
+/* ---------- UTSA & UT Health San Antonio access ---------- */
+function renderUTSA() {
+  stopTimer(); session = null;
+  const cards = [
+    ['Everything, unlocked', 'Whatever Cortex ever offers as part of a membership, students and trainees at UTSA and UT Health San Antonio receive in full — at no cost, for as long as they are there. The MCAT suite is free for everyone, always; this extends that promise to every section.'],
+    ['How it will work', 'Verify a school email (@my.utsa.edu or @livemail.uthscsa.edu) once. Your account unlocks every part of the Academy automatically — no codes, no renewals, no catch.'],
+    ['Why these two', 'These are home: the university that trains me and the medical school I am working toward. A mission to widen access to medicine should start where the founder is from.'],
+  ];
+  const root = el('<div></div>');
+  root.appendChild(topbar('utsa'));
+  const main = el(`<main class="panel utsa">
+    <div class="updates-head">
+      <span class="label">Access &middot; In development</span>
+      <h1>Free, forever, for home.</h1>
+      <p class="sub">Cortex Medical Academy is being built so that students at <b>The University of Texas at San Antonio</b> and <b>UT Health San Antonio</b> have full, permanent access to everything — no matter what the rest of the world is ever asked to pay.</p>
+    </div>
+    <div class="utsa-photos" data-reveal-stagger>
+      <figure class="utsa-photo"><img src="assets/utsa.jpg?v=2" alt="The University of Texas at San Antonio campus" loading="lazy"><figcaption>The University of Texas at San Antonio</figcaption></figure>
+      <figure class="utsa-photo"><img src="assets/uthealth.jpg?v=2" alt="UT Health San Antonio — Joe R. and Teresa Lozano Long Campus" loading="lazy"><figcaption>UT Health San Antonio</figcaption></figure>
+    </div>
+    <div class="utsa-grid" data-reveal-stagger>
+      ${cards.map(c => `<div class="utsa-card"><span class="uc-name">${esc(c[0])}</span><p>${c[1]}</p></div>`).join('')}
+    </div>
+    <section class="mcat-closing" data-reveal>
+      <h2>Opportunity should start at home.</h2>
+      <p>This is a commitment in progress. Until verification is live, the entire MCAT suite is already free for every UTSA and UT Health student — same as it is for everyone.</p>
+      <button class="btn btn-solid" id="utsa-mcat">Open MCAT prep</button>
+    </section>
+    <p class="utsa-note">Cortex Medical Academy is an independent project and is not affiliated with, endorsed by, or sponsored by The University of Texas at San Antonio or UT Health San Antonio. All trademarks and campus imagery are the property of their respective owners.</p>
+  </main>`);
+  main.querySelector('#utsa-mcat').addEventListener('click', () => { if (typeof renderMCAT === 'function') renderMCAT(); });
+  root.appendChild(main);
+  root.appendChild(siteFooter());
+  setView(root);
+}
+
+/* ---------- Neuroengineering (special division) ---------- */
+function renderNeuro() {
+  stopTimer(); session = null;
+  const pts = [
+    ['The brain, mapped.', 'An interactive atlas of neuroanatomy and neural circuits. Built to be explored, not memorized.'],
+    ['Mind meets machine.', 'Neural interfaces and neuroprosthetics that read, restore, and augment the nervous system.'],
+    ['From lab to capability.', 'Real neuroengineering — turned into clear, usable knowledge you can actually build on.'],
+  ];
+  const root = el('<div></div>');
+  root.appendChild(topbar('neuro'));
+  const main = el(`<main class="neuro-page">
+    <section class="neuro-hero">
+      <video class="neuro-video" autoplay loop muted playsinline preload="auto">
+        <source src="assets/neuro-bg.mp4?v=2" type="video/mp4">
+      </video>
+      <div class="neuro-veil"></div>
+      <div class="neuro-hero-inner">
+        <span class="neuro-eyebrow">Neuroengineering &middot; A new division</span>
+        <h1>Where the mind meets the machine.</h1>
+        <p class="neuro-lede">The frontier where neuroscience and engineering converge. Systems that map the brain, restore what disease takes, and extend what the human mind can do.</p>
+        <p class="neuro-tagline">Engineering the human brain &mdash; from first principles.</p>
+        <span class="neuro-soon">In development</span>
+      </div>
+    </section>
+    <section class="neuro-body">
+      <div class="neuro-grid">
+        ${pts.map(p => `<div class="neuro-pt"><span class="np-name">${esc(p[0])}</span><p>${p[1]}</p></div>`).join('')}
+      </div>
+    </section>
+  </main>`);
+  root.appendChild(main);
+  root.appendChild(siteFooter());
   setView(root);
 }
 
@@ -283,6 +398,8 @@ function siteFooter() {
     <div class="sf-top">
       <a class="sf-brand" href="#">${MARK_SVG}<span>Cortex <span class="wm-sub">Medical Academy</span></span></a>
       <nav class="sf-links">
+        <a class="sf-link" href="https://x.com/kevin__vigil" target="_blank" rel="noopener">X &middot; @kevin__vigil</a>
+        <button class="sf-link sf-utsa">UTSA Access</button>
         <button class="sf-link" data-go="updates">What&rsquo;s new</button>
         <button class="sf-link sf-suggest">Suggest a feature</button>
         <a class="sf-link" href="mailto:cortexmedical.academy.support@gmail.com">Contact</a>
@@ -295,6 +412,7 @@ function siteFooter() {
   f.querySelector('.sf-brand').addEventListener('click', e => { e.preventDefault(); renderMission(); });
   f.querySelector('[data-go="updates"]').addEventListener('click', renderUpdates);
   f.querySelector('.sf-suggest').addEventListener('click', openFeedback);
+  f.querySelector('.sf-utsa').addEventListener('click', renderUTSA);
   return f;
 }
 
@@ -404,6 +522,16 @@ const PRINCIPLES = [
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
   {
+    date: 'June 15, 2026', version: '1.6', tag: 'NEW',
+    title: 'New sections & cleaner navigation',
+    items: [
+      'A reorganized top navigation that scales as the Academy grows.',
+      'UTSA & UT Health San Antonio — our plan to give students from both full access, free, forever.',
+      'Neuroengineering — a new division where neuroscience meets engineering.',
+      'Clearer previews of what’s next: Anatomy, Medicine (master pharmacology), and Learn to Learn.',
+    ],
+  },
+  {
     date: 'June 15, 2026', version: '1.5', tag: 'NEW',
     title: 'Optional accounts & sync',
     items: [
@@ -511,6 +639,7 @@ function renderUpdates() {
       <span class="label">What's new</span>
       <h1>Updates &amp; changelog.</h1>
       <p class="sub">Cortex is actively built and maintained. Here&rsquo;s everything that&rsquo;s shipped &mdash; newest first.</p>
+      <p class="updates-x">Frequent updates &amp; behind-the-scenes on X &mdash; <a href="https://x.com/kevin__vigil" target="_blank" rel="noopener">@kevin__vigil</a></p>
     </div>
     <div class="updates-list" data-reveal-stagger>${entries}</div>
     <div class="endbtns">
@@ -600,6 +729,10 @@ function renderHome() {
       <h1>Clinical scenarios.</h1>
       <p class="sub">Interactive cases across ${SPECIALTIES.length} specialties. Pick one &mdash; a random case begins.</p>
     </div>
+    <div class="tabs scn-tabs">
+      <button class="tab active" data-scn="practice">Practice</button>
+      <button class="tab" data-scn="review">Review</button>
+    </div>
     <div class="controls">
       <div class="ctl"><span class="label">Difficulty</span>
         <div class="modes">
@@ -658,6 +791,7 @@ function renderHome() {
     localStorage.setItem('cs-mode', store.mode);
     main.querySelectorAll('.mode[data-mode]').forEach(x => x.classList.toggle('active', x === b));
   }));
+  main.querySelectorAll('[data-scn]').forEach(b => b.addEventListener('click', () => b.dataset.scn === 'review' ? renderReview() : null));
   main.querySelector('#suggest').addEventListener('click', openFeedback);
   main.querySelector('#mixed').addEventListener('click', startMixedCase);
   main.querySelector('#reset').addEventListener('click', () => {
@@ -969,9 +1103,13 @@ function scorePill(c, t) {
 function renderReview(tab = 'history') {
   stopTimer(); session = null;
   const root = el(`<div></div>`);
-  root.appendChild(topbar('review'));
+  root.appendChild(topbar('practice'));
   const main = el(`<main class="panel">
-    <div class="hero"><h1>Review.</h1><p class="sub">Revisit cases, find your misses, search the whole bank.</p></div>
+    <div class="hero"><h1>Clinical scenarios.</h1><p class="sub">Revisit cases, find your misses, search the whole bank.</p></div>
+    <div class="tabs scn-tabs">
+      <button class="tab" data-scn="practice">Practice</button>
+      <button class="tab active" data-scn="review">Review</button>
+    </div>
     <div class="tabs">
       ${['history', 'missed', 'bookmarks', 'search'].map(x => `<button class="tab ${x === tab ? 'active' : ''}" data-tab="${x}">${x[0].toUpperCase() + x.slice(1)}</button>`).join('')}
     </div>
@@ -979,7 +1117,8 @@ function renderReview(tab = 'history') {
     <div class="rows" id="rows"></div>
   </main>`);
 
-  main.querySelectorAll('.tab').forEach(b => b.addEventListener('click', () => renderReview(b.dataset.tab)));
+  main.querySelectorAll('.tab[data-tab]').forEach(b => b.addEventListener('click', () => renderReview(b.dataset.tab)));
+  main.querySelectorAll('[data-scn]').forEach(b => b.addEventListener('click', () => b.dataset.scn === 'practice' ? renderHome() : null));
   const rows = main.querySelector('#rows');
   const sb = main.querySelector('.searchbox');
 
