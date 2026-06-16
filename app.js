@@ -33,7 +33,9 @@ const NAME_BY_KEY = Object.fromEntries(SPECIALTIES.map(s => [s.key, s.name]));
 // Sections gated as "Coming soon" for the public launch. Remove a key here to make it live.
 const COMING_SOON = new Set(['anatomy', 'reference', 'socrates']);
 const SECTION_LABELS = { anatomy: 'Anatomy', reference: 'Medicine', socrates: 'Learn how to learn' };
-const APP_VERSION = '1.1';
+const APP_VERSION = '1.3';
+// Logo mark — matches the favicon (dark square + white cross) so the brand reads as one system.
+const MARK_SVG = '<svg class="wm-glyph" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" fill="currentColor"/><path d="M14 8h4v6h6v4h-6v6h-4v-6H8v-4h6z" fill="#fff"/></svg>';
 
 const SECONDS_PER_QUESTION = 90;
 const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F'];
@@ -140,6 +142,49 @@ function relTime(ts) {
   if (d < 7) return `${d}d ago`;
   return new Date(ts).toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
 }
+/* count-up number animation (reduced-motion aware) */
+function animateCount(elm, target, opts = {}) {
+  const prefix = opts.prefix || '', suffix = opts.suffix || '';
+  const fmt = n => prefix + Math.round(n).toLocaleString() + suffix;
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce || !(target > 0)) { elm.textContent = fmt(target); return; }
+  const dur = opts.dur || 950, t0 = performance.now();
+  (function step(now) {
+    const t = Math.min(1, (now - t0) / dur);
+    const e = 1 - Math.pow(1 - t, 3);            // easeOutCubic
+    elm.textContent = fmt(target * e);
+    if (t < 1) requestAnimationFrame(step); else elm.textContent = fmt(target);
+  })(performance.now());
+}
+// Any [data-countup] element ticks up when it scrolls into view. Armed synchronously so the final value never flashes first.
+function setupCountUps(scope) {
+  const els = [...(scope || document).querySelectorAll('[data-countup]')];
+  if (!els.length) return;
+  const parsed = els.map(elm => {
+    const m = String(elm.getAttribute('data-countup')).match(/^([^\d]*)([\d,]+)(.*)$/);
+    if (!m) return null;                          // no number → leave the text as-is
+    const prefix = m[1], suffix = m[3], num = parseInt(m[2].replace(/,/g, ''), 10);
+    elm.textContent = prefix + '0' + suffix;
+    return { elm, prefix, suffix, num };
+  }).filter(Boolean);
+  if (!parsed.length) return;
+  const run = p => { if (p.elm.dataset.counted) return; p.elm.dataset.counted = '1'; animateCount(p.elm, p.num, { prefix: p.prefix, suffix: p.suffix }); };
+  if (!('IntersectionObserver' in window)) { parsed.forEach(run); return; }
+  const map = new Map(parsed.map(p => [p.elm, p]));
+  const io = new IntersectionObserver(ents => ents.forEach(en => { if (en.isIntersecting) { run(map.get(en.target)); io.unobserve(en.target); } }), { threshold: .3 });
+  parsed.forEach(p => io.observe(p.elm));
+}
+
+// Fade/cascade elements up as they scroll into view ([data-reveal] = block, [data-reveal-stagger] = its children cascade).
+function revealOnScroll(scope) {
+  const els = [...(scope || document).querySelectorAll('[data-reveal],[data-reveal-stagger]')];
+  if (!els.length) return;
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce || !('IntersectionObserver' in window)) { els.forEach(e => e.classList.add('in')); return; }
+  const io = new IntersectionObserver(ents => ents.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }), { threshold: .12, rootMargin: '0px 0px -8% 0px' });
+  els.forEach(e => io.observe(e));
+}
+
 function totals() {
   let answered = 0, correct = 0, xp = 0;
   for (const k in store.progress) {
@@ -183,7 +228,7 @@ function topbar(active) {
   const streak = store.streak.current > 0 ? `${store.streak.current}&#128293; &middot; ` : '';
   const stat = t.answered ? `${streak}${t.xp.toLocaleString()} XP` : '';
   const root = el(`<header class="topbar mainbar">
-    <a class="wordmark" href="#">Cortex <span class="wm-sub">Medical Academy</span></a>
+    <a class="wordmark" href="#">${MARK_SVG}<span class="wm-name">Cortex <span class="wm-sub">Medical Academy</span></span></a>
     <nav class="nav">
       <button class="navlink ${active === 'practice' ? 'active' : ''}" data-go="practice">Practice</button>
       <button class="navlink ${active === 'mcat' ? 'active' : ''}" data-go="mcat">MCAT</button>
@@ -207,7 +252,7 @@ function topbar(active) {
   return root;
 }
 
-function setView(node) { $app.replaceChildren(node); window.scrollTo(0, 0); }
+function setView(node) { $app.replaceChildren(node); window.scrollTo(0, 0); setupCountUps(node); revealOnScroll(node); }
 
 function renderComingSoon(key) {
   stopTimer(); session = null;
@@ -228,6 +273,27 @@ function renderComingSoon(key) {
   main.querySelector('#cs-mcat').addEventListener('click', () => { if (typeof renderMCAT === 'function') renderMCAT(); });
   root.appendChild(main);
   setView(root);
+}
+
+/* ---------- site footer (brand) ---------- */
+function siteFooter() {
+  const yr = new Date().getFullYear();
+  const f = el(`<footer class="sitefoot">
+    <div class="sf-top">
+      <a class="sf-brand" href="#">${MARK_SVG}<span>Cortex <span class="wm-sub">Medical Academy</span></span></a>
+      <nav class="sf-links">
+        <button class="sf-link" data-go="updates">What&rsquo;s new</button>
+        <button class="sf-link sf-suggest">Suggest a feature</button>
+        <a class="sf-link" href="mailto:cortexmedical.academy.support@gmail.com">Contact</a>
+      </nav>
+    </div>
+    <p class="sf-tag">Free, evidence-based medical study for everyone &mdash; our MCAT preparation is, and always will be, free.</p>
+    <p class="sf-legal">&copy; ${yr} Cortex Medical Academy &middot; v${APP_VERSION} &middot; Last updated ${CHANGELOG[0].date} &middot; Original study content, AI-generated and fact-checked. Not a substitute for official AAMC materials or clinical judgment.</p>
+  </footer>`);
+  f.querySelector('.sf-brand').addEventListener('click', e => { e.preventDefault(); renderMission(); });
+  f.querySelector('[data-go="updates"]').addEventListener('click', renderUpdates);
+  f.querySelector('.sf-suggest').addEventListener('click', openFeedback);
+  return f;
 }
 
 /* ---------- suggestion box (emails via Netlify Forms) ---------- */
@@ -294,7 +360,11 @@ async function fetchVisits() {
 }
 function updateVisitUI() {
   if (visitCount == null) return;
-  document.querySelectorAll('.js-visits').forEach(e => e.textContent = visitCount.toLocaleString());
+  document.querySelectorAll('.js-visits').forEach(e => {
+    if (e.dataset.cnt === String(visitCount)) return;   // don't re-animate the same value
+    e.dataset.cnt = String(visitCount);
+    animateCount(e, visitCount);
+  });
   const goal = 100000, pct = Math.max(1.5, Math.min(100, visitCount / goal * 100));
   document.querySelectorAll('.js-progressbar').forEach(e => e.style.width = pct.toFixed(2) + '%');
   document.querySelectorAll('.js-progresslab').forEach(e => e.textContent = `${visitCount.toLocaleString()} reached · goal: 100,000 future doctors`);
@@ -331,6 +401,24 @@ const PRINCIPLES = [
 
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
+  {
+    date: 'June 15, 2026', version: '1.3', tag: 'NEW',
+    title: 'Brand & identity',
+    items: [
+      'A refined logo mark in the header and a proper site footer across the Academy.',
+      'A sticky, frosted navigation bar and a whisper-faint engineering grid behind the mission.',
+      'A branded preview card when you share the link anywhere — plus considered, consistent detailing throughout.',
+    ],
+  },
+  {
+    date: 'June 15, 2026', version: '1.2', tag: 'NEW',
+    title: 'Interface polish',
+    items: [
+      'Stats and counters now count up as the page loads, with crisp non-jittering numbers.',
+      'Sections and cards glide in as you scroll, with gentle hover feedback throughout.',
+      'A live activity indicator, blueprint detailing, and a refined reading experience — all kept deliberately minimal.',
+    ],
+  },
   {
     date: 'June 15, 2026', version: '1.1', tag: 'NEW',
     title: 'A "What’s New" page',
@@ -406,7 +494,7 @@ function renderUpdates() {
       <h1>Updates &amp; changelog.</h1>
       <p class="sub">Cortex is actively built and maintained. Here&rsquo;s everything that&rsquo;s shipped &mdash; newest first.</p>
     </div>
-    <div class="updates-list">${entries}</div>
+    <div class="updates-list" data-reveal-stagger>${entries}</div>
     <div class="endbtns">
       <button class="btn btn-solid" id="up-mcat">MCAT prep</button>
       <button class="btn" id="up-cases">Clinical scenarios</button>
@@ -417,6 +505,7 @@ function renderUpdates() {
   main.querySelector('#up-cases').addEventListener('click', renderHome);
   main.querySelector('#up-suggest').addEventListener('click', openFeedback);
   root.appendChild(main);
+  root.appendChild(siteFooter());
   setView(root);
 }
 
@@ -436,7 +525,7 @@ function renderMission() {
       <p class="mission-fact"><span class="label">Did you know</span><span class="js-fact"></span></p>
     </section>
 
-    <div class="mission-meter">
+    <div class="mission-meter cornerframe">
       <div class="mm-counter"><span class="mm-num js-visits">&middot;&middot;&middot;</span><span class="mm-lab">people have visited<span class="livetag"><i class="livedot"></i>live</span></span></div>
       <div class="mm-progress">
         <div class="mm-progress-head"><span class="label">Mission progress</span><span class="js-progresslab">on the way to 100,000 future doctors reached</span></div>
@@ -447,17 +536,15 @@ function renderMission() {
     <section class="mission-principles">
       <span class="label">How we think &middot; first principles</span>
       <h2>The principles behind everything.</h2>
-      <div class="principle-grid">${PRINCIPLES.map(p => `<div class="principle"><span class="p-name">${p[0]}</span><p>${p[1]}</p></div>`).join('')}</div>
+      <div class="principle-grid" data-reveal-stagger>${PRINCIPLES.map(p => `<div class="principle"><span class="p-name">${p[0]}</span><p>${p[1]}</p></div>`).join('')}</div>
     </section>
 
-    <section class="mcat-closing">
+    <section class="mcat-closing" data-reveal>
       <h2>Talent is everywhere. Opportunity shouldn&rsquo;t be the bottleneck.</h2>
       <p>Start with the MCAT suite &mdash; rigorous, complete, and free forever &mdash; and grow from there. The only thing required is the discipline to begin.</p>
       <button class="btn btn-solid" id="m-enter">Enter the Academy &rarr;</button>
       <p class="mission-whatsnew"><button class="ghostbtn" id="m-updates">See what&rsquo;s new &rarr;</button></p>
     </section>
-
-    <p class="anat-credit">Cortex Medical Academy &middot; MCAT prep, free forever &middot; v${APP_VERSION} &middot; Last updated ${CHANGELOG[0].date}. Original study content, AI-generated and fact-checked. For study; not a substitute for official AAMC materials or clinical judgment.</p>
   </main>`);
 
   main.querySelector('#m-mcat').addEventListener('click', () => { if (typeof renderMCAT === 'function') renderMCAT(); });
@@ -465,6 +552,7 @@ function renderMission() {
   main.querySelector('#m-enter').addEventListener('click', renderHome);
   main.querySelector('#m-updates').addEventListener('click', renderUpdates);
   root.appendChild(main);
+  root.appendChild(siteFooter());
   setView(root);
   startFactRotator(main.querySelector('.js-fact'));
   updateVisitUI();
@@ -949,10 +1037,10 @@ function renderStats() {
     <div class="hero"><h1>Stats.</h1><p class="sub">Your progress across Rounds.</p></div>
 
     <div class="metrics">
-      <div class="metric"><span class="m-num">${t.casesDone}</span><span class="m-lab">Cases done</span><span class="m-sub">of ${totalCases.toLocaleString()}</span></div>
-      <div class="metric"><span class="m-num">${t.acc != null ? t.acc + '%' : '&mdash;'}</span><span class="m-lab">Accuracy</span><span class="m-sub">${t.correct}/${t.answered} answers</span></div>
-      <div class="metric"><span class="m-num">${store.streak.current}&#128293;</span><span class="m-lab">Day streak</span><span class="m-sub">best ${store.streak.longest}</span></div>
-      <div class="metric"><span class="m-num">${t.xp.toLocaleString()}</span><span class="m-lab">Total XP</span><span class="m-sub">across 12 specialties</span></div>
+      <div class="metric"><span class="m-num" data-countup="${t.casesDone}">${t.casesDone}</span><span class="m-lab">Cases done</span><span class="m-sub">of ${totalCases.toLocaleString()}</span></div>
+      <div class="metric"><span class="m-num" data-countup="${t.acc != null ? t.acc + '%' : ''}">${t.acc != null ? t.acc + '%' : '&mdash;'}</span><span class="m-lab">Accuracy</span><span class="m-sub">${t.correct}/${t.answered} answers</span></div>
+      <div class="metric"><span class="m-num" data-countup="${store.streak.current}&#128293;">${store.streak.current}&#128293;</span><span class="m-lab">Day streak</span><span class="m-sub">best ${store.streak.longest}</span></div>
+      <div class="metric"><span class="m-num" data-countup="${t.xp}">${t.xp.toLocaleString()}</span><span class="m-lab">Total XP</span><span class="m-sub">across ${SPECIALTIES.length} specialties</span></div>
     </div>
 
     <div class="statblock">

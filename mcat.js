@@ -124,25 +124,24 @@ async function renderMCAT() {
       <p class="mcat-lede">A complete, research-grade MCAT preparation system built on the cognitive science of how memory actually works &mdash; spaced retrieval, calibrated feedback, full AAMC coverage. Most MCAT tools are flashcard toys. This is the whole instrument. No account. No paywall. No gimmicks.</p>
       <div class="mcat-cta"><button class="btn btn-solid" id="mc-enter">Enter the system</button><button class="btn" id="mc-method">Read the method</button></div>
     </section>
-    <div class="mcat-statband">${stats.map(s => `<div class="mcat-stat"><span class="ms-num">${s[0]}</span><span class="ms-lab">${s[1]}</span></div>`).join('')}</div>
+    <div class="mcat-statband cornerframe">${stats.map(s => `<div class="mcat-stat"><span class="ms-num" data-countup="${s[0]}">${s[0]}</span><span class="ms-lab">${s[1]}</span></div>`).join('')}</div>
     <div id="mcat-groups"></div>
     <section class="mcat-method" id="mcat-method">
       <span class="label">The Method</span>
       <p class="mcat-method-intro">${method.intro}</p>
-      <div class="method-grid">${method.points.map(p => `<div class="method-pt"><span class="mp-name">${p[0]}</span><p>${p[1]}</p></div>`).join('')}</div>
+      <div class="method-grid" data-reveal-stagger>${method.points.map(p => `<div class="method-pt"><span class="mp-name">${p[0]}</span><p>${p[1]}</p></div>`).join('')}</div>
     </section>
-    <div class="mcat-extras">${extras.map(e => `<div class="mcat-extra"><span class="label">${e[0]}</span><p>${e[1]}</p></div>`).join('')}</div>
-    <section class="mcat-closing">
+    <div class="mcat-extras" data-reveal-stagger>${extras.map(e => `<div class="mcat-extra"><span class="label">${e[0]}</span><p>${e[1]}</p></div>`).join('')}</div>
+    <section class="mcat-closing" data-reveal>
       <h2>Begin with the system, not the syllabus.</h2>
       <p>The complete, evidence-based MCAT preparation system &mdash; every instrument, every passage, every card, open and free forever. The only thing required is the discipline to start.</p>
       <button class="btn btn-solid" id="mc-enter2">Enter the system</button>
     </section>
-    <p class="anat-credit">Original content, generated and fact-checked, tagged to the AAMC blueprint. For study, not a substitute for AAMC official materials.</p>
   </main>`);
 
   const gWrap = main.querySelector('#mcat-groups');
   groups.forEach(g => {
-    const sec = el(`<section class="mcat-group"><div class="mcat-group-head"><span class="label">${g.title}</span><p>${g.blurb}</p></div><div class="mcat-mods"></div></section>`);
+    const sec = el(`<section class="mcat-group"><div class="mcat-group-head"><span class="label">${g.title}</span><p>${g.blurb}</p></div><div class="mcat-mods" data-reveal-stagger></div></section>`);
     const mc = sec.querySelector('.mcat-mods');
     g.mods.forEach(m => {
       const card = el(`<button class="modcard" ${m.on ? '' : 'disabled'}>
@@ -162,6 +161,7 @@ async function renderMCAT() {
   main.querySelector('#mc-method').addEventListener('click', () => main.querySelector('#mcat-method').scrollIntoView({ behavior: 'smooth', block: 'start' }));
 
   root.appendChild(main);
+  if (typeof siteFooter === 'function') root.appendChild(siteFooter());
   setView(root);
 }
 
