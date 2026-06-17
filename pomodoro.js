@@ -164,13 +164,13 @@ function renderPomodoro() {
       <div class="ctl"><span class="label">Focus length</span>
         <div class="modes">
           ${POMO_PRESETS.focus.map(m => `<button class="mode" data-fpreset="${m}">${m} min</button>`).join('')}
-          <span class="pomo-custom"><input type="number" id="pomo-fcustom" min="1" max="180" inputmode="numeric" placeholder="custom" aria-label="Custom focus minutes"><span>min</span></span>
+          <span class="pomo-custom"><input type="number" id="pomo-fcustom" min="1" max="180" inputmode="numeric" placeholder="##" aria-label="Custom focus minutes"><span>min</span></span>
         </div>
       </div>
       <div class="ctl"><span class="label">Break length</span>
         <div class="modes">
           ${POMO_PRESETS.break.map(m => `<button class="mode" data-bpreset="${m}">${m} min</button>`).join('')}
-          <span class="pomo-custom"><input type="number" id="pomo-bcustom" min="1" max="60" inputmode="numeric" placeholder="custom" aria-label="Custom break minutes"><span>min</span></span>
+          <span class="pomo-custom"><input type="number" id="pomo-bcustom" min="1" max="60" inputmode="numeric" placeholder="##" aria-label="Custom break minutes"><span>min</span></span>
         </div>
       </div>
     </section>

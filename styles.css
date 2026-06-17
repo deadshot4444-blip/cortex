@@ -1144,10 +1144,16 @@ button:focus-visible, a:focus-visible, textarea:focus-visible, input:focus-visib
 .pomo-controls { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
 .pomo-controls .btn { min-width: 96px; }
 .pomo-set { margin-top: 28px; display: grid; gap: 18px; }
-.pomo-custom { display: inline-flex; align-items: center; gap: 6px; }
-.pomo-custom input { width: 72px; font-family: var(--mono); font-size: 13px; padding: 7px 9px; border: 1px solid var(--line-bright); background: var(--bg); color: var(--text); }
-.pomo-custom input:focus { outline: none; border-color: var(--text); }
-.pomo-custom span { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); }
+/* custom cell sits as another segment of the .modes control */
+.pomo-custom { display: inline-flex; align-items: center; gap: 5px; padding: 8px 14px; border-left: 1px solid var(--line-bright); transition: background .12s; }
+.pomo-custom:focus-within { background: var(--surface); }
+.pomo-custom input { width: 40px; padding: 0; border: 0; background: transparent; text-align: center;
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; color: var(--text);
+  -webkit-appearance: none; -moz-appearance: textfield; appearance: none; }
+.pomo-custom input::-webkit-outer-spin-button, .pomo-custom input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.pomo-custom input:focus { outline: none; }
+.pomo-custom input::placeholder { color: var(--faint); letter-spacing: .12em; }
+.pomo-custom span { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); }
 .pomo-stats { margin-top: 28px; }
 
 /* floating pill — shows when the timer runs and you're elsewhere on the site */
