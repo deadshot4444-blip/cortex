@@ -50,7 +50,7 @@ const SECTION_INFO = {
     desc: 'Guided, Socratic study sessions that train the skill beneath every other skill — how to question, reason, and remember. Metacognition and proven learning technique, applied directly to medicine.',
   },
 };
-const APP_VERSION = '1.6.2';
+const APP_VERSION = '1.6.3';
 // Logo mark — matches the favicon (dark square + white cross) so the brand reads as one system.
 const MARK_SVG = '<svg class="wm-glyph" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" fill="currentColor"/><path d="M14 8h4v6h6v4h-6v6h-4v-6H8v-4h6z" fill="#fff"/></svg>';
 
@@ -476,7 +476,7 @@ async function fetchVisits() {
   try {
     const counted = localStorage.getItem('cs-counted');
     const action = counted ? 'get' : 'hit';
-    const r = await fetch(`https://abacus.jasoncameron.dev/${action}/cortexmedacademy/people`, { cache: 'no-store' });
+    const r = await fetch(`/cx-visits/${action}/cortexmedacademy/people`, { cache: 'no-store' });
     if (r.ok) {
       const j = await r.json();
       if (typeof j.value === 'number') {
@@ -531,12 +531,20 @@ const PRINCIPLES = [
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
   {
+    date: 'June 16, 2026', version: '1.6.3', tag: 'FIX',
+    title: 'No more privacy warning',
+    items: [
+      'The page no longer makes any third-party request on load, so mobile browsers stop showing the "reduce privacy protections" banner.',
+      'The live visitor count now routes through our own domain — same number, fully private.',
+    ],
+  },
+  {
     date: 'June 16, 2026', version: '1.6.2', tag: 'FIX',
     title: 'Mobile polish',
     items: [
       'Fixed the Explore menu running off-screen on phones.',
       'Clearer "Neuro" label on mobile instead of a bare icon.',
-      'Self-hosted the sign-in library so strict privacy browsers stop flagging the page — and the site now loads fully offline.',
+      'Self-hosted the sign-in library so the site now loads fully offline.',
     ],
   },
   {
