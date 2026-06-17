@@ -51,6 +51,55 @@ async function loadMCAT() {
 }
 
 /* ---------- hub ---------- */
+/* ---------- resume: persist in-progress sessions to localStorage ---------- */
+function saveResume(key, obj) {
+  try {
+    if (!obj) return;
+    const o = Object.assign({}, obj);
+    delete o.timerId; delete o._reveal;
+    if (o.deadline) o._remain = Math.max(0, o.deadline - nowTs());
+    localStorage.setItem('cs-mcat-r-' + key, JSON.stringify(o));
+  } catch {}
+}
+function loadResume(key) { try { return JSON.parse(localStorage.getItem('cs-mcat-r-' + key) || 'null'); } catch { return null; } }
+function clearResume(key) { try { localStorage.removeItem('cs-mcat-r-' + key); } catch {} }
+// build a "Resume where you left off" button if a saved session has real progress
+function resumeBtn(key, progressOf, label, onResume) {
+  const r = loadResume(key);
+  if (!r || !(progressOf(r) > 0)) return null;
+  const btn = el(`<button class="btn btn-resume" id="resume">&#8634; Resume &middot; ${label(r)}</button>`);
+  btn.addEventListener('click', () => onResume(r));
+  return btn;
+}
+
+/* ---------- shared in-task header (breadcrumb + safe exit) ---------- */
+function mcatTaskHeader(segs, right, exitLabel) {
+  const parts = (segs || []).filter(Boolean).map(s => `<span class="crumb-seg">${s}</span>`).join('<span class="crumb-sep">&middot;</span>');
+  return `<header class="topbar runbar">
+    <div class="side"><button class="backbtn" id="exit">${exitLabel || '&larr; Exit'}</button></div>
+    <nav class="center run-crumb"><button class="crumb-home" id="crumbmcat">MCAT</button>${parts ? '<span class="crumb-sep">&middot;</span>' + parts : ''}</nav>
+    <div class="side right">${right || ''}</div>
+  </header>`;
+}
+function wireRunHeader(root, onExit) {
+  const c = root.querySelector('#crumbmcat'); if (c) c.addEventListener('click', renderMCAT);
+  const x = root.querySelector('#exit'); if (x) x.addEventListener('click', onExit);
+}
+function confirmExit(hasProgress, onLeave) {
+  if (!hasProgress) { onLeave(); return; }
+  const m = el(`<div class="modal" id="cfx"><div class="modal-box">
+    <div class="modal-head"><span class="label">Leave this session?</span></div>
+    <p class="cfx-msg">No problem &mdash; your place is saved. You can resume right where you left off.</p>
+    <div class="endbtns cfx-btns"><button class="btn" id="cfx-cancel">Keep going</button><button class="btn btn-solid" id="cfx-quit">Leave</button></div>
+  </div></div>`);
+  const close = () => { m.remove(); document.removeEventListener('keydown', onKey); };
+  const onKey = e => { if (e.key === 'Escape') close(); };
+  m.addEventListener('click', e => { if (e.target.id === 'cfx' || e.target.id === 'cfx-cancel') close(); });
+  m.querySelector('#cfx-quit').addEventListener('click', () => { close(); onLeave(); });
+  document.addEventListener('keydown', onKey);
+  document.body.appendChild(m);
+}
+
 async function renderMCAT() {
   if (typeof stopTimer === 'function') stopTimer();
   if (typeof session !== 'undefined') session = null;
@@ -69,7 +118,7 @@ async function renderMCAT() {
       mods: [
         { name: 'Flashcard Reactor', desc: '504 cards on SM-2 spaced scheduling, surfaced the moment they start to fade', stat: cn ? `${due} due &middot; ${fresh} new` : 'generating&hellip;', go: renderFlashHome, on: cn > 0 },
         { name: 'Question Drills', desc: '263 discrete questions, interleaved, with a full distractor autopsy', stat: qn ? `${qn} questions` : 'generating&hellip;', go: renderDrillSetup, on: qn > 0 },
-        { name: 'CARS Library', desc: '32 original passages, 96+ questions, with a blind-review workflow', stat: carsN ? `${carsN} passages` : 'generating&hellip;', go: renderCarsHome, on: carsN > 0 },
+        { name: 'CARS Studio', desc: '32 original passages, 96+ questions, with a blind-review workflow', stat: carsN ? `${carsN} passages` : 'generating&hellip;', go: renderCarsHome, on: carsN > 0 },
         { name: 'Science Passages', desc: '34 AAMC-style passages with live data tables', stat: sciN ? `${sciN} passages` : 'generating&hellip;', go: renderPassageHome, on: sciN > 0 },
       ] },
     { title: 'Examination &middot; Prove',
@@ -148,6 +197,7 @@ async function renderMCAT() {
         <span class="mod-name">${m.name}</span>
         <span class="mod-desc">${m.desc}</span>
         <span class="mod-stat">${m.stat}</span>
+        ${m.on ? '<span class="mod-go" aria-hidden="true">&rarr;</span>' : ''}
       </button>`);
       if (m.on) card.addEventListener('click', m.go);
       mc.appendChild(card);
@@ -205,6 +255,8 @@ function renderFlashHome() {
   main.querySelectorAll('#fdeck .mode').forEach(b => b.addEventListener('click', () => { deck = b.dataset.deck; main.querySelectorAll('#fdeck .mode').forEach(x => x.classList.toggle('active', x === b)); refresh(); }));
   main.querySelector('#study').addEventListener('click', () => startFlash(deck));
   main.querySelector('#back').addEventListener('click', renderMCAT);
+  const rb = resumeBtn('flash', r => r.idx || r.done || 0, r => `${r.done || 0} / ${r.total || 0} cards`, r => { flash = r; renderFlashCard(); });
+  if (rb) main.querySelector('.endbtns').prepend(rb);
   root.appendChild(main);
   setView(root);
 }
@@ -224,12 +276,9 @@ function shuffleArr(a) { const x = a.slice(); for (let i = x.length - 1; i > 0; 
 function renderFlashCard() {
   if (flash.idx >= flash.queue.length) { finishFlash(); return; }
   const c = flash.queue[flash.idx];
+  saveResume('flash', flash);
   const root = el(`<div>
-    <header class="topbar">
-      <div class="side"><button class="backbtn" id="exit">&larr; Exit</button></div>
-      <div class="center"><span class="topstat">FLASHCARDS &middot; ${SEC_ABBR[c.section] || ''} ${esc(c.category || '')}</span></div>
-      <div class="side right"><span class="topstat">${flash.done} / ${flash.total}</span></div>
-    </header>
+    ${mcatTaskHeader(['Flashcards', `${SEC_ABBR[c.section] || ''} ${esc(catTitle(c.category))}`.trim()], `<span class="topstat">${flash.done} / ${flash.total}</span>`)}
     <main class="flash-stage">
       <div class="flash-card" id="fc">
         <span class="label">${esc(c.tag || 'Recall')}</span>
@@ -239,13 +288,13 @@ function renderFlashCard() {
       <div class="flash-foot" id="ff"></div>
     </main>
   </div>`);
-  root.querySelector('#exit').addEventListener('click', renderFlashHome);
+  wireRunHeader(root, () => confirmExit(flash && (flash.done > 0 || flash.again > 0 || flash.idx > 0), renderFlashHome));
   setView(root);
   const ff = root.querySelector('#ff');
   const showReveal = () => {
     root.querySelector('#back').style.display = 'block';
     ff.innerHTML = `<span class="hint">How well did you recall it?</span>
-      <div class="rate"><button class="ratebtn again" data-r="again">Again</button><button class="ratebtn hard" data-r="hard">Hard</button><button class="ratebtn good" data-r="good">Good</button><button class="ratebtn easy" data-r="easy">Easy</button></div>`;
+      <div class="rate"><button class="ratebtn again" data-r="again">Again<span class="rk">1</span></button><button class="ratebtn hard" data-r="hard">Hard<span class="rk">2</span></button><button class="ratebtn good" data-r="good">Good<span class="rk">3</span></button><button class="ratebtn easy" data-r="easy">Easy<span class="rk">4</span></button></div>`;
     ff.querySelectorAll('.ratebtn').forEach(b => b.addEventListener('click', () => rateFlash(c, b.dataset.r)));
   };
   ff.innerHTML = `<div class="continue-row"><span class="hint">SPACE / tap to flip</span><button class="btn btn-solid" id="reveal">Show answer</button></div>`;
@@ -264,6 +313,7 @@ function rateFlash(c, rating) {
 }
 
 function finishFlash() {
+  clearResume('flash');
   if (typeof bumpStreak === 'function') bumpStreak();
   const root = el('<div></div>');
   root.appendChild(topbar('mcat'));
@@ -271,7 +321,7 @@ function finishFlash() {
     <span class="label">Session complete</span>
     <div class="score">${flash.done}<span class="of"> cards</span></div>
     <div class="anat-pct">${flash.again} needed another look &middot; scheduled by your recall</div>
-    <div class="endbtns"><button class="btn btn-solid" id="more">Study more</button><button class="btn" id="home">MCAT home</button></div>
+    <div class="endbtns"><button class="btn btn-solid" id="more">Study more</button><button class="btn" id="home">&larr; MCAT</button></div>
   </section></main>`);
   main.querySelector('#more').addEventListener('click', () => startFlash(flash.deck));
   main.querySelector('#home').addEventListener('click', renderMCAT);
@@ -307,6 +357,8 @@ function renderDrillSetup() {
   seg('#dmode .mode', b => { mode = b.dataset.dm; main.querySelector('#dmh').textContent = mode === 'blind' ? 'Blind review: answer everything first with no feedback, then review all at once — trains honest judgment.' : 'Standard: feedback after each question.'; });
   main.querySelector('#start').addEventListener('click', () => startDrill(scope, len, mode));
   main.querySelector('#back').addEventListener('click', renderMCAT);
+  const rb = resumeBtn('drill', r => (r.results ? r.results.length : 0) || r.idx || 0, r => `Q ${(r.idx || 0) + 1}/${r.qs.length}`, r => { drill = r; renderDrillQ(); });
+  if (rb) main.querySelector('.endbtns').prepend(rb);
   root.appendChild(main); setView(root);
 }
 
@@ -322,12 +374,9 @@ function startDrill(scope, len, mode) {
 function renderDrillQ() {
   if (drill.idx >= drill.qs.length) { finishDrill(); return; }
   const q = drill.qs[drill.idx];
+  saveResume('drill', drill);
   const root = el(`<div>
-    <header class="topbar">
-      <div class="side"><button class="backbtn" id="exit">&larr; Exit</button></div>
-      <div class="center"><span class="topstat">${SEC_ABBR[q.section] || ''} &middot; ${esc(q.category || '')} &middot; ${esc(q.difficulty || '')}</span></div>
-      <div class="side right"><span class="topstat">Q ${drill.idx + 1}/${drill.qs.length}</span></div>
-    </header>
+    ${mcatTaskHeader(['Drill', SEC_ABBR[q.section] || '', esc(catTitle(q.category))], `<span class="topstat">Q ${drill.idx + 1}/${drill.qs.length}</span>`)}
     <main class="case">
       <div class="block"><p class="q">${esc(q.stem)}</p></div>
       <div class="conf-row"><span class="label">Confidence</span>
@@ -341,7 +390,7 @@ function renderDrillQ() {
       <div class="after" id="after"></div>
     </main>
   </div>`);
-  root.querySelector('#exit').addEventListener('click', renderMCAT);
+  wireRunHeader(root, () => confirmExit(drill && drill.results.length > 0, renderDrillSetup));
   let conf = 'unsure';
   root.querySelectorAll('#conf .mode').forEach(b => b.addEventListener('click', () => { conf = b.dataset.c; root.querySelectorAll('#conf .mode').forEach(x => x.classList.toggle('active', x === b)); }));
   root.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => answerDrill(root, q, +b.dataset.i, conf)));
@@ -379,6 +428,7 @@ function answerDrill(root, q, choice, conf) {
 }
 
 function finishDrill() {
+  clearResume('drill');
   // commit to history + log
   const t = nowTs();
   drill.results.forEach(r => {
@@ -400,7 +450,7 @@ function finishDrill() {
       <div class="ticks">${drill.results.map((r, i) => `<span class="${r.correct ? 'ok' : 'no'}">Q${i + 1} ${r.correct ? '&#10003;' : '&#10007;'}</span>`).join('')}</div>
       <div class="calib-mini" id="cm"></div>
       <div class="drill-review" id="dr"></div>
-      <div class="endbtns"><button class="btn btn-solid" id="again">New drill</button><button class="btn" id="lab">Mistake Lab</button><button class="btn" id="home">MCAT home</button></div>
+      <div class="endbtns"><button class="btn btn-solid" id="again">New drill</button><button class="btn" id="lab">Mistake Lab</button><button class="btn" id="home">&larr; MCAT</button></div>
     </section>
   </main>`);
   // mini calibration for this drill
@@ -441,9 +491,12 @@ function renderBlueprint() {
   root.appendChild(topbar('mcat'));
   const o = MCAT.outline;
   const main = el(`<main class="panel">
-    <div class="hero"><h1>Blueprint Navigator.</h1><p class="sub">The full AAMC content map. Coverage = how you've performed on each category's questions.</p></div>
+    <button class="backbtn topback" id="back">&larr; MCAT</button>
+    <div class="hero"><h1>Blueprint Navigator.</h1><p class="sub">The full AAMC content map. Coverage = how you've performed on each category's questions. Tap any category to drill or study it.</p></div>
+    <div class="bp-legend"><span class="bpl ok">Solid 75%+</span><span class="bpl mid">Shaky 50&ndash;74%</span><span class="bpl no">Weak &lt;50%</span><span class="bpl">&mdash; Not tested yet</span></div>
     <div id="bp"></div>
   </main>`);
+  main.querySelector('#back').addEventListener('click', renderMCAT);
   const bp = main.querySelector('#bp');
   ['bioBiochem', 'chemPhys', 'psychSoc', 'cars'].forEach(secKey => {
     const sec = o.sections[secKey];
@@ -480,8 +533,8 @@ function renderCategory(cat, con, secKey) {
     <div class="hero"><h1 style="font-size:26px">${cat.id} &middot; ${esc(cat.title)}</h1><p class="sub">${esc(con.summary)}</p></div>
     <div class="statblock"><span class="label">Topics</span><div class="topic-chips">${cat.topics.map(t => `<span class="tchip">${esc(t)}</span>`).join('')}</div></div>
     <div class="endbtns">
-      <button class="btn btn-solid" id="drill" ${qs.length ? '' : 'disabled'}>Drill ${qs.length} questions</button>
-      <button class="btn" id="study" ${cards.length ? '' : 'disabled'}>Study ${cards.length} cards</button>
+      <button class="btn btn-solid" id="drill" ${qs.length ? '' : 'disabled'}>${qs.length ? `Drill ${qs.length} question${qs.length === 1 ? '' : 's'}` : 'No questions yet'}</button>
+      <button class="btn" id="study" ${cards.length ? '' : 'disabled'}>${cards.length ? `Study ${cards.length} card${cards.length === 1 ? '' : 's'}` : 'No cards yet'}</button>
     </div>
   </main>`);
   main.querySelector('#back').addEventListener('click', renderBlueprint);
@@ -514,7 +567,7 @@ function renderMistakeLab() {
       <div class="metric"><span class="m-num">${t.answered}</span><span class="m-lab">Answered</span></div>
       <div class="metric"><span class="m-num">${t.acc}%</span><span class="m-lab">Accuracy</span><span class="m-sub">${t.correct} correct</span></div>
       <div class="metric"><span class="m-num">${missed.length}</span><span class="m-lab">To redo</span></div>
-      <div class="metric"><span class="m-num">${weak.length ? weak[0].acc + '%' : '&mdash;'}</span><span class="m-lab">Weakest cat</span><span class="m-sub">${weak.length ? esc(weak[0].cat) : ''}</span></div>
+      <div class="metric"><span class="m-num">${weak.length ? weak[0].acc + '%' : '&mdash;'}</span><span class="m-lab">Weakest area</span><span class="m-sub">${weak.length ? esc(catTitle(weak[0].cat)) : ''}</span></div>
     </div>` : '<div class="empty">No drill data yet — run a Question Drill and your weak spots show up here.</div>'}
 
     ${calib ? `<div class="statblock">${calib}<p class="anat-modehint">If "Sure" accuracy isn't far above "Guess", you're overconfident — slow down and verify.</p></div>` : ''}
@@ -524,7 +577,7 @@ function renderMistakeLab() {
 
     <div class="endbtns">
       ${missed.length ? '<button class="btn btn-solid" id="redo">Redo missed</button>' : ''}
-      <button class="btn" id="home">MCAT home</button>
+      <button class="btn" id="home">&larr; MCAT</button>
     </div>
   </main>`);
 
@@ -546,6 +599,7 @@ function renderMistakeLab() {
   root.appendChild(main); setView(root);
 }
 function findCat(id) { if (!MCAT.outline) return null; for (const c of MCAT.outline.concepts) { const f = c.categories.find(x => x.id === id); if (f) return f; } return null; }
+function catTitle(id) { const c = findCat(id); return c ? c.title : (id || ''); }
 
 /* ---------- CARS Studio ---------- */
 let cars = null;
@@ -571,6 +625,8 @@ function renderCarsHome() {
   });
   main.querySelector('#rand').addEventListener('click', () => startCars(MCAT.cars[Math.floor(Math.random() * MCAT.cars.length)], timed));
   main.querySelector('#back').addEventListener('click', renderMCAT);
+  const rb = resumeBtn('cars', r => (r.results ? r.results.length : 0), r => `Q ${(r.idx || 0) + 1}/${r.p.questions.length}`, r => { cars = r; cars.timerId = null; if (cars.timed) { cars.deadline = nowTs() + (r._remain || 600000); cars.timerId = setInterval(carsTick, 500); } renderCarsRunner(); });
+  if (rb) main.querySelector('.endbtns').prepend(rb);
   root.appendChild(main); setView(root);
 }
 function startCars(p, timed) {
@@ -583,10 +639,9 @@ function renderCarsRunner() {
   const p = cars.p;
   if (cars.idx >= p.questions.length) { finishCars(); return; }
   const q = p.questions[cars.idx];
+  saveResume('cars', cars);
   const root = el(`<div>
-    <header class="topbar"><div class="side"><button class="backbtn" id="exit">&larr; Exit</button></div>
-      <div class="center"><span class="topstat">CARS &middot; ${esc(p.discipline)}</span></div>
-      <div class="side right">${cars.timed ? '<span class="timer" id="cars-timer"></span>' : ''}<span class="topstat">Q ${cars.idx + 1}/${p.questions.length}</span></div></header>
+    ${mcatTaskHeader(['CARS', esc(p.discipline)], `${cars.timed ? '<span class="timer" id="cars-timer"></span>' : ''}<span class="topstat">Q ${cars.idx + 1}/${p.questions.length}</span>`)}
     <main class="cars-stage">
       <div class="cars-passage"><span class="label">${esc(p.title)}</span>${p.text.split(/\n\n+/).map(par => `<p>${esc(par)}</p>`).join('')}</div>
       <div class="cars-q">
@@ -595,12 +650,13 @@ function renderCarsRunner() {
       </div>
     </main>
   </div>`);
-  root.querySelector('#exit').addEventListener('click', () => { if (cars.timerId) clearInterval(cars.timerId); renderMCAT(); });
+  wireRunHeader(root, () => confirmExit(cars && cars.results.length > 0, () => { if (cars.timerId) clearInterval(cars.timerId); renderCarsHome(); }));
   root.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => { cars.results.push({ q, chosen: +b.dataset.i, correct: +b.dataset.i === q.answer }); cars.idx++; renderCarsRunner(); window.scrollTo(0, 0); }));
   setView(root); window.scrollTo(0, 0);
   if (cars.timed) carsTick();
 }
 function finishCars() {
+  clearResume('cars');
   if (cars.timerId) clearInterval(cars.timerId);
   const p = cars.p, t = nowTs();
   cars.results.forEach(r => { const cat = 'CARS-' + r.q.skill.split('-')[1]; QLOG.push({ qId: r.q.id, section: 'cars', category: cat, passage: p.id, correct: r.correct, conf: 'unsure', ts: t }); QHIST[r.q.id] = { n: (QHIST[r.q.id]?.n || 0) + 1, lastCorrect: r.correct, ts: t }; });
@@ -613,7 +669,7 @@ function finishCars() {
     <div class="score">${String(correct).padStart(2, '0')}<span class="of">/${String(total).padStart(2, '0')}</span></div>
     <div class="calib"><span class="label">By skill</span>${bySkill}</div>
     <div class="drill-review" id="dr"></div>
-    <div class="endbtns"><button class="btn btn-solid" id="next">Another passage</button><button class="btn" id="home">MCAT home</button></div>
+    <div class="endbtns"><button class="btn btn-solid" id="next">Back to passages</button><button class="btn" id="home">&larr; MCAT</button></div>
   </section></main>`);
   main.querySelector('#dr').innerHTML = `<span class="label">Review &amp; justification</span>` + cars.results.map((r, i) => `<details class="rev" ${r.correct ? '' : 'open'}><summary><span class="${r.correct ? 'ok' : 'no'}">${r.correct ? '&#10003;' : '&#10007;'}</span> Q${i + 1} &middot; ${SKILL_LABEL[r.q.skill]}</summary><div class="rev-body"><div class="rev-ans">You: ${'ABCD'[r.chosen]} &middot; Correct: <b>${'ABCD'[r.q.answer]}</b></div><p>${esc(r.q.explanation)}</p></div></details>`).join('');
   main.querySelector('#next').addEventListener('click', renderCarsHome);
@@ -659,6 +715,8 @@ function renderPassageHome() {
   main.querySelectorAll('#psec .mode').forEach(b => b.addEventListener('click', () => { sec = b.dataset.s; main.querySelectorAll('#psec .mode').forEach(x => x.classList.toggle('active', x === b)); refresh(); }));
   main.querySelectorAll('#ptime .mode').forEach(b => b.addEventListener('click', () => { timed = b.dataset.t === 'on'; main.querySelectorAll('#ptime .mode').forEach(x => x.classList.toggle('active', x === b)); }));
   main.querySelector('#back').addEventListener('click', renderMCAT);
+  const rb = resumeBtn('plab', r => (r.results ? r.results.length : 0), r => `Q ${(r.idx || 0) + 1}/${r.p.questions.length}`, r => { plab = r; plab.timerId = null; if (plab.timed) { plab.deadline = nowTs() + (r._remain || 600000); plab.timerId = setInterval(plabTick, 500); } renderPassageRunner(); });
+  if (rb) main.querySelector('.endbtns').prepend(rb);
   root.appendChild(main); setView(root);
 }
 function startPassage(p, timed) { plab = { p, idx: 0, results: [], timed, deadline: timed ? nowTs() + 600000 : 0, timerId: null }; if (timed) plab.timerId = setInterval(plabTick, 500); renderPassageRunner(); }
@@ -667,21 +725,21 @@ function renderPassageRunner() {
   const p = plab.p;
   if (plab.idx >= p.questions.length) { finishPassage(); return; }
   const q = p.questions[plab.idx];
+  saveResume('plab', plab);
   const root = el(`<div>
-    <header class="topbar"><div class="side"><button class="backbtn" id="exit">&larr; Exit</button></div>
-      <div class="center"><span class="topstat">${SEC_ABBR[p.section]} PASSAGE</span></div>
-      <div class="side right"><button class="bookmark" id="pt">PT</button>${plab.timed ? '<span class="timer" id="plab-timer"></span>' : ''}<span class="topstat">Q ${plab.idx + 1}/${p.questions.length}</span></div></header>
+    ${mcatTaskHeader([`${SEC_ABBR[p.section]} Passage`], `<button class="bookmark" id="pt" title="Periodic table" aria-label="Periodic table">PT</button>${plab.timed ? '<span class="timer" id="plab-timer"></span>' : ''}<span class="topstat">Q ${plab.idx + 1}/${p.questions.length}</span>`)}
     <main class="cars-stage">
       ${passageBody(p.title, p.text, p.table)}
       <div class="cars-q"><p class="q">${esc(q.stem)}</p>
         <div class="opts">${q.options.map((o, i) => `<button class="opt" data-i="${i}"><span class="key">${'ABCD'[i]}</span><span>${esc(o)}</span></button>`).join('')}</div></div>
     </main></div>`);
-  root.querySelector('#exit').addEventListener('click', () => { if (plab.timerId) clearInterval(plab.timerId); renderMCAT(); });
+  wireRunHeader(root, () => confirmExit(plab && plab.results.length > 0, () => { if (plab.timerId) clearInterval(plab.timerId); renderPassageHome(); }));
   root.querySelector('#pt').addEventListener('click', periodicModal);
   root.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => { plab.results.push({ q, chosen: +b.dataset.i, correct: +b.dataset.i === q.answer }); plab.idx++; renderPassageRunner(); }));
   setView(root); window.scrollTo(0, 0); if (plab.timed) plabTick();
 }
 function finishPassage() {
+  clearResume('plab');
   if (plab.timerId) clearInterval(plab.timerId);
   const p = plab.p, t = nowTs();
   plab.results.forEach(r => { QLOG.push({ qId: r.q.id, section: p.section, category: r.q.category, passage: p.id, correct: r.correct, conf: 'unsure', ts: t }); QHIST[r.q.id] = { n: (QHIST[r.q.id]?.n || 0) + 1, lastCorrect: r.correct, ts: t }; });
@@ -692,7 +750,7 @@ function finishPassage() {
     <span class="label">Passage complete &middot; ${esc(p.title)}</span>
     <div class="score">${String(correct).padStart(2, '0')}<span class="of">/${String(total).padStart(2, '0')}</span></div>
     <div class="drill-review" id="dr"></div>
-    <div class="endbtns"><button class="btn btn-solid" id="next">Another passage</button><button class="btn" id="home">MCAT home</button></div>
+    <div class="endbtns"><button class="btn btn-solid" id="next">Back to passages</button><button class="btn" id="home">&larr; MCAT</button></div>
   </section></main>`);
   main.querySelector('#dr').innerHTML = `<span class="label">Review</span>` + plab.results.map((r, i) => { const autopsy = (r.q.distractors || []).filter(d => d.i !== r.q.answer).map(d => `<div class="autopsy-row"><span class="ak">${'ABCD'[d.i]}</span><span>${esc(d.why)}</span></div>`).join(''); return `<details class="rev" ${r.correct ? '' : 'open'}><summary><span class="${r.correct ? 'ok' : 'no'}">${r.correct ? '&#10003;' : '&#10007;'}</span> Q${i + 1}</summary><div class="rev-body"><div class="rev-ans">You: ${'ABCD'[r.chosen]} &middot; Correct: <b>${'ABCD'[r.q.answer]}</b></div><p>${esc(r.q.explanation)}</p>${autopsy ? `<div class="autopsy">${autopsy}</div>` : ''}</div></details>`; }).join('');
   main.querySelector('#next').addEventListener('click', renderPassageHome);
@@ -723,6 +781,8 @@ function renderSimHome() {
   });
   main.querySelector('#full').addEventListener('click', () => startSim(['chemPhys', 'cars', 'bioBiochem', 'psychSoc']));
   main.querySelector('#back').addEventListener('click', renderMCAT);
+  const rb = resumeBtn('sim', r => Object.keys(r.answers || {}).length + (r.idx || 0) + (r.si || 0), r => { const s = r.queue[r.si]; return `${SIM_SECTIONS[s.key].abbr} Q ${(r.idx || 0) + 1}/${s.items.length}`; }, r => { sim = r; if (simTimerId) clearInterval(simTimerId); sim.deadline = nowTs() + (r._remain || 600000); simTimerId = setInterval(simTick, 500); renderSimQ(); });
+  if (rb) { const sb = main.querySelector('.endbtns'); if (sb) sb.prepend(rb); }
   root.appendChild(main); setView(root);
 }
 function simPool(secKey) {
@@ -753,10 +813,9 @@ function renderSimQ() {
   const s = sim.queue[sim.si], it = s.items[sim.idx], q = it.q;
   const key = sim.si + ':' + sim.idx;
   const chosen = sim.answers[key];
+  saveResume('sim', sim);
   const root = el(`<div>
-    <header class="topbar"><div class="side"><button class="backbtn" id="exit">&larr; Quit</button></div>
-      <div class="center"><span class="topstat">${SIM_SECTIONS[s.key].abbr} &middot; ${sim.queue.length > 1 ? `SEC ${sim.si + 1}/${sim.queue.length} &middot; ` : ''}Q ${sim.idx + 1}/${s.items.length}</span></div>
-      <div class="side right">${s.key !== 'cars' ? '<button class="bookmark" id="pt">PT</button>' : ''}<span class="timer" id="sim-timer"></span></div></header>
+    ${mcatTaskHeader([SIM_SECTIONS[s.key].abbr, sim.queue.length > 1 ? `Sec ${sim.si + 1}/${sim.queue.length}` : '', `Q ${sim.idx + 1}/${s.items.length}`], `${s.key !== 'cars' ? '<button class="bookmark" id="pt" title="Periodic table" aria-label="Periodic table">PT</button>' : ''}<span class="timer" id="sim-timer"></span>`, '&larr; Quit')}
     <main class="case">
       ${it.passageText ? passageBody(it.passageTitle || 'Passage', it.passageText, it.table) : ''}
       <p class="q">${esc(q.stem)}</p>
@@ -770,7 +829,7 @@ function renderSimQ() {
       </div>
       <div id="navwrap"></div>
     </main></div>`);
-  root.querySelector('#exit').addEventListener('click', () => { if (simTimerId) clearInterval(simTimerId); renderMCAT(); });
+  wireRunHeader(root, () => confirmExit(sim && Object.keys(sim.answers).length > 0, () => { if (simTimerId) clearInterval(simTimerId); renderSimHome(); }));
   root.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => { sim.answers[key] = +b.dataset.i; root.querySelectorAll('.opt').forEach(x => x.classList.toggle('picked', x === b)); }));
   root.querySelector('#flag').addEventListener('click', () => { sim.flags[key] = !sim.flags[key]; renderSimQ(); });
   root.querySelector('#prev').addEventListener('click', () => { if (sim.idx > 0) { sim.idx--; renderSimQ(); } });
@@ -833,6 +892,7 @@ function renderBreak() {
   root.appendChild(main); setView(root);
 }
 function finishSim() {
+  clearResume('sim');
   const tot = sim.results.reduce((a, r) => a + r.total, 0), cor = sim.results.reduce((a, r) => a + r.correct, 0);
   const root = el('<div></div>'); root.appendChild(topbar('mcat'));
   const secRows = sim.results.map(r => `<div class="calib-row"><span class="cl">${SIM_SECTIONS[r.key].abbr}</span><span class="cbar"><i style="width:${Math.round(100 * r.correct / r.total)}%"></i></span><span class="cv">${r.correct}/${r.total}</span></div>`).join('');
@@ -841,7 +901,7 @@ function finishSim() {
     <div class="score">${Math.round(100 * cor / tot)}<span class="of">% &middot; ${cor}/${tot}</span></div>
     <div class="calib"><span class="label">By section</span>${secRows}</div>
     <div class="drill-review" id="dr"></div>
-    <div class="endbtns"><button class="btn btn-solid" id="again">New sim</button><button class="btn" id="lab">Mistake Lab</button><button class="btn" id="home">MCAT home</button></div>
+    <div class="endbtns"><button class="btn btn-solid" id="again">New sim</button><button class="btn" id="lab">Mistake Lab</button><button class="btn" id="home">&larr; MCAT</button></div>
   </section></main>`);
   const dr = main.querySelector('#dr'); dr.innerHTML = `<span class="label">Review</span>`;
   sim.results.forEach(r => r.items.forEach((it, i) => {
@@ -868,18 +928,19 @@ const TRACKS = {
 };
 function renderGuide() {
   const existing = guidePlan();
+  const curTrack = (existing && existing.track) || '120';
   const root = el('<div></div>'); root.appendChild(topbar('mcat'));
   const main = el(`<main class="panel">
     <div class="hero"><h1>Guide Engine.</h1><p class="sub">A day-by-day campaign: new content blocked early, then interleaved review, with full-lengths and a taper at the end.</p></div>
     <div class="ctl"><span class="label">Track</span><div class="modes" id="track">
-      ${Object.entries(TRACKS).map(([k, v], i) => `<button class="mode ${i === 0 ? 'active' : ''}" data-k="${k}">${v.label}</button>`).join('')}</div></div>
+      ${Object.entries(TRACKS).map(([k, v]) => `<button class="mode ${k === curTrack ? 'active' : ''}" data-k="${k}">${v.label}</button>`).join('')}</div></div>
     <div class="endbtns" style="margin-top:18px"><button class="btn btn-solid" id="gen">Generate plan</button>${existing ? '<button class="btn" id="clear">Clear plan</button>' : ''}<button class="btn" id="back">&larr; MCAT</button></div>
     <div id="plan"></div>
   </main>`);
-  let track = '120';
+  let track = curTrack;
   main.querySelectorAll('#track .mode').forEach(b => b.addEventListener('click', () => { track = b.dataset.k; main.querySelectorAll('#track .mode').forEach(x => x.classList.toggle('active', x === b)); }));
-  main.querySelector('#gen').addEventListener('click', () => { const plan = buildPlan(track); localStorage.setItem('cs-mcat-plan', JSON.stringify(plan)); showPlan(main.querySelector('#plan'), plan); });
-  if (main.querySelector('#clear')) main.querySelector('#clear').addEventListener('click', () => { localStorage.removeItem('cs-mcat-plan'); renderGuide(); });
+  main.querySelector('#gen').addEventListener('click', () => { const plan = buildPlan(track); localStorage.setItem('cs-mcat-plan', JSON.stringify(plan)); showPlan(main.querySelector('#plan'), plan); main.querySelector('#plan').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+  if (main.querySelector('#clear')) main.querySelector('#clear').addEventListener('click', () => { if (confirm('Clear your saved study plan?')) { localStorage.removeItem('cs-mcat-plan'); renderGuide(); } });
   main.querySelector('#back').addEventListener('click', renderMCAT);
   if (existing) showPlan(main.querySelector('#plan'), existing);
   root.appendChild(main); setView(root);
@@ -914,10 +975,13 @@ function renderMapper() {
   const state = mapperState();
   const root = el('<div></div>'); root.appendChild(topbar('mcat'));
   const main = el(`<main class="panel">
+    <button class="backbtn topback" id="back">&larr; MCAT</button>
     <div class="hero"><h1>Course Mapper.</h1><p class="sub">Rate each content category by how solid your coursework left you. Get a coverage heat map and a place to start — before you waste a day.</p></div>
+    <p class="map-legend"><b>S</b> Strong &nbsp;&middot;&nbsp; <b>O</b> OK &nbsp;&middot;&nbsp; <b>W</b> Weak &mdash; tap to rate each one.</p>
     <div id="map"></div>
     <div class="statblock"><span class="label">Start here (weak / unrated)</span><div id="startlist"></div></div>
   </main>`);
+  main.querySelector('#back').addEventListener('click', renderMCAT);
   const map = main.querySelector('#map');
   ['bioBiochem', 'chemPhys', 'psychSoc'].forEach(sk => {
     const sec = MCAT.outline.sections[sk];

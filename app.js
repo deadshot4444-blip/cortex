@@ -50,7 +50,7 @@ const SECTION_INFO = {
     desc: 'Guided, Socratic study sessions that train the skill beneath every other skill — how to question, reason, and remember. Metacognition and proven learning technique, applied directly to medicine.',
   },
 };
-const APP_VERSION = '1.6';
+const APP_VERSION = '1.6.1';
 // Logo mark — matches the favicon (dark square + white cross) so the brand reads as one system.
 const MARK_SVG = '<svg class="wm-glyph" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" fill="currentColor"/><path d="M14 8h4v6h6v4h-6v6h-4v-6H8v-4h6z" fill="#fff"/></svg>';
 
@@ -264,7 +264,7 @@ function topbar(active) {
     </nav>
     <div class="bar-right">
       <button class="navlink special ${active === 'neuro' ? 'active' : ''}" data-go="neuro" title="Neuroengineering"><svg class="neuro-ico" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2L17 6V14L10 18L3 14V6Z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span class="neuro-label">Neuroengineering</span></button>
-      ${stat ? `<span class="topstat">${stat}</span>` : ''}<button class="acctbtn" data-acct hidden>Sign in</button><button class="ver" data-go="updates" title="What's new">v${APP_VERSION}</button>
+      ${stat ? `<span class="topstat">${stat}</span>` : ''}<a class="xlink" href="https://x.com/kevin__vigil" target="_blank" rel="noopener" title="Follow @kevin__vigil on X for updates" aria-label="Follow on X"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a><button class="acctbtn" data-acct hidden>Sign in</button><button class="ver" data-go="updates" title="What's new">v${APP_VERSION}</button>
     </div>
   </header>`);
   root.querySelector('.wordmark').addEventListener('click', e => { e.preventDefault(); renderMission(); });
@@ -389,6 +389,15 @@ function renderNeuro() {
   root.appendChild(main);
   root.appendChild(siteFooter());
   setView(root);
+  // mobile autoplay: iOS needs muted set in JS + a play() nudge, with a tap/scroll fallback for Low Power Mode
+  const nv = root.querySelector('.neuro-video');
+  if (nv) {
+    nv.muted = true; nv.defaultMuted = true; nv.setAttribute('muted', ''); nv.setAttribute('webkit-playsinline', '');
+    const tryPlay = () => { try { const p = nv.play(); if (p && p.catch) p.catch(() => {}); } catch {} };
+    tryPlay();
+    const kick = () => { tryPlay(); ['touchstart', 'click', 'scroll'].forEach(ev => window.removeEventListener(ev, kick)); };
+    ['touchstart', 'click', 'scroll'].forEach(ev => window.addEventListener(ev, kick, { passive: true }));
+  }
 }
 
 /* ---------- site footer (brand) ---------- */
@@ -521,6 +530,15 @@ const PRINCIPLES = [
 
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
+  {
+    date: 'June 16, 2026', version: '1.6.1', tag: 'NEW',
+    title: 'MCAT — easier to navigate',
+    items: [
+      'Every MCAT task now shows a breadcrumb of where you are, with one-tap back to the hub — and asks before you quit.',
+      'Resume right where you left off: leaving a drill, passage set, or exam no longer loses your place.',
+      'Clearer module pages — back buttons everywhere, color legends, honest empty states, and keyboard hints.',
+    ],
+  },
   {
     date: 'June 15, 2026', version: '1.6', tag: 'NEW',
     title: 'New sections & cleaner navigation',
