@@ -50,7 +50,7 @@ const SECTION_INFO = {
     desc: 'Guided, Socratic study sessions that train the skill beneath every other skill — how to question, reason, and remember. Metacognition and proven learning technique, applied directly to medicine.',
   },
 };
-const APP_VERSION = '1.7.1';
+const APP_VERSION = '1.8.0';
 // Logo mark — matches the favicon (dark square + white cross) so the brand reads as one system.
 const MARK_SVG = '<svg class="wm-glyph" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" fill="currentColor"/><path d="M14 8h4v6h6v4h-6v6h-4v-6H8v-4h6z" fill="#fff"/></svg>';
 
@@ -260,8 +260,10 @@ function topbar(active) {
       <button class="navlink ${active === 'mcat' ? 'active' : ''}" data-go="mcat">MCAT</button>
       <button class="navlink ${active === 'stats' ? 'active' : ''}" data-go="stats">Stats</button>
       <div class="navmenu">
-        <button class="navlink menubtn ${['anatomy', 'reference', 'socrates', 'utsa'].includes(active) ? 'active' : ''}" data-menu aria-haspopup="true" aria-expanded="false">Explore<span class="caret">&#9662;</span></button>
+        <button class="navlink menubtn ${['anatomy', 'reference', 'socrates', 'utsa', 'pomodoro'].includes(active) ? 'active' : ''}" data-menu aria-haspopup="true" aria-expanded="false">Explore<span class="caret">&#9662;</span></button>
         <div class="menupanel" hidden>
+          <span class="menu-head">Tools</span>
+          <button class="menuitem" data-go="pomodoro"><span>Focus Timer</span><span class="mi-tag">New</span></button>
           <span class="menu-head">Sections</span>
           <button class="menuitem" data-go="anatomy"><span>Anatomy</span><span class="mi-soon">Soon</span></button>
           <button class="menuitem" data-go="reference"><span>Medicine</span><span class="mi-soon">Soon</span></button>
@@ -284,6 +286,7 @@ function topbar(active) {
   root.querySelector('[data-go="mcat"]').addEventListener('click', () => { if (typeof renderMCAT === 'function') renderMCAT(); });
   root.querySelector('[data-go="stats"]').addEventListener('click', renderStats);
   root.querySelector('[data-go="utsa"]').addEventListener('click', renderUTSA);
+  root.querySelector('[data-go="pomodoro"]').addEventListener('click', () => { if (typeof renderPomodoro === 'function') renderPomodoro(); });
   root.querySelector('[data-go="neuro"]').addEventListener('click', renderNeuro);
   root.querySelector('[data-go="updates"]').addEventListener('click', renderUpdates);
   const navmenu = root.querySelector('.navmenu');
@@ -304,7 +307,7 @@ function topbar(active) {
   return root;
 }
 
-function setView(node) { $app.replaceChildren(node); window.scrollTo(0, 0); setupCountUps(node); revealOnScroll(node); if (window.refreshAuthUI) window.refreshAuthUI(); }
+function setView(node) { $app.replaceChildren(node); window.scrollTo(0, 0); setupCountUps(node); revealOnScroll(node); if (window.refreshAuthUI) window.refreshAuthUI(); if (window.pomoSync) window.pomoSync(); }
 
 function renderComingSoon(key) {
   stopTimer(); session = null;
@@ -539,6 +542,15 @@ const PRINCIPLES = [
 
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
+  {
+    date: 'June 17, 2026', version: '1.8.0', tag: 'NEW',
+    title: 'Focus Timer (Pomodoro)',
+    items: [
+      'New Pomodoro focus timer under Explore — preset focus/break lengths (25/35/50 and 5/10/15) plus fully custom times.',
+      'It keeps running while you study elsewhere on the site, with a floating timer and a live countdown in your browser tab.',
+      'Tracks rounds completed and your total focused time across the whole session.',
+    ],
+  },
   {
     date: 'June 17, 2026', version: '1.7.1', tag: 'FIX',
     title: 'Reliability & polish pass',
