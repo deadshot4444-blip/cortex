@@ -12,8 +12,9 @@ const ROOT_CAUSES = ['Content gap', 'Misread', 'Data/graph', 'Math/setup', 'Reas
 const SRS = (typeof loadJSON === 'function') ? loadJSON('cs-mcat-srs', {}) : {};      // cardId -> {ease,interval,reps,lapses,due,last}
 const QHIST = (typeof loadJSON === 'function') ? loadJSON('cs-mcat-q', {}) : {};      // qId -> {n,lastCorrect,conf,root,ts}
 let QLOG = (typeof loadJSON === 'function') ? loadJSON('cs-mcat-log', []) : [];       // [{qId,section,category,correct,conf,ts}]
-function saveSRS() { localStorage.setItem('cs-mcat-srs', JSON.stringify(SRS)); }
-function saveQ() { localStorage.setItem('cs-mcat-q', JSON.stringify(QHIST)); localStorage.setItem('cs-mcat-log', JSON.stringify(QLOG.slice(-1000))); }
+const mset = (k, v) => { if (typeof safeSet === 'function') safeSet(k, v); else { try { localStorage.setItem(k, v); } catch {} } };
+function saveSRS() { mset('cs-mcat-srs', JSON.stringify(SRS)); }
+function saveQ() { mset('cs-mcat-q', JSON.stringify(QHIST)); mset('cs-mcat-log', JSON.stringify(QLOG.slice(-1000))); }
 
 const DAY = 86400000;
 function srsRec(id) { if (!SRS[id]) SRS[id] = { ease: 2.5, interval: 0, reps: 0, lapses: 0, due: 0, last: 0 }; return SRS[id]; }
@@ -39,7 +40,7 @@ async function loadMCAT() {
   if (MCAT.loaded) return;
   try {
     const [o, c, q, cars, sci] = await Promise.all([
-      fetch('data/mcat-outline.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null),
+      fetch('data/mcat-outline.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).catch(() => null),
       fetch('data/mcat-cards.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : []).catch(() => []),
       fetch('data/mcat-questions.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : []).catch(() => []),
       fetch('data/mcat-cars.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : []).catch(() => []),
@@ -66,9 +67,12 @@ function clearResume(key) { try { localStorage.removeItem('cs-mcat-r-' + key); }
 // build a "Resume where you left off" button if a saved session has real progress
 function resumeBtn(key, progressOf, label, onResume) {
   const r = loadResume(key);
-  if (!r || !(progressOf(r) > 0)) return null;
-  const btn = el(`<button class="btn btn-resume" id="resume">&#8634; Resume &middot; ${label(r)}</button>`);
-  btn.addEventListener('click', () => onResume(r));
+  if (!r) return null;
+  // a stale/legacy resume blob (wrong shape) must never crash the landing page — treat as "no resume"
+  let lbl;
+  try { if (!(progressOf(r) > 0)) return null; lbl = label(r); } catch { clearResume(key); return null; }
+  const btn = el(`<button class="btn btn-resume" id="resume">&#8634; Resume &middot; ${lbl}</button>`);
+  btn.addEventListener('click', () => { try { onResume(r); } catch { clearResume(key); renderMCAT(); } });
   return btn;
 }
 
@@ -103,6 +107,12 @@ function confirmExit(hasProgress, onLeave) {
 async function renderMCAT() {
   if (typeof stopTimer === 'function') stopTimer();
   if (typeof session !== 'undefined') session = null;
+  // tear down any in-flight timed-module countdowns so a leftover timer can't auto-finish
+  // and hijack a screen the user navigated to (e.g. leaving the Exam Simulator via the breadcrumb)
+  if (cars) { clearInterval(cars.timerId); cars = null; }
+  if (plab) { clearInterval(plab.timerId); plab = null; }
+  if (simTimerId) { clearInterval(simTimerId); simTimerId = null; }
+  sim = null;
   await loadMCAT();
 
   const due = dueCount(), fresh = newCount();
@@ -124,15 +134,15 @@ async function renderMCAT() {
     { title: 'Examination &middot; Prove',
       blurb: 'Move from knowing to performing under test-day conditions. Train the stamina the real exam demands &mdash; then face yourself honestly in review, before the AAMC charges you to find out.',
       mods: [
-        { name: 'Exam Simulator', desc: 'Real-time countdown, flag navigator, stamina &amp; full-length chains, periodic table', stat: 'section &amp; full-length', go: renderSimHome, on: qn > 0 },
+        { name: 'Exam Simulator', desc: 'Real-time countdown, flag navigator, stamina &amp; full-length chains, periodic table', stat: 'section &amp; full-length', go: renderSimHome, on: qn > 0 && !!MCAT.outline },
         { name: 'Mistake Lab', desc: 'Confidence-vs-accuracy calibration, weakest categories, root-cause analysis', stat: t.answered ? `${t.answered} answered &middot; ${t.acc}%` : 'no data yet', go: renderMistakeLab, on: true },
       ] },
     { title: 'Navigation &middot; Direct',
       blurb: 'Know exactly where you stand against the full AAMC blueprint, and exactly what to do next &mdash; every day, no guesswork.',
       mods: [
         { name: 'Blueprint Navigator', desc: 'The complete AAMC content map with a live coverage heat-check', stat: `${conceptsN} concepts`, go: renderBlueprint, on: !!MCAT.outline },
-        { name: 'Guide Engine', desc: 'A personalized day-by-day campaign on 120 / 90 / 60-day tracks', stat: guidePlan() ? 'plan active' : 'build a plan', go: renderGuide, on: true },
-        { name: 'Course Mapper', desc: 'Rate your coursework, generate a pre-study coverage heat map', stat: 'pre-study check', go: renderMapper, on: true },
+        { name: 'Guide Engine', desc: 'A personalized day-by-day campaign on 120 / 90 / 60-day tracks', stat: guidePlan() ? 'plan active' : 'build a plan', go: renderGuide, on: !!MCAT.outline },
+        { name: 'Course Mapper', desc: 'Rate your coursework, generate a pre-study coverage heat map', stat: 'pre-study check', go: renderMapper, on: !!MCAT.outline },
       ] },
   ];
 
@@ -283,7 +293,7 @@ function renderFlashCard() {
       <div class="flash-card" id="fc">
         <span class="label">${esc(c.tag || 'Recall')}</span>
         <div class="flash-front">${esc(c.front)}</div>
-        <div class="flash-back" id="back" style="display:none"><div class="rule-h"></div><div class="flash-ans">${esc(c.back)}</div></div>
+        <div class="flash-back" id="flash-back" style="display:none"><div class="rule-h"></div><div class="flash-ans">${esc(c.back)}</div></div>
       </div>
       <div class="flash-foot" id="ff"></div>
     </main>
@@ -292,14 +302,14 @@ function renderFlashCard() {
   setView(root);
   const ff = root.querySelector('#ff');
   const showReveal = () => {
-    root.querySelector('#back').style.display = 'block';
+    root.querySelector('#flash-back').style.display = 'block';
     ff.innerHTML = `<span class="hint">How well did you recall it?</span>
       <div class="rate"><button class="ratebtn again" data-r="again">Again<span class="rk">1</span></button><button class="ratebtn hard" data-r="hard">Hard<span class="rk">2</span></button><button class="ratebtn good" data-r="good">Good<span class="rk">3</span></button><button class="ratebtn easy" data-r="easy">Easy<span class="rk">4</span></button></div>`;
     ff.querySelectorAll('.ratebtn').forEach(b => b.addEventListener('click', () => rateFlash(c, b.dataset.r)));
   };
   ff.innerHTML = `<div class="continue-row"><span class="hint">SPACE / tap to flip</span><button class="btn btn-solid" id="reveal">Show answer</button></div>`;
   ff.querySelector('#reveal').addEventListener('click', showReveal);
-  root.querySelector('#fc').addEventListener('click', () => { if (root.querySelector('#back').style.display === 'none') showReveal(); });
+  root.querySelector('#fc').addEventListener('click', () => { if (root.querySelector('#flash-back').style.display === 'none') showReveal(); });
   flash._reveal = showReveal;
 }
 
@@ -511,7 +521,8 @@ function renderBlueprint() {
           <span class="bp-cat-title">${esc(cat.title)}</span>
           <span class="bp-cat-stat ${cls}">${stat.n ? stat.acc + '%' : '&mdash;'}</span>
         </button>`);
-        row.addEventListener('click', () => renderCategory(cat, con, secKey));
+        // CARS categories have no discrete questions/cards — send the user to CARS Studio instead of a dead-end
+        row.addEventListener('click', () => secKey === 'cars' ? renderCarsHome() : renderCategory(cat, con, secKey));
         wrap.appendChild(row);
       });
     });
@@ -558,8 +569,8 @@ function renderMistakeLab() {
   const roots = {};
   Object.values(QHIST).forEach(h => { if (h.root) roots[h.root] = (roots[h.root] || 0) + 1; });
   const rootRows = Object.entries(roots).sort((a, b) => b[1] - a[1]);
-  // missed
-  const missed = Object.entries(QHIST).filter(([, h]) => h.lastCorrect === false).map(([id]) => id);
+  // missed — only ids that "Redo missed" can actually load (discrete questions), so the count matches the action
+  const missed = Object.entries(QHIST).filter(([id, h]) => h.lastCorrect === false && MCAT.questions.some(q => q.id === id)).map(([id]) => id);
 
   const main = el(`<main class="panel">
     <div class="hero"><h1>Mistake Lab.</h1><p class="sub">Every miss should generate a next move. Here's where to aim.</p></div>
@@ -585,8 +596,10 @@ function renderMistakeLab() {
     const wc = main.querySelector('#weak');
     weak.forEach(w => {
       const cat = findCat(w.cat);
-      const row = el(`<button class="bp-cat"><span class="bp-cat-id">${esc(w.cat)}</span><span class="bp-cat-title">${cat ? esc(cat.title) : ''}</span><span class="bp-cat-stat no">${w.acc}% &middot; ${w.n}q</span></button>`);
-      if (cat) row.addEventListener('click', () => { const qs = MCAT.questions.filter(q => q.category === w.cat); if (qs.length) { drill = { qs: shuffleArr(qs).slice(0, 10), idx: 0, mode: 'standard', results: [], scope: w.cat }; renderDrillQ(); } });
+      const qs = MCAT.questions.filter(q => q.category === w.cat);
+      // only categories with a real drill pool get a clickable row (CARS/passage-only cats can't be drilled here)
+      const row = el(`<button class="bp-cat" ${qs.length ? '' : 'disabled'}><span class="bp-cat-id">${esc(w.cat)}</span><span class="bp-cat-title">${cat ? esc(cat.title) : ''}</span><span class="bp-cat-stat no">${w.acc}% &middot; ${w.n}q</span></button>`);
+      if (qs.length) row.addEventListener('click', () => { drill = { qs: shuffleArr(qs).slice(0, 10), idx: 0, mode: 'standard', results: [], scope: w.cat }; renderDrillQ(); });
       wc.appendChild(row);
     });
   }
@@ -619,7 +632,7 @@ function renderCarsHome() {
   MCAT.cars.forEach(p => {
     const log = QLOG.filter(x => x.passage === p.id);
     const acc = log.length ? Math.round(100 * log.filter(x => x.correct).length / log.length) : null;
-    const row = el(`<button class="row"><span class="row-main"><span class="row-spec">${p.discipline}</span><span class="row-title">${esc(p.title)}</span></span><span class="row-right">${acc != null ? `<span class="pill ${acc >= 75 ? 'ok' : acc >= 50 ? 'mid' : 'no'}">${acc}%</span>` : `<span class="row-when">${p.questions.length}q &rarr;</span>`}</span></button>`);
+    const row = el(`<button class="row"><span class="row-main"><span class="row-spec">${esc(p.discipline)}</span><span class="row-title">${esc(p.title)}</span></span><span class="row-right">${acc != null ? `<span class="pill ${acc >= 75 ? 'ok' : acc >= 50 ? 'mid' : 'no'}">${acc}%</span>` : `<span class="row-when">${p.questions.length}q &rarr;</span>`}</span></button>`);
     row.addEventListener('click', () => startCars(p, timed));
     list.appendChild(row);
   });
@@ -706,7 +719,7 @@ function renderPassageHome() {
     MCAT.sci.filter(p => sec === 'all' || p.section === sec).forEach(p => {
       const log = QLOG.filter(x => x.passage === p.id);
       const acc = log.length ? Math.round(100 * log.filter(x => x.correct).length / log.length) : null;
-      const row = el(`<button class="row"><span class="row-main"><span class="row-spec">${SEC_ABBR[p.section]} &middot; ${p.type}</span><span class="row-title">${esc(p.title)}</span></span><span class="row-right">${acc != null ? `<span class="pill ${acc >= 75 ? 'ok' : acc >= 50 ? 'mid' : 'no'}">${acc}%</span>` : `<span class="row-when">${p.questions.length}q &rarr;</span>`}</span></button>`);
+      const row = el(`<button class="row"><span class="row-main"><span class="row-spec">${SEC_ABBR[p.section]} &middot; ${esc(p.type)}</span><span class="row-title">${esc(p.title)}</span></span><span class="row-right">${acc != null ? `<span class="pill ${acc >= 75 ? 'ok' : acc >= 50 ? 'mid' : 'no'}">${acc}%</span>` : `<span class="row-when">${p.questions.length}q &rarr;</span>`}</span></button>`);
       row.addEventListener('click', () => startPassage(p, timed));
       list.appendChild(row);
     });
@@ -764,6 +777,7 @@ const SIM_SECTIONS = {
   chemPhys: { abbr: 'C/P', min: 95 }, cars: { abbr: 'CARS', min: 90 }, bioBiochem: { abbr: 'B/B', min: 95 }, psychSoc: { abbr: 'P/S', min: 95 },
 };
 function renderSimHome() {
+  if (!MCAT.outline) return renderMCAT();
   const root = el('<div></div>'); root.appendChild(topbar('mcat'));
   const main = el(`<main class="panel">
     <div class="hero"><h1>Exam Simulator.</h1><p class="sub">Train test-day conditions: a countdown, a question navigator with flags, no feedback until you submit. Builds stamina, not just knowledge.</p></div>
@@ -781,7 +795,7 @@ function renderSimHome() {
   });
   main.querySelector('#full').addEventListener('click', () => startSim(['chemPhys', 'cars', 'bioBiochem', 'psychSoc']));
   main.querySelector('#back').addEventListener('click', renderMCAT);
-  const rb = resumeBtn('sim', r => Object.keys(r.answers || {}).length + (r.idx || 0) + (r.si || 0), r => { const s = r.queue[r.si]; return `${SIM_SECTIONS[s.key].abbr} Q ${(r.idx || 0) + 1}/${s.items.length}`; }, r => { sim = r; if (simTimerId) clearInterval(simTimerId); sim.deadline = nowTs() + (r._remain || 600000); simTimerId = setInterval(simTick, 500); renderSimQ(); });
+  const rb = resumeBtn('sim', r => Object.keys(r.answers || {}).length + (r.idx || 0) + (r.si || 0), r => { const s = r.queue[r.si]; return r.onBreak ? `Break &middot; ${SIM_SECTIONS[s.key].abbr} next` : `${SIM_SECTIONS[s.key].abbr} Q ${(r.idx || 0) + 1}/${s.items.length}`; }, r => { sim = r; if (simTimerId) clearInterval(simTimerId); simTimerId = null; if (r.onBreak) { renderBreak(); return; } sim.deadline = nowTs() + (r._remain || 600000); simTimerId = setInterval(simTick, 500); renderSimQ(); });
   if (rb) { const sb = main.querySelector('.endbtns'); if (sb) sb.prepend(rb); }
   root.appendChild(main); setView(root);
 }
@@ -803,6 +817,7 @@ function startSim(sectionKeys) {
 }
 function beginSection() {
   const s = sim.queue[sim.si];
+  sim.onBreak = false;
   const minutes = Math.max(8, Math.round(SIM_SECTIONS[s.key].min * s.items.length / (s.key === 'cars' ? 53 : 59)));
   sim.deadline = nowTs() + minutes * 60000; sim.idx = 0;
   if (simTimerId) clearInterval(simTimerId); simTimerId = setInterval(simTick, 500);
@@ -880,6 +895,8 @@ function submitSection() {
 }
 function renderBreak() {
   const next = sim.queue[sim.si];
+  // persist the between-sections state so quitting on the break screen doesn't lose the finished section
+  sim.onBreak = true; sim.idx = 0; saveResume('sim', sim);
   const root = el('<div></div>'); root.appendChild(topbar('mcat'));
   const main = el(`<main class="panel"><section class="anat-results" style="border:0">
     <span class="label">Break</span>
@@ -939,7 +956,7 @@ function renderGuide() {
   </main>`);
   let track = curTrack;
   main.querySelectorAll('#track .mode').forEach(b => b.addEventListener('click', () => { track = b.dataset.k; main.querySelectorAll('#track .mode').forEach(x => x.classList.toggle('active', x === b)); }));
-  main.querySelector('#gen').addEventListener('click', () => { const plan = buildPlan(track); localStorage.setItem('cs-mcat-plan', JSON.stringify(plan)); showPlan(main.querySelector('#plan'), plan); main.querySelector('#plan').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+  main.querySelector('#gen').addEventListener('click', () => { const plan = buildPlan(track); mset('cs-mcat-plan', JSON.stringify(plan)); renderGuide(); });
   if (main.querySelector('#clear')) main.querySelector('#clear').addEventListener('click', () => { if (confirm('Clear your saved study plan?')) { localStorage.removeItem('cs-mcat-plan'); renderGuide(); } });
   main.querySelector('#back').addEventListener('click', renderMCAT);
   if (existing) showPlan(main.querySelector('#plan'), existing);
@@ -948,6 +965,7 @@ function renderGuide() {
 function buildPlan(track) {
   const weeks = TRACKS[track].weeks;
   const cats = [];
+  if (!MCAT.outline) return { track, label: TRACKS[track].label, weeks: [] };
   MCAT.outline.concepts.filter(c => c.section !== 'cars').forEach(c => c.categories.forEach(cat => cats.push(cat.id)));
   const flWeeks = Math.min(weeks <= 4 ? 4 : 3, weeks);    // last weeks = full-lengths + review
   const contentWeeks = Math.max(1, weeks - flWeeks);
@@ -956,7 +974,12 @@ function buildPlan(track) {
   for (let w = 0; w < weeks; w++) {
     if (w < contentWeeks) {
       const slice = cats.slice(w * perWeek, w * perWeek + perWeek);
-      plan.weeks.push({ n: w + 1, phase: 'Build', focus: slice, note: `Learn: ${slice.join(', ') || 'review'}. Daily: ${track === 'cars' ? '2 CARS passages' : '1 CARS passage'} + flashcards (due) + a 10-q drill on the week's categories. Block new material, then interleave drills with prior weeks.` });
+      if (!slice.length) {
+        // categories already exhausted — this is a review week, not an empty "Build" week
+        plan.weeks.push({ n: w + 1, phase: 'Review', focus: [], note: `Interleave drills across all prior categories; daily CARS + flashcards (due). No new material this week.` });
+      } else {
+        plan.weeks.push({ n: w + 1, phase: 'Build', focus: slice, note: `Learn: ${slice.join(', ')}. Daily: ${track === 'cars' ? '2 CARS passages' : '1 CARS passage'} + flashcards (due) + a 10-q drill on the week's categories. Block new material, then interleave drills with prior weeks.` });
+      }
     } else {
       const fl = weeks - w;
       plan.weeks.push({ n: w + 1, phase: fl === 1 ? 'Taper' : 'Exam prep', focus: [], note: fl === 1 ? 'Light review of Mistake Lab weak spots, sleep, logistics. No new material. One half-length max, then rest.' : 'One full-length this week + full review in Mistake Lab. Re-drill weakest categories. Daily CARS + flashcards.' });
@@ -972,6 +995,7 @@ function showPlan(host, plan) {
 /* ---------- Course Mapper ---------- */
 function mapperState() { return (typeof loadJSON === 'function') ? loadJSON('cs-mcat-coursework', {}) : {}; }
 function renderMapper() {
+  if (!MCAT.outline) return renderMCAT();
   const state = mapperState();
   const root = el('<div></div>'); root.appendChild(topbar('mcat'));
   const main = el(`<main class="panel">
@@ -1010,9 +1034,20 @@ document.addEventListener('keydown', (e) => {
   if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return;
   if (e.metaKey || e.ctrlKey || e.altKey) return;
   if (flash && document.querySelector('.flash-stage')) {
-    if (e.key === ' ' && document.querySelector('#back')?.style.display === 'none') { e.preventDefault(); flash._reveal && flash._reveal(); return; }
+    if (e.key === ' ' && document.querySelector('#flash-back')?.style.display === 'none') { e.preventDefault(); flash._reveal && flash._reveal(); return; }
     const map = { '1': 'again', '2': 'hard', '3': 'good', '4': 'easy' };
     if (map[e.key] && document.querySelector('.ratebtn')) { document.querySelector(`.ratebtn.${map[e.key]}`)?.click(); }
+    return;
+  }
+  // Drill: 1–4 or A–D selects an answer (Enter → Next is handled by the global handler in app.js)
+  if (drill && document.getElementById('opts')) {
+    let i = -1;
+    if (/^[1-4]$/.test(e.key)) i = +e.key - 1;
+    else if (/^[a-dA-D]$/.test(e.key)) i = e.key.toLowerCase().charCodeAt(0) - 97;
+    if (i >= 0) {
+      const opt = document.querySelectorAll('#opts .opt')[i];
+      if (opt && !opt.disabled) { e.preventDefault(); opt.click(); }
+    }
     return;
   }
 });

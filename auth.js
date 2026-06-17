@@ -28,7 +28,7 @@ let pushTimer = null;
 let syncState = 'idle';   // idle | syncing | synced | error
 let syncedThisLoad = false;
 
-const SYNC_KEYS = (k) => k.startsWith('cs-') && k !== 'cs-counted' && k !== 'cs-sync-meta';
+const SYNC_KEYS = (k) => k.startsWith('cs-') && k !== 'cs-counted' && k !== 'cs-sync-meta' && k !== 'cs-sync-dirty';
 
 /* ---------- progress blob helpers ---------- */
 function gatherProgress() {
@@ -49,9 +49,14 @@ function setMeta(m) { try { _setItem('cs-sync-meta', JSON.stringify(m)); } catch
 
 /* keep a raw reference so our own writes don't trigger a sync loop */
 const _setItem = localStorage.setItem.bind(localStorage);
+// persisted "unpushed local changes" flag — survives reloads, so a signed-in device whose
+// pushes failed won't get its progress silently overwritten by an older cloud blob on next login
+function markDirty() { try { _setItem('cs-sync-dirty', '1'); } catch {} }
+function clearDirty() { try { localStorage.removeItem('cs-sync-dirty'); } catch {} }
+function isDirty() { try { return localStorage.getItem('cs-sync-dirty') === '1'; } catch { return false; } }
 localStorage.setItem = function (k, v) {
   _setItem(k, v);
-  if (currentUser && SYNC_KEYS(k)) schedulePush();
+  if (currentUser && SYNC_KEYS(k)) { markDirty(); schedulePush(); }
 };
 
 /* ---------- cloud read/write ---------- */
@@ -62,16 +67,20 @@ async function pullCloud(uid) {
     return data;
   } catch { return null; }
 }
+let pushInFlight = false;
 async function pushCloud(uid) {
-  if (!uid) return;
+  if (!uid || pushInFlight) return;   // guard against overlapping upserts (debounce vs. visibility-flush race)
+  pushInFlight = true;
   setSyncState('syncing');
   try {
     const updated_at = new Date().toISOString();
     const { error } = await sb.from('progress').upsert({ user_id: uid, data: gatherProgress(), updated_at }, { onConflict: 'user_id' });
     if (error) { setSyncState('error'); return; }
     setMeta({ updatedAt: updated_at });
+    clearDirty();
     setSyncState('synced');
   } catch { setSyncState('error'); }
+  finally { pushInFlight = false; }
 }
 function schedulePush() {
   if (!currentUser) return;
@@ -93,7 +102,7 @@ async function syncOnLogin(user) {
     return;
   }
   const cloudNewer = !meta || new Date(cloud.updated_at) > new Date(meta.updatedAt || 0);
-  if (cloudNewer) {                               // adopt the saved (cloud) progress
+  if (cloudNewer && !isDirty()) {                 // cloud is newer AND no unpushed local edits -> safe to adopt
     applyProgress(cloud.data);
     setMeta({ updatedAt: cloud.updated_at });
     setSyncState('synced');
@@ -112,7 +121,7 @@ async function syncOnLogin(user) {
 async function sendMagicLink(email) {
   return sb.auth.signInWithOtp({
     email,
-    options: { emailRedirectTo: location.origin + location.pathname },
+    options: { emailRedirectTo: location.origin + '/' },
   });
 }
 async function signOut() {

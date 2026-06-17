@@ -167,7 +167,7 @@ async function renderEKG(tab = 'library') {
     <div class="tabs">
       <button class="tab ${tab === 'library' ? 'active' : ''}" data-tab="library">Library</button>
       <button class="tab ${tab === 'drill' ? 'active' : ''}" data-tab="drill">Drill</button>
-      <button class="ghostbtn" id="ekgback" style="margin-left:auto">&larr; Reference</button>
+      <button class="ghostbtn" id="ekgback" style="margin-left:auto">&larr; Medicine</button>
     </div>
     <div id="ekgbody"></div>
   </main>`);

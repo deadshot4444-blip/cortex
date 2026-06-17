@@ -126,7 +126,7 @@ function appendSocStep() {
   const node = el(`<section class="stage socstep">
     <div class="stage-head"><span class="label">${isLast ? 'Teach it back' : 'Question ' + (soc.idx + 1)}</span><span class="rule"></span></div>
     <p class="q">${esc(s.question)}</p>
-    <textarea class="socinput" rows="3" placeholder="Reason it out first&hellip; (your notes stay on this device)"></textarea>
+    <textarea class="socinput" rows="3" placeholder="Reason it out first&hellip; (scratch space)"></textarea>
     <div class="socactions">
       ${s.hint ? '<button class="btn" data-hint>Need a hint</button>' : ''}
       <button class="btn btn-solid" data-reveal>Reveal answer</button>

@@ -50,7 +50,7 @@ const SECTION_INFO = {
     desc: 'Guided, Socratic study sessions that train the skill beneath every other skill — how to question, reason, and remember. Metacognition and proven learning technique, applied directly to medicine.',
   },
 };
-const APP_VERSION = '1.6.4';
+const APP_VERSION = '1.7.0';
 // Logo mark — matches the favicon (dark square + white cross) so the brand reads as one system.
 const MARK_SVG = '<svg class="wm-glyph" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" fill="currentColor"/><path d="M14 8h4v6h6v4h-6v6h-4v-6H8v-4h6z" fill="#fff"/></svg>';
 
@@ -92,13 +92,22 @@ let session = null;
 /* ---------- persistence ---------- */
 
 function loadJSON(key, fallback) {
-  try { const v = JSON.parse(localStorage.getItem(key)); return v == null ? fallback : v; }
-  catch { return fallback; }
+  try {
+    const v = JSON.parse(localStorage.getItem(key));
+    if (v == null) return fallback;
+    // shape guard: a corrupted/legacy value of the wrong type would crash callers
+    if (Array.isArray(fallback) !== Array.isArray(v)) return fallback;
+    if (fallback && typeof fallback === 'object' && (typeof v !== 'object')) return fallback;
+    return v;
+  } catch { return fallback; }
 }
-function saveProgress() { localStorage.setItem('cs-progress', JSON.stringify(store.progress)); }
-function saveCases() { localStorage.setItem('cs-cases', JSON.stringify(store.cases)); }
-function saveHistory() { localStorage.setItem('cs-history', JSON.stringify(store.history.slice(0, 400))); }
-function saveStreak() { localStorage.setItem('cs-streak', JSON.stringify(store.streak)); }
+// guarded write — storage can throw (quota full, Safari Private, disabled by policy);
+// a failure should degrade to "not saved", never freeze the flow mid-action.
+function safeSet(key, value) { try { localStorage.setItem(key, value); } catch {} }
+function saveProgress() { safeSet('cs-progress', JSON.stringify(store.progress)); }
+function saveCases() { safeSet('cs-cases', JSON.stringify(store.cases)); }
+function saveHistory() { safeSet('cs-history', JSON.stringify(store.history.slice(0, 400))); }
+function saveStreak() { safeSet('cs-streak', JSON.stringify(store.streak)); }
 
 function prog(key) {
   if (!store.progress[key]) store.progress[key] = { seen: [], answered: 0, correct: 0, xp: 0 };
@@ -251,7 +260,7 @@ function topbar(active) {
       <button class="navlink ${active === 'mcat' ? 'active' : ''}" data-go="mcat">MCAT</button>
       <button class="navlink ${active === 'stats' ? 'active' : ''}" data-go="stats">Stats</button>
       <div class="navmenu">
-        <button class="navlink menubtn ${['anatomy', 'reference', 'socrates', 'utsa'].includes(active) ? 'active' : ''}" data-menu aria-haspopup="true">Explore<span class="caret">&#9662;</span></button>
+        <button class="navlink menubtn ${['anatomy', 'reference', 'socrates', 'utsa'].includes(active) ? 'active' : ''}" data-menu aria-haspopup="true" aria-expanded="false">Explore<span class="caret">&#9662;</span></button>
         <div class="menupanel" hidden>
           <span class="menu-head">Sections</span>
           <button class="menuitem" data-go="anatomy"><span>Anatomy</span><span class="mi-soon">Soon</span></button>
@@ -281,12 +290,12 @@ function topbar(active) {
   if (navmenu) {
     const mbtn = navmenu.querySelector('[data-menu]');
     const panel = navmenu.querySelector('.menupanel');
-    const close = () => { panel.hidden = true; mbtn.classList.remove('open'); document.removeEventListener('click', onDoc); document.removeEventListener('keydown', onEsc); };
+    const close = () => { panel.hidden = true; mbtn.classList.remove('open'); mbtn.setAttribute('aria-expanded', 'false'); document.removeEventListener('click', onDoc); document.removeEventListener('keydown', onEsc); };
     const onDoc = (e) => { if (!navmenu.contains(e.target)) close(); };
     const onEsc = (e) => { if (e.key === 'Escape') close(); };
     mbtn.addEventListener('click', (e) => {
       e.stopPropagation();
-      if (panel.hidden) { panel.hidden = false; mbtn.classList.add('open'); setTimeout(() => { document.addEventListener('click', onDoc); document.addEventListener('keydown', onEsc); }, 0); }
+      if (panel.hidden) { panel.hidden = false; mbtn.classList.add('open'); mbtn.setAttribute('aria-expanded', 'true'); setTimeout(() => { document.addEventListener('click', onDoc); document.addEventListener('keydown', onEsc); }, 0); }
       else close();
     });
     panel.querySelectorAll('.menuitem').forEach(mi => mi.addEventListener('click', close));
@@ -451,16 +460,16 @@ function openFeedback() {
     const email = back.querySelector('#fb-email').value.trim();
     const status = back.querySelector('#fb-status');
     const sendBtn = back.querySelector('#fb-send');
-    if (msg.length < 3) { status.textContent = 'Add a little more detail first.'; status.className = 'modal-status err'; return; }
-    sendBtn.disabled = true; status.textContent = 'Sending…'; status.className = 'modal-status';
+    if (msg.length < 3) { status.textContent = 'Add a little more detail first.'; status.className = 'fbmodal-status err'; return; }
+    sendBtn.disabled = true; status.textContent = 'Sending…'; status.className = 'fbmodal-status';
     try {
       const body = new URLSearchParams({ 'form-name': 'suggestions', message: msg, email, 'bot-field': '' }).toString();
       const r = await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body });
       if (!r.ok) throw new Error('status ' + r.status);
-      status.textContent = 'Thanks — got it! 🙏'; status.className = 'modal-status ok';
+      status.textContent = 'Thanks — got it! 🙏'; status.className = 'fbmodal-status ok';
       setTimeout(close, 1500);
     } catch {
-      status.textContent = 'Couldn’t send right now — try again in a moment.'; status.className = 'modal-status err'; sendBtn.disabled = false;
+      status.textContent = 'Couldn’t send right now — try again in a moment.'; status.className = 'fbmodal-status err'; sendBtn.disabled = false;
     }
   });
   document.addEventListener('keydown', onKey);
@@ -530,6 +539,16 @@ const PRINCIPLES = [
 
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
+  {
+    date: 'June 17, 2026', version: '1.7.0', tag: 'FIX',
+    title: 'Reliability & polish pass',
+    items: [
+      'Hardened progress saving so a full or private-mode browser can never freeze a question mid-answer.',
+      'Cross-device sync now protects unsynced progress instead of overwriting it, and a reset syncs everywhere.',
+      'MCAT fixes: keyboard answers in drills, smarter Mistake Lab targets, cleaner study plans, no dead ends.',
+      'Sharper nav contrast, accurate labels, and dozens of small robustness fixes across the app.',
+    ],
+  },
   {
     date: 'June 16, 2026', version: '1.6.4', tag: 'NEW',
     title: 'Clinical Scenarios — free while we build',
@@ -806,7 +825,7 @@ function renderHome() {
   for (const sp of SPECIALTIES) {
     const count = store.manifest[sp.key] || 0;
     const p = store.progress[sp.key];
-    const done = p ? Math.min(p.seen.length, count) : 0;
+    const done = p ? Math.min((p.seen || []).length, count) : 0;
     const acc = p && p.answered ? Math.round(100 * p.correct / p.answered) : null;
     const xp = p?.xp || 0;
     const rank = rankFor(xp);
@@ -840,8 +859,9 @@ function renderHome() {
   main.querySelector('#mixed').addEventListener('click', startMixedCase);
   main.querySelector('#reset').addEventListener('click', () => {
     if (confirm('Reset ALL progress, stats, streak and bookmarks?')) {
-      ['cs-progress', 'cs-cases', 'cs-history', 'cs-streak'].forEach(k => localStorage.removeItem(k));
       store.progress = {}; store.cases = {}; store.history = []; store.streak = { current: 0, longest: 0, lastDate: null };
+      // write the cleared state through the savers so it persists AND (if signed in) syncs to the cloud
+      saveProgress(); saveCases(); saveHistory(); saveStreak();
       renderHome();
     }
   });
@@ -881,9 +901,10 @@ async function startMixedCase() {
 async function startCaseById(id, key) {
   const sp = { key, name: NAME_BY_KEY[key] || key };
   let data;
-  try { data = await loadSpecialty(key); } catch { return; }
+  try { data = await loadSpecialty(key); } catch { alert('Couldn’t load this case — check your connection and try again.'); return; }
   const c = data.cases.find(x => x.id === id);
   if (c) startCase(sp, c);
+  else alert('This case is no longer available.');
 }
 
 function startCase(sp, c) {
@@ -1234,7 +1255,7 @@ function renderStats() {
   const specRows = SPECIALTIES.map(sp => {
     const p = store.progress[sp.key];
     const count = store.manifest[sp.key] || 0;
-    const done = p ? Math.min(p.seen.length, count) : 0;
+    const done = p ? Math.min((p.seen || []).length, count) : 0;
     const acc = p && p.answered ? Math.round(100 * p.correct / p.answered) : null;
     const xp = p?.xp || 0;
     return { sp, count, done, acc, xp, rank: rankFor(xp).rank, answered: p?.answered || 0 };
@@ -1246,7 +1267,7 @@ function renderStats() {
   const root = el(`<div></div>`);
   root.appendChild(topbar('stats'));
   const main = el(`<main class="panel">
-    <div class="hero"><h1>Stats.</h1><p class="sub">Your progress across Rounds.</p></div>
+    <div class="hero"><h1>Stats.</h1><p class="sub">Your progress across the clinical scenarios.</p></div>
 
     <div class="metrics">
       <div class="metric"><span class="m-num" data-countup="${t.casesDone}">${t.casesDone}</span><span class="m-lab">Cases done</span><span class="m-sub">of ${totalCases.toLocaleString()}</span></div>
@@ -1294,16 +1315,20 @@ document.addEventListener('keydown', (e) => {
   if (e.metaKey || e.ctrlKey || e.altKey) return;
   const typing = e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA');
   if (typing) return;
+
+  // Enter advances any continue/next affordance — works on session-less screens too
+  // (Medicine / Learn-to-Learn / MCAT drills & results), where the "ENTER →" hint is shown.
+  if (e.key === 'Enter') {
+    const btn = document.querySelector('[data-continue]') || document.getElementById('next') || document.querySelector('[data-next]');
+    if (btn) { e.preventDefault(); btn.click(); }
+    return;
+  }
+
   if (!session) return;
 
   if (e.key === 'Escape') { renderHome(); return; }
   if (e.key.toLowerCase() === 'b' && !session.finished) {
     const btn = document.getElementById('bm'); if (btn) { refreshBookmarkBtn(btn); return; }
-  }
-  if (e.key === 'Enter') {
-    const btn = document.querySelector('[data-continue]') || document.getElementById('next');
-    if (btn) { e.preventDefault(); btn.click(); }
-    return;
   }
   const stages = document.querySelectorAll('[data-question]');
   const current = stages[stages.length - 1];

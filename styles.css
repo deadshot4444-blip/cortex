@@ -76,7 +76,7 @@ button:focus-visible, .opt:focus-visible { outline: 1px solid var(--text); outli
 .nav { display: flex; gap: 4px; }
 .navlink {
   font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em;
-  text-transform: uppercase; color: var(--faint); padding: 7px 12px;
+  text-transform: uppercase; color: var(--dim); padding: 7px 12px;
   border-bottom: 1.5px solid transparent;
 }
 .navlink:hover { color: var(--text); }
@@ -811,7 +811,9 @@ button:focus-visible, .opt:focus-visible { outline: 1px solid var(--text); outli
   .anat-opts { grid-template-columns: 1fr; }
   .mcat-mods { grid-template-columns: 1fr; }
   .rate { grid-template-columns: 1fr 1fr; }
-  .topbar.mainbar .side.right .topstat { display: none; }
+  /* let a long case-id label ellipsize instead of overflowing the case-run header on narrow phones */
+  .topbar .center { min-width: 0; }
+  .topbar .center .topstat { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 100%; }
   .wordmark { font-size: 11px; letter-spacing: .12em; }
   .wm-sub { display: none; }
 }
