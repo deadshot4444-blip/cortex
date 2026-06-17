@@ -789,7 +789,7 @@ button:focus-visible, .opt:focus-visible { outline: 1px solid var(--text); outli
   .topbar.mainbar { flex-wrap: wrap; height: auto; padding: 8px 20px; row-gap: 6px; }
   .topbar.mainbar .bar-right { order: 2; }
   .topbar.mainbar .nav { order: 3; flex-basis: 100%; flex-wrap: wrap; padding-bottom: 2px; gap: 2px 6px; }
-  .topbar.mainbar .navlink { flex: 0 0 auto; padding: 7px 12px 7px 0; }
+  .topbar.mainbar .nav .navlink { flex: 0 0 auto; padding: 7px 12px 7px 0; }
   .navmenu .menupanel { right: 0; left: auto; min-width: 0; width: min(264px, calc(100vw - 24px)); }
 }
 @media (max-width: 720px) {
