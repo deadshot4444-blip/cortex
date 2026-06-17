@@ -50,7 +50,7 @@ const SECTION_INFO = {
     desc: 'Guided, Socratic study sessions that train the skill beneath every other skill — how to question, reason, and remember. Metacognition and proven learning technique, applied directly to medicine.',
   },
 };
-const APP_VERSION = '1.6.3';
+const APP_VERSION = '1.6.4';
 // Logo mark — matches the favicon (dark square + white cross) so the brand reads as one system.
 const MARK_SVG = '<svg class="wm-glyph" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" fill="currentColor"/><path d="M14 8h4v6h6v4h-6v6h-4v-6H8v-4h6z" fill="#fff"/></svg>';
 
@@ -531,6 +531,14 @@ const PRINCIPLES = [
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
   {
+    date: 'June 16, 2026', version: '1.6.4', tag: 'NEW',
+    title: 'Clinical Scenarios — free while we build',
+    items: [
+      'Clinical Scenarios will become an optional membership one day — for now, every case is completely free.',
+      'MCAT prep stays free forever, no matter what.',
+    ],
+  },
+  {
     date: 'June 16, 2026', version: '1.6.3', tag: 'FIX',
     title: 'No more privacy warning',
     items: [
@@ -763,6 +771,7 @@ function renderHome() {
     <div class="hero">
       <h1>Clinical scenarios.</h1>
       <p class="sub">Interactive cases across ${SPECIALTIES.length} specialties. Pick one &mdash; a random case begins.</p>
+      <p class="free-note"><span class="free-pill">Free for now</span>Clinical Scenarios will become a membership one day &mdash; everything here is free while we build it out.</p>
     </div>
     <div class="tabs scn-tabs">
       <button class="tab active" data-scn="practice">Practice</button>
