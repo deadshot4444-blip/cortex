@@ -788,7 +788,7 @@ button:focus-visible, .opt:focus-visible { outline: 1px solid var(--text); outli
   .topbar.mainbar .bar-right { order: 2; }
   .topbar.mainbar .nav { order: 3; flex-basis: 100%; flex-wrap: wrap; padding-bottom: 2px; gap: 2px 6px; }
   .topbar.mainbar .navlink { flex: 0 0 auto; padding: 7px 12px 7px 0; }
-  .menupanel { right: 0; left: auto; min-width: 0; width: min(264px, calc(100vw - 24px)); }
+  .navmenu .menupanel { right: 0; left: auto; min-width: 0; width: min(264px, calc(100vw - 24px)); }
 }
 @media (max-width: 720px) {
   .nav { gap: 0; }
@@ -1033,8 +1033,8 @@ button:focus-visible, a:focus-visible, textarea:focus-visible, input:focus-visib
 /* nav v1.6: compact on small screens */
 @media (max-width: 720px) {
   .topbar.mainbar .topstat { display: none; }
-  .navlink.special .neuro-label { display: none; }
-  .navlink.special { padding: 5px 9px; }
+  .navlink.special .nl-rest { display: none; }
+  .topbar.mainbar .navlink.special { padding: 6px 12px; gap: 8px; }
   .bar-right { gap: 10px; }
 }
 

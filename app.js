@@ -50,7 +50,7 @@ const SECTION_INFO = {
     desc: 'Guided, Socratic study sessions that train the skill beneath every other skill — how to question, reason, and remember. Metacognition and proven learning technique, applied directly to medicine.',
   },
 };
-const APP_VERSION = '1.6.1';
+const APP_VERSION = '1.6.2';
 // Logo mark — matches the favicon (dark square + white cross) so the brand reads as one system.
 const MARK_SVG = '<svg class="wm-glyph" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" fill="currentColor"/><path d="M14 8h4v6h6v4h-6v6h-4v-6H8v-4h6z" fill="#fff"/></svg>';
 
@@ -263,7 +263,7 @@ function topbar(active) {
       </div>
     </nav>
     <div class="bar-right">
-      <button class="navlink special ${active === 'neuro' ? 'active' : ''}" data-go="neuro" title="Neuroengineering"><svg class="neuro-ico" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2L17 6V14L10 18L3 14V6Z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span class="neuro-label">Neuroengineering</span></button>
+      <button class="navlink special ${active === 'neuro' ? 'active' : ''}" data-go="neuro" title="Neuroengineering"><svg class="neuro-ico" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2L17 6V14L10 18L3 14V6Z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span class="neuro-label">Neuro<span class="nl-rest">engineering</span></span></button>
       ${stat ? `<span class="topstat">${stat}</span>` : ''}<a class="xlink" href="https://x.com/kevin__vigil" target="_blank" rel="noopener" title="Follow @kevin__vigil on X for updates" aria-label="Follow on X"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a><button class="acctbtn" data-acct hidden>Sign in</button><button class="ver" data-go="updates" title="What's new">v${APP_VERSION}</button>
     </div>
   </header>`);
@@ -530,6 +530,15 @@ const PRINCIPLES = [
 
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
+  {
+    date: 'June 16, 2026', version: '1.6.2', tag: 'FIX',
+    title: 'Mobile polish',
+    items: [
+      'Fixed the Explore menu running off-screen on phones.',
+      'Clearer "Neuro" label on mobile instead of a bare icon.',
+      'Self-hosted the sign-in library so strict privacy browsers stop flagging the page — and the site now loads fully offline.',
+    ],
+  },
   {
     date: 'June 16, 2026', version: '1.6.1', tag: 'NEW',
     title: 'MCAT — easier to navigate',
