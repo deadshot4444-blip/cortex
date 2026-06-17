@@ -50,7 +50,7 @@ const SECTION_INFO = {
     desc: 'Guided, Socratic study sessions that train the skill beneath every other skill — how to question, reason, and remember. Metacognition and proven learning technique, applied directly to medicine.',
   },
 };
-const APP_VERSION = '1.7.0';
+const APP_VERSION = '1.7.1';
 // Logo mark — matches the favicon (dark square + white cross) so the brand reads as one system.
 const MARK_SVG = '<svg class="wm-glyph" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" fill="currentColor"/><path d="M14 8h4v6h6v4h-6v6h-4v-6H8v-4h6z" fill="#fff"/></svg>';
 
@@ -540,7 +540,7 @@ const PRINCIPLES = [
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
   {
-    date: 'June 17, 2026', version: '1.7.0', tag: 'FIX',
+    date: 'June 17, 2026', version: '1.7.1', tag: 'FIX',
     title: 'Reliability & polish pass',
     items: [
       'Hardened progress saving so a full or private-mode browser can never freeze a question mid-answer.',
@@ -1315,18 +1315,23 @@ document.addEventListener('keydown', (e) => {
   if (e.metaKey || e.ctrlKey || e.altKey) return;
   const typing = e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA');
   if (typing) return;
+  if (document.querySelector('.modal, .fbmodal-back')) return;   // don't drive the screen behind an open overlay
 
-  // Enter advances any continue/next affordance — works on session-less screens too
-  // (Medicine / Learn-to-Learn / MCAT drills & results), where the "ENTER →" hint is shown.
+  // Enter advances explicit continue/next affordances, even on session-less screens (drills, Medicine, Learn-to-Learn).
+  // Scoped to opt-in [data-continue]/[data-next] only — NOT a bare #next, which the timed Exam Simulator uses.
   if (e.key === 'Enter') {
-    const btn = document.querySelector('[data-continue]') || document.getElementById('next') || document.querySelector('[data-next]');
-    if (btn) { e.preventDefault(); btn.click(); }
-    return;
+    const btn = document.querySelector('[data-continue]') || document.querySelector('[data-next]');
+    if (btn) { e.preventDefault(); btn.click(); return; }
   }
 
   if (!session) return;
 
   if (e.key === 'Escape') { renderHome(); return; }
+  if (e.key === 'Enter') {   // in an active case, Enter also advances the summary's "Next case"
+    const nb = document.getElementById('next');
+    if (nb) { e.preventDefault(); nb.click(); }
+    return;
+  }
   if (e.key.toLowerCase() === 'b' && !session.finished) {
     const btn = document.getElementById('bm'); if (btn) { refreshBookmarkBtn(btn); return; }
   }

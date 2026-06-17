@@ -112,7 +112,7 @@ async function renderMCAT() {
   if (cars) { clearInterval(cars.timerId); cars = null; }
   if (plab) { clearInterval(plab.timerId); plab = null; }
   if (simTimerId) { clearInterval(simTimerId); simTimerId = null; }
-  sim = null;
+  sim = null; drill = null;
   await loadMCAT();
 
   const due = dueCount(), fresh = newCount();
@@ -1033,14 +1033,16 @@ function renderMapper() {
 document.addEventListener('keydown', (e) => {
   if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return;
   if (e.metaKey || e.ctrlKey || e.altKey) return;
+  if (document.querySelector('.modal, .fbmodal-back')) return;   // don't drive the screen behind an open overlay
   if (flash && document.querySelector('.flash-stage')) {
     if (e.key === ' ' && document.querySelector('#flash-back')?.style.display === 'none') { e.preventDefault(); flash._reveal && flash._reveal(); return; }
     const map = { '1': 'again', '2': 'hard', '3': 'good', '4': 'easy' };
     if (map[e.key] && document.querySelector('.ratebtn')) { document.querySelector(`.ratebtn.${map[e.key]}`)?.click(); }
     return;
   }
-  // Drill: 1–4 or A–D selects an answer (Enter → Next is handled by the global handler in app.js)
-  if (drill && document.getElementById('opts')) {
+  // Drill: 1–4 or A–D selects an answer. Gated on #conf (drill-only) so it can't leak into the
+  // Exam Simulator, which reuses id="opts" (Enter → Next is handled by the global handler in app.js).
+  if (drill && document.getElementById('conf') && document.getElementById('opts')) {
     let i = -1;
     if (/^[1-4]$/.test(e.key)) i = +e.key - 1;
     else if (/^[a-dA-D]$/.test(e.key)) i = e.key.toLowerCase().charCodeAt(0) - 97;

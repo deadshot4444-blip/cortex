@@ -67,20 +67,30 @@ async function pullCloud(uid) {
     return data;
   } catch { return null; }
 }
-let pushInFlight = false;
+let pushInFlight = false, pushQueued = false;
 async function pushCloud(uid) {
-  if (!uid || pushInFlight) return;   // guard against overlapping upserts (debounce vs. visibility-flush race)
+  if (!uid) return;
+  // coalesce overlapping calls (debounce vs. visibility-flush) into one re-run, so a write
+  // that lands while a push is in flight is never silently dropped
+  if (pushInFlight) { pushQueued = true; return; }
   pushInFlight = true;
   setSyncState('syncing');
+  let ok = false;
   try {
     const updated_at = new Date().toISOString();
-    const { error } = await sb.from('progress').upsert({ user_id: uid, data: gatherProgress(), updated_at }, { onConflict: 'user_id' });
-    if (error) { setSyncState('error'); return; }
-    setMeta({ updatedAt: updated_at });
-    clearDirty();
-    setSyncState('synced');
-  } catch { setSyncState('error'); }
-  finally { pushInFlight = false; }
+    clearDirty();                         // clear BEFORE snapshot; a write during the upload re-marks dirty
+    const data = gatherProgress();
+    const { error } = await sb.from('progress').upsert({ user_id: uid, data, updated_at }, { onConflict: 'user_id' });
+    if (error) { markDirty(); setSyncState('error'); }
+    else { setMeta({ updatedAt: updated_at }); setSyncState('synced'); ok = true; }
+  } catch { markDirty(); setSyncState('error'); }
+  finally {
+    pushInFlight = false;
+    // after a successful push, flush again if a write landed mid-flight or a call was coalesced
+    const requeue = ok && (pushQueued || isDirty());
+    pushQueued = false;
+    if (requeue) pushCloud(uid);
+  }
 }
 function schedulePush() {
   if (!currentUser) return;
