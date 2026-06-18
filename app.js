@@ -802,7 +802,7 @@ function renderHome() {
     <div class="hero">
       <h1>Clinical scenarios.</h1>
       <p class="sub">Interactive cases across ${SPECIALTIES.length} specialties. Pick one &mdash; a random case begins.</p>
-      <p class="free-note"><span class="free-pill">Free for now</span>Clinical Scenarios will become a membership one day &mdash; everything here is free while we build it out.</p>
+      <p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">Clinical &middot; free for now</span><span class="free-note-txt">Clinical Scenarios may become a membership later. The full MCAT suite stays free forever.</span></p>
     </div>
     <div class="tabs scn-tabs">
       <button class="tab active" data-scn="practice">Practice</button>
@@ -1253,9 +1253,23 @@ function titleFor(id) {
 
 /* ---------- stats ---------- */
 
+function mcatStatsSnapshot() {
+  const log = loadJSON('cs-mcat-log', []);
+  const srs = loadJSON('cs-mcat-srs', {});
+  const answered = log.length;
+  const correct = log.filter(x => x.correct).length;
+  const acc = answered ? Math.round(100 * correct / answered) : null;
+  const now = Date.now();
+  const vals = Object.values(srs);
+  const learned = vals.filter(r => r && r.reps > 0).length;
+  const due = vals.filter(r => r && r.reps > 0 && r.due <= now).length;
+  return { answered, correct, acc, learned, due, has: answered > 0 || learned > 0 };
+}
+
 function renderStats() {
   stopTimer(); session = null;
   const t = totals();
+  const ms = mcatStatsSnapshot();
   const totalCases = Object.values(store.manifest).reduce((a, b) => a + b, 0);
 
   // 21-day activity strip from history
@@ -1279,17 +1293,31 @@ function renderStats() {
   const root = el(`<div></div>`);
   root.appendChild(topbar('stats'));
   const main = el(`<main class="panel">
-    <div class="hero"><h1>Stats.</h1><p class="sub">Your progress across the clinical scenarios.</p></div>
+    <div class="hero"><h1>Stats.</h1><p class="sub">Your progress across MCAT prep and clinical scenarios.</p></div>
 
-    <div class="metrics">
-      <div class="metric"><span class="m-num" data-countup="${t.casesDone}">${t.casesDone}</span><span class="m-lab">Cases done</span><span class="m-sub">of ${totalCases.toLocaleString()}</span></div>
-      <div class="metric"><span class="m-num" data-countup="${t.acc != null ? t.acc + '%' : ''}">${t.acc != null ? t.acc + '%' : '&mdash;'}</span><span class="m-lab">Accuracy</span><span class="m-sub">${t.correct}/${t.answered} answers</span></div>
-      <div class="metric"><span class="m-num" data-countup="${store.streak.current}&#128293;">${store.streak.current}&#128293;</span><span class="m-lab">Day streak</span><span class="m-sub">best ${store.streak.longest}</span></div>
-      <div class="metric"><span class="m-num" data-countup="${t.xp}">${t.xp.toLocaleString()}</span><span class="m-lab">Total XP</span><span class="m-sub">across ${SPECIALTIES.length} specialties</span></div>
+    <div class="statblock">
+      <span class="label">MCAT prep</span>
+      <div class="metrics">
+        <div class="metric"><span class="m-num" data-countup="${ms.answered}">${ms.answered || '&mdash;'}</span><span class="m-lab">Questions done</span><span class="m-sub">drills, passages &amp; sim</span></div>
+        <div class="metric"><span class="m-num" data-countup="${ms.acc != null ? ms.acc + '%' : ''}">${ms.acc != null ? ms.acc + '%' : '&mdash;'}</span><span class="m-lab">Accuracy</span><span class="m-sub">${ms.answered ? ms.correct + '/' + ms.answered : 'no data yet'}</span></div>
+        <div class="metric"><span class="m-num" data-countup="${ms.learned}">${ms.learned || '&mdash;'}</span><span class="m-lab">Cards learned</span><span class="m-sub">in spaced rotation</span></div>
+        <div class="metric"><span class="m-num" data-countup="${ms.due}">${ms.due || '&mdash;'}</span><span class="m-lab">Due now</span><span class="m-sub">flashcards ready</span></div>
+      </div>
+      ${ms.has ? '<div class="stat-cta"><button class="btn btn-solid" id="stats-mcat">Open MCAT &rarr;</button></div>' : '<p class="stat-empty">No MCAT activity yet &mdash; start with drills or flashcards.</p>'}
     </div>
 
     <div class="statblock">
-      <span class="label">Last 21 days</span>
+      <span class="label">Clinical scenarios</span>
+      <div class="metrics">
+        <div class="metric"><span class="m-num" data-countup="${t.casesDone}">${t.casesDone}</span><span class="m-lab">Cases done</span><span class="m-sub">of ${totalCases.toLocaleString()}</span></div>
+        <div class="metric"><span class="m-num" data-countup="${t.acc != null ? t.acc + '%' : ''}">${t.acc != null ? t.acc + '%' : '&mdash;'}</span><span class="m-lab">Accuracy</span><span class="m-sub">${t.correct}/${t.answered} answers</span></div>
+        <div class="metric"><span class="m-num" data-countup="${store.streak.current}&#128293;">${store.streak.current}&#128293;</span><span class="m-lab">Day streak</span><span class="m-sub">best ${store.streak.longest}</span></div>
+        <div class="metric"><span class="m-num" data-countup="${t.xp}">${t.xp.toLocaleString()}</span><span class="m-lab">Total XP</span><span class="m-sub">across ${SPECIALTIES.length} specialties</span></div>
+      </div>
+    </div>
+
+    <div class="statblock">
+      <span class="label">Clinical &middot; last 21 days</span>
       <div class="daystrip">${days.map(a => `<span class="day ${a ? 'on' : ''}"></span>`).join('')}</div>
     </div>
 
@@ -1316,6 +1344,9 @@ function renderStats() {
     row.addEventListener('click', () => startRandomCase(r.sp));
     tbl.appendChild(row);
   });
+
+  const mcatBtn = main.querySelector('#stats-mcat');
+  if (mcatBtn) mcatBtn.addEventListener('click', () => { if (typeof renderMCAT === 'function') renderMCAT(); });
 
   root.appendChild(main);
   setView(root);

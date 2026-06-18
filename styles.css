@@ -108,6 +108,11 @@ button:focus-visible, .opt:focus-visible { outline: 1px solid var(--text); outli
 .hero .sub { margin-top: 10px; color: var(--dim); font-size: 15px; }
 .free-note { margin-top: 14px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 12.5px; color: var(--dim); }
 .free-pill { font-family: var(--mono); font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: var(--green); border: 1px solid var(--green); padding: 3px 8px; white-space: nowrap; }
+.free-pill--soft { color: var(--dim); border-color: var(--line-bright); }
+.free-note-txt { flex: 1 1 220px; line-height: 1.5; }
+.mcat-resume-hint { margin-top: 18px; }
+.stat-cta { margin-top: 18px; }
+.stat-empty { margin-top: 14px; font-size: 13.5px; color: var(--dim); line-height: 1.55; }
 
 .controls {
   display: flex; gap: 40px; flex-wrap: wrap; align-items: flex-end;

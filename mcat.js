@@ -5,6 +5,9 @@
 const MCAT = { outline: null, cards: [], questions: [], cars: [], sci: [], loaded: false };
 
 const SEC_ABBR = { chemPhys: 'C/P', bioBiochem: 'B/B', psychSoc: 'P/S', cars: 'CARS' };
+const SIM_SECTIONS = {
+  chemPhys: { abbr: 'C/P', min: 95 }, cars: { abbr: 'CARS', min: 90 }, bioBiochem: { abbr: 'B/B', min: 95 }, psychSoc: { abbr: 'P/S', min: 95 },
+};
 const CONF = { guess: 'Guess', unsure: 'Unsure', sure: 'Sure' };
 const ROOT_CAUSES = ['Content gap', 'Misread', 'Data/graph', 'Math/setup', 'Reasoning', 'Careless', 'Guessed'];
 
@@ -59,21 +62,71 @@ function saveResume(key, obj) {
     const o = Object.assign({}, obj);
     delete o.timerId; delete o._reveal;
     if (o.deadline) o._remain = Math.max(0, o.deadline - nowTs());
+    o._saved = nowTs();
     localStorage.setItem('cs-mcat-r-' + key, JSON.stringify(o));
   } catch {}
 }
 function loadResume(key) { try { return JSON.parse(localStorage.getItem('cs-mcat-r-' + key) || 'null'); } catch { return null; } }
 function clearResume(key) { try { localStorage.removeItem('cs-mcat-r-' + key); } catch {} }
+
+const RESUME_SPECS = [
+  { key: 'sim', mod: 'Exam Simulator',
+    progressOf(r) { return Object.keys(r.answers || {}).length + (r.idx || 0) + (r.si || 0); },
+    label(r) { const s = r.queue[r.si]; return r.onBreak ? `Break &middot; ${SIM_SECTIONS[s.key].abbr} next` : `${SIM_SECTIONS[s.key].abbr} Q ${(r.idx || 0) + 1}/${s.items.length}`; },
+    resume(r) { sim = r; if (simTimerId) clearInterval(simTimerId); simTimerId = null; if (r.onBreak) { renderBreak(); return; } sim.deadline = nowTs() + (r._remain || 600000); simTimerId = setInterval(simTick, 500); renderSimQ(); },
+  },
+  { key: 'drill', mod: 'Question Drills',
+    progressOf(r) { return (r.results ? r.results.length : 0) || r.idx || 0; },
+    label(r) { return `Q ${(r.idx || 0) + 1}/${r.qs.length}`; },
+    resume(r) { drill = r; renderDrillQ(); },
+  },
+  { key: 'cars', mod: 'CARS Studio',
+    progressOf(r) { return (r.results ? r.results.length : 0); },
+    label(r) { return `Q ${(r.idx || 0) + 1}/${r.p.questions.length}`; },
+    resume(r) { cars = r; cars.timerId = null; if (cars.timed) { cars.deadline = nowTs() + (r._remain || 600000); cars.timerId = setInterval(carsTick, 500); } renderCarsRunner(); },
+  },
+  { key: 'plab', mod: 'Science Passages',
+    progressOf(r) { return (r.results ? r.results.length : 0); },
+    label(r) { return `Q ${(r.idx || 0) + 1}/${r.p.questions.length}`; },
+    resume(r) { plab = r; plab.timerId = null; if (plab.timed) { plab.deadline = nowTs() + (r._remain || 600000); plab.timerId = setInterval(plabTick, 500); } renderPassageRunner(); },
+  },
+  { key: 'flash', mod: 'Flashcard Reactor',
+    progressOf(r) { return r.idx || r.done || 0; },
+    label(r) { return `${r.done || 0} / ${r.total || 0} cards`; },
+    resume(r) { flash = r; renderFlashCard(); },
+  },
+];
+
 // build a "Resume where you left off" button if a saved session has real progress
-function resumeBtn(key, progressOf, label, onResume) {
+function resumeBtn(key) {
+  const spec = RESUME_SPECS.find(s => s.key === key);
+  if (!spec) return null;
   const r = loadResume(key);
   if (!r) return null;
   // a stale/legacy resume blob (wrong shape) must never crash the landing page — treat as "no resume"
   let lbl;
-  try { if (!(progressOf(r) > 0)) return null; lbl = label(r); } catch { clearResume(key); return null; }
+  try { if (!(spec.progressOf(r) > 0)) return null; lbl = spec.label(r); } catch { clearResume(key); return null; }
   const btn = el(`<button class="btn btn-resume" id="resume">&#8634; Resume &middot; ${lbl}</button>`);
-  btn.addEventListener('click', () => { try { onResume(r); } catch { clearResume(key); renderMCAT(); } });
+  btn.addEventListener('click', () => { try { spec.resume(r); } catch { clearResume(key); renderMCAT(); } });
   return btn;
+}
+function hubResumeChip() {
+  let best = null;
+  for (const spec of RESUME_SPECS) {
+    const r = loadResume(spec.key);
+    if (!r) continue;
+    try {
+      if (spec.progressOf(r) <= 0) continue;
+      const saved = r._saved || 0;
+      if (!best || saved > best.saved) best = { spec, r, saved, lbl: spec.label(r) };
+    } catch { clearResume(spec.key); }
+  }
+  if (!best) return null;
+  const wrap = el('<div class="mcat-resume-hint"></div>');
+  const btn = el(`<button class="btn btn-resume" id="hub-resume">&#8634; Resume &middot; ${best.spec.mod} &middot; ${best.lbl}</button>`);
+  btn.addEventListener('click', () => { try { best.spec.resume(best.r); } catch { clearResume(best.spec.key); renderMCAT(); } });
+  wrap.appendChild(btn);
+  return wrap;
 }
 
 /* ---------- shared in-task header (breadcrumb + safe exit) ---------- */
@@ -219,6 +272,8 @@ async function renderMCAT() {
   main.querySelector('#mc-enter').addEventListener('click', enter);
   main.querySelector('#mc-enter2').addEventListener('click', enter);
   main.querySelector('#mc-method').addEventListener('click', () => main.querySelector('#mcat-method').scrollIntoView({ behavior: 'smooth', block: 'start' }));
+  const hubResume = hubResumeChip();
+  if (hubResume) main.querySelector('.mcat-hero').appendChild(hubResume);
 
   root.appendChild(main);
   if (typeof siteFooter === 'function') root.appendChild(siteFooter());
@@ -265,7 +320,7 @@ function renderFlashHome() {
   main.querySelectorAll('#fdeck .mode').forEach(b => b.addEventListener('click', () => { deck = b.dataset.deck; main.querySelectorAll('#fdeck .mode').forEach(x => x.classList.toggle('active', x === b)); refresh(); }));
   main.querySelector('#study').addEventListener('click', () => startFlash(deck));
   main.querySelector('#back').addEventListener('click', renderMCAT);
-  const rb = resumeBtn('flash', r => r.idx || r.done || 0, r => `${r.done || 0} / ${r.total || 0} cards`, r => { flash = r; renderFlashCard(); });
+  const rb = resumeBtn('flash');
   if (rb) main.querySelector('.endbtns').prepend(rb);
   root.appendChild(main);
   setView(root);
@@ -367,7 +422,7 @@ function renderDrillSetup() {
   seg('#dmode .mode', b => { mode = b.dataset.dm; main.querySelector('#dmh').textContent = mode === 'blind' ? 'Blind review: answer everything first with no feedback, then review all at once — trains honest judgment.' : 'Standard: feedback after each question.'; });
   main.querySelector('#start').addEventListener('click', () => startDrill(scope, len, mode));
   main.querySelector('#back').addEventListener('click', renderMCAT);
-  const rb = resumeBtn('drill', r => (r.results ? r.results.length : 0) || r.idx || 0, r => `Q ${(r.idx || 0) + 1}/${r.qs.length}`, r => { drill = r; renderDrillQ(); });
+  const rb = resumeBtn('drill');
   if (rb) main.querySelector('.endbtns').prepend(rb);
   root.appendChild(main); setView(root);
 }
@@ -638,7 +693,7 @@ function renderCarsHome() {
   });
   main.querySelector('#rand').addEventListener('click', () => startCars(MCAT.cars[Math.floor(Math.random() * MCAT.cars.length)], timed));
   main.querySelector('#back').addEventListener('click', renderMCAT);
-  const rb = resumeBtn('cars', r => (r.results ? r.results.length : 0), r => `Q ${(r.idx || 0) + 1}/${r.p.questions.length}`, r => { cars = r; cars.timerId = null; if (cars.timed) { cars.deadline = nowTs() + (r._remain || 600000); cars.timerId = setInterval(carsTick, 500); } renderCarsRunner(); });
+  const rb = resumeBtn('cars');
   if (rb) main.querySelector('.endbtns').prepend(rb);
   root.appendChild(main); setView(root);
 }
@@ -728,7 +783,7 @@ function renderPassageHome() {
   main.querySelectorAll('#psec .mode').forEach(b => b.addEventListener('click', () => { sec = b.dataset.s; main.querySelectorAll('#psec .mode').forEach(x => x.classList.toggle('active', x === b)); refresh(); }));
   main.querySelectorAll('#ptime .mode').forEach(b => b.addEventListener('click', () => { timed = b.dataset.t === 'on'; main.querySelectorAll('#ptime .mode').forEach(x => x.classList.toggle('active', x === b)); }));
   main.querySelector('#back').addEventListener('click', renderMCAT);
-  const rb = resumeBtn('plab', r => (r.results ? r.results.length : 0), r => `Q ${(r.idx || 0) + 1}/${r.p.questions.length}`, r => { plab = r; plab.timerId = null; if (plab.timed) { plab.deadline = nowTs() + (r._remain || 600000); plab.timerId = setInterval(plabTick, 500); } renderPassageRunner(); });
+  const rb = resumeBtn('plab');
   if (rb) main.querySelector('.endbtns').prepend(rb);
   root.appendChild(main); setView(root);
 }
@@ -773,9 +828,6 @@ function finishPassage() {
 
 /* ---------- Exam Simulator ---------- */
 let sim = null, simTimerId = null;
-const SIM_SECTIONS = {
-  chemPhys: { abbr: 'C/P', min: 95 }, cars: { abbr: 'CARS', min: 90 }, bioBiochem: { abbr: 'B/B', min: 95 }, psychSoc: { abbr: 'P/S', min: 95 },
-};
 function renderSimHome() {
   if (!MCAT.outline) return renderMCAT();
   const root = el('<div></div>'); root.appendChild(topbar('mcat'));
@@ -795,7 +847,7 @@ function renderSimHome() {
   });
   main.querySelector('#full').addEventListener('click', () => startSim(['chemPhys', 'cars', 'bioBiochem', 'psychSoc']));
   main.querySelector('#back').addEventListener('click', renderMCAT);
-  const rb = resumeBtn('sim', r => Object.keys(r.answers || {}).length + (r.idx || 0) + (r.si || 0), r => { const s = r.queue[r.si]; return r.onBreak ? `Break &middot; ${SIM_SECTIONS[s.key].abbr} next` : `${SIM_SECTIONS[s.key].abbr} Q ${(r.idx || 0) + 1}/${s.items.length}`; }, r => { sim = r; if (simTimerId) clearInterval(simTimerId); simTimerId = null; if (r.onBreak) { renderBreak(); return; } sim.deadline = nowTs() + (r._remain || 600000); simTimerId = setInterval(simTick, 500); renderSimQ(); });
+  const rb = resumeBtn('sim');
   if (rb) { const sb = main.querySelector('.endbtns'); if (sb) sb.prepend(rb); }
   root.appendChild(main); setView(root);
 }
