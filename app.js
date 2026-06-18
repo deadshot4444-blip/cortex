@@ -189,6 +189,11 @@ function caseRec(id, key) {
   return store.cases[id];
 }
 function isBookmarked(id) { return !!store.cases[id]?.bookmarked; }
+function bookmarkHtml(on, label = 'Save') {
+  const txt = on ? 'Saved' : label;
+  const ico = on ? '&#9733;' : '&#9734;';
+  return `<span class="bm-ico">${ico}</span><span class="bm-txt">${txt}</span>`;
+}
 function toggleBookmark(id, key) {
   const rec = caseRec(id, key);
   rec.bookmarked = !rec.bookmarked;
@@ -1151,11 +1156,11 @@ function renderCase() {
   const stageTotal = c.stages.length;
 
   const root = el(`<div>
-    <header class="topbar">
+    <header class="topbar casebar">
       <div class="side"><button class="backbtn" id="exit">&larr; Exit</button></div>
-      <div class="center"><span class="topstat">${esc(sp.name).toUpperCase()} &middot; ${esc(c.id || '').toUpperCase()}</span></div>
+      <div class="center"><span class="topstat case-crumb">${esc(sp.name).toUpperCase()} &middot; ${esc(c.id || '').toUpperCase()}</span></div>
       <div class="side right">
-        <button class="bookmark ${marked ? 'on' : ''}" id="bm" title="Bookmark (B)">${marked ? '&#9733; Saved' : '&#9734; Save'}</button>
+        <button class="bookmark ${marked ? 'on' : ''}" id="bm" title="Bookmark (B)">${bookmarkHtml(marked)}</button>
         <span class="topstat" id="qprog">Q 0/${session.qTotal}</span>
         ${session.timed ? '<span class="timer" id="timer"></span>' : ''}
       </div>
@@ -1206,7 +1211,7 @@ function renderCase() {
 function refreshBookmarkBtn(btn) {
   const on = toggleBookmark(session.c.id, session.sp.key);
   btn.classList.toggle('on', on);
-  btn.innerHTML = on ? '&#9733; Saved' : '&#9734; Save';
+  btn.innerHTML = bookmarkHtml(on);
 }
 
 function updateTimer() {
@@ -1371,7 +1376,7 @@ function finishCase() {
     </div>
     <div class="endbtns">
       <button class="btn btn-solid" id="next">Next case</button>
-      <button class="btn" id="bm2">${marked ? '&#9733; Saved' : '&#9734; Save case'}</button>
+      <button class="btn" id="bm2">${bookmarkHtml(marked, 'Save case')}</button>
       <button class="btn" id="home">Home</button>
     </div>
   </section>`);
@@ -1380,9 +1385,9 @@ function finishCase() {
   node.querySelector('#home').addEventListener('click', renderHome);
   node.querySelector('#bm2').addEventListener('click', (e) => {
     const on = toggleBookmark(c.id, sp.key);
-    e.target.innerHTML = on ? '&#9733; Saved' : '&#9734; Save case';
+    e.currentTarget.innerHTML = bookmarkHtml(on, 'Save case');
     const top = document.getElementById('bm');
-    if (top) { top.classList.toggle('on', on); top.innerHTML = on ? '&#9733; Saved' : '&#9734; Save'; }
+    if (top) { top.classList.toggle('on', on); top.innerHTML = bookmarkHtml(on); }
   });
 
   document.getElementById('stages').appendChild(node);

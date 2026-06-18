@@ -93,12 +93,15 @@ button:focus-visible, .opt:focus-visible { outline: 1px solid var(--text); outli
 .cs-box .endbtns { justify-content: center; }
 
 .bookmark {
+  display: inline-flex; align-items: center; gap: 6px;
   font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em;
   text-transform: uppercase; color: var(--dim);
   border: 1px solid var(--line-bright); padding: 5px 10px;
 }
+.bookmark .bm-ico { font-size: 13px; line-height: 1; text-transform: none; letter-spacing: 0; }
 .bookmark:hover { color: var(--text); border-color: var(--text); }
 .bookmark.on { color: var(--amber); border-color: var(--amber); }
+.bookmark.on .bm-ico { color: var(--amber); }
 
 /* ---------- home ---------- */
 
@@ -1213,12 +1216,95 @@ button:focus-visible, a:focus-visible, textarea:focus-visible, input:focus-visib
 .cs-row:hover .mod-go { opacity: 1; transform: translateY(-50%) translateX(3px); }
 .cs-rows .empty { padding: 36px 18px; }
 
+/* Clinical — mobile / touch */
+.scn-tabs, .cs-subtabs {
+  overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; max-width: 100%;
+}
+.scn-tabs::-webkit-scrollbar, .cs-subtabs::-webkit-scrollbar { display: none; }
+
+@media (hover: none) {
+  .cs-card .mod-go, .cs-row .mod-go { opacity: 1; }
+  .cs-card:hover:not(:disabled) { transform: none; }
+}
+
 @media (max-width: 780px) {
   .cs-statband--compact { grid-template-columns: repeat(2, 1fr); }
+  .cs-landing .mcat-lede { font-size: 15px; line-height: 1.58; }
 }
-@media (max-width: 600px) {
-  .cs-config .controls { gap: 22px; }
-  .home .cs-grid { grid-template-columns: 1fr; }
+
+@media (max-width: 720px) {
+  .home, .panel.cs-landing, .case.cs-case {
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+  .home { padding-top: 36px; padding-bottom: max(72px, calc(56px + env(safe-area-inset-bottom, 0px))); }
+  .panel.cs-landing { padding-top: 36px; padding-bottom: max(80px, calc(64px + env(safe-area-inset-bottom, 0px))); }
+  .case.cs-case { padding-top: 24px; padding-bottom: max(96px, calc(72px + env(safe-area-inset-bottom, 0px))); }
+
+  .cs-statband { margin: 28px 0 22px; }
+  .cs-statband .ms-num { font-size: 22px; }
+  .cs-statband .mcat-stat { padding: 14px 10px; }
+
+  .cs-config { padding: 16px 14px 14px; }
+  .cs-config .controls { flex-direction: column; align-items: stretch; gap: 18px; }
+  .cs-config .ctl { width: 100%; }
+  .cs-config .modes { flex-wrap: wrap; width: 100%; }
+  .cs-config .mode { flex: 1 1 calc(50% - 1px); text-align: center; min-height: 40px; display: inline-flex; align-items: center; justify-content: center; }
+
+  .mixedbtn.cs-mixed { padding: 14px 16px; min-height: 52px; }
+  .cs-grid { grid-template-columns: 1fr; }
+  .cs-card { min-height: 108px; padding: 16px 14px 14px; }
+  .cs-card .name { font-size: 15px; line-height: 1.35; }
+
+  .cs-chart { padding: 18px 14px 4px; margin-top: 20px; }
+  .cs-chart .block { margin-top: 28px; }
+  .cs-runbar { margin-top: 18px; padding: 12px 14px 14px; }
+  .cs-case .stage { margin-top: 32px; }
+  .cs-case .opt { min-height: 48px; padding: 14px 14px; }
+  .cs-case .btn { min-height: 44px; }
+
+  .cs-review-tabs { padding: 14px 12px 4px; }
+  .cs-subtabs .tab { flex: 0 0 auto; padding: 12px 14px; }
+  .cs-row { padding: 14px 36px 14px 14px; min-height: 56px; }
+  .cs-row .row-title { white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .cs-row .row-right { flex-wrap: wrap; justify-content: flex-end; row-gap: 4px; }
+
+  .cs-scorebox { padding: 18px 14px 14px; }
+  .cs-scorebox .score { font-size: 40px; }
+  .cs-summary .ticks { flex-wrap: wrap; gap: 10px 14px; }
+  .cs-summary .endbtns .btn { flex: 1 1 calc(50% - 5px); min-width: 0; justify-content: center; }
+  .cs-summary .endbtns .btn-solid { flex: 1 1 100%; }
+
+  .homefoot { flex-direction: column; align-items: flex-start; gap: 6px; margin-top: 22px; }
+  .homefoot .ghostbtn { min-height: 40px; display: inline-flex; align-items: center; }
+
+  .topbar.casebar {
+    height: auto; min-height: 48px; padding: 8px max(12px, env(safe-area-inset-right, 0px)) 8px max(12px, env(safe-area-inset-left, 0px));
+    flex-wrap: wrap; row-gap: 6px; align-items: center;
+  }
+  .topbar.casebar .side { flex: 0 1 auto; }
+  .topbar.casebar .side.right { gap: 8px; flex-wrap: nowrap; }
+  .topbar.casebar .center { order: 3; flex: 1 1 100%; min-width: 0; text-align: left; }
+  .topbar.casebar .case-crumb { display: block; max-width: 100%; font-size: 10px; letter-spacing: .07em; }
+  .topbar.casebar .bookmark .bm-txt { display: none; }
+  .topbar.casebar .bookmark { padding: 8px 11px; min-width: 40px; justify-content: center; }
+  .topbar.casebar .backbtn { min-height: 40px; display: inline-flex; align-items: center; }
+
+  .cs-hero .free-note { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .cs-hero .free-note-txt { flex: none; font-size: 12px; }
+
+  .continue-row .hint { display: none; }
+  .continue-row { justify-content: stretch; }
+  .continue-row .btn { flex: 1; text-align: center; min-height: 44px; }
+}
+
+@media (max-width: 480px) {
+  .mixedbtn.cs-mixed { flex-direction: column; align-items: flex-start; gap: 6px; }
+  .mixedbtn .mx-r { align-self: flex-end; }
+  .cs-summary .endbtns .btn { flex: 1 1 100%; }
+  .cs-config .mode { flex: 1 1 100%; border-left: 0 !important; }
+  .cs-config .mode + .mode { border-top: 1px solid var(--line-bright); }
+  .cs-config .modes { flex-direction: column; }
 }
 
 /* ---------- Neuroengineering: Atlas caption line ---------- */
