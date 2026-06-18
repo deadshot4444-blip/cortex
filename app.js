@@ -434,7 +434,7 @@ function showUpdateModal() {
       <h3 id="upd-modal-title" class="label">What&rsquo;s new</h3>
       <p class="upd-modal-date">${esc(rel.date)}</p>
       <ul class="upd-modal-list">${rel.items.map(i => `<li>${esc(i)}</li>`).join('')}</ul>
-      <a class="upd-xlink" href="${X_URL}" target="_blank" rel="noopener">${X_SVG}<span>Follow <strong>@${X_HANDLE}</strong> on X &rarr;</span></a>
+      <a class="upd-xlink" href="${X_URL}" target="_blank" rel="noopener">${X_SVG}<span>Constant Cortex updates on X &middot; <strong>@${X_HANDLE}</strong> &rarr;</span></a>
       <div class="fbmodal-btns upd-modal-btns">
         <button type="button" class="btn" id="upd-log">Full changelog</button>
         <button type="button" class="btn btn-solid" id="upd-got">Got it</button>
@@ -902,7 +902,7 @@ function renderUpdates() {
       <h2>${esc(latest.title)}</h2>
       <p class="upd-featured-date">${esc(latest.date)}</p>
       <ul class="upd-featured-list">${latest.items.map(i => `<li>${esc(i)}</li>`).join('')}</ul>
-      <a class="upd-xlink" href="${X_URL}" target="_blank" rel="noopener">${X_SVG}<span>Follow <strong>@${X_HANDLE}</strong> on X for ship notes &amp; behind-the-scenes &rarr;</span></a>
+      <a class="upd-xlink" href="${X_URL}" target="_blank" rel="noopener">${X_SVG}<span>Constant Cortex updates on X &middot; <strong>@${X_HANDLE}</strong> &rarr;</span></a>
     </section>` : '';
   const historyBlock = history.length ? `
     <div class="updates-history">
