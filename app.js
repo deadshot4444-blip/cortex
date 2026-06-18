@@ -345,7 +345,7 @@ function topbar(active) {
     </nav>
     <div class="bar-right">
       <button class="navlink special ${active === 'neuro' ? 'active' : ''}" data-go="neuro" title="Neuroengineering"><svg class="neuro-ico" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2L17 6V14L10 18L3 14V6Z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span class="neuro-label">Neuro<span class="nl-rest">engineering</span></span></button>
-      ${stat ? `<span class="topstat">${stat}</span>` : ''}<a class="xlink" href="${X_URL}" target="_blank" rel="noopener" title="Follow @${X_HANDLE} on X for updates" aria-label="Follow on X">${X_SVG}</a><button class="acctbtn" data-acct hidden>Sign in</button><button class="ver${hasUnseenUpdate() ? ' ver-hasnew' : ''}" data-go="updates" title="${hasUnseenUpdate() ? `What's new in v${APP_VERSION}` : 'What\'s new'}">v${APP_VERSION}</button>
+      ${stat ? `<span class="topstat">${stat}</span>` : ''}<a class="xlink" href="${X_URL}" target="_blank" rel="noopener" title="Follow @${X_HANDLE} on X for updates" aria-label="Follow on X">${X_SVG}</a><button class="acctbtn" data-acct hidden>Sign in</button><button class="ver${hasUnseenUpdate() ? ' ver-hasnew' : ''}" data-go="updates" title="What's new">v${APP_VERSION}</button>
     </div>
   </header>`);
   root.querySelector('.wordmark').addEventListener('click', e => { e.preventDefault(); renderMission(); });
@@ -400,7 +400,7 @@ function latestRelease() {
 function updateVerBadges() {
   document.querySelectorAll('button.ver').forEach(btn => {
     btn.classList.toggle('ver-hasnew', hasUnseenUpdate());
-    btn.title = hasUnseenUpdate() ? `What's new in v${APP_VERSION}` : "What's new";
+    btn.title = "What's new";
   });
 }
 function showUpdateModal() {
@@ -410,8 +410,7 @@ function showUpdateModal() {
   const back = el(`<div class="fbmodal-back upd-modal-back">
     <div class="fbmodal upd-modal" role="dialog" aria-modal="true" aria-labelledby="upd-modal-title">
       <button type="button" class="upd-modal-x" aria-label="Close">&times;</button>
-      <span class="label">What&rsquo;s new &middot; v${esc(rel.version)}</span>
-      <h3 id="upd-modal-title">${esc(rel.title)}</h3>
+      <h3 id="upd-modal-title" class="label">What&rsquo;s new</h3>
       <p class="upd-modal-date">${esc(rel.date)}</p>
       <ul class="upd-modal-list">${rel.items.map(i => `<li>${esc(i)}</li>`).join('')}</ul>
       <a class="upd-xlink" href="${X_URL}" target="_blank" rel="noopener">${X_SVG}<span>Follow <strong>@${X_HANDLE}</strong> on X &rarr;</span></a>
@@ -866,7 +865,7 @@ function renderUpdates() {
   const featured = showFeatured ? `
     <section class="upd-featured cornerframe" id="whats-new">
       <div class="upd-featured-top">
-        <span class="label">What&rsquo;s new &middot; v${esc(latest.version)}</span>
+        <span class="label">What&rsquo;s new</span>
         <span class="upd-tag tag-${latest.tag.toLowerCase()}">${esc(latest.tag)}</span>
       </div>
       <h2>${esc(latest.title)}</h2>

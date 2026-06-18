@@ -187,7 +187,7 @@ button:focus-visible, .opt:focus-visible { outline: 1px solid var(--text); outli
   font-size: 22px; line-height: 1; color: var(--faint); padding: 4px 6px;
 }
 .upd-modal-x:hover { color: var(--text); }
-.upd-modal h3 { font-size: 22px; font-weight: 600; letter-spacing: -.01em; margin-top: 12px; line-height: 1.25; }
+.upd-modal h3.label { display: block; margin-top: 0; font-size: 10.5px; font-weight: 400; }
 .upd-modal-date { margin-top: 6px; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--dim); }
 .upd-modal-list { margin: 16px 0 0; padding-left: 18px; }
 .upd-modal-list li { font-size: 14.5px; line-height: 1.58; color: var(--body); margin-bottom: 7px; }
