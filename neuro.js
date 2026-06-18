@@ -128,11 +128,8 @@ async function renderNeuroEngineering() {
     for (const s of NEURO.data.subjects) {
       const done = (s.topicIds || []).filter(id => NEURO_PROG.topicQuiz[id]).length;
       const card = el(`<button class="neuro-pt neuro-subcard neuro-subcard--hub" style="--ne-accent:#${s.accentHex}">
-        <span class="neuro-subcard-main">
-          <span class="np-name">${esc(s.name)}</span>
-          <span class="neuro-substat">${done ? `${done}/${s.topicIds.length} quizzed` : `${s.topicIds.length} topics`}</span>
-        </span>
-        <span class="mod-go">&rarr;</span>
+        <span class="np-name">${esc(s.name)}</span>
+        <span class="neuro-substat">${done ? `${done}/${s.topicIds.length} quizzed` : `${s.topicIds.length} topics`}</span>
       </button>`);
       card.addEventListener('click', () => renderNeuroSubject(s.id));
       grid.appendChild(card);

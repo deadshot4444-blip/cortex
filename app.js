@@ -57,7 +57,7 @@ function cortexFreeNote(sectionPill, sectionName) {
 }
 const X_HANDLE = 'kevin__vigil';
 const X_URL = 'https://x.com/kevin__vigil';
-const X_UPDATES_COPY = `Constant Cortex updates on X &middot; <strong>@${X_HANDLE}</strong> &rarr;`;
+const X_UPDATES_COPY = `Constant Cortex updates on X &middot; <strong>@${X_HANDLE}</strong>`;
 const X_SVG = '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>';
 // Logo mark — matches the favicon (dark square + white cross) so the brand reads as one system.
 const MARK_SVG = '<svg class="wm-glyph" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" fill="currentColor"/><path d="M14 8h4v6h6v4h-6v6h-4v-6H8v-4h6z" fill="#fff"/></svg>';
@@ -121,7 +121,7 @@ const SECTION_SCRIPTS = {
   anatomy: ['anatomy.js?v=35'],
   reference: ['reference.js?v=38', 'ekg.js?v=32'],
   socrates: ['socrates.js?v=39'],
-  neuro: ['python-runtime.js?v=3', 'code-evaluator.js?v=2', 'neuro.js?v=9'],
+  neuro: ['python-runtime.js?v=3', 'code-evaluator.js?v=2', 'neuro.js?v=10'],
 };
 const _scriptLoads = {};
 function loadScript(src) {

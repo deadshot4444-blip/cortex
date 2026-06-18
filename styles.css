@@ -875,7 +875,7 @@ button.ver.ver-hasnew::after {
 .upd-featured-list { margin: 18px 0 0; padding-left: 18px; }
 .upd-featured-list li { font-size: 15px; line-height: 1.62; color: var(--body); margin-bottom: 8px; }
 .upd-xlink {
-  display: flex; align-items: flex-start; gap: 10px; margin-top: 22px;
+  display: flex; align-items: center; gap: 10px; margin-top: 22px;
   font-family: var(--mono); font-size: 11px; letter-spacing: .05em; color: var(--text);
   text-decoration: none; border: 1px solid var(--line-bright); padding: 11px 14px;
   transition: border-color .12s, background .12s; width: 100%; box-sizing: border-box;
@@ -1423,18 +1423,15 @@ button:focus-visible, a:focus-visible, textarea:focus-visible, input:focus-visib
 .neuro-subcard:hover { background: #111114; }
 .neuro-subcard--hub {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 14px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
   padding: 18px 20px;
   border: 1px solid #2a2a30;
   border-left: 2px solid var(--ne-accent, #7E57C2);
   background: transparent;
 }
 .neuro-subcard--hub:hover { border-color: #3a3a44; background: rgba(255, 255, 255, .03); }
-.neuro-subcard--hub .mod-go { position: static; font-size: 13px; color: var(--ne-faint); transition: color .12s, transform .12s; }
-.neuro-subcard--hub:hover .mod-go { color: var(--ne-text); transform: translateX(2px); }
-.neuro-subcard-main { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
 .neuro-subcard--hub .np-name { margin-bottom: 0; font-size: 14.5px; font-weight: 500; }
 .neuro-substat { display: block; margin-top: 12px; font-family: var(--mono); font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--ne-meta); }
 .neuro-subcard--hub .neuro-substat { margin-top: 0; }
