@@ -50,7 +50,7 @@ const SECTION_INFO = {
     desc: 'Guided, Socratic study sessions that train the skill beneath every other skill — how to question, reason, and remember. Metacognition and proven learning technique, applied directly to medicine.',
   },
 };
-const APP_VERSION = '1.8.4';
+const APP_VERSION = '1.9.0';
 const X_HANDLE = 'kevin__vigil';
 const X_URL = 'https://x.com/kevin__vigil';
 const X_UPDATES_COPY = `Constant Cortex updates on X &middot; <strong>@${X_HANDLE}</strong> &rarr;`;
@@ -117,6 +117,7 @@ const SECTION_SCRIPTS = {
   anatomy: ['anatomy.js?v=35'],
   reference: ['reference.js?v=38', 'ekg.js?v=32'],
   socrates: ['socrates.js?v=39'],
+  neuro: ['neuro.js?v=1'],
 };
 const _scriptLoads = {};
 function loadScript(src) {
@@ -391,7 +392,7 @@ function topbar(active) {
   root.querySelector('[data-go="stats"]').addEventListener('click', renderStats);
   root.querySelector('[data-go="utsa"]').addEventListener('click', renderUTSA);
   root.querySelector('[data-go="pomodoro"]').addEventListener('click', () => { if (typeof renderPomodoro === 'function') renderPomodoro(); });
-  root.querySelector('[data-go="neuro"]').addEventListener('click', renderNeuro);
+  root.querySelector('[data-go="neuro"]').addEventListener('click', () => renderNeuro());
   root.querySelector('[data-go="updates"]').addEventListener('click', renderUpdates);
   const navmenu = root.querySelector('.navmenu');
   if (navmenu) {
@@ -519,47 +520,10 @@ function renderUTSA() {
 }
 
 /* ---------- Neuroengineering (special division) ---------- */
-function renderNeuro() {
+async function renderNeuro() {
   stopTimer(); session = null;
-  const pts = [
-    ['The brain, mapped.', 'An interactive atlas of neuroanatomy and neural circuits. Built to be explored, not memorized.'],
-    ['Mind meets machine.', 'Neural interfaces and neuroprosthetics that read, restore, and augment the nervous system.'],
-    ['From lab to capability.', 'Real neuroengineering — turned into clear, usable knowledge you can actually build on.'],
-  ];
-  const root = el('<div></div>');
-  root.appendChild(topbar('neuro'));
-  const main = el(`<main class="neuro-page">
-    <section class="neuro-hero">
-      <video class="neuro-video" autoplay loop muted playsinline preload="auto">
-        <source src="assets/neuro-bg.mp4?v=2" type="video/mp4">
-      </video>
-      <div class="neuro-veil"></div>
-      <div class="neuro-hero-inner">
-        <span class="neuro-eyebrow">Neuroengineering &middot; A new division</span>
-        <h1>Where the mind meets the machine.</h1>
-        <p class="neuro-lede">The frontier where neuroscience and engineering converge. Systems that map the brain, restore what disease takes, and extend what the human mind can do.</p>
-        <p class="neuro-tagline">Engineering the human brain &mdash; from first principles.</p>
-        <span class="neuro-soon">In development</span>
-      </div>
-    </section>
-    <section class="neuro-body">
-      <div class="neuro-grid">
-        ${pts.map(p => `<div class="neuro-pt"><span class="np-name">${esc(p[0])}</span><p>${p[1]}</p></div>`).join('')}
-      </div>
-    </section>
-  </main>`);
-  root.appendChild(main);
-  root.appendChild(siteFooter());
-  setView(root);
-  // mobile autoplay: iOS needs muted set in JS + a play() nudge, with a tap/scroll fallback for Low Power Mode
-  const nv = root.querySelector('.neuro-video');
-  if (nv) {
-    nv.muted = true; nv.defaultMuted = true; nv.setAttribute('muted', ''); nv.setAttribute('webkit-playsinline', '');
-    const tryPlay = () => { try { const p = nv.play(); if (p && p.catch) p.catch(() => {}); } catch {} };
-    tryPlay();
-    const kick = () => { tryPlay(); ['touchstart', 'click', 'scroll'].forEach(ev => window.removeEventListener(ev, kick)); };
-    ['touchstart', 'click', 'scroll'].forEach(ev => window.addEventListener(ev, kick, { passive: true }));
-  }
+  await ensureSection('neuro');
+  if (typeof renderNeuroEngineering === 'function') renderNeuroEngineering();
 }
 
 /* ---------- site footer (brand) ---------- */
@@ -692,6 +656,16 @@ const PRINCIPLES = [
 
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
+  {
+    date: 'June 18, 2026', version: '1.9.0', tag: 'NEW',
+    title: 'Neuroengineering course \u2014 full Atlas port',
+    items: [
+      'NeuroEngineering Atlas ported to the web: 12 subjects, 24 topics, 120 quiz questions.',
+      'BCI Builder Path \u2014 all 20 guided units with lessons, active recall, mini-quizzes, NeuroSim & NeuroCode.',
+      'ATLAS Socratic study mode, topic library, progress tracking (local + account sync).',
+      'Replaces the In development placeholder \u2014 the paid-course foundation is live in-browser.',
+    ],
+  },
   {
     date: 'June 18, 2026', version: '1.8.4', tag: 'FIX',
     title: 'Verification deploy',
