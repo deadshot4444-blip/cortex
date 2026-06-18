@@ -1,3 +1,5 @@
+/share  /share.html  200
+
 # Proxy the visitor counter through our own domain so the browser never makes a
 # third-party request on load (keeps Safari/Brave privacy shields from flagging
 # the page). Netlify fetches abacus server-side; the client only sees first-party.

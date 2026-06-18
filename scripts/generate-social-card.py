@@ -158,7 +158,8 @@ def main() -> int:
     OUT.parent.mkdir(parents=True, exist_ok=True)
     img.save(OUT, "PNG", optimize=True)
     og_jpg = ROOT / "og.jpg"
-    img.save(og_jpg, "JPEG", quality=88, optimize=True, progressive=True)
+    og = img.convert("RGB").resize((1200, 600), Image.Resampling.LANCZOS)
+    og.save(og_jpg, "JPEG", quality=90, optimize=True, progressive=False)
     print(f"Wrote {OUT} ({OUT.stat().st_size} bytes)")
     print(f"Wrote {og_jpg} ({og_jpg.stat().st_size} bytes)")
     return 0
