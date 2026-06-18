@@ -1322,6 +1322,9 @@ button:focus-visible, a:focus-visible, textarea:focus-visible, input:focus-visib
 
 /* ---------- Neuroengineering: tagline ---------- */
 .neuro-tagline { margin-top: 14px; font-family: var(--mono); font-size: 13px; letter-spacing: .08em; color: #8f8f96; }
+.neuro-page .free-note { margin-top: 22px; color: #9a9aa2; }
+.neuro-page .free-pill { color: var(--green); border-color: var(--green); }
+.neuro-page .free-pill--soft { color: #8f8f96; border-color: #3a3a42; }
 
 /* ---------- Neuroengineering course (v1.9) ---------- */
 .neuro-inner { min-height: calc(100vh - 56px); }
@@ -1467,6 +1470,8 @@ button:focus-visible, a:focus-visible, textarea:focus-visible, input:focus-visib
   .neuro-hero h1 { margin-top: 16px; }
   .neuro-lede { margin-top: 16px; font-size: 15px; line-height: 1.58; }
   .neuro-tagline { font-size: 11px; letter-spacing: .06em; }
+  .neuro-hero .free-note { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .neuro-hero .free-note-txt { flex: none; font-size: 12px; }
   .neuro-h1 { margin-top: 10px; }
   .neuro-h2 { font-size: 20px; }
 

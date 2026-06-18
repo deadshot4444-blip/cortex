@@ -50,7 +50,11 @@ const SECTION_INFO = {
     desc: 'Guided, Socratic study sessions that train the skill beneath every other skill — how to question, reason, and remember. Metacognition and proven learning technique, applied directly to medicine.',
   },
 };
-const APP_VERSION = '1.9.2';
+const APP_VERSION = '1.9.3';
+const MEMBERSHIP_START = 'August 1, 2026';
+function cortexFreeNote(sectionPill, sectionName) {
+  return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free for now</span><span class="free-note-txt">${sectionName} becomes optional membership ${MEMBERSHIP_START}. The full MCAT suite stays free forever.</span></p>`;
+}
 const X_HANDLE = 'kevin__vigil';
 const X_URL = 'https://x.com/kevin__vigil';
 const X_UPDATES_COPY = `Constant Cortex updates on X &middot; <strong>@${X_HANDLE}</strong> &rarr;`;
@@ -117,7 +121,7 @@ const SECTION_SCRIPTS = {
   anatomy: ['anatomy.js?v=35'],
   reference: ['reference.js?v=38', 'ekg.js?v=32'],
   socrates: ['socrates.js?v=39'],
-  neuro: ['python-runtime.js?v=2', 'code-evaluator.js?v=2', 'neuro.js?v=6'],
+  neuro: ['python-runtime.js?v=2', 'code-evaluator.js?v=2', 'neuro.js?v=7'],
 };
 const _scriptLoads = {};
 function loadScript(src) {
@@ -657,6 +661,14 @@ const PRINCIPLES = [
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
   {
+    date: 'June 18, 2026', version: '1.9.3', tag: 'NEW',
+    title: 'Membership date clarity',
+    items: [
+      'Clinical Scenarios and Neuroengineering now show the same free-for-now note \u2014 optional membership starts August 1, 2026.',
+      'MCAT prep stays free forever.',
+    ],
+  },
+  {
     date: 'June 18, 2026', version: '1.9.2', tag: 'FIX',
     title: 'Neuroengineering \u2014 mobile polish',
     items: [
@@ -1004,7 +1016,7 @@ function renderHome() {
       <span class="mcat-eyebrow">Clinical Scenarios &middot; Interactive cases &middot; Free for now</span>
       <h1>Think like a clinician.</h1>
       <p class="mcat-lede">Interactive cases across ${SPECIALTIES.length} specialties &mdash; history, vitals, staged decisions, and pearls. Pick a track or go mixed. A random unseen case begins immediately.</p>
-      <p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">Clinical &middot; free for now</span><span class="free-note-txt">Clinical Scenarios may become a membership later. The full MCAT suite stays free forever.</span></p>
+      ${cortexFreeNote('Clinical', 'Clinical Scenarios')}
     </section>
     <div class="mcat-statband cs-statband cornerframe">${stats.map(s => `<div class="mcat-stat"><span class="ms-num" data-countup="${s[0]}">${s[0]}</span><span class="ms-lab">${s[1]}</span></div>`).join('')}</div>
     <div class="tabs scn-tabs">

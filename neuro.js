@@ -66,10 +66,11 @@ async function renderNeuroEngineering() {
       </video>
       <div class="neuro-veil"></div>
       <div class="neuro-hero-inner">
-        <span class="neuro-eyebrow">Neuroengineering &middot; Cortex Medical Academy</span>
+        <span class="neuro-eyebrow">Neuroengineering &middot; BCI &amp; neurotech &middot; Free for now</span>
         <h1>Where the mind meets the machine.</h1>
         <p class="neuro-lede">The Cortex Neuroengineering curriculum &mdash; ${topicN} topics across ${subjN} domains, the 20-unit BCI Builder Path, NeuroSim decision labs, and guided active recall.</p>
         <p class="neuro-tagline">Engineering the human brain &mdash; from first principles.</p>
+        ${typeof cortexFreeNote === 'function' ? cortexFreeNote('Neuro', 'Neuroengineering') : ''}
         ${path ? `<div class="neuro-cta">
           <button class="btn btn-solid neuro-btn" id="ne-path">${pg.next ? `Continue BCI Builder &middot; Unit ${pg.next.order}` : 'BCI Builder Path complete'}</button>
           <button class="btn neuro-btn" id="ne-subjects">Browse subjects</button>
