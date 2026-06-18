@@ -781,7 +781,7 @@ function renderMission() {
 
   main.querySelector('#m-mcat').addEventListener('click', () => { if (typeof renderMCAT === 'function') renderMCAT(); });
   main.querySelector('#m-cases').addEventListener('click', renderHome);
-  main.querySelector('#m-enter').addEventListener('click', renderHome);
+  main.querySelector('#m-enter').addEventListener('click', () => { if (typeof renderMCAT === 'function') renderMCAT(); });
   main.querySelector('#m-updates').addEventListener('click', renderUpdates);
   root.appendChild(main);
   root.appendChild(siteFooter());
