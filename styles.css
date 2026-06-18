@@ -1394,7 +1394,13 @@ button:focus-visible, a:focus-visible, textarea:focus-visible, input:focus-visib
 .neuro-hint { margin-top: 8px; font-size: 13px; color: var(--dim); }
 .neuro-practitioner { margin-bottom: 28px; padding: 18px 20px; border: 1px solid #2a2a30; background: #0a0a0d; }
 .neuro-milestones { display: grid; gap: 10px; margin-top: 14px; }
-.neuro-ms { padding: 12px 14px; border: 1px solid #222228; background: #0f0f12; opacity: .55; }
+.neuro-ms { padding: 12px 14px; border: 1px solid #222228; background: #0f0f12; opacity: .55; width: 100%; text-align: left; cursor: default; font: inherit; color: inherit; }
+button.neuro-ms { cursor: pointer; }
+button.neuro-ms:hover { background: #141418; }
+.neuro-criteria { margin: 10px 0 0; padding-left: 18px; color: #b0b0b6; font-size: 14px; line-height: 1.55; }
+.neuro-criteria code { font-family: var(--mono); font-size: 11px; color: #d0d0d4; }
+.neuro-lab-viz { margin-top: 24px; }
+.neuro-wave { width: 100%; max-width: 100%; height: auto; display: block; margin-top: 10px; border: 1px solid #222228; background: #050506; }
 .neuro-ms.unlocked { opacity: 1; border-left: 2px solid var(--green); }
 .neuro-ms.active { border-left-color: #e8e8ea; background: #121216; }
 .neuro-ms-phase { display: block; font-family: var(--mono); font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: #7a7a82; }

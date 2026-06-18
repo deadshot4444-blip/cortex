@@ -117,7 +117,7 @@ const SECTION_SCRIPTS = {
   anatomy: ['anatomy.js?v=35'],
   reference: ['reference.js?v=38', 'ekg.js?v=32'],
   socrates: ['socrates.js?v=39'],
-  neuro: ['python-runtime.js?v=1', 'code-evaluator.js?v=2', 'neuro.js?v=4'],
+  neuro: ['python-runtime.js?v=2', 'code-evaluator.js?v=2', 'neuro-practitioner.js?v=1', 'neuro.js?v=5'],
 };
 const _scriptLoads = {};
 function loadScript(src) {

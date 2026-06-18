@@ -39,6 +39,15 @@ async function ensurePythonRuntime(onStatus) {
 
 async function runPythonCode(code, opts = {}) {
   const pyodide = await ensurePythonRuntime(opts.onStatus);
+  if (opts.packages?.length) {
+    opts.onStatus?.(`Loading ${opts.packages.join(', ')}…`);
+    await pyodide.loadPackage(opts.packages);
+  }
+  if (opts.globals) {
+    for (const [key, val] of Object.entries(opts.globals)) {
+      pyodide.globals.set(key, pyodide.toPy(val));
+    }
+  }
   let stdout = '';
   let stderr = '';
   pyodide.setStdout({ batched: (s) => { stdout += s; } });
