@@ -1,7 +1,9 @@
-/social-card.png
-  Cache-Control: public, max-age=3600
+/og.jpg
+  Content-Type: image/jpeg
+  Cache-Control: public, max-age=86400
   Access-Control-Allow-Origin: *
 
-/social-card.png*
-  Cache-Control: public, max-age=3600
+/social-card.png
+  Content-Type: image/png
+  Cache-Control: public, max-age=86400
   Access-Control-Allow-Origin: *
