@@ -1449,10 +1449,121 @@ button:focus-visible, a:focus-visible, textarea:focus-visible, input:focus-visib
 .neuro-term-line.err { color: #f87171; }
 .neuro-term-line.muted { color: #5a5a62; }
 .neuro-terminal-msg.bad { color: #f87171; }
-@media (max-width: 600px) {
-  .neuro-vterm { grid-template-columns: 1fr; gap: 4px; }
-  .neuro-cta { flex-direction: column; }
-  .neuro-cta .btn { width: 100%; text-align: center; min-height: 44px; }
+/* Neuroengineering — mobile (hub → unit → quiz / sim / code) */
+@media (max-width: 720px) {
+  .neuro-page .neuro-body,
+  .neuro-page .neuro-hero-inner {
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+  .neuro-body {
+    padding-top: 36px;
+    padding-bottom: max(96px, calc(72px + env(safe-area-inset-bottom, 0px)));
+  }
+  .neuro-hero {
+    min-height: 380px;
+    padding: 48px 0 max(56px, calc(40px + env(safe-area-inset-bottom, 0px)));
+  }
+  .neuro-hero h1 { margin-top: 16px; }
+  .neuro-lede { margin-top: 16px; font-size: 15px; line-height: 1.58; }
+  .neuro-tagline { font-size: 11px; letter-spacing: .06em; }
+  .neuro-h1 { margin-top: 10px; }
+  .neuro-h2 { font-size: 20px; }
+
+  .neuro-pathband,
+  .neuro-practitioner { margin-bottom: 22px; padding: 16px 14px; }
+  .neuro-pathband-head { flex-direction: column; align-items: flex-start; gap: 6px; }
+  .neuro-pathsum { font-size: 13.5px; }
+
+  .neuro-hubtools { flex-direction: column; gap: 8px; margin-bottom: 18px; }
+  .neuro-hubtools .btn {
+    width: 100%; min-height: 44px; text-align: center;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+
+  .neuro-pt { padding: 18px 14px; }
+  .neuro-subcard { min-height: 100px; }
+  .neuro-subcard:hover { background: #0a0a0c; }
+
+  .neuro-row {
+    padding: 14px 14px; min-height: 56px; align-items: flex-start; gap: 10px;
+  }
+  .neuro-row:hover { background: transparent; }
+  .neuro-row-title {
+    white-space: normal; display: -webkit-box; -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .neuro-row-right { flex-wrap: wrap; justify-content: flex-end; row-gap: 4px; }
+
+  .neuro-block { margin-top: 22px; }
+  .neuro-prose { font-size: 14.5px; line-height: 1.6; }
+  .neuro-mono,
+  .neuro-code { font-size: 11.5px; -webkit-overflow-scrolling: touch; }
+  .neuro-vterm { grid-template-columns: 1fr; gap: 4px; padding: 12px 0; }
+
+  .neuro-cta,
+  .neuro-actions { flex-direction: column; gap: 8px; }
+  .neuro-cta .btn,
+  .neuro-actions .btn {
+    width: 100%; text-align: center; min-height: 44px;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+
+  .neuro-stage { margin-top: 28px; }
+  .neuro-page .opt { min-height: 48px; padding: 14px; }
+  .neuro-page .btn { min-height: 44px; }
+  .neuro-page .socinput,
+  .neuro-page .neuro-input { min-height: 44px; font-size: 16px; }
+  .neuro-page .cs-runbar { margin-top: 18px; padding: 12px 14px; }
+  .neuro-page .continue-row { justify-content: stretch; }
+  .neuro-page .continue-row .btn { flex: 1; min-height: 44px; }
+
+  .neuro-score { font-size: 36px; }
+  .neuro-kv { flex-direction: column; align-items: flex-start; gap: 6px; }
+  .neuro-dots { flex-wrap: wrap; }
+
+  .neuro-ms { padding: 14px 12px; }
+  .neuro-ms-title { font-size: 15px; }
+  .neuro-ms-sub { font-size: 12px; }
+
+  .neuro-sandbox { margin-top: 22px; padding: 14px; }
+  .neuro-sandbox-head { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .neuro-sandbox-note { font-size: 12.5px; }
+  .neuro-ojt-brief { padding: 12px 14px; }
+  .neuro-code-draft {
+    min-height: 160px; margin-top: 12px; padding: 12px;
+    font-size: 11.5px; line-height: 1.5;
+  }
+  .neuro-terminal-log { max-height: 180px; font-size: 11px; padding: 10px 12px; }
+  .neuro-terminal-bar { padding: 10px 12px; }
+  .neuro-terminal-title { font-size: 10px; word-break: break-word; }
+  .neuro-sandbox-actions {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px;
+  }
+  .neuro-sandbox-actions .btn {
+    min-height: 44px; padding: 10px 8px; font-size: 11px;
+    display: inline-flex; align-items: center; justify-content: center; text-align: center;
+  }
+  .neuro-sandbox-actions .btn[data-reset-code],
+  .neuro-sandbox-actions .btn[data-predict-out],
+  .neuro-sandbox-actions .btn[data-copy-code],
+  .neuro-sandbox-actions .btn[data-load-sol],
+  .neuro-sandbox-actions .btn[data-show-hint],
+  .neuro-sandbox-actions .btn[data-show-sol] { grid-column: 1 / -1; }
+
+  .neuro-master { padding: 12px 14px; }
+}
+
+@media (max-width: 480px) {
+  .neuro-hero { min-height: 320px; padding-top: 40px; }
+  .neuro-hero h1 { font-size: clamp(32px, 9vw, 44px); }
+  .neuro-h1 { font-size: clamp(24px, 7vw, 32px); }
+  .neuro-sandbox-actions { grid-template-columns: 1fr; }
+  .neuro-sandbox-actions .btn[data-run-code],
+  .neuro-sandbox-actions .btn[data-check-code] { grid-column: 1; }
+  .neuro-kv { font-size: 10px; }
+  .neuro-terminal-bar { flex-wrap: wrap; row-gap: 6px; }
+  .neuro-terminal-status { flex: 1 1 100%; }
 }
 
 /* ---------- X / updates handle ---------- */

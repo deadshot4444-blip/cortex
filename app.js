@@ -50,7 +50,7 @@ const SECTION_INFO = {
     desc: 'Guided, Socratic study sessions that train the skill beneath every other skill — how to question, reason, and remember. Metacognition and proven learning technique, applied directly to medicine.',
   },
 };
-const APP_VERSION = '1.9.1';
+const APP_VERSION = '1.9.2';
 const X_HANDLE = 'kevin__vigil';
 const X_URL = 'https://x.com/kevin__vigil';
 const X_UPDATES_COPY = `Constant Cortex updates on X &middot; <strong>@${X_HANDLE}</strong> &rarr;`;
@@ -656,6 +656,14 @@ const PRINCIPLES = [
 
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
+  {
+    date: 'June 18, 2026', version: '1.9.2', tag: 'FIX',
+    title: 'Neuroengineering \u2014 mobile polish',
+    items: [
+      'Full mobile pass on the neuro hub, BCI path, quizzes, NeuroSim, and NeuroCode OJT sandbox.',
+      'Safe-area padding, 44px touch targets, stacked CTAs, readable code editor + terminal on small screens.',
+    ],
+  },
   {
     date: 'June 18, 2026', version: '1.9.1', tag: 'NEW',
     title: 'Neuroengineering \u2014 Foundations live',
