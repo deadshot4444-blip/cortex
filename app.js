@@ -50,7 +50,7 @@ const SECTION_INFO = {
     desc: 'Guided, Socratic study sessions that train the skill beneath every other skill — how to question, reason, and remember. Metacognition and proven learning technique, applied directly to medicine.',
   },
 };
-const APP_VERSION = '1.9.3';
+const APP_VERSION = '1.9.4';
 const MEMBERSHIP_START = 'August 1, 2026';
 function cortexFreeNote(sectionPill, sectionName) {
   return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free for now</span><span class="free-note-txt">${sectionName} becomes optional membership ${MEMBERSHIP_START}. The full MCAT suite stays free forever.</span></p>`;
@@ -660,6 +660,15 @@ const PRINCIPLES = [
 
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
+  {
+    date: 'June 18, 2026', version: '1.9.4', tag: 'FIX',
+    title: 'Neuroengineering \u2014 hub polish',
+    items: [
+      'Minimal neuro hub: leaner hero, slim BCI progress, collapsed Practitioner Track, clean subject cards.',
+      'Brighter text on dark neuro pages; sharper social preview card (og-v4).',
+      'MCAT free + Neuro free-for-now pills; video hero restored.',
+    ],
+  },
   {
     date: 'June 18, 2026', version: '1.9.3', tag: 'NEW',
     title: 'Membership date clarity',
