@@ -509,7 +509,7 @@ function mountNeuroCodeSandbox(lesson, codeId, opts, shell) {
         <span class="neuro-terminal-status" data-py-status>Python idle</span>
       </div>
       <div class="neuro-terminal-log" data-term-log>
-        <div class="neuro-term-line muted"># OJT lab ready. Run executes Python 3 (Pyodide). Check compares stdout to the reference.</div>
+        <div class="neuro-term-line muted"># OJT lab ready. Run executes Python 3 in-browser. Check compares stdout to the reference.</div>
       </div>
       <p class="neuro-terminal-msg" data-term-msg>Load the runtime on first Run.</p>
       <p class="neuro-terminal-hint" data-term-hint>Tip: solve the ticket, run it, then Check before loading the solution.</p>

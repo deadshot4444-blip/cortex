@@ -26,7 +26,7 @@ async function ensurePythonRuntime(onStatus) {
   _pyodideReady = (async () => {
     onStatus?.('Loading Python 3 runtime…');
     await loadExternalScript(`${PYODIDE_CDN}pyodide.js`);
-    onStatus?.('Initializing Pyodide…');
+    onStatus?.('Initializing Python runtime…');
     const pyodide = await loadPyodide({ indexURL: PYODIDE_CDN });
     onStatus?.('Python lab ready.');
     return pyodide;

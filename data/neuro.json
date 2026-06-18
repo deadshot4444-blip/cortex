@@ -24,7 +24,7 @@
     },
     {
       "id": "decoding-ai",
-      "name": "Neural Decoding and AI",
+      "name": "Neural Decoding",
       "summary": "Using statistical and machine learning models to predict intent, movement, or perception from neural recordings.",
       "iconName": "brain.head.profile",
       "accentHex": "26A69A",
@@ -139,7 +139,7 @@
       "subjectId": "bci",
       "title": "The BCI Loop",
       "explanation": "Every brain-computer interface is some version of a four-stage loop: acquire (electrodes sense neural activity), preprocess (filter and clean the signal), decode (a model converts neural features into intent), and act (a cursor moves, a prosthesis grips, speech is synthesized). Feedback then flows back to the user, who learns to drive the system through practice.",
-      "clinicalRelevance": "Real BCIs in trials today — Neuralink, BrainGate, Synchron, Precision Neuroscience — all follow this loop. Patients with paralysis use them to type, control a cursor, or speak. Loop latency, decoder accuracy, and stability over time are the practical bottlenecks.",
+      "clinicalRelevance": "Clinical BCI trials in people with paralysis all follow this loop — typing, cursor control, and speech synthesis. Loop latency, decoder accuracy, and stability over time are the practical bottlenecks.",
       "vocabulary": [
         {
           "term": "Acquisition",
@@ -252,7 +252,7 @@
       "subjectId": "bci",
       "title": "Cursor Control from Motor Cortex",
       "explanation": "The classic BCI demo: a paralyzed user moves a cursor on a screen by imagining hand movement. An array implanted in motor cortex picks up spike rates from dozens to hundreds of neurons; a decoder (often a Kalman filter or recurrent neural network) maps those rates to a 2D velocity. With practice, users can click, type, and even draw.",
-      "clinicalRelevance": "Cursor control was the first BCI capability shown in humans with chronic implants (BrainGate, 2006). It remains the canonical benchmark and the foundation for more complex outputs like robotic arms or speech.",
+      "clinicalRelevance": "Cursor control was the first BCI capability demonstrated in humans with chronic implants (mid-2000s). It remains the canonical benchmark and the foundation for more complex outputs like robotic arms or speech.",
       "vocabulary": [
         {
           "term": "Motor cortex",
@@ -591,7 +591,7 @@
       "subjectId": "closed-loop",
       "title": "Closed-Loop vs. Open-Loop",
       "explanation": "Open-loop stimulation runs the same program regardless of brain state. Closed-loop systems continuously sense a biomarker (e.g., beta oscillations, seizure precursors), decide whether the brain is in a state that needs intervention, and adjust stimulation in real time. The promise: more therapy when it's needed, less when it's not — better symptom control with fewer side effects and less battery drain.",
-      "clinicalRelevance": "Medtronic Percept can sense LFPs and inform programming; NeuroPace RNS detects seizure-like activity and delivers responsive stimulation. Adaptive DBS for Parkinson's that responds to beta is actively in trials.",
+      "clinicalRelevance": "Modern DBS systems can sense LFPs to inform programming; responsive cortical stimulators detect seizure-like activity and deliver on-demand stimulation. Adaptive DBS for Parkinson's that responds to beta is actively in trials.",
       "vocabulary": [
         {
           "term": "Biomarker",
@@ -670,7 +670,7 @@
         },
         {
           "id": "cl-fb-q5",
-          "prompt": "NeuroPace RNS is famous for being one of the first FDA-approved:",
+          "prompt": "A responsive (closed-loop) cortical stimulator for epilepsy is notable as one of the first FDA-approved:",
           "choices": [
             "Responsive (closed-loop) cortical stimulators for epilepsy",
             "Cochlear implants",
@@ -704,7 +704,7 @@
       "subjectId": "closed-loop",
       "title": "Real-Time Seizure Detection",
       "explanation": "Detectors for seizures or pre-seizure states usually run on short windows (hundreds of ms to seconds) of intracranial EEG. Features like spectral power in specific bands, line length, or learned embeddings feed into a classifier. Speed matters: a detection that arrives after a seizure has propagated isn't actionable.",
-      "clinicalRelevance": "NeuroPace RNS and emerging epilepsy devices rely on this. Patient-specific detectors usually outperform generic ones, and most are tuned to minimize missed seizures while accepting some false positives.",
+      "clinicalRelevance": "Responsive epilepsy devices rely on this. Patient-specific detectors usually outperform generic ones, and most are tuned to minimize missed seizures while accepting some false positives.",
       "vocabulary": [
         {
           "term": "Line length",
@@ -1494,12 +1494,12 @@
       "id": "im-electrodes",
       "subjectId": "implants-materials",
       "title": "Recording Electrodes 101",
-      "explanation": "Recording electrodes come in many flavors: microwires, silicon microelectrode arrays (Utah array), high-density silicon CMOS probes (Neuropixels), flexible polymer threads (Neuralink-style), and surface ECoG grids. Each trades coverage for resolution and invasiveness for longevity. Key engineering parameters are impedance, biocompatibility, mechanical match to tissue, and surface area per contact.",
+      "explanation": "Recording electrodes come in many flavors: microwires, penetrating silicon microelectrode arrays, high-density CMOS probes, flexible polymer threads, and surface ECoG grids. Each trades coverage for resolution and invasiveness for longevity. Key engineering parameters are impedance, biocompatibility, mechanical match to tissue, and surface area per contact.",
       "clinicalRelevance": "Choice of electrode type drives what signals you can record (spikes vs. LFP), surgical risk, chronic stability, and ultimately who the device can help. Most chronic BCI failures trace back to electrode-tissue interface problems.",
       "vocabulary": [
         {
-          "term": "Utah array",
-          "definition": "Rigid silicon array of ~100 needle electrodes used in many human BCIs."
+          "term": "Penetrating microelectrode array",
+          "definition": "Rigid silicon array of needle electrodes used in many human BCIs."
         },
         {
           "term": "ECoG",
@@ -1574,7 +1574,7 @@
         },
         {
           "id": "im-el-q5",
-          "prompt": "Utah arrays primarily record:",
+          "prompt": "Penetrating microelectrode arrays primarily record:",
           "choices": [
             "Single-unit spikes from cortex",
             "Whole-brain BOLD",
@@ -1591,7 +1591,7 @@
       "socraticPrompts": [
         {
           "id": "im-el-s1",
-          "question": "Why might you prefer ECoG over a Utah array for a long-term communication BCI?",
+          "question": "Why might you prefer ECoG over a penetrating microelectrode array for a long-term communication BCI?",
           "hint": "Stability and risk.",
           "answer": "ECoG is less invasive, more stable over years, and good enough for many communication signals — you trade single-unit access for durability."
         },
@@ -3203,7 +3203,7 @@
       "subjectId": "neural-signals",
       "relatedTopicId": "ns-lfp-vs-spikes",
       "difficulty": "beginner",
-      "scenario": "You're recording from a Utah array in motor cortex. One channel shows large negative deflections every 200 ms — but they always coincide with the patient's heartbeat on the ECG monitor.",
+      "scenario": "You're recording from a penetrating microelectrode array in motor cortex. One channel shows large negative deflections every 200 ms — but they always coincide with the patient's heartbeat on the ECG monitor.",
       "signalDescription": "Periodic ~5 Hz deflections, coincident with QRS complex on ECG, similar shape across multiple electrodes simultaneously.",
       "decisionQuestion": "What do you do with this channel?",
       "choices": [
@@ -3522,7 +3522,7 @@
       "subjectId": "implants-materials",
       "relatedTopicId": "im-foreign-body",
       "difficulty": "beginner",
-      "scenario": "A Utah array's signal-to-noise on most channels has dropped 40% over six months. Impedances have crept up. Patient reports no new symptoms.",
+      "scenario": "A penetrating microelectrode array's signal-to-noise on most channels has dropped 40% over six months. Impedances have crept up. Patient reports no new symptoms.",
       "signalDescription": "Spike amplitude reduced; LFPs still measurable; impedance ~2× baseline on affected channels.",
       "decisionQuestion": "Most likely cause?",
       "choices": [

@@ -32,7 +32,7 @@ async function renderSocrates() {
     <div class="hero"><h1>Learn how to learn.</h1><p class="sub">Don&rsquo;t memorize &mdash; reason. Every topic is a chain of questions that builds understanding before it hands you the answer.</p></div>
     ${total ? `<div class="socbar"><span class="label">Progress</span><span class="bar"><i style="width:${total ? Math.round(100 * done / total) : 0}%"></i></span><span class="topstat">${done}/${total} dialogues</span></div>` : ''}
     <div class="mcat-mods"></div>
-    <p class="anat-credit">Original Socratic dialogues, AI-generated and fact-checked. Attempt each question before revealing the answer &mdash; the struggle is the point.</p>
+    <p class="anat-credit">Original Socratic dialogues, independently reviewed. Attempt each question before revealing the answer &mdash; the struggle is the point.</p>
   </main>`);
 
   const mc = main.querySelector('.mcat-mods');

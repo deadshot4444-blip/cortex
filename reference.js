@@ -78,7 +78,7 @@ async function renderReference() {
   const main = el(`<main class="panel">
     <div class="hero"><h1>Medicine.</h1><p class="sub">High-yield, fact-checked decks — pharmacology, microbiology and lab interpretation. Browse, search, or drill.</p></div>
     <div class="mcat-mods"></div>
-    <p class="anat-credit">Original study content, AI-generated and fact-checked. For study, not a substitute for prescribing references or your clinical judgment.</p>
+    <p class="anat-credit">Original study content, independently reviewed. For study, not a substitute for prescribing references or your clinical judgment.</p>
   </main>`);
 
   const mc = main.querySelector('.mcat-mods');

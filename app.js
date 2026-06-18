@@ -121,7 +121,7 @@ const SECTION_SCRIPTS = {
   anatomy: ['anatomy.js?v=35'],
   reference: ['reference.js?v=38', 'ekg.js?v=32'],
   socrates: ['socrates.js?v=39'],
-  neuro: ['python-runtime.js?v=2', 'code-evaluator.js?v=2', 'neuro.js?v=7'],
+  neuro: ['python-runtime.js?v=3', 'code-evaluator.js?v=2', 'neuro.js?v=8'],
 };
 const _scriptLoads = {};
 function loadScript(src) {
@@ -546,7 +546,7 @@ function siteFooter() {
     </div>
     <p class="sf-tag">Free, evidence-based medical study for everyone &mdash; our MCAT preparation is, and always will be, free.</p>
     <p class="sf-founder">Founded by Kevin Vigil</p>
-    <p class="sf-legal">&copy; ${yr} Cortex Medical Academy &middot; v${APP_VERSION} &middot; Last updated ${CHANGELOG[0].date} &middot; Original study content, AI-generated and fact-checked. Not a substitute for official AAMC materials or clinical judgment.</p>
+    <p class="sf-legal">&copy; ${yr} Cortex Medical Academy &middot; v${APP_VERSION} &middot; Last updated ${CHANGELOG[0].date} &middot; Original study content, independently reviewed. Not a substitute for official AAMC materials or clinical judgment.</p>
   </footer>`);
   f.querySelector('.sf-brand').addEventListener('click', e => { e.preventDefault(); renderMission(); });
   f.querySelector('[data-go="updates"]').addEventListener('click', renderUpdates);
@@ -682,7 +682,7 @@ const CHANGELOG = [
     items: [
       'Cortex Neuroengineering: 12 subjects, 24 topics, 120 quiz questions, 12 NeuroSim labs, 12 NeuroCode tickets.',
       'BCI Builder Path \u2014 20 guided units with active recall, gated mini-quizzes, sims & real Python OJT.',
-      'NeuroCode Lab + NeuroSim browse hubs; Pyodide runs actual Python 3 in-browser (Run / Check).',
+      'NeuroCode Lab + NeuroSim browse hubs; real Python 3 runs in-browser (Run / Check).',
       'Socratic study mode, progress sync, social share card. Practitioner Track (expert milestones) next.',
     ],
   },
@@ -702,7 +702,7 @@ const CHANGELOG = [
   },
   {
     date: 'June 18, 2026', version: '1.8.3', tag: 'NEW',
-    title: 'Clinical Scenarios \u2014 full Grok polish',
+    title: 'Clinical Scenarios \u2014 full polish pass',
     items: [
       'Practice landing rebuilt to match the MCAT console aesthetic \u2014 telemetry stat band, engineering hero, corner-frame panels.',
       'Specialty cards upgraded with rank telemetry, progress bars, and hover affordances.',
