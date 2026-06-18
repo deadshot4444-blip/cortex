@@ -117,7 +117,7 @@ const SECTION_SCRIPTS = {
   anatomy: ['anatomy.js?v=35'],
   reference: ['reference.js?v=38', 'ekg.js?v=32'],
   socrates: ['socrates.js?v=39'],
-  neuro: ['python-runtime.js?v=1', 'code-evaluator.js?v=2', 'neuro.js?v=3'],
+  neuro: ['python-runtime.js?v=1', 'code-evaluator.js?v=2', 'neuro.js?v=4'],
 };
 const _scriptLoads = {};
 function loadScript(src) {
@@ -658,12 +658,12 @@ const PRINCIPLES = [
 const CHANGELOG = [
   {
     date: 'June 18, 2026', version: '1.9.0', tag: 'NEW',
-    title: 'Neuroengineering course \u2014 full Atlas port',
+    title: 'Neuroengineering \u2014 Foundations live',
     items: [
-      'NeuroEngineering Atlas ported to the web: 12 subjects, 24 topics, 120 quiz questions.',
-      'BCI Builder Path \u2014 all 20 guided units with lessons, active recall, mini-quizzes, NeuroSim & NeuroCode.',
-      'ATLAS Socratic study mode, topic library, progress tracking (local + account sync).',
-      'Replaces the In development placeholder \u2014 the paid-course foundation is live in-browser.',
+      'Full Atlas port: 12 subjects, 24 topics, 120 quiz questions, 12 NeuroSim labs, 12 NeuroCode tickets.',
+      'BCI Builder Path \u2014 20 guided units with active recall, gated mini-quizzes, sims & real Python OJT.',
+      'NeuroCode Lab + NeuroSim browse hubs; Pyodide runs actual Python 3 in-browser (Run / Check).',
+      'ATLAS Socratic study, progress sync, social share card. Practitioner Track (expert milestones) next.',
     ],
   },
   {

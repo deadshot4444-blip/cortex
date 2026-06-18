@@ -1,0 +1,54 @@
+{
+  "track": "Practitioner",
+  "tagline": "Six build milestones + capstone. Real data, graded projects, staff-engineer bar.",
+  "milestones": [
+    {
+      "id": "neural-signal-viewer",
+      "title": "Neural Signal Viewer",
+      "unlockUnit": 7,
+      "phase": "Signal Acquisition",
+      "shortDescription": "Load a recording, plot the trace, threshold candidate spikes, export an event table.",
+      "status": "building"
+    },
+    {
+      "id": "spike-detector",
+      "title": "Spike Detector + Feature Vector",
+      "unlockUnit": 12,
+      "phase": "Detection & Features",
+      "shortDescription": "Event detection, spike count + RMS + band-power features across trials.",
+      "status": "planned"
+    },
+    {
+      "id": "noise-smoother",
+      "title": "Noise Smoother & Drift Corrector",
+      "unlockUnit": 14,
+      "phase": "Preprocessing & Stability",
+      "shortDescription": "Baseline correction, drift compensation, before/after stability metrics.",
+      "status": "planned"
+    },
+    {
+      "id": "leftright-decoder",
+      "title": "Weighted Linear Decoder",
+      "unlockUnit": 16,
+      "phase": "Decoding & Control",
+      "shortDescription": "Inspectable weights, train vs held-out accuracy, overfitting diagnosis.",
+      "status": "planned"
+    },
+    {
+      "id": "cursor-simulator",
+      "title": "Cursor Simulator + Latency",
+      "unlockUnit": 18,
+      "phase": "Closed-Loop Feedback",
+      "shortDescription": "Closed-loop cursor with 0/80/150ms latency injection and strategy notes.",
+      "status": "planned"
+    },
+    {
+      "id": "closed-loop-capstone",
+      "title": "Closed-Loop BCI Capstone",
+      "unlockUnit": 20,
+      "phase": "Capstone Integration",
+      "shortDescription": "End-to-end pipeline + design-review memo: drift, detection, response, safety, next step.",
+      "status": "planned"
+    }
+  ]
+}

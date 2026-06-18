@@ -1,6 +1,6 @@
 /* Cortex — Neuroengineering course (ported from NeuroEngineering Atlas) */
 
-const NEURO = { loaded: false, data: null, topicMap: {}, simMap: {}, codeMap: {} };
+const NEURO = { loaded: false, data: null, milestones: null, topicMap: {}, simMap: {}, codeMap: {} };
 const NEURO_PROG = (typeof loadJSON === 'function') ? loadJSON('cs-neuro', {
   pathDone: [], topicQuiz: {}, topicAtlas: {}, sims: {}, code: {},
 }) : { pathDone: [], topicQuiz: {}, topicAtlas: {}, sims: {}, code: {} };
@@ -10,9 +10,13 @@ function saveNeuroProg() { if (typeof safeSet === 'function') safeSet('cs-neuro'
 async function loadNeuro() {
   if (NEURO.loaded) return;
   try {
-    const r = await fetch('data/neuro.json', { cache: 'no-store' });
+    const [r, m] = await Promise.all([
+      fetch('data/neuro.json', { cache: 'no-store' }),
+      fetch('data/neuro-milestones.json', { cache: 'no-store' }),
+    ]);
     NEURO.data = r.ok ? await r.json() : null;
-  } catch { NEURO.data = null; }
+    NEURO.milestones = m.ok ? await m.json() : null;
+  } catch { NEURO.data = null; NEURO.milestones = null; }
   if (!NEURO.data) return;
   NEURO.topicMap = Object.fromEntries(NEURO.data.topics.map(t => [t.id, t]));
   NEURO.simMap = Object.fromEntries(NEURO.data.simulations.map(s => [s.id, s]));
@@ -80,6 +84,23 @@ async function renderNeuroEngineering() {
         </div>
         <span class="bar"><i style="width:${pg.pct}%"></i></span>
         <p class="neuro-pathsum">${esc(path.summary)}</p>
+      </div>` : ''}
+      ${NEURO.milestones ? `<div class="neuro-practitioner cornerframe">
+        <div class="neuro-pathband-head">
+          <span class="label">Practitioner Track &middot; expert path</span>
+          <span class="neuro-pathstat">${pg.done >= 7 ? 'Milestone 1 unlocking' : `Unlocks at unit 7 &middot; ${pg.done}/7`}</span>
+        </div>
+        <p class="neuro-pathsum">${esc(NEURO.milestones.tagline)}</p>
+        <div class="neuro-milestones">${NEURO.milestones.milestones.map(ms => {
+          const unlocked = pg.done >= ms.unlockUnit || ms.status === 'building';
+          const active = ms.status === 'building';
+          return `<div class="neuro-ms ${unlocked ? 'unlocked' : 'locked'} ${active ? 'active' : ''}">
+            <span class="neuro-ms-phase">${esc(ms.phase)}</span>
+            <span class="neuro-ms-title">${esc(ms.title)}</span>
+            <span class="neuro-ms-sub">Unit ${ms.unlockUnit} &middot; ${esc(ms.shortDescription)}</span>
+            ${active ? '<span class="neuro-ms-badge">Building now</span>' : unlocked ? '' : '<span class="neuro-ms-badge">Locked</span>'}
+          </div>`;
+        }).join('')}</div>
       </div>` : ''}
       <div class="neuro-hubtools">
         <button class="btn neuro-btn" id="ne-codelab">NeuroCode Lab &middot; ${NEURO.data?.neuroCodeLessons?.length || 12}</button>
