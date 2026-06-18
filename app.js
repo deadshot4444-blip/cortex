@@ -50,7 +50,7 @@ const SECTION_INFO = {
     desc: 'Guided, Socratic study sessions that train the skill beneath every other skill — how to question, reason, and remember. Metacognition and proven learning technique, applied directly to medicine.',
   },
 };
-const APP_VERSION = '1.9.0';
+const APP_VERSION = '1.9.1';
 const X_HANDLE = 'kevin__vigil';
 const X_URL = 'https://x.com/kevin__vigil';
 const X_UPDATES_COPY = `Constant Cortex updates on X &middot; <strong>@${X_HANDLE}</strong> &rarr;`;
@@ -117,7 +117,7 @@ const SECTION_SCRIPTS = {
   anatomy: ['anatomy.js?v=35'],
   reference: ['reference.js?v=38', 'ekg.js?v=32'],
   socrates: ['socrates.js?v=39'],
-  neuro: ['python-runtime.js?v=2', 'code-evaluator.js?v=2', 'neuro-practitioner.js?v=1', 'neuro.js?v=5'],
+  neuro: ['python-runtime.js?v=2', 'code-evaluator.js?v=2', 'neuro.js?v=6'],
 };
 const _scriptLoads = {};
 function loadScript(src) {
@@ -657,13 +657,20 @@ const PRINCIPLES = [
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
   {
+    date: 'June 18, 2026', version: '1.9.1', tag: 'NEW',
+    title: 'Neuroengineering \u2014 Foundations live',
+    items: [
+      'Cortex Neuroengineering: 12 subjects, 24 topics, 120 quiz questions, 12 NeuroSim labs, 12 NeuroCode tickets.',
+      'BCI Builder Path \u2014 20 guided units with active recall, gated mini-quizzes, sims & real Python OJT.',
+      'NeuroCode Lab + NeuroSim browse hubs; Pyodide runs actual Python 3 in-browser (Run / Check).',
+      'Socratic study mode, progress sync, social share card. Practitioner Track (expert milestones) next.',
+    ],
+  },
+  {
     date: 'June 18, 2026', version: '1.9.0', tag: 'NEW',
     title: 'Neuroengineering \u2014 Foundations live',
     items: [
-      'Full Atlas port: 12 subjects, 24 topics, 120 quiz questions, 12 NeuroSim labs, 12 NeuroCode tickets.',
-      'BCI Builder Path \u2014 20 guided units with active recall, gated mini-quizzes, sims & real Python OJT.',
-      'NeuroCode Lab + NeuroSim browse hubs; Pyodide runs actual Python 3 in-browser (Run / Check).',
-      'ATLAS Socratic study, progress sync, social share card. Practitioner Track (expert milestones) next.',
+      'Neuroengineering course launched on Cortex Medical Academy.',
     ],
   },
   {

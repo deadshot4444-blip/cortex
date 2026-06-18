@@ -457,7 +457,7 @@
         }
       ],
       "miniProjectIdea": "Pick a hypothetical neuro device (e.g., a closed-loop tinnitus mask). Map out which pathway fits and what evidence you'd need.",
-      "relatedFutureLab": "No future lab — strictly clinical/regulatory; pairs well with all Atlas device subjects.",
+      "relatedFutureLab": "No future lab — strictly clinical/regulatory; pairs well with all neurodevice subjects.",
       "socraticPrompts": [
         {
           "id": "cn-fda-s1",
@@ -2862,7 +2862,7 @@
           "neuroCodeLessonId": "code-lists-samples",
           "simulationId": "sim-ns-noisy-signal",
           "primaryActionType": "atlas",
-          "primaryActionLabel": "Start ATLAS",
+          "primaryActionLabel": "Socratic study",
           "checkpointPrompt": null,
           "reflectionQuestion": "What makes a neural recording different from a single voltage value?",
           "estimatedFocus": "10 min",
@@ -2981,7 +2981,7 @@
           "neuroCodeLessonId": "code-simple-bci-decoder",
           "simulationId": "sim-bci-cursor-drift",
           "primaryActionType": "atlas",
-          "primaryActionLabel": "Start ATLAS",
+          "primaryActionLabel": "Socratic study",
           "checkpointPrompt": null,
           "reflectionQuestion": "Why does screen feedback change how the user learns the decoder?",
           "estimatedFocus": "10 min",

@@ -1,9 +1,9 @@
-/* Cortex — Neuroengineering course (ported from NeuroEngineering Atlas) */
+/* Cortex — Neuroengineering course */
 
 const NEURO = { loaded: false, data: null, milestones: null, topicMap: {}, simMap: {}, codeMap: {} };
 const NEURO_PROG = (typeof loadJSON === 'function') ? loadJSON('cs-neuro', {
-  pathDone: [], topicQuiz: {}, topicAtlas: {}, sims: {}, code: {}, milestones: {},
-}) : { pathDone: [], topicQuiz: {}, topicAtlas: {}, sims: {}, code: {}, milestones: {} };
+  pathDone: [], topicQuiz: {}, topicAtlas: {}, sims: {}, code: {},
+}) : { pathDone: [], topicQuiz: {}, topicAtlas: {}, sims: {}, code: {} };
 
 function saveNeuroProg() { if (typeof safeSet === 'function') safeSet('cs-neuro', JSON.stringify(NEURO_PROG)); else localStorage.setItem('cs-neuro', JSON.stringify(NEURO_PROG)); }
 
@@ -68,7 +68,7 @@ async function renderNeuroEngineering() {
       <div class="neuro-hero-inner">
         <span class="neuro-eyebrow">Neuroengineering &middot; Cortex Medical Academy</span>
         <h1>Where the mind meets the machine.</h1>
-        <p class="neuro-lede">Train on real neuroengineering &mdash; Foundations path, OJT Python labs, and the Practitioner Track where you build portfolio-grade BCI projects. ${topicN} topics across ${subjN} domains.</p>
+        <p class="neuro-lede">The Cortex Neuroengineering curriculum &mdash; ${topicN} topics across ${subjN} domains, the 20-unit BCI Builder Path, NeuroSim decision labs, and guided active recall.</p>
         <p class="neuro-tagline">Engineering the human brain &mdash; from first principles.</p>
         ${path ? `<div class="neuro-cta">
           <button class="btn btn-solid neuro-btn" id="ne-path">${pg.next ? `Continue BCI Builder &middot; Unit ${pg.next.order}` : 'BCI Builder Path complete'}</button>
@@ -94,14 +94,12 @@ async function renderNeuroEngineering() {
         <div class="neuro-milestones">${NEURO.milestones.milestones.map(ms => {
           const unlocked = pg.done >= ms.unlockUnit || ms.status === 'building';
           const active = ms.status === 'building';
-          const done = NEURO_PROG.milestones?.[ms.id]?.passed;
-          const clickable = unlocked || active;
-          return `<${clickable ? 'button' : 'div'} class="neuro-ms ${unlocked ? 'unlocked' : 'locked'} ${active ? 'active' : ''}" ${clickable ? `data-ms="${ms.id}"` : ''}>
+          return `<div class="neuro-ms ${unlocked ? 'unlocked' : 'locked'} ${active ? 'active' : ''}">
             <span class="neuro-ms-phase">${esc(ms.phase)}</span>
             <span class="neuro-ms-title">${esc(ms.title)}</span>
             <span class="neuro-ms-sub">Unit ${ms.unlockUnit} &middot; ${esc(ms.shortDescription)}</span>
-            ${done ? '<span class="neuro-ms-badge">Complete</span>' : active ? '<span class="neuro-ms-badge">Open lab</span>' : unlocked ? '<span class="neuro-ms-badge">Start</span>' : '<span class="neuro-ms-badge">Locked</span>'}
-          </${clickable ? 'button' : 'div'}>`;
+            ${active ? '<span class="neuro-ms-badge">Building now</span>' : unlocked ? '' : '<span class="neuro-ms-badge">Locked</span>'}
+          </div>`;
         }).join('')}</div>
       </div>` : ''}
       <div class="neuro-hubtools">
@@ -136,10 +134,6 @@ async function renderNeuroEngineering() {
   }
   main.querySelector('#ne-codelab')?.addEventListener('click', renderNeuroCodeLab);
   main.querySelector('#ne-simlib')?.addEventListener('click', renderNeuroSimLibrary);
-  main.querySelectorAll('[data-ms]').forEach(btn => {
-    btn.addEventListener('click', () => renderNeuroMilestone(btn.dataset.ms));
-  });
-
   root.appendChild(main);
   if (typeof siteFooter === 'function') root.appendChild(siteFooter());
   setView(root);
@@ -209,7 +203,7 @@ function renderNeuroTopic(topicId) {
       <div class="neuro-block"><span class="label">Clinical relevance</span><p class="neuro-prose">${esc(t.clinicalRelevance)}</p></div>
       ${t.vocabulary?.length ? `<div class="neuro-block"><span class="label">Vocabulary</span><div class="neuro-vocab">${t.vocabulary.map(v => `<div class="neuro-vterm"><span class="k">${esc(v.term)}</span><span>${esc(v.definition)}</span></div>`).join('')}</div></div>` : ''}
       <div class="neuro-actions">
-        <button class="btn btn-solid neuro-btn" id="ne-atlas">ATLAS study</button>
+        <button class="btn btn-solid neuro-btn" id="ne-atlas">Socratic study</button>
         <button class="btn neuro-btn" id="ne-quiz">Quiz &middot; ${t.quizQuestions?.length || 0}</button>
       </div>
     </section>
@@ -221,7 +215,7 @@ function renderNeuroTopic(topicId) {
   setView(root);
 }
 
-/* ---------- ATLAS (Socratic) ---------- */
+/* ---------- Socratic study ---------- */
 
 let neAtlas = null;
 function renderNeuroAtlas(topicId) {
@@ -233,7 +227,7 @@ function renderNeuroAtlas(topicId) {
   const main = el(`<main class="neuro-page neuro-inner">
     <section class="neuro-body">
       <button class="backbtn topback" id="neback">&larr; ${esc(t.title)}</button>
-      <span class="neuro-eyebrow">ATLAS &middot; ${esc(t.title).toUpperCase()}</span>
+      <span class="neuro-eyebrow">Socratic &middot; ${esc(t.title).toUpperCase()}</span>
       <h1 class="neuro-h1">Socratic study.</h1>
       <div class="neuro-dots" id="nedots"></div>
       <div id="nestages"></div>
@@ -276,7 +270,7 @@ function neuroAtlasAppend() {
   node.querySelector('[data-reveal]').addEventListener('click', () => {
     node.querySelector('.socactions')?.remove();
     after.appendChild(el(`<div class="socans"><div class="socblock"><span class="label">Answer</span><p>${esc(s.answer)}</p></div></div>`));
-    const row = el(`<div class="continue-row"><button class="btn btn-solid neuro-btn" data-cont>${isLast ? 'Finish ATLAS' : 'Next'}</button></div>`);
+    const row = el(`<div class="continue-row"><button class="btn btn-solid neuro-btn" data-cont>${isLast ? 'Finish study' : 'Next'}</button></div>`);
     row.querySelector('[data-cont]').addEventListener('click', () => { neAtlas.idx++; neuroAtlasDots(); neuroAtlasAppend(); });
     after.appendChild(row);
     row.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -290,7 +284,7 @@ function neuroAtlasFinish() {
   saveNeuroProg();
   const t = neuroTopic(neAtlas.topicId);
   const node = el(`<section class="neuro-stage">
-    <span class="label">ATLAS complete</span>
+    <span class="label">Study complete</span>
     <div class="neuro-score">&#10003;</div>
     <p class="neuro-prose">${esc(t?.oneLineMaster || '')}</p>
     <div class="endbtns">
