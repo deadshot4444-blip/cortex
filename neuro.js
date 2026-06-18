@@ -59,55 +59,65 @@ async function renderNeuroEngineering() {
   const subjN = NEURO.data?.subjects?.length || 0;
   const topicN = NEURO.data?.topics?.length || 0;
 
-  const main = el(`<main class="neuro-page">
+  const codeN = NEURO.data?.neuroCodeLessons?.length || 12;
+  const simN = NEURO.data?.simulations?.length || 12;
+  const membershipStart = typeof MEMBERSHIP_START === 'string' ? MEMBERSHIP_START : 'August 1, 2026';
+
+  const main = el(`<main class="neuro-page neuro-hub">
     <section class="neuro-hero">
       <video class="neuro-video" autoplay loop muted playsinline preload="auto">
         <source src="assets/neuro-bg.mp4?v=2" type="video/mp4">
       </video>
       <div class="neuro-veil"></div>
       <div class="neuro-hero-inner">
-        <span class="neuro-eyebrow">Neuroengineering &middot; BCI &amp; neurotech &middot; Free for now</span>
+        <span class="neuro-eyebrow">Neuroengineering</span>
         <h1>Where the mind meets the machine.</h1>
-        <p class="neuro-lede">The Cortex Neuroengineering curriculum &mdash; ${topicN} topics across ${subjN} domains, the 20-unit BCI Builder Path, NeuroSim decision labs, and guided active recall.</p>
-        <p class="neuro-tagline">Engineering the human brain &mdash; from first principles.</p>
-        ${typeof cortexFreeNote === 'function' ? cortexFreeNote('Neuro', 'Neuroengineering') : ''}
+        <p class="neuro-lede">${topicN} topics &middot; ${subjN} domains &middot; BCI Builder &middot; NeuroSim &middot; NeuroCode</p>
+        <p class="neuro-membership">
+          <span class="free-pill">MCAT free</span>
+          <span class="free-pill free-pill--soft">Neuro free for now</span>
+          <span class="neuro-membership-txt">Optional membership ${membershipStart}</span>
+        </p>
         ${path ? `<div class="neuro-cta">
-          <button class="btn btn-solid neuro-btn" id="ne-path">${pg.next ? `Continue BCI Builder &middot; Unit ${pg.next.order}` : 'BCI Builder Path complete'}</button>
-          <button class="btn neuro-btn" id="ne-subjects">Browse subjects</button>
+          <button class="btn btn-solid neuro-btn" id="ne-path">${pg.next ? `Continue &middot; Unit ${pg.next.order}` : 'Path complete'}</button>
+          <button class="btn neuro-btn neuro-btn-ghost" id="ne-subjects">Subjects</button>
         </div>` : ''}
       </div>
     </section>
     <section class="neuro-body">
-      ${path ? `<div class="neuro-pathband cornerframe">
+      ${path ? `<div class="neuro-pathband neuro-pathband--slim">
         <div class="neuro-pathband-head">
-          <span class="label">BCI Builder Path</span>
-          <span class="neuro-pathstat">${pg.done}/${pg.total} units &middot; ${pg.pct}%</span>
+          <span class="label">BCI Builder</span>
+          <span class="neuro-pathstat">${pg.done}/${pg.total} &middot; ${pg.pct}%</span>
         </div>
         <span class="bar"><i style="width:${pg.pct}%"></i></span>
-        <p class="neuro-pathsum">${esc(path.summary)}</p>
       </div>` : ''}
-      ${NEURO.milestones ? `<div class="neuro-practitioner cornerframe">
-        <div class="neuro-pathband-head">
-          <span class="label">Practitioner Track &middot; expert path</span>
-          <span class="neuro-pathstat">${pg.done >= 7 ? 'Milestone 1 unlocking' : `Unlocks at unit 7 &middot; ${pg.done}/7`}</span>
-        </div>
+      ${NEURO.milestones ? `<details class="neuro-practitioner-fold">
+        <summary class="neuro-practitioner-sum">
+          <span class="label">Practitioner Track</span>
+          <span class="neuro-pathstat">${pg.done >= 7 ? 'Unlocking' : `${pg.done}/7 to unlock`}</span>
+        </summary>
         <p class="neuro-pathsum">${esc(NEURO.milestones.tagline)}</p>
         <div class="neuro-milestones">${NEURO.milestones.milestones.map(ms => {
           const unlocked = pg.done >= ms.unlockUnit || ms.status === 'building';
           const active = ms.status === 'building';
           return `<div class="neuro-ms ${unlocked ? 'unlocked' : 'locked'} ${active ? 'active' : ''}">
-            <span class="neuro-ms-phase">${esc(ms.phase)}</span>
             <span class="neuro-ms-title">${esc(ms.title)}</span>
-            <span class="neuro-ms-sub">Unit ${ms.unlockUnit} &middot; ${esc(ms.shortDescription)}</span>
-            ${active ? '<span class="neuro-ms-badge">Building now</span>' : unlocked ? '' : '<span class="neuro-ms-badge">Locked</span>'}
+            <span class="neuro-ms-sub">Unit ${ms.unlockUnit}${active ? ' &middot; building now' : unlocked ? '' : ' &middot; locked'}</span>
           </div>`;
         }).join('')}</div>
-      </div>` : ''}
-      <div class="neuro-hubtools">
-        <button class="btn neuro-btn" id="ne-codelab">NeuroCode Lab &middot; ${NEURO.data?.neuroCodeLessons?.length || 12}</button>
-        <button class="btn neuro-btn" id="ne-simlib">NeuroSim Labs &middot; ${NEURO.data?.simulations?.length || 12}</button>
+      </details>` : ''}
+      <div class="neuro-section">
+        <span class="neuro-section-label">Labs</span>
+        <div class="neuro-lablinks">
+          <button class="neuro-lablink" id="ne-codelab">NeuroCode <span>${codeN}</span></button>
+          <button class="neuro-lablink" id="ne-simlib">NeuroSim <span>${simN}</span></button>
+        </div>
       </div>
-      <div class="neuro-grid" id="ne-grid"></div>
+      <div class="neuro-section">
+        <span class="neuro-section-label">Subjects</span>
+        <div class="neuro-grid neuro-grid--hub" id="ne-grid"></div>
+      </div>
     </section>
   </main>`);
 
@@ -117,10 +127,12 @@ async function renderNeuroEngineering() {
   } else {
     for (const s of NEURO.data.subjects) {
       const done = (s.topicIds || []).filter(id => NEURO_PROG.topicQuiz[id]).length;
-      const card = el(`<button class="neuro-pt neuro-subcard" style="--ne-accent:#${s.accentHex}">
-        <span class="np-name">${esc(s.name)}</span>
-        <p>${esc(s.summary)}</p>
-        <span class="neuro-substat">${done ? `${done}/${s.topicIds.length} quizzed` : `${s.topicIds.length} topics`}</span>
+      const card = el(`<button class="neuro-pt neuro-subcard neuro-subcard--hub" style="--ne-accent:#${s.accentHex}">
+        <span class="neuro-subcard-main">
+          <span class="np-name">${esc(s.name)}</span>
+          <span class="neuro-substat">${done ? `${done}/${s.topicIds.length} quizzed` : `${s.topicIds.length} topics`}</span>
+        </span>
+        <span class="mod-go">&rarr;</span>
       </button>`);
       card.addEventListener('click', () => renderNeuroSubject(s.id));
       grid.appendChild(card);
