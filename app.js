@@ -50,7 +50,7 @@ const SECTION_INFO = {
     desc: 'Guided, Socratic study sessions that train the skill beneath every other skill — how to question, reason, and remember. Metacognition and proven learning technique, applied directly to medicine.',
   },
 };
-const APP_VERSION = '1.8.3';
+const APP_VERSION = '1.8.4';
 const X_HANDLE = 'kevin__vigil';
 const X_URL = 'https://x.com/kevin__vigil';
 const X_UPDATES_COPY = `Constant Cortex updates on X &middot; <strong>@${X_HANDLE}</strong> &rarr;`;
@@ -693,6 +693,13 @@ const PRINCIPLES = [
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
   {
+    date: 'June 18, 2026', version: '1.8.4', tag: 'FIX',
+    title: 'Verification deploy',
+    items: [
+      'Re-opens the what\u2019s new popup so you can verify the mobile X updates link \u2014 no other changes from v1.8.3.',
+    ],
+  },
+  {
     date: 'June 18, 2026', version: '1.8.3', tag: 'NEW',
     title: 'Clinical Scenarios \u2014 full Grok polish',
     items: [
@@ -700,6 +707,7 @@ const CHANGELOG = [
       'Specialty cards upgraded with rank telemetry, progress bars, and hover affordances.',
       'Active case view gets a live progress runbar, framed vitals panel, and tighter stage flow.',
       'Review hub matches the new visual system \u2014 bordered row list, stat band, unified typography.',
+      'Constant Cortex updates on X \u2014 popup link copy + mobile wrap fix.',
     ],
   },
   {
