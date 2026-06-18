@@ -460,71 +460,163 @@ function neuroCodePassed(codeId) {
 }
 
 function mountNeuroCodeSandbox(lesson, codeId, opts, shell) {
-  if (typeof neuroCodeEvaluate !== 'function') return;
+  if (typeof neuroCodeEvaluateOJT !== 'function') return;
   const guidance = neuroCodeGuidance(lesson);
   let codePassed = neuroCodePassed(codeId);
+  const starterCode = (lesson.codeExample || '').trim();
 
   const sandbox = el(`<div class="neuro-sandbox">
     <div class="neuro-sandbox-head">
-      <span class="label">Practice sandbox</span>
+      <span class="label">OJT code lab &middot; Python 3</span>
       <span class="neuro-sandbox-badge" data-pass-badge ${codePassed ? '' : 'hidden'}>Complete</span>
     </div>
-    <p class="neuro-sandbox-note">Guided code practice. Checks beginner exercises and expected output &mdash; not a full Python runtime.</p>
+    <p class="neuro-sandbox-note">On-the-job style practice: edit the script, <strong>Run</strong> to execute real Python in-browser, <strong>Check</strong> to validate stdout against the reference solution.</p>
     <div class="neuro-sandbox-goals">
       <span class="neuro-mono">${esc(guidance.exerciseType)}</span>
       <span>Coding: ${esc(guidance.codingGoal)}</span>
       <span>Neuro: ${esc(guidance.neuroengineeringGoal)}</span>
     </div>
-    <textarea class="neuro-code-draft" rows="12" spellcheck="false" aria-label="Code editor">${esc((lesson.codeExample || '').trim())}</textarea>
-    <div class="neuro-terminal">
-      <span class="neuro-terminal-cmd">$ atlas_check ${esc(codeId)}</span>
-      <pre class="neuro-terminal-out" data-term-out>Run the guided check to see feedback.</pre>
-      <p class="neuro-terminal-msg" data-term-msg>This sandbox checks beginner exercises; it is not a full Python runtime.</p>
-      <p class="neuro-terminal-hint" data-term-hint>Use the prompt, prediction, and expected output before loading the solution.</p>
+    <div class="neuro-ojt-brief">
+      <span class="label">Ticket</span>
+      <p class="neuro-prose">${esc(lesson.challengePrompt)}</p>
+    </div>
+    <textarea class="neuro-code-draft" rows="14" spellcheck="false" aria-label="Python editor">${esc(starterCode)}</textarea>
+    <div class="neuro-terminal neuro-ojt-terminal">
+      <div class="neuro-terminal-bar">
+        <span class="neuro-terminal-dot"></span>
+        <span class="neuro-terminal-title">bci-lab@cortex &mdash; task.py</span>
+        <span class="neuro-terminal-status" data-py-status>Python idle</span>
+      </div>
+      <div class="neuro-terminal-log" data-term-log>
+        <div class="neuro-term-line muted"># OJT lab ready. Run executes Python 3 (Pyodide). Check compares stdout to the reference.</div>
+      </div>
+      <p class="neuro-terminal-msg" data-term-msg>Load the runtime on first Run.</p>
+      <p class="neuro-terminal-hint" data-term-hint>Tip: solve the ticket, run it, then Check before loading the solution.</p>
     </div>
     <div class="neuro-sandbox-actions">
-      <button class="btn btn-solid neuro-btn" data-run-check>Run / Check</button>
+      <button class="btn btn-solid neuro-btn" data-run-code>Run</button>
+      <button class="btn neuro-btn" data-check-code>Check</button>
+      <button class="btn neuro-btn" data-reset-code>Reset starter</button>
       <button class="btn neuro-btn" data-predict-out>Predict output</button>
       <button class="btn neuro-btn" data-copy-code>Copy code</button>
       <button class="btn neuro-btn" data-load-sol>Load solution</button>
-      <button class="btn neuro-btn" data-show-hint>Reveal hint</button>
+      <button class="btn neuro-btn" data-show-hint>Hint</button>
       <button class="btn neuro-btn" data-show-sol>Reveal solution</button>
     </div>
     <div class="neuro-sandbox-extra" data-extra></div>
-    ${opts.requirePass ? '<p class="neuro-sandbox-gate" data-gate>Pass Run / Check to continue this unit.</p>' : ''}
+    ${opts.requirePass ? '<p class="neuro-sandbox-gate" data-gate>Pass Check to continue this unit.</p>' : ''}
     <div class="continue-row" data-continue-row ${opts.requirePass && !codePassed ? 'hidden' : ''}>
       <button class="btn btn-solid neuro-btn" data-code-done>Continue</button>
     </div>
   </div>`);
 
   const draft = sandbox.querySelector('.neuro-code-draft');
-  const termOut = sandbox.querySelector('[data-term-out]');
+  const termLog = sandbox.querySelector('[data-term-log]');
   const termMsg = sandbox.querySelector('[data-term-msg]');
   const termHint = sandbox.querySelector('[data-term-hint]');
+  const pyStatus = sandbox.querySelector('[data-py-status]');
   const extra = sandbox.querySelector('[data-extra]');
   const passBadge = sandbox.querySelector('[data-pass-badge]');
   const continueRow = sandbox.querySelector('[data-continue-row]');
   const gate = sandbox.querySelector('[data-gate]');
+  const runBtn = sandbox.querySelector('[data-run-code]');
+  const checkBtn = sandbox.querySelector('[data-check-code]');
+  let busy = false;
 
-  const runCheck = () => {
-    const feedback = neuroCodeEvaluate(draft.value, lesson);
-    termOut.textContent = feedback.output;
-    termMsg.textContent = feedback.message;
-    termHint.textContent = feedback.explanation;
-    termMsg.classList.toggle('ok', feedback.passed);
-    codePassed = feedback.passed;
-    if (feedback.passed) {
-      NEURO_PROG.code[codeId] = { passed: true, ts: Date.now() };
-      saveNeuroProg();
-      passBadge.hidden = false;
-      if (opts.requirePass) {
-        continueRow.hidden = false;
-        gate?.remove();
-      }
+  const setBusy = (on, label) => {
+    busy = on;
+    runBtn.disabled = on;
+    checkBtn.disabled = on;
+    if (label) pyStatus.textContent = label;
+  };
+
+  const appendTerm = (cls, text) => {
+    const line = el(`<div class="neuro-term-line ${cls}"></div>`);
+    line.textContent = text;
+    termLog.appendChild(line);
+    termLog.scrollTop = termLog.scrollHeight;
+  };
+
+  const showRunResult = (result, label) => {
+    appendTerm('cmd', `$ ${label}`);
+    if (result.stdout) appendTerm('out', result.stdout.trimEnd());
+    if (result.stderr) appendTerm('err', result.stderr.trimEnd());
+    if (!result.stdout && !result.stderr) appendTerm('muted', '(no output)');
+  };
+
+  const markPassed = () => {
+    codePassed = true;
+    NEURO_PROG.code[codeId] = { passed: true, ts: Date.now() };
+    saveNeuroProg();
+    passBadge.hidden = false;
+    if (opts.requirePass) {
+      continueRow.hidden = false;
+      gate?.remove();
     }
   };
 
-  sandbox.querySelector('[data-run-check]').addEventListener('click', runCheck);
+  const runCode = async () => {
+    if (busy) return;
+    setBusy(true, 'Running…');
+    termMsg.textContent = 'Executing Python 3…';
+    try {
+      const result = await runPythonCode(draft.value, {
+        onStatus: (s) => { pyStatus.textContent = s; },
+      });
+      showRunResult(result, 'python task.py');
+      termMsg.textContent = result.ok ? 'Run complete.' : 'Run failed — read stderr above.';
+      termMsg.classList.toggle('ok', result.ok);
+      termMsg.classList.toggle('bad', !result.ok);
+      pyStatus.textContent = result.ok ? 'Python ready' : 'Python error';
+    } catch (e) {
+      appendTerm('err', e?.message || String(e));
+      termMsg.textContent = 'Could not load Python runtime.';
+      termMsg.classList.add('bad');
+      pyStatus.textContent = 'Runtime error';
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const checkCode = async () => {
+    if (busy) return;
+    setBusy(true, 'Checking…');
+    termMsg.textContent = 'Running Check against reference solution…';
+    try {
+      const feedback = await neuroCodeEvaluateOJT(draft.value, lesson, (s) => {
+        pyStatus.textContent = s;
+      });
+      if (feedback.stdout || feedback.stderr) {
+        showRunResult({
+          ok: !feedback.stderr || feedback.passed,
+          stdout: feedback.stdout,
+          stderr: feedback.stderr,
+        }, 'python task.py  # check');
+      }
+      if (feedback.targetOutput && !feedback.passed) {
+        appendTerm('muted', `# reference stdout:\n${feedback.targetOutput.trim()}`);
+      }
+      termMsg.textContent = feedback.message;
+      termHint.textContent = feedback.explanation;
+      termMsg.classList.toggle('ok', feedback.passed);
+      termMsg.classList.toggle('bad', !feedback.passed);
+      pyStatus.textContent = feedback.passed ? 'Check passed' : 'Check failed';
+      if (feedback.passed) markPassed();
+    } catch (e) {
+      appendTerm('err', e?.message || String(e));
+      termMsg.textContent = 'Check failed — runtime unavailable.';
+      termMsg.classList.add('bad');
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  runBtn.addEventListener('click', runCode);
+  checkBtn.addEventListener('click', checkCode);
+  sandbox.querySelector('[data-reset-code]').addEventListener('click', () => {
+    draft.value = starterCode;
+    appendTerm('muted', '# reset to starter code');
+  });
   sandbox.querySelector('[data-predict-out]').addEventListener('click', e => {
     const on = e.target.textContent.includes('Hide');
     e.target.textContent = on ? 'Predict output' : 'Hide expected output';
@@ -538,8 +630,8 @@ function mountNeuroCodeSandbox(lesson, codeId, opts, shell) {
   });
   sandbox.querySelector('[data-load-sol]').addEventListener('click', () => {
     draft.value = (lesson.solution || '').trim();
-    termOut.textContent = 'Solution loaded. Run / Check when you are ready.';
-    termMsg.textContent = 'Read the solution as an annotated worked answer, then check it against the expected output.';
+    appendTerm('muted', '# solution loaded into editor');
+    termMsg.textContent = 'Solution loaded. Run, then Check when ready.';
     termHint.textContent = guidance.successExplanation;
   });
   sandbox.querySelector('[data-show-hint]').addEventListener('click', e => {
@@ -607,7 +699,7 @@ function renderNeuroCodeLab() {
       <button class="backbtn topback" id="neback">&larr; Neuroengineering</button>
       <span class="neuro-eyebrow">NeuroCode Lab</span>
       <h1 class="neuro-h1">Guided code practice.</h1>
-      <p class="neuro-lede">Twelve beginner Python exercises wired to neuroengineering concepts. Run / Check in the sandbox &mdash; not a full runtime, but the same guided flow as the Mac Atlas app.</p>
+      <p class="neuro-lede">Twelve OJT Python tickets wired to neuroengineering workflows. Real Python 3 in-browser &mdash; run code, read stdout, pass Check against the reference.</p>
       <div class="neuro-rows" id="necodelab"></div>
     </section>
   </main>`);
