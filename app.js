@@ -53,6 +53,7 @@ const SECTION_INFO = {
 const APP_VERSION = '1.8.3';
 const X_HANDLE = 'kevin__vigil';
 const X_URL = 'https://x.com/kevin__vigil';
+const X_UPDATES_COPY = `Constant Cortex updates on X &middot; <strong>@${X_HANDLE}</strong> &rarr;`;
 const X_SVG = '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>';
 // Logo mark — matches the favicon (dark square + white cross) so the brand reads as one system.
 const MARK_SVG = '<svg class="wm-glyph" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" fill="currentColor"/><path d="M14 8h4v6h6v4h-6v6h-4v-6H8v-4h6z" fill="#fff"/></svg>';
@@ -366,7 +367,7 @@ function topbar(active) {
     </nav>
     <div class="bar-right">
       <button class="navlink special ${active === 'neuro' ? 'active' : ''}" data-go="neuro" title="Neuroengineering"><svg class="neuro-ico" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2L17 6V14L10 18L3 14V6Z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span class="neuro-label">Neuro<span class="nl-rest">engineering</span></span></button>
-      ${stat ? `<span class="topstat">${stat}</span>` : ''}<a class="xlink" href="${X_URL}" target="_blank" rel="noopener" title="Follow @${X_HANDLE} on X for updates" aria-label="Follow on X">${X_SVG}</a><button class="acctbtn" data-acct hidden>Sign in</button><button class="ver${hasUnseenUpdate() ? ' ver-hasnew' : ''}" data-go="updates" title="What's new">v${APP_VERSION}</button>
+      ${stat ? `<span class="topstat">${stat}</span>` : ''}<a class="xlink" href="${X_URL}" target="_blank" rel="noopener" title="Constant Cortex updates on X · @${X_HANDLE}" aria-label="Constant Cortex updates on X · @${X_HANDLE}">${X_SVG}</a><button class="acctbtn" data-acct hidden>Sign in</button><button class="ver${hasUnseenUpdate() ? ' ver-hasnew' : ''}" data-go="updates" title="What's new">v${APP_VERSION}</button>
     </div>
   </header>`);
   root.querySelector('.wordmark').addEventListener('click', e => { e.preventDefault(); renderMission(); });
@@ -434,7 +435,7 @@ function showUpdateModal() {
       <h3 id="upd-modal-title" class="label">What&rsquo;s new</h3>
       <p class="upd-modal-date">${esc(rel.date)}</p>
       <ul class="upd-modal-list">${rel.items.map(i => `<li>${esc(i)}</li>`).join('')}</ul>
-      <a class="upd-xlink" href="${X_URL}" target="_blank" rel="noopener">${X_SVG}<span>Constant Cortex updates on X &middot; <strong>@${X_HANDLE}</strong> &rarr;</span></a>
+      <a class="upd-xlink" href="${X_URL}" target="_blank" rel="noopener">${X_SVG}<span class="upd-xlink-txt">${X_UPDATES_COPY}</span></a>
       <div class="fbmodal-btns upd-modal-btns">
         <button type="button" class="btn" id="upd-log">Full changelog</button>
         <button type="button" class="btn btn-solid" id="upd-got">Got it</button>
@@ -902,7 +903,7 @@ function renderUpdates() {
       <h2>${esc(latest.title)}</h2>
       <p class="upd-featured-date">${esc(latest.date)}</p>
       <ul class="upd-featured-list">${latest.items.map(i => `<li>${esc(i)}</li>`).join('')}</ul>
-      <a class="upd-xlink" href="${X_URL}" target="_blank" rel="noopener">${X_SVG}<span>Constant Cortex updates on X &middot; <strong>@${X_HANDLE}</strong> &rarr;</span></a>
+      <a class="upd-xlink" href="${X_URL}" target="_blank" rel="noopener">${X_SVG}<span class="upd-xlink-txt">${X_UPDATES_COPY}</span></a>
     </section>` : '';
   const historyBlock = history.length ? `
     <div class="updates-history">

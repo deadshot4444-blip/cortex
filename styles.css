@@ -197,6 +197,13 @@ button:focus-visible, .opt:focus-visible { outline: 1px solid var(--text); outli
 .upd-modal .upd-xlink { margin-top: 18px; width: 100%; justify-content: flex-start; }
 .upd-modal-btns { justify-content: space-between; margin-top: 20px; }
 .upd-modal-btns .btn-solid { min-width: 108px; }
+@media (max-width: 600px) {
+  .fbmodal-back { padding: 16px; align-items: flex-end; }
+  .upd-modal { padding: 22px 18px 20px; max-width: none; }
+  .upd-modal-btns { flex-direction: column-reverse; gap: 10px; }
+  .upd-modal-btns .btn { width: 100%; text-align: center; min-height: 44px; }
+  .upd-modal-btns .btn-solid { min-width: 0; }
+}
 
 /* ---------- case view ---------- */
 
@@ -868,13 +875,19 @@ button.ver.ver-hasnew::after {
 .upd-featured-list { margin: 18px 0 0; padding-left: 18px; }
 .upd-featured-list li { font-size: 15px; line-height: 1.62; color: var(--body); margin-bottom: 8px; }
 .upd-xlink {
-  display: inline-flex; align-items: center; gap: 10px; margin-top: 22px;
+  display: flex; align-items: flex-start; gap: 10px; margin-top: 22px;
   font-family: var(--mono); font-size: 11px; letter-spacing: .05em; color: var(--text);
   text-decoration: none; border: 1px solid var(--line-bright); padding: 11px 14px;
-  transition: border-color .12s, background .12s;
+  transition: border-color .12s, background .12s; width: 100%; box-sizing: border-box;
 }
+.upd-xlink svg { flex: 0 0 auto; margin-top: 1px; }
+.upd-xlink-txt { flex: 1 1 auto; min-width: 0; line-height: 1.5; white-space: normal; word-break: break-word; }
 .upd-xlink:hover { border-color: var(--text); background: var(--bg); }
 .upd-xlink strong { font-weight: 600; letter-spacing: .02em; }
+@media (max-width: 600px) {
+  .upd-xlink { font-size: 10.5px; padding: 12px 14px; }
+  .upd-featured .upd-xlink { margin-top: 18px; }
+}
 .updates-history { margin-top: 28px; }
 .updates-history > .label { display: block; margin-bottom: 12px; }
 .updates-list { margin-top: 0; border-top: 1px solid var(--line); }
