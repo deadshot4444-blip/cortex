@@ -50,7 +50,7 @@ const SECTION_INFO = {
     desc: 'Guided, Socratic study sessions that train the skill beneath every other skill — how to question, reason, and remember. Metacognition and proven learning technique, applied directly to medicine.',
   },
 };
-const APP_VERSION = '1.8.0';
+const APP_VERSION = '1.8.1';
 // Logo mark — matches the favicon (dark square + white cross) so the brand reads as one system.
 const MARK_SVG = '<svg class="wm-glyph" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" fill="currentColor"/><path d="M14 8h4v6h6v4h-6v6h-4v-6H8v-4h6z" fill="#fff"/></svg>';
 
@@ -108,6 +108,72 @@ function saveProgress() { safeSet('cs-progress', JSON.stringify(store.progress))
 function saveCases() { safeSet('cs-cases', JSON.stringify(store.cases)); }
 function saveHistory() { safeSet('cs-history', JSON.stringify(store.history.slice(0, 400))); }
 function saveStreak() { safeSet('cs-streak', JSON.stringify(store.streak)); }
+
+const SECTION_SCRIPTS = {
+  anatomy: ['anatomy.js?v=35'],
+  reference: ['reference.js?v=38', 'ekg.js?v=32'],
+  socrates: ['socrates.js?v=39'],
+};
+const _scriptLoads = {};
+function loadScript(src) {
+  if (_scriptLoads[src]) return _scriptLoads[src];
+  _scriptLoads[src] = new Promise((resolve, reject) => {
+    const s = document.createElement('script');
+    s.src = src;
+    s.onload = () => resolve();
+    s.onerror = () => reject(new Error('load ' + src));
+    document.head.appendChild(s);
+  });
+  return _scriptLoads[src];
+}
+async function ensureSection(key) {
+  const files = SECTION_SCRIPTS[key];
+  if (!files) return;
+  for (const f of files) await loadScript(f);
+}
+
+function clearClinicalProgress() {
+  store.progress = {}; store.cases = {}; store.history = [];
+  store.streak = { current: 0, longest: 0, lastDate: null };
+  saveProgress(); saveCases(); saveHistory(); saveStreak();
+}
+function clearMcatProgress() {
+  if (typeof window.resetMcatState === 'function') window.resetMcatState();
+  else {
+    const keys = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k && k.startsWith('cs-mcat')) keys.push(k);
+    }
+    keys.forEach(k => { try { localStorage.removeItem(k); } catch {} });
+  }
+}
+function clearPomoProgress() {
+  if (typeof window.resetPomoState === 'function') window.resetPomoState();
+  else safeSet('cs-pomo', JSON.stringify({ mode: 'focus', running: false, deadline: 0, remainMs: 1500000, focusMin: 25, breakMin: 5, rounds: 0, totalFocusMs: 0, totalBreakMs: 0, startedTs: 0 }));
+}
+
+function openResetProgress(onDone) {
+  const m = el(`<div class="modal" id="rst"><div class="modal-box">
+    <div class="modal-head"><span class="label">Reset progress</span></div>
+    <p class="cfx-msg">Choose what to clear on this device. Signed-in accounts will sync the reset. This cannot be undone.</p>
+    <div class="endbtns cfx-btns rst-btns">
+      <button class="btn" id="rst-clinical">Clinical scenarios</button>
+      <button class="btn" id="rst-mcat">MCAT prep</button>
+      <button class="btn btn-solid" id="rst-all">Everything</button>
+      <button class="btn" id="rst-cancel">Cancel</button>
+    </div>
+  </div></div>`);
+  const close = () => { m.remove(); document.removeEventListener('keydown', onKey); };
+  const onKey = e => { if (e.key === 'Escape') close(); };
+  m.addEventListener('click', e => { if (e.target.id === 'rst') close(); });
+  m.querySelector('#rst-cancel').addEventListener('click', close);
+  m.querySelector('#rst-clinical').addEventListener('click', () => { clearClinicalProgress(); close(); onDone(); });
+  m.querySelector('#rst-mcat').addEventListener('click', () => { clearMcatProgress(); close(); onDone(); });
+  m.querySelector('#rst-all').addEventListener('click', () => { clearClinicalProgress(); clearMcatProgress(); clearPomoProgress(); close(); onDone(); });
+  document.addEventListener('keydown', onKey);
+  document.body.appendChild(m);
+}
 
 function prog(key) {
   if (!store.progress[key]) store.progress[key] = { seen: [], answered: 0, correct: 0, xp: 0 };
@@ -280,9 +346,21 @@ function topbar(active) {
   </header>`);
   root.querySelector('.wordmark').addEventListener('click', e => { e.preventDefault(); renderMission(); });
   root.querySelector('[data-go="practice"]').addEventListener('click', renderHome);
-  root.querySelector('[data-go="anatomy"]').addEventListener('click', () => COMING_SOON.has('anatomy') ? renderComingSoon('anatomy') : renderAnatomy());
-  root.querySelector('[data-go="reference"]').addEventListener('click', () => COMING_SOON.has('reference') ? renderComingSoon('reference') : renderReference());
-  root.querySelector('[data-go="socrates"]').addEventListener('click', () => COMING_SOON.has('socrates') ? renderComingSoon('socrates') : renderSocrates());
+  root.querySelector('[data-go="anatomy"]').addEventListener('click', async () => {
+    if (COMING_SOON.has('anatomy')) { renderComingSoon('anatomy'); return; }
+    await ensureSection('anatomy');
+    renderAnatomy();
+  });
+  root.querySelector('[data-go="reference"]').addEventListener('click', async () => {
+    if (COMING_SOON.has('reference')) { renderComingSoon('reference'); return; }
+    await ensureSection('reference');
+    renderReference();
+  });
+  root.querySelector('[data-go="socrates"]').addEventListener('click', async () => {
+    if (COMING_SOON.has('socrates')) { renderComingSoon('socrates'); return; }
+    await ensureSection('socrates');
+    renderSocrates();
+  });
   root.querySelector('[data-go="mcat"]').addEventListener('click', () => { if (typeof renderMCAT === 'function') renderMCAT(); });
   root.querySelector('[data-go="stats"]').addEventListener('click', renderStats);
   root.querySelector('[data-go="utsa"]').addEventListener('click', renderUTSA);
@@ -542,6 +620,18 @@ const PRINCIPLES = [
 
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
+  {
+    date: 'June 17, 2026', version: '1.8.1', tag: 'NEW',
+    title: 'Smarter onboarding & clearer progress',
+    items: [
+      'MCAT "Enter the system" now resumes where you left off, sends new users to the Guide Engine, then drills.',
+      'Hub resume chip on the MCAT landing — one tap back into any in-progress module.',
+      'Stats covers MCAT prep, Focus Timer, and clinical scenarios in one place.',
+      'Reset progress lets you clear clinical, MCAT, or everything — separately.',
+      'XP & streak visible on mobile again; gated sections load on demand for a faster first paint.',
+      'Mission page "Enter the Academy" routes to MCAT; clinical free-note clarifies MCAT stays free forever.',
+    ],
+  },
   {
     date: 'June 17, 2026', version: '1.8.0', tag: 'NEW',
     title: 'Focus Timer (Pomodoro)',
@@ -869,14 +959,7 @@ function renderHome() {
   main.querySelectorAll('[data-scn]').forEach(b => b.addEventListener('click', () => b.dataset.scn === 'review' ? renderReview() : null));
   main.querySelector('#suggest').addEventListener('click', openFeedback);
   main.querySelector('#mixed').addEventListener('click', startMixedCase);
-  main.querySelector('#reset').addEventListener('click', () => {
-    if (confirm('Reset ALL progress, stats, streak and bookmarks?')) {
-      store.progress = {}; store.cases = {}; store.history = []; store.streak = { current: 0, longest: 0, lastDate: null };
-      // write the cleared state through the savers so it persists AND (if signed in) syncs to the cloud
-      saveProgress(); saveCases(); saveHistory(); saveStreak();
-      renderHome();
-    }
-  });
+  main.querySelector('#reset').addEventListener('click', () => openResetProgress(renderHome));
 
   root.appendChild(main);
   setView(root);
@@ -1253,6 +1336,11 @@ function titleFor(id) {
 
 /* ---------- stats ---------- */
 
+function fmtDurMs(ms) {
+  const m = Math.round((ms || 0) / 60000);
+  const h = Math.floor(m / 60);
+  return m > 0 ? (h > 0 ? `${h}h ${m % 60}m` : `${m}m`) : '0m';
+}
 function mcatStatsSnapshot() {
   const log = loadJSON('cs-mcat-log', []);
   const srs = loadJSON('cs-mcat-srs', {});
@@ -1265,11 +1353,19 @@ function mcatStatsSnapshot() {
   const due = vals.filter(r => r && r.reps > 0 && r.due <= now).length;
   return { answered, correct, acc, learned, due, has: answered > 0 || learned > 0 };
 }
+function pomoStatsSnapshot() {
+  const p = loadJSON('cs-pomo', null);
+  if (!p || typeof p !== 'object') return { rounds: 0, focusLabel: '0m', has: false };
+  const rounds = p.rounds || 0;
+  const focusMs = p.totalFocusMs || 0;
+  return { rounds, focusLabel: fmtDurMs(focusMs), has: rounds > 0 || focusMs > 0 };
+}
 
 function renderStats() {
   stopTimer(); session = null;
   const t = totals();
   const ms = mcatStatsSnapshot();
+  const ps = pomoStatsSnapshot();
   const totalCases = Object.values(store.manifest).reduce((a, b) => a + b, 0);
 
   // 21-day activity strip from history
@@ -1304,6 +1400,15 @@ function renderStats() {
         <div class="metric"><span class="m-num" data-countup="${ms.due}">${ms.due || '&mdash;'}</span><span class="m-lab">Due now</span><span class="m-sub">flashcards ready</span></div>
       </div>
       ${ms.has ? '<div class="stat-cta"><button class="btn btn-solid" id="stats-mcat">Open MCAT &rarr;</button></div>' : '<p class="stat-empty">No MCAT activity yet &mdash; start with drills or flashcards.</p>'}
+    </div>
+
+    <div class="statblock">
+      <span class="label">Focus timer</span>
+      <div class="metrics metrics-2">
+        <div class="metric"><span class="m-num" data-countup="${ps.rounds}">${ps.rounds || '&mdash;'}</span><span class="m-lab">Rounds done</span><span class="m-sub">this session</span></div>
+        <div class="metric"><span class="m-num">${esc(ps.focusLabel)}</span><span class="m-lab">Total focused</span><span class="m-sub">pomodoro time</span></div>
+      </div>
+      ${ps.has ? '<div class="stat-cta"><button class="btn" id="stats-pomo">Open Focus Timer &rarr;</button></div>' : '<p class="stat-empty">No focus sessions yet &mdash; start a round under Explore.</p>'}
     </div>
 
     <div class="statblock">
@@ -1347,6 +1452,8 @@ function renderStats() {
 
   const mcatBtn = main.querySelector('#stats-mcat');
   if (mcatBtn) mcatBtn.addEventListener('click', () => { if (typeof renderMCAT === 'function') renderMCAT(); });
+  const pomoBtn = main.querySelector('#stats-pomo');
+  if (pomoBtn) pomoBtn.addEventListener('click', () => { if (typeof renderPomodoro === 'function') renderPomodoro(); });
 
   root.appendChild(main);
   setView(root);

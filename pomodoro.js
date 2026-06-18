@@ -202,8 +202,16 @@ function renderPomodoro() {
   setView(root);
   pomoEnsureTick(); pomoSync();
 }
+function resetPomoState() {
+  if (pomoTimerId) clearInterval(pomoTimerId);
+  pomoTimerId = null;
+  Object.assign(pomo, POMO_DEFAULTS);
+  pomoSave();
+  pomoSync();
+}
 window.renderPomodoro = renderPomodoro;
 window.pomoSync = pomoSync;
+window.resetPomoState = resetPomoState;
 
 /* ---------- init: resume a session that was running ---------- */
 (function pomoInit() {

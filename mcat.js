@@ -110,7 +110,7 @@ function resumeBtn(key) {
   btn.addEventListener('click', () => { try { spec.resume(r); } catch { clearResume(key); renderMCAT(); } });
   return btn;
 }
-function hubResumeChip() {
+function findHubResume() {
   let best = null;
   for (const spec of RESUME_SPECS) {
     const r = loadResume(spec.key);
@@ -121,12 +121,24 @@ function hubResumeChip() {
       if (!best || saved > best.saved) best = { spec, r, saved, lbl: spec.label(r) };
     } catch { clearResume(spec.key); }
   }
+  return best;
+}
+function hubResumeChip() {
+  const best = findHubResume();
   if (!best) return null;
   const wrap = el('<div class="mcat-resume-hint"></div>');
   const btn = el(`<button class="btn btn-resume" id="hub-resume">&#8634; Resume &middot; ${best.spec.mod} &middot; ${best.lbl}</button>`);
   btn.addEventListener('click', () => { try { best.spec.resume(best.r); } catch { clearResume(best.spec.key); renderMCAT(); } });
   wrap.appendChild(btn);
   return wrap;
+}
+function enterMCAT() {
+  const best = findHubResume();
+  if (best) {
+    try { best.spec.resume(best.r); return; } catch { clearResume(best.spec.key); }
+  }
+  if (!guidePlan()) { renderGuide(); return; }
+  renderDrillSetup();
 }
 
 /* ---------- shared in-task header (breadcrumb + safe exit) ---------- */
@@ -268,9 +280,8 @@ async function renderMCAT() {
     gWrap.appendChild(sec);
   });
 
-  const enter = () => renderDrillSetup();
-  main.querySelector('#mc-enter').addEventListener('click', enter);
-  main.querySelector('#mc-enter2').addEventListener('click', enter);
+  main.querySelector('#mc-enter').addEventListener('click', enterMCAT);
+  main.querySelector('#mc-enter2').addEventListener('click', enterMCAT);
   main.querySelector('#mc-method').addEventListener('click', () => main.querySelector('#mcat-method').scrollIntoView({ behavior: 'smooth', block: 'start' }));
   const hubResume = hubResumeChip();
   if (hubResume) main.querySelector('.mcat-hero').appendChild(hubResume);
@@ -1106,4 +1117,21 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
+function resetMcatState() {
+  Object.keys(SRS).forEach(k => delete SRS[k]);
+  Object.keys(QHIST).forEach(k => delete QHIST[k]);
+  QLOG.length = 0;
+  MCAT.loaded = false;
+  MCAT.outline = null; MCAT.cards = []; MCAT.questions = []; MCAT.cars = []; MCAT.sci = [];
+  RESUME_SPECS.forEach(s => clearResume(s.key));
+  if (simTimerId) clearInterval(simTimerId);
+  simTimerId = null; sim = null; drill = null; flash = null; cars = null; plab = null;
+  const keys = [];
+  for (let i = 0; i < localStorage.length; i++) {
+    const k = localStorage.key(i);
+    if (k && k.startsWith('cs-mcat')) keys.push(k);
+  }
+  keys.forEach(k => { try { localStorage.removeItem(k); } catch {} });
+}
 window.renderMCAT = renderMCAT;
+window.resetMcatState = resetMcatState;

@@ -113,6 +113,9 @@ button:focus-visible, .opt:focus-visible { outline: 1px solid var(--text); outli
 .mcat-resume-hint { margin-top: 18px; }
 .stat-cta { margin-top: 18px; }
 .stat-empty { margin-top: 14px; font-size: 13.5px; color: var(--dim); line-height: 1.55; }
+.metrics-2 { grid-template-columns: repeat(2, 1fr); }
+.rst-btns { flex-wrap: wrap; }
+.rst-btns .btn { flex: 1 1 140px; }
 
 .controls {
   display: flex; gap: 40px; flex-wrap: wrap; align-items: flex-end;
@@ -1041,7 +1044,7 @@ button:focus-visible, a:focus-visible, textarea:focus-visible, input:focus-visib
 
 /* nav v1.6: compact on small screens */
 @media (max-width: 720px) {
-  .topbar.mainbar .topstat { display: none; }
+  .topbar.mainbar .topstat { display: block; font-size: 9.5px; letter-spacing: .06em; max-width: 84px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex-shrink: 1; min-width: 0; }
   .navlink.special .nl-rest { display: none; }
   .topbar.mainbar .navlink.special { padding: 6px 12px; gap: 8px; }
   .bar-right { gap: 10px; }
