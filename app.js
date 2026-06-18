@@ -50,7 +50,10 @@ const SECTION_INFO = {
     desc: 'Guided, Socratic study sessions that train the skill beneath every other skill — how to question, reason, and remember. Metacognition and proven learning technique, applied directly to medicine.',
   },
 };
-const APP_VERSION = '1.8.1';
+const APP_VERSION = '1.8.2';
+const X_HANDLE = 'kevin__vigil';
+const X_URL = 'https://x.com/kevin__vigil';
+const X_SVG = '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>';
 // Logo mark — matches the favicon (dark square + white cross) so the brand reads as one system.
 const MARK_SVG = '<svg class="wm-glyph" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" fill="currentColor"/><path d="M14 8h4v6h6v4h-6v6h-4v-6H8v-4h6z" fill="#fff"/></svg>';
 
@@ -341,7 +344,7 @@ function topbar(active) {
     </nav>
     <div class="bar-right">
       <button class="navlink special ${active === 'neuro' ? 'active' : ''}" data-go="neuro" title="Neuroengineering"><svg class="neuro-ico" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2L17 6V14L10 18L3 14V6Z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span class="neuro-label">Neuro<span class="nl-rest">engineering</span></span></button>
-      ${stat ? `<span class="topstat">${stat}</span>` : ''}<a class="xlink" href="https://x.com/kevin__vigil" target="_blank" rel="noopener" title="Follow @kevin__vigil on X for updates" aria-label="Follow on X"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a><button class="acctbtn" data-acct hidden>Sign in</button><button class="ver" data-go="updates" title="What's new">v${APP_VERSION}</button>
+      ${stat ? `<span class="topstat">${stat}</span>` : ''}<a class="xlink" href="${X_URL}" target="_blank" rel="noopener" title="Follow @${X_HANDLE} on X for updates" aria-label="Follow on X">${X_SVG}</a><button class="acctbtn" data-acct hidden>Sign in</button><button class="ver${hasUnseenUpdate() ? ' ver-hasnew' : ''}" data-go="updates" title="${hasUnseenUpdate() ? `What's new in v${APP_VERSION}` : 'What\'s new'}">v${APP_VERSION}</button>
     </div>
   </header>`);
   root.querySelector('.wordmark').addEventListener('click', e => { e.preventDefault(); renderMission(); });
@@ -385,7 +388,17 @@ function topbar(active) {
   return root;
 }
 
-function setView(node) { $app.replaceChildren(node); window.scrollTo(0, 0); setupCountUps(node); revealOnScroll(node); if (window.refreshAuthUI) window.refreshAuthUI(); if (window.pomoSync) window.pomoSync(); }
+function seenVersion() { try { return localStorage.getItem('cs-seen-ver') || ''; } catch { return ''; } }
+function markSeenVersion() { safeSet('cs-seen-ver', APP_VERSION); updateVerBadges(); }
+function hasUnseenUpdate() { return seenVersion() !== APP_VERSION; }
+function updateVerBadges() {
+  document.querySelectorAll('button.ver').forEach(btn => {
+    btn.classList.toggle('ver-hasnew', hasUnseenUpdate());
+    btn.title = hasUnseenUpdate() ? `What's new in v${APP_VERSION}` : "What's new";
+  });
+}
+
+function setView(node) { $app.replaceChildren(node); window.scrollTo(0, 0); setupCountUps(node); revealOnScroll(node); if (window.refreshAuthUI) window.refreshAuthUI(); if (window.pomoSync) window.pomoSync(); updateVerBadges(); }
 
 function renderComingSoon(key) {
   stopTimer(); session = null;
@@ -621,6 +634,15 @@ const PRINCIPLES = [
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
   {
+    date: 'June 17, 2026', version: '1.8.2', tag: 'NEW',
+    title: 'What\u2019s new, front and center',
+    items: [
+      'Tap the version number anytime — the latest release shows first, before the full changelog.',
+      'A dot on the version chip means you haven\u2019t seen the newest update yet.',
+      '@kevin__vigil on X is right there on the update page for ship notes and behind-the-scenes.',
+    ],
+  },
+  {
     date: 'June 17, 2026', version: '1.8.1', tag: 'NEW',
     title: 'Smarter onboarding & clearer progress',
     items: [
@@ -782,30 +804,51 @@ const CHANGELOG = [
   },
 ];
 
+function changelogEntry(c, featured) {
+  return `<article class="upd ${featured ? 'upd-featured-item' : ''} ${c.tag === 'SOON' ? 'upd-soon' : ''}">
+    <div class="upd-meta">
+      <span class="upd-date">${esc(c.date)}</span>
+      ${c.version ? `<span class="upd-ver">v${esc(c.version)}</span>` : ''}
+      <span class="upd-tag tag-${c.tag.toLowerCase()}">${esc(c.tag)}</span>
+    </div>
+    <div class="upd-body">
+      <h3>${esc(c.title)}</h3>
+      <ul>${c.items.map(i => `<li>${esc(i)}</li>`).join('')}</ul>
+    </div>
+  </article>`;
+}
+
 function renderUpdates() {
   stopTimer(); session = null;
   const root = el('<div></div>');
   root.appendChild(topbar('updates'));
-  const entries = CHANGELOG.map(c => `
-    <article class="upd ${c.tag === 'SOON' ? 'upd-soon' : ''}">
-      <div class="upd-meta">
-        <span class="upd-date">${esc(c.date)}</span>
-        ${c.version ? `<span class="upd-ver">v${esc(c.version)}</span>` : ''}
-        <span class="upd-tag tag-${c.tag.toLowerCase()}">${esc(c.tag)}</span>
+  const latest = CHANGELOG[0];
+  const showFeatured = latest && latest.version && latest.tag !== 'SOON';
+  const history = showFeatured ? CHANGELOG.slice(1) : CHANGELOG;
+  const featured = showFeatured ? `
+    <section class="upd-featured cornerframe" id="whats-new">
+      <div class="upd-featured-top">
+        <span class="label">What&rsquo;s new &middot; v${esc(latest.version)}</span>
+        <span class="upd-tag tag-${latest.tag.toLowerCase()}">${esc(latest.tag)}</span>
       </div>
-      <div class="upd-body">
-        <h3>${esc(c.title)}</h3>
-        <ul>${c.items.map(i => `<li>${esc(i)}</li>`).join('')}</ul>
-      </div>
-    </article>`).join('');
+      <h2>${esc(latest.title)}</h2>
+      <p class="upd-featured-date">${esc(latest.date)}</p>
+      <ul class="upd-featured-list">${latest.items.map(i => `<li>${esc(i)}</li>`).join('')}</ul>
+      <a class="upd-xlink" href="${X_URL}" target="_blank" rel="noopener">${X_SVG}<span>Follow <strong>@${X_HANDLE}</strong> on X for ship notes &amp; behind-the-scenes &rarr;</span></a>
+    </section>` : '';
+  const historyBlock = history.length ? `
+    <div class="updates-history">
+      <span class="label">${showFeatured ? 'Earlier updates' : 'All updates'}</span>
+      <div class="updates-list" data-reveal-stagger>${history.map(c => changelogEntry(c, false)).join('')}</div>
+    </div>` : '';
   const main = el(`<main class="panel updates">
     <div class="updates-head">
-      <span class="label">What's new</span>
-      <h1>Updates &amp; changelog.</h1>
-      <p class="sub">Cortex is actively built and maintained. Here&rsquo;s everything that&rsquo;s shipped &mdash; newest first.</p>
-      <p class="updates-x">Frequent updates &amp; behind-the-scenes on X &mdash; <a href="https://x.com/kevin__vigil" target="_blank" rel="noopener">@kevin__vigil</a></p>
+      <span class="label">Changelog</span>
+      <h1>Updates.</h1>
+      <p class="sub">Cortex ships often. ${showFeatured ? 'Latest release is up top.' : 'Newest first.'}</p>
     </div>
-    <div class="updates-list" data-reveal-stagger>${entries}</div>
+    ${featured}
+    ${historyBlock}
     <div class="endbtns">
       <button class="btn btn-solid" id="up-mcat">MCAT prep</button>
       <button class="btn" id="up-cases">Clinical scenarios</button>
@@ -818,6 +861,7 @@ function renderUpdates() {
   root.appendChild(main);
   root.appendChild(siteFooter());
   setView(root);
+  markSeenVersion();
 }
 
 function renderMission() {
