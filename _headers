@@ -13,6 +13,11 @@
   Cache-Control: public, max-age=86400
   Access-Control-Allow-Origin: *
 
+/og-v4.jpg
+  Content-Type: image/jpeg
+  Cache-Control: public, max-age=86400
+  Access-Control-Allow-Origin: *
+
 /social-card.png
   Content-Type: image/png
   Cache-Control: public, max-age=86400

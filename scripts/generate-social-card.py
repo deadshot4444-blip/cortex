@@ -14,6 +14,7 @@ OUT = ROOT / "social-card.png"
 OG_JPG = ROOT / "og.jpg"
 OG_V2 = ROOT / "og-v2.jpg"
 OG_V3 = ROOT / "og-v3.jpg"
+OG_V4 = ROOT / "og-v4.jpg"
 VIDEO = ROOT / "assets" / "neuro-bg.mp4"
 FRAME = ROOT / "scripts" / ".og-frame.jpg"
 
@@ -141,21 +142,33 @@ def draw_outlined_pill(
     text: str,
     font: ImageFont.FreeTypeFont,
     *,
-    right: int,
-    top: int,
+    cx: int,
+    cy: int,
     pad_x: int,
     pad_y: int,
     outline: tuple[int, int, int],
-    fill: tuple[int, int, int],
+    text_fill: tuple[int, int, int],
+    bg_fill: tuple[int, int, int] | None,
     border: int,
-) -> None:
-    bbox = draw.textbbox((0, 0), text, font=font)
+    radius: int = 0,
+) -> tuple[int, int, int, int]:
+    """Draw a pill centered on (cx, cy). Returns the outer bounding box."""
+    bbox = draw.textbbox((0, 0), text, font=font, anchor="mm")
     tw, th = bbox[2] - bbox[0], bbox[3] - bbox[1]
-    x1, y1 = right, top
-    x0, y0 = right - (tw + pad_x * 2), top
-    y1 = top + th + pad_y * 2
-    draw.rectangle((x0, y0, x1, y1), outline=outline, width=border)
-    draw.text(((x0 + x1) // 2, (y0 + y1) // 2), text, font=font, fill=fill, anchor="mm")
+    pill_w = tw + pad_x * 2
+    pill_h = th + pad_y * 2
+    x0 = cx - pill_w // 2
+    y0 = cy - pill_h // 2
+    x1 = x0 + pill_w
+    y1 = y0 + pill_h
+    box = (x0, y0, x1, y1)
+    if radius > 0:
+        draw.rounded_rectangle(box, radius=radius, outline=outline, fill=bg_fill, width=border)
+    else:
+        draw.rectangle(box, outline=outline, fill=bg_fill, width=border)
+    # Nudge up slightly so uppercase labels look optically centered in the box.
+    draw.text((cx, cy - max(1, border // 4)), text, font=font, fill=text_fill, anchor="mm")
+    return box
 
 
 def wrap_text(draw: ImageDraw.ImageDraw, text: str, font: ImageFont.FreeTypeFont, max_w: int) -> list[str]:
@@ -210,21 +223,25 @@ def render_card() -> Image.Image:
         anchor="lm",
     )
 
-    pill_bbox = draw.textbbox((0, 0), "FREE FOREVER", font=font_pill)
-    pill_pad_x, pill_pad_y = 18 * s, 10 * s
-    pill_h = (pill_bbox[3] - pill_bbox[1]) + pill_pad_y * 2
+    pill_pad_x, pill_pad_y = 20 * s, 11 * s
     mark_cy = header_y + mark_size // 2
+    pill_label = "FREE FOREVER"
+    pill_bbox = draw.textbbox((0, 0), pill_label, font=font_pill, anchor="mm")
+    pill_w = (pill_bbox[2] - pill_bbox[0]) + pill_pad_x * 2
+    pill_cx = rw - margin - pill_w // 2
     draw_outlined_pill(
         draw,
-        "FREE FOREVER",
+        pill_label,
         font_pill,
-        right=rw - margin,
-        top=mark_cy - pill_h // 2,
+        cx=pill_cx,
+        cy=mark_cy,
         pad_x=pill_pad_x,
         pad_y=pill_pad_y,
         outline=GREEN,
-        fill=GREEN,
+        text_fill=WHITE,
+        bg_fill=GREEN,
         border=2 * s,
+        radius=3 * s,
     )
 
     head_x = margin
@@ -263,11 +280,13 @@ def main() -> int:
     img.save(OG_JPG, **jpg_opts)
     img.save(OG_V2, **jpg_opts)
     img.save(OG_V3, **jpg_opts)
+    img.save(OG_V4, **jpg_opts)
 
     print(f"Wrote {OUT} ({OUT.stat().st_size} bytes)")
     print(f"Wrote {OG_JPG} ({OG_JPG.stat().st_size} bytes)")
     print(f"Wrote {OG_V2} ({OG_V2.stat().st_size} bytes)")
     print(f"Wrote {OG_V3} ({OG_V3.stat().st_size} bytes)")
+    print(f"Wrote {OG_V4} ({OG_V4.stat().st_size} bytes)")
     return 0
 
 
