@@ -872,9 +872,11 @@ button.ver.ver-hasnew::after {
 }
 .upd-xlink:hover { border-color: var(--text); background: var(--bg); }
 .upd-xlink strong { font-weight: 600; letter-spacing: .02em; }
-.updates-history { margin-top: 44px; }
-.updates-history > .label { display: block; margin-bottom: 16px; }
+.updates-history { margin-top: 28px; }
+.updates-history > .label { display: block; margin-bottom: 12px; }
 .updates-list { margin-top: 0; border-top: 1px solid var(--line); }
+.updates-list--instant > .upd { opacity: 1; transform: none; }
+.updates .upd-featured { margin-bottom: 4px; }
 .upd { display: grid; grid-template-columns: 150px 1fr; gap: 28px; padding: 26px 0; border-bottom: 1px solid var(--line); }
 .upd-meta { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
 .upd-date { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--dim); }

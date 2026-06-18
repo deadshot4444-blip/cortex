@@ -876,13 +876,13 @@ function renderUpdates() {
   const historyBlock = history.length ? `
     <div class="updates-history">
       <span class="label">${showFeatured ? 'Earlier updates' : 'All updates'}</span>
-      <div class="updates-list" data-reveal-stagger>${history.map(c => changelogEntry(c, false)).join('')}</div>
+      <div class="updates-list updates-list--instant">${history.map(c => changelogEntry(c, false)).join('')}</div>
     </div>` : '';
   const main = el(`<main class="panel updates">
     <div class="updates-head">
       <span class="label">Changelog</span>
       <h1>Updates.</h1>
-      <p class="sub">Cortex ships often. ${showFeatured ? 'Latest release is up top.' : 'Newest first.'}</p>
+      <p class="sub">Full release history &mdash; everything below loads with the page.</p>
     </div>
     ${featured}
     ${historyBlock}
