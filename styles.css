@@ -1113,6 +1113,114 @@ button:focus-visible, a:focus-visible, textarea:focus-visible, input:focus-visib
 .scn-tabs { border-bottom: 0; margin-bottom: 14px; }
 .scn-tabs .tab:first-child { padding-left: 0; }
 
+/* ---------- Clinical Scenarios — Grok polish ---------- */
+.panel.cs-landing { max-width: 980px; }
+.cs-hero { max-width: 740px; padding: 18px 0 6px; position: relative; }
+.cs-hero::before {
+  content: ''; position: absolute; top: -12px; left: 0; right: 0; height: 220px; z-index: -1; pointer-events: none;
+  background-image: radial-gradient(circle, rgba(17, 17, 19, .05) 1px, transparent 1.5px);
+  background-size: 22px 22px;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, transparent 100%);
+}
+.cs-hero h1 { font-size: clamp(33px, 4.8vw, 52px); font-weight: 300; letter-spacing: -.018em; line-height: 1.07; margin-top: 16px; }
+.cs-hero .free-note { margin-top: 22px; }
+.cs-statband { margin: 38px 0 28px; }
+.cs-statband--compact { grid-template-columns: repeat(4, 1fr); margin: 28px 0 24px; }
+
+.cs-config {
+  margin: 28px 0 22px; padding: 20px 22px 18px;
+  border: 1px solid var(--line); background: var(--surface);
+}
+.cs-config > .label { display: block; margin-bottom: 14px; }
+.cs-config .controls { margin: 0; }
+
+.cs-mixed { margin-bottom: 28px; }
+.cs-specialties { margin-top: 8px; }
+.cs-specialties .mcat-group-head { margin-bottom: 16px; }
+
+.cs-grid { gap: 14px; background: transparent; border: 0; }
+.cs-card {
+  position: relative; border: 1px solid var(--line); min-height: 132px; gap: 10px;
+  transition: border-color .12s, background .12s, transform .12s;
+}
+.cs-card:hover:not(:disabled) {
+  border-color: var(--line-bright); background: var(--surface); transform: translateY(-2px); box-shadow: none;
+}
+.cs-card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.cs-card .mod-go { position: static; flex: 0 0 auto; }
+.cs-card:hover:not(:disabled) .mod-go { color: var(--text); transform: translateX(3px); }
+.cs-card-foot { margin-top: auto; display: flex; flex-direction: column; gap: 8px; }
+.cs-card-foot .done {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--faint);
+}
+
+.cs-case { max-width: 800px; }
+.cs-case-head { margin-bottom: 8px; }
+.cs-case-head h2 { margin-top: 14px; font-size: clamp(24px, 4vw, 30px); font-weight: 400; letter-spacing: -.01em; }
+.cs-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.cs-chip {
+  font-family: var(--mono); font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--dim); border: 1px solid var(--line-bright); padding: 5px 10px;
+}
+.cs-chip--diff { color: var(--text); border-color: var(--text); }
+
+.cs-runbar {
+  margin-top: 22px; padding: 14px 16px 16px;
+  border: 1px solid var(--line); background: var(--surface);
+}
+.cs-runbar-meta { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+.cs-runbar-lab { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--dim); }
+.cs-runbar .bar { display: block; height: 3px; background: var(--line); }
+.cs-runbar .bar i { display: block; height: 100%; background: var(--text); transition: width .35s ease; }
+
+.cs-chart {
+  margin-top: 28px; padding: 24px 22px 8px;
+  border: 1px solid var(--line); background: var(--bg);
+}
+.cs-chart .block:first-child { margin-top: 0; }
+.cs-vitals { margin-top: 12px; background: var(--surface); }
+
+.cs-case .stage { padding-top: 8px; }
+.cs-summary { border-top: 0; padding-top: 48px; }
+.cs-scorebox {
+  padding: 22px 22px 18px; border: 1px solid var(--line);
+  background: var(--surface); margin-bottom: 8px;
+}
+.cs-scorebox .label { display: block; }
+.cs-scorebox .score { margin-top: 10px; }
+
+.cs-review .cs-subtabs { border-bottom: 1px solid var(--line); margin-top: 10px; margin-bottom: 0; }
+.cs-review-tabs {
+  margin-top: 18px; padding: 16px 18px 6px;
+  border: 1px solid var(--line); background: var(--surface);
+}
+.cs-review-tabs > .label { display: block; margin-bottom: 4px; }
+.cs-subtabs .tab:first-child { padding-left: 0; }
+.cs-searchbox { margin-top: 16px; }
+.cs-rows {
+  margin-top: 18px; border: 1px solid var(--line);
+  background: var(--bg); min-height: 80px;
+}
+.cs-rows .row:last-child { border-bottom: 0; }
+.cs-row { position: relative; padding: 16px 44px 16px 18px; }
+.cs-row .row-right { gap: 10px; }
+.cs-row .mod-go {
+  position: absolute; right: 16px; top: 50%; transform: translateY(-50%);
+  opacity: 0; transition: opacity .12s, transform .12s;
+}
+.cs-row:hover .mod-go { opacity: 1; transform: translateY(-50%) translateX(3px); }
+.cs-rows .empty { padding: 36px 18px; }
+
+@media (max-width: 780px) {
+  .cs-statband--compact { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .cs-config .controls { gap: 22px; }
+  .home .cs-grid { grid-template-columns: 1fr; }
+}
+
 /* ---------- Neuroengineering: Atlas caption line ---------- */
 .neuro-tagline { margin-top: 14px; font-family: var(--mono); font-size: 13px; letter-spacing: .08em; color: #8f8f96; }
 

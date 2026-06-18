@@ -50,7 +50,7 @@ const SECTION_INFO = {
     desc: 'Guided, Socratic study sessions that train the skill beneath every other skill — how to question, reason, and remember. Metacognition and proven learning technique, applied directly to medicine.',
   },
 };
-const APP_VERSION = '1.8.2';
+const APP_VERSION = '1.8.3';
 const X_HANDLE = 'kevin__vigil';
 const X_URL = 'https://x.com/kevin__vigil';
 const X_SVG = '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>';
@@ -290,6 +290,22 @@ function totals() {
   let casesDone = 0;
   for (const id in store.cases) if (store.cases[id].attempts > 0) casesDone++;
   return { answered, correct, xp, casesDone, acc: answered ? Math.round(100 * correct / answered) : null };
+}
+function clinicalBankTotal() {
+  return Object.values(store.manifest).reduce((a, b) => a + b, 0);
+}
+function clinicalStatBand() {
+  const t = totals();
+  const bank = clinicalBankTotal();
+  const acc = t.acc != null ? `${t.acc}%` : '&mdash;';
+  return [
+    [String(bank || '&mdash;'), 'Cases in the bank'],
+    [String(SPECIALTIES.length), 'Specialties'],
+    [String(t.casesDone), 'Cases completed'],
+    [acc, 'Answer accuracy'],
+    [`${store.streak.current}&#128293;`, 'Day streak'],
+    [t.xp ? t.xp.toLocaleString() : '0', 'Total XP earned'],
+  ];
 }
 
 /* ---------- data ---------- */
@@ -671,6 +687,16 @@ const PRINCIPLES = [
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
   {
+    date: 'June 18, 2026', version: '1.8.3', tag: 'NEW',
+    title: 'Clinical Scenarios \u2014 full Grok polish',
+    items: [
+      'Practice landing rebuilt to match the MCAT console aesthetic \u2014 telemetry stat band, engineering hero, corner-frame panels.',
+      'Specialty cards upgraded with rank telemetry, progress bars, and hover affordances.',
+      'Active case view gets a live progress runbar, framed vitals panel, and tighter stage flow.',
+      'Review hub matches the new visual system \u2014 bordered row list, stat band, unified typography.',
+    ],
+  },
+  {
     date: 'June 17, 2026', version: '1.8.2', tag: 'NEW',
     title: 'What\u2019s new popup',
     items: [
@@ -969,34 +995,46 @@ function renderHome() {
 
   const root = el(`<div></div>`);
   root.appendChild(topbar('practice'));
-  const main = el(`<main class="home">
-    <div class="hero">
-      <h1>Clinical scenarios.</h1>
-      <p class="sub">Interactive cases across ${SPECIALTIES.length} specialties. Pick one &mdash; a random case begins.</p>
+  const stats = clinicalStatBand();
+  const main = el(`<main class="home panel cs-landing">
+    <section class="cs-hero mcat-hero">
+      <span class="mcat-eyebrow">Clinical Scenarios &middot; Interactive cases &middot; Free for now</span>
+      <h1>Think like a clinician.</h1>
+      <p class="mcat-lede">Interactive cases across ${SPECIALTIES.length} specialties &mdash; history, vitals, staged decisions, and pearls. Pick a track or go mixed. A random unseen case begins immediately.</p>
       <p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">Clinical &middot; free for now</span><span class="free-note-txt">Clinical Scenarios may become a membership later. The full MCAT suite stays free forever.</span></p>
-    </div>
+    </section>
+    <div class="mcat-statband cs-statband cornerframe">${stats.map(s => `<div class="mcat-stat"><span class="ms-num" data-countup="${s[0]}">${s[0]}</span><span class="ms-lab">${s[1]}</span></div>`).join('')}</div>
     <div class="tabs scn-tabs">
       <button class="tab active" data-scn="practice">Practice</button>
       <button class="tab" data-scn="review">Review</button>
     </div>
-    <div class="controls">
-      <div class="ctl"><span class="label">Difficulty</span>
-        <div class="modes">
-          ${['all', ...DIFFS].map(d => `<button class="mode ${store.diff === d ? 'active' : ''}" data-diff="${d}">${d === 'all' ? 'All' : d[0].toUpperCase() + d.slice(1)}</button>`).join('')}
+    <div class="cs-config cornerframe">
+      <span class="label">Session config</span>
+      <div class="controls">
+        <div class="ctl"><span class="label">Difficulty</span>
+          <div class="modes">
+            ${['all', ...DIFFS].map(d => `<button class="mode ${store.diff === d ? 'active' : ''}" data-diff="${d}">${d === 'all' ? 'All' : d[0].toUpperCase() + d.slice(1)}</button>`).join('')}
+          </div>
         </div>
-      </div>
-      <div class="ctl"><span class="label">Mode</span>
-        <div class="modes">
-          <button class="mode ${store.mode === 'untimed' ? 'active' : ''}" data-mode="untimed">No timer</button>
-          <button class="mode ${store.mode === 'timed' ? 'active' : ''}" data-mode="timed">Timer</button>
+        <div class="ctl"><span class="label">Mode</span>
+          <div class="modes">
+            <button class="mode ${store.mode === 'untimed' ? 'active' : ''}" data-mode="untimed">No timer</button>
+            <button class="mode ${store.mode === 'timed' ? 'active' : ''}" data-mode="timed">Timer</button>
+          </div>
         </div>
       </div>
     </div>
-    <button class="mixedbtn" id="mixed">
+    <button class="mixedbtn cs-mixed" id="mixed">
       <span class="mx-l">Mixed &mdash; random case from all ${SPECIALTIES.length} specialties</span>
       <span class="mx-r">START &rarr;</span>
     </button>
-    <div class="grid"></div>
+    <section class="cs-specialties">
+      <div class="mcat-group-head">
+        <span class="label">Specialties &middot; ${SPECIALTIES.length} tracks</span>
+        <p>Pick a specialty &mdash; a random unseen case at your difficulty filter starts immediately.</p>
+      </div>
+      <div class="grid cs-grid" data-reveal-stagger></div>
+    </section>
     <div class="homefoot">
       <span class="ghostbtn" style="cursor:default">Progress saved on this device</span>
       <button class="ghostbtn suggestbtn" id="suggest">&#128161; Suggest a feature</button>
@@ -1004,7 +1042,7 @@ function renderHome() {
     </div>
   </main>`);
 
-  const grid = main.querySelector('.grid');
+  const grid = main.querySelector('.cs-grid');
   for (const sp of SPECIALTIES) {
     const count = store.manifest[sp.key] || 0;
     const p = store.progress[sp.key];
@@ -1012,15 +1050,17 @@ function renderHome() {
     const acc = p && p.answered ? Math.round(100 * p.correct / p.answered) : null;
     const xp = p?.xp || 0;
     const rank = rankFor(xp);
-    const left = !count ? 'GENERATING&hellip;' : xp > 0 ? `RANK ${rank.rank} &middot; ${xp.toLocaleString()} XP` : `${count} CASES`;
-    const card = el(`<button class="card" ${count ? '' : 'disabled'}>
-      <span class="name">${esc(sp.name)}</span>
-      <span>
-        <span class="meta">
-          <span>${left}</span>
-          <span class="done">${done ? `${done}/${count}${acc !== null ? ` &middot; ${acc}%` : ''}` : ''}</span>
-        </span>
-        <span class="bar"><i style="width:${xp > 0 ? rank.pct : 0}%"></i></span>
+    const stat = !count ? 'Generating&hellip;' : xp > 0 ? `Rank ${rank.rank} &middot; ${xp.toLocaleString()} XP` : `${count} cases`;
+    const foot = done ? `${done}/${count}${acc !== null ? ` &middot; ${acc}%` : ''}` : count ? `${count} cases` : '';
+    const card = el(`<button class="card cs-card" ${count ? '' : 'disabled'}>
+      <span class="cs-card-top">
+        <span class="name">${esc(sp.name)}</span>
+        <span class="mod-go" aria-hidden="true">&rarr;</span>
+      </span>
+      <span class="mod-stat">${stat}</span>
+      <span class="cs-card-foot">
+        <span class="done">${foot}</span>
+        <span class="bar"><i style="width:${xp > 0 ? rank.pct : (done && count ? Math.round(100 * done / count) : 0)}%"></i></span>
       </span>
     </button>`);
     if (count) card.addEventListener('click', () => startRandomCase(sp));
@@ -1094,9 +1134,21 @@ function startCase(sp, c) {
 
 /* ---------- case view ---------- */
 
+function updateCaseRunbar() {
+  if (!session) return;
+  const total = session.c.stages.length;
+  const idx = Math.min(session.idx, total);
+  const pct = total ? Math.round(100 * idx / total) : 0;
+  const fill = document.getElementById('cs-runfill');
+  const lab = document.getElementById('cs-runlab');
+  if (fill) fill.style.width = `${pct}%`;
+  if (lab) lab.textContent = `Stage ${idx} / ${total}`;
+}
+
 function renderCase() {
   const { sp, c } = session;
   const marked = isBookmarked(c.id);
+  const stageTotal = c.stages.length;
 
   const root = el(`<div>
     <header class="topbar">
@@ -1108,20 +1160,32 @@ function renderCase() {
         ${session.timed ? '<span class="timer" id="timer"></span>' : ''}
       </div>
     </header>
-    <main class="case">
-      <div class="case-meta">
-        <span>${esc(c.setting)}</span><span class="sep">/</span>
-        <span>${esc(c.patient)}</span><span class="sep">/</span>
-        <span>${esc(c.difficulty)}</span>
+    <main class="case cs-case">
+      <div class="cs-case-head">
+        <span class="mcat-eyebrow">${esc(sp.name)} &middot; ${esc(c.id || 'case')}</span>
+        <div class="case-meta cs-chips">
+          <span class="cs-chip">${esc(c.setting)}</span>
+          <span class="cs-chip">${esc(c.patient)}</span>
+          <span class="cs-chip cs-chip--diff">${esc(c.difficulty)}</span>
+        </div>
+        <h2>${esc(c.title)}</h2>
+        <div class="cs-runbar cornerframe" id="cs-run">
+          <div class="cs-runbar-meta">
+            <span class="label">Case progress</span>
+            <span class="cs-runbar-lab" id="cs-runlab">Stage 0 / ${stageTotal}</span>
+          </div>
+          <span class="bar"><i id="cs-runfill" style="width:0%"></i></span>
+        </div>
       </div>
-      <h2>${esc(c.title)}</h2>
-      <div class="block"><span class="label">Chief complaint</span><p class="prose">${esc(c.chiefComplaint)}</p></div>
-      <div class="block"><span class="label">History</span><p class="prose">${esc(c.history)}</p></div>
-      <div class="block"><span class="label">Vitals</span>
-        <div class="vitals">${Object.entries(c.vitals).map(([k, v]) =>
-          `<span class="vital"><span class="k">${esc(k)}</span><span class="v">${esc(v)}</span></span>`).join('')}</div>
+      <div class="cs-chart cornerframe">
+        <div class="block"><span class="label">Chief complaint</span><p class="prose">${esc(c.chiefComplaint)}</p></div>
+        <div class="block"><span class="label">History</span><p class="prose">${esc(c.history)}</p></div>
+        <div class="block"><span class="label">Vitals</span>
+          <div class="vitals cs-vitals">${Object.entries(c.vitals).map(([k, v]) =>
+            `<span class="vital"><span class="k">${esc(k)}</span><span class="v">${esc(v)}</span></span>`).join('')}</div>
+        </div>
+        <div class="block"><span class="label">Examination</span><p class="prose">${esc(c.exam)}</p></div>
       </div>
-      <div class="block"><span class="label">Examination</span><p class="prose">${esc(c.exam)}</p></div>
       <div id="stages"></div>
     </main>
   </div>`);
@@ -1129,6 +1193,7 @@ function renderCase() {
   root.querySelector('#exit').addEventListener('click', renderHome);
   root.querySelector('#bm').addEventListener('click', () => refreshBookmarkBtn(root.querySelector('#bm')));
   setView(root);
+  updateCaseRunbar();
 
   if (session.timed) {
     session.deadline = Date.now() + session.qTotal * SECONDS_PER_QUESTION * 1000;
@@ -1224,7 +1289,7 @@ function answer(node, s, choice, isLast) {
   row.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
-function advance() { session.idx++; appendStage(); }
+function advance() { session.idx++; updateCaseRunbar(); appendStage(); }
 
 function finishCase() {
   if (session.finished) return;
@@ -1282,11 +1347,14 @@ function finishCase() {
   }
 
   const marked = isBookmarked(c.id);
-  const node = el(`<section class="summary">
-    <span class="label">Case complete</span>
-    <div class="score">${String(session.correct).padStart(2, '0')}<span class="of">/${String(session.qTotal).padStart(2, '0')}</span></div>
-    <div class="ticks">${ticks.join('')}</div>
-    ${session.expired ? '<div class="expired-flag">TIME EXPIRED</div>' : ''}
+  updateCaseRunbar();
+  const node = el(`<section class="summary cs-summary">
+    <div class="cs-scorebox cornerframe">
+      <span class="label">Case complete</span>
+      <div class="score">${String(session.correct).padStart(2, '0')}<span class="of">/${String(session.qTotal).padStart(2, '0')}</span></div>
+      <div class="ticks">${ticks.join('')}</div>
+      ${session.expired ? '<div class="expired-flag">TIME EXPIRED</div>' : ''}
+    </div>
     <div class="xpblock">
       <span class="label">XP earned</span>
       ${xpRows}
@@ -1325,12 +1393,12 @@ function finishCase() {
 
 function caseRow(entry) {
   // entry: {id, key, title, difficulty, rightHtml}
-  const row = el(`<button class="row">
+  const row = el(`<button class="row cs-row">
     <span class="row-main">
       <span class="row-spec">${esc(NAME_BY_KEY[entry.key] || entry.key)}</span>
       <span class="row-title">${esc(entry.title)}</span>
     </span>
-    <span class="row-right">${entry.rightHtml || ''}</span>
+    <span class="row-right">${entry.rightHtml || ''}<span class="mod-go" aria-hidden="true">&rarr;</span></span>
   </button>`);
   row.addEventListener('click', () => startCaseById(entry.id, entry.key));
   return row;
@@ -1343,19 +1411,28 @@ function scorePill(c, t) {
 
 function renderReview(tab = 'history') {
   stopTimer(); session = null;
+  const stats = clinicalStatBand().slice(2);
   const root = el(`<div></div>`);
   root.appendChild(topbar('practice'));
-  const main = el(`<main class="panel">
-    <div class="hero"><h1>Clinical scenarios.</h1><p class="sub">Revisit cases, find your misses, search the whole bank.</p></div>
+  const main = el(`<main class="panel cs-landing cs-review">
+    <section class="cs-hero mcat-hero">
+      <span class="mcat-eyebrow">Clinical Scenarios &middot; Review hub</span>
+      <h1>Revisit your cases.</h1>
+      <p class="mcat-lede">History, misses, bookmarks, and full-bank search &mdash; every case you&rsquo;ve touched, one telemetry console.</p>
+    </section>
+    <div class="mcat-statband cs-statband cs-statband--compact cornerframe">${stats.map(s => `<div class="mcat-stat"><span class="ms-num" data-countup="${s[0]}">${s[0]}</span><span class="ms-lab">${s[1]}</span></div>`).join('')}</div>
     <div class="tabs scn-tabs">
       <button class="tab" data-scn="practice">Practice</button>
       <button class="tab active" data-scn="review">Review</button>
     </div>
-    <div class="tabs">
-      ${['history', 'missed', 'bookmarks', 'search'].map(x => `<button class="tab ${x === tab ? 'active' : ''}" data-tab="${x}">${x[0].toUpperCase() + x.slice(1)}</button>`).join('')}
+    <div class="cs-review-tabs cornerframe">
+      <span class="label">Filter</span>
+      <div class="tabs cs-subtabs">
+        ${['history', 'missed', 'bookmarks', 'search'].map(x => `<button class="tab ${x === tab ? 'active' : ''}" data-tab="${x}">${x[0].toUpperCase() + x.slice(1)}</button>`).join('')}
+      </div>
     </div>
-    <div class="searchbox" style="display:none"><input type="text" id="q" placeholder="Search by symptom, diagnosis, or specialty&hellip;" autocomplete="off"></div>
-    <div class="rows" id="rows"></div>
+    <div class="searchbox cs-searchbox" style="display:none"><input type="text" id="q" placeholder="Search by symptom, diagnosis, or specialty&hellip;" autocomplete="off"></div>
+    <div class="rows cs-rows cornerframe" id="rows"></div>
   </main>`);
 
   main.querySelectorAll('.tab[data-tab]').forEach(b => b.addEventListener('click', () => renderReview(b.dataset.tab)));
