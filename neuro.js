@@ -81,6 +81,10 @@ async function renderNeuroEngineering() {
         <span class="bar"><i style="width:${pg.pct}%"></i></span>
         <p class="neuro-pathsum">${esc(path.summary)}</p>
       </div>` : ''}
+      <div class="neuro-hubtools">
+        <button class="btn neuro-btn" id="ne-codelab">NeuroCode Lab &middot; ${NEURO.data?.neuroCodeLessons?.length || 12}</button>
+        <button class="btn neuro-btn" id="ne-simlib">NeuroSim Labs &middot; ${NEURO.data?.simulations?.length || 12}</button>
+      </div>
       <div class="neuro-grid" id="ne-grid"></div>
     </section>
   </main>`);
@@ -107,6 +111,8 @@ async function renderNeuroEngineering() {
     else go.disabled = true;
     main.querySelector('#ne-subjects')?.addEventListener('click', () => renderNeuroSubjects());
   }
+  main.querySelector('#ne-codelab')?.addEventListener('click', renderNeuroCodeLab);
+  main.querySelector('#ne-simlib')?.addEventListener('click', renderNeuroSimLibrary);
 
   root.appendChild(main);
   if (typeof siteFooter === 'function') root.appendChild(siteFooter());
@@ -446,64 +452,208 @@ function renderNeuroSim(simId, opts = {}) {
   });
 }
 
-/* ---------- NeuroCode (read + reveal) ---------- */
+/* ---------- NeuroCode Lab (guided sandbox) ---------- */
+
+function neuroCodePassed(codeId) {
+  const r = NEURO_PROG.code[codeId];
+  return r === true || (r && r.passed);
+}
+
+function mountNeuroCodeSandbox(lesson, codeId, opts, shell) {
+  if (typeof neuroCodeEvaluate !== 'function') return;
+  const guidance = neuroCodeGuidance(lesson);
+  let codePassed = neuroCodePassed(codeId);
+
+  const sandbox = el(`<div class="neuro-sandbox">
+    <div class="neuro-sandbox-head">
+      <span class="label">Practice sandbox</span>
+      <span class="neuro-sandbox-badge" data-pass-badge ${codePassed ? '' : 'hidden'}>Complete</span>
+    </div>
+    <p class="neuro-sandbox-note">Guided code practice. Checks beginner exercises and expected output &mdash; not a full Python runtime.</p>
+    <div class="neuro-sandbox-goals">
+      <span class="neuro-mono">${esc(guidance.exerciseType)}</span>
+      <span>Coding: ${esc(guidance.codingGoal)}</span>
+      <span>Neuro: ${esc(guidance.neuroengineeringGoal)}</span>
+    </div>
+    <textarea class="neuro-code-draft" rows="12" spellcheck="false" aria-label="Code editor">${esc((lesson.codeExample || '').trim())}</textarea>
+    <div class="neuro-terminal">
+      <span class="neuro-terminal-cmd">$ atlas_check ${esc(codeId)}</span>
+      <pre class="neuro-terminal-out" data-term-out>Run the guided check to see feedback.</pre>
+      <p class="neuro-terminal-msg" data-term-msg>This sandbox checks beginner exercises; it is not a full Python runtime.</p>
+      <p class="neuro-terminal-hint" data-term-hint>Use the prompt, prediction, and expected output before loading the solution.</p>
+    </div>
+    <div class="neuro-sandbox-actions">
+      <button class="btn btn-solid neuro-btn" data-run-check>Run / Check</button>
+      <button class="btn neuro-btn" data-predict-out>Predict output</button>
+      <button class="btn neuro-btn" data-copy-code>Copy code</button>
+      <button class="btn neuro-btn" data-load-sol>Load solution</button>
+      <button class="btn neuro-btn" data-show-hint>Reveal hint</button>
+      <button class="btn neuro-btn" data-show-sol>Reveal solution</button>
+    </div>
+    <div class="neuro-sandbox-extra" data-extra></div>
+    ${opts.requirePass ? '<p class="neuro-sandbox-gate" data-gate>Pass Run / Check to continue this unit.</p>' : ''}
+    <div class="continue-row" data-continue-row ${opts.requirePass && !codePassed ? 'hidden' : ''}>
+      <button class="btn btn-solid neuro-btn" data-code-done>Continue</button>
+    </div>
+  </div>`);
+
+  const draft = sandbox.querySelector('.neuro-code-draft');
+  const termOut = sandbox.querySelector('[data-term-out]');
+  const termMsg = sandbox.querySelector('[data-term-msg]');
+  const termHint = sandbox.querySelector('[data-term-hint]');
+  const extra = sandbox.querySelector('[data-extra]');
+  const passBadge = sandbox.querySelector('[data-pass-badge]');
+  const continueRow = sandbox.querySelector('[data-continue-row]');
+  const gate = sandbox.querySelector('[data-gate]');
+
+  const runCheck = () => {
+    const feedback = neuroCodeEvaluate(draft.value, lesson);
+    termOut.textContent = feedback.output;
+    termMsg.textContent = feedback.message;
+    termHint.textContent = feedback.explanation;
+    termMsg.classList.toggle('ok', feedback.passed);
+    codePassed = feedback.passed;
+    if (feedback.passed) {
+      NEURO_PROG.code[codeId] = { passed: true, ts: Date.now() };
+      saveNeuroProg();
+      passBadge.hidden = false;
+      if (opts.requirePass) {
+        continueRow.hidden = false;
+        gate?.remove();
+      }
+    }
+  };
+
+  sandbox.querySelector('[data-run-check]').addEventListener('click', runCheck);
+  sandbox.querySelector('[data-predict-out]').addEventListener('click', e => {
+    const on = e.target.textContent.includes('Hide');
+    e.target.textContent = on ? 'Predict output' : 'Hide expected output';
+    extra.querySelector('[data-predict]')?.remove();
+    if (!on) {
+      extra.appendChild(el(`<div class="neuro-block" data-predict><span class="label">Expected output</span><pre class="neuro-code">${esc(lesson.expectedOutput)}</pre></div>`));
+    }
+  });
+  sandbox.querySelector('[data-copy-code]').addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(draft.value); } catch {}
+  });
+  sandbox.querySelector('[data-load-sol]').addEventListener('click', () => {
+    draft.value = (lesson.solution || '').trim();
+    termOut.textContent = 'Solution loaded. Run / Check when you are ready.';
+    termMsg.textContent = 'Read the solution as an annotated worked answer, then check it against the expected output.';
+    termHint.textContent = guidance.successExplanation;
+  });
+  sandbox.querySelector('[data-show-hint]').addEventListener('click', e => {
+    e.target.disabled = true;
+    extra.appendChild(el(`<div class="sochint"><span class="label">Hint</span><p>${esc(lesson.hint)}</p></div>`));
+  });
+  sandbox.querySelector('[data-show-sol]').addEventListener('click', e => {
+    e.target.disabled = true;
+    extra.appendChild(el(`<div class="neuro-block"><span class="label">Solution</span><pre class="neuro-code">${esc(lesson.solution)}</pre></div>`));
+  });
+  sandbox.querySelector('[data-code-done]')?.addEventListener('click', () => {
+    if (opts.requirePass && !codePassed) return;
+    if (opts.onDone) opts.onDone(codePassed);
+    else if (!opts.mount) renderNeuroCodeLab();
+  });
+
+  shell.appendChild(sandbox);
+}
 
 function renderNeuroCode(codeId, opts = {}) {
   const lesson = neuroCode(codeId);
-  if (!lesson) { if (opts.onDone) opts.onDone(); else renderNeuroEngineering(); return; }
-  let main;
+  if (!lesson) { if (opts.onDone) opts.onDone(false); else renderNeuroEngineering(); return; }
+
+  const conceptBlock = `<div class="neuro-block"><span class="label">Concept</span><p class="neuro-prose">${esc(lesson.explanation)}</p>
+    <p class="neuro-mono">${esc(lesson.codingConcept)} &middot; ${esc(lesson.neuroengineeringConcept)}</p></div>
+    <div class="neuro-block"><span class="label">Code example</span><pre class="neuro-code">${esc(lesson.codeExample)}</pre></div>
+    <div class="neuro-block"><span class="label">Challenge</span><p class="neuro-prose">${esc(lesson.challengePrompt)}</p></div>`;
+
   if (opts.mount) {
     const mount = typeof opts.mount === 'string' ? document.querySelector(opts.mount) : opts.mount;
-    if (!mount) { if (opts.onDone) opts.onDone(); return; }
-    main = el(`<section class="neuro-stage">
+    if (!mount) { if (opts.onDone) opts.onDone(false); return; }
+    const wrap = el(`<section class="neuro-stage neuro-embed">
       <span class="neuro-eyebrow">NeuroCode &middot; ${esc(lesson.codingConcept)}</span>
       <h2 class="neuro-h2">${esc(lesson.title)}</h2>
-      <p class="neuro-prose">${esc(lesson.explanation)}</p>
-      <div class="neuro-block"><span class="label">Example</span><pre class="neuro-code">${esc(lesson.codeExample)}</pre></div>
-      <div class="neuro-block"><span class="label">Challenge</span><p class="neuro-prose">${esc(lesson.challengePrompt)}</p>
-        <button class="btn neuro-btn" id="nehint" style="margin-top:12px">Show hint</button>
-        <button class="btn btn-solid neuro-btn" id="nesol" style="margin-top:12px;margin-left:8px">Reveal solution</button>
-      </div><div id="necodeafter"></div>
+      ${conceptBlock}
     </section>`);
-    mount.appendChild(main);
-  } else {
-    const root = el('<div></div>');
-    root.appendChild(topbar('neuro'));
-    main = el(`<main class="neuro-page neuro-inner">
-      <section class="neuro-body">
-        <button class="backbtn topback" id="neback">&larr; Neuroengineering</button>
-        <span class="neuro-eyebrow">NeuroCode &middot; ${esc(lesson.codingConcept)}</span>
-        <h1 class="neuro-h1">${esc(lesson.title)}</h1>
-        <p class="neuro-lede">${esc(lesson.explanation)}</p>
-        <div class="neuro-block"><span class="label">Example</span><pre class="neuro-code">${esc(lesson.codeExample)}</pre></div>
-        <div class="neuro-block"><span class="label">Challenge</span><p class="neuro-prose">${esc(lesson.challengePrompt)}</p>
-          <button class="btn neuro-btn" id="nehint" style="margin-top:12px">Show hint</button>
-          <button class="btn btn-solid neuro-btn" id="nesol" style="margin-top:12px;margin-left:8px">Reveal solution</button>
-        </div>
-        <div id="necodeafter"></div>
-      </section>
-    </main>`);
-    main.querySelector('#neback').addEventListener('click', renderNeuroEngineering);
-    root.appendChild(main);
-    setView(root);
+    mount.appendChild(wrap);
+    mountNeuroCodeSandbox(lesson, codeId, opts, wrap);
+    return;
   }
-  main.querySelector('#nehint').addEventListener('click', e => {
-    e.target.disabled = true;
-    main.querySelector('#necodeafter').appendChild(el(`<div class="sochint"><span class="label">Hint</span><p>${esc(lesson.hint)}</p></div>`));
-  });
-  main.querySelector('#nesol').addEventListener('click', () => {
-    NEURO_PROG.code[codeId] = true;
-    saveNeuroProg();
-    const after = main.querySelector('#necodeafter');
-    after.appendChild(el(`<div class="neuro-block"><span class="label">Solution</span><pre class="neuro-code">${esc(lesson.solution)}</pre>
-      <p class="neuro-mono">Expected: ${esc(lesson.expectedOutput)}</p></div>
-      <div class="continue-row"><button class="btn btn-solid neuro-btn" id="necdone">Continue</button></div>`));
-    after.querySelector('#necdone')?.addEventListener('click', () => {
-      if (opts.onDone) opts.onDone();
-      else renderNeuroEngineering();
-    });
-    after.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
+
+  const root = el('<div></div>');
+  root.appendChild(topbar('neuro'));
+  const main = el(`<main class="neuro-page neuro-inner">
+    <section class="neuro-body">
+      <button class="backbtn topback" id="neback">&larr; NeuroCode Lab</button>
+      <span class="neuro-eyebrow">NeuroCode &middot; ${esc(lesson.codingConcept)}</span>
+      <h1 class="neuro-h1">${esc(lesson.title)}</h1>
+      ${conceptBlock}
+      <p class="neuro-mono neuro-master">${esc(lesson.oneLineMaster)}</p>
+    </section>
+  </main>`);
+  main.querySelector('#neback').addEventListener('click', renderNeuroCodeLab);
+  mountNeuroCodeSandbox(lesson, codeId, opts, main.querySelector('.neuro-body'));
+  root.appendChild(main);
+  setView(root);
+}
+
+function renderNeuroCodeLab() {
+  const lessons = NEURO.data?.neuroCodeLessons || [];
+  const root = el('<div></div>');
+  root.appendChild(topbar('neuro'));
+  const main = el(`<main class="neuro-page neuro-inner">
+    <section class="neuro-body">
+      <button class="backbtn topback" id="neback">&larr; Neuroengineering</button>
+      <span class="neuro-eyebrow">NeuroCode Lab</span>
+      <h1 class="neuro-h1">Guided code practice.</h1>
+      <p class="neuro-lede">Twelve beginner Python exercises wired to neuroengineering concepts. Run / Check in the sandbox &mdash; not a full runtime, but the same guided flow as the Mac Atlas app.</p>
+      <div class="neuro-rows" id="necodelab"></div>
+    </section>
+  </main>`);
+  main.querySelector('#neback').addEventListener('click', renderNeuroEngineering);
+  const rows = main.querySelector('#necodelab');
+  for (const lesson of lessons) {
+    const done = neuroCodePassed(lesson.id);
+    const row = el(`<button class="neuro-row">
+      <span class="neuro-row-main"><span class="neuro-row-title">${esc(lesson.title)}</span>
+      <span class="neuro-row-sub">${esc(lesson.codingConcept)} &middot; ${esc(lesson.difficulty || 'beginner')}</span></span>
+      <span class="neuro-row-right">${done ? '<span class="pill ok">passed</span>' : '<span class="mod-go">&rarr;</span>'}</span>
+    </button>`);
+    row.addEventListener('click', () => renderNeuroCode(lesson.id));
+    rows.appendChild(row);
+  }
+  root.appendChild(main);
+  setView(root);
+}
+
+function renderNeuroSimLibrary() {
+  const sims = NEURO.data?.simulations || [];
+  const root = el('<div></div>');
+  root.appendChild(topbar('neuro'));
+  const main = el(`<main class="neuro-page neuro-inner">
+    <section class="neuro-body">
+      <button class="backbtn topback" id="neback">&larr; Neuroengineering</button>
+      <span class="neuro-eyebrow">NeuroSim Labs</span>
+      <h1 class="neuro-h1">Decision labs.</h1>
+      <p class="neuro-lede">Twelve short NeuroSim scenarios &mdash; signal interpretation, decoder drift, DBS side effects, ethics, and more.</p>
+      <div class="neuro-rows" id="nesimlib"></div>
+    </section>
+  </main>`);
+  main.querySelector('#neback').addEventListener('click', renderNeuroEngineering);
+  const rows = main.querySelector('#nesimlib');
+  for (const sim of sims) {
+    const prev = NEURO_PROG.sims[sim.id];
+    const row = el(`<button class="neuro-row">
+      <span class="neuro-row-main"><span class="neuro-row-title">${esc(sim.title)}</span>
+      <span class="neuro-row-sub">${esc(sim.difficulty || 'lab')} &middot; ${esc((sim.scoringCategories || []).join(', ') || 'decision')}</span></span>
+      <span class="neuro-row-right">${prev ? `<span class="pill ${prev.ok ? 'ok' : 'no'}">${prev.ok ? 'ok' : 'retry'}</span>` : '<span class="mod-go">&rarr;</span>'}</span>
+    </button>`);
+    row.addEventListener('click', () => renderNeuroSim(sim.id));
+    rows.appendChild(row);
+  }
+  root.appendChild(main);
+  setView(root);
 }
 
 /* ---------- BCI Builder unit (guided path) ---------- */
@@ -613,19 +763,29 @@ function neuroUnitAppend() {
     renderNeuroQuiz(step.topicId, {
       limit: 2,
       mount: container,
-      onDone: () => { neUnit.stageIdx++; neuroUnitProgress(); neuroUnitAppend(); },
+      onDone: (ok) => {
+        if (!ok) return;
+        neUnit.stageIdx++; neuroUnitProgress(); neuroUnitAppend();
+      },
     });
     return;
   } else if (stage === 'code') {
     renderNeuroCode(step.neuroCodeLessonId, {
       mount: container,
-      onDone: () => { neUnit.stageIdx++; neuroUnitProgress(); neuroUnitAppend(); },
+      requirePass: true,
+      onDone: (ok) => {
+        if (!ok) return;
+        neUnit.stageIdx++; neuroUnitProgress(); neuroUnitAppend();
+      },
     });
     return;
   } else if (stage === 'sim') {
     renderNeuroSim(step.simulationId, {
       mount: container,
-      onDone: () => { neUnit.stageIdx++; neuroUnitProgress(); neuroUnitAppend(); },
+      onDone: (ok) => {
+        if (!ok) return;
+        neUnit.stageIdx++; neuroUnitProgress(); neuroUnitAppend();
+      },
     });
     return;
   } else if (stage === 'debrief') {

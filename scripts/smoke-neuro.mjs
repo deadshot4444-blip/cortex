@@ -22,7 +22,7 @@ await page.waitForSelector('#neunitstages', { timeout: 10000 });
 
 for (let i = 0; i < 40; i++) {
   let acted = false;
-  for (const sel of ['[data-reveal]', '.opt:not([disabled])', '#nesol', '#nesimdone', '#necdone', '[data-cont]']) {
+  for (const sel of ['[data-reveal]', '.opt:not([disabled])', '[data-load-sol]', '[data-run-check]', '[data-code-done]', '#nesimdone', '[data-cont]:not([disabled])']) {
     const btn = page.locator(`#neunitstages ${sel}`).last();
     if (!(await btn.count())) continue;
     await btn.click();
