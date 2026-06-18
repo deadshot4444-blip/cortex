@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "social-card.png"
 OG_JPG = ROOT / "og.jpg"
 OG_V2 = ROOT / "og-v2.jpg"
+OG_V3 = ROOT / "og-v3.jpg"
 VIDEO = ROOT / "assets" / "neuro-bg.mp4"
 FRAME = ROOT / "scripts" / ".og-frame.jpg"
 
@@ -123,12 +124,64 @@ def gradient_overlay(base: Image.Image, strength: float = 0.68) -> Image.Image:
     return Image.alpha_composite(base.convert("RGBA"), overlay).convert("RGB")
 
 
+def left_text_scrim(base: Image.Image) -> Image.Image:
+    """Darken the left copy column so headline stays readable over the monitor."""
+    w, h = base.size
+    overlay = Image.new("RGBA", base.size, (0, 0, 0, 0))
+    draw = ImageDraw.Draw(overlay)
+    for x in range(int(w * 0.58)):
+        t = 1 - x / (w * 0.58)
+        alpha = int(200 * (t ** 1.35))
+        draw.line([(x, 0), (x, h)], fill=(6, 6, 8, min(220, alpha)))
+    return Image.alpha_composite(base.convert("RGBA"), overlay).convert("RGB")
+
+
+def draw_outlined_pill(
+    draw: ImageDraw.ImageDraw,
+    text: str,
+    font: ImageFont.FreeTypeFont,
+    *,
+    right: int,
+    top: int,
+    pad_x: int,
+    pad_y: int,
+    outline: tuple[int, int, int],
+    fill: tuple[int, int, int],
+    border: int,
+) -> None:
+    bbox = draw.textbbox((0, 0), text, font=font)
+    tw, th = bbox[2] - bbox[0], bbox[3] - bbox[1]
+    x1, y1 = right, top
+    x0, y0 = right - (tw + pad_x * 2), top
+    y1 = top + th + pad_y * 2
+    draw.rectangle((x0, y0, x1, y1), outline=outline, width=border)
+    draw.text(((x0 + x1) // 2, (y0 + y1) // 2), text, font=font, fill=fill, anchor="mm")
+
+
+def wrap_text(draw: ImageDraw.ImageDraw, text: str, font: ImageFont.FreeTypeFont, max_w: int) -> list[str]:
+    words = text.split()
+    lines: list[str] = []
+    cur = ""
+    for word in words:
+        trial = f"{cur} {word}".strip()
+        bbox = draw.textbbox((0, 0), trial, font=font)
+        if bbox[2] - bbox[0] <= max_w or not cur:
+            cur = trial
+        else:
+            lines.append(cur)
+            cur = word
+    if cur:
+        lines.append(cur)
+    return lines
+
+
 def render_card() -> Image.Image:
     rw, rh = W * SCALE, H * SCALE
     frame = extract_frame()
     if frame:
         bg = cover_crop(frame, rw, rh)
-        img = gradient_overlay(bg, 0.68)
+        img = gradient_overlay(bg, 0.62)
+        img = left_text_scrim(img)
     else:
         img = Image.new("RGB", (rw, rh), BG)
 
@@ -136,33 +189,66 @@ def render_card() -> Image.Image:
     draw_corners(draw, rw, rh)
 
     s = SCALE
+    margin = 56 * s
+    header_y = 52 * s
+    mark_size = 44 * s
     font_brand = load_font(22 * s, bold=True)
     font_head = load_font(64 * s, bold=True)
-    font_sub = load_font(26 * s)
-    font_stat = load_font(18 * s)
+    font_sub = load_font(24 * s)
+    font_pill = load_font(17 * s, bold=True)
+    font_stat = load_font(17 * s)
     font_url = load_font(20 * s)
 
-    draw_mark(draw, 56 * s, 52 * s, 44 * s)
-    draw.text((112 * s, 58 * s), "CORTEX MEDICAL ACADEMY", font=font_brand, fill=WHITE)
+    draw_mark(draw, margin, header_y, mark_size)
+    brand_bbox = draw.textbbox((0, 0), "CORTEX MEDICAL ACADEMY", font=font_brand)
+    brand_h = brand_bbox[3] - brand_bbox[1]
+    draw.text(
+        (margin + mark_size + 16 * s, header_y + mark_size // 2),
+        "CORTEX MEDICAL ACADEMY",
+        font=font_brand,
+        fill=WHITE,
+        anchor="lm",
+    )
 
-    pill = "FREE FOREVER"
-    px = rw - 56 * s
-    bbox = draw.textbbox((0, 0), pill, font=font_stat)
-    pw, ph = bbox[2] - bbox[0] + 28 * s, bbox[3] - bbox[1] + 16 * s
-    draw.rectangle((px - pw, 52 * s, px, 52 * s + ph), outline=GREEN, width=2 * s)
-    draw.text((px - pw + 14 * s, 60 * s), pill, font=font_stat, fill=GREEN)
+    pill_bbox = draw.textbbox((0, 0), "FREE FOREVER", font=font_pill)
+    pill_pad_x, pill_pad_y = 18 * s, 10 * s
+    pill_h = (pill_bbox[3] - pill_bbox[1]) + pill_pad_y * 2
+    mark_cy = header_y + mark_size // 2
+    draw_outlined_pill(
+        draw,
+        "FREE FOREVER",
+        font_pill,
+        right=rw - margin,
+        top=mark_cy - pill_h // 2,
+        pad_x=pill_pad_x,
+        pad_y=pill_pad_y,
+        outline=GREEN,
+        fill=GREEN,
+        border=2 * s,
+    )
 
-    draw.text((56 * s, 200 * s), "Master the", font=font_head, fill=WHITE)
-    draw.text((56 * s, 272 * s), "human machine.", font=font_head, fill=WHITE)
+    head_x = margin
+    draw.text((head_x, 200 * s), "Master the", font=font_head, fill=WHITE)
+    draw.text((head_x, 272 * s), "human machine.", font=font_head, fill=WHITE)
 
     sub = "Free MCAT prep, clinical scenarios & neuroengineering — built on first principles."
-    draw.text((58 * s, 380 * s), sub, font=font_sub, fill=MUTED)
+    sub_lines = wrap_text(draw, sub, font_sub, int(rw * 0.50))
+    sub_y = 378 * s
+    for i, line in enumerate(sub_lines):
+        draw.text((head_x + 2 * s, sub_y + i * 34 * s), line, font=font_sub, fill=MUTED)
 
-    draw.line([(56 * s, 500 * s), (rw - 56 * s, 500 * s)], fill=LINE, width=s)
-    draw.text((56 * s, 528 * s), "2,599+ CASES  ·  26 SPECIALTIES  ·  MCAT FREE FOREVER", font=font_stat, fill=MUTED)
-    draw.text((rw - 56 * s, 528 * s), "cortexmedical.academy", font=font_url, fill=WHITE, anchor="ra")
+    foot_y = 500 * s
+    draw.line([(margin, foot_y), (rw - margin, foot_y)], fill=LINE, width=s)
+    draw.text(
+        (margin, foot_y + 28 * s),
+        "2,599+ CASES  ·  26 SPECIALTIES  ·  MCAT FREE FOREVER",
+        font=font_stat,
+        fill=MUTED,
+        anchor="lm",
+    )
+    draw.text((rw - margin, foot_y + 28 * s), "cortexmedical.academy", font=font_url, fill=WHITE, anchor="rm")
 
-    draw_network(draw, (int(rw * 0.46), 120 * s, rw - 40 * s, rh - 120 * s))
+    draw_network(draw, (int(rw * 0.50), 130 * s, rw - 48 * s, rh - 110 * s))
 
     return img.resize((W, H), Image.Resampling.LANCZOS)
 
@@ -176,10 +262,12 @@ def main() -> int:
     jpg_opts = dict(format="JPEG", quality=95, subsampling=0, optimize=True, progressive=False)
     img.save(OG_JPG, **jpg_opts)
     img.save(OG_V2, **jpg_opts)
+    img.save(OG_V3, **jpg_opts)
 
     print(f"Wrote {OUT} ({OUT.stat().st_size} bytes)")
     print(f"Wrote {OG_JPG} ({OG_JPG.stat().st_size} bytes)")
     print(f"Wrote {OG_V2} ({OG_V2.stat().st_size} bytes)")
+    print(f"Wrote {OG_V3} ({OG_V3.stat().st_size} bytes)")
     return 0
 
 
