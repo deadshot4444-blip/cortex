@@ -305,6 +305,7 @@ async function boot() {
     store.index = i;
   } catch { /* case data unavailable; the mission page still renders, sections handle it */ }
   renderMission();
+  if (hasUnseenUpdate()) setTimeout(showUpdateModal, 420);
 }
 
 async function loadSpecialty(key) {
@@ -391,11 +392,48 @@ function topbar(active) {
 function seenVersion() { try { return localStorage.getItem('cs-seen-ver') || ''; } catch { return ''; } }
 function markSeenVersion() { safeSet('cs-seen-ver', APP_VERSION); updateVerBadges(); }
 function hasUnseenUpdate() { return seenVersion() !== APP_VERSION; }
+function latestRelease() {
+  return CHANGELOG.find(c => c.version === APP_VERSION)
+    || CHANGELOG.find(c => c.version && c.tag !== 'SOON')
+    || null;
+}
 function updateVerBadges() {
   document.querySelectorAll('button.ver').forEach(btn => {
     btn.classList.toggle('ver-hasnew', hasUnseenUpdate());
     btn.title = hasUnseenUpdate() ? `What's new in v${APP_VERSION}` : "What's new";
   });
+}
+function showUpdateModal() {
+  if (!hasUnseenUpdate() || document.querySelector('.upd-modal-back')) return;
+  const rel = latestRelease();
+  if (!rel) return;
+  const back = el(`<div class="fbmodal-back upd-modal-back">
+    <div class="fbmodal upd-modal" role="dialog" aria-modal="true" aria-labelledby="upd-modal-title">
+      <button type="button" class="upd-modal-x" aria-label="Close">&times;</button>
+      <span class="label">What&rsquo;s new &middot; v${esc(rel.version)}</span>
+      <h3 id="upd-modal-title">${esc(rel.title)}</h3>
+      <p class="upd-modal-date">${esc(rel.date)}</p>
+      <ul class="upd-modal-list">${rel.items.map(i => `<li>${esc(i)}</li>`).join('')}</ul>
+      <a class="upd-xlink" href="${X_URL}" target="_blank" rel="noopener">${X_SVG}<span>Follow <strong>@${X_HANDLE}</strong> on X &rarr;</span></a>
+      <div class="fbmodal-btns upd-modal-btns">
+        <button type="button" class="btn" id="upd-log">Full changelog</button>
+        <button type="button" class="btn btn-solid" id="upd-got">Got it</button>
+      </div>
+    </div>
+  </div>`);
+  const dismiss = (seen) => {
+    back.remove();
+    document.removeEventListener('keydown', onKey);
+    if (seen) markSeenVersion();
+  };
+  const onKey = e => { if (e.key === 'Escape') dismiss(true); };
+  back.querySelector('.upd-modal-x').addEventListener('click', () => dismiss(true));
+  back.querySelector('#upd-got').addEventListener('click', () => dismiss(true));
+  back.addEventListener('click', e => { if (e.target === back) dismiss(true); });
+  back.querySelector('.upd-modal').addEventListener('click', e => e.stopPropagation());
+  back.querySelector('#upd-log').addEventListener('click', () => { dismiss(true); renderUpdates(); });
+  document.addEventListener('keydown', onKey);
+  document.body.appendChild(back);
 }
 
 function setView(node) { $app.replaceChildren(node); window.scrollTo(0, 0); setupCountUps(node); revealOnScroll(node); if (window.refreshAuthUI) window.refreshAuthUI(); if (window.pomoSync) window.pomoSync(); updateVerBadges(); }
@@ -635,11 +673,11 @@ const PRINCIPLES = [
 const CHANGELOG = [
   {
     date: 'June 17, 2026', version: '1.8.2', tag: 'NEW',
-    title: 'What\u2019s new, front and center',
+    title: 'What\u2019s new popup',
     items: [
-      'Tap the version number anytime — the latest release shows first, before the full changelog.',
-      'A dot on the version chip means you haven\u2019t seen the newest update yet.',
-      '@kevin__vigil on X is right there on the update page for ship notes and behind-the-scenes.',
+      'New releases now greet you with a one-time what\u2019s new window \u2014 dismiss it and it stays gone until the next version ships.',
+      'The full changelog is still one tap away on the version number anytime.',
+      'Follow @kevin__vigil on X for ship notes straight from the popup.',
     ],
   },
   {
