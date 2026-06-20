@@ -31,7 +31,12 @@ const SPECIALTIES = [
 const NAME_BY_KEY = Object.fromEntries(SPECIALTIES.map(s => [s.key, s.name]));
 
 // Sections gated as "Coming soon" for the public launch. Remove a key here to make it live.
-const COMING_SOON = new Set(['anatomy', 'reference', 'socrates']);
+const COMING_SOON = new Set(['anatomy', 'socrates']);
+function sectionMenuTag(key) {
+  if (COMING_SOON.has(key)) return '<span class="mi-soon">Soon</span>';
+  if (key === 'reference') return '<span class="mi-tag">New</span>';
+  return '';
+}
 const SECTION_LABELS = { anatomy: 'Anatomy', reference: 'Medicine', socrates: 'Learn how to learn' };
 const SECTION_INFO = {
   anatomy: {
@@ -119,7 +124,7 @@ function saveStreak() { safeSet('cs-streak', JSON.stringify(store.streak)); }
 
 const SECTION_SCRIPTS = {
   anatomy: ['anatomy.js?v=35'],
-  reference: ['reference.js?v=38', 'ekg.js?v=32'],
+  reference: ['reference.js?v=39', 'ekg.js?v=32'],
   socrates: ['socrates.js?v=39'],
   neuro: ['python-runtime.js?v=3', 'code-evaluator.js?v=2', 'neuro-practitioner.js?v=2', 'neuro.js?v=12'],
 };
@@ -362,9 +367,9 @@ function topbar(active) {
           <span class="menu-head">Tools</span>
           <button class="menuitem" data-go="pomodoro"><span>Focus Timer</span><span class="mi-tag">New</span></button>
           <span class="menu-head">Sections</span>
-          <button class="menuitem" data-go="anatomy"><span>Anatomy</span><span class="mi-soon">Soon</span></button>
-          <button class="menuitem" data-go="reference"><span>Medicine</span><span class="mi-soon">Soon</span></button>
-          <button class="menuitem" data-go="socrates"><span>Learn to Learn</span><span class="mi-soon">Soon</span></button>
+          <button class="menuitem" data-go="anatomy"><span>Anatomy</span>${sectionMenuTag('anatomy')}</button>
+          <button class="menuitem" data-go="reference"><span>Medicine</span>${sectionMenuTag('reference')}</button>
+          <button class="menuitem" data-go="socrates"><span>Learn to Learn</span>${sectionMenuTag('socrates')}</button>
           <span class="menu-head">Access</span>
           <button class="menuitem" data-go="utsa"><span>UTSA &amp; UT Health</span><span class="mi-tag">Free</span></button>
         </div>
@@ -1553,6 +1558,15 @@ function pomoStatsSnapshot() {
   return { rounds, focusLabel: fmtDurMs(focusMs), has: rounds > 0 || focusMs > 0 };
 }
 
+function pharmStatsSnapshot() {
+  const prog = loadJSON('cs-pharm', { drill: { correct: 0, total: 0 }, byCat: {}, learned: {} });
+  const drilled = prog.drill?.total || 0;
+  const acc = drilled ? Math.round(100 * prog.drill.correct / drilled) : null;
+  const learned = Object.keys(prog.learned || {}).length;
+  const has = drilled > 0 || learned > 0;
+  return { drilled, acc, learned, has };
+}
+
 function neuroStatsSnapshot() {
   const prog = loadJSON('cs-neuro', { pathDone: [], topicQuiz: {}, sims: {}, code: {}, milestones: {} });
   const pathDone = prog.pathDone?.length || 0;
@@ -1574,6 +1588,7 @@ function renderStats() {
   const ms = mcatStatsSnapshot();
   const ps = pomoStatsSnapshot();
   const ns = neuroStatsSnapshot();
+  const ph = pharmStatsSnapshot();
   const totalCases = Object.values(store.manifest).reduce((a, b) => a + b, 0);
 
   // 21-day activity strip from history
@@ -1608,6 +1623,15 @@ function renderStats() {
         <div class="metric"><span class="m-num" data-countup="${ms.due}">${ms.due || '&mdash;'}</span><span class="m-lab">Due now</span><span class="m-sub">flashcards ready</span></div>
       </div>
       ${ms.has ? '<div class="stat-cta"><button class="btn btn-solid" id="stats-mcat">Open MCAT &rarr;</button></div>' : '<p class="stat-empty">No MCAT activity yet &mdash; start with drills or flashcards.</p>'}
+    </div>
+
+    <div class="statblock">
+      <span class="label">Pharmacology</span>
+      <div class="metrics metrics-2">
+        <div class="metric"><span class="m-num" data-countup="${ph.drilled}">${ph.drilled || '&mdash;'}</span><span class="m-lab">Drill questions</span><span class="m-sub">${ph.acc != null ? ph.acc + '% accuracy' : 'MOA or pearl mode'}</span></div>
+        <div class="metric"><span class="m-num" data-countup="${ph.learned}">${ph.learned || '&mdash;'}</span><span class="m-lab">Drugs studied</span><span class="m-sub">guided learn complete</span></div>
+      </div>
+      ${ph.has ? '<div class="stat-cta"><button class="btn btn-solid" id="stats-pharm">Open Pharmacology &rarr;</button></div>' : '<p class="stat-empty">No pharm activity yet &mdash; start with a drug class.</p>'}
     </div>
 
     <div class="statblock">
@@ -1675,6 +1699,11 @@ function renderStats() {
   if (pomoBtn) pomoBtn.addEventListener('click', () => { if (typeof renderPomodoro === 'function') renderPomodoro(); });
   const neuroBtn = main.querySelector('#stats-neuro');
   if (neuroBtn) neuroBtn.addEventListener('click', () => { if (typeof renderNeuro === 'function') renderNeuro(); });
+  const pharmBtn = main.querySelector('#stats-pharm');
+  if (pharmBtn) pharmBtn.addEventListener('click', async () => {
+    await ensureSection('reference');
+    renderRefSet('pharm', 'classes');
+  });
 
   root.appendChild(main);
   setView(root);

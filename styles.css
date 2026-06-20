@@ -727,6 +727,34 @@ button:focus-visible, .opt:focus-visible { outline: 1px solid var(--text); outli
 .tabs .ghostbtn { color: var(--dim); padding: 11px 0; }
 .tabs .ghostbtn:hover { color: var(--text); }
 
+.pharm-lede { font-size: 14.5px; color: var(--body); margin: 8px 0 18px; max-width: 52ch; line-height: 1.55; }
+.pharm-classgrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  margin-top: 8px;
+}
+.pharm-classcard {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px 18px;
+  background: var(--bg);
+  text-align: left;
+  transition: background .12s;
+  min-height: 72px;
+}
+.pharm-classcard:hover { background: var(--surface); }
+.pharm-classname { font-size: 13.5px; font-weight: 500; color: var(--text); line-height: 1.35; }
+.pharm-classmeta { font-family: var(--mono); font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--dim); }
+.pharm-drugname { font-size: 22px; font-weight: 500; margin: 12px 0 4px; letter-spacing: -.02em; }
+.pharm-drugclass { font-size: 13px; color: var(--dim); margin-bottom: 16px; }
+.pharm-drill-controls { margin-bottom: 12px; }
+.pharm-drill-modes { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.pharm-learn-stage .socactions { margin-top: 12px; }
+
 .refchips { display: flex; flex-wrap: wrap; gap: 6px; margin: 16px 0 4px; }
 .refchip {
   font-family: var(--mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase;
