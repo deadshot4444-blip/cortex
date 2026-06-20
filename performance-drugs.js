@@ -21,7 +21,7 @@ function migratePedProg(raw) {
     clinicalDone: false,
     clinicalStep: 0,
   };
-  if (!raw) return base;
+  if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return base;
   if (raw.hormones) base.hormones = raw.hormones;
   else if (raw.learned) base.hormones = raw.learned;
   if (raw.pathways) {

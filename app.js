@@ -124,7 +124,7 @@ function saveStreak() { safeSet('cs-streak', JSON.stringify(store.streak)); }
 
 const SECTION_SCRIPTS = {
   anatomy: ['anatomy.js?v=35'],
-  reference: ['reference.js?v=42', 'performance-drugs.js?v=4', 'ekg.js?v=33'],
+  reference: ['reference.js?v=43', 'performance-drugs.js?v=5', 'ekg.js?v=34'],
   socrates: ['socrates.js?v=39'],
   neuro: ['python-runtime.js?v=3', 'code-evaluator.js?v=2', 'neuro-practitioner.js?v=2', 'neuro.js?v=12'],
 };
@@ -399,8 +399,10 @@ function topbar(active) {
   });
   root.querySelector('[data-go="reference"]').addEventListener('click', async () => {
     if (COMING_SOON.has('reference')) { renderComingSoon('reference'); return; }
-    await ensureSection('reference');
-    renderReference();
+    try {
+      await ensureSection('reference');
+      if (typeof renderReference === 'function') await renderReference();
+    } catch (err) { console.error('Medicine load failed', err); }
   });
   root.querySelector('[data-go="socrates"]').addEventListener('click', async () => {
     if (COMING_SOON.has('socrates')) { renderComingSoon('socrates'); return; }
@@ -675,6 +677,14 @@ const PRINCIPLES = [
 
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
+  {
+    date: 'June 19, 2026', version: '1.13.0', tag: 'FIX',
+    title: 'Medicine tab \u2014 load fix',
+    items: [
+      'Fixed Medicine hub crash when local progress data was corrupted (safe migration on cs-pharm / cs-micro / cs-labs / cs-ekg).',
+      'Medicine section load is wrapped in error handling with retry; script cache bust for reference + EKG.',
+    ],
+  },
   {
     date: 'June 19, 2026', version: '1.13.0', tag: 'NEW',
     title: 'Medicine tab \u2014 unified progress & guided study',

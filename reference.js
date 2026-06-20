@@ -3,10 +3,10 @@
 
 const REF = { pharm: null, micro: null, labs: null, loaded: false };
 const PHARM_UNIQUE_TOTAL = 355;
-let PHARM_PROG = (typeof loadJSON === 'function') ? loadJSON('cs-pharm', null) : null;
-let MICRO_PROG = (typeof loadJSON === 'function') ? loadJSON('cs-micro', null) : null;
-let LABS_PROG = (typeof loadJSON === 'function') ? loadJSON('cs-labs', null) : null;
-let MED_META = (typeof loadJSON === 'function') ? loadJSON('cs-medicine', null) : null;
+function safeProg(raw, defaults) {
+  if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return { ...defaults };
+  return { ...defaults, ...raw };
+}
 
 function defaultPharmProg() {
   return { drill: { correct: 0, total: 0 }, byCat: {}, learned: {}, learnResume: {} };
@@ -17,11 +17,16 @@ function defaultMicroProg() {
 function defaultLabsProg() {
   return { drill: { correct: 0, total: 0 }, byPanel: {}, guidedSection: 0, guidedDone: false };
 }
-PHARM_PROG = { ...defaultPharmProg(), ...(PHARM_PROG || {}) };
-PHARM_PROG.learnResume = PHARM_PROG.learnResume || {};
-MICRO_PROG = { ...defaultMicroProg(), ...(MICRO_PROG || {}) };
-LABS_PROG = { ...defaultLabsProg(), ...(LABS_PROG || {}) };
-MED_META = { last: null, ...(MED_META || {}) };
+function defaultMedMeta() { return { last: null }; }
+
+let PHARM_PROG = safeProg((typeof loadJSON === 'function') ? loadJSON('cs-pharm', {}) : null, defaultPharmProg());
+let MICRO_PROG = safeProg((typeof loadJSON === 'function') ? loadJSON('cs-micro', {}) : null, defaultMicroProg());
+let LABS_PROG = safeProg((typeof loadJSON === 'function') ? loadJSON('cs-labs', {}) : null, defaultLabsProg());
+let MED_META = safeProg((typeof loadJSON === 'function') ? loadJSON('cs-medicine', {}) : null, defaultMedMeta());
+PHARM_PROG.learnResume = (PHARM_PROG.learnResume && typeof PHARM_PROG.learnResume === 'object') ? PHARM_PROG.learnResume : {};
+PHARM_PROG.drill = PHARM_PROG.drill && typeof PHARM_PROG.drill === 'object' ? PHARM_PROG.drill : { correct: 0, total: 0 };
+MICRO_PROG.drill = MICRO_PROG.drill && typeof MICRO_PROG.drill === 'object' ? MICRO_PROG.drill : { correct: 0, total: 0 };
+LABS_PROG.drill = LABS_PROG.drill && typeof LABS_PROG.drill === 'object' ? LABS_PROG.drill : { correct: 0, total: 0 };
 
 function savePharmProg() {
   if (typeof safeSet === 'function') safeSet('cs-pharm', JSON.stringify(PHARM_PROG));
@@ -146,6 +151,10 @@ async function loadRef() {
   REF.loaded = true;
 }
 
+function drillAcc(prog) {
+  return prog?.drill?.total ? Math.round(100 * prog.drill.correct / prog.drill.total) : null;
+}
+
 function guidedTrackPct(prog, total) {
   if (!total) return 0;
   if (prog.guidedDone) return 100;
@@ -204,14 +213,11 @@ async function medicineContinue() {
   renderRefSet('pharm', 'classes');
 }
 
-function drillAcc(prog) {
-  return prog.drill?.total ? Math.round(100 * prog.drill.correct / prog.drill.total) : null;
-}
-
 /* ---------- hub ---------- */
 async function renderReference() {
   if (typeof stopTimer === 'function') stopTimer();
   if (typeof session !== 'undefined') session = null;
+  try {
   await loadRef();
 
   const root = el('<div></div>');
@@ -281,9 +287,10 @@ async function renderReference() {
   }
   if (typeof renderEKG === 'function') {
     const ek = typeof ekgHubStats === 'function' ? ekgHubStats() : null;
+    const ekTotal = ek?.total || (typeof ekgHubStats === 'function' ? ekgHubStats().total : 20) || 20;
     const ekStat = ek?.has
-      ? `${ek.reviewed}/${ek.total} reviewed${ek.drillAcc != null ? ` · ${ek.drillAcc}% drill` : ''}`
-      : `${EKG_RHYTHMS.length} rhythms`;
+      ? `${ek.reviewed}/${ekTotal} reviewed${ek.drillAcc != null ? ` · ${ek.drillAcc}% drill` : ''}`
+      : `${ekTotal} rhythms`;
     const ekCard = el(`<button class="modcard">
       <span class="mod-name">ECG rhythms</span>
       <span class="mod-desc">Library with review tracking &mdash; category drill</span>
@@ -295,6 +302,18 @@ async function renderReference() {
 
   root.appendChild(main);
   setView(root);
+  } catch (err) {
+    console.error('Medicine hub failed', err);
+    const root = el('<div></div>');
+    root.appendChild(topbar('reference'));
+    const main = el(`<main class="panel">
+      <div class="hero"><h1>Medicine.</h1><p class="sub">Something went wrong loading this section. Try a hard refresh; if it persists, reset Medicine progress from Practice.</p></div>
+      <div class="ped-cta-row"><button class="btn btn-solid" id="medretry">Retry</button></div>
+    </main>`);
+    main.querySelector('#medretry').addEventListener('click', renderReference);
+    root.appendChild(main);
+    setView(root);
+  }
 }
 
 /* ---------- a single dataset: browse / search / quiz ---------- */
@@ -609,7 +628,8 @@ function buildQuiz(body, cfg, data, opts = {}) {
 
   const wrap = el(`<div class="quizwrap"></div>`);
   body.appendChild(wrap);
-  let scoreN = refProg?.drill?.correct || 0, scoreT = refProg?.drill?.total || 0;
+  let scoreN = isPharm ? (PHARM_PROG.drill.correct || 0) : (refProg?.drill?.correct || 0);
+  let scoreT = isPharm ? (PHARM_PROG.drill.total || 0) : (refProg?.drill?.total || 0);
 
   function pool() {
     let p = activeCat === 'all' ? data : data.filter(d => d[cfg.catField] === activeCat);
@@ -671,5 +691,5 @@ window._resetMedicineMemory = function () {
   PHARM_PROG = defaultPharmProg();
   MICRO_PROG = defaultMicroProg();
   LABS_PROG = defaultLabsProg();
-  MED_META = { last: null };
+  MED_META = defaultMedMeta();
 };

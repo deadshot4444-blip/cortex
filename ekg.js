@@ -158,13 +158,18 @@ const EKG_RHYTHMS = [
 
 const EKG_CATS = [...new Set(EKG_RHYTHMS.map(r => r.cat))];
 
-let EKG_PROG = (typeof loadJSON === 'function') ? loadJSON('cs-ekg', null) : null;
-EKG_PROG = {
-  drill: { correct: 0, total: 0 },
-  byCat: {},
-  reviewed: [],
-  ...(EKG_PROG || {}),
-};
+function defaultEkgProg() {
+  return { drill: { correct: 0, total: 0 }, byCat: {}, reviewed: [] };
+}
+function safeEkgProg(raw) {
+  if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return defaultEkgProg();
+  const base = { ...defaultEkgProg(), ...raw };
+  base.drill = base.drill && typeof base.drill === 'object' ? base.drill : { correct: 0, total: 0 };
+  base.reviewed = Array.isArray(base.reviewed) ? base.reviewed : [];
+  base.byCat = base.byCat && typeof base.byCat === 'object' ? base.byCat : {};
+  return base;
+}
+let EKG_PROG = safeEkgProg((typeof loadJSON === 'function') ? loadJSON('cs-ekg', {}) : null);
 function saveEkgProg() {
   if (typeof safeSet === 'function') safeSet('cs-ekg', JSON.stringify(EKG_PROG));
   else try { localStorage.setItem('cs-ekg', JSON.stringify(EKG_PROG)); } catch {}
@@ -302,5 +307,6 @@ function buildEkgDrill(body) {
 }
 
 window._resetEkgMemory = function () {
-  EKG_PROG = { drill: { correct: 0, total: 0 }, byCat: {}, reviewed: [] };
+  EKG_PROG = defaultEkgProg();
 };
+window.EKG_RHYTHM_TOTAL = EKG_RHYTHMS.length;
