@@ -2,7 +2,7 @@
    Browse + search + multiple-choice recall drill over fact-checked datasets. */
 
 const REF = { pharm: null, micro: null, labs: null, loaded: false };
-const PHARM_UNIQUE_TOTAL = 355;
+/* PHARM_UNIQUE_TOTAL lives in app.js (stats + hub share it) */
 function safeProg(raw, defaults) {
   if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return { ...defaults };
   return { ...defaults, ...raw };

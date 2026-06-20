@@ -124,7 +124,7 @@ function saveStreak() { safeSet('cs-streak', JSON.stringify(store.streak)); }
 
 const SECTION_SCRIPTS = {
   anatomy: ['anatomy.js?v=35'],
-  reference: ['reference.js?v=43', 'performance-drugs.js?v=5', 'ekg.js?v=34'],
+  reference: ['reference.js?v=44', 'performance-drugs.js?v=5', 'ekg.js?v=34'],
   socrates: ['socrates.js?v=39'],
   neuro: ['python-runtime.js?v=3', 'code-evaluator.js?v=2', 'neuro-practitioner.js?v=2', 'neuro.js?v=12'],
 };
@@ -677,6 +677,13 @@ const PRINCIPLES = [
 
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
+  {
+    date: 'June 20, 2026', version: '1.13.0', tag: 'FIX',
+    title: 'Medicine tab \u2014 script load fix',
+    items: [
+      'Fixed Medicine tab not opening: duplicate PHARM_UNIQUE_TOTAL declaration blocked reference.js from loading.',
+    ],
+  },
   {
     date: 'June 19, 2026', version: '1.13.0', tag: 'FIX',
     title: 'Medicine tab \u2014 load fix',
