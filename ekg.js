@@ -156,14 +156,52 @@ const EKG_RHYTHMS = [
   { id: 'paced', name: 'Ventricular paced', cat: 'Conduction', rate: 'set', clue: 'Pacing spike precedes each wide QRS.', mgmt: 'Confirm capture; this is expected with a pacemaker.' },
 ];
 
+const EKG_CATS = [...new Set(EKG_RHYTHMS.map(r => r.cat))];
+
+let EKG_PROG = (typeof loadJSON === 'function') ? loadJSON('cs-ekg', null) : null;
+EKG_PROG = {
+  drill: { correct: 0, total: 0 },
+  byCat: {},
+  reviewed: [],
+  ...(EKG_PROG || {}),
+};
+function saveEkgProg() {
+  if (typeof safeSet === 'function') safeSet('cs-ekg', JSON.stringify(EKG_PROG));
+  else try { localStorage.setItem('cs-ekg', JSON.stringify(EKG_PROG)); } catch {}
+}
+function ekgReviewedSet() { return new Set(EKG_PROG.reviewed || []); }
+function markEkgReviewed(id) {
+  if (!EKG_PROG.reviewed.includes(id)) {
+    EKG_PROG.reviewed.push(id);
+    saveEkgProg();
+  }
+}
+function recordEkgDrill(cat, correct) {
+  EKG_PROG.drill.total++; if (correct) EKG_PROG.drill.correct++;
+  if (!EKG_PROG.byCat[cat]) EKG_PROG.byCat[cat] = { correct: 0, total: 0 };
+  EKG_PROG.byCat[cat].total++; if (correct) EKG_PROG.byCat[cat].correct++;
+  saveEkgProg();
+}
+function ekgHubStats() {
+  const reviewed = (EKG_PROG.reviewed || []).length;
+  const total = EKG_RHYTHMS.length;
+  const drillAcc = EKG_PROG.drill.total ? Math.round(100 * EKG_PROG.drill.correct / EKG_PROG.drill.total) : null;
+  const pct = Math.round(100 * reviewed / total);
+  const has = reviewed > 0 || EKG_PROG.drill.total > 0;
+  return { reviewed, total, pct, drillAcc, has };
+}
+window.ekgHubStats = ekgHubStats;
+
 /* ---------- views ---------- */
 async function renderEKG(tab = 'library') {
   if (typeof stopTimer === 'function') stopTimer();
   if (typeof session !== 'undefined') session = null;
+  if (typeof touchMedicine === 'function') touchMedicine('ekg', tab === 'drill' ? 'drill' : 'library');
+  const stats = ekgHubStats();
   const root = el('<div></div>');
   root.appendChild(topbar('reference'));
   const main = el(`<main class="panel">
-    <div class="hero"><h1>ECG rhythms.</h1><p class="sub">${EKG_RHYTHMS.length} rhythms drawn as live tracings. Study the library, then drill until you can call them on sight.</p></div>
+    <div class="hero"><h1>ECG rhythms.</h1><p class="sub">${stats.reviewed}/${stats.total} reviewed${stats.drillAcc != null ? ` · ${stats.drillAcc}% drill` : ''} — live tracings, category filters, A–E keys.</p></div>
     <div class="tabs">
       <button class="tab ${tab === 'library' ? 'active' : ''}" data-tab="library">Library</button>
       <button class="tab ${tab === 'drill' ? 'active' : ''}" data-tab="drill">Drill</button>
@@ -180,46 +218,81 @@ async function renderEKG(tab = 'library') {
 }
 
 function buildEkgLibrary(body) {
+  const reviewed = ekgReviewedSet();
   const list = el('<div class="ekglist"></div>');
   EKG_RHYTHMS.forEach(rh => {
-    const item = el(`<div class="ekgitem">
+    const done = reviewed.has(rh.id);
+    const item = el(`<div class="ekgitem ${done ? 'studied' : ''}">
       <div class="ekgstrip">${ekgSvg(rh.id, 520, 110)}</div>
       <button class="ekghead">
-        <span><span class="ekgname">${esc(rh.name)}</span> <span class="ekgcat">${esc(rh.cat)}</span></span>
+        <span><span class="ekgname">${esc(rh.name)}</span> <span class="ekgcat">${esc(rh.cat)}</span>${done ? ' <span class="pill ok">reviewed</span>' : ''}</span>
         <span class="ekgrate">${esc(rh.rate)} bpm</span>
       </button>
       <div class="ekgdetail" hidden>
         <div class="refrow"><span class="label">How to spot it</span><p>${esc(rh.clue)}</p></div>
         <div class="refrow"><span class="label">Management</span><p>${esc(rh.mgmt)}</p></div>
+        ${done ? '' : '<div class="continue-row"><button class="btn btn-solid" data-review>Mark reviewed</button></div>'}
       </div>
     </div>`);
     const det = item.querySelector('.ekgdetail');
     item.querySelector('.ekghead').addEventListener('click', () => { det.hidden = !det.hidden; item.classList.toggle('open', !det.hidden); });
+    det.querySelector('[data-review]')?.addEventListener('click', () => {
+      markEkgReviewed(rh.id);
+      renderEKG('library');
+    });
     list.appendChild(item);
   });
   body.appendChild(list);
 }
 
 function buildEkgDrill(body) {
+  let activeCat = 'all';
+  const controls = el(`<div class="pharm-drill-controls"><div class="refchips"></div></div>`);
+  const chips = controls.querySelector('.refchips');
+  const mkChip = (c, label) => {
+    const b = el(`<button type="button" class="refchip ${c === activeCat ? 'active' : ''}" data-cat="${esc(c)}">${esc(label)}</button>`);
+    b.addEventListener('click', () => {
+      activeCat = c;
+      chips.querySelectorAll('.refchip').forEach(x => x.classList.toggle('active', x.dataset.cat === c));
+      next();
+    });
+    return b;
+  };
+  chips.appendChild(mkChip('all', `All (${EKG_RHYTHMS.length})`));
+  EKG_CATS.forEach(c => {
+    const n = EKG_RHYTHMS.filter(r => r.cat === c).length;
+    const b = EKG_PROG.byCat[c];
+    const acc = b?.total ? Math.round(100 * b.correct / b.total) : null;
+    chips.appendChild(mkChip(c, `${c} (${n}${acc != null ? ` · ${acc}%` : ''})`));
+  });
+  body.appendChild(controls);
+
   const wrap = el('<div class="quizwrap"></div>'); body.appendChild(wrap);
-  let n = 0, t = 0;
   const shuffle = a => { const x = a.slice(); for (let i = x.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1));[x[i], x[j]] = [x[j], x[i]]; } return x; };
+
+  function pool() {
+    return activeCat === 'all' ? EKG_RHYTHMS : EKG_RHYTHMS.filter(r => r.cat === activeCat);
+  }
+
   function next() {
-    const item = EKG_RHYTHMS[Math.floor(Math.random() * EKG_RHYTHMS.length)];
+    const source = pool();
+    const item = source[Math.floor(Math.random() * source.length)];
     const opts = shuffle([item, ...shuffle(EKG_RHYTHMS.filter(r => r.id !== item.id)).slice(0, 3)]);
+    const acc = EKG_PROG.drill.total ? Math.round(100 * EKG_PROG.drill.correct / EKG_PROG.drill.total) : null;
     wrap.replaceChildren();
     const card = el(`<section class="stage">
-      <div class="stage-head"><span class="label">Identify the rhythm</span><span class="rule"></span><span class="topstat quizscore">${t ? `${n}/${t} &middot; ${Math.round(100 * n / t)}%` : ''}</span></div>
+      <div class="stage-head"><span class="label">Identify the rhythm</span><span class="rule"></span><span class="topstat quizscore">${EKG_PROG.drill.total ? `${EKG_PROG.drill.correct}/${EKG_PROG.drill.total}${acc != null ? ` · ${acc}%` : ''}` : ''}</span></div>
       <div class="ekgstrip drill">${ekgSvg(item.id, 640, 130)}</div>
       <div class="opts">${opts.map((o, i) => `<button class="opt" data-i="${i}"><span class="key">${LETTERS[i]}</span><span>${esc(o.name)}</span></button>`).join('')}</div>
       <div class="after"></div>
     </section>`);
     const after = card.querySelector('.after');
     card.querySelectorAll('.opt').forEach(btn => btn.addEventListener('click', () => {
-      const pick = opts[Number(btn.dataset.i)], correct = pick.id === item.id; t++; if (correct) n++;
+      const pick = opts[Number(btn.dataset.i)], correct = pick.id === item.id;
+      recordEkgDrill(item.cat, correct);
       card.querySelectorAll('.opt').forEach(b2 => { const o = opts[Number(b2.dataset.i)]; b2.disabled = true; if (o.id === item.id) b2.classList.add('correct'); else if (b2 === btn) b2.classList.add('wrong'); else b2.classList.add('dimmed'); });
       after.appendChild(el(`<div class="explain ${correct ? 'good' : 'bad'}"><span class="verdict">${correct ? 'CORRECT' : 'INCORRECT'} &middot; ${esc(item.name)}</span><p><b>Spot it:</b> ${esc(item.clue)}</p><p><b>Manage:</b> ${esc(item.mgmt)}</p></div>`));
-      const row = el(`<div class="continue-row"><span class="hint">ENTER &rarr;</span><button class="btn btn-solid" data-continue>Next</button></div>`);
+      const row = el(`<div class="continue-row"><span class="hint">A–E or ENTER &rarr;</span><button class="btn btn-solid" data-continue>Next</button></div>`);
       row.querySelector('[data-continue]').addEventListener('click', next); after.appendChild(row);
       row.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }));
@@ -227,3 +300,7 @@ function buildEkgDrill(body) {
   }
   next();
 }
+
+window._resetEkgMemory = function () {
+  EKG_PROG = { drill: { correct: 0, total: 0 }, byCat: {}, reviewed: [] };
+};

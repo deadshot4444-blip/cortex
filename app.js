@@ -47,7 +47,7 @@ const SECTION_INFO = {
   reference: {
     label: 'Medicine',
     headline: 'Master pharmacology.',
-    desc: 'Every drug a physician reaches for — mechanisms, classes, interactions, and the clinical reasoning behind them — alongside microbiology, lab-value interpretation, and EKG. A complete, evidence-based pharmacology and clinical-reference engine, built for retention.',
+    desc: 'Guided pharmacology (class map, Socratic learn, MOA drill), performance-drug course, microbiology, lab panels, and ECG rhythms — each with progress tracking and a recommended study path.',
   },
   socrates: {
     label: 'Learn to Learn',
@@ -55,7 +55,7 @@ const SECTION_INFO = {
     desc: 'Guided, Socratic study sessions that train the skill beneath every other skill — how to question, reason, and remember. Metacognition and proven learning technique, applied directly to medicine.',
   },
 };
-const APP_VERSION = '1.12.0';
+const APP_VERSION = '1.13.0';
 const MEMBERSHIP_START = 'August 1, 2026';
 function cortexFreeNote(sectionPill, sectionName) {
   return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free for now</span><span class="free-note-txt">${sectionName} becomes optional membership ${MEMBERSHIP_START}. The full MCAT suite stays free forever.</span></p>`;
@@ -124,7 +124,7 @@ function saveStreak() { safeSet('cs-streak', JSON.stringify(store.streak)); }
 
 const SECTION_SCRIPTS = {
   anatomy: ['anatomy.js?v=35'],
-  reference: ['reference.js?v=41', 'performance-drugs.js?v=3', 'ekg.js?v=32'],
+  reference: ['reference.js?v=42', 'performance-drugs.js?v=4', 'ekg.js?v=33'],
   socrates: ['socrates.js?v=39'],
   neuro: ['python-runtime.js?v=3', 'code-evaluator.js?v=2', 'neuro-practitioner.js?v=2', 'neuro.js?v=12'],
 };
@@ -166,6 +166,14 @@ function clearPomoProgress() {
   if (typeof window.resetPomoState === 'function') window.resetPomoState();
   else safeSet('cs-pomo', JSON.stringify({ mode: 'focus', running: false, deadline: 0, remainMs: 1500000, focusMin: 25, breakMin: 5, rounds: 0, totalFocusMs: 0, totalBreakMs: 0, startedTs: 0 }));
 }
+function clearMedicineProgress() {
+  ['cs-pharm', 'cs-ped', 'cs-micro', 'cs-labs', 'cs-ekg', 'cs-medicine'].forEach(k => {
+    try { localStorage.removeItem(k); } catch {}
+  });
+  if (typeof window._resetMedicineMemory === 'function') window._resetMedicineMemory();
+  if (typeof window._resetPedMemory === 'function') window._resetPedMemory();
+  if (typeof window._resetEkgMemory === 'function') window._resetEkgMemory();
+}
 
 function openResetProgress(onDone) {
   const m = el(`<div class="modal" id="rst"><div class="modal-box">
@@ -173,6 +181,7 @@ function openResetProgress(onDone) {
     <p class="cfx-msg">Choose what to clear on this device. Signed-in accounts will sync the reset. This cannot be undone.</p>
     <div class="endbtns cfx-btns rst-btns">
       <button class="btn" id="rst-clinical">Clinical scenarios</button>
+      <button class="btn" id="rst-medicine">Medicine</button>
       <button class="btn" id="rst-mcat">MCAT prep</button>
       <button class="btn btn-solid" id="rst-all">Everything</button>
       <button class="btn" id="rst-cancel">Cancel</button>
@@ -183,8 +192,9 @@ function openResetProgress(onDone) {
   m.addEventListener('click', e => { if (e.target.id === 'rst') close(); });
   m.querySelector('#rst-cancel').addEventListener('click', close);
   m.querySelector('#rst-clinical').addEventListener('click', () => { clearClinicalProgress(); close(); onDone(); });
+  m.querySelector('#rst-medicine').addEventListener('click', () => { clearMedicineProgress(); close(); onDone(); });
   m.querySelector('#rst-mcat').addEventListener('click', () => { clearMcatProgress(); close(); onDone(); });
-  m.querySelector('#rst-all').addEventListener('click', () => { clearClinicalProgress(); clearMcatProgress(); clearPomoProgress(); close(); onDone(); });
+  m.querySelector('#rst-all').addEventListener('click', () => { clearClinicalProgress(); clearMedicineProgress(); clearMcatProgress(); clearPomoProgress(); close(); onDone(); });
   document.addEventListener('keydown', onKey);
   document.body.appendChild(m);
 }
@@ -665,6 +675,17 @@ const PRINCIPLES = [
 
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
+  {
+    date: 'June 19, 2026', version: '1.13.0', tag: 'NEW',
+    title: 'Medicine tab \u2014 unified progress & guided study',
+    items: [
+      'Medicine hub: overall progress bar, Continue CTA, recommended path, live stats on every card.',
+      'Pharmacology: learn resume + step dots, per-class studied counts, unique-name tracking (355).',
+      'Microbiology & lab values: guided panel/group learn, persistent drill stats, Stats page blocks.',
+      'ECG: reviewed checkmarks, category drill filters, persistent scores, A\u2013E keyboard in all Medicine drills.',
+      'Reset progress: new Medicine option clears pharm, PED, micro, labs & ECG.',
+    ],
+  },
   {
     date: 'June 19, 2026', version: '1.12.0', tag: 'NEW',
     title: 'Performance drugs \u2014 course polish',
@@ -1578,13 +1599,47 @@ function pomoStatsSnapshot() {
   return { rounds, focusLabel: fmtDurMs(focusMs), has: rounds > 0 || focusMs > 0 };
 }
 
+const PHARM_UNIQUE_TOTAL = 355;
+
 function pharmStatsSnapshot() {
   const prog = loadJSON('cs-pharm', { drill: { correct: 0, total: 0 }, byCat: {}, learned: {} });
   const drilled = prog.drill?.total || 0;
   const acc = drilled ? Math.round(100 * prog.drill.correct / drilled) : null;
-  const learned = Object.keys(prog.learned || {}).length;
+  const names = new Set();
+  Object.values(prog.learned || {}).forEach(v => { if (v?.name) names.add(v.name); });
+  const learned = names.size || Object.keys(prog.learned || {}).length;
   const has = drilled > 0 || learned > 0;
-  return { drilled, acc, learned, has };
+  return { drilled, acc, learned, learnedTotal: PHARM_UNIQUE_TOTAL, has };
+}
+
+function microStatsSnapshot() {
+  const prog = loadJSON('cs-micro', { drill: { correct: 0, total: 0 }, byCat: {}, guidedSection: 0, guidedDone: false });
+  const drilled = prog.drill?.total || 0;
+  const acc = drilled ? Math.round(100 * prog.drill.correct / drilled) : null;
+  const guidedTotal = 12;
+  const guided = prog.guidedDone ? guidedTotal : (prog.guidedSection || 0);
+  const has = drilled > 0 || guided > 0 || prog.guidedDone;
+  return { drilled, acc, guided, guidedTotal, has };
+}
+
+function labsStatsSnapshot() {
+  const prog = loadJSON('cs-labs', { drill: { correct: 0, total: 0 }, byPanel: {}, guidedSection: 0, guidedDone: false });
+  const drilled = prog.drill?.total || 0;
+  const acc = drilled ? Math.round(100 * prog.drill.correct / drilled) : null;
+  const guidedTotal = 10;
+  const guided = prog.guidedDone ? guidedTotal : (prog.guidedSection || 0);
+  const has = drilled > 0 || guided > 0 || prog.guidedDone;
+  return { drilled, acc, guided, guidedTotal, has };
+}
+
+function ekgStatsSnapshot() {
+  const prog = loadJSON('cs-ekg', { drill: { correct: 0, total: 0 }, byCat: {}, reviewed: [] });
+  const reviewed = (prog.reviewed || []).length;
+  const total = 20;
+  const drilled = prog.drill?.total || 0;
+  const acc = drilled ? Math.round(100 * prog.drill.correct / drilled) : null;
+  const has = reviewed > 0 || drilled > 0;
+  return { reviewed, total, drilled, acc, has };
 }
 
 function pedStatsSnapshot() {
@@ -1636,6 +1691,9 @@ function renderStats() {
   const ns = neuroStatsSnapshot();
   const ph = pharmStatsSnapshot();
   const pd = pedStatsSnapshot();
+  const mi = microStatsSnapshot();
+  const la = labsStatsSnapshot();
+  const ek = ekgStatsSnapshot();
   const totalCases = Object.values(store.manifest).reduce((a, b) => a + b, 0);
 
   // 21-day activity strip from history
@@ -1685,9 +1743,36 @@ function renderStats() {
       <span class="label">Pharmacology</span>
       <div class="metrics metrics-2">
         <div class="metric"><span class="m-num" data-countup="${ph.drilled}">${ph.drilled || '&mdash;'}</span><span class="m-lab">Drill questions</span><span class="m-sub">${ph.acc != null ? ph.acc + '% accuracy' : 'MOA or pearl mode'}</span></div>
-        <div class="metric"><span class="m-num" data-countup="${ph.learned}">${ph.learned || '&mdash;'}</span><span class="m-lab">Drugs studied</span><span class="m-sub">guided learn complete</span></div>
+        <div class="metric"><span class="m-num" data-countup="${ph.learned}">${ph.learned || '&mdash;'}</span><span class="m-lab">Unique names</span><span class="m-sub">of ${ph.learnedTotal} in guided learn</span></div>
       </div>
       ${ph.has ? '<div class="stat-cta"><button class="btn btn-solid" id="stats-pharm">Open Pharmacology &rarr;</button></div>' : '<p class="stat-empty">No pharm activity yet &mdash; start with a drug class.</p>'}
+    </div>
+
+    <div class="statblock">
+      <span class="label">Microbiology</span>
+      <div class="metrics metrics-2">
+        <div class="metric"><span class="m-num" data-countup="${mi.guided}">${mi.guided || '&mdash;'}</span><span class="m-lab">Groups learned</span><span class="m-sub">of ${mi.guidedTotal} guided</span></div>
+        <div class="metric"><span class="m-num" data-countup="${mi.drilled}">${mi.drilled || '&mdash;'}</span><span class="m-lab">Drill questions</span><span class="m-sub">${mi.acc != null ? mi.acc + '% accuracy' : 'bug ID recall'}</span></div>
+      </div>
+      ${mi.has ? '<div class="stat-cta"><button class="btn btn-solid" id="stats-micro">Open Microbiology &rarr;</button></div>' : '<p class="stat-empty">No micro activity yet &mdash; start guided learn.</p>'}
+    </div>
+
+    <div class="statblock">
+      <span class="label">Lab values</span>
+      <div class="metrics metrics-2">
+        <div class="metric"><span class="m-num" data-countup="${la.guided}">${la.guided || '&mdash;'}</span><span class="m-lab">Panels learned</span><span class="m-sub">of ${la.guidedTotal} guided</span></div>
+        <div class="metric"><span class="m-num" data-countup="${la.drilled}">${la.drilled || '&mdash;'}</span><span class="m-lab">Drill questions</span><span class="m-sub">${la.acc != null ? la.acc + '% accuracy' : 'pattern recall'}</span></div>
+      </div>
+      ${la.has ? '<div class="stat-cta"><button class="btn btn-solid" id="stats-labs">Open Lab values &rarr;</button></div>' : '<p class="stat-empty">No labs activity yet &mdash; start guided learn.</p>'}
+    </div>
+
+    <div class="statblock">
+      <span class="label">ECG rhythms</span>
+      <div class="metrics metrics-2">
+        <div class="metric"><span class="m-num" data-countup="${ek.reviewed}">${ek.reviewed || '&mdash;'}</span><span class="m-lab">Reviewed</span><span class="m-sub">of ${ek.total} rhythms</span></div>
+        <div class="metric"><span class="m-num" data-countup="${ek.drilled}">${ek.drilled || '&mdash;'}</span><span class="m-lab">Drill questions</span><span class="m-sub">${ek.acc != null ? ek.acc + '% accuracy' : 'identify on sight'}</span></div>
+      </div>
+      ${ek.has ? '<div class="stat-cta"><button class="btn btn-solid" id="stats-ekg">Open ECG &rarr;</button></div>' : '<p class="stat-empty">No ECG activity yet &mdash; review the library first.</p>'}
     </div>
 
     <div class="statblock">
@@ -1765,6 +1850,21 @@ function renderStats() {
     await ensureSection('reference');
     renderPerformanceDrugs('hub');
   });
+  const microBtn = main.querySelector('#stats-micro');
+  if (microBtn) microBtn.addEventListener('click', async () => {
+    await ensureSection('reference');
+    renderRefSet('micro', 'learn');
+  });
+  const labsBtn = main.querySelector('#stats-labs');
+  if (labsBtn) labsBtn.addEventListener('click', async () => {
+    await ensureSection('reference');
+    renderRefSet('labs', 'learn');
+  });
+  const ekgBtn = main.querySelector('#stats-ekg');
+  if (ekgBtn) ekgBtn.addEventListener('click', async () => {
+    await ensureSection('reference');
+    renderEKG('library');
+  });
 
   root.appendChild(main);
   setView(root);
@@ -1785,7 +1885,19 @@ document.addEventListener('keydown', (e) => {
     if (btn) { e.preventDefault(); btn.click(); return; }
   }
 
-  if (!session) return;
+  if (!session) {
+    const stage = document.querySelector('.quizwrap .stage');
+    if (stage) {
+      const btns = [...stage.querySelectorAll('.opt:not(:disabled)')];
+      if (btns.length) {
+        let i = -1;
+        if (/^[a-eA-E]$/.test(e.key)) i = e.key.toLowerCase().charCodeAt(0) - 97;
+        if (/^[1-5]$/.test(e.key)) i = Number(e.key) - 1;
+        if (i >= 0 && i < btns.length) { e.preventDefault(); btns[i].click(); return; }
+      }
+    }
+    return;
+  }
 
   if (e.key === 'Escape') { renderHome(); return; }
   if (e.key === 'Enter') {   // in an active case, Enter also advances the summary's "Next case"

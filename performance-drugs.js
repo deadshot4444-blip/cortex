@@ -154,7 +154,10 @@ async function renderPerformanceDrugs(tab = 'hub', opts = {}) {
   await loadPED();
   if (!PED.data) { renderReference(); return; }
 
-  if (tab === 'hub') return renderPEDHub();
+  if (tab === 'hub') {
+    if (typeof touchMedicine === 'function') touchMedicine('ped', 'hub');
+    return renderPEDHub();
+  }
   if (tab === 'module') return renderPEDModule(opts.moduleId);
   if (tab === 'hormones') return renderPEDHormones(opts.hormone || 'steroid', opts.mode || 'browse');
   if (tab === 'pathways') return renderPEDPathways(opts.pathwayId || null);
@@ -188,7 +191,7 @@ function renderPEDHub() {
     <span class="label ped-modulelabel">Study path</span>
     <div id="pedmodules"></div>
     <details class="ped-ref-fold">
-      <summary class="ped-ref-sum"><span class="label">Quick reference</span></summary>
+      <summary class="ped-ref-sum"><span class="label">Quick reference</span><span class="ped-refnote">browse only — does not complete course modules</span></summary>
       <div class="ped-reflinks">
         <button class="btn" type="button" data-ref="hormones">Hormone map</button>
         <button class="btn" type="button" data-ref="catalog">Agent catalog</button>
@@ -774,3 +777,7 @@ function renderPEDClinical(fromRef, moduleId) {
   root.appendChild(main);
   setView(root);
 }
+
+window._resetPedMemory = function () {
+  PED_PROG = migratePedProg(null);
+};

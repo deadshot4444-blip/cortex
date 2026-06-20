@@ -749,6 +749,10 @@ button:focus-visible, .opt:focus-visible { outline: 1px solid var(--text); outli
 .pharm-classcard:hover { background: var(--surface); }
 .pharm-classname { font-size: 13.5px; font-weight: 500; color: var(--text); line-height: 1.35; }
 .pharm-classmeta { font-family: var(--mono); font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--dim); }
+.pharm-classcard .ped-modbar { display: block; margin-top: 8px; max-width: 100%; }
+.med-hub .ped-cta-row { margin-top: 0; }
+.ped-refnote { font-size: 11px; color: var(--dim); font-weight: 400; text-transform: none; letter-spacing: 0; margin-left: 10px; }
+.ekgitem.studied { border-left: 2px solid #1a7f37; }
 .pharm-drugname { font-size: 22px; font-weight: 500; margin: 12px 0 4px; letter-spacing: -.02em; }
 .pharm-drugclass { font-size: 13px; color: var(--dim); margin-bottom: 16px; }
 .pharm-drill-controls { margin-bottom: 12px; }
