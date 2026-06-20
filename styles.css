@@ -755,6 +755,98 @@ button:focus-visible, .opt:focus-visible { outline: 1px solid var(--text); outli
 .pharm-drill-modes { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
 .pharm-learn-stage .socactions { margin-top: 12px; }
 
+.ped-page .topback { margin-bottom: 8px; }
+.ped-disclaimer { font-size: 12.5px; color: var(--dim); max-width: 58ch; margin: 0 0 20px; line-height: 1.5; }
+.ped-statline { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--dim); margin-bottom: 16px; }
+.ped-branchgrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  margin-top: 20px;
+}
+.ped-branchcard {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px;
+  background: var(--bg);
+  text-align: left;
+  transition: background .12s;
+  min-height: 100px;
+}
+.ped-branchcard:hover { background: var(--surface); }
+.ped-branchtitle { font-size: 14px; font-weight: 500; color: var(--text); }
+.ped-branchdesc { font-size: 13px; color: var(--body); line-height: 1.45; }
+.ped-hormtabs { flex-wrap: wrap; }
+.ped-hormintro { margin: 16px 0 20px; max-width: 62ch; }
+.ped-where { font-size: 14px; color: var(--body); margin-top: 10px; line-height: 1.5; }
+.ped-agentlist { display: flex; flex-direction: column; gap: 1px; background: var(--line); border: 1px solid var(--line); margin-top: 12px; }
+.ped-agentcard { background: var(--bg); padding: 16px 18px; }
+.ped-agentcard--compact { padding: 14px 16px; }
+.ped-agenthead { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 12px; margin-bottom: 10px; }
+.ped-agentname { font-size: 15px; font-weight: 500; color: var(--text); }
+.ped-agentrole { font-size: 12px; color: var(--dim); }
+.ped-pathgrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  margin-top: 20px;
+}
+.ped-pathcard {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 18px;
+  background: var(--bg);
+  text-align: left;
+  transition: background .12s;
+}
+.ped-pathcard:hover { background: var(--surface); }
+.ped-pathname { font-size: 14px; font-weight: 500; }
+.ped-pathsub { font-size: 13px; color: var(--body); }
+.ped-pathmeta { font-family: var(--mono); font-size: 10px; letter-spacing: .06em; text-transform: uppercase; color: var(--dim); margin-top: 4px; }
+.ped-flow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  margin: 20px 0;
+  padding: 16px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+.ped-node {
+  min-width: 200px;
+  max-width: 100%;
+  padding: 12px 20px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  border: 1px solid var(--line-bright);
+}
+.ped-node.filled { background: var(--bg); color: var(--text); }
+.ped-node.blank {
+  background: transparent;
+  color: var(--dim);
+  border-style: dashed;
+  font-family: var(--mono);
+  font-size: 18px;
+}
+.ped-arrow {
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--dim);
+  line-height: 1;
+  padding: 4px 0;
+}
+.ped-hintline { font-size: 13px; color: var(--dim); margin-bottom: 14px; font-style: italic; }
+.ped-risklist { margin: 12px 0 0; padding-left: 20px; color: var(--body); font-size: 14px; line-height: 1.55; }
+.ped-catsec { margin-top: 24px; margin-bottom: 8px; }
+
 .refchips { display: flex; flex-wrap: wrap; gap: 6px; margin: 16px 0 4px; }
 .refchip {
   font-family: var(--mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase;

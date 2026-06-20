@@ -1,0 +1,309 @@
+{
+  "title": "Performance Enhancing Drugs",
+  "tagline": "Hormone classes, axis pathways, and high-yield agents — taught for medicine, not a how-to guide.",
+  "disclaimer": "Educational pharmacology and physiology only. Abuse carries serious medical, legal, and sporting consequences.",
+  "hormoneTabs": {
+    "steroid": {
+      "label": "Steroid hormones",
+      "summary": "Lipid-derived, ring-structured hormones. Most act on intracellular nuclear receptors — gene transcription after entering the cell (or are already synthesized inside target cells).",
+      "where": "Nuclear hormone receptors in cytoplasm/nucleus of target cells. Classic axes: HPG (gonadal), adrenal (cortisol), mineralocorticoid.",
+      "agents": [
+        { "name": "Testosterone", "role": "Endogenous androgen", "where": "Androgen receptor (nuclear) — muscle, bone, erythropoiesis, CNS", "pathway": "HPG axis · Leydig cells", "pedNote": "Exogenous forms (enanthate, cypionate) prolong half-life; suppresses HPG via negative feedback.", "pearl": "Aromatized to estradiol; 5α-reduced to DHT (potent androgen)." },
+        { "name": "Dihydrotestosterone (DHT)", "role": "Potent androgen metabolite", "where": "Androgen receptor — prostate, skin, hair follicles", "pathway": "5α-reductase on testosterone", "pedNote": "Not a common injectable; finasteride blocks conversion (side effect exploited rarely).", "pearl": "5α-reductase converts T → DHT; drives prostate growth and male-pattern hair effects." },
+        { "name": "Estradiol", "role": "Endogenous estrogen", "where": "Estrogen receptors (ERα/ERβ) — bone, CV, breast, feedback on HPG", "pathway": "Aromatase on testosterone/androstenedione", "pedNote": "Gynecomastia on AAS cycles; tamoxifen/aromatase inhibitors used to mask.", "pearl": "Aromatase (CYP19) in adipose/Leydig converts androgens → estrogens." },
+        { "name": "Cortisol", "role": "Glucocorticoid", "where": "Glucocorticoid receptor — anti-inflammatory, gluconeogenesis, immunosuppression", "pathway": "HPA: CRH → ACTH → adrenal cortex", "pedNote": "Low-dose dexamethasone abused to suppress inflammation/mask injury; catabolic at high dose.", "pearl": "Exogenous glucocorticoids ↓ ACTH/CRH via negative feedback — adrenal suppression risk." },
+        { "name": "Aldosterone", "role": "Mineralocorticoid", "where": "Mineralocorticoid receptor — kidney distal tubule Na⁺ retention", "pathway": "Adrenal zona glomerulosa · RAAS", "pedNote": "Indirectly relevant via fluid balance; fludrocortisone rarely abused.", "pearl": "Spironolactone blocks MR — also anti-androgen (gynecomastia)." },
+        { "name": "Nandrolone", "role": "Synthetic 19-nortestosterone AAS", "where": "Androgen receptor — anabolic > androgenic vs testosterone", "pathway": "Exogenous · HPG suppression", "pedNote": "Long metabolite detection window; classic 'Deca' in doping literature.", "pearl": "19-nor structure; less DHT but still aromatizes to estrogenic metabolites." },
+        { "name": "Stanozolol", "role": "17α-alkylated oral AAS", "where": "Androgen receptor — oral bioavailability via 17α-alkylation", "pathway": "Exogenous · hepatotoxic", "pedNote": "Oral 17α-alkylated steroids stress the liver (cholestasis, peliosis).", "pearl": "17α-alkyl group prevents first-pass degradation — hepatotoxicity trade-off." },
+        { "name": "Oxandrolone", "role": "Mild oral AAS", "where": "Androgen receptor — relatively anabolic", "pathway": "Exogenous", "pedNote": "Medically used for wasting; abused for lean mass with lower androgenic rating on paper.", "pearl": "Still 17α-alkylated — not 'safe' for the liver despite 'mild' reputation." },
+        { "name": "Boldenone", "role": "Veterinary AAS analogue", "where": "Androgen receptor", "pathway": "Exogenous", "pedNote": "Equipoise; long ester; detected in anti-doping panels.", "pearl": "Structurally similar to testosterone with a double bond — distinct metabolites for testing." },
+        { "name": "Tamoxifen", "role": "SERM", "where": "Estrogen receptor antagonist (breast) / partial agonist elsewhere", "pathway": "Blocks estradiol at ER — not a steroid hormone itself", "pedNote": "Masking gynecomastia on AAS cycles; not an anabolic agent.", "pearl": "SERM: antagonist in breast, agonist in bone/uterus — know tissue selectivity." },
+        { "name": "Anastrozole", "role": "Aromatase inhibitor", "where": "Inhibits CYP19 — ↓ estradiol synthesis", "pathway": "Peripheral aromatization blockade", "pedNote": "Reduces estrogen during high-testosterone abuse; bone density risk long-term.", "pearl": "Non-steroidal AI; lowers E2 without blocking ER directly." }
+      ]
+    },
+    "peptide": {
+      "label": "Peptide hormones",
+      "summary": "Amino-acid chains. Bind cell-surface receptors → second messengers (cAMP, JAK-STAT, tyrosine kinase cascades). Cannot orally absorb intact — injected or inhaled (some).",
+      "where": "Plasma membrane receptors on target cells. Often secreted from pituitary, hypothalamus, kidney, pancreas.",
+      "agents": [
+        { "name": "Growth hormone (GH)", "role": "Anterior pituitary peptide", "where": "GH receptor (JAK2/STAT) — liver, bone, muscle; ↑ IGF-1", "pathway": "GHRH (+) / somatostatin (−) → pituitary GH", "pedNote": "rhGH abuse; hard to detect (pulsatile, short half-life); lipolysis + anabolic via IGF-1.", "pearl": "GH is pulsatile; IGF-1 is the stable downstream marker in blood." },
+        { "name": "IGF-1", "role": "Peptide growth factor", "where": "IGF-1 receptor (tyrosine kinase) — muscle, bone", "pathway": "Liver + local production downstream of GH", "pedNote": "IGF-1 LR3 and DES variants abused; hypoglycemia risk.", "pearl": "Insulin-like structure; GH → liver IGF-1 is the main endocrine loop." },
+        { "name": "Erythropoietin (EPO)", "role": "Kidney glycoprotein hormone", "where": "EPO receptor (JAK2) on erythroid progenitors in bone marrow", "pathway": "Hypoxia → HIF → renal EPO → ↑ RBC mass", "pedNote": "rhEPO / darbepoetin ↑ hematocrit → endurance; thrombosis risk.", "pearl": "Officer test: ↑ hematocrit/hemoglobin with low reticulocyte index patterns when abused." },
+        { "name": "Insulin", "role": "Pancreatic peptide hormone", "where": "Insulin receptor (tyrosine kinase) — muscle, fat, liver", "pathway": "Glucose sensing → β-cell secretion", "pedNote": "Abused with GH/IGF for anabolism; fatal hypoglycemia risk.", "pearl": "Counter-regulatory: glucagon, epinephrine, cortisol, GH raise glucose." },
+        { "name": "hCG", "role": "Placental glycoprotein (LH mimic)", "where": "LH/CG receptor on Leydig cells → ↑ testosterone", "pathway": "Mimics LH in HPG axis", "pedNote": "Used to restart/testicular function after AAS; itself detectable.", "pearl": "α subunit like LH/FSH/TSH; β subunit unique — immunoassays target β-hCG." },
+        { "name": "ACTH", "role": "Pituitary peptide", "where": "MC2 receptor on adrenal cortex → cortisol", "pathway": "CRH → ACTH → cortisol", "pedNote": "Rare direct abuse; tetracosactide (ACTH analogue) in doping history.", "pearl": "ACTH 1–39; shorter fragments used diagnostically (stimulation test)." },
+        { "name": "GnRH", "role": "Hypothalamic decapeptide", "where": "GnRH receptor on pituitary gonadotrophs → LH/FSH pulse", "pathway": "HPG axis driver", "pedNote": "Continuous GnRH agonists paradoxically suppress LH/FSH (downregulation).", "pearl": "Pulsatile = stimulate; continuous infusion = chemical castration (prostate CA)." },
+        { "name": "LH / FSH", "role": "Pituitary glycoproteins", "where": "Gonadal receptors — Leydig (LH), Sertoli/granulosa (FSH)", "pathway": "Downstream of GnRH", "pedNote": "Less common as black-market agents vs hCG or exogenous testosterone.", "pearl": "LH drives testosterone; FSH drives spermatogenesis / folliculogenesis." },
+        { "name": "GHRP / GHRH analogs", "role": "Secretagogue peptides", "where": "GHRH receptor or ghrelin/GH secretagogue receptor → ↑ GH pulse", "pathway": "Upstream of GH axis", "pedNote": "CJC-1295, ipamorelin, etc. — peptide doping category.", "pearl": "Work by amplifying endogenous GH pulses rather than replacing GH protein." },
+        { "name": "Glucagon", "role": "Pancreatic peptide", "where": "Glucagon receptor — hepatocyte glycogenolysis/gluconeogenesis", "pathway": "Counter-regulatory to insulin", "pedNote": "Not performance-enhancing; know for hypoglycemia rescue contrast.", "pearl": "Raises blood glucose; opposite net effect to insulin on liver." }
+      ]
+    },
+    "amine": {
+      "label": "Amine hormones",
+      "summary": "Derived from tyrosine or tryptophan. Catecholamines and thyroid hormones — faster signaling or iodinated amines acting on nuclear receptors.",
+      "where": "Catecholamines: GPCRs (α/β adrenergic). Thyroid hormones: nuclear receptors (TR) after cellular uptake.",
+      "agents": [
+        { "name": "Epinephrine", "role": "Adrenal medulla catecholamine", "where": "α1, β1, β2 adrenergic receptors — heart, bronchi, vasculature", "pathway": "Sympathetic · fight-or-flight", "pedNote": "Not a chronic PED; acute performance in theory; endogenous in stress.", "pearl": "β2 agonism → bronchodilation + muscle tremor; β1 ↑ HR/contractility." },
+        { "name": "Norepinephrine", "role": "Catecholamine", "where": "α1 > β1 vasoconstriction + cardiac output", "pathway": "Sympathetic nerve terminals + adrenal medulla", "pedNote": "Relevance is sympathomimetic drug class overlap.", "pearl": "Less β2 activity than epinephrine — more vasoconstrictive." },
+        { "name": "Dopamine", "role": "Catecholamine / neurotransmitter", "where": "Dopamine receptors (CNS); precursor to NE/Epi", "pathway": "CNS motor/reward; prolactin inhibition (Tuberoinfundibular)", "pedNote": "Bromocriptine/cabergoline (dopamine agonists) suppress prolactin on cycles.", "pearl": "Prolactin rise can occur with some AAS — DA agonists lower prolactin." },
+        { "name": "Thyroxine (T4)", "role": "Thyroid amine hormone", "where": "Nuclear thyroid receptors after 5'-deiodinase → T3", "pathway": "TRH → TSH → thyroid follicular cells", "pedNote": "Exogenous levothyroxine abused for weight loss / metabolic rate.", "pearl": "T4 is prohormone; T3 (liothyronine) is active — shorter half-life, more potent." },
+        { "name": "Triiodothyronine (T3)", "role": "Active thyroid hormone", "where": "Thyroid hormone receptor — basal metabolic rate, β-adrenergic sensitivity", "pathway": "Peripheral conversion of T4 or direct secretion", "pedNote": "Liothyronine cuts — catabolic if overdosed; cardiac arrhythmia risk.", "pearl": "↑ O₂ consumption, ↑ HR; opposite of hypothyroid myxedema picture." },
+        { "name": "Amphetamine / methylphenidate", "role": "Sympathomimetic amines (not hormones)", "where": "↑ catecholamines in synapse — DAT/NET inhibition + release", "pathway": "CNS stimulant", "pedNote": "Stimulant class in anti-doping; focus, aggression, decreased perception of fatigue.", "pearl": "Mechanism distinct from receptor agonists — ↑ synaptic dopamine/NE." },
+        { "name": "Clenbuterol", "role": "β2-adrenergic agonist (not endogenous hormone)", "where": "β2 receptors — bronchodilation, skeletal muscle anabolic signal (debated)", "pathway": "Sympathomimetic · not HP axis", "pedNote": "Veterinary bronchodilator abused for cutting; tremor, tachycardia, hypokalemia.", "pearl": "Selective β2 in theory; tachyphylaxis; detectable longer than endogenous catecholamines." },
+        { "name": "Ephedrine / pseudoephedrine", "role": "Indirect sympathomimetics", "where": "↑ NE release + weak direct agonism", "pathway": "Adrenergic", "pedNote": "Banned/threshold in sport; CV stroke risk.", "pearl": "MAOI interaction can cause hypertensive crisis — clinical pearl." },
+        { "name": "Caffeine", "role": "Methylxanthine (not a hormone)", "where": "Adenosine receptor antagonism — mild CNS/muscle effect", "pathway": "WADA once monitored, now removed from prohibited list (high doses still ergogenic)", "pedNote": "Legal ergogenic at moderate doses; know threshold history for exams.", "pearl": "Mechanism ≠ catecholamines — adenosine blockade reduces perceived effort." }
+      ]
+    }
+  },
+  "branches": [
+    { "id": "hormones", "title": "Hormone map", "desc": "Steroid vs peptide vs amine — what each agent is and where it acts." },
+    { "id": "pathways", "title": "Pathway flowchart", "desc": "Build axes step-by-step — HPG, GH–IGF, HPA, thyroid, EPO." },
+    { "id": "catalog", "title": "Agent catalog", "desc": "Anabolics, peptides, blood boosters, stimulants, masking." },
+    { "id": "clinical", "title": "Clinical & detection", "desc": "Risks, labs, and what clinicians actually see." }
+  ],
+  "catalogSections": [
+    {
+      "id": "anabolic",
+      "title": "Anabolic–androgenic agents",
+      "items": [
+        { "name": "Testosterone esters", "class": "AAS", "moa": "Androgen receptor agonism", "risk": "HPG suppression, polycythemia, dyslipidemia, acne, aggression" },
+        { "name": "Nandrolone", "class": "19-nor AAS", "moa": "AR agonism", "risk": "Progesterone-like effects; long detection" },
+        { "name": "Stanozolol / oxandrolone", "class": "17α-alkylated oral AAS", "moa": "AR agonism", "risk": "Hepatotoxicity, LDL/HDL crash" },
+        { "name": "SARMs (ostarine, etc.)", "class": "Non-steroidal AR modulators", "moa": "Tissue-selective AR signaling (claimed)", "risk": "HPG suppression; long-term safety unknown" }
+      ]
+    },
+    {
+      "id": "peptides",
+      "title": "Peptide & protein agents",
+      "items": [
+        { "name": "rhGH", "class": "Recombinant peptide", "moa": "GH receptor → IGF-1", "risk": "Acromegaly features, insulin resistance, edema" },
+        { "name": "rhEPO / darbepoetin", "class": "Glycoprotein", "moa": "EPO receptor → erythropoiesis", "risk": "Hyperviscosity, MI/stroke" },
+        { "name": "Insulin", "class": "Peptide hormone", "moa": "Insulin receptor", "risk": "Hypoglycemic death" },
+        { "name": "hCG", "class": "Glycoprotein", "moa": "LH receptor → ↑ testosterone", "risk": "Gynecomastia, detected on panel" }
+      ]
+    },
+    {
+      "id": "blood",
+      "title": "Blood & endurance",
+      "items": [
+        { "name": "Autologous blood transfusion", "class": "Procedure", "moa": "↑ O₂ carrying capacity", "risk": "Hyperviscosity; detection via blood passport" },
+        { "name": "Altitude tents / hypoxia", "class": "Physiologic", "moa": "↑ endogenous EPO", "risk": "Legal gray; mimics natural acclimatization" }
+      ]
+    },
+    {
+      "id": "stim",
+      "title": "Stimulants & metabolic",
+      "items": [
+        { "name": "Amphetamines", "class": "Sympathomimetic amine", "moa": "↑ synaptic monoamines", "risk": "Arrhythmia, heat stroke, dependence" },
+        { "name": "Clenbuterol", "class": "β2 agonist", "moa": "β2 receptor", "risk": "Tremor, tachy, hypokalemia" },
+        { "name": "Liothyronine (T3)", "class": "Thyroid hormone", "moa": "Thyroid receptor", "risk": "Thyrotoxicosis, muscle catabolism" }
+      ]
+    },
+    {
+      "id": "masking",
+      "title": "Masking & ancillary",
+      "items": [
+        { "name": "Diuretics", "class": "Masking", "moa": "↓ weight / dilute urine", "risk": "Hypovolemia, electrolyte collapse" },
+        { "name": "Aromatase inhibitors / SERMs", "class": "Anti-estrogen", "moa": "↓ E2 or block ER", "risk": "Bone loss, lipid changes" },
+        { "name": "Plasma expanders", "class": "Masking", "moa": "Volume manipulation", "risk": "Detected in hematologic screening" }
+      ]
+    }
+  ],
+  "clinical": {
+    "labs": [
+      { "test": "Hematocrit / hemoglobin", "high": "EPO, testosterone, transfusion", "low": "—" },
+      { "test": "LH / FSH", "high": "Primary gonadal failure (rare in abuse)", "low": "Exogenous androgens suppress HPG" },
+      { "test": "Total / free testosterone", "high": "Exogenous AAS", "low": "Post-cycle crash" },
+      { "test": "IGF-1", "high": "rhGH abuse", "low": "GH deficiency" },
+      { "test": "TSH / free T4", "high": "TSH if primary hypo; low T4 on thyroxine misuse", "low": "TSH suppressed in thyrotoxicosis" },
+      { "test": "AST / ALT", "high": "17α-alkylated orals, intense training", "low": "—" },
+      { "test": "LDL / HDL", "high": "LDL often ↑ on AAS", "low": "HDL often crashed on AAS" }
+    ],
+    "risks": [
+      "Cardiovascular: MI, stroke, cardiomyopathy, hypertension, dyslipidemia",
+      "Hepatic: cholestasis, peliosis, tumors with 17α-alkylated orals",
+      "Endocrine: infertility, gynecomastia, adrenal/gonadal axis suppression",
+      "Psychiatric: irritability, mania, depression on withdrawal",
+      "Renal / metabolic: rhabdomyolysis, hyperviscosity, severe hypoglycemia (insulin)"
+    ]
+  },
+  "pathways": [
+    {
+      "id": "hpg",
+      "title": "HPG axis (gonadal)",
+      "subtitle": "GnRH pulse → sex steroids",
+      "steps": [
+        { "id": "gnrh", "label": "GnRH", "hint": "Hypothalamic decapeptide released in pulses" },
+        { "id": "lh", "label": "LH", "hint": "Pituitary gonadotropin — drives Leydig cells" },
+        { "id": "fsh", "label": "FSH", "hint": "Pituitary — Sertoli/granulosa, spermatogenesis/follicles" },
+        { "id": "testosterone", "label": "Testosterone", "hint": "Leydig cell steroid — negative feedback on HPG" },
+        { "id": "dht", "label": "DHT", "hint": "5α-reductase metabolite — potent androgen" },
+        { "id": "estradiol", "label": "Estradiol", "hint": "Aromatase metabolite — feedback + gynecomastia risk" }
+      ],
+      "forkQuiz": [
+        {
+          "prompt": "GnRH is released from the…",
+          "answer": "Hypothalamus",
+          "options": ["Hypothalamus", "Anterior pituitary", "Adrenal medulla", "Leydig cell"],
+          "after": "Pulsatile GnRH is required — continuous exposure suppresses LH/FSH."
+        },
+        {
+          "prompt": "LH acts primarily on…",
+          "answer": "Leydig cells",
+          "options": ["Leydig cells", "Sertoli cells only", "Hepatocytes", "Renal tubule"],
+          "after": "LH → ↑ testosterone synthesis in Leydig cells."
+        },
+        {
+          "prompt": "Testosterone converts to DHT via…",
+          "answer": "5α-reductase",
+          "options": ["5α-reductase", "Aromatase", "11β-HSD", "CYP21A2"],
+          "after": "Finasteride blocks 5α-reductase — ↓ DHT."
+        },
+        {
+          "prompt": "Exogenous testosterone suppresses LH/FSH through…",
+          "answer": "Negative feedback",
+          "options": ["Positive feedback", "Negative feedback", "Feed-forward", "No feedback"],
+          "after": "HPG shutdown → testicular atrophy, infertility until recovery."
+        }
+      ]
+    },
+    {
+      "id": "gh-igf",
+      "title": "GH–IGF axis",
+      "subtitle": "GHRH / somatostatin → GH → IGF-1",
+      "steps": [
+        { "id": "ghrh", "label": "GHRH", "hint": "Hypothalamic stimulator of GH release" },
+        { "id": "gh", "label": "GH", "hint": "Anterior pituitary — pulsatile secretion" },
+        { "id": "igf1", "label": "IGF-1", "hint": "Liver + local — main growth mediator" },
+        { "id": "target", "label": "Bone / muscle growth", "hint": "Anabolic & lipolytic downstream effects" }
+      ],
+      "forkQuiz": [
+        {
+          "prompt": "GH is secreted from the…",
+          "answer": "Anterior pituitary",
+          "options": ["Anterior pituitary", "Posterior pituitary", "Hypothalamus", "Pancreas β-cells"],
+          "after": "Posterior pituitary stores ADH/oxytocin — not GH."
+        },
+        {
+          "prompt": "The best stable blood marker of excess GH is…",
+          "answer": "IGF-1",
+          "options": ["IGF-1", "Random GH", "Prolactin", "ACTH"],
+          "after": "GH is pulsatile; IGF-1 integrates exposure."
+        },
+        {
+          "prompt": "Somatostatin acts to…",
+          "answer": "Inhibit GH release",
+          "options": ["Stimulate GH release", "Inhibit GH release", "Stimulate TSH", "Block IGF-1 receptor"],
+          "after": "Octreotide mimics somatostatin — used in acromegaly."
+        }
+      ]
+    },
+    {
+      "id": "hpa",
+      "title": "HPA axis",
+      "subtitle": "CRH → ACTH → cortisol",
+      "steps": [
+        { "id": "crh", "label": "CRH", "hint": "Hypothalamic stress hormone" },
+        { "id": "acth", "label": "ACTH", "hint": "Pituitary — targets zona fasciculata" },
+        { "id": "cortisol", "label": "Cortisol", "hint": "Glucocorticoid — anti-inflammatory, gluconeogenic" }
+      ],
+      "forkQuiz": [
+        {
+          "prompt": "ACTH is released from the…",
+          "answer": "Anterior pituitary",
+          "options": ["Anterior pituitary", "Adrenal cortex", "Hypothalamus only", "Thyroid"],
+          "after": "CRH from hypothalamus stimulates ACTH release."
+        },
+        {
+          "prompt": "Exogenous glucocorticoids suppress ACTH via…",
+          "answer": "Negative feedback",
+          "options": ["Negative feedback", "Positive feedback", "No effect", "Direct CRH stimulation"],
+          "after": "Risk of adrenal insufficiency if stopped abruptly after chronic use."
+        }
+      ]
+    },
+    {
+      "id": "thyroid",
+      "title": "Thyroid axis",
+      "subtitle": "TRH → TSH → T4 → T3",
+      "steps": [
+        { "id": "trh", "label": "TRH", "hint": "Hypothalamic — stimulates TSH" },
+        { "id": "tsh", "label": "TSH", "hint": "Pituitary — thyroid follicular cells" },
+        { "id": "t4", "label": "T4", "hint": "Prohormone from thyroid" },
+        { "id": "t3", "label": "T3", "hint": "Active hormone — peripheral 5'-deiodinase" }
+      ],
+      "forkQuiz": [
+        {
+          "prompt": "T3 is more biologically active because…",
+          "answer": "Higher receptor affinity",
+          "options": ["Higher receptor affinity", "Longer half-life than T4", "Only made in pituitary", "It is a peptide"],
+          "after": "T4 → T3 conversion via 5'-deiodinase in periphery."
+        },
+        {
+          "prompt": "Exogenous T3 suppresses…",
+          "answer": "TSH",
+          "options": ["TSH", "TRH only", "ACTH", "GnRH"],
+          "after": "Thyrotoxicosis labs: ↓ TSH, ↑ T3/T4."
+        }
+      ]
+    },
+    {
+      "id": "epo",
+      "title": "Erythropoiesis",
+      "subtitle": "Hypoxia → EPO → RBC mass",
+      "steps": [
+        { "id": "hypoxia", "label": "Hypoxia / ↓ O₂", "hint": "Kidney peritubular oxygen sensing" },
+        { "id": "hif", "label": "HIF stabilization", "hint": "Oxygen-sensitive transcription factor" },
+        { "id": "epo", "label": "EPO", "hint": "Renal glycoprotein hormone" },
+        { "id": "marrow", "label": "Bone marrow RBCs", "hint": "↑ reticulocytes, ↑ hematocrit" }
+      ],
+      "forkQuiz": [
+        {
+          "prompt": "EPO is produced mainly in the…",
+          "answer": "Kidney",
+          "options": ["Kidney", "Liver only", "Spleen", "Anterior pituitary"],
+          "after": "Small fraction from liver; renal failure → anemia."
+        },
+        {
+          "prompt": "EPO acts on erythroid progenitors via…",
+          "answer": "EPO receptor (JAK2)",
+          "options": ["EPO receptor (JAK2)", "Androgen receptor", "Insulin receptor", "TSH receptor"],
+          "after": "JAK2 pathway — overlap with polycythemia vera mutations."
+        }
+      ]
+    },
+    {
+      "id": "steroid-synthesis",
+      "title": "Steroid synthesis (overview)",
+      "subtitle": "Cholesterol → androgens / cortisol / aldosterone",
+      "steps": [
+        { "id": "chol", "label": "Cholesterol", "hint": "Starting substrate — CYP11A1 side-chain cleavage" },
+        { "id": "preg", "label": "Pregnenolone", "hint": "First steroid — Δ5 pathway hub" },
+        { "id": "prog", "label": "Progesterone / 17-OH pregnenolone", "hint": "Branch toward androgens & corticoids" },
+        { "id": "androst", "label": "Androstenedione / DHEA", "hint": "Weak androgen precursors" },
+        { "id": "testo", "label": "Testosterone", "hint": "Zona reticularis / Leydig" },
+        { "id": "cortisol_branch", "label": "Cortisol (zona fasciculata)", "hint": "ACTH-driven glucocorticoid arm" }
+      ],
+      "forkQuiz": [
+        {
+          "prompt": "The rate-limiting step converting cholesterol to pregnenolone uses…",
+          "answer": "CYP11A1 (side-chain cleavage)",
+          "options": ["CYP11A1 (side-chain cleavage)", "5α-reductase", "Aromatase", "Phenylethanolamine N-methyltransferase"],
+          "after": "Also called desmolase — mitochondrial inner membrane."
+        },
+        {
+          "prompt": "Aromatase converts androgens to…",
+          "answer": "Estrogens",
+          "options": ["Estrogens", "Cortisol", "Aldosterone", "DHT"],
+          "after": "Adipose and gonadal tissue — relevant to gynecomastia on AAS."
+        },
+        {
+          "prompt": "Aldosterone is synthesized in the…",
+          "answer": "Zona glomerulosa",
+          "options": ["Zona glomerulosa", "Zona fasciculata", "Zona reticularis", "Adrenal medulla"],
+          "after": "Angiotensin II and K⁺ regulate aldosterone — RAAS."
+        }
+      ]
+    }
+  ]
+}

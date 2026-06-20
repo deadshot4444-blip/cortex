@@ -115,6 +115,15 @@ async function renderReference() {
     if (n) card.addEventListener('click', () => renderRefSet(k, k === 'pharm' ? 'classes' : 'browse'));
     mc.appendChild(card);
   });
+  if (typeof renderPerformanceDrugs === 'function') {
+    const ped = el(`<button class="modcard">
+      <span class="mod-name">Performance drugs</span>
+      <span class="mod-desc">Hormone map (steroid / peptide / amine), pathway flowchart game &amp; agent catalog</span>
+      <span class="mod-stat">6 pathways · 30 agents</span>
+    </button>`);
+    ped.addEventListener('click', () => renderPerformanceDrugs('hub'));
+    mc.appendChild(ped);
+  }
   if (typeof renderEKG === 'function') {
     const ek = el(`<button class="modcard">
       <span class="mod-name">ECG rhythms</span>
