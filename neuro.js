@@ -2,8 +2,8 @@
 
 const NEURO = { loaded: false, data: null, milestones: null, topicMap: {}, simMap: {}, codeMap: {} };
 const NEURO_PROG = (typeof loadJSON === 'function') ? loadJSON('cs-neuro', {
-  pathDone: [], topicQuiz: {}, topicAtlas: {}, sims: {}, code: {},
-}) : { pathDone: [], topicQuiz: {}, topicAtlas: {}, sims: {}, code: {} };
+  pathDone: [], topicQuiz: {}, topicAtlas: {}, sims: {}, code: {}, milestones: {},
+}) : { pathDone: [], topicQuiz: {}, topicAtlas: {}, sims: {}, code: {}, milestones: {} };
 
 function saveNeuroProg() { if (typeof safeSet === 'function') safeSet('cs-neuro', JSON.stringify(NEURO_PROG)); else localStorage.setItem('cs-neuro', JSON.stringify(NEURO_PROG)); }
 
@@ -101,10 +101,17 @@ async function renderNeuroEngineering() {
         <div class="neuro-milestones">${NEURO.milestones.milestones.map(ms => {
           const unlocked = pg.done >= ms.unlockUnit || ms.status === 'building';
           const active = ms.status === 'building';
-          return `<div class="neuro-ms ${unlocked ? 'unlocked' : 'locked'} ${active ? 'active' : ''}">
+          const done = NEURO_PROG.milestones?.[ms.id]?.passed;
+          const clickable = unlocked || active;
+          const tag = clickable ? 'button' : 'div';
+          const sub = done ? 'Complete'
+            : active ? 'Open lab'
+            : unlocked ? `Unit ${ms.unlockUnit}`
+            : `Unit ${ms.unlockUnit} &middot; locked`;
+          return `<${tag} class="neuro-ms ${unlocked ? 'unlocked' : 'locked'} ${active ? 'active' : ''} ${done ? 'done' : ''}" ${clickable ? `type="button" data-ms="${ms.id}"` : ''}>
             <span class="neuro-ms-title">${esc(ms.title)}</span>
-            <span class="neuro-ms-sub">Unit ${ms.unlockUnit}${active ? ' &middot; building now' : unlocked ? '' : ' &middot; locked'}</span>
-          </div>`;
+            <span class="neuro-ms-sub">${sub}</span>
+          </${tag}>`;
         }).join('')}</div>
       </details>` : ''}
       <div class="neuro-section">
@@ -144,6 +151,11 @@ async function renderNeuroEngineering() {
   }
   main.querySelector('#ne-codelab')?.addEventListener('click', renderNeuroCodeLab);
   main.querySelector('#ne-simlib')?.addEventListener('click', renderNeuroSimLibrary);
+  main.querySelectorAll('[data-ms]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (typeof renderNeuroMilestone === 'function') renderNeuroMilestone(btn.dataset.ms);
+    });
+  });
   root.appendChild(main);
   if (typeof siteFooter === 'function') root.appendChild(siteFooter());
   setView(root);
