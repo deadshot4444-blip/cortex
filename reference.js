@@ -116,10 +116,12 @@ async function renderReference() {
     mc.appendChild(card);
   });
   if (typeof renderPerformanceDrugs === 'function') {
+    const pd = typeof pedStatsSnapshot === 'function' ? pedStatsSnapshot() : null;
+    const pedStat = pd?.complete ? `${pd.complete}/${pd.total} modules · ${pd.pct}%` : pd?.has ? `${pd.complete}/${pd.total} started` : '11-module course';
     const ped = el(`<button class="modcard">
       <span class="mod-name">Performance drugs</span>
-      <span class="mod-desc">Hormone map (steroid / peptide / amine), pathway flowchart game &amp; agent catalog</span>
-      <span class="mod-stat">6 pathways · 30 agents</span>
+      <span class="mod-desc">3-part path — hormone classes, axis flowcharts, agents &amp; clinical</span>
+      <span class="mod-stat">${pedStat}</span>
     </button>`);
     ped.addEventListener('click', () => renderPerformanceDrugs('hub'));
     mc.appendChild(ped);

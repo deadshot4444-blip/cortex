@@ -846,6 +846,66 @@ button:focus-visible, .opt:focus-visible { outline: 1px solid var(--text); outli
 .ped-hintline { font-size: 13px; color: var(--dim); margin-bottom: 14px; font-style: italic; }
 .ped-risklist { margin: 12px 0 0; padding-left: 20px; color: var(--body); font-size: 14px; line-height: 1.55; }
 .ped-catsec { margin-top: 24px; margin-bottom: 8px; }
+.ped-pathband { margin: 20px 0; padding: 14px 16px; border: 1px solid var(--line); background: var(--surface); }
+.ped-pathband--slim { padding: 10px 14px; }
+.ped-pathband-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.ped-pathstat { font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--dim); }
+.ped-pathband .bar { display: block; height: 4px; background: var(--line); }
+.ped-pathband .bar i { display: block; height: 100%; background: var(--text); transition: width .2s; }
+.ped-cta-row { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0 24px; }
+.ped-complete-msg { font-size: 14px; color: var(--body); margin: 16px 0 24px; }
+.ped-modulelabel { display: block; margin-bottom: 10px; }
+.ped-phasehead { margin: 20px 0 8px; padding-top: 4px; }
+.ped-phasehead:first-child { margin-top: 4px; }
+.ped-phaselabel { display: block; font-family: var(--mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--text); margin-bottom: 4px; }
+.ped-phasehint { display: block; font-size: 12.5px; color: var(--dim); line-height: 1.45; max-width: 58ch; }
+.ped-modulelist { border: 1px solid var(--line); border-bottom: none; margin-bottom: 16px; }
+#pedmodules { margin-bottom: 24px; }
+.ped-modrow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
+  text-align: left;
+  transition: background .12s;
+}
+.ped-modrow:not(.locked):hover { background: var(--surface); }
+.ped-modrow.locked { opacity: .45; cursor: default; }
+.ped-modrow.current { border-left: 2px solid var(--text); background: var(--surface); }
+.ped-modrow.inprog:not(.done) .ped-modstat { color: var(--text); }
+.ped-modrow.done .ped-modtitle { color: var(--dim); }
+.ped-modbar { display: block; height: 2px; background: var(--line); margin-top: 6px; max-width: 120px; }
+.ped-modbar i { display: block; height: 100%; background: var(--text); }
+.ped-modnum {
+  flex: 0 0 28px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--dim);
+}
+.ped-modmain { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.ped-modtitle { font-size: 14px; font-weight: 500; color: var(--text); }
+.ped-modsub { font-size: 12.5px; color: var(--dim); }
+.ped-modstat { font-family: var(--mono); font-size: 10px; letter-spacing: .06em; text-transform: uppercase; color: var(--dim); flex: 0 0 auto; }
+.ped-modrow.done .ped-modstat { color: #1a7f37; }
+.ped-ref-fold { margin-top: 8px; border-top: 1px solid var(--line); padding-top: 16px; }
+.ped-ref-sum { cursor: pointer; list-style: none; padding: 8px 0; }
+.ped-ref-sum::-webkit-details-marker { display: none; }
+.ped-reflinks { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.ped-tabstat { font-size: 10px; opacity: .7; margin-left: 4px; }
+.ped-agentcard.studied { border-left: 2px solid #1a7f37; }
+.ped-node.pending { opacity: .35; border-style: dotted; font-size: 12px; }
+.ped-lead { font-size: 14px; color: var(--body); margin: 14px 0 18px; line-height: 1.5; }
+.ped-steps { display: flex; align-items: center; gap: 10px; margin: 12px 0 16px; flex-wrap: wrap; }
+.ped-steps-lab { font-family: var(--mono); font-size: 10px; letter-spacing: .06em; text-transform: uppercase; color: var(--dim); }
+.ped-steps-dots { display: flex; gap: 5px; }
+.ped-dot { width: 7px; height: 7px; border: 1px solid var(--line); background: transparent; }
+.ped-dot.done { background: var(--text); border-color: var(--text); }
+.ped-dot.active { border-color: var(--text); box-shadow: inset 0 0 0 1px var(--text); }
+.ped-steps-num { font-family: var(--mono); font-size: 10px; color: var(--dim); margin-left: auto; }
+.ped-drugname { font-size: 22px; font-weight: 500; margin: 0 0 4px; }
 
 .refchips { display: flex; flex-wrap: wrap; gap: 6px; margin: 16px 0 4px; }
 .refchip {

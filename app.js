@@ -55,7 +55,7 @@ const SECTION_INFO = {
     desc: 'Guided, Socratic study sessions that train the skill beneath every other skill — how to question, reason, and remember. Metacognition and proven learning technique, applied directly to medicine.',
   },
 };
-const APP_VERSION = '1.10.0';
+const APP_VERSION = '1.12.0';
 const MEMBERSHIP_START = 'August 1, 2026';
 function cortexFreeNote(sectionPill, sectionName) {
   return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free for now</span><span class="free-note-txt">${sectionName} becomes optional membership ${MEMBERSHIP_START}. The full MCAT suite stays free forever.</span></p>`;
@@ -124,7 +124,7 @@ function saveStreak() { safeSet('cs-streak', JSON.stringify(store.streak)); }
 
 const SECTION_SCRIPTS = {
   anatomy: ['anatomy.js?v=35'],
-  reference: ['reference.js?v=40', 'performance-drugs.js?v=1', 'ekg.js?v=32'],
+  reference: ['reference.js?v=41', 'performance-drugs.js?v=3', 'ekg.js?v=32'],
   socrates: ['socrates.js?v=39'],
   neuro: ['python-runtime.js?v=3', 'code-evaluator.js?v=2', 'neuro-practitioner.js?v=2', 'neuro.js?v=12'],
 };
@@ -665,6 +665,26 @@ const PRINCIPLES = [
 
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
+  {
+    date: 'June 19, 2026', version: '1.12.0', tag: 'NEW',
+    title: 'Performance drugs \u2014 course polish',
+    items: [
+      'Hub split into 3 parts (hormones → pathways → clinical) with current-module highlight and per-row progress.',
+      'Hormone learn: 4-step dots per agent; pathway lessons show orient/build/checkpoint progress bar.',
+      'Catalog & clinical modules are guided section-by-section — no more wall-of-cards + mark complete.',
+      'Medicine card shows live module progress on the PED tile.',
+    ],
+  },
+  {
+    date: 'June 19, 2026', version: '1.11.0', tag: 'NEW',
+    title: 'Performance drugs \u2014 structured study path',
+    items: [
+      'PED rebuilt as 11-module guided course with progress bar and locked sequential unlock.',
+      'Hormone modules: study agents in order (where \u2192 pathway \u2192 PED note \u2192 pearl) with per-class tracking.',
+      'Pathway modules: orientation \u2192 build flowchart step-by-step \u2192 ordered checkpoint (70% to pass).',
+      'Quick reference fold for browse-only hormone map, catalog, and clinical.',
+    ],
+  },
   {
     date: 'June 19, 2026', version: '1.10.0', tag: 'NEW',
     title: 'Neuroengineering \u2014 Practitioner Track',
@@ -1567,6 +1587,32 @@ function pharmStatsSnapshot() {
   return { drilled, acc, learned, has };
 }
 
+function pedStatsSnapshot() {
+  const raw = loadJSON('cs-ped', null);
+  const mods = [
+    { type: 'hormone', hormone: 'steroid' }, { type: 'hormone', hormone: 'peptide' }, { type: 'hormone', hormone: 'amine' },
+    { type: 'pathway' }, { type: 'pathway' }, { type: 'pathway' }, { type: 'pathway' }, { type: 'pathway' }, { type: 'pathway' },
+    { type: 'catalog' }, { type: 'clinical' },
+  ];
+  let complete = 0;
+  let agents = 0;
+  if (raw?.hormones) {
+    ['steroid', 'peptide', 'amine'].forEach(h => {
+      const n = (raw.hormones[h]?.learned || []).length;
+      agents += n;
+      const totals = { steroid: 11, peptide: 10, amine: 9 };
+      if (n >= (totals[h] || 1)) complete++;
+    });
+  }
+  const pathways = raw?.pathways ? Object.values(raw.pathways).filter(p => p.completed).length : 0;
+  complete += pathways;
+  if (raw?.catalogDone) complete++;
+  if (raw?.clinicalDone) complete++;
+  const total = 11;
+  const pct = Math.round(100 * complete / total);
+  return { complete, total, pct, agents, pathways, has: complete > 0 || agents > 0 || pathways > 0 };
+}
+
 function neuroStatsSnapshot() {
   const prog = loadJSON('cs-neuro', { pathDone: [], topicQuiz: {}, sims: {}, code: {}, milestones: {} });
   const pathDone = prog.pathDone?.length || 0;
@@ -1589,6 +1635,7 @@ function renderStats() {
   const ps = pomoStatsSnapshot();
   const ns = neuroStatsSnapshot();
   const ph = pharmStatsSnapshot();
+  const pd = pedStatsSnapshot();
   const totalCases = Object.values(store.manifest).reduce((a, b) => a + b, 0);
 
   // 21-day activity strip from history
@@ -1623,6 +1670,15 @@ function renderStats() {
         <div class="metric"><span class="m-num" data-countup="${ms.due}">${ms.due || '&mdash;'}</span><span class="m-lab">Due now</span><span class="m-sub">flashcards ready</span></div>
       </div>
       ${ms.has ? '<div class="stat-cta"><button class="btn btn-solid" id="stats-mcat">Open MCAT &rarr;</button></div>' : '<p class="stat-empty">No MCAT activity yet &mdash; start with drills or flashcards.</p>'}
+    </div>
+
+    <div class="statblock">
+      <span class="label">Performance drugs</span>
+      <div class="metrics metrics-2">
+        <div class="metric"><span class="m-num" data-countup="${pd.pct}%">${pd.complete ? pd.pct + '%' : '&mdash;'}</span><span class="m-lab">Course progress</span><span class="m-sub">${pd.complete}/${pd.total} modules</span></div>
+        <div class="metric"><span class="m-num" data-countup="${pd.agents}">${pd.agents || '&mdash;'}</span><span class="m-lab">Agents studied</span><span class="m-sub">${pd.pathways ? pd.pathways + ' pathways done' : 'hormone modules'}</span></div>
+      </div>
+      ${pd.has ? '<div class="stat-cta"><button class="btn btn-solid" id="stats-ped">Open PED course &rarr;</button></div>' : '<p class="stat-empty">No PED progress yet &mdash; start module 1.</p>'}
     </div>
 
     <div class="statblock">
@@ -1703,6 +1759,11 @@ function renderStats() {
   if (pharmBtn) pharmBtn.addEventListener('click', async () => {
     await ensureSection('reference');
     renderRefSet('pharm', 'classes');
+  });
+  const pedBtn = main.querySelector('#stats-ped');
+  if (pedBtn) pedBtn.addEventListener('click', async () => {
+    await ensureSection('reference');
+    renderPerformanceDrugs('hub');
   });
 
   root.appendChild(main);
