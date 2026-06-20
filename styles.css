@@ -1557,6 +1557,36 @@ button:focus-visible, a:focus-visible, textarea:focus-visible, input:focus-visib
   background: rgba(255, 255, 255, .04);
   color: var(--ne-text);
 }
+.neuro-lablink--practitioner {
+  border-color: #1a7f37;
+  color: var(--ne-text);
+}
+.neuro-lablink--practitioner span { color: #3fb950; }
+.neuro-lablink--practitioner:hover { border-color: #3fb950; background: rgba(26, 127, 55, .08); }
+.neuro-lablink--locked { opacity: .5; cursor: not-allowed; }
+.neuro-lablink--locked:hover { border-color: #2a2a30; background: transparent; color: var(--ne-body); }
+.neuro-unlock-banner {
+  margin: 18px 0;
+  padding: 16px 18px;
+  border: 1px solid #1a7f37;
+  background: rgba(26, 127, 55, .06);
+}
+.neuro-unlock-banner .label { color: #3fb950; }
+.neuro-unlock-banner .neuro-btn { margin-top: 12px; }
+.neuro-sandbox-more { position: relative; }
+.neuro-sandbox-more > summary {
+  list-style: none;
+  cursor: pointer;
+}
+.neuro-sandbox-more > summary::-webkit-details-marker { display: none; }
+.neuro-sandbox-more-inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #222228;
+}
 .neuro-milestones { display: grid; gap: 8px; margin-top: 14px; }
 .neuro-practitioner-fold .neuro-milestones { margin-top: 0; gap: 0; }
 .neuro-ms { padding: 12px 14px; border: 1px solid #222228; background: #0f0f12; opacity: .72; }

@@ -8,7 +8,7 @@
       "unlockUnit": 7,
       "phase": "Signal Acquisition",
       "shortDescription": "Load a recording, plot the trace, threshold candidate spikes, export an event table.",
-      "status": "building"
+      "status": "live"
     },
     {
       "id": "spike-detector",

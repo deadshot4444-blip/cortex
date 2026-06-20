@@ -50,7 +50,7 @@ const SECTION_INFO = {
     desc: 'Guided, Socratic study sessions that train the skill beneath every other skill — how to question, reason, and remember. Metacognition and proven learning technique, applied directly to medicine.',
   },
 };
-const APP_VERSION = '1.9.4';
+const APP_VERSION = '1.10.0';
 const MEMBERSHIP_START = 'August 1, 2026';
 function cortexFreeNote(sectionPill, sectionName) {
   return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free for now</span><span class="free-note-txt">${sectionName} becomes optional membership ${MEMBERSHIP_START}. The full MCAT suite stays free forever.</span></p>`;
@@ -121,7 +121,7 @@ const SECTION_SCRIPTS = {
   anatomy: ['anatomy.js?v=35'],
   reference: ['reference.js?v=38', 'ekg.js?v=32'],
   socrates: ['socrates.js?v=39'],
-  neuro: ['python-runtime.js?v=3', 'code-evaluator.js?v=2', 'neuro-practitioner.js?v=1', 'neuro.js?v=11'],
+  neuro: ['python-runtime.js?v=3', 'code-evaluator.js?v=2', 'neuro-practitioner.js?v=2', 'neuro.js?v=12'],
 };
 const _scriptLoads = {};
 function loadScript(src) {
@@ -660,6 +660,16 @@ const PRINCIPLES = [
 
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
+  {
+    date: 'June 19, 2026', version: '1.10.0', tag: 'NEW',
+    title: 'Neuroengineering \u2014 Practitioner Track',
+    items: [
+      'Practitioner Milestone 1: Neural Signal Viewer \u2014 graded OJT lab with waveform preview, Python grading, and project summary export.',
+      'Real unlock at BCI Unit 7; Practitioner tile in Labs; celebration banner on unit completion.',
+      'BCI path gaps filled: NeuroCode/Sim wired for units 4\u20136 and 11\u201312; new data-minimization ticket.',
+      'Neuro stats on Stats page; leaner NeuroCode sandbox; depth rows without orphan arrows.',
+    ],
+  },
   {
     date: 'June 18, 2026', version: '1.9.4', tag: 'FIX',
     title: 'Neuroengineering \u2014 hub polish',
@@ -1543,11 +1553,27 @@ function pomoStatsSnapshot() {
   return { rounds, focusLabel: fmtDurMs(focusMs), has: rounds > 0 || focusMs > 0 };
 }
 
+function neuroStatsSnapshot() {
+  const prog = loadJSON('cs-neuro', { pathDone: [], topicQuiz: {}, sims: {}, code: {}, milestones: {} });
+  const pathDone = prog.pathDone?.length || 0;
+  const pathTotal = 20;
+  const msPassed = Object.values(prog.milestones || {}).filter(m => m?.passed).length;
+  const codeDone = Object.values(prog.code || {}).filter(v => v === true || v?.passed).length;
+  const simDone = Object.values(prog.sims || {}).filter(s => s?.ok).length;
+  const quizDone = Object.keys(prog.topicQuiz || {}).length;
+  const has = pathDone > 0 || quizDone > 0 || codeDone > 0 || simDone > 0 || msPassed > 0;
+  return {
+    pathDone, pathTotal, pathPct: pathTotal ? Math.round(100 * pathDone / pathTotal) : 0,
+    msPassed, msTotal: 6, codeDone, codeTotal: 13, simDone, simTotal: 12, quizDone, has,
+  };
+}
+
 function renderStats() {
   stopTimer(); session = null;
   const t = totals();
   const ms = mcatStatsSnapshot();
   const ps = pomoStatsSnapshot();
+  const ns = neuroStatsSnapshot();
   const totalCases = Object.values(store.manifest).reduce((a, b) => a + b, 0);
 
   // 21-day activity strip from history
@@ -1582,6 +1608,17 @@ function renderStats() {
         <div class="metric"><span class="m-num" data-countup="${ms.due}">${ms.due || '&mdash;'}</span><span class="m-lab">Due now</span><span class="m-sub">flashcards ready</span></div>
       </div>
       ${ms.has ? '<div class="stat-cta"><button class="btn btn-solid" id="stats-mcat">Open MCAT &rarr;</button></div>' : '<p class="stat-empty">No MCAT activity yet &mdash; start with drills or flashcards.</p>'}
+    </div>
+
+    <div class="statblock">
+      <span class="label">Neuroengineering</span>
+      <div class="metrics">
+        <div class="metric"><span class="m-num" data-countup="${ns.pathPct}%">${ns.pathDone ? ns.pathPct + '%' : '&mdash;'}</span><span class="m-lab">BCI path</span><span class="m-sub">${ns.pathDone}/${ns.pathTotal} units</span></div>
+        <div class="metric"><span class="m-num" data-countup="${ns.msPassed}">${ns.msPassed || '&mdash;'}</span><span class="m-lab">Milestones</span><span class="m-sub">of ${ns.msTotal} practitioner</span></div>
+        <div class="metric"><span class="m-num" data-countup="${ns.codeDone}">${ns.codeDone || '&mdash;'}</span><span class="m-lab">NeuroCode</span><span class="m-sub">of ${ns.codeTotal} passed</span></div>
+        <div class="metric"><span class="m-num" data-countup="${ns.simDone}">${ns.simDone || '&mdash;'}</span><span class="m-lab">NeuroSim</span><span class="m-sub">of ${ns.simTotal} correct</span></div>
+      </div>
+      ${ns.has ? '<div class="stat-cta"><button class="btn btn-solid" id="stats-neuro">Open Neuroengineering &rarr;</button></div>' : '<p class="stat-empty">No neuro activity yet &mdash; start the BCI Builder path.</p>'}
     </div>
 
     <div class="statblock">
@@ -1636,6 +1673,8 @@ function renderStats() {
   if (mcatBtn) mcatBtn.addEventListener('click', () => { if (typeof renderMCAT === 'function') renderMCAT(); });
   const pomoBtn = main.querySelector('#stats-pomo');
   if (pomoBtn) pomoBtn.addEventListener('click', () => { if (typeof renderPomodoro === 'function') renderPomodoro(); });
+  const neuroBtn = main.querySelector('#stats-neuro');
+  if (neuroBtn) neuroBtn.addEventListener('click', () => { if (typeof renderNeuro === 'function') renderNeuro(); });
 
   root.appendChild(main);
   setView(root);

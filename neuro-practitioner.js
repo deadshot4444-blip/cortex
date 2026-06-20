@@ -19,9 +19,18 @@ function neuroMilestonePassed(id) {
 }
 
 function neuroMilestoneUnlocked(ms, pg) {
-  if (ms.status === 'building') return true;
+  if (ms.status === 'planned') return false;
   return pg.done >= ms.unlockUnit;
 }
+
+const M1_SUMMARY_TEMPLATE = `Project: Neural Signal Viewer
+Phase: Signal Acquisition
+Unlock: Unit 7
+Units: 1-7
+Skills: time-series, thresholding, basic event detection
+Output: plotted trace + table of detected events
+Mastery: Units 1-7 + working viewer on noisy data.
+(Cortex Neuroengineering – Educational only)`;
 
 function drawNeuroWaveform(canvas, samples, events, threshold) {
   const ctx = canvas.getContext('2d');
@@ -170,7 +179,10 @@ async function renderM1SignalViewer(ms) {
         <button class="btn btn-solid neuro-btn" id="m1run">Run</button>
         <button class="btn neuro-btn" id="m1submit">Submit milestone</button>
         <button class="btn neuro-btn" id="m1reset">Reset starter</button>
+        <button class="btn neuro-btn" id="m1hint">Hint</button>
+        <button class="btn neuro-btn" id="m1copy">Copy project summary</button>
       </div>
+      <div class="neuro-sandbox-extra" id="m1extra"></div>
       ${passed ? '<p class="neuro-terminal-msg ok">Milestone 1 complete — saved to your progress.</p>' : ''}
     </section>
   </main>`);
@@ -249,6 +261,16 @@ async function renderM1SignalViewer(ms) {
   main.querySelector('#m1reset').addEventListener('click', () => {
     code.value = M1_STARTER;
     appendLog('muted', '# reset to starter');
+  });
+  main.querySelector('#m1hint').addEventListener('click', (e) => {
+    e.target.disabled = true;
+    main.querySelector('#m1extra').appendChild(el(`<div class="sochint"><span class="label">Hint</span><p>Spikes are samples <em>above</em> the threshold (less negative than &minus;50 mV). Loop every index, compare with <code>threshold_mv</code>, append matches to a list, then print count and one line per event.</p></div>`));
+  });
+  main.querySelector('#m1copy').addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(M1_SUMMARY_TEMPLATE);
+      appendLog('muted', '# project summary copied');
+    } catch {}
   });
 
   root.appendChild(main);
