@@ -80,7 +80,8 @@ STAGES — ordered array:
 - 4 question stages (5 for hard cases). Each: {"type":"question","label":"INITIAL APPROACH","question":"...","options":["...","...","...","..."],"answer":2,"explanation":"..."}
   - label = short uppercase step (INITIAL APPROACH, DIAGNOSIS, MANAGEMENT, DISPOSITION, COMPLICATION, NEXT STEP...)
   - 4-5 options, exactly one best answer; distractors plausible/commonly-confused
-  - "answer" = 0-BASED index; VARY which position is correct across questions/cases
+  - ALL options parallel in length and detail (~25-55 chars each) — never make the correct answer the longest/most detailed choice
+  - "answer" = 0-BASED index; UNIFORMLY vary correct position (roughly equal A/B/C/D across the case bank)
   - explanation = 90-160 words: why the right answer is right AND a brief line on why each other is wrong
 - 1-2 result stages interleaved where new data returns: {"type":"result","label":"LABS & IMAGING","content":"WBC 14.2 ×10³/µL\\nNa 128 mEq/L\\nCT head: ..."}  (realistic values WITH units, one finding per line via \\n)
 - Typical flow: question -> result -> question -> question -> question

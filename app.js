@@ -55,7 +55,7 @@ const SECTION_INFO = {
     desc: 'Guided, Socratic study sessions that train the skill beneath every other skill — how to question, reason, and remember. Metacognition and proven learning technique, applied directly to medicine.',
   },
 };
-const APP_VERSION = '1.13.1';
+const APP_VERSION = '1.13.2';
 const MEMBERSHIP_START = 'August 1, 2026';
 function cortexFreeNote(sectionPill, sectionName) {
   return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free for now</span><span class="free-note-txt">${sectionName} becomes optional membership ${MEMBERSHIP_START}. The full MCAT suite stays free forever.</span></p>`;
@@ -678,6 +678,15 @@ const PRINCIPLES = [
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
   {
+    date: 'June 20, 2026', version: '1.13.2', tag: 'FIX',
+    title: 'Clinical scenarios \u2014 fairer MCQs',
+    items: [
+      'Answer choices shuffle every time a question loads \u2014 no more \u201calways pick B\u201d position bias.',
+      'Rebalanced 11k+ stored options so correct answers aren\u2019t the obvious longest choice.',
+      'Future case generation enforces parallel option length and varied correct positions.',
+    ],
+  },
+  {
     date: 'June 20, 2026', version: '1.13.1', tag: 'NEW',
     title: 'Medicine \u2014 unified study path',
     items: [
@@ -1241,6 +1250,15 @@ function startCase(sp, c) {
 
 /* ---------- case view ---------- */
 
+function shuffleClinicalOpts(options) {
+  const mapped = options.map((text, origIdx) => ({ text, origIdx }));
+  for (let i = mapped.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [mapped[i], mapped[j]] = [mapped[j], mapped[i]];
+  }
+  return mapped;
+}
+
 function updateCaseRunbar() {
   if (!session) return;
   const total = session.c.stages.length;
@@ -1357,13 +1375,14 @@ function appendStage() {
   }
 
   const qn = qNumber(session.idx);
+  const shuffled = shuffleClinicalOpts(s.options);
   const node = el(`<section class="stage" data-question>
     <div class="stage-head"><span class="label">Q${qn} &middot; ${esc(s.label || 'Question')}</span><span class="rule"></span></div>
     <p class="q">${esc(s.question)}</p>
-    <div class="opts">${s.options.map((o, i) => `<button class="opt" data-i="${i}"><span class="key">${LETTERS[i]}</span><span>${esc(o)}</span></button>`).join('')}</div>
+    <div class="opts">${shuffled.map((o, i) => `<button class="opt" data-i="${i}"><span class="key">${LETTERS[i]}</span><span>${esc(o.text)}</span></button>`).join('')}</div>
     <div class="after"></div>
   </section>`);
-  node.querySelectorAll('.opt').forEach(btn => btn.addEventListener('click', () => answer(node, s, Number(btn.dataset.i), isLast)));
+  node.querySelectorAll('.opt').forEach(btn => btn.addEventListener('click', () => answer(node, s, shuffled[Number(btn.dataset.i)].origIdx, isLast)));
   container.appendChild(node);
   if (autoScroll) node.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
