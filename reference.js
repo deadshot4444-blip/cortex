@@ -2,6 +2,9 @@
    Browse + search + multiple-choice recall drill over fact-checked datasets. */
 
 const REF = { pharm: null, micro: null, labs: null, loaded: false };
+const MED_PATH = { nodes: null, loaded: false };
+const MED_PHASE_START = { pharm: 0, ped: 28, micro: 39, labs: 51, ekg: 61 };
+const MED_PHASE_LABEL = { pharm: 'Pharmacology', ped: 'Performance drugs', micro: 'Microbiology', labs: 'Lab values', ekg: 'ECG' };
 /* PHARM_UNIQUE_TOTAL lives in app.js (stats + hub share it) */
 function safeProg(raw, defaults) {
   if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return { ...defaults };
@@ -47,6 +50,144 @@ function saveMedMeta() {
 function touchMedicine(area, detail) {
   MED_META.last = { area, detail: detail || area, ts: Date.now() };
   saveMedMeta();
+}
+
+async function loadMedPath() {
+  if (MED_PATH.loaded) return;
+  try {
+    const r = await fetch('data/medicine-path.json', { cache: 'no-store' });
+    const j = r.ok ? await r.json() : null;
+    MED_PATH.nodes = j?.nodes?.length ? j.nodes : [];
+  } catch { MED_PATH.nodes = []; }
+  MED_PATH.loaded = true;
+}
+
+function medicinePathNodes() { return MED_PATH.nodes || []; }
+
+function medicinePathKeys(phase) {
+  return medicinePathNodes().filter(n => n.phase === phase).map(n => n.key);
+}
+
+function medicinePathNodeIndex(nodeId) {
+  return medicinePathNodes().findIndex(n => n.id === nodeId);
+}
+
+function pharmClassComplete(cat, data) {
+  if (!data?.length) return false;
+  const pool = data.filter(d => d.cat === cat);
+  if (!pool.length) return false;
+  return pool.every(d => PHARM_PROG.learned[d.id || d.name]);
+}
+
+function microGroupComplete(cat) {
+  const order = medicinePathKeys('micro');
+  const idx = order.indexOf(cat);
+  if (idx < 0) return false;
+  if (MICRO_PROG.guidedDone) return true;
+  return (MICRO_PROG.guidedSection || 0) > idx;
+}
+
+function labsPanelComplete(panel) {
+  const order = medicinePathKeys('labs');
+  const idx = order.indexOf(panel);
+  if (idx < 0) return false;
+  if (LABS_PROG.guidedDone) return true;
+  return (LABS_PROG.guidedSection || 0) > idx;
+}
+
+function ekgRhythmDone(id) {
+  if (typeof ekgReviewedSet === 'function') return ekgReviewedSet().has(id);
+  try {
+    const raw = typeof loadJSON === 'function' ? loadJSON('cs-ekg', {}) : {};
+    return (raw.reviewed || []).includes(id);
+  } catch { return false; }
+}
+
+function medicinePathNodeDone(node) {
+  if (!node) return false;
+  switch (node.kind) {
+    case 'pharm': return pharmClassComplete(node.key, REF.pharm);
+    case 'ped':
+      return typeof window.pedModuleCompleteById === 'function' && window.pedModuleCompleteById(node.key);
+    case 'micro': return microGroupComplete(node.key);
+    case 'labs': return labsPanelComplete(node.key);
+    case 'ekg': return ekgRhythmDone(node.key);
+    default: return false;
+  }
+}
+
+function medicinePathProgress() {
+  const nodes = medicinePathNodes();
+  const phases = { pharm: { done: 0, total: 0 }, ped: { done: 0, total: 0 }, micro: { done: 0, total: 0 }, labs: { done: 0, total: 0 }, ekg: { done: 0, total: 0 } };
+  if (!nodes.length) {
+    return { done: 0, total: 81, pct: 0, next: null, phases, complete: false, lockIndex: 0 };
+  }
+  let done = 0;
+  let next = null;
+  nodes.forEach((n, i) => {
+    if (phases[n.phase]) phases[n.phase].total++;
+    if (medicinePathNodeDone(n)) {
+      done++;
+      if (phases[n.phase]) phases[n.phase].done++;
+    } else if (!next) next = { index: i, node: n };
+  });
+  const total = nodes.length;
+  return {
+    done, total, pct: Math.round(100 * done / total), next, phases,
+    complete: !next, lockIndex: next ? next.index : total,
+  };
+}
+
+function medicinePathLockIndex() { return medicinePathProgress().lockIndex; }
+
+function isMedicinePathNodeLocked(nodeId) {
+  const idx = medicinePathNodeIndex(nodeId);
+  if (idx < 0) return false;
+  return idx > medicinePathLockIndex();
+}
+
+function isMedicinePhaseLocked(phase) {
+  return medicinePathLockIndex() < (MED_PHASE_START[phase] ?? 0);
+}
+
+function medicineShowPathLock() {
+  const p = medicinePathProgress();
+  const title = p.next?.node?.title || 'the current step';
+  const m = el(`<div class="modal" id="medlock"><div class="modal-box">
+    <div class="modal-head"><span class="label">Study path</span></div>
+    <p class="cfx-msg">Finish <strong>${esc(title)}</strong> first. Browse and drill stay open &mdash; guided steps follow the path order.</p>
+    <div class="endbtns cfx-btns"><button class="btn" id="medlock-cancel">OK</button><button class="btn btn-solid" id="medlock-go">Continue path</button></div>
+  </div></div>`);
+  const close = () => m.remove();
+  m.addEventListener('click', e => { if (e.target.id === 'medlock' || e.target.id === 'medlock-cancel') close(); });
+  m.querySelector('#medlock-go').addEventListener('click', () => { close(); medicineContinue(); });
+  document.body.appendChild(m);
+}
+
+async function openMedicinePathNode(node) {
+  if (!node) return;
+  switch (node.kind) {
+    case 'pharm':
+      touchMedicine('pharm', `learn:${node.key}`);
+      renderRefSet('pharm', 'learn', { cat: node.key, fromPath: true });
+      break;
+    case 'ped':
+      touchMedicine('ped', node.key);
+      if (typeof renderPerformanceDrugs === 'function') renderPerformanceDrugs('module', { moduleId: node.key });
+      break;
+    case 'micro':
+      touchMedicine('micro', `learn:${node.key}`);
+      renderRefSet('micro', 'learn', { section: node.key, fromPath: true });
+      break;
+    case 'labs':
+      touchMedicine('labs', `learn:${node.key}`);
+      renderRefSet('labs', 'learn', { section: node.key, fromPath: true });
+      break;
+    case 'ekg':
+      touchMedicine('ekg', `rhythm:${node.key}`);
+      if (typeof renderEKG === 'function') renderEKG('library', { focus: node.key, fromPath: true });
+      break;
+  }
 }
 
 function pharmUniqueLearnedCount(data) {
@@ -162,55 +303,24 @@ function guidedTrackPct(prog, total) {
 }
 
 function medicineHubSnapshot() {
+  const path = medicinePathProgress();
   const pharmN = pharmUniqueLearnedCount(REF.pharm);
-  const pharmPct = Math.round(100 * pharmN / PHARM_UNIQUE_TOTAL);
-  const pharmHas = pharmN > 0 || PHARM_PROG.drill.total > 0;
-  const microCats = Object.keys(MICRO_CATS).filter(c => (REF.micro || []).some(d => d.cat === c));
-  const labsPanels = Object.keys(LAB_PANELS).filter(c => (REF.labs || []).some(d => d.panel === c));
-  const microPct = guidedTrackPct(MICRO_PROG, microCats.length);
-  const labsPct = guidedTrackPct(LABS_PROG, labsPanels.length);
-  const microHas = microPct > 0 || MICRO_PROG.drill.total > 0;
-  const labsHas = labsPct > 0 || LABS_PROG.drill.total > 0;
-  const pd = typeof pedStatsSnapshot === 'function' ? pedStatsSnapshot() : { pct: 0, has: false };
-  const ek = typeof ekgHubStats === 'function' ? ekgHubStats() : { pct: 0, has: false };
-  const tracks = [
-    { id: 'pharm', pct: pharmPct, has: pharmHas },
-    { id: 'ped', pct: pd.pct || 0, has: !!pd.has },
-    { id: 'micro', pct: microPct, has: microHas },
-    { id: 'labs', pct: labsPct, has: labsHas },
-    { id: 'ekg', pct: ek.pct || 0, has: !!ek.has },
-  ];
-  const overall = Math.round(tracks.reduce((a, t) => a + t.pct, 0) / tracks.length);
-  const has = tracks.some(t => t.has);
-  let continueLabel = 'Start · Pharmacology classes';
-  const last = MED_META.last;
-  if (last) {
-    if (last.area === 'pharm') {
-      continueLabel = last.detail?.startsWith('learn:')
-        ? `Continue · ${PHARM_CATS[last.detail.slice(6)] || 'Pharm class'}`
-        : last.detail === 'drill' ? 'Continue · Pharm drill' : 'Continue · Pharmacology';
-    } else if (last.area === 'ped') continueLabel = 'Continue · Performance drugs';
-    else if (last.area === 'micro') continueLabel = last.detail === 'drill' ? 'Continue · Micro drill' : 'Continue · Microbiology';
-    else if (last.area === 'labs') continueLabel = last.detail === 'drill' ? 'Continue · Labs drill' : 'Continue · Lab values';
-    else if (last.area === 'ekg') continueLabel = last.detail === 'drill' ? 'Continue · ECG drill' : 'Continue · ECG library';
-  }
-  return { overall, tracks, has, continueLabel, last, pharmN, pharmDrillAcc: drillAcc(PHARM_PROG) };
+  const continueLabel = path.complete
+    ? 'Path complete · review any area'
+    : `Continue · ${path.next.node.title}`;
+  return {
+    pathDone: path.done, pathTotal: path.total, pathPct: path.pct, pathPhases: path.phases,
+    pathComplete: path.complete, continueLabel, next: path.next, pharmN, pharmDrillAcc: drillAcc(PHARM_PROG),
+    has: path.done > 0 || pharmN > 0 || PHARM_PROG.drill.total > 0,
+  };
 }
 
 async function medicineContinue() {
   await loadRef();
-  const last = MED_META.last;
-  if (!last) { touchMedicine('pharm', 'classes'); return renderRefSet('pharm', 'classes'); }
-  if (last.area === 'pharm') {
-    if (last.detail?.startsWith('learn:')) return renderRefSet('pharm', 'learn', { cat: last.detail.slice(6) });
-    if (last.detail === 'drill') return renderRefSet('pharm', 'quiz');
-    return renderRefSet('pharm', 'classes');
-  }
-  if (last.area === 'ped' && typeof renderPerformanceDrugs === 'function') return renderPerformanceDrugs('hub');
-  if (last.area === 'micro') return renderRefSet('micro', last.detail === 'drill' ? 'quiz' : 'learn');
-  if (last.area === 'labs') return renderRefSet('labs', last.detail === 'drill' ? 'quiz' : 'learn');
-  if (last.area === 'ekg' && typeof renderEKG === 'function') return renderEKG(last.detail === 'drill' ? 'drill' : 'library');
-  renderRefSet('pharm', 'classes');
+  await loadMedPath();
+  const path = medicinePathProgress();
+  if (!path.next) return renderReference();
+  await openMedicinePathNode(path.next.node);
 }
 
 /* ---------- hub ---------- */
@@ -219,6 +329,7 @@ async function renderReference() {
   if (typeof session !== 'undefined') session = null;
   try {
   await loadRef();
+  await loadMedPath();
 
   const root = el('<div></div>');
   root.appendChild(topbar('reference'));
@@ -226,19 +337,31 @@ async function renderReference() {
   const freeNote = typeof cortexFreeNote === 'function'
     ? cortexFreeNote('Medicine free for now', 'Medicine reference')
     : '';
+  const phaseStrip = Object.keys(MED_PHASE_LABEL).map(ph => {
+    const st = hub.pathPhases[ph] || { done: 0, total: 0 };
+    const pct = st.total ? Math.round(100 * st.done / st.total) : 0;
+    const locked = isMedicinePhaseLocked(ph);
+    return `<div class="med-phase ${locked ? 'med-phase--locked' : ''}">
+      <span class="med-phase-lab">${esc(MED_PHASE_LABEL[ph])}</span>
+      <span class="bar"><i style="width:${pct}%"></i></span>
+      <span class="med-phase-stat">${st.done}/${st.total}</span>
+    </div>`;
+  }).join('');
   const main = el(`<main class="panel med-hub">
-    <div class="hero"><h1>Medicine.</h1><p class="sub">Recommended path: <strong>Pharmacology classes</strong> &rarr; <strong>Performance drugs course</strong> &rarr; Micro, labs &amp; ECG. Every area tracks progress.</p></div>
+    <div class="hero"><h1>Medicine.</h1><p class="sub">One study path &mdash; pharmacology, performance drugs, micro, labs, then ECG. <strong>Continue</strong> always takes the next step. Cards below are free browse &amp; drill.</p></div>
     ${freeNote}
     <div class="ped-pathband">
       <div class="ped-pathband-head">
-        <span class="label">Medicine progress</span>
-        <span class="ped-pathstat">${hub.overall}% across 5 areas</span>
+        <span class="label">Study path</span>
+        <span class="ped-pathstat">${hub.pathDone}/${hub.pathTotal} &middot; ${hub.pathPct}%</span>
       </div>
-      <span class="bar"><i style="width:${hub.overall}%"></i></span>
+      <span class="bar"><i style="width:${hub.pathPct}%"></i></span>
     </div>
+    <div class="med-phases">${phaseStrip}</div>
     <div class="ped-cta-row">
       <button class="btn btn-solid" id="medcontinue">${esc(hub.continueLabel)}</button>
     </div>
+    <span class="label med-mods-label">Browse &amp; drill</span>
     <div class="mcat-mods"></div>
     <p class="anat-credit">Original study content, independently reviewed. For study, not a substitute for prescribing references or your clinical judgment.</p>
   </main>`);
@@ -269,9 +392,17 @@ async function renderReference() {
       <span class="mod-stat">${n ? esc(stat) : 'generating&hellip;'}</span>
     </button>`);
     if (n) card.addEventListener('click', () => {
+      const phase = k;
+      if (isMedicinePhaseLocked(phase)) { medicineShowPathLock(); return; }
       touchMedicine(k, k === 'pharm' ? 'classes' : 'learn');
-      renderRefSet(k, k === 'pharm' ? 'classes' : 'learn');
+      if (k === 'pharm') renderRefSet('pharm', 'classes');
+      else {
+        const p = medicinePathProgress();
+        const node = p.next?.node?.phase === phase ? p.next.node : null;
+        renderRefSet(k, 'learn', node ? { section: node.key } : {});
+      }
     });
+    if (isMedicinePhaseLocked(k)) card.classList.add('modcard--locked');
     mc.appendChild(card);
   });
   if (typeof renderPerformanceDrugs === 'function') {
@@ -282,7 +413,12 @@ async function renderReference() {
       <span class="mod-desc">3-part path — hormone classes, axis flowcharts, agents &amp; clinical</span>
       <span class="mod-stat">${pedStat}</span>
     </button>`);
-    ped.addEventListener('click', () => { touchMedicine('ped', 'hub'); renderPerformanceDrugs('hub'); });
+    ped.addEventListener('click', () => {
+      if (isMedicinePhaseLocked('ped')) { medicineShowPathLock(); return; }
+      touchMedicine('ped', 'hub');
+      renderPerformanceDrugs('hub');
+    });
+    if (isMedicinePhaseLocked('ped')) ped.classList.add('modcard--locked');
     mc.appendChild(ped);
   }
   if (typeof renderEKG === 'function') {
@@ -296,7 +432,14 @@ async function renderReference() {
       <span class="mod-desc">Library with review tracking &mdash; category drill</span>
       <span class="mod-stat">${ekStat}</span>
     </button>`);
-    ekCard.addEventListener('click', () => { touchMedicine('ekg', 'library'); renderEKG('library'); });
+    ekCard.addEventListener('click', () => {
+      if (isMedicinePhaseLocked('ekg')) { medicineShowPathLock(); return; }
+      touchMedicine('ekg', 'library');
+      const p = medicinePathProgress();
+      const node = p.next?.node?.phase === 'ekg' ? p.next.node : null;
+      renderEKG('library', node ? { focus: node.key } : {});
+    });
+    if (isMedicinePhaseLocked('ekg')) ekCard.classList.add('modcard--locked');
     mc.appendChild(ekCard);
   }
 
@@ -323,9 +466,21 @@ function renderRefSet(key, tab = 'browse', opts = {}) {
   const isPharm = key === 'pharm';
   const isMicro = key === 'micro';
   const isLabs = key === 'labs';
+  if (tab === 'learn' && isPharm && opts.cat && isMedicinePathNodeLocked(`pharm:${opts.cat}`)) {
+    medicineShowPathLock();
+    return renderRefSet('pharm', 'classes');
+  }
+  if (tab === 'learn' && isMicro && opts.section && isMedicinePathNodeLocked(`micro:${opts.section}`)) {
+    medicineShowPathLock();
+    return renderRefSet('micro', 'browse');
+  }
+  if (tab === 'learn' && isLabs && opts.section && isMedicinePathNodeLocked(`labs:${opts.section}`)) {
+    medicineShowPathLock();
+    return renderRefSet('labs', 'browse');
+  }
   const pharmDrillAcc = drillAcc(PHARM_PROG);
   const uniquePharm = pharmUniqueLearnedCount(data);
-  touchMedicine(key, tab === 'quiz' ? 'drill' : (tab === 'learn' && opts.cat ? `learn:${opts.cat}` : tab));
+  touchMedicine(key, tab === 'quiz' ? 'drill' : (tab === 'learn' && opts.cat ? `learn:${opts.cat}` : (tab === 'learn' && opts.section ? `learn:${opts.section}` : tab)));
   const root = el('<div></div>');
   root.appendChild(topbar('reference'));
   const sub = isPharm
@@ -356,7 +511,7 @@ function renderRefSet(key, tab = 'browse', opts = {}) {
   const body = main.querySelector('#refbody');
   if (tab === 'classes' && isPharm) buildPharmClasses(body, cfg, data);
   else if (tab === 'learn' && isPharm) buildPharmLearn(body, cfg, data, opts.cat || null);
-  else if (tab === 'learn' && (isMicro || isLabs)) buildGuidedLearn(body, cfg, data, isMicro ? MICRO_PROG : LABS_PROG, isMicro ? saveMicroProg : saveLabsProg, key);
+  else if (tab === 'learn' && (isMicro || isLabs)) buildGuidedLearn(body, cfg, data, isMicro ? MICRO_PROG : LABS_PROG, isMicro ? saveMicroProg : saveLabsProg, key, opts);
   else if (tab === 'browse') buildBrowse(body, cfg, data);
   else buildQuiz(body, cfg, data, { ...opts, key });
   root.appendChild(main);
@@ -364,7 +519,8 @@ function renderRefSet(key, tab = 'browse', opts = {}) {
 }
 
 function buildPharmClasses(body, cfg, data, skipLede) {
-  const cats = Object.keys(cfg.catMap).filter(c => data.some(d => d[cfg.catField] === c));
+  let cats = medicinePathKeys('pharm').filter(c => data.some(d => d[cfg.catField] === c));
+  if (!cats.length) cats = Object.keys(cfg.catMap).filter(c => data.some(d => d[cfg.catField] === c));
   if (!skipLede) body.appendChild(el(`<p class="pharm-lede">Pick a drug class. <strong>Learn</strong> walks MOA → uses → toxicities → pearl. <strong>Drill</strong> tests recall.</p>`));
   const grid = el(`<div class="pharm-classgrid"></div>`);
   body.appendChild(grid);
@@ -372,12 +528,18 @@ function buildPharmClasses(body, cfg, data, skipLede) {
     const n = data.filter(d => d[cfg.catField] === cat).length;
     const learned = pharmClassLearnedCount(cat, data);
     const acc = pharmCatStats(cat);
-    const card = el(`<button class="pharm-classcard" type="button">
-      <span class="pharm-classname">${esc(cfg.catMap[cat])}</span>
+    const locked = isMedicinePathNodeLocked(`pharm:${cat}`);
+    const done = pharmClassComplete(cat, data);
+    const card = el(`<button class="pharm-classcard ${locked ? 'pharm-classcard--locked' : ''} ${done ? 'pharm-classcard--done' : ''}" type="button">
+      <span class="pharm-classname">${esc(cfg.catMap[cat])}${locked ? ' <span class="mod-lock">locked</span>' : ''}${done ? ' <span class="pill ok">done</span>' : ''}</span>
       <span class="pharm-classmeta">${learned ? `${learned}/${n} studied` : `${n} drugs`}${acc != null ? ` · ${acc}% drilled` : ''}</span>
       ${learned && learned < n ? `<span class="ped-modbar"><i style="width:${Math.round(100 * learned / n)}%"></i></span>` : ''}
     </button>`);
-    card.addEventListener('click', () => { touchMedicine('pharm', `learn:${cat}`); renderRefSet('pharm', 'learn', { cat }); });
+    card.addEventListener('click', () => {
+      if (locked) { medicineShowPathLock(); return; }
+      touchMedicine('pharm', `learn:${cat}`);
+      renderRefSet('pharm', 'learn', { cat });
+    });
     grid.appendChild(card);
   });
 }
@@ -467,9 +629,15 @@ function buildPharmLearn(body, cfg, data, cat) {
   render();
 }
 
-function buildGuidedLearn(body, cfg, data, prog, saveProg, key) {
-  const cats = Object.keys(cfg.catMap).filter(c => data.some(d => d[cfg.catField] === c));
+function buildGuidedLearn(body, cfg, data, prog, saveProg, key, opts = {}) {
+  const phase = key === 'labs' ? 'labs' : 'micro';
+  let cats = medicinePathKeys(phase).filter(c => data.some(d => d[cfg.catField] === c));
+  if (!cats.length) cats = Object.keys(cfg.catMap).filter(c => data.some(d => d[cfg.catField] === c));
   let idx = Math.min(prog.guidedSection || 0, Math.max(0, cats.length - 1));
+  if (opts.section) {
+    const want = cats.indexOf(opts.section);
+    if (want >= 0) idx = want;
+  }
   if (prog.guidedDone) idx = cats.length - 1;
   const unit = key === 'labs' ? 'panel' : 'group';
 
@@ -687,9 +855,11 @@ function buildQuiz(body, cfg, data, opts = {}) {
 }
 
 window.medicineHubSnapshot = medicineHubSnapshot;
+window.medicinePathProgress = medicinePathProgress;
 window._resetMedicineMemory = function () {
   PHARM_PROG = defaultPharmProg();
   MICRO_PROG = defaultMicroProg();
   LABS_PROG = defaultLabsProg();
   MED_META = defaultMedMeta();
+  MED_PATH.loaded = false;
 };

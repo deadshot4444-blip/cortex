@@ -198,10 +198,12 @@ function ekgHubStats() {
 window.ekgHubStats = ekgHubStats;
 
 /* ---------- views ---------- */
-async function renderEKG(tab = 'library') {
+async function renderEKG(tab = 'library', opts = {}) {
   if (typeof stopTimer === 'function') stopTimer();
   if (typeof session !== 'undefined') session = null;
-  if (typeof touchMedicine === 'function') touchMedicine('ekg', tab === 'drill' ? 'drill' : 'library');
+  if (typeof touchMedicine === 'function') {
+    touchMedicine('ekg', tab === 'drill' ? 'drill' : (opts.focus ? `rhythm:${opts.focus}` : 'library'));
+  }
   const stats = ekgHubStats();
   const root = el('<div></div>');
   root.appendChild(topbar('reference'));
@@ -217,17 +219,28 @@ async function renderEKG(tab = 'library') {
   main.querySelector('#ekgback').addEventListener('click', renderReference);
   main.querySelectorAll('.tab').forEach(b => b.addEventListener('click', () => renderEKG(b.dataset.tab)));
   const body = main.querySelector('#ekgbody');
-  if (tab === 'library') buildEkgLibrary(body); else buildEkgDrill(body);
+  if (tab === 'library') buildEkgLibrary(body, opts.focus || null); else buildEkgDrill(body);
   root.appendChild(main);
   setView(root);
+  if (opts.focus && tab === 'library') {
+    requestAnimationFrame(() => {
+      const target = body.querySelector(`#ekg-${opts.focus}`);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        const det = target.querySelector('.ekgdetail');
+        const head = target.querySelector('.ekghead');
+        if (det && head) { det.hidden = false; target.classList.add('open'); }
+      }
+    });
+  }
 }
 
-function buildEkgLibrary(body) {
+function buildEkgLibrary(body, focusId) {
   const reviewed = ekgReviewedSet();
   const list = el('<div class="ekglist"></div>');
   EKG_RHYTHMS.forEach(rh => {
     const done = reviewed.has(rh.id);
-    const item = el(`<div class="ekgitem ${done ? 'studied' : ''}">
+    const item = el(`<div class="ekgitem ${done ? 'studied' : ''}" id="ekg-${rh.id}">
       <div class="ekgstrip">${ekgSvg(rh.id, 520, 110)}</div>
       <button class="ekghead">
         <span><span class="ekgname">${esc(rh.name)}</span> <span class="ekgcat">${esc(rh.cat)}</span>${done ? ' <span class="pill ok">reviewed</span>' : ''}</span>

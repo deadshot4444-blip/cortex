@@ -47,7 +47,7 @@ const SECTION_INFO = {
   reference: {
     label: 'Medicine',
     headline: 'Master pharmacology.',
-    desc: 'Guided pharmacology (class map, Socratic learn, MOA drill), performance-drug course, microbiology, lab panels, and ECG rhythms — each with progress tracking and a recommended study path.',
+    desc: 'One 81-step study path — pharmacology, performance drugs, micro, labs, ECG — plus browse and drill in every area.',
   },
   socrates: {
     label: 'Learn to Learn',
@@ -55,7 +55,7 @@ const SECTION_INFO = {
     desc: 'Guided, Socratic study sessions that train the skill beneath every other skill — how to question, reason, and remember. Metacognition and proven learning technique, applied directly to medicine.',
   },
 };
-const APP_VERSION = '1.13.0';
+const APP_VERSION = '1.13.1';
 const MEMBERSHIP_START = 'August 1, 2026';
 function cortexFreeNote(sectionPill, sectionName) {
   return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free for now</span><span class="free-note-txt">${sectionName} becomes optional membership ${MEMBERSHIP_START}. The full MCAT suite stays free forever.</span></p>`;
@@ -124,7 +124,7 @@ function saveStreak() { safeSet('cs-streak', JSON.stringify(store.streak)); }
 
 const SECTION_SCRIPTS = {
   anatomy: ['anatomy.js?v=35'],
-  reference: ['reference.js?v=44', 'performance-drugs.js?v=5', 'ekg.js?v=34'],
+  reference: ['reference.js?v=45', 'performance-drugs.js?v=6', 'ekg.js?v=35'],
   socrates: ['socrates.js?v=39'],
   neuro: ['python-runtime.js?v=3', 'code-evaluator.js?v=2', 'neuro-practitioner.js?v=2', 'neuro.js?v=12'],
 };
@@ -677,6 +677,16 @@ const PRINCIPLES = [
 
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
+  {
+    date: 'June 20, 2026', version: '1.13.1', tag: 'NEW',
+    title: 'Medicine \u2014 unified study path',
+    items: [
+      'One 81-step path with a single progress bar: pharm classes \u2192 PED course \u2192 micro \u2192 labs \u2192 ECG rhythms.',
+      'Continue always opens the next incomplete step; phase strip shows progress per area.',
+      'Guided learn respects path order; browse and drill stay open anytime.',
+      'Existing progress backfills automatically \u2014 no reset needed.',
+    ],
+  },
   {
     date: 'June 20, 2026', version: '1.13.0', tag: 'FIX',
     title: 'Medicine tab \u2014 script load fix',
@@ -1711,6 +1721,7 @@ function renderStats() {
   const mi = microStatsSnapshot();
   const la = labsStatsSnapshot();
   const ek = ekgStatsSnapshot();
+  const mp = typeof medicinePathProgress === 'function' ? medicinePathProgress() : null;
   const totalCases = Object.values(store.manifest).reduce((a, b) => a + b, 0);
 
   // 21-day activity strip from history
@@ -1745,6 +1756,15 @@ function renderStats() {
         <div class="metric"><span class="m-num" data-countup="${ms.due}">${ms.due || '&mdash;'}</span><span class="m-lab">Due now</span><span class="m-sub">flashcards ready</span></div>
       </div>
       ${ms.has ? '<div class="stat-cta"><button class="btn btn-solid" id="stats-mcat">Open MCAT &rarr;</button></div>' : '<p class="stat-empty">No MCAT activity yet &mdash; start with drills or flashcards.</p>'}
+    </div>
+
+    <div class="statblock">
+      <span class="label">Medicine study path</span>
+      <div class="metrics metrics-2">
+        <div class="metric"><span class="m-num" data-countup="${mp ? mp.pct + '%' : ''}">${mp && mp.done ? mp.pct + '%' : '&mdash;'}</span><span class="m-lab">Path progress</span><span class="m-sub">${mp ? mp.done + '/' + mp.total + ' steps' : 'open Medicine once'}</span></div>
+        <div class="metric"><span class="m-num" data-countup="${ph.learned}">${ph.learned || '&mdash;'}</span><span class="m-lab">Pharm names</span><span class="m-sub">of ${ph.learnedTotal} in guided learn</span></div>
+      </div>
+      <div class="stat-cta"><button class="btn btn-solid" id="stats-medpath">Open Medicine &rarr;</button></div>
     </div>
 
     <div class="statblock">
@@ -1857,6 +1877,11 @@ function renderStats() {
   if (pomoBtn) pomoBtn.addEventListener('click', () => { if (typeof renderPomodoro === 'function') renderPomodoro(); });
   const neuroBtn = main.querySelector('#stats-neuro');
   if (neuroBtn) neuroBtn.addEventListener('click', () => { if (typeof renderNeuro === 'function') renderNeuro(); });
+  const medPathBtn = main.querySelector('#stats-medpath');
+  if (medPathBtn) medPathBtn.addEventListener('click', async () => {
+    await ensureSection('reference');
+    if (typeof renderReference === 'function') await renderReference();
+  });
   const pharmBtn = main.querySelector('#stats-pharm');
   if (pharmBtn) pharmBtn.addEventListener('click', async () => {
     await ensureSection('reference');

@@ -148,6 +148,13 @@ function pedStatsSnapshot() {
   return { ...o, agents, pathwaysDone, has: o.complete > 0 || agents > 0 || pathwaysDone > 0 };
 }
 
+function pedModuleCompleteById(moduleId) {
+  const mod = pedModules().find(m => m.id === moduleId);
+  return mod ? pedModuleStatus(mod).complete : false;
+}
+
+window.pedModuleCompleteById = pedModuleCompleteById;
+
 async function renderPerformanceDrugs(tab = 'hub', opts = {}) {
   if (typeof stopTimer === 'function') stopTimer();
   if (typeof session !== 'undefined') session = null;

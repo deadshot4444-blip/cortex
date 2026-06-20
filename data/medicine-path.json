@@ -1,0 +1,580 @@
+{
+  "version": 1,
+  "total": 81,
+  "phases": {
+    "pharm": 28,
+    "ped": 11,
+    "micro": 12,
+    "labs": 10,
+    "ekg": 20
+  },
+  "nodes": [
+    {
+      "id": "pharm:cholinergics",
+      "phase": "pharm",
+      "kind": "pharm",
+      "key": "cholinergics",
+      "title": "Cholinergics"
+    },
+    {
+      "id": "pharm:anticholinergics",
+      "phase": "pharm",
+      "kind": "pharm",
+      "key": "anticholinergics",
+      "title": "Anticholinergics"
+    },
+    {
+      "id": "pharm:adrenergic-agonists",
+      "phase": "pharm",
+      "kind": "pharm",
+      "key": "adrenergic-agonists",
+      "title": "Adrenergic agonists"
+    },
+    {
+      "id": "pharm:adrenergic-antagonists",
+      "phase": "pharm",
+      "kind": "pharm",
+      "key": "adrenergic-antagonists",
+      "title": "Adrenergic antagonists"
+    },
+    {
+      "id": "pharm:diuretics",
+      "phase": "pharm",
+      "kind": "pharm",
+      "key": "diuretics",
+      "title": "Diuretics"
+    },
+    {
+      "id": "pharm:ace-arb",
+      "phase": "pharm",
+      "kind": "pharm",
+      "key": "ace-arb",
+      "title": "ACE inhibitors & ARBs"
+    },
+    {
+      "id": "pharm:beta-blockers",
+      "phase": "pharm",
+      "kind": "pharm",
+      "key": "beta-blockers",
+      "title": "Beta blockers"
+    },
+    {
+      "id": "pharm:ccb",
+      "phase": "pharm",
+      "kind": "pharm",
+      "key": "ccb",
+      "title": "Ca-channel blockers"
+    },
+    {
+      "id": "pharm:antiarrhythmics",
+      "phase": "pharm",
+      "kind": "pharm",
+      "key": "antiarrhythmics",
+      "title": "Antiarrhythmics"
+    },
+    {
+      "id": "pharm:antianginal",
+      "phase": "pharm",
+      "kind": "pharm",
+      "key": "antianginal",
+      "title": "Antianginal & HF"
+    },
+    {
+      "id": "pharm:lipid",
+      "phase": "pharm",
+      "kind": "pharm",
+      "key": "lipid",
+      "title": "Lipid-lowering"
+    },
+    {
+      "id": "pharm:anticoagulants",
+      "phase": "pharm",
+      "kind": "pharm",
+      "key": "anticoagulants",
+      "title": "Anticoag & antiplatelet"
+    },
+    {
+      "id": "pharm:penicillins",
+      "phase": "pharm",
+      "kind": "pharm",
+      "key": "penicillins",
+      "title": "Penicillins"
+    },
+    {
+      "id": "pharm:cephalosporins",
+      "phase": "pharm",
+      "kind": "pharm",
+      "key": "cephalosporins",
+      "title": "Cephalosporins & cell-wall"
+    },
+    {
+      "id": "pharm:protein-synth",
+      "phase": "pharm",
+      "kind": "pharm",
+      "key": "protein-synth",
+      "title": "Protein-synthesis inhibitors"
+    },
+    {
+      "id": "pharm:quinolones-sulfa",
+      "phase": "pharm",
+      "kind": "pharm",
+      "key": "quinolones-sulfa",
+      "title": "Quinolones & sulfa"
+    },
+    {
+      "id": "pharm:antifungal-antiviral",
+      "phase": "pharm",
+      "kind": "pharm",
+      "key": "antifungal-antiviral",
+      "title": "Antifungal & antiviral"
+    },
+    {
+      "id": "pharm:antitubercular",
+      "phase": "pharm",
+      "kind": "pharm",
+      "key": "antitubercular",
+      "title": "Anti-TB"
+    },
+    {
+      "id": "pharm:antidepressants",
+      "phase": "pharm",
+      "kind": "pharm",
+      "key": "antidepressants",
+      "title": "Antidepressants"
+    },
+    {
+      "id": "pharm:antipsychotics",
+      "phase": "pharm",
+      "kind": "pharm",
+      "key": "antipsychotics",
+      "title": "Antipsychotics & mood"
+    },
+    {
+      "id": "pharm:sedatives",
+      "phase": "pharm",
+      "kind": "pharm",
+      "key": "sedatives",
+      "title": "Sedative-hypnotics"
+    },
+    {
+      "id": "pharm:antiepileptics",
+      "phase": "pharm",
+      "kind": "pharm",
+      "key": "antiepileptics",
+      "title": "Antiepileptics"
+    },
+    {
+      "id": "pharm:opioids",
+      "phase": "pharm",
+      "kind": "pharm",
+      "key": "opioids",
+      "title": "Opioids & analgesics"
+    },
+    {
+      "id": "pharm:nsaids",
+      "phase": "pharm",
+      "kind": "pharm",
+      "key": "nsaids",
+      "title": "NSAIDs, gout & DMARDs"
+    },
+    {
+      "id": "pharm:diabetes",
+      "phase": "pharm",
+      "kind": "pharm",
+      "key": "diabetes",
+      "title": "Diabetes drugs"
+    },
+    {
+      "id": "pharm:gi",
+      "phase": "pharm",
+      "kind": "pharm",
+      "key": "gi",
+      "title": "GI drugs"
+    },
+    {
+      "id": "pharm:respiratory",
+      "phase": "pharm",
+      "kind": "pharm",
+      "key": "respiratory",
+      "title": "Respiratory drugs"
+    },
+    {
+      "id": "pharm:endocrine",
+      "phase": "pharm",
+      "kind": "pharm",
+      "key": "endocrine",
+      "title": "Thyroid & steroids"
+    },
+    {
+      "id": "ped:hormone-steroid",
+      "phase": "ped",
+      "kind": "ped",
+      "key": "hormone-steroid",
+      "title": "Steroid hormones"
+    },
+    {
+      "id": "ped:hormone-peptide",
+      "phase": "ped",
+      "kind": "ped",
+      "key": "hormone-peptide",
+      "title": "Peptide hormones"
+    },
+    {
+      "id": "ped:hormone-amine",
+      "phase": "ped",
+      "kind": "ped",
+      "key": "hormone-amine",
+      "title": "Amine hormones"
+    },
+    {
+      "id": "ped:pathway-hpg",
+      "phase": "ped",
+      "kind": "ped",
+      "key": "pathway-hpg",
+      "title": "HPG axis"
+    },
+    {
+      "id": "ped:pathway-gh-igf",
+      "phase": "ped",
+      "kind": "ped",
+      "key": "pathway-gh-igf",
+      "title": "GH–IGF axis"
+    },
+    {
+      "id": "ped:pathway-hpa",
+      "phase": "ped",
+      "kind": "ped",
+      "key": "pathway-hpa",
+      "title": "HPA axis"
+    },
+    {
+      "id": "ped:pathway-thyroid",
+      "phase": "ped",
+      "kind": "ped",
+      "key": "pathway-thyroid",
+      "title": "Thyroid axis"
+    },
+    {
+      "id": "ped:pathway-epo",
+      "phase": "ped",
+      "kind": "ped",
+      "key": "pathway-epo",
+      "title": "Erythropoiesis"
+    },
+    {
+      "id": "ped:pathway-steroid-synthesis",
+      "phase": "ped",
+      "kind": "ped",
+      "key": "pathway-steroid-synthesis",
+      "title": "Steroid synthesis"
+    },
+    {
+      "id": "ped:catalog",
+      "phase": "ped",
+      "kind": "ped",
+      "key": "catalog",
+      "title": "Agent catalog"
+    },
+    {
+      "id": "ped:clinical",
+      "phase": "ped",
+      "kind": "ped",
+      "key": "clinical",
+      "title": "Clinical & detection"
+    },
+    {
+      "id": "micro:gram-pos-cocci",
+      "phase": "micro",
+      "kind": "micro",
+      "key": "gram-pos-cocci",
+      "title": "Gram + cocci"
+    },
+    {
+      "id": "micro:gram-pos-rods",
+      "phase": "micro",
+      "kind": "micro",
+      "key": "gram-pos-rods",
+      "title": "Gram + rods"
+    },
+    {
+      "id": "micro:gram-neg-cocci",
+      "phase": "micro",
+      "kind": "micro",
+      "key": "gram-neg-cocci",
+      "title": "Gram − cocci"
+    },
+    {
+      "id": "micro:enterics",
+      "phase": "micro",
+      "kind": "micro",
+      "key": "enterics",
+      "title": "Enteric rods"
+    },
+    {
+      "id": "micro:curved-gn",
+      "phase": "micro",
+      "kind": "micro",
+      "key": "curved-gn",
+      "title": "Curved gram −"
+    },
+    {
+      "id": "micro:zoonotic-gn",
+      "phase": "micro",
+      "kind": "micro",
+      "key": "zoonotic-gn",
+      "title": "Zoonotic gram −"
+    },
+    {
+      "id": "micro:atypicals",
+      "phase": "micro",
+      "kind": "micro",
+      "key": "atypicals",
+      "title": "Atypicals"
+    },
+    {
+      "id": "micro:mycobacteria-spiro",
+      "phase": "micro",
+      "kind": "micro",
+      "key": "mycobacteria-spiro",
+      "title": "Mycobacteria & spirochetes"
+    },
+    {
+      "id": "micro:dna-viruses",
+      "phase": "micro",
+      "kind": "micro",
+      "key": "dna-viruses",
+      "title": "DNA viruses"
+    },
+    {
+      "id": "micro:rna-viruses",
+      "phase": "micro",
+      "kind": "micro",
+      "key": "rna-viruses",
+      "title": "RNA viruses"
+    },
+    {
+      "id": "micro:fungi",
+      "phase": "micro",
+      "kind": "micro",
+      "key": "fungi",
+      "title": "Fungi"
+    },
+    {
+      "id": "micro:parasites",
+      "phase": "micro",
+      "kind": "micro",
+      "key": "parasites",
+      "title": "Parasites"
+    },
+    {
+      "id": "labs:cbc",
+      "phase": "labs",
+      "kind": "labs",
+      "key": "cbc",
+      "title": "CBC & differential"
+    },
+    {
+      "id": "labs:bmp",
+      "phase": "labs",
+      "kind": "labs",
+      "key": "bmp",
+      "title": "Metabolic panel"
+    },
+    {
+      "id": "labs:lft",
+      "phase": "labs",
+      "kind": "labs",
+      "key": "lft",
+      "title": "Liver & pancreas"
+    },
+    {
+      "id": "labs:lipids-cardiac",
+      "phase": "labs",
+      "kind": "labs",
+      "key": "lipids-cardiac",
+      "title": "Lipids & cardiac"
+    },
+    {
+      "id": "labs:coags",
+      "phase": "labs",
+      "kind": "labs",
+      "key": "coags",
+      "title": "Coagulation"
+    },
+    {
+      "id": "labs:abg",
+      "phase": "labs",
+      "kind": "labs",
+      "key": "abg",
+      "title": "Blood gas / acid-base"
+    },
+    {
+      "id": "labs:endocrine",
+      "phase": "labs",
+      "kind": "labs",
+      "key": "endocrine",
+      "title": "Endocrine"
+    },
+    {
+      "id": "labs:urinalysis",
+      "phase": "labs",
+      "kind": "labs",
+      "key": "urinalysis",
+      "title": "Urinalysis"
+    },
+    {
+      "id": "labs:csf",
+      "phase": "labs",
+      "kind": "labs",
+      "key": "csf",
+      "title": "CSF"
+    },
+    {
+      "id": "labs:iron-misc",
+      "phase": "labs",
+      "kind": "labs",
+      "key": "iron-misc",
+      "title": "Iron & inflammation"
+    },
+    {
+      "id": "ekg:sinus",
+      "phase": "ekg",
+      "kind": "ekg",
+      "key": "sinus",
+      "title": "Normal sinus rhythm"
+    },
+    {
+      "id": "ekg:brady",
+      "phase": "ekg",
+      "kind": "ekg",
+      "key": "brady",
+      "title": "Sinus bradycardia"
+    },
+    {
+      "id": "ekg:tachy",
+      "phase": "ekg",
+      "kind": "ekg",
+      "key": "tachy",
+      "title": "Sinus tachycardia"
+    },
+    {
+      "id": "ekg:afib",
+      "phase": "ekg",
+      "kind": "ekg",
+      "key": "afib",
+      "title": "Atrial fibrillation"
+    },
+    {
+      "id": "ekg:flutter",
+      "phase": "ekg",
+      "kind": "ekg",
+      "key": "flutter",
+      "title": "Atrial flutter"
+    },
+    {
+      "id": "ekg:svt",
+      "phase": "ekg",
+      "kind": "ekg",
+      "key": "svt",
+      "title": "SVT (AVNRT)"
+    },
+    {
+      "id": "ekg:junctional",
+      "phase": "ekg",
+      "kind": "ekg",
+      "key": "junctional",
+      "title": "Junctional rhythm"
+    },
+    {
+      "id": "ekg:avb1",
+      "phase": "ekg",
+      "kind": "ekg",
+      "key": "avb1",
+      "title": "1st-degree AV block"
+    },
+    {
+      "id": "ekg:mobitz1",
+      "phase": "ekg",
+      "kind": "ekg",
+      "key": "mobitz1",
+      "title": "Mobitz I"
+    },
+    {
+      "id": "ekg:mobitz2",
+      "phase": "ekg",
+      "kind": "ekg",
+      "key": "mobitz2",
+      "title": "Mobitz II"
+    },
+    {
+      "id": "ekg:chb",
+      "phase": "ekg",
+      "kind": "ekg",
+      "key": "chb",
+      "title": "Complete heart block"
+    },
+    {
+      "id": "ekg:pvc",
+      "phase": "ekg",
+      "kind": "ekg",
+      "key": "pvc",
+      "title": "PVCs"
+    },
+    {
+      "id": "ekg:vt",
+      "phase": "ekg",
+      "kind": "ekg",
+      "key": "vt",
+      "title": "Ventricular tachycardia"
+    },
+    {
+      "id": "ekg:torsades",
+      "phase": "ekg",
+      "kind": "ekg",
+      "key": "torsades",
+      "title": "Torsades de pointes"
+    },
+    {
+      "id": "ekg:vfib",
+      "phase": "ekg",
+      "kind": "ekg",
+      "key": "vfib",
+      "title": "Ventricular fibrillation"
+    },
+    {
+      "id": "ekg:asystole",
+      "phase": "ekg",
+      "kind": "ekg",
+      "key": "asystole",
+      "title": "Asystole"
+    },
+    {
+      "id": "ekg:stemi",
+      "phase": "ekg",
+      "kind": "ekg",
+      "key": "stemi",
+      "title": "STEMI"
+    },
+    {
+      "id": "ekg:hyperk",
+      "phase": "ekg",
+      "kind": "ekg",
+      "key": "hyperk",
+      "title": "Hyperkalemia"
+    },
+    {
+      "id": "ekg:wpw",
+      "phase": "ekg",
+      "kind": "ekg",
+      "key": "wpw",
+      "title": "WPW"
+    },
+    {
+      "id": "ekg:paced",
+      "phase": "ekg",
+      "kind": "ekg",
+      "key": "paced",
+      "title": "Ventricular paced"
+    }
+  ]
+}

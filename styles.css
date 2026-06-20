@@ -751,6 +751,22 @@ button:focus-visible, .opt:focus-visible { outline: 1px solid var(--text); outli
 .pharm-classmeta { font-family: var(--mono); font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--dim); }
 .pharm-classcard .ped-modbar { display: block; margin-top: 8px; max-width: 100%; }
 .med-hub .ped-cta-row { margin-top: 0; }
+.med-mods-label { display: block; margin-top: 28px; margin-bottom: 8px; }
+.med-phases { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); margin-top: 14px; }
+.med-phase { background: var(--surface); padding: 10px 12px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.med-phase--locked { opacity: .45; }
+.med-phase-lab { font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.med-phase .bar { display: block; height: 3px; background: var(--line); }
+.med-phase .bar i { display: block; height: 100%; background: var(--text); transition: width .2s; }
+.med-phase-stat { font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.modcard--locked { opacity: .55; }
+.modcard--locked .mod-stat::after { content: ' · locked'; color: var(--muted); }
+.pharm-classcard--locked { opacity: .55; }
+.pharm-classcard--done .pharm-classname { color: var(--muted); }
+.mod-lock { font-size: 10px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+@media (max-width: 900px) {
+  .med-phases { grid-template-columns: 1fr 1fr; }
+}
 .ped-refnote { font-size: 11px; color: var(--dim); font-weight: 400; text-transform: none; letter-spacing: 0; margin-left: 10px; }
 .ekgitem.studied { border-left: 2px solid #1a7f37; }
 .pharm-drugname { font-size: 22px; font-weight: 500; margin: 12px 0 4px; letter-spacing: -.02em; }
