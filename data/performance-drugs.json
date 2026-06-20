@@ -55,11 +55,18 @@
       ]
     }
   },
-  "branches": [
-    { "id": "hormones", "title": "Hormone map", "desc": "Steroid vs peptide vs amine — what each agent is and where it acts." },
-    { "id": "pathways", "title": "Pathway flowchart", "desc": "Build axes step-by-step — HPG, GH–IGF, HPA, thyroid, EPO." },
-    { "id": "catalog", "title": "Agent catalog", "desc": "Anabolics, peptides, blood boosters, stimulants, masking." },
-    { "id": "clinical", "title": "Clinical & detection", "desc": "Risks, labs, and what clinicians actually see." }
+  "studyPath": [
+    { "id": "hormone-steroid", "order": 1, "type": "hormone", "hormone": "steroid", "title": "Steroid hormones", "subtitle": "Nuclear receptors · HPG & adrenal arms · AAS" },
+    { "id": "hormone-peptide", "order": 2, "type": "hormone", "hormone": "peptide", "title": "Peptide hormones", "subtitle": "Membrane receptors · GH, EPO, insulin, hCG" },
+    { "id": "hormone-amine", "order": 3, "type": "hormone", "hormone": "amine", "title": "Amine hormones", "subtitle": "Catecholamines · thyroid · stimulant overlap" },
+    { "id": "pathway-hpg", "order": 4, "type": "pathway", "pathwayId": "hpg", "title": "HPG axis", "subtitle": "GnRH → gonadotropins → sex steroids" },
+    { "id": "pathway-gh-igf", "order": 5, "type": "pathway", "pathwayId": "gh-igf", "title": "GH–IGF axis", "subtitle": "GHRH → GH → IGF-1" },
+    { "id": "pathway-hpa", "order": 6, "type": "pathway", "pathwayId": "hpa", "title": "HPA axis", "subtitle": "CRH → ACTH → cortisol" },
+    { "id": "pathway-thyroid", "order": 7, "type": "pathway", "pathwayId": "thyroid", "title": "Thyroid axis", "subtitle": "TRH → TSH → T4 → T3" },
+    { "id": "pathway-epo", "order": 8, "type": "pathway", "pathwayId": "epo", "title": "Erythropoiesis", "subtitle": "Hypoxia → EPO → RBC mass" },
+    { "id": "pathway-steroid-synthesis", "order": 9, "type": "pathway", "pathwayId": "steroid-synthesis", "title": "Steroid synthesis", "subtitle": "Cholesterol → androgens / cortisol branches" },
+    { "id": "catalog", "order": 10, "type": "catalog", "title": "Agent catalog", "subtitle": "Anabolics, peptides, blood, stimulants, masking" },
+    { "id": "clinical", "order": 11, "type": "clinical", "title": "Clinical & detection", "subtitle": "Labs, risks, what you see in practice" }
   ],
   "catalogSections": [
     {
@@ -132,6 +139,7 @@
       "id": "hpg",
       "title": "HPG axis (gonadal)",
       "subtitle": "GnRH pulse → sex steroids",
+      "orientation": "The hypothalamic–pituitary–gonadal axis converts pulsatile GnRH into LH/FSH, then into testosterone and its metabolites. This is the axis exogenous androgens shut down.",
       "steps": [
         { "id": "gnrh", "label": "GnRH", "hint": "Hypothalamic decapeptide released in pulses" },
         { "id": "lh", "label": "LH", "hint": "Pituitary gonadotropin — drives Leydig cells" },
@@ -171,6 +179,7 @@
       "id": "gh-igf",
       "title": "GH–IGF axis",
       "subtitle": "GHRH / somatostatin → GH → IGF-1",
+      "orientation": "Growth hormone is pulsatile from the anterior pituitary; IGF-1 from the liver is the stable downstream signal. rhGH abuse targets this loop.",
       "steps": [
         { "id": "ghrh", "label": "GHRH", "hint": "Hypothalamic stimulator of GH release" },
         { "id": "gh", "label": "GH", "hint": "Anterior pituitary — pulsatile secretion" },
@@ -202,6 +211,7 @@
       "id": "hpa",
       "title": "HPA axis",
       "subtitle": "CRH → ACTH → cortisol",
+      "orientation": "Stress and inflammation drive CRH → ACTH → cortisol. Exogenous glucocorticoids suppress the entire axis — relevant to masking and adrenal suppression.",
       "steps": [
         { "id": "crh", "label": "CRH", "hint": "Hypothalamic stress hormone" },
         { "id": "acth", "label": "ACTH", "hint": "Pituitary — targets zona fasciculata" },
@@ -226,6 +236,7 @@
       "id": "thyroid",
       "title": "Thyroid axis",
       "subtitle": "TRH → TSH → T4 → T3",
+      "orientation": "Thyroid hormone sets metabolic rate. T3 abuse mimics hyperthyroidism — weight loss at the cost of cardiac and muscle risk.",
       "steps": [
         { "id": "trh", "label": "TRH", "hint": "Hypothalamic — stimulates TSH" },
         { "id": "tsh", "label": "TSH", "hint": "Pituitary — thyroid follicular cells" },
@@ -251,6 +262,7 @@
       "id": "epo",
       "title": "Erythropoiesis",
       "subtitle": "Hypoxia → EPO → RBC mass",
+      "orientation": "Kidney EPO is the hormone arm of oxygen delivery. rhEPO and blood doping raise hematocrit — endurance benefit with thrombosis risk.",
       "steps": [
         { "id": "hypoxia", "label": "Hypoxia / ↓ O₂", "hint": "Kidney peritubular oxygen sensing" },
         { "id": "hif", "label": "HIF stabilization", "hint": "Oxygen-sensitive transcription factor" },
@@ -276,6 +288,7 @@
       "id": "steroid-synthesis",
       "title": "Steroid synthesis (overview)",
       "subtitle": "Cholesterol → androgens / cortisol / aldosterone",
+      "orientation": "All steroid hormones share cholesterol-derived scaffolding. Knowing the branches explains why enzymes like aromatase and 5α-reductase matter on cycles.",
       "steps": [
         { "id": "chol", "label": "Cholesterol", "hint": "Starting substrate — CYP11A1 side-chain cleavage" },
         { "id": "preg", "label": "Pregnenolone", "hint": "First steroid — Δ5 pathway hub" },
