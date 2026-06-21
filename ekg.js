@@ -122,7 +122,7 @@ function ekgSvg(kind, W, H, accent) {
   const pts = buildTrace(kind, W, H);
   const d = 'M' + pts.map(p => `${p[0].toFixed(1)} ${Math.max(2, Math.min(H - 2, p[1])).toFixed(1)}`).join(' L');
   const gid = 'g' + kind;
-  return `<svg class="ekgsvg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+  return `<svg class="ekgsvg" role="img" aria-label="ECG rhythm tracing" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <pattern id="${gid}m" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M8 0H0V8" fill="none" stroke="#f0dada" stroke-width="0.6"/></pattern>
       <pattern id="${gid}M" width="40" height="40" patternUnits="userSpaceOnUse"><rect width="40" height="40" fill="url(#${gid}m)"/><path d="M40 0H0V40" fill="none" stroke="#e6bcbc" stroke-width="1"/></pattern>

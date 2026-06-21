@@ -9,7 +9,7 @@ function saveSocDone() { localStorage.setItem('cs-socrates', JSON.stringify(SOC_
 async function loadSocrates() {
   if (SOC.loaded) return;
   try {
-    const d = await fetch('data/socrates.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : []).catch(() => []);
+    const d = await fetch('data/socrates.json').then(r => r.ok ? r.json() : []).catch(() => []);
     SOC.dialogues = d || [];
   } catch { SOC.dialogues = SOC.dialogues || []; }
   SOC.byDisc = {};

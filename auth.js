@@ -136,6 +136,7 @@ async function sendMagicLink(email) {
 }
 async function signOut() {
   try { await sb.auth.signOut(); } catch {}
+  clearTimeout(pushTimer);
   currentUser = null;
   setMeta(null);
   setSyncState('idle');
@@ -209,6 +210,7 @@ function openAuth() {
     });
   }
   document.body.appendChild(back);
+  if (window.trapModal) window.trapModal(back);
   setTimeout(() => back.querySelector('#auth-email')?.focus(), 30);
 }
 

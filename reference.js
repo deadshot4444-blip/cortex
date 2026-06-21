@@ -55,7 +55,7 @@ function touchMedicine(area, detail) {
 async function loadMedPath() {
   if (MED_PATH.loaded) return;
   try {
-    const r = await fetch('data/medicine-path.json', { cache: 'no-store' });
+    const r = await fetch('data/medicine-path.json');
     const j = r.ok ? await r.json() : null;
     MED_PATH.nodes = j?.nodes?.length ? j.nodes : [];
   } catch { MED_PATH.nodes = []; }
@@ -75,7 +75,7 @@ function medicinePathNodeIndex(nodeId) {
 function pharmClassComplete(cat, data) {
   if (!data?.length) return false;
   const pool = data.filter(d => d.cat === cat);
-  if (!pool.length) return false;
+  if (!pool.length) return true; // empty pool = vacuously complete; never lock the path on missing data
   return pool.every(d => PHARM_PROG.learned[d.id || d.name]);
 }
 
@@ -283,9 +283,9 @@ async function loadRef() {
   if (REF.loaded) return;
   try {
     const [p, m, l] = await Promise.all([
-      fetch('data/pharm.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : []).catch(() => []),
-      fetch('data/micro.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : []).catch(() => []),
-      fetch('data/labs.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : []).catch(() => []),
+      fetch('data/pharm.json').then(r => r.ok ? r.json() : []).catch(() => []),
+      fetch('data/micro.json').then(r => r.ok ? r.json() : []).catch(() => []),
+      fetch('data/labs.json').then(r => r.ok ? r.json() : []).catch(() => []),
     ]);
     REF.pharm = p || []; REF.micro = m || []; REF.labs = l || [];
   } catch { REF.pharm = REF.pharm || []; REF.micro = REF.micro || []; REF.labs = REF.labs || []; }

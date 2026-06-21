@@ -1,3 +1,19 @@
+# Global security headers (defense-in-depth; no functional impact)
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=()
+
+# Data is author-authored and changes rarely; short TTL + SWR avoids re-downloading
+# ~0.9MB specialty files on every reload while keeping content fresh within minutes.
+/data/*
+  Cache-Control: public, max-age=300, stale-while-revalidate=3600
+
+# JS modules are cache-busted via ?v= in their URLs, so they are safe to cache long.
+/*.js
+  Cache-Control: public, max-age=31536000, immutable
+
 /og.jpg
   Content-Type: image/jpeg
   Cache-Control: public, max-age=86400

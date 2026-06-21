@@ -119,7 +119,7 @@ function gradeM1Lab(stdout, recording) {
 }
 
 async function loadM1Recording() {
-  const r = await fetch('data/labs/m1-recording.json', { cache: 'no-store' });
+  const r = await fetch('data/labs/m1-recording.json');
   return r.ok ? r.json() : null;
 }
 

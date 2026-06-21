@@ -79,7 +79,7 @@ function agentKey(a) { return a.id || a.name; }
 async function loadPED() {
   if (PED.loaded) return;
   try {
-    const r = await fetch('data/performance-drugs.json', { cache: 'no-store' });
+    const r = await fetch('data/performance-drugs.json');
     PED.data = r.ok ? await r.json() : null;
   } catch { PED.data = null; }
   PED.loaded = true;

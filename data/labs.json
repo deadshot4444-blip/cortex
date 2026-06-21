@@ -67,7 +67,7 @@
  },
  {
   "test": "Mean Corpuscular Hemoglobin Concentration (MCHC)",
-  "range": "33–36",
+  "range": "32–36",
   "units": "g/dL",
   "high_means": "Hereditary spherocytosis, cold agglutinins/in vitro hemolysis, lipemia (spurious)",
   "low_means": "Iron deficiency, thalassemia (hypochromia)",
@@ -551,7 +551,7 @@
  },
  {
   "test": "Anion gap",
-  "range": "8-12 (≈3-11 if K+ included)",
+  "range": "8-12 (≈10-20 if K+ included)",
   "units": "mEq/L",
   "high_means": "High-AG metabolic acidosis — GOLD MARK / MUDPILES (lactate, ketones, uremia, toxic alcohols, salicylates)",
   "low_means": "Low AG — hypoalbuminemia, paraproteinemia (myeloma), lithium, bromide; or lab artifact",
@@ -863,7 +863,7 @@
   "units": "mg/dL",
   "high_means": "Iron deficiency, pregnancy, estrogen/OCP",
   "low_means": "Anemia of chronic disease, malnutrition, liver disease, protein loss (nephrotic)",
-  "pearl": "Negative acute-phase reactant - falls with inflammation. Often reported alongside TIBC (TIBC ng/dL approx = transferrin mg/dL x 1.4).",
+  "pearl": "Negative acute-phase reactant - falls with inflammation. Often reported alongside TIBC (TIBC mcg/dL approx = transferrin mg/dL x 1.4).",
   "id": "iron-misc-5",
   "panel": "iron-misc",
   "panelName": "Iron studies & misc (ferritin, TIBC, transferrin, B12/folate, CRP/ESR, uric acid)"
@@ -881,7 +881,7 @@
  },
  {
   "test": "Folate (Serum)",
-  "range": "3-17 (>5.4 normal)",
+  "range": "3-17 (deficiency <4)",
   "units": "ng/mL",
   "high_means": "Supplementation, recent intake; not clinically significant",
   "low_means": "Dietary deficiency, alcoholism, malabsorption, pregnancy, methotrexate; macrocytic anemia",
@@ -892,7 +892,7 @@
  },
  {
   "test": "CRP (C-Reactive Protein)",
-  "range": "<3.0 (<1.0 optimal)",
+  "range": "<10 conventional; hs-CRP CV risk <1 / 1-3 / >3 = low/mod/high",
   "units": "mg/L",
   "high_means": "Acute inflammation/infection, tissue injury, malignancy; >100 suggests serious bacterial infection",
   "low_means": "— (normal; no clinical low)",

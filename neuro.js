@@ -11,8 +11,8 @@ async function loadNeuro() {
   if (NEURO.loaded) return;
   try {
     const [r, m] = await Promise.all([
-      fetch('data/neuro.json', { cache: 'no-store' }),
-      fetch('data/neuro-milestones.json', { cache: 'no-store' }),
+      fetch('data/neuro.json'),
+      fetch('data/neuro-milestones.json'),
     ]);
     NEURO.data = r.ok ? await r.json() : null;
     NEURO.milestones = m.ok ? await m.json() : null;

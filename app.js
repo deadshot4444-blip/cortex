@@ -55,7 +55,7 @@ const SECTION_INFO = {
     desc: 'Guided, Socratic study sessions that train the skill beneath every other skill — how to question, reason, and remember. Metacognition and proven learning technique, applied directly to medicine.',
   },
 };
-const APP_VERSION = '1.13.2';
+const APP_VERSION = '1.13.3';
 const MEMBERSHIP_START = 'August 1, 2026';
 function cortexFreeNote(sectionPill, sectionName) {
   return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free for now</span><span class="free-note-txt">${sectionName} becomes optional membership ${MEMBERSHIP_START}. The full MCAT suite stays free forever.</span></p>`;
@@ -123,10 +123,11 @@ function saveHistory() { safeSet('cs-history', JSON.stringify(store.history.slic
 function saveStreak() { safeSet('cs-streak', JSON.stringify(store.streak)); }
 
 const SECTION_SCRIPTS = {
-  anatomy: ['anatomy.js?v=35'],
-  reference: ['reference.js?v=45', 'performance-drugs.js?v=6', 'ekg.js?v=35'],
-  socrates: ['socrates.js?v=39'],
-  neuro: ['python-runtime.js?v=3', 'code-evaluator.js?v=2', 'neuro-practitioner.js?v=2', 'neuro.js?v=12'],
+  mcat: ['mcat.js?v=54'],
+  anatomy: ['anatomy.js?v=36'],
+  reference: ['reference.js?v=46', 'performance-drugs.js?v=7', 'ekg.js?v=36'],
+  socrates: ['socrates.js?v=40'],
+  neuro: ['python-runtime.js?v=3', 'code-evaluator.js?v=2', 'neuro-practitioner.js?v=3', 'neuro.js?v=13'],
 };
 const _scriptLoads = {};
 function loadScript(src) {
@@ -144,6 +145,10 @@ async function ensureSection(key) {
   const files = SECTION_SCRIPTS[key];
   if (!files) return;
   for (const f of files) await loadScript(f);
+}
+// MCAT is lazy-loaded like every other section; load it on demand then render.
+function gotoMCAT() {
+  ensureSection('mcat').then(gotoMCAT);
 }
 
 function clearClinicalProgress() {
@@ -197,6 +202,7 @@ function openResetProgress(onDone) {
   m.querySelector('#rst-all').addEventListener('click', () => { clearClinicalProgress(); clearMedicineProgress(); clearMcatProgress(); clearPomoProgress(); close(); onDone(); });
   document.addEventListener('keydown', onKey);
   document.body.appendChild(m);
+  trapModal(m);
 }
 
 function prog(key) {
@@ -339,12 +345,7 @@ function clinicalStatBand() {
 async function boot() {
   fetchVisits();
   try {
-    const [m, i] = await Promise.all([
-      fetch('data/manifest.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : {}),
-      fetch('data/index.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null),
-    ]);
-    store.manifest = m;
-    store.index = i;
+    store.manifest = await fetch('data/manifest.json').then(r => r.ok ? r.json() : {});
   } catch { /* case data unavailable; the mission page still renders, sections handle it */ }
   renderMission();
   if (hasUnseenUpdate()) setTimeout(showUpdateModal, 420);
@@ -352,11 +353,20 @@ async function boot() {
 
 async function loadSpecialty(key) {
   if (store.cache[key]) return store.cache[key];
-  const r = await fetch(`data/${key}.json`, { cache: 'no-store' });
+  const r = await fetch(`data/${key}.json`);
   if (!r.ok) throw new Error(`no data for ${key}`);
   const data = await r.json();
   store.cache[key] = data;
   return data;
+}
+
+// index.json (~600KB) is only needed inside Practice (mixed cases + review/search), not on the
+// landing page. Load it lazily off the critical path and memoize.
+async function ensureIndex() {
+  if (store.index) return store.index;
+  try { store.index = await fetch('data/index.json').then(r => r.ok ? r.json() : null); }
+  catch { store.index = null; }
+  return store.index;
 }
 
 /* ---------- shared chrome ---------- */
@@ -366,13 +376,14 @@ function topbar(active) {
   const streak = store.streak.current > 0 ? `${store.streak.current}&#128293; &middot; ` : '';
   const stat = t.answered ? `${streak}${t.xp.toLocaleString()} XP` : '';
   const root = el(`<header class="topbar mainbar">
+    <a class="skip-link" href="#main">Skip to content</a>
     <a class="wordmark" href="#">${MARK_SVG}<span class="wm-name">Cortex <span class="wm-sub">Medical Academy</span></span></a>
     <nav class="nav">
       <button class="navlink ${active === 'practice' ? 'active' : ''}" data-go="practice">Practice</button>
       <button class="navlink ${active === 'mcat' ? 'active' : ''}" data-go="mcat">MCAT</button>
       <button class="navlink ${active === 'stats' ? 'active' : ''}" data-go="stats">Stats</button>
       <div class="navmenu">
-        <button class="navlink menubtn ${['anatomy', 'reference', 'socrates', 'utsa', 'pomodoro'].includes(active) ? 'active' : ''}" data-menu aria-haspopup="true" aria-expanded="false">Explore<span class="caret">&#9662;</span></button>
+        <button class="navlink menubtn ${['anatomy', 'reference', 'socrates', 'utsa', 'pomodoro'].includes(active) ? 'active' : ''}" data-menu aria-expanded="false">Explore<span class="caret">&#9662;</span></button>
         <div class="menupanel" hidden>
           <span class="menu-head">Tools</span>
           <button class="menuitem" data-go="pomodoro"><span>Focus Timer</span><span class="mi-tag">New</span></button>
@@ -409,7 +420,7 @@ function topbar(active) {
     await ensureSection('socrates');
     renderSocrates();
   });
-  root.querySelector('[data-go="mcat"]').addEventListener('click', () => { if (typeof renderMCAT === 'function') renderMCAT(); });
+  root.querySelector('[data-go="mcat"]').addEventListener('click', gotoMCAT);
   root.querySelector('[data-go="stats"]').addEventListener('click', renderStats);
   root.querySelector('[data-go="utsa"]').addEventListener('click', renderUTSA);
   root.querySelector('[data-go="pomodoro"]').addEventListener('click', () => { if (typeof renderPomodoro === 'function') renderPomodoro(); });
@@ -477,9 +488,53 @@ function showUpdateModal() {
   back.querySelector('#upd-log').addEventListener('click', () => { dismiss(true); renderUpdates(); });
   document.addEventListener('keydown', onKey);
   document.body.appendChild(back);
+  trapModal(back);
 }
 
-function setView(node) { $app.replaceChildren(node); window.scrollTo(0, 0); setupCountUps(node); revealOnScroll(node); if (window.refreshAuthUI) window.refreshAuthUI(); if (window.pomoSync) window.pomoSync(); updateVerBadges(); }
+function setView(node) {
+  $app.replaceChildren(node);
+  window.scrollTo(0, 0);
+  const mainEl = node.querySelector('main');
+  if (mainEl && !mainEl.id) mainEl.id = 'main';
+  const ft = node.querySelector('h1') || mainEl || node;
+  if (ft && ft.focus) { ft.setAttribute('tabindex', '-1'); ft.focus({ preventScroll: true }); }
+  announceView(node);
+  setupCountUps(node); revealOnScroll(node);
+  if (window.refreshAuthUI) window.refreshAuthUI(); if (window.pomoSync) window.pomoSync(); updateVerBadges();
+}
+function announceView(node) {
+  let live = document.getElementById('cs-live');
+  if (!live) {
+    live = document.createElement('div');
+    live.id = 'cs-live';
+    live.setAttribute('aria-live', 'polite');
+    live.setAttribute('aria-atomic', 'true');
+    live.style.cssText = 'position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;';
+    document.body.appendChild(live);
+  }
+  const h = node.querySelector('h1');
+  live.textContent = h ? h.textContent.trim() : '';
+}
+
+// Focus-trap a modal: cycle Tab within it, move focus in on open, restore to the opener on close.
+function trapModal(back) {
+  const prev = document.activeElement;
+  const SEL = 'a[href],button:not([disabled]),input:not([disabled]),select,textarea,[tabindex]:not([tabindex="-1"])';
+  const focusable = () => [...back.querySelectorAll(SEL)].filter(e => e.offsetParent !== null);
+  back.addEventListener('keydown', e => {
+    if (e.key !== 'Tab') return;
+    const f = focusable(); if (!f.length) return;
+    const first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
+  setTimeout(() => { if (!back.contains(document.activeElement)) { const f = focusable(); if (f.length) f[0].focus(); } }, 0);
+  const obs = new MutationObserver(() => {
+    if (!document.body.contains(back)) { obs.disconnect(); try { prev && prev.focus && prev.focus(); } catch (e) {} }
+  });
+  obs.observe(document.body, { childList: true, subtree: true });
+}
+window.trapModal = trapModal;
 
 function renderComingSoon(key) {
   stopTimer(); session = null;
@@ -498,7 +553,7 @@ function renderComingSoon(key) {
     </div>
   </main>`);
   main.querySelector('#cs-prac').addEventListener('click', renderHome);
-  main.querySelector('#cs-mcat').addEventListener('click', () => { if (typeof renderMCAT === 'function') renderMCAT(); });
+  main.querySelector('#cs-mcat').addEventListener('click', gotoMCAT);
   root.appendChild(main);
   root.appendChild(siteFooter());
   setView(root);
@@ -534,7 +589,7 @@ function renderUTSA() {
     </section>
     <p class="utsa-note">Cortex Medical Academy is an independent project and is not affiliated with, endorsed by, or sponsored by The University of Texas at San Antonio or UT Health San Antonio. All trademarks and campus imagery are the property of their respective owners.</p>
   </main>`);
-  main.querySelector('#utsa-mcat').addEventListener('click', () => { if (typeof renderMCAT === 'function') renderMCAT(); });
+  main.querySelector('#utsa-mcat').addEventListener('click', gotoMCAT);
   root.appendChild(main);
   root.appendChild(siteFooter());
   setView(root);
@@ -612,6 +667,7 @@ function openFeedback() {
   });
   document.addEventListener('keydown', onKey);
   document.body.appendChild(back);
+  trapModal(back);
   setTimeout(() => back.querySelector('#fb-msg').focus(), 30);
 }
 
@@ -677,6 +733,17 @@ const PRINCIPLES = [
 
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
+  {
+    date: 'June 20, 2026', version: '1.13.3', tag: 'FIX',
+    title: 'Clinical fixes, accessibility & speed',
+    items: [
+      'Fixed answer highlighting after the shuffle update - the correct choice now lights up green every time, and explanations point to the right option.',
+      'Restored full answer wording that was clipped in the previous update.',
+      'Faster first load and snappier repeat visits.',
+      'Full keyboard navigation, screen-reader announcements, and higher-contrast text.',
+      'Accuracy tune-ups across pharmacology, microbiology, and lab references.',
+    ],
+  },
   {
     date: 'June 20, 2026', version: '1.13.2', tag: 'FIX',
     title: 'Clinical scenarios \u2014 fairer MCQs',
@@ -1034,7 +1101,7 @@ function renderUpdates() {
       <button class="btn" id="up-suggest">&#128161; Suggest a feature</button>
     </div>
   </main>`);
-  main.querySelector('#up-mcat').addEventListener('click', () => { if (typeof renderMCAT === 'function') renderMCAT(); });
+  main.querySelector('#up-mcat').addEventListener('click', gotoMCAT);
   main.querySelector('#up-cases').addEventListener('click', renderHome);
   main.querySelector('#up-suggest').addEventListener('click', openFeedback);
   root.appendChild(main);
@@ -1092,9 +1159,9 @@ function renderMission() {
     </section>
   </main>`);
 
-  main.querySelector('#m-mcat').addEventListener('click', () => { if (typeof renderMCAT === 'function') renderMCAT(); });
+  main.querySelector('#m-mcat').addEventListener('click', gotoMCAT);
   main.querySelector('#m-cases').addEventListener('click', renderHome);
-  main.querySelector('#m-enter').addEventListener('click', () => { if (typeof renderMCAT === 'function') renderMCAT(); });
+  main.querySelector('#m-enter').addEventListener('click', gotoMCAT);
   main.querySelector('#m-updates').addEventListener('click', renderUpdates);
   root.appendChild(main);
   root.appendChild(siteFooter());
@@ -1108,6 +1175,7 @@ function renderMission() {
 function renderHome() {
   stopTimer();
   session = null;
+  ensureIndex();
 
   const root = el(`<div></div>`);
   root.appendChild(topbar('practice'));
@@ -1219,6 +1287,7 @@ async function startRandomCase(sp) {
 }
 
 async function startMixedCase() {
+  await ensureIndex();
   if (!store.index) return;
   const pool = store.index.filter(e => store.manifest[e.key] && (store.diff === 'all' || e.difficulty === store.diff));
   if (!pool.length) return;
@@ -1257,6 +1326,24 @@ function shuffleClinicalOpts(options) {
     [mapped[i], mapped[j]] = [mapped[j], mapped[i]];
   }
   return mapped;
+}
+
+/* Remap "option X" letter tags inside an explanation to the shuffled display order,
+   so the letters the explanation cites match the buttons the user now sees. Letters
+   outside the current option range (legacy phantom refs like "option E" on a 4-option
+   question) are left untouched. */
+function remapOptionLetters(text, shuffled) {
+  if (!text || !shuffled) return text;
+  const pos = [];
+  shuffled.forEach((o, i) => { pos[o.origIdx] = i; });
+  const n = shuffled.length;
+  return text.replace(/\boption\s+([A-Fa-f])\b/gi, (m, L) => {
+    const origIdx = L.toUpperCase().charCodeAt(0) - 65;
+    if (origIdx < 0 || origIdx >= n || pos[origIdx] == null) return m;
+    const mapped = LETTERS[pos[origIdx]];
+    const newL = (L === L.toLowerCase()) ? mapped.toLowerCase() : mapped;
+    return m.slice(0, m.length - 1) + newL;
+  });
 }
 
 function updateCaseRunbar() {
@@ -1379,22 +1466,22 @@ function appendStage() {
   const node = el(`<section class="stage" data-question>
     <div class="stage-head"><span class="label">Q${qn} &middot; ${esc(s.label || 'Question')}</span><span class="rule"></span></div>
     <p class="q">${esc(s.question)}</p>
-    <div class="opts">${shuffled.map((o, i) => `<button class="opt" data-i="${i}"><span class="key">${LETTERS[i]}</span><span>${esc(o.text)}</span></button>`).join('')}</div>
+    <div class="opts">${shuffled.map((o, i) => `<button class="opt" data-i="${i}" data-orig="${o.origIdx}"><span class="key">${LETTERS[i]}</span><span>${esc(o.text)}</span></button>`).join('')}</div>
     <div class="after"></div>
   </section>`);
-  node.querySelectorAll('.opt').forEach(btn => btn.addEventListener('click', () => answer(node, s, shuffled[Number(btn.dataset.i)].origIdx, isLast)));
+  node.querySelectorAll('.opt').forEach(btn => btn.addEventListener('click', () => answer(node, s, shuffled[Number(btn.dataset.i)].origIdx, isLast, shuffled)));
   container.appendChild(node);
   if (autoScroll) node.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-function answer(node, s, choice, isLast) {
+function answer(node, s, choice, isLast, shuffled) {
   if (session.finished) return;
   const correct = choice === s.answer;
   node.querySelectorAll('.opt').forEach(btn => {
-    const i = Number(btn.dataset.i);
+    const orig = Number(btn.dataset.orig);
     btn.disabled = true;
-    if (i === s.answer) btn.classList.add('correct');
-    else if (i === choice) btn.classList.add('wrong');
+    if (orig === s.answer) btn.classList.add('correct');
+    else if (orig === choice) btn.classList.add('wrong');
     else btn.classList.add('dimmed');
   });
 
@@ -1408,7 +1495,7 @@ function answer(node, s, choice, isLast) {
   if (qp) qp.textContent = `Q ${session.results.length}/${session.qTotal}`;
 
   const after = node.querySelector('.after');
-  after.appendChild(el(`<div class="explain ${correct ? 'good' : 'bad'}"><span class="verdict">${correct ? 'CORRECT' : 'INCORRECT'}</span><p>${esc(s.explanation)}</p></div>`));
+  after.appendChild(el(`<div class="explain ${correct ? 'good' : 'bad'}"><span class="verdict">${correct ? 'CORRECT' : 'INCORRECT'}</span><p>${esc(remapOptionLetters(s.explanation, shuffled))}</p></div>`));
   const row = el(`<div class="continue-row"><span class="hint">ENTER &rarr;</span><button class="btn" data-continue>${isLast ? 'View summary' : 'Continue'}</button></div>`);
   row.querySelector('[data-continue]').addEventListener('click', () => { row.remove(); advance(); });
   after.appendChild(row);
@@ -1535,7 +1622,8 @@ function scorePill(c, t) {
   return `<span class="pill ${cls}">${c}/${t}</span>`;
 }
 
-function renderReview(tab = 'history') {
+async function renderReview(tab = 'history') {
+  await ensureIndex();
   stopTimer(); session = null;
   const stats = clinicalStatBand().slice(2);
   const root = el(`<div></div>`);
@@ -1891,7 +1979,7 @@ function renderStats() {
   });
 
   const mcatBtn = main.querySelector('#stats-mcat');
-  if (mcatBtn) mcatBtn.addEventListener('click', () => { if (typeof renderMCAT === 'function') renderMCAT(); });
+  if (mcatBtn) mcatBtn.addEventListener('click', gotoMCAT);
   const pomoBtn = main.querySelector('#stats-pomo');
   if (pomoBtn) pomoBtn.addEventListener('click', () => { if (typeof renderPomodoro === 'function') renderPomodoro(); });
   const neuroBtn = main.querySelector('#stats-neuro');

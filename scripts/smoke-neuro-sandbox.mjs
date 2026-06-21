@@ -1,11 +1,15 @@
 import { chromium } from 'playwright';
+import { readFileSync } from 'node:fs';
+
+// Track the live app version so the "what's new" modal never blocks navigation as versions bump.
+const APP_VERSION = (readFileSync(new URL('../app.js', import.meta.url), 'utf8').match(/APP_VERSION\s*=\s*'([^']+)'/) || [])[1] || '';
 
 const browser = await chromium.launch({ headless: true });
 const page = await browser.newPage();
 const errors = [];
 page.on('pageerror', e => errors.push(e.message));
 
-await page.addInitScript(() => localStorage.setItem('cs-seen-ver', '1.9.0'));
+await page.addInitScript(v => localStorage.setItem('cs-seen-ver', v), APP_VERSION);
 await page.goto('http://localhost:8765/', { waitUntil: 'networkidle' });
 await page.click('[data-go="neuro"]');
 await page.waitForSelector('.neuro-page', { timeout: 15000 });

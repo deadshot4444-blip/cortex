@@ -462,7 +462,7 @@ async function loadBones() {
   if (BONE_META.__loaded) return;
   for (const file of ['data/bones.json', 'data/muscles.json', 'data/organs.json']) {
     try {
-      const r = await fetch(file, { cache: 'no-store' });
+      const r = await fetch(file);
       if (!r.ok) continue;
       const arr = await r.json();
       for (const b of arr) {
@@ -594,7 +594,15 @@ function renderAnatView() {
   root.querySelector('#back').addEventListener('click', renderAnatomy);
 
   const fig = root.querySelector('#fig');
-  fig.querySelectorAll('.bone').forEach(b => b.addEventListener('click', () => onBoneClick(b)));
+  const exploreMode = anat.mode === 'explore';
+  fig.querySelectorAll('.bone').forEach((b, i) => {
+    b.setAttribute('tabindex', '0');
+    b.setAttribute('role', 'button');
+    const meta = BONE_META[b.dataset.bone];
+    b.setAttribute('aria-label', exploreMode && meta ? meta.name : `Region ${i + 1}`);
+    b.addEventListener('click', () => onBoneClick(b));
+    b.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onBoneClick(b); } });
+  });
 
   // hover name labels (Explore only — would spoil quizzes)
   if (anat.mode === 'explore') {

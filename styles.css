@@ -9,7 +9,7 @@
   --text: #111113;
   --body: #3f3f46;
   --dim: #71717a;
-  --faint: #a6a6ae;
+  --faint: #6b6b72;
   --green: #1a7f37;
   --red: #cf222e;
   --amber: #9a6700;
@@ -1148,7 +1148,7 @@ button:focus-visible, a:focus-visible, textarea:focus-visible, input:focus-visib
 
 @media (prefers-reduced-motion: reduce) {
   #app main, .livedot { animation: none; }
-  .btn:hover { transform: none; }
+  .btn:hover, .modcard:hover, .principle:hover { transform: none; }
   html { scroll-behavior: auto; }
 }
 
@@ -2090,3 +2090,8 @@ button.neuro-ms.done .neuro-ms-sub { color: var(--green); }
 .pomo-pill .pp-mode { text-transform: uppercase; letter-spacing: .12em; font-size: 9.5px; opacity: .7; }
 .pomo-pill .pp-time { font-variant-numeric: tabular-nums; font-size: 13px; }
 @media (max-width: 600px) { .pomo-pill { right: 12px; bottom: 12px; } }
+
+/* a11y: skip link (visually hidden until focused) + keyboard focus ring for anatomy hotspots */
+.skip-link { position: absolute; left: 8px; top: -48px; z-index: 2000; background: var(--text); color: var(--bg); padding: 8px 14px; border-radius: 4px; transition: top .15s ease; }
+.skip-link:focus { top: 8px; }
+.bone:focus-visible { outline: 2px solid var(--text); outline-offset: 1px; }

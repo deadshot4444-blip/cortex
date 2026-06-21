@@ -6,7 +6,6 @@
   "indications": "Postoperative and neurogenic urinary retention; postoperative ileus and GI atony (no obstruction)",
   "side_effects": "Cholinergic excess (SLUDGE): salivation, lacrimation, urination, defecation, GI cramping/diarrhea, emesis; flushing",
   "pearl": "\"Bethany, call (bethanechol) me to activate your bowels and bladder.\" No nicotinic activity; contraindicated in asthma/COPD, peptic ulcer, and bladder/bowel obstruction.",
-  "drug_class_dup": "",
   "id": "cholinergics-1",
   "cat": "cholinergics"
  },
@@ -2843,11 +2842,11 @@
  },
  {
   "name": "Alprazolam",
-  "drug_class": "Short-acting benzodiazepine",
+  "drug_class": "Intermediate-acting benzodiazepine",
   "moa": "GABA-A positive allosteric modulator; rapid onset, high potency",
   "indications": "Panic disorder, generalized anxiety disorder",
   "side_effects": "High abuse/dependence potential, severe interdose rebound anxiety, withdrawal seizures",
-  "pearl": "Highest dependence/abuse liability among BZDs due to rapid onset and short half-life; notorious for difficult withdrawal",
+  "pearl": "Highest dependence/abuse liability among BZDs due to rapid onset and high potency; notorious for difficult withdrawal",
   "id": "sedatives-4",
   "cat": "sedatives"
  },
@@ -3567,7 +3566,7 @@
   "moa": "Binds cytosolic glucocorticoid receptor; alters gene transcription, induces lipocortin/annexin-1 inhibiting phospholipase A2, suppresses NF-kB.",
   "indications": "Adrenal insufficiency/Addisonian crisis replacement, septic shock, anti-inflammatory.",
   "side_effects": "Cushingoid features, hyperglycemia, osteoporosis, immunosuppression, HPA suppression, fluid retention/hypertension.",
-  "pearl": "Replacement of choice in adrenal insufficiency due to its mineralocorticoid activity. Stress-dose for surgery/illness.",
+  "pearl": "Glucocorticoid replacement of choice in adrenal insufficiency (short-acting, mimics cortisol); primary (Addison) AI also needs added fludrocortisone for mineralocorticoid replacement. Stress-dose for surgery/illness.",
   "id": "endocrine-6",
   "cat": "endocrine"
  },

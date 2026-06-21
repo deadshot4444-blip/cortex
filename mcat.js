@@ -17,7 +17,7 @@ const QHIST = (typeof loadJSON === 'function') ? loadJSON('cs-mcat-q', {}) : {};
 let QLOG = (typeof loadJSON === 'function') ? loadJSON('cs-mcat-log', []) : [];       // [{qId,section,category,correct,conf,ts}]
 const mset = (k, v) => { if (typeof safeSet === 'function') safeSet(k, v); else { try { localStorage.setItem(k, v); } catch {} } };
 function saveSRS() { mset('cs-mcat-srs', JSON.stringify(SRS)); }
-function saveQ() { mset('cs-mcat-q', JSON.stringify(QHIST)); mset('cs-mcat-log', JSON.stringify(QLOG.slice(-1000))); }
+function saveQ() { if (QLOG.length > 1000) QLOG.splice(0, QLOG.length - 1000); mset('cs-mcat-q', JSON.stringify(QHIST)); mset('cs-mcat-log', JSON.stringify(QLOG)); }
 
 const DAY = 86400000;
 function srsRec(id) { if (!SRS[id]) SRS[id] = { ease: 2.5, interval: 0, reps: 0, lapses: 0, due: 0, last: 0 }; return SRS[id]; }
@@ -43,11 +43,11 @@ async function loadMCAT() {
   if (MCAT.loaded) return;
   try {
     const [o, c, q, cars, sci] = await Promise.all([
-      fetch('data/mcat-outline.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).catch(() => null),
-      fetch('data/mcat-cards.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : []).catch(() => []),
-      fetch('data/mcat-questions.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : []).catch(() => []),
-      fetch('data/mcat-cars.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : []).catch(() => []),
-      fetch('data/mcat-science-passages.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : []).catch(() => []),
+      fetch('data/mcat-outline.json').then(r => r.ok ? r.json() : null).catch(() => null),
+      fetch('data/mcat-cards.json').then(r => r.ok ? r.json() : []).catch(() => []),
+      fetch('data/mcat-questions.json').then(r => r.ok ? r.json() : []).catch(() => []),
+      fetch('data/mcat-cars.json').then(r => r.ok ? r.json() : []).catch(() => []),
+      fetch('data/mcat-science-passages.json').then(r => r.ok ? r.json() : []).catch(() => []),
     ]);
     MCAT.outline = o; MCAT.cards = c || []; MCAT.questions = q || []; MCAT.cars = cars || []; MCAT.sci = sci || [];
   } catch { /* ok */ }
