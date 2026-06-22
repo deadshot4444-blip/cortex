@@ -61,7 +61,7 @@ const SECTION_INFO = {
     desc: 'The Neuroengineering division is offline while we refine the curriculum, labs, and Practitioner track to the same standard as the rest of Cortex. It will return soon — thank you for your patience.',
   },
 };
-const APP_VERSION = '1.14.0';
+const APP_VERSION = '1.14.1';
 const MEMBERSHIP_START = 'August 1, 2026';
 function cortexFreeNote(sectionPill, sectionName) {
   return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free for now</span><span class="free-note-txt">${sectionName} becomes optional membership ${MEMBERSHIP_START}. The full MCAT suite stays free forever.</span></p>`;
@@ -134,6 +134,7 @@ const SECTION_SCRIPTS = {
   reference: ['reference.js?v=48', 'performance-drugs.js?v=7', 'ekg.js?v=36'],
   socrates: ['socrates.js?v=40'],
   neuro: ['python-runtime.js?v=3', 'code-evaluator.js?v=2', 'neuro-practitioner.js?v=3', 'neuro.js?v=13'],
+  genetics: ['genetics.js?v=1'],
 };
 const _scriptLoads = {};
 function loadScript(src) {
@@ -390,7 +391,7 @@ function topbar(active) {
       <button class="navlink ${active === 'mcat' ? 'active' : ''}" data-go="mcat">MCAT</button>
       <button class="navlink ${active === 'stats' ? 'active' : ''}" data-go="stats">Stats</button>
       <div class="navmenu">
-        <button class="navlink menubtn ${['anatomy', 'reference', 'socrates', 'utsa', 'pomodoro'].includes(active) ? 'active' : ''}" data-menu aria-expanded="false">Explore<span class="caret">&#9662;</span></button>
+        <button class="navlink menubtn ${['anatomy', 'reference', 'socrates', 'utsa', 'pomodoro', 'genetics'].includes(active) ? 'active' : ''}" data-menu aria-expanded="false">Explore<span class="caret">&#9662;</span></button>
         <div class="menupanel" hidden>
           <span class="menu-head">Tools</span>
           <button class="menuitem" data-go="pomodoro"><span>Focus Timer</span><span class="mi-tag">New</span></button>
@@ -400,6 +401,7 @@ function topbar(active) {
           <button class="menuitem" data-go="socrates"><span>Learn to Learn</span>${sectionMenuTag('socrates')}</button>
           <span class="menu-head">Access</span>
           <button class="menuitem" data-go="utsa"><span>UTSA &amp; UT Health</span><span class="mi-tag">Free</span></button>
+          <button class="menuitem" data-go="genetics"><span>Genetics Arcade</span><span class="mi-tag">UTSA</span></button>
         </div>
       </div>
     </nav>
@@ -432,6 +434,10 @@ function topbar(active) {
   root.querySelector('[data-go="utsa"]').addEventListener('click', renderUTSA);
   root.querySelector('[data-go="pomodoro"]').addEventListener('click', () => { if (typeof renderPomodoro === 'function') renderPomodoro(); });
   root.querySelector('[data-go="neuro"]').addEventListener('click', () => renderNeuro());
+  root.querySelector('[data-go="genetics"]')?.addEventListener('click', async () => {
+    await ensureSection('genetics');
+    if (typeof renderGenetics === 'function') renderGenetics();
+  });
   root.querySelector('[data-go="updates"]').addEventListener('click', renderUpdates);
   const navmenu = root.querySelector('.navmenu');
   if (navmenu) {
@@ -741,6 +747,13 @@ const PRINCIPLES = [
 
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
+  {
+    date: 'June 22, 2026', version: '1.14.1', tag: 'NEW',
+    title: 'Class study tools',
+    items: [
+      'Added a focused, class-specific study mode (UTSA Genetics, Module 2) - passphrase-gated, with arcade-style practice and competency tracking.',
+    ],
+  },
   {
     date: 'June 22, 2026', version: '1.14.0', tag: 'NEW',
     title: 'Medicine - open access & guided practice',
