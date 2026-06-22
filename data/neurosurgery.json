@@ -5076,7 +5076,7 @@
       "The fact that the aneurysm is saccular rather than fusiform"
      ],
      "answer": 1,
-     "explanation": "The PHASES score and ISUIA data show that posterior circulation/PCom location, size >7 mm, hypertension, smoking, and a positive family history all raise rupture risk; this patient has several of these, pushing toward treatment. PCom aneurysms behave more like posterior-circulation lesions and rupture more readily than anterior ones of equal size. Migraine with aura (option A) is unrelated to aneurysm rupture. Age 52 (option C) is intermediate—older age actually carries somewhat higher PHASES points, but it is not the dominant driver here. Saccular morphology (option D) is the norm for berry aneurysms and is not itself a risk modifier; if anything, irregular/daughter-sac morphology raises risk, not the simple saccular shape."
+     "explanation": "The PHASES score and ISUIA data show that posterior circulation/PCom location, size >7 mm, hypertension, smoking, and a positive family history all raise rupture risk; this patient has several of these, pushing toward treatment. PCom aneurysms behave more like posterior-circulation lesions and rupture more readily than anterior ones of equal size. Migraine with aura is unrelated to aneurysm rupture. Age 52 is intermediate—older age actually carries somewhat higher PHASES points, but it is not the dominant driver here. Saccular morphology is the norm for berry aneurysms and is not itself a risk modifier; if anything, irregular/daughter-sac morphology raises risk, not the simple saccular shape."
     },
     {
      "type": "question",
@@ -5089,7 +5089,7 @@
       "The modified Fisher scale"
      ],
      "answer": 0,
-     "explanation": "PHASES (Population, Hypertension, Age, Size, Earlier SAH, Site) is the validated pooled-cohort tool for estimating 5-year rupture risk of unruptured aneurysms and is ideal for shared decision-making. Hunt and Hess (option B) grades the clinical severity of a patient who has already suffered subarachnoid hemorrhage—it does not apply to an unruptured lesion. Spetzler-Martin (option C) grades arteriovenous malformations for surgical risk, not aneurysms. The modified Fisher scale (option D) grades the amount of subarachnoid blood on CT to predict vasospasm after a rupture and is irrelevant to an intact aneurysm."
+     "explanation": "PHASES (Population, Hypertension, Age, Size, Earlier SAH, Site) is the validated pooled-cohort tool for estimating 5-year rupture risk of unruptured aneurysms and is ideal for shared decision-making. Hunt and Hess grades the clinical severity of a patient who has already suffered subarachnoid hemorrhage—it does not apply to an unruptured lesion. Spetzler-Martin grades arteriovenous malformations for surgical risk, not aneurysms. The modified Fisher scale grades the amount of subarachnoid blood on CT to predict vasospasm after a rupture and is irrelevant to an intact aneurysm."
     },
     {
      "type": "result",
@@ -5107,7 +5107,7 @@
       "Myasthenia gravis causing fatigable ptosis"
      ],
      "answer": 1,
-     "explanation": "A PCom aneurysm sits next to the oculomotor nerve; enlargement compresses the superficial pupillomotor fibers first, producing a pupil-INVOLVING (dilated, poorly reactive) third nerve palsy. This is an ominous warning sign of growth and impending rupture and demands urgent securing of the aneurysm. Microvascular/diabetic palsy (option A) characteristically SPARES the pupil because ischemia affects central fibers—the dilated pupil here argues against it. Migrainous ophthalmoplegia (option C) is a diagnosis of exclusion and never appropriate when a compressive aneurysm is documented. Myasthenia (option D) causes fatigable, pupil-sparing ptosis/diplopia and does not dilate the pupil."
+     "explanation": "A PCom aneurysm sits next to the oculomotor nerve; enlargement compresses the superficial pupillomotor fibers first, producing a pupil-INVOLVING (dilated, poorly reactive) third nerve palsy. This is an ominous warning sign of growth and impending rupture and demands urgent securing of the aneurysm. Microvascular/diabetic palsy characteristically SPARES the pupil because ischemia affects central fibers—the dilated pupil here argues against it. Migrainous ophthalmoplegia is a diagnosis of exclusion and never appropriate when a compressive aneurysm is documented. Myasthenia causes fatigable, pupil-sparing ptosis/diplopia and does not dilate the pupil."
     },
     {
      "type": "question",
@@ -5120,7 +5120,7 @@
       "Begin a tapering course of oral corticosteroids for the nerve palsy"
      ],
      "answer": 2,
-     "explanation": "A documented, enlarging, symptomatic PCom aneurysm causing an acute pupil-involving third nerve palsy is essentially a warning leak equivalent—it must be secured urgently by microsurgical clipping or endovascular coiling to prevent rupture, and early treatment also gives the best chance of oculomotor recovery. Surveillance imaging (option A) is dangerously inappropriate once the lesion is symptomatic and growing. Antiplatelet/statin therapy (option B) is for atherosclerotic stroke prevention and would worsen hemorrhage risk. Corticosteroids (option D) do not address the mechanical compression and waste critical time."
+     "explanation": "A documented, enlarging, symptomatic PCom aneurysm causing an acute pupil-involving third nerve palsy is essentially a warning leak equivalent—it must be secured urgently by microsurgical clipping or endovascular coiling to prevent rupture, and early treatment also gives the best chance of oculomotor recovery. Surveillance imaging is dangerously inappropriate once the lesion is symptomatic and growing. Antiplatelet/statin therapy is for atherosclerotic stroke prevention and would worsen hemorrhage risk. Corticosteroids do not address the mechanical compression and waste critical time."
     }
    ],
    "diagnosis": "Unruptured posterior communicating artery aneurysm with new compressive third nerve palsy",
@@ -5159,7 +5159,7 @@
       "Catheter cerebral angiography"
      ],
      "answer": 1,
-     "explanation": "Non-contrast CT of the head is the first-line study for any thunderclap headache; within the first 6 hours it is over 95% sensitive for subarachnoid/intraparenchymal hemorrhage and can be obtained immediately. Lumbar puncture (option A) is reserved for when CT is non-diagnostic but suspicion for SAH remains—it is not the first test and xanthochromia takes hours to develop. MRI (option C) is excellent for ischemia and chronic blood but is slower, less available emergently, and not the standard first step for acute hemorrhage. Catheter angiography (option D) is the gold standard for defining a vascular lesion but is invasive and comes after non-invasive imaging localizes the bleed."
+     "explanation": "Non-contrast CT of the head is the first-line study for any thunderclap headache; within the first 6 hours it is over 95% sensitive for subarachnoid/intraparenchymal hemorrhage and can be obtained immediately. Lumbar puncture is reserved for when CT is non-diagnostic but suspicion for SAH remains—it is not the first test and xanthochromia takes hours to develop. MRI is excellent for ischemia and chronic blood but is slower, less available emergently, and not the standard first step for acute hemorrhage. Catheter angiography is the gold standard for defining a vascular lesion but is invasive and comes after non-invasive imaging localizes the bleed."
     },
     {
      "type": "result",
@@ -5177,20 +5177,20 @@
       "Ruptured saccular aneurysm"
      ],
      "answer": 1,
-     "explanation": "A tangled serpiginous nidus of vessels with enlarged feeding arteries and an early/prominent draining vein (flow voids on imaging) is the hallmark of a brain AVM, and AVM rupture is the leading cause of spontaneous lobar intracerebral hemorrhage in a normotensive young adult. Hypertensive hemorrhage (option A) occurs in deep structures (basal ganglia, thalamus, pons, cerebellum) in older hypertensive patients, not lobar in a normotensive 26-year-old. Amyloid angiopathy (option C) causes lobar bleeds but in the elderly. A ruptured saccular aneurysm (option D) typically produces diffuse basal subarachnoid hemorrhage, and none was seen on CTA."
+     "explanation": "A tangled serpiginous nidus of vessels with enlarged feeding arteries and an early/prominent draining vein (flow voids on imaging) is the hallmark of a brain AVM, and AVM rupture is the leading cause of spontaneous lobar intracerebral hemorrhage in a normotensive young adult. Hypertensive hemorrhage occurs in deep structures (basal ganglia, thalamus, pons, cerebellum) in older hypertensive patients, not lobar in a normotensive 26-year-old. Amyloid angiopathy causes lobar bleeds but in the elderly. A ruptured saccular aneurysm typically produces diffuse basal subarachnoid hemorrhage, and none was seen on CTA."
     },
     {
      "type": "question",
      "label": "RISK STRATIFICATION",
      "question": "His AVM is graded as Spetzler-Martin grade II. Which combination of features defines this grade?",
      "options": [
-      "Nidus <3 cm, in non-eloquent cortex, with deep venous drainage",
-      "Nidus 3–6 cm, in non-eloquent cortex, with superficial venous drainage",
+      "Nidus <3 cm, in non-eloquent cortex, with superficial venous drainage",
+      "Nidus 3–6 cm, in eloquent cortex, with deep venous drainage",
       "Nidus <3 cm, adjacent to eloquent cortex, with superficial venous drainage",
       "Nidus >6 cm, in eloquent cortex, with deep venous drainage"
      ],
      "answer": 2,
-     "explanation": "The Spetzler-Martin scale sums points for size (<3 cm = 1, 3–6 cm = 2, >6 cm = 3), eloquence of adjacent brain (eloquent = 1, non-eloquent = 0), and venous drainage (deep = 1, superficial = 0). A grade II lesion equals 2 points—e.g., a small (<3 cm = 1) nidus next to eloquent cortex (1) with superficial drainage (0), as in option C. Option A (small + non-eloquent + deep) also sums to 2, but the small/eloquent/superficial combination is the classic grade II example offered; the deep-drainage variant is less commonly the intended pattern here. Option B sums to 2 as well numerically but pairs size 2 with non-eloquent/superficial; option D sums to 5 (grade V). The best single answer matching grade II with the surgically favorable profile is C."
+     "explanation": "Spetzler-Martin sums size (<3 cm = 1, 3–6 cm = 2, >6 cm = 3), eloquence of adjacent brain (eloquent = 1, non-eloquent = 0), and venous drainage (deep = 1, superficial = 0). Grade II = 2 points: a small nidus (<3 cm = 1) adjacent to eloquent cortex (1) with superficial drainage (0) sums to 2. The other choices sum to grade I (1), grade IV (4), and grade V (5)."
     },
     {
      "type": "question",
@@ -5203,7 +5203,7 @@
       "Lifelong antiplatelet therapy to reduce nidal flow"
      ],
      "answer": 2,
-     "explanation": "A ruptured low-grade (Spetzler-Martin I–II) AVM in a young patient is best managed by microsurgical resection, which provides immediate, complete cure and eliminates the elevated re-bleed risk that follows a first rupture; preoperative embolization of deep or surgically inaccessible feeders is a common adjunct. Observation (option A) is wrong because a ruptured AVM carries a substantially increased annual re-hemorrhage risk. Radiosurgery alone (option B) takes 2–3 years to obliterate the nidus, leaving the patient unprotected meanwhile, and is reserved for small, deep, or eloquent lesions not amenable to surgery. Antiplatelet therapy (option D) does not treat an AVM and could increase bleeding."
+     "explanation": "A ruptured low-grade (Spetzler-Martin I–II) AVM in a young patient is best managed by microsurgical resection, which provides immediate, complete cure and eliminates the elevated re-bleed risk that follows a first rupture; preoperative embolization of deep or surgically inaccessible feeders is a common adjunct. Observation is wrong because a ruptured AVM carries a substantially increased annual re-hemorrhage risk. Radiosurgery alone takes 2–3 years to obliterate the nidus, leaving the patient unprotected meanwhile, and is reserved for small, deep, or eloquent lesions not amenable to surgery. Antiplatelet therapy does not treat an AVM and could increase bleeding."
     },
     {
      "type": "question",
@@ -5216,7 +5216,7 @@
       "Postoperative wound infection with abscess"
      ],
      "answer": 0,
-     "explanation": "Normal perfusion pressure breakthrough describes hemorrhage/edema in brain surrounding a resected high-flow AVM: chronically hypoperfused, maximally dilated vessels adjacent to the shunt lose autoregulation, so when the low-resistance fistula is removed and normal perfusion pressure is restored, those vessels cannot constrict and leak. Vasospasm (option B) follows aneurysmal SAH and causes delayed ischemia, not immediate post-resection swelling in this pattern. Hyponatremia (option C) can worsen edema but would not localize to the resection bed acutely as hemorrhage. Wound infection/abscess (option D) presents days to weeks later with fever and ring-enhancement, not immediate perioperative hemorrhagic swelling."
+     "explanation": "Normal perfusion pressure breakthrough describes hemorrhage/edema in brain surrounding a resected high-flow AVM: chronically hypoperfused, maximally dilated vessels adjacent to the shunt lose autoregulation, so when the low-resistance fistula is removed and normal perfusion pressure is restored, those vessels cannot constrict and leak. Vasospasm follows aneurysmal SAH and causes delayed ischemia, not immediate post-resection swelling in this pattern. Hyponatremia can worsen edema but would not localize to the resection bed acutely as hemorrhage. Wound infection/abscess presents days to weeks later with fever and ring-enhancement, not immediate perioperative hemorrhagic swelling."
     }
    ],
    "diagnosis": "Ruptured brain arteriovenous malformation (Spetzler-Martin grade II)",
@@ -5255,7 +5255,7 @@
       "Restricted eye movement"
      ],
      "answer": 1,
-     "explanation": "An audible orbital bruit—particularly one that softens with ipsilateral carotid compression—is the finding that pinpoints a high-flow arteriovenous shunt (carotid-cavernous fistula) rather than a static orbital or thyroid process; turbulent arterialized flow into the cavernous sinus generates the bruit, and compressing the feeding carotid reduces flow. Conjunctival injection (option A) is nonspecific and occurs in many inflammatory and infectious conditions. Reduced visual acuity (option C) signals orbital congestion or optic neuropathy but does not identify a shunt and occurs in cellulitis or severe Graves disease too. Restricted eye movement (option D) reflects ophthalmoplegia, which is seen in thyroid eye disease, cavernous sinus thrombosis, and CCF alike—so it does not discriminate among them."
+     "explanation": "An audible orbital bruit—particularly one that softens with ipsilateral carotid compression—is the finding that pinpoints a high-flow arteriovenous shunt (carotid-cavernous fistula) rather than a static orbital or thyroid process; turbulent arterialized flow into the cavernous sinus generates the bruit, and compressing the feeding carotid reduces flow. Conjunctival injection is nonspecific and occurs in many inflammatory and infectious conditions. Reduced visual acuity signals orbital congestion or optic neuropathy but does not identify a shunt and occurs in cellulitis or severe Graves disease too. Restricted eye movement reflects ophthalmoplegia, which is seen in thyroid eye disease, cavernous sinus thrombosis, and CCF alike—so it does not discriminate among them."
     },
     {
      "type": "question",
@@ -5268,7 +5268,7 @@
       "Thyroid eye disease (Graves orbitopathy)"
      ],
      "answer": 2,
-     "explanation": "The classic triad of pulsatile proptosis, conjunctival chemosis with arterialized 'corkscrew' vessels, and an audible orbital bruit—appearing weeks after head/facial trauma—is the hallmark of a direct, high-flow carotid-cavernous fistula (a tear of the intracavernous internal carotid artery shunting into the cavernous sinus). Orbital cellulitis (option A) causes fever, pain, and purulent signs without a pulsatile bruit or arterialized vessels. Cavernous sinus thrombosis (option B) presents with proptosis and ophthalmoplegia but typically with fever, headache, and a septic source, not a bruit. Graves orbitopathy (option D) causes bilateral proptosis and lid retraction, is non-pulsatile, lacks a bruit, and is unrelated to trauma."
+     "explanation": "The classic triad of pulsatile proptosis, conjunctival chemosis with arterialized 'corkscrew' vessels, and an audible orbital bruit—appearing weeks after head/facial trauma—is the hallmark of a direct, high-flow carotid-cavernous fistula (a tear of the intracavernous internal carotid artery shunting into the cavernous sinus). Orbital cellulitis causes fever, pain, and purulent signs without a pulsatile bruit or arterialized vessels. Cavernous sinus thrombosis presents with proptosis and ophthalmoplegia but typically with fever, headache, and a septic source, not a bruit. Graves orbitopathy causes bilateral proptosis and lid retraction, is non-pulsatile, lacks a bruit, and is unrelated to trauma."
     },
     {
      "type": "question",
@@ -5281,7 +5281,7 @@
       "Plain skull radiographs"
      ],
      "answer": 0,
-     "explanation": "Digital subtraction angiography is the gold standard: it demonstrates early, contrast filling of the cavernous sinus during the arterial phase, defines the exact site and size of the fistula, characterizes venous drainage routes (e.g., into the superior ophthalmic vein and cortical veins), and guides endovascular repair. Color Doppler ultrasound (option B) can show arterialized, reversed flow in a dilated superior ophthalmic vein and is a useful screen, but it does not define the angioarchitecture. Non-contrast CT (option C) may show a dilated superior ophthalmic vein and an enlarged cavernous sinus but cannot confirm flow dynamics. Plain radiographs (option D) are essentially useless here."
+     "explanation": "Digital subtraction angiography is the gold standard: it demonstrates early, contrast filling of the cavernous sinus during the arterial phase, defines the exact site and size of the fistula, characterizes venous drainage routes (e.g., into the superior ophthalmic vein and cortical veins), and guides endovascular repair. Color Doppler ultrasound can show arterialized, reversed flow in a dilated superior ophthalmic vein and is a useful screen, but it does not define the angioarchitecture. Non-contrast CT may show a dilated superior ophthalmic vein and an enlarged cavernous sinus but cannot confirm flow dynamics. Plain radiographs are essentially useless here."
     },
     {
      "type": "result",
@@ -5299,7 +5299,7 @@
       "High-dose intravenous corticosteroids"
      ],
      "answer": 1,
-     "explanation": "A symptomatic direct high-flow CCF—especially with cortical venous drainage and threatened vision—requires definitive closure, and the preferred approach is endovascular: transarterial coil/stent-assisted occlusion or detachable balloon placement to seal the fistula while preserving the internal carotid artery when possible. Manual carotid compression (option A) is only an adjunct for low-flow indirect (dural) fistulas and is inadequate—and potentially dangerous—for a high-flow direct CCF with cortical drainage. Anticoagulation (option C) does not close the fistula and could worsen hemorrhage from cortical venous hypertension. Corticosteroids (option D) have no role in treating the structural shunt."
+     "explanation": "A symptomatic direct high-flow CCF—especially with cortical venous drainage and threatened vision—requires definitive closure, and the preferred approach is endovascular: transarterial coil/stent-assisted occlusion or detachable balloon placement to seal the fistula while preserving the internal carotid artery when possible. Manual carotid compression is only an adjunct for low-flow indirect (dural) fistulas and is inadequate—and potentially dangerous—for a high-flow direct CCF with cortical drainage. Anticoagulation does not close the fistula and could worsen hemorrhage from cortical venous hypertension. Corticosteroids have no role in treating the structural shunt."
     },
     {
      "type": "question",
@@ -5312,7 +5312,7 @@
       "Elevated intraocular pressure"
      ],
      "answer": 1,
-     "explanation": "Cortical (leptomeningeal) venous reflux is the angiographic feature most associated with intracranial hemorrhage and venous infarction because arterialized pressure is transmitted into thin-walled cortical veins; its presence converts a vision-threatening lesion into a life-threatening one and mandates urgent treatment. Drainage into the superior ophthalmic vein (option A) drives the ocular signs (proptosis, chemosis) but is anterior and does not itself cause cerebral hemorrhage. Chemosis (option C) and elevated intraocular pressure (option D) reflect orbital venous congestion and threaten vision but are not the markers of intracranial hemorrhage risk that cortical reflux is."
+     "explanation": "Cortical (leptomeningeal) venous reflux is the angiographic feature most associated with intracranial hemorrhage and venous infarction because arterialized pressure is transmitted into thin-walled cortical veins; its presence converts a vision-threatening lesion into a life-threatening one and mandates urgent treatment. Drainage into the superior ophthalmic vein drives the ocular signs (proptosis, chemosis) but is anterior and does not itself cause cerebral hemorrhage. Chemosis and elevated intraocular pressure reflect orbital venous congestion and threaten vision but are not the markers of intracranial hemorrhage risk that cortical reflux is."
     }
    ],
    "diagnosis": "Direct (high-flow) post-traumatic carotid-cavernous fistula",
@@ -5351,7 +5351,7 @@
       "Ménière disease"
      ],
      "answer": 1,
-     "explanation": "Pulsatile tinnitus synchronous with the heartbeat points to a vascular source—turbulent or shunted blood flow—and the fact that it changes with neck/jugular compression strongly implicates a vascular or arteriovenous shunt (such as a dural arteriovenous fistula) or venous abnormality. Sensorineural hearing loss (option A) produces a continuous, non-pulsatile tinnitus and would not vary with neck compression. Eustachian tube dysfunction (option C) causes ear fullness and crackling tied to swallowing, not a pulse-synchronous bruit. Ménière disease (option D) presents with episodic vertigo, fluctuating low-frequency hearing loss, and aural fullness, not isolated pulsatile tinnitus."
+     "explanation": "Pulsatile tinnitus synchronous with the heartbeat points to a vascular source—turbulent or shunted blood flow—and the fact that it changes with neck/jugular compression strongly implicates a vascular or arteriovenous shunt (such as a dural arteriovenous fistula) or venous abnormality. Sensorineural hearing loss produces a continuous, non-pulsatile tinnitus and would not vary with neck compression. Eustachian tube dysfunction causes ear fullness and crackling tied to swallowing, not a pulse-synchronous bruit. Ménière disease presents with episodic vertigo, fluctuating low-frequency hearing loss, and aural fullness, not isolated pulsatile tinnitus."
     },
     {
      "type": "question",
@@ -5364,7 +5364,7 @@
       "Tympanometry"
      ],
      "answer": 1,
-     "explanation": "Cross-sectional vascular imaging—CT angiography or MRI/MRA of the head and skull base—is the appropriate initial workup for pulsatile tinnitus to screen for a dural AV fistula, venous sinus stenosis/diverticulum, glomus tumor, or aberrant vessels; catheter digital subtraction angiography is then the gold standard to confirm and characterize a fistula. Plain radiographs (option A) lack the resolution and physiology to detect a shunt. Carotid duplex (option C) evaluates carotid stenosis but misses an intracranial dural fistula. Tympanometry (option D) assesses middle-ear pressure/compliance, not vascular flow."
+     "explanation": "Cross-sectional vascular imaging—CT angiography or MRI/MRA of the head and skull base—is the appropriate initial workup for pulsatile tinnitus to screen for a dural AV fistula, venous sinus stenosis/diverticulum, glomus tumor, or aberrant vessels; catheter digital subtraction angiography is then the gold standard to confirm and characterize a fistula. Plain radiographs lack the resolution and physiology to detect a shunt. Carotid duplex evaluates carotid stenosis but misses an intracranial dural fistula. Tympanometry assesses middle-ear pressure/compliance, not vascular flow."
     },
     {
      "type": "result",
@@ -5382,7 +5382,7 @@
       "An associated unruptured aneurysm in most patients"
      ],
      "answer": 1,
-     "explanation": "Borden classification is driven by venous drainage: type I drains antegrade into a dural sinus WITHOUT cortical venous reflux and follows a benign natural history with very low risk of hemorrhage or non-hemorrhagic neurologic deficit, so management can be conservative/symptom-directed (and intervention reserved for intolerable tinnitus). The presence of cortical venous reflux defines Borden types II and III and is what confers a HIGH hemorrhage and deficit risk (option A applies to those, not type I). Dural AV fistulas do not undergo 'malignant transformation' (option C) in the oncologic sense. They are not characteristically associated with a coexisting aneurysm (option D)."
+     "explanation": "Borden classification is driven by venous drainage: type I drains antegrade into a dural sinus WITHOUT cortical venous reflux and follows a benign natural history with very low risk of hemorrhage or non-hemorrhagic neurologic deficit, so management can be conservative/symptom-directed (and intervention reserved for intolerable tinnitus). The presence of cortical venous reflux defines Borden types II and III and is what confers a HIGH hemorrhage and deficit risk (that option applies to those, not type I). Dural AV fistulas do not undergo 'malignant transformation' in the oncologic sense. They are not characteristically associated with a coexisting aneurysm."
     },
     {
      "type": "question",
@@ -5395,7 +5395,7 @@
       "Whole-brain radiation therapy"
      ],
      "answer": 1,
-     "explanation": "Because Borden type I fistulas carry a low risk of hemorrhage or neurologic deficit, the standard approach is reassurance and conservative management, reserving elective endovascular (often transvenous or transarterial embolization) treatment for patients with intolerable tinnitus or for any fistula that develops cortical venous reflux on follow-up. Emergent obliteration (option A) is appropriate for high-risk Borden II–III lesions, not a benign type I. Anticoagulation (option C) does not treat the shunt and could be harmful. Radiation (option D) is not standard front-line therapy for a benign, symptom-only type I fistula."
+     "explanation": "Because Borden type I fistulas carry a low risk of hemorrhage or neurologic deficit, the standard approach is reassurance and conservative management, reserving elective endovascular (often transvenous or transarterial embolization) treatment for patients with intolerable tinnitus or for any fistula that develops cortical venous reflux on follow-up. Emergent obliteration is appropriate for high-risk Borden II–III lesions, not a benign type I. Anticoagulation does not treat the shunt and could be harmful. Radiation is not standard front-line therapy for a benign, symptom-only type I fistula."
     },
     {
      "type": "question",
@@ -5408,7 +5408,7 @@
       "Mild conductive hearing loss from cerumen"
      ],
      "answer": 1,
-     "explanation": "Conversion of a benign type I fistula to one with cortical (leptomeningeal) venous reflux upgrades it to Borden II/III, dramatically raising the risk of intracranial hemorrhage and non-hemorrhagic neurologic deficits, and is the key trigger to proceed with definitive obliteration. Resolution of tinnitus (option A) would, if anything, support continued observation. Normalization of blood pressure (option C) is unrelated to fistula natural history. Conductive hearing loss from cerumen (option D) is a benign, unrelated ear-canal issue that does not affect fistula management."
+     "explanation": "Conversion of a benign type I fistula to one with cortical (leptomeningeal) venous reflux upgrades it to Borden II/III, dramatically raising the risk of intracranial hemorrhage and non-hemorrhagic neurologic deficits, and is the key trigger to proceed with definitive obliteration. Resolution of tinnitus would, if anything, support continued observation. Normalization of blood pressure is unrelated to fistula natural history. Conductive hearing loss from cerumen is a benign, unrelated ear-canal issue that does not affect fistula management."
     }
    ],
    "diagnosis": "Transverse–sigmoid sinus dural arteriovenous fistula, Borden type I",
@@ -5447,7 +5447,7 @@
       "Electroencephalography (EEG)"
      ],
      "answer": 1,
-     "explanation": "A non-contrast CT of the head is the fast, accessible first test in an elderly patient with subacute, progressive neurologic symptoms after a head bump—it readily identifies a chronic subdural hematoma as a crescentic extra-axial collection and excludes acute bleed, mass, or hydrocephalus. Lumbar puncture (option A) is contraindicated before imaging when a space-occupying lesion or shift is possible and would not diagnose a subdural. Carotid duplex (option C) evaluates carotid stenosis for ischemic stroke, not a traumatic collection. EEG (option D) assesses seizure activity and would not reveal the structural cause of his deficits."
+     "explanation": "A non-contrast CT of the head is the fast, accessible first test in an elderly patient with subacute, progressive neurologic symptoms after a head bump—it readily identifies a chronic subdural hematoma as a crescentic extra-axial collection and excludes acute bleed, mass, or hydrocephalus. Lumbar puncture is contraindicated before imaging when a space-occupying lesion or shift is possible and would not diagnose a subdural. Carotid duplex evaluates carotid stenosis for ischemic stroke, not a traumatic collection. EEG assesses seizure activity and would not reveal the structural cause of his deficits."
     },
     {
      "type": "result",
@@ -5465,7 +5465,7 @@
       "Ischemic stroke with edema"
      ],
      "answer": 1,
-     "explanation": "A crescent (concave) shape that crosses suture lines and is HYPODENSE (chronic blood, weeks old) is the classic appearance of a chronic subdural hematoma, fitting this man's 3–4 week course after a minor fall. An epidural hematoma (option A) is biconvex/lentiform, does NOT cross suture lines (it is bounded by them), and is acute/hyperdense from arterial bleeding. An acute subdural (option C) is crescentic but HYPERDENSE (bright) because the blood is fresh, not the low density seen here. Ischemic stroke (option D) follows a vascular territory within the brain parenchyma, not an extra-axial crescentic collection."
+     "explanation": "A crescent (concave) shape that crosses suture lines and is HYPODENSE (chronic blood, weeks old) is the classic appearance of a chronic subdural hematoma, fitting this man's 3–4 week course after a minor fall. An epidural hematoma is biconvex/lentiform, does NOT cross suture lines (it is bounded by them), and is acute/hyperdense from arterial bleeding. An acute subdural is crescentic but HYPERDENSE (bright) because the blood is fresh, not the low density seen here. Ischemic stroke follows a vascular territory within the brain parenchyma, not an extra-axial crescentic collection."
     },
     {
      "type": "question",
@@ -5478,7 +5478,7 @@
       "Cerebral amyloid angiopathy directly causes subdural bleeding"
      ],
      "answer": 1,
-     "explanation": "With aging, brain atrophy increases the distance the bridging veins must span between the cortex and dural sinuses, putting them under tension; even minor trauma can tear these fragile veins, producing slow venous bleeding into the enlarged subdural space that accumulates over weeks—hence the subacute presentation and the patient's delayed symptoms. Middle meningeal artery rupture (option A) causes epidural, not subdural, hematomas. Absent dural sinuses (option C) is not a real phenomenon. Amyloid angiopathy (option D) causes lobar intraparenchymal hemorrhage, not the subdural collection seen here."
+     "explanation": "With aging, brain atrophy increases the distance the bridging veins must span between the cortex and dural sinuses, putting them under tension; even minor trauma can tear these fragile veins, producing slow venous bleeding into the enlarged subdural space that accumulates over weeks—hence the subacute presentation and the patient's delayed symptoms. Middle meningeal artery rupture causes epidural, not subdural, hematomas. Absent dural sinuses is not a real phenomenon. Amyloid angiopathy causes lobar intraparenchymal hemorrhage, not the subdural collection seen here."
     },
     {
      "type": "question",
@@ -5491,7 +5491,7 @@
       "Therapeutic anticoagulation to dissolve the clot"
      ],
      "answer": 0,
-     "explanation": "A symptomatic chronic subdural hematoma causing focal neurologic deficits and midline shift warrants surgical evacuation, and burr-hole drainage is the standard, effective procedure for a liquefied chronic collection; many patients recover dramatically. Observation (option B) is reserved for small, asymptomatic collections without shift—not a 14 mm collection with deficits and 6 mm shift. Mannitol (option C) is only a temporizing measure for raised intracranial pressure and is no substitute for evacuation, and discharge would be unsafe. Anticoagulation (option D) would worsen bleeding and is contraindicated; chronic subdurals are evacuated, not 'dissolved.'"
+     "explanation": "A symptomatic chronic subdural hematoma causing focal neurologic deficits and midline shift warrants surgical evacuation, and burr-hole drainage is the standard, effective procedure for a liquefied chronic collection; many patients recover dramatically. Observation is reserved for small, asymptomatic collections without shift—not a 14 mm collection with deficits and 6 mm shift. Mannitol is only a temporizing measure for raised intracranial pressure and is no substitute for evacuation, and discharge would be unsafe. Anticoagulation would worsen bleeding and is contraindicated; chronic subdurals are evacuated, not 'dissolved.'"
     }
    ],
    "diagnosis": "Chronic subdural hematoma",
@@ -5530,7 +5530,7 @@
       "Cervicogenic headache"
      ],
      "answer": 1,
-     "explanation": "An orthostatic (postural) headache—worse upright, relieved by lying flat—is the defining feature of low CSF pressure, i.e., spontaneous intracranial hypotension from a CSF leak; gravity worsens brain 'sag' and traction on pain-sensitive structures when upright. Idiopathic intracranial hypertension (option A) is the mirror image: HIGH pressure with papilledema and headaches often worse when lying down—and this patient has no papilledema. Migraine without aura (option C) is not reliably positional and would not resolve fully when supine. Cervicogenic headache (option D) arises from the neck and is not relieved simply by lying flat. The yoga strain and connective-tissue laxity here further support a dural leak."
+     "explanation": "An orthostatic (postural) headache—worse upright, relieved by lying flat—is the defining feature of low CSF pressure, i.e., spontaneous intracranial hypotension from a CSF leak; gravity worsens brain 'sag' and traction on pain-sensitive structures when upright. Idiopathic intracranial hypertension is the mirror image: HIGH pressure with papilledema and headaches often worse when lying down—and this patient has no papilledema. Migraine without aura is not reliably positional and would not resolve fully when supine. Cervicogenic headache arises from the neck and is not relieved simply by lying flat. The yoga strain and connective-tissue laxity here further support a dural leak."
     },
     {
      "type": "question",
@@ -5543,7 +5543,7 @@
       "Leptomeningeal nodular enhancement"
      ],
      "answer": 1,
-     "explanation": "The classic MRI signature of intracranial hypotension is diffuse, smooth PACHYMENINGEAL (dura-pattern) gadolinium enhancement, downward displacement ('sagging') of the brainstem with effacement of basal cisterns, engorged venous structures/pituitary, and subdural fluid collections—reflecting the Monro-Kellie compensation for lost CSF. Empty sella and flattened globes (option A) are features of raised pressure/IIH, the opposite condition. Periventricular white-matter lesions (option C) suggest demyelination (MS). Nodular LEPTOMENINGEAL enhancement (option D) suggests carcinomatous or infectious meningitis, not the smooth dural pattern of hypotension."
+     "explanation": "The classic MRI signature of intracranial hypotension is diffuse, smooth PACHYMENINGEAL (dura-pattern) gadolinium enhancement, downward displacement ('sagging') of the brainstem with effacement of basal cisterns, engorged venous structures/pituitary, and subdural fluid collections—reflecting the Monro-Kellie compensation for lost CSF. Empty sella and flattened globes are features of raised pressure/IIH, the opposite condition. Periventricular white-matter lesions suggest demyelination (MS). Nodular LEPTOMENINGEAL enhancement suggests carcinomatous or infectious meningitis, not the smooth dural pattern of hypotension."
     },
     {
      "type": "result",
@@ -5561,7 +5561,7 @@
       "Posterior reversible encephalopathy syndrome (PRES)"
      ],
      "answer": 2,
-     "explanation": "The full picture—postural headache relieved by recumbency, smooth pachymeningeal enhancement, brain sag, subdural collections, low opening pressure, and a demonstrated spinal CSF leak—is diagnostic of spontaneous intracranial hypotension from a spinal dural leak (often from a nerve-root sleeve tear, calcified disc, or CSF-venous fistula, frequently in connective-tissue-lax patients). IIH (option A) is the opposite (high pressure, papilledema). Chronic meningitis (option B) shows leptomeningeal/nodular enhancement with CSF pleocytosis and is not postural. PRES (option D) produces parieto-occipital vasogenic edema with hypertension/seizures, not orthostatic headache with dural enhancement."
+     "explanation": "The full picture—postural headache relieved by recumbency, smooth pachymeningeal enhancement, brain sag, subdural collections, low opening pressure, and a demonstrated spinal CSF leak—is diagnostic of spontaneous intracranial hypotension from a spinal dural leak (often from a nerve-root sleeve tear, calcified disc, or CSF-venous fistula, frequently in connective-tissue-lax patients). IIH is the opposite (high pressure, papilledema). Chronic meningitis shows leptomeningeal/nodular enhancement with CSF pleocytosis and is not postural. PRES produces parieto-occipital vasogenic edema with hypertension/seizures, not orthostatic headache with dural enhancement."
     },
     {
      "type": "question",
@@ -5574,7 +5574,7 @@
       "Therapeutic lumbar puncture to remove CSF"
      ],
      "answer": 0,
-     "explanation": "When bed rest, hydration, and caffeine fail, the first-line definitive treatment is an epidural blood patch—autologous blood injected into the epidural space seals the leak and restores CSF volume/pressure (a targeted patch at the leak site is most effective, and it can be repeated). A VP shunt (option B) DIVERTS CSF and would worsen low pressure—it is a treatment for hydrocephalus/high pressure. Acetazolamide (option C) reduces CSF production and is used for IIH (high pressure), exactly the wrong direction here. Therapeutic LP to remove CSF (option D) would aggravate the hypotension and is contraindicated."
+     "explanation": "When bed rest, hydration, and caffeine fail, the first-line definitive treatment is an epidural blood patch—autologous blood injected into the epidural space seals the leak and restores CSF volume/pressure (a targeted patch at the leak site is most effective, and it can be repeated). A VP shunt DIVERTS CSF and would worsen low pressure—it is a treatment for hydrocephalus/high pressure. Acetazolamide reduces CSF production and is used for IIH (high pressure), exactly the wrong direction here. Therapeutic LP to remove CSF would aggravate the hypotension and is contraindicated."
     },
     {
      "type": "question",
@@ -5587,7 +5587,7 @@
       "Vasogenic edema from malignant hypertension"
      ],
      "answer": 1,
-     "explanation": "The Monro-Kellie doctrine states the intracranial compartment is fixed in volume, so when CSF volume falls, the other compartments compensate—venous structures and the dura engorge (producing smooth pachymeningeal enhancement and an enlarged pituitary) and the brain descends ('sag'), sometimes opening subdural spaces that fill with fluid. Inflammatory blood-brain-barrier breakdown (option A) produces leptomeningeal/parenchymal, not smooth dural, enhancement. Increased CSF production (option C) would raise, not lower, pressure. Malignant hypertension with vasogenic edema (option D) is unrelated to the postural, low-pressure picture here."
+     "explanation": "The Monro-Kellie doctrine states the intracranial compartment is fixed in volume, so when CSF volume falls, the other compartments compensate—venous structures and the dura engorge (producing smooth pachymeningeal enhancement and an enlarged pituitary) and the brain descends ('sag'), sometimes opening subdural spaces that fill with fluid. Inflammatory blood-brain-barrier breakdown produces leptomeningeal/parenchymal, not smooth dural, enhancement. Increased CSF production would raise, not lower, pressure. Malignant hypertension with vasogenic edema is unrelated to the postural, low-pressure picture here."
     }
    ],
    "diagnosis": "Spontaneous intracranial hypotension from a spinal CSF leak",
@@ -5626,7 +5626,7 @@
       "The cerebral cortex (parasagittal)"
      ],
      "answer": 1,
-     "explanation": "Upper-motor-neuron signs in the legs (spasticity, hyperreflexia, clonus, Babinski) plus a discrete sensory level at T8 and sparing of the arms localize the lesion to the thoracic cord at roughly T8—the cord level just above the sensory level. A cervical cord lesion (option A) would also produce arm signs (hyperreflexia/weakness), which are absent here. A peripheral polyneuropathy (option C) causes lower-motor-neuron findings (hypo/areflexia, distal sensory loss) without a sharp sensory level or upgoing toes. A parasagittal cortical lesion (option D) can cause bilateral leg weakness but would not give a truncal sensory level."
+     "explanation": "Upper-motor-neuron signs in the legs (spasticity, hyperreflexia, clonus, Babinski) plus a discrete sensory level at T8 and sparing of the arms localize the lesion to the thoracic cord at roughly T8—the cord level just above the sensory level. A cervical cord lesion would also produce arm signs (hyperreflexia/weakness), which are absent here. A peripheral polyneuropathy causes lower-motor-neuron findings (hypo/areflexia, distal sensory loss) without a sharp sensory level or upgoing toes. A parasagittal cortical lesion can cause bilateral leg weakness but would not give a truncal sensory level."
     },
     {
      "type": "question",
@@ -5639,7 +5639,7 @@
       "Nerve conduction studies/EMG"
      ],
      "answer": 1,
-     "explanation": "MRI of the thoracic spine with and without gadolinium is the study of choice—it visualizes the cord, defines an intradural-extramedullary mass, shows contrast enhancement and a dural tail, and excludes intramedullary or extradural pathology. Plain radiographs (option A) show bony alignment and gross destruction but cannot image the cord or a soft-tissue/dural tumor. Non-contrast CT (option C) is good for bone but poor for cord and meningeal lesions and misses enhancement. EMG/nerve conduction studies (option D) assess peripheral nerves and would be normal/unrevealing in a compressive central cord process."
+     "explanation": "MRI of the thoracic spine with and without gadolinium is the study of choice—it visualizes the cord, defines an intradural-extramedullary mass, shows contrast enhancement and a dural tail, and excludes intramedullary or extradural pathology. Plain radiographs show bony alignment and gross destruction but cannot image the cord or a soft-tissue/dural tumor. Non-contrast CT is good for bone but poor for cord and meningeal lesions and misses enhancement. EMG/nerve conduction studies assess peripheral nerves and would be normal/unrevealing in a compressive central cord process."
     },
     {
      "type": "result",
@@ -5657,7 +5657,7 @@
       "Schwannoma of a nerve root"
      ],
      "answer": 0,
-     "explanation": "An intradural-extramedullary, broad-based, homogeneously enhancing mass with a DURAL TAIL in a middle-aged-to-older woman is the classic profile of a spinal meningioma—the most common benign intradural cord tumor, with a strong female predominance and a predilection for the thoracic spine. Ependymoma (option B) is typically INTRAMEDULLARY (within the cord) in adults or arises at the filum/conus, not dural-based. Metastatic carcinoma (option C) is EXTRADURAL, centered in the vertebral body with bony destruction. Schwannoma (option D) is also intradural-extramedullary but characteristically follows a nerve root, may be dumbbell-shaped through a neural foramen, and lacks a true dural tail."
+     "explanation": "An intradural-extramedullary, broad-based, homogeneously enhancing mass with a DURAL TAIL in a middle-aged-to-older woman is the classic profile of a spinal meningioma—the most common benign intradural cord tumor, with a strong female predominance and a predilection for the thoracic spine. Ependymoma is typically INTRAMEDULLARY (within the cord) in adults or arises at the filum/conus, not dural-based. Metastatic carcinoma is EXTRADURAL, centered in the vertebral body with bony destruction. Schwannoma is also intradural-extramedullary but characteristically follows a nerve root, may be dumbbell-shaped through a neural foramen, and lacks a true dural tail."
     },
     {
      "type": "question",
@@ -5670,7 +5670,7 @@
       "Systemic chemotherapy"
      ],
      "answer": 0,
-     "explanation": "A symptomatic spinal meningioma causing progressive cord compression and myelopathy should undergo microsurgical resection; complete (Simpson grade I–II) removal with the involved dura is typically curative and yields excellent neurologic recovery, especially when done before severe deficits set in. Observation (option B) is reserved for small, asymptomatic, incidentally found lesions—not a tumor causing progressive paraparesis. Radiosurgery (option C) is an adjunct for residual/recurrent tumor or poor surgical candidates, not first-line for a resectable symptomatic lesion. Chemotherapy (option D) has no established role for benign meningiomas."
+     "explanation": "A symptomatic spinal meningioma causing progressive cord compression and myelopathy should undergo microsurgical resection; complete (Simpson grade I–II) removal with the involved dura is typically curative and yields excellent neurologic recovery, especially when done before severe deficits set in. Observation is reserved for small, asymptomatic, incidentally found lesions—not a tumor causing progressive paraparesis. Radiosurgery is an adjunct for residual/recurrent tumor or poor surgical candidates, not first-line for a resectable symptomatic lesion. Chemotherapy has no established role for benign meningiomas."
     }
    ],
    "diagnosis": "Thoracic intradural-extramedullary spinal meningioma",
@@ -5709,7 +5709,7 @@
       "A length-dependent peripheral neuropathy"
      ],
      "answer": 1,
-     "explanation": "Saddle (S2–S5) sensory loss, sphincter/sexual dysfunction, diminished ankle reflexes, and a blunted bulbocavernosus reflex with NO upper-motor-neuron signs localize to the conus medullaris/cauda equina at the lumbosacral termination of the cord (filum terminale region). A thoracic cord lesion (option A) would produce spastic paraparesis with a truncal sensory level and UMN signs. A cervical lesion (option C) would involve the arms and produce UMN findings. A length-dependent peripheral neuropathy (option D) causes symmetric stocking-glove sensory loss, not a discrete saddle pattern with sphincter involvement."
+     "explanation": "Saddle (S2–S5) sensory loss, sphincter/sexual dysfunction, diminished ankle reflexes, and a blunted bulbocavernosus reflex with NO upper-motor-neuron signs localize to the conus medullaris/cauda equina at the lumbosacral termination of the cord (filum terminale region). A thoracic cord lesion would produce spastic paraparesis with a truncal sensory level and UMN signs. A cervical lesion would involve the arms and produce UMN findings. A length-dependent peripheral neuropathy causes symmetric stocking-glove sensory loss, not a discrete saddle pattern with sphincter involvement."
     },
     {
      "type": "question",
@@ -5722,7 +5722,7 @@
       "Bone scan"
      ],
      "answer": 1,
-     "explanation": "Contrast-enhanced MRI of the lumbosacral spine is the test of choice—it depicts an intradural mass at the conus/filum, characterizes enhancement, and defines the relationship to the cauda equina nerve roots for surgical planning. Plain radiographs (option A) cannot image intradural soft tissue or the cord. Non-contrast CT (option C) is poor for intradural lesions and misses enhancement. A bone scan (option D) detects osteoblastic bony pathology and would not reveal an intradural filum tumor; it is not appropriate here."
+     "explanation": "Contrast-enhanced MRI of the lumbosacral spine is the test of choice—it depicts an intradural mass at the conus/filum, characterizes enhancement, and defines the relationship to the cauda equina nerve roots for surgical planning. Plain radiographs cannot image intradural soft tissue or the cord. Non-contrast CT is poor for intradural lesions and misses enhancement. A bone scan detects osteoblastic bony pathology and would not reveal an intradural filum tumor; it is not appropriate here."
     },
     {
      "type": "result",
@@ -5740,7 +5740,7 @@
       "Metastatic prostate carcinoma"
      ],
      "answer": 0,
-     "explanation": "Myxopapillary ependymoma is the characteristic tumor of the filum terminale/conus region, classically in young-to-middle-aged adults, presenting with chronic back pain and conus/cauda symptoms and appearing as an enhancing, sometimes hemorrhagic intradural filum mass—exactly this picture. A spinal meningioma (option B) is dural-based and far more common in the thoracic spine of older women, not the filum. A herniated disc (option C) is excluded—the discs are normal and the lesion is an enhancing intradural mass, not extruded disc material. Metastatic prostate cancer (option D) is implausible in a 37-year-old and would be extradural/bony, not an intradural filum mass."
+     "explanation": "Myxopapillary ependymoma is the characteristic tumor of the filum terminale/conus region, classically in young-to-middle-aged adults, presenting with chronic back pain and conus/cauda symptoms and appearing as an enhancing, sometimes hemorrhagic intradural filum mass—exactly this picture. A spinal meningioma is dural-based and far more common in the thoracic spine of older women, not the filum. A herniated disc is excluded—the discs are normal and the lesion is an enhancing intradural mass, not extruded disc material. Metastatic prostate cancer is implausible in a 37-year-old and would be extradural/bony, not an intradural filum mass."
     },
     {
      "type": "question",
@@ -5753,7 +5753,7 @@
       "Radiation alone without any attempt at resection"
      ],
      "answer": 1,
-     "explanation": "The key principle is complete EN BLOC resection of the encapsulated myxopapillary ependymoma: gross-total removal without violating the capsule is associated with the best outcomes, whereas piecemeal removal or capsule rupture spills tumor cells and seeds CSF dissemination and local recurrence. Routine piecemeal debulking (option A) is exactly what increases recurrence and is avoided when en bloc removal is feasible. Biopsy plus chemotherapy (option C) is not the primary strategy—these tumors are surgically resectable and chemotherapy is not standard first-line. Radiation alone (option D) is reserved as adjuvant therapy for subtotal resection or recurrence, not as a substitute for resection."
+     "explanation": "The key principle is complete EN BLOC resection of the encapsulated myxopapillary ependymoma: gross-total removal without violating the capsule is associated with the best outcomes, whereas piecemeal removal or capsule rupture spills tumor cells and seeds CSF dissemination and local recurrence. Routine piecemeal debulking is exactly what increases recurrence and is avoided when en bloc removal is feasible. Biopsy plus chemotherapy is not the primary strategy—these tumors are surgically resectable and chemotherapy is not standard first-line. Radiation alone is reserved as adjuvant therapy for subtotal resection or recurrence, not as a substitute for resection."
     }
    ],
    "diagnosis": "Myxopapillary ependymoma of the filum terminale / conus",
@@ -5792,7 +5792,7 @@
       "A peripheral entrapment neuropathy"
      ],
      "answer": 1,
-     "explanation": "Suboccipital pain, a classic 'rotatory' or 'going-around-the-clock' pattern of weakness (one limb, then ipsilateral limb, then contralateral limbs), early hand clumsiness/intrinsic atrophy, dorsal-column dysfunction, and—critically—DOWNBEAT NYSTAGMUS together localize to the craniocervical junction/foramen magnum, where a lesion compresses the cervicomedullary junction. A mid-thoracic lesion (option A) gives a truncal sensory level and spares the arms and produces no nystagmus. An internal-capsule lesion (option C) causes contralateral hemiparesis acutely (stroke), not this slow rotatory march with downbeat nystagmus. A peripheral entrapment (option D) cannot explain the central, multi-limb, brainstem findings."
+     "explanation": "Suboccipital pain, a classic 'rotatory' or 'going-around-the-clock' pattern of weakness (one limb, then ipsilateral limb, then contralateral limbs), early hand clumsiness/intrinsic atrophy, dorsal-column dysfunction, and—critically—DOWNBEAT NYSTAGMUS together localize to the craniocervical junction/foramen magnum, where a lesion compresses the cervicomedullary junction. A mid-thoracic lesion gives a truncal sensory level and spares the arms and produces no nystagmus. An internal-capsule lesion causes contralateral hemiparesis acutely (stroke), not this slow rotatory march with downbeat nystagmus. A peripheral entrapment cannot explain the central, multi-limb, brainstem findings."
     },
     {
      "type": "question",
@@ -5805,7 +5805,7 @@
       "Distal sensory loss in the feet"
      ],
      "answer": 1,
-     "explanation": "Downbeat nystagmus is a localizing sign of pathology at the cervicomedullary junction/foramen magnum (and lower brainstem/cerebellar flocculus) and is the most specific clue distinguishing a foramen magnum lesion from cervical spondylosis—which does not produce nystagmus—and helps separate it from MS. Leg hyperreflexia (option A) is a nonspecific upper-motor-neuron sign present in any compressive myelopathy. A positive straight-leg raise (option C) suggests lumbar radiculopathy, not a craniocervical lesion. Distal foot sensory loss (option D) is nonspecific and seen in many conditions including peripheral neuropathy."
+     "explanation": "Downbeat nystagmus is a localizing sign of pathology at the cervicomedullary junction/foramen magnum (and lower brainstem/cerebellar flocculus) and is the most specific clue distinguishing a foramen magnum lesion from cervical spondylosis—which does not produce nystagmus—and helps separate it from MS. Leg hyperreflexia is a nonspecific upper-motor-neuron sign present in any compressive myelopathy. A positive straight-leg raise suggests lumbar radiculopathy, not a craniocervical lesion. Distal foot sensory loss is nonspecific and seen in many conditions including peripheral neuropathy."
     },
     {
      "type": "result",
@@ -5823,7 +5823,7 @@
       "Vertebral artery dissection"
      ],
      "answer": 0,
-     "explanation": "A dural-based, homogeneously and avidly enhancing extra-axial mass with a dural tail at the foramen magnum is the classic appearance of a foramen magnum (craniocervical junction) meningioma, which characteristically mimics cervical myelopathy and MS clinically. An MS plaque (option B) is an intramedullary/intraparenchymal demyelinating lesion, not an enhancing extra-axial dural mass, and the imaging shows no such lesions. A cervical disc herniation (option C) is extradural disc material at a disc level, not a dural-tail-bearing mass at the foramen magnum. A vertebral artery dissection (option D) is a vascular lesion of the artery wall, not an enhancing dural mass."
+     "explanation": "A dural-based, homogeneously and avidly enhancing extra-axial mass with a dural tail at the foramen magnum is the classic appearance of a foramen magnum (craniocervical junction) meningioma, which characteristically mimics cervical myelopathy and MS clinically. An MS plaque is an intramedullary/intraparenchymal demyelinating lesion, not an enhancing extra-axial dural mass, and the imaging shows no such lesions. A cervical disc herniation is extradural disc material at a disc level, not a dural-tail-bearing mass at the foramen magnum. A vertebral artery dissection is a vascular lesion of the artery wall, not an enhancing dural mass."
     },
     {
      "type": "question",
@@ -5836,7 +5836,7 @@
       "Cervical traction and a soft collar"
      ],
      "answer": 0,
-     "explanation": "A symptomatic foramen magnum meningioma producing progressive neurologic decline should undergo microsurgical resection; a far-lateral or extreme-lateral suboccipital approach provides access to these typically anterior/anterolateral lesions and allows safe decompression of the cervicomedullary junction, often with good recovery if done before severe deficits. Observation (option B) is reserved for small, asymptomatic, incidental lesions—not a progressively disabling one. High-dose steroids for 'MS' (option C) misdiagnoses a structural compressive tumor and delays definitive care. Cervical traction/collar (option D) is for mechanical neck pain and would not treat—and could endanger—a compressive craniocervical mass."
+     "explanation": "A symptomatic foramen magnum meningioma producing progressive neurologic decline should undergo microsurgical resection; a far-lateral or extreme-lateral suboccipital approach provides access to these typically anterior/anterolateral lesions and allows safe decompression of the cervicomedullary junction, often with good recovery if done before severe deficits. Observation is reserved for small, asymptomatic, incidental lesions—not a progressively disabling one. High-dose steroids for 'MS' misdiagnoses a structural compressive tumor and delays definitive care. Cervical traction/collar is for mechanical neck pain and would not treat—and could endanger—a compressive craniocervical mass."
     },
     {
      "type": "question",
@@ -5849,7 +5849,7 @@
       "Carpal tunnel syndrome"
      ],
      "answer": 0,
-     "explanation": "Surgery at the craniocervical junction risks injury to the lower cranial nerves (IX, X, XI, XII) running nearby, so postoperative lower-cranial-nerve dysfunction—producing dysphagia, impaired airway protection, and aspiration—is a key complication to anticipate, often warranting a careful swallow evaluation and aspiration precautions before resuming oral intake. Vertebral artery manipulation also raises a risk of brainstem/cerebellar ischemia. Acute angle-closure glaucoma (option B) is an unrelated ophthalmologic emergency. Lumbar radiculopathy (option C) involves the lumbosacral roots, far from this operative field. Carpal tunnel syndrome (option D) is a peripheral median-nerve entrapment with no connection to a foramen magnum operation."
+     "explanation": "Surgery at the craniocervical junction risks injury to the lower cranial nerves (IX, X, XI, XII) running nearby, so postoperative lower-cranial-nerve dysfunction—producing dysphagia, impaired airway protection, and aspiration—is a key complication to anticipate, often warranting a careful swallow evaluation and aspiration precautions before resuming oral intake. Vertebral artery manipulation also raises a risk of brainstem/cerebellar ischemia. Acute angle-closure glaucoma is an unrelated ophthalmologic emergency. Lumbar radiculopathy involves the lumbosacral roots, far from this operative field. Carpal tunnel syndrome is a peripheral median-nerve entrapment with no connection to a foramen magnum operation."
     }
    ],
    "diagnosis": "Foramen magnum (craniocervical junction) meningioma",
@@ -5888,7 +5888,7 @@
       "The internal auditory canal only"
      ],
      "answer": 1,
-     "explanation": "The glossopharyngeal (IX), vagus (X), and accessory (XI) nerves exit the skull through the jugular foramen, and the hypoglossal (XII) exits through the adjacent hypoglossal canal; a mass causing ipsilateral IX–XII palsies plus pulsatile tinnitus from a vascular skull-base tumor localizes to the jugular foramen region (jugular foramen syndrome). The cerebellopontine angle (option A) involves CN VII/VIII (facial weakness, hearing loss, sometimes V), not lower cranial nerves IX–XII. The cavernous sinus (option C) affects CN III, IV, V1–V2, and VI with ophthalmoplegia and facial sensory loss. An internal-auditory-canal lesion (option D) involves only CN VII/VIII and would not cause lower-cranial-nerve palsies."
+     "explanation": "The glossopharyngeal (IX), vagus (X), and accessory (XI) nerves exit the skull through the jugular foramen, and the hypoglossal (XII) exits through the adjacent hypoglossal canal; a mass causing ipsilateral IX–XII palsies plus pulsatile tinnitus from a vascular skull-base tumor localizes to the jugular foramen region (jugular foramen syndrome). The cerebellopontine angle involves CN VII/VIII (facial weakness, hearing loss, sometimes V), not lower cranial nerves IX–XII. The cavernous sinus affects CN III, IV, V1–V2, and VI with ophthalmoplegia and facial sensory loss. An internal-auditory-canal lesion involves only CN VII/VIII and would not cause lower-cranial-nerve palsies."
     },
     {
      "type": "question",
@@ -5901,7 +5901,7 @@
       "Hennebert sign, indicating a perilymph fistula"
      ],
      "answer": 1,
-     "explanation": "A pulsatile reddish-blue retrotympanic mass that blanches when positive pressure is applied with a pneumatic otoscope is the Brown sign, indicating a vascular middle-ear/jugular tumor such as a glomus tympanicum or glomus jugulare paraganglioma. The Schwartze sign (option A) is a reddish promontory hue of active otosclerosis, not a pulsatile mass. Battle sign (option C) is retroauricular ecchymosis from basal skull fracture. Hennebert sign (option D) is nystagmus/vertigo provoked by pressure in perilymph fistula or Ménière disease, not a blanching mass. The Brown sign here strongly supports a hypervascular paraganglioma."
+     "explanation": "A pulsatile reddish-blue retrotympanic mass that blanches when positive pressure is applied with a pneumatic otoscope is the Brown sign, indicating a vascular middle-ear/jugular tumor such as a glomus tympanicum or glomus jugulare paraganglioma. The Schwartze sign is a reddish promontory hue of active otosclerosis, not a pulsatile mass. Battle sign is retroauricular ecchymosis from basal skull fracture. Hennebert sign is nystagmus/vertigo provoked by pressure in perilymph fistula or Ménière disease, not a blanching mass. The Brown sign here strongly supports a hypervascular paraganglioma."
     },
     {
      "type": "result",
@@ -5919,7 +5919,7 @@
       "Cholesteatoma"
      ],
      "answer": 1,
-     "explanation": "A hypervascular jugular foramen mass with the classic 'salt-and-pepper' MRI pattern (flow voids amid enhancing tumor), irregular permeative ('moth-eaten') bone erosion, a Brown-sign retrotympanic mass, pulsatile tinnitus, and progressive jugular foramen (IX–XII) syndrome is the textbook picture of a glomus jugulare tumor (jugular paraganglioma). A vestibular schwannoma (option A) arises at CN VIII in the internal auditory canal/CPA and lacks this hypervascular salt-and-pepper appearance. A jugular foramen meningioma (option C) shows a dural tail and more sclerotic/hyperostotic bone change rather than permeative erosion, and is less vascular. Cholesteatoma (option D) is a non-vascular, non-enhancing keratin mass with smooth bony erosion."
+     "explanation": "A hypervascular jugular foramen mass with the classic 'salt-and-pepper' MRI pattern (flow voids amid enhancing tumor), irregular permeative ('moth-eaten') bone erosion, a Brown-sign retrotympanic mass, pulsatile tinnitus, and progressive jugular foramen (IX–XII) syndrome is the textbook picture of a glomus jugulare tumor (jugular paraganglioma). A vestibular schwannoma arises at CN VIII in the internal auditory canal/CPA and lacks this hypervascular salt-and-pepper appearance. A jugular foramen meningioma shows a dural tail and more sclerotic/hyperostotic bone change rather than permeative erosion, and is less vascular. Cholesteatoma is a non-vascular, non-enhancing keratin mass with smooth bony erosion."
     },
     {
      "type": "question",
@@ -5932,7 +5932,7 @@
       "Start a beta-blocker and discharge with no further workup"
      ],
      "answer": 1,
-     "explanation": "Paragangliomas can rarely be catecholamine-secreting, so biochemical screening (plasma/urine metanephrines) is essential before intervention to avoid an intraoperative hypertensive crisis; in addition, because these tumors are highly vascular, preoperative diagnostic angiography with embolization of feeding vessels reduces intraoperative blood loss. A transtympanic biopsy in clinic (option A) is dangerous—it can provoke massive hemorrhage from this vascular mass and is contraindicated. Empiric whole-brain radiation (option C) is not the workup step and is not how localized glomus tumors are managed. Starting a beta-blocker alone and discharging (option D) ignores the needed tumor-directed evaluation and definitive planning (and unopposed beta-blockade could be harmful if catecholamines were elevated)."
+     "explanation": "Paragangliomas can rarely be catecholamine-secreting, so biochemical screening (plasma/urine metanephrines) is essential before intervention to avoid an intraoperative hypertensive crisis; in addition, because these tumors are highly vascular, preoperative diagnostic angiography with embolization of feeding vessels reduces intraoperative blood loss. A transtympanic biopsy in clinic is dangerous—it can provoke massive hemorrhage from this vascular mass and is contraindicated. Empiric whole-brain radiation is not the workup step and is not how localized glomus tumors are managed. Starting a beta-blocker alone and discharging ignores the needed tumor-directed evaluation and definitive planning (and unopposed beta-blockade could be harmful if catecholamines were elevated)."
     },
     {
      "type": "question",
@@ -5945,7 +5945,7 @@
       "Carotid endarterectomy is the procedure of choice"
      ],
      "answer": 0,
-     "explanation": "Definitive management of a glomus jugulare tumor centers on surgical resection (frequently after preoperative embolization to limit bleeding) versus stereotactic radiosurgery/radiotherapy for tumor control, with the choice individualized to balance durable control against the substantial risk of lower-cranial-nerve deficits; radiosurgery is increasingly favored to preserve cranial-nerve function, especially in older patients or large/invasive tumors. Chemotherapy (option B) is not curative first-line therapy for these tumors. Observation alone (option C) is wrong—they do grow and are causing progressive palsies here. Carotid endarterectomy (option D) treats carotid atherosclerosis and is unrelated to resecting a jugular paraganglioma."
+     "explanation": "Definitive management of a glomus jugulare tumor centers on surgical resection (frequently after preoperative embolization to limit bleeding) versus stereotactic radiosurgery/radiotherapy for tumor control, with the choice individualized to balance durable control against the substantial risk of lower-cranial-nerve deficits; radiosurgery is increasingly favored to preserve cranial-nerve function, especially in older patients or large/invasive tumors. Chemotherapy is not curative first-line therapy for these tumors. Observation alone is wrong—they do grow and are causing progressive palsies here. Carotid endarterectomy treats carotid atherosclerosis and is unrelated to resecting a jugular paraganglioma."
     }
    ],
    "diagnosis": "Glomus jugulare tumor (jugular paraganglioma)",
@@ -6828,7 +6828,7 @@
       "Perform a lumbar puncture to measure opening pressure"
      ],
      "answer": 1,
-     "explanation": "In any shunted myelomeningocele infant who develops brainstem symptoms, shunt malfunction must be excluded first — raised intracranial pressure can drive the hindbrain caudally and produce identical stridor, apnea, and dysphagia, and a shunt revision is far safer than an unnecessary posterior fossa operation. A shunt series, cranial imaging compared with priors, and functional assessment (tap if needed) are the correct opening moves. Immediate decompression (option A) is premature before shunt failure is excluded. Laryngoscopy (C) is a useful adjunct to document vocal cord function but does not address the cause. Reflux therapy (D) ignores the apnea and absent gag, which signal lower cranial nerve dysfunction. Lumbar puncture (E) is contraindicated through a repaired myelomeningocele and risks herniation with hindbrain crowding."
+     "explanation": "In any shunted myelomeningocele infant who develops brainstem symptoms, shunt malfunction must be excluded first — raised intracranial pressure can drive the hindbrain caudally and produce identical stridor, apnea, and dysphagia, and a shunt revision is far safer than an unnecessary posterior fossa operation. A shunt series, cranial imaging compared with priors, and functional assessment (tap if needed) are the correct opening moves. Immediate decompression is premature before shunt failure is excluded. Laryngoscopy is a useful adjunct to document vocal cord function but does not address the cause. Reflux therapy ignores the apnea and absent gag, which signal lower cranial nerve dysfunction. Lumbar puncture is contraindicated through a repaired myelomeningocele and risks herniation with hindbrain crowding."
     },
     {
      "type": "result",
@@ -6847,7 +6847,7 @@
       "Subclinical seizures with ictal apnea"
      ],
      "answer": 3,
-     "explanation": "The triad of inspiratory stridor (vagal/abductor paresis), central apneic spells, and neurogenic dysphagia in a myelomeningocele infant is the classic symptomatic Chiari II presentation: the caudally displaced medulla and lower cranial nerves are compressed and intrinsically dysmorphic, and MRI confirms vermian and medullary herniation with a medullary kink. Bilateral abductor cord paresis on laryngoscopy localizes to the tenth nerve nuclei. Reflux (A) does not cause bilateral cord paresis or opisthotonus. Shunt failure (B) has been reasonably excluded by stable ventricles, a patent system, and normal tap pressure. Laryngomalacia (C) causes stridor but not absent gag, apnea, or arching. Ictal apnea (E) would not explain the cranial nerve findings or the structural abnormality demonstrated."
+     "explanation": "The triad of inspiratory stridor (vagal/abductor paresis), central apneic spells, and neurogenic dysphagia in a myelomeningocele infant is the classic symptomatic Chiari II presentation: the caudally displaced medulla and lower cranial nerves are compressed and intrinsically dysmorphic, and MRI confirms vermian and medullary herniation with a medullary kink. Bilateral abductor cord paresis on laryngoscopy localizes to the tenth nerve nuclei. Reflux does not cause bilateral cord paresis or opisthotonus. Shunt failure has been reasonably excluded by stable ventricles, a patent system, and normal tap pressure. Laryngomalacia causes stridor but not absent gag, apnea, or arching. Ictal apnea would not explain the cranial nerve findings or the structural abnormality demonstrated."
     },
     {
      "type": "question",
@@ -6861,7 +6861,7 @@
       "Continued apnea monitoring with caffeine therapy only"
      ],
      "answer": 0,
-     "explanation": "Once shunt malfunction is convincingly excluded, a progressively symptomatic Chiari II infant needs urgent cervicomedullary decompression — suboccipital bony decompression with cervical laminectomies to the level of the herniated tissue — because brainstem dysfunction in infancy can be rapidly fatal, and earlier surgery before prolonged or fixed deficits gives the best chance of recovery. Empiric shunt revision (B) is reasonable only when shunt function is uncertain; here flow and pressure were verified. Tracheostomy and gastrostomy (C) palliate the airway and nutrition but do not treat the progressive compression and may still be needed adjunctively. Steroids (D) have no role in this structural problem. Caffeine and monitoring (E) address apnea of prematurity, not symptomatic brainstem compression."
+     "explanation": "Once shunt malfunction is convincingly excluded, a progressively symptomatic Chiari II infant needs urgent cervicomedullary decompression — suboccipital bony decompression with cervical laminectomies to the level of the herniated tissue — because brainstem dysfunction in infancy can be rapidly fatal, and earlier surgery before prolonged or fixed deficits gives the best chance of recovery. Empiric shunt revision is reasonable only when shunt function is uncertain; here flow and pressure were verified. Tracheostomy and gastrostomy palliate the airway and nutrition but do not treat the progressive compression and may still be needed adjunctively. Steroids have no role in this structural problem. Caffeine and monitoring address apnea of prematurity, not symptomatic brainstem compression."
     },
     {
      "type": "question",
@@ -6875,7 +6875,7 @@
       "Slit-like ventricular size"
      ],
      "answer": 2,
-     "explanation": "Neonates and young infants with established bilateral vocal cord paralysis and recurrent prolonged apnea have the worst prognosis: these findings often reflect intrinsic, dysplastic brainstem nuclei and ischemic or hemorrhagic injury rather than purely extrinsic compression, so decompression may not reverse them, and mortality in this subgroup remains substantial. Rapid progression and need for ventilatory support compound the risk. Syrinx size (A) at this scale does not drive infant survival. Timing of back closure (B) influences infection risk, not later brainstem outcome. Tectal beaking (D) is a near-universal anatomic marker of Chiari II without independent prognostic weight. Small ventricles (E) here simply confirm the shunt is working and carry no adverse prognostic meaning."
+     "explanation": "Neonates and young infants with established bilateral vocal cord paralysis and recurrent prolonged apnea have the worst prognosis: these findings often reflect intrinsic, dysplastic brainstem nuclei and ischemic or hemorrhagic injury rather than purely extrinsic compression, so decompression may not reverse them, and mortality in this subgroup remains substantial. Rapid progression and need for ventilatory support compound the risk. Syrinx size at this scale does not drive infant survival. Timing of back closure influences infection risk, not later brainstem outcome. Tectal beaking is a near-universal anatomic marker of Chiari II without independent prognostic weight. Small ventricles here simply confirm the shunt is working and carry no adverse prognostic meaning."
     },
     {
      "type": "question",
@@ -6889,7 +6889,7 @@
       "Long-term parenteral nutrition via central line"
      ],
      "answer": 1,
-     "explanation": "Lower cranial nerve function recovers slowly and incompletely after Chiari II decompression, and ongoing neurogenic dysphagia carries a high aspiration risk in infants. A videofluoroscopic swallow study to document the deficit followed by gastrostomy feeding protects the airway while allowing growth, and continued monitoring captures residual central apnea; many infants later regain enough function for oral feeding. Discharging with oral feeding (A) invites aspiration pneumonia and failure to thrive. Re-exploration (C) is not indicated when the patient is improving and imaging shows adequate decompression. Fundoplication alone (D) treats reflux but not the unsafe swallow. Chronic parenteral nutrition (E) carries line sepsis and liver risks when the gut works and enteral access solves the problem."
+     "explanation": "Lower cranial nerve function recovers slowly and incompletely after Chiari II decompression, and ongoing neurogenic dysphagia carries a high aspiration risk in infants. A videofluoroscopic swallow study to document the deficit followed by gastrostomy feeding protects the airway while allowing growth, and continued monitoring captures residual central apnea; many infants later regain enough function for oral feeding. Discharging with oral feeding invites aspiration pneumonia and failure to thrive. Re-exploration is not indicated when the patient is improving and imaging shows adequate decompression. Fundoplication alone treats reflux but not the unsafe swallow. Chronic parenteral nutrition carries line sepsis and liver risks when the gut works and enteral access solves the problem."
     }
    ],
    "diagnosis": "Symptomatic Chiari II malformation with brainstem (lower cranial nerve) dysfunction in a shunted myelomeningocele infant, after exclusion of shunt malfunction",
@@ -6929,7 +6929,7 @@
       "CT angiography of the neck as the sole study"
      ],
      "answer": 2,
-     "explanation": "A high-risk axial-load mechanism with midline tenderness mandates imaging, and multidetector CT with sagittal and coronal reconstructions is the modern study of choice — it detects upper cervical fractures with far greater sensitivity than radiographs and directly measures lateral mass displacement. Plain films with an open-mouth view (A) are the historical basis of the rule of Spence but miss a meaningful fraction of C1 injuries. MRI (B) is invaluable later for ligamentous assessment but is not the first test and is poor for bone detail. Flexion-extension views (D) are dangerous before bony injury is excluded in an acutely painful neck. CT angiography (E) screens for vertebral artery injury once a qualifying fracture is found, but it does not replace the diagnostic spine CT."
+     "explanation": "A high-risk axial-load mechanism with midline tenderness mandates imaging, and multidetector CT with sagittal and coronal reconstructions is the modern study of choice — it detects upper cervical fractures with far greater sensitivity than radiographs and directly measures lateral mass displacement. Plain films with an open-mouth view are the historical basis of the rule of Spence but miss a meaningful fraction of C1 injuries. MRI is invaluable later for ligamentous assessment but is not the first test and is poor for bone detail. Flexion-extension views are dangerous before bony injury is excluded in an acutely painful neck. CT angiography screens for vertebral artery injury once a qualifying fracture is found, but it does not replace the diagnostic spine CT."
     },
     {
      "type": "result",
@@ -6948,7 +6948,7 @@
       "It is a normal variant in young athletes with ligamentous laxity"
      ],
      "answer": 0,
-     "explanation": "The rule of Spence holds that combined lateral mass displacement of C1 over C2 greater than about 6.9 mm (classically 8.1 mm on radiographs after magnification correction) implies the transverse atlantal ligament has ruptured, converting a typically stable C1 burst into an unstable atlantoaxial injury; the elevated atlantodental interval of 4 mm supports this. The spreading lateral masses can only displace that far if the ligament tethering the dens has failed. Rotatory subluxation (B) is a different entity with asymmetric lateral mass-dens relationships, usually in children. Most isolated C1 fractures with an intact ligament are stable and heal in a collar, so option C is false. The overhang says nothing about arterial injury (D), which CTA already excluded. An 8.5 mm overhang is never a normal variant (E)."
+     "explanation": "The rule of Spence holds that combined lateral mass displacement of C1 over C2 greater than about 6.9 mm (classically 8.1 mm on radiographs after magnification correction) implies the transverse atlantal ligament has ruptured, converting a typically stable C1 burst into an unstable atlantoaxial injury; the elevated atlantodental interval of 4 mm supports this. The spreading lateral masses can only displace that far if the ligament tethering the dens has failed. Rotatory subluxation is a different entity with asymmetric lateral mass-dens relationships, usually in children. Most isolated C1 fractures with an intact ligament are stable and heal in a collar, so that option is false. The overhang says nothing about arterial injury, which CTA already excluded. An 8.5 mm overhang is never a normal variant."
     },
     {
      "type": "question",
@@ -6962,7 +6962,7 @@
       "Discharge in a soft collar with outpatient follow-up"
      ],
      "answer": 3,
-     "explanation": "The rule of Spence is an indirect, insensitive surrogate; modern management hinges on the actual state of the transverse atlantal ligament, which MRI demonstrates directly and which determines collar versus fusion. MRI also classifies the injury (Dickman type I midsubstance tear versus type II bony avulsion from the lateral mass tubercle), a distinction with directly opposite treatment implications. Committing to a halo (A) before knowing ligament status risks both over- and under-treatment. Flexion-extension films (B) deliberately stress a potentially unstable atlantoaxial segment and are unsafe acutely. Traction (C) has no role in an isolated C1 burst and can distract the occipitocervical junction. Discharge in a soft collar (E) would be negligent with evidence of ligamentous incompetence."
+     "explanation": "The rule of Spence is an indirect, insensitive surrogate; modern management hinges on the actual state of the transverse atlantal ligament, which MRI demonstrates directly and which determines collar versus fusion. MRI also classifies the injury (Dickman type I midsubstance tear versus type II bony avulsion from the lateral mass tubercle), a distinction with directly opposite treatment implications. Committing to a halo before knowing ligament status risks both over- and under-treatment. Flexion-extension films deliberately stress a potentially unstable atlantoaxial segment and are unsafe acutely. Traction has no role in an isolated C1 burst and can distract the occipitocervical junction. Discharge in a soft collar would be negligent with evidence of ligamentous incompetence."
     },
     {
      "type": "result",
@@ -6981,7 +6981,7 @@
       "Six weeks of inpatient cervical traction followed by collar"
      ],
      "answer": 1,
-     "explanation": "A midsubstance (Dickman type I) transverse ligament tear is a purely ligamentous injury with essentially no capacity to heal, so external immobilization of any kind leaves the atlantoaxial joint permanently unstable; posterior C1-C2 instrumented fusion (for example Goel-Harms screw fixation) is the standard of care. A collar (A) suffices only for stable C1 fractures with an intact ligament. A halo (C) is a reasonable trial for Dickman type II bony avulsions, which can unite, but not for intrasubstance tears. An odontoid screw (D) treats type II dens fractures — the dens here is intact. Prolonged traction (E) is an obsolete strategy that adds immobility complications without producing ligament healing."
+     "explanation": "A midsubstance (Dickman type I) transverse ligament tear is a purely ligamentous injury with essentially no capacity to heal, so external immobilization of any kind leaves the atlantoaxial joint permanently unstable; posterior C1-C2 instrumented fusion (for example Goel-Harms screw fixation) is the standard of care. A collar suffices only for stable C1 fractures with an intact ligament. A halo is a reasonable trial for Dickman type II bony avulsions, which can unite, but not for intrasubstance tears. An odontoid screw treats type II dens fractures — the dens here is intact. Prolonged traction is an obsolete strategy that adds immobility complications without producing ligament healing."
     }
    ],
    "diagnosis": "Jefferson burst fracture of C1 with transverse atlantal ligament rupture (Dickman type I) — unstable, requiring C1-C2 fusion",
@@ -7021,7 +7021,7 @@
       "Lateral cervical radiograph alone"
      ],
      "answer": 0,
-     "explanation": "A high-energy hyperextension mechanism with focal midline upper cervical tenderness requires CT, which is the gold-standard screening study after blunt trauma — fast, highly sensitive for fracture, and able to characterize displacement and angulation that drive treatment decisions. MRI first (B) is reserved for neurologic deficit, suspected ligamentous or disc injury, or an obtunded patient; it images bone poorly and delays diagnosis. Flexion-extension views (C) are contraindicated before fracture is excluded — actively moving a potentially unstable C2 injury risks cord damage. NEXUS clearance (D) fails immediately because he has midline tenderness and a distracting mechanism. A single lateral film (E) misses a substantial proportion of axis fractures, particularly minimally displaced pars fractures."
+     "explanation": "A high-energy hyperextension mechanism with focal midline upper cervical tenderness requires CT, which is the gold-standard screening study after blunt trauma — fast, highly sensitive for fracture, and able to characterize displacement and angulation that drive treatment decisions. MRI first is reserved for neurologic deficit, suspected ligamentous or disc injury, or an obtunded patient; it images bone poorly and delays diagnosis. Flexion-extension views are contraindicated before fracture is excluded — actively moving a potentially unstable C2 injury risks cord damage. NEXUS clearance fails immediately because he has midline tenderness and a distracting mechanism. A single lateral film misses a substantial proportion of axis fractures, particularly minimally displaced pars fractures."
     },
     {
      "type": "result",
@@ -7040,7 +7040,7 @@
       "Clay-shoveler fracture of the C7 spinous process"
      ],
      "answer": 2,
-     "explanation": "Bilateral pars interarticularis fractures of C2 with anterolisthesis define traumatic spondylolisthesis of the axis — the hangman's fracture — produced here by hyperextension with axial load from the chin-on-dashboard mechanism. With less than 3 mm of translation and no significant angulation, this is a Levine-Edwards type I injury, the most stable subtype. A type II odontoid fracture (A) traverses the base of the dens, which CT shows to be intact. A Jefferson fracture (B) involves the C1 ring, also intact with a normal atlantodental interval. Facet dislocation (D) is a flexion-distraction injury and the facets are explicitly aligned. A clay-shoveler fracture (E) is an avulsion of a lower cervical spinous process and is irrelevant to these findings."
+     "explanation": "Bilateral pars interarticularis fractures of C2 with anterolisthesis define traumatic spondylolisthesis of the axis — the hangman's fracture — produced here by hyperextension with axial load from the chin-on-dashboard mechanism. With less than 3 mm of translation and no significant angulation, this is a Levine-Edwards type I injury, the most stable subtype. A type II odontoid fracture traverses the base of the dens, which CT shows to be intact. A Jefferson fracture involves the C1 ring, also intact with a normal atlantodental interval. Facet dislocation is a flexion-distraction injury and the facets are explicitly aligned. A clay-shoveler fracture is an avulsion of a lower cervical spinous process and is irrelevant to these findings."
     },
     {
      "type": "question",
@@ -7054,7 +7054,7 @@
       "The vertebral arteries shield the cord from bony fragments at this level"
      ],
      "answer": 1,
-     "explanation": "When both pars fracture, the neural arch of C2 dissociates from the vertebral body, so anterolisthesis of the body actually enlarges rather than compromises the canal — the same biomechanics intended in judicial hanging, where death came from cord distraction, not compression. The canal at C2 is also generously wide relative to the cord. This is why most patients with hangman's fractures present neurologically intact, as the CT comment about a widened canal reflects. Option A is wrong — high cord injuries are survivable, especially incomplete ones. The cord plainly traverses C2 (C); it extends from the foramen magnum to the conus. Hyperextension can certainly injure the cord (D), classically causing central cord syndrome in spondylotic spines. The vertebral arteries (E) offer no mechanical protection and are themselves at risk."
+     "explanation": "When both pars fracture, the neural arch of C2 dissociates from the vertebral body, so anterolisthesis of the body actually enlarges rather than compromises the canal — the same biomechanics intended in judicial hanging, where death came from cord distraction, not compression. The canal at C2 is also generously wide relative to the cord. This is why most patients with hangman's fractures present neurologically intact, as the CT comment about a widened canal reflects. That option is wrong — high cord injuries are survivable, especially incomplete ones. The cord plainly traverses C2; it extends from the foramen magnum to the conus. Hyperextension can certainly injure the cord, classically causing central cord syndrome in spondylotic spines. The vertebral arteries offer no mechanical protection and are themselves at risk."
     },
     {
      "type": "question",
@@ -7067,7 +7067,7 @@
       "Rigid cervical orthosis for 6-12 weeks with upright radiographic surveillance"
      ],
      "answer": 3,
-     "explanation": "Type I hangman's fractures — less than 3 mm of translation, minimal angulation, intact C2-C3 disc — are stable injuries that unite reliably with external immobilization alone; a rigid collar for 6-12 weeks with early upright films and interval imaging to confirm maintained alignment and healing is standard, with union rates well above 90%. Anterior C2-C3 fusion (A) is reserved for irreducible type II or type III patterns or failed nonoperative care. A halo with traction (B) is unnecessary for a nondisplaced injury, and traction is specifically dangerous in type IIa fractures, where it distracts the disc and worsens angulation — a reason to characterize the pattern before ever applying weight. Posterior C1-C3 fusion (C) sacrifices substantial rotation for an injury that heals in a collar."
+     "explanation": "Type I hangman's fractures — less than 3 mm of translation, minimal angulation, intact C2-C3 disc — are stable injuries that unite reliably with external immobilization alone; a rigid collar for 6-12 weeks with early upright films and interval imaging to confirm maintained alignment and healing is standard, with union rates well above 90%. Anterior C2-C3 fusion is reserved for irreducible type II or type III patterns or failed nonoperative care. A halo with traction is unnecessary for a nondisplaced injury, and traction is specifically dangerous in type IIa fractures, where it distracts the disc and worsens angulation — a reason to characterize the pattern before ever applying weight. Posterior C1-C3 fusion sacrifices substantial rotation for an injury that heals in a collar."
     }
    ],
    "diagnosis": "Hangman's fracture — traumatic spondylolisthesis of C2, Levine-Edwards type I — managed with rigid cervical orthosis",
@@ -7107,7 +7107,7 @@
       "Bedside flexion-extension views to assess stability"
      ],
      "answer": 3,
-     "explanation": "This man has an incomplete cervical cord injury after an axial-load flexion mechanism; the priority after ABCs (noting his neurogenic bradycardia and hypotension, which need MAP support) is rapid, accurate definition of the bony injury, and multidetector CT delivers that in minutes. CT defines fracture-dislocation anatomy and guides the reduction strategy. MRI first (A) costs critical time, requires a potentially unstable patient to lie remote from resuscitation, and is not needed before closed reduction in an awake, examinable patient. Plain films (B) are slower and far less sensitive than CT. High-dose methylprednisolone (C) is no longer standard of care for acute spinal cord injury and never precedes imaging. Flexion-extension views (E) in an unstable, neurologically injured spine are frankly dangerous."
+     "explanation": "This man has an incomplete cervical cord injury after an axial-load flexion mechanism; the priority after ABCs (noting his neurogenic bradycardia and hypotension, which need MAP support) is rapid, accurate definition of the bony injury, and multidetector CT delivers that in minutes. CT defines fracture-dislocation anatomy and guides the reduction strategy. MRI first costs critical time, requires a potentially unstable patient to lie remote from resuscitation, and is not needed before closed reduction in an awake, examinable patient. Plain films are slower and far less sensitive than CT. High-dose methylprednisolone is no longer standard of care for acute spinal cord injury and never precedes imaging. Flexion-extension views in an unstable, neurologically injured spine are frankly dangerous."
     },
     {
      "type": "result",
@@ -7126,7 +7126,7 @@
       "Atlantoaxial rotatory fixation"
      ],
      "answer": 1,
-     "explanation": "Bilateral jumped facets are the hallmark of severe flexion-distraction: both inferior articular processes of C5 have ridden up, over, and in front of the C6 superior facets, locking there. This requires complete failure of the posterior ligamentous complex and usually the disc and longitudinal ligaments, producing the classic ~50% vertebral translation seen here — twice the ~25% typical of a unilateral dislocation (A). The associated disc disruption is precisely why a retropulsed fragment can endanger the cord during reduction, and spinal cord injury accompanies most bilateral dislocations. A burst fracture (C) is a compression injury of the vertebral body without facet dislocation. A hyperextension teardrop (D) is the wrong mechanism and spares posterior ligaments. Rotatory fixation (E) occurs at C1-C2, not C5-C6."
+     "explanation": "Bilateral jumped facets are the hallmark of severe flexion-distraction: both inferior articular processes of C5 have ridden up, over, and in front of the C6 superior facets, locking there. This requires complete failure of the posterior ligamentous complex and usually the disc and longitudinal ligaments, producing the classic ~50% vertebral translation seen here — twice the ~25% typical of a unilateral dislocation. The associated disc disruption is precisely why a retropulsed fragment can endanger the cord during reduction, and spinal cord injury accompanies most bilateral dislocations. A burst fracture is a compression injury of the vertebral body without facet dislocation. A hyperextension teardrop is the wrong mechanism and spares posterior ligaments. Rotatory fixation occurs at C1-C2, not C5-C6."
     },
     {
      "type": "question",
@@ -7140,7 +7140,7 @@
       "Continue vasopressors alone and reassess in 24 hours"
      ],
      "answer": 2,
-     "explanation": "In an awake, alert, examinable patient with a cervical facet dislocation and spinal cord injury, immediate closed reduction with Gardner-Wells tongs is the standard: traction is applied in increments with a neurologic exam and lateral fluoroscopy or radiograph after each weight change, and decompression of the cord is achieved fastest this way — speed of reduction correlates with neurologic recovery. Large series show awake closed reduction is safe without pre-reduction MRI because the conscious patient serves as his own monitor; this is the crux of the MRI-first debate. Mandating MRI first (A) applies to obtunded or unexaminable patients, before open reduction, or after failed closed reduction — delaying decompression in an examinable patient with a deteriorating-risk incomplete injury is the greater harm. Primary open reduction (B) skips a faster, effective step. Halo immobilization in situ (D) leaves the cord compressed. Watchful waiting (E) abandons a reversible injury."
+     "explanation": "In an awake, alert, examinable patient with a cervical facet dislocation and spinal cord injury, immediate closed reduction with Gardner-Wells tongs is the standard: traction is applied in increments with a neurologic exam and lateral fluoroscopy or radiograph after each weight change, and decompression of the cord is achieved fastest this way — speed of reduction correlates with neurologic recovery. Large series show awake closed reduction is safe without pre-reduction MRI because the conscious patient serves as his own monitor; this is the crux of the MRI-first debate. Mandating MRI first applies to obtunded or unexaminable patients, before open reduction, or after failed closed reduction — delaying decompression in an examinable patient with a deteriorating-risk incomplete injury is the greater harm. Primary open reduction skips a faster, effective step. Halo immobilization in situ leaves the cord compressed. Watchful waiting abandons a reversible injury."
     },
     {
      "type": "question",
@@ -7153,7 +7153,7 @@
       "Proceed straight to open posterior reduction without further imaging"
      ],
      "answer": 0,
-     "explanation": "Any new or worsening neurologic finding during closed reduction is an absolute stop signal: weights are reduced, the spine is stabilized, and urgent MRI is obtained to look for the lesion responsible — most importantly a herniated disc fragment that can be driven into the cord as the vertebra translates back. This is exactly the scenario that makes the awake exam the essential safety monitor. Pushing more weight faster (B) risks converting an incomplete injury to a complete one. Sedating and intubating (C) destroys the only monitoring that made awake reduction safe, and is precisely the wrong response to a neurologic change. Open reduction without imaging (D) repeats the same hazard under anesthesia, blind to a fragment MRI would reveal; pre-reduction MRI is mandatory once the patient can no longer be examined or has deteriorated."
+     "explanation": "Any new or worsening neurologic finding during closed reduction is an absolute stop signal: weights are reduced, the spine is stabilized, and urgent MRI is obtained to look for the lesion responsible — most importantly a herniated disc fragment that can be driven into the cord as the vertebra translates back. This is exactly the scenario that makes the awake exam the essential safety monitor. Pushing more weight faster risks converting an incomplete injury to a complete one. Sedating and intubating destroys the only monitoring that made awake reduction safe, and is precisely the wrong response to a neurologic change. Open reduction without imaging repeats the same hazard under anesthesia, blind to a fragment MRI would reveal; pre-reduction MRI is mandatory once the patient can no longer be examined or has deteriorated."
     },
     {
      "type": "result",
@@ -7172,7 +7172,7 @@
       "Halo vest immobilization for 12 weeks without surgery"
      ],
      "answer": 2,
-     "explanation": "With a large ventral disc fragment already compressing the cord, the fragment must be removed anteriorly before the spine is realigned — reducing first, whether closed (B) or posteriorly open (A), can plow the fragment into the cord and cause catastrophic deterioration, the very complication his transient worsening foreshadowed. The standard sequence is anterior cervical discectomy, then reduction under direct vision, then anterior plating and fusion; supplemental posterior fixation is added when the posterior ligamentous disruption demands extra stability, as is likely here. Laminectomy alone (D) neither removes the ventral compression nor addresses gross three-column instability and invites kyphotic collapse. Halo immobilization (E) cannot maintain reduction of a fully ligamentous bilateral facet injury and leaves the cord compressed; these injuries require internal fixation."
+     "explanation": "With a large ventral disc fragment already compressing the cord, the fragment must be removed anteriorly before the spine is realigned — reducing first, whether closed or posteriorly open, can plow the fragment into the cord and cause catastrophic deterioration, the very complication his transient worsening foreshadowed. The standard sequence is anterior cervical discectomy, then reduction under direct vision, then anterior plating and fusion; supplemental posterior fixation is added when the posterior ligamentous disruption demands extra stability, as is likely here. Laminectomy alone neither removes the ventral compression nor addresses gross three-column instability and invites kyphotic collapse. Halo immobilization cannot maintain reduction of a fully ligamentous bilateral facet injury and leaves the cord compressed; these injuries require internal fixation."
     }
    ],
    "diagnosis": "Bilateral C5-C6 facet dislocation with incomplete spinal cord injury (ASIA C) and a trapped extruded disc fragment, treated with anterior discectomy, open reduction, and instrumented fusion",
@@ -7212,7 +7212,7 @@
       "Technetium bone scan"
      ],
      "answer": 1,
-     "explanation": "A fall from height onto the feet with severe midline thoracolumbar tenderness is a classic axial-load story, and CT is the screening study of choice: it characterizes fracture morphology, canal retropulsion, and posterior element involvement far better than radiographs and quantifies what drives the management decision. The same mechanism transmits force through the calcanei, so heel pain warrants dedicated calcaneal imaging — the lover's fracture association. Standing films (A) would require upright loading of a potentially unstable spine before its anatomy is known. MRI (C) is an important adjunct for the posterior ligamentous complex and neural elements but is slower and inferior for bone detail as a first test. Skipping imaging (D) with this mechanism and exam would miss a major fracture. Bone scan (E) addresses occult or chronic lesions, not acute trauma."
+     "explanation": "A fall from height onto the feet with severe midline thoracolumbar tenderness is a classic axial-load story, and CT is the screening study of choice: it characterizes fracture morphology, canal retropulsion, and posterior element involvement far better than radiographs and quantifies what drives the management decision. The same mechanism transmits force through the calcanei, so heel pain warrants dedicated calcaneal imaging — the lover's fracture association. Standing films would require upright loading of a potentially unstable spine before its anatomy is known. MRI is an important adjunct for the posterior ligamentous complex and neural elements but is slower and inferior for bone detail as a first test. Skipping imaging with this mechanism and exam would miss a major fracture. Bone scan addresses occult or chronic lesions, not acute trauma."
     },
     {
      "type": "result",
@@ -7230,7 +7230,7 @@
       "TLICS 2 (burst morphology 2 + intact PLC 0 + intact neurology 0) — nonoperative management is favored"
      ],
      "answer": 3,
-     "explanation": "TLICS sums three domains: morphology (burst = 2), posterior ligamentous complex integrity (intact = 0; MRI showed no interspinous or flavum signal), and neurologic status (intact = 0). His total of 2 falls below the operative threshold — scores of 3 or less are managed nonoperatively, 4 is surgeon's choice, and 5 or more favor surgery. Option A inflates the score, which would require PLC disruption or deficit he does not have. Option B similarly miscounts. Option C reflects a common misconception: canal compromise percentage by itself is not an operative indication in a neurologically intact patient — retropulsed bone remodels and the canal re-expands substantially over months, and trials show equivalent outcomes with nonoperative care in intact patients regardless of initial retropulsion."
+     "explanation": "TLICS sums three domains: morphology (burst = 2), posterior ligamentous complex integrity (intact = 0; MRI showed no interspinous or flavum signal), and neurologic status (intact = 0). His total of 2 falls below the operative threshold — scores of 3 or less are managed nonoperatively, 4 is surgeon's choice, and 5 or more favor surgery. That option inflates the score, which would require PLC disruption or deficit he does not have. Another option similarly miscounts. A third option reflects a common misconception: canal compromise percentage by itself is not an operative indication in a neurologically intact patient — retropulsed bone remodels and the canal re-expands substantially over months, and trials show equivalent outcomes with nonoperative care in intact patients regardless of initial retropulsion."
     },
     {
      "type": "question",
@@ -7244,7 +7244,7 @@
       "L1 corpectomy with cage reconstruction"
      ],
      "answer": 0,
-     "explanation": "A neurologically intact patient with a TLICS 2 burst fracture and intact PLC does well with conservative care: analgesia, early mobilization in a TLSO or hyperextension brace, and upright radiographs to verify that alignment holds under physiologic load. Randomized data even suggest bracing itself may be optional, but early ambulation is the consistent theme — outcomes equal surgery with fewer complications. Prolonged bed rest (B) invites thromboembolism, deconditioning, and pneumonia and is obsolete. Percutaneous fixation (C) treats unstable patterns or TLICS 4+ injuries, adding operative risk without benefit here. Kyphoplasty (D) is for painful osteoporotic compression fractures, not acute traumatic bursts in a young man — cement near a retropulsed fragment risks canal extrusion. Corpectomy (E) is reserved for significant neurologic compression with deficit."
+     "explanation": "A neurologically intact patient with a TLICS 2 burst fracture and intact PLC does well with conservative care: analgesia, early mobilization in a TLSO or hyperextension brace, and upright radiographs to verify that alignment holds under physiologic load. Randomized data even suggest bracing itself may be optional, but early ambulation is the consistent theme — outcomes equal surgery with fewer complications. Prolonged bed rest invites thromboembolism, deconditioning, and pneumonia and is obsolete. Percutaneous fixation treats unstable patterns or TLICS 4+ injuries, adding operative risk without benefit here. Kyphoplasty is for painful osteoporotic compression fractures, not acute traumatic bursts in a young man — cement near a retropulsed fragment risks canal extrusion. Corpectomy is reserved for significant neurologic compression with deficit."
     },
     {
      "type": "question",
@@ -7258,7 +7258,7 @@
       "Discomfort and skin irritation from brace wear"
      ],
      "answer": 2,
-     "explanation": "The development of a neurologic deficit — leg weakness, saddle anesthesia, urinary retention, or bowel dysfunction — converts a nonoperative burst fracture into a surgical one, because deficit changes the TLICS neurology score and signals active neural compression or progressive instability; patients must be explicitly taught these red flags before discharge. Progressive kyphosis with intractable pain is the other recognized conversion trigger. Residual aching at three weeks (A) is expected and managed medically. A couple millimeters of additional settling (B) is common and tolerated if alignment and neurology hold. Persistent retropulsion on CT (D) is irrelevant in an intact patient — the canal remodels over 12 or more months. Brace intolerance (E) prompts refitting or even weaning per modern evidence, not an operation."
+     "explanation": "The development of a neurologic deficit — leg weakness, saddle anesthesia, urinary retention, or bowel dysfunction — converts a nonoperative burst fracture into a surgical one, because deficit changes the TLICS neurology score and signals active neural compression or progressive instability; patients must be explicitly taught these red flags before discharge. Progressive kyphosis with intractable pain is the other recognized conversion trigger. Residual aching at three weeks is expected and managed medically. A couple millimeters of additional settling is common and tolerated if alignment and neurology hold. Persistent retropulsion on CT is irrelevant in an intact patient — the canal remodels over 12 or more months. Brace intolerance prompts refitting or even weaning per modern evidence, not an operation."
     }
    ],
    "diagnosis": "L1 burst fracture, neurologically intact, TLICS 2 with intact posterior ligamentous complex — managed nonoperatively with bracing and early mobilization",
@@ -7298,7 +7298,7 @@
       "Somatosensory evoked potentials"
      ],
      "answer": 2,
-     "explanation": "Children with Down syndrome have ligamentous laxity of the transverse atlantal ligament and odontoid anomalies, producing atlantoaxial instability in 10-15%. Screening begins with lateral cervical radiographs in neutral, flexion, and extension to measure the atlantodental interval under physiologic stress — flexion is when subluxation appears. His intermittent post-tumbling neck stiffness makes imaging clearly appropriate even though routine screening of fully asymptomatic children is debated, and Special Olympics participation in high-risk events traditionally prompts radiographic assessment. MRI first (A) is reserved for abnormal radiographs or neurologic signs. CT (B) adds radiation and images a static position only. Clearing without imaging (D) ignores his symptoms and the planned high-risk sports. Evoked potentials (E) are an adjunct, never the screening test."
+     "explanation": "Children with Down syndrome have ligamentous laxity of the transverse atlantal ligament and odontoid anomalies, producing atlantoaxial instability in 10-15%. Screening begins with lateral cervical radiographs in neutral, flexion, and extension to measure the atlantodental interval under physiologic stress — flexion is when subluxation appears. His intermittent post-tumbling neck stiffness makes imaging clearly appropriate even though routine screening of fully asymptomatic children is debated, and Special Olympics participation in high-risk events traditionally prompts radiographic assessment. MRI first is reserved for abnormal radiographs or neurologic signs. CT adds radiation and images a static position only. Clearing without imaging ignores his symptoms and the planned high-risk sports. Evoked potentials are an adjunct, never the screening test."
     },
     {
      "type": "result",
@@ -7316,7 +7316,7 @@
       "An artifact that requires CT confirmation before any conclusion"
      ],
      "answer": 1,
-     "explanation": "In children the atlantodental interval should not exceed roughly 4.5-5 mm (adults 3 mm); a flexion ADI of 7 mm demonstrates incompetence of the transverse atlantal ligament and defines atlantoaxial instability, which in Down syndrome reflects the characteristic ligamentous laxity of the condition. The dynamic increase from 4 mm neutral to 7 mm in flexion is exactly the behavior screening flexion views are designed to expose. Importantly, his space available for the cord remains generous at 16 mm, and he has no myelopathic signs — so this is instability without current cord compromise. Option A overstates the pediatric normal range. Os odontoideum (C) was explicitly excluded by the normally formed dens; it is a separate cause of instability in Down syndrome. The measurement is reproducible across views and needs no CT to be believed (D)."
+     "explanation": "In children the atlantodental interval should not exceed roughly 4.5-5 mm (adults 3 mm); a flexion ADI of 7 mm demonstrates incompetence of the transverse atlantal ligament and defines atlantoaxial instability, which in Down syndrome reflects the characteristic ligamentous laxity of the condition. The dynamic increase from 4 mm neutral to 7 mm in flexion is exactly the behavior screening flexion views are designed to expose. Importantly, his space available for the cord remains generous at 16 mm, and he has no myelopathic signs — so this is instability without current cord compromise. That option overstates the pediatric normal range. Os odontoideum was explicitly excluded by the normally formed dens; it is a separate cause of instability in Down syndrome. The measurement is reproducible across views and needs no CT to be believed."
     },
     {
      "type": "question",
@@ -7329,7 +7329,7 @@
       "Restrict high-risk axial-load and neck-flexion activities, clear low-risk sports, and educate the family on myelopathy warning signs with neurologic follow-up"
      ],
      "answer": 3,
-     "explanation": "Asymptomatic instability in the 5-10 mm ADI range with preserved space for the cord is managed with activity modification, not surgery: he should avoid gymnastics and tumbling, diving, the butterfly stroke and flip turns, trampoline, contact or collision sports, and similar activities that load or forcibly flex the neck, while low-risk events such as track or standard freestyle swimming remain open to him. Equally important is teaching the family the warning signs — new clumsiness, gait change, hand weakness, neck pain with torticollis, bladder changes — and arranging periodic neurologic reassessment. Fusion now (A) exposes an asymptomatic child to substantial operative morbidity without proven benefit. Full clearance including gymnastics (B) ignores a documented 7 mm ADI and his planned highest-risk sport. A constant rigid collar (C) is impractical, unnecessary, and does not protect against subluxation."
+     "explanation": "Asymptomatic instability in the 5-10 mm ADI range with preserved space for the cord is managed with activity modification, not surgery: he should avoid gymnastics and tumbling, diving, the butterfly stroke and flip turns, trampoline, contact or collision sports, and similar activities that load or forcibly flex the neck, while low-risk events such as track or standard freestyle swimming remain open to him. Equally important is teaching the family the warning signs — new clumsiness, gait change, hand weakness, neck pain with torticollis, bladder changes — and arranging periodic neurologic reassessment. Fusion now exposes an asymptomatic child to substantial operative morbidity without proven benefit. Full clearance including gymnastics ignores a documented 7 mm ADI and his planned highest-risk sport. A constant rigid collar is impractical, unnecessary, and does not protect against subluxation."
     },
     {
      "type": "question",
@@ -7342,7 +7342,7 @@
       "An asymptomatic ADI of 6 mm before each sports season"
      ],
      "answer": 0,
-     "explanation": "Fusion is reserved for symptomatic instability — myelopathy, progressive deficits, or persistent painful subluxation — or marked radiographic instability, conventionally an ADI of about 10 mm or more, particularly when the space available for the cord falls toward 13-14 mm or MRI shows cord compression or signal change. At that point the risk of cord injury from minor trauma justifies operative stabilization despite the higher complication rates of fusion in Down syndrome (nonunion, infection, junctional problems). Option B would commit 10-15% of the Down syndrome population, mostly never-symptomatic, to major surgery. Skeletal maturity (C) is not an indication by itself. A stable asymptomatic 6 mm ADI (D) calls for continued restriction and surveillance, not seasonal surgery — the trend over time and the neurologic exam are what matter."
+     "explanation": "Fusion is reserved for symptomatic instability — myelopathy, progressive deficits, or persistent painful subluxation — or marked radiographic instability, conventionally an ADI of about 10 mm or more, particularly when the space available for the cord falls toward 13-14 mm or MRI shows cord compression or signal change. At that point the risk of cord injury from minor trauma justifies operative stabilization despite the higher complication rates of fusion in Down syndrome (nonunion, infection, junctional problems). That option would commit 10-15% of the Down syndrome population, mostly never-symptomatic, to major surgery. Skeletal maturity is not an indication by itself. A stable asymptomatic 6 mm ADI calls for continued restriction and surveillance, not seasonal surgery — the trend over time and the neurologic exam are what matter."
     }
    ],
    "diagnosis": "Asymptomatic atlantoaxial instability in Down syndrome (flexion ADI 7 mm) — managed with high-risk activity restriction and surveillance",
@@ -7382,7 +7382,7 @@
       "MRI of the lumbar spine for her gait disturbance"
      ],
      "answer": 0,
-     "explanation": "Occipital pain (C2 neuralgia from C1-C2 synovitis), Lhermitte phenomenon, hand clumsiness, spastic gait, and diffuse hyperreflexia in longstanding erosive RA point squarely at the craniocervical junction. Dynamic lateral radiographs quantify atlantoaxial subluxation — which appears or worsens in flexion — and measure both the anterior and posterior atlantodental intervals, while MRI defines pannus, cord compression, and myelomalacia. The two studies are complementary and both are needed. EMG for carpal tunnel (B), though common in RA, cannot explain leg spasticity, clonus, and extensor plantars. Intensifying DMARDs (C) without imaging delays diagnosis of a mechanical, surgically relevant lesion while myelopathy progresses. Skull films (D) are uninformative. Lumbar MRI (E) looks below the lesion — upper motor neuron signs in all four limbs localize to the cervical cord or higher."
+     "explanation": "Occipital pain (C2 neuralgia from C1-C2 synovitis), Lhermitte phenomenon, hand clumsiness, spastic gait, and diffuse hyperreflexia in longstanding erosive RA point squarely at the craniocervical junction. Dynamic lateral radiographs quantify atlantoaxial subluxation — which appears or worsens in flexion — and measure both the anterior and posterior atlantodental intervals, while MRI defines pannus, cord compression, and myelomalacia. The two studies are complementary and both are needed. EMG for carpal tunnel, though common in RA, cannot explain leg spasticity, clonus, and extensor plantars. Intensifying DMARDs without imaging delays diagnosis of a mechanical, surgically relevant lesion while myelopathy progresses. Skull films are uninformative. Lumbar MRI looks below the lesion — upper motor neuron signs in all four limbs localize to the cervical cord or higher."
     },
     {
      "type": "result",
@@ -7401,7 +7401,7 @@
       "Amyotrophic lateral sclerosis"
      ],
      "answer": 2,
-     "explanation": "Rheumatoid synovitis erodes the transverse ligament and odontoid, allowing C1 to slide forward on C2 — here a flexion ADI of 9 mm with a PADI of 12 mm — while inflammatory pannus behind the dens compounds the compression, producing the occipital neuralgia, Lhermitte sign, and four-limb upper motor neuron findings; the odontoid migrating above McGregor line marks early cranial settling from lateral mass collapse. The cord T2 signal confirms myelopathy. A peripheral-plus-lumbar combination (A) cannot produce Hoffmann signs, clonus, and extensor plantars together. NPH (B) features gait apraxia, incontinence, and cognitive change without neck pain or cord signal. MS (D) at 60 with a purely compressive lesion and pannus is untenable. ALS (E) is painless and has no sensory findings — her vibratory loss and Lhermitte exclude it."
+     "explanation": "Rheumatoid synovitis erodes the transverse ligament and odontoid, allowing C1 to slide forward on C2 — here a flexion ADI of 9 mm with a PADI of 12 mm — while inflammatory pannus behind the dens compounds the compression, producing the occipital neuralgia, Lhermitte sign, and four-limb upper motor neuron findings; the odontoid migrating above McGregor line marks early cranial settling from lateral mass collapse. The cord T2 signal confirms myelopathy. A peripheral-plus-lumbar combination cannot produce Hoffmann signs, clonus, and extensor plantars together. NPH features gait apraxia, incontinence, and cognitive change without neck pain or cord signal. MS at 60 with a purely compressive lesion and pannus is untenable. ALS is painless and has no sensory findings — her vibratory loss and Lhermitte exclude it."
     },
     {
      "type": "question",
@@ -7414,7 +7414,7 @@
       "A posterior atlantodental interval below 14 mm in a patient with objective myelopathy"
      ],
      "answer": 3,
-     "explanation": "The posterior atlantodental interval — the space actually left for the cord — is the most powerful radiographic predictor in rheumatoid cervical disease: a PADI under 14 mm correlates with cord compression and with poor neurologic recovery if surgery is delayed, so a PADI of 12 mm plus objective myelopathy is a clear indication for posterior C1-C2 instrumented stabilization, extended to the occiput if cranial settling progresses. Anterior ADI alone (A) is unreliable late in disease, paradoxically shrinking as the dens settles upward; many patients with ADI above 3 mm never need surgery. Waiting for sphincter failure (B) forfeits recoverable function — outcomes track with preoperative Ranawat class. Watching the cord signal (C) ignores that myelomalacia reflects damage already occurring under ongoing compression."
+     "explanation": "The posterior atlantodental interval — the space actually left for the cord — is the most powerful radiographic predictor in rheumatoid cervical disease: a PADI under 14 mm correlates with cord compression and with poor neurologic recovery if surgery is delayed, so a PADI of 12 mm plus objective myelopathy is a clear indication for posterior C1-C2 instrumented stabilization, extended to the occiput if cranial settling progresses. Anterior ADI alone is unreliable late in disease, paradoxically shrinking as the dens settles upward; many patients with ADI above 3 mm never need surgery. Waiting for sphincter failure forfeits recoverable function — outcomes track with preoperative Ranawat class. Watching the cord signal ignores that myelomalacia reflects damage already occurring under ongoing compression."
     },
     {
      "type": "question",
@@ -7427,7 +7427,7 @@
       "Elective surgery is permanently contraindicated in rheumatoid patients with neck disease"
      ],
      "answer": 1,
-     "explanation": "Rheumatoid patients facing anesthesia need their cervical spine status known before the airway is managed: forceful extension during direct laryngoscopy can acutely worsen atlantoaxial subluxation and precipitate cord injury in a patient whose ligaments are incompetent — a classic, preventable catastrophe. With documented unstable subluxation and myelopathy, the knee replacement should be deferred until the neck is stabilized, and any intubation performed awake with a fiberoptic scope and in-line stabilization, keeping the neck neutral. Option A describes precisely the dangerous maneuver. A supraglottic airway (C) reduces but does not eliminate positioning risk, and the imaging review is still mandatory; it is also unsuitable for many procedures. Option D is wrong — rheumatoid patients undergo elective surgery routinely once the cervical spine is assessed and, when necessary, stabilized first."
+     "explanation": "Rheumatoid patients facing anesthesia need their cervical spine status known before the airway is managed: forceful extension during direct laryngoscopy can acutely worsen atlantoaxial subluxation and precipitate cord injury in a patient whose ligaments are incompetent — a classic, preventable catastrophe. With documented unstable subluxation and myelopathy, the knee replacement should be deferred until the neck is stabilized, and any intubation performed awake with a fiberoptic scope and in-line stabilization, keeping the neck neutral. That option describes precisely the dangerous maneuver. A supraglottic airway reduces but does not eliminate positioning risk, and the imaging review is still mandatory; it is also unsuitable for many procedures. Another option is wrong — rheumatoid patients undergo elective surgery routinely once the cervical spine is assessed and, when necessary, stabilized first."
     },
     {
      "type": "question",
@@ -7441,7 +7441,7 @@
       "The pannus is premalignant and requires en bloc resection"
      ],
      "answer": 2,
-     "explanation": "Periodontoid pannus is reactive synovial tissue driven by pathologic motion at the atlantoaxial joint; once posterior instrumented fusion eliminates that motion, the pannus predictably involutes over months, with serial MRI documenting regression and indirect decompression of the cord. Transoral odontoidectomy (A) is reserved for the minority with fixed, irreducible ventral compression — typically advanced cranial settling that cannot be reduced with positioning or traction — not as a routine first stage. Corticosteroids (B) do not reliably shrink established pannus and she is already immunosuppressed. Radiation (D) has no role in this benign inflammatory tissue. The pannus is not premalignant (E); it is hypertrophic synovium, and treating the instability treats the pannus."
+     "explanation": "Periodontoid pannus is reactive synovial tissue driven by pathologic motion at the atlantoaxial joint; once posterior instrumented fusion eliminates that motion, the pannus predictably involutes over months, with serial MRI documenting regression and indirect decompression of the cord. Transoral odontoidectomy is reserved for the minority with fixed, irreducible ventral compression — typically advanced cranial settling that cannot be reduced with positioning or traction — not as a routine first stage. Corticosteroids do not reliably shrink established pannus and she is already immunosuppressed. Radiation has no role in this benign inflammatory tissue. The pannus is not premalignant; it is hypertrophic synovium, and treating the instability treats the pannus."
     }
    ],
    "diagnosis": "Rheumatoid atlantoaxial subluxation with periodontoid pannus, early cranial settling, and compressive cervical myelopathy (PADI 12 mm) requiring posterior stabilization before elective arthroplasty",
@@ -7480,7 +7480,7 @@
       "Maintain rigid cervical immobilization and obtain an MRI of the cervical spine"
      ],
      "answer": 3,
-     "explanation": "A child with a clear episode of transient quadriparesis after neck trauma has a presumed spinal cord injury regardless of normal radiographs and CT; the immature spine's elastic ligaments, shallow horizontal facets, and large head-to-body ratio let the column stretch and translate transiently, injuring the cord and then springing back into normal alignment. Immobilization must continue and MRI is mandatory to look for cord edema, hemorrhage, and occult disco-ligamentous injury. Discharging on the basis of normal bony imaging (A) is the classic error this entity punishes. Acute flexion-extension films (B) are unreliable with muscle spasm and potentially dangerous before the cord and ligaments are characterized. Any return-to-play discussion (C) is wildly premature with residual grip weakness and sensory change after a cord-level event."
+     "explanation": "A child with a clear episode of transient quadriparesis after neck trauma has a presumed spinal cord injury regardless of normal radiographs and CT; the immature spine's elastic ligaments, shallow horizontal facets, and large head-to-body ratio let the column stretch and translate transiently, injuring the cord and then springing back into normal alignment. Immobilization must continue and MRI is mandatory to look for cord edema, hemorrhage, and occult disco-ligamentous injury. Discharging on the basis of normal bony imaging is the classic error this entity punishes. Acute flexion-extension films are unreliable with muscle spasm and potentially dangerous before the cord and ligaments are characterized. Any return-to-play discussion is wildly premature with residual grip weakness and sensory change after a cord-level event."
     },
     {
      "type": "result",
@@ -7499,7 +7499,7 @@
       "Vertebral artery dissection with transient ischemia"
      ],
      "answer": 0,
-     "explanation": "Transient quadriparesis with burning hand paresthesias after cervical trauma, normal radiographs and CT, and cord T2 signal on MRI is the textbook presentation of SCIWORA, a predominantly pediatric entity (classically under age 8) explained by the elastic immature spinal column deforming beyond the cord's tolerance — the column can stretch about 5 cm while the cord tolerates only millimeters — then recoiling to normal alignment. A stinger (B) is a unilateral, single-limb brachial plexus event; bilateral arm plus leg involvement is cord until proven otherwise. Conversion disorder (C) cannot be invoked with objective cord edema on MRI. The MRI specifically demonstrated intact ligaments, excluding option D. Vertebral artery dissection (E) produces posterior circulation findings — vertigo, ataxia, cranial nerve signs — not a pure cord syndrome, and is not supported by this MRI."
+     "explanation": "Transient quadriparesis with burning hand paresthesias after cervical trauma, normal radiographs and CT, and cord T2 signal on MRI is the textbook presentation of SCIWORA, a predominantly pediatric entity (classically under age 8) explained by the elastic immature spinal column deforming beyond the cord's tolerance — the column can stretch about 5 cm while the cord tolerates only millimeters — then recoiling to normal alignment. A stinger is a unilateral, single-limb brachial plexus event; bilateral arm plus leg involvement is cord until proven otherwise. Conversion disorder cannot be invoked with objective cord edema on MRI. The MRI specifically demonstrated intact ligaments, excluding that option. Vertebral artery dissection produces posterior circulation findings — vertigo, ataxia, cranial nerve signs — not a pure cord syndrome, and is not supported by this MRI."
     },
     {
      "type": "question",
@@ -7513,7 +7513,7 @@
       "48 hours of high-dose methylprednisolone"
      ],
      "answer": 2,
-     "explanation": "SCIWORA with intact ligaments and improving deficits is managed nonoperatively: rigid cervical collar immobilization — commonly recommended for up to 12 weeks in classic teaching, though duration is debated and often shortened when MRI shows no instability — together with strict avoidance of sports and high-risk play, then re-examination and consideration of delayed dynamic films once spasm resolves. The rationale for immobilization and restriction is that the recently injured cord and stretched but intact soft tissues are vulnerable to a second hit. A halo (A) is disproportionate without any instability. Fusion (B) treats unstable disco-ligamentous injury, which MRI excluded. Immediate return to play (D) invites recurrent SCIWORA, which can be devastating. High-dose steroids (E) are not recommended in pediatric spinal cord injury — no proven benefit and real harms."
+     "explanation": "SCIWORA with intact ligaments and improving deficits is managed nonoperatively: rigid cervical collar immobilization — commonly recommended for up to 12 weeks in classic teaching, though duration is debated and often shortened when MRI shows no instability — together with strict avoidance of sports and high-risk play, then re-examination and consideration of delayed dynamic films once spasm resolves. The rationale for immobilization and restriction is that the recently injured cord and stretched but intact soft tissues are vulnerable to a second hit. A halo is disproportionate without any instability. Fusion treats unstable disco-ligamentous injury, which MRI excluded. Immediate return to play invites recurrent SCIWORA, which can be devastating. High-dose steroids are not recommended in pediatric spinal cord injury — no proven benefit and real harms."
     },
     {
      "type": "question",
@@ -7526,7 +7526,7 @@
       "He may return as soon as repeat X-rays are normal, since they define healing"
      ],
      "answer": 1,
-     "explanation": "After SCIWORA, most protocols keep the child out of contact and collision sports for a minimum of roughly three months — covering the immobilization period plus graded reconditioning — and require complete symptom resolution, a normal neurologic examination, resolution of cord signal or at least clinical normalization, and often normal flexion-extension films before any clearance; families must also hear clearly that recurrent SCIWORA tends to be more severe than the first event, which is why many specialists counsel permanently against returning to collision sports after a documented cord injury, individualizing the decision. One week (A) is far inside the vulnerable window. An absolute lifetime ban in all cases (C) overstates consensus for a child with mild, resolving findings, though it is discussed. X-rays (D) were normal at the moment of injury — they measure nothing about cord healing."
+     "explanation": "After SCIWORA, most protocols keep the child out of contact and collision sports for a minimum of roughly three months — covering the immobilization period plus graded reconditioning — and require complete symptom resolution, a normal neurologic examination, resolution of cord signal or at least clinical normalization, and often normal flexion-extension films before any clearance; families must also hear clearly that recurrent SCIWORA tends to be more severe than the first event, which is why many specialists counsel permanently against returning to collision sports after a documented cord injury, individualizing the decision. One week is far inside the vulnerable window. An absolute lifetime ban in all cases overstates consensus for a child with mild, resolving findings, though it is discussed. X-rays were normal at the moment of injury — they measure nothing about cord healing."
     }
    ],
    "diagnosis": "SCIWORA — spinal cord injury without radiographic abnormality (C3-C4 cord edema with normal X-rays, CT, and intact ligaments)",
@@ -7566,7 +7566,7 @@
       "Urgent CT myelogram"
      ],
      "answer": 1,
-     "explanation": "An elderly woman with abrupt focal midline pain after trivial loading, prior fragility fracture, and height loss almost certainly has a vertebral compression fracture, and plain radiographs confirm the diagnosis, define the level and degree of collapse, and reveal older fractures — all quickly and cheaply. Basic labs (CBC, ESR, calcium, alkaline phosphatase, with serum protein electrophoresis if anything raises suspicion) screen for the important mimics, myeloma and metastasis. Contrast MRI of the whole spine first (A) is reserved for red flags or diagnostic doubt; she has none — no cancer history, weight loss, fever, or neurologic deficit. Bone scan (C) is an adjunct for ambiguous or multiple lesions. Dismissing this as a strain (D) misses a fracture that mandates osteoporosis treatment. CT myelography (E) addresses neural compression she does not have."
+     "explanation": "An elderly woman with abrupt focal midline pain after trivial loading, prior fragility fracture, and height loss almost certainly has a vertebral compression fracture, and plain radiographs confirm the diagnosis, define the level and degree of collapse, and reveal older fractures — all quickly and cheaply. Basic labs (CBC, ESR, calcium, alkaline phosphatase, with serum protein electrophoresis if anything raises suspicion) screen for the important mimics, myeloma and metastasis. Contrast MRI of the whole spine first is reserved for red flags or diagnostic doubt; she has none — no cancer history, weight loss, fever, or neurologic deficit. Bone scan is an adjunct for ambiguous or multiple lesions. Dismissing this as a strain misses a fracture that mandates osteoporosis treatment. CT myelography addresses neural compression she does not have."
     },
     {
      "type": "result",
@@ -7585,7 +7585,7 @@
       "Pyogenic vertebral osteomyelitis"
      ],
      "answer": 2,
-     "explanation": "Everything converges on an osteoporotic compression fracture: a low-energy mechanism in a thin elderly woman with a prior wrist fragility fracture, height loss, a T-score of −3.0, an anterior wedge with preserved posterior wall, an old asymptomatic wedge at another level, and entirely bland laboratory studies. Metastasis (A) is argued against by the absent cancer history, intact pedicles ('winking owl' sign absent), no constitutional symptoms, and normal alkaline phosphatase. Myeloma (B) typically brings anemia, elevated ESR, hypercalcemia, or renal impairment — all absent, though SPEP is reasonable if doubt persists or fractures recur. A burst fracture (D) requires posterior wall involvement, explicitly excluded. Osteomyelitis (E) is implausible without fever, elevated inflammatory markers, or disc-space involvement."
+     "explanation": "Everything converges on an osteoporotic compression fracture: a low-energy mechanism in a thin elderly woman with a prior wrist fragility fracture, height loss, a T-score of −3.0, an anterior wedge with preserved posterior wall, an old asymptomatic wedge at another level, and entirely bland laboratory studies. Metastasis is argued against by the absent cancer history, intact pedicles ('winking owl' sign absent), no constitutional symptoms, and normal alkaline phosphatase. Myeloma typically brings anemia, elevated ESR, hypercalcemia, or renal impairment — all absent, though SPEP is reasonable if doubt persists or fractures recur. A burst fracture requires posterior wall involvement, explicitly excluded. Osteomyelitis is implausible without fever, elevated inflammatory markers, or disc-space involvement."
     },
     {
      "type": "question",
@@ -7599,7 +7599,7 @@
       "Scheduled long-acting opioids as the primary strategy"
      ],
      "answer": 0,
-     "explanation": "First-line care is conservative: scheduled acetaminophen with cautious short-term opioids or other adjuncts if needed (calcitonin can help acute fracture pain short-term), early mobilization — which preserves bone and muscle and prevents thromboembolism and pneumonia — an optional brace for comfort, and, critically, treating the disease that caused the fracture: calcium, vitamin D, and pharmacotherapy such as a bisphosphonate, or an anabolic agent given that a fracture on a T-score of −3.0 defines very-high-risk osteoporosis. Most fractures become tolerable within 4-6 weeks. Bed rest (B) accelerates bone loss and deconditioning in exactly the wrong patient. Immediate kyphoplasty (C) skips the conservative trial that most patients pass. Fusion (D) has no role in a stable osteoporotic wedge. Opioid-first strategies (E) cause falls, constipation, and delirium in the elderly."
+     "explanation": "First-line care is conservative: scheduled acetaminophen with cautious short-term opioids or other adjuncts if needed (calcitonin can help acute fracture pain short-term), early mobilization — which preserves bone and muscle and prevents thromboembolism and pneumonia — an optional brace for comfort, and, critically, treating the disease that caused the fracture: calcium, vitamin D, and pharmacotherapy such as a bisphosphonate, or an anabolic agent given that a fracture on a T-score of −3.0 defines very-high-risk osteoporosis. Most fractures become tolerable within 4-6 weeks. Bed rest accelerates bone loss and deconditioning in exactly the wrong patient. Immediate kyphoplasty skips the conservative trial that most patients pass. Fusion has no role in a stable osteoporotic wedge. Opioid-first strategies cause falls, constipation, and delirium in the elderly."
     },
     {
      "type": "question",
@@ -7612,7 +7612,7 @@
       "Augmentation is a reasonable option if disabling pain persists despite several weeks of optimal medical therapy, with MRI confirming the painful level is acutely fractured (marrow edema); the evidence is mixed, with sham-controlled vertebroplasty trials showing little benefit"
      ],
      "answer": 3,
-     "explanation": "This captures the honest state of the debate: sham-controlled vertebroplasty trials (INVEST, Buchbinder) found no significant benefit over placebo procedure, while open-label trials such as VERTOS II and the kyphoplasty FREE trial suggested benefit in selected patients with severe, refractory pain and MRI-confirmed acute edema at the symptomatic level. Guidelines therefore reserve augmentation for patients still disabled after a several-week trial of medical management, and MRI (or bone scan) targeting is essential because old healed fractures will not respond to cement. Mortality benefit (A) comes from observational registry data confounded by selection and is not established. Routine immediate augmentation (B) ignores that most patients improve without it and adds cement-leak and adjacent-fracture risks. Augmentation is designed for osteoporotic fractures, so option C inverts the truth."
+     "explanation": "This captures the honest state of the debate: sham-controlled vertebroplasty trials (INVEST, Buchbinder) found no significant benefit over placebo procedure, while open-label trials such as VERTOS II and the kyphoplasty FREE trial suggested benefit in selected patients with severe, refractory pain and MRI-confirmed acute edema at the symptomatic level. Guidelines therefore reserve augmentation for patients still disabled after a several-week trial of medical management, and MRI (or bone scan) targeting is essential because old healed fractures will not respond to cement. Mortality benefit comes from observational registry data confounded by selection and is not established. Routine immediate augmentation ignores that most patients improve without it and adds cement-leak and adjacent-fracture risks. Augmentation is designed for osteoporotic fractures, so that option inverts the truth."
     }
    ],
    "diagnosis": "Acute osteoporotic L1 vertebral compression fracture — conservative management plus initiation of osteoporosis pharmacotherapy",
@@ -7652,7 +7652,7 @@
       "Physical therapy referral for mechanical back pain"
      ],
      "answer": 2,
-     "explanation": "Subacute back pain with night pain, fevers, sweats, weight loss, a gibbus, and early upper motor neuron signs in a patient from a tuberculosis-endemic region demands urgent evaluation for spinal infection and malignancy: contrast MRI is the study of choice for defining vertebral destruction, abscess, and epidural disease; ESR/CRP gauge inflammation; chest imaging looks for pulmonary tuberculosis; an IGRA supports exposure; and HIV testing is mandatory because coinfection changes everything. Radiographs with a two-month NSAID trial (A) are inadequate with constitutional symptoms and deformity. Empiric antibacterials (B) before tissue diagnosis muddy cultures and miss mycobacteria entirely. Biopsy without imaging (D) is aimless — imaging targets the biopsy. Physical therapy (E) treats mechanical pain, which night sweats and a gibbus have already excluded."
+     "explanation": "Subacute back pain with night pain, fevers, sweats, weight loss, a gibbus, and early upper motor neuron signs in a patient from a tuberculosis-endemic region demands urgent evaluation for spinal infection and malignancy: contrast MRI is the study of choice for defining vertebral destruction, abscess, and epidural disease; ESR/CRP gauge inflammation; chest imaging looks for pulmonary tuberculosis; an IGRA supports exposure; and HIV testing is mandatory because coinfection changes everything. Radiographs with a two-month NSAID trial are inadequate with constitutional symptoms and deformity. Empiric antibacterials before tissue diagnosis muddy cultures and miss mycobacteria entirely. Biopsy without imaging is aimless — imaging targets the biopsy. Physical therapy treats mechanical pain, which night sweats and a gibbus have already excluded."
     },
     {
      "type": "result",
@@ -7671,7 +7671,7 @@
       "Lymphoma of the vertebral column"
      ],
      "answer": 0,
-     "explanation": "The pattern is classic for spinal tuberculosis: anterior vertebral body destruction across adjacent levels, subligamentous spread beneath the anterior longitudinal ligament, large cold paraspinal abscesses, gibbus deformity, and — the key discriminator — relative sparing of the intervertebral disc, because Mycobacterium tuberculosis lacks the proteolytic enzymes that pyogenic organisms use to digest the avascular disc. Months of indolent constitutional symptoms, the endemic-region exposure, apical scarring, and positive IGRA complete the picture. Pyogenic osteomyelitis (B) is disc-centered from the start — the disc space is its epicenter — and runs a faster, more febrile course. Metastases (C) can spare discs too but rarely produce rim-enhancing abscesses or subligamentous tracking. Brucellosis (D) is possible but favors the lumbar spine with modest destruction and needs an exposure history. Lymphoma (E) infiltrates without this abscess pattern."
+     "explanation": "The pattern is classic for spinal tuberculosis: anterior vertebral body destruction across adjacent levels, subligamentous spread beneath the anterior longitudinal ligament, large cold paraspinal abscesses, gibbus deformity, and — the key discriminator — relative sparing of the intervertebral disc, because Mycobacterium tuberculosis lacks the proteolytic enzymes that pyogenic organisms use to digest the avascular disc. Months of indolent constitutional symptoms, the endemic-region exposure, apical scarring, and positive IGRA complete the picture. Pyogenic osteomyelitis is disc-centered from the start — the disc space is its epicenter — and runs a faster, more febrile course. Metastases can spare discs too but rarely produce rim-enhancing abscesses or subligamentous tracking. Brucellosis is possible but favors the lumbar spine with modest destruction and needs an exposure history. Lymphoma infiltrates without this abscess pattern."
     },
     {
      "type": "question",
@@ -7685,7 +7685,7 @@
       "Serial ESR monitoring during an NSAID trial"
      ],
      "answer": 1,
-     "explanation": "Microbiologic and histologic confirmation should precede months of multidrug therapy whenever the patient is stable enough to allow it: CT-guided core biopsy provides material for acid-fast smear, mycobacterial culture with drug-susceptibility testing, rapid nucleic acid amplification (GeneXpert MTB/RIF, which also flags rifampin resistance), and histopathology showing caseating granulomas — and it simultaneously excludes the mimics, malignancy chief among them. Drug resistance is a real concern in patients from endemic regions, making susceptibility data invaluable. Purely empiric therapy (A) is defensible only when biopsy is impossible or the patient is critically deteriorating. Upfront corpectomy (C) is not indicated without significant deficit or instability — and tissue can be obtained far less invasively. A repeat IGRA (D) adds nothing; it only marks infection at some point, not active disease. NSAIDs with ESR checks (E) postpones treatment of a destructive infection."
+     "explanation": "Microbiologic and histologic confirmation should precede months of multidrug therapy whenever the patient is stable enough to allow it: CT-guided core biopsy provides material for acid-fast smear, mycobacterial culture with drug-susceptibility testing, rapid nucleic acid amplification (GeneXpert MTB/RIF, which also flags rifampin resistance), and histopathology showing caseating granulomas — and it simultaneously excludes the mimics, malignancy chief among them. Drug resistance is a real concern in patients from endemic regions, making susceptibility data invaluable. Purely empiric therapy is defensible only when biopsy is impossible or the patient is critically deteriorating. Upfront corpectomy is not indicated without significant deficit or instability — and tissue can be obtained far less invasively. A repeat IGRA adds nothing; it only marks infection at some point, not active disease. NSAIDs with ESR checks postpones treatment of a destructive infection."
     },
     {
      "type": "question",
@@ -7698,7 +7698,7 @@
       "Four-drug anti-tuberculous therapy (isoniazid, rifampin, pyrazinamide, ethambutol) for two months, then continuation-phase therapy, typically 9-12 months total for spinal disease"
      ],
      "answer": 3,
-     "explanation": "Spinal tuberculosis is fundamentally a medical disease: standard therapy is the four-drug intensive phase (RIPE) for two months followed by isoniazid and rifampin in the continuation phase, with most guidelines extending total treatment to 9-12 months for spinal involvement (some accept 6 months with reliable response monitoring); the MRC trials established that chemotherapy alone achieves excellent outcomes in the majority, even with paraspinal abscesses, which usually resolve on drugs. Adherence support (directly observed therapy) and baseline visual acuity and hepatic monitoring accompany the regimen. Two weeks of therapy (A) guarantees relapse and breeds resistance. Isoniazid monotherapy (B) is for latent infection, never active destructive disease. Universal surgery (C) is outdated — operative treatment is reserved for specific failures of, or threats despite, medical therapy."
+     "explanation": "Spinal tuberculosis is fundamentally a medical disease: standard therapy is the four-drug intensive phase (RIPE) for two months followed by isoniazid and rifampin in the continuation phase, with most guidelines extending total treatment to 9-12 months for spinal involvement (some accept 6 months with reliable response monitoring); the MRC trials established that chemotherapy alone achieves excellent outcomes in the majority, even with paraspinal abscesses, which usually resolve on drugs. Adherence support (directly observed therapy) and baseline visual acuity and hepatic monitoring accompany the regimen. Two weeks of therapy guarantees relapse and breeds resistance. Isoniazid monotherapy is for latent infection, never active destructive disease. Universal surgery is outdated — operative treatment is reserved for specific failures of, or threats despite, medical therapy."
     },
     {
      "type": "question",
@@ -7712,7 +7712,7 @@
       "Ongoing night sweats during the second week of treatment"
      ],
      "answer": 1,
-     "explanation": "The accepted surgical indications in Pott disease are neurologic deficit that develops or progresses on adequate chemotherapy, spinal instability or progressive kyphosis (which in the thoracic spine threatens late paraplegia and cardiopulmonary compromise), failure of medical therapy with persistent destruction, and diagnostic uncertainty; surgery then combines anterior debridement and reconstruction with stabilization. His mild ventral compression and brisk reflexes make close serial examination essential. A positive IGRA at three months (A) is expected — it never reverts on treatment timelines and does not measure activity. Paraspinal abscesses (C) commonly persist radiographically for months while shrinking on drugs; size alone is not an indication. ESR (D) lags clinical response by weeks to months. Night sweats in week two (E) are simply the disease not yet controlled — constitutional symptoms typically fade over the first month or two."
+     "explanation": "The accepted surgical indications in Pott disease are neurologic deficit that develops or progresses on adequate chemotherapy, spinal instability or progressive kyphosis (which in the thoracic spine threatens late paraplegia and cardiopulmonary compromise), failure of medical therapy with persistent destruction, and diagnostic uncertainty; surgery then combines anterior debridement and reconstruction with stabilization. His mild ventral compression and brisk reflexes make close serial examination essential. A positive IGRA at three months is expected — it never reverts on treatment timelines and does not measure activity. Paraspinal abscesses commonly persist radiographically for months while shrinking on drugs; size alone is not an indication. ESR lags clinical response by weeks to months. Night sweats in week two are simply the disease not yet controlled — constitutional symptoms typically fade over the first month or two."
     }
    ],
    "diagnosis": "Pott disease — tuberculous spondylitis of T9-T10 with paraspinal abscesses and gibbus deformity, treated with prolonged anti-tuberculous chemotherapy and surgical surveillance",

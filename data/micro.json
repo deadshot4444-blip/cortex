@@ -175,7 +175,7 @@
   "morphology": "Tumbling motility (22-28C, not 37C); cold growth (4C, 'cold enrichment'); narrow zone of beta-hemolysis; catalase +",
   "diseases": "Neonatal meningitis/sepsis (granulomatosis infantiseptica), meningitis in elderly/immunosuppressed/neonates, febrile gastroenteritis, amnionitis/abortion in pregnancy",
   "treatment": "Ampicillin (+/- gentamicin); intrinsically resistant to ALL cephalosporins",
-  "pearl": "Uses ActA to polymerize host actin 'rocket tails' for cell-to-cell spread (avoids antibody). Unpasteurized dairy, deli meats, soft cheeses. Only GP rod producing endotoxin (LPS)-like LTA; pregnancy & immunocompromised risk.",
+  "pearl": "Uses ActA to polymerize host actin 'rocket tails' for cell-to-cell spread (avoids antibody). Unpasteurized dairy, deli meats, soft cheeses. Gram-positive, so NO LPS endotoxin (LPS is Gram-negative only); virulence via lipoteichoic acid + listeriolysin O; pregnancy & immunocompromised risk.",
   "id": "gram-pos-rods-7",
   "cat": "gram-pos-rods"
  },
@@ -1022,7 +1022,7 @@
  {
   "name": "Human herpesvirus 6 (HHV-6)",
   "type": "Enveloped, linear dsDNA virus (Herpesviridae)",
-  "morphology": "Infects CD4+ T cells (uses CD46); largely clinical diagnosis. Latent, reactivates in transplant patients. HHV-6B causes most childhood disease.",
+  "morphology": "Infects CD4+ T cells (HHV-6A uses CD46; HHV-6B, the roseola/childhood variant, uses CD134/OX40 — Tang 2013); largely clinical diagnosis. Latent, reactivates in transplant patients. HHV-6B causes most childhood disease.",
   "diseases": "Roseola infantum (exanthem subitum / sixth disease); febrile seizures; encephalitis in immunocompromised/transplant.",
   "treatment": "Supportive; ganciclovir/foscarnet for severe disease in immunocompromised.",
   "pearl": "High fever for several days, then rash appears AFTER fever breaks (spares face); classic cause of febrile seizures in infants.",
@@ -1123,7 +1123,7 @@
   "name": "Coxsackievirus (A & B)",
   "type": "Virus — naked, (+) ssRNA, icosahedral, Enterovirus (Picornavirus)",
   "morphology": "Acid-stable, fecal-oral; type A vs B distinguish clinical syndromes",
-  "diseases": "A: hand-foot-mouth disease, herpangina, acute hemorrhagic conjunctivitis. B: myocarditis, pericarditis, dilated cardiomyopathy, pleurodynia (Bornholm/'devil's grip'); both→aseptic meningitis; A24→associated with T1DM",
+  "diseases": "A: hand-foot-mouth disease, herpangina, acute hemorrhagic conjunctivitis. B: myocarditis, pericarditis, dilated cardiomyopathy, pleurodynia (Bornholm/'devil's grip'); both→aseptic meningitis; Coxsackie B→type 1 diabetes (pancreatic islet-cell tropism)",
   "treatment": "Supportive",
   "pearl": "Coxsackie B → 'B' for Body/heart (myocarditis/pleurodynia). Hand-foot-mouth = vesicles on palms, soles, oral mucosa. Major cause of viral (aseptic) meningitis.",
   "id": "rna-viruses-4",

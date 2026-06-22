@@ -141,13 +141,11 @@ function medicinePathProgress() {
 function medicinePathLockIndex() { return medicinePathProgress().lockIndex; }
 
 function isMedicinePathNodeLocked(nodeId) {
-  const idx = medicinePathNodeIndex(nodeId);
-  if (idx < 0) return false;
-  return idx > medicinePathLockIndex();
+  return false; // Medicine is fully free-access; the study path is a recommended sequence, not a gate.
 }
 
 function isMedicinePhaseLocked(phase) {
-  return medicinePathLockIndex() < (MED_PHASE_START[phase] ?? 0);
+  return false; // free-access: any card opens its browse / drill / guided learn anytime.
 }
 
 function medicineShowPathLock() {
@@ -551,6 +549,44 @@ const PHARM_LEARN_STEPS = [
   { key: 'pearl', label: 'Pearl', field: 'pearl', ask: 'One board pearl?', hint: d => `Mnemonic or buzzword tied to ${d.name}.` },
 ];
 
+/* ---------- guided MCQ helpers — answering Medicine questions earns XP into the global pool ---------- */
+function medShuffle(a) { const x = a.slice(); for (let i = x.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1));[x[i], x[j]] = [x[j], x[i]]; } return x; }
+function medAwardXP(correct) {
+  if (typeof prog !== 'function') return;
+  const p = prog('medicine');
+  p.answered = (p.answered || 0) + 1;
+  if (correct) { p.correct = (p.correct || 0) + 1; p.xp = (p.xp || 0) + (typeof XP_PER_CORRECT === 'number' ? XP_PER_CORRECT : 10); }
+  if (typeof saveProgress === 'function') saveProgress();
+  if (typeof updateVerBadges === 'function') { /* no-op guard */ }
+}
+function medDistractors(item, pool, cfg) {
+  let same = pool.filter(d => d[cfg.catField] === item[cfg.catField] && cfg.title(d) !== cfg.title(item));
+  if (same.length < 3) same = pool.filter(d => cfg.title(d) !== cfg.title(item));
+  return medShuffle(same).slice(0, 3);
+}
+// One MCQ: clue -> pick the matching item from 4 choices. Awards XP, shows the full record, then calls onAnswered.
+function medMCQCard(item, pool, cfg, label, ask, clue, onAnswered) {
+  const options = medShuffle([item, ...medDistractors(item, pool, cfg)]);
+  const node = el(`<section class="stage">
+    <div class="stage-head"><span class="label">${esc(label)}</span><span class="rule"></span></div>
+    <p class="q">${esc(ask)}</p>
+    <p class="quizclue">${esc(clue || '').replace(/\n/g, '<br>')}</p>
+    <div class="opts">${options.map((o, i) => `<button class="opt" data-i="${i}"><span class="key">${LETTERS[i]}</span><span>${esc(cfg.title(o))}</span></button>`).join('')}</div>
+    <div class="after"></div>
+  </section>`);
+  const after = node.querySelector('.after');
+  node.querySelectorAll('.opt').forEach(btn => btn.addEventListener('click', () => {
+    const pick = options[Number(btn.dataset.i)];
+    const correct = cfg.title(pick) === cfg.title(item);
+    medAwardXP(correct);
+    node.querySelectorAll('.opt').forEach(b2 => { const o = options[Number(b2.dataset.i)]; b2.disabled = true; if (cfg.title(o) === cfg.title(item)) b2.classList.add('correct'); else if (b2 === btn) b2.classList.add('wrong'); else b2.classList.add('dimmed'); });
+    const xp = typeof XP_PER_CORRECT === 'number' ? XP_PER_CORRECT : 10;
+    after.appendChild(el(`<div class="explain ${correct ? 'good' : 'bad'}"><span class="verdict">${correct ? `CORRECT &middot; +${xp} XP` : 'INCORRECT'} &middot; ${esc(cfg.title(item))}</span>${cfg.fields.map(([lab, src]) => { const v = fieldVal(item, src); return v && v !== '—' ? `<p><b>${esc(lab)}:</b> ${esc(v)}</p>` : ''; }).join('')}</div>`));
+    onAnswered(after, correct);
+  }));
+  return node;
+}
+
 function buildPharmLearn(body, cfg, data, cat) {
   if (!cat) {
     body.appendChild(el(`<p class="pharm-lede">Choose a class to start guided study.</p>`));
@@ -558,96 +594,65 @@ function buildPharmLearn(body, cfg, data, cat) {
     return;
   }
   const pool = data.filter(d => d[cfg.catField] === cat);
-  const resume = PHARM_PROG.learnResume[cat] || { idx: 0, step: 0 };
-  let idx = Math.min(resume.idx, Math.max(0, pool.length - 1));
-  let step = Math.min(resume.step, PHARM_LEARN_STEPS.length - 1);
+  const distractorPool = pool.length >= 4 ? pool : data;
   const wrap = el(`<div class="pharm-learn"></div>`);
   body.appendChild(wrap);
 
-  function saveResume() {
-    PHARM_PROG.learnResume[cat] = { idx, step };
-    savePharmProg();
-  }
-
   function render() {
-    if (idx >= pool.length) {
+    // Resume-safe: the queue is always the drugs not yet studied, recomputed each step — no saved index
+    // paired with a fresh shuffle (which could skip or repeat drugs across reloads).
+    const remaining = medShuffle(pool.filter(d => !PHARM_PROG.learned[d.id || d.name]));
+    const doneN = pool.length - remaining.length;
+    if (!remaining.length) {
+      const next = medicinePathProgress().next;
       wrap.replaceChildren(el(`<section class="stage">
         <span class="label">${esc(cfg.catMap[cat])} complete</span>
         <div class="neuro-score">&#10003;</div>
-        <p class="sub">You walked every drug in this class.</p>
+        <p class="sub">You answered every drug in this class.</p>
         <div class="endbtns">
-          <button class="btn btn-solid" data-drill>Drill this class</button>
+          ${next ? `<button class="btn btn-solid" data-continue>Continue &rarr;</button>` : ''}
+          <button class="btn" data-drill>Drill this class</button>
           <button class="btn" data-classes>All classes</button>
         </div>
       </section>`));
+      const cb = wrap.querySelector('[data-continue]'); if (cb) cb.addEventListener('click', medicineContinue);
       wrap.querySelector('[data-drill]').addEventListener('click', () => renderRefSet('pharm', 'quiz', { cat, mode: 'moa' }));
       wrap.querySelector('[data-classes]').addEventListener('click', () => renderRefSet('pharm', 'classes'));
       return;
     }
-    const drug = pool[idx];
-    const s = PHARM_LEARN_STEPS[step];
-    const revealed = el(`<section class="stage pharm-learn-stage">
-      <div class="stage-head">
-        <span class="label">${esc(cfg.catMap[cat])} · drug ${idx + 1}/${pool.length}</span>
-        <span class="rule"></span>
-        <span class="topstat">${pharmClassLearnedCount(cat, data)}/${pool.length} studied</span>
-      </div>
-      ${refStepDots(PHARM_LEARN_STEPS.length, step, s.label)}
-      <h2 class="pharm-drugname">${esc(drug.name)}</h2>
-      <p class="pharm-drugclass">${esc(drug.drug_class)}</p>
-      <p class="q">${esc(s.ask)}</p>
-      <div class="socactions">
-        <button class="btn" data-hint>Hint</button>
-        <button class="btn btn-solid" data-reveal>Reveal</button>
-      </div>
-      <div class="after"></div>
-    </section>`);
-    const after = revealed.querySelector('.after');
-    revealed.querySelector('[data-hint]').addEventListener('click', e => {
-      e.target.disabled = true;
-      after.appendChild(el(`<div class="sochint"><span class="label">Hint</span><p>${esc(s.hint(drug))}</p></div>`));
-    });
-    revealed.querySelector('[data-reveal]').addEventListener('click', () => {
-      revealed.querySelector('.socactions')?.remove();
-      after.appendChild(el(`<div class="socans"><div class="socblock"><span class="label">${esc(s.label)}</span><p>${esc(drug[s.field])}</p></div></div>`));
-      const isLastStep = step === PHARM_LEARN_STEPS.length - 1;
-      const row = el(`<div class="continue-row"><button class="btn btn-solid" data-next>${isLastStep ? 'Next drug' : 'Continue'}</button></div>`);
-      row.querySelector('[data-next]').addEventListener('click', () => {
-        if (isLastStep) {
-          PHARM_PROG.learned[drug.id || drug.name] = { ts: Date.now(), cat, name: drug.name };
-          idx++; step = 0;
-        } else step++;
-        saveResume();
-        savePharmProg();
-        render();
-      });
+    const drug = remaining[0];
+    const last = remaining.length === 1;
+    const card = medMCQCard(drug, distractorPool, cfg, `${cfg.catMap[cat]} · ${doneN + 1}/${pool.length}`, 'Which drug works by this mechanism?', drug.moa, (after, correct) => {
+      PHARM_PROG.learned[drug.id || drug.name] = { ts: Date.now(), cat, name: drug.name };
+      recordPharmDrill(cat, correct);
+      savePharmProg();
+      const row = el(`<div class="continue-row"><button class="btn btn-solid" data-next>${last ? 'Finish class' : 'Next drug'}</button></div>`);
+      row.querySelector('[data-next]').addEventListener('click', render);
       after.appendChild(row);
+      row.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     });
-    wrap.replaceChildren(revealed);
-    revealed.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    wrap.replaceChildren(card);
+    card.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
   render();
 }
 
-function buildGuidedLearn(body, cfg, data, prog, saveProg, key, opts = {}) {
+function buildGuidedLearn(body, cfg, data, refProg, saveProg, key, opts = {}) {
   const phase = key === 'labs' ? 'labs' : 'micro';
   let cats = medicinePathKeys(phase).filter(c => data.some(d => d[cfg.catField] === c));
   if (!cats.length) cats = Object.keys(cfg.catMap).filter(c => data.some(d => d[cfg.catField] === c));
-  let idx = Math.min(prog.guidedSection || 0, Math.max(0, cats.length - 1));
-  if (opts.section) {
-    const want = cats.indexOf(opts.section);
-    if (want >= 0) idx = want;
-  }
-  if (prog.guidedDone) idx = cats.length - 1;
+  let gidx = Math.min(refProg.guidedSection || 0, Math.max(0, cats.length - 1));
+  if (opts.section) { const w = cats.indexOf(opts.section); if (w >= 0) gidx = w; }
+  if (refProg.guidedDone) gidx = cats.length - 1;
   const unit = key === 'labs' ? 'panel' : 'group';
 
   function paint() {
     body.replaceChildren();
-    if (prog.guidedDone) {
+    if (refProg.guidedDone) {
       body.appendChild(el(`<section class="stage">
         <span class="label">Learn complete</span>
         <div class="neuro-score">&#10003;</div>
-        <p class="sub">All ${cats.length} ${unit}s reviewed. Hit Drill to test recall.</p>
+        <p class="sub">All ${cats.length} ${unit}s answered. Hit Drill to keep testing recall.</p>
         <div class="endbtns">
           <button class="btn btn-solid" data-drill>Drill</button>
           <button class="btn" data-hub>Medicine</button>
@@ -657,34 +662,37 @@ function buildGuidedLearn(body, cfg, data, prog, saveProg, key, opts = {}) {
       body.querySelector('[data-hub]').addEventListener('click', renderReference);
       return;
     }
-    const cat = cats[idx];
+    const cat = cats[gidx];
     const pool = data.filter(d => d[cfg.catField] === cat);
-    const pct = Math.round(100 * idx / cats.length);
+    const distractorPool = pool.length >= 4 ? pool : data;
+    const order = medShuffle(pool);
+    const pct = Math.round(100 * gidx / cats.length);
     body.appendChild(el(`<div class="ped-pathband ped-pathband--slim">
-      <div class="ped-pathband-head"><span class="label">${unit} ${idx + 1} of ${cats.length}</span><span class="ped-pathstat">${esc(cfg.catMap[cat])}</span></div>
+      <div class="ped-pathband-head"><span class="label">${unit} ${gidx + 1} of ${cats.length}</span><span class="ped-pathstat">${esc(cfg.catMap[cat])}</span></div>
       <span class="bar"><i style="width:${pct}%"></i></span>
     </div>`));
-    const list = el(`<div class="reflist"></div>`);
-    pool.forEach(d => list.appendChild(refCard(cfg, d)));
-    body.appendChild(el(`<section class="stage">
-      <p class="ped-lead">Read each card in this ${unit}, then continue. Pattern: ${key === 'labs' ? 'range &rarr; high vs low' : 'morphology &rarr; disease &rarr; treatment'}.</p>
-    </section>`));
-    body.lastElementChild.appendChild(list);
-    const nav = el(`<div class="ped-cta-row"><button class="btn btn-solid" id="guidednext">${idx < cats.length - 1 ? 'Next ' + unit + ' →' : 'Complete learn'}</button></div>`);
-    body.appendChild(nav);
-    nav.querySelector('#guidednext').addEventListener('click', () => {
-      if (idx < cats.length - 1) {
-        idx++;
-        prog.guidedSection = idx;
-        saveProg();
-        paint();
-      } else {
-        prog.guidedDone = true;
-        prog.guidedSection = cats.length;
-        saveProg();
-        paint();
+    const wrap = el(`<div class="pharm-learn"></div>`);
+    body.appendChild(wrap);
+    let i = 0;
+    function q() {
+      if (i >= order.length) {
+        if (gidx < cats.length - 1) { gidx++; refProg.guidedSection = gidx; saveProg(); paint(); }
+        else { refProg.guidedDone = true; refProg.guidedSection = cats.length; saveProg(); paint(); }
+        return;
       }
-    });
+      const item = order[i];
+      const card = medMCQCard(item, distractorPool, cfg, `${cfg.catMap[cat]} · ${i + 1}/${order.length}`, cfg.quizAsk, cfg.quizClue(item), (after, correct) => {
+        recordRefDrill(refProg, saveProg, cfg.catField, cat, correct);
+        const label = i < order.length - 1 ? 'Next' : (gidx < cats.length - 1 ? 'Next ' + unit + ' →' : 'Complete learn');
+        const row = el(`<div class="continue-row"><button class="btn btn-solid" data-next>${label}</button></div>`);
+        row.querySelector('[data-next]').addEventListener('click', () => { i++; q(); });
+        after.appendChild(row);
+        row.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      });
+      wrap.replaceChildren(card);
+      card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    q();
   }
   paint();
 }

@@ -28,7 +28,7 @@
       "agents": [
         { "name": "Growth hormone (GH)", "role": "Anterior pituitary peptide", "where": "GH receptor (JAK2/STAT) — liver, bone, muscle; ↑ IGF-1", "pathway": "GHRH (+) / somatostatin (−) → pituitary GH", "pedNote": "rhGH abuse; hard to detect (pulsatile, short half-life); lipolysis + anabolic via IGF-1.", "pearl": "GH is pulsatile; IGF-1 is the stable downstream marker in blood." },
         { "name": "IGF-1", "role": "Peptide growth factor", "where": "IGF-1 receptor (tyrosine kinase) — muscle, bone", "pathway": "Liver + local production downstream of GH", "pedNote": "IGF-1 LR3 and DES variants abused; hypoglycemia risk.", "pearl": "Insulin-like structure; GH → liver IGF-1 is the main endocrine loop." },
-        { "name": "Erythropoietin (EPO)", "role": "Kidney glycoprotein hormone", "where": "EPO receptor (JAK2) on erythroid progenitors in bone marrow", "pathway": "Hypoxia → HIF → renal EPO → ↑ RBC mass", "pedNote": "rhEPO / darbepoetin ↑ hematocrit → endurance; thrombosis risk.", "pearl": "Officer test: ↑ hematocrit/hemoglobin with low reticulocyte index patterns when abused." },
+        { "name": "Erythropoietin (EPO)", "role": "Kidney glycoprotein hormone", "where": "EPO receptor (JAK2) on erythroid progenitors in bone marrow", "pathway": "Hypoxia → HIF → renal EPO → ↑ RBC mass", "pedNote": "rhEPO / darbepoetin ↑ hematocrit → endurance; thrombosis risk.", "pearl": "Active rhEPO abuse: ↑ hematocrit/Hgb WITH elevated reticulocytes; reticulocytes fall after stopping (OFF-score / Athlete Biological Passport)." },
         { "name": "Insulin", "role": "Pancreatic peptide hormone", "where": "Insulin receptor (tyrosine kinase) — muscle, fat, liver", "pathway": "Glucose sensing → β-cell secretion", "pedNote": "Abused with GH/IGF for anabolism; fatal hypoglycemia risk.", "pearl": "Counter-regulatory: glucagon, epinephrine, cortisol, GH raise glucose." },
         { "name": "hCG", "role": "Placental glycoprotein (LH mimic)", "where": "LH/CG receptor on Leydig cells → ↑ testosterone", "pathway": "Mimics LH in HPG axis", "pedNote": "Used to restart/testicular function after AAS; itself detectable.", "pearl": "α subunit like LH/FSH/TSH; β subunit unique — immunoassays target β-hCG." },
         { "name": "ACTH", "role": "Pituitary peptide", "where": "MC2 receptor on adrenal cortex → cortisol", "pathway": "CRH → ACTH → cortisol", "pedNote": "Rare direct abuse; tetracosactide (ACTH analogue) in doping history.", "pearl": "ACTH 1–39; shorter fragments used diagnostically (stimulation test)." },
@@ -122,7 +122,7 @@
       { "test": "LH / FSH", "high": "Primary gonadal failure (rare in abuse)", "low": "Exogenous androgens suppress HPG" },
       { "test": "Total / free testosterone", "high": "Exogenous AAS", "low": "Post-cycle crash" },
       { "test": "IGF-1", "high": "rhGH abuse", "low": "GH deficiency" },
-      { "test": "TSH / free T4", "high": "TSH if primary hypo; low T4 on thyroxine misuse", "low": "TSH suppressed in thyrotoxicosis" },
+      { "test": "TSH / free T4", "high": "TSH high in primary hypothyroidism; thyroxine misuse → high free T4/T3 with suppressed TSH", "low": "TSH suppressed in thyrotoxicosis" },
       { "test": "AST / ALT", "high": "17α-alkylated orals, intense training", "low": "—" },
       { "test": "LDL / HDL", "high": "LDL often ↑ on AAS", "low": "HDL often crashed on AAS" }
     ],

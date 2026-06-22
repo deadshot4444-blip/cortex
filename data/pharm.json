@@ -1401,16 +1401,6 @@
   "cat": "antianginal"
  },
  {
-  "name": "Spironolactone",
-  "drug_class": "Aldosterone receptor antagonist (MRA, K+-sparing diuretic)",
-  "moa": "Competitively blocks the mineralocorticoid (aldosterone) receptor in the distal nephron -> mild diuresis, K+ retention, and anti-fibrotic remodeling benefit.",
-  "indications": "HFrEF (mortality benefit - RALES), resistant hypertension, primary hyperaldosteronism, ascites/cirrhosis.",
-  "side_effects": "Hyperkalemia, gynecomastia, antiandrogen effects (impotence, menstrual irregularity).",
-  "pearl": "Gynecomastia is the classic off-target effect (eplerenone, a selective MRA, avoids it). Monitor K+/renal function; mortality-proven in HFrEF.",
-  "id": "antianginal-14",
-  "cat": "antianginal"
- },
- {
   "name": "Atorvastatin",
   "drug_class": "HMG-CoA reductase inhibitor (statin)",
   "moa": "Competitively inhibits HMG-CoA reductase, the rate-limiting enzyme of hepatic cholesterol synthesis; depletes intracellular cholesterol, upregulating LDL receptors and increasing LDL clearance.",
@@ -3006,7 +2996,7 @@
   "moa": "Blocks thalamic T-type voltage-gated Ca2+ channels, suppressing the 3-Hz spike-wave rhythm of absence seizures.",
   "indications": "Drug of choice for absence (petit mal) seizures only.",
   "side_effects": "GI distress, fatigue, headache; rarely SJS, agranulocytosis.",
-  "pearl": "First-line for absence (better efficacy/fewer cognitive effects than valproate); ineffective for tonic-clonic. Mnemonic: EThosuximide = T-type.",
+  "pearl": "First-line for absence (equal efficacy but fewer cognitive/attentional effects vs valproate (Glauser 2010); both superior to lamotrigine); ineffective for tonic-clonic. Mnemonic: EThosuximide = T-type.",
   "id": "antiepileptics-6",
   "cat": "antiepileptics"
  },

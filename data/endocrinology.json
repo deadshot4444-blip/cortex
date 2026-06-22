@@ -3599,7 +3599,7 @@
       "Reassure and repeat menstrual history in three months"
      ],
      "answer": 0,
-     "explanation": "Amenorrhea with galactorrhea points to hyperprolactinemia, so the first step is to measure serum prolactin and exclude common secondary causes such as hypothyroidism (TSH) and renal failure; pregnancy is already excluded. Imaging without labs (option B) is premature and may miss medication or systemic causes. Empiric dopamine agonist therapy (option C) treats before confirming a diagnosis and could mask a workable etiology. Surgery (option D) is never first-line for prolactinoma and is reserved for refractory or apoplectic cases. Reassurance (option E) ignores red-flag visual symptoms suggesting a mass and is inappropriate."
+     "explanation": "Amenorrhea with galactorrhea points to hyperprolactinemia, so the first step is to measure serum prolactin and exclude common secondary causes such as hypothyroidism (TSH) and renal failure; pregnancy is already excluded. Imaging without labs is premature and may miss medication or systemic causes. Empiric dopamine agonist therapy treats before confirming a diagnosis and could mask a workable etiology. Surgery is never first-line for prolactinoma and is reserved for refractory or apoplectic cases. Reassurance ignores red-flag visual symptoms suggesting a mass and is inappropriate."
     },
     {
      "type": "result",
@@ -3618,7 +3618,7 @@
       "Primary hypothyroidism explains the findings"
      ],
      "answer": 2,
-     "explanation": "Prolactin levels above roughly 200-250 ng/mL are almost always due to a prolactin-secreting adenoma, and with bitemporal hemianopsia a macroadenoma (>10 mm) is most likely. Drug-induced and stalk-effect hyperprolactinemia (options A, B) typically produce values under 100-150 ng/mL; she takes no offending drugs. The hook effect (option D) causes a falsely LOW reading in very large tumors, but here the value is already markedly high, and if suspected you dilute the sample. Thyroid function is normal, excluding hypothyroidism (option E)."
+     "explanation": "Prolactin levels above roughly 200-250 ng/mL are almost always due to a prolactin-secreting adenoma, and with bitemporal hemianopsia a macroadenoma (>10 mm) is most likely. Drug-induced and stalk-effect hyperprolactinemia typically produce values under 100-150 ng/mL; she takes no offending drugs. The hook effect causes a falsely LOW reading in very large tumors, but here the value is already markedly high, and if suspected you dilute the sample. Thyroid function is normal, excluding hypothyroidism."
     },
     {
      "type": "question",
@@ -3632,7 +3632,7 @@
       "PET scan of the brain"
      ],
      "answer": 1,
-     "explanation": "MRI of the pituitary with and without gadolinium is the gold standard for visualizing pituitary adenomas and assessing optic chiasm compression and cavernous sinus invasion. Non-contrast CT (option A) lacks soft-tissue resolution for the sella and chiasm. Octreotide scintigraphy (option C) is used for somatostatin-receptor tumors, not standard prolactinoma workup. Skull radiographs (option D) are obsolete for this purpose. PET (option E) is not indicated for a suspected benign pituitary adenoma and adds no useful detail over MRI."
+     "explanation": "MRI of the pituitary with and without gadolinium is the gold standard for visualizing pituitary adenomas and assessing optic chiasm compression and cavernous sinus invasion. Non-contrast CT lacks soft-tissue resolution for the sella and chiasm. Octreotide scintigraphy is used for somatostatin-receptor tumors, not standard prolactinoma workup. Skull radiographs are obsolete for this purpose. PET is not indicated for a suspected benign pituitary adenoma and adds no useful detail over MRI."
     },
     {
      "type": "question",
@@ -3646,7 +3646,7 @@
       "Estrogen replacement therapy"
      ],
      "answer": 2,
-     "explanation": "Even with chiasmal compression, dopamine agonists such as cabergoline are first-line for prolactinomas; they shrink the tumor and normalize prolactin in the large majority of patients, often restoring vision. Cabergoline is preferred over bromocriptine for efficacy and tolerability. Surgery (option A) is reserved for tumors resistant or intolerant to medical therapy, or acute apoplexy with progressive visual loss. Radiosurgery (option B) is third-line. Observation (option D) is unsafe with active chiasmal compression. Estrogen (option E) treats hypogonadal symptoms but does not address the tumor and may stimulate it."
+     "explanation": "Even with chiasmal compression, dopamine agonists such as cabergoline are first-line for prolactinomas; they shrink the tumor and normalize prolactin in the large majority of patients, often restoring vision. Cabergoline is preferred over bromocriptine for efficacy and tolerability. Surgery is reserved for tumors resistant or intolerant to medical therapy, or acute apoplexy with progressive visual loss. Radiosurgery is third-line. Observation is unsafe with active chiasmal compression. Estrogen treats hypogonadal symptoms but does not address the tumor and may stimulate it."
     }
    ],
    "diagnosis": "Prolactinoma (prolactin-secreting pituitary macroadenoma)",
@@ -3686,7 +3686,7 @@
       "24-hour urine protein and creatinine clearance"
      ],
      "answer": 0,
-     "explanation": "Polyuria with intense thirst after head trauma raises concern for central diabetes insipidus. The key initial labs are paired serum and urine osmolality, serum sodium, and glucose to characterize free-water loss and exclude osmotic diuresis from hyperglycemia. CBC and cultures (option B) address infection, not polyuria. A thyroid/cortisol panel (option C) is part of broader pituitary assessment but does not directly characterize the diuresis. Urinalysis with culture (option D) evaluates infection. A 24-hour protein/clearance study (option E) assesses glomerular disease, which is not suggested here."
+     "explanation": "Polyuria with intense thirst after head trauma raises concern for central diabetes insipidus. The key initial labs are paired serum and urine osmolality, serum sodium, and glucose to characterize free-water loss and exclude osmotic diuresis from hyperglycemia. CBC and cultures address infection, not polyuria. A thyroid/cortisol panel is part of broader pituitary assessment but does not directly characterize the diuresis. Urinalysis with culture evaluates infection. A 24-hour protein/clearance study assesses glomerular disease, which is not suggested here."
     },
     {
      "type": "result",
@@ -3705,7 +3705,7 @@
       "Acute tubular necrosis"
      ],
      "answer": 2,
-     "explanation": "Hypernatremia with high serum osmolality but inappropriately dilute urine (osmolality 110 mOsm/kg, specific gravity 1.003) indicates the kidney is failing to conserve water despite a strong osmotic stimulus—classic for diabetes insipidus. Primary polydipsia (option A) causes hyponatremia or normal sodium because excess water intake drives the process, not hypernatremia. Glucose is normal, excluding osmotic diuresis (option B). SIADH (option D) causes hyponatremia with concentrated urine—the opposite picture. ATN (option E) typically causes oliguria or isosthenuria with a rising creatinine, not free-water diuresis."
+     "explanation": "Hypernatremia with high serum osmolality but inappropriately dilute urine (osmolality 110 mOsm/kg, specific gravity 1.003) indicates the kidney is failing to conserve water despite a strong osmotic stimulus—classic for diabetes insipidus. Primary polydipsia causes hyponatremia or normal sodium because excess water intake drives the process, not hypernatremia. Glucose is normal, excluding osmotic diuresis. SIADH causes hyponatremia with concentrated urine—the opposite picture. ATN typically causes oliguria or isosthenuria with a rising creatinine, not free-water diuresis."
     },
     {
      "type": "question",
@@ -3719,7 +3719,7 @@
       "Measure serum copeptin only and stop the workup"
      ],
      "answer": 1,
-     "explanation": "After confirming hypotonic polyuria, giving desmopressin (a vasopressin analog) and measuring the urine osmolality response differentiates the two: a substantial rise in urine osmolality indicates central DI (the kidney can respond to ADH), whereas little or no rise indicates nephrogenic DI (renal resistance). Unmonitored fluid restriction (option A) is dangerous in a hypernatremic, dehydrated patient. A thiazide (option C) treats nephrogenic DI but is not diagnostic here. A saline bolus (option D) worsens hypernatremia and does not localize the defect. Copeptin alone (option E) can aid diagnosis but the desmopressin trial directly answers the central-versus-nephrogenic question."
+     "explanation": "After confirming hypotonic polyuria, giving desmopressin (a vasopressin analog) and measuring the urine osmolality response differentiates the two: a substantial rise in urine osmolality indicates central DI (the kidney can respond to ADH), whereas little or no rise indicates nephrogenic DI (renal resistance). Unmonitored fluid restriction is dangerous in a hypernatremic, dehydrated patient. A thiazide treats nephrogenic DI but is not diagnostic here. A saline bolus worsens hypernatremia and does not localize the defect. Copeptin alone can aid diagnosis but the desmopressin trial directly answers the central-versus-nephrogenic question."
     },
     {
      "type": "question",
@@ -3733,7 +3733,7 @@
       "Hypertonic saline infusion"
      ],
      "answer": 2,
-     "explanation": "A robust rise in urine osmolality after desmopressin confirms central DI, treated with desmopressin replacement, careful serum sodium monitoring, and ensuring access to water to correct the free-water deficit gradually. Post-traumatic central DI may be transient, so reassessment is warranted. Thiazides (option A) are used for nephrogenic DI, not central. Free-water restriction (option B) would worsen hypernatremia. Demeclocycline (option D) induces nephrogenic DI to treat SIADH—exactly the wrong direction here. Hypertonic saline (option E) would dangerously aggravate his hypernatremia."
+     "explanation": "A robust rise in urine osmolality after desmopressin confirms central DI, treated with desmopressin replacement, careful serum sodium monitoring, and ensuring access to water to correct the free-water deficit gradually. Post-traumatic central DI may be transient, so reassessment is warranted. Thiazides are used for nephrogenic DI, not central. Free-water restriction would worsen hypernatremia. Demeclocycline induces nephrogenic DI to treat SIADH—exactly the wrong direction here. Hypertonic saline would dangerously aggravate his hypernatremia."
     }
    ],
    "diagnosis": "Central diabetes insipidus (post-traumatic)",
@@ -3773,7 +3773,7 @@
       "Begin a fluid restriction trial at home"
      ],
      "answer": 0,
-     "explanation": "Chronic polyuria requires characterizing the urine and ruling out osmotic causes: serum and urine osmolality, sodium, glucose, and calcium are the appropriate first labs. His HbA1c and fasting glucose are already controlled, lowering the likelihood of glucosuric diuresis, but confirmation and exclusion of hypercalcemia (another cause of nephrogenic DI) are important. Raising lithium (option B) would worsen any lithium-induced renal effect. Immediate MRI (option C) is premature without localizing the defect. Empiric desmopressin (option D) skips diagnosis. An unsupervised home fluid restriction (option E) is unsafe and uninformative."
+     "explanation": "Chronic polyuria requires characterizing the urine and ruling out osmotic causes: serum and urine osmolality, sodium, glucose, and calcium are the appropriate first labs. His HbA1c and fasting glucose are already controlled, lowering the likelihood of glucosuric diuresis, but confirmation and exclusion of hypercalcemia (another cause of nephrogenic DI) are important. Raising lithium would worsen any lithium-induced renal effect. Immediate MRI is premature without localizing the defect. Empiric desmopressin skips diagnosis. An unsupervised home fluid restriction is unsafe and uninformative."
     },
     {
      "type": "result",
@@ -3792,7 +3792,7 @@
       "Normal renal concentrating ability"
      ],
      "answer": 2,
-     "explanation": "A minimal rise in urine osmolality after desmopressin (here only ~11%, far below the ~50% expected) indicates the kidney cannot respond to ADH—nephrogenic diabetes insipidus. In central DI (option A), urine osmolality would rise substantially because exogenous ADH replaces the deficient hormone. Primary polydipsia (option B) would already concentrate urine with water deprivation and presents with low-normal sodium, not the mild hypernatremia seen here. Osmotic diuresis (option D) is excluded by normal glucose and the dilute urine. A nonresponsive, persistently dilute urine is clearly not normal concentrating ability (option E)."
+     "explanation": "A minimal rise in urine osmolality after desmopressin (here only ~11%, far below the ~50% expected) indicates the kidney cannot respond to ADH—nephrogenic diabetes insipidus. In central DI, urine osmolality would rise substantially because exogenous ADH replaces the deficient hormone. Primary polydipsia would already concentrate urine with water deprivation and presents with low-normal sodium, not the mild hypernatremia seen here. Osmotic diuresis is excluded by normal glucose and the dilute urine. A nonresponsive, persistently dilute urine is clearly not normal concentrating ability."
     },
     {
      "type": "question",
@@ -3806,7 +3806,7 @@
       "Poorly controlled diabetes mellitus"
      ],
      "answer": 0,
-     "explanation": "Long-term lithium is the classic acquired cause of nephrogenic DI; lithium enters principal cells via the epithelial sodium channel and downregulates aquaporin-2 water channels, impairing ADH responsiveness even at therapeutic levels and after years of use. His calcium is normal, excluding hypercalcemia (option B). There is no sicca picture to suggest Sjögren (option C). Amlodipine (option D) is not associated with nephrogenic DI. His diabetes is well controlled with a normal glucose and HbA1c, so osmotic diuresis (option E) does not explain his dilute urine."
+     "explanation": "Long-term lithium is the classic acquired cause of nephrogenic DI; lithium enters principal cells via the epithelial sodium channel and downregulates aquaporin-2 water channels, impairing ADH responsiveness even at therapeutic levels and after years of use. His calcium is normal, excluding hypercalcemia. There is no sicca picture to suggest Sjögren. Amlodipine is not associated with nephrogenic DI. His diabetes is well controlled with a normal glucose and HbA1c, so osmotic diuresis does not explain his dilute urine."
     },
     {
      "type": "question",
@@ -3820,7 +3820,7 @@
       "Hypertonic saline"
      ],
      "answer": 1,
-     "explanation": "When lithium cannot be stopped, amiloride is particularly useful because it blocks lithium entry into principal cells via ENaC, and thiazides with mild sodium/volume restriction induce proximal sodium and water reabsorption, paradoxically reducing urine output in nephrogenic DI. Desmopressin (option A) is largely ineffective because the defect is renal resistance. Demeclocycline (option C) actually causes nephrogenic DI and is used to treat SIADH, the wrong direction. Loop diuretics (option D) impair concentrating ability and worsen polyuria. Hypertonic saline (option E) is not a treatment and would aggravate hypernatremia. Adequate water access remains essential."
+     "explanation": "When lithium cannot be stopped, amiloride is particularly useful because it blocks lithium entry into principal cells via ENaC, and thiazides with mild sodium/volume restriction induce proximal sodium and water reabsorption, paradoxically reducing urine output in nephrogenic DI. Desmopressin is largely ineffective because the defect is renal resistance. Demeclocycline actually causes nephrogenic DI and is used to treat SIADH, the wrong direction. Loop diuretics impair concentrating ability and worsen polyuria. Hypertonic saline is not a treatment and would aggravate hypernatremia. Adequate water access remains essential."
     },
     {
      "type": "question",
@@ -3834,7 +3834,7 @@
       "Adrenal insufficiency"
      ],
      "answer": 0,
-     "explanation": "Chronic lithium can cause progressive chronic tubulointerstitial nephropathy and declining GFR, so renal function should be monitored periodically; his creatinine of 1.3 mg/dL already hints at early impairment. Lithium is also linked to hypothyroidism and hyperparathyroidism, but not to pulmonary fibrosis (option B), hemolytic anemia (option C), optic neuritis (option D), or adrenal insufficiency (option E). Recognizing renal risk guides the decision about continuing versus changing the mood stabilizer in collaboration with psychiatry."
+     "explanation": "Chronic lithium can cause progressive chronic tubulointerstitial nephropathy and declining GFR, so renal function should be monitored periodically; his creatinine of 1.3 mg/dL already hints at early impairment. Lithium is also linked to hypothyroidism and hyperparathyroidism, but not to pulmonary fibrosis, hemolytic anemia, optic neuritis, or adrenal insufficiency. Recognizing renal risk guides the decision about continuing versus changing the mood stabilizer in collaboration with psychiatry."
     }
    ],
    "diagnosis": "Nephrogenic diabetes insipidus due to chronic lithium therapy",
@@ -3879,7 +3879,7 @@
       "Isotonic pseudohyponatremia"
      ],
      "answer": 2,
-     "explanation": "He is clinically euvolemic—no edema, no JVD, moist membranes, no orthostasis—with low serum osmolality (248 mOsm/kg), confirming true hypotonic hyponatremia. Hypovolemic hyponatremia (option A) would show dry membranes, orthostasis, and typically low urine sodium (<20-30). Hypervolemic hyponatremia (option B) would show edema or JVD. Glucose is normal, excluding hyperglycemia-driven hypertonic hyponatremia (option D). Serum osmolality is genuinely low, so isotonic pseudohyponatremia from paraproteins or lipids (option E) is excluded. The euvolemic, hypotonic picture is the setup for SIADH."
+     "explanation": "He is clinically euvolemic—no edema, no JVD, moist membranes, no orthostasis—with low serum osmolality (248 mOsm/kg), confirming true hypotonic hyponatremia. Hypovolemic hyponatremia would show dry membranes, orthostasis, and typically low urine sodium (<20-30). Hypervolemic hyponatremia would show edema or JVD. Glucose is normal, excluding hyperglycemia-driven hypertonic hyponatremia. Serum osmolality is genuinely low, so isotonic pseudohyponatremia from paraproteins or lipids is excluded. The euvolemic, hypotonic picture is the setup for SIADH."
     },
     {
      "type": "question",
@@ -3893,7 +3893,7 @@
       "Adrenal insufficiency"
      ],
      "answer": 0,
-     "explanation": "Inappropriately concentrated urine (>100 mOsm/kg, here 540) with elevated urine sodium (>30-40 mEq/L) in a euvolemic, hypotonic patient with normal thyroid and adrenal function defines SIADH—here a paraneoplastic effect of small cell lung cancer. Primary polydipsia (option B) produces maximally dilute urine (<100 mOsm/kg). Cerebral salt wasting (option C) presents with hypovolemia and a clear cerebral insult. Hypothyroidism (option D) and adrenal insufficiency (option E) are excluded by the normal TSH and morning cortisol, and these must be ruled out before diagnosing SIADH."
+     "explanation": "Inappropriately concentrated urine (>100 mOsm/kg, here 540) with elevated urine sodium (>30-40 mEq/L) in a euvolemic, hypotonic patient with normal thyroid and adrenal function defines SIADH—here a paraneoplastic effect of small cell lung cancer. Primary polydipsia produces maximally dilute urine (<100 mOsm/kg). Cerebral salt wasting presents with hypovolemia and a clear cerebral insult. Hypothyroidism and adrenal insufficiency are excluded by the normal TSH and morning cortisol, and these must be ruled out before diagnosing SIADH."
     },
     {
      "type": "question",
@@ -3907,7 +3907,7 @@
       "Immediate tolvaptan plus desmopressin"
      ],
      "answer": 1,
-     "explanation": "For SIADH with mild-to-moderate symptoms, fluid restriction is the cornerstone, with judicious hypertonic saline reserved for worsening neurologic status, while limiting correction to roughly 6-8 mEq/L per 24 hours to avoid osmotic demyelination. Rapid full correction (option A) risks osmotic demyelination syndrome. Normal saline (option C) can paradoxically worsen SIADH hyponatremia because the kidney retains free water and excretes the salt. Free water (option D) would deepen the hyponatremia. Tolvaptan combined with desmopressin (option E) is not standard initial therapy and risks erratic correction."
+     "explanation": "For SIADH with mild-to-moderate symptoms, fluid restriction is the cornerstone, with judicious hypertonic saline reserved for worsening neurologic status, while limiting correction to roughly 6-8 mEq/L per 24 hours to avoid osmotic demyelination. Rapid full correction risks osmotic demyelination syndrome. Normal saline can paradoxically worsen SIADH hyponatremia because the kidney retains free water and excretes the salt. Free water would deepen the hyponatremia. Tolvaptan combined with desmopressin is not standard initial therapy and risks erratic correction."
     },
     {
      "type": "question",
@@ -3921,7 +3921,7 @@
       "Restrict dietary sodium"
      ],
      "answer": 1,
-     "explanation": "Because the SIADH is paraneoplastic, treating the small cell lung cancer with chemotherapy addresses the root cause and often improves the hyponatremia. Salt tablets (option A) and fluid restriction help manage the sodium but do not treat the malignancy. Chronic loop diuretics (option C) can adjunctively increase free-water excretion but are not the definitive fix. Lifelong desmopressin (option D) is a treatment for DI and would worsen SIADH. Sodium restriction (option E) is counterproductive and would aggravate hyponatremia."
+     "explanation": "Because the SIADH is paraneoplastic, treating the small cell lung cancer with chemotherapy addresses the root cause and often improves the hyponatremia. Salt tablets and fluid restriction help manage the sodium but do not treat the malignancy. Chronic loop diuretics can adjunctively increase free-water excretion but are not the definitive fix. Lifelong desmopressin is a treatment for DI and would worsen SIADH. Sodium restriction is counterproductive and would aggravate hyponatremia."
     }
    ],
    "diagnosis": "SIADH secondary to small cell lung cancer (paraneoplastic)",
@@ -3961,7 +3961,7 @@
       "24-hour urine cortisol"
      ],
      "answer": 1,
-     "explanation": "Failure to lactate plus amenorrhea after a hemorrhagic delivery suggests Sheehan syndrome (postpartum pituitary infarction), which causes deficiencies across multiple anterior pituitary axes. A comprehensive panel—free T4 with TSH, an 8 AM cortisol, prolactin, gonadotropins with estradiol, and IGF-1—is needed because each axis can fail. TSH alone (option A) misses central hypothyroidism, where TSH is low or inappropriately normal. A random GH (option C) is uninterpretable. Pelvic ultrasound (option D) does not address the central process. Urine cortisol (option E) assesses excess, not the deficiency suspected here."
+     "explanation": "Failure to lactate plus amenorrhea after a hemorrhagic delivery suggests Sheehan syndrome (postpartum pituitary infarction), which causes deficiencies across multiple anterior pituitary axes. A comprehensive panel—free T4 with TSH, an 8 AM cortisol, prolactin, gonadotropins with estradiol, and IGF-1—is needed because each axis can fail. TSH alone misses central hypothyroidism, where TSH is low or inappropriately normal. A random GH is uninterpretable. Pelvic ultrasound does not address the central process. Urine cortisol assesses excess, not the deficiency suspected here."
     },
     {
      "type": "result",
@@ -3980,7 +3980,7 @@
       "Polycystic ovary syndrome"
      ],
      "answer": 0,
-     "explanation": "Low free T4 with a non-elevated TSH (central hypothyroidism), low cortisol with low-normal ACTH (secondary adrenal insufficiency), low prolactin, and low gonadotropins with low estradiol together indicate failure of multiple anterior pituitary axes—panhypopituitarism, here from Sheehan syndrome. Primary thyroid/ovarian failure (option B) would show HIGH TSH and HIGH FSH/LH. Isolated adrenal insufficiency (option C) ignores the thyroid, gonadal, and lactotroph deficits. Cushing (option D) is hormone excess. PCOS (option E) features androgen excess and normal-to-high LH, the opposite of this hypogonadotropic picture."
+     "explanation": "Low free T4 with a non-elevated TSH (central hypothyroidism), low cortisol with low-normal ACTH (secondary adrenal insufficiency), low prolactin, and low gonadotropins with low estradiol together indicate failure of multiple anterior pituitary axes—panhypopituitarism, here from Sheehan syndrome. Primary thyroid/ovarian failure would show HIGH TSH and HIGH FSH/LH. Isolated adrenal insufficiency ignores the thyroid, gonadal, and lactotroph deficits. Cushing is hormone excess. PCOS features androgen excess and normal-to-high LH, the opposite of this hypogonadotropic picture."
     },
     {
      "type": "question",
@@ -3994,7 +3994,7 @@
       "Replace all hormones simultaneously at full doses"
      ],
      "answer": 1,
-     "explanation": "Glucocorticoids must be replaced before levothyroxine because starting thyroid hormone first raises metabolic rate and cortisol clearance, which can precipitate an adrenal crisis in a patient with coexisting secondary adrenal insufficiency. Giving levothyroxine first (option A) is therefore dangerous. Estrogen (option C) and growth hormone (option D) are important but not the immediate life-threatening priority. Starting everything at once at full doses (option E) risks the same crisis and is not how replacement is sequenced; cortisol comes first, then thyroid, then gonadal steroids."
+     "explanation": "Glucocorticoids must be replaced before levothyroxine because starting thyroid hormone first raises metabolic rate and cortisol clearance, which can precipitate an adrenal crisis in a patient with coexisting secondary adrenal insufficiency. Giving levothyroxine first is therefore dangerous. Estrogen and growth hormone are important but not the immediate life-threatening priority. Starting everything at once at full doses risks the same crisis and is not how replacement is sequenced; cortisol comes first, then thyroid, then gonadal steroids."
     },
     {
      "type": "question",
@@ -4008,7 +4008,7 @@
       "Diffuse thyroid enlargement on ultrasound"
      ],
      "answer": 1,
-     "explanation": "Sheehan syndrome results from ischemic necrosis of the enlarged peripartum pituitary; over time MRI often shows an empty or partially empty sella as the infarcted gland involutes. A macroadenoma (option A) would suggest a tumor causing hypopituitarism, not postpartum infarction. Adrenal masses (option C) would indicate a primary adrenal process. Polycystic ovaries (option D) describe PCOS. Thyroid enlargement (option E) reflects primary thyroid disease. The empty sella fits the clinical history of postpartum pituitary necrosis."
+     "explanation": "Sheehan syndrome results from ischemic necrosis of the enlarged peripartum pituitary; over time MRI often shows an empty or partially empty sella as the infarcted gland involutes. A macroadenoma would suggest a tumor causing hypopituitarism, not postpartum infarction. Adrenal masses would indicate a primary adrenal process. Polycystic ovaries describe PCOS. Thyroid enlargement reflects primary thyroid disease. The empty sella fits the clinical history of postpartum pituitary necrosis."
     },
     {
      "type": "question",
@@ -4022,7 +4022,7 @@
       "Withhold all medications until stable"
      ],
      "answer": 1,
-     "explanation": "A patient with secondary adrenal insufficiency under physiologic stress (fever, vomiting, hypotension) is at risk for adrenal crisis and needs immediate stress-dose IV hydrocortisone plus IV fluids; this is life-saving. Increasing levothyroxine (option A) does nothing for the crisis and could worsen it. Insulin (option C) is irrelevant and dangerous without hyperglycemia. Desmopressin (option D) treats DI, not present here. Withholding medications (option E) would be fatal in adrenal crisis. All patients with adrenal insufficiency need sick-day glucocorticoid rules and emergency injectable hydrocortisone."
+     "explanation": "A patient with secondary adrenal insufficiency under physiologic stress (fever, vomiting, hypotension) is at risk for adrenal crisis and needs immediate stress-dose IV hydrocortisone plus IV fluids; this is life-saving. Increasing levothyroxine does nothing for the crisis and could worsen it. Insulin is irrelevant and dangerous without hyperglycemia. Desmopressin treats DI, not present here. Withholding medications would be fatal in adrenal crisis. All patients with adrenal insufficiency need sick-day glucocorticoid rules and emergency injectable hydrocortisone."
     }
    ],
    "diagnosis": "Panhypopituitarism due to Sheehan syndrome",
@@ -4062,7 +4062,7 @@
       "Begin broad-spectrum antibiotics and acyclovir"
      ],
      "answer": 0,
-     "explanation": "The hypotension and tachycardia signal acute secondary adrenal insufficiency from sudden ACTH deficiency—a hallmark danger of pituitary apoplexy—so empiric stress-dose IV hydrocortisone is immediately life-saving and should be given without waiting for confirmatory cortisol. Mannitol (option B) is not indicated and could worsen hypotension. Lowering blood pressure (option C) is dangerous in a hypotensive patient. Lumbar puncture (option D) is contraindicated with a possible mass and adds little. Antibiotics/acyclovir (option E) treat meningitis/encephalitis, but there is no fever or nuchal rigidity and the picture fits apoplexy."
+     "explanation": "The hypotension and tachycardia signal acute secondary adrenal insufficiency from sudden ACTH deficiency—a hallmark danger of pituitary apoplexy—so empiric stress-dose IV hydrocortisone is immediately life-saving and should be given without waiting for confirmatory cortisol. Mannitol is not indicated and could worsen hypotension. Lowering blood pressure is dangerous in a hypotensive patient. Lumbar puncture is contraindicated with a possible mass and adds little. Antibiotics/acyclovir treat meningitis/encephalitis, but there is no fever or nuchal rigidity and the picture fits apoplexy."
     },
     {
      "type": "result",
@@ -4081,7 +4081,7 @@
       "Migraine with aura"
      ],
      "answer": 1,
-     "explanation": "Sudden thunderclap headache, ophthalmoplegia (third nerve palsy), visual loss, and hypopituitarism with MRI showing hemorrhage into an enlarged pituitary adenoma define pituitary apoplexy. Subarachnoid hemorrhage (option A) is a key mimic but the CT shows no subarachnoid blood and the mass is sellar. Meningitis (option C) lacks fever and nuchal rigidity. Cavernous sinus thrombosis (option D) usually involves proptosis, chemosis, and infection, without an intrasellar hemorrhagic adenoma. Migraine (option E) does not cause a third nerve palsy with hemorrhage and hypopituitarism."
+     "explanation": "Sudden thunderclap headache, ophthalmoplegia (third nerve palsy), visual loss, and hypopituitarism with MRI showing hemorrhage into an enlarged pituitary adenoma define pituitary apoplexy. Subarachnoid hemorrhage is a key mimic but the CT shows no subarachnoid blood and the mass is sellar. Meningitis lacks fever and nuchal rigidity. Cavernous sinus thrombosis usually involves proptosis, chemosis, and infection, without an intrasellar hemorrhagic adenoma. Migraine does not cause a third nerve palsy with hemorrhage and hypopituitarism."
     },
     {
      "type": "question",
@@ -4095,7 +4095,7 @@
       "Thyroid hormone deficiency"
      ],
      "answer": 1,
-     "explanation": "Acute ACTH deficiency causing cortisol deficiency is the immediate life threat in apoplexy: it produces hypotension, hyponatremia, and hypoglycemia and can cause fatal adrenal crisis, which is why glucocorticoids are given emergently. Growth hormone (option A) and prolactin (option D) deficiencies are not acutely dangerous. Gonadotropin deficiency (option C) causes hypogonadism but is not an emergency. Central hypothyroidism (option E) develops and matters, but its effects are slower and thyroid hormone should only be started after glucocorticoids to avoid precipitating crisis."
+     "explanation": "Acute ACTH deficiency causing cortisol deficiency is the immediate life threat in apoplexy: it produces hypotension, hyponatremia, and hypoglycemia and can cause fatal adrenal crisis, which is why glucocorticoids are given emergently. Growth hormone and prolactin deficiencies are not acutely dangerous. Gonadotropin deficiency causes hypogonadism but is not an emergency. Central hypothyroidism develops and matters, but its effects are slower and thyroid hormone should only be started after glucocorticoids to avoid precipitating crisis."
     },
     {
      "type": "question",
@@ -4109,7 +4109,7 @@
       "Whole-brain radiation therapy"
      ],
      "answer": 1,
-     "explanation": "Pituitary apoplexy with progressive or severe visual deficits and worsening ophthalmoplegia warrants urgent neurosurgical evaluation for transsphenoidal decompression to relieve compression and preserve vision. Observation alone (option A) is appropriate only for stable, mild deficits, not deteriorating vision. Cabergoline with discharge (option C) is unsafe in this acute setting even if the tumor is a prolactinoma. Anticoagulation (option D) is contraindicated with acute intracranial hemorrhage. Radiation (option E) is not an acute therapy and does not address the emergent compression."
+     "explanation": "Pituitary apoplexy with progressive or severe visual deficits and worsening ophthalmoplegia warrants urgent neurosurgical evaluation for transsphenoidal decompression to relieve compression and preserve vision. Observation alone is appropriate only for stable, mild deficits, not deteriorating vision. Cabergoline with discharge is unsafe in this acute setting even if the tumor is a prolactinoma. Anticoagulation is contraindicated with acute intracranial hemorrhage. Radiation is not an acute therapy and does not address the emergent compression."
     },
     {
      "type": "question",
@@ -4123,7 +4123,7 @@
       "Routine repeat lumbar punctures"
      ],
      "answer": 1,
-     "explanation": "Most apoplexy patients have persistent hypopituitarism, so they require lifelong endocrine follow-up with assessment and replacement of deficient axes (cortisol first, then thyroid and gonadal hormones) plus periodic reevaluation, since some deficits recover and others emerge. Discharging without endocrine care (option A) risks fatal adrenal crisis. Visual field testing alone (option C) ignores the hormonal deficiencies. Prophylactic antibiotics (option D) and repeat lumbar punctures (option E) have no role in this condition."
+     "explanation": "Most apoplexy patients have persistent hypopituitarism, so they require lifelong endocrine follow-up with assessment and replacement of deficient axes (cortisol first, then thyroid and gonadal hormones) plus periodic reevaluation, since some deficits recover and others emerge. Discharging without endocrine care risks fatal adrenal crisis. Visual field testing alone ignores the hormonal deficiencies. Prophylactic antibiotics and repeat lumbar punctures have no role in this condition."
     }
    ],
    "diagnosis": "Pituitary apoplexy (hemorrhage into a pituitary adenoma)",
@@ -4163,7 +4163,7 @@
       "Electroencephalogram"
      ],
      "answer": 0,
-     "explanation": "A slowly progressive bitemporal hemianopsia points to a sellar mass compressing the optic chiasm, and his fatigue and hypogonadal symptoms suggest hormone deficiency; the right approach is pituitary MRI plus a comprehensive anterior pituitary panel (prolactin, IGF-1, morning cortisol/ACTH, TSH/free T4, LH/FSH/testosterone) to define both the lesion and any deficiencies or excess. Carotid ultrasound (option B) does not explain a chiasmal defect. Empiric testosterone (option C) skips diagnosis and could be unsafe. Perimetry alone (option D) characterizes the defect but misses the cause. EEG (option E) is irrelevant here."
+     "explanation": "A slowly progressive bitemporal hemianopsia points to a sellar mass compressing the optic chiasm, and his fatigue and hypogonadal symptoms suggest hormone deficiency; the right approach is pituitary MRI plus a comprehensive anterior pituitary panel (prolactin, IGF-1, morning cortisol/ACTH, TSH/free T4, LH/FSH/testosterone) to define both the lesion and any deficiencies or excess. Carotid ultrasound does not explain a chiasmal defect. Empiric testosterone skips diagnosis and could be unsafe. Perimetry alone characterizes the defect but misses the cause. EEG is irrelevant here."
     },
     {
      "type": "result",
@@ -4182,7 +4182,7 @@
       "Cushing disease"
      ],
      "answer": 1,
-     "explanation": "A large sellar mass with only mildly elevated prolactin (typically <100-150 ng/mL) plus multiple hormone deficiencies indicates the stalk effect—compression of the pituitary stalk disinhibits prolactin slightly while impairing other axes—characteristic of a nonfunctioning macroadenoma causing hypopituitarism. A prolactinoma of this size (option A) would usually drive prolactin into the hundreds or thousands. Primary hypothyroidism (option C) would show a high TSH, but TSH is normal with low free T4 (central pattern). IGF-1 is normal, excluding acromegaly (option D), and there is no hypercortisolism to suggest Cushing disease (option E)."
+     "explanation": "A large sellar mass with only mildly elevated prolactin (typically <100-150 ng/mL) plus multiple hormone deficiencies indicates the stalk effect—compression of the pituitary stalk disinhibits prolactin slightly while impairing other axes—characteristic of a nonfunctioning macroadenoma causing hypopituitarism. A prolactinoma of this size would usually drive prolactin into the hundreds or thousands. Primary hypothyroidism would show a high TSH, but TSH is normal with low free T4 (central pattern). IGF-1 is normal, excluding acromegaly, and there is no hypercortisolism to suggest Cushing disease."
     },
     {
      "type": "question",
@@ -4196,7 +4196,7 @@
       "Prolactin deficiency"
      ],
      "answer": 1,
-     "explanation": "Secondary adrenal insufficiency (low-normal cortisol with low ACTH in this context) must be identified and treated with glucocorticoids first, especially before surgery and before starting levothyroxine, because unrecognized cortisol deficiency under stress can precipitate fatal adrenal crisis. Testosterone (option A) and growth hormone (option D) replacement are not urgent. Thyroid replacement (option C) is needed but must follow glucocorticoids to avoid precipitating crisis. Prolactin (option E) is not replaced. Glucocorticoid coverage is the safety priority."
+     "explanation": "Secondary adrenal insufficiency (low-normal cortisol with low ACTH in this context) must be identified and treated with glucocorticoids first, especially before surgery and before starting levothyroxine, because unrecognized cortisol deficiency under stress can precipitate fatal adrenal crisis. Testosterone and growth hormone replacement are not urgent. Thyroid replacement is needed but must follow glucocorticoids to avoid precipitating crisis. Prolactin is not replaced. Glucocorticoid coverage is the safety priority."
     },
     {
      "type": "question",
@@ -4210,7 +4210,7 @@
       "Primary radiation therapy"
      ],
      "answer": 1,
-     "explanation": "For a nonfunctioning pituitary macroadenoma causing optic chiasm compression and visual field loss, transsphenoidal surgical resection is the definitive treatment to decompress the chiasm and preserve vision. Unlike prolactinomas, nonfunctioning adenomas do not reliably shrink with dopamine agonists, so cabergoline (option A) is not primary therapy. Observation (option C) is inappropriate with active visual loss. Octreotide (option D) is used for some hormone-secreting tumors, not standard here. Radiation (option E) is adjuvant for residual or recurrent tumor, not first-line for acute compression."
+     "explanation": "For a nonfunctioning pituitary macroadenoma causing optic chiasm compression and visual field loss, transsphenoidal surgical resection is the definitive treatment to decompress the chiasm and preserve vision. Unlike prolactinomas, nonfunctioning adenomas do not reliably shrink with dopamine agonists, so cabergoline is not primary therapy. Observation is inappropriate with active visual loss. Octreotide is used for some hormone-secreting tumors, not standard here. Radiation is adjuvant for residual or recurrent tumor, not first-line for acute compression."
     }
    ],
    "diagnosis": "Nonfunctioning pituitary macroadenoma with mass effect and hypopituitarism",
@@ -4250,7 +4250,7 @@
       "Growth hormone stimulation testing"
      ],
      "answer": 0,
-     "explanation": "Small firm testes with gynecomastia and incomplete virilization suggest primary hypogonadism; the appropriate first labs are a morning testosterone with LH and FSH (to localize the defect) plus estradiol (relevant to gynecomastia). In primary testicular failure, low testosterone drives compensatory elevation of LH and FSH. TSH/free T4 (option B) and prolactin (option D) are reasonable in a gynecomastia workup but do not address the core hypogonadism pattern. Urine cortisol (option C) evaluates Cushing, not suggested here. GH stimulation testing (option E) is for growth hormone disorders, not this presentation."
+     "explanation": "Small firm testes with gynecomastia and incomplete virilization suggest primary hypogonadism; the appropriate first labs are a morning testosterone with LH and FSH (to localize the defect) plus estradiol (relevant to gynecomastia). In primary testicular failure, low testosterone drives compensatory elevation of LH and FSH. TSH/free T4 and prolactin are reasonable in a gynecomastia workup but do not address the core hypogonadism pattern. Urine cortisol evaluates Cushing, not suggested here. GH stimulation testing is for growth hormone disorders, not this presentation."
     },
     {
      "type": "result",
@@ -4269,7 +4269,7 @@
       "Normal physiologic puberty"
      ],
      "answer": 1,
-     "explanation": "Low testosterone with elevated gonadotropins (LH and FSH) defines primary hypogonadism—the testes are failing and the pituitary is appropriately driving them harder. Secondary hypogonadism (option A) would show low or inappropriately normal LH/FSH. Constitutional delay (option C) typically presents with short stature and low-normal gonadotropins, not tall stature with high FSH/LH. Androgen insensitivity (option D) features a female phenotype or undervirilization with high testosterone. The hormone pattern with small firm testes is clearly abnormal, excluding normal puberty (option E)."
+     "explanation": "Low testosterone with elevated gonadotropins (LH and FSH) defines primary hypogonadism—the testes are failing and the pituitary is appropriately driving them harder. Secondary hypogonadism would show low or inappropriately normal LH/FSH. Constitutional delay typically presents with short stature and low-normal gonadotropins, not tall stature with high FSH/LH. Androgen insensitivity features a female phenotype or undervirilization with high testosterone. The hormone pattern with small firm testes is clearly abnormal, excluding normal puberty."
     },
     {
      "type": "question",
@@ -4283,7 +4283,7 @@
       "Bone age radiograph"
      ],
      "answer": 0,
-     "explanation": "This constellation is classic for Klinefelter syndrome, and a karyotype is the confirmatory test, typically revealing 47,XXY. Testicular ultrasound (option B) may be used to evaluate masses but does not establish the genetic diagnosis. Pituitary MRI (option C) is for central causes, but his gonadotropins are high, indicating a primary testicular problem. Semen analysis (option D) will show azoospermia or severe oligospermia but is not the diagnostic confirmation. Bone age (option E) helps assess growth potential but does not diagnose Klinefelter."
+     "explanation": "This constellation is classic for Klinefelter syndrome, and a karyotype is the confirmatory test, typically revealing 47,XXY. Testicular ultrasound may be used to evaluate masses but does not establish the genetic diagnosis. Pituitary MRI is for central causes, but his gonadotropins are high, indicating a primary testicular problem. Semen analysis will show azoospermia or severe oligospermia but is not the diagnostic confirmation. Bone age helps assess growth potential but does not diagnose Klinefelter."
     },
     {
      "type": "question",
@@ -4297,7 +4297,7 @@
       "Estrogen therapy"
      ],
      "answer": 1,
-     "explanation": "Klinefelter syndrome causes primary testicular failure, so testosterone replacement therapy is the mainstay to promote virilization, bone health, energy, and libido, with monitoring of levels, hematocrit, and bone density. Gonadotropin therapy (option A) works only when the testes can respond, which they cannot in primary failure. No treatment (option C) leaves him hypogonadal with adverse skeletal and metabolic consequences. An aromatase inhibitor alone (option D) does not replace deficient testosterone. Estrogen (option E) would worsen feminization and gynecomastia. Fertility counseling and consideration of sperm retrieval are also important."
+     "explanation": "Klinefelter syndrome causes primary testicular failure, so testosterone replacement therapy is the mainstay to promote virilization, bone health, energy, and libido, with monitoring of levels, hematocrit, and bone density. Gonadotropin therapy works only when the testes can respond, which they cannot in primary failure. No treatment leaves him hypogonadal with adverse skeletal and metabolic consequences. An aromatase inhibitor alone does not replace deficient testosterone. Estrogen would worsen feminization and gynecomastia. Fertility counseling and consideration of sperm retrieval are also important."
     }
    ],
    "diagnosis": "Primary hypogonadism due to Klinefelter syndrome (47,XXY)",
@@ -4337,7 +4337,7 @@
       "24-hour urine catecholamines"
      ],
      "answer": 0,
-     "explanation": "Delayed puberty with sexual infantilism requires measuring a morning testosterone alongside LH and FSH to determine whether the defect is testicular (primary, high gonadotropins) or central (secondary, low/inappropriately normal gonadotropins). TSH/free T4 (option B) screens for thyroid contributors but is not the core test. Random cortisol (option C) and IGF-1 (option D) assess other axes that are not the focus here. Urine catecholamines (option E) evaluate pheochromocytoma, which is unrelated. The testosterone-with-gonadotropins panel localizes the lesion."
+     "explanation": "Delayed puberty with sexual infantilism requires measuring a morning testosterone alongside LH and FSH to determine whether the defect is testicular (primary, high gonadotropins) or central (secondary, low/inappropriately normal gonadotropins). TSH/free T4 screens for thyroid contributors but is not the core test. Random cortisol and IGF-1 assess other axes that are not the focus here. Urine catecholamines evaluate pheochromocytoma, which is unrelated. The testosterone-with-gonadotropins panel localizes the lesion."
     },
     {
      "type": "result",
@@ -4356,7 +4356,7 @@
       "Hypergonadotropic hypogonadism; testicular torsion"
      ],
      "answer": 1,
-     "explanation": "Low testosterone with low (inappropriately normal) LH and FSH defines hypogonadotropic (secondary/central) hypogonadism, and the combination with congenital anosmia is classic for Kallmann syndrome—failed migration of GnRH neurons and olfactory neurons from the olfactory placode. Klinefelter (option A) and other primary causes (option D) would show HIGH gonadotropins. Constitutional delay (option C) is a diagnosis of exclusion and does not cause lifelong anosmia. Testicular torsion (option E) is unrelated and would not produce this hormone pattern. The anosmia is the key clue distinguishing Kallmann."
+     "explanation": "Low testosterone with low (inappropriately normal) LH and FSH defines hypogonadotropic (secondary/central) hypogonadism, and the combination with congenital anosmia is classic for Kallmann syndrome—failed migration of GnRH neurons and olfactory neurons from the olfactory placode. Klinefelter and other primary causes would show HIGH gonadotropins. Constitutional delay is a diagnosis of exclusion and does not cause lifelong anosmia. Testicular torsion is unrelated and would not produce this hormone pattern. The anosmia is the key clue distinguishing Kallmann."
     },
     {
      "type": "question",
@@ -4370,7 +4370,7 @@
       "Hypercalcemia"
      ],
      "answer": 1,
-     "explanation": "Brain MRI showing absent or hypoplastic olfactory bulbs and sulci supports Kallmann syndrome, correlating with the anosmia and the developmental failure of GnRH/olfactory neuron migration. Associated anomalies such as unilateral renal agenesis (recall his small kidney) and midline defects also occur. Elevated prolactin (option A) would suggest a different cause. A high FSH (option C) would indicate primary, not central, hypogonadism. An enlarged sella (option D) suggests a mass. Hypercalcemia (option E) is unrelated. The olfactory bulb finding is the anatomic correlate of Kallmann."
+     "explanation": "Brain MRI showing absent or hypoplastic olfactory bulbs and sulci supports Kallmann syndrome, correlating with the anosmia and the developmental failure of GnRH/olfactory neuron migration. Associated anomalies such as unilateral renal agenesis (recall his small kidney) and midline defects also occur. Elevated prolactin would suggest a different cause. A high FSH would indicate primary, not central, hypogonadism. An enlarged sella suggests a mass. Hypercalcemia is unrelated. The olfactory bulb finding is the anatomic correlate of Kallmann."
     },
     {
      "type": "question",
@@ -4384,7 +4384,7 @@
       "Estrogen therapy to induce puberty"
      ],
      "answer": 0,
-     "explanation": "In Kallmann syndrome, testosterone replacement induces and maintains virilization, while fertility can later be achieved with gonadotropin therapy (hCG with FSH) or pulsatile GnRH, since the testes and pituitary can respond to appropriate stimulation. Testosterone-only with no fertility option (option B) is inaccurate—fertility is often attainable. Observation (option C) is wrong because this is a permanent congenital deficiency, not constitutional delay. An aromatase inhibitor (option D) does not provide androgen. Estrogen (option E) would feminize him. The two-pronged approach addresses both virilization and future fertility."
+     "explanation": "In Kallmann syndrome, testosterone replacement induces and maintains virilization, while fertility can later be achieved with gonadotropin therapy (hCG with FSH) or pulsatile GnRH, since the testes and pituitary can respond to appropriate stimulation. Testosterone-only with no fertility option is inaccurate—fertility is often attainable. Observation is wrong because this is a permanent congenital deficiency, not constitutional delay. An aromatase inhibitor does not provide androgen. Estrogen would feminize him. The two-pronged approach addresses both virilization and future fertility."
     },
     {
      "type": "question",
@@ -4398,7 +4398,7 @@
       "Pituitary macroadenoma"
      ],
      "answer": 0,
-     "explanation": "Kallmann syndrome is associated with midline and renal anomalies, and his childhood history of a small kidney should prompt evaluation for unilateral renal agenesis, a recognized association. Polycystic ovaries (option B) are irrelevant in a male and unrelated. Congenital adrenal hyperplasia (option C) causes a different hormonal picture with virilization or salt-wasting. Thyroid nodules (option D) and pituitary macroadenoma (option E) are not characteristic associations. Other Kallmann features can include synkinesia (mirror movements), cleft lip/palate, and dental agenesis."
+     "explanation": "Kallmann syndrome is associated with midline and renal anomalies, and his childhood history of a small kidney should prompt evaluation for unilateral renal agenesis, a recognized association. Polycystic ovaries are irrelevant in a male and unrelated. Congenital adrenal hyperplasia causes a different hormonal picture with virilization or salt-wasting. Thyroid nodules and pituitary macroadenoma are not characteristic associations. Other Kallmann features can include synkinesia (mirror movements), cleft lip/palate, and dental agenesis."
     }
    ],
    "diagnosis": "Male hypogonadotropic hypogonadism due to Kallmann syndrome",
@@ -4438,7 +4438,7 @@
       "Serum lithium level"
      ],
      "answer": 0,
-     "explanation": "Oligomenorrhea with hirsutism and acne suggests androgen excess, most commonly PCOS, but other causes must be excluded; the appropriate workup includes total and free testosterone (to assess androgen excess and screen for very high levels suggesting a tumor), TSH and prolactin (to exclude thyroid disease and hyperprolactinemia), and 17-hydroxyprogesterone (to screen for nonclassic congenital adrenal hyperplasia). Brain MRI (option B) is not first-line without focal pituitary signs. Pelvic CT (option C) is not the initial step. Growth hormone (option D) and lithium level (option E) are irrelevant to this presentation."
+     "explanation": "Oligomenorrhea with hirsutism and acne suggests androgen excess, most commonly PCOS, but other causes must be excluded; the appropriate workup includes total and free testosterone (to assess androgen excess and screen for very high levels suggesting a tumor), TSH and prolactin (to exclude thyroid disease and hyperprolactinemia), and 17-hydroxyprogesterone (to screen for nonclassic congenital adrenal hyperplasia). Brain MRI is not first-line without focal pituitary signs. Pelvic CT is not the initial step. Growth hormone and lithium level are irrelevant to this presentation."
     },
     {
      "type": "result",
@@ -4457,7 +4457,7 @@
       "Idiopathic hirsutism"
      ],
      "answer": 1,
-     "explanation": "She meets Rotterdam criteria for PCOS (at least two of: oligo/anovulation, clinical or biochemical hyperandrogenism, and polycystic ovaries) with all three present and other causes excluded. Nonclassic CAH (option A) is excluded by a normal 17-hydroxyprogesterone. An androgen-secreting tumor (option C) typically causes rapid virilization with markedly high testosterone (often >150-200 ng/dL) or high DHEAS, not the mild elevation seen here. Cushing syndrome (option D) lacks supporting features (no striae, weakness, or moon facies). Idiopathic hirsutism (option E) has regular menses and normal androgens, unlike this patient."
+     "explanation": "She meets Rotterdam criteria for PCOS (at least two of: oligo/anovulation, clinical or biochemical hyperandrogenism, and polycystic ovaries) with all three present and other causes excluded. Nonclassic CAH is excluded by a normal 17-hydroxyprogesterone. An androgen-secreting tumor typically causes rapid virilization with markedly high testosterone (often >150-200 ng/dL) or high DHEAS, not the mild elevation seen here. Cushing syndrome lacks supporting features (no striae, weakness, or moon facies). Idiopathic hirsutism has regular menses and normal androgens, unlike this patient."
     },
     {
      "type": "question",
@@ -4471,7 +4471,7 @@
       "Gonadotropin injections"
      ],
      "answer": 0,
-     "explanation": "For a woman with PCOS not seeking pregnancy, combined oral contraceptives are first-line: they regulate menses, protect the endometrium from unopposed estrogen, and reduce androgens to improve acne and hirsutism. Clomiphene (option B) and gonadotropins (option E) are ovulation-induction agents for those trying to conceive, not appropriate here. Metformin (option C) helps insulin resistance and menstrual regularity but is not primary therapy for hirsutism. Spironolactone (option D) is an effective antiandrogen but is teratogenic and must be paired with reliable contraception, so it is added to, not used alone instead of, an OCP."
+     "explanation": "For a woman with PCOS not seeking pregnancy, combined oral contraceptives are first-line: they regulate menses, protect the endometrium from unopposed estrogen, and reduce androgens to improve acne and hirsutism. Clomiphene and gonadotropins are ovulation-induction agents for those trying to conceive, not appropriate here. Metformin helps insulin resistance and menstrual regularity but is not primary therapy for hirsutism. Spironolactone is an effective antiandrogen but is teratogenic and must be paired with reliable contraception, so it is added to, not used alone instead of, an OCP."
     },
     {
      "type": "question",
@@ -4485,7 +4485,7 @@
       "Osteoporosis from estrogen deficiency"
      ],
      "answer": 0,
-     "explanation": "PCOS is strongly associated with insulin resistance, and her impaired fasting glucose (104 mg/dL), central weight gain, acanthosis nigricans, and dyslipidemia place her at high risk for type 2 diabetes and metabolic syndrome; she should be screened (e.g., oral glucose tolerance test or HbA1c) and counseled on lifestyle modification, with metformin considered. Adrenal insufficiency (option B) and diabetes insipidus (option D) are unrelated. Hyperthyroidism (option C) is not suggested. PCOS involves estrogen excess/unopposed estrogen rather than deficiency, so estrogen-deficiency osteoporosis (option E) is not the concern; endometrial hyperplasia risk is."
+     "explanation": "PCOS is strongly associated with insulin resistance, and her impaired fasting glucose (104 mg/dL), central weight gain, acanthosis nigricans, and dyslipidemia place her at high risk for type 2 diabetes and metabolic syndrome; she should be screened (e.g., oral glucose tolerance test or HbA1c) and counseled on lifestyle modification, with metformin considered. Adrenal insufficiency and diabetes insipidus are unrelated. Hyperthyroidism is not suggested. PCOS involves estrogen excess/unopposed estrogen rather than deficiency, so estrogen-deficiency osteoporosis is not the concern; endometrial hyperplasia risk is."
     }
    ],
    "diagnosis": "Polycystic ovary syndrome",
@@ -5488,7 +5488,7 @@
       "Improvement with loperamide therapy"
      ],
      "answer": 1,
-     "explanation": "Persistence of large-volume watery diarrhea despite fasting is the hallmark of secretory diarrhea, which points toward a hormone-mediated process such as a neuroendocrine tumor. Osmotic diarrhea (option A) characteristically resolves with fasting because the unabsorbed osmotic load is removed. Fecal leukocytes and blood (option C) indicate an inflammatory or invasive infectious process, not the bland secretory picture described here. Response to loperamide (option D) is absent in this case and would not distinguish mechanism; secretory diarrheas from neuroendocrine tumors are notoriously refractory to antimotility agents. The combination of persistence with fasting, hypokalemia, and flushing should prompt evaluation for a secretory hormone-producing tumor."
+     "explanation": "Persistence of large-volume watery diarrhea despite fasting is the hallmark of secretory diarrhea, which points toward a hormone-mediated process such as a neuroendocrine tumor. Osmotic diarrhea characteristically resolves with fasting because the unabsorbed osmotic load is removed. Fecal leukocytes and blood indicate an inflammatory or invasive infectious process, not the bland secretory picture described here. Response to loperamide is absent in this case and would not distinguish mechanism; secretory diarrheas from neuroendocrine tumors are notoriously refractory to antimotility agents. The combination of persistence with fasting, hypokalemia, and flushing should prompt evaluation for a secretory hormone-producing tumor."
     },
     {
      "type": "result",
@@ -5506,7 +5506,7 @@
       "Fecal elastase"
      ],
      "answer": 0,
-     "explanation": "The clinical triad of high-volume secretory diarrhea, hypokalemia, and achlorhydria (the WDHA / Verner-Morrison syndrome) is caused by a VIP-secreting pancreatic neuroendocrine tumor, so an elevated fasting serum VIP level (typically >75 pg/mL with massive diarrhea) is confirmatory. Urinary 5-HIAA (option B) screens for carcinoid syndrome, which causes flushing and diarrhea but not this degree of hypokalemia or the non-anion-gap acidosis. Serum gastrin (option C) evaluates for Zollinger-Ellison syndrome, which classically causes acid hypersecretion and peptic ulcers rather than achlorhydria. Fecal elastase (option D) assesses pancreatic exocrine insufficiency, producing steatorrhea, not secretory watery diarrhea. The achlorhydria and hypercalcemia further support a VIPoma."
+     "explanation": "The clinical triad of high-volume secretory diarrhea, hypokalemia, and achlorhydria (the WDHA / Verner-Morrison syndrome) is caused by a VIP-secreting pancreatic neuroendocrine tumor, so an elevated fasting serum VIP level (typically >75 pg/mL with massive diarrhea) is confirmatory. Urinary 5-HIAA screens for carcinoid syndrome, which causes flushing and diarrhea but not this degree of hypokalemia or the non-anion-gap acidosis. Serum gastrin evaluates for Zollinger-Ellison syndrome, which classically causes acid hypersecretion and peptic ulcers rather than achlorhydria. Fecal elastase assesses pancreatic exocrine insufficiency, producing steatorrhea, not secretory watery diarrhea. The achlorhydria and hypercalcemia further support a VIPoma."
     },
     {
      "type": "question",
@@ -5519,7 +5519,7 @@
       "Repeat stool cultures and giardia antigen"
      ],
      "answer": 1,
-     "explanation": "Once a VIPoma is biochemically confirmed, the next step is anatomic localization with multiphase (arterial and venous) contrast-enhanced CT of the abdomen focused on the pancreas, where most VIPomas arise (usually in the tail) and where metastases are often already present. Somatostatin receptor imaging (DOTATATE PET) and EUS complement CT but CT is the standard first localization study. Colonoscopy (option A) would not reveal a pancreatic tumor and the secretory pattern is not colonic. Exploratory laparotomy (option C) is premature without imaging localization and risk stratification. Repeating infectious stool studies (option D) is futile given confirmed biochemical diagnosis and already-negative cultures."
+     "explanation": "Once a VIPoma is biochemically confirmed, the next step is anatomic localization with multiphase (arterial and venous) contrast-enhanced CT of the abdomen focused on the pancreas, where most VIPomas arise (usually in the tail) and where metastases are often already present. Somatostatin receptor imaging (DOTATATE PET) and EUS complement CT but CT is the standard first localization study. Colonoscopy would not reveal a pancreatic tumor and the secretory pattern is not colonic. Exploratory laparotomy is premature without imaging localization and risk stratification. Repeating infectious stool studies is futile given confirmed biochemical diagnosis and already-negative cultures."
     },
     {
      "type": "result",
@@ -5537,7 +5537,7 @@
       "Cholestyramine"
      ],
      "answer": 2,
-     "explanation": "A somatostatin analog such as octreotide or lanreotide suppresses VIP secretion and dramatically reduces stool volume, allowing correction of dehydration, hypokalemia, and acidosis; this is the cornerstone of symptom control while definitive surgery or systemic therapy is arranged, alongside vigorous IV fluid and potassium replacement. A proton pump inhibitor (option A) addresses acid hypersecretion in gastrinoma, the opposite of the achlorhydria seen here, and does not reduce VIP-driven secretion. Oral vancomycin (option B) treats C. difficile, which was negative. Cholestyramine (option D) binds bile acids for bile-acid diarrhea and is ineffective against hormone-mediated secretory diarrhea. Definitive management includes surgical resection or debulking and possibly peptide receptor radionuclide therapy."
+     "explanation": "A somatostatin analog such as octreotide or lanreotide suppresses VIP secretion and dramatically reduces stool volume, allowing correction of dehydration, hypokalemia, and acidosis; this is the cornerstone of symptom control while definitive surgery or systemic therapy is arranged, alongside vigorous IV fluid and potassium replacement. A proton pump inhibitor addresses acid hypersecretion in gastrinoma, the opposite of the achlorhydria seen here, and does not reduce VIP-driven secretion. Oral vancomycin treats C. difficile, which was negative. Cholestyramine binds bile acids for bile-acid diarrhea and is ineffective against hormone-mediated secretory diarrhea. Definitive management includes surgical resection or debulking and possibly peptide receptor radionuclide therapy."
     },
     {
      "type": "question",
@@ -5550,7 +5550,7 @@
       "Familial medullary thyroid carcinoma"
      ],
      "answer": 2,
-     "explanation": "A pancreatic neuroendocrine tumor such as a VIPoma can arise within MEN1, so it is reasonable to assess for associated primary hyperparathyroidism and pituitary disease and to take a careful family history; identifying MEN1 changes screening and counseling for the patient and relatives. MEN2B (option A) features medullary thyroid carcinoma, pheochromocytoma, mucosal neuromas, and a marfanoid habitus, not gastroenteropancreatic VIPomas. Von Hippel-Lindau (option B) can include pancreatic neuroendocrine tumors but the classic functional pancreatic tumor (VIPoma) clusters with MEN1, making MEN1 the more directly relevant syndrome to evaluate; VHL is not the single best answer. Familial medullary thyroid carcinoma (option D) involves only the thyroid C cells and is unrelated to pancreatic VIPomas."
+     "explanation": "A pancreatic neuroendocrine tumor such as a VIPoma can arise within MEN1, so it is reasonable to assess for associated primary hyperparathyroidism and pituitary disease and to take a careful family history; identifying MEN1 changes screening and counseling for the patient and relatives. MEN2B features medullary thyroid carcinoma, pheochromocytoma, mucosal neuromas, and a marfanoid habitus, not gastroenteropancreatic VIPomas. Von Hippel-Lindau can include pancreatic neuroendocrine tumors but the classic functional pancreatic tumor (VIPoma) clusters with MEN1, making MEN1 the more directly relevant syndrome to evaluate; VHL is not the single best answer. Familial medullary thyroid carcinoma involves only the thyroid C cells and is unrelated to pancreatic VIPomas."
     }
    ],
    "diagnosis": "VIPoma (pancreatic neuroendocrine tumor causing Verner-Morrison / WDHA syndrome) with hepatic metastases",
@@ -5589,7 +5589,7 @@
       "Pellagra from isolated dietary niacin deficiency"
      ],
      "answer": 1,
-     "explanation": "The migratory, crusting, centrally clearing rash (necrolytic migratory erythema) combined with glossitis, weight loss, and new-onset diabetes is the classic constellation of glucagonoma, a glucagon-secreting pancreatic islet-cell (neuroendocrine) tumor. Cutaneous T-cell lymphoma (option A) causes patches and plaques but not this metabolic triad of diabetes and amino-acid-depletion dermatitis. Chronic mucocutaneous candidiasis (option C) was effectively excluded by failure of antifungals and does not explain diabetes or marked weight loss. Pellagra (option D) shares features with the rash because of similar nutrient depletion, but isolated dietary niacin deficiency would not produce hyperglucagonemia, new diabetes, and a pancreatic mass; the broader syndrome points to glucagonoma."
+     "explanation": "The migratory, crusting, centrally clearing rash (necrolytic migratory erythema) combined with glossitis, weight loss, and new-onset diabetes is the classic constellation of glucagonoma, a glucagon-secreting pancreatic islet-cell (neuroendocrine) tumor. Cutaneous T-cell lymphoma causes patches and plaques but not this metabolic triad of diabetes and amino-acid-depletion dermatitis. Chronic mucocutaneous candidiasis was effectively excluded by failure of antifungals and does not explain diabetes or marked weight loss. Pellagra shares features with the rash because of similar nutrient depletion, but isolated dietary niacin deficiency would not produce hyperglucagonemia, new diabetes, and a pancreatic mass; the broader syndrome points to glucagonoma."
     },
     {
      "type": "result",
@@ -5607,7 +5607,7 @@
       "Anti-tissue transglutaminase antibodies"
      ],
      "answer": 0,
-     "explanation": "A markedly elevated fasting serum glucagon level (often >500-1000 pg/mL) confirms glucagonoma in this clinical setting; levels are typically far above the threshold that could be explained by stress or fasting alone. VIP (option B) is the marker for VIPoma, which causes secretory diarrhea and hypokalemia, not necrolytic migratory erythema with diabetes. Urinary metanephrines (option C) screen for pheochromocytoma, which presents with episodic hypertension and adrenergic spells, not this dermatologic-metabolic syndrome. Anti-tissue transglutaminase (option D) evaluates celiac disease, which can cause weight loss and dermatitis herpetiformis but not new diabetes with hyperglucagonemia and a pancreatic mass. Hypoaminoacidemia and low zinc support the glucagonoma-related catabolic and dermatitic picture."
+     "explanation": "A markedly elevated fasting serum glucagon level (often >500-1000 pg/mL) confirms glucagonoma in this clinical setting; levels are typically far above the threshold that could be explained by stress or fasting alone. VIP is the marker for VIPoma, which causes secretory diarrhea and hypokalemia, not necrolytic migratory erythema with diabetes. Urinary metanephrines screen for pheochromocytoma, which presents with episodic hypertension and adrenergic spells, not this dermatologic-metabolic syndrome. Anti-tissue transglutaminase evaluates celiac disease, which can cause weight loss and dermatitis herpetiformis but not new diabetes with hyperglucagonemia and a pancreatic mass. Hypoaminoacidemia and low zinc support the glucagonoma-related catabolic and dermatitic picture."
     },
     {
      "type": "question",
@@ -5620,7 +5620,7 @@
       "Initiate a niacin and zinc supplementation trial and reassess in 3 months"
      ],
      "answer": 2,
-     "explanation": "With biochemical confirmation, the priority is anatomic localization and staging using multiphase contrast-enhanced CT of the pancreas; glucagonomas are usually large pancreatic tail tumors and are frequently metastatic to the liver at diagnosis. Starting metformin and obtaining only a skin biopsy (option A) ignores the need to localize a malignant tumor, although a biopsy would confirm necrolytic migratory erythema. Antifungal therapy (option B) has already failed and addresses the wrong diagnosis. Nutrient supplementation alone (option D) may transiently improve the rash by correcting amino-acid and zinc depletion but does not treat the tumor and delays definitive staging. Imaging guides resection, debulking, somatostatin analog therapy, and venous thromboembolism prophylaxis planning."
+     "explanation": "With biochemical confirmation, the priority is anatomic localization and staging using multiphase contrast-enhanced CT of the pancreas; glucagonomas are usually large pancreatic tail tumors and are frequently metastatic to the liver at diagnosis. Starting metformin and obtaining only a skin biopsy ignores the need to localize a malignant tumor, although a biopsy would confirm necrolytic migratory erythema. Antifungal therapy has already failed and addresses the wrong diagnosis. Nutrient supplementation alone may transiently improve the rash by correcting amino-acid and zinc depletion but does not treat the tumor and delays definitive staging. Imaging guides resection, debulking, somatostatin analog therapy, and venous thromboembolism prophylaxis planning."
     },
     {
      "type": "result",
@@ -5638,7 +5638,7 @@
       "Strict ketogenic diet"
      ],
      "answer": 1,
-     "explanation": "Glucagonoma carries a strikingly high risk of venous thromboembolism, including deep vein thrombosis and pulmonary embolism, which is a leading cause of death; thromboprophylaxis and prompt evaluation of any thrombotic symptoms are essential, particularly perioperatively. A somatostatin analog also controls glucagon secretion and helps the rash and catabolic state. Systemic corticosteroids (option A) do not treat the tumor and can worsen the already-present hyperglycemia. High-dose PPI (option C) is the treatment for gastrinoma-related acid hypersecretion, not glucagonoma. A ketogenic diet (option D) is inappropriate in a catabolic, malnourished patient with hypoaminoacidemia and would not address the tumor or thrombosis risk. Definitive care includes resection/debulking and amino-acid and zinc repletion."
+     "explanation": "Glucagonoma carries a strikingly high risk of venous thromboembolism, including deep vein thrombosis and pulmonary embolism, which is a leading cause of death; thromboprophylaxis and prompt evaluation of any thrombotic symptoms are essential, particularly perioperatively. A somatostatin analog also controls glucagon secretion and helps the rash and catabolic state. Systemic corticosteroids do not treat the tumor and can worsen the already-present hyperglycemia. High-dose PPI is the treatment for gastrinoma-related acid hypersecretion, not glucagonoma. A ketogenic diet is inappropriate in a catabolic, malnourished patient with hypoaminoacidemia and would not address the tumor or thrombosis risk. Definitive care includes resection/debulking and amino-acid and zinc repletion."
     },
     {
      "type": "question",
@@ -5651,7 +5651,7 @@
       "Withhold any diabetes treatment until after surgery regardless of glucose levels"
      ],
      "answer": 1,
-     "explanation": "The diabetes of glucagonoma is driven by glucagon excess, so glycemia should be managed with standard glucose-lowering therapy (often insulin if hyperglycemia is significant) while the underlying cause is treated; controlling glucagon with tumor resection/debulking and somatostatin analogs typically improves or resolves the hyperglycemia. Stopping monitoring (option A) is unsafe because symptomatic hyperglycemia persists until the tumor burden and hormone excess are reduced. Relying on a sulfonylurea alone (option C) is often inadequate and inappropriately rigid; insulin may be needed, and somatostatin analogs themselves can affect glycemia. Withholding all treatment until after surgery (option D) risks hyperglycemic complications in the interim. Glucose should be followed during and after definitive therapy."
+     "explanation": "The diabetes of glucagonoma is driven by glucagon excess, so glycemia should be managed with standard glucose-lowering therapy (often insulin if hyperglycemia is significant) while the underlying cause is treated; controlling glucagon with tumor resection/debulking and somatostatin analogs typically improves or resolves the hyperglycemia. Stopping monitoring is unsafe because symptomatic hyperglycemia persists until the tumor burden and hormone excess are reduced. Relying on a sulfonylurea alone is often inadequate and inappropriately rigid; insulin may be needed, and somatostatin analogs themselves can affect glycemia. Withholding all treatment until after surgery risks hyperglycemic complications in the interim. Glucose should be followed during and after definitive therapy."
     }
    ],
    "diagnosis": "Glucagonoma (glucagon-secreting pancreatic neuroendocrine tumor) with necrolytic migratory erythema and hepatic metastases",
@@ -5690,7 +5690,7 @@
       "Familial hypocalciuric hypercalcemia"
      ],
      "answer": 1,
-     "explanation": "The clustering of primary hyperparathyroidism (stones, hypercalcemia), a pituitary adenoma (headaches, bitemporal hemianopsia, low libido), and a gastrin-secreting pancreatic/duodenal tumor (refractory ulcers) in a young patient with an autosomal-dominant family history is classic MEN1 (the '3 P's': Parathyroid, Pituitary, Pancreas). Sporadic primary hyperparathyroidism (option A) would not explain the pituitary and pancreatic findings or the family pattern. MEN2A (option C) features medullary thyroid carcinoma and pheochromocytoma, not pituitary or gastroenteropancreatic tumors. Familial hypocalciuric hypercalcemia (option D) causes benign asymptomatic hypercalcemia with low urinary calcium and rarely stones, and does not produce pituitary or pancreatic tumors."
+     "explanation": "The clustering of primary hyperparathyroidism (stones, hypercalcemia), a pituitary adenoma (headaches, bitemporal hemianopsia, low libido), and a gastrin-secreting pancreatic/duodenal tumor (refractory ulcers) in a young patient with an autosomal-dominant family history is classic MEN1 (the '3 P's': Parathyroid, Pituitary, Pancreas). Sporadic primary hyperparathyroidism would not explain the pituitary and pancreatic findings or the family pattern. MEN2A features medullary thyroid carcinoma and pheochromocytoma, not pituitary or gastroenteropancreatic tumors. Familial hypocalciuric hypercalcemia causes benign asymptomatic hypercalcemia with low urinary calcium and rarely stones, and does not produce pituitary or pancreatic tumors."
     },
     {
      "type": "result",
@@ -5708,7 +5708,7 @@
       "Plasma free metanephrines"
      ],
      "answer": 1,
-     "explanation": "Germline testing for a mutation in the MEN1 (menin) tumor-suppressor gene confirms the syndrome and enables cascade screening of at-risk relatives, including this patient's children. RET testing (option A) is used for MEN2A/2B, which involve medullary thyroid carcinoma and pheochromocytoma rather than the pituitary-pancreas-parathyroid triad. The calcium-to-creatinine clearance ratio (option C) helps distinguish familial hypocalciuric hypercalcemia from primary hyperparathyroidism but does not identify MEN1; here urinary calcium is high, arguing against FHH. Plasma free metanephrines (option D) screen for pheochromocytoma, a feature of MEN2, and are not part of confirming MEN1. Identifying the menin mutation also guides lifelong biochemical and imaging surveillance."
+     "explanation": "Germline testing for a mutation in the MEN1 (menin) tumor-suppressor gene confirms the syndrome and enables cascade screening of at-risk relatives, including this patient's children. RET testing is used for MEN2A/2B, which involve medullary thyroid carcinoma and pheochromocytoma rather than the pituitary-pancreas-parathyroid triad. The calcium-to-creatinine clearance ratio helps distinguish familial hypocalciuric hypercalcemia from primary hyperparathyroidism but does not identify MEN1; here urinary calcium is high, arguing against FHH. Plasma free metanephrines screen for pheochromocytoma, a feature of MEN2, and are not part of confirming MEN1. Identifying the menin mutation also guides lifelong biochemical and imaging surveillance."
     },
     {
      "type": "question",
@@ -5721,7 +5721,7 @@
       "Begin triple-antibiotic therapy for presumed persistent H. pylori"
      ],
      "answer": 1,
-     "explanation": "An elevated gastrin can be confounded by PPI use, so confirmation typically uses a secretin stimulation test showing a paradoxical rise in gastrin, while acid suppression is maintained to protect against ulcer complications; localization then proceeds with CT/MRI, endoscopic ultrasound, and Ga-68 DOTATATE PET. Stopping the PPI (option A) is dangerous because it removes protection against acid hypersecretion and ulcer bleeding/perforation. Total pancreatectomy (option C) is premature and excessive before localization, and MEN1 gastrinomas are often multifocal and duodenal. Re-treating H. pylori (option D) ignores the biochemical evidence of a gastrinoma and prior successful eradication. MEN1-associated gastrinomas are frequently small, multiple, and located in the duodenum."
+     "explanation": "An elevated gastrin can be confounded by PPI use, so confirmation typically uses a secretin stimulation test showing a paradoxical rise in gastrin, while acid suppression is maintained to protect against ulcer complications; localization then proceeds with CT/MRI, endoscopic ultrasound, and Ga-68 DOTATATE PET. Stopping the PPI is dangerous because it removes protection against acid hypersecretion and ulcer bleeding/perforation. Total pancreatectomy is premature and excessive before localization, and MEN1 gastrinomas are often multifocal and duodenal. Re-treating H. pylori ignores the biochemical evidence of a gastrinoma and prior successful eradication. MEN1-associated gastrinomas are frequently small, multiple, and located in the duodenum."
     },
     {
      "type": "result",
@@ -5739,7 +5739,7 @@
       "Observation of all lesions with annual labs only"
      ],
      "answer": 1,
-     "explanation": "In MEN1, symptomatic primary hyperparathyroidism is usually addressed first with subtotal (3.5-gland) or total parathyroidectomy (often with autotransplantation), because correcting hypercalcemia also reduces gastrin levels and ulcer burden and relieves stone-forming hypercalciuria; the gastrinoma is managed in parallel with high-dose PPI and localization-guided surgery. Immediate transsphenoidal surgery (option A) is not first-line for a mildly prolactin-elevated microadenoma, which often responds to a dopamine agonist; surgery is reserved for failure or threatening mass effect. Urgent Whipple (option C) is overly aggressive and premature given multifocal MEN1 disease. Observation alone (option D) is inappropriate for symptomatic hypercalcemia, nephrolithiasis, and an active gastrinoma."
+     "explanation": "In MEN1, symptomatic primary hyperparathyroidism is usually addressed first with subtotal (3.5-gland) or total parathyroidectomy (often with autotransplantation), because correcting hypercalcemia also reduces gastrin levels and ulcer burden and relieves stone-forming hypercalciuria; the gastrinoma is managed in parallel with high-dose PPI and localization-guided surgery. Immediate transsphenoidal surgery is not first-line for a mildly prolactin-elevated microadenoma, which often responds to a dopamine agonist; surgery is reserved for failure or threatening mass effect. Urgent Whipple is overly aggressive and premature given multifocal MEN1 disease. Observation alone is inappropriate for symptomatic hypercalcemia, nephrolithiasis, and an active gastrinoma."
     },
     {
      "type": "question",
@@ -5752,7 +5752,7 @@
       "No treatment and no follow-up imaging"
      ],
      "answer": 0,
-     "explanation": "A prolactin-secreting pituitary adenoma (prolactinoma), even within MEN1, is first treated medically with a dopamine agonist such as cabergoline, which lowers prolactin, restores gonadal function, and frequently shrinks the tumor; serial prolactin levels and MRI monitor response. Immediate transsphenoidal resection (option B) is reserved for dopamine-agonist failure or intolerance, or for threatening mass effect/visual loss, neither of which is present with a microadenoma and only minimal chiasm contact. Radiotherapy (option C) is a later option for refractory or aggressive tumors, not first-line. No treatment or follow-up (option D) is inappropriate because he is symptomatic (low libido, fatigue) and MEN1 lesions require ongoing surveillance for growth. Definitive lifelong MEN1 monitoring continues for all target organs."
+     "explanation": "A prolactin-secreting pituitary adenoma (prolactinoma), even within MEN1, is first treated medically with a dopamine agonist such as cabergoline, which lowers prolactin, restores gonadal function, and frequently shrinks the tumor; serial prolactin levels and MRI monitor response. Immediate transsphenoidal resection is reserved for dopamine-agonist failure or intolerance, or for threatening mass effect/visual loss, neither of which is present with a microadenoma and only minimal chiasm contact. Radiotherapy is a later option for refractory or aggressive tumors, not first-line. No treatment or follow-up is inappropriate because he is symptomatic (low libido, fatigue) and MEN1 lesions require ongoing surveillance for growth. Definitive lifelong MEN1 monitoring continues for all target organs."
     }
    ],
    "diagnosis": "Multiple endocrine neoplasia type 1 (MEN1) with primary hyperparathyroidism, prolactin-secreting pituitary adenoma, and gastrinoma",
@@ -5791,7 +5791,7 @@
       "Papillary thyroid carcinoma with anxiety disorder"
      ],
      "answer": 1,
-     "explanation": "The combination of a thyroid nodule (likely medullary thyroid carcinoma) and the classic pheochromocytoma triad of episodic headache, palpitations, and sweating with hypertension, in a young patient whose father had thyroid cancer and adrenalectomy, is highly suggestive of MEN2A. MEN2A links medullary thyroid carcinoma, pheochromocytoma, and primary hyperparathyroidism. Graves disease (option A) causes diffuse hyperthyroidism with a bruit, proptosis, and lid lag, not a solitary firm nodule with adrenergic spells and a familial cancer pattern. MEN1 (option C) involves parathyroid, pituitary, and pancreatic tumors, not medullary thyroid carcinoma or pheochromocytoma. Isolated papillary carcinoma with anxiety (option D) would not explain the catecholamine-excess spells, hypertension, and family history of adrenalectomy."
+     "explanation": "The combination of a thyroid nodule (likely medullary thyroid carcinoma) and the classic pheochromocytoma triad of episodic headache, palpitations, and sweating with hypertension, in a young patient whose father had thyroid cancer and adrenalectomy, is highly suggestive of MEN2A. MEN2A links medullary thyroid carcinoma, pheochromocytoma, and primary hyperparathyroidism. Graves disease causes diffuse hyperthyroidism with a bruit, proptosis, and lid lag, not a solitary firm nodule with adrenergic spells and a familial cancer pattern. MEN1 involves parathyroid, pituitary, and pancreatic tumors, not medullary thyroid carcinoma or pheochromocytoma. Isolated papillary carcinoma with anxiety would not explain the catecholamine-excess spells, hypertension, and family history of adrenalectomy."
     },
     {
      "type": "result",
@@ -5809,7 +5809,7 @@
       "TSH receptor antibody testing"
      ],
      "answer": 1,
-     "explanation": "Germline RET proto-oncogene mutation testing confirms MEN2A, stratifies medullary thyroid carcinoma aggressiveness by codon, and enables cascade testing and risk-based prophylactic thyroidectomy timing in relatives and future children. MEN1 testing (option A) is for the parathyroid-pituitary-pancreas syndrome, which does not include medullary thyroid carcinoma or pheochromocytoma. BRAF V600E (option C) is associated with papillary thyroid carcinoma, not the medullary (parafollicular C-cell, calcitonin-producing) carcinoma indicated by the elevated calcitonin and CEA. TSH receptor antibodies (option D) diagnose Graves disease, which is not the issue here. RET status also informs whether hyperparathyroidism surveillance is needed."
+     "explanation": "Germline RET proto-oncogene mutation testing confirms MEN2A, stratifies medullary thyroid carcinoma aggressiveness by codon, and enables cascade testing and risk-based prophylactic thyroidectomy timing in relatives and future children. MEN1 testing is for the parathyroid-pituitary-pancreas syndrome, which does not include medullary thyroid carcinoma or pheochromocytoma. BRAF V600E is associated with papillary thyroid carcinoma, not the medullary (parafollicular C-cell, calcitonin-producing) carcinoma indicated by the elevated calcitonin and CEA. TSH receptor antibodies diagnose Graves disease, which is not the issue here. RET status also informs whether hyperparathyroidism surveillance is needed."
     },
     {
      "type": "question",
@@ -5822,7 +5822,7 @@
       "Begin chemotherapy for medullary thyroid carcinoma before any surgery"
      ],
      "answer": 1,
-     "explanation": "The pheochromocytoma must be addressed first, with adequate preoperative alpha-blockade (e.g., phenoxybenzamine or doxazosin) started before beta-blockade and volume repletion, to prevent a catecholamine crisis during any subsequent surgery or anesthesia; the medullary thyroid carcinoma is resected by total thyroidectomy afterward. Performing thyroidectomy first (option A) risks a lethal intraoperative hypertensive crisis from the untreated pheochromocytoma. Simultaneous surgery without blockade (option C) is extremely dangerous for the same reason. Chemotherapy first (option D) is inappropriate; medullary thyroid carcinoma is primarily surgical, and systemic therapy (e.g., RET inhibitors) is reserved for advanced unresectable disease. Beta-blockade before alpha-blockade can precipitate hypertensive crisis from unopposed alpha stimulation."
+     "explanation": "The pheochromocytoma must be addressed first, with adequate preoperative alpha-blockade (e.g., phenoxybenzamine or doxazosin) started before beta-blockade and volume repletion, to prevent a catecholamine crisis during any subsequent surgery or anesthesia; the medullary thyroid carcinoma is resected by total thyroidectomy afterward. Performing thyroidectomy first risks a lethal intraoperative hypertensive crisis from the untreated pheochromocytoma. Simultaneous surgery without blockade is extremely dangerous for the same reason. Chemotherapy first is inappropriate; medullary thyroid carcinoma is primarily surgical, and systemic therapy (e.g., RET inhibitors) is reserved for advanced unresectable disease. Beta-blockade before alpha-blockade can precipitate hypertensive crisis from unopposed alpha stimulation."
     },
     {
      "type": "question",
@@ -5835,7 +5835,7 @@
       "Liberal salt intake and volume expansion (high-sodium diet and/or IV fluids) before surgery"
      ],
      "answer": 3,
-     "explanation": "Catecholamine excess in pheochromocytoma causes chronic vasoconstriction and a contracted intravascular volume; once the tumor is removed and catecholamine levels fall, profound hypotension can occur. Volume expansion with a high-sodium diet and adequate fluids during alpha-blockade repletes the intravascular space and blunts this drop, which is why it is essential preoperatively. Fluid and salt restriction (option A) would worsen the volume contraction and the risk of post-resection hypotension. An ACE inhibitor (option B) is not the primary agent; nonselective alpha-blockade (e.g., phenoxybenzamine) is standard first. Starting a beta-blocker before alpha-blockade (option C) is dangerous because unopposed alpha stimulation can precipitate a hypertensive crisis. Adequate alpha-blockade plus volume loading is the cornerstone of safe preparation."
+     "explanation": "Catecholamine excess in pheochromocytoma causes chronic vasoconstriction and a contracted intravascular volume; once the tumor is removed and catecholamine levels fall, profound hypotension can occur. Volume expansion with a high-sodium diet and adequate fluids during alpha-blockade repletes the intravascular space and blunts this drop, which is why it is essential preoperatively. Fluid and salt restriction would worsen the volume contraction and the risk of post-resection hypotension. An ACE inhibitor is not the primary agent; nonselective alpha-blockade (e.g., phenoxybenzamine) is standard first. Starting a beta-blocker before alpha-blockade is dangerous because unopposed alpha stimulation can precipitate a hypertensive crisis. Adequate alpha-blockade plus volume loading is the cornerstone of safe preparation."
     },
     {
      "type": "result",
@@ -5853,7 +5853,7 @@
       "Repeat RET testing every year"
      ],
      "answer": 1,
-     "explanation": "MEN2A requires lifelong surveillance: serial calcitonin and CEA to detect medullary thyroid carcinoma recurrence, periodic plasma or urinary metanephrines for new or contralateral pheochromocytoma, and intermittent calcium/PTH for primary hyperparathyroidism, plus genetic counseling and cascade RET testing of first-degree relatives (with risk-stratified prophylactic thyroidectomy for affected children). Stopping screening (option A) ignores the lifelong, multi-organ, recurrent nature of the syndrome. TSH alone (option C) does not track medullary carcinoma, pheochromocytoma, or hyperparathyroidism. Repeating germline RET testing annually (option D) is unnecessary because germline status does not change; one definitive test suffices for the patient, while relatives need one-time cascade testing."
+     "explanation": "MEN2A requires lifelong surveillance: serial calcitonin and CEA to detect medullary thyroid carcinoma recurrence, periodic plasma or urinary metanephrines for new or contralateral pheochromocytoma, and intermittent calcium/PTH for primary hyperparathyroidism, plus genetic counseling and cascade RET testing of first-degree relatives (with risk-stratified prophylactic thyroidectomy for affected children). Stopping screening ignores the lifelong, multi-organ, recurrent nature of the syndrome. TSH alone does not track medullary carcinoma, pheochromocytoma, or hyperparathyroidism. Repeating germline RET testing annually is unnecessary because germline status does not change; one definitive test suffices for the patient, while relatives need one-time cascade testing."
     }
    ],
    "diagnosis": "Multiple endocrine neoplasia type 2A (MEN2A): medullary thyroid carcinoma with pheochromocytoma (RET mutation)",
@@ -5892,7 +5892,7 @@
       "Menopausal vasomotor symptoms"
      ],
      "answer": 0,
-     "explanation": "The tetrad of episodic flushing (classically dry, triggered by alcohol/stress), secretory diarrhea, bronchospasm/wheezing, and right-sided valvular heart disease points to carcinoid syndrome, which occurs when a serotonin-secreting neuroendocrine tumor (usually midgut) metastasizes to the liver and bypasses hepatic clearance. A firm enlarged liver supports hepatic metastases. Systemic mastocytosis (option B) causes flushing and can mimic carcinoid but typically involves urticaria pigmentosa, pruritus, and tryptase elevation, not 5-HIAA elevation and tricuspid disease. Pheochromocytoma (option C) causes flushing with sweating, severe hypertension, and headache, not chronic secretory diarrhea and right-heart valvulopathy. Menopausal flushing (option D) is sweaty and does not cause diarrhea, wheezing, or carcinoid heart disease."
+     "explanation": "The tetrad of episodic flushing (classically dry, triggered by alcohol/stress), secretory diarrhea, bronchospasm/wheezing, and right-sided valvular heart disease points to carcinoid syndrome, which occurs when a serotonin-secreting neuroendocrine tumor (usually midgut) metastasizes to the liver and bypasses hepatic clearance. A firm enlarged liver supports hepatic metastases. Systemic mastocytosis causes flushing and can mimic carcinoid but typically involves urticaria pigmentosa, pruritus, and tryptase elevation, not 5-HIAA elevation and tricuspid disease. Pheochromocytoma causes flushing with sweating, severe hypertension, and headache, not chronic secretory diarrhea and right-heart valvulopathy. Menopausal flushing is sweaty and does not cause diarrhea, wheezing, or carcinoid heart disease."
     },
     {
      "type": "result",
@@ -5910,7 +5910,7 @@
       "Bone marrow biopsy"
      ],
      "answer": 1,
-     "explanation": "After biochemical confirmation with elevated urinary 5-HIAA (and chromogranin A), the next step is anatomic and functional localization using cross-sectional imaging (CT or MRI of the abdomen/pelvis) combined with Ga-68 DOTATATE PET, which is highly sensitive for somatostatin-receptor-expressing neuroendocrine tumors and identifies the primary (often ileal/midgut) and hepatic metastases. An antihistamine trial (option A) is appropriate for mastocytosis, not carcinoid, and delays diagnosis. Colonoscopy alone (option C) would miss small-bowel and hepatic disease and is insufficient for staging. Bone marrow biopsy (option D) is used for hematologic disease such as mastocytosis or lymphoma, not for localizing a midgut carcinoid. DOTATATE imaging also guides eligibility for peptide receptor radionuclide therapy."
+     "explanation": "After biochemical confirmation with elevated urinary 5-HIAA (and chromogranin A), the next step is anatomic and functional localization using cross-sectional imaging (CT or MRI of the abdomen/pelvis) combined with Ga-68 DOTATATE PET, which is highly sensitive for somatostatin-receptor-expressing neuroendocrine tumors and identifies the primary (often ileal/midgut) and hepatic metastases. An antihistamine trial is appropriate for mastocytosis, not carcinoid, and delays diagnosis. Colonoscopy alone would miss small-bowel and hepatic disease and is insufficient for staging. Bone marrow biopsy is used for hematologic disease such as mastocytosis or lymphoma, not for localizing a midgut carcinoid. DOTATATE imaging also guides eligibility for peptide receptor radionuclide therapy."
     },
     {
      "type": "question",
@@ -5923,7 +5923,7 @@
       "High-dose loperamide alone"
      ],
      "answer": 1,
-     "explanation": "Long-acting somatostatin analogs (octreotide LAR or lanreotide) are first-line: they suppress hormone secretion to control flushing and diarrhea AND provide antiproliferative benefit that slows progression of well-differentiated metastatic neuroendocrine tumors. Antihistamines and dietary changes (option A) do not control serotonin-mediated symptoms or tumor growth. Glucocorticoids (option C) are not a primary therapy for carcinoid symptom control and carry metabolic harms. Loperamide alone (option D) may modestly help diarrhea but does not control flushing, treat the tumor, or address the underlying hormone excess. Additional measures include niacin supplementation for pellagra risk, and short-acting octreotide perioperatively to prevent carcinoid crisis."
+     "explanation": "Long-acting somatostatin analogs (octreotide LAR or lanreotide) are first-line: they suppress hormone secretion to control flushing and diarrhea AND provide antiproliferative benefit that slows progression of well-differentiated metastatic neuroendocrine tumors. Antihistamines and dietary changes do not control serotonin-mediated symptoms or tumor growth. Glucocorticoids are not a primary therapy for carcinoid symptom control and carry metabolic harms. Loperamide alone may modestly help diarrhea but does not control flushing, treat the tumor, or address the underlying hormone excess. Additional measures include niacin supplementation for pellagra risk, and short-acting octreotide perioperatively to prevent carcinoid crisis."
     },
     {
      "type": "result",
@@ -5941,7 +5941,7 @@
       "Pretreat with epinephrine to maintain blood pressure"
      ],
      "answer": 1,
-     "explanation": "Carcinoid crisis (profound flushing, bronchospasm, and labile, often refractory hypotension or hypertension) can be precipitated by anesthesia, tumor manipulation, or stress; intravenous octreotide given before and continued during the procedure is the key prophylaxis and treatment. Beta-blockade alone (option A) does not prevent the mediator surge and can worsen bronchospasm. Withholding all antihypertensives (option C) does not address the catecholamine-independent, serotonin/kallikrein-mediated crisis. Epinephrine (option D) can paradoxically worsen a carcinoid crisis by stimulating further mediator release and is contraindicated as first-line; octreotide and supportive measures are preferred. Avoid catecholamine pressors and treat hypotension with fluids and octreotide."
+     "explanation": "Carcinoid crisis (profound flushing, bronchospasm, and labile, often refractory hypotension or hypertension) can be precipitated by anesthesia, tumor manipulation, or stress; intravenous octreotide given before and continued during the procedure is the key prophylaxis and treatment. Beta-blockade alone does not prevent the mediator surge and can worsen bronchospasm. Withholding all antihypertensives does not address the catecholamine-independent, serotonin/kallikrein-mediated crisis. Epinephrine can paradoxically worsen a carcinoid crisis by stimulating further mediator release and is contraindicated as first-line; octreotide and supportive measures are preferred. Avoid catecholamine pressors and treat hypotension with fluids and octreotide."
     },
     {
      "type": "question",
@@ -5954,7 +5954,7 @@
       "Niacin (vitamin B3) to prevent pellagra"
      ],
      "answer": 3,
-     "explanation": "In carcinoid syndrome, tumor cells shunt large amounts of tryptophan into serotonin synthesis, leaving less tryptophan available for niacin (vitamin B3) production; this can cause pellagra (dermatitis, diarrhea, dementia). Supplementing niacin prevents this deficiency state and is a recognized part of management. Vitamin B12 (option A) deficiency relates to ileal resection or pernicious anemia, not tryptophan diversion, although extensive ileal disease/resection can separately warrant B12 monitoring. Vitamin C (option B) deficiency (scurvy) is unrelated to serotonin metabolism. Vitamin D (option C) is not depleted by tryptophan shunting. The tryptophan-to-niacin link makes niacin supplementation the correct preventive measure here, alongside somatostatin-analog therapy."
+     "explanation": "In carcinoid syndrome, tumor cells shunt large amounts of tryptophan into serotonin synthesis, leaving less tryptophan available for niacin (vitamin B3) production; this can cause pellagra (dermatitis, diarrhea, dementia). Supplementing niacin prevents this deficiency state and is a recognized part of management. Vitamin B12 deficiency relates to ileal resection or pernicious anemia, not tryptophan diversion, although extensive ileal disease/resection can separately warrant B12 monitoring. Vitamin C deficiency (scurvy) is unrelated to serotonin metabolism. Vitamin D is not depleted by tryptophan shunting. The tryptophan-to-niacin link makes niacin supplementation the correct preventive measure here, alongside somatostatin-analog therapy."
     }
    ],
    "diagnosis": "Carcinoid syndrome from a metastatic midgut (ileal) neuroendocrine tumor with carcinoid heart disease",
@@ -5993,7 +5993,7 @@
       "A stress fracture from overuse"
      ],
      "answer": 1,
-     "explanation": "A fracture occurring from a fall from standing height or less is a fragility (low-trauma) fracture. In a postmenopausal woman, a hip or vertebral fragility fracture is itself diagnostic of osteoporosis clinically, independent of the DEXA T-score, and warrants treatment and a workup for secondary causes. A high-energy mechanism (option A) is absent here; a fall from standing is low-energy. A pathologic fracture (option C) implies an underlying focal lesion such as malignancy; biopsy is not indicated by this presentation alone without suspicious imaging. A stress fracture (option D) results from repetitive loading in active individuals, not a single low-energy fall. This event places her at high risk for future fractures."
+     "explanation": "A fracture occurring from a fall from standing height or less is a fragility (low-trauma) fracture. In a postmenopausal woman, a hip or vertebral fragility fracture is itself diagnostic of osteoporosis clinically, independent of the DEXA T-score, and warrants treatment and a workup for secondary causes. A high-energy mechanism is absent here; a fall from standing is low-energy. A pathologic fracture implies an underlying focal lesion such as malignancy; biopsy is not indicated by this presentation alone without suspicious imaging. A stress fracture results from repetitive loading in active individuals, not a single low-energy fall. This event places her at high risk for future fractures."
     },
     {
      "type": "result",
@@ -6011,7 +6011,7 @@
       "Osteomalacia, indicated by the T-score"
      ],
      "answer": 2,
-     "explanation": "A T-score of -2.5 or lower at the femoral neck or spine defines osteoporosis by densitometry; her femoral neck T-score of -2.9 meets this threshold, and a fragility hip fracture independently confirms the diagnosis. A normal density (option A) is incorrect given the T-scores. Osteopenia (option B) is defined as a T-score between -1.0 and -2.5; her values are below that range, and the fragility fracture alone already establishes osteoporosis. Osteomalacia (option D) is a qualitative defect in bone mineralization diagnosed by low vitamin D with high alkaline phosphatase and characteristic findings, not by T-score; her alkaline phosphatase and calcium are normal. Her vitamin D is insufficient and should be repleted alongside therapy."
+     "explanation": "A T-score of -2.5 or lower at the femoral neck or spine defines osteoporosis by densitometry; her femoral neck T-score of -2.9 meets this threshold, and a fragility hip fracture independently confirms the diagnosis. A normal density is incorrect given the T-scores. Osteopenia is defined as a T-score between -1.0 and -2.5; her values are below that range, and the fragility fracture alone already establishes osteoporosis. Osteomalacia is a qualitative defect in bone mineralization diagnosed by low vitamin D with high alkaline phosphatase and characteristic findings, not by T-score; her alkaline phosphatase and calcium are normal. Her vitamin D is insufficient and should be repleted alongside therapy."
     },
     {
      "type": "question",
@@ -6024,7 +6024,7 @@
       "Calcitonin nasal spray as first-line"
      ],
      "answer": 0,
-     "explanation": "First-line therapy for postmenopausal osteoporosis, especially after a hip fracture, is an antiresorptive bisphosphonate such as alendronate (or IV zoledronic acid if oral is not tolerated), combined with adequate calcium intake and vitamin D repletion to optimize response. Calcium and vitamin D alone (option B) are necessary adjuncts but insufficient to reduce fracture risk in established osteoporosis. Estrogen (option C) reduces fracture risk but is not first-line in a 68-year-old because of cardiovascular and thromboembolic risks and is reserved mainly for younger postmenopausal women with vasomotor symptoms. Calcitonin (option D) is weak and not first-line. Anabolic agents (e.g., teriparatide, romososumab) are options for very high-risk patients."
+     "explanation": "First-line therapy for postmenopausal osteoporosis, especially after a hip fracture, is an antiresorptive bisphosphonate such as alendronate (or IV zoledronic acid if oral is not tolerated), combined with adequate calcium intake and vitamin D repletion to optimize response. Calcium and vitamin D alone are necessary adjuncts but insufficient to reduce fracture risk in established osteoporosis. Estrogen reduces fracture risk but is not first-line in a 68-year-old because of cardiovascular and thromboembolic risks and is reserved mainly for younger postmenopausal women with vasomotor symptoms. Calcitonin is weak and not first-line. Anabolic agents (e.g., teriparatide, romososumab) are options for very high-risk patients."
     },
     {
      "type": "question",
@@ -6037,7 +6037,7 @@
       "Empiric long-term oral glucocorticoids"
      ],
      "answer": 1,
-     "explanation": "Lifestyle and fall-prevention measures are essential: smoking cessation and limiting alcohol improve bone health, weight-bearing and resistance exercise maintain bone and muscle, and home-safety modifications (removing trip hazards, good lighting, assistive devices, vision and medication review) reduce falls, the proximate cause of most fractures. Bed rest (option A) accelerates bone loss and deconditioning and increases fall and thrombosis risk. A routine annual whole-body bone scan (option C) is not standard monitoring; DEXA is repeated at intervals to assess therapy. Long-term glucocorticoids (option D) cause bone loss and would worsen osteoporosis, the opposite of the goal. She should also have DEXA monitoring on therapy and ensure adherence."
+     "explanation": "Lifestyle and fall-prevention measures are essential: smoking cessation and limiting alcohol improve bone health, weight-bearing and resistance exercise maintain bone and muscle, and home-safety modifications (removing trip hazards, good lighting, assistive devices, vision and medication review) reduce falls, the proximate cause of most fractures. Bed rest accelerates bone loss and deconditioning and increases fall and thrombosis risk. A routine annual whole-body bone scan is not standard monitoring; DEXA is repeated at intervals to assess therapy. Long-term glucocorticoids cause bone loss and would worsen osteoporosis, the opposite of the goal. She should also have DEXA monitoring on therapy and ensure adherence."
     }
    ],
    "diagnosis": "Postmenopausal osteoporosis (confirmed by fragility hip fracture and femoral neck T-score of -2.9)",
@@ -6076,7 +6076,7 @@
       "Primary muscular dystrophy"
      ],
      "answer": 1,
-     "explanation": "Diffuse bone pain with diffuse bony tenderness plus symmetric proximal myopathy in someone with malabsorption (gastric bypass), limited sun exposure, and poor intake strongly suggests osteomalacia from vitamin D deficiency, in which inadequate mineralization of osteoid produces painful, weak bones and a proximal myopathy. Polymyalgia rheumatica (option A) causes proximal shoulder/hip girdle pain and stiffness with elevated inflammatory markers, typically in patients over 50, but not bony tenderness or the metabolic picture here. Metastatic bone disease (option C) usually causes focal pain and lytic/blastic lesions, not symmetric proximal weakness with diffuse tenderness in this risk context. Muscular dystrophy (option D) is a primary muscle disorder and would not cause bone pain, bony tenderness, or the relevant metabolic abnormalities."
+     "explanation": "Diffuse bone pain with diffuse bony tenderness plus symmetric proximal myopathy in someone with malabsorption (gastric bypass), limited sun exposure, and poor intake strongly suggests osteomalacia from vitamin D deficiency, in which inadequate mineralization of osteoid produces painful, weak bones and a proximal myopathy. Polymyalgia rheumatica causes proximal shoulder/hip girdle pain and stiffness with elevated inflammatory markers, typically in patients over 50, but not bony tenderness or the metabolic picture here. Metastatic bone disease usually causes focal pain and lytic/blastic lesions, not symmetric proximal weakness with diffuse tenderness in this risk context. Muscular dystrophy is a primary muscle disorder and would not cause bone pain, bony tenderness, or the relevant metabolic abnormalities."
     },
     {
      "type": "result",
@@ -6094,7 +6094,7 @@
       "High phosphate with low alkaline phosphatase"
      ],
      "answer": 1,
-     "explanation": "Classic vitamin D-deficiency osteomalacia shows low or low-normal calcium and low phosphate, a low 25-OH vitamin D, a high alkaline phosphatase reflecting increased osteoblastic activity, and secondary hyperparathyroidism (elevated PTH) driven by hypocalcemia; Looser zones (pseudofractures) are the radiographic hallmark. Option 0 (high calcium, low PTH, low ALP) describes hypercalcemia of non-PTH origin, the opposite pattern. Option 2 (normal calcium and vitamin D with isolated high ALP) is more typical of Paget disease of bone, which has normal calcium and vitamin D. Option 3 (high phosphate, low ALP) does not fit osteomalacia, where ALP is elevated and phosphate is typically low. The constellation here confirms osteomalacia with secondary hyperparathyroidism."
+     "explanation": "Classic vitamin D-deficiency osteomalacia shows low or low-normal calcium and low phosphate, a low 25-OH vitamin D, a high alkaline phosphatase reflecting increased osteoblastic activity, and secondary hyperparathyroidism (elevated PTH) driven by hypocalcemia; Looser zones (pseudofractures) are the radiographic hallmark. That option (high calcium, low PTH, low ALP) describes hypercalcemia of non-PTH origin, the opposite pattern. Another option (normal calcium and vitamin D with isolated high ALP) is more typical of Paget disease of bone, which has normal calcium and vitamin D. A third option (high phosphate, low ALP) does not fit osteomalacia, where ALP is elevated and phosphate is typically low. The constellation here confirms osteomalacia with secondary hyperparathyroidism."
     },
     {
      "type": "question",
@@ -6107,7 +6107,7 @@
       "Calcitonin nasal spray"
      ],
      "answer": 2,
-     "explanation": "The cornerstone is vitamin D repletion, often with high-dose ergocalciferol or cholecalciferol, together with calcium supplementation, followed by maintenance dosing and correction of the underlying cause (here, malabsorption from gastric bypass and low intake/sun exposure); bone pain, weakness, and biochemistry improve as mineralization is restored. A bisphosphonate alone (option A) is inappropriate and even harmful before correcting vitamin D and calcium, because antiresorptives in untreated deficiency can precipitate hypocalcemia. Glucocorticoids (option B) impair calcium absorption and bone formation and would worsen the disease. Calcitonin (option D) does not treat the mineralization defect. Monitor calcium, phosphate, PTH, alkaline phosphatase, and 25-OH vitamin D to confirm response and avoid hypercalcemia."
+     "explanation": "The cornerstone is vitamin D repletion, often with high-dose ergocalciferol or cholecalciferol, together with calcium supplementation, followed by maintenance dosing and correction of the underlying cause (here, malabsorption from gastric bypass and low intake/sun exposure); bone pain, weakness, and biochemistry improve as mineralization is restored. A bisphosphonate alone is inappropriate and even harmful before correcting vitamin D and calcium, because antiresorptives in untreated deficiency can precipitate hypocalcemia. Glucocorticoids impair calcium absorption and bone formation and would worsen the disease. Calcitonin does not treat the mineralization defect. Monitor calcium, phosphate, PTH, alkaline phosphatase, and 25-OH vitamin D to confirm response and avoid hypercalcemia."
     },
     {
      "type": "question",
@@ -6120,7 +6120,7 @@
       "Calcium never changes during repletion"
      ],
      "answer": 0,
-     "explanation": "Magnesium is required for normal PTH secretion and action, so untreated hypomagnesemia can blunt the parathyroid response and perpetuate hypocalcemia and refractory symptoms; correcting magnesium is therefore important. As mineralization resumes during repletion, rapid uptake of calcium and phosphate into remineralizing bone ('hungry bone'-type effect) can transiently lower serum calcium and phosphate, so calcium must be monitored and supplemented. Option 1 is false: magnesium is integral to calcium homeostasis. Option 2 is incorrect; magnesium repletion supports, not causes, mineralization. Option 3 is wrong because calcium frequently shifts during treatment and requires monitoring. Careful biochemical follow-up prevents symptomatic hypocalcemia and ensures adequate repletion."
+     "explanation": "Magnesium is required for normal PTH secretion and action, so untreated hypomagnesemia can blunt the parathyroid response and perpetuate hypocalcemia and refractory symptoms; correcting magnesium is therefore important. As mineralization resumes during repletion, rapid uptake of calcium and phosphate into remineralizing bone ('hungry bone'-type effect) can transiently lower serum calcium and phosphate, so calcium must be monitored and supplemented. That option is false: magnesium is integral to calcium homeostasis. Another option is incorrect; magnesium repletion supports, not causes, mineralization. A third option is wrong because calcium frequently shifts during treatment and requires monitoring. Careful biochemical follow-up prevents symptomatic hypocalcemia and ensures adequate repletion."
     }
    ],
    "diagnosis": "Osteomalacia due to vitamin D deficiency (with secondary hyperparathyroidism), in the setting of malabsorption",
@@ -6159,7 +6159,7 @@
       "Multiple myeloma"
      ],
      "answer": 1,
-     "explanation": "Paget disease of bone classically presents in older adults with an isolated elevated alkaline phosphatase, localized bone pain, bony deformities (skull enlargement/frontal bossing, increasing hat size, bowing of long bones such as the tibia), warmth over affected bone from hypervascularity, and hearing loss when the skull base is involved. Osteoporosis (option A) is typically asymptomatic until fracture and does not raise alkaline phosphatase or enlarge bones. Osteomalacia (option C) causes diffuse, not focal, pain with low vitamin D and abnormal calcium/phosphate, not isolated ALP elevation with normal mineral studies. Multiple myeloma (option D) causes lytic lesions, anemia, hypercalcemia, and renal failure, with a monoclonal protein, and usually a normal or low alkaline phosphatase."
+     "explanation": "Paget disease of bone classically presents in older adults with an isolated elevated alkaline phosphatase, localized bone pain, bony deformities (skull enlargement/frontal bossing, increasing hat size, bowing of long bones such as the tibia), warmth over affected bone from hypervascularity, and hearing loss when the skull base is involved. Osteoporosis is typically asymptomatic until fracture and does not raise alkaline phosphatase or enlarge bones. Osteomalacia causes diffuse, not focal, pain with low vitamin D and abnormal calcium/phosphate, not isolated ALP elevation with normal mineral studies. Multiple myeloma causes lytic lesions, anemia, hypercalcemia, and renal failure, with a monoclonal protein, and usually a normal or low alkaline phosphatase."
     },
     {
      "type": "result",
@@ -6177,7 +6177,7 @@
       "Serum protein electrophoresis showing an M-spike"
      ],
      "answer": 1,
-     "explanation": "Diagnosis rests on characteristic radiographs (cortical thickening, coarse trabeculae, bowing, 'cotton-wool' skull) in the setting of an isolated elevated alkaline phosphatase with normal calcium, phosphate, and vitamin D; a radionuclide bone scan maps the number and activity of pagetic lesions to guide treatment and follow-up. A bone marrow biopsy with plasma cells (option A) and an M-spike (option D) point to multiple myeloma, which is not consistent with isolated ALP elevation and these radiographs. Low vitamin D with high PTH (option C) indicates osteomalacia/secondary hyperparathyroidism, not Paget disease, in which vitamin D and PTH are normal. The normal calcium and vitamin D distinguish Paget from osteomalacia."
+     "explanation": "Diagnosis rests on characteristic radiographs (cortical thickening, coarse trabeculae, bowing, 'cotton-wool' skull) in the setting of an isolated elevated alkaline phosphatase with normal calcium, phosphate, and vitamin D; a radionuclide bone scan maps the number and activity of pagetic lesions to guide treatment and follow-up. A bone marrow biopsy with plasma cells and an M-spike point to multiple myeloma, which is not consistent with isolated ALP elevation and these radiographs. Low vitamin D with high PTH indicates osteomalacia/secondary hyperparathyroidism, not Paget disease, in which vitamin D and PTH are normal. The normal calcium and vitamin D distinguish Paget from osteomalacia."
     },
     {
      "type": "question",
@@ -6190,7 +6190,7 @@
       "Subtotal parathyroidectomy"
      ],
      "answer": 0,
-     "explanation": "First-line treatment for symptomatic Paget disease (bone pain, deformity, neurologic involvement such as hearing loss, or planned surgery on pagetic bone) is a potent nitrogen-containing bisphosphonate, with a single IV infusion of zoledronic acid being highly effective at suppressing the accelerated bone turnover and normalizing alkaline phosphatase, often for years. High-dose vitamin D alone (option B) treats osteomalacia, not Paget disease, where vitamin D is already sufficient. Glucocorticoids (option C) have no role and harm bone. Parathyroidectomy (option D) treats primary hyperparathyroidism, which is not the diagnosis here (PTH and calcium are normal). Follow alkaline phosphatase to assess response, and ensure adequate calcium and vitamin D before bisphosphonate dosing."
+     "explanation": "First-line treatment for symptomatic Paget disease (bone pain, deformity, neurologic involvement such as hearing loss, or planned surgery on pagetic bone) is a potent nitrogen-containing bisphosphonate, with a single IV infusion of zoledronic acid being highly effective at suppressing the accelerated bone turnover and normalizing alkaline phosphatase, often for years. High-dose vitamin D alone treats osteomalacia, not Paget disease, where vitamin D is already sufficient. Glucocorticoids have no role and harm bone. Parathyroidectomy treats primary hyperparathyroidism, which is not the diagnosis here (PTH and calcium are normal). Follow alkaline phosphatase to assess response, and ensure adequate calcium and vitamin D before bisphosphonate dosing."
     },
     {
      "type": "question",
@@ -6203,7 +6203,7 @@
       "Spontaneous resolution without treatment"
      ],
      "answer": 1,
-     "explanation": "The most feared complication of Paget disease is malignant degeneration to osteosarcoma; though rare, it should be suspected when there is a sudden increase in pain, new swelling, a palpable soft-tissue mass, or a pathologic fracture in a previously stable pagetic bone, and it carries a poor prognosis. Conversion to osteoporosis (option A) is not how Paget disease behaves; the problem is disorganized overactive remodeling, not low bone mass. Hyperthyroidism (option C) is unrelated to Paget disease. Spontaneous resolution (option D) does not occur; the disease is chronic. Other complications include high-output cardiac failure from hypervascular bone, nerve compression and deafness, deformity, fractures, and secondary osteoarthritis."
+     "explanation": "The most feared complication of Paget disease is malignant degeneration to osteosarcoma; though rare, it should be suspected when there is a sudden increase in pain, new swelling, a palpable soft-tissue mass, or a pathologic fracture in a previously stable pagetic bone, and it carries a poor prognosis. Conversion to osteoporosis is not how Paget disease behaves; the problem is disorganized overactive remodeling, not low bone mass. Hyperthyroidism is unrelated to Paget disease. Spontaneous resolution does not occur; the disease is chronic. Other complications include high-output cardiac failure from hypervascular bone, nerve compression and deafness, deformity, fractures, and secondary osteoarthritis."
     }
    ],
    "diagnosis": "Paget disease of bone (polyostotic, with skull and tibial involvement)",
@@ -6242,7 +6242,7 @@
       "Physiologic bowing (developmental genu varum)"
      ],
      "answer": 1,
-     "explanation": "Rickets that does not respond to adequate vitamin D, with an inherited pattern consistent with X-linked dominant transmission (affected mother, both sexes affected), points to X-linked hypophosphatemia, the most common form of vitamin D-resistant rickets, caused by renal phosphate wasting (excess FGF23 reducing phosphate reabsorption and impairing calcitriol production). Nutritional rickets (option A) is excluded by adequate vitamin D intake and sun exposure. Osteogenesis imperfecta (option C) features recurrent fractures from minor trauma, blue sclerae, and possibly hearing loss, not phosphate-wasting rickets, and the child has no fracture history or blue sclerae. Physiologic bowing (option D) is symmetric and resolves by about age 2-3 and would not cause growth failure, dental abscesses, or metaphyseal flaring."
+     "explanation": "Rickets that does not respond to adequate vitamin D, with an inherited pattern consistent with X-linked dominant transmission (affected mother, both sexes affected), points to X-linked hypophosphatemia, the most common form of vitamin D-resistant rickets, caused by renal phosphate wasting (excess FGF23 reducing phosphate reabsorption and impairing calcitriol production). Nutritional rickets is excluded by adequate vitamin D intake and sun exposure. Osteogenesis imperfecta features recurrent fractures from minor trauma, blue sclerae, and possibly hearing loss, not phosphate-wasting rickets, and the child has no fracture history or blue sclerae. Physiologic bowing is symmetric and resolves by about age 2-3 and would not cause growth failure, dental abscesses, or metaphyseal flaring."
     },
     {
      "type": "result",
@@ -6260,7 +6260,7 @@
       "Normal phosphate, isolated high alkaline phosphatase with normal vitamin D"
      ],
      "answer": 0,
-     "explanation": "X-linked hypophosphatemia is defined by hypophosphatemia from renal phosphate wasting (low tubular reabsorption), with normal calcium and sufficient 25-OH vitamin D, elevated FGF23, and inappropriately low or normal 1,25-(OH)2 vitamin D (because FGF23 suppresses calcitriol synthesis), plus a high alkaline phosphatase. Option 1 (low calcium, very low 25-OH vitamin D, high PTH) describes nutritional vitamin D-deficiency rickets, which this child does not have. Option 2 (high calcium, low PTH, low ALP) is a hypercalcemic picture unrelated to rickets. Option 3 (isolated high ALP, normal phosphate) suggests Paget disease, not a phosphate-wasting rickets in a toddler. The elevated FGF23 with renal phosphate loss is the key distinguishing feature."
+     "explanation": "X-linked hypophosphatemia is defined by hypophosphatemia from renal phosphate wasting (low tubular reabsorption), with normal calcium and sufficient 25-OH vitamin D, elevated FGF23, and inappropriately low or normal 1,25-(OH)2 vitamin D (because FGF23 suppresses calcitriol synthesis), plus a high alkaline phosphatase. That option (low calcium, very low 25-OH vitamin D, high PTH) describes nutritional vitamin D-deficiency rickets, which this child does not have. Another option (high calcium, low PTH, low ALP) is a hypercalcemic picture unrelated to rickets. A third option (isolated high ALP, normal phosphate) suggests Paget disease, not a phosphate-wasting rickets in a toddler. The elevated FGF23 with renal phosphate loss is the key distinguishing feature."
     },
     {
      "type": "question",
@@ -6273,7 +6273,7 @@
       "A bisphosphonate"
      ],
      "answer": 1,
-     "explanation": "Treatment targets the phosphate-wasting defect: conventional therapy combines oral phosphate supplements with active vitamin D (calcitriol) to heal the rickets and support growth, and burosumab, an anti-FGF23 monoclonal antibody, is an effective targeted therapy that increases renal phosphate reabsorption. Plain high-dose vitamin D alone (option A) does not correct renal phosphate wasting and is the failed strategy in 'vitamin D-resistant' rickets. Calcium supplementation alone (option C) does not address the low phosphate that drives the defective mineralization. A bisphosphonate (option D) suppresses bone resorption and has no role in correcting phosphate wasting or healing rickets. Monitoring includes growth, alkaline phosphatase, calcium, phosphate, renal ultrasound for nephrocalcinosis, and PTH."
+     "explanation": "Treatment targets the phosphate-wasting defect: conventional therapy combines oral phosphate supplements with active vitamin D (calcitriol) to heal the rickets and support growth, and burosumab, an anti-FGF23 monoclonal antibody, is an effective targeted therapy that increases renal phosphate reabsorption. Plain high-dose vitamin D alone does not correct renal phosphate wasting and is the failed strategy in 'vitamin D-resistant' rickets. Calcium supplementation alone does not address the low phosphate that drives the defective mineralization. A bisphosphonate suppresses bone resorption and has no role in correcting phosphate wasting or healing rickets. Monitoring includes growth, alkaline phosphatase, calcium, phosphate, renal ultrasound for nephrocalcinosis, and PTH."
     },
     {
      "type": "question",
@@ -6286,7 +6286,7 @@
       "Hyperthyroidism"
      ],
      "answer": 1,
-     "explanation": "Conventional oral phosphate plus calcitriol must be monitored carefully because frequent phosphate dosing can stimulate PTH and lead to secondary or even tertiary hyperparathyroidism, while excess calcitriol and calcium/phosphate delivery can cause hypercalciuria and nephrocalcinosis with renal impairment; periodic measurement of PTH, urine calcium, and renal ultrasound is standard. Hypoglycemia (option A), iron-deficiency anemia (option C), and hyperthyroidism (option D) are not characteristic complications of this regimen. Burosumab simplifies monitoring by reducing the need for high-dose phosphate and calcitriol, lowering the risk of these specific complications. Careful dose titration and surveillance balance rickets healing against parathyroid and renal toxicity."
+     "explanation": "Conventional oral phosphate plus calcitriol must be monitored carefully because frequent phosphate dosing can stimulate PTH and lead to secondary or even tertiary hyperparathyroidism, while excess calcitriol and calcium/phosphate delivery can cause hypercalciuria and nephrocalcinosis with renal impairment; periodic measurement of PTH, urine calcium, and renal ultrasound is standard. Hypoglycemia, iron-deficiency anemia, and hyperthyroidism are not characteristic complications of this regimen. Burosumab simplifies monitoring by reducing the need for high-dose phosphate and calcitriol, lowering the risk of these specific complications. Careful dose titration and surveillance balance rickets healing against parathyroid and renal toxicity."
     },
     {
      "type": "question",
@@ -6299,7 +6299,7 @@
       "It is mitochondrial and inherited only from the father"
      ],
      "answer": 2,
-     "explanation": "X-linked hypophosphatemia follows X-linked dominant inheritance from a PHEX gene mutation. An affected father passes the mutated X chromosome to all of his daughters (all affected) and to none of his sons (sons receive his Y). An affected mother (heterozygous) transmits the mutation to approximately half of her children of either sex. This matches the family history of an affected mother and the pattern described. Autosomal recessive inheritance (option A) is incorrect and would not show the parent-to-child dominant pattern. The disease is genetic, not acquired (option B). It is not mitochondrial, and mitochondrial inheritance is maternal, not paternal (option D). Genetic counseling and consideration of testing for at-risk relatives are appropriate."
+     "explanation": "X-linked hypophosphatemia follows X-linked dominant inheritance from a PHEX gene mutation. An affected father passes the mutated X chromosome to all of his daughters (all affected) and to none of his sons (sons receive his Y). An affected mother (heterozygous) transmits the mutation to approximately half of her children of either sex. This matches the family history of an affected mother and the pattern described. Autosomal recessive inheritance is incorrect and would not show the parent-to-child dominant pattern. The disease is genetic, not acquired. It is not mitochondrial, and mitochondrial inheritance is maternal, not paternal. Genetic counseling and consideration of testing for at-risk relatives are appropriate."
     }
    ],
    "diagnosis": "X-linked hypophosphatemia (vitamin D-resistant rickets) due to FGF23-mediated renal phosphate wasting",
@@ -6338,7 +6338,7 @@
       "Hypoglycemia"
      ],
      "answer": 1,
-     "explanation": "Hypercalcemia explains this symptom cluster: 'stones, bones, abdominal groans, and psychiatric overtones,' including nausea, vomiting, constipation, polyuria progressing to volume depletion and acute kidney injury, and confusion; the massive calcium carbonate intake is the obvious source. Hyperkalemia (option A) typically causes weakness and cardiac conduction changes, not this picture, and is not driven by calcium antacids. Hyponatremia (option C) can cause confusion but would not be produced by calcium carbonate ingestion and does not explain constipation and the AKI pattern here. Hypoglycemia (option D) causes acute neuroglycopenic symptoms but not constipation, polyuria, or this subacute course, and there is no insulin/sulfonylurea use. Immediate measurement of calcium and renal function is essential."
+     "explanation": "Hypercalcemia explains this symptom cluster: 'stones, bones, abdominal groans, and psychiatric overtones,' including nausea, vomiting, constipation, polyuria progressing to volume depletion and acute kidney injury, and confusion; the massive calcium carbonate intake is the obvious source. Hyperkalemia typically causes weakness and cardiac conduction changes, not this picture, and is not driven by calcium antacids. Hyponatremia can cause confusion but would not be produced by calcium carbonate ingestion and does not explain constipation and the AKI pattern here. Hypoglycemia causes acute neuroglycopenic symptoms but not constipation, polyuria, or this subacute course, and there is no insulin/sulfonylurea use. Immediate measurement of calcium and renal function is essential."
     },
     {
      "type": "result",
@@ -6356,7 +6356,7 @@
       "Vitamin D intoxication"
      ],
      "answer": 1,
-     "explanation": "The triad of hypercalcemia, metabolic alkalosis, and acute kidney injury from ingestion of large amounts of calcium plus absorbable alkali (calcium carbonate) is milk-alkali syndrome; PTH is appropriately suppressed by the high calcium, and vitamin D and PTHrP are normal/undetectable. Primary hyperparathyroidism (option A) would show an inappropriately normal or elevated PTH, not a suppressed one. Humoral hypercalcemia of malignancy (option C) is driven by elevated PTHrP, which is undetectable here, and there is no cancer history. Vitamin D intoxication (option D) causes hypercalcemia with elevated 1,25-(OH)2 vitamin D and hyperphosphatemia, but vitamin D levels are normal and he takes no vitamin D supplements. The key clue is the absorbable alkali load producing alkalosis."
+     "explanation": "The triad of hypercalcemia, metabolic alkalosis, and acute kidney injury from ingestion of large amounts of calcium plus absorbable alkali (calcium carbonate) is milk-alkali syndrome; PTH is appropriately suppressed by the high calcium, and vitamin D and PTHrP are normal/undetectable. Primary hyperparathyroidism would show an inappropriately normal or elevated PTH, not a suppressed one. Humoral hypercalcemia of malignancy is driven by elevated PTHrP, which is undetectable here, and there is no cancer history. Vitamin D intoxication causes hypercalcemia with elevated 1,25-(OH)2 vitamin D and hyperphosphatemia, but vitamin D levels are normal and he takes no vitamin D supplements. The key clue is the absorbable alkali load producing alkalosis."
     },
     {
      "type": "question",
@@ -6369,7 +6369,7 @@
       "High-dose vitamin D to 'rebalance' calcium"
      ],
      "answer": 0,
-     "explanation": "The cornerstone of treatment is volume repletion with isotonic (normal) saline to restore intravascular volume, improve renal perfusion, and promote calcium excretion, together with immediately discontinuing all calcium and absorbable alkali intake (the offending antacids and excess milk); this alone reverses most cases of milk-alkali syndrome. Routine hemodialysis (option B) is reserved for severe, refractory hypercalcemia or significant renal failure with fluid overload, not first-line for every patient. Switching antacid brands (option C) continues the calcium/alkali load and worsens the problem. High-dose vitamin D (option D) would increase calcium absorption and dangerously worsen hypercalcemia. Loop diuretics are added only after the patient is volume-replete if needed; bisphosphonates can overcorrect and are used cautiously."
+     "explanation": "The cornerstone of treatment is volume repletion with isotonic (normal) saline to restore intravascular volume, improve renal perfusion, and promote calcium excretion, together with immediately discontinuing all calcium and absorbable alkali intake (the offending antacids and excess milk); this alone reverses most cases of milk-alkali syndrome. Routine hemodialysis is reserved for severe, refractory hypercalcemia or significant renal failure with fluid overload, not first-line for every patient. Switching antacid brands continues the calcium/alkali load and worsens the problem. High-dose vitamin D would increase calcium absorption and dangerously worsen hypercalcemia. Loop diuretics are added only after the patient is volume-replete if needed; bisphosphonates can overcorrect and are used cautiously."
     },
     {
      "type": "question",
@@ -6382,7 +6382,7 @@
       "Avoid all dietary calcium permanently"
      ],
      "answer": 1,
-     "explanation": "Recurrence is prevented by addressing the behavior that caused it: counsel him to stop the excessive self-dosing of calcium carbonate antacids and high milk intake and to treat his reflux/dyspepsia with appropriate therapy such as a proton pump inhibitor or H2 blocker, with guidance on safe calcium limits given his chronic kidney disease. Resuming the same calcium carbonate dose (option A) would simply reproduce the syndrome. A high-dose calcium/vitamin D supplement (option C) would again drive hypercalcemia, especially with reduced renal clearance. Avoiding all dietary calcium permanently (option D) is unnecessary and harmful to bone health; moderation, not elimination, is the goal. Follow renal function and calcium to confirm recovery, and review all over-the-counter products."
+     "explanation": "Recurrence is prevented by addressing the behavior that caused it: counsel him to stop the excessive self-dosing of calcium carbonate antacids and high milk intake and to treat his reflux/dyspepsia with appropriate therapy such as a proton pump inhibitor or H2 blocker, with guidance on safe calcium limits given his chronic kidney disease. Resuming the same calcium carbonate dose would simply reproduce the syndrome. A high-dose calcium/vitamin D supplement would again drive hypercalcemia, especially with reduced renal clearance. Avoiding all dietary calcium permanently is unnecessary and harmful to bone health; moderation, not elimination, is the goal. Follow renal function and calcium to confirm recovery, and review all over-the-counter products."
     }
    ],
    "diagnosis": "Hypercalcemia due to milk-alkali syndrome (excessive calcium carbonate intake)",

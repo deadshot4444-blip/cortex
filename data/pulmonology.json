@@ -41,13 +41,13 @@
      "label": "RISK STRATIFICATION",
      "question": "Using the CURB-65 score, which combination of this patient's features contributes points toward an admission decision?",
      "options": [
-      "Confusion, BUN > 19 mg/dL (7 mmol/L urea), RR ≥ 30, and age ≥ 65",
-      "Confusion, BUN > 19 mg/dL, RR ≥ 30, and age ≥ 65 are all present",
-      "Confusion, BUN > 19 mg/dL, and age ≥ 65 are present; RR and BP are not",
-      "Confusion, BUN > 19 mg/dL, and low diastolic BP < 60 mmHg are present"
+      "Confusion, elevated BUN, RR ≥ 30, and age ≥ 65 all score",
+      "Confusion, elevated BUN, and low BP (DBP ≤ 60) score",
+      "Confusion, elevated BUN, and age ≥ 65 score",
+      "Confusion and elevated BUN only score — CURB-65 = 2"
      ],
      "answer": 3,
-     "explanation": "CURB-65 awards one point each for Confusion, Urea (BUN) > 19 mg/dL, Respiratory rate ≥ 30, Blood pressure (SBP < 90 or DBP ≤ 60), and age ≥ 65. This patient has new confusion (1), BUN 32 (1), and a diastolic BP of 68 (so the BP criterion is NOT met), age 64 (NOT ≥ 65), and RR 28 (NOT ≥ 30). Thus the contributing features are confusion, elevated urea, and—because diastolic is 68, not ≤ 60—only those plus age must be checked: he is 64, so age does NOT score. The correct tally counts confusion, urea, and the BP criterion as the actual qualifying items in this vignette’s framing; RR of 28 is below 30 and age 64 is below 65, so they do not add points."
+     "explanation": "CURB-65 gives one point each for Confusion, Urea (BUN) > 19 mg/dL, Respiratory rate ≥ 30, low Blood pressure (SBP < 90 or DBP ≤ 60), and age ≥ 65. Here only confusion (1) and BUN 32 (1) score: RR is 28 (not ≥ 30), BP is 104/68 (DBP 68 is above 60 and SBP above 90, so the BP criterion is not met), and he is 64 (not ≥ 65). CURB-65 = 2, which warrants admission — consistent with the disposition that follows."
     },
     {
      "type": "question",

@@ -55,7 +55,7 @@ const SECTION_INFO = {
     desc: 'Guided, Socratic study sessions that train the skill beneath every other skill — how to question, reason, and remember. Metacognition and proven learning technique, applied directly to medicine.',
   },
 };
-const APP_VERSION = '1.13.3';
+const APP_VERSION = '1.14.0';
 const MEMBERSHIP_START = 'August 1, 2026';
 function cortexFreeNote(sectionPill, sectionName) {
   return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free for now</span><span class="free-note-txt">${sectionName} becomes optional membership ${MEMBERSHIP_START}. The full MCAT suite stays free forever.</span></p>`;
@@ -125,7 +125,7 @@ function saveStreak() { safeSet('cs-streak', JSON.stringify(store.streak)); }
 const SECTION_SCRIPTS = {
   mcat: ['mcat.js?v=54'],
   anatomy: ['anatomy.js?v=36'],
-  reference: ['reference.js?v=46', 'performance-drugs.js?v=7', 'ekg.js?v=36'],
+  reference: ['reference.js?v=48', 'performance-drugs.js?v=7', 'ekg.js?v=36'],
   socrates: ['socrates.js?v=40'],
   neuro: ['python-runtime.js?v=3', 'code-evaluator.js?v=2', 'neuro-practitioner.js?v=3', 'neuro.js?v=13'],
 };
@@ -175,6 +175,7 @@ function clearMedicineProgress() {
   ['cs-pharm', 'cs-ped', 'cs-micro', 'cs-labs', 'cs-ekg', 'cs-medicine'].forEach(k => {
     try { localStorage.removeItem(k); } catch {}
   });
+  if (store.progress && store.progress.medicine) { delete store.progress.medicine; saveProgress(); } // Medicine MCQ XP/answered/correct lives here too
   if (typeof window._resetMedicineMemory === 'function') window._resetMedicineMemory();
   if (typeof window._resetPedMemory === 'function') window._resetPedMemory();
   if (typeof window._resetEkgMemory === 'function') window._resetEkgMemory();
@@ -733,6 +734,16 @@ const PRINCIPLES = [
 
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
+  {
+    date: 'June 22, 2026', version: '1.14.0', tag: 'NEW',
+    title: 'Medicine - open access & guided practice',
+    items: [
+      'Every Medicine area - pharmacology, microbiology, lab values, and ECG - is unlocked to browse, drill, or learn anytime.',
+      'Guided study is now multiple-choice with instant feedback and XP, replacing the old flashcards.',
+      'Fixed guided lessons that could stall instead of advancing to the next step.',
+      'Accuracy pass across hundreds of clinical and MCAT explanations, now written to read cleanly after answer choices shuffle.',
+    ],
+  },
   {
     date: 'June 20, 2026', version: '1.13.3', tag: 'FIX',
     title: 'Clinical fixes, accessibility & speed',
