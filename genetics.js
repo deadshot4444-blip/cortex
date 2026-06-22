@@ -290,6 +290,31 @@ let GEN = Object.assign({
 }, genLoad());
 function genSave() { try { localStorage.setItem(GEN_KEY, JSON.stringify(GEN)); } catch {} }
 
+/* ---------- anonymous usage analytics (research) ----------
+   Write-only to Supabase `usage_events`. No names / PII — a random per-browser id
+   only. Fire-and-forget; never blocks or breaks the UI if offline/unconfigured.   */
+function genRandId() {
+  try { if (window.crypto && crypto.randomUUID) return crypto.randomUUID(); } catch {}
+  return 'x' + Math.random().toString(36).slice(2) + Date.now().toString(36);
+}
+const GA_ANON = (() => { try { let a = localStorage.getItem('cs-anon-id'); if (!a) { a = genRandId(); localStorage.setItem('cs-anon-id', a); } return a; } catch { return genRandId(); } })();
+const GA_SESSION = genRandId();
+let GA_sessionLogged = false;
+function genTrack(event, props) {
+  try {
+    const sb = window.__cortexSB;
+    if (!sb || !sb.from) return;
+    sb.from('usage_events').insert({
+      anon_id: GA_ANON,
+      session_id: GA_SESSION,
+      app_version: (typeof APP_VERSION !== 'undefined' ? APP_VERSION : ''),
+      section: 'genetics',
+      event,
+      props: props || {},
+    }).then(() => {}, () => {});   // fire-and-forget
+  } catch {}
+}
+
 let genTimer = null;
 function genClearTimer() { if (genTimer) { clearInterval(genTimer); genTimer = null; } }
 
@@ -383,7 +408,7 @@ function genCheckAch() {
   if (genMastery(5) >= 100) genGrant('ch5');
   if (genMastery(6) >= 100) genGrant('ch6');
   if (genRank(GEN.xp).lvl >= 8) genGrant('geneticist');
-  if (genOverall() >= 90) { genGrant('ready'); if (!GEN.examReady) { GEN.examReady = true; genSave(); } }
+  if (genOverall() >= 90) { genGrant('ready'); if (!GEN.examReady) { GEN.examReady = true; genSave(); genTrack('milestone', { kind: 'exam_ready', competency: genOverall() }); } }
 }
 
 function genBumpStreak() {
@@ -427,12 +452,13 @@ function renderGenPassword(errMsg) {
         <button type="submit" class="btn btn-solid">Unlock</button>
       </form>
       ${errMsg ? `<p class="gen-pass-err">${esc(errMsg)}</p>` : ''}
+      <p class="gen-priv">Anonymous usage data (how often modes are used and which questions are hardest — no names or personal info) is collected to improve this tool and support educational research.</p>
     </div>
   </main>`);
   main.querySelector('#gen-pass-form').addEventListener('submit', (e) => {
     e.preventDefault();
     const val = (main.querySelector('#gen-pass').value || '').trim().toLowerCase();
-    if (val === GEN_PASS) { GEN.unlocked = true; genSave(); renderGenHome(); }
+    if (val === GEN_PASS) { GEN.unlocked = true; genSave(); genTrack('unlock', {}); renderGenHome(); }
     else renderGenPassword('Incorrect passphrase. Try again.');
   });
   root.appendChild(main); root.appendChild(siteFooter()); setView(root);
@@ -444,6 +470,7 @@ function renderGenPassword(errMsg) {
    ========================================================================= */
 function renderGenHome() {
   genClearTimer();
+  if (!GA_sessionLogged) { GA_sessionLogged = true; genTrack('session_start', { competency: genOverall(), mastered: GEN_BANK.filter(q => genBox(q.id) >= 5).length, total: GEN_BANK.length, mobile: (window.innerWidth || 0) < 700 }); }
   const rank = genRank(GEN.xp), status = genStatus();
   const weak = genWeakTopics();
   const meter = (ch) => `<div class="gen-meter">
@@ -591,24 +618,29 @@ function startGenSmart() {
   genBumpStreak(); GEN.plays++; genSave();
   // Endless adaptive loop: serve the single most-needed (weakest/due/unseen) question
   // each time, forever, until every question is fully mastered (box 5).
+  genTrack('mode_start', { mode: 'smart' });
   genRunQuestion({ mode: 'smart', endless: true, pool: [], idx: 0, score: 0, combo: 0, maxCombo: 0, correct: 0, answered: 0, locked: false, lastId: null, lastTopic: null });
 }
 function startGenBlitz() {
   genBumpStreak(); GEN.plays++; genSave();
+  genTrack('mode_start', { mode: 'blitz' });
   genRunQuestion({ mode: 'blitz', pool: genShuffle(GEN_BANK), idx: 0, score: 0, combo: 0, maxCombo: 0, correct: 0, answered: 0, timeLeft: 90, locked: false });
 }
 function startGenChapter(ch) {
   GEN.plays++; genSave();
+  genTrack('mode_start', { mode: 'chapter', chapter: ch });
   genRunQuestion({ mode: 'chapter', chapter: ch, pool: genShuffle(genChapterQs(ch)), idx: 0, score: 0, combo: 0, maxCombo: 0, correct: 0, answered: 0, locked: false });
 }
 function startGenTopic(t) {
   GEN.plays++; genSave();
+  genTrack('mode_start', { mode: 'topic', topic: t });
   genRunQuestion({ mode: 'topic', topic: t, pool: genShuffle(genTopicQs(t)), idx: 0, score: 0, combo: 0, maxCombo: 0, correct: 0, answered: 0, locked: false });
 }
 function startGenExam() {
   genBumpStreak(); GEN.plays++; genSave();
   const pick = (ch, n) => genShuffle(genChapterQs(ch)).slice(0, n);
   const pool = genShuffle([...pick(4, 8), ...pick(5, 6), ...pick(6, 6)]).slice(0, 20);
+  genTrack('mode_start', { mode: 'exam' });
   genRunQuestion({ mode: 'exam', pool, idx: 0, score: 0, combo: 0, maxCombo: 0, correct: 0, answered: 0, lives: 3, locked: false });
 }
 function genComboMult(combo) { return Math.min(5, 1 + Math.floor(combo / 3)); }
@@ -636,6 +668,8 @@ function genNextSmart(run) {
 
 function genSmartComplete(run) {
   genClearTimer(); genGrant('smart'); genCheckAch(); genSave();
+  genTrack('milestone', { kind: 'fully_mastered' });
+  genTrack('run_end', { mode: 'smart', answered: run.answered, correct: run.correct, maxCombo: run.maxCombo, competency: genOverall() });
   const root = el('<div></div>');
   root.appendChild(topbar('genetics'));
   const main = el(`<main class="panel gen-result" id="main" tabindex="-1">
@@ -703,6 +737,7 @@ function genRunQuestion(run) {
     const beforeBox = genBox(qq.id);
     genRecord(qq, right); run.answered++;
     if (right && run.mode !== 'blitz' && genBox(qq.id) === 5 && beforeBox === 4) genToast(`Mastered · ${qq.tag}`);
+    genTrack('answer', { mode: run.mode, qid: qq.id, chapter: qq.chapter, topic: qq.topic, type: qq.type, difficulty: qq.difficulty, correct: right ? 1 : 0 });
     [...optsWrap.querySelectorAll('.gen-opt')].forEach(o => { o.disabled = true; if (o.dataset.ok === '1') o.classList.add('correct'); else if (o === btn) o.classList.add('wrong'); });
 
     if (right) {
@@ -824,6 +859,7 @@ function genEndRun(run) {
     extra = grid([[`${run.correct}/${run.answered}`, 'correct'], [`${acc}%`, 'accuracy'], [`${run.maxCombo}×`, 'best streak'], [`${genMastery(run.chapter)}%`, 'mastery']]);
   }
   genCheckAch(); genSave();
+  genTrack('run_end', { mode: run.mode, answered: run.answered, correct: run.correct, accuracy: acc, score: run.score, maxCombo: run.maxCombo, competency: genOverall() });
   const status = genStatus();
 
   const root = el('<div></div>');

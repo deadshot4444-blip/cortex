@@ -2365,3 +2365,6 @@ button.neuro-ms.done .neuro-ms-sub { color: var(--green); }
   .gen-res-btns { flex-direction: column; }
   .gen-res-btns .btn { width: 100%; }
 }
+
+/* Genetics Arcade — research/privacy notice on the gate */
+.gen-priv { margin-top: 18px; font-size: 11px; line-height: 1.55; color: var(--faint); border-top: 1px solid var(--line); padding-top: 14px; }
