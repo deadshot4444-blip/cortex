@@ -748,6 +748,13 @@ const PRINCIPLES = [
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
   {
+    date: 'June 22, 2026', version: '1.14.2', tag: 'NEW',
+    title: 'Class study tools - visuals & mobile',
+    items: [
+      'Genetics study mode (UTSA): added interactive diagram questions, an endless adaptive Smart Review that drills your weak spots until mastered, and a full mobile pass.',
+    ],
+  },
+  {
     date: 'June 22, 2026', version: '1.14.1', tag: 'NEW',
     title: 'Class study tools',
     items: [
