@@ -31,7 +31,7 @@ const SPECIALTIES = [
 const NAME_BY_KEY = Object.fromEntries(SPECIALTIES.map(s => [s.key, s.name]));
 
 // Sections gated as "Coming soon" for the public launch. Remove a key here to make it live.
-const COMING_SOON = new Set(['anatomy', 'socrates']);
+const COMING_SOON = new Set(['anatomy', 'socrates', 'neuro']);
 function sectionMenuTag(key) {
   if (COMING_SOON.has(key)) return '<span class="mi-soon">Soon</span>';
   if (key === 'reference') return '<span class="mi-tag">New</span>';
@@ -53,6 +53,12 @@ const SECTION_INFO = {
     label: 'Learn to Learn',
     headline: 'Learn how to learn.',
     desc: 'Guided, Socratic study sessions that train the skill beneath every other skill — how to question, reason, and remember. Metacognition and proven learning technique, applied directly to medicine.',
+  },
+  neuro: {
+    label: 'Neuroengineering',
+    badge: 'Under construction',
+    headline: 'Temporarily under construction.',
+    desc: 'The Neuroengineering division is offline while we refine the curriculum, labs, and Practitioner track to the same standard as the rest of Cortex. It will return soon — thank you for your patience.',
   },
 };
 const APP_VERSION = '1.14.0';
@@ -544,7 +550,7 @@ function renderComingSoon(key) {
   root.appendChild(topbar(key));
   const main = el(`<main class="panel comingsoon">
     <div class="cs-box">
-      <span class="label">${esc(info.label)} &middot; Coming soon</span>
+      <span class="label">${esc(info.label)} &middot; ${esc(info.badge || 'Coming soon')}</span>
       <h1>${esc(info.headline)}</h1>
       <p class="sub">${esc(info.desc)}</p>
       <div class="endbtns">
@@ -598,6 +604,7 @@ function renderUTSA() {
 
 /* ---------- Neuroengineering (special division) ---------- */
 async function renderNeuro() {
+  if (COMING_SOON.has('neuro')) { renderComingSoon('neuro'); return; }
   stopTimer(); session = null;
   await ensureSection('neuro');
   if (typeof renderNeuroEngineering === 'function') renderNeuroEngineering();
