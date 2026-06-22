@@ -367,9 +367,9 @@ function renderGenHome() {
 
     <section class="gen-modes">
       <button class="gen-mode-card gen-mode-hero cornerframe" data-mode="smart">
-        <span class="gen-mode-tag">recommended · adaptive</span>
+        <span class="gen-mode-tag">recommended · endless</span>
         <h2>Smart Review</h2>
-        <p>Targets your weakest and due-for-review questions using spaced repetition + interleaving. The fastest path to exam-ready.</p>
+        <p>Endless adaptive loop — keeps feeding you your weakest questions (spaced repetition + interleaving) until every one is mastered. Just keep going.</p>
         <span class="gen-mode-go">Study →</span>
       </button>
       <button class="gen-mode-card cornerframe" data-mode="blitz">
@@ -470,8 +470,9 @@ function renderGenChapterPick() {
    ========================================================================= */
 function startGenSmart() {
   genBumpStreak(); GEN.plays++; genSave();
-  const pool = genSmartPool(15);
-  genRunQuestion({ mode: 'smart', pool, idx: 0, score: 0, combo: 0, maxCombo: 0, correct: 0, answered: 0, locked: false });
+  // Endless adaptive loop: serve the single most-needed (weakest/due/unseen) question
+  // each time, forever, until every question is fully mastered (box 5).
+  genRunQuestion({ mode: 'smart', endless: true, pool: [], idx: 0, score: 0, combo: 0, maxCombo: 0, correct: 0, answered: 0, locked: false, lastId: null, lastTopic: null });
 }
 function startGenBlitz() {
   genBumpStreak(); GEN.plays++; genSave();
@@ -493,14 +494,66 @@ function startGenExam() {
 }
 function genComboMult(combo) { return Math.min(5, 1 + Math.floor(combo / 3)); }
 
+// Endless Smart Review: pick the one most-needed question right now. Weakest box
+// first, then due-for-review, lightly interleaved, never the same one twice in a row.
+// Returns null once everything is fully mastered (box 5).
+function genNextSmart(run) {
+  const now = Date.now();
+  const pool = GEN_BANK.filter(q => genBox(q.id) < 5);
+  if (!pool.length) return null;
+  let best = null, bestPr = -1e9;
+  for (const q of pool) {
+    const r = GEN.q[q.id], box = r ? r.box : 0, ts = r ? r.ts : 0;
+    const ageH = ts ? (now - ts) / 3.6e6 : 1e6;
+    const due = box === 0 || ageH >= GEN_INTERVAL_H[box];
+    let pr = (5 - box) * 12 + (box === 0 ? 30 : 0) + (due ? 8 : -30) + Math.random() * 6;
+    if (q.id === run.lastId) pr -= 100;                         // no immediate repeat
+    if (run.lastTopic && q.topic === run.lastTopic) pr -= 4;    // light interleaving
+    if (pr > bestPr) { bestPr = pr; best = q; }
+  }
+  run.lastId = best.id; run.lastTopic = best.topic;
+  return best;
+}
+
+function genSmartComplete(run) {
+  genClearTimer(); genGrant('smart'); genCheckAch(); genSave();
+  const root = el('<div></div>');
+  root.appendChild(topbar('genetics'));
+  const main = el(`<main class="panel gen-result" id="main" tabindex="-1">
+    <div class="gen-res-box cornerframe">
+      <span class="label">Fully mastered</span>
+      <h1 class="gen-res-sub">All ${GEN_BANK.length} questions maxed</h1>
+      <div class="gen-res-grid">
+        <div><span class="mono">100%</span><span>competency</span></div>
+        <div><span class="mono">${run.correct}/${run.answered}</span><span>this session</span></div>
+        <div><span class="mono">${run.maxCombo}×</span><span>best streak</span></div>
+        <div><span class="mono">${GEN.xp.toLocaleString()}</span><span>total XP</span></div>
+      </div>
+      <p class="gen-res-ready">Every question is maxed out — you mastered Module 2. Run a maintenance pass anytime to stay sharp.</p>
+      <div class="gen-res-btns">
+        <button class="btn btn-solid" id="gen-maint">Maintenance pass</button>
+        <button class="btn" id="gen-homebtn">Arcade home</button>
+      </div>
+    </div>
+  </main>`);
+  main.querySelector('#gen-homebtn').addEventListener('click', renderGenHome);
+  main.querySelector('#gen-maint').addEventListener('click', () => genRunQuestion({ mode: 'smart', pool: genShuffle(GEN_BANK), idx: 0, score: 0, combo: 0, maxCombo: 0, correct: 0, answered: 0, locked: false }));
+  root.appendChild(main); root.appendChild(siteFooter()); setView(root);
+}
+
 function genRunQuestion(run) {
   genClearTimer();
   run.locked = false;
-  if (!run.pool.length) { genEndRun(run); return; }
-  if (run.mode === 'blitz') { if (run.idx >= run.pool.length) { run.pool = genShuffle(GEN_BANK); run.idx = 0; } }
-  else if (run.idx >= run.pool.length) { genEndRun(run); return; }
-
-  const qq = run.pool[run.idx];
+  let qq;
+  if (run.endless) {
+    qq = genNextSmart(run);
+    if (!qq) { genSmartComplete(run); return; }
+  } else {
+    if (!run.pool.length) { genEndRun(run); return; }
+    if (run.mode === 'blitz') { if (run.idx >= run.pool.length) { run.pool = genShuffle(GEN_BANK); run.idx = 0; } }
+    else if (run.idx >= run.pool.length) { genEndRun(run); return; }
+    qq = run.pool[run.idx];
+  }
   const order = genShuffle([0, 1, 2, 3]);
   const correctDisp = order.indexOf(qq.answer);
 
@@ -528,7 +581,9 @@ function genRunQuestion(run) {
     if (run.locked) return;
     run.locked = true;
     const right = btn.dataset.ok === '1';
+    const beforeBox = genBox(qq.id);
     genRecord(qq, right); run.answered++;
+    if (right && run.mode !== 'blitz' && genBox(qq.id) === 5 && beforeBox === 4) genToast(`Mastered · ${qq.tag}`);
     [...optsWrap.querySelectorAll('.gen-opt')].forEach(o => { o.disabled = true; if (o.dataset.ok === '1') o.classList.add('correct'); else if (o === btn) o.classList.add('wrong'); });
 
     if (right) {
@@ -556,7 +611,7 @@ function genRunQuestion(run) {
       setTimeout(() => { run.idx++; if (run.timeLeft > 0) genRunQuestion(run); }, right ? 650 : 1100);
     } else {
       nextRow.hidden = false; const nb = main.querySelector('#gen-next');
-      if (run.idx + 1 >= run.pool.length) nb.textContent = 'Finish →';
+      if (!run.endless && run.idx + 1 >= run.pool.length) nb.textContent = 'Finish →';
       nb.addEventListener('click', () => { run.idx++; genRunQuestion(run); }); nb.focus();
     }
   };
@@ -596,6 +651,14 @@ function genHud(run) {
     <div class="gen-hud-q"><span class="mono">${run.idx + 1}/${run.pool.length}</span><span class="gen-hud-l">question</span></div>
     <div class="gen-hud-lives">${'◆'.repeat(Math.max(0, run.lives))}${'◇'.repeat(Math.max(0, 3 - run.lives))}</div>
     <div class="gen-hud-score"><span class="mono">${run.correct}</span><span class="gen-hud-l">correct</span></div></div>`;
+  if (run.mode === 'smart' && run.endless) {
+    const mastered = GEN_BANK.filter(q => genBox(q.id) >= 5).length;
+    return `<div class="gen-hud">${quit}
+    <div class="gen-hud-q"><span class="mono">${mastered}/${GEN_BANK.length}</span><span class="gen-hud-l">mastered</span></div>
+    <div class="gen-hud-q"><span class="mono">${genOverall()}%</span><span class="gen-hud-l">competency</span></div>
+    <div class="gen-hud-combo ${run.combo >= 3 ? 'hot' : ''}"><span class="mono">${run.combo}×</span><span class="gen-hud-l">streak</span></div>
+    <div class="gen-hud-score"><span class="mono">${run.correct}/${run.answered}</span><span class="gen-hud-l">correct</span></div></div>`;
+  }
   const label = run.mode === 'smart' ? 'Smart Review' : run.mode === 'topic' ? (GEN_TOPICS[run.topic] ? GEN_TOPICS[run.topic].name : 'Drill') : `Ch ${run.chapter}`;
   return `<div class="gen-hud">${quit}
     <div class="gen-hud-q"><span class="mono">${run.idx + 1}/${run.pool.length}</span><span class="gen-hud-l">${esc(label)}</span></div>
