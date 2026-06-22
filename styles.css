@@ -1131,6 +1131,9 @@ html { scroll-behavior: smooth; }
 button:focus-visible, a:focus-visible, textarea:focus-visible, input:focus-visible {
   outline: 2px solid var(--text); outline-offset: 2px;
 }
+/* headings / main get programmatic focus on view-swap (for screen readers) —
+   they are not interactive, so suppress the browser's default (blue) focus ring */
+[tabindex="-1"]:focus { outline: none; }
 
 /* live telemetry indicator (square dot = sharp-corner system) */
 .livetag {
