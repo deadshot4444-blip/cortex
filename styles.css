@@ -2305,3 +2305,63 @@ button.neuro-ms.done .neuro-ms-sub { color: var(--green); }
 .gen-result .cornerframe::before, .gen-result .cornerframe::after,
 .gen-pick .cornerframe::before, .gen-pick .cornerframe::after,
 .gen-lock .cornerframe::before, .gen-lock .cornerframe::after { display: none; }
+
+/* Genetics Arcade — new diagram primitives (light theme) */
+.gsv-box { fill: var(--surface); stroke: var(--line); stroke-width: 1; }
+.gsv-box-p { fill: rgba(124,58,173,.16); stroke: rgba(124,58,173,.5); }
+.gsv-boxt { fill: var(--dim); font-family: var(--mono); font-size: 8.5px; text-anchor: middle; }
+.gsv-enz { fill: var(--dim); font-family: var(--mono); font-size: 9px; text-anchor: middle; }
+.gsv-x { stroke: var(--red); stroke-width: 2.4; }
+.gsv-cell { stroke: var(--line); stroke-width: 1; }
+.gsv-cell-p { fill: rgba(124,58,173,.32); }
+.gsv-cell-w { fill: var(--surface-2); }
+.gsv-cell-c { fill: var(--surface); }
+.gsv-cell-r { fill: rgba(207,34,46,.30); }
+.gsv-mapline { stroke: var(--text); stroke-width: 1.5; }
+.gsv-maptick { stroke: var(--text); stroke-width: 2; }
+.gsv-mapdist { fill: var(--dim); font-family: var(--mono); font-size: 10px; text-anchor: middle; }
+.gsv-seg { fill: var(--surface); stroke: var(--text); stroke-width: 1.3; }
+.gsv-seg.gone { fill: none; stroke: var(--dim); stroke-dasharray: 3 3; }
+.gsv-seg.dupseg { fill: rgba(154,103,0,.16); stroke: var(--amber); }
+.gsv-segt { fill: var(--text); font-family: var(--mono); font-size: 13px; text-anchor: middle; font-weight: 600; }
+.gsv-spec1 { fill: rgba(50,90,170,.5); stroke: rgba(50,90,170,.95); stroke-width: 1.2; }
+.gsv-spec2 { fill: rgba(154,103,0,.45); stroke: var(--amber); stroke-width: 1.2; }
+.gsv-set-1 { fill: rgba(50,90,170,.45); stroke: rgba(50,90,170,.95); stroke-width: 1; }
+.gsv-set-2 { fill: rgba(154,103,0,.4); stroke: var(--amber); stroke-width: 1; }
+.gsv-tri { fill: rgba(207,34,46,.22); stroke: var(--red); }
+
+/* ============================================================================
+   Genetics Arcade — mobile / responsive
+   ========================================================================= */
+@media (max-width: 760px) {
+  .gen-home, .gen-game, .gen-result, .gen-pick, .gen-lock { padding-left: 16px; padding-right: 16px; }
+  .gen-hero { padding: 20px 18px; gap: 16px; }
+  .gen-hero-l h1 { font-size: 26px; }
+  .gen-weak, .gen-mastery, .gen-method, .gen-trophy { padding: 18px 16px; }
+  .gen-q { padding: 18px 16px; }
+  .gen-q-stem { font-size: 16px; }
+  .gen-res-box, .gen-lock-box { padding: 26px 20px; }
+}
+@media (max-width: 560px) {
+  .gen-modes, .gen-cols { grid-template-columns: 1fr; }
+  .gen-mode-hero { grid-column: auto; }
+  .gen-ch-grid { grid-template-columns: 1fr; }
+  .gen-statrow { grid-template-columns: 1fr 1fr; }
+  .gen-res-grid { grid-template-columns: 1fr 1fr; gap: 14px 10px; }
+  .gen-badges { grid-template-columns: 1fr 1fr; }
+  /* HUD: let it wrap and shrink so 4 stats never overflow */
+  .gen-hud { flex-wrap: wrap; gap: 10px 14px; row-gap: 8px; }
+  .gen-hud .gen-quit { flex: 1 0 100%; margin-right: 0; order: -1; }
+  .gen-hud-time, .gen-hud-score, .gen-hud-combo, .gen-hud-q { min-width: 0; flex: 1; }
+  .gen-hud-time .mono, .gen-hud-score .mono, .gen-hud-q .mono, .gen-hud-combo .mono { font-size: 18px; }
+  /* bigger touch targets */
+  .gen-opt { min-height: 50px; padding: 12px 14px; }
+  .gen-mode-card { padding: 18px 16px; }
+  .gen-mode-card h2 { font-size: 19px; }
+  .gen-hero-l h1 { font-size: 24px; }
+  .gen-comp-ring { width: 92px; height: 92px; }
+  .gen-comp-num { font-size: 24px; }
+  .gen-res-sub { font-size: 24px; }
+  .gen-res-btns { flex-direction: column; }
+  .gen-res-btns .btn { width: 100%; }
+}

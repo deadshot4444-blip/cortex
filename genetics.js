@@ -74,6 +74,72 @@ function gRobertson() {
     + `<rect x="150" y="22" width="9" height="74" rx="4" class="gsv-chr"/><rect x="161" y="22" width="9" height="74" rx="4" class="gsv-chr"/><circle cx="160" cy="44" r="3.2" class="gsv-dot"/>`
     + `<text x="60" y="112" class="gsv-pcap">2 acrocentrics</text><text x="160" y="112" class="gsv-pcap">1 fused</text></svg>`;
 }
+function gPathway(blocked) {
+  const X = (bx) => `<line x1="${bx - 7}" y1="32" x2="${bx + 7}" y2="46" class="gsv-x"/><line x1="${bx + 7}" y1="32" x2="${bx - 7}" y2="46" class="gsv-x"/>`;
+  let s = `<svg viewBox="0 0 252 66" class="gen-svg gen-svg-wide" role="img" aria-label="pigment pathway">`;
+  s += `<rect x="4" y="26" width="56" height="26" rx="3" class="gsv-box"/><text x="32" y="42" class="gsv-boxt">precursor</text>`;
+  s += `<path d="M62 39 h30 m-8 -4 l8 4 l-8 4" class="gsv-arr2"/><text x="77" y="20" class="gsv-enz">C enz</text>`;
+  s += `<rect x="96" y="26" width="60" height="26" rx="3" class="gsv-box"/><text x="126" y="42" class="gsv-boxt">colorless</text>`;
+  s += `<path d="M158 39 h30 m-8 -4 l8 4 l-8 4" class="gsv-arr2"/><text x="173" y="20" class="gsv-enz">P enz</text>`;
+  s += `<rect x="192" y="26" width="56" height="26" rx="3" class="gsv-box gsv-box-p"/><text x="220" y="42" class="gsv-boxt">purple</text>`;
+  if (blocked === 'C') s += X(77); if (blocked === 'P') s += X(173);
+  return s + `</svg>`;
+}
+function gGrid(spec) {
+  const fills = []; spec.forEach(s => { for (let k = 0; k < s.n; k++) fills.push(s.cls); });
+  let cells = '';
+  for (let r = 0; r < 4; r++) for (let c = 0; c < 4; c++) { const x = 8 + c * 25, y = 8 + r * 25, f = fills[r * 4 + c] || 'w'; cells += `<rect x="${x}" y="${y}" width="23" height="23" class="gsv-cell gsv-cell-${f}"/>`; }
+  return `<svg viewBox="0 0 116 116" class="gen-svg" role="img" aria-label="dihybrid outcome grid">${cells}</svg>`;
+}
+function gCrossover() {
+  const gam = (cx, lab, rec) => `<circle cx="${cx}" cy="74" r="16" class="gsv-gam ${rec ? 'ab' : 'norm'}"/><text x="${cx}" y="79" class="gsv-glab">${lab}</text>`;
+  return `<svg viewBox="0 0 240 104" class="gen-svg gen-svg-wide" role="img" aria-label="crossing over to gametes">`
+    + `<text x="120" y="16" class="gsv-pcap">crossover between linked genes A and B → gametes</text>`
+    + gam(32, 'A B', false) + gam(86, 'a b', false) + gam(150, 'A b', true) + gam(206, 'a B', true)
+    + `<text x="59" y="100" class="gsv-pcap">parental</text><text x="178" y="100" class="gsv-pcap">outlined</text></svg>`;
+}
+function gMap(genes, dists) {
+  const n = genes.length, pad = 26, w = 252, step = (w - pad * 2) / (n - 1);
+  let s = `<line x1="${pad}" y1="36" x2="${w - pad}" y2="36" class="gsv-mapline"/>`;
+  genes.forEach((g, i) => { const x = pad + i * step; s += `<line x1="${x}" y1="28" x2="${x}" y2="44" class="gsv-maptick"/><text x="${x}" y="22" class="gsv-let">${g}</text>`; });
+  dists.forEach((d, i) => { const x = pad + (i + 0.5) * step; s += `<text x="${x}" y="58" class="gsv-mapdist">${d} cM</text>`; });
+  return `<svg viewBox="0 0 ${w} 66" class="gen-svg gen-svg-wide" role="img" aria-label="linkage map">${s}</svg>`;
+}
+function gPed(spec) {
+  // spec: {mother:'aff'|'unaff'|'carrier', father:'aff'|'unaff'|'carrier', kids:[['c'|'s', class]], cap}
+  const sym = (kind, cx, cy, cls) => kind === 's'
+    ? `<rect x="${cx - 11}" y="${cy - 11}" width="22" height="22" class="gsv-${cls === 'aff' ? 'aff' : 'unaff'}"/>${cls === 'carrier' ? `<rect x="${cx - 3.5}" y="${cy - 3.5}" width="7" height="7" class="gsv-aff"/>` : ''}`
+    : `<circle cx="${cx}" cy="${cy}" r="11" class="gsv-${cls === 'aff' ? 'aff' : 'unaff'}"/>${cls === 'carrier' ? `<circle cx="${cx}" cy="${cy}" r="3.5" class="gsv-aff"/>` : ''}`;
+  const n = spec.kids.length, x0 = 110 - (n - 1) * 24 / 2;
+  let s = sym('c', 80, 22, spec.mother) + sym('s', 142, 22, spec.father)
+    + `<line x1="91" y1="22" x2="123" y2="22" class="gsv-pline"/><line x1="107" y1="22" x2="107" y2="50" class="gsv-pline"/>`
+    + `<line x1="${x0}" y1="50" x2="${x0 + (n - 1) * 48}" y2="50" class="gsv-pline"/>`;
+  spec.kids.forEach((k, i) => { const x = x0 + i * 48; s += `<line x1="${x}" y1="50" x2="${x}" y2="66" class="gsv-pline"/>` + sym(k[0], x, 80, k[1]); });
+  return `<svg viewBox="0 0 220 108" class="gen-svg gen-svg-wide" role="img" aria-label="pedigree">${s}<text x="110" y="104" class="gsv-pcap">${spec.cap}</text></svg>`;
+}
+function gSeg(letters, mark, markCls) {
+  const pad = 22, w = 240, step = (w - pad * 2) / (letters.length - 1);
+  let s = '';
+  letters.forEach((L, i) => { const x = pad + i * step, m = mark.includes(i); s += `<rect x="${x - 11}" y="22" width="22" height="22" class="gsv-seg ${m ? markCls : ''}"/><text x="${x}" y="37" class="gsv-segt">${L}</text>`; });
+  return `<svg viewBox="0 0 ${w} 60" class="gen-svg gen-svg-wide" role="img" aria-label="chromosome segment">${s}</svg>`;
+}
+function gReciprocal() {
+  return `<svg viewBox="0 0 200 120" class="gen-svg gen-svg-wide" role="img" aria-label="reciprocal translocation">`
+    + `<rect x="60" y="14" width="11" height="60" rx="5" class="gsv-spec1"/><rect x="60" y="74" width="11" height="22" rx="5" class="gsv-spec2"/><circle cx="65.5" cy="72" r="3" class="gsv-dot"/>`
+    + `<rect x="128" y="14" width="11" height="60" rx="5" class="gsv-spec2"/><rect x="128" y="74" width="11" height="22" rx="5" class="gsv-spec1"/><circle cx="133.5" cy="72" r="3" class="gsv-dot"/>`
+    + `<text x="65" y="110" class="gsv-pcap">non-homologous</text><text x="133" y="110" class="gsv-pcap">chromosomes</text></svg>`;
+}
+function gSets(sets) {
+  let x = 12, s = ''; const setW = 26;
+  sets.forEach((cls) => { s += `<rect x="${x}" y="16" width="7" height="42" rx="3" class="gsv-set gsv-set-${cls}"/><rect x="${x + 10}" y="20" width="7" height="34" rx="3" class="gsv-set gsv-set-${cls}"/>`; x += setW + 8; });
+  return `<svg viewBox="0 0 ${x} 72" class="gen-svg gen-svg-wide" role="img" aria-label="chromosome sets">${s}</svg>`;
+}
+function gKaryoTri() {
+  let x = 16, s = '';
+  const pair = (label, n) => { let g = ''; for (let k = 0; k < n; k++) { g += `<rect x="${x}" y="18" width="8" height="40" rx="4" class="gsv-chr ${n === 3 ? 'gsv-tri' : ''}"/>`; x += 11; } g += `<text x="${x - (n * 11) / 2 - 2}" y="70" class="gsv-pcap">${label}</text>`; x += 16; return g; };
+  s += pair('1', 2) + pair('2', 2) + pair('21', 3);
+  return `<svg viewBox="0 0 ${x} 78" class="gen-svg gen-svg-wide" role="img" aria-label="karyotype">${s}</svg>`;
+}
 
 const GEN_DIAGRAMS = [
   { id: 'd-cen-meta', chapter: 6, topic: 'ch6-structural', type: 'label', difficulty: 'easy', tag: 'Centromere position', svg: gChr(75),
@@ -138,6 +204,59 @@ const GEN_DIAGRAMS = [
     q: 'Two acrocentric chromosomes fuse into a single chromosome as shown. What is this event, and how does the chromosome count change?',
     options: ['Reciprocal translocation; count unchanged', 'Robertsonian translocation; count drops by 1', 'Pericentric inversion; count unchanged', 'Duplication; count rises by 1'], answer: 1,
     explain: 'Fusion of two acrocentric chromosomes at the centromere is a Robertsonian translocation; two chromosomes become one, so the total count drops by 1 (e.g., 48 → 47).' },
+
+  { id: 'd-epistasis-path', chapter: 4, topic: 'ch4-epistasis', type: 'label', difficulty: 'med', tag: 'Epistasis pathway', svg: gPathway('C'),
+    q: 'In this sweet-pea pigment pathway, the cc genotype blocks the C enzyme (✗). What is the flower color?',
+    options: ['Purple', 'White (colorless)', 'Pink', 'Red'], answer: 1,
+    explain: 'Purple pigment needs BOTH enzymes (C and P). With the C enzyme blocked, the pathway stalls at the colorless precursor, so the flower is white — the basis of the 9:7 epistatic ratio.' },
+  { id: 'd-grid-97', chapter: 4, topic: 'ch4-epistasis', type: 'label', difficulty: 'med', tag: '9:7 ratio', svg: gGrid([{ n: 9, cls: 'p' }, { n: 7, cls: 'w' }]),
+    q: 'This dihybrid cross gives 9 purple (filled) : 7 white (open) offspring. Which interaction produces this ratio?',
+    options: ['Simple dominance (9:3:3:1)', 'Duplicate recessive epistasis (9:7)', 'Dominant epistasis (12:3:1)', 'Incomplete dominance'], answer: 1,
+    explain: 'A 9:7 ratio means both genes must contribute a dominant allele for color; cc OR pp gives white. This duplicate (complementary) recessive epistasis collapses the 3:3:1 classes into the "7 white".' },
+  { id: 'd-grid-1231', chapter: 4, topic: 'ch4-epistasis', type: 'label', difficulty: 'hard', tag: '12:3:1 ratio', svg: gGrid([{ n: 12, cls: 'c' }, { n: 3, cls: 'p' }, { n: 1, cls: 'r' }]),
+    q: 'A dihybrid cross yields 12 : 3 : 1 (light : purple : red). Which gene interaction is this?',
+    options: ['Recessive epistasis (9:3:4)', 'Dominant epistasis (12:3:1)', 'Duplicate recessive (9:7)', 'No epistasis (9:3:3:1)'], answer: 1,
+    explain: 'A 12:3:1 ratio is dominant epistasis: a dominant allele at one locus (e.g., I) masks the second gene, so 9+3 = 12 share one phenotype, and only the recessive-at-the-epistatic-gene classes (3 and 1) reveal the second gene.' },
+  { id: 'd-crossover', chapter: 5, topic: 'ch5-linkage', type: 'label', difficulty: 'med', tag: 'Recombinant gametes', svg: gCrossover(),
+    q: 'A crossover between linked genes A and B produces these four gametes. The two outlined gametes (A b and a B) are:',
+    options: ['Parental (nonrecombinant) gametes', 'Recombinant (crossover) gametes', 'Identical to the parents', 'Products of nondisjunction'], answer: 1,
+    explain: 'Parental gametes keep the original allele combinations (A B, a b). Crossing over swaps alleles between homologs to make NEW combinations (A b, a B) — the recombinant gametes whose frequency gives map distance.' },
+  { id: 'd-map', chapter: 5, topic: 'ch5-threepoint', type: 'label', difficulty: 'med', tag: 'Linkage map', svg: gMap(['A', 'B', 'C'], [5, 12]),
+    q: 'Using this linkage map, what is the map distance between genes A and C?',
+    options: ['7 cM', '12 cM', '17 cM', '60 cM'], answer: 2,
+    explain: 'Map distances between linked genes are additive: A–C = A–B + B–C = 5 + 12 = 17 cM (ignoring rare double crossovers).' },
+  { id: 'd-ped-ar', chapter: 4, topic: 'ch4-interactions', type: 'label', difficulty: 'hard', tag: 'Pedigree', svg: gPed({ mother: 'unaff', father: 'unaff', kids: [['c', 'unaff'], ['s', 'aff'], ['c', 'unaff']], cap: 'unaffected parents → affected child' }),
+    q: 'Two unaffected parents have an affected child (filled). Which inheritance pattern best fits?',
+    options: ['Autosomal dominant', 'Autosomal recessive', 'Mitochondrial', 'Y-linked'], answer: 1,
+    explain: 'When two unaffected parents produce an affected child, both parents are carriers (heterozygous) of a recessive allele — autosomal recessive inheritance (the trait can "skip" generations).' },
+  { id: 'd-ped-xr', chapter: 4, topic: 'ch4-epistasis', type: 'label', difficulty: 'hard', tag: 'Pedigree', svg: gPed({ mother: 'carrier', father: 'unaff', kids: [['s', 'aff'], ['c', 'carrier'], ['s', 'unaff']], cap: 'carrier mother → affected son' }),
+    q: 'A carrier mother (dot) and unaffected father have an affected son; the trait shows up mostly in males. Pattern?',
+    options: ['Autosomal recessive', 'X-linked recessive', 'Autosomal dominant', 'Mitochondrial'], answer: 1,
+    explain: 'Males (XY) need only one copy of an X-linked recessive allele to be affected, so the trait appears far more in sons, passed from carrier mothers — X-linked recessive inheritance.' },
+  { id: 'd-deletion', chapter: 6, topic: 'ch6-structural', type: 'label', difficulty: 'med', tag: 'Deletion', svg: gSeg(['A', 'B', 'C', 'D', 'E', 'F'], [2, 3], 'gone'),
+    q: 'Segments C and D (dashed) were lost from the MIDDLE of this chromosome. What is this called?',
+    options: ['Terminal deletion', 'Interstitial deletion', 'Duplication', 'Paracentric inversion'], answer: 1,
+    explain: 'Loss of an internal segment (not at the end) is an interstitial deletion. A terminal deletion removes material from the chromosome end (involving the telomere).' },
+  { id: 'd-dup', chapter: 6, topic: 'ch6-structural', type: 'label', difficulty: 'med', tag: 'Duplication', svg: gSeg(['A', 'B', 'C', 'D', 'C', 'D'], [4, 5], 'dupseg'),
+    q: 'Segment C–D now appears twice on this chromosome (highlighted). What structural change is this?',
+    options: ['Deletion', 'Duplication', 'Inversion', 'Translocation'], answer: 1,
+    explain: 'A repeated chromosomal segment is a duplication — often arising from misaligned crossing over. Duplications add genetic material and are the raw material for gene families (paralogs).' },
+  { id: 'd-reciprocal', chapter: 6, topic: 'ch6-structural', type: 'label', difficulty: 'med', tag: 'Translocation', svg: gReciprocal(),
+    q: 'These two NON-homologous chromosomes have swapped end segments (colors exchanged). What is this?',
+    options: ['Robertsonian translocation', 'Reciprocal translocation', 'Pericentric inversion', 'Interstitial deletion'], answer: 1,
+    explain: 'A mutual exchange of segments between two non-homologous chromosomes is a reciprocal translocation. If it is balanced (no net gain/loss) the carrier is usually healthy, but gametes can be unbalanced.' },
+  { id: 'd-triploid', chapter: 6, topic: 'ch6-number', type: 'label', difficulty: 'easy', tag: 'Ploidy', svg: gSets([1, 1, 1]),
+    q: 'This cell carries three complete chromosome sets. What is its ploidy?',
+    options: ['Diploid (2n)', 'Triploid (3n)', 'Tetraploid (4n)', 'Haploid (n)'], answer: 1,
+    explain: 'Three complete sets = triploid (3n). Triploids are usually sterile/seedless because an odd number of homologs cannot pair evenly in meiosis.' },
+  { id: 'd-allopoly', chapter: 6, topic: 'ch6-number', type: 'label', difficulty: 'hard', tag: 'Polyploidy', svg: gSets([1, 1, 2, 2]),
+    q: 'This organism has four sets — two from each of two different species (two colors). What is it?',
+    options: ['Autotetraploid', 'Allotetraploid (allopolyploid)', 'Triploid', 'Aneuploid'], answer: 1,
+    explain: 'Sets from DIFFERENT species make it an allopolyploid; four total sets = allotetraploid (e.g., Xenopus laevis). Autopolyploidy would be extra sets from the SAME species (one color).' },
+  { id: 'd-trisomy', chapter: 6, topic: 'ch6-number', type: 'label', difficulty: 'med', tag: 'Aneuploidy', svg: gKaryoTri(),
+    q: 'This partial karyotype shows three copies of chromosome 21 (highlighted). What is this?',
+    options: ['Monosomy 21 (2n−1)', 'Trisomy 21 / Down syndrome (2n+1)', 'Triploidy (3n)', 'Balanced translocation'], answer: 1,
+    explain: 'Three copies of a single chromosome (here 21) is a trisomy (2n+1) — trisomy 21 is Down syndrome. Triploidy (3n) would be three copies of EVERY chromosome, not just one.' },
 ];
 
 /* ---------- generated + verified MCQ bank (injected at build) ---------- */
