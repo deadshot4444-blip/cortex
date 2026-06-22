@@ -1,5 +1,5 @@
 /* ============================================================================
-   Cortex · Genetics Arcade  —  UTSA Module 2 (Chapters 4–6, Exam 2)
+   Cortex · Genetics-2313-01E  —  UTSA Module 2 (Chapters 4–6, Exam 2)
    Password-gated, arcade-style mastery trainer built on science-of-learning
    principles: active recall (testing effect), spaced repetition (Leitner
    boxes), interleaving, and targeted practice on measured weaknesses.
@@ -450,7 +450,7 @@ function renderGenPassword(errMsg) {
   const main = el(`<main class="panel gen-lock" id="main" tabindex="-1">
     <div class="gen-lock-box cornerframe">
       <span class="label">UTSA · Genetics · Module 2</span>
-      <h1 class="gen-lock-title">Genetics Arcade</h1>
+      <h1 class="gen-lock-title">Genetics-2313-01E</h1>
       <p class="gen-lock-sub">Chapters 4–6 · Exam 2 mastery trainer. This section is locked to a class passphrase.</p>
       <form id="gen-pass-form" class="gen-pass-form" autocomplete="off">
         <input type="password" id="gen-pass" class="gen-pass-input" placeholder="Enter passphrase" aria-label="Passphrase" />
@@ -496,7 +496,7 @@ function renderGenHome() {
     <header class="gen-hero cornerframe">
       <div class="gen-hero-l">
         <span class="label">UTSA · Genetics · Module 2 (Ch 4–6)</span>
-        <h1>Genetics Arcade</h1>
+        <h1>Genetics-2313-01E</h1>
         <div class="gen-rank"><span class="gen-rank-lvl mono">LV ${rank.lvl}</span><span class="gen-rank-name">${esc(rank.name)}</span></div>
         <div class="gen-xpbar"><span style="width:${rank.pct}%"></span></div>
         <p class="gen-xp-note mono">${GEN.xp.toLocaleString()} XP${rank.next ? ` · ${rank.toNext.toLocaleString()} to next rank` : ' · MAX'}</p>
@@ -585,7 +585,7 @@ function renderGenHome() {
   }));
   main.querySelectorAll('[data-topic]').forEach(b => b.addEventListener('click', () => startGenTopic(b.dataset.topic)));
   main.querySelector('#gen-reset').addEventListener('click', () => {
-    if (!confirm('Reset all Genetics Arcade progress (XP, mastery, achievements)? You stay unlocked.')) return;
+    if (!confirm('Reset all Genetics-2313-01E progress (XP, mastery, achievements)? You stay unlocked.')) return;
     GEN = Object.assign({ unlocked: true, xp: 0, answered: 0, correct: 0, bestScore: 0, bestCombo: 0, bestExam: 0, plays: 0, streak: { current: 0, longest: 0, lastDate: '' }, q: {}, ach: [], examReady: false });
     genSave(); renderGenHome();
   });
@@ -604,7 +604,7 @@ function renderGenChapterPick() {
   const root = el('<div></div>');
   root.appendChild(topbar('genetics'));
   const main = el(`<main class="panel gen-pick" id="main" tabindex="-1">
-    <div class="gen-pick-head"><button class="ghostbtn" id="gen-back">← Arcade</button><h1>Chapter Mastery</h1></div>
+    <div class="gen-pick-head"><button class="ghostbtn" id="gen-back">← Home</button><h1>Chapter Mastery</h1></div>
     <div class="gen-ch-grid">
       ${card(4, 'Dominance types, epistasis, sex-influenced traits, non-Mendelian inheritance.')}
       ${card(5, 'Recombination, map distance, three-point crosses, gene order.')}
@@ -690,7 +690,7 @@ function genSmartComplete(run) {
       <p class="gen-res-ready">Every question is maxed out — you mastered Module 2. Run a maintenance pass anytime to stay sharp.</p>
       <div class="gen-res-btns">
         <button class="btn btn-solid" id="gen-maint">Maintenance pass</button>
-        <button class="btn" id="gen-homebtn">Arcade home</button>
+        <button class="btn" id="gen-homebtn">Home</button>
       </div>
     </div>
   </main>`);
@@ -932,7 +932,7 @@ function genEndRun(run) {
       <p class="gen-res-xp mono">${GEN.xp.toLocaleString()} XP total · LV ${genRank(GEN.xp).lvl} ${esc(genRank(GEN.xp).name)}</p>
       <div class="gen-res-btns">
         <button class="btn btn-solid" id="gen-again">${run.mode === 'blitz' ? 'Run it back' : run.mode === 'exam' ? 'Rematch' : run.mode === 'smart' ? 'Another set' : 'Again'}</button>
-        <button class="btn" id="gen-homebtn">Arcade home</button>
+        <button class="btn" id="gen-homebtn">Home</button>
       </div>
     </div>
   </main>`);

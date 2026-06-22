@@ -134,7 +134,7 @@ const SECTION_SCRIPTS = {
   reference: ['reference.js?v=48', 'performance-drugs.js?v=7', 'ekg.js?v=36'],
   socrates: ['socrates.js?v=40'],
   neuro: ['python-runtime.js?v=3', 'code-evaluator.js?v=2', 'neuro-practitioner.js?v=3', 'neuro.js?v=13'],
-  genetics: ['genetics.js?v=6'],
+  genetics: ['genetics.js?v=7'],
 };
 const _scriptLoads = {};
 function loadScript(src) {
@@ -401,7 +401,7 @@ function topbar(active) {
           <button class="menuitem" data-go="socrates"><span>Learn to Learn</span>${sectionMenuTag('socrates')}</button>
           <span class="menu-head">Access</span>
           <button class="menuitem" data-go="utsa"><span>UTSA &amp; UT Health</span><span class="mi-tag">Free</span></button>
-          <button class="menuitem" data-go="genetics"><span>Genetics Arcade</span><span class="mi-tag">UTSA</span></button>
+          <button class="menuitem" data-go="genetics"><span>Genetics-2313-01E</span><span class="mi-tag">UTSA</span></button>
         </div>
       </div>
     </nav>
