@@ -699,6 +699,58 @@ function genSmartComplete(run) {
   root.appendChild(main); root.appendChild(siteFooter()); setView(root);
 }
 
+/* ---------- calc tools: mini calculator + scratchpad (calc questions only) ---------- */
+let genToolsOpen = false;   // panel open-state persists across questions in a session
+let genScratch = '';        // scratchpad text persists across questions in a session
+function genToolsHtml() {
+  const keys = ['C', '←', '(', ')', '7', '8', '9', '÷', '4', '5', '6', '×', '1', '2', '3', '−', '0', '.', '=', '+'];
+  const dk = { 'C': 'clear', '←': 'back', '=': 'eq' };
+  const cl = { 'C': 'gen-calc-fn', '←': 'gen-calc-fn', '=': 'gen-calc-eq', '÷': 'gen-calc-op', '×': 'gen-calc-op', '−': 'gen-calc-op', '+': 'gen-calc-op' };
+  const grid = keys.map(k => `<button type="button" class="gen-calc-key ${cl[k] || ''}" data-k="${dk[k] || k}">${k}</button>`).join('');
+  return `<div class="gen-tools">
+      <button type="button" class="gen-tools-toggle" id="gen-tools-toggle">${genToolsOpen ? '▾' : '▸'} Calculator &amp; scratchpad</button>
+      <div class="gen-tools-panel" id="gen-tools-panel"${genToolsOpen ? '' : ' hidden'}>
+        <div class="gen-calc">
+          <input type="text" class="gen-calc-disp" id="gen-calc-disp" inputmode="none" readonly aria-label="Calculator display" />
+          <div class="gen-calc-keys">${grid}</div>
+        </div>
+        <div class="gen-pad"><textarea class="gen-pad-area" id="gen-pad-area" rows="6" placeholder="Scratchpad — work it out here…"></textarea></div>
+      </div>
+    </div>`;
+}
+function genCalcEval(expr) {
+  if (!/^[-−0-9+*/×÷().%\s]*$/.test(expr)) return 'Error';
+  const clean = expr.replace(/×/g, '*').replace(/÷/g, '/').replace(/−/g, '-').replace(/%/g, '/100');
+  if (!clean.trim()) return '';
+  try {
+    const v = Function('"use strict";return (' + clean + ')')();
+    if (typeof v !== 'number' || !isFinite(v)) return 'Error';
+    return String(Math.round(v * 1e6) / 1e6);
+  } catch { return 'Error'; }
+}
+function genWireTools(main) {
+  const toggle = main.querySelector('#gen-tools-toggle');
+  if (!toggle) return;
+  const panel = main.querySelector('#gen-tools-panel');
+  const disp = main.querySelector('#gen-calc-disp');
+  const pad = main.querySelector('#gen-pad-area');
+  toggle.addEventListener('click', () => {
+    genToolsOpen = panel.hidden; panel.hidden = !genToolsOpen;
+    toggle.textContent = (genToolsOpen ? '▾' : '▸') + ' Calculator & scratchpad';
+  });
+  if (pad) { pad.value = genScratch; pad.addEventListener('input', () => { genScratch = pad.value; }); }
+  let evaluated = false;
+  main.querySelectorAll('.gen-calc-key').forEach(b => b.addEventListener('click', () => {
+    const k = b.dataset.k;
+    if (k === 'clear') { disp.value = ''; evaluated = false; return; }
+    if (k === 'back') { disp.value = disp.value.slice(0, -1); evaluated = false; return; }
+    if (k === 'eq') { disp.value = genCalcEval(disp.value); evaluated = true; return; }
+    if (disp.value === 'Error') disp.value = '';
+    if (evaluated) { if (/[0-9.(]/.test(k)) disp.value = ''; evaluated = false; }
+    disp.value += k;
+  }));
+}
+
 function genRunQuestion(run) {
   genClearTimer();
   run.locked = false;
@@ -726,6 +778,7 @@ function genRunQuestion(run) {
       <div class="gen-opts">
         ${order.map((origIdx, dispIdx) => `<button class="gen-opt" data-disp="${dispIdx}" data-ok="${dispIdx === correctDisp ? 1 : 0}"><span class="gen-opt-key mono">${String.fromCharCode(65 + dispIdx)}</span><span class="gen-opt-txt">${esc(qq.options[origIdx])}</span></button>`).join('')}
       </div>
+      ${qq.type === 'calc' ? genToolsHtml() : ''}
       <div class="gen-explain" id="gen-explain" hidden></div>
       <div class="gen-next-row" id="gen-next-row" hidden><button class="btn btn-solid" id="gen-next">Next →</button></div>
     </div>
@@ -785,6 +838,7 @@ function genRunQuestion(run) {
     else if (/^[1-4]$/.test(e.key)) k = +e.key - 1;
     if (k >= 0) { const b = optsWrap.querySelector(`.gen-opt[data-disp="${k}"]`); if (b) choose(b); }
   };
+  genWireTools(main);
   genBindKey(onKey);   // replaces any previous question's handler
 
   root.appendChild(main); root.appendChild(siteFooter()); setView(root);
