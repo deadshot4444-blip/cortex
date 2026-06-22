@@ -2294,3 +2294,14 @@ button.neuro-ms.done .neuro-ms-sub { color: var(--green); }
   .gen-hero { flex-direction: column; align-items: flex-start; }
   .gen-hero-r { flex-direction: row; align-self: stretch; justify-content: space-between; }
 }
+
+/* Genetics Arcade — complete bordered cards (replace corner-bracket-only frame) */
+.gen-home .cornerframe, .gen-game .cornerframe, .gen-result .cornerframe,
+.gen-pick .cornerframe, .gen-lock .cornerframe {
+  border: 1px solid var(--line); background: var(--bg);
+}
+.gen-home .cornerframe::before, .gen-home .cornerframe::after,
+.gen-game .cornerframe::before, .gen-game .cornerframe::after,
+.gen-result .cornerframe::before, .gen-result .cornerframe::after,
+.gen-pick .cornerframe::before, .gen-pick .cornerframe::after,
+.gen-lock .cornerframe::before, .gen-lock .cornerframe::after { display: none; }

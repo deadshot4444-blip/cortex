@@ -61,7 +61,7 @@ const SECTION_INFO = {
     desc: 'The Neuroengineering division is offline while we refine the curriculum, labs, and Practitioner track to the same standard as the rest of Cortex. It will return soon — thank you for your patience.',
   },
 };
-const APP_VERSION = '1.14.1';
+const APP_VERSION = '1.14.2';
 const MEMBERSHIP_START = 'August 1, 2026';
 function cortexFreeNote(sectionPill, sectionName) {
   return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free for now</span><span class="free-note-txt">${sectionName} becomes optional membership ${MEMBERSHIP_START}. The full MCAT suite stays free forever.</span></p>`;
