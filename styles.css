@@ -2395,3 +2395,7 @@ button.neuro-ms.done .neuro-ms-sub { color: var(--green); }
   .gen-calc { flex: 0 0 auto; }
   .gen-calc-key { padding: 13px 0; }
 }
+
+/* Genetics-2313-01E — "think it through" hint (shown on a retry after a miss) */
+.gen-hint { margin: 0 0 16px; padding: 11px 14px; background: var(--surface); border-left: 2px solid var(--amber); color: var(--body); font-size: 13px; line-height: 1.55; }
+.gen-hint-lab { font-family: var(--mono); font-size: 9.5px; text-transform: uppercase; letter-spacing: .12em; color: var(--amber); margin-right: 8px; }
