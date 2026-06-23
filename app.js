@@ -61,7 +61,7 @@ const SECTION_INFO = {
     desc: 'The Neuroengineering division is offline while we refine the curriculum, labs, and Practitioner track to the same standard as the rest of Cortex. It will return soon — thank you for your patience.',
   },
 };
-const APP_VERSION = '1.14.2';
+const APP_VERSION = '1.14.3';
 const MEMBERSHIP_START = 'August 1, 2026';
 function cortexFreeNote(sectionPill, sectionName) {
   return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free for now</span><span class="free-note-txt">${sectionName} becomes optional membership ${MEMBERSHIP_START}. The full MCAT suite stays free forever.</span></p>`;
@@ -134,7 +134,7 @@ const SECTION_SCRIPTS = {
   reference: ['reference.js?v=48', 'performance-drugs.js?v=7', 'ekg.js?v=36'],
   socrates: ['socrates.js?v=40'],
   neuro: ['python-runtime.js?v=3', 'code-evaluator.js?v=2', 'neuro-practitioner.js?v=3', 'neuro.js?v=13'],
-  genetics: ['genetics.js?v=11'],
+  genetics: ['genetics.js?v=12'],
 };
 const _scriptLoads = {};
 function loadScript(src) {
@@ -747,6 +747,13 @@ const PRINCIPLES = [
 
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
+  {
+    date: 'June 23, 2026', version: '1.14.3', tag: 'NEW',
+    title: 'Class study tools - bigger question bank',
+    items: [
+      'Genetics study mode (UTSA): added ~60 more questions on deeper Chapter 5-6 topics (coupling/repulsion, interference, chi-square, inversion & translocation products, Down syndrome types, polyploidy) plus auto-generated practice problems.',
+    ],
+  },
   {
     date: 'June 22, 2026', version: '1.14.2', tag: 'NEW',
     title: 'Class study tools - visuals & mobile',
