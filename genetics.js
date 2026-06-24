@@ -171,143 +171,8 @@ function gTriploid3() {
   return `<svg viewBox="0 0 240 100" class="gen-svg gen-svg-wide" role="img" aria-label="three homologs">${s}<text x="120" y="92" class="gsv-pcap">three homologs of one chromosome (3n)</text></svg>`;
 }
 
-const GEN_DIAGRAMS = [
-  { id: 'd-cen-meta', hint: 'Where does the centromere sit, and how do the two arm lengths compare here?', chapter: 6, topic: 'ch6-structural', type: 'label', difficulty: 'easy', tag: 'Centromere position', svg: gChr(75),
-    q: 'Classify this chromosome by its centromere position.',
-    options: ['Metacentric', 'Acrocentric', 'Telocentric', 'Submetacentric'], answer: 0,
-    explain: 'The centromere sits at the middle, giving two arms of roughly equal length — that is a metacentric chromosome.' },
-  { id: 'd-cen-sub', hint: 'When arms are unequal but neither is tiny, how far off-center is the centromere?', chapter: 6, topic: 'ch6-structural', type: 'label', difficulty: 'med', tag: 'Centromere position', svg: gChr(55),
-    q: 'Classify this chromosome by its centromere position.',
-    options: ['Metacentric', 'Submetacentric', 'Telocentric', 'Acrocentric'], answer: 1,
-    explain: 'The centromere is offset from center, producing one shorter (p) and one longer (q) arm — submetacentric.' },
-  { id: 'd-cen-acro', hint: 'When the centromere sits near one end leaving a very short arm, which class fits?', chapter: 6, topic: 'ch6-structural', type: 'label', difficulty: 'med', tag: 'Centromere position', svg: gChr(30),
-    q: 'Classify this chromosome by its centromere position.',
-    options: ['Submetacentric', 'Acrocentric', 'Metacentric', 'Telocentric'], answer: 1,
-    explain: 'The centromere lies near one end, leaving a very small short arm — acrocentric. (Robertsonian translocations occur between acrocentric chromosomes.)' },
-  { id: 'd-cen-telo', hint: 'If the centromere is right at the chromosome\'s tip with essentially one arm, which class?', chapter: 6, topic: 'ch6-structural', type: 'label', difficulty: 'med', tag: 'Centromere position', svg: gChr(16),
-    q: 'Classify this chromosome by its centromere position.',
-    options: ['Acrocentric', 'Telocentric', 'Metacentric', 'Submetacentric'], answer: 1,
-    explain: 'The centromere is at the very end with essentially no short arm — telocentric.' },
-  { id: 'd-arrow-cen', hint: 'What constricted point joins the two sister chromatids and attaches spindle fibers?', chapter: 6, topic: 'ch6-structural', type: 'label', difficulty: 'easy', tag: 'Label the part', svg: gChr(55, 55),
-    q: 'What structure does the arrow point to?',
-    options: ['Telomere', 'Centromere', 'Short (p) arm', 'Chiasma'], answer: 1,
-    explain: 'The arrow marks the constricted region of repetitive DNA where sister chromatids are held together — the centromere.' },
-  { id: 'd-arrow-p', hint: 'Relative to the centromere, is the indicated arm the shorter or longer one?', chapter: 6, topic: 'ch6-structural', type: 'label', difficulty: 'easy', tag: 'Label the arm', svg: gChr(55, 33),
-    q: 'The arrow points to which arm of the chromosome?',
-    options: ['The q arm (long arm)', 'The p arm (short arm)', 'The centromere', 'The telomere'], answer: 1,
-    explain: 'The shorter arm above the centromere is the p arm; the longer arm below is the q arm.' },
-  { id: 'd-arrow-q', hint: 'Compare the two arms about the centromere: is the marked one shorter or longer?', chapter: 6, topic: 'ch6-structural', type: 'label', difficulty: 'easy', tag: 'Label the arm', svg: gChr(55, 96),
-    q: 'The arrow points to which arm of the chromosome?',
-    options: ['The p arm (short arm)', 'The q arm (long arm)', 'The centromere', 'A telomere'], answer: 1,
-    explain: 'The longer arm below the centromere is the q arm (p = short, q = long).' },
-  { id: 'd-inv-para', hint: 'Does the inverted segment include the centromere, or lie entirely on one arm?', chapter: 6, topic: 'ch6-structural', type: 'label', difficulty: 'hard', tag: 'Inversion type', svg: gInversion(['A', 'B', 'C', 'D', 'G', 'F', 'E'], 3, 4, 6),
-    q: 'A chromosome A·B·C·D·●·E·F·G mutates to the arrangement shown (● = centromere). What rearrangement is this?',
-    options: ['Pericentric inversion', 'Paracentric inversion', 'Reciprocal translocation', 'Terminal deletion'], answer: 1,
-    explain: 'The reversed segment (E·F·G → G·F·E) lies entirely on one arm and does NOT include the centromere — that defines a paracentric inversion.' },
-  { id: 'd-inv-peri', hint: 'Check whether the reversed region spans across the centromere or stays on one side.', chapter: 6, topic: 'ch6-structural', type: 'label', difficulty: 'hard', tag: 'Inversion type', svg: gInversion(['A', 'D', 'C', 'B', 'E', 'F', 'G'], 2, 1, 3),
-    q: 'A chromosome A·B·●·C·D·E·F·G mutates to the arrangement shown (● = centromere, highlighted region reversed). What is it?',
-    options: ['Paracentric inversion', 'Pericentric inversion', 'Robertsonian translocation', 'Interstitial deletion'], answer: 1,
-    explain: 'The inverted segment spans the centromere (the ● lies inside the reversed region) — that is a pericentric inversion.' },
-  { id: 'd-ndj-mi', hint: 'If all four gametes are abnormal, did separation fail in the first or second division?', chapter: 6, topic: 'ch6-number', type: 'label', difficulty: 'med', tag: 'Nondisjunction', svg: gGametes(['n+1', 'n+1', 'n−1', 'n−1']),
-    q: 'All four gametes from one meiosis have these chromosome numbers. At which stage did nondisjunction occur?',
-    options: ['Meiosis I', 'Meiosis II', 'Mitosis', 'No nondisjunction occurred'], answer: 0,
-    explain: 'When ALL four gametes are abnormal (two n+1 and two n−1), homologs failed to separate in meiosis I.' },
-  { id: 'd-ndj-mii', hint: 'If only one pair of gametes is unbalanced while others are normal, which division failed?', chapter: 6, topic: 'ch6-number', type: 'label', difficulty: 'med', tag: 'Nondisjunction', svg: gGametes(['n', 'n', 'n+1', 'n−1']),
-    q: 'The four gametes from one meiosis have these chromosome numbers. At which stage did nondisjunction occur?',
-    options: ['Meiosis I', 'Meiosis II', 'Fertilization', 'S phase'], answer: 1,
-    explain: 'Two normal (n) plus one n+1 and one n−1 means sister chromatids failed to separate in meiosis II (only one of the two MII divisions was affected).' },
-  { id: 'd-pun-incdom', hint: 'With incomplete dominance, what phenotype does each heterozygote show, and how do the three genotype classes split?', chapter: 4, topic: 'ch4-interactions', type: 'label', difficulty: 'med', tag: 'Incomplete dominance', answer: 1,
-    svg: gPunnett(['Cʳ', 'Cʷ'], ['Cʳ', 'Cʷ'], [[{ g: 'CʳCʳ', cls: 'red' }, { g: 'CʳCʷ', cls: 'pink' }], [{ g: 'CʳCʷ', cls: 'pink' }, { g: 'CʷCʷ', cls: 'white' }]]),
-    q: 'Two pink (CʳCʷ) snapdragons are crossed (incomplete dominance). What F2 phenotypic ratio does this Punnett square give?',
-    options: ['3 red : 1 white', '1 red : 2 pink : 1 white', 'All pink', '1 red : 1 white'], answer: 1,
-    explain: 'With incomplete dominance the heterozygote is pink, so genotype ratio = phenotype ratio: 1 CʳCʳ (red) : 2 CʳCʷ (pink) : 1 CʷCʷ (white).' },
-  { id: 'd-pun-abo', hint: 'Each parent passes one allele; list all four genotype combinations and recall codominance gives a distinct heterozygote type.', chapter: 4, topic: 'ch4-interactions', type: 'label', difficulty: 'med', tag: 'ABO codominance', answer: 2,
-    svg: gPunnett(['Iᴬ', 'i'], ['Iᴮ', 'i'], [[{ g: 'IᴬIᴮ', cls: 'pab' }, { g: 'Iᴮi', cls: 'pb' }], [{ g: 'Iᴬi', cls: 'pa' }, { g: 'ii', cls: 'po' }]]),
-    q: 'A type-A (Iᴬi) × type-B (Iᴮi) cross. What blood-type ratio does this Punnett square predict?',
-    options: ['All type AB', '3 AB : 1 O', '1 AB : 1 A : 1 B : 1 O', '1 A : 1 B'], answer: 2,
-    explain: 'Iᴬ and Iᴮ are codominant and i is recessive, giving four equally likely children: IᴬIᴮ (AB), Iᴬi (A), Iᴮi (B), ii (O) — a 1:1:1:1 ratio.' },
-  { id: 'd-pedigree-mito', hint: 'Which organelle is inherited only through the egg, making transmission depend entirely on the mother?', chapter: 4, topic: 'ch4-nonmendelian', type: 'label', difficulty: 'hard', tag: 'Pedigree', svg: gPedigree(),
-    q: 'In this pedigree an affected mother passes the trait to ALL of her children (an affected father would pass it to none). Which inheritance pattern is this?',
-    options: ['Autosomal dominant', 'X-linked recessive', 'Mitochondrial (maternal) inheritance', 'Genomic imprinting'], answer: 2,
-    explain: 'Transmission exclusively through the mother to all offspring is the hallmark of mitochondrial / maternal (cytoplasmic) inheritance — mtDNA comes from the egg.' },
-  { id: 'd-robertson', hint: 'When two whole chromosomes merge into one, does the total chromosome number stay the same or shift?', chapter: 6, topic: 'ch6-structural', type: 'label', difficulty: 'med', tag: 'Translocation', svg: gRobertson(),
-    q: 'Two acrocentric chromosomes fuse into a single chromosome as shown. What is this event, and how does the chromosome count change?',
-    options: ['Reciprocal translocation; count unchanged', 'Robertsonian translocation; count drops by 1', 'Pericentric inversion; count unchanged', 'Duplication; count rises by 1'], answer: 1,
-    explain: 'Fusion of two acrocentric chromosomes at the centromere is a Robertsonian translocation; two chromosomes become one, so the total count drops by 1 (e.g., 48 → 47).' },
+const GEN_DIAGRAMS = []; // Module 2 (Ch 4-6) cleared — drop new diagram questions here
 
-  { id: 'd-epistasis-path', hint: 'If the first enzyme is blocked, can any downstream pigment form along the pathway?', chapter: 4, topic: 'ch4-epistasis', type: 'label', difficulty: 'med', tag: 'Epistasis pathway', svg: gPathway('C'),
-    q: 'In this sweet-pea pigment pathway, the cc genotype blocks the C enzyme (✗). What is the flower color?',
-    options: ['Purple', 'White (colorless)', 'Pink', 'Red'], answer: 1,
-    explain: 'Purple pigment needs BOTH enzymes (C and P). With the C enzyme blocked, the pathway stalls at the colorless precursor, so the flower is white — the basis of the 9:7 epistatic ratio.' },
-  { id: 'd-grid-97', hint: 'What 16-part ratio collapses to 9:7, and which class requires a dominant allele at both genes?', chapter: 4, topic: 'ch4-epistasis', type: 'label', difficulty: 'med', tag: '9:7 ratio', svg: gGrid([{ n: 9, cls: 'p' }, { n: 7, cls: 'w' }]),
-    q: 'This dihybrid cross gives 9 purple (filled) : 7 white (open) offspring. Which interaction produces this ratio?',
-    options: ['No gene interaction (simple dominance)', 'Duplicate-recessive epistasis', 'Dominant epistasis', 'Incomplete dominance'], answer: 1,
-    explain: 'A 9:7 ratio means both genes must contribute a dominant allele for color; cc OR pp gives white. This duplicate (complementary) recessive epistasis collapses the 3:3:1 classes into the "7 white".' },
-  { id: 'd-grid-1231', hint: 'Which 16ths combine into the largest class here, and does a dominant allele at one gene mask the other?', chapter: 4, topic: 'ch4-epistasis', type: 'label', difficulty: 'hard', tag: '12:3:1 ratio', svg: gGrid([{ n: 12, cls: 'c' }, { n: 3, cls: 'p' }, { n: 1, cls: 'r' }]),
-    q: 'A dihybrid cross yields 12 : 3 : 1 (light : purple : red). Which gene interaction is this?',
-    options: ['Recessive epistasis', 'Dominant epistasis', 'Duplicate-recessive epistasis', 'No gene interaction (simple dominance)'], answer: 1,
-    explain: 'A 12:3:1 ratio is dominant epistasis: a dominant allele at one locus (e.g., I) masks the second gene, so 9+3 = 12 share one phenotype, and only the recessive-at-the-epistatic-gene classes (3 and 1) reveal the second gene.' },
-  { id: 'd-crossover', hint: 'Do these allele combinations match either parent\'s original arrangement, or are they newly shuffled?', chapter: 5, topic: 'ch5-linkage', type: 'label', difficulty: 'med', tag: 'Recombinant gametes', svg: gCrossover(),
-    q: 'A crossover between linked genes A and B produces these four gametes. The two outlined gametes (A b and a B) are:',
-    options: ['Parental (nonrecombinant) gametes', 'Recombinant gametes', 'Identical to the parents', 'Products of nondisjunction'], answer: 1,
-    explain: 'Parental gametes keep the original allele combinations (A B, a b). Crossing over swaps alleles between homologs to make NEW combinations (A b, a B) — the recombinant gametes whose frequency gives map distance.' },
-  { id: 'd-map', hint: 'How do map distances between adjacent gene intervals combine across A-to-C?', chapter: 5, topic: 'ch5-threepoint', type: 'label', difficulty: 'med', tag: 'Linkage map', svg: gMap(['A', 'B', 'C'], [5, 12]),
-    q: 'Using this linkage map, what is the map distance between genes A and C?',
-    options: ['7 cM', '12 cM', '17 cM', '60 cM'], answer: 2,
-    explain: 'Map distances between linked genes are additive: A–C = A–B + B–C = 5 + 12 = 17 cM (ignoring rare double crossovers).' },
-  { id: 'd-ped-ar', hint: 'If both parents show no trait but a child does, what must each parent secretly carry?', chapter: 4, topic: 'ch4-interactions', type: 'label', difficulty: 'hard', tag: 'Pedigree', svg: gPed({ mother: 'unaff', father: 'unaff', kids: [['c', 'unaff'], ['s', 'aff'], ['c', 'unaff']], cap: 'unaffected parents → affected child' }),
-    q: 'Two unaffected parents have an affected child (filled). Which inheritance pattern best fits?',
-    options: ['Autosomal dominant', 'Autosomal recessive', 'Mitochondrial', 'Y-linked'], answer: 1,
-    explain: 'When two unaffected parents produce an affected child, both parents are carriers (heterozygous) of a recessive allele — autosomal recessive inheritance (the trait can "skip" generations).' },
-  { id: 'd-ped-xr', hint: 'Why would a trait appear far more in males, and which chromosome do sons inherit from their carrier mother?', chapter: 4, topic: 'ch4-epistasis', type: 'label', difficulty: 'hard', tag: 'Pedigree', svg: gPed({ mother: 'carrier', father: 'unaff', kids: [['s', 'aff'], ['c', 'carrier'], ['s', 'unaff']], cap: 'carrier mother → affected son' }),
-    q: 'A carrier mother (dot) and unaffected father have an affected son; the trait shows up mostly in males. Pattern?',
-    options: ['Autosomal recessive', 'X-linked recessive', 'Autosomal dominant', 'Mitochondrial'], answer: 1,
-    explain: 'Males (XY) need only one copy of an X-linked recessive allele to be affected, so the trait appears far more in sons, passed from carrier mothers — X-linked recessive inheritance.' },
-  { id: 'd-deletion', hint: 'Lost from the middle, not an end — which deletion term describes an internal segment versus a terminal one?', chapter: 6, topic: 'ch6-structural', type: 'label', difficulty: 'med', tag: 'Deletion', svg: gSeg(['A', 'B', 'C', 'D', 'E', 'F'], [2, 3], 'gone'),
-    q: 'Segments C and D (dashed) were lost from the MIDDLE of this chromosome. What is this called?',
-    options: ['Terminal deletion', 'Interstitial deletion', 'Duplication', 'Paracentric inversion'], answer: 1,
-    explain: 'Loss of an internal segment (not at the end) is an interstitial deletion. A terminal deletion removes material from the chromosome end (involving the telomere).' },
-  { id: 'd-dup', hint: 'A segment now present in two copies on one chromosome — does that add material or remove it?', chapter: 6, topic: 'ch6-structural', type: 'label', difficulty: 'med', tag: 'Duplication', svg: gSeg(['A', 'B', 'C', 'D', 'C', 'D'], [4, 5], 'dupseg'),
-    q: 'Segment C–D now appears twice on this chromosome (highlighted). What structural change is this?',
-    options: ['Deletion', 'Duplication', 'Inversion', 'Translocation'], answer: 1,
-    explain: 'A repeated chromosomal segment is a duplication — often arising from misaligned crossing over. Duplications add genetic material and are the raw material for gene families (paralogs).' },
-  { id: 'd-reciprocal', hint: 'Two non-homologous chromosomes traded segments — is this a fusion at centromeres, or a mutual exchange?', chapter: 6, topic: 'ch6-structural', type: 'label', difficulty: 'med', tag: 'Translocation', svg: gReciprocal(),
-    q: 'These two NON-homologous chromosomes have swapped end segments (colors exchanged). What is this?',
-    options: ['Robertsonian translocation', 'Reciprocal translocation', 'Pericentric inversion', 'Interstitial deletion'], answer: 1,
-    explain: 'A mutual exchange of segments between two non-homologous chromosomes is a reciprocal translocation. If it is balanced (no net gain/loss) the carrier is usually healthy, but gametes can be unbalanced.' },
-  { id: 'd-triploid', hint: 'Count the complete sets: how does the prefix tri- map onto the number n?', chapter: 6, topic: 'ch6-number', type: 'label', difficulty: 'easy', tag: 'Ploidy', svg: gSets([1, 1, 1]),
-    q: 'This cell carries three complete chromosome sets. What is its ploidy?',
-    options: ['Diploid (2n)', 'Triploid (3n)', 'Tetraploid (4n)', 'Haploid (n)'], answer: 1,
-    explain: 'Three complete sets = triploid (3n). Triploids are usually sterile/seedless because an odd number of homologs cannot pair evenly in meiosis.' },
-  { id: 'd-allopoly', hint: 'Four sets sourced from two different species — does \'auto\' or \'allo\' signal different-species origins?', chapter: 6, topic: 'ch6-number', type: 'label', difficulty: 'hard', tag: 'Polyploidy', svg: gSets([1, 1, 2, 2]),
-    q: 'This organism has four sets — two from each of two different species (two colors). What is it?',
-    options: ['Autotetraploid', 'Allotetraploid (allopolyploid)', 'Triploid', 'Aneuploid'], answer: 1,
-    explain: 'Sets from DIFFERENT species make it an allopolyploid; four total sets = allotetraploid (e.g., Xenopus laevis). Autopolyploidy would be extra sets from the SAME species (one color).' },
-  { id: 'd-trisomy', hint: 'Three copies of one chromosome (not whole extra sets) — is that 2n+1 or 3n?', chapter: 6, topic: 'ch6-number', type: 'label', difficulty: 'med', tag: 'Aneuploidy', svg: gKaryoTri(),
-    q: 'This partial karyotype shows three copies of chromosome 21 (highlighted). What is this?',
-    options: ['Monosomy 21 (2n−1)', 'Trisomy 21 / Down syndrome (2n+1)', 'Triploidy (3n)', 'Balanced translocation'], answer: 1,
-    explain: 'Three copies of a single chromosome (here 21) is a trisomy (2n+1) — trisomy 21 is Down syndrome. Triploidy (3n) would be three copies of EVERY chromosome, not just one.' },
-  { id: 'd-coupling', chapter: 5, topic: 'ch5-linkage', type: 'label', difficulty: 'med', tag: 'Coupling', hint: "The most frequent gametes copy one whole homolog without recombination — read each row.", svg: gCoupling(['A', 'B'], ['a', 'b']),
-    q: "These are the two homologs of a dihybrid for linked genes A and B. Which two gametes will be the MOST frequent?",
-    options: ['A B and a b', 'A b and a B', 'All four types equally', 'A B and A b'], answer: 0,
-    explain: "The most frequent gametes are the parental (nonrecombinant) types, which reproduce each intact homolog. Here the homologs carry A B and a b (the coupling/cis arrangement), so A B and a b are the common gametes; A b and a B are the rarer recombinants from crossing over." },
-  { id: 'd-repulsion', chapter: 5, topic: 'ch5-linkage', type: 'label', difficulty: 'med', tag: 'Repulsion', hint: "Each homolog passes its own allele pair into a gamete — what two combinations are shown?", svg: gCoupling(['A', 'b'], ['a', 'B']),
-    q: "These are the two homologs of a dihybrid in the repulsion (trans) arrangement. Which two gametes will be the MOST frequent?",
-    options: ['A B and a b', 'A b and a B', 'A B and A b', 'All four types equally'], answer: 1,
-    explain: "The parental (most frequent) gametes match the intact homologs. In repulsion the homologs carry A b and a B, so those are the common gametes, while A B and a b are the rarer recombinant types produced by crossing over." },
-  { id: 'd-bridge', chapter: 6, topic: 'ch6-structural', type: 'label', difficulty: 'hard', tag: 'Inversion products', hint: "Count the centromeres on each piece: one has two, the other has none.", svg: gBridge(),
-    q: "A single crossover within a paracentric inversion loop produces the abnormal products shown. What are they?",
-    options: ['Two balanced recombinant chromosomes', 'A dicentric bridge and an acentric fragment', 'A reciprocal translocation', 'Trisomy and monosomy'], answer: 1,
-    explain: "A crossover inside a paracentric inversion loop joins the two centromeres on one product (a dicentric bridge, which is pulled to both poles and breaks) and leaves the reciprocal product with no centromere (an acentric fragment, which is lost). Both recombinant products are abnormal, so recombinants aren't recovered — paracentric inversions suppress crossing over in heterozygotes." },
-  { id: 'd-quad', chapter: 6, topic: 'ch6-structural', type: 'label', difficulty: 'hard', tag: 'Translocation', hint: "Only one segregation pattern sends a complete chromosome set to each pole.", svg: gQuad(),
-    q: "A reciprocal-translocation heterozygote forms this cross-shaped quadrivalent in meiosis I. Which segregation pattern yields balanced, viable gametes?",
-    options: ['Adjacent-1 segregation', 'Adjacent-2 segregation', 'Alternate segregation', 'Any pattern produces balanced gametes'], answer: 2,
-    explain: "In alternate segregation, the diagonal (nonadjacent) chromosomes move to the same pole, so each gamete receives a complete set — either both normal or both translocated chromosomes — and is balanced and viable. Adjacent-1 and adjacent-2 send neighboring chromosomes together, producing unbalanced gametes with duplications and deletions, which is why translocation heterozygotes are semisterile." },
-  { id: 'd-triploid3', chapter: 6, topic: 'ch6-number', type: 'label', difficulty: 'med', tag: 'Polyploidy', hint: "Homologs normally line up two-by-two in meiosis — what goes wrong with three of each?", svg: gTriploid3(),
-    q: "An autotriploid (3n) carries three homologs of every chromosome, as shown. Why is it usually sterile?",
-    options: ['Three homologs cannot pair and segregate evenly in meiosis, giving unbalanced gametes', 'Triploids cannot undergo mitosis', 'The extra set is always silenced by methylation', 'Three sets prevent DNA replication'], answer: 0,
-    explain: "Meiosis pairs homologs two-by-two, but with three copies of each chromosome the homologs form trivalents (or a pair plus an unpaired chromosome) and segregate unevenly. The resulting gametes have random, unbalanced chromosome numbers, so few are viable — which is why odd-ploidy autopolyploids like autotriploids are typically sterile (and seedless)." },
-];
 
 /* ---------- generated + verified MCQ bank (injected at build) ---------- */
 let GEN_GENERATED = [];   // loaded from data/genetics-bank.json
@@ -322,53 +187,15 @@ function gOpts(correct, distractors) {
   const all = genShuffle([correct].concat(ds));
   return { options: all, answer: all.indexOf(correct) };
 }
-const GEN_GENERATORS = [
-  { id: 'gen-rf', chapter: 5, topic: 'ch5-threepoint', type: 'calc', difficulty: 'med', tag: 'Map distance', hint: 'Recombination frequency = recombinants ÷ total, then ×100 for a percentage.',
-    make() { const cM = gRand(3, 28), N = gPick([500, 800, 1000, 1200, 1500, 2000]), R = N * cM / 100;
-      const o = gOpts(`${cM} cM`, [`${100 - cM} cM`, `${Math.max(1, Math.round(cM / 2))} cM`, `${Math.min(95, cM * 2)} cM`, `${cM + 3} cM`]);
-      return { q: `In a testcross of ${N} offspring, ${R} are recombinant for genes A and B. What is the map distance between A and B?`, options: o.options, answer: o.answer, explain: `Map distance = (recombinants ÷ total) × 100 = (${R} ÷ ${N}) × 100 = ${cM} cM (${cM} map units).` }; } },
-  { id: 'gen-additive', chapter: 5, topic: 'ch5-threepoint', type: 'calc', difficulty: 'easy', tag: 'Additive distance', hint: 'Map distances between linked genes add up; combine the two flanking intervals.',
-    make() { let d1 = gRand(3, 22), d2 = gRand(3, 22); if (d1 === d2) d2 += 1;
-      const o = gOpts(`${d1 + d2} cM`, [`${Math.abs(d1 - d2)} cM`, `${Math.max(d1, d2)} cM`, `${Math.round((d1 + d2) / 2)} cM`, `${d1 * d2} cM`]);
-      return { q: `Genes D and E are ${d1} cM apart, and genes E and F are ${d2} cM apart, with E in the middle. What map distance is expected between D and F?`, options: o.options, answer: o.answer, explain: `Map distances are additive: D–F = D–E + E–F = ${d1} + ${d2} = ${d1 + d2} cM.` }; } },
-  { id: 'gen-geneorder', chapter: 5, topic: 'ch5-threepoint', type: 'calc', difficulty: 'med', tag: 'Gene order', hint: 'In a double crossover, only ONE gene flips versus the parentals; find which.',
-    make() { const g = genShuffle(['A', 'B', 'C', 'D', 'E']).slice(0, 3), mid = gRand(0, 2);
-      const up = g.join(' '), lo = g.map(x => x.toLowerCase()).join(' ');
-      const d1 = g.map((x, i) => i === mid ? x.toLowerCase() : x).join(' ');
-      const d2 = g.map((x, i) => i === mid ? x : x.toLowerCase()).join(' ');
-      const o = gOpts(`Gene ${g[mid]}`, g.filter((_, i) => i !== mid).map(x => `Gene ${x}`).concat(['Cannot be determined']));
-      return { q: `In a three-point cross the parental classes are ${up} and ${lo}; the two double-crossover classes are ${d1} and ${d2}. Which gene is in the middle?`, options: o.options, answer: o.answer, explain: `A double crossover flips only the MIDDLE gene relative to the parentals. Comparing ${up} / ${lo} with ${d1} / ${d2}, only gene ${g[mid]} differs, so gene ${g[mid]} is in the middle.` }; } },
-  { id: 'gen-3ptdist', chapter: 5, topic: 'ch5-threepoint', type: 'calc', difficulty: 'hard', tag: 'Map distance', hint: 'A region’s distance counts BOTH its single crossovers AND the double crossovers.',
-    make() { const N = 1000, cM = gRand(5, 25), dco = gPick([5, 10, 15, 20]), sco = N * cM / 100 - dco;
-      const forgot = cM - Math.round(dco / 10);
-      const o = gOpts(`${cM} cM`, [`${forgot} cM`, `${cM + gRand(2, 5)} cM`, `${Math.max(1, cM - gRand(2, 5))} cM`, `${Math.round(dco / 10)} cM`]);
-      return { q: `In a three-point testcross of ${N} offspring, the single-crossover classes between genes X and Y total ${sco}, and the double-crossover classes total ${dco}. What is the X–Y map distance?`, options: o.options, answer: o.answer, explain: `A region's distance includes its single crossovers AND the double crossovers: (${sco} + ${dco}) ÷ ${N} × 100 = ${cM} cM.` }; } },
-  { id: 'gen-ploidy', chapter: 6, topic: 'ch6-number', type: 'calc', difficulty: 'easy', tag: 'Ploidy', hint: 'Chromosomes per set = total ÷ number of sets.',
-    make() { const t = gPick([{ p: 3, n: 'triploid' }, { p: 4, n: 'tetraploid' }, { p: 6, n: 'hexaploid' }, { p: 8, n: 'octoploid' }]), per = gRand(5, 12), tot = t.p * per;
-      const o = gOpts(`${per} chromosomes`, [`${tot} chromosomes`, `${t.p} chromosomes`, `${per * 2} chromosomes`, `${Math.round(tot / 2)} chromosomes`]);
-      return { q: `A ${t.n} organism (${t.p} chromosome sets) has ${tot} chromosomes total. How many chromosomes are in EACH set?`, options: o.options, answer: o.answer, explain: `Chromosomes per set = total ÷ number of sets = ${tot} ÷ ${t.p} = ${per}.` }; } },
-  { id: 'gen-nondisj', chapter: 6, topic: 'ch6-number', type: 'calc', difficulty: 'med', tag: 'Nondisjunction', hint: 'Add the abnormal gamete’s chromosome count to a normal gamete (n); compare to 2n.',
-    make() { const n = gRand(4, 12), dip = 2 * n;
-      if (gPick([true, false])) { const o = gOpts(`${dip + 1} chromosomes`, [`${dip} chromosomes`, `${dip - 1} chromosomes`, `${n + 1} chromosomes`, `${dip + 2} chromosomes`]);
-        return { q: `A diploid species has 2n = ${dip}. An n+1 gamete from nondisjunction is fertilized by a normal gamete. How many chromosomes does the resulting (trisomic) zygote have?`, options: o.options, answer: o.answer, explain: `The n+1 gamete has ${n + 1} chromosomes; a normal gamete has ${n}. Zygote = ${n + 1} + ${n} = ${dip + 1} (2n+1, trisomy).` }; }
-      const o = gOpts(`${dip - 1} chromosomes`, [`${dip} chromosomes`, `${dip + 1} chromosomes`, `${n - 1} chromosomes`, `${dip - 2} chromosomes`]);
-      return { q: `A diploid species has 2n = ${dip}. An n−1 gamete from nondisjunction is fertilized by a normal gamete. How many chromosomes does the resulting (monosomic) zygote have?`, options: o.options, answer: o.answer, explain: `The n−1 gamete has ${n - 1} chromosomes; a normal gamete has ${n}. Zygote = ${n - 1} + ${n} = ${dip - 1} (2n−1, monosomy).` }; } },
-];
+const GEN_GENERATORS = []; // procedural generators cleared — add per new module
+
 
 let GEN_BANK = GEN_DIAGRAMS.concat(GEN_GENERATORS);   // GEN_GENERATED merged in after genLoadBank()
 
 /* ---------- topic metadata (for weakness reporting) ---------- */
-const GEN_TOPICS = {
-  'ch4-alleles': { ch: 4, name: 'Allele types & lethal alleles' },
-  'ch4-interactions': { ch: 4, name: 'Dominance, ABO, penetrance' },
-  'ch4-epistasis': { ch: 4, name: 'Epistasis & sex-influenced traits' },
-  'ch4-nonmendelian': { ch: 4, name: 'Non-Mendelian inheritance' },
-  'ch5-linkage': { ch: 5, name: 'Linkage & recombination' },
-  'ch5-threepoint': { ch: 5, name: 'Three-point crosses' },
-  'ch6-structural': { ch: 6, name: 'Structural variations & karyotype' },
-  'ch6-number': { ch: 6, name: 'Ploidy & aneuploidy' },
-};
-const GEN_CH = { 4: 'Mendelian Extensions', 5: 'Linkage & Mapping', 6: 'Chromosome Variation' };
+const GEN_TOPICS = {}; // topic categories cleared — define for the next module
+
+const GEN_CH = {}; // chapter labels cleared — define for the next module
 
 /* ---------- state + persistence ---------- */
 const GEN_KEY = 'cs-genetics';
@@ -538,7 +365,7 @@ async function genLoadBank() {
     const r = await fetch('data/genetics-bank.json?v=1');
     if (!r.ok) throw new Error('http ' + r.status);
     const data = await r.json();
-    if (!Array.isArray(data) || !data.length) throw new Error('empty bank');
+    if (!Array.isArray(data)) throw new Error('bad bank');   // an empty array is valid (no content yet)
     GEN_GENERATED = data;
     GEN_BANK = GEN_DIAGRAMS.concat(GEN_GENERATED).concat(GEN_GENERATORS);
     genBankReady = true; genBankFailed = false;
@@ -563,8 +390,16 @@ function renderGenetics() {
     genLoadBank().then(renderGenetics);
     return;
   }
+  if (!GEN_BANK.length) { renderGenEmpty(); return; }
   if (GEN.unlocked) { renderGenHome(); return; }
   renderGenPassword();
+}
+
+function renderGenEmpty() {
+  genClearTimer();
+  const root = el('<div></div>'); root.appendChild(topbar('genetics'));
+  const main = el(`<main class="panel gen-lock" id="main" tabindex="-1"><div class="gen-lock-box cornerframe"><span class="label">Genetics-2313-01E</span><h1 class="gen-lock-title">Coming soon</h1><p class="gen-lock-sub">This module is finished and its questions have been cleared. New course material will appear here once it's added.</p></div></main>`);
+  root.appendChild(main); root.appendChild(siteFooter()); setView(root);
 }
 function renderGenPassword(errMsg) {
   const root = el('<div></div>');
