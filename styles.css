@@ -2426,10 +2426,11 @@ button.neuro-ms.done .neuro-ms-sub { color: var(--green); }
 /* ============================================================================
    Genetics-2313-01E — LEARN MODE (Socratic lessons + interactive diagrams)
    ============================================================================ */
-.gen-mode-learn { background: var(--text); color: var(--bg, #fff); }
-.gen-mode-learn h2, .gen-mode-learn p, .gen-mode-learn .gen-mode-tag, .gen-mode-learn .gen-mode-go { color: var(--bg, #fff); }
-.gen-mode-learn .gen-mode-tag { opacity: .7; }
-.gen-mode-learn:hover { filter: brightness(1.12); }
+.gen-mode-card.gen-mode-learn { background: #16161a !important; border-color: #16161a !important; }
+.gen-mode-card.gen-mode-learn:hover { background: #000 !important; border-color: #000 !important; }
+.gen-mode-card.gen-mode-learn h2, .gen-mode-card.gen-mode-learn .gen-mode-go { color: #fff !important; }
+.gen-mode-card.gen-mode-learn p { color: rgba(255,255,255,.82) !important; }
+.gen-mode-card.gen-mode-learn .gen-mode-tag { color: rgba(255,255,255,.62) !important; }
 
 /* learn home */
 .gen-learn-intro { color: var(--body); font-size: 14px; line-height: 1.65; margin: 2px 0 22px; max-width: 70ch; }
