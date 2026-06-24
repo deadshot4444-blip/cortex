@@ -305,7 +305,7 @@ function genStatus() {
 /* weakest topics first (only count topics that exist in the bank) */
 function genWeakTopics() {
   return Object.keys(GEN_TOPICS)
-    .map(t => { const qs = genTopicQs(t); return { topic: t, name: GEN_TOPICS[t].name, ch: GEN_TOPICS[t].ch, comp: genComp(qs), n: qs.length, seen: qs.filter(q => genBox(q.id) > 0).length }; })
+    .map(t => { const qs = genTopicQs(t); return { topic: t, name: GEN_TOPICS[t].name, ch: GEN_TOPICS[t].ch, comp: genComp(qs), n: qs.length, seen: qs.filter(q => { const r = GEN.q[q.id]; return r && r.a > 0; }).length }; })
     .filter(x => x.n > 0)
     .sort((a, b) => a.comp - b.comp || b.n - a.n);
 }
@@ -387,7 +387,7 @@ function genBumpStreak() {
 function genRecord(qq, right) {
   GEN.answered++; if (right) GEN.correct++;
   const r = genQ(qq.id); r.a++; r.ts = Date.now();
-  if (right) { r.c++; r.box = Math.min(5, r.box + 1); r.lastWrong = false; } else { r.box = Math.max(1, r.box - 1); r.lastWrong = true; }
+  if (right) { r.c++; r.box = Math.min(5, r.box + 1); r.lastWrong = false; } else { r.box = Math.max(0, r.box - 1); r.lastWrong = true; }
   const diff = qq.difficulty === 'hard' ? 6 : qq.difficulty === 'med' ? 3 : 0;
   const xp = right ? 10 + (qq.type === 'calc' ? 5 : qq.type === 'label' ? 3 : 0) + diff : 1;
   GEN.xp += xp;
@@ -399,13 +399,31 @@ function genRecord(qq, right) {
    ENTRY + PASSWORD GATE
    ========================================================================= */
 let genBankReady = false, genBankFailed = false;
+function genValidBankItem(q, seen) {
+  return q && typeof q === 'object'
+    && typeof q.id === 'string' && q.id && !seen.has(q.id)
+    && typeof q.q === 'string' && q.q
+    && typeof q.topic === 'string' && q.topic
+    && Array.isArray(q.options) && q.options.length === 4 && q.options.every(o => typeof o === 'string' && o.length)
+    && Number.isInteger(q.answer) && q.answer >= 0 && q.answer <= 3
+    && typeof q.explain === 'string' && typeof q.hint === 'string';
+}
 async function genLoadBank() {
   try {
     const r = await fetch('data/genetics-bank.json?v=1');
     if (!r.ok) throw new Error('http ' + r.status);
     const data = await r.json();
     if (!Array.isArray(data)) throw new Error('bad bank');   // an empty array is valid (no content yet)
-    GEN_GENERATED = data;
+    const seen = new Set(), valid = [];
+    for (const q of data) {
+      if (!genValidBankItem(q, seen)) continue;
+      seen.add(q.id);
+      if (q.type !== 'concept' && q.type !== 'calc' && q.type !== 'label') q.type = 'concept';
+      if (q.difficulty !== 'easy' && q.difficulty !== 'med' && q.difficulty !== 'hard') q.difficulty = 'med';
+      valid.push(q);
+    }
+    if (data.length && !valid.length) throw new Error('no valid bank items');   // non-empty but all malformed -> failure screen
+    GEN_GENERATED = valid;
     GEN_BANK = GEN_DIAGRAMS.concat(GEN_GENERATED).concat(GEN_GENERATORS);
     genBankReady = true; genBankFailed = false;
   } catch (e) { genBankFailed = true; }
@@ -659,8 +677,12 @@ function startGenTopic(t) {
 }
 function startGenExam() {
   genBumpStreak(); GEN.plays++; genSave();
-  const pick = (ch, n) => genShuffle(genChapterQs(ch)).slice(0, n);
-  const pool = genShuffle([...pick(4, 8), ...pick(5, 6), ...pick(6, 6)]).slice(0, 20);
+  const chs = Object.keys(GEN_CH).map(Number);
+  const per = Math.ceil(20 / Math.max(1, chs.length));
+  let pool = [];
+  chs.forEach(ch => { pool = pool.concat(genShuffle(genChapterQs(ch)).slice(0, per)); });
+  pool = genShuffle(pool).slice(0, 20);
+  if (pool.length < 20) { const have = new Set(pool.map(q => q.id)); pool = pool.concat(genShuffle(GEN_BANK).filter(q => !have.has(q.id)).slice(0, 20 - pool.length)); }
   genTrack('mode_start', { mode: 'exam' });
   genRunQuestion({ mode: 'exam', pool, idx: 0, score: 0, combo: 0, maxCombo: 0, correct: 0, answered: 0, lives: 3, locked: false });
 }
