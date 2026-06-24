@@ -64,7 +64,7 @@ function gPedigree() {
     + [45, 85, 125, 165].map((x, i) => `<line x1="${x}" y1="52" x2="${x}" y2="70" class="gsv-pline"/>` + (i % 2
       ? `<rect x="${x - 11}" y="70" width="22" height="22" class="gsv-aff"/>`
       : `<circle cx="${x}" cy="81" r="11" class="gsv-aff"/>`)).join('')
-    + `<text x="78" y="105" class="gsv-pcap">affected ♀</text><text x="150" y="105" class="gsv-pcap">all children affected</text></svg>`;
+    + `<text x="110" y="105" class="gsv-pcap">affected mother \u2192 every child affected</text></svg>`;
 }
 function gRobertson() {
   return `<svg viewBox="0 0 220 120" class="gen-svg gen-svg-wide" role="img" aria-label="Robertsonian fusion">`
@@ -204,7 +204,7 @@ const GEN_DIAGRAMS = [
     q: 'A chromosome A·B·C·D·●·E·F·G mutates to the arrangement shown (● = centromere). What rearrangement is this?',
     options: ['Pericentric inversion', 'Paracentric inversion', 'Reciprocal translocation', 'Terminal deletion'], answer: 1,
     explain: 'The reversed segment (E·F·G → G·F·E) lies entirely on one arm and does NOT include the centromere — that defines a paracentric inversion.' },
-  { id: 'd-inv-peri', hint: 'Check whether the reversed region spans across the centromere or stays on one side.', chapter: 6, topic: 'ch6-structural', type: 'label', difficulty: 'hard', tag: 'Inversion type', svg: gInversion(['A', 'B', 'E', 'D', 'C', 'F', 'G'], 1, 2, 4),
+  { id: 'd-inv-peri', hint: 'Check whether the reversed region spans across the centromere or stays on one side.', chapter: 6, topic: 'ch6-structural', type: 'label', difficulty: 'hard', tag: 'Inversion type', svg: gInversion(['A', 'D', 'C', 'B', 'E', 'F', 'G'], 2, 1, 3),
     q: 'A chromosome A·B·●·C·D·E·F·G mutates to the arrangement shown (● = centromere, highlighted region reversed). What is it?',
     options: ['Paracentric inversion', 'Pericentric inversion', 'Robertsonian translocation', 'Interstitial deletion'], answer: 1,
     explain: 'The inverted segment spans the centromere (the ● lies inside the reversed region) — that is a pericentric inversion.' },
