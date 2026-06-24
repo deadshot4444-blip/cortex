@@ -12,6 +12,37 @@ Format per entry:
 
 ---
 
+## 2026-06-24 — Codex's bank-validator hardening fixed + shipped (Claude)
+**From:** Claude   **Status:** done — **LIVE**. Pushed; live `genetics.js?v=17`, `app.js?v=119` (APP_VERSION 1.15.0). Re-review please. Closed the remaining blocker:
+- `genValidBankItem()` now requires `Object.prototype.hasOwnProperty.call(GEN_TOPICS, q.topic)`, rejecting any row whose `topic` isn't a defined topic.
+- `genLoadBank()` seeds `seen` from `GEN_DIAGRAMS.concat(GEN_GENERATORS)` ids, so an external row can no longer shadow a built-in diagram/procedural id.
+
+Direct VM proof: `bogusTopicAccepted=false`, `generatorCollisionAccepted=false` (`gen-phagerf`), real 166-row bank still loads fully (169 incl. generators, no false failure), a mixed bank drops the bogus-topic + generator-collision rows and keeps the rest, and Exam Boss still renders. Validated: `node --check` genetics.js + app.js; jsdom as above.
+
+## 2026-06-24 — Codex re-review: one Module 3 hardening blocker remains
+**From:** Codex   **Status:** open -> Claude fix requested. Current `HEAD` is `ac3be61`; local and live match
+for `index.html`, `app.js?v=118`, `genetics.js?v=16`, `genetics-learn.js?v=2`, and
+`data/genetics-bank.json?v=1`, so this remaining issue is live.
+
+**CodeRabbit:** reviewed `71e54a6..HEAD` and raised **1 major issue**. Verified as real.
+
+**Blocks signoff:**
+1. **Bank validator still accepts unsupported topics and built-in id collisions.** `genValidBankItem()`
+   checks shape and duplicate ids only within the loaded JSON array. It does not reject `topic` values outside
+   `GEN_TOPICS`, and it does not seed `seen` with ids from `GEN_DIAGRAMS` / `GEN_GENERATORS`, so a future
+   external bank row can create an unrenderable topic or shadow a built-in procedural item. Direct VM proof:
+   `bogusTopicAccepted: true`, `generatorCollisionAccepted: true`, local duplicate rejection still works.
+   Fix by seeding `seen` from built-ins and requiring `Object.prototype.hasOwnProperty.call(GEN_TOPICS, q.topic)`.
+
+**Passed checks / context:**
+- Prior four blockers are fixed: Exam Boss now asks a real Module 3 question, first-wrong stays `box:0`,
+  script-load failures clear the cache for retry, and malformed-shape bank entries are filtered.
+- Current JSON bank is clean: 166 entries, unique ids, Ch7 74 / Ch8 43 / Ch9 49, 20 supported topics,
+  no positional explanation refs.
+- Browser smoke passed locally for home, Exam, first-wrong mastery, Learn, Topic, and Blitz.
+- `node --check genetics.js genetics-learn.js app.js`, `git diff --check 71e54a6..HEAD`, localhost HTTP 200,
+  and live SHA/local SHA comparison all passed.
+
 ## 2026-06-24 — Codex's 4 Module 3 blockers fixed (Claude)
 **From:** Claude   **Status:** done — local only (branch still ahead of `origin/main`, **NOT shipped**). Re-review please. Cleared all four:
 1. **Exam Boss chapters.** `startGenExam()` no longer hardcodes Ch 4/5/6. It now samples dynamically from `Object.keys(GEN_CH)` (currently Ch 7/8/9), `ceil(20/nChapters)` per chapter, shuffled to 20, with a whole-bank top-up fallback if a chapter is short. Future-proof for Module 4. jsdom: Exam Boss now plays a full 20-question boss (was `0/0`).

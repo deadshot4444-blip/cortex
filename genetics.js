@@ -403,7 +403,7 @@ function genValidBankItem(q, seen) {
   return q && typeof q === 'object'
     && typeof q.id === 'string' && q.id && !seen.has(q.id)
     && typeof q.q === 'string' && q.q
-    && typeof q.topic === 'string' && q.topic
+    && typeof q.topic === 'string' && Object.prototype.hasOwnProperty.call(GEN_TOPICS, q.topic)
     && Array.isArray(q.options) && q.options.length === 4 && q.options.every(o => typeof o === 'string' && o.length)
     && Number.isInteger(q.answer) && q.answer >= 0 && q.answer <= 3
     && typeof q.explain === 'string' && typeof q.hint === 'string';
@@ -414,7 +414,7 @@ async function genLoadBank() {
     if (!r.ok) throw new Error('http ' + r.status);
     const data = await r.json();
     if (!Array.isArray(data)) throw new Error('bad bank');   // an empty array is valid (no content yet)
-    const seen = new Set(), valid = [];
+    const seen = new Set(GEN_DIAGRAMS.concat(GEN_GENERATORS).map(q => q.id)), valid = [];
     for (const q of data) {
       if (!genValidBankItem(q, seen)) continue;
       seen.add(q.id);
