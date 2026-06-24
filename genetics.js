@@ -1,5 +1,5 @@
 /* ============================================================================
-   Cortex · Genetics-2313-01E  —  UTSA Chapter 7 (Bacterial & Viral Genetic Systems)
+   Cortex · Genetics-2313-01E  —  UTSA Module 3 (Chapters 7-9)
    Password-gated, arcade-style mastery trainer built on science-of-learning
    principles: active recall (testing effect), spaced repetition (Leitner
    boxes), interleaving, and targeted practice on measured weaknesses.
@@ -221,9 +221,20 @@ const GEN_TOPICS = {
   'ch7-phages': { name: 'Phages & Mapping', ch: 7, blurb: 'Lytic vs lysogenic cycles, prophage, plaques, phage gene mapping.' },
   'ch7-retroviruses': { name: 'Viruses & Retroviruses', ch: 7, blurb: 'Viral genomes, reverse transcriptase, provirus, gag/pol/env, HIV.' },
   'ch7-rnaviruses': { name: 'Flu & Coronaviruses', ch: 7, blurb: 'Influenza antigenic drift/shift & reassortment; SARS-CoV-2.' },
+  'ch8-genetic-material': { name: 'Genetic Material', ch: 8, blurb: 'The four jobs any genetic material must do; why DNA beat protein.' },
+  'ch8-discovery': { name: 'Discovering the Gene', ch: 8, blurb: 'Griffith, Avery, Hershey-Chase, Chargaff, Watson-Crick.' },
+  'ch8-structure': { name: 'DNA Structure', ch: 8, blurb: 'Nucleotides, base pairing, antiparallel strands, B/A/Z-DNA.' },
+  'ch8-packaging': { name: 'Supercoiling & Chromatin', ch: 8, blurb: 'Topoisomerases, nucleosomes, histones, epigenetics.' },
+  'ch8-chromosome': { name: 'Centromeres & Telomeres', ch: 8, blurb: 'Telomeres, centromeres, repetitive-DNA classes, C-value.' },
+  'ch9-semiconservative': { name: 'Semiconservative Replication', ch: 9, blurb: 'The three models and the Meselson-Stahl experiment.' },
+  'ch9-modes': { name: 'Origins & Theta', ch: 9, blurb: 'Replicons, origins, theta replication, replication forks.' },
+  'ch9-mechanism': { name: 'Leading & Lagging', ch: 9, blurb: "5'->3' synthesis, leading/lagging strands, Okazaki fragments." },
+  'ch9-enzymes': { name: 'Replication Enzymes', ch: 9, blurb: 'Helicase, primase, DNA pol I/III, ligase, proofreading.' },
+  'ch9-eukaryotic': { name: 'Eukaryotic Replication', ch: 9, blurb: 'Licensing, telomerase, the end-replication problem.' },
+  'ch9-recombination': { name: 'Recombination', ch: 9, blurb: 'Homologous recombination, Holliday junctions, DSB model.' },
 };
 
-const GEN_CH = { 7: 'Bacterial & Viral Genetics' };
+const GEN_CH = { 7: 'Bacteria & Viruses', 8: 'DNA Structure', 9: 'Replication & Recombination' };
 
 /* ---------- state + persistence ---------- */
 const GEN_KEY = 'cs-genetics';
@@ -234,7 +245,7 @@ let GEN = Object.assign({
   bestScore: 0, bestCombo: 0, bestExam: 0, plays: 0,
   streak: { current: 0, longest: 0, lastDate: '' },
   q: {},            // qid -> { box: 0..5, a, c, ts }
-  ach: [], examReady: false, starred: {},
+  ach: [], examReady: false, starred: {}, learned: {},
 }, genLoad());
 function genSave() { try { localStorage.setItem(GEN_KEY, JSON.stringify(GEN)); } catch {} }
 
@@ -338,8 +349,8 @@ const GEN_ACH = [
   { id: 'smart', name: 'Study Smart', desc: 'Finish a Smart Review session' },
   { id: 'perfect', name: 'Flawless', desc: 'Finish a run 100% correct (8+ Q)' },
   { id: 'conj', name: 'Conjugator', desc: 'Reach 100% on the Conjugation topic' },
-  { id: 'crispr', name: 'CRISPR Cutter', desc: 'Reach 100% on Bacterial Defenses' },
-  { id: 'retro', name: 'Reverse Engineer', desc: 'Reach 100% on Viruses & Retroviruses' },
+  { id: 'dnastruct', name: 'Helix Architect', desc: 'Reach 100% on DNA Structure' },
+  { id: 'replicator', name: 'Replication Pro', desc: 'Reach 100% on Replication Enzymes' },
   { id: 'exam', name: 'Exam Slayer', desc: 'Beat the Exam Boss (85%+)' },
   { id: 'ready', name: 'Exam Ready', desc: 'Hit 90% overall competency' },
   { id: 'geneticist', name: 'Certified Geneticist', desc: 'Reach the Geneticist rank' },
@@ -358,8 +369,8 @@ function genToast(msg) {
 }
 function genCheckAch() {
   if (genComp(genTopicQs('ch7-conjugation')) >= 100) genGrant('conj');
-  if (genComp(genTopicQs('ch7-defense')) >= 100) genGrant('crispr');
-  if (genComp(genTopicQs('ch7-retroviruses')) >= 100) genGrant('retro');
+  if (genComp(genTopicQs('ch8-structure')) >= 100) genGrant('dnastruct');
+  if (genComp(genTopicQs('ch9-enzymes')) >= 100) genGrant('replicator');
   if (genRank(GEN.xp).lvl >= 8) genGrant('geneticist');
   if (genOverall() >= 90) { genGrant('ready'); if (!GEN.examReady) { GEN.examReady = true; genSave(); genTrack('milestone', { kind: 'exam_ready', competency: genOverall() }); } }
 }
@@ -434,9 +445,9 @@ function renderGenPassword(errMsg) {
   root.appendChild(topbar('genetics'));
   const main = el(`<main class="panel gen-lock" id="main" tabindex="-1">
     <div class="gen-lock-box cornerframe">
-      <span class="label">UTSA · Genetics · Chapter 7</span>
+      <span class="label">UTSA · Genetics · Module 3</span>
       <h1 class="gen-lock-title">Genetics-2313-01E</h1>
-      <p class="gen-lock-sub">Bacterial &amp; viral genetics mastery trainer. This section is locked to a class passphrase.</p>
+      <p class="gen-lock-sub">Module 3 (Ch 7-9): microbial genetics, DNA structure &amp; replication. Mastery trainer, locked to a class passphrase.</p>
       <form id="gen-pass-form" class="gen-pass-form" autocomplete="off">
         <input type="password" id="gen-pass" class="gen-pass-input" placeholder="Enter passphrase" aria-label="Passphrase" />
         <button type="submit" class="btn btn-solid">Unlock</button>
@@ -481,7 +492,7 @@ function renderGenHome() {
 
     <header class="gen-hero cornerframe">
       <div class="gen-hero-l">
-        <span class="label">UTSA · Genetics · Chapter 7</span>
+        <span class="label">UTSA · Genetics · Module 3 (Ch 7-9)</span>
         <h1>Genetics-2313-01E</h1>
         <div class="gen-rank"><span class="gen-rank-lvl mono">LV ${rank.lvl}</span><span class="gen-rank-name">${esc(rank.name)}</span></div>
         <div class="gen-xpbar"><span style="width:${rank.pct}%"></span></div>
@@ -503,6 +514,12 @@ function renderGenHome() {
     </div>
 
     <section class="gen-modes">
+      <button class="gen-mode-card gen-mode-learn cornerframe" data-mode="learn">
+        <span class="gen-mode-tag">guided · teaches you</span>
+        <h2>Learn</h2>
+        <p>New to a topic, or it just won't stick? Work through it the Socratic way — a question, your reasoning, then the idea — with interactive diagrams you build and step through.</p>
+        <span class="gen-mode-go">Open lessons →</span>
+      </button>
       <button class="gen-mode-card gen-mode-hero cornerframe" data-mode="smart">
         <span class="gen-mode-tag">recommended · endless</span>
         <h2>Smart Review</h2>
@@ -524,7 +541,7 @@ function renderGenHome() {
       <button class="gen-mode-card cornerframe" data-mode="exam">
         <span class="gen-mode-tag">20 Q · 3 lives</span>
         <h2>Exam Boss</h2>
-        <p>Mixed Chapter 7 gauntlet. Beat 85% to slay the boss.${GEN.bestExam ? ` Best: ${GEN.bestExam}%.` : ''}</p>
+        <p>Mixed Ch 7-9 gauntlet. Beat 85% to slay the boss.${GEN.bestExam ? ` Best: ${GEN.bestExam}%.` : ''}</p>
         <span class="gen-mode-go">Fight →</span>
       </button>
       <button class="gen-mode-card cornerframe" data-mode="misses">
@@ -544,7 +561,7 @@ function renderGenHome() {
 
       <section class="gen-mastery cornerframe">
         <span class="label">Chapter mastery</span>
-        ${meter(7)}
+        ${meter(7)}${meter(8)}${meter(9)}
       </section>
     </div>
 
@@ -570,12 +587,13 @@ function renderGenHome() {
       </div>
     </section>
 
-    <p class="gen-foot-note">${GEN_BANK.length} questions${GEN_DIAGRAMS.length ? ` (incl. ${GEN_DIAGRAMS.length} diagram-labeling)` : ''} · Chapter 7: Bacterial &amp; Viral Genetic Systems. <button class="ghostbtn" id="gen-reset">Reset arcade progress</button></p>
+    <p class="gen-foot-note">${GEN_BANK.length} questions${GEN_DIAGRAMS.length ? ` (incl. ${GEN_DIAGRAMS.length} diagram-labeling)` : ''} · Module 3 · Chapters 7-9 (microbial genetics, DNA structure &amp; replication). <button class="ghostbtn" id="gen-reset">Reset arcade progress</button></p>
   </main>`);
 
   main.querySelectorAll('[data-mode]').forEach(b => b.addEventListener('click', () => {
     const m = b.dataset.mode;
-    if (m === 'smart') startGenSmart();
+    if (m === 'learn') renderGenLearnHome();
+    else if (m === 'smart') startGenSmart();
     else if (m === 'blitz') startGenBlitz();
     else if (m === 'chapter') renderGenChapterPick();
     else if (m === 'exam') startGenExam();
@@ -586,7 +604,7 @@ function renderGenHome() {
   main.querySelectorAll('[data-topic]').forEach(b => b.addEventListener('click', () => startGenTopic(b.dataset.topic)));
   main.querySelector('#gen-reset').addEventListener('click', () => {
     if (!confirm('Reset all Genetics-2313-01E progress (XP, mastery, achievements)? You stay unlocked.')) return;
-    GEN = Object.assign({ unlocked: true, xp: 0, answered: 0, correct: 0, bestScore: 0, bestCombo: 0, bestExam: 0, plays: 0, streak: { current: 0, longest: 0, lastDate: '' }, q: {}, starred: {}, ach: [], examReady: false });
+    GEN = Object.assign({ unlocked: true, xp: 0, answered: 0, correct: 0, bestScore: 0, bestCombo: 0, bestExam: 0, plays: 0, streak: { current: 0, longest: 0, lastDate: '' }, q: {}, starred: {}, learned: {}, ach: [], examReady: false });
     genSave(); renderGenHome();
   });
   root.appendChild(main); root.appendChild(siteFooter()); setView(root);
@@ -735,7 +753,7 @@ function genSmartComplete(run) {
         <div><span class="mono">${run.maxCombo}×</span><span>best streak</span></div>
         <div><span class="mono">${GEN.xp.toLocaleString()}</span><span>total XP</span></div>
       </div>
-      <p class="gen-res-ready">Every question is maxed out — you mastered Chapter 7. Run a maintenance pass anytime to stay sharp.</p>
+      <p class="gen-res-ready">Every question is maxed out — you mastered Module 3. Run a maintenance pass anytime to stay sharp.</p>
       <div class="gen-res-btns">
         <button class="btn btn-solid" id="gen-maint">Maintenance pass</button>
         <button class="btn" id="gen-homebtn">Home</button>

@@ -2422,3 +2422,109 @@ button.neuro-ms.done .neuro-ms-sub { color: var(--green); }
 .gen-srow-bar > span { display: block; height: 100%; background: var(--text); }
 .gen-srow-vals { flex: 0 0 auto; font-size: 11px; color: var(--dim); }
 @media (max-width: 560px) { .gen-srow-name { font-size: 12px; } .gen-srow-vals { font-size: 10px; } }
+
+/* ============================================================================
+   Genetics-2313-01E — LEARN MODE (Socratic lessons + interactive diagrams)
+   ============================================================================ */
+.gen-mode-learn { background: var(--text); color: var(--bg, #fff); }
+.gen-mode-learn h2, .gen-mode-learn p, .gen-mode-learn .gen-mode-tag, .gen-mode-learn .gen-mode-go { color: var(--bg, #fff); }
+.gen-mode-learn .gen-mode-tag { opacity: .7; }
+.gen-mode-learn:hover { filter: brightness(1.12); }
+
+/* learn home */
+.gen-learn-intro { color: var(--body); font-size: 14px; line-height: 1.65; margin: 2px 0 22px; max-width: 70ch; }
+.gen-learn-ch { margin-bottom: 26px; }
+.gen-learn-ch > .label { display: block; margin-bottom: 12px; }
+.gen-learn-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+.gen-learn-card { text-align: left; padding: 18px; background: var(--surface, #fff); cursor: pointer; display: flex; flex-direction: column; gap: 6px; transition: transform .12s, box-shadow .12s; }
+.gen-learn-card:hover { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(0,0,0,.08); }
+.gen-learn-card h2 { font-size: 17px; margin: 2px 0; }
+.gen-learn-card p { font-size: 13px; color: var(--body); line-height: 1.5; }
+.gen-learn-go2 { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--dim); }
+.gen-learn-check { font-family: var(--mono); font-size: 10px; letter-spacing: .08em; color: #2e7d32; font-weight: 700; }
+.gen-learn-card.done { border-color: #cfe6d0; }
+.gen-learn-meta { font-size: 10px; color: var(--dim); margin-top: 4px; }
+
+/* lesson player */
+.gen-lesson-top { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.gen-lesson-title { font-weight: 600; flex: 1; text-align: center; font-size: 14px; }
+.gen-lesson-count { color: var(--dim); font-size: 12px; }
+.gen-lesson-bar { height: 4px; background: var(--line); border-radius: 2px; overflow: hidden; margin-bottom: 22px; }
+.gen-lesson-bar > span { display: block; height: 100%; background: var(--text); transition: width .3s; }
+.gen-lesson-body { min-height: 220px; }
+.gen-lesson-nav { display: flex; justify-content: space-between; gap: 12px; margin-top: 24px; }
+.gen-lesson-nav .btn { min-width: 120px; }
+
+.gen-step { animation: genfade .25s ease; }
+@keyframes genfade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.gen-step-teach p { font-size: 16px; line-height: 1.75; color: var(--text); max-width: 64ch; }
+.gen-step-kind { display: inline-block; font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); margin-bottom: 10px; }
+.gen-ask-prompt, .gen-check-q { font-size: 16px; line-height: 1.7; margin-bottom: 16px; max-width: 64ch; }
+.gen-ask-choices, .gen-check-opts { display: flex; flex-direction: column; gap: 8px; max-width: 560px; }
+.gen-ask-choice, .gen-check-opt { text-align: left; padding: 12px 14px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface, #fff); cursor: pointer; font-size: 14px; transition: border-color .12s, background .12s; }
+.gen-ask-choice:hover:not(:disabled), .gen-check-opt:hover:not(:disabled) { border-color: var(--text); }
+.gen-ask-choice.correct, .gen-check-opt.correct { border-color: #2e7d32; background: #eef7ee; }
+.gen-ask-choice.wrong, .gen-check-opt.wrong { border-color: #c0392b; background: #fbeeec; }
+.gen-ask-reveal, .gen-check-fb { margin-top: 16px; padding: 14px 16px; border-left: 3px solid var(--amber, #b8860b); background: var(--surface-2, #faf8f3); border-radius: 0 8px 8px 0; font-size: 14px; line-height: 1.65; }
+.gen-check-fb.right { border-left-color: #2e7d32; }
+.gen-check-fb.wrong { border-left-color: #c0392b; }
+.gen-ask-show { margin-top: 6px; }
+.gen-inter-instr { font-size: 14px; color: var(--body); margin-bottom: 14px; max-width: 60ch; }
+.gen-inter-host { display: flex; justify-content: center; }
+.gen-inter-done { text-align: center; color: #2e7d32; font-weight: 600; font-size: 13px; margin-top: 10px; }
+
+/* shared widget chrome */
+.glw-step { display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; }
+.glw-svg { width: 100%; max-width: 340px; height: auto; }
+.glw-cap { font-size: 14px; line-height: 1.6; text-align: center; max-width: 52ch; color: var(--text); min-height: 44px; }
+.glw-cap2 { fill: var(--dim); font-family: var(--mono); font-size: 9px; }
+.glw-nav { display: flex; align-items: center; gap: 14px; }
+.glw-dots { display: inline-flex; gap: 6px; }
+.glw-dots span { width: 7px; height: 7px; border-radius: 50%; background: var(--line); }
+.glw-dots span.on { background: var(--text); }
+
+/* base-pair widget */
+.glw-bp { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.glw-bp-row { display: flex; gap: 8px; }
+.glw-base, .glw-slot { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 7px; font-family: var(--mono); font-weight: 700; font-size: 15px; }
+.glw-slot { border: 2px dashed var(--line); color: var(--dim); }
+.glw-slot.filled { border-style: solid; }
+.glw-slot.wrong { animation: glwshake .4s; border-color: #c0392b; }
+@keyframes glwshake { 0%,100%{transform:translateX(0);} 25%{transform:translateX(-4px);} 75%{transform:translateX(4px);} }
+.glw-bp-rungs { display: flex; gap: 8px; height: 18px; }
+.glw-rung { width: 34px; position: relative; }
+.glw-rung.bonded::before, .glw-rung.bonded::after { content: ''; position: absolute; left: 50%; top: 2px; bottom: 2px; width: 2px; background: var(--dim); }
+.glw-rung.double::before { transform: translateX(-3px); } .glw-rung.double::after { transform: translateX(3px); }
+.glw-rung.triple::before { transform: translateX(-5px); } .glw-rung.triple::after { transform: translateX(5px); }
+.glw-rung.triple { background: none; } .glw-rung.triple::before, .glw-rung.triple::after { box-shadow: 5px 0 0 var(--dim); }
+.glw-b-A { background: #dbeafe; color: #1e40af; } .glw-b-T { background: #fde7d3; color: #9a3412; }
+.glw-b-G { background: #dcf3e3; color: #166534; } .glw-b-C { background: #ede0f7; color: #6b21a8; }
+.glw-palette { display: flex; gap: 8px; margin-top: 8px; }
+.glw-pbtn { width: 40px; height: 40px; border: 1px solid var(--line); border-radius: 8px; font-family: var(--mono); font-weight: 700; font-size: 16px; cursor: pointer; }
+.glw-pbtn:hover { transform: translateY(-1px); }
+.glw-msg { font-size: 13px; text-align: center; color: var(--body); max-width: 52ch; line-height: 1.55; }
+.glw-msg.ok { color: #166534; } .glw-msg.err { color: #c0392b; }
+
+/* replication fork widget */
+.glw-temp { stroke: var(--dim); stroke-width: 2; }
+.glw-ssb { fill: #cbd5e1; }
+.glw-helicase { fill: #6b21a8; opacity: .85; } .glw-enz { fill: #fff; font-family: var(--mono); font-size: 11px; font-weight: 700; text-anchor: middle; }
+.glw-new { stroke: #c0392b; stroke-width: 2.6; } .glw-new.joined { stroke: #166534; }
+.glw-primer { fill: #2e7d32; } .glw-arrh { fill: #c0392b; }
+
+/* meselson widget */
+.glw-tube { fill: var(--surface-2, #f7f5ef); stroke: var(--line); stroke-width: 1.5; }
+.glw-band { stroke: rgba(0,0,0,.12); stroke-width: .5; }
+.glw-band-heavy { fill: #1e3a8a; } .glw-band-hybrid { fill: #7c3aed; } .glw-band-light { fill: #c0392b; }
+.glw-ref { stroke: var(--line); stroke-width: 1; stroke-dasharray: 3 3; }
+
+/* helix-label widget */
+.glw-clickable [data-role] { cursor: pointer; }
+.glw-hl-bb { stroke: var(--text); stroke-width: 6; stroke-linecap: round; }
+.glw-hl-rung { stroke: var(--dim); stroke-width: 3; }
+.glw-hl-end { fill: var(--surface-2, #f7f5ef); stroke: var(--text); stroke-width: 2; }
+.glw-clickable [data-role]:hover { opacity: .7; }
+.glw-hl-bb.hit, .glw-hl-rung.hit { stroke: #2e7d32; } .glw-hl-end.hit { fill: #dcf3e3; stroke: #2e7d32; }
+[data-role].miss { stroke: #c0392b !important; fill: #fbeeec; }
+.gen-lesson-title { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+@media (max-width: 560px) { .glw-svg { max-width: 280px; } .gen-step-teach p, .gen-ask-prompt, .gen-check-q { font-size: 15px; } }
