@@ -2528,3 +2528,13 @@ button.neuro-ms.done .neuro-ms-sub { color: var(--green); }
 [data-role].miss { stroke: #c0392b !important; fill: #fbeeec; }
 .gen-lesson-title { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 @media (max-width: 560px) { .glw-svg { max-width: 280px; } .gen-step-teach p, .gen-ask-prompt, .gen-check-q { font-size: 15px; } }
+
+/* CRISPR widget */
+.glw-cr-rep { fill: var(--dim); }
+.glw-cr-sp { stroke: rgba(0,0,0,.12); stroke-width: .5; }
+.glw-cr-a { fill: #dbeafe; } .glw-cr-b { fill: #dcf3e3; } .glw-cr-c { fill: #fde7d3; } .glw-cr-new { fill: #ede0f7; stroke: #6b21a8; stroke-width: 1.2; }
+.glw-cr-foreign { stroke: #6b21a8; stroke-width: 3; stroke-dasharray: 5 3; }
+.glw-cr-arrow { stroke: var(--dim); stroke-width: 1.5; fill: none; }
+.glw-cr-cas { fill: #475569; }
+.glw-cr-pam { fill: #c0392b; }
+.glw-cr-cut { stroke: #c0392b; stroke-width: 2.4; stroke-linecap: round; }

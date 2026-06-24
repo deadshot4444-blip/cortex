@@ -61,7 +61,7 @@ const SECTION_INFO = {
     desc: 'The Neuroengineering division is offline while we refine the curriculum, labs, and Practitioner track to the same standard as the rest of Cortex. It will return soon — thank you for your patience.',
   },
 };
-const APP_VERSION = '1.16.0';
+const APP_VERSION = '1.15.0';
 const MEMBERSHIP_START = 'August 1, 2026';
 function cortexFreeNote(sectionPill, sectionName) {
   return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free for now</span><span class="free-note-txt">${sectionName} becomes optional membership ${MEMBERSHIP_START}. The full MCAT suite stays free forever.</span></p>`;
@@ -134,7 +134,7 @@ const SECTION_SCRIPTS = {
   reference: ['reference.js?v=48', 'performance-drugs.js?v=7', 'ekg.js?v=36'],
   socrates: ['socrates.js?v=40'],
   neuro: ['python-runtime.js?v=3', 'code-evaluator.js?v=2', 'neuro-practitioner.js?v=3', 'neuro.js?v=13'],
-  genetics: ['genetics.js?v=15', 'genetics-learn.js?v=1'],
+  genetics: ['genetics.js?v=15', 'genetics-learn.js?v=2'],
 };
 const _scriptLoads = {};
 function loadScript(src) {
@@ -748,17 +748,11 @@ const PRINCIPLES = [
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
   {
-    date: 'June 24, 2026', version: '1.16.0', tag: 'NEW',
-    title: 'Genetics - new Learn mode + Chapters 8 & 9',
-    items: [
-      'Genetics study mode (UTSA) now spans Module 3 (Chapters 7-9), ~166 questions. NEW Learn section: short, guided, Socratic lessons that teach the concept (a question, your reasoning, then the idea) with interactive diagrams you build and step through - base-pairing, the replication fork, and the Meselson-Stahl experiment. Chapter 8 (DNA structure & chromatin) and Chapter 9 (replication & recombination) added across every mode.',
-    ],
-  },
-  {
     date: 'June 24, 2026', version: '1.15.0', tag: 'NEW',
-    title: 'Genetics study tool - Chapter 7 loaded',
+    title: 'Genetics - Module 3 (Ch 7-9) + new Learn mode',
     items: [
-      'Genetics study mode (UTSA): added Chapter 7 (Bacterial & Viral Genetic Systems) - 74 questions across 9 topics (conjugation, transformation, transduction, CRISPR & defenses, phages, retroviruses, influenza & coronaviruses), plus auto-generated phage-recombination and conjugation-mapping problems and a new Topic Drills picker.',
+      'Genetics study mode (UTSA) now covers Module 3 - Chapter 7 (bacterial & viral genetics), Chapter 8 (DNA structure & chromatin), and Chapter 9 (replication & recombination) - with ~166 questions across 20 topics, plus auto-generated mapping problems.',
+      'NEW Learn section: short, guided, Socratic lessons that teach each concept (a question, your reasoning, then the idea) with interactive diagrams you build and step through - base-pairing, the replication fork, the Meselson-Stahl experiment, CRISPR-Cas, and more. Tracks which lessons you have finished.',
     ],
   },
   {
