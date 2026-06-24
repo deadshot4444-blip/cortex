@@ -61,7 +61,7 @@ const SECTION_INFO = {
     desc: 'The Neuroengineering division is offline while we refine the curriculum, labs, and Practitioner track to the same standard as the rest of Cortex. It will return soon — thank you for your patience.',
   },
 };
-const APP_VERSION = '1.14.4';
+const APP_VERSION = '1.15.0';
 const MEMBERSHIP_START = 'August 1, 2026';
 function cortexFreeNote(sectionPill, sectionName) {
   return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free for now</span><span class="free-note-txt">${sectionName} becomes optional membership ${MEMBERSHIP_START}. The full MCAT suite stays free forever.</span></p>`;
@@ -134,7 +134,7 @@ const SECTION_SCRIPTS = {
   reference: ['reference.js?v=48', 'performance-drugs.js?v=7', 'ekg.js?v=36'],
   socrates: ['socrates.js?v=40'],
   neuro: ['python-runtime.js?v=3', 'code-evaluator.js?v=2', 'neuro-practitioner.js?v=3', 'neuro.js?v=13'],
-  genetics: ['genetics.js?v=13'],
+  genetics: ['genetics.js?v=14'],
 };
 const _scriptLoads = {};
 function loadScript(src) {
@@ -747,6 +747,13 @@ const PRINCIPLES = [
 
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
+  {
+    date: 'June 24, 2026', version: '1.15.0', tag: 'NEW',
+    title: 'Genetics study tool - Chapter 7 loaded',
+    items: [
+      'Genetics study mode (UTSA): added Chapter 7 (Bacterial & Viral Genetic Systems) - 74 questions across 9 topics (conjugation, transformation, transduction, CRISPR & defenses, phages, retroviruses, influenza & coronaviruses), plus auto-generated phage-recombination and conjugation-mapping problems and a new Topic Drills picker.',
+    ],
+  },
   {
     date: 'June 23, 2026', version: '1.14.4', tag: 'NEW',
     title: 'Class study tools - review, stats & polish',

@@ -1,5 +1,5 @@
 /* ============================================================================
-   Cortex · Genetics-2313-01E  —  UTSA Module 2 (Chapters 4–6, Exam 2)
+   Cortex · Genetics-2313-01E  —  UTSA Chapter 7 (Bacterial & Viral Genetic Systems)
    Password-gated, arcade-style mastery trainer built on science-of-learning
    principles: active recall (testing effect), spaced repetition (Leitner
    boxes), interleaving, and targeted practice on measured weaknesses.
@@ -187,15 +187,43 @@ function gOpts(correct, distractors) {
   const all = genShuffle([correct].concat(ds));
   return { options: all, answer: all.indexOf(correct) };
 }
-const GEN_GENERATORS = []; // procedural generators cleared — add per new module
+const GEN_GENERATORS = [
+  { id: 'gen-phagerf', chapter: 7, topic: 'ch7-phages', type: 'calc', difficulty: 'med', tag: 'Recombination', hint: 'Recombination frequency = recombinant plaques ÷ total plaques, then ×100 for a percentage.',
+    make() { const total = gPick([200, 400, 500, 800, 1000]), rf = gRand(4, 30), rec = total * rf / 100;
+      const o = gOpts(`${rf}%`, [`${100 - rf}%`, `${Math.max(1, rf - gRand(2, 4))}%`, `${Math.min(50, rf * 2)}%`, `${rf + gRand(2, 5)}%`]);
+      return { q: `In a cross between two bacteriophage strains, ${rec} of ${total} progeny plaques are recombinant for genes h and r. What is the recombination frequency between these genes?`, options: o.options, answer: o.answer, explain: `Recombination frequency = (recombinant plaques ÷ total plaques) × 100 = (${rec} ÷ ${total}) × 100 = ${rf}%.` }; } },
+  { id: 'gen-conjdist', chapter: 7, topic: 'ch7-conjugation', type: 'calc', difficulty: 'easy', tag: 'Map distance', hint: 'On a time-of-entry map, the distance between two genes is just the difference in their entry times (in minutes).',
+    make() { const g = genShuffle(['thr', 'leu', 'pro', 'lac', 'gal', 'his', 'azi', 'ton']).slice(0, 2), t1 = gRand(6, 20), t2 = gRand(24, 44), d = t2 - t1;
+      const o = gOpts(`${d} minutes`, [`${t1 + t2} minutes`, `${Math.round((t1 + t2) / 2)} minutes`, `${d + gRand(2, 5)} minutes`, `${Math.max(1, d - gRand(2, 4))} minutes`]);
+      return { q: `In an interrupted-conjugation experiment, gene ${g[0]} first enters the recipient at ${t1} minutes and gene ${g[1]} first enters at ${t2} minutes. How far apart are these two genes on the conjugation map?`, options: o.options, answer: o.answer, explain: `On a time-of-entry map, distance equals the difference in entry times: ${t2} − ${t1} = ${d} minutes.` }; } },
+  { id: 'gen-conjorder', chapter: 7, topic: 'ch7-conjugation', type: 'calc', difficulty: 'med', tag: 'Gene order', hint: 'In interrupted conjugation, the gene with the earliest time of entry is transferred first.',
+    make() { const genes = genShuffle(['azi', 'ton', 'lac', 'gal', 'his', 'pro', 'thr', 'str']).slice(0, 3);
+      const times = []; while (times.length < 3) { const t = gRand(5, 45); if (!times.includes(t)) times.push(t); }
+      const pairs = genes.map((g, i) => ({ g, t: times[i] }));
+      const order = pairs.slice().sort((a, b) => a.t - b.t).map(p => p.g).join(' → ');
+      const distract = [pairs.slice().sort((a, b) => b.t - a.t).map(p => p.g).join(' → '), genes.join(' → '), [genes[1], genes[0], genes[2]].join(' → '), [genes[0], genes[2], genes[1]].join(' → ')];
+      const o = gOpts(order, distract);
+      const tbl = pairs.map(p => `${p.g} at ${p.t} min`).join(', ');
+      return { q: `In an interrupted-conjugation experiment, three genes first appear in the recipient at these times: ${tbl}. What is their order on the chromosome (first transferred → last)?`, options: o.options, answer: o.answer, explain: `Genes are transferred in order of entry time, earliest first. Sorting by time of entry gives ${order}.` }; } },
+];
 
 
 let GEN_BANK = GEN_DIAGRAMS.concat(GEN_GENERATORS);   // GEN_GENERATED merged in after genLoadBank()
 
 /* ---------- topic metadata (for weakness reporting) ---------- */
-const GEN_TOPICS = {}; // topic categories cleared — define for the next module
+const GEN_TOPICS = {
+  'ch7-overview': { name: 'Microbes & Diversity', ch: 7, blurb: 'Why microbes suit genetics; archaea vs eubacteria; bacterial diversity.' },
+  'ch7-methods': { name: 'Culturing & Genome', ch: 7, blurb: 'Media, auxotrophs, replica plating, the bacterial genome & plasmids.' },
+  'ch7-conjugation': { name: 'Conjugation', ch: 7, blurb: "F+/F-/Hfr/F' cells, the F factor, interrupted-conjugation mapping." },
+  'ch7-transformation': { name: 'Transformation & HGT', ch: 7, blurb: 'Competence, DNA uptake, cotransformation mapping, horizontal gene transfer.' },
+  'ch7-transduction': { name: 'Transduction', ch: 7, blurb: 'Generalized vs specialized transduction; cotransduction mapping.' },
+  'ch7-defense': { name: 'Bacterial Defenses', ch: 7, blurb: 'Restriction-modification and CRISPR-Cas immunity (PAM, crRNA, Cas).' },
+  'ch7-phages': { name: 'Phages & Mapping', ch: 7, blurb: 'Lytic vs lysogenic cycles, prophage, plaques, phage gene mapping.' },
+  'ch7-retroviruses': { name: 'Viruses & Retroviruses', ch: 7, blurb: 'Viral genomes, reverse transcriptase, provirus, gag/pol/env, HIV.' },
+  'ch7-rnaviruses': { name: 'Flu & Coronaviruses', ch: 7, blurb: 'Influenza antigenic drift/shift & reassortment; SARS-CoV-2.' },
+};
 
-const GEN_CH = {}; // chapter labels cleared — define for the next module
+const GEN_CH = { 7: 'Bacterial & Viral Genetics' };
 
 /* ---------- state + persistence ---------- */
 const GEN_KEY = 'cs-genetics';
@@ -309,9 +337,9 @@ const GEN_ACH = [
   { id: 'blitz500', name: 'Blitz Master', desc: 'Score 500+ in one Blitz' },
   { id: 'smart', name: 'Study Smart', desc: 'Finish a Smart Review session' },
   { id: 'perfect', name: 'Flawless', desc: 'Finish a run 100% correct (8+ Q)' },
-  { id: 'ch4', name: 'Inheritance Boss', desc: 'Reach 100% on Chapter 4' },
-  { id: 'ch5', name: 'Mapmaker', desc: 'Reach 100% on Chapter 5' },
-  { id: 'ch6', name: 'Karyotype King', desc: 'Reach 100% on Chapter 6' },
+  { id: 'conj', name: 'Conjugator', desc: 'Reach 100% on the Conjugation topic' },
+  { id: 'crispr', name: 'CRISPR Cutter', desc: 'Reach 100% on Bacterial Defenses' },
+  { id: 'retro', name: 'Reverse Engineer', desc: 'Reach 100% on Viruses & Retroviruses' },
   { id: 'exam', name: 'Exam Slayer', desc: 'Beat the Exam Boss (85%+)' },
   { id: 'ready', name: 'Exam Ready', desc: 'Hit 90% overall competency' },
   { id: 'geneticist', name: 'Certified Geneticist', desc: 'Reach the Geneticist rank' },
@@ -329,9 +357,9 @@ function genToast(msg) {
   setTimeout(() => { t.classList.remove('in'); setTimeout(() => t.remove(), 350); }, 2300);
 }
 function genCheckAch() {
-  if (genMastery(4) >= 100) genGrant('ch4');
-  if (genMastery(5) >= 100) genGrant('ch5');
-  if (genMastery(6) >= 100) genGrant('ch6');
+  if (genComp(genTopicQs('ch7-conjugation')) >= 100) genGrant('conj');
+  if (genComp(genTopicQs('ch7-defense')) >= 100) genGrant('crispr');
+  if (genComp(genTopicQs('ch7-retroviruses')) >= 100) genGrant('retro');
   if (genRank(GEN.xp).lvl >= 8) genGrant('geneticist');
   if (genOverall() >= 90) { genGrant('ready'); if (!GEN.examReady) { GEN.examReady = true; genSave(); genTrack('milestone', { kind: 'exam_ready', competency: genOverall() }); } }
 }
@@ -406,9 +434,9 @@ function renderGenPassword(errMsg) {
   root.appendChild(topbar('genetics'));
   const main = el(`<main class="panel gen-lock" id="main" tabindex="-1">
     <div class="gen-lock-box cornerframe">
-      <span class="label">UTSA · Genetics · Module 2</span>
+      <span class="label">UTSA · Genetics · Chapter 7</span>
       <h1 class="gen-lock-title">Genetics-2313-01E</h1>
-      <p class="gen-lock-sub">Chapters 4–6 · Exam 2 mastery trainer. This section is locked to a class passphrase.</p>
+      <p class="gen-lock-sub">Bacterial &amp; viral genetics mastery trainer. This section is locked to a class passphrase.</p>
       <form id="gen-pass-form" class="gen-pass-form" autocomplete="off">
         <input type="password" id="gen-pass" class="gen-pass-input" placeholder="Enter passphrase" aria-label="Passphrase" />
         <button type="submit" class="btn btn-solid">Unlock</button>
@@ -453,7 +481,7 @@ function renderGenHome() {
 
     <header class="gen-hero cornerframe">
       <div class="gen-hero-l">
-        <span class="label">UTSA · Genetics · Module 2 (Ch 4–6)</span>
+        <span class="label">UTSA · Genetics · Chapter 7</span>
         <h1>Genetics-2313-01E</h1>
         <div class="gen-rank"><span class="gen-rank-lvl mono">LV ${rank.lvl}</span><span class="gen-rank-name">${esc(rank.name)}</span></div>
         <div class="gen-xpbar"><span style="width:${rank.pct}%"></span></div>
@@ -484,19 +512,19 @@ function renderGenHome() {
       <button class="gen-mode-card cornerframe" data-mode="blitz">
         <span class="gen-mode-tag">90s · combo</span>
         <h2>Blitz</h2>
-        <p>Rapid-fire across all chapters. Stack combos, chase your high score.</p>
+        <p>Rapid-fire across the whole chapter. Stack combos, chase your high score.</p>
         <span class="gen-mode-go">Start →</span>
       </button>
       <button class="gen-mode-card cornerframe" data-mode="chapter">
         <span class="gen-mode-tag">untimed · learn</span>
-        <h2>Chapter Mastery</h2>
-        <p>One chapter at a time with full explanations. Build each mastery meter.</p>
+        <h2>Topic Drills</h2>
+        <p>Pick one topic and work through it with full explanations until the meter fills.</p>
         <span class="gen-mode-go">Choose →</span>
       </button>
       <button class="gen-mode-card cornerframe" data-mode="exam">
         <span class="gen-mode-tag">20 Q · 3 lives</span>
         <h2>Exam Boss</h2>
-        <p>Mixed Ch 4–6 gauntlet. Beat 85% to slay the boss.${GEN.bestExam ? ` Best: ${GEN.bestExam}%.` : ''}</p>
+        <p>Mixed Chapter 7 gauntlet. Beat 85% to slay the boss.${GEN.bestExam ? ` Best: ${GEN.bestExam}%.` : ''}</p>
         <span class="gen-mode-go">Fight →</span>
       </button>
       <button class="gen-mode-card cornerframe" data-mode="misses">
@@ -515,8 +543,8 @@ function renderGenHome() {
       </section>
 
       <section class="gen-mastery cornerframe">
-        <span class="label">Mastery by chapter</span>
-        ${meter(4)}${meter(5)}${meter(6)}
+        <span class="label">Chapter mastery</span>
+        ${meter(7)}
       </section>
     </div>
 
@@ -530,8 +558,8 @@ function renderGenHome() {
       <ol class="gen-method-list">
         <li><b>Test, don't reread.</b> Retrieval practice (answering) builds memory far better than review — this whole arcade is active recall.</li>
         <li><b>Run Smart Review daily.</b> Spaced repetition resurfaces each item right before you'd forget it; the box meter handles the timing.</li>
-        <li><b>Interleave.</b> Blitz and Smart Review mix chapters on purpose — switching topics beats blocking one at a time.</li>
-        <li><b>Chase your weak spots,</b> not what you already know. ≤2 days out: Chapter Mastery once per chapter → Smart Review until 90% → Exam Boss to pressure-test.</li>
+        <li><b>Interleave.</b> Blitz and Smart Review mix topics on purpose — switching topics beats blocking one at a time.</li>
+        <li><b>Chase your weak spots,</b> not what you already know. Exam soon? Topic Drills on your weakest topics → Smart Review until 90% → Exam Boss to pressure-test.</li>
       </ol>
     </section>
 
@@ -542,7 +570,7 @@ function renderGenHome() {
       </div>
     </section>
 
-    <p class="gen-foot-note">${GEN_BANK.length} questions (incl. ${GEN_DIAGRAMS.length} diagram-labeling) · grounded in your Ch 4–6 study guides &amp; Module 2 workshop. <button class="ghostbtn" id="gen-reset">Reset arcade progress</button></p>
+    <p class="gen-foot-note">${GEN_BANK.length} questions${GEN_DIAGRAMS.length ? ` (incl. ${GEN_DIAGRAMS.length} diagram-labeling)` : ''} · Chapter 7: Bacterial &amp; Viral Genetic Systems. <button class="ghostbtn" id="gen-reset">Reset arcade progress</button></p>
   </main>`);
 
   main.querySelectorAll('[data-mode]').forEach(b => b.addEventListener('click', () => {
@@ -569,22 +597,20 @@ function renderGenHome() {
    ========================================================================= */
 function renderGenChapterPick() {
   genClearTimer();
-  const card = (ch, blurb) => `<button class="gen-ch-card cornerframe" data-ch="${ch}">
-    <span class="gen-ch-num mono">CH ${ch}</span><h2>${GEN_CH[ch]}</h2><p>${blurb}</p>
-    <div class="gen-meter"><div class="gen-bar"><span style="width:${genMastery(ch)}%"></span></div></div>
-    <span class="mono gen-ch-pct">${genMastery(ch)}% · ${genChapterQs(ch).length} Q</span></button>`;
+  const card = (key) => { const t = GEN_TOPICS[key], qs = genTopicQs(key); return `<button class="gen-ch-card cornerframe" data-topic="${key}">
+    <span class="gen-ch-num mono">CH ${t.ch}</span><h2>${esc(t.name)}</h2><p>${esc(t.blurb)}</p>
+    <div class="gen-meter"><div class="gen-bar"><span style="width:${genComp(qs)}%"></span></div></div>
+    <span class="mono gen-ch-pct">${genComp(qs)}% · ${qs.length} Q</span></button>`; };
   const root = el('<div></div>');
   root.appendChild(topbar('genetics'));
   const main = el(`<main class="panel gen-pick" id="main" tabindex="-1">
-    <div class="gen-pick-head"><button class="ghostbtn" id="gen-back">← Home</button><h1>Chapter Mastery</h1></div>
+    <div class="gen-pick-head"><button class="ghostbtn" id="gen-back">← Home</button><h1>Topic Drills</h1></div>
     <div class="gen-ch-grid">
-      ${card(4, 'Dominance types, epistasis, sex-influenced traits, non-Mendelian inheritance.')}
-      ${card(5, 'Recombination, map distance, three-point crosses, gene order.')}
-      ${card(6, 'Deletions, inversions, translocations, ploidy, aneuploidy.')}
+      ${Object.keys(GEN_TOPICS).map(card).join('')}
     </div>
   </main>`);
   main.querySelector('#gen-back').addEventListener('click', renderGenHome);
-  main.querySelectorAll('[data-ch]').forEach(b => b.addEventListener('click', () => startGenChapter(+b.dataset.ch)));
+  main.querySelectorAll('[data-topic]').forEach(b => b.addEventListener('click', () => startGenTopic(b.dataset.topic)));
   root.appendChild(main); root.appendChild(siteFooter()); setView(root);
 }
 
@@ -709,7 +735,7 @@ function genSmartComplete(run) {
         <div><span class="mono">${run.maxCombo}×</span><span>best streak</span></div>
         <div><span class="mono">${GEN.xp.toLocaleString()}</span><span>total XP</span></div>
       </div>
-      <p class="gen-res-ready">Every question is maxed out — you mastered Module 2. Run a maintenance pass anytime to stay sharp.</p>
+      <p class="gen-res-ready">Every question is maxed out — you mastered Chapter 7. Run a maintenance pass anytime to stay sharp.</p>
       <div class="gen-res-btns">
         <button class="btn btn-solid" id="gen-maint">Maintenance pass</button>
         <button class="btn" id="gen-homebtn">Home</button>
