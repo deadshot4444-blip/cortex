@@ -5,6 +5,9 @@ data/raw/
 .DS_Store
 *.swp
 
+# Local agent/editor config (machine-specific, e.g. preview launch.json)
+.claude/
+
 # Local build outputs
 node_modules/
 *.zip

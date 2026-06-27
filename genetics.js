@@ -410,7 +410,7 @@ function genValidBankItem(q, seen) {
 }
 async function genLoadBank() {
   try {
-    const r = await fetch('data/genetics-bank.json?v=1');
+    const r = await fetch('data/genetics-bank.json?v=2');
     if (!r.ok) throw new Error('http ' + r.status);
     const data = await r.json();
     if (!Array.isArray(data)) throw new Error('bad bank');   // an empty array is valid (no content yet)

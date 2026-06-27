@@ -61,7 +61,7 @@ const SECTION_INFO = {
     desc: 'The Neuroengineering division is offline while we refine the curriculum, labs, and Practitioner track to the same standard as the rest of Cortex. It will return soon — thank you for your patience.',
   },
 };
-const APP_VERSION = '1.15.0';
+const APP_VERSION = '1.16.1';
 const MEMBERSHIP_START = 'August 1, 2026';
 function cortexFreeNote(sectionPill, sectionName) {
   return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free for now</span><span class="free-note-txt">${sectionName} becomes optional membership ${MEMBERSHIP_START}. The full MCAT suite stays free forever.</span></p>`;
@@ -134,7 +134,7 @@ const SECTION_SCRIPTS = {
   reference: ['reference.js?v=48', 'performance-drugs.js?v=7', 'ekg.js?v=36'],
   socrates: ['socrates.js?v=40'],
   neuro: ['python-runtime.js?v=3', 'code-evaluator.js?v=2', 'neuro-practitioner.js?v=3', 'neuro.js?v=13'],
-  genetics: ['genetics.js?v=17', 'genetics-learn.js?v=2'],
+  genetics: ['genetics.js?v=18', 'genetics-learn.js?v=2'],
 };
 const _scriptLoads = {};
 function loadScript(src) {
@@ -747,6 +747,14 @@ const PRINCIPLES = [
 
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
+  {
+    date: 'June 26, 2026', version: '1.16.1', tag: 'NEW',
+    title: 'Genetics - 190+ new Chapter 7-9 questions',
+    items: [
+      'Genetics study mode (UTSA): added 192 new exam-style multiple-choice questions spanning all of Module 3 - Chapter 7 (bacteria & culturing, conjugation/transformation/transduction, phages, retroviruses & flu, CRISPR-Cas defense), Chapter 8 (discovering the gene, DNA/RNA structure, supercoiling & chromatin, centromeres & telomeres), and Chapter 9 (semiconservative replication, replication enzymes, eukaryotic replication & recombination).',
+      'The genetics bank now holds 350+ questions, each carrying a quick study mnemonic in its hint. Every new question was independently fact-checked for a single correct answer and accurate explanation.',
+    ],
+  },
   {
     date: 'June 24, 2026', version: '1.15.0', tag: 'NEW',
     title: 'Genetics - Module 3 (Ch 7-9) + new Learn mode',
