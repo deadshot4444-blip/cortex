@@ -61,7 +61,7 @@ const SECTION_INFO = {
     desc: 'The Neuroengineering division is offline while we refine the curriculum, labs, and Practitioner track to the same standard as the rest of Cortex. It will return soon — thank you for your patience.',
   },
 };
-const APP_VERSION = '1.16.2';
+const APP_VERSION = '1.16.4';
 const MEMBERSHIP_START = 'August 1, 2026';
 function cortexFreeNote(sectionPill, sectionName) {
   return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free for now</span><span class="free-note-txt">${sectionName} becomes optional membership ${MEMBERSHIP_START}. The full MCAT suite stays free forever.</span></p>`;
@@ -134,7 +134,7 @@ const SECTION_SCRIPTS = {
   reference: ['reference.js?v=48', 'performance-drugs.js?v=7', 'ekg.js?v=36'],
   socrates: ['socrates.js?v=40'],
   neuro: ['python-runtime.js?v=3', 'code-evaluator.js?v=2', 'neuro-practitioner.js?v=3', 'neuro.js?v=13'],
-  genetics: ['genetics.js?v=18', 'genetics-learn.js?v=3'],
+  genetics: ['genetics.js?v=18', 'genetics-learn.js?v=4'],
 };
 const _scriptLoads = {};
 function loadScript(src) {
@@ -747,6 +747,20 @@ const PRINCIPLES = [
 
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
+  {
+    date: 'June 26, 2026', version: '1.16.4', tag: 'FIX',
+    title: 'Account sync - progress saves reliably',
+    items: [
+      'Fixed a sync bug where a signed-in account could lose recent progress (e.g. a Genetics Smart Review run) on reload: the "unsynced changes" flag is now cleared only after the cloud upload truly succeeds, so reloading mid-upload no longer lets a stale cloud copy overwrite your latest local progress.',
+    ],
+  },
+  {
+    date: 'June 26, 2026', version: '1.16.3', tag: 'FIX',
+    title: 'Genetics Learn - fairer answer options',
+    items: [
+      'Rebalanced the multiple-choice options in every Genetics Learn lesson so the correct answer is no longer the longest, most-detailed choice, and shuffled answer positions — no more guessing by length or placement.',
+    ],
+  },
   {
     date: 'June 26, 2026', version: '1.16.2', tag: 'FIX',
     title: 'Genetics Learn - clearer answer feedback',

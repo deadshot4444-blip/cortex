@@ -56,7 +56,7 @@ function clearDirty() { try { localStorage.removeItem('cs-sync-dirty'); } catch 
 function isDirty() { try { return localStorage.getItem('cs-sync-dirty') === '1'; } catch { return false; } }
 localStorage.setItem = function (k, v) {
   _setItem(k, v);
-  if (currentUser && SYNC_KEYS(k)) { markDirty(); schedulePush(); }
+  if (currentUser && SYNC_KEYS(k)) { writeSeq++; markDirty(); schedulePush(); }
 };
 
 /* ---------- cloud read/write ---------- */
@@ -67,7 +67,7 @@ async function pullCloud(uid) {
     return data;
   } catch { return null; }
 }
-let pushInFlight = false, pushQueued = false;
+let pushInFlight = false, pushQueued = false, writeSeq = 0;
 async function pushCloud(uid) {
   if (!uid) return;
   // coalesce overlapping calls (debounce vs. visibility-flush) into one re-run, so a write
@@ -76,14 +76,22 @@ async function pushCloud(uid) {
   pushInFlight = true;
   setSyncState('syncing');
   let ok = false;
+  const seqAtSnapshot = writeSeq;          // which local writes this upload is responsible for
   try {
     const updated_at = new Date().toISOString();
-    clearDirty();                         // clear BEFORE snapshot; a write during the upload re-marks dirty
-    const data = gatherProgress();
+    const data = gatherProgress();         // snapshot WITHOUT clearing dirty yet
     const { error } = await sb.from('progress').upsert({ user_id: uid, data, updated_at }, { onConflict: 'user_id' });
-    if (error) { markDirty(); setSyncState('error'); }
-    else { setMeta({ updatedAt: updated_at }); setSyncState('synced'); ok = true; }
-  } catch { markDirty(); setSyncState('error'); }
+    if (error) { setSyncState('error'); }  // dirty stays set -> retried later; local progress stays protected
+    else {
+      setMeta({ updatedAt: updated_at });
+      // Clear the unpushed-changes flag ONLY after the upload truly succeeds, and only if no new write
+      // landed mid-flight. If the page is torn down (reload/close) before the upload resolves, dirty
+      // stays set, so the next login preserves local progress instead of adopting a stale cloud blob.
+      // (Previously dirty was cleared BEFORE the upload, so a reload-time flush could wipe progress.)
+      if (writeSeq === seqAtSnapshot) clearDirty();
+      setSyncState('synced'); ok = true;
+    }
+  } catch { setSyncState('error'); }       // dirty stays set
   finally {
     pushInFlight = false;
     // after a successful push, flush again if a write landed mid-flight or a call was coalesced
