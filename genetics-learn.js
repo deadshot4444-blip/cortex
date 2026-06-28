@@ -398,6 +398,9 @@ function renderGenLesson(id) {
           if (opts.dataset.locked) return; opts.dataset.locked = '1';
           const pick = +btn.dataset.i;
           opts.querySelectorAll('.gen-ask-choice').forEach((b, i) => { b.disabled = true; if (i === step.answer) b.classList.add('correct'); else if (i === pick) b.classList.add('wrong'); });
+          const right = pick === step.answer;
+          reveal.classList.add(right ? 'right' : 'wrong');
+          reveal.insertAdjacentHTML('afterbegin', `<p class="gen-ask-verdict"><b>${right ? 'Correct.' : 'Not quite.'}</b></p>`);
           reveal.hidden = false;
         }));
       } else {

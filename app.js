@@ -61,7 +61,7 @@ const SECTION_INFO = {
     desc: 'The Neuroengineering division is offline while we refine the curriculum, labs, and Practitioner track to the same standard as the rest of Cortex. It will return soon — thank you for your patience.',
   },
 };
-const APP_VERSION = '1.16.1';
+const APP_VERSION = '1.16.2';
 const MEMBERSHIP_START = 'August 1, 2026';
 function cortexFreeNote(sectionPill, sectionName) {
   return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free for now</span><span class="free-note-txt">${sectionName} becomes optional membership ${MEMBERSHIP_START}. The full MCAT suite stays free forever.</span></p>`;
@@ -134,7 +134,7 @@ const SECTION_SCRIPTS = {
   reference: ['reference.js?v=48', 'performance-drugs.js?v=7', 'ekg.js?v=36'],
   socrates: ['socrates.js?v=40'],
   neuro: ['python-runtime.js?v=3', 'code-evaluator.js?v=2', 'neuro-practitioner.js?v=3', 'neuro.js?v=13'],
-  genetics: ['genetics.js?v=18', 'genetics-learn.js?v=2'],
+  genetics: ['genetics.js?v=18', 'genetics-learn.js?v=3'],
 };
 const _scriptLoads = {};
 function loadScript(src) {
@@ -747,6 +747,13 @@ const PRINCIPLES = [
 
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
+  {
+    date: 'June 26, 2026', version: '1.16.2', tag: 'FIX',
+    title: 'Genetics Learn - clearer answer feedback',
+    items: [
+      'Genetics Learn lessons now show a clear "Correct" / "Not quite" verdict the moment you answer a "Think it through" question, matching the quick-check steps.',
+    ],
+  },
   {
     date: 'June 26, 2026', version: '1.16.1', tag: 'NEW',
     title: 'Genetics - 190+ new Chapter 7-9 questions',

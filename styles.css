@@ -2467,8 +2467,11 @@ button.neuro-ms.done .neuro-ms-sub { color: var(--green); }
 .gen-ask-choice.correct, .gen-check-opt.correct { border-color: #2e7d32; background: #eef7ee; }
 .gen-ask-choice.wrong, .gen-check-opt.wrong { border-color: #c0392b; background: #fbeeec; }
 .gen-ask-reveal, .gen-check-fb { margin-top: 16px; padding: 14px 16px; border-left: 3px solid var(--amber, #b8860b); background: var(--surface-2, #faf8f3); border-radius: 0 8px 8px 0; font-size: 14px; line-height: 1.65; }
-.gen-check-fb.right { border-left-color: #2e7d32; }
-.gen-check-fb.wrong { border-left-color: #c0392b; }
+.gen-check-fb.right, .gen-ask-reveal.right { border-left-color: #2e7d32; }
+.gen-check-fb.wrong, .gen-ask-reveal.wrong { border-left-color: #c0392b; }
+.gen-ask-verdict { margin: 0 0 6px; font-size: 14px; }
+.gen-ask-reveal.right .gen-ask-verdict { color: #2e7d32; }
+.gen-ask-reveal.wrong .gen-ask-verdict { color: #c0392b; }
 .gen-ask-show { margin-top: 6px; }
 .gen-inter-instr { font-size: 14px; color: var(--body); margin-bottom: 14px; max-width: 60ch; }
 .gen-inter-host { display: flex; justify-content: center; }
