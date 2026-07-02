@@ -144,7 +144,7 @@ button:focus-visible, .opt:focus-visible { outline: 1px solid var(--text); outli
 .card {
   display: flex; flex-direction: column; align-items: stretch; gap: 26px;
   background: var(--bg); padding: 22px 22px 18px; min-height: 128px;
-  text-align: left; transition: background .12s;
+  text-align: left; transition: background .12s, box-shadow .12s;
 }
 .card:hover:not(:disabled) { background: var(--surface); }
 .card:disabled { cursor: default; }
@@ -755,15 +755,15 @@ button:focus-visible, .opt:focus-visible { outline: 1px solid var(--text); outli
 .med-phases { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); margin-top: 14px; }
 .med-phase { background: var(--surface); padding: 10px 12px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
 .med-phase--locked { opacity: .45; }
-.med-phase-lab { font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.med-phase-lab { font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .med-phase .bar { display: block; height: 3px; background: var(--line); }
 .med-phase .bar i { display: block; height: 100%; background: var(--text); transition: width .2s; }
-.med-phase-stat { font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.med-phase-stat { font-size: 11px; color: var(--dim); font-variant-numeric: tabular-nums; }
 .modcard--locked { opacity: .55; }
-.modcard--locked .mod-stat::after { content: ' · locked'; color: var(--muted); }
+.modcard--locked .mod-stat::after { content: ' · locked'; color: var(--dim); }
 .pharm-classcard--locked { opacity: .55; }
-.pharm-classcard--done .pharm-classname { color: var(--muted); }
-.mod-lock { font-size: 10px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.pharm-classcard--done .pharm-classname { color: var(--dim); }
+.mod-lock { font-size: 10px; letter-spacing: .06em; text-transform: uppercase; color: var(--dim); }
 @media (max-width: 900px) {
   .med-phases { grid-template-columns: 1fr 1fr; }
 }

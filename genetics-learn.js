@@ -91,7 +91,7 @@ function glwRepFork(host, onDone) {
     host.innerHTML = '';
     host.appendChild(el(`<div class="glw-step">${svg()}<p class="glw-cap">${CAPS[step]}</p>` +
       `<div class="glw-nav"><span class="glw-dots">${CAPS.map((_, i) => `<span class="${i === step ? 'on' : ''}"></span>`).join('')}</span>` +
-      `<button type="button" class="btn btn-solid glw-next">${step < CAPS.length - 1 ? 'Next step ▸' : 'Replay'}</button></div></div>`));
+      `<button type="button" class="btn btn-solid glw-next">${step < CAPS.length - 1 ? 'Next step →' : 'Replay'}</button></div></div>`));
     host.querySelector('.glw-next').addEventListener('click', () => {
       if (step < CAPS.length - 1) { step++; if (step === CAPS.length - 1) onDone && onDone(); } else { step = 0; }
       render();
@@ -129,7 +129,7 @@ function glwMeselson(host, onDone) {
     host.innerHTML = '';
     host.appendChild(el(`<div class="glw-step">${svg()}<p class="glw-cap">${CAPS[gen]}</p>` +
       `<div class="glw-nav"><span class="glw-dots">${CAPS.map((_, i) => `<span class="${i === gen ? 'on' : ''}"></span>`).join('')}</span>` +
-      `<button type="button" class="btn btn-solid glw-next">${gen < CAPS.length - 1 ? 'Next round ▸' : 'Replay'}</button></div></div>`));
+      `<button type="button" class="btn btn-solid glw-next">${gen < CAPS.length - 1 ? 'Next round →' : 'Replay'}</button></div></div>`));
     host.querySelector('.glw-next').addEventListener('click', () => {
       if (gen < CAPS.length - 1) { gen++; if (gen === CAPS.length - 1) onDone && onDone(); } else { gen = 0; }
       render();
@@ -226,7 +226,7 @@ function glwCrispr(host, onDone) {
     host.innerHTML = '';
     host.appendChild(el(`<div class="glw-step">${svg()}<p class="glw-cap">${CAPS[step]}</p>` +
       `<div class="glw-nav"><span class="glw-dots">${CAPS.map((_, i) => `<span class="${i === step ? 'on' : ''}"></span>`).join('')}</span>` +
-      `<button type="button" class="btn btn-solid glw-next">${step < CAPS.length - 1 ? 'Next stage ▸' : 'Replay'}</button></div></div>`));
+      `<button type="button" class="btn btn-solid glw-next">${step < CAPS.length - 1 ? 'Next stage →' : 'Replay'}</button></div></div>`));
     host.querySelector('.glw-next').addEventListener('click', () => {
       if (step < CAPS.length - 1) { step++; if (step === CAPS.length - 1) onDone && onDone(); } else { step = 0; }
       render();
@@ -797,11 +797,11 @@ const GEN_LESSONS = [
         "options": [
           "It forms when topoisomerases slice the DNA into clean 147-bp fragments",
           "It is one circular DNA molecule carrying no bound histone proteins at all",
-          "About 147 bp wraps twice around an octamer of H2A, H2B, H3, H4, plus H1",
+          "About 147 bp wraps twice around an octamer of H2A, H2B, H3, and H4",
           "It is DNA looped tightly around a single central H1 linker histone core"
         ],
         "answer": 2,
-        "explain": "The nucleosome is the basic bead of chromatin: roughly 147 base pairs of DNA wound about twice around a histone octamer (two each of H2A, H2B, H3, and H4), with the linker histone H1 securing the entry and exit DNA. A protein-free circular molecule describes a bacterial chromosome, not a nucleosome, and the remaining choices misstate both the histone composition and how nucleosomes form."
+        "explain": "The nucleosome is the basic bead of chromatin: roughly 147 base pairs of DNA wound about twice around a histone octamer (two each of H2A, H2B, H3, and H4). The linker histone H1 associates outside the core at the entry and exit DNA. A protein-free circular molecule describes a bacterial chromosome, not a nucleosome, and the remaining choices misstate the histone composition and structure."
       },
       {
         "kind": "checkpoint",
@@ -1222,7 +1222,7 @@ function renderGenLesson(id) {
   function show() {
     const step = lesson.steps[idx];
     const last = idx === lesson.steps.length - 1;
-    const nextLabel = last ? 'Finish ✓' : 'Next ▸';
+    const nextLabel = last ? 'Finish ✓' : 'Next →';
 
     if (step.kind === 'teach') {
       frame(el(`<div class="gen-step gen-step-teach"><p>${step.body}</p></div>`), { nextLabel });
@@ -1302,7 +1302,7 @@ function renderGenLesson(id) {
         <h1 class="gen-res-sub">${esc(lesson.title)}</h1>
         <p class="gen-empty-msg">You’ve got the concept — now lock it in with a few drills on this topic.</p>
         <div class="gen-res-btns">
-          <button class="btn btn-solid" id="l-drill">Drill this topic ▸</button>
+          <button class="btn btn-solid" id="l-drill">Drill this topic →</button>
           <button class="btn" id="l-more">More lessons</button>
           <button class="btn" id="l-home">Home</button>
         </div>

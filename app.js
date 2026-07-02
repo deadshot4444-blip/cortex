@@ -31,7 +31,7 @@ const SPECIALTIES = [
 const NAME_BY_KEY = Object.fromEntries(SPECIALTIES.map(s => [s.key, s.name]));
 
 // Sections gated as "Coming soon" for the public launch. Remove a key here to make it live.
-const COMING_SOON = new Set(['anatomy', 'socrates', 'neuro']);
+const COMING_SOON = new Set(['anatomy', 'socrates', 'neuro', 'genetics']);
 function sectionMenuTag(key) {
   if (COMING_SOON.has(key)) return '<span class="mi-soon">Soon</span>';
   if (key === 'reference') return '<span class="mi-tag">New</span>';
@@ -60,8 +60,14 @@ const SECTION_INFO = {
     headline: 'Temporarily under construction.',
     desc: 'The Neuroengineering division is offline while we refine the curriculum, labs, and Practitioner track to the same standard as the rest of Cortex. It will return soon — thank you for your patience.',
   },
+  genetics: {
+    label: 'Genetics',
+    badge: 'Between modules',
+    headline: 'The next module is on the way.',
+    desc: 'The Genetics-2313 exam module has wrapped for this term. New material for the next module is being built — check back soon.',
+  },
 };
-const APP_VERSION = '1.16.4';
+const APP_VERSION = '1.16.5';
 const MEMBERSHIP_START = 'August 1, 2026';
 function cortexFreeNote(sectionPill, sectionName) {
   return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free for now</span><span class="free-note-txt">${sectionName} becomes optional membership ${MEMBERSHIP_START}. The full MCAT suite stays free forever.</span></p>`;
@@ -129,12 +135,12 @@ function saveHistory() { safeSet('cs-history', JSON.stringify(store.history.slic
 function saveStreak() { safeSet('cs-streak', JSON.stringify(store.streak)); }
 
 const SECTION_SCRIPTS = {
-  mcat: ['mcat.js?v=54'],
+  mcat: ['mcat.js?v=55'],
   anatomy: ['anatomy.js?v=36'],
-  reference: ['reference.js?v=48', 'performance-drugs.js?v=7', 'ekg.js?v=36'],
+  reference: ['reference.js?v=49', 'performance-drugs.js?v=7', 'ekg.js?v=36'],
   socrates: ['socrates.js?v=40'],
-  neuro: ['python-runtime.js?v=3', 'code-evaluator.js?v=2', 'neuro-practitioner.js?v=3', 'neuro.js?v=13'],
-  genetics: ['genetics.js?v=18', 'genetics-learn.js?v=4'],
+  neuro: ['python-runtime.js?v=3', 'code-evaluator.js?v=2', 'neuro-practitioner.js?v=3', 'neuro.js?v=14'],
+  genetics: ['genetics.js?v=18', 'genetics-learn.js?v=5'],
 };
 const _scriptLoads = {};
 function loadScript(src) {
@@ -401,13 +407,13 @@ function topbar(active) {
           <button class="menuitem" data-go="socrates"><span>Learn to Learn</span>${sectionMenuTag('socrates')}</button>
           <span class="menu-head">Access</span>
           <button class="menuitem" data-go="utsa"><span>UTSA &amp; UT Health</span><span class="mi-tag">Free</span></button>
-          <button class="menuitem" data-go="genetics"><span>Genetics-2313-01E</span><span class="mi-tag">UTSA</span></button>
+          <button class="menuitem" data-go="genetics"><span>Genetics</span><span class="mi-soon">Soon</span></button>
         </div>
       </div>
     </nav>
     <div class="bar-right">
       <button class="navlink special ${active === 'neuro' ? 'active' : ''}" data-go="neuro" title="Neuroengineering"><svg class="neuro-ico" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2L17 6V14L10 18L3 14V6Z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span class="neuro-label">Neuro<span class="nl-rest">engineering</span></span></button>
-      ${stat ? `<span class="topstat">${stat}</span>` : ''}<a class="xlink" href="${X_URL}" target="_blank" rel="noopener" title="Constant Cortex updates on X · @${X_HANDLE}" aria-label="Constant Cortex updates on X · @${X_HANDLE}">${X_SVG}</a><button class="acctbtn" data-acct hidden>Sign in</button><button class="ver${hasUnseenUpdate() ? ' ver-hasnew' : ''}" data-go="updates" title="What's new">v${APP_VERSION}</button>
+      ${stat ? `<span class="topstat">${stat}</span>` : ''}<a class="xlink" href="${X_URL}" target="_blank" rel="noopener" title="Constant Cortex updates on X · @${X_HANDLE}" aria-label="Constant Cortex updates on X · @${X_HANDLE}">${X_SVG}</a><button class="acctbtn" data-acct hidden>Sign in</button><button class="ver${hasUnseenUpdate() ? ' ver-hasnew' : ''}" data-go="updates" title="What’s new">v${APP_VERSION}</button>
     </div>
   </header>`);
   root.querySelector('.wordmark').addEventListener('click', e => { e.preventDefault(); renderMission(); });
@@ -435,6 +441,7 @@ function topbar(active) {
   root.querySelector('[data-go="pomodoro"]').addEventListener('click', () => { if (typeof renderPomodoro === 'function') renderPomodoro(); });
   root.querySelector('[data-go="neuro"]').addEventListener('click', () => renderNeuro());
   root.querySelector('[data-go="genetics"]')?.addEventListener('click', async () => {
+    if (COMING_SOON.has('genetics')) { renderComingSoon('genetics'); return; }
     await ensureSection('genetics');
     if (typeof renderGenetics === 'function') renderGenetics();
   });
@@ -468,7 +475,7 @@ function latestRelease() {
 function updateVerBadges() {
   document.querySelectorAll('button.ver').forEach(btn => {
     btn.classList.toggle('ver-hasnew', hasUnseenUpdate());
-    btn.title = "What's new";
+    btn.title = "What’s new";
   });
 }
 function showUpdateModal() {
@@ -505,6 +512,8 @@ function showUpdateModal() {
 }
 
 function setView(node) {
+  // Every full view gets the site footer; skip if the view already appended one.
+  if (typeof siteFooter === 'function' && !node.querySelector('.sitefoot')) node.appendChild(siteFooter());
   $app.replaceChildren(node);
   window.scrollTo(0, 0);
   const mainEl = node.querySelector('main');
@@ -747,6 +756,15 @@ const PRINCIPLES = [
 
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
+  {
+    date: 'June 29, 2026', version: '1.16.5', tag: 'FIX',
+    title: 'Polish pass + reliability fixes',
+    items: [
+      'Site-wide polish: a consistent footer on every page, the Medicine study-path labels now render in the intended muted grey (they were showing too dark), smoother card hovers, consistent button arrows, and small copy/label fixes across sections.',
+      'The Genetics (UTSA Genetics-2313) module has wrapped for this term and is paused between modules — new material is on the way.',
+      'More reliable signed-in progress sync across multiple browser tabs.',
+    ],
+  },
   {
     date: 'June 26, 2026', version: '1.16.4', tag: 'FIX',
     title: 'Account sync - progress saves reliably',

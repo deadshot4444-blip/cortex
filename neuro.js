@@ -145,7 +145,7 @@ async function renderNeuroEngineering() {
 
   const grid = main.querySelector('#ne-grid');
   if (!NEURO.data?.subjects?.length) {
-    grid.appendChild(el('<div class="neuro-pt"><span class="np-name">Loading course&hellip;</span><p>Could not load neuroengineering content.</p></div>'));
+    grid.appendChild(el('<div class="neuro-pt"><span class="np-name">Couldn&rsquo;t load course</span><p>The neuroengineering content didn&rsquo;t load. Refresh to try again.</p></div>'));
   } else {
     for (const s of NEURO.data.subjects) {
       const done = (s.topicIds || []).filter(id => NEURO_PROG.topicQuiz[id]).length;
@@ -791,7 +791,7 @@ function renderNeuroSimLibrary() {
   const main = el(`<main class="neuro-page neuro-inner">
     <section class="neuro-body">
       <button class="backbtn topback" id="neback">&larr; Neuroengineering</button>
-      <span class="neuro-eyebrow">NeuroSim Labs</span>
+      <span class="neuro-eyebrow">NeuroSim Lab</span>
       <h1 class="neuro-h1">Decision labs.</h1>
       <p class="neuro-lede">Twelve short NeuroSim scenarios &mdash; signal interpretation, decoder drift, DBS side effects, ethics, and more.</p>
       <div class="neuro-rows" id="nesimlib"></div>

@@ -49,11 +49,17 @@ function setMeta(m) { try { _setItem('cs-sync-meta', JSON.stringify(m)); } catch
 
 /* keep a raw reference so our own writes don't trigger a sync loop */
 const _setItem = localStorage.setItem.bind(localStorage);
-// persisted "unpushed local changes" flag — survives reloads, so a signed-in device whose
+// persisted "unpushed local changes" token — survives reloads, so a signed-in device whose
 // pushes failed won't get its progress silently overwritten by an older cloud blob on next login
-function markDirty() { try { _setItem('cs-sync-dirty', '1'); } catch {} }
-function clearDirty() { try { localStorage.removeItem('cs-sync-dirty'); } catch {} }
-function isDirty() { try { return localStorage.getItem('cs-sync-dirty') === '1'; } catch { return false; } }
+function newDirtyToken() { return `${Date.now()}-${Math.random().toString(36).slice(2)}`; }
+function markDirty() { try { _setItem('cs-sync-dirty', newDirtyToken()); } catch {} }
+function dirtyToken() { try { return localStorage.getItem('cs-sync-dirty') || ''; } catch { return ''; } }
+function clearDirty(expectedToken) {
+  try {
+    if (expectedToken && localStorage.getItem('cs-sync-dirty') === expectedToken) localStorage.removeItem('cs-sync-dirty');
+  } catch {}
+}
+function isDirty() { return !!dirtyToken(); }
 localStorage.setItem = function (k, v) {
   _setItem(k, v);
   if (currentUser && SYNC_KEYS(k)) { writeSeq++; markDirty(); schedulePush(); }
@@ -77,6 +83,7 @@ async function pushCloud(uid) {
   setSyncState('syncing');
   let ok = false;
   const seqAtSnapshot = writeSeq;          // which local writes this upload is responsible for
+  const dirtyAtSnapshot = dirtyToken();    // shared across tabs; prevents stale clears from another tab
   try {
     const updated_at = new Date().toISOString();
     const data = gatherProgress();         // snapshot WITHOUT clearing dirty yet
@@ -88,7 +95,7 @@ async function pushCloud(uid) {
       // landed mid-flight. If the page is torn down (reload/close) before the upload resolves, dirty
       // stays set, so the next login preserves local progress instead of adopting a stale cloud blob.
       // (Previously dirty was cleared BEFORE the upload, so a reload-time flush could wipe progress.)
-      if (writeSeq === seqAtSnapshot) clearDirty();
+      if (writeSeq === seqAtSnapshot) clearDirty(dirtyAtSnapshot);
       setSyncState('synced'); ok = true;
     }
   } catch { setSyncState('error'); }       // dirty stays set

@@ -544,7 +544,7 @@ function buildPharmClasses(body, cfg, data, skipLede) {
 
 const PHARM_LEARN_STEPS = [
   { key: 'moa', label: 'Mechanism', field: 'moa', ask: 'How does this drug work?', hint: d => `Class: ${d.drug_class}. Think receptor, enzyme, or channel.` },
-  { key: 'indications', label: 'Indications', field: 'indications', ask: 'What is it used for?', hint: d => `It's a ${d.drug_class.split('(')[0].trim()}.` },
+  { key: 'indications', label: 'Indications', field: 'indications', ask: 'What is it used for?', hint: d => `It’s a ${d.drug_class.split('(')[0].trim()}.` },
   { key: 'side_effects', label: 'Adverse effects', field: 'side_effects', ask: 'Key toxicities or side effects?', hint: () => 'Board exams love class-wide effects and one drug-specific killer.' },
   { key: 'pearl', label: 'Pearl', field: 'pearl', ask: 'One board pearl?', hint: d => `Mnemonic or buzzword tied to ${d.name}.` },
 ];
