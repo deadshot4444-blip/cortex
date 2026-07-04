@@ -4,3 +4,7 @@
 # third-party request on load (keeps Safari/Brave privacy shields from flagging
 # the page). Netlify fetches abacus server-side; the client only sees first-party.
 /cx-visits/*  https://abacus.jasoncameron.dev/:splat  200
+
+# SPA fallback: serve the app for section deep-links (e.g. /genetics, /mcat).
+# Must stay last — Netlify serves real static files first, then falls back here.
+/*  /index.html  200

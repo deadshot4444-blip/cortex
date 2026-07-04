@@ -67,7 +67,7 @@ const SECTION_INFO = {
     desc: 'The Genetics-2313 exam module has wrapped for this term. New material for the next module is being built — check back soon.',
   },
 };
-const APP_VERSION = '1.17.1';
+const APP_VERSION = '1.18.0';
 const MEMBERSHIP_START = 'August 1, 2026';
 function cortexFreeNote(sectionPill, sectionName) {
   return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free for now</span><span class="free-note-txt">${sectionName} becomes optional membership ${MEMBERSHIP_START}. The full MCAT suite stays free forever.</span></p>`;
@@ -357,12 +357,67 @@ function clinicalStatBand() {
 /* ---------- data ---------- */
 
 async function boot() {
+  initRouter();
   fetchVisits();
   try {
     store.manifest = await fetch('data/manifest.json').then(r => r.ok ? r.json() : {});
   } catch { /* case data unavailable; the mission page still renders, sections handle it */ }
-  renderMission();
+  const routed = await routeFromUrl();   // deep-link straight into a section (e.g. /genetics)
+  if (!routed) renderMission();
   if (hasUnseenUpdate()) setTimeout(showUpdateModal, 420);
+}
+
+/* ---------- URL routing — shareable section deep-links (e.g. /genetics) ----------
+   The app is a single page; this lets an inbound URL open the right section and keeps
+   the address bar in sync as you navigate, so any section link is copy-able. Needs the
+   `/* /index.html 200` SPA fallback in _redirects so Netlify serves the app for these paths. */
+const SEC_PATHS = { practice: 'practice', mcat: 'mcat', stats: 'stats', utsa: 'utsa', neuro: 'neuro', reference: 'medicine', genetics: 'genetics' };
+const PATH_SEC = Object.fromEntries(Object.entries(SEC_PATHS).map(([k, v]) => [v, k]));
+
+async function openSection(key) {
+  switch (key) {
+    case 'practice': renderHome(); return true;
+    case 'mcat': gotoMCAT(); return true;
+    case 'stats': renderStats(); return true;
+    case 'utsa': renderUTSA(); return true;
+    case 'neuro': renderNeuro(); return true;
+    case 'reference':
+      if (COMING_SOON.has('reference')) { renderComingSoon('reference'); return true; }
+      try { await ensureSection('reference'); if (typeof renderReference === 'function') await renderReference(); }
+      catch (err) { console.error('Medicine load failed', err); }
+      return true;
+    case 'genetics':
+      if (COMING_SOON.has('genetics')) { renderComingSoon('genetics'); return true; }
+      await ensureSection('genetics');
+      if (typeof renderGenetics === 'function') renderGenetics();
+      return true;
+    default: return false;
+  }
+}
+
+function sectionFromPath() {
+  const seg = decodeURIComponent((location.pathname || '').replace(/^\/+|\/+$/g, '').split('/')[0] || '').toLowerCase();
+  return PATH_SEC[seg];
+}
+async function routeFromUrl() {
+  const key = sectionFromPath();
+  return key ? openSection(key) : false;
+}
+
+let _routerReady = false;
+function initRouter() {
+  if (_routerReady) return; _routerReady = true;
+  // reflect top-nav navigation in the URL so the current section is always a shareable link
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-go]');
+    if (!btn) return;
+    const key = btn.getAttribute('data-go');
+    if (!(key in SEC_PATHS)) return;
+    const path = '/' + SEC_PATHS[key];
+    if (location.pathname !== path) history.pushState({ sec: key }, '', path);
+  });
+  // back/forward buttons re-open the section for that URL
+  window.addEventListener('popstate', async () => { if (!(await routeFromUrl())) renderMission(); });
 }
 
 async function loadSpecialty(key) {
@@ -756,6 +811,13 @@ const PRINCIPLES = [
 
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
+  {
+    date: 'July 3, 2026', version: '1.18.0', tag: 'NEW',
+    title: 'Link straight to any section',
+    items: [
+      'You can now share a direct link to a section instead of the homepage — e.g. cortexmedical.academy/genetics opens the Genetics trainer, /mcat opens MCAT, /stats opens your stats. The address bar updates as you move around, so whatever you’re looking at is always a copy-able link.',
+    ],
+  },
   {
     date: 'July 3, 2026', version: '1.17.1', tag: 'FIX',
     title: 'Genetics — fresh rank for the new module',
