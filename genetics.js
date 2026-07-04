@@ -346,7 +346,7 @@ const GEN_ACH = [
   { id: 'replicator', name: 'Replication Pro', desc: 'Reach 100% on Replication Enzymes' },
   { id: 'exam', name: 'Exam Slayer', desc: 'Beat the Exam Boss (85%+)' },
   { id: 'ready', name: 'Exam Ready', desc: 'Hit 90% overall competency' },
-  { id: 'geneticist', name: 'Certified Geneticist', desc: 'Reach the Geneticist rank' },
+  { id: 'geneticist', name: 'Certified Geneticist', desc: 'Reach the Geneticist level' },
 ];
 function genGrant(id) {
   if (GEN.ach.includes(id)) return;
@@ -507,7 +507,7 @@ function renderGenHome() {
         <h1>Genetics-2313-01E</h1>
         <div class="gen-rank"><span class="gen-rank-lvl mono">LV ${rank.lvl}</span><span class="gen-rank-name">${esc(rank.name)}</span></div>
         <div class="gen-xpbar"><span style="width:${rank.pct}%"></span></div>
-        <p class="gen-xp-note mono">${GEN.xp.toLocaleString()} XP${rank.next ? ` · ${rank.toNext.toLocaleString()} to next rank` : ' · MAX'}</p>
+        <p class="gen-xp-note mono">${GEN.xp.toLocaleString()} XP${rank.next ? ` · ${rank.toNext.toLocaleString()} to next level` : ' · MAX'}</p>
       </div>
       <div class="gen-hero-r">
         <div class="gen-comp-ring gen-comp-${status.cls}">
