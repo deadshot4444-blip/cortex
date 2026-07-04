@@ -140,7 +140,7 @@ const SECTION_SCRIPTS = {
   reference: ['reference.js?v=49', 'performance-drugs.js?v=7', 'ekg.js?v=36'],
   socrates: ['socrates.js?v=40'],
   neuro: ['python-runtime.js?v=3', 'code-evaluator.js?v=2', 'neuro-practitioner.js?v=3', 'neuro.js?v=14'],
-  genetics: ['genetics.js?v=23', 'genetics-learn.js?v=6', 'genetics-figs.js?v=1'],
+  genetics: ['genetics.js?v=24', 'genetics-learn.js?v=6', 'genetics-figs.js?v=1'],
 };
 const _scriptLoads = {};
 function loadScript(src) {

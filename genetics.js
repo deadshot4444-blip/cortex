@@ -1,5 +1,5 @@
 /* ============================================================================
-   Cortex · Genetics-2313-01E  —  UTSA Module 3 (Chapters 7-9)
+   Cortex · Genetics-2313-01E  —  UTSA Module 3 (Chapters 10-12)
    Password-gated, arcade-style mastery trainer built on science-of-learning
    principles: active recall (testing effect), spaced repetition (Leitner
    boxes), interleaving, and targeted practice on measured weaknesses.
@@ -341,9 +341,9 @@ const GEN_ACH = [
   { id: 'blitz500', name: 'Blitz Master', desc: 'Score 500+ in one Blitz' },
   { id: 'smart', name: 'Study Smart', desc: 'Finish a Smart Review session' },
   { id: 'perfect', name: 'Flawless', desc: 'Finish a run 100% correct (8+ Q)' },
-  { id: 'conj', name: 'Conjugator', desc: 'Reach 100% on the Conjugation topic' },
-  { id: 'dnastruct', name: 'Helix Architect', desc: 'Reach 100% on DNA Structure' },
-  { id: 'replicator', name: 'Replication Pro', desc: 'Reach 100% on Replication Enzymes' },
+  { id: 'txn', name: 'Transcriptionist', desc: 'Reach 100% on Transcription' },
+  { id: 'code', name: 'Codebreaker', desc: 'Reach 100% on the Genetic Code' },
+  { id: 'lac', name: 'Operon Operator', desc: 'Reach 100% on the lac Operon' },
   { id: 'exam', name: 'Exam Slayer', desc: 'Beat the Exam Boss (85%+)' },
   { id: 'ready', name: 'Exam Ready', desc: 'Hit 90% overall competency' },
   { id: 'geneticist', name: 'Certified Geneticist', desc: 'Reach the Geneticist level' },
@@ -361,9 +361,9 @@ function genToast(msg) {
   setTimeout(() => { t.classList.remove('in'); setTimeout(() => t.remove(), 350); }, 2300);
 }
 function genCheckAch() {
-  if (genComp(genTopicQs('ch7-conjugation')) >= 100) genGrant('conj');
-  if (genComp(genTopicQs('ch8-structure')) >= 100) genGrant('dnastruct');
-  if (genComp(genTopicQs('ch9-enzymes')) >= 100) genGrant('replicator');
+  if (genComp(genTopicQs('ch10-transcription')) >= 100) genGrant('txn');
+  if (genComp(genTopicQs('ch11-code')) >= 100) genGrant('code');
+  if (genComp(genTopicQs('ch12-lac')) >= 100) genGrant('lac');
   if (genRank(GEN.xp).lvl >= 8) genGrant('geneticist');
   if (genOverall() >= 90) { genGrant('ready'); if (!GEN.examReady) { GEN.examReady = true; genSave(); genTrack('milestone', { kind: 'exam_ready', competency: genOverall() }); } }
 }
@@ -552,7 +552,7 @@ function renderGenHome() {
       <button class="gen-mode-card cornerframe" data-mode="exam">
         <span class="gen-mode-tag">20 Q · 3 lives</span>
         <h2>Exam Boss</h2>
-        <p>Mixed Ch 7-9 gauntlet. Beat 85% to slay the boss.${GEN.bestExam ? ` Best: ${GEN.bestExam}%.` : ''}</p>
+        <p>Mixed Ch 10-12 gauntlet. Beat 85% to slay the boss.${GEN.bestExam ? ` Best: ${GEN.bestExam}%.` : ''}</p>
         <span class="gen-mode-go">Fight →</span>
       </button>
       <button class="gen-mode-card cornerframe" data-mode="misses">
@@ -572,7 +572,7 @@ function renderGenHome() {
 
       <section class="gen-mastery cornerframe">
         <span class="label">Chapter mastery</span>
-        ${meter(7)}${meter(8)}${meter(9)}
+        ${meter(10)}${meter(11)}${meter(12)}
       </section>
     </div>
 
