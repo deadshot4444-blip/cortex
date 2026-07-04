@@ -67,7 +67,7 @@ const SECTION_INFO = {
     desc: 'The Genetics-2313 exam module has wrapped for this term. New material for the next module is being built — check back soon.',
   },
 };
-const APP_VERSION = '1.17.0';
+const APP_VERSION = '1.17.1';
 const MEMBERSHIP_START = 'August 1, 2026';
 function cortexFreeNote(sectionPill, sectionName) {
   return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free for now</span><span class="free-note-txt">${sectionName} becomes optional membership ${MEMBERSHIP_START}. The full MCAT suite stays free forever.</span></p>`;
@@ -140,7 +140,7 @@ const SECTION_SCRIPTS = {
   reference: ['reference.js?v=49', 'performance-drugs.js?v=7', 'ekg.js?v=36'],
   socrates: ['socrates.js?v=40'],
   neuro: ['python-runtime.js?v=3', 'code-evaluator.js?v=2', 'neuro-practitioner.js?v=3', 'neuro.js?v=14'],
-  genetics: ['genetics.js?v=21', 'genetics-learn.js?v=6', 'genetics-figs.js?v=1'],
+  genetics: ['genetics.js?v=22', 'genetics-learn.js?v=6', 'genetics-figs.js?v=1'],
 };
 const _scriptLoads = {};
 function loadScript(src) {
@@ -756,6 +756,13 @@ const PRINCIPLES = [
 
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
+  {
+    date: 'July 3, 2026', version: '1.17.1', tag: 'FIX',
+    title: 'Genetics — fresh rank for the new module',
+    items: [
+      'Your Genetics rank, XP, and competency now start fresh for Module 3, so they reflect your mastery of this module’s material rather than carrying over from the previous module.',
+    ],
+  },
   {
     date: 'July 3, 2026', version: '1.17.0', tag: 'NEW',
     title: 'Genetics Module 3 — RNA, translation & gene regulation',

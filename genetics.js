@@ -220,14 +220,26 @@ const GEN_CH = { 10: 'RNA & Transcription', 11: 'Translation', 12: 'Gene Regulat
 /* ---------- state + persistence ---------- */
 const GEN_KEY = 'cs-genetics';
 const GEN_PASS = 'genetics';
+// Bump when the genetics module content is swapped -> XP/rank/mastery reset fresh for the new module.
+const GEN_MODULE = 'm3-ch10-12';
 function genLoad() { try { return JSON.parse(localStorage.getItem(GEN_KEY)) || {}; } catch { return {}; } }
 let GEN = Object.assign({
-  unlocked: false, xp: 0, answered: 0, correct: 0,
+  unlocked: false, module: '', xp: 0, answered: 0, correct: 0,
   bestScore: 0, bestCombo: 0, bestExam: 0, plays: 0,
   streak: { current: 0, longest: 0, lastDate: '' },
   q: {},            // qid -> { box: 0..5, a, c, ts }
   ach: [], examReady: false, starred: {}, learned: {},
 }, genLoad());
+// Module changed since last visit -> wipe progress so rank/XP/mastery reflect THIS module only (keep unlock).
+if (GEN.module !== GEN_MODULE) {
+  GEN = {
+    unlocked: GEN.unlocked, module: GEN_MODULE,
+    xp: 0, answered: 0, correct: 0, bestScore: 0, bestCombo: 0, bestExam: 0, plays: 0,
+    streak: { current: 0, longest: 0, lastDate: '' },
+    q: {}, ach: [], examReady: false, starred: {}, learned: {},
+  };
+  try { localStorage.setItem(GEN_KEY, JSON.stringify(GEN)); } catch {}
+}
 function genSave() { try { localStorage.setItem(GEN_KEY, JSON.stringify(GEN)); } catch {} }
 
 /* ---------- anonymous usage analytics (research) ----------
