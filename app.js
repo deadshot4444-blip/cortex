@@ -31,7 +31,7 @@ const SPECIALTIES = [
 const NAME_BY_KEY = Object.fromEntries(SPECIALTIES.map(s => [s.key, s.name]));
 
 // Sections gated as "Coming soon" for the public launch. Remove a key here to make it live.
-const COMING_SOON = new Set(['anatomy', 'socrates', 'neuro', 'genetics']);
+const COMING_SOON = new Set(['anatomy', 'socrates', 'neuro']);
 function sectionMenuTag(key) {
   if (COMING_SOON.has(key)) return '<span class="mi-soon">Soon</span>';
   if (key === 'reference') return '<span class="mi-tag">New</span>';
@@ -67,7 +67,7 @@ const SECTION_INFO = {
     desc: 'The Genetics-2313 exam module has wrapped for this term. New material for the next module is being built — check back soon.',
   },
 };
-const APP_VERSION = '1.16.5';
+const APP_VERSION = '1.17.0';
 const MEMBERSHIP_START = 'August 1, 2026';
 function cortexFreeNote(sectionPill, sectionName) {
   return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free for now</span><span class="free-note-txt">${sectionName} becomes optional membership ${MEMBERSHIP_START}. The full MCAT suite stays free forever.</span></p>`;
@@ -140,7 +140,7 @@ const SECTION_SCRIPTS = {
   reference: ['reference.js?v=49', 'performance-drugs.js?v=7', 'ekg.js?v=36'],
   socrates: ['socrates.js?v=40'],
   neuro: ['python-runtime.js?v=3', 'code-evaluator.js?v=2', 'neuro-practitioner.js?v=3', 'neuro.js?v=14'],
-  genetics: ['genetics.js?v=18', 'genetics-learn.js?v=5'],
+  genetics: ['genetics.js?v=21', 'genetics-learn.js?v=6', 'genetics-figs.js?v=1'],
 };
 const _scriptLoads = {};
 function loadScript(src) {
@@ -407,7 +407,7 @@ function topbar(active) {
           <button class="menuitem" data-go="socrates"><span>Learn to Learn</span>${sectionMenuTag('socrates')}</button>
           <span class="menu-head">Access</span>
           <button class="menuitem" data-go="utsa"><span>UTSA &amp; UT Health</span><span class="mi-tag">Free</span></button>
-          <button class="menuitem" data-go="genetics"><span>Genetics</span><span class="mi-soon">Soon</span></button>
+          <button class="menuitem" data-go="genetics"><span>Genetics-2313</span><span class="mi-tag">New</span></button>
         </div>
       </div>
     </nav>
@@ -756,6 +756,15 @@ const PRINCIPLES = [
 
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
+  {
+    date: 'July 3, 2026', version: '1.17.0', tag: 'NEW',
+    title: 'Genetics Module 3 — RNA, translation & gene regulation',
+    items: [
+      'The Genetics study mode (UTSA) relaunches with a brand-new Module 3 covering Chapters 10–12: RNA & transcription, RNA processing, the genetic code & translation, operons (lac/trp), and gene regulation & epigenetics — 303 exam-style questions built from the course packet with verified answers.',
+      'NEW interactive, textbook-quality diagrams you can actually play with: toggle lactose/glucose to flip the lac operon on and off, step through the ribosome’s A/P/E cycle, watch RNA polymerase transcribe, walk pre-mRNA through capping/splicing, and more (16 figures across the module).',
+      'Smart Review now works like flashcards: miss a question and it cycles back within 2–3 questions with a “think it through” hint so you can nail it — on top of the existing adaptive weak-spot targeting and live competency tracking.',
+    ],
+  },
   {
     date: 'June 29, 2026', version: '1.16.5', tag: 'FIX',
     title: 'Polish pass + reliability fixes',

@@ -187,58 +187,39 @@ function gOpts(correct, distractors) {
   const all = genShuffle([correct].concat(ds));
   return { options: all, answer: all.indexOf(correct) };
 }
-const GEN_GENERATORS = [
-  { id: 'gen-phagerf', chapter: 7, topic: 'ch7-phages', type: 'calc', difficulty: 'med', tag: 'Recombination', hint: 'Recombination frequency = recombinant plaques ÷ total plaques, then ×100 for a percentage.',
-    make() { const total = gPick([200, 400, 500, 800, 1000]), rf = gRand(4, 30), rec = total * rf / 100;
-      const o = gOpts(`${rf}%`, [`${100 - rf}%`, `${Math.max(1, rf - gRand(2, 4))}%`, `${Math.min(50, rf * 2)}%`, `${rf + gRand(2, 5)}%`]);
-      return { q: `In a cross between two bacteriophage strains, ${rec} of ${total} progeny plaques are recombinant for genes h and r. What is the recombination frequency between these genes?`, options: o.options, answer: o.answer, explain: `Recombination frequency = (recombinant plaques ÷ total plaques) × 100 = (${rec} ÷ ${total}) × 100 = ${rf}%.` }; } },
-  { id: 'gen-conjdist', chapter: 7, topic: 'ch7-conjugation', type: 'calc', difficulty: 'easy', tag: 'Map distance', hint: 'On a time-of-entry map, the distance between two genes is just the difference in their entry times (in minutes).',
-    make() { const g = genShuffle(['thr', 'leu', 'pro', 'lac', 'gal', 'his', 'azi', 'ton']).slice(0, 2), t1 = gRand(6, 20), t2 = gRand(24, 44), d = t2 - t1;
-      const o = gOpts(`${d} minutes`, [`${t1 + t2} minutes`, `${Math.round((t1 + t2) / 2)} minutes`, `${d + gRand(2, 5)} minutes`, `${Math.max(1, d - gRand(2, 4))} minutes`]);
-      return { q: `In an interrupted-conjugation experiment, gene ${g[0]} first enters the recipient at ${t1} minutes and gene ${g[1]} first enters at ${t2} minutes. How far apart are these two genes on the conjugation map?`, options: o.options, answer: o.answer, explain: `On a time-of-entry map, distance equals the difference in entry times: ${t2} − ${t1} = ${d} minutes.` }; } },
-  { id: 'gen-conjorder', chapter: 7, topic: 'ch7-conjugation', type: 'calc', difficulty: 'med', tag: 'Gene order', hint: 'In interrupted conjugation, the gene with the earliest time of entry is transferred first.',
-    make() { const genes = genShuffle(['azi', 'ton', 'lac', 'gal', 'his', 'pro', 'thr', 'str']).slice(0, 3);
-      const times = []; while (times.length < 3) { const t = gRand(5, 45); if (!times.includes(t)) times.push(t); }
-      const pairs = genes.map((g, i) => ({ g, t: times[i] }));
-      const order = pairs.slice().sort((a, b) => a.t - b.t).map(p => p.g).join(' → ');
-      const distract = [pairs.slice().sort((a, b) => b.t - a.t).map(p => p.g).join(' → '), genes.join(' → '), [genes[1], genes[0], genes[2]].join(' → '), [genes[0], genes[2], genes[1]].join(' → ')];
-      const o = gOpts(order, distract);
-      const tbl = pairs.map(p => `${p.g} at ${p.t} min`).join(', ');
-      return { q: `In an interrupted-conjugation experiment, three genes first appear in the recipient at these times: ${tbl}. What is their order on the chromosome (first transferred → last)?`, options: o.options, answer: o.answer, explain: `Genes are transferred in order of entry time, earliest first. Sorting by time of entry gives ${order}.` }; } },
-];
+const GEN_GENERATORS = []; // Module 2 (Ch 4-9) procedural generators cleared — Module 3 uses the static bank
 
 
 let GEN_BANK = GEN_DIAGRAMS.concat(GEN_GENERATORS);   // GEN_GENERATED merged in after genLoadBank()
 
 /* ---------- topic metadata (for weakness reporting) ---------- */
 const GEN_TOPICS = {
-  'ch7-overview': { name: 'Microbes & Diversity', ch: 7, blurb: 'Why microbes suit genetics; archaea vs eubacteria; bacterial diversity.' },
-  'ch7-methods': { name: 'Culturing & Genome', ch: 7, blurb: 'Media, auxotrophs, replica plating, the bacterial genome & plasmids.' },
-  'ch7-conjugation': { name: 'Conjugation', ch: 7, blurb: "F+/F-/Hfr/F' cells, the F factor, interrupted-conjugation mapping." },
-  'ch7-transformation': { name: 'Transformation & HGT', ch: 7, blurb: 'Competence, DNA uptake, cotransformation mapping, horizontal gene transfer.' },
-  'ch7-transduction': { name: 'Transduction', ch: 7, blurb: 'Generalized vs specialized transduction; cotransduction mapping.' },
-  'ch7-defense': { name: 'Bacterial Defenses', ch: 7, blurb: 'Restriction-modification and CRISPR-Cas immunity (PAM, crRNA, Cas).' },
-  'ch7-phages': { name: 'Phages & Mapping', ch: 7, blurb: 'Lytic vs lysogenic cycles, prophage, plaques, phage gene mapping.' },
-  'ch7-retroviruses': { name: 'Viruses & Retroviruses', ch: 7, blurb: 'Viral genomes, reverse transcriptase, provirus, gag/pol/env, HIV.' },
-  'ch7-rnaviruses': { name: 'Flu & Coronaviruses', ch: 7, blurb: 'Influenza antigenic drift/shift & reassortment; SARS-CoV-2.' },
-  'ch8-genetic-material': { name: 'Genetic Material', ch: 8, blurb: 'The four jobs any genetic material must do; why DNA beat protein.' },
-  'ch8-discovery': { name: 'Discovering the Gene', ch: 8, blurb: 'Griffith, Avery, Hershey-Chase, Chargaff, Watson-Crick.' },
-  'ch8-structure': { name: 'DNA Structure', ch: 8, blurb: 'Nucleotides, base pairing, antiparallel strands, B/A/Z-DNA.' },
-  'ch8-packaging': { name: 'Supercoiling & Chromatin', ch: 8, blurb: 'Topoisomerases, nucleosomes, histones, epigenetics.' },
-  'ch8-chromosome': { name: 'Centromeres & Telomeres', ch: 8, blurb: 'Telomeres, centromeres, repetitive-DNA classes, C-value.' },
-  'ch9-semiconservative': { name: 'Semiconservative Replication', ch: 9, blurb: 'The three models and the Meselson-Stahl experiment.' },
-  'ch9-modes': { name: 'Origins & Theta', ch: 9, blurb: 'Replicons, origins, theta replication, replication forks.' },
-  'ch9-mechanism': { name: 'Leading & Lagging', ch: 9, blurb: "5'->3' synthesis, leading/lagging strands, Okazaki fragments." },
-  'ch9-enzymes': { name: 'Replication Enzymes', ch: 9, blurb: 'Helicase, primase, DNA pol I/III, ligase, proofreading.' },
-  'ch9-eukaryotic': { name: 'Eukaryotic Replication', ch: 9, blurb: 'Licensing, telomerase, the end-replication problem.' },
-  'ch9-recombination': { name: 'Recombination', ch: 9, blurb: 'Homologous recombination, Holliday junctions, DSB model.' },
+  'ch10-rna-types': { name: 'RNA Types & Function', ch: 10, blurb: 'mRNA, tRNA, rRNA, snRNA, snoRNA, miRNA, siRNA, lncRNA; ribozymes.' },
+  'ch10-transcription': { name: 'Transcription', ch: 10, blurb: "RNA polymerase, template vs coding strand, 5'->3' synthesis, sigma/holoenzyme." },
+  'ch10-txunit': { name: 'Transcription Unit', ch: 10, blurb: 'Promoter, -35/-10 consensus, start site, rho-dependent/independent terminators.' },
+  'ch10-processing': { name: 'RNA Processing', ch: 10, blurb: "5' cap, poly(A) tail + AAUAAA, splicing, introns/exons, spliceosome." },
+  'ch10-colinearity': { name: 'Colinearity & Splicing', ch: 10, blurb: 'Colinear vs noncolinear genes, R-loops, alternative splicing.' },
+  'ch10-trna': { name: 'tRNA Structure', ch: 10, blurb: 'Cloverleaf, acceptor arm (3′ CCA), anticodon arm, modified bases.' },
+  'ch11-code': { name: 'The Genetic Code', ch: 11, blurb: 'Codons, degeneracy, wobble, reading frame, start/stop codons.' },
+  'ch11-charging': { name: 'tRNA Charging', ch: 11, blurb: 'Aminoacyl-tRNA synthetase, charging, isoaccepting tRNAs, codon-anticodon pairing.' },
+  'ch11-initiation': { name: 'Translation Initiation', ch: 11, blurb: 'IF1/IF2/IF3, fMet-tRNA, Shine-Dalgarno, 30S/70S initiation complex.' },
+  'ch11-elong-term': { name: 'Elongation & Termination', ch: 11, blurb: 'EF-Tu/EF-Ts/EF-G, A/P/E sites, peptidyl transferase, release factors.' },
+  'ch11-ribosome': { name: 'Ribosomes & Protein Fate', ch: 11, blurb: 'Subunits/rRNA, chaperones, prokaryotic vs eukaryotic translation.' },
+  'ch12-operon': { name: 'Operon Logic', ch: 12, blurb: 'Operon structure, structural vs regulatory genes, cis vs trans acting.' },
+  'ch12-control': { name: 'Positive & Negative Control', ch: 12, blurb: 'Repressor/activator, inducible vs repressible operons.' },
+  'ch12-lac': { name: 'lac Operon', ch: 12, blurb: 'lacZYA, allolactose, Lac repressor, CAP/cAMP catabolite repression.' },
+  'ch12-lacgeno': { name: 'lac Genotypes & Diploids', ch: 12, blurb: 'lacI/lacIˢ/lacOᶜ mutants, partial diploids (F′), constitutive vs inducible.' },
+  'ch12-trp': { name: 'trp Operon & Attenuation', ch: 12, blurb: 'trp repressor + tryptophan corepressor, attenuation/leader region.' },
+  'ch12-eukreg': { name: 'Eukaryotic Regulation', ch: 12, blurb: 'Chromatin remodeling, enhancers, insulators, transcription factors.' },
+  'ch12-epigenetics': { name: 'Epigenetics', ch: 12, blurb: 'DNA methylation, histone acetylation, imprinting (Beckwith-Wiedemann).' },
+  'ch12-ncrna': { name: 'Regulatory RNAs', ch: 12, blurb: 'miRNA/siRNA/RNAi, Dicer, gene silencing.' },
 };
 
-const GEN_CH = { 7: 'Bacteria & Viruses', 8: 'DNA Structure', 9: 'Replication & Recombination' };
+const GEN_CH = { 10: 'RNA & Transcription', 11: 'Translation', 12: 'Gene Regulation' };
 
 /* ---------- state + persistence ---------- */
 const GEN_KEY = 'cs-genetics';
-const GEN_PASS = 'cortex genetics';
+const GEN_PASS = 'genetics';
 function genLoad() { try { return JSON.parse(localStorage.getItem(GEN_KEY)) || {}; } catch { return {}; } }
 let GEN = Object.assign({
   unlocked: false, xp: 0, answered: 0, correct: 0,
@@ -410,7 +391,7 @@ function genValidBankItem(q, seen) {
 }
 async function genLoadBank() {
   try {
-    const r = await fetch('data/genetics-bank.json?v=2');
+    const r = await fetch('data/genetics-bank.json?v=3');
     if (!r.ok) throw new Error('http ' + r.status);
     const data = await r.json();
     if (!Array.isArray(data)) throw new Error('bad bank');   // an empty array is valid (no content yet)
@@ -465,7 +446,7 @@ function renderGenPassword(errMsg) {
     <div class="gen-lock-box cornerframe">
       <span class="label">UTSA · Genetics · Module 3</span>
       <h1 class="gen-lock-title">Genetics-2313-01E</h1>
-      <p class="gen-lock-sub">Module 3 (Ch 7-9): microbial genetics, DNA structure &amp; replication. Mastery trainer, locked to a class passphrase.</p>
+      <p class="gen-lock-sub">Module 3 (Ch 10-12): RNA &amp; transcription, translation, and gene regulation. Mastery trainer, locked to a class passphrase.</p>
       <form id="gen-pass-form" class="gen-pass-form" autocomplete="off">
         <input type="password" id="gen-pass" class="gen-pass-input" placeholder="Enter passphrase" aria-label="Passphrase" />
         <button type="submit" class="btn btn-solid">Unlock</button>
@@ -510,7 +491,7 @@ function renderGenHome() {
 
     <header class="gen-hero cornerframe">
       <div class="gen-hero-l">
-        <span class="label">UTSA · Genetics · Module 3 (Ch 7-9)</span>
+        <span class="label">UTSA · Genetics · Module 3 (Ch 10-12)</span>
         <h1>Genetics-2313-01E</h1>
         <div class="gen-rank"><span class="gen-rank-lvl mono">LV ${rank.lvl}</span><span class="gen-rank-name">${esc(rank.name)}</span></div>
         <div class="gen-xpbar"><span style="width:${rank.pct}%"></span></div>
@@ -605,7 +586,7 @@ function renderGenHome() {
       </div>
     </section>
 
-    <p class="gen-foot-note">${GEN_BANK.length} questions${GEN_DIAGRAMS.length ? ` (incl. ${GEN_DIAGRAMS.length} diagram-labeling)` : ''} · Module 3 · Chapters 7-9 (microbial genetics, DNA structure &amp; replication). <button class="ghostbtn" id="gen-reset">Reset arcade progress</button></p>
+    <p class="gen-foot-note">${GEN_BANK.length} questions${GEN_DIAGRAMS.length ? ` (incl. ${GEN_DIAGRAMS.length} diagram-labeling)` : ''} · Module 3 · Chapters 10-12 (RNA, transcription, translation &amp; gene regulation). <button class="ghostbtn" id="gen-reset">Reset arcade progress</button></p>
   </main>`);
 
   main.querySelectorAll('[data-mode]').forEach(b => b.addEventListener('click', () => {
@@ -658,7 +639,7 @@ function startGenSmart() {
   // Endless adaptive loop: serve the single most-needed (weakest/due/unseen) question
   // each time, forever, until every question is fully mastered (box 5).
   genTrack('mode_start', { mode: 'smart' });
-  genRunQuestion({ mode: 'smart', endless: true, pool: [], idx: 0, score: 0, combo: 0, maxCombo: 0, correct: 0, answered: 0, locked: false, lastId: null, lastTopic: null });
+  genRunQuestion({ mode: 'smart', endless: true, pool: [], retryQ: [], idx: 0, score: 0, combo: 0, maxCombo: 0, correct: 0, answered: 0, locked: false, lastId: null, lastTopic: null });
 }
 function startGenBlitz() {
   genBumpStreak(); GEN.plays++; genSave();
@@ -742,9 +723,19 @@ function genComboMult(combo) { return Math.min(5, 1 + Math.floor(combo / 3)); }
 // first, then due-for-review, lightly interleaved, never the same one twice in a row.
 // Returns null once everything is fully mastered (box 5).
 function genNextSmart(run) {
+  // In-session requeue (Quizlet-style): a missed question cycles back within 2-3 questions,
+  // ahead of the normal adaptive pick, and reappears with its "think it through" hint.
+  if (run.retryQ && run.retryQ.length) {
+    const i = run.retryQ.findIndex(r => r.due <= run.answered);
+    if (i >= 0) { const r = run.retryQ.splice(i, 1)[0]; run.lastId = r.q.id; run.lastTopic = r.q.topic; return r.q; }
+  }
   const now = Date.now();
   const pool = GEN_BANK.filter(q => genBox(q.id) < 5);
-  if (!pool.length) return null;
+  if (!pool.length) {
+    // everything mastered but a retry is still pending -> serve it rather than ending
+    if (run.retryQ && run.retryQ.length) { const r = run.retryQ.shift(); run.lastId = r.q.id; run.lastTopic = r.q.topic; return r.q; }
+    return null;
+  }
   let best = null, bestPr = -1e9;
   for (const q of pool) {
     const r = GEN.q[q.id], box = r ? r.box : 0, ts = r ? r.ts : 0;
@@ -864,6 +855,7 @@ function genRunQuestion(run) {
     <div class="gen-q cornerframe" data-qid="${qq.id}">
       <div class="gen-q-meta"><span class="mono">CH ${qq.chapter}</span><span class="gen-q-tag">${esc((GEN_TOPICS[qq.topic] && GEN_TOPICS[qq.topic].name) || 'Practice')}</span><span class="gen-q-diff gen-d-${qq.difficulty}">${qq.difficulty}</span>${qq.type === 'label' ? '<span class="gen-q-pic">diagram</span>' : ''}<button type="button" class="gen-star ${GEN.starred && GEN.starred[qq.id] ? 'on' : ''}" id="gen-star" aria-label="Star this question">${GEN.starred && GEN.starred[qq.id] ? '★' : '☆'}</button></div>
       ${qq.svg ? `<div class="gen-q-svg">${qq.svg}</div>` : ''}
+      ${qq.fig && window.GEN_FIGS && window.GEN_FIGS[qq.fig] ? '<div class="gen-q-fig" id="gen-fig"></div>' : ''}
       <h2 class="gen-q-stem">${esc(qq.q)}</h2>
       ${showHint ? `<div class="gen-hint"><span class="gen-hint-lab">Think it through</span> ${esc(qq.hint)}</div>` : ''}
       <div class="gen-opts">
@@ -904,6 +896,10 @@ function genRunQuestion(run) {
       if (run.mode === 'chapter' || run.mode === 'topic' || run.mode === 'misses' || run.mode === 'starred') {
         const retry = Object.assign({}, qq); delete retry.make; retry._retry = true;
         run.pool.splice(Math.min(run.pool.length, run.idx + 1 + gRand(1, 2)), 0, retry);
+      } else if (run.endless) {
+        // Smart Review: requeue the miss to reappear within 2-3 questions with its hint.
+        const retry = Object.assign({}, qq); delete retry.make; retry._retry = true;
+        (run.retryQ || (run.retryQ = [])).push({ q: retry, due: run.answered + gRand(1, 2) });
       }
     }
     genCheckAch(); genSave();
@@ -940,6 +936,12 @@ function genRunQuestion(run) {
   genBindKey(onKey);   // replaces any previous question's handler
 
   root.appendChild(main); root.appendChild(siteFooter()); setView(root);
+
+  // mount the interactive figure (if this question has one) above the stem
+  if (qq.fig && window.GEN_FIGS && window.GEN_FIGS[qq.fig]) {
+    const figHost = main.querySelector('#gen-fig');
+    if (figHost) { try { window.GEN_FIGS[qq.fig](figHost); } catch (e) { figHost.remove(); } }
+  }
 
   if (run.mode === 'blitz') {
     const tEl = main.querySelector('#gen-time');

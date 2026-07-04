@@ -1153,8 +1153,10 @@ function glMark(id) { if (!GEN.learned) GEN.learned = {}; GEN.learned[id] = 1; g
 function renderGenLearnHome() {
   genClearTimer();
   genTrack('learn_home', {});
+  // only show lessons for the current module's chapters (GEN_CH). Old-module lessons stay dormant.
   const byCh = {};
-  GEN_LESSONS.forEach(l => { (byCh[l.chapter] = byCh[l.chapter] || []).push(l); });
+  GEN_LESSONS.filter(l => typeof GEN_CH !== 'undefined' && GEN_CH[l.chapter]).forEach(l => { (byCh[l.chapter] = byCh[l.chapter] || []).push(l); });
+  const hasLessons = Object.keys(byCh).length > 0;
   const chBlock = (ch) => `<section class="gen-learn-ch">
       <span class="label">Chapter ${ch} · ${(typeof GEN_CH !== 'undefined' && GEN_CH[ch]) || ''}</span>
       <div class="gen-learn-grid">
@@ -1171,8 +1173,9 @@ function renderGenLearnHome() {
   const main = el(`<main class="panel gen-learn-home" id="main" tabindex="-1">
     <div class="gen-pick-head"><button class="ghostbtn" id="gen-back">← Home</button><h1>Learn</h1></div>
     <p class="gen-learn-intro">Short, guided lessons that <b>teach</b> the concept the Socratic way — a question, your reasoning, then the idea — with interactive diagrams you build and step through. When a lesson clicks, jump to the drills to lock it in.</p>
-    ${Object.keys(byCh).sort().map(chBlock).join('')}
+    ${hasLessons ? Object.keys(byCh).sort().map(chBlock).join('') : `<div class="gen-learn-empty cornerframe"><span class="label">Coming soon</span><h2>Guided lessons are on the way</h2><p>Socratic teach-lessons for this module are being built. For now, <b>Smart Review</b> and the topic drills have you covered — every diagram question comes with an interactive figure and a “think it through” hint.</p><button class="btn btn-solid" id="gen-learn-smart">Start Smart Review →</button></div>`}
   </main>`);
+  const smb = main.querySelector('#gen-learn-smart'); if (smb) smb.addEventListener('click', startGenSmart);
   main.querySelector('#gen-back').addEventListener('click', renderGenHome);
   main.querySelectorAll('[data-lesson]').forEach(b => b.addEventListener('click', () => renderGenLesson(b.dataset.lesson)));
   root.appendChild(main); root.appendChild(siteFooter()); setView(root);
