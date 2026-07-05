@@ -67,7 +67,7 @@ const SECTION_INFO = {
     desc: 'The Genetics-2313 exam module has wrapped for this term. New material for the next module is being built — check back soon.',
   },
 };
-const APP_VERSION = '1.18.0';
+const APP_VERSION = '1.19.0';
 const MEMBERSHIP_START = 'August 1, 2026';
 function cortexFreeNote(sectionPill, sectionName) {
   return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free for now</span><span class="free-note-txt">${sectionName} becomes optional membership ${MEMBERSHIP_START}. The full MCAT suite stays free forever.</span></p>`;
@@ -811,6 +811,14 @@ const PRINCIPLES = [
 
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
+  {
+    date: 'July 5, 2026', version: '1.19.0', tag: 'NEW',
+    title: 'Study list in the Focus Timer',
+    items: [
+      'The Focus Timer now has a study list — add the subjects you need to get through, and cross each one off as you finish a round. The top unfinished subject is highlighted as “studying now,” and when a focus round ends you get a nudge to cross it off and switch it up, so you keep rotating instead of getting stuck on one thing.',
+      'Focus-length presets are now 15 / 25 / 45 min, and the Custom field is clearer — it’s labeled and obviously editable.',
+    ],
+  },
   {
     date: 'July 3, 2026', version: '1.18.0', tag: 'NEW',
     title: 'Link straight to any section',

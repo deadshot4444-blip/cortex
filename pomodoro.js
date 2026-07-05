@@ -7,8 +7,8 @@
    accumulate across the whole session and persist in localStorage.
    ============================================================ */
 
-const POMO_PRESETS = { focus: [25, 35, 50], break: [5, 10, 15] };
-const POMO_DEFAULTS = { mode: 'focus', running: false, deadline: 0, remainMs: 25 * 60000, focusMin: 25, breakMin: 5, rounds: 0, totalFocusMs: 0, totalBreakMs: 0, startedTs: 0 };
+const POMO_PRESETS = { focus: [15, 25, 45], break: [5, 10, 15] };
+const POMO_DEFAULTS = { mode: 'focus', running: false, deadline: 0, remainMs: 25 * 60000, focusMin: 25, breakMin: 5, rounds: 0, totalFocusMs: 0, totalBreakMs: 0, startedTs: 0, tasks: [], swapDue: false };
 
 let pomo = (function () {
   const d = (typeof loadJSON === 'function') ? loadJSON('cs-pomo', null) : null;
@@ -52,6 +52,7 @@ function pomoDing() {
 function pomoStart() {
   if (pomo.running) return;
   pomoUnlockAudio();
+  if (pomo.mode === 'focus') pomo.swapDue = false;   // starting a fresh focus round clears the swap nudge
   pomo.running = true;
   pomo.deadline = Date.now() + (pomo.remainMs > 0 ? pomo.remainMs : pomoPhaseTotalMs());
   if (!pomo.startedTs) pomo.startedTs = Date.now();
@@ -69,9 +70,11 @@ function pomoReset() {            // reset the current phase to full; totals unt
 }
 function pomoComplete(autostart) {   // current phase finished
   const full = pomoPhaseTotalMs();
-  if (pomo.mode === 'focus') { pomo.rounds++; pomo.totalFocusMs += full; }
+  const wasFocus = pomo.mode === 'focus';
+  if (wasFocus) { pomo.rounds++; pomo.totalFocusMs += full; }
   else { pomo.totalBreakMs += full; }
-  pomo.mode = pomo.mode === 'focus' ? 'break' : 'focus';
+  pomo.swapDue = wasFocus;            // a focus round just ended -> nudge to cross off + switch subjects
+  pomo.mode = wasFocus ? 'break' : 'focus';
   pomo.remainMs = pomoPhaseTotalMs();
   if (autostart) { pomo.running = true; pomo.deadline = Date.now() + pomo.remainMs; pomoDing(); }
   else { pomo.running = false; pomo.deadline = 0; }
@@ -81,17 +84,57 @@ function pomoSkip() {                 // leave current phase early -> next phase
   const used = Math.max(0, pomoPhaseTotalMs() - pomoRemainMs());   // count partial time toward totals
   if (pomo.mode === 'focus') pomo.totalFocusMs += used; else pomo.totalBreakMs += used;
   pomo.mode = pomo.mode === 'focus' ? 'break' : 'focus';
+  if (pomo.mode === 'focus') pomo.swapDue = false;   // skipped into a new focus round
   pomo.remainMs = pomoPhaseTotalMs();
   pomo.running = true; pomo.deadline = Date.now() + pomo.remainMs;
   pomoSave(); pomoEnsureTick(); pomoSync();
 }
 function pomoEndSession() {
-  const fm = pomo.focusMin, bm = pomo.breakMin;
-  pomo = Object.assign({}, POMO_DEFAULTS, { focusMin: fm, breakMin: bm, mode: 'focus', remainMs: fm * 60000 });
+  const fm = pomo.focusMin, bm = pomo.breakMin, tasks = pomo.tasks;   // keep the study list; only round/time totals reset
+  pomo = Object.assign({}, POMO_DEFAULTS, { focusMin: fm, breakMin: bm, mode: 'focus', remainMs: fm * 60000, tasks });
   pomoSave(); pomoStopTickIfIdle(); pomoSync();
 }
 function pomoSetFocus(m) { pomo.focusMin = m; if (pomo.mode === 'focus' && !pomo.running) pomo.remainMs = m * 60000; pomoSave(); pomoSync(); }
 function pomoSetBreak(m) { pomo.breakMin = m; if (pomo.mode === 'break' && !pomo.running) pomo.remainMs = m * 60000; pomoSave(); pomoSync(); }
+
+/* ---------- study list (add subjects, cross off after each round to force a swap) ---------- */
+function pomoTaskId() { return 't' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
+function pomoCurrentTask() { return pomo.tasks.find(t => !t.done) || null; }   // topmost unfinished = "studying now"
+function pomoAddTask(text) {
+  text = (text || '').trim(); if (!text) return;
+  pomo.tasks.push({ id: pomoTaskId(), text: text.slice(0, 120), done: false });
+  pomoSave(); pomoRenderList();
+}
+function pomoToggleTask(id) {
+  const t = pomo.tasks.find(x => x.id === id); if (!t) return;
+  t.done = !t.done;
+  if (t.done) pomo.swapDue = false;   // acting on the nudge clears it
+  pomoSave(); pomoRenderList();
+}
+function pomoDelTask(id) { pomo.tasks = pomo.tasks.filter(x => x.id !== id); pomoSave(); pomoRenderList(); }
+function pomoClearDone() { pomo.tasks = pomo.tasks.filter(x => !x.done); pomoSave(); pomoRenderList(); }
+function pomoRenderList() {
+  const listEl = document.getElementById('pomo-tasks'); if (!listEl) return;
+  const cur = pomoCurrentTask();
+  if (!pomo.tasks.length) {
+    listEl.innerHTML = '<li class="pomo-empty">No subjects yet. Add what you need to study, then cross each off as you finish a round — it keeps you moving instead of stuck on one thing.</li>';
+  } else {
+    listEl.innerHTML = pomo.tasks.map(t =>
+      `<li class="pomo-task${t.done ? ' done' : ''}${cur && t.id === cur.id ? ' current' : ''}" data-id="${t.id}">`
+      + `<button class="pt-check" type="button" aria-label="${t.done ? 'Uncross' : 'Cross off'}"><i></i></button>`
+      + `<span class="pt-text">${esc(t.text)}</span>`
+      + `<button class="pt-del" type="button" aria-label="Delete">&times;</button></li>`
+    ).join('');
+  }
+  const done = pomo.tasks.filter(t => t.done).length;
+  const foot = document.getElementById('pomo-list-foot');
+  if (foot) foot.hidden = pomo.tasks.length === 0;
+  const cnt = document.getElementById('pomo-list-count');
+  if (cnt) cnt.textContent = pomo.tasks.length ? `${pomo.tasks.length - done} left · ${done} done` : '';
+  const clr = document.getElementById('pomo-clear-done');
+  if (clr) clr.hidden = done === 0;
+  pomoUpdateSwapBanner();
+}
 
 /* ---------- ticking + chrome (title, floating pill) ---------- */
 function pomoEnsureTick() { if (pomo.running && !pomoTimerId) pomoTimerId = setInterval(pomoTick, 500); }
@@ -138,6 +181,21 @@ function pomoRefresh() {           // update the timer page in place (no full re
   if (bar) { const pct = 100 * (1 - remain / pomoPhaseTotalMs()); bar.style.width = Math.max(0, Math.min(100, pct)) + '%'; }
   page.querySelectorAll('[data-fpreset]').forEach(b => b.classList.toggle('active', +b.dataset.fpreset === pomo.focusMin));
   page.querySelectorAll('[data-bpreset]').forEach(b => b.classList.toggle('active', +b.dataset.bpreset === pomo.breakMin));
+  // custom cells: highlight + fill when the length isn't one of the presets (don't clobber typing)
+  const syncCustom = (cellSel, inputSel, presets, cur) => {
+    const cell = page.querySelector(cellSel), input = page.querySelector(inputSel);
+    if (!cell || !input) return;
+    const isCustom = !presets.includes(cur);
+    cell.classList.toggle('active', isCustom);
+    if (document.activeElement !== input) input.value = isCustom ? cur : '';
+  };
+  syncCustom('#pomo-fcustom-cell', '#pomo-fcustom', POMO_PRESETS.focus, pomo.focusMin);
+  syncCustom('#pomo-bcustom-cell', '#pomo-bcustom', POMO_PRESETS.break, pomo.breakMin);
+  pomoUpdateSwapBanner();
+}
+function pomoUpdateSwapBanner() {   // nudge only when a focus round just ended AND there's a subject to cross off
+  const swap = document.getElementById('pomo-swap');
+  if (swap) swap.hidden = !(pomo.swapDue && pomoCurrentTask());
 }
 
 /* ---------- the page ---------- */
@@ -160,17 +218,33 @@ function renderPomodoro() {
       </div>
     </section>
 
+    <section class="pomo-tasks-sec">
+      <div class="pomo-tasks-head">
+        <span class="label">Study list</span>
+        <span class="pomo-swap" id="pomo-swap" hidden>Round done — cross it off &amp; switch it up &#8635;</span>
+      </div>
+      <form class="pomo-add" id="pomo-add">
+        <input type="text" id="pomo-add-input" maxlength="120" placeholder="Add a subject to study…" aria-label="Add a study subject" autocomplete="off">
+        <button class="btn" type="submit" id="pomo-add-btn">Add</button>
+      </form>
+      <ul class="pomo-list" id="pomo-tasks"></ul>
+      <div class="pomo-list-foot" id="pomo-list-foot" hidden>
+        <span id="pomo-list-count"></span>
+        <button class="pomo-clear" id="pomo-clear-done" type="button" hidden>Clear finished</button>
+      </div>
+    </section>
+
     <section class="pomo-set">
       <div class="ctl"><span class="label">Focus length</span>
         <div class="modes">
           ${POMO_PRESETS.focus.map(m => `<button class="mode" data-fpreset="${m}">${m} min</button>`).join('')}
-          <span class="pomo-custom"><input type="number" id="pomo-fcustom" min="1" max="180" inputmode="numeric" placeholder="##" aria-label="Custom focus minutes"><span>min</span></span>
+          <label class="pomo-custom" id="pomo-fcustom-cell" for="pomo-fcustom"><span class="pc-tag">Custom</span><input type="number" id="pomo-fcustom" min="1" max="180" inputmode="numeric" placeholder="0" aria-label="Custom focus minutes"><span class="pc-unit">min</span></label>
         </div>
       </div>
       <div class="ctl"><span class="label">Break length</span>
         <div class="modes">
           ${POMO_PRESETS.break.map(m => `<button class="mode" data-bpreset="${m}">${m} min</button>`).join('')}
-          <span class="pomo-custom"><input type="number" id="pomo-bcustom" min="1" max="60" inputmode="numeric" placeholder="##" aria-label="Custom break minutes"><span>min</span></span>
+          <label class="pomo-custom" id="pomo-bcustom-cell" for="pomo-bcustom"><span class="pc-tag">Custom</span><input type="number" id="pomo-bcustom" min="1" max="60" inputmode="numeric" placeholder="0" aria-label="Custom break minutes"><span class="pc-unit">min</span></label>
         </div>
       </div>
     </section>
@@ -194,12 +268,23 @@ function renderPomodoro() {
   main.querySelectorAll('[data-fpreset]').forEach(b => b.addEventListener('click', () => pomoSetFocus(+b.dataset.fpreset)));
   main.querySelectorAll('[data-bpreset]').forEach(b => b.addEventListener('click', () => pomoSetBreak(+b.dataset.bpreset)));
   const fc = main.querySelector('#pomo-fcustom');
-  fc.addEventListener('change', () => { const v = Math.max(1, Math.min(180, Math.round(+fc.value || 0))); if (v) pomoSetFocus(v); fc.value = ''; });
+  fc.addEventListener('change', () => { const v = Math.max(1, Math.min(180, Math.round(+fc.value || 0))); if (v) pomoSetFocus(v); else pomoSync(); });
   const bc = main.querySelector('#pomo-bcustom');
-  bc.addEventListener('change', () => { const v = Math.max(1, Math.min(60, Math.round(+bc.value || 0))); if (v) pomoSetBreak(v); bc.value = ''; });
+  bc.addEventListener('change', () => { const v = Math.max(1, Math.min(60, Math.round(+bc.value || 0))); if (v) pomoSetBreak(v); else pomoSync(); });
+
+  // study list
+  const addForm = main.querySelector('#pomo-add');
+  addForm.addEventListener('submit', (e) => { e.preventDefault(); const inp = main.querySelector('#pomo-add-input'); pomoAddTask(inp.value); inp.value = ''; inp.focus(); });
+  main.querySelector('#pomo-tasks').addEventListener('click', (e) => {
+    const li = e.target.closest('.pomo-task'); if (!li) return;
+    if (e.target.closest('.pt-del')) pomoDelTask(li.dataset.id);
+    else pomoToggleTask(li.dataset.id);
+  });
+  main.querySelector('#pomo-clear-done').addEventListener('click', pomoClearDone);
 
   root.appendChild(main);
   setView(root);
+  pomoRenderList();
   pomoEnsureTick(); pomoSync();
 }
 function resetPomoState() {

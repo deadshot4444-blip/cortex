@@ -2071,16 +2071,64 @@ button.neuro-ms.done .neuro-ms-sub { color: var(--green); }
 .pomo-controls { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
 .pomo-controls .btn { min-width: 96px; }
 .pomo-set { margin-top: 28px; display: grid; gap: 18px; }
-/* custom cell sits as another segment of the .modes control */
-.pomo-custom { display: inline-flex; align-items: center; gap: 5px; padding: 8px 14px; border-left: 1px solid var(--line-bright); transition: background .12s; }
-.pomo-custom:focus-within { background: var(--surface); }
-.pomo-custom input { width: 40px; padding: 0; border: 0; background: transparent; text-align: center;
-  font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; color: var(--text);
-  -webkit-appearance: none; -moz-appearance: textfield; appearance: none; }
+.pomo-set .modes { flex-wrap: wrap; }
+/* custom cell sits as another segment of the .modes control — a clearly editable "Custom" field */
+.pomo-custom { display: inline-flex; align-items: center; gap: 7px; padding: 8px 14px; border-left: 1px solid var(--line-bright);
+  cursor: text; transition: background .12s; }
+.pomo-custom:hover, .pomo-custom:focus-within { background: var(--surface); }
+.pc-tag { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--dim); transition: color .12s; }
+.pomo-custom:hover .pc-tag, .pomo-custom:focus-within .pc-tag { color: var(--text); }
+.pomo-custom input { width: 26px; padding: 1px 0; border: 0; border-bottom: 1.5px solid var(--line-bright); background: transparent; text-align: center;
+  font-family: var(--mono); font-size: 12.5px; letter-spacing: .04em; color: var(--text);
+  -webkit-appearance: none; -moz-appearance: textfield; appearance: none; transition: border-color .12s; }
+.pomo-custom:hover input { border-bottom-color: var(--dim); }
+.pomo-custom:focus-within input { border-bottom-color: var(--text); }
 .pomo-custom input::-webkit-outer-spin-button, .pomo-custom input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 .pomo-custom input:focus { outline: none; }
-.pomo-custom input::placeholder { color: var(--faint); letter-spacing: .12em; }
-.pomo-custom span { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); }
+.pomo-custom input::placeholder { color: var(--faint); }
+.pc-unit { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); }
+.pomo-custom.active { background: var(--text); }
+.pomo-custom.active .pc-tag, .pomo-custom.active .pc-unit { color: var(--bg); }
+.pomo-custom.active input { color: var(--bg); border-bottom-color: var(--bg); }
+
+/* study list — add subjects, cross off after each round to force a subject swap */
+.pomo-tasks-sec { margin-top: 28px; }
+.pomo-tasks-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 12px; margin-bottom: 12px; min-height: 22px; }
+.pomo-tasks-head > .label { white-space: nowrap; }
+.pomo-swap { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--green);
+  border: 1px solid var(--green); padding: 4px 9px; animation: pomoSwapPulse 1.7s ease-in-out infinite; }
+@keyframes pomoSwapPulse { 0%, 100% { opacity: .5; } 50% { opacity: 1; } }
+.pomo-add { display: flex; gap: 8px; margin-bottom: 14px; }
+.pomo-add input { flex: 1; min-width: 0; background: var(--surface); border: 1px solid var(--line-bright); color: var(--text);
+  padding: 11px 13px; font-size: 14px; font-family: inherit; transition: border-color .12s; }
+.pomo-add input::placeholder { color: var(--faint); }
+.pomo-add input:focus { outline: none; border-color: var(--text); }
+.pomo-add .btn { min-width: 74px; flex: 0 0 auto; }
+.pomo-list { list-style: none; margin: 0; padding: 0; border: 1px solid var(--line); }
+.pomo-list:empty { border: 0; }
+.pomo-empty { padding: 16px 15px; color: var(--dim); font-size: 13px; line-height: 1.55; }
+.pomo-task { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+.pomo-task:last-child { border-bottom: 0; }
+.pomo-task.current { background: var(--surface); box-shadow: inset 3px 0 0 var(--text); }
+.pomo-page.is-break .pomo-task.current { box-shadow: inset 3px 0 0 var(--green); }
+.pomo-task.current .pt-text { font-weight: 600; }
+.pt-check { flex: 0 0 auto; width: 20px; height: 20px; border: 1.5px solid var(--line-bright); background: transparent; border-radius: 3px;
+  display: inline-flex; align-items: center; justify-content: center; cursor: pointer; padding: 0; transition: border-color .12s, background .12s; }
+.pt-check:hover { border-color: var(--text); }
+.pt-check i { width: 5px; height: 9px; border: solid var(--bg); border-width: 0 2px 2px 0; transform: rotate(45deg) translateY(-1px); opacity: 0; transition: opacity .12s; }
+.pomo-task.current .pt-check { border-color: var(--text); }
+.pomo-task.done .pt-check { background: var(--text); border-color: var(--text); }
+.pomo-task.done .pt-check i { opacity: 1; }
+.pt-text { flex: 1; font-size: 14.5px; color: var(--text); cursor: pointer; line-height: 1.35; word-break: break-word; }
+.pomo-task.done .pt-text { color: var(--faint); text-decoration: line-through; text-decoration-thickness: 1px; }
+.pt-del { flex: 0 0 auto; background: transparent; border: 0; color: var(--faint); font-size: 19px; line-height: 1; cursor: pointer; padding: 2px 4px; opacity: 0; transition: opacity .12s, color .12s; }
+.pomo-task:hover .pt-del, .pt-del:focus-visible { opacity: 1; }
+.pt-del:hover { color: var(--text); }
+.pomo-list-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 10px;
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--dim); }
+.pomo-clear { background: transparent; border: 0; color: var(--dim); font: inherit; letter-spacing: inherit; text-transform: inherit; cursor: pointer; padding: 0; }
+.pomo-clear:hover { color: var(--text); }
+@media (hover: none) { .pomo-task .pt-del { opacity: 1; } }
 .pomo-stats { margin-top: 28px; }
 
 /* floating pill — shows when the timer runs and you're elsewhere on the site */
