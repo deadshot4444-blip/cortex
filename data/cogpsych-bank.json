@@ -1,0 +1,1929 @@
+[
+  {
+    "id": "cog-1",
+    "chapter": 2,
+    "topic": "ch2-mind-brain",
+    "type": "concept",
+    "difficulty": "easy",
+    "q": "The question of how mental events such as thoughts, beliefs, and sensations relate to or are caused by physical processes in the body is known as the:",
+    "options": [
+      "Mind-body problem",
+      "Knowledge argument",
+      "Cognitive revolution",
+      "Speed-accuracy tradeoff"
+    ],
+    "answer": 0,
+    "explain": "The mind-body problem is exactly the puzzle of how mental events relate to or are caused by physical mechanisms in the brain. The knowledge argument is Jackson's specific thought experiment about color, not the general problem. The cognitive revolution was the historical shift toward viewing cognition as computation. The speed-accuracy tradeoff is an experimental measurement concern, unrelated to the mind-body question.",
+    "tag": "Mind-body problem",
+    "hint": "Think about the broad philosophical question that all the mind-brain positions are trying to answer."
+  },
+  {
+    "id": "cog-2",
+    "chapter": 2,
+    "topic": "ch2-mind-brain",
+    "type": "concept",
+    "difficulty": "easy",
+    "q": "A view holding that the mind and the body are fundamentally different kinds of substance — one physical and one non-physical — is called:",
+    "options": [
+      "Physicalism",
+      "Dualism",
+      "Neutral monism",
+      "Idealism"
+    ],
+    "answer": 1,
+    "explain": "Dualism holds that mind and body are two fundamentally different kinds of substance, the body physical and the mind non-physical. Physicalism (materialism) says only physical reality exists. Neutral monism posits a single substance that is neither physical nor mental. Idealism says only mental reality exists. Each of the wrong options is a monist view, which by definition denies the two-substance claim.",
+    "tag": "Dualism",
+    "hint": "The prefix means 'two' — count the kinds of substance involved.",
+    "fig": "dualism"
+  },
+  {
+    "id": "cog-3",
+    "chapter": 2,
+    "topic": "ch2-mind-brain",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Which philosopher argued that the mind is based on an immortal soul that is more 'real' than the physical world?",
+    "options": [
+      "Descartes",
+      "Jackson",
+      "Plato",
+      "Watson"
+    ],
+    "answer": 2,
+    "explain": "Plato (around 350 B.C.) argued the mind rests on an immortal soul more real than the physical world. Descartes came later and made the mind/matter distinction precise, locating their interaction at the pineal gland, but is not the one tying mind to an immortal soul in this way. Jackson devised the modern knowledge argument. Watson founded behaviorism and rejected talk of internal mental states entirely.",
+    "tag": "Dualism (Plato)",
+    "hint": "This is the earliest thinker mentioned, from ancient times, who tied the mind to a soul."
+  },
+  {
+    "id": "cog-4",
+    "chapter": 2,
+    "topic": "ch2-mind-brain",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "In his account of how a non-physical mind and a physical body interact, Descartes proposed that this interaction took place at the:",
+    "options": [
+      "Visual cortex",
+      "Corpus callosum",
+      "Prefrontal cortex",
+      "Pineal gland"
+    ],
+    "answer": 3,
+    "explain": "Descartes made the mind/matter distinction precise as two interacting substances and located their point of interaction at the pineal gland. The visual cortex, corpus callosum, and prefrontal cortex are real brain structures but are not the site Descartes named for mind-body interaction; they are plausible-sounding distractors drawn from general neuroanatomy.",
+    "tag": "Dualism (Descartes)",
+    "hint": "Descartes picked a single small structure near the center of the brain as the meeting point.",
+    "fig": "dualism"
+  },
+  {
+    "id": "cog-5",
+    "chapter": 2,
+    "topic": "ch2-mind-brain",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "The monist position claiming that only physical reality exists and that any sense of a non-physical mind is an illusion is called:",
+    "options": [
+      "Physicalism (materialism)",
+      "Idealism",
+      "Interactionism",
+      "Dualism"
+    ],
+    "answer": 0,
+    "explain": "Physicalism, also called materialism, holds that only physical reality exists and treats any sense of a non-physical mind as an illusion. Idealism is the opposite monist claim that only mental reality exists. Interactionism describes Descartes' dualist idea of two substances interacting. Dualism is the two-substance view generally, which physicalism rejects.",
+    "tag": "Monism (physicalism)",
+    "hint": "This view says the physical is all there is, and the 'mind' feeling is just an illusion."
+  },
+  {
+    "id": "cog-6",
+    "chapter": 2,
+    "topic": "ch2-mind-brain",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "According to idealism, the relationship between mental and physical reality is best described as:",
+    "options": [
+      "Only physical reality exists, and the mind is an illusion",
+      "Only mental reality exists, and physical reality is a mental construct",
+      "Mind and body are two distinct substances that interact",
+      "A single substance that is neither mental nor physical underlies both"
+    ],
+    "answer": 1,
+    "explain": "Idealism is the monist view that only mental reality exists, so the brain and physical world are a mental construct (compared to The Matrix). The second option describes physicalism. The third describes dualist interactionism. The fourth describes neutral monism. Idealism and physicalism are mirror images, which makes the physicalism option a tempting trap.",
+    "tag": "Monism (idealism)",
+    "hint": "This is the mirror image of materialism — flip which side is 'the only real one.'"
+  },
+  {
+    "id": "cog-7",
+    "chapter": 2,
+    "topic": "ch2-mind-brain",
+    "type": "concept",
+    "difficulty": "hard",
+    "q": "Which position holds that there is a single basic substance that is neither physical nor mental, and that both mind and body are composed of it?",
+    "options": [
+      "Physicalism",
+      "Idealism",
+      "Neutral monism",
+      "Interactionism"
+    ],
+    "answer": 2,
+    "explain": "Neutral monism proposes one substance that is neither physical nor mental, out of which both mind and body are made. Physicalism says the one substance is physical, and idealism says it is mental, so both take a side rather than staying neutral. Interactionism is a dualist claim about two substances, not one. The trap is that all four sound like technical -ism labels.",
+    "tag": "Monism (neutral monism)",
+    "hint": "It is still a one-substance view, but that one substance refuses to be labeled either way."
+  },
+  {
+    "id": "cog-8",
+    "chapter": 2,
+    "topic": "ch2-mind-brain",
+    "type": "scenario",
+    "difficulty": "hard",
+    "q": "A researcher knows every physiological, chemical, and physical fact about how the human visual system processes the color yellow, but she is color-blind and has never personally seen yellow. When she finally experiences yellow, a philosopher argues she has just learned something genuinely new. This argument is used to support:",
+    "options": [
+      "Physicalism",
+      "Behaviorism",
+      "Structuralism",
+      "Dualism"
+    ],
+    "answer": 3,
+    "explain": "This is Jackson's (1986) knowledge argument, or the color-blind scientist case. If she learns something new upon experiencing the color, then complete physical knowledge left something out — the personal mental experience — which supports dualism. A physicalist would say she already understood yellow fully once all the physics and physiology were accounted for, so this argument is aimed against physicalism, not for it. Behaviorism and structuralism are historical methods for studying the mind, not answers to the mind-body problem.",
+    "tag": "Jackson knowledge argument",
+    "hint": "Ask whether experiencing the color adds anything beyond the complete physical facts — and which camp says 'yes.'"
+  },
+  {
+    "id": "cog-9",
+    "chapter": 2,
+    "topic": "ch2-mind-brain",
+    "type": "scenario",
+    "difficulty": "hard",
+    "q": "In the color-blind scientist thought experiment, a materialist would most likely claim that the scientist who knows all the physics, chemistry, and physiology of color vision:",
+    "options": [
+      "Already understands the color fully, because nothing is left once the physical facts are accounted for",
+      "Is missing the private mental experience of actually seeing the color",
+      "Cannot truly know anything about color without a soul",
+      "Has learned nothing at all, since color is purely a mental construct"
+    ],
+    "answer": 0,
+    "explain": "The materialist position is that once all the physical, chemical, and physiological facts are accounted for, there is nothing left to understand, so the scientist already grasps the color fully. The second option is the dualist reply, that she lacks the personal experiential component. The third smuggles in a soul, which materialism denies. The fourth misstates the case as idealism and also contradicts the premise that she knows the full physiology.",
+    "tag": "Jackson knowledge argument",
+    "hint": "The materialist thinks the physical story is the whole story — so what would be left over?"
+  },
+  {
+    "id": "cog-10",
+    "chapter": 2,
+    "topic": "ch2-mind-brain",
+    "type": "scenario",
+    "difficulty": "med",
+    "q": "A working neuroscientist says: 'I design experiments assuming any behavior I can observe is produced by physical brain processes, because my methods can only test physical theories. But I stay agnostic about whether the inner feeling of seeing red is fully captured by physics.' This stance is best described as:",
+    "options": [
+      "Strict dualism",
+      "Pragmatic materialism",
+      "Idealism",
+      "Neutral monism"
+    ],
+    "answer": 1,
+    "explain": "This is pragmatic materialism, the stance of most working scientists: science uses physical methods that cannot test non-physical theories, so observable behavior is explained physically, while the researcher does not necessarily claim inner consciousness is fully explained by physical processes. Strict dualism would firmly commit to a non-physical mind. Idealism holds only mental reality exists. Neutral monism posits a third neutral substance. The agnosticism about the 'feeling of red' is the key giveaway.",
+    "tag": "Pragmatic materialism",
+    "hint": "Notice the researcher commits to physical methods but hedges about inner feelings — it is a practical, not a metaphysical, commitment."
+  },
+  {
+    "id": "cog-11",
+    "chapter": 2,
+    "topic": "ch2-mind-brain",
+    "type": "concept",
+    "difficulty": "hard",
+    "q": "Pragmatic materialism is premised on an assumption that some describe as a matter of faith. That assumption is that:",
+    "options": [
+      "The mind and body are literally identical",
+      "Inner consciousness can always be fully measured",
+      "No non-physical mechanisms cause cognition",
+      "Only mental reality genuinely exists"
+    ],
+    "answer": 2,
+    "explain": "Pragmatic materialism rests on the assumption — which some call a matter of faith — that no non-physical mechanisms cause cognition. It does not go so far as to claim mind and body are literally identical, and it explicitly leaves open whether inner consciousness (the feeling of red) can be explained physically, so it does not assume that feeling is always measurable. The claim that only mental reality exists is idealism, the opposite view.",
+    "tag": "Pragmatic materialism assumption",
+    "hint": "The assumption is about what does NOT cause cognition, and it is weaker than saying mind equals body."
+  },
+  {
+    "id": "cog-12",
+    "chapter": 2,
+    "topic": "ch2-mind-brain",
+    "type": "scenario",
+    "difficulty": "med",
+    "q": "A student says, 'The brain and the whole physical world are really just constructs of my mind, like the simulated world in The Matrix.' This claim is an expression of:",
+    "options": [
+      "Physicalism",
+      "Dualism",
+      "Pragmatic materialism",
+      "Idealism"
+    ],
+    "answer": 3,
+    "explain": "Treating the brain and physical world as mental constructs, in the spirit of The Matrix, is idealism, the monist view that only mental reality exists. Physicalism holds the opposite, that only physical reality exists. Dualism accepts both a physical body and a non-physical mind as real. Pragmatic materialism is a working scientist's practical commitment to physical explanation, not a claim that the physical world is imaginary.",
+    "tag": "Monism (idealism)",
+    "hint": "If the physical world is 'just in the mind,' which single-substance view does that match?"
+  },
+  {
+    "id": "cog-13",
+    "chapter": 2,
+    "topic": "ch2-mind-brain",
+    "type": "scenario",
+    "difficulty": "med",
+    "q": "Two philosophers debate the mind-body problem. One insists mind and body are separate kinds of substance; the other insists there is only one basic kind of substance. The core disagreement between them is best labeled:",
+    "options": [
+      "Dualism versus monism",
+      "Structuralism versus behaviorism",
+      "Detection versus discrimination",
+      "Nature versus nurture"
+    ],
+    "answer": 0,
+    "explain": "A dispute over whether reality has two fundamentally different kinds of substance or just one is precisely the dualism versus monism divide. Structuralism versus behaviorism is a contrast between historical research methods, not a metaphysical stance on substances. Detection versus discrimination refers to reaction-time task conditions. Nature versus nurture concerns the origins of behavior, not the number of substances in reality.",
+    "tag": "Dualism vs monism",
+    "hint": "Focus on the count of basic substances each side accepts — one label captures exactly that split.",
+    "fig": "dualism"
+  },
+  {
+    "id": "cog-14",
+    "chapter": 2,
+    "topic": "ch2-mind-brain",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Which of the following correctly pairs a monist position with what it takes to be the single basic reality?",
+    "options": [
+      "Idealism — only physical reality",
+      "Physicalism — only physical reality",
+      "Physicalism — only mental reality",
+      "Neutral monism — only mental reality"
+    ],
+    "answer": 1,
+    "explain": "Physicalism (materialism) holds that only physical reality exists, so that pairing is correct. Idealism claims only mental reality exists, so pairing it with physical reality is wrong. Physicalism paired with mental reality is likewise reversed. Neutral monism posits a substance that is neither mental nor physical, so pairing it with 'only mental reality' misstates it. The distractors work by swapping or mislabeling each position's basic substance.",
+    "tag": "Monism varieties",
+    "hint": "Match each -ism to the side it says is the only real thing — and remember neutral monism picks neither side."
+  },
+  {
+    "id": "cog-15",
+    "chapter": 2,
+    "topic": "ch2-brain-behavior",
+    "type": "concept",
+    "difficulty": "easy",
+    "q": "Roughly how many neurons does the human brain contain, according to widely cited estimates?",
+    "options": [
+      "About 86 million",
+      "About 7,000",
+      "About 86 billion",
+      "About 600 trillion"
+    ],
+    "answer": 2,
+    "explain": "The human brain is estimated to contain about 86 billion neurons (Herculano-Houzel, 2012). 'About 86 million' understates the count by a factor of a thousand. 'About 7,000' is the estimated number of connections per neuron, not the neuron count. 'About 600 trillion' is the resulting total number of connections across the brain, not the number of neurons.",
+    "tag": "Brain complexity",
+    "hint": "Think in billions, not millions or trillions."
+  },
+  {
+    "id": "cog-16",
+    "chapter": 2,
+    "topic": "ch2-brain-behavior",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "With roughly 86 billion neurons each making about 7,000 connections, the total number of connections in the human brain is estimated to exceed what figure?",
+    "options": [
+      "600 million",
+      "7,000",
+      "86 billion",
+      "600 trillion"
+    ],
+    "answer": 3,
+    "explain": "Multiplying roughly 86 billion neurons by about 7,000 connections each yields more than 600 trillion connections. '600 million' is far too small. '7,000' is the connections per single neuron, not the total. '86 billion' is the neuron count, not the connection count.",
+    "tag": "Connections",
+    "hint": "Multiply the number of neurons by the connections each one makes."
+  },
+  {
+    "id": "cog-17",
+    "chapter": 2,
+    "topic": "ch2-brain-behavior",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "A key reason cognitive scientists argue that studying the brain alone is not enough to explain the mind is that:",
+    "options": [
+      "The brain's staggering complexity means current understanding of it remains poor",
+      "Neurons are too small to be measured with any current technology",
+      "The brain plays no causal role in producing behavior",
+      "Only subjective introspection can reveal how neurons work"
+    ],
+    "answer": 0,
+    "explain": "Because the brain is so complex (tens of billions of neurons and hundreds of trillions of connections), scientific understanding of it is still poor, so neuroscience alone cannot fully explain cognition. Individual neurons can in fact be measured, so the first option is false. The claim that the brain plays no causal role contradicts the whole enterprise. Introspection is not required to study neurons and is a separate, limited method.",
+    "tag": "Why not just neuroscience",
+    "hint": "Consider what the sheer scale of the brain implies about how well we understand it."
+  },
+  {
+    "id": "cog-18",
+    "chapter": 2,
+    "topic": "ch2-brain-behavior",
+    "type": "concept",
+    "difficulty": "hard",
+    "q": "Why does the strong micro- and macroscopic similarity between a human brain and a chimpanzee brain create a problem for a purely brain-based account of cognition?",
+    "options": [
+      "Nearly identical brain structure should, on a brain-based account, predict nearly identical behavior in the two species",
+      "Similar brains yet very different behavior is a gap current science cannot explain, forcing researchers to observe behavior directly",
+      "The two species' neurons must therefore rely on entirely different chemical signaling to work",
+      "It demonstrates that an organism's behavior is fixed entirely by its environment rather than by its brain"
+    ],
+    "answer": 1,
+    "explain": "The source notes human and chimp brains (and different people's brains) are very similar micro/macroscopically, yet current science can't explain what makes different brains produce different behaviors, so we must observe behavior itself. Option 2 captures this gap and its consequence. Option 0 states the opposite of reality (chimp and human behavior clearly differ) and misreads the problem. Option 1 invents a claim about different chemical signals that the source never makes. Option 3 overstates the point into environmental determinism; the source only flags an explanatory gap, not that the brain is irrelevant.",
+    "tag": "Human vs chimp brains",
+    "hint": "Similar hardware, very different output - what does that gap force researchers to do?"
+  },
+  {
+    "id": "cog-19",
+    "chapter": 2,
+    "topic": "ch2-brain-behavior",
+    "type": "scenario",
+    "difficulty": "med",
+    "q": "Two neuroscientists compare high-resolution scans of many different healthy adult human brains and find they are strikingly alike in structure, even though the people behave quite differently. What conclusion best fits this observation?",
+    "options": [
+      "The scans must be flawed, since different people cannot have similar brains",
+      "Behavioral differences between people are illusions caused by measurement error",
+      "Brain structure alone is not enough to explain individual differences in behavior, so behavior must also be observed",
+      "The similar structure proves all these people will perform identically on cognitive tasks"
+    ],
+    "answer": 2,
+    "explain": "Different people's brains are very similar structurally, yet they behave differently, so structure alone cannot account for behavioral differences and behavior must be studied in its own right. Similar brains across individuals is expected, not a sign of flawed scans. Behavioral differences are real, not illusions. Similar structure does not guarantee identical task performance; that is precisely the puzzle.",
+    "tag": "Person-to-person similarity",
+    "hint": "If the hardware looks the same but people act differently, what does structure alone leave unexplained?"
+  },
+  {
+    "id": "cog-20",
+    "chapter": 2,
+    "topic": "ch2-brain-behavior",
+    "type": "scenario",
+    "difficulty": "med",
+    "q": "A researcher wants to understand why a person reaches for a coffee cup. She insists on examining not only the brain but also the person's arm and eyes, the layout of the room, and the social setting. Which idea best captures her approach?",
+    "options": [
+      "Cognition can only be understood by isolating single neurons",
+      "The environment is irrelevant once the brain is fully mapped",
+      "Behavior is a black box that should not be examined at all",
+      "Cognition should be studied across nested levels or contexts, from brain to body to environment and beyond"
+    ],
+    "answer": 3,
+    "explain": "The brain operates within nested contexts — brain, then body (sensory input and movement), then environment and society, then larger world structures — and each level must be studied to understand cognition. Isolating single neurons ignores those higher levels. The environment is treated as essential, not irrelevant. Treating behavior as an unexaminable black box is the behaviorist stance, not this multi-level view.",
+    "tag": "Nested levels/contexts",
+    "hint": "She refuses to stop at the skull — think about layers surrounding the brain.",
+    "fig": "levels"
+  },
+  {
+    "id": "cog-21",
+    "chapter": 2,
+    "topic": "ch2-brain-behavior",
+    "type": "concept",
+    "difficulty": "hard",
+    "q": "Which sequence correctly orders the nested levels or contexts in which the brain operates, from innermost outward?",
+    "options": [
+      "Brain → body → environment/society → larger world structures",
+      "Environment → body → brain → world",
+      "Body → brain → world → society",
+      "World → environment → brain → body"
+    ],
+    "answer": 0,
+    "explain": "The nested levels run from the brain outward: brain, then the body (providing sensory input and movement), then the surrounding environment and society, then larger world structures. The other orderings scramble this progression — for example placing the environment or the world innermost, or nesting the brain inside the body incorrectly, none of which matches the inside-out arrangement.",
+    "tag": "Levels ordering",
+    "hint": "Start at the most inner biological unit and expand outward.",
+    "fig": "levels"
+  },
+  {
+    "id": "cog-22",
+    "chapter": 2,
+    "topic": "ch2-brain-behavior",
+    "type": "scenario",
+    "difficulty": "easy",
+    "q": "A student argues, 'Once we can scan every neuron and connection, we will read a person's thoughts directly and won't need to watch what they do.' Based on the challenges of relying on neuroscience alone, what is the best response?",
+    "options": [
+      "Correct, because a complete brain scan fully determines behavior with no other steps needed",
+      "Mistaken, because the brain is so complex and poorly understood that observing behavior remains necessary",
+      "Correct, because brains differ so much between people that scanning is the only reliable method",
+      "Mistaken, because the brain has no measurable connection to behavior at all"
+    ],
+    "answer": 1,
+    "explain": "The brain's immense complexity (billions of neurons, hundreds of trillions of connections) means our understanding is still poor, and because similar brains can produce different behaviors, observing behavior remains necessary — so the student is mistaken. A complete scan does not straightforwardly determine behavior given current limits. Brains are actually quite similar across people, which is part of the problem, not a reason scanning is uniquely reliable. The brain clearly is connected to behavior, so the last option is false.",
+    "tag": "Behavior still needed",
+    "hint": "Even a perfect map is useless if we can't read it — what does that leave us needing to do?"
+  },
+  {
+    "id": "cog-23",
+    "chapter": 2,
+    "topic": "ch2-structuralism",
+    "type": "concept",
+    "difficulty": "easy",
+    "q": "Who is credited with founding the first scientific psychology laboratory and establishing experimental psychology?",
+    "options": [
+      "Edward Titchener",
+      "John Watson",
+      "Wilhelm Wundt",
+      "Franciscus Donders"
+    ],
+    "answer": 2,
+    "explain": "Wilhelm Wundt founded the first scientific psychology lab and is associated with the birth of experimental psychology. Titchener was Wundt's student who brought structuralism to America, not the lab's founder. Watson founded behaviorism, a later and opposing approach. Donders studied reaction time as an early cognitivist, not a structuralist lab founder.",
+    "tag": "Founders of structuralism",
+    "hint": "Think about who ran the very first lab, not the student who exported the ideas."
+  },
+  {
+    "id": "cog-24",
+    "chapter": 2,
+    "topic": "ch2-structuralism",
+    "type": "concept",
+    "difficulty": "easy",
+    "q": "Which student of Wundt is credited with bringing structuralism to America?",
+    "options": [
+      "Ivan Pavlov",
+      "B.F. Skinner",
+      "Noam Chomsky",
+      "Edward Titchener"
+    ],
+    "answer": 3,
+    "explain": "Edward Titchener was Wundt's student who carried structuralism to America. Pavlov and Skinner were associated with conditioning and behaviorism, not structuralism. Chomsky was a critic of behaviorism who helped spark the cognitive revolution.",
+    "tag": "Founders of structuralism",
+    "hint": "He was the pupil, not the master, and he crossed the Atlantic."
+  },
+  {
+    "id": "cog-25",
+    "chapter": 2,
+    "topic": "ch2-structuralism",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "What was the central goal that structuralists pursued through introspection?",
+    "options": [
+      "Identifying the fundamental elements of consciousness and how they combine",
+      "Measuring reaction times to infer hidden processing stages",
+      "Explaining behavior solely through stimulus-response associations",
+      "Simulating cognition as an input-to-output computer program"
+    ],
+    "answer": 0,
+    "explain": "Structuralists used introspection to describe conscious experience in terms of fundamental elements and to discover how those elements combine. Measuring reaction times to infer stages describes Donders and the cognitive approach. Stimulus-response explanation is behaviorism. Simulating cognition as a program reflects the computer-inspired cognitive revolution.",
+    "tag": "Introspection goals",
+    "hint": "They borrowed the strategy of physics and chemistry: break the whole into basic parts."
+  },
+  {
+    "id": "cog-26",
+    "chapter": 2,
+    "topic": "ch2-structuralism",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Structuralism's method of breaking the mind into simpler components was modeled on advances in which fields?",
+    "options": [
+      "Medicine and anatomy",
+      "Physics and chemistry",
+      "Astronomy and geology",
+      "Mathematics and logic"
+    ],
+    "answer": 1,
+    "explain": "Structuralism emerged when physics and chemistry were making progress by decomposing complex processes into simpler elements, and structuralists tried the same for the mind. Medicine, anatomy, astronomy, geology, mathematics, and logic are not the fields cited as the inspiration for this elemental approach.",
+    "tag": "Origins of structuralism",
+    "hint": "Which sciences were famous for splitting complex things into basic units like atoms and elements?"
+  },
+  {
+    "id": "cog-27",
+    "chapter": 2,
+    "topic": "ch2-structuralism",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "In introspection as practiced by structuralists, who provided the data and what did they report?",
+    "options": [
+      "Naive participants rating stimuli on questionnaires",
+      "Observers recording another person's overt behavior",
+      "Trained practitioners describing their own conscious experiences",
+      "Clinicians interpreting patients' unconscious drives"
+    ],
+    "answer": 2,
+    "explain": "Introspection relied on trained practitioners carefully describing their own conscious experiences in terms of fundamental elements. It did not use naive questionnaire raters, external observers of behavior, or clinical interpretation of the unconscious.",
+    "tag": "Introspection method",
+    "hint": "The observer and the thing observed were the same person, and that person was specially prepared."
+  },
+  {
+    "id": "cog-28",
+    "chapter": 2,
+    "topic": "ch2-structuralism",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "A key scientific weakness of introspective data is that it comes from a single observer's inner experience. Which self-correcting mechanism of science does this most directly undermine?",
+    "options": [
+      "Peer review",
+      "Operational definition",
+      "Random assignment",
+      "Replication"
+    ],
+    "answer": 3,
+    "explain": "Because introspective data are subjective and cannot be objectively verified, different researchers using the same methods cannot reliably reproduce the results, undermining replication. Peer review, operational definitions, and random assignment are real parts of science but are not the mechanism specifically defined here as different researchers getting the same verifiable results.",
+    "tag": "Failures of introspection",
+    "hint": "It refers to different researchers getting the same verifiable results with the same methods."
+  },
+  {
+    "id": "cog-29",
+    "chapter": 2,
+    "topic": "ch2-structuralism",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Introspection can only reveal a limited portion of mental activity. Which everyday ability best illustrates knowledge that operates outside conscious access?",
+    "options": [
+      "Knowing the grammar of your native language",
+      "Recalling a phone number you just heard",
+      "Naming the color of an object",
+      "Deciding which restaurant to eat at"
+    ],
+    "answer": 0,
+    "explain": "Much brain activity is unconscious or implicit, and knowledge of one's native-language grammar is the cited example of implicit knowledge not available to introspection. Recalling a phone number, naming a color, and choosing a restaurant are conscious tasks that introspection could report on.",
+    "tag": "Implicit knowledge",
+    "hint": "Most people follow the rules perfectly but cannot state them explicitly."
+  },
+  {
+    "id": "cog-30",
+    "chapter": 2,
+    "topic": "ch2-structuralism",
+    "type": "scenario",
+    "difficulty": "hard",
+    "q": "A patient with damage to a visual processing area sincerely reports being unable to see anything, yet when asked to guess whether a light appeared in the left or right visual field, answers correctly far above chance. This pattern is best described as:",
+    "options": [
+      "A speed-accuracy tradeoff",
+      "Blindsight from cortical blindness",
+      "Latent learning",
+      "Classical conditioning"
+    ],
+    "answer": 1,
+    "explain": "This is blindsight from cortical blindness: damage before conscious perception leaves patients reporting no sight yet responding to visual stimuli above chance, showing processing outside awareness. A speed-accuracy tradeoff involves trading response speed for accuracy on tasks the person can perform consciously. Latent learning and classical conditioning are behaviorist phenomena unrelated to unconscious vision.",
+    "tag": "Blindsight",
+    "hint": "The person insists they can't see, but their guesses reveal the eyes are working."
+  },
+  {
+    "id": "cog-31",
+    "chapter": 2,
+    "topic": "ch2-structuralism",
+    "type": "scenario",
+    "difficulty": "hard",
+    "q": "A researcher demonstrates that a cortically blind man who reports having no sight can nonetheless walk down a corridor and successfully avoid a series of obstacles in his path. This finding, reported around 2008, is most often used to argue that:",
+    "options": [
+      "Introspection accurately captures all mental activity",
+      "Conditioning explains all human behavior",
+      "Substantial visual processing can occur without conscious awareness",
+      "Reaction time increases with the number of processing stages"
+    ],
+    "answer": 2,
+    "explain": "De Gelder and colleagues (2008) reported a cortically blind patient navigating obstacles despite reporting no sight, evidence that significant processing occurs outside awareness. It does not show introspection captures all mental activity; it shows the opposite. Conditioning explaining all behavior is a behaviorist claim, and the reaction-time claim relates to Donders, not this case.",
+    "tag": "Blindsight (De Gelder)",
+    "hint": "Actions succeeded even though the person denied any conscious vision."
+  },
+  {
+    "id": "cog-32",
+    "chapter": 2,
+    "topic": "ch2-structuralism",
+    "type": "scenario",
+    "difficulty": "med",
+    "q": "An investigator studying how people solve a difficult puzzle asks participants to speak aloud everything they are thinking while they work through it. This modern research technique, which descends from introspection, is called the:",
+    "options": [
+      "Skinner box procedure",
+      "Go/no-go task",
+      "Signal detection method",
+      "Think-aloud protocol"
+    ],
+    "answer": 3,
+    "explain": "Having participants report their thought processes during a complex task is the think-aloud protocol, a legacy of introspection that survives in modern research. A Skinner box is an operant conditioning chamber for animals. A go/no-go task is Donders' discrimination condition. Signal detection is a framework for decisions under uncertainty, not a self-report method.",
+    "tag": "Legacy: think-aloud",
+    "hint": "The participant narrates their reasoning out loud as it happens."
+  },
+  {
+    "id": "cog-33",
+    "chapter": 2,
+    "topic": "ch2-structuralism",
+    "type": "scenario",
+    "difficulty": "hard",
+    "q": "A researcher notices that a briefly seen image seems to persist and then fade after the eyes close, and uses this personal impression to design experiments that reveal a very brief visual store. This account describes how introspection helped inspire the discovery of:",
+    "options": [
+      "Sensory memory",
+      "Classical conditioning",
+      "The cognitive map",
+      "Signal detection theory"
+    ],
+    "answer": 0,
+    "explain": "Sperling (1960) was inspired by an introspective observation, an image fading when closing the eyes, to discover sensory memory. Classical conditioning came from Pavlov's animal work, the cognitive map from Tolman's maze experiments, and signal detection theory from radar-operator research, none of which fit the introspective fading-image inspiration.",
+    "tag": "Legacy: Sperling & sensory memory",
+    "hint": "The fleeting, fading image after closing your eyes points to a very short-lived store."
+  },
+  {
+    "id": "cog-34",
+    "chapter": 2,
+    "topic": "ch2-structuralism",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Although introspection failed as a primary method, the field concluded that a valid science of mind must ultimately rest on what kind of evidence?",
+    "options": [
+      "Trained self-reports of consciousness",
+      "Externally measurable phenomena",
+      "The reports of a single expert observer",
+      "Purely theoretical reasoning without data"
+    ],
+    "answer": 1,
+    "explain": "The lasting lesson of structuralism's failure is that valid science of the mind must depend on externally measurable phenomena. Trained self-reports and single-observer accounts are exactly the subjective, unverifiable data that discredited introspection, and purely theoretical reasoning without data is not a scientific standard.",
+    "tag": "Legacy of structuralism",
+    "hint": "The problem with introspection was that no one else could check it, so the fix is data anyone can measure."
+  },
+  {
+    "id": "cog-35",
+    "chapter": 2,
+    "topic": "ch2-structuralism",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Besides the think-aloud protocol and inspiring sensory-memory research, introspection is noted as a source of insight in which continuing area of study?",
+    "options": [
+      "Classical conditioning",
+      "Reinforcement learning",
+      "Visual imagery",
+      "Signal detection"
+    ],
+    "answer": 2,
+    "explain": "Research on visual imagery is cited as another area that draws on introspection, alongside the think-aloud protocol and Sperling's sensory-memory work. Classical conditioning and reinforcement learning are behaviorist topics, and signal detection emerged from applied radar research, none of which are tied to introspection's legacy.",
+    "tag": "Legacy: visual imagery",
+    "hint": "It involves the mind's eye, something you can only observe from the inside."
+  },
+  {
+    "id": "cog-36",
+    "chapter": 2,
+    "topic": "ch2-behaviorism",
+    "type": "concept",
+    "difficulty": "easy",
+    "q": "John Watson argued that for psychology to become a true science, it had to stop studying which of the following?",
+    "options": [
+      "Objectively measurable stimuli",
+      "Observable behavioral responses",
+      "Animals under controlled conditions",
+      "Internal, unobservable mental states"
+    ],
+    "answer": 3,
+    "explain": "Watson was frustrated with introspection and insisted psychology abandon internal mental states in favor of objectively observable data, replacing terms like 'images' and 'memory' with stimulus and response. Stimuli and responses were exactly what he wanted to keep, since both are objectively measurable, so those options are wrong. Studying animals under controlled conditions was central to behaviorism, not something to abandon.",
+    "tag": "Watson / behaviorism founding",
+    "hint": "Watson wanted to keep only what could be objectively measured."
+  },
+  {
+    "id": "cog-37",
+    "chapter": 2,
+    "topic": "ch2-behaviorism",
+    "type": "concept",
+    "difficulty": "easy",
+    "q": "In behaviorist terms, what does 'stimulus' refer to?",
+    "options": [
+      "Something that stimulates the senses",
+      "The behavior an organism produces",
+      "The internal brain process linking input to output",
+      "An involuntary reflex such as salivation"
+    ],
+    "answer": 0,
+    "explain": "Watson defined a stimulus as something that stimulates the senses, while the response is the behavior that follows it. The behavior produced is the response, not the stimulus. The internal linking process is the 'black box' the brain, not the stimulus. Salivation is an example of a response (specifically an unconditioned response), not a stimulus.",
+    "tag": "Stimulus-response",
+    "hint": "Think about which end of the sequence comes first, at the senses."
+  },
+  {
+    "id": "cog-38",
+    "chapter": 2,
+    "topic": "ch2-behaviorism",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Behaviorists treated the brain as a 'black box.' What does this metaphor capture about their approach?",
+    "options": [
+      "They believed the brain played no causal role in behavior",
+      "They ignored the internal process and focused only on inputs and outputs",
+      "They studied the brain's internal workings using early imaging tools",
+      "They assumed each person's brain worked completely differently"
+    ],
+    "answer": 1,
+    "explain": "The 'black box' means the intervening brain process between stimulus and response was left unexamined; behaviorists focused only on the observable input (stimulus) and output (response). They did not deny the brain matters, only refused to study its internals, so the first option is wrong. They had no brain imaging tools and did not study internal workings, ruling out the second. The black box metaphor is about not looking inside, not about assuming brains differ.",
+    "tag": "Black box",
+    "hint": "The label is about what they refused to look at, not what they denied exists.",
+    "fig": "blackBox"
+  },
+  {
+    "id": "cog-39",
+    "chapter": 2,
+    "topic": "ch2-behaviorism",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "In Pavlov's classical conditioning of a dog, food and salivation initially played which roles?",
+    "options": [
+      "Food was the neutral stimulus; salivation was the conditioned response",
+      "Food was the conditioned stimulus; salivation was the unconditioned response",
+      "Food was the unconditioned stimulus; salivation was the unconditioned response",
+      "Food was the unconditioned stimulus; salivation was the conditioned response"
+    ],
+    "answer": 2,
+    "explain": "Food naturally causes salivation without any training, so food is the unconditioned stimulus and salivation is the unconditioned response. Food is never neutral (it naturally triggers salivation), ruling out the first option. Food is not conditioned since it works without learning, ruling out the second. Salivation to food is unconditioned, not conditioned, since no pairing is required, ruling out the fourth.",
+    "tag": "Classical conditioning terms",
+    "hint": "Which pairing happens naturally, before any learning?",
+    "fig": "classicalConditioning"
+  },
+  {
+    "id": "cog-40",
+    "chapter": 2,
+    "topic": "ch2-behaviorism",
+    "type": "scenario",
+    "difficulty": "med",
+    "q": "A trainer repeatedly rings a bell just before feeding a dog. Eventually the dog salivates at the bell alone. What is the bell after this training?",
+    "options": [
+      "The unconditioned stimulus",
+      "The unconditioned response",
+      "The conditioned response",
+      "The conditioned stimulus"
+    ],
+    "answer": 3,
+    "explain": "A previously neutral stimulus (the bell) that comes to trigger salivation after being paired with food becomes the conditioned stimulus. The unconditioned stimulus is the food, which naturally causes salivation, so that is wrong. Responses are behaviors, not stimuli, so both response options are wrong; the salivation itself is the conditioned response, but the bell is a stimulus.",
+    "tag": "Classical conditioning",
+    "hint": "Once a neutral cue triggers the reflex through pairing, what do we call it?",
+    "fig": "classicalConditioning"
+  },
+  {
+    "id": "cog-41",
+    "chapter": 2,
+    "topic": "ch2-behaviorism",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Which kind of behavior does classical conditioning as described by Pavlov involve?",
+    "options": [
+      "An involuntary behavior triggered by a stimulus",
+      "A voluntary behavior shaped by reward and punishment",
+      "A novel behavior never produced before",
+      "A behavior guided by an internal cognitive map"
+    ],
+    "answer": 0,
+    "explain": "Classical conditioning induces an involuntary behavior (like salivation) via a stimulus that normally would not cause it, because it was paired with one that naturally does. Voluntary behavior shaped by reward and punishment describes operant conditioning, not classical. Novel never-before-produced behavior is Chomsky's challenge, and internal cognitive maps come from Tolman, both critiques rather than parts of classical conditioning.",
+    "tag": "Classical vs operant",
+    "hint": "Salivation is not something the dog chooses to do."
+  },
+  {
+    "id": "cog-42",
+    "chapter": 2,
+    "topic": "ch2-behaviorism",
+    "type": "concept",
+    "difficulty": "easy",
+    "q": "Regarding the nature versus nurture question, where did behaviorists like Watson stand?",
+    "options": [
+      "Strongly on the nature side",
+      "Strongly on the nurture side",
+      "They rejected the debate as meaningless",
+      "They viewed nature and nurture as equally important"
+    ],
+    "answer": 1,
+    "explain": "Behaviorists came down strongly on the nurture side, as captured by Watson's boast that he could train any healthy infant into any specialist. The nature side emphasizes inborn traits, which Watson downplayed. He did not reject the debate, and his famous boast shows he weighted nurture far above nature rather than treating them equally.",
+    "tag": "Nature vs nurture",
+    "hint": "Watson claimed environment and training could override inborn talent."
+  },
+  {
+    "id": "cog-43",
+    "chapter": 2,
+    "topic": "ch2-behaviorism",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Watson's famous boast that he could take a dozen healthy infants and train each into any type of specialist best illustrates which belief?",
+    "options": [
+      "That inherited ability sets firm limits on a child's development",
+      "That novel behaviors reveal an internal cognitive structure",
+      "That environment and training, not inborn talent, determine what a person becomes",
+      "That voluntary behavior is controlled by reinforcement schedules"
+    ],
+    "answer": 2,
+    "explain": "The boast expresses an extreme nurture position: outcomes depend on training regardless of talents or ancestry. The second option is the opposite (a nature view). Novel behaviors revealing internal structure is Chomsky's critique, and reinforcement schedules controlling voluntary behavior is Skinner's operant conditioning, neither of which the boast is about.",
+    "tag": "Watson boast / nurture",
+    "hint": "The boast dismisses talents and ancestry entirely."
+  },
+  {
+    "id": "cog-44",
+    "chapter": 2,
+    "topic": "ch2-behaviorism",
+    "type": "scenario",
+    "difficulty": "med",
+    "q": "In the Little Albert study, a child was made to fear a white furry object by pairing it with a loud crashing noise. Which stimulus served the same natural role that food did in Pavlov's dog experiment?",
+    "options": [
+      "The white furry object",
+      "The fear reaction",
+      "The child's crying afterward",
+      "The loud crashing noise"
+    ],
+    "answer": 3,
+    "explain": "The loud crashing noise naturally triggers a fear reaction without any training, making it the unconditioned stimulus, the same role food played in Pavlov's study. The white furry object was originally neutral and became the conditioned stimulus, not the natural trigger. Fear and crying are responses, not stimuli, so neither fills the role that food (a stimulus) played.",
+    "tag": "Little Albert / conditioning roles",
+    "hint": "Which stimulus produced the response on its own, before any pairing?"
+  },
+  {
+    "id": "cog-45",
+    "chapter": 2,
+    "topic": "ch2-behaviorism",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "After Little Albert was conditioned to fear a white furry object, he also became afraid of other furry objects he had not been conditioned with. This spread of the fear is an example of what?",
+    "options": [
+      "Generalization",
+      "Latent learning",
+      "Reinforcement",
+      "Punishment"
+    ],
+    "answer": 0,
+    "explain": "The fear spreading from the specific conditioned object to all furry objects is generalization. Latent learning is Tolman's concept of learning without reward during free exploration, unrelated here. Reinforcement and punishment are operant-conditioning consequences that increase or decrease voluntary behavior, not the spreading of a conditioned fear.",
+    "tag": "Generalization",
+    "hint": "The fear was not limited to the one object he was trained on."
+  },
+  {
+    "id": "cog-46",
+    "chapter": 2,
+    "topic": "ch2-behaviorism",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Why is the Little Albert experiment frequently raised as a cautionary example in psychology?",
+    "options": [
+      "It could never be replicated by other researchers",
+      "It raised serious ethical concerns, including possible lasting harm to the child",
+      "It relied on introspective reports that could not be verified",
+      "It confused unconditioned and conditioned stimuli in its design"
+    ],
+    "answer": 1,
+    "explain": "The study is criticized on ethical grounds: a child was deliberately made fearful, with potential lasting harm and his later fate unresolved. Replication failure is not the issue cited. Introspection was the structuralist method, not what Little Albert relied on. The study's conditioning design was coherent, not confused, so that is not the concern.",
+    "tag": "Little Albert / ethics",
+    "hint": "The concern is about the wellbeing of the participant."
+  },
+  {
+    "id": "cog-47",
+    "chapter": 2,
+    "topic": "ch2-behaviorism",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "How does operant conditioning, as developed by Skinner, differ from Pavlov's classical conditioning?",
+    "options": [
+      "It conditions involuntary reflexes by pairing two stimuli",
+      "It requires the organism to form an internal cognitive map",
+      "It conditions voluntary behaviors through reinforcement or punishment",
+      "It applies only to language and other novel behaviors"
+    ],
+    "answer": 2,
+    "explain": "Operant conditioning shapes voluntary behaviors using reinforcement (reward) or punishment. Conditioning involuntary reflexes by pairing stimuli describes classical conditioning, not operant. Cognitive maps are Tolman's idea, a critique of behaviorism. Novel language behavior is Chomsky's challenge, not what operant conditioning targets; Skinner in fact claimed it explained all behavior.",
+    "tag": "Operant conditioning",
+    "hint": "Think about whether the behavior is chosen and what follows it.",
+    "fig": "operantConditioning"
+  },
+  {
+    "id": "cog-48",
+    "chapter": 2,
+    "topic": "ch2-behaviorism",
+    "type": "scenario",
+    "difficulty": "med",
+    "q": "A rat in a Skinner box presses a lever and receives a small food pellet, and it soon presses the lever more often. The food pellet is functioning as what?",
+    "options": [
+      "Punishment",
+      "An unconditioned stimulus",
+      "A neutral stimulus",
+      "Reinforcement"
+    ],
+    "answer": 3,
+    "explain": "A consequence (food) that follows a voluntary behavior and makes it more likely is reinforcement. Punishment (such as a shock) decreases behavior, the opposite of what happened. An unconditioned stimulus is a classical-conditioning term for a natural reflex trigger, not a reward for a chosen action. A neutral stimulus produces no relevant response on its own, which the food does not fit.",
+    "tag": "Reinforcement",
+    "hint": "The behavior increased because of what followed it.",
+    "fig": "operantConditioning"
+  },
+  {
+    "id": "cog-49",
+    "chapter": 2,
+    "topic": "ch2-behaviorism",
+    "type": "concept",
+    "difficulty": "hard",
+    "q": "In an operant conditioning chamber, an animal gradually learns which of its behaviors tend to be reinforced and which tend to be punished. This process is referred to as what?",
+    "options": [
+      "Reinforcement learning",
+      "Latent learning",
+      "Classical conditioning",
+      "Introspection"
+    ],
+    "answer": 0,
+    "explain": "Learning which behaviors are reinforced or punished in a Skinner box is called reinforcement learning. Latent learning is Tolman's learning that occurs without any reward during free exploration, the opposite situation. Classical conditioning involves involuntary reflexes and stimulus pairing, not learning the consequences of one's own actions. Introspection is the structuralist method of reporting conscious experience.",
+    "tag": "Reinforcement learning",
+    "hint": "The name comes directly from the consequences that shape the behavior.",
+    "fig": "operantConditioning"
+  },
+  {
+    "id": "cog-50",
+    "chapter": 2,
+    "topic": "ch2-behaviorism",
+    "type": "concept",
+    "difficulty": "hard",
+    "q": "Skinner made an especially strong claim about the reach of conditioning. What was it?",
+    "options": [
+      "Only voluntary behavior could be explained by conditioning",
+      "All behavior could be explained by classical and operant conditioning",
+      "Language was the one behavior conditioning could not explain",
+      "Conditioning worked in animals but not in humans"
+    ],
+    "answer": 1,
+    "explain": "Skinner claimed that all behavior could be explained by classical plus operant conditioning. Restricting it to voluntary behavior understates his claim, which covered everything. Conceding that language was beyond conditioning was Chomsky's critique, which Skinner never accepted. Behaviorists applied conditioning to humans as well as animals, so the animals-only option is wrong.",
+    "tag": "Skinner's all-behavior claim",
+    "hint": "His claim was maximal, leaving nothing out."
+  },
+  {
+    "id": "cog-51",
+    "chapter": 2,
+    "topic": "ch2-behaviorism",
+    "type": "scenario",
+    "difficulty": "hard",
+    "q": "A toddler who has never been taught the sentence blurts out 'I hate you, Mommy.' This kind of example was used to challenge behaviorism because it shows that people can do what?",
+    "options": [
+      "Generalize a conditioned fear to new objects",
+      "Learn without any reward during free exploration",
+      "Produce novel meaningful sentences they were never conditioned to say",
+      "Salivate to a previously neutral stimulus"
+    ],
+    "answer": 2,
+    "explain": "Chomsky argued that behaviorism cannot explain novel behaviors, especially language, since people generate meaningful sentences they were never taught or conditioned to produce. Generalizing a conditioned fear is the Little Albert phenomenon, which behaviorism handles. Learning without reward during exploration is Tolman's latent learning, a different critique. Salivating to a neutral stimulus is ordinary classical conditioning, not a challenge.",
+    "tag": "Chomsky / novel language",
+    "hint": "The child never heard or was rewarded for that exact sentence."
+  },
+  {
+    "id": "cog-52",
+    "chapter": 2,
+    "topic": "ch2-behaviorism",
+    "type": "scenario",
+    "difficulty": "hard",
+    "q": "Rats freely explored a maze with no reward. Food was later placed at one location, and the rats learned to turn right to reach it. When started from a new point, they turned left instead to still reach the food. What did Tolman conclude from this?",
+    "options": [
+      "The rats had simply been reinforced for turning right",
+      "The fear response had generalized across the maze",
+      "The behavior was an involuntary reflex to the maze walls",
+      "The rats had formed an internal cognitive map during exploration"
+    ],
+    "answer": 3,
+    "explain": "Turning the opposite way from a new start point to reach the same goal shows the rats used an internal cognitive map formed during reward-free exploration, not a fixed learned turn. Reinforcement for turning right cannot explain switching to a left turn, so that option fails. Fear generalization (Little Albert) and involuntary reflexes are unrelated to flexible spatial navigation.",
+    "tag": "Tolman / cognitive map",
+    "hint": "If they only learned 'turn right,' they would not have turned left from a new start.",
+    "fig": "tolmanMaze"
+  },
+  {
+    "id": "cog-53",
+    "chapter": 2,
+    "topic": "ch2-behaviorism",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Which of the following is an example of behaviorism's lasting legacy in modern research and treatment?",
+    "options": [
+      "Some phobia therapies re-condition patients by pairing a feared stimulus with something pleasant",
+      "Clinicians rely on introspective reports to diagnose phobias",
+      "Cognitive maps are surgically located in the pineal gland",
+      "Language acquisition is now explained purely by reinforcement"
+    ],
+    "answer": 0,
+    "explain": "Behaviorist methods live on in behavioral neuroscience animal models and in phobia therapies that re-condition patients by pairing a frightening stimulus with something pleasant. Introspection was the structuralist method, not a behaviorist legacy. The pineal gland relates to Descartes' dualism, not cognitive maps. Chomsky's critique showed language is not explained purely by reinforcement, so that claim is wrong.",
+    "tag": "Modern legacy",
+    "hint": "Think about re-training a learned fear."
+  },
+  {
+    "id": "cog-54",
+    "chapter": 2,
+    "topic": "ch2-cognitive-revolution",
+    "type": "concept",
+    "difficulty": "easy",
+    "q": "In computing, what is a \"function\"?",
+    "options": [
+      "A physical circuit made of transistors",
+      "A mapping from input to output",
+      "A person trained to follow arithmetic rules",
+      "A visual diagram of processing stages"
+    ],
+    "answer": 1,
+    "explain": "A function is any consistent mapping from input to output, such as addition mapping numbers to their sum. A physical circuit is hardware, not the abstract mapping. A person following rules describes the historical human \"computer,\" not the function itself. A visual diagram of stages is a flowchart, a separate concept.",
+    "tag": "Function (input-output mapping)",
+    "hint": "Think about what links what goes in to what comes out.",
+    "fig": "functionMap"
+  },
+  {
+    "id": "cog-55",
+    "chapter": 2,
+    "topic": "ch2-cognitive-revolution",
+    "type": "concept",
+    "difficulty": "easy",
+    "q": "An algorithm is best described as which of the following?",
+    "options": [
+      "The physical medium used to store symbols",
+      "A base-two encoding of numbers as on/off states",
+      "A method or recipe for producing the correct output from an input",
+      "A mapping between inputs and outputs"
+    ],
+    "answer": 2,
+    "explain": "An algorithm is a method or recipe (like grade-school addition rules) that produces the correct output for a given input. The storage medium refers to a tape, not the procedure. A base-two on/off encoding describes binary. The input-output mapping itself is the function, whereas the algorithm is the recipe that computes it.",
+    "tag": "Algorithm",
+    "hint": "It's the how, not the what — the step-by-step procedure."
+  },
+  {
+    "id": "cog-56",
+    "chapter": 2,
+    "topic": "ch2-cognitive-revolution",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Before machines took over the term, the word \"computer\" originally referred to what?",
+    "options": [
+      "A mechanical gear assembly",
+      "A programmable tape of instructions",
+      "A vacuum-tube switching device",
+      "A person who performed algorithms by hand"
+    ],
+    "answer": 3,
+    "explain": "Historically a \"computer\" was a person who carried out algorithms, such as arithmetic, by hand. Mechanical gears and vacuum tubes were later hardware components of electrical machines. A programmable tape of instructions is part of Turing's abstract description, not the original meaning of the word.",
+    "tag": "\"Computer\" as a person",
+    "hint": "The word predates the machines by a long time."
+  },
+  {
+    "id": "cog-57",
+    "chapter": 2,
+    "topic": "ch2-cognitive-revolution",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "In the 1930s, Alan Turing described abstractly what a general-purpose computing device requires. What two things did his description include?",
+    "options": [
+      "A medium to store symbols plus instructions for each symbol",
+      "A vacuum tube plus a semiconductor",
+      "A stimulus plus a measurable response",
+      "A flowchart plus a labeled brain region"
+    ],
+    "answer": 0,
+    "explain": "Turing described a medium to store symbols (a tape) together with instructions for what to do with each symbol, and proved such a system can compute any computable function. Vacuum tubes and semiconductors are later physical hardware. Stimulus and response belong to behaviorism. Flowcharts and brain regions come from later modeling ideas, not Turing's abstract device.",
+    "tag": "Turing machine",
+    "hint": "Think abstract components, not physical parts — something to write on and rules to follow."
+  },
+  {
+    "id": "cog-58",
+    "chapter": 2,
+    "topic": "ch2-cognitive-revolution",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "What did Turing's abstract computing device demonstrate about what such a machine can compute?",
+    "options": [
+      "It can compute only addition and subtraction",
+      "It can compute any computable function",
+      "It can compute only functions with binary inputs",
+      "It can compute any function a human cannot"
+    ],
+    "answer": 1,
+    "explain": "Turing proved that such a system can compute any computable function, which is why the idea is so powerful. Restricting it to addition and subtraction, or to binary inputs, understates its generality. The claim that it computes only what humans cannot is backwards and unsupported.",
+    "tag": "Computable functions",
+    "hint": "The key word is general-purpose — how broad is its reach?"
+  },
+  {
+    "id": "cog-59",
+    "chapter": 2,
+    "topic": "ch2-cognitive-revolution",
+    "type": "scenario",
+    "difficulty": "med",
+    "q": "A device can be given a set of instructions to follow rather than having its behavior permanently fixed in its construction. This capability is what makes a computer:",
+    "options": [
+      "Binary",
+      "Semiconducting",
+      "Programmable",
+      "Electronic"
+    ],
+    "answer": 2,
+    "explain": "Being able to receive instructions — a program — rather than being fixed is exactly what programmable means; Turing noted a general device can receive a program. Binary refers to on/off base-two encoding. Semiconducting describes the transistor's material. Electronic refers to using electrical components, none of which is specifically about accepting instructions.",
+    "tag": "Programmability",
+    "hint": "It's about whether you can change what it does without rebuilding it."
+  },
+  {
+    "id": "cog-60",
+    "chapter": 2,
+    "topic": "ch2-cognitive-revolution",
+    "type": "concept",
+    "difficulty": "easy",
+    "q": "Early electrical computers encoded information as on/off states. This two-state, base-two encoding is called:",
+    "options": [
+      "An algorithm",
+      "A function",
+      "Reinforcement",
+      "Binary"
+    ],
+    "answer": 3,
+    "explain": "On/off states form a binary, base-two encoding in which any number can be represented. An algorithm is a procedure, and a function is an input-output mapping — neither names the encoding. Reinforcement is a behaviorist concept unrelated to number encoding.",
+    "tag": "Binary / on-off",
+    "hint": "Two states, base-two."
+  },
+  {
+    "id": "cog-61",
+    "chapter": 2,
+    "topic": "ch2-cognitive-revolution",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Which machine is identified as the first electronic computer, built with vacuum tubes and used during WWII for codebreaking?",
+    "options": [
+      "Colossus",
+      "The Skinner box",
+      "The Turing tape",
+      "The pineal engine"
+    ],
+    "answer": 0,
+    "explain": "Colossus, which used vacuum tubes, is described as the first electronic computer and was used in WWII for codebreaking and artillery. The Skinner box is an operant conditioning chamber, unrelated to computing. \"Turing tape\" and \"pineal engine\" are not real devices from the material.",
+    "tag": "Colossus",
+    "hint": "A WWII codebreaking machine, not a lab apparatus for animals."
+  },
+  {
+    "id": "cog-62",
+    "chapter": 2,
+    "topic": "ch2-cognitive-revolution",
+    "type": "scenario",
+    "difficulty": "med",
+    "q": "An engineer in 1947 at Bell Labs develops a semiconductor component that is smaller and more reliable than the bulky, expensive parts it replaces in computers. What is this component?",
+    "options": [
+      "The vacuum tube",
+      "The transistor",
+      "The microelectrode",
+      "The opsin"
+    ],
+    "answer": 1,
+    "explain": "The transistor, invented in 1947 at Bell Labs, is a semiconductor that was smaller and more reliable and replaced vacuum tubes. Vacuum tubes are the older parts being replaced, not the new one. Microelectrodes record neurons in behavioral neuroscience, and opsins are light-activated proteins in optogenetics — neither is a computer component.",
+    "tag": "Transistor",
+    "hint": "1947, Bell Labs, a semiconductor that pushed out the older tubes."
+  },
+  {
+    "id": "cog-63",
+    "chapter": 2,
+    "topic": "ch2-cognitive-revolution",
+    "type": "scenario",
+    "difficulty": "hard",
+    "q": "By the 1950s, machines could play chess and were popularly dubbed \"thinking machines.\" How did some scientists begin to reinterpret the brain in light of computers?",
+    "options": [
+      "As a black box whose internal states cannot be studied",
+      "As an immortal soul interacting through the pineal gland",
+      "As a computer, with neurons firing or silent treated as ones and zeros",
+      "As a set of trained introspective observers reporting elements"
+    ],
+    "answer": 2,
+    "explain": "Scientists began viewing the brain as a computer, with neurons firing or silent playing the role of ones and zeros. The black-box view belongs to behaviorism, which the computer analogy helped move past. The immortal soul and pineal-gland interaction is Descartes' dualism. Trained introspective observers describe structuralism.",
+    "tag": "Brain as computer",
+    "hint": "Map neuron activity onto the two states a computer uses."
+  },
+  {
+    "id": "cog-64",
+    "chapter": 2,
+    "topic": "ch2-cognitive-revolution",
+    "type": "concept",
+    "difficulty": "hard",
+    "q": "The cognitive revolution arose from the combination of which two developments?",
+    "options": [
+      "Rejection of dualism and the rise of introspection",
+      "The founding of structuralism and the invention of the Skinner box",
+      "The knowledge argument and the discovery of blindsight",
+      "Rejection of behaviorism and the rise of computers"
+    ],
+    "answer": 3,
+    "explain": "The cognitive revolution came from rejecting behaviorism plus the rise of computers, which together framed cognition as computation. Introspection and structuralism were earlier approaches that the revolution moved beyond, not causes of it. The knowledge argument and blindsight relate to the mind-body problem and structuralism's failures, not to the computational turn.",
+    "tag": "Cognitive revolution",
+    "hint": "One thing was pushed away, one thing was newly rising."
+  },
+  {
+    "id": "cog-65",
+    "chapter": 2,
+    "topic": "ch2-cognitive-revolution",
+    "type": "scenario",
+    "difficulty": "hard",
+    "q": "A researcher treats a person's incoming sensory information as input and their resulting decision or behavior as output, then tries to specify the sequence of information-processing stages in between. According to the computational view of cognition, what is the ultimate goal of this work?",
+    "options": [
+      "To determine the underlying algorithm or program the brain uses",
+      "To map each processing stage onto a specific brain region",
+      "To eliminate all references to internal mental processes",
+      "To find the fastest reaction time across the stages"
+    ],
+    "answer": 0,
+    "explain": "Under the computational view, the goal is to determine the underlying algorithm or program the brain uses to map input to output. Mapping stages onto brain regions is explicitly not the aim of this computational modeling. Eliminating internal processes is the behaviorist stance the revolution rejected, and minimizing reaction time is not the point of the analysis.",
+    "tag": "Cognition as computation",
+    "hint": "Input and output are known — what mysterious recipe connects them?",
+    "fig": "infoProcessing"
+  },
+  {
+    "id": "cog-66",
+    "chapter": 2,
+    "topic": "ch2-cognitive-revolution",
+    "type": "scenario",
+    "difficulty": "hard",
+    "q": "For decades, getting a computer to take an image and output the correct object label failed, even though a computer can in principle compute any function. What ultimately succeeded, and why does this fit the distinction being illustrated?",
+    "options": [
+      "A faster transistor, because more reliable hardware solved the mapping",
+      "Machine learning, because the computer rather than a human found the algorithm",
+      "Binary encoding, because representing the image in base two revealed the label",
+      "A think-aloud protocol, because reporting one's steps exposed the recipe"
+    ],
+    "answer": 1,
+    "explain": "Object recognition failed until machine learning let the computer, rather than a human, find the algorithm — showing that being able in principle to compute any function is not the same as knowing the algorithm. Faster or more reliable hardware doesn't supply a missing algorithm. Binary encoding is just how numbers are stored. A think-aloud protocol is an introspection method, not a way to solve image classification.",
+    "tag": "Machine learning finds the algorithm",
+    "hint": "The hardware could always do it in principle; something had to discover the recipe."
+  },
+  {
+    "id": "cog-67",
+    "chapter": 2,
+    "topic": "ch2-cognitive-revolution",
+    "type": "scenario",
+    "difficulty": "med",
+    "q": "A cognitive psychologist draws a flowchart of boxes and arrows to model how attention filters information. A student points to one box and asks which brain area it represents. What is the best response?",
+    "options": [
+      "Each box corresponds to a single labeled brain region",
+      "The boxes represent neurons firing as ones and zeros",
+      "The box is a computational stage, not a specific brain area",
+      "The flowchart shows the physiology rather than the computation"
+    ],
+    "answer": 2,
+    "explain": "In these models, boxes are computational steps or stages describing the structure of the mind, not brain areas or physiology. Treating a box as one brain region, or as individual neurons, mistakes a computational model for anatomy. Saying the flowchart shows physiology is the opposite of its purpose — it depicts computation, not brain structure.",
+    "tag": "Flowcharts as mind models",
+    "hint": "These diagrams describe processing steps, not anatomy."
+  },
+  {
+    "id": "cog-68",
+    "chapter": 2,
+    "topic": "ch2-cognitive-approach",
+    "type": "concept",
+    "difficulty": "easy",
+    "q": "What is the central strategy of the cognitive approach (cognitivism) to studying the mind?",
+    "options": [
+      "Directly observe the brain's algorithms the way one reads a computer's circuits",
+      "Have trained observers introspect on the elements of their conscious experience",
+      "Explain all behavior purely as stimulus-response pairs, ignoring internal states",
+      "Measure observable behavior to test theories about underlying mental processes"
+    ],
+    "answer": 3,
+    "explain": "Cognitivism uses empirical (observable) behavior to test theories of unobservable mental processes. Directly reading the brain's algorithms is wrong because the source stresses those algorithms cannot be observed directly, unlike a computer's circuits. Introspecting on elements of consciousness is structuralism. Reducing everything to stimulus-response while ignoring internal states is behaviorism.",
+    "tag": "Cognitivism",
+    "hint": "The mind's operations are inferred, not seen directly."
+  },
+  {
+    "id": "cog-69",
+    "chapter": 2,
+    "topic": "ch2-cognitive-approach",
+    "type": "concept",
+    "difficulty": "easy",
+    "q": "In Donders' (1868) experiments, which type of behavioral measure did he use to compare his conditions?",
+    "options": [
+      "Reaction time",
+      "Skin conductance",
+      "Introspective reports",
+      "Pupil dilation"
+    ],
+    "answer": 0,
+    "explain": "Donders compared conditions using reaction time (RT), the speed of the response. Skin conductance and pupil dilation are involuntary physiological measures introduced elsewhere in the methods material, not what Donders used. Introspective reports belong to structuralism, which Donders' behavioral method deliberately avoided.",
+    "tag": "Donders / reaction time",
+    "hint": "He was timing how fast people responded.",
+    "fig": "donders"
+  },
+  {
+    "id": "cog-70",
+    "chapter": 2,
+    "topic": "ch2-cognitive-approach",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Donders found that reaction times ordered from fastest to slowest across his three tasks in which sequence?",
+    "options": [
+      "Choice, then discrimination, then detection",
+      "Detection, then discrimination, then choice",
+      "Discrimination, then detection, then choice",
+      "Detection, then choice, then discrimination"
+    ],
+    "answer": 1,
+    "explain": "Detection (a single response to one stimulus) was fastest, discrimination (go/no-go with two stimuli but one response) was in the middle, and choice (two stimuli, two responses) was slowest. The other orderings scramble this. The logic is that adding more underlying mental processes lengthens RT, so the simplest task is fastest.",
+    "tag": "Donders ordering",
+    "hint": "Fewer mental steps means a quicker response.",
+    "fig": "donders"
+  },
+  {
+    "id": "cog-71",
+    "chapter": 2,
+    "topic": "ch2-cognitive-approach",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "What did Donders infer from the fact that some of his tasks produced longer reaction times than others?",
+    "options": [
+      "Longer reaction times reflect weaker motivation to respond quickly",
+      "Reaction time is unrelated to the number of decisions a task involves",
+      "Tasks requiring more underlying mental processes take longer to complete",
+      "Slower responses occur only when a stimulus is physically harder to see"
+    ],
+    "answer": 2,
+    "explain": "Donders reasoned that more underlying processes (e.g., discriminating, then choosing) add time, so RT increases with the number of mental steps. Weaker motivation is not the inference he drew. Saying RT is unrelated to decisions contradicts his whole finding. Attributing the slowdown to harder-to-see stimuli is wrong because he held the stimuli comparable and varied the required mental operations, not stimulus visibility.",
+    "tag": "Subtraction logic",
+    "hint": "Think about what gets added as the task gets more complex.",
+    "fig": "donders"
+  },
+  {
+    "id": "cog-72",
+    "chapter": 2,
+    "topic": "ch2-cognitive-approach",
+    "type": "scenario",
+    "difficulty": "med",
+    "q": "A researcher runs a task in which two lights can appear: participants press a button when the left light flashes but must NOT respond when the right light flashes. Which of Donders' conditions is this?",
+    "options": [
+      "Detection",
+      "Choice",
+      "Threshold estimation",
+      "Discrimination (go/no-go)"
+    ],
+    "answer": 3,
+    "explain": "Two possible stimuli but a response to only one of them is the discrimination, or go/no-go, condition. Detection involves a single stimulus with a single always-required response. Choice requires two responses (one per stimulus), but here there is only one response and a withheld response. Threshold estimation is a separate measurement approach for finding detectable stimulus levels, not one of Donders' three conditions.",
+    "tag": "Go/no-go",
+    "hint": "You respond to one stimulus and withhold for the other.",
+    "fig": "donders"
+  },
+  {
+    "id": "cog-73",
+    "chapter": 2,
+    "topic": "ch2-cognitive-approach",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "What best distinguishes hypothesis-driven research from phenomenon-driven research?",
+    "options": [
+      "Hypothesis-driven research starts from a prediction to be tested, while phenomenon-driven research starts from an already-observed effect to be explained",
+      "Hypothesis-driven research uses only reaction time, while phenomenon-driven research uses only accuracy",
+      "Phenomenon-driven research tests predictions, while hypothesis-driven research merely catalogs accidental effects",
+      "Hypothesis-driven research is limited to applied settings, while phenomenon-driven research is purely theoretical"
+    ],
+    "answer": 0,
+    "explain": "In hypothesis-driven work you begin with a hypothesis that makes a prediction and design an experiment to test it (like Donders); in phenomenon-driven work an effect is discovered first (often by accident) and follow-up work explains when and why. The measure used (RT vs accuracy) does not define the distinction. The third option reverses the two definitions. The applied-vs-theoretical split does not map onto this distinction.",
+    "tag": "Research strategies",
+    "hint": "One begins with a question; the other begins with a surprise."
+  },
+  {
+    "id": "cog-74",
+    "chapter": 2,
+    "topic": "ch2-cognitive-approach",
+    "type": "scenario",
+    "difficulty": "med",
+    "q": "A student is shown the word RED printed in blue ink and is asked to name the ink color as fast as possible. She hesitates and is slower than when naming the color of a colored patch. This slowing illustrates which effect?",
+    "options": [
+      "The Flashed Faces Distortion Effect",
+      "Stroop interference",
+      "Signal detection",
+      "Latent learning"
+    ],
+    "answer": 1,
+    "explain": "Naming ink color being slowed by a conflicting spelled-out color word is the classic Stroop interference effect. The Flashed Faces Distortion Effect involves faces looking grotesque when flipped rapidly, not word-color conflict. Signal detection is a framework for decisions under uncertainty. Latent learning is a behaviorist-era maze phenomenon unrelated to word-color conflict.",
+    "tag": "Stroop effect",
+    "hint": "The meaning of the word competes with the color you must report.",
+    "fig": "stroop"
+  },
+  {
+    "id": "cog-75",
+    "chapter": 2,
+    "topic": "ch2-cognitive-approach",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Which set of examples all fall under phenomenon-driven research?",
+    "options": [
+      "Donders' reaction-time tasks, the imagery debate, and Donders' subtraction logic",
+      "Signal detection theory, human factors, and radar-operator research",
+      "Visual illusions, the Flashed Faces Distortion Effect, and the Stroop effect",
+      "Independent variables, dependent variables, and the speed-accuracy tradeoff"
+    ],
+    "answer": 2,
+    "explain": "Visual illusions, the Flashed Faces Distortion Effect, and the Stroop effect are all cited as phenomena discovered first and then investigated. Donders' tasks and the imagery debate are hypothesis-driven examples. Signal detection and human factors belong to applied cognitive psychology. IVs, DVs, and the speed-accuracy tradeoff are experimental-methods concepts, not phenomena.",
+    "tag": "Phenomenon-driven examples",
+    "hint": "Look for effects that were noticed before they were explained."
+  },
+  {
+    "id": "cog-76",
+    "chapter": 2,
+    "topic": "ch2-cognitive-approach",
+    "type": "concept",
+    "difficulty": "hard",
+    "q": "The imagery debate concerns whether spatial information is stored in a picture-like format or a descriptive format. Why is it offered as an example of hypothesis-driven cognitive research?",
+    "options": [
+      "It began as an accidental effect that later required explanation",
+      "It is only useful for improving the design of physical control panels",
+      "It relies on trained introspection as its sole source of verifiable data",
+      "It tests competing theories about an unobservable internal representation rather than caring about the raw data for its own sake"
+    ],
+    "answer": 3,
+    "explain": "The imagery debate is hypothesis-driven because researchers test competing theories about how spatial information is internally represented; the exact numbers are not the point, testing the underlying theory is. It was not discovered by accident, which would make it phenomenon-driven. Improving control panels describes human factors, an applied area. And it does not rely on introspection as its sole verifiable data source, since introspection alone fails as a valid method.",
+    "tag": "Imagery debate",
+    "hint": "The goal is the theory behind the data, not the data itself."
+  },
+  {
+    "id": "cog-77",
+    "chapter": 2,
+    "topic": "ch2-cognitive-approach",
+    "type": "scenario",
+    "difficulty": "med",
+    "q": "An engineer studies how quickly drivers respond to a dashboard warning light and how easily they remember which button controls a feature. Which branch of cognitive psychology does this work belong to?",
+    "options": [
+      "Human factors",
+      "Signal detection theory",
+      "Structuralism",
+      "Computational neuroscience"
+    ],
+    "answer": 0,
+    "explain": "Studying how people interact with physical systems like car consoles, including warning response time and feature memorability, is human factors. Signal detection theory is specifically a framework for decisions under uncertainty (e.g., a radiologist deciding whether a scan shows a tumor), not general interface usability. Structuralism is a historical introspective approach. Computational neuroscience builds computer models of the brain, not dashboard studies.",
+    "tag": "Human factors",
+    "hint": "The focus is on how humans deal with machines and interfaces."
+  },
+  {
+    "id": "cog-78",
+    "chapter": 2,
+    "topic": "ch2-cognitive-approach",
+    "type": "scenario",
+    "difficulty": "hard",
+    "q": "A radiologist must decide whether a faint spot on a CT scan is a tumor or just noise, and an airport screener must judge whether a bag contains a threat. Which framework was developed to analyze such decisions under uncertainty?",
+    "options": [
+      "The Stroop paradigm",
+      "Signal detection theory",
+      "Donders' subtraction method",
+      "Classical conditioning"
+    ],
+    "answer": 1,
+    "explain": "Signal detection theory, which emerged from research on radar-operator sensitivity, is the framework for decisions under uncertainty and is applied to radiologists reading scans and screeners inspecting luggage. The Stroop paradigm concerns color-word interference. Donders' subtraction method infers processing stages from reaction times. Classical conditioning is a behaviorist learning process, not a decision-under-uncertainty framework.",
+    "tag": "Signal detection theory",
+    "hint": "It began with operators watching radar screens for real targets amid clutter."
+  },
+  {
+    "id": "cog-79",
+    "chapter": 2,
+    "topic": "ch2-cognitive-approach",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Signal detection theory originally emerged from research on which practical problem?",
+    "options": [
+      "The reliability of vacuum-tube computers",
+      "The salivation responses of conditioned dogs",
+      "The sensitivity of radar operators",
+      "The fading of visual afterimages"
+    ],
+    "answer": 2,
+    "explain": "Signal detection theory grew out of research on radar-operator sensitivity, later extended to radiology and airport security. Vacuum-tube reliability relates to the history of computing, not SDT. Conditioned salivation is Pavlov's classical conditioning. Fading afterimages connect to Sperling's sensory memory work, not signal detection.",
+    "tag": "SDT origins",
+    "hint": "Think about wartime operators watching for blips on a screen."
+  },
+  {
+    "id": "cog-80",
+    "chapter": 2,
+    "topic": "ch2-cognitive-approach",
+    "type": "concept",
+    "difficulty": "hard",
+    "q": "Comparisons to inferring the existence of atoms or the DNA double helix before they could be directly imaged are used to make which point about cognitive psychology?",
+    "options": [
+      "Cognitive theories are unscientific because their subject matter is invisible",
+      "The mind can eventually be observed directly once instruments improve enough",
+      "Only phenomena that can be seen with the naked eye count as valid scientific data",
+      "Scientists can legitimately infer unobservable structures from indirect, measurable evidence"
+    ],
+    "answer": 3,
+    "explain": "The atom and DNA analogies show that inferring an unobservable (the mind) from observable measures is a legitimate scientific practice, just as atoms and the double helix were inferred before being imaged. The claim that invisibility makes cognition unscientific is exactly the misconception the analogy refutes. The analogy does not promise the mind will someday be observed directly. And restricting valid data to the naked eye contradicts the whole point of indirect inference.",
+    "tag": "Inferring the unobservable",
+    "hint": "These structures were accepted well before anyone could photograph them."
+  },
+  {
+    "id": "cog-81",
+    "chapter": 2,
+    "topic": "ch2-cognitive-approach",
+    "type": "scenario",
+    "difficulty": "hard",
+    "q": "A team notices that a set of ordinary faces suddenly appears grotesque and distorted when the images are flipped past a central point in rapid succession, but they look perfectly normal when the sequence is slowed down. This describes which effect, and what kind of research does investigating it exemplify?",
+    "options": [
+      "The Flashed Faces Distortion Effect; phenomenon-driven research",
+      "Stroop interference; phenomenon-driven research",
+      "The Flashed Faces Distortion Effect; hypothesis-driven research",
+      "Signal detection; hypothesis-driven research"
+    ],
+    "answer": 0,
+    "explain": "Faces looking grotesque when flipped rapidly but normal when slowed is the Flashed Faces Distortion Effect (2010), and because it was an effect noticed first and then explained, studying it is phenomenon-driven research. Stroop interference is about color-word conflict, not flipped faces. Pairing the correct effect with hypothesis-driven research is wrong because the effect was discovered before any predictive theory. Signal detection is an applied decision framework, not this visual phenomenon.",
+    "tag": "Flashed Faces / phenomenon-driven",
+    "hint": "It was stumbled upon, and it involves faces seen in fast succession."
+  },
+  {
+    "id": "cog-82",
+    "chapter": 2,
+    "topic": "ch2-methods",
+    "type": "concept",
+    "difficulty": "easy",
+    "q": "In a cognitive experiment, the stimulus property that the researcher deliberately manipulates is called the:",
+    "options": [
+      "Dependent variable",
+      "Independent variable",
+      "Nuisance variable",
+      "Confounding response"
+    ],
+    "answer": 1,
+    "explain": "The independent variable is the stimulus property manipulated by the experimenter, and its levels are tested for their effect on the measured response. The dependent variable is what is measured, not manipulated. A nuisance variable is an unwanted source of variability (like inattention), not something intentionally manipulated. 'Confounding response' is not a defined term here.",
+    "tag": "Independent vs dependent variables",
+    "hint": "Which one does the experimenter set, and which one do they record?"
+  },
+  {
+    "id": "cog-83",
+    "chapter": 2,
+    "topic": "ch2-methods",
+    "type": "concept",
+    "difficulty": "easy",
+    "q": "A researcher records how long participants take to press a button after a light appears. This measured outcome is best described as the:",
+    "options": [
+      "Independent variable",
+      "Threshold",
+      "Dependent variable",
+      "Speed-accuracy tradeoff"
+    ],
+    "answer": 2,
+    "explain": "The dependent variable is the response that is measured, and reaction time is a classic measured response. The independent variable is what the experimenter manipulates, not what is recorded. A threshold is the detectable level of a stimulus dimension, not the recorded response here. A speed-accuracy tradeoff is a phenomenon to watch for in RT data, not the measure itself.",
+    "tag": "Independent vs dependent variables",
+    "hint": "Which variable is the one being collected as data?"
+  },
+  {
+    "id": "cog-84",
+    "chapter": 2,
+    "topic": "ch2-methods",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "When analyzing reaction-time data, why do researchers typically include only correct trials in the analysis?",
+    "options": [
+      "Incorrect trials always have faster reaction times that inflate the mean",
+      "Only correct trials can be timed by standard equipment",
+      "Correct trials are the independent variable and incorrect trials are the dependent variable",
+      "Incorrect responses may reflect a different or interrupted process, so their timing would distort estimates of the intended process"
+    ],
+    "answer": 3,
+    "explain": "RT is usually analyzed on correct trials only because an error can reflect a different underlying process, so timing errors would not cleanly measure the process of interest. It is not true that incorrect trials are always faster or that equipment can only time correct trials. Trials are not variables; both correct and incorrect trials involve the same IV and DV.",
+    "tag": "Reaction time (correct trials only)",
+    "hint": "Think about what an error trial might tell you about the mental process being measured."
+  },
+  {
+    "id": "cog-85",
+    "chapter": 2,
+    "topic": "ch2-methods",
+    "type": "scenario",
+    "difficulty": "med",
+    "q": "A participant, trying to look fast, starts responding almost instantly but gets many more items wrong. This pattern that researchers must watch for when interpreting reaction times is called the:",
+    "options": [
+      "Speed-accuracy tradeoff",
+      "Threshold effect",
+      "Nuisance variability",
+      "Signal detection bias"
+    ],
+    "answer": 0,
+    "explain": "Responding faster at the cost of making more errors is the speed-accuracy tradeoff, a key concern when analyzing RT. A threshold is the minimum detectable stimulus level, unrelated to trading speed for errors. Nuisance variability refers to random noise like inattention, not a deliberate strategy shift. Signal detection bias is a concept from signal detection theory, not defined as this speed/error relationship.",
+    "tag": "Speed-accuracy tradeoff",
+    "hint": "What happens to accuracy when someone rushes to answer quickly?"
+  },
+  {
+    "id": "cog-86",
+    "chapter": 2,
+    "topic": "ch2-methods",
+    "type": "scenario",
+    "difficulty": "med",
+    "q": "An experimenter gradually increases the brightness of a faint dot until participants can just barely detect it, to find the minimum level people can perceive. This measure is a:",
+    "options": [
+      "Reaction time",
+      "Threshold",
+      "Correctness/accuracy score",
+      "Subjective response"
+    ],
+    "answer": 1,
+    "explain": "Finding the minimum stimulus level or change that people can detect by manipulating a dimension like brightness or loudness is measuring a threshold. Reaction time measures how long a response takes, not the detectable level. An accuracy score records whether a response matches the true category. A subjective response has no verifiable correct answer, whereas detection at threshold does.",
+    "tag": "Thresholds",
+    "hint": "The key word is the level at which something becomes just barely detectable."
+  },
+  {
+    "id": "cog-87",
+    "chapter": 2,
+    "topic": "ch2-methods",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Ratings of how attractive a face is are considered a subjective response measure primarily because:",
+    "options": [
+      "They can only be collected using an eye tracker",
+      "They are always faster to collect than reaction times",
+      "There is no verifiable correct answer, yet systematic effects can still be observed across people",
+      "They measure an involuntary physiological reaction"
+    ],
+    "answer": 2,
+    "explain": "Subjective responses like attractiveness have no objectively verifiable correct answer, yet systematic patterns still emerge across participants. They do not require an eye tracker; that is an involuntary-measure tool. Speed of collection is not what defines them as subjective. Attractiveness ratings are voluntary judgments, not involuntary physiological reactions.",
+    "tag": "Subjective responses",
+    "hint": "What makes a rating 'subjective' compared with accuracy on a categorization task?"
+  },
+  {
+    "id": "cog-88",
+    "chapter": 2,
+    "topic": "ch2-methods",
+    "type": "scenario",
+    "difficulty": "hard",
+    "q": "In a study, faces with more symmetric features were rated as more attractive on average by participants. This kind of finding best illustrates that:",
+    "options": [
+      "Facial symmetry is an involuntary physiological measure",
+      "Attractiveness is a threshold that must be crossed for detection",
+      "Reaction time determines how attractive a face appears",
+      "Subjective judgments can show systematic, reproducible patterns even without an objectively correct answer"
+    ],
+    "answer": 3,
+    "explain": "That symmetric faces are rated more attractive (Grammer & Thornhill, 1994) shows subjective judgments can produce systematic, reproducible effects despite lacking a verifiably correct answer. Symmetry ratings are voluntary judgments, not an involuntary physiological measure. Attractiveness is not a detection threshold. RT does not determine perceived attractiveness in this example.",
+    "tag": "Facial symmetry (Grammer & Thornhill)",
+    "hint": "The point is that even 'in-the-eye-of-the-beholder' ratings can be predictable across people."
+  },
+  {
+    "id": "cog-89",
+    "chapter": 2,
+    "topic": "ch2-methods",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Tracking where a person's eyes fixate on a display is most commonly used to infer:",
+    "options": [
+      "Where attention or interest is directed",
+      "The participant's heart-rate variability",
+      "Emotional arousal from fear or anxiety",
+      "The correct category of the stimulus"
+    ],
+    "answer": 0,
+    "explain": "Eye movements recorded with an eye tracker indicate fixation location, which is used to infer where attention or interest is directed. Heart rate is a separate measure of arousal, not obtained from eye position. Fear-related arousal is indexed by skin conductance, not fixation location. Eye tracking does not reveal the objectively correct category of a stimulus.",
+    "tag": "Eye movements / eye tracker",
+    "hint": "Fixation location is a window into what mental process?"
+  },
+  {
+    "id": "cog-90",
+    "chapter": 2,
+    "topic": "ch2-methods",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Galvanic skin response (skin conductance) is used by cognitive psychologists mainly as an index of:",
+    "options": [
+      "Where the eyes are fixating",
+      "Emotional arousal, especially fear or anxiety",
+      "The number of correct trials",
+      "The speed-accuracy tradeoff"
+    ],
+    "answer": 1,
+    "explain": "Skin conductance / galvanic skin response tracks emotional arousal, particularly fear and anxiety. Fixation location comes from eye tracking, not skin conductance. Counting correct trials is an accuracy measure, not a physiological one. The speed-accuracy tradeoff is an RT interpretation issue, not something GSR measures.",
+    "tag": "Galvanic skin response / skin conductance",
+    "hint": "Think about why lie-detector-style setups measure sweat on the skin."
+  },
+  {
+    "id": "cog-91",
+    "chapter": 2,
+    "topic": "ch2-methods",
+    "type": "scenario",
+    "difficulty": "hard",
+    "q": "A team wants an automated way to quantify participants' hand and body movements from video without hand-coding each gesture. The AI-based approach suited to this is:",
+    "options": [
+      "Pupillometry",
+      "Signal detection theory",
+      "Pose estimation",
+      "Introspection"
+    ],
+    "answer": 2,
+    "explain": "Facial and body gestures, traditionally hand-coded, are increasingly quantified automatically through AI pose estimation. Pupillometry measures pupil dilation, not body posture. Signal detection theory is a decision-under-uncertainty framework, not a movement-coding method. Introspection is a self-report method, not an automated video-analysis technique.",
+    "tag": "Facial & body gestures / pose estimation",
+    "hint": "Which computer-vision technique tracks body position from video?"
+  },
+  {
+    "id": "cog-92",
+    "chapter": 2,
+    "topic": "ch2-methods",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Changes in pupil dilation are used by researchers as an indicator of all of the following EXCEPT:",
+    "options": [
+      "Mental effort",
+      "Attention",
+      "Response to luminance",
+      "Which response category is objectively correct"
+    ],
+    "answer": 3,
+    "explain": "Pupil dilation indexes effort, attention, and responses to luminance. It does not tell the experimenter which response is objectively correct; that is determined by an accuracy measure, not by physiology. Effort, attention, and luminance response are all legitimate uses of pupillometry.",
+    "tag": "Pupil dilation",
+    "hint": "Three of these are internal states pupil size can reflect; one is about grading answers."
+  },
+  {
+    "id": "cog-93",
+    "chapter": 2,
+    "topic": "ch2-methods",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "A distinctive feature of involuntary measures such as heart rate, pupil dilation, and skin conductance, compared with typical voluntary measures like accuracy, is that they:",
+    "options": [
+      "Generally require special equipment or trained coders to collect",
+      "Always have a verifiably correct answer",
+      "Cannot be affected by nuisance variables",
+      "Are manipulated by the experimenter as the independent variable"
+    ],
+    "answer": 0,
+    "explain": "Involuntary measures generally require special equipment or trained coders to obtain. They do not have a verifiably correct answer in the sense an accuracy task does. Like all behavioral data, they can be affected by noise and nuisance variables. They are measured responses (dependent variables), not the manipulated independent variable.",
+    "tag": "Involuntary measures",
+    "hint": "What practical demand separates recording pupil size from recording a button press?"
+  },
+  {
+    "id": "cog-94",
+    "chapter": 2,
+    "topic": "ch2-methods",
+    "type": "scenario",
+    "difficulty": "med",
+    "q": "Behavioral data from a single trial can be swamped by random factors like a participant blinking or briefly losing focus. The most standard fix for this problem is to:",
+    "options": [
+      "Discard the independent variable",
+      "Run many trials per condition and analyze the pooled average",
+      "Use only one highly trained participant",
+      "Switch the dependent variable to a subjective rating"
+    ],
+    "answer": 1,
+    "explain": "Because behavioral data are noisy, researchers collect many trials per condition and analyze the pooled average, so a rare distracted trial contributes negligibly and the estimate approaches the true mean. Discarding the IV would eliminate the manipulation being tested. Relying on one participant does not average out noise. Switching to a subjective rating does not solve trial-to-trial noise.",
+    "tag": "Many trials & pooled averaging",
+    "hint": "How does averaging over lots of repetitions blunt the impact of one bad trial?"
+  },
+  {
+    "id": "cog-95",
+    "chapter": 2,
+    "topic": "ch2-methods",
+    "type": "concept",
+    "difficulty": "hard",
+    "q": "Why does pooling data over a larger sample of trials give a better estimate of the effect of interest?",
+    "options": [
+      "A larger sample removes the need for an independent variable",
+      "A larger sample guarantees every trial is error-free",
+      "A larger sample brings the measured average closer to the true population mean, so random noise averages out",
+      "A larger sample converts subjective responses into objective ones"
+    ],
+    "answer": 2,
+    "explain": "As sample size grows, the pooled average moves closer to the true population mean and random noise from nuisance variables averages out. Larger samples do not eliminate the need for a manipulated IV, do not make individual trials error-free, and do not turn subjective judgments into objectively correct answers.",
+    "tag": "Variability & averaging",
+    "hint": "Think about what happens to a running average as you add more and more measurements."
+  },
+  {
+    "id": "cog-96",
+    "chapter": 2,
+    "topic": "ch2-methods",
+    "type": "scenario",
+    "difficulty": "hard",
+    "q": "A researcher assigns different groups of participants to different conditions and, to keep across-person variability from distorting results, recruits a large and diverse pool of people. This design relies on the risky assumption that:",
+    "options": [
+      "Every participant will produce identical reaction times",
+      "Nuisance variables do not exist in group studies",
+      "The dependent variable and independent variable are the same",
+      "Different people's brains work fundamentally similarly on the task"
+    ],
+    "answer": 3,
+    "explain": "Between-subjects designs use a large, diverse pool so across-person variability averages out, but this rests on the risky 'similar-brains' assumption that different people's brains work fundamentally similarly on the task. It does not assume identical RTs across people, nor that nuisance variables are absent. The IV and DV remain distinct. Individual-differences research specifically studies deviations from this assumption.",
+    "tag": "Between-subjects designs & similar-brains assumption",
+    "hint": "For averaging across many different people to be meaningful, what must be true about their brains?"
+  },
+  {
+    "id": "cog-97",
+    "chapter": 2,
+    "topic": "ch2-neuroscience",
+    "type": "concept",
+    "difficulty": "easy",
+    "q": "A researcher records people's behavior on a task while simultaneously measuring their brain activity with non-invasive techniques, then combines the two data sources to converge on a conclusion. This combined strategy is best described as which field?",
+    "options": [
+      "Cognitive neuroscience",
+      "Behavioral neuroscience",
+      "Computational neuroscience",
+      "Structuralism"
+    ],
+    "answer": 0,
+    "explain": "Cognitive neuroscience pairs behavioral experiments with non-invasive measures of brain activity, using brain plus behavior data as empirical 'triangulation.' Behavioral neuroscience relies mainly on invasive physiological measures in animal models, not non-invasive human brain measures. Computational neuroscience builds computer models rather than measuring real brains. Structuralism is a historical introspective approach, not a neuroscience method.",
+    "tag": "Cognitive neuroscience",
+    "hint": "Think about which approach combines non-invasive brain imaging with behavior in humans."
+  },
+  {
+    "id": "cog-98",
+    "chapter": 2,
+    "topic": "ch2-neuroscience",
+    "type": "concept",
+    "difficulty": "easy",
+    "q": "Which technique introduces light-activated proteins called opsins into cells so that light can stimulate or inhibit neurons?",
+    "options": [
+      "Microelectrode recording",
+      "Optogenetics",
+      "Lesioning",
+      "Computational modeling"
+    ],
+    "answer": 1,
+    "explain": "Optogenetics uses light-activated proteins (opsins) placed in cells so light can turn neurons on or off. Microelectrode recording detects the electrical activity of single neurons but does not use light or opsins. Lesioning permanently damages tissue and does not involve light control. Computational modeling simulates the brain in a computer and involves no biological cells at all.",
+    "tag": "Optogenetics",
+    "hint": "The name of the method itself references the use of light."
+  },
+  {
+    "id": "cog-99",
+    "chapter": 2,
+    "topic": "ch2-neuroscience",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Behavioral neuroscience relies most heavily on which kind of research subject?",
+    "options": [
+      "Healthy human volunteers scanned non-invasively",
+      "Human patients with naturally occurring brain damage",
+      "Animal models such as rodents, birds, and primates",
+      "Computer simulations of neural networks"
+    ],
+    "answer": 2,
+    "explain": "Behavioral neuroscience combines behavioral experiments with invasive physiological brain measures, so it is carried out mostly in animal models like rodents, birds, and primates. Non-invasively scanned healthy humans are the province of cognitive neuroscience. Human patients with brain damage are studied by cognitive neuroscience, not through the deliberate invasive manipulations of behavioral neuroscience. Computer simulations belong to computational neuroscience.",
+    "tag": "Behavioral neuroscience",
+    "hint": "Invasive physiological methods generally cannot be used on human subjects."
+  },
+  {
+    "id": "cog-100",
+    "chapter": 2,
+    "topic": "ch2-neuroscience",
+    "type": "scenario",
+    "difficulty": "med",
+    "q": "A scientist implants tiny electrodes into the brain of an awake, moving rat so she can listen to the firing of individual neurons while the rat performs a task. Which method and field does this exemplify?",
+    "options": [
+      "Optogenetic stimulation in behavioral neuroscience",
+      "Non-invasive imaging in cognitive neuroscience",
+      "Simulation in computational neuroscience",
+      "Microelectrode recording in behavioral neuroscience"
+    ],
+    "answer": 3,
+    "explain": "Implanting microelectrodes to record single neurons in awake, behaving animals is a core behavioral neuroscience technique. Optogenetics would require light-activated opsins to manipulate neurons, not electrodes that merely record. Non-invasive cognitive neuroscience does not implant anything into the brain. Computational neuroscience uses computer models and records nothing from a real animal.",
+    "tag": "Microelectrode recording",
+    "hint": "The electrodes are reading activity from real cells, not controlling them with light."
+  },
+  {
+    "id": "cog-101",
+    "chapter": 2,
+    "topic": "ch2-neuroscience",
+    "type": "scenario",
+    "difficulty": "med",
+    "q": "A team wants to turn a specific set of neurons off during one particular half-second of a behavior and then let them resume firing immediately afterward. Which approach is best suited to this precise, reversible timing?",
+    "options": [
+      "Optogenetics",
+      "Permanent lesioning",
+      "Breeding genetic mutants",
+      "Microelectrode recording"
+    ],
+    "answer": 0,
+    "explain": "Optogenetics lets researchers stimulate or inhibit neurons at precise timescales using light, unlike the slower or permanent lesion and chemical methods. Permanent lesioning destroys tissue and cannot be switched off and back on. Breeding genetic mutants alters the animal from development onward, not for a single half-second. Microelectrode recording only reads activity and cannot manipulate it.",
+    "tag": "Optogenetics timescale",
+    "hint": "The task demands manipulation that can be switched on and off with fine timing."
+  },
+  {
+    "id": "cog-102",
+    "chapter": 2,
+    "topic": "ch2-neuroscience",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "What is the defining activity of computational neuroscience?",
+    "options": [
+      "Recording single neurons in living animals",
+      "Building computer models that simulate the brain or a cognitive task",
+      "Combining human brain imaging with behavioral data",
+      "Introducing opsins to control neurons with light"
+    ],
+    "answer": 1,
+    "explain": "Computational neuroscience builds computer models that simulate the brain or a cognitive task so a simulated brain can be systematically manipulated. Recording single neurons in animals is behavioral neuroscience. Pairing human imaging with behavior is cognitive neuroscience. Using opsins and light is optogenetics, a physiological manipulation of real neurons.",
+    "tag": "Computational neuroscience",
+    "hint": "This field studies a simulated brain rather than a biological one."
+  },
+  {
+    "id": "cog-103",
+    "chapter": 2,
+    "topic": "ch2-neuroscience",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Which statement best captures the history and recent status of computational neuroscience?",
+    "options": [
+      "It has always been the dominant neuroscience method because computers are cheap",
+      "It was invented only after optogenetics made light control of neurons possible",
+      "It was historically niche due to poor real-world performance, but recent brain-inspired learning models have shown major progress",
+      "It abandoned computer models once machine learning appeared"
+    ],
+    "answer": 2,
+    "explain": "Computational neuroscience was historically a niche field because its models performed poorly in the real world, but recent brain-inspired learning models in AI have driven major progress. It was never the dominant method. It does not depend on optogenetics for its existence. Rather than abandoning computer models, its recent gains come from better computer models, including machine-learning approaches.",
+    "tag": "Computational neuroscience history",
+    "hint": "Recent AI advances changed the field's fortunes."
+  },
+  {
+    "id": "cog-104",
+    "chapter": 2,
+    "topic": "ch2-neuroscience",
+    "type": "scenario",
+    "difficulty": "hard",
+    "q": "A lab breeds mice carrying a specific genetic mutation and then compares their maze performance to normal mice to see how the altered gene affects behavior. This manipulate-then-assess-behavior strategy places the study in which field?",
+    "options": [
+      "Cognitive neuroscience",
+      "Computational neuroscience",
+      "Applied cognitive psychology",
+      "Behavioral neuroscience"
+    ],
+    "answer": 3,
+    "explain": "Behavioral neuroscience manipulates the animal's physiology (through lesions, deactivation, or breeding genetic mutants) and then assesses the effect on behavior, exactly as described. Cognitive neuroscience uses non-invasive measures in humans rather than breeding mutant animals. Computational neuroscience manipulates a simulated brain, not living mice. Applied cognitive psychology studies behavioral performance for practical purposes, not genetic manipulation.",
+    "tag": "Genetic mutants",
+    "hint": "The researchers alter the biology of the animal and then watch its behavior."
+  },
+  {
+    "id": "cog-105",
+    "chapter": 2,
+    "topic": "ch2-neuroscience",
+    "type": "scenario",
+    "difficulty": "hard",
+    "q": "Two researchers study the same memory question. One scans humans with a non-invasive imaging device while they recall word lists; the other permanently damages a brain region in rats and measures how their maze behavior changes. Which pairing of fields do their methods represent?",
+    "options": [
+      "Cognitive neuroscience and behavioral neuroscience, respectively",
+      "Behavioral neuroscience and cognitive neuroscience, respectively",
+      "Computational neuroscience and cognitive neuroscience, respectively",
+      "Cognitive neuroscience and optogenetics, respectively"
+    ],
+    "answer": 0,
+    "explain": "Non-invasive imaging combined with human behavior is cognitive neuroscience, and permanently lesioning a region in animals to observe behavioral effects is behavioral neuroscience, so the order is cognitive then behavioral. Reversing the order mislabels each method. Neither researcher builds a computer model, so computational neuroscience does not apply. The second researcher lesions tissue rather than controlling neurons with light, so it is not optogenetics.",
+    "tag": "Triangulation across fields",
+    "hint": "Match the invasive animal work and the non-invasive human work to their fields, keeping the order straight."
+  },
+  {
+    "id": "cog-106",
+    "chapter": 2,
+    "topic": "ch2-neuroscience",
+    "type": "scenario",
+    "difficulty": "hard",
+    "q": "A graduate student praises optogenetics for something that older methods like lesioning and chemical deactivation cannot match. Which advantage is she most likely highlighting?",
+    "options": [
+      "The ability to use human participants safely",
+      "Control of neural activity at precise timescales",
+      "Not requiring any special equipment",
+      "Being the only method that can record neural activity"
+    ],
+    "answer": 1,
+    "explain": "Optogenetics can stimulate or inhibit neurons at precise timescales, a level of temporal control lesions and chemical methods lack. Optogenetics is used in animal models like other invasive techniques, so safe human use is not its distinguishing advantage. It requires opsins and a light source, so it is not equipment-free. Microelectrode recording, not optogenetics uniquely, is the method used to record activity, and optogenetics is emphasized for its ability to manipulate as well as measure.",
+    "tag": "Optogenetics vs older methods",
+    "hint": "Compare how quickly and precisely each method can turn neurons on or off."
+  }
+]

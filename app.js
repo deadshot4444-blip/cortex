@@ -66,8 +66,13 @@ const SECTION_INFO = {
     headline: 'The next module is on the way.',
     desc: 'The Genetics-2313 exam module has wrapped for this term. New material for the next module is being built — check back soon.',
   },
+  cogpsych: {
+    label: 'Cognitive Psychology',
+    headline: 'The science of the mind.',
+    desc: 'A password-gated mastery trainer for cognitive psychology — how we study cognition, mind & brain, behaviorism, and the cognitive approach. Smart Review, drills, interactive diagrams, and a mock exam.',
+  },
 };
-const APP_VERSION = '1.19.0';
+const APP_VERSION = '1.20.0';
 const MEMBERSHIP_START = 'August 1, 2026';
 function cortexFreeNote(sectionPill, sectionName) {
   return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free for now</span><span class="free-note-txt">${sectionName} becomes optional membership ${MEMBERSHIP_START}. The full MCAT suite stays free forever.</span></p>`;
@@ -141,6 +146,7 @@ const SECTION_SCRIPTS = {
   socrates: ['socrates.js?v=40'],
   neuro: ['python-runtime.js?v=3', 'code-evaluator.js?v=2', 'neuro-practitioner.js?v=3', 'neuro.js?v=14'],
   genetics: ['genetics.js?v=24', 'genetics-learn.js?v=6', 'genetics-figs.js?v=1'],
+  cogpsych: ['cogpsych.js?v=1', 'cogpsych-learn.js?v=1', 'cogpsych-figs.js?v=1'],
 };
 const _scriptLoads = {};
 function loadScript(src) {
@@ -371,7 +377,7 @@ async function boot() {
    The app is a single page; this lets an inbound URL open the right section and keeps
    the address bar in sync as you navigate, so any section link is copy-able. Needs the
    `/* /index.html 200` SPA fallback in _redirects so Netlify serves the app for these paths. */
-const SEC_PATHS = { practice: 'practice', mcat: 'mcat', stats: 'stats', utsa: 'utsa', neuro: 'neuro', reference: 'medicine', genetics: 'genetics' };
+const SEC_PATHS = { practice: 'practice', mcat: 'mcat', stats: 'stats', utsa: 'utsa', neuro: 'neuro', reference: 'medicine', genetics: 'genetics', cogpsych: 'cogpsych' };
 const PATH_SEC = Object.fromEntries(Object.entries(SEC_PATHS).map(([k, v]) => [v, k]));
 
 async function openSection(key) {
@@ -390,6 +396,11 @@ async function openSection(key) {
       if (COMING_SOON.has('genetics')) { renderComingSoon('genetics'); return true; }
       await ensureSection('genetics');
       if (typeof renderGenetics === 'function') renderGenetics();
+      return true;
+    case 'cogpsych':
+      if (COMING_SOON.has('cogpsych')) { renderComingSoon('cogpsych'); return true; }
+      await ensureSection('cogpsych');
+      if (typeof renderCogPsych === 'function') renderCogPsych();
       return true;
     default: return false;
   }
@@ -452,7 +463,7 @@ function topbar(active) {
       <button class="navlink ${active === 'mcat' ? 'active' : ''}" data-go="mcat">MCAT</button>
       <button class="navlink ${active === 'stats' ? 'active' : ''}" data-go="stats">Stats</button>
       <div class="navmenu">
-        <button class="navlink menubtn ${['anatomy', 'reference', 'socrates', 'utsa', 'pomodoro', 'genetics'].includes(active) ? 'active' : ''}" data-menu aria-expanded="false">Explore<span class="caret">&#9662;</span></button>
+        <button class="navlink menubtn ${['anatomy', 'reference', 'socrates', 'utsa', 'pomodoro', 'genetics', 'cogpsych'].includes(active) ? 'active' : ''}" data-menu aria-expanded="false">Explore<span class="caret">&#9662;</span></button>
         <div class="menupanel" hidden>
           <span class="menu-head">Tools</span>
           <button class="menuitem" data-go="pomodoro"><span>Focus Timer</span><span class="mi-tag">New</span></button>
@@ -463,6 +474,7 @@ function topbar(active) {
           <span class="menu-head">Access</span>
           <button class="menuitem" data-go="utsa"><span>UTSA &amp; UT Health</span><span class="mi-tag">Free</span></button>
           <button class="menuitem" data-go="genetics"><span>Genetics-2313</span><span class="mi-tag">New</span></button>
+          <button class="menuitem" data-go="cogpsych"><span>Cognitive Psychology</span><span class="mi-tag">New</span></button>
         </div>
       </div>
     </nav>
@@ -499,6 +511,11 @@ function topbar(active) {
     if (COMING_SOON.has('genetics')) { renderComingSoon('genetics'); return; }
     await ensureSection('genetics');
     if (typeof renderGenetics === 'function') renderGenetics();
+  });
+  root.querySelector('[data-go="cogpsych"]')?.addEventListener('click', async () => {
+    if (COMING_SOON.has('cogpsych')) { renderComingSoon('cogpsych'); return; }
+    await ensureSection('cogpsych');
+    if (typeof renderCogPsych === 'function') renderCogPsych();
   });
   root.querySelector('[data-go="updates"]').addEventListener('click', renderUpdates);
   const navmenu = root.querySelector('.navmenu');
@@ -811,6 +828,14 @@ const PRINCIPLES = [
 
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
+  {
+    date: 'July 5, 2026', version: '1.20.0', tag: 'NEW',
+    title: 'New: Cognitive Psychology',
+    items: [
+      'A brand-new Cognitive Psychology section — the same arcade-style mastery trainer as Genetics, built for your cog-psych course. Password-gated to the class, with Smart Review, Blitz, topic drills, a mock Exam Boss, XP, and achievements.',
+      'Chapter 2 (How to Study Cognition) is live: mind & brain, structuralism, behaviorism, the cognitive revolution, the cognitive approach, methods, and complementary neuroscience — with interactive diagrams (classical conditioning, the Skinner box, Tolman’s maze, Donders’ reaction-time conditions, the Stroop effect, and more). More chapters roll in as the course goes.',
+    ],
+  },
   {
     date: 'July 5, 2026', version: '1.19.0', tag: 'NEW',
     title: 'Study list in the Focus Timer',
