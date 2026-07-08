@@ -72,7 +72,7 @@ const SECTION_INFO = {
     desc: 'A password-gated mastery trainer for cognitive psychology — how we study cognition, mind & brain, behaviorism, and the cognitive approach. Smart Review, drills, interactive diagrams, and a mock exam.',
   },
 };
-const APP_VERSION = '1.20.0';
+const APP_VERSION = '1.21.0';
 const MEMBERSHIP_START = 'August 1, 2026';
 function cortexFreeNote(sectionPill, sectionName) {
   return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free for now</span><span class="free-note-txt">${sectionName} becomes optional membership ${MEMBERSHIP_START}. The full MCAT suite stays free forever.</span></p>`;
@@ -145,7 +145,7 @@ const SECTION_SCRIPTS = {
   reference: ['reference.js?v=49', 'performance-drugs.js?v=7', 'ekg.js?v=36'],
   socrates: ['socrates.js?v=40'],
   neuro: ['python-runtime.js?v=3', 'code-evaluator.js?v=2', 'neuro-practitioner.js?v=3', 'neuro.js?v=14'],
-  genetics: ['genetics.js?v=24', 'genetics-learn.js?v=6', 'genetics-figs.js?v=1'],
+  genetics: ['genetics.js?v=25', 'genetics-learn.js?v=6', 'genetics-figs.js?v=1', 'genetics-workshop.js?v=1'],
   cogpsych: ['cogpsych.js?v=1', 'cogpsych-learn.js?v=1', 'cogpsych-figs.js?v=1'],
 };
 const _scriptLoads = {};
@@ -828,6 +828,14 @@ const PRINCIPLES = [
 
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
+  {
+    date: 'July 5, 2026', version: '1.21.0', tag: 'NEW',
+    title: 'Genetics: Module 4 Workshop',
+    items: [
+      'The Genetics trainer now has a Module 4 Workshop — your professor\'s Chapters 10–12 packet reproduced word for word: multiple choice, short answer, fill-in-the-blank, true/false, matching, application questions, and the lac/trp operon tables, all interactive with answer checking.',
+      'The packet\'s hand-labeled figures (transcription promoter, the transcription bubble, σ-factor initiation, and rho-dependent/independent termination) are rebuilt as interactive label-the-diagram exercises — tap a pin, pick its label, check your work.',
+    ],
+  },
   {
     date: 'July 5, 2026', version: '1.20.0', tag: 'NEW',
     title: 'New: Cognitive Psychology',

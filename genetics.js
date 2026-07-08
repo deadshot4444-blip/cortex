@@ -525,6 +525,12 @@ function renderGenHome() {
     </div>
 
     <section class="gen-modes">
+      <button class="gen-mode-card gen-mode-workshop cornerframe" data-mode="workshop">
+        <span class="gen-mode-tag">instructor packet · verbatim</span>
+        <h2>Module 4 Workshop</h2>
+        <p>Your professor's own Chapters 10–12 workshop, reproduced word for word — every MCQ, short answer, fill-in, matching, and the operon tables — plus the packet's hand-labeled figures rebuilt as interactive diagrams.</p>
+        <span class="gen-mode-go">Open the workshop →</span>
+      </button>
       <button class="gen-mode-card gen-mode-learn cornerframe" data-mode="learn">
         <span class="gen-mode-tag">guided · teaches you</span>
         <h2>Learn</h2>
@@ -603,7 +609,8 @@ function renderGenHome() {
 
   main.querySelectorAll('[data-mode]').forEach(b => b.addEventListener('click', () => {
     const m = b.dataset.mode;
-    if (m === 'learn') renderGenLearnHome();
+    if (m === 'workshop') { if (typeof renderGenWorkshop === 'function') renderGenWorkshop(); }
+    else if (m === 'learn') renderGenLearnHome();
     else if (m === 'smart') startGenSmart();
     else if (m === 'blitz') startGenBlitz();
     else if (m === 'chapter') renderGenChapterPick();
