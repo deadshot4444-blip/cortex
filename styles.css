@@ -1016,14 +1016,21 @@ button:focus-visible, .opt:focus-visible { outline: 1px solid var(--text); outli
   .metrics { grid-template-columns: repeat(2, 1fr); }
   .region-grid { grid-template-columns: repeat(2, 1fr); }
 }
-/* wrap the nav to a second row before the single row gets cramped (prevents tabs colliding with the right cluster) */
-@media (max-width: 900px) {
+/* Wrap the nav to a second row before the single row gets cramped (prevents tabs
+   colliding with the right cluster). The one-row layout needs ~942px to fit
+   wordmark + nav + right cluster, so we wrap at 1000px to keep a safe margin. */
+@media (max-width: 1000px) {
   .topbar.mainbar { flex-wrap: wrap; height: auto; padding: 8px 20px; row-gap: 6px; }
   .topbar.mainbar .bar-right { order: 2; }
   .topbar.mainbar .nav { order: 3; flex-basis: 100%; flex-wrap: wrap; padding-bottom: 2px; gap: 2px 6px; }
   .topbar.mainbar .nav .navlink { flex: 0 0 auto; padding: 7px 12px 7px 0; }
   .navmenu .menupanel { right: 0; left: auto; min-width: 0; width: min(264px, calc(100vw - 24px)); }
 }
+/* Safety net at ALL widths: allow the bar to wrap, and stop the nav from shrinking
+   below its own content — so if the row is ever too tight the right cluster drops to
+   a new line instead of the tabs overlapping it. */
+.topbar.mainbar { flex-wrap: wrap; }
+.topbar.mainbar .nav { min-width: min-content; }
 @media (max-width: 720px) {
   .nav { gap: 0; }
   .navlink { padding: 7px 9px; }
