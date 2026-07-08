@@ -55,10 +55,18 @@ button:focus-visible, .opt:focus-visible { outline: 1px solid var(--text); outli
 }
 .wm-sub { color: #000; }
 
-/* main nav bar: wordmark left, nav (with Explore dropdown) in the middle, account/version pinned right */
-.topbar.mainbar { justify-content: flex-start; gap: 16px; }
+/* Main nav bar: wordmark left, tabs beside it, account/version pinned right.
+   Fully fluid — NO hard breakpoint. Everything stays on one row for as long as it
+   actually fits; the moment it doesn't, flexbox drops the right-hand cluster to a
+   second row (right-aligned). Because the nav can never shrink below its own content
+   (min-width: max-content), the tabs can't overflow into the cluster and overlap it. */
+.topbar.mainbar {
+  justify-content: flex-start; gap: 6px 16px; flex-wrap: wrap;
+  height: auto; min-height: 56px; padding-top: 6px; padding-bottom: 6px;
+}
 .topbar.mainbar .wordmark { flex: 0 0 auto; margin-right: 2px; }
-.topbar.mainbar .nav { flex: 1 1 auto; min-width: 0; align-items: center; }
+.topbar.mainbar .nav { flex: 0 1 auto; min-width: max-content; align-items: center; }
+.topbar.mainbar .bar-right { margin-left: auto; }
 .bar-right { display: flex; align-items: center; gap: 16px; flex: 0 0 auto; }
 .ver { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; color: var(--faint); }
 .topstat { font-family: var(--mono); font-size: 11.5px; letter-spacing: .08em; color: var(--dim); }
@@ -1016,21 +1024,14 @@ button:focus-visible, .opt:focus-visible { outline: 1px solid var(--text); outli
   .metrics { grid-template-columns: repeat(2, 1fr); }
   .region-grid { grid-template-columns: repeat(2, 1fr); }
 }
-/* Wrap the nav to a second row before the single row gets cramped (prevents tabs
-   colliding with the right cluster). The one-row layout needs ~942px to fit
-   wordmark + nav + right cluster, so we wrap at 1000px to keep a safe margin. */
-@media (max-width: 1000px) {
-  .topbar.mainbar { flex-wrap: wrap; height: auto; padding: 8px 20px; row-gap: 6px; }
-  .topbar.mainbar .bar-right { order: 2; }
-  .topbar.mainbar .nav { order: 3; flex-basis: 100%; flex-wrap: wrap; padding-bottom: 2px; gap: 2px 6px; }
-  .topbar.mainbar .nav .navlink { flex: 0 0 auto; padding: 7px 12px 7px 0; }
+/* The main nav is fully fluid (see .topbar.mainbar above) — the right cluster drops
+   to a second row by itself exactly when it stops fitting, no fixed breakpoint needed.
+   On small screens, let the tabs themselves wrap and dock the Explore menu to the edge. */
+@media (max-width: 640px) {
+  .topbar.mainbar .nav { flex-wrap: wrap; min-width: 0; gap: 2px 6px; }
+  .topbar.mainbar .nav .navlink { flex: 0 0 auto; }
   .navmenu .menupanel { right: 0; left: auto; min-width: 0; width: min(264px, calc(100vw - 24px)); }
 }
-/* Safety net at ALL widths: allow the bar to wrap, and stop the nav from shrinking
-   below its own content — so if the row is ever too tight the right cluster drops to
-   a new line instead of the tabs overlapping it. */
-.topbar.mainbar { flex-wrap: wrap; }
-.topbar.mainbar .nav { min-width: min-content; }
 @media (max-width: 720px) {
   .nav { gap: 0; }
   .navlink { padding: 7px 9px; }
