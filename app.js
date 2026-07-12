@@ -77,7 +77,7 @@ const SECTION_INFO = {
     desc: 'Password-gated CCMA study system — NHA domains, 38-lesson path, Smart Review, and your full mock final. Built to track mastery for certification.',
   },
 };
-const APP_VERSION = '1.22.2';
+const APP_VERSION = '1.23.0';
 const MEMBERSHIP_START = 'August 1, 2026';
 function cortexFreeNote(sectionPill, sectionName) {
   return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free for now</span><span class="free-note-txt">${sectionName} becomes optional membership ${MEMBERSHIP_START}. The full MCAT suite stays free forever.</span></p>`;
@@ -152,7 +152,7 @@ const SECTION_SCRIPTS = {
   neuro: ['python-runtime.js?v=3', 'code-evaluator.js?v=2', 'neuro-practitioner.js?v=3', 'neuro.js?v=14'],
   genetics: ['genetics.js?v=25', 'genetics-learn.js?v=6', 'genetics-figs.js?v=1', 'genetics-workshop.js?v=1'],
   cogpsych: ['cogpsych.js?v=1', 'cogpsych-learn.js?v=1', 'cogpsych-figs.js?v=1'],
-  ccma: ['ccma.js?v=3', 'ccma-learn.js?v=2'],
+  ccma: ['ccma.js?v=4', 'ccma-learn.js?v=3'],
 };
 const _scriptLoads = {};
 function loadScript(src) {
@@ -845,6 +845,14 @@ const PRINCIPLES = [
 
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
+  {
+    date: 'July 11, 2026', version: '1.23.0', tag: 'NEW',
+    title: 'Neuro / Neurosurgery MA career track',
+    items: [
+      'Inside the private CCMA section: a full Neuro/Neurosurgery medical assistant career track — A&P, exam assist, conditions, procedures (LP/EEG/EMG/MRI), neurosurgery clinic post-op, practice admin (auths/imaging), meds, and emergencies.',
+      'Dedicated hub with Neuro Smart Review, Blitz, Boss fight, 8 guided track lessons, and 80+ specialty questions stacked on your CCMA core. Password unchanged.',
+    ],
+  },
   {
     date: 'July 11, 2026', version: '1.22.2', tag: 'NEW',
     title: 'CCMA Medical Assistant study system',

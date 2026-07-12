@@ -43,6 +43,15 @@ const CCMA_TOPICS = {
   'd3-pharm': { name: 'Pharmacology & Meds', ch: 3, blurb: 'Drug classes, rights of medication, routes, dosage calc, storage, controlled substances.' },
   'd3-emergency': { name: 'Emergencies & First Aid', ch: 3, blurb: 'Office emergencies, BLS basics, shock, bleeding, allergic reaction, mental health crisis.' },
   'mock-mixed': { name: 'Mock Exam Mixed', ch: 8, blurb: 'Items drawn from your CCMA mock final (Lesson 37) — full exam simulation practice.' },
+  // Kevin career track — Neurology / Neurosurgery MA
+  'neuro-anatomy': { name: 'Neuro A&P for MAs', ch: 9, blurb: 'CNS/PNS, lobes, cranial nerves, CSF, dermatomes, pathways — room patients intelligently.' },
+  'neuro-exam': { name: 'Neuro Exam Assist', ch: 9, blurb: 'GCS, pupils, strength, reflexes, gait, Romberg, fall safety, documentation.' },
+  'neuro-conditions': { name: 'Neuro Conditions', ch: 9, blurb: 'Stroke/TIA, seizure, migraine, Parkinson, MS, SAH red flags, neuropathy, radiculopathy.' },
+  'neuro-procedures': { name: 'Neuro Procedures & Testing', ch: 9, blurb: 'LP assist, EEG/EMG prep, CT/MRI logic, shunt/DBS concepts, botox clinic, sterile technique.' },
+  'nsurg-clinic': { name: 'Neurosurgery Clinic Assist', ch: 9, blurb: 'Pre-op/post-op, cranial & spine red flags, drains, collars, wound care, scope of practice.' },
+  'neuro-admin': { name: 'Neuro Practice Admin', ch: 9, blurb: 'MRI prior auth, complex scheduling, imaging logistics, referrals, disability/FMLA, coding.' },
+  'neuro-meds': { name: 'Neuro Meds (MA level)', ch: 9, blurb: 'AEDs, migraine, Parkinson, stroke secondary prevention — teaching points & scope limits.' },
+  'neuro-emergencies': { name: 'Neuro Emergencies', ch: 9, blurb: 'BE-FAST stroke pathway, seizure, ICP/Cushing, thunderclap, cord compression.' },
 };
 
 const CCMA_CH = {
@@ -54,7 +63,12 @@ const CCMA_CH = {
   6: 'Communication',
   7: 'Medical Law & Ethics',
   8: 'Mock Final Bank',
+  9: 'Neuro / Neurosurgery MA Track',
 };
+const CCMA_NEURO_TOPICS = ['neuro-anatomy','neuro-exam','neuro-conditions','neuro-procedures','nsurg-clinic','neuro-admin','neuro-meds','neuro-emergencies'];
+function ccmaNeuroQs() { return CCMA_BANK.filter(q => q.chapter === 9 || (q.topic && CCMA_NEURO_TOPICS.includes(q.topic))); }
+function ccmaNeuroMastery() { return ccmaComp(ccmaNeuroQs()); }
+
 
 /* ---------- state + persistence ---------- */
 const CCMA_KEY = 'cs-ccma';
@@ -188,6 +202,10 @@ const CCMA_ACH = [
   { id: 'mock', name: 'Mock Final Killer', desc: 'Score 70%+ on the full Mock Final' },
   { id: 'ready', name: 'CCMA Ready', desc: 'Hit 90% overall competency' },
   { id: 'ccma', name: 'Certification Path', desc: 'Reach the CCMA Expert level' },
+  { id: 'neurostart', name: 'Neuro Track Opened', desc: 'Answer your first Neuro/NS track question' },
+  { id: 'neuro50', name: 'Neuro Floor Ready', desc: 'Reach 50% mastery on the Neuro/NS track' },
+  { id: 'neuro90', name: 'Neuro/NS MA Expert', desc: 'Reach 90% mastery on the Neuro/NS track' },
+  { id: 'nsurg', name: 'OR-Clinic Hybrid', desc: 'Master Neurosurgery Clinic Assist topic (100%)' },
 ];
 function ccmaGrant(id) {
   if (CCMA.ach.includes(id)) return;
@@ -207,6 +225,11 @@ function ccmaCheckAch() {
   if (ccmaComp(ccmaTopicQs('d3-phlebotomy')) >= 100) ccmaGrant('phleb');
   if (ccmaRank(CCMA.xp).lvl >= 8) ccmaGrant('ccma');
   if (ccmaOverall() >= 90) { ccmaGrant('ready'); if (!CCMA.examReady) { CCMA.examReady = true; ccmaSave(); ccmaTrack('milestone', { kind: 'exam_ready', competency: ccmaOverall() }); } }
+  const nQ = ccmaNeuroQs();
+  if (nQ.some(q => { const r = CCMA.q[q.id]; return r && r.a > 0; })) ccmaGrant('neurostart');
+  if (nQ.length && ccmaNeuroMastery() >= 50) ccmaGrant('neuro50');
+  if (nQ.length && ccmaNeuroMastery() >= 90) ccmaGrant('neuro90');
+  if (ccmaComp(ccmaTopicQs('nsurg-clinic')) >= 100) ccmaGrant('nsurg');
 }
 
 function ccmaBumpStreak() {
@@ -244,7 +267,7 @@ function ccmaValidBankItem(q, seen) {
 }
 async function ccmaLoadBank() {
   try {
-    const r = await fetch('data/ccma-bank.json?v=3');
+    const r = await fetch('data/ccma-bank.json?v=4');
     if (!r.ok) throw new Error('http ' + r.status);
     const data = await r.json();
     if (!Array.isArray(data)) throw new Error('bad bank');
@@ -335,6 +358,7 @@ function renderCcmaPassword(errMsg) {
    ========================================================================= */
 function renderCcmaHome() {
   ccmaClearTimer();
+  CCMA_POOL_FILTER = null;
   if (!CCMAA_sessionLogged) { CCMAA_sessionLogged = true; ccmaTrack('session_start', { competency: ccmaOverall(), mastered: CCMA_BANK.filter(q => ccmaBox(q.id) >= 5).length, total: CCMA_BANK.length, mobile: (window.innerWidth || 0) < 700 }); }
   const rank = ccmaRank(CCMA.xp), status = ccmaStatus();
   const missCount = ccmaMissPool().length, starredCount = ccmaStarredList().length;
@@ -356,7 +380,7 @@ function renderCcmaHome() {
 
     <header class="gen-hero cornerframe">
       <div class="gen-hero-l">
-        <span class="label">CCMA · Certified Clinical Medical Assistant</span>
+        <span class="label">CCMA · + Neuro/NS career track</span>
         <h1>CCMA Study System</h1>
         <div class="gen-rank"><span class="gen-rank-lvl mono">LV ${rank.lvl}</span><span class="gen-rank-name">${esc(rank.name)}</span></div>
         <div class="gen-xpbar"><span style="width:${rank.pct}%"></span></div>
@@ -383,6 +407,12 @@ function renderCcmaHome() {
         <h2>Learn</h2>
         <p>Walk the full 38-lesson CCMA path. Cross off lessons as you master them — built for rotation study, not hyperfocus grind.</p>
         <span class="gen-mode-go">Lesson path →</span>
+      </button>
+      <button class="gen-mode-card gen-mode-hero cornerframe" data-mode="neuro">
+        <span class="gen-mode-tag">career track · your goal</span>
+        <h2>Neuro / Neurosurgery MA</h2>
+        <p>Become the assistant neurology &amp; neurosurgery clinics actually want — exam assist, procedures, imaging admin, post-op red flags, meds. ${ccmaNeuroQs().length} Q · ${ccmaNeuroMastery()}% track mastery.</p>
+        <span class="gen-mode-go">Open track →</span>
       </button>
       <button class="gen-mode-card gen-mode-hero cornerframe" data-mode="smart">
         <span class="gen-mode-tag">recommended · endless</span>
@@ -432,6 +462,10 @@ function renderCcmaHome() {
       <section class="gen-mastery cornerframe">
         <span class="label">Chapter mastery</span>
         ${Object.keys(CCMA_CH).map(ch => meter(Number(ch))).join('')}
+        <div class="gen-meter" style="margin-top:.75rem">
+          <div class="gen-meter-top"><span>Neuro/NS career track</span><span class="mono">${ccmaNeuroMastery()}%</span></div>
+          <div class="gen-bar"><span style="width:${ccmaNeuroMastery()}%"></span></div>
+        </div>
       </section>
     </div>
 
@@ -457,12 +491,13 @@ function renderCcmaHome() {
       </div>
     </section>
 
-    <p class="gen-foot-note">${CCMA_BANK.length} questions · password-gated CCMA trainer · 38 lessons + mock final. <button class="ghostbtn" id="gen-reset">Reset arcade progress</button></p>
+    <p class="gen-foot-note">${CCMA_BANK.length} questions · CCMA core + Neuro/NS career track · private. <button class="ghostbtn" id="gen-reset">Reset arcade progress</button></p>
   </main>`);
 
   main.querySelectorAll('[data-mode]').forEach(b => b.addEventListener('click', () => {
     const m = b.dataset.mode;
     if (m === 'learn') renderCcmaLearnHome();
+    else if (m === 'neuro') renderCcmaNeuroHub();
     else if (m === 'smart') startCcmaSmart();
     else if (m === 'blitz') startCcmaBlitz();
     else if (m === 'chapter') renderCcmaChapterPick();
@@ -612,7 +647,8 @@ function ccmaNextSmart(run) {
     if (i >= 0) { const r = run.retryQ.splice(i, 1)[0]; run.lastId = r.q.id; run.lastTopic = r.q.topic; return r.q; }
   }
   const now = Date.now();
-  const pool = CCMA_BANK.filter(q => ccmaBox(q.id) < 5);
+  const bank = (typeof ccmaActiveBank === 'function' ? ccmaActiveBank() : CCMA_BANK);
+  const pool = bank.filter(q => ccmaBox(q.id) < 5);
   if (!pool.length) {
     // everything mastered but a retry is still pending -> serve it rather than ending
     if (run.retryQ && run.retryQ.length) { const r = run.retryQ.shift(); run.lastId = r.q.id; run.lastTopic = r.q.topic; return r.q; }
@@ -634,6 +670,8 @@ function ccmaNextSmart(run) {
 
 function ccmaSmartComplete(run) {
   ccmaClearTimer(); ccmaGrant('smart'); ccmaCheckAch(); ccmaSave();
+  const _finBank = (typeof ccmaActiveBank === 'function' ? ccmaActiveBank() : CCMA_BANK);
+  CCMA_POOL_FILTER = null;
   ccmaTrack('milestone', { kind: 'fully_mastered' });
   ccmaTrack('run_end', { mode: 'smart', answered: run.answered, correct: run.correct, maxCombo: run.maxCombo, competency: ccmaOverall() });
   const root = el('<div></div>');
@@ -641,7 +679,7 @@ function ccmaSmartComplete(run) {
   const main = el(`<main class="panel gen-result" id="main" tabindex="-1">
     <div class="gen-res-box cornerframe">
       <span class="label">Fully mastered</span>
-      <h1 class="gen-res-sub">All ${CCMA_BANK.length} questions maxed</h1>
+      <h1 class="gen-res-sub">All ${(typeof ccmaActiveBank === 'function' ? ccmaActiveBank() : CCMA_BANK).length} questions maxed</h1>
       <div class="gen-res-grid">
         <div><span class="mono">100%</span><span>competency</span></div>
         <div><span class="mono">${run.correct}/${run.answered}</span><span>this session</span></div>
@@ -848,9 +886,10 @@ function ccmaHud(run) {
     <div class="gen-hud-score"><span class="mono">${run.correct}</span><span class="gen-hud-l">correct</span></div>
     ${run.isMock ? `<div class="gen-hud-score"><span class="mono">${run.answered ? Math.round(run.correct / run.answered * 100) : 0}%</span><span class="gen-hud-l">score</span></div>` : ''}</div>`;
   if (run.mode === 'smart' && run.endless) {
-    const mastered = CCMA_BANK.filter(q => ccmaBox(q.id) >= 5).length;
+    const bank = (typeof ccmaActiveBank === 'function' ? ccmaActiveBank() : CCMA_BANK);
+    const mastered = bank.filter(q => ccmaBox(q.id) >= 5).length;
     return `<div class="gen-hud">${quit}
-    <div class="gen-hud-q"><span class="mono">${mastered}/${CCMA_BANK.length}</span><span class="gen-hud-l">mastered</span></div>
+    <div class="gen-hud-q"><span class="mono">${mastered}/${bank.length}</span><span class="gen-hud-l">mastered</span></div>
     <div class="gen-hud-q"><span class="mono">${ccmaOverall()}%</span><span class="gen-hud-l">competency</span></div>
     <div class="gen-hud-combo ${run.combo >= 3 ? 'hot' : ''}"><span class="mono">${run.combo}×</span><span class="gen-hud-l">streak</span></div>
     <div class="gen-hud-score"><span class="mono">${run.correct}/${run.answered}</span><span class="gen-hud-l">correct</span></div></div>`;
@@ -867,7 +906,7 @@ function ccmaFlash(scope, big, small, good) {
   scope.appendChild(f); requestAnimationFrame(() => f.classList.add('in'));
   setTimeout(() => { f.classList.remove('in'); setTimeout(() => f.remove(), 300); }, 700);
 }
-document.addEventListener('click', (e) => { if (e.target && e.target.id === 'ccma-quit') { ccmaClearTimer(); renderCcmaHome(); } });
+document.addEventListener('click', (e) => { if (e.target && e.target.id === 'ccma-quit') { ccmaClearTimer(); CCMA_POOL_FILTER = null; renderCcmaHome(); } });
 
 /* ============================================================================
    RESULTS
@@ -937,5 +976,130 @@ function ccmaEndRun(run) {
   root.appendChild(main); root.appendChild(siteFooter()); setView(root);
 }
 
+/* ============================================================================
+   NEURO / NEUROSURGERY MA CAREER TRACK UI
+   ========================================================================= */
+let CCMA_POOL_FILTER = null;
+function ccmaActiveBank() { return CCMA_POOL_FILTER || CCMA_BANK; }
 
+function renderCcmaNeuroHub() {
+  ccmaClearTimer();
+  CCMA_POOL_FILTER = null;
+  const nQ = ccmaNeuroQs();
+  const m = ccmaNeuroMastery();
+  const cards = CCMA_NEURO_TOPICS.map(key => {
+    const meta = CCMA_TOPICS[key]; if (!meta) return '';
+    const qs = ccmaTopicQs(key);
+    return `<button class="gen-ch-card cornerframe" data-topic="${key}">
+      <span class="gen-ch-num mono">NS</span><h2>${esc(meta.name)}</h2><p>${esc(meta.blurb)}</p>
+      <div class="gen-meter"><div class="gen-bar"><span style="width:${ccmaComp(qs)}%"></span></div></div>
+      <span class="mono gen-ch-pct">${ccmaComp(qs)}% · ${qs.length} Q</span></button>`;
+  }).join('');
+  const root = el('<div></div>');
+  root.appendChild(topbar('ccma'));
+  const main = el(`<main class="panel gen-pick" id="main" tabindex="-1">
+    <div class="gen-pick-head"><button class="ghostbtn" id="gen-back">← Home</button><h1>Neuro / Neurosurgery MA</h1></div>
+    <header class="gen-hero cornerframe" style="margin-bottom:1rem">
+      <div class="gen-hero-l">
+        <span class="label">Career track · private</span>
+        <h1 style="font-size:1.35rem;margin:.25rem 0">Expert assistant for neurology &amp; neurosurgery</h1>
+        <p class="gen-xp-note">Clinic rooming, neuro exam safety, LP/EEG/EMG logistics, MRI auths, post-op red flags, stroke/seizure emergencies — stacked on your CCMA core.</p>
+      </div>
+      <div class="gen-hero-r">
+        <div class="gen-comp-ring ${m >= 90 ? 'gen-comp-ready' : m >= 50 ? 'gen-comp-building' : 'gen-comp-start'}">
+          <span class="gen-comp-num mono">${m}%</span><span class="gen-comp-lab">track</span>
+        </div>
+      </div>
+    </header>
+    <section class="gen-modes" style="margin-bottom:1.25rem">
+      <button class="gen-mode-card gen-mode-hero cornerframe" id="ns-smart">
+        <span class="gen-mode-tag">recommended · track only</span>
+        <h2>Neuro Smart Review</h2>
+        <p>Endless spaced repetition on Neuro/NS topics only (${nQ.length} questions).</p>
+        <span class="gen-mode-go">Train →</span>
+      </button>
+      <button class="gen-mode-card cornerframe" id="ns-blitz">
+        <span class="gen-mode-tag">90s · neuro only</span>
+        <h2>Neuro Blitz</h2>
+        <p>Rapid-fire only career-track items. Build automatic recall for clinic.</p>
+        <span class="gen-mode-go">Go →</span>
+      </button>
+      <button class="gen-mode-card cornerframe" id="ns-learn">
+        <span class="gen-mode-tag">8 briefs</span>
+        <h2>Track Lessons</h2>
+        <p>Guided mastery briefs: A&amp;P → exam → conditions → procedures → NS clinic → admin → meds → emergencies.</p>
+        <span class="gen-mode-go">Learn →</span>
+      </button>
+      <button class="gen-mode-card cornerframe" id="ns-exam">
+        <span class="gen-mode-tag">25 Q · 3 lives</span>
+        <h2>Neuro Boss</h2>
+        <p>Mixed gauntlet across the career track. Beat 85%.</p>
+        <span class="gen-mode-go">Fight →</span>
+      </button>
+    </section>
+    <span class="label">Topics</span>
+    <div class="gen-ch-grid" style="margin-top:.75rem">${cards}</div>
+  </main>`);
+  main.querySelector('#gen-back').addEventListener('click', renderCcmaHome);
+  main.querySelectorAll('[data-topic]').forEach(b => b.addEventListener('click', () => startCcmaTopic(b.dataset.topic)));
+  main.querySelector('#ns-smart').addEventListener('click', startCcmaNeuroSmart);
+  main.querySelector('#ns-blitz').addEventListener('click', startCcmaNeuroBlitz);
+  main.querySelector('#ns-learn').addEventListener('click', renderCcmaNeuroLearn);
+  main.querySelector('#ns-exam').addEventListener('click', startCcmaNeuroExam);
+  root.appendChild(main); root.appendChild(siteFooter()); setView(root);
+  ccmaTrack('neuro_hub', { mastery: m, n: nQ.length });
+}
+function startCcmaNeuroSmart() {
+  const pool = ccmaNeuroQs();
+  if (!pool.length) { ccmaEmpty('Neuro track', 'No neuro questions found.'); return; }
+  ccmaBumpStreak(); CCMA.plays++; ccmaSave();
+  CCMA_POOL_FILTER = pool;
+  ccmaTrack('mode_start', { mode: 'neuro-smart', n: pool.length });
+  ccmaRunQuestion({ mode: 'smart', endless: true, pool: [], retryQ: [], idx: 0, score: 0, combo: 0, maxCombo: 0, correct: 0, answered: 0, locked: false, lastId: null, lastTopic: null });
+}
+function startCcmaNeuroBlitz() {
+  CCMA_POOL_FILTER = null;
+  const pool = ccmaShuffle(ccmaNeuroQs());
+  if (!pool.length) { ccmaEmpty('Neuro track', 'No neuro questions found.'); return; }
+  ccmaBumpStreak(); CCMA.plays++; ccmaSave();
+  ccmaTrack('mode_start', { mode: 'neuro-blitz' });
+  ccmaRunQuestion({ mode: 'blitz', pool, idx: 0, score: 0, combo: 0, maxCombo: 0, correct: 0, answered: 0, timeLeft: 90, locked: false });
+}
+function startCcmaNeuroExam() {
+  CCMA_POOL_FILTER = null;
+  const pool = ccmaShuffle(ccmaNeuroQs()).slice(0, 25);
+  if (pool.length < 10) { ccmaEmpty('Neuro track', 'Not enough neuro questions yet.'); return; }
+  ccmaBumpStreak(); CCMA.plays++; ccmaSave();
+  ccmaTrack('mode_start', { mode: 'neuro-exam', n: pool.length });
+  ccmaRunQuestion({ mode: 'exam', pool, idx: 0, score: 0, combo: 0, maxCombo: 0, correct: 0, answered: 0, lives: 3, locked: false });
+}
+function renderCcmaNeuroLearn() {
+  ccmaClearTimer();
+  CCMA_POOL_FILTER = null;
+  if (typeof ccmaLoadLearn === 'function' && typeof ccmaLearnReady !== 'undefined' && !ccmaLearnReady) {
+    ccmaLoadLearn().then(renderCcmaNeuroLearn); return;
+  }
+  const lessons = (typeof CCMA_LESSONS_DATA !== 'undefined' ? CCMA_LESSONS_DATA : []).filter(l => l.chapter === 9 || (l.id && String(l.id).indexOf('neuro-ns') === 0));
+  const root = el('<div></div>'); root.appendChild(topbar('ccma'));
+  const main = el(`<main class="panel gen-learn-home" id="main" tabindex="-1">
+    <div class="gen-pick-head"><button class="ghostbtn" id="gen-back">← Neuro hub</button><h1>Neuro/NS Lessons</h1></div>
+    <p class="gen-learn-intro">Eight guided briefs for your career track. Finish one, then drill its topic.</p>
+    <div class="gen-learn-grid">
+      ${lessons.map(l => {
+        const done = CCMA.learned && CCMA.learned[l.id];
+        return `<button class="gen-learn-card cornerframe ${done ? 'done' : ''}" data-lesson="${l.id}">
+          ${done ? '<span class="gen-learn-check">✓ learned</span>' : '<span class="gen-learn-go2">lesson</span>'}
+          <h2>${esc(l.title)}</h2>
+          <p>${esc(l.blurb || '')}</p>
+          <span class="gen-learn-meta mono">${(l.steps || []).length} steps</span>
+        </button>`;
+      }).join('') || '<p class="gen-weak-empty">Lessons loading — open main Learn once if empty, then return.</p>'}
+    </div>
+  </main>`);
+  main.querySelector('#gen-back').addEventListener('click', renderCcmaNeuroHub);
+  main.querySelectorAll('[data-lesson]').forEach(b => b.addEventListener('click', () => {
+    if (typeof renderCcmaLesson === 'function') renderCcmaLesson(b.dataset.lesson);
+  }));
+  root.appendChild(main); root.appendChild(siteFooter()); setView(root);
+}
 

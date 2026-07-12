@@ -8018,5 +8018,1639 @@
     "hint": "Skills + proof beat fluff.",
     "lesson": 38,
     "source": "clinical-research"
+  },
+  {
+    "id": "ns-neuro--5a196134",
+    "chapter": 9,
+    "topic": "neuro-anatomy",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "The central nervous system consists of the:",
+    "options": [
+      "Brain and spinal cord only",
+      "Cranial nerves only",
+      "Only peripheral nerves",
+      "Only autonomic ganglia"
+    ],
+    "answer": 0,
+    "explain": "CNS = brain + spinal cord. PNS = cranial/spinal nerves and ganglia outside the CNS.",
+    "hint": "CNS = brain + spinal cord. PNS = cranial/spinal nerves and ganglia outside the CNS.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--c245398d",
+    "chapter": 9,
+    "topic": "neuro-anatomy",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Which lobe is most associated with voluntary motor planning and personality/executive function?",
+    "options": [
+      "Occipital",
+      "Frontal",
+      "Cerebellar hemisphere only",
+      "Temporal only"
+    ],
+    "answer": 1,
+    "explain": "Frontal lobe: motor cortex, prefrontal executive/personality functions.",
+    "hint": "Frontal lobe: motor cortex, prefrontal executive/personality functions.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--0da67728",
+    "chapter": 9,
+    "topic": "neuro-anatomy",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "The occipital lobe primarily processes:",
+    "options": [
+      "Hearing",
+      "Vision",
+      "Balance only",
+      "Smell only"
+    ],
+    "answer": 1,
+    "explain": "Primary visual cortex is occipital.",
+    "hint": "Primary visual cortex is occipital.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--ddaa6fd8",
+    "chapter": 9,
+    "topic": "neuro-anatomy",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Broca\u2019s area is classically linked to:",
+    "options": [
+      "Fluent comprehension only",
+      "Expressive speech production",
+      "Vision",
+      "Smell"
+    ],
+    "answer": 1,
+    "explain": "Broca (usually dominant frontal) \u2192 nonfluent/expressive aphasia when damaged.",
+    "hint": "Broca (usually dominant frontal) \u2192 nonfluent/expressive aphasia when damaged.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--f02851b3",
+    "chapter": 9,
+    "topic": "neuro-anatomy",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Wernicke\u2019s area is classically linked to:",
+    "options": [
+      "Language comprehension",
+      "Knee reflex only",
+      "Pupil size only",
+      "Gait only"
+    ],
+    "answer": 0,
+    "explain": "Wernicke (usually dominant temporal/parietal) \u2192 fluent but nonsensical speech / poor comprehension.",
+    "hint": "Wernicke (usually dominant temporal/parietal) \u2192 fluent but nonsensical speech / poor comprehension.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--c952e682",
+    "chapter": 9,
+    "topic": "neuro-anatomy",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "The cerebellum is most critical for:",
+    "options": [
+      "Hormone secretion only",
+      "Coordination, balance, and fine motor timing",
+      "Olfaction only",
+      "Heart rate only"
+    ],
+    "answer": 1,
+    "explain": "Cerebellar disease \u2192 ataxia, dysmetria, intention tremor patterns.",
+    "hint": "Cerebellar disease \u2192 ataxia, dysmetria, intention tremor patterns.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--dfa509a3",
+    "chapter": 9,
+    "topic": "neuro-anatomy",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Cranial nerve II is the:",
+    "options": [
+      "Oculomotor",
+      "Optic",
+      "Facial",
+      "Vagus"
+    ],
+    "answer": 1,
+    "explain": "CN II = optic (vision). CN III = oculomotor.",
+    "hint": "CN II = optic (vision). CN III = oculomotor.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--93bf4d3b",
+    "chapter": 9,
+    "topic": "neuro-anatomy",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Cranial nerve VII is the:",
+    "options": [
+      "Trigeminal",
+      "Facial",
+      "Hypoglossal",
+      "Accessory"
+    ],
+    "answer": 1,
+    "explain": "CN VII facial \u2014 expression, taste anterior 2/3, some secretions.",
+    "hint": "CN VII facial \u2014 expression, taste anterior 2/3, some secretions.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--5f58c7a3",
+    "chapter": 9,
+    "topic": "neuro-anatomy",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "The blood-brain barrier primarily:",
+    "options": [
+      "Pumps CSF into the stomach",
+      "Restricts many substances from freely entering brain tissue from blood",
+      "Is identical to skin",
+      "Only filters urine"
+    ],
+    "answer": 1,
+    "explain": "Selective barrier; relevant for drug delivery and infection patterns.",
+    "hint": "Selective barrier; relevant for drug delivery and infection patterns.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--621266ea",
+    "chapter": 9,
+    "topic": "neuro-anatomy",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "CSF is primarily produced by the:",
+    "options": [
+      "Choroid plexus",
+      "Liver",
+      "Pancreas",
+      "Spleen"
+    ],
+    "answer": 0,
+    "explain": "Choroid plexus makes CSF; flows through ventricles \u2192 subarachnoid space \u2192 reabsorbed.",
+    "hint": "Choroid plexus makes CSF; flows through ventricles \u2192 subarachnoid space \u2192 reabsorbed.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--1d4e5190",
+    "chapter": 9,
+    "topic": "neuro-anatomy",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "A dermatomal sensory map reflects:",
+    "options": [
+      "Only motor units",
+      "Skin sensory regions supplied by a spinal nerve root",
+      "Only cranial nerve II",
+      "BMI categories"
+    ],
+    "answer": 1,
+    "explain": "Dermatome knowledge helps localize radiculopathy (e.g., L5, S1, C6, C7).",
+    "hint": "Dermatome knowledge helps localize radiculopathy (e.g., L5, S1, C6, C7).",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--72fc2997",
+    "chapter": 9,
+    "topic": "neuro-anatomy",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "The sympathetic nervous system is best summarized as:",
+    "options": [
+      "Rest-and-digest",
+      "Fight-or-flight",
+      "Only digestion",
+      "Only sleep"
+    ],
+    "answer": 1,
+    "explain": "Sympathetic = fight/flight; parasympathetic = rest/digest.",
+    "hint": "Sympathetic = fight/flight; parasympathetic = rest/digest.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--3334038d",
+    "chapter": 9,
+    "topic": "neuro-exam",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Glasgow Coma Scale (GCS) assesses:",
+    "options": [
+      "Only blood pressure",
+      "Eye opening, verbal response, and motor response",
+      "Only deep tendon reflexes",
+      "Only hearing"
+    ],
+    "answer": 1,
+    "explain": "GCS E+V+M; lower scores = deeper coma. MA may assist documenting/monitoring trends.",
+    "hint": "GCS E+V+M; lower scores = deeper coma. MA may assist documenting/monitoring trends.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--c201579e",
+    "chapter": 9,
+    "topic": "neuro-exam",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "A normal adult plantar response is typically:",
+    "options": [
+      "Upgoing toes always (Babinski)",
+      "Downgoing toes / flexor response",
+      "No response ever",
+      "Only ankle clonus"
+    ],
+    "answer": 1,
+    "explain": "Upgoing Babinski is abnormal after infancy \u2014 upper motor neuron sign.",
+    "hint": "Upgoing Babinski is abnormal after infancy \u2014 upper motor neuron sign.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--5cd0312b",
+    "chapter": 9,
+    "topic": "neuro-exam",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Romberg testing primarily screens for:",
+    "options": [
+      "Color vision",
+      "Proprioception / balance with eyes closed (sensory ataxia component)",
+      "Lung capacity",
+      "BMI"
+    ],
+    "answer": 1,
+    "explain": "Positive Romberg: worse sway/fall risk eyes closed \u2014 guard the patient.",
+    "hint": "Positive Romberg: worse sway/fall risk eyes closed \u2014 guard the patient.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--d376ea9d",
+    "chapter": 9,
+    "topic": "neuro-exam",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "When assisting a focused neuro exam, the MA\u2019s top safety job is often:",
+    "options": [
+      "Leaving the room for all gait tests",
+      "Fall prevention / guarding during stance and gait testing",
+      "Diagnosing stroke subtype",
+      "Writing the operative note"
+    ],
+    "answer": 1,
+    "explain": "Balance and gait tests create fall risk \u2014 stand ready to support.",
+    "hint": "Balance and gait tests create fall risk \u2014 stand ready to support.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--90c1caa7",
+    "chapter": 9,
+    "topic": "neuro-exam",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "PERRLA documents:",
+    "options": [
+      "Pupils Equal, Round, Reactive to Light and Accommodation",
+      "Pulse, ECG, Respirations, ROM, Labs, Allergies",
+      "A billing modifier",
+      "A type of EEG"
+    ],
+    "answer": 0,
+    "explain": "Common head/neuro ROS and exam documentation phrase.",
+    "hint": "Common head/neuro ROS and exam documentation phrase.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--43d4de45",
+    "chapter": 9,
+    "topic": "neuro-exam",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Pronator drift is a screening finding for:",
+    "options": [
+      "Ankle sprain only",
+      "Subtle upper motor neuron / pyramidal weakness",
+      "Dehydration only",
+      "Otitis media"
+    ],
+    "answer": 1,
+    "explain": "Arms out, palms up, eyes closed \u2014 drift/pronation suggests subtle weakness.",
+    "hint": "Arms out, palms up, eyes closed \u2014 drift/pronation suggests subtle weakness.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--aad8c82e",
+    "chapter": 9,
+    "topic": "neuro-exam",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Deep tendon reflexes are graded; hyperreflexia with clonus suggests:",
+    "options": [
+      "Lower motor neuron only always",
+      "Upper motor neuron pathway irritability",
+      "Perfectly normal always",
+      "Only hypothyroid disease"
+    ],
+    "answer": 1,
+    "explain": "UMN patterns: hyperreflexia, Babinski, spasticity (vs LMN hyporeflexia/atrophy).",
+    "hint": "UMN patterns: hyperreflexia, Babinski, spasticity (vs LMN hyporeflexia/atrophy).",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--b793f653",
+    "chapter": 9,
+    "topic": "neuro-exam",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Orientation questions typically check:",
+    "options": [
+      "Person, place, time (and sometimes situation)",
+      "Only favorite color",
+      "Only shoe size",
+      "Only insurance ID"
+    ],
+    "answer": 0,
+    "explain": "A&O \u00d73/\u00d74 is a quick mental status screen \u2014 not a full cognitive battery.",
+    "hint": "A&O \u00d73/\u00d74 is a quick mental status screen \u2014 not a full cognitive battery.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--221da549",
+    "chapter": 9,
+    "topic": "neuro-exam",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "A snellen chart in neuro clinic is still used for:",
+    "options": [
+      "Hearing",
+      "Visual acuity baseline",
+      "CSF pressure",
+      "Reflex grade"
+    ],
+    "answer": 1,
+    "explain": "Vision is CN II function and baseline for many neuro complaints.",
+    "hint": "Vision is CN II function and baseline for many neuro complaints.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--4b789ee2",
+    "chapter": 9,
+    "topic": "neuro-conditions",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "FAST for stroke community recognition stands for:",
+    "options": [
+      "Fever, Anemia, Sodium, Temp",
+      "Face droop, Arm weakness, Speech difficulty, Time to call emergency services",
+      "Foot, Ankle, Spine, Toe",
+      "Fluid, Airway, Sterile, Tape"
+    ],
+    "answer": 1,
+    "explain": "Time is brain \u2014 activate EMS pathway immediately for suspected stroke.",
+    "hint": "Time is brain \u2014 activate EMS pathway immediately for suspected stroke.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--8687bb0d",
+    "chapter": 9,
+    "topic": "neuro-conditions",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Ischemic stroke is caused by:",
+    "options": [
+      "Bleeding into brain tissue primarily",
+      "Blocked arterial blood flow to brain tissue",
+      "Only low blood sugar",
+      "Only migraine aura always"
+    ],
+    "answer": 1,
+    "explain": "Ischemic = occlusion; hemorrhagic = bleeding. Treatments differ critically.",
+    "hint": "Ischemic = occlusion; hemorrhagic = bleeding. Treatments differ critically.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--2123d134",
+    "chapter": 9,
+    "topic": "neuro-conditions",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "tPA / thrombolysis eligibility is extremely time-sensitive; the MA\u2019s key role is often:",
+    "options": [
+      "Deciding to give tPA independently",
+      "Rapid rooming, last-known-well documentation, glucose, ECG, activating stroke pathway per protocol",
+      "Waiting a week for MRI first always",
+      "Sending the patient home to sleep"
+    ],
+    "answer": 1,
+    "explain": "Last known well time is gold. Never delay the pathway with nonessential steps.",
+    "hint": "Last known well time is gold. Never delay the pathway with nonessential steps.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--7d311826",
+    "chapter": 9,
+    "topic": "neuro-conditions",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "A TIA is best described as:",
+    "options": [
+      "A completed permanent stroke always",
+      "A transient ischemic event with symptoms typically resolving; still a stroke warning",
+      "A type of seizure only",
+      "A muscle strain"
+    ],
+    "answer": 1,
+    "explain": "TIA is a medical emergency for secondary prevention workup even if symptoms resolved.",
+    "hint": "TIA is a medical emergency for secondary prevention workup even if symptoms resolved.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--6f2a361b",
+    "chapter": 9,
+    "topic": "neuro-conditions",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Status epilepticus is:",
+    "options": [
+      "A normal single 10-second absence",
+      "Prolonged/repeated seizures without recovery \u2014 emergency",
+      "Always psychogenic only",
+      "Only nocturnal myoclonus"
+    ],
+    "answer": 1,
+    "explain": "Airway, timing, protect from injury, activate emergency protocol \u2014 MA does not \u201cwait it out\u201d forever.",
+    "hint": "Airway, timing, protect from injury, activate emergency protocol \u2014 MA does not \u201cwait it out\u201d forever.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--ad6b96d0",
+    "chapter": 9,
+    "topic": "neuro-conditions",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Aura before a migraine may include:",
+    "options": [
+      "Only joint swelling",
+      "Visual zig-zags/scotoma or other focal symptoms before headache",
+      "Only high fever always",
+      "Only incontinence always"
+    ],
+    "answer": 1,
+    "explain": "Migraine with aura differs from stroke \u2014 but first/worst/atypical needs urgent evaluation.",
+    "hint": "Migraine with aura differs from stroke \u2014 but first/worst/atypical needs urgent evaluation.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--566df2ef",
+    "chapter": 9,
+    "topic": "neuro-conditions",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Parkinson disease classic motor triad includes:",
+    "options": [
+      "Rest tremor, rigidity, bradykinesia",
+      "Flaccid paralysis only",
+      "Only receptive aphasia",
+      "Only fever and stiff neck"
+    ],
+    "answer": 0,
+    "explain": "Plus postural instability later. MA assists mobility safety and med timing education per plan.",
+    "hint": "Plus postural instability later. MA assists mobility safety and med timing education per plan.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--b9c70efa",
+    "chapter": 9,
+    "topic": "neuro-conditions",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Multiple sclerosis is primarily a disease of:",
+    "options": [
+      "CNS demyelination (autoimmune)",
+      "Only peripheral nerve myelin always",
+      "Only muscle fibers",
+      "Only bone"
+    ],
+    "answer": 0,
+    "explain": "CNS plaques \u2192 variable deficits over time; attacks vs progressive patterns.",
+    "hint": "CNS plaques \u2192 variable deficits over time; attacks vs progressive patterns.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--3d499239",
+    "chapter": 9,
+    "topic": "neuro-conditions",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Myasthenia gravis often presents with:",
+    "options": [
+      "Fatigable weakness, often ocular (ptosis/diplopia)",
+      "Only sensory loss in a stocking pattern",
+      "Only lower back pain",
+      "Only tinnitus"
+    ],
+    "answer": 0,
+    "explain": "Autoimmune NMJ disorder; med timing and crisis recognition matter.",
+    "hint": "Autoimmune NMJ disorder; med timing and crisis recognition matter.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--de3ce761",
+    "chapter": 9,
+    "topic": "neuro-conditions",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "A thunderclap headache \u201cworst of life\u201d raises concern for:",
+    "options": [
+      "Simple tension headache only",
+      "Subarachnoid hemorrhage until proven otherwise",
+      "Only sinus pressure",
+      "Only eye strain"
+    ],
+    "answer": 1,
+    "explain": "Emergency evaluation \u2014 don\u2019t normalize \u201cjust a migraine\u201d language for sudden maximal headache.",
+    "hint": "Emergency evaluation \u2014 don\u2019t normalize \u201cjust a migraine\u201d language for sudden maximal headache.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--d51d5283",
+    "chapter": 9,
+    "topic": "neuro-conditions",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Meningeal signs (neck stiffness, photophobia, fever) warrant:",
+    "options": [
+      "Routine reschedule in 3 months",
+      "Urgent evaluation for meningitis/CNS infection pathways",
+      "Only eye drops",
+      "Only dental referral"
+    ],
+    "answer": 1,
+    "explain": "Time-critical infectious workup; isolation/PPE as indicated.",
+    "hint": "Time-critical infectious workup; isolation/PPE as indicated.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--72296dbe",
+    "chapter": 9,
+    "topic": "neuro-conditions",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Peripheral neuropathy often presents as:",
+    "options": [
+      "Stocking-glove sensory symptoms",
+      "Acute aphasia only",
+      "Only cortical blindness",
+      "Only hemiplegia always"
+    ],
+    "answer": 0,
+    "explain": "Common with diabetes; foot care education is high-yield prevention.",
+    "hint": "Common with diabetes; foot care education is high-yield prevention.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--94fb3da8",
+    "chapter": 9,
+    "topic": "neuro-conditions",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Radiculopathy pain often:",
+    "options": [
+      "Radiates in a dermatomal pattern with possible reflex/motor changes",
+      "Is always only abdominal",
+      "Never related to spine",
+      "Is only psychological"
+    ],
+    "answer": 0,
+    "explain": "History + neuro exam + imaging when red flags present.",
+    "hint": "History + neuro exam + imaging when red flags present.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--e0213a9d",
+    "chapter": 9,
+    "topic": "neuro-conditions",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Idiopathic intracranial hypertension often associates with:",
+    "options": [
+      "Younger patients with obesity, headaches, papilledema risk",
+      "Only elderly Parkinson disease",
+      "Only ALS",
+      "Only Bell palsy"
+    ],
+    "answer": 0,
+    "explain": "Vision threat \u2014 urgent ophthalmology/neuro pathways if papilledema suspected.",
+    "hint": "Vision threat \u2014 urgent ophthalmology/neuro pathways if papilledema suspected.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--afff5561",
+    "chapter": 9,
+    "topic": "neuro-procedures",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "For lumbar puncture assist, typical patient positioning is:",
+    "options": [
+      "High Fowler\u2019s only",
+      "Lateral decubitus curled or sitting flexed (opens interspaces)",
+      "Prone jackknife only",
+      "Trendelenburg always"
+    ],
+    "answer": 1,
+    "explain": "Flexion widens lumbar spaces. MA helps position, comfort, sterile setup, labeling.",
+    "hint": "Flexion widens lumbar spaces. MA helps position, comfort, sterile setup, labeling.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--e74cc153",
+    "chapter": 9,
+    "topic": "neuro-procedures",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Post-LP headache is classically:",
+    "options": [
+      "Worse upright, better lying flat",
+      "Worse only when lying flat always",
+      "Never positional",
+      "Only related to blood sugar"
+    ],
+    "answer": 0,
+    "explain": "Encourage fluids per protocol, lying as ordered, report severe/worsening symptoms.",
+    "hint": "Encourage fluids per protocol, lying as ordered, report severe/worsening symptoms.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--48e49cb4",
+    "chapter": 9,
+    "topic": "neuro-procedures",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "EEG preparation often includes instructions such as:",
+    "options": [
+      "Arrive with wet gel-covered hair always",
+      "Clean dry hair; follow sleep-deprivation/med instructions as ordered",
+      "Eat nothing for 3 days always",
+      "No need to list meds"
+    ],
+    "answer": 1,
+    "explain": "Med list and sleep instructions matter for interpretable EEG.",
+    "hint": "Med list and sleep instructions matter for interpretable EEG.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--d7b68de1",
+    "chapter": 9,
+    "topic": "neuro-procedures",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "EMG/NCS testing may feel like:",
+    "options": [
+      "Only a massage",
+      "Small shocks and/or needle electrodes assessing nerve/muscle electrical activity",
+      "Only an MRI",
+      "Only a blood draw"
+    ],
+    "answer": 1,
+    "explain": "MA role: education, rooming, anxiety reduction, setup \u2014 not interpreting waveforms.",
+    "hint": "MA role: education, rooming, anxiety reduction, setup \u2014 not interpreting waveforms.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--38421448",
+    "chapter": 9,
+    "topic": "neuro-procedures",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "MRI safety screening before neuro imaging prioritizes:",
+    "options": [
+      "Favorite sports team",
+      "Ferromagnetic implants, devices, metal in body, claustrophobia/contrast issues",
+      "Shoe brand only",
+      "Zip code only"
+    ],
+    "answer": 1,
+    "explain": "Pacemakers/implants/aneurysm clips history \u2014 verify compatibility. Never assume.",
+    "hint": "Pacemakers/implants/aneurysm clips history \u2014 verify compatibility. Never assume.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--d2d932db",
+    "chapter": 9,
+    "topic": "neuro-procedures",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "CT is often preferred first in acute stroke pathways because it is:",
+    "options": [
+      "Always better for all demyelination plaques",
+      "Fast for ruling out hemorrhage before thrombolysis decisions",
+      "Slower than nothing always",
+      "Only for bones of the foot"
+    ],
+    "answer": 1,
+    "explain": "Noncontrast head CT: blood vs no blood quickly.",
+    "hint": "Noncontrast head CT: blood vs no blood quickly.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--27564100",
+    "chapter": 9,
+    "topic": "neuro-procedures",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "A ventriculoperitoneal (VP) shunt drains CSF typically from:",
+    "options": [
+      "Ventricles to peritoneal cavity",
+      "Stomach to brain",
+      "Ear to kidney",
+      "Only the bladder"
+    ],
+    "answer": 0,
+    "explain": "Shunt malfunction/infection are emergencies: headache, vomiting, fever, altered mental status.",
+    "hint": "Shunt malfunction/infection are emergencies: headache, vomiting, fever, altered mental status.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--d812a282",
+    "chapter": 9,
+    "topic": "neuro-procedures",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Deep brain stimulation (DBS) is used in selected patients with:",
+    "options": [
+      "Only earwax",
+      "Parkinson disease / essential tremor (among indications)",
+      "Only sinusitis",
+      "Only UTI"
+    ],
+    "answer": 1,
+    "explain": "Clinic MA may assist pre-op teaching, wound checks, device card awareness \u2014 programming is specialist.",
+    "hint": "Clinic MA may assist pre-op teaching, wound checks, device card awareness \u2014 programming is specialist.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--1135f74e",
+    "chapter": 9,
+    "topic": "neuro-procedures",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Carotid duplex ultrasound evaluates:",
+    "options": [
+      "Coronary arteries only",
+      "Carotid artery stenosis risk relevant to stroke prevention",
+      "Only CSF pressure",
+      "Only lumbar discs"
+    ],
+    "answer": 1,
+    "explain": "Common vascular neuro workup; prep is usually minimal.",
+    "hint": "Common vascular neuro workup; prep is usually minimal.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--055c5f74",
+    "chapter": 9,
+    "topic": "neuro-procedures",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Botulinum toxin injections in neuro clinic may treat:",
+    "options": [
+      "Only infections",
+      "Chronic migraine, dystonia, spasticity (selected indications)",
+      "Only hypertension",
+      "Only anemia"
+    ],
+    "answer": 1,
+    "explain": "MA: consent logistics, rooming, reconstitution assist per protocol, post-care instructions.",
+    "hint": "MA: consent logistics, rooming, reconstitution assist per protocol, post-care instructions.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--8fff1e2b",
+    "chapter": 9,
+    "topic": "neuro-procedures",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Sterile field for office procedures in neurosurgery clinic requires:",
+    "options": [
+      "Turning your back on the field freely",
+      "No reaching over the field; wet = contaminated; above-waist hands",
+      "Blowing on instruments to dry them",
+      "Using open nonsterile gloves for implant handling"
+    ],
+    "answer": 1,
+    "explain": "Same sterile principles as any invasive procedure \u2014 infection can be catastrophic near implants/CNS.",
+    "hint": "Same sterile principles as any invasive procedure \u2014 infection can be catastrophic near implants/CNS.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-nsurg--9fa3131c",
+    "chapter": 9,
+    "topic": "nsurg-clinic",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Pre-op neurosurgery teaching for the MA often includes verifying:",
+    "options": [
+      "NPO status, meds to hold (e.g., anticoagulants per surgeon), allergies, ride home",
+      "That the patient codes their own surgery",
+      "That family posts OR photos of the field",
+      "Skipping consent"
+    ],
+    "answer": 0,
+    "explain": "Anticoagulation holds and NPO are high-stakes. Follow surgeon-specific protocols.",
+    "hint": "Anticoagulation holds and NPO are high-stakes. Follow surgeon-specific protocols.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-nsurg--0bb07f8b",
+    "chapter": 9,
+    "topic": "nsurg-clinic",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Post-craniotomy red flags to escalate include:",
+    "options": [
+      "Mild expected incision itch only",
+      "Sudden severe headache, vomiting, seizure, CSF leak suspicion, fever, neuro deficit change",
+      "Wanting a snack",
+      "Asking about bill only"
+    ],
+    "answer": 1,
+    "explain": "New deficit or CSF rhinorrhea/otorrhea concerns need urgent provider notification.",
+    "hint": "New deficit or CSF rhinorrhea/otorrhea concerns need urgent provider notification.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-nsurg--39825db9",
+    "chapter": 9,
+    "topic": "nsurg-clinic",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Spinal post-op teaching commonly emphasizes:",
+    "options": [
+      "Heavy lifting and twisting immediately",
+      "Log-rolling / activity restrictions per surgeon, DVT prevention, wound care, red-flag weakness/bowel-bladder changes",
+      "Removing staples at home with scissors day 1",
+      "Driving the same afternoon always"
+    ],
+    "answer": 1,
+    "explain": "Cauda equina warning signs: saddle anesthesia, bowel/bladder change, severe bilateral deficits \u2014 emergency.",
+    "hint": "Cauda equina warning signs: saddle anesthesia, bowel/bladder change, severe bilateral deficits \u2014 emergency.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-nsurg--21201a96",
+    "chapter": 9,
+    "topic": "nsurg-clinic",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "When rooming a post-op neurosurgery patient, priority vitals/assessment include:",
+    "options": [
+      "Only weight",
+      "Neuro check trends (orientation, pupils, strength, speech) + wound + pain + vitals",
+      "Only BMI",
+      "Only insurance card"
+    ],
+    "answer": 1,
+    "explain": "Compare to baseline; any new deficit is a fire alarm.",
+    "hint": "Compare to baseline; any new deficit is a fire alarm.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-nsurg--bcf23fdf",
+    "chapter": 9,
+    "topic": "nsurg-clinic",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Cervical collar care teaching includes:",
+    "options": [
+      "Removing whenever slightly itchy without orders",
+      "Keeping skin clean/dry, correct fit, wearing as ordered",
+      "Sleeping face-down without collar if ordered on",
+      "Using as a fashion scarf only"
+    ],
+    "answer": 1,
+    "explain": "Skin breakdown under collars is common \u2014 inspect and educate.",
+    "hint": "Skin breakdown under collars is common \u2014 inspect and educate.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-nsurg--26d27db1",
+    "chapter": 9,
+    "topic": "nsurg-clinic",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Drains (e.g., JP, hemovac) after some spine/cranial cases require the MA to:",
+    "options": [
+      "Empty without measuring",
+      "Measure/record output and character per protocol; keep system intact",
+      "Cut the tubing for comfort",
+      "Flush with coffee"
+    ],
+    "answer": 1,
+    "explain": "Sudden stop or high bloody output can signal problems \u2014 report thresholds per protocol.",
+    "hint": "Sudden stop or high bloody output can signal problems \u2014 report thresholds per protocol.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-nsurg--f9c9e226",
+    "chapter": 9,
+    "topic": "nsurg-clinic",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "The MA should never:",
+    "options": [
+      "Document last known well",
+      "Give independent medical advice that changes surgical plan without provider",
+      "Verify NPO",
+      "Prepare sterile supplies"
+    ],
+    "answer": 1,
+    "explain": "Scope: support, educate as ordered, escalate \u2014 don\u2019t freelance clinical decisions.",
+    "hint": "Scope: support, educate as ordered, escalate \u2014 don\u2019t freelance clinical decisions.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--b43a2825",
+    "chapter": 9,
+    "topic": "neuro-admin",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Prior authorization for brain MRI often requires:",
+    "options": [
+      "No clinical info",
+      "Supporting diagnosis/symptoms, prior conservative care when required, correct CPT/ICD pairing",
+      "Only the patient\u2019s nickname",
+      "A tweet"
+    ],
+    "answer": 1,
+    "explain": "Incomplete clinicals = denial. Know the payer checklist.",
+    "hint": "Incomplete clinicals = denial. Know the payer checklist.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--09ad9578",
+    "chapter": 9,
+    "topic": "neuro-admin",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "EEG and EMG are commonly billed as:",
+    "options": [
+      "Only ICD diagnosis codes",
+      "Procedure/service codes (CPT) with diagnosis supporting medical necessity",
+      "Only copays without claims",
+      "Only HCPCS for office rent"
+    ],
+    "answer": 1,
+    "explain": "ICD = why; CPT = what test/procedure.",
+    "hint": "ICD = why; CPT = what test/procedure.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--e0d48f5e",
+    "chapter": 9,
+    "topic": "neuro-admin",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Scheduling a new complex neuro consult efficiently usually needs:",
+    "options": [
+      "No records",
+      "Prior notes, imaging discs/PACS access, med list, referring reason",
+      "Only a phone number forever",
+      "Nothing"
+    ],
+    "answer": 1,
+    "explain": "Missing imaging is the #1 new-patient delay in neuro/NS clinics.",
+    "hint": "Missing imaging is the #1 new-patient delay in neuro/NS clinics.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--ed22f2ab",
+    "chapter": 9,
+    "topic": "neuro-admin",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Disability / FMLA paperwork in neuro practice should be:",
+    "options": [
+      "Invented by the front desk alone",
+      "Completed under provider direction with accurate functional limits",
+      "Signed blank by the MA for speed",
+      "Posted publicly"
+    ],
+    "answer": 1,
+    "explain": "MA can assemble packets and dates; medical opinions are the provider\u2019s.",
+    "hint": "MA can assemble packets and dates; medical opinions are the provider\u2019s.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--67828a74",
+    "chapter": 9,
+    "topic": "neuro-admin",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Referral to neurosurgery from neurology often needs:",
+    "options": [
+      "Zero imaging",
+      "Relevant MRI/CT reports and clinical question (e.g., surgical candidacy)",
+      "Only a sticky note \u201cfix please\u201d",
+      "Insurance ignored always"
+    ],
+    "answer": 1,
+    "explain": "Clear clinical question + imaging = faster appropriate triage.",
+    "hint": "Clear clinical question + imaging = faster appropriate triage.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--52df705a",
+    "chapter": 9,
+    "topic": "neuro-admin",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "No-show risk is high for long neuro tests; best practice includes:",
+    "options": [
+      "Never confirming",
+      "Reminder calls/SMS, clear prep instructions, early arrival for paperwork",
+      "Hiding the address",
+      "Surprise double length"
+    ],
+    "answer": 1,
+    "explain": "EEG/EMG slots are expensive \u2014 reduce no-shows with prep clarity.",
+    "hint": "EEG/EMG slots are expensive \u2014 reduce no-shows with prep clarity.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--36370efd",
+    "chapter": 9,
+    "topic": "neuro-admin",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "For workers\u2019 comp spine/neuro injuries, documentation should emphasize:",
+    "options": [
+      "Vague \u201churts\u201d only",
+      "Work-relatedness details, functional status, and accurate injury date mechanism",
+      "Deleting the employer name always",
+      "Avoiding the mechanism of injury"
+    ],
+    "answer": 1,
+    "explain": "Comp claims live or die on documentation quality.",
+    "hint": "Comp claims live or die on documentation quality.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--cb96c972",
+    "chapter": 9,
+    "topic": "neuro-admin",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Copay collection for specialist neuro visits is typically:",
+    "options": [
+      "Optional forever",
+      "Collected at check-in per plan rules (specialist copays often higher)",
+      "Only after 5 years",
+      "Never allowed"
+    ],
+    "answer": 1,
+    "explain": "Know specialist vs PCP copay differences on cards/EOBs.",
+    "hint": "Know specialist vs PCP copay differences on cards/EOBs.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--3a1c5d1a",
+    "chapter": 9,
+    "topic": "neuro-meds",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Levetiracetam (Keppra) is primarily an:",
+    "options": [
+      "Antibiotic",
+      "Antiseizure medication",
+      "Anticoagulant",
+      "Insulin"
+    ],
+    "answer": 1,
+    "explain": "Common AED; side effects can include mood changes \u2014 report per teaching.",
+    "hint": "Common AED; side effects can include mood changes \u2014 report per teaching.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--26ce2432",
+    "chapter": 9,
+    "topic": "neuro-meds",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Patients on warfarin after some stroke/afib pathways need education about:",
+    "options": [
+      "Eating unlimited vitamin K swings without monitoring",
+      "INR monitoring and bleeding precautions",
+      "Stopping suddenly when they feel well without advice",
+      "Crushing all tablets into energy drinks"
+    ],
+    "answer": 1,
+    "explain": "Many patients now use DOACs instead \u2014 still bleeding risk teaching matters.",
+    "hint": "Many patients now use DOACs instead \u2014 still bleeding risk teaching matters.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--d5b4d90d",
+    "chapter": 9,
+    "topic": "neuro-meds",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Sumatriptan is used for:",
+    "options": [
+      "Acute migraine treatment (triptan class)",
+      "Chronic daily steroid replacement",
+      "Seizure rescue only",
+      "Parkinson primary therapy"
+    ],
+    "answer": 0,
+    "explain": "Contraindications include certain vascular disease \u2014 follow provider rules.",
+    "hint": "Contraindications include certain vascular disease \u2014 follow provider rules.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--ff114bb4",
+    "chapter": 9,
+    "topic": "neuro-meds",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Carbidopa/levodopa is a cornerstone for many patients with:",
+    "options": [
+      "Parkinson disease motor symptoms",
+      "Bacterial meningitis alone",
+      "Only tension headache",
+      "Only B12 deficiency"
+    ],
+    "answer": 0,
+    "explain": "Timing with meals/protein can matter; \u201coff\u201d periods are common teaching points.",
+    "hint": "Timing with meals/protein can matter; \u201coff\u201d periods are common teaching points.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--2f0100c3",
+    "chapter": 9,
+    "topic": "neuro-meds",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Abruptly stopping some antiseizure meds can risk:",
+    "options": [
+      "Nothing",
+      "Seizure recurrence / status",
+      "Only better sleep always",
+      "Only weight loss always"
+    ],
+    "answer": 1,
+    "explain": "Never advise stopping AEDs without the prescriber.",
+    "hint": "Never advise stopping AEDs without the prescriber.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--09708ca8",
+    "chapter": 9,
+    "topic": "neuro-meds",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Tissue plasminogen activator (alteplase) for stroke is given:",
+    "options": [
+      "By the MA independently in clinic rooms always",
+      "Only under emergency protocol by credentialed teams in appropriate settings",
+      "As a home oral tablet",
+      "For all headaches"
+    ],
+    "answer": 1,
+    "explain": "Know the concept and time windows; administration is not a routine MA clinic task.",
+    "hint": "Know the concept and time windows; administration is not a routine MA clinic task.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--e2acf17e",
+    "chapter": 9,
+    "topic": "neuro-meds",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Corticosteroids in neuro may be used for:",
+    "options": [
+      "MS relapses or vasogenic edema around tumors (selected cases)",
+      "Every migraine forever without review",
+      "Only ear wax",
+      "Only anemia"
+    ],
+    "answer": 0,
+    "explain": "Side effects: glucose rise, mood, infection risk, insomnia \u2014 teach as ordered.",
+    "hint": "Side effects: glucose rise, mood, infection risk, insomnia \u2014 teach as ordered.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--55a3f99d",
+    "chapter": 9,
+    "topic": "neuro-meds",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Donepezil is commonly associated with treatment of:",
+    "options": [
+      "Alzheimer / cognitive symptoms (cholinesterase inhibitor class)",
+      "Acute ischemic stroke thrombolysis",
+      "Status epilepticus first-line",
+      "Bacterial abscess only"
+    ],
+    "answer": 0,
+    "explain": "GI side effects common; not a cure \u2014 sets realistic expectations.",
+    "hint": "GI side effects common; not a cure \u2014 sets realistic expectations.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--d47812cd",
+    "chapter": 9,
+    "topic": "neuro-emergencies",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "First action for suspected acute stroke in clinic is:",
+    "options": [
+      "Schedule MRI next month",
+      "Activate emergency/stroke pathway and EMS per protocol immediately",
+      "Give aspirin yourself always without protocol",
+      "Send home with ice pack"
+    ],
+    "answer": 1,
+    "explain": "Do not drive self if major deficits; time-critical imaging/treatment centers.",
+    "hint": "Do not drive self if major deficits; time-critical imaging/treatment centers.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--3a83446d",
+    "chapter": 9,
+    "topic": "neuro-emergencies",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "During an active generalized convulsive seizure, the MA should:",
+    "options": [
+      "Force objects into the mouth",
+      "Protect from injury, time the event, recovery position after, activate help if prolonged",
+      "Restrain arms rigidly to the bed frame",
+      "Leave the patient alone fully"
+    ],
+    "answer": 1,
+    "explain": "Nothing in the mouth. Time it. >5 min or repeated without recovery \u2192 emergency.",
+    "hint": "Nothing in the mouth. Time it. >5 min or repeated without recovery \u2192 emergency.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--3ab75552",
+    "chapter": 9,
+    "topic": "neuro-emergencies",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Cushing triad (hypertension, bradycardia, irregular respirations) suggests:",
+    "options": [
+      "Mild dehydration only",
+      "Increased intracranial pressure / herniation risk emergency",
+      "Normal anxiety",
+      "Only hypoglycemia"
+    ],
+    "answer": 1,
+    "explain": "Late sign of dangerous ICP \u2014 emergency activation.",
+    "hint": "Late sign of dangerous ICP \u2014 emergency activation.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--b5e5842f",
+    "chapter": 9,
+    "topic": "neuro-emergencies",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Sudden worst headache with neck stiffness and collapse:",
+    "options": [
+      "Likely needs urgent ED evaluation for SAH among other emergencies",
+      "Is always dehydration",
+      "Can wait for routine consult in 6 months",
+      "Is only eye strain"
+    ],
+    "answer": 0,
+    "explain": "Thunderclap + meningeal signs = don\u2019t delay.",
+    "hint": "Thunderclap + meningeal signs = don\u2019t delay.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--33d1603e",
+    "chapter": 9,
+    "topic": "neuro-emergencies",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Acute unilateral facial droop with arm weakness and speech change:",
+    "options": [
+      "Always Bell\u2019s palsy only",
+      "Treat as stroke until proven otherwise",
+      "Ignore if under age 40",
+      "Ice pack for 2 days first"
+    ],
+    "answer": 1,
+    "explain": "Bell\u2019s palsy is facial nerve \u2014 still don\u2019t miss stroke (especially if arm/leg/speech involved).",
+    "hint": "Bell\u2019s palsy is facial nerve \u2014 still don\u2019t miss stroke (especially if arm/leg/speech involved).",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--8c952c5e",
+    "chapter": 9,
+    "topic": "neuro-emergencies",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Post-ictal state means:",
+    "options": [
+      "The period after a seizure with confusion/fatigue",
+      "The aura only",
+      "Only the EEG electrode placement",
+      "A billing code for glasses"
+    ],
+    "answer": 0,
+    "explain": "Protect airway, reorient, don\u2019t leave alone until safe; document duration.",
+    "hint": "Protect airway, reorient, don\u2019t leave alone until safe; document duration.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--688a4c72",
+    "chapter": 9,
+    "topic": "neuro-emergencies",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Suspected spinal cord compression (cancer history, new bilateral leg weakness, saddle anesthesia) needs:",
+    "options": [
+      "Routine follow-up in autumn",
+      "Emergency evaluation the same day",
+      "Only chiropractic first always",
+      "Home traction videos only"
+    ],
+    "answer": 1,
+    "explain": "Time-sensitive neurosurgical emergency.",
+    "hint": "Time-sensitive neurosurgical emergency.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--ac09ef81",
+    "chapter": 9,
+    "topic": "neuro-anatomy",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "The circle of Willis is:",
+    "options": [
+      "A spinal reflex only",
+      "An anastomotic arterial ring at the base of the brain",
+      "A type of EEG montage",
+      "A billing hoop"
+    ],
+    "answer": 1,
+    "explain": "Collateral circulation concept important in vascular neurology.",
+    "hint": "Collateral circulation concept important in vascular neurology.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--b16382e5",
+    "chapter": 9,
+    "topic": "neuro-anatomy",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Substantia nigra degeneration is central to:",
+    "options": [
+      "Parkinson disease pathophysiology",
+      "Multiple sclerosis plaques only",
+      "Migraine aura only",
+      "Carpal tunnel only"
+    ],
+    "answer": 0,
+    "explain": "Dopamine loss in nigrostriatal pathway.",
+    "hint": "Dopamine loss in nigrostriatal pathway.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--f1217c2a",
+    "chapter": 9,
+    "topic": "neuro-exam",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Dysdiadochokinesia refers to:",
+    "options": [
+      "Inability to perform rapid alternating movements (cerebellar screen)",
+      "Color blindness",
+      "Hearing loss only",
+      "High blood pressure"
+    ],
+    "answer": 0,
+    "explain": "Cerebellar testing: RAM, finger-nose, heel-shin.",
+    "hint": "Cerebellar testing: RAM, finger-nose, heel-shin.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--d589b645",
+    "chapter": 9,
+    "topic": "neuro-conditions",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Bell\u2019s palsy is:",
+    "options": [
+      "Acute peripheral CN VII palsy (often idiopathic)",
+      "Always a hemispheric stroke",
+      "Always a seizure",
+      "Always meningitis"
+    ],
+    "answer": 0,
+    "explain": "Forehead typically involved in peripheral VII; central lesions may spare forehead \u2014 still urgent eval when unclear.",
+    "hint": "Forehead typically involved in peripheral VII; central lesions may spare forehead \u2014 still urgent eval when unc",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--8c8c1f7c",
+    "chapter": 9,
+    "topic": "neuro-conditions",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Essential tremor typically:",
+    "options": [
+      "Occurs with action/posture and may improve with alcohol historically (not a treatment plan)",
+      "Is identical to Parkinson rest tremor always",
+      "Is only a sensory neuropathy",
+      "Is only psychogenic"
+    ],
+    "answer": 0,
+    "explain": "Differentiate from Parkinsonian rest tremor clinically.",
+    "hint": "Differentiate from Parkinsonian rest tremor clinically.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--ab77eea2",
+    "chapter": 9,
+    "topic": "neuro-procedures",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "A myelogram involves:",
+    "options": [
+      "Contrast in the thecal sac with imaging of spinal canal",
+      "Only a chest x-ray",
+      "Only a urine dip",
+      "Only an ankle film"
+    ],
+    "answer": 0,
+    "explain": "Allergy/contrast/renal considerations; post-care similar to LP sometimes.",
+    "hint": "Allergy/contrast/renal considerations; post-care similar to LP sometimes.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-nsurg--ee374d27",
+    "chapter": 9,
+    "topic": "nsurg-clinic",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "External ventricular drain (EVD) care is typically:",
+    "options": [
+      "Handled only by specially trained staff under strict protocol \u2014 not casual MA adjustment",
+      "Adjusted freely by any front-desk staff",
+      "Flushed with tap water",
+      "Ignored"
+    ],
+    "answer": 0,
+    "explain": "Know it exists and escalate; don\u2019t manipulate leveled drains without training/orders.",
+    "hint": "Know it exists and escalate; don\u2019t manipulate leveled drains without training/orders.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--ddf3ec69",
+    "chapter": 9,
+    "topic": "neuro-admin",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "ICD coding for \u201cmigraine with aura\u201d vs \u201cwithout\u201d matters because:",
+    "options": [
+      "It doesn\u2019t",
+      "Specificity supports medical necessity and epidemiology; code to documentation",
+      "Only CPT cares about aura",
+      "Aura is a CPT modifier"
+    ],
+    "answer": 1,
+    "explain": "Code what is documented; query provider if unclear.",
+    "hint": "Code what is documented; query provider if unclear.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--81bd6643",
+    "chapter": 9,
+    "topic": "neuro-meds",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "Phenytoin has a narrow therapeutic window historically associated with:",
+    "options": [
+      "Level monitoring and gum hypertrophy / many interactions among teaching points",
+      "No side effects ever",
+      "Only vitamin C deficiency",
+      "Only treating bacterial abscess"
+    ],
+    "answer": 0,
+    "explain": "Many AEDs need levels/interaction vigilance \u2014 teach adherence.",
+    "hint": "Many AEDs need levels/interaction vigilance \u2014 teach adherence.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
+  },
+  {
+    "id": "ns-neuro--8f1fe410",
+    "chapter": 9,
+    "topic": "neuro-emergencies",
+    "type": "concept",
+    "difficulty": "med",
+    "q": "BE-FAST adds which elements to FAST for stroke recognition?",
+    "options": [
+      "Balance and Eyes (vision) changes",
+      "Blood type and Eosinophils",
+      "Bone and Elbow",
+      "Billing and Eligibility only"
+    ],
+    "answer": 0,
+    "explain": "Balance/eye symptoms catch posterior circulation strokes better than FAST alone.",
+    "hint": "Balance/eye symptoms catch posterior circulation strokes better than FAST alone.",
+    "source": "neuro-ns-track",
+    "track": "neuro-ns"
   }
 ]

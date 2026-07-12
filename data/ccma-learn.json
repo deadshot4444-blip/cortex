@@ -2122,5 +2122,457 @@
         "body": "<b>Lock it in</b><br>Lesson 38 deep brief done. Run <b>Topic Drills</b> on this domain, then <b>Smart Review</b>. Cross the lesson off only after you can teach it out loud without notes."
       }
     ]
+  },
+  {
+    "id": "neuro-ns-01",
+    "chapter": 9,
+    "topic": "neuro-anatomy",
+    "lessonNum": 101,
+    "title": "Neuro A&P Crash Course (MA)",
+    "blurb": "CNS/PNS, lobes, CN high-yield, CSF, dermatomes \u2014 enough to room patients intelligently.",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Your career track</b><br>You want to be a <b>neurology / neurosurgery medical assistant</b> \u2014 elite rooming, procedure assist, imaging logistics, and admin that doesn\u2019t drop the ball. This track sits on top of your CCMA core."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>CNS vs PNS</b><br><b>CNS</b> = brain + spinal cord.<br><b>PNS</b> = nerves outside (cranial + spinal nerves). Autonomic = sympathetic (fight/flight) + parasympathetic (rest/digest)."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Lobes in one pass</b><br>Frontal: motor + executive/personality.<br>Parietal: sensory integration.<br>Temporal: memory/hearing/language (Wernicke region).<br>Occipital: vision.<br>Cerebellum: coordination/balance.<br>Brainstem: life-critical cranial nerve nuclei / pathways."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Language map</b><br>Broca (expression) vs Wernicke (comprehension) \u2014 usually dominant (often left) hemisphere. Aphasia type hints localization."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>CSF path</b><br>Choroid plexus \u2192 ventricles \u2192 subarachnoid space \u2192 reabsorption. Blockage \u2192 hydrocephalus. Shunts bypass obstruction."
+      },
+      {
+        "kind": "ask",
+        "prompt": "CNS includes which structures?",
+        "choices": [
+          "Brain and spinal cord",
+          "Only peripheral nerves",
+          "Only muscles",
+          "Only bones"
+        ],
+        "answer": 0,
+        "reveal": "CNS = brain + spinal cord."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "Occipital lobe primary function?",
+        "options": [
+          "Hearing",
+          "Vision",
+          "Balance only",
+          "Smell only"
+        ],
+        "answer": 1,
+        "explain": "Vision is occipital."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Lock in</b><br>Drill topic <b>Neuro A&P for MAs</b>. Next lesson: neuro exam assist + safety."
+      }
+    ]
+  },
+  {
+    "id": "neuro-ns-02",
+    "chapter": 9,
+    "topic": "neuro-exam",
+    "lessonNum": 102,
+    "title": "Neuro Exam Assist & Safety",
+    "blurb": "GCS, pupils, strength, gait, Romberg \u2014 what you document and how you keep patients from falling.",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>MA role in the neuro exam</b><br>You are not the neurologist \u2014 you are the force multiplier: history scaffolding, vitals, setup, documentation templates, and <b>fall prevention</b> during stance/gait/Romberg."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>GCS</b><br>Eye + Verbal + Motor. Trends matter more than a single number. Report drops immediately."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Core screens you\u2019ll see daily</b><br>Orientation, speech, facial symmetry, drift, grip/leg strength, sensation screens, reflexes, coordination (finger-nose, RAM), gait, Romberg. PERRLA for pupils."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Safety non-negotiables</b><br>Guard every balance test. Clear floors. Gait belt if protocol. Never leave a dizzy post-LP or post-ictal patient alone until safe."
+      },
+      {
+        "kind": "ask",
+        "prompt": "Romberg mainly screens which function when eyes are closed?",
+        "choices": [
+          "Color vision",
+          "Proprioception/balance contribution",
+          "Hearing only",
+          "BMI"
+        ],
+        "answer": 1,
+        "reveal": "Eyes-closed sway increase \u2192 sensory/proprioceptive component; always guard."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "GCS assesses:",
+        "options": [
+          "Only BP",
+          "Eye, verbal, and motor responses",
+          "Only reflexes",
+          "Only hearing"
+        ],
+        "answer": 1,
+        "explain": "E+V+M components."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Lock in</b><br>Practice describing a normal neuro screen out loud in &lt;60 seconds. Then drill <b>Neuro Exam Assist</b>."
+      }
+    ]
+  },
+  {
+    "id": "neuro-ns-03",
+    "chapter": 9,
+    "topic": "neuro-conditions",
+    "lessonNum": 103,
+    "title": "High-Yield Neuro Conditions",
+    "blurb": "Stroke/TIA, seizure, migraine, Parkinson, MS, SAH red flags \u2014 recognition + rooming intelligence.",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Stroke vs TIA</b><br>Ischemic (block) vs hemorrhagic (bleed). TIA symptoms resolve but still emergency for prevention. <b>Last known well</b> is sacred data."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>BE-FAST</b><br>Balance, Eyes, Face, Arm, Speech, Time. Posterior strokes get missed with face/arm-only thinking."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Seizure</b><br>Protect, time, nothing in mouth, oxygen/help per protocol, recovery position after. Status = prolonged/repeated without recovery \u2192 EMS."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Headache red flags</b><br>Thunderclap, fever/neck stiffness, neuro deficit, cancer/immunosuppression, post-trauma, worst-of-life, papilledema symptoms \u2014 escalate, don\u2019t normalize."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Degenerative / chronic</b><br>Parkinson: rest tremor, rigidity, bradykinesia + fall risk.<br>MS: CNS demyelination, variable deficits.<br>MG: fatigable weakness, often ocular."
+      },
+      {
+        "kind": "ask",
+        "prompt": "FAST \u201cT\u201d stands for:",
+        "choices": [
+          "Temperature",
+          "Time to get emergency help",
+          "Tibia",
+          "Tinnitus"
+        ],
+        "answer": 1,
+        "reveal": "Time is brain \u2014 activate emergency pathway."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "Thunderclap worst headache raises concern for:",
+        "options": [
+          "Only tension HA",
+          "SAH until proven otherwise",
+          "Only eye strain",
+          "Only dehydration"
+        ],
+        "answer": 1,
+        "explain": "Emergency evaluation."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Lock in</b><br>Drill <b>Neuro Conditions</b> then <b>Neuro Emergencies</b> back-to-back."
+      }
+    ]
+  },
+  {
+    "id": "neuro-ns-04",
+    "chapter": 9,
+    "topic": "neuro-procedures",
+    "lessonNum": 104,
+    "title": "Neuro Procedures & Testing",
+    "blurb": "LP assist, EEG/EMG prep, MRI/CT logic, shunts, DBS \u2014 what MAs actually do.",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>LP assist</b><br>Position (lateral curled or sitting flexed), sterile setup, labeling tubes in order, comfort coaching, post-LP flat/fluids per protocol, positional headache teaching."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>EEG</b><br>Clean dry hair, med/sleep instructions, reduce no-shows with clear prep. You don\u2019t read the tracing \u2014 you make it readable."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>EMG/NCS</b><br>Expect shocks \u00b1 needles. Anxiety coaching. Setup and education."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Imaging logic</b><br>CT first in many stroke pathways (fast blood rule-out). MRI better for many soft-tissue/demyelination questions but slower/more screening. Metal/device safety is non-negotiable."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Devices</b><br>VP shunt malfunction/infection = emergency symptoms. DBS: wound care + ID card awareness; programming is specialist."
+      },
+      {
+        "kind": "ask",
+        "prompt": "Preferred LP positioning aims to:",
+        "choices": [
+          "Close the interspaces",
+          "Flex the spine to open lumbar interspaces",
+          "Extend fully rigid always",
+          "Stand on a treadmill"
+        ],
+        "answer": 1,
+        "reveal": "Flexion opens the lumbar spaces for needle access."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "MRI screening prioritizes:",
+        "options": [
+          "Favorite color",
+          "Ferromagnetic implants/devices/metal",
+          "Shoe size",
+          "Zip code"
+        ],
+        "answer": 1,
+        "explain": "Safety first."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Lock in</b><br>Drill <b>Neuro Procedures & Testing</b>."
+      }
+    ]
+  },
+  {
+    "id": "neuro-ns-05",
+    "chapter": 9,
+    "topic": "nsurg-clinic",
+    "lessonNum": 105,
+    "title": "Neurosurgery Clinic MA",
+    "blurb": "Pre-op, post-op red flags, spine vs cranial, drains, collars \u2014 surgical clinic excellence.",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Pre-op checklist brain</b><br>NPO, med holds (especially anticoagulants/antiplatelets per surgeon), allergies, consents, ride home, imaging available, glucose/MRSA screens if ordered."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Post-craniotomy red flags</b><br>New deficit, seizure, severe headache/vomiting, fever, wound drainage/CSF leak suspicion, altered mental status."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Spine post-op</b><br>Activity restrictions, log-roll teaching as ordered, DVT prevention, wound care. <b>Cauda equina alarms</b>: saddle anesthesia, bowel/bladder change, severe bilateral weakness \u2014 emergency."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Hardware & drains</b><br>Measure drain output/character. Don\u2019t freestyle EVD/leveling without training. Collar skin care prevents ulcers."
+      },
+      {
+        "kind": "ask",
+        "prompt": "New bilateral leg weakness + saddle anesthesia after spine issues needs:",
+        "choices": [
+          "Routine visit in 3 months",
+          "Emergency same-day evaluation",
+          "Only ice at home",
+          "Ignore"
+        ],
+        "answer": 1,
+        "reveal": "Possible cord/cauda compression \u2014 time-critical."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "MA should never:",
+        "options": [
+          "Verify NPO",
+          "Change the surgical plan with independent medical advice",
+          "Document vitals",
+          "Prepare supplies"
+        ],
+        "answer": 1,
+        "explain": "Stay in scope; escalate to surgeon/APP."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Lock in</b><br>Drill <b>Neurosurgery Clinic Assist</b>."
+      }
+    ]
+  },
+  {
+    "id": "neuro-ns-06",
+    "chapter": 9,
+    "topic": "neuro-admin",
+    "lessonNum": 106,
+    "title": "Neuro Practice Admin",
+    "blurb": "MRI auths, scheduling complex consults, imaging logistics, disability forms, coding basics.",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Why neuro admin is a superpower</b><br>The best clinical MA who can\u2019t get MRI authorized or imaging loaded slows the whole service line. You want to be the person surgeons trust."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Prior auth</b><br>Correct ICD/CPT, clinical notes, failed conservative care when required, peer-to-peer logistics. Track denials and turnaround."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>New patient packet gold</b><br>Records + imaging (disc/PACS) + med list + referring question. Missing MRI is the classic delay."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Paperwork</b><br>FMLA/disability: assemble, date-stamp, provider completes medical opinions. Workers\u2019 comp: mechanism + functional status accuracy."
+      },
+      {
+        "kind": "ask",
+        "prompt": "ICD vs CPT in neuro testing:",
+        "choices": [
+          "ICD is the procedure; CPT is the diagnosis",
+          "ICD = why (diagnosis); CPT = what test/service",
+          "They are identical",
+          "Neither is used"
+        ],
+        "answer": 1,
+        "reveal": "Why vs what \u2014 foundation of clean claims."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "#1 delay for new NS consults is often:",
+        "options": [
+          "Too much imaging",
+          "Missing prior imaging/records",
+          "Too many phone numbers",
+          "Extra consents"
+        ],
+        "answer": 1,
+        "explain": "Get imaging into the building/PACS."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Lock in</b><br>Drill <b>Neuro Practice Admin</b>. Admin skill = career acceleration in specialty clinics."
+      }
+    ]
+  },
+  {
+    "id": "neuro-ns-07",
+    "chapter": 9,
+    "topic": "neuro-meds",
+    "lessonNum": 107,
+    "title": "Neuro Meds for MAs",
+    "blurb": "AEDs, migraine, Parkinson, stroke antithrombotics \u2014 recognition, teaching points, scope limits.",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Scope</b><br>You teach and reinforce provider plans \u2014 you don\u2019t redesign regimens. Never tell someone to stop AEDs cold."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>AED class awareness</b><br>Levetiracetam, lamotrigine, carbamazepine, phenytoin, valproate, etc. Adherence prevents status. Some need levels/interaction checks."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Migraine</b><br>Acute (triptans, etc.) vs preventive. Red-flag headaches still need evaluation even if labeled migraine historically."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Parkinson</b><br>Carbidopa/levodopa timing; \u201coff\u201d periods; fall risk. DBS candidates may appear in NS clinic."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Stroke secondary prevention</b><br>Antiplatelets/anticoagulants, statin, BP control \u2014 bleeding precautions teaching matters."
+      },
+      {
+        "kind": "ask",
+        "prompt": "Abruptly stopping antiseizure meds risks:",
+        "choices": [
+          "Nothing",
+          "Seizure recurrence/status",
+          "Only better sleep",
+          "Only weight loss"
+        ],
+        "answer": 1,
+        "reveal": "Never stop AEDs without the prescriber."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "Carbidopa/levodopa is primarily for:",
+        "options": [
+          "Parkinson motor symptoms",
+          "Acute tPA stroke therapy",
+          "Bacterial meningitis",
+          "Only B12 deficiency"
+        ],
+        "answer": 0,
+        "explain": "Dopamine replacement pathway meds."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Lock in</b><br>Drill <b>Neuro Meds</b>."
+      }
+    ]
+  },
+  {
+    "id": "neuro-ns-08",
+    "chapter": 9,
+    "topic": "neuro-emergencies",
+    "lessonNum": 108,
+    "title": "Neuro Emergencies in Clinic",
+    "blurb": "Stroke pathway, seizure, ICP signs, SAH, cord compression \u2014 first 60 seconds.",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Stroke</b><br>BE-FAST \u2192 activate EMS/stroke protocol. Last known well. Glucose. Don\u2019t give oral meds if swallowing unsafe. Stay calm, move fast."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Seizure</b><br>Protect, time, nothing in mouth, help if &gt;5 min or repeated without recovery. Post-ictal confusion is expected \u2014 still monitor airway."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>ICP late signs</b><br>Cushing triad: \u2191BP, \u2193HR, irregular breathing \u2014 emergency. Don\u2019t wait for perfection."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Thunderclap / SAH pattern</b><br>Worst headache, neck stiffness, collapse \u2192 ED now."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Cord compression</b><br>Cancer + new bilateral weakness / saddle / bowel-bladder \u2192 same-day emergency pathway."
+      },
+      {
+        "kind": "ask",
+        "prompt": "During a convulsive seizure, put what in the mouth?",
+        "choices": [
+          "A bite stick forced hard",
+          "Nothing",
+          "Your fingers",
+          "A spoon"
+        ],
+        "answer": 1,
+        "reveal": "Nothing in the mouth \u2014 protect the head and time the event."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "Cushing triad suggests:",
+        "options": [
+          "Mild dehydration",
+          "Dangerous ICP / herniation risk",
+          "Normal anxiety",
+          "Only hypoglycemia"
+        ],
+        "answer": 1,
+        "explain": "Emergency."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>You now have the skeleton of a neuro/NS MA</b><br>Rotate: A&P \u2192 exam \u2192 conditions \u2192 procedures \u2192 NS clinic \u2192 admin \u2192 meds \u2192 emergencies. Smart Review will interleave automatically when these topics are in the bank."
+      }
+    ]
   }
 ]

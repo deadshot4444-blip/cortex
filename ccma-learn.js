@@ -31,7 +31,7 @@ let ccmaLearnReady = false;
 async function ccmaLoadLearn() {
   if (ccmaLearnReady) return;
   try {
-    const r = await fetch('data/ccma-learn.json?v=2');
+    const r = await fetch('data/ccma-learn.json?v=3');
     if (!r.ok) throw new Error('http '+r.status);
     const data = await r.json();
     if (Array.isArray(data)) CCMA_LESSONS_DATA = data;
