@@ -77,7 +77,9 @@ const SECTION_INFO = {
     desc: 'Password-gated CCMA study system — NHA domains, 38-lesson path, Smart Review, and your full mock final. Built to track mastery for certification.',
   },
 };
-const APP_VERSION = '1.23.0';
+// Public “What’s new” version. Private-only sections (CCMA) do NOT bump this or CHANGELOG —
+// only their own script/data ?v= cache-busts — so the sitewide update modal stays quiet.
+const APP_VERSION = '1.21.0';
 const MEMBERSHIP_START = 'August 1, 2026';
 function cortexFreeNote(sectionPill, sectionName) {
   return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free for now</span><span class="free-note-txt">${sectionName} becomes optional membership ${MEMBERSHIP_START}. The full MCAT suite stays free forever.</span></p>`;
@@ -845,25 +847,6 @@ const PRINCIPLES = [
 
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
-  {
-    date: 'July 11, 2026', version: '1.23.0', tag: 'NEW',
-    title: 'Neuro / Neurosurgery MA career track',
-    items: [
-      'Inside the private CCMA section: a full Neuro/Neurosurgery medical assistant career track — A&P, exam assist, conditions, procedures (LP/EEG/EMG/MRI), neurosurgery clinic post-op, practice admin (auths/imaging), meds, and emergencies.',
-      'Dedicated hub with Neuro Smart Review, Blitz, Boss fight, 8 guided track lessons, and 80+ specialty questions stacked on your CCMA core. Password unchanged.',
-    ],
-  },
-  {
-    date: 'July 11, 2026', version: '1.22.2', tag: 'NEW',
-    title: 'CCMA Medical Assistant study system',
-    items: [
-      'New password-gated Medical Assistant (CCMA) section — private study rail for the certified medical assistant program (your passphrase). Deep link: /ccma.',
-      'Full NHA-domain topic map: foundations, A&P, clinical care (vitals, infection control, lab, phlebotomy, EKG, pharm, emergencies), admin, communication, law/ethics.',
-      '38-lesson path checklist matching the course, with Smart Review, Blitz, Topic Drills, Exam Boss, Review Misses, and a Mock Final built from the Lesson 37 mock exam bank (~180 items) plus high-yield domain drills.',
-      'Progress tracks in localStorage: XP, levels, Leitner mastery boxes, streaks, achievements, weak spots — built for final prep.',
-      'v1.22.2: Deep clinical expansion — all 38 Learn briefs thickened with current standards (CDC precautions, CLSI draw order, orthostatics, ECG, NHA domain weights) + bank grown to 400+ questions for final prep.',
-    ],
-  },
   {
     date: 'July 5, 2026', version: '1.21.0', tag: 'NEW',
     title: 'Genetics: Module 4 Workshop',
