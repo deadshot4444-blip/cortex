@@ -14,6 +14,7 @@ const COG_DIAGRAMS = []; // reserved for inline-SVG diagram questions (bank uses
 
 /* ---------- generated + verified MCQ bank (from data/cogpsych-bank.json) ---------- */
 let COG_GENERATED = [];   // loaded from data/cogpsych-bank.json
+let COG_HY = [];           // high-yield exam subset
 
 /* ---------- small helpers ---------- */
 function cogRand(a, b) { return a + Math.floor(Math.random() * (b - a + 1)); }
@@ -26,6 +27,7 @@ let COG_BANK = COG_DIAGRAMS.concat(COG_GENERATORS);   // COG_GENERATED merged in
    Slugs are chXX-<slug>; the bank's `topic` field must match a key here or the
    item is dropped by cogValidBankItem. Add chapters by appending topics + COG_CH. */
 const COG_TOPICS = {
+  'high-yield': { name: 'High Yield Pack', ch: 0, blurb: 'Exam must-knows across units 1–5.' },
   // Chapter 1 — Introduction
   'ch1-what': { name: 'What Is Cognition?', ch: 1, blurb: 'Definition of cognition; everyday intelligent behavior; multi-subsystem coordination; science of things going right.' },
   'ch1-why': { name: 'Why Study Cognition?', ch: 1, blurb: 'Basic vs applied research; human factors; education/health applications; AI motivation.' },
@@ -136,6 +138,11 @@ function cogQ(id) { return COG.q[id] || (COG.q[id] = { box: 0, a: 0, c: 0, ts: 0
 function cogBox(id) { return (COG.q[id] && COG.q[id].box) || 0; }
 function cogComp(list) { if (!list.length) return 0; return Math.round(list.reduce((s, q) => s + cogBox(q.id), 0) / (list.length * 5) * 100); }
 function cogChapterQs(ch) { return COG_BANK.filter(q => q.chapter === ch); }
+function cogHyQs() { return (COG_HY && COG_HY.length) ? COG_HY : COG_BANK; }
+function cogHyMastery() { return cogComp(cogHyQs()); }
+let COG_POOL_FILTER = null;
+function cogActiveBank() { return COG_POOL_FILTER || COG_BANK; }
+
 function cogTopicQs(t) { return COG_BANK.filter(q => q.topic === t); }
 function cogMastery(ch) { return cogComp(cogChapterQs(ch)); }
 function cogOverall() { return cogComp(COG_BANK); }
@@ -277,6 +284,16 @@ async function cogLoadBank() {
     if (data.length && !valid.length) throw new Error('no valid bank items');   // non-empty but all malformed -> failure screen
     COG_GENERATED = valid;
     COG_BANK = COG_DIAGRAMS.concat(COG_GENERATED).concat(COG_GENERATORS);
+    try {
+      const hr = await fetch('data/cogpsych-hy.json?v=1');
+      if (hr.ok) {
+        const hy = await hr.json();
+        if (Array.isArray(hy)) {
+          const byId = Object.fromEntries(COG_BANK.map(q => [q.id, q]));
+          COG_HY = hy.map(q => byId[q.id] || q).filter(q => q && q.id && Array.isArray(q.options));
+        }
+      }
+    } catch (e) { COG_HY = []; }
     cogBankReady = true; cogBankFailed = false;
   } catch (e) { cogBankFailed = true; }
 }
@@ -341,6 +358,7 @@ function renderCogPassword(errMsg) {
    ========================================================================= */
 function renderCogHome() {
   cogClearTimer();
+  COG_POOL_FILTER = null;
   if (!COGA_sessionLogged) { COGA_sessionLogged = true; cogTrack('session_start', { competency: cogOverall(), mastered: COG_BANK.filter(q => cogBox(q.id) >= 5).length, total: COG_BANK.length, mobile: (window.innerWidth || 0) < 700 }); }
   const rank = cogRank(COG.xp), status = cogStatus();
   const missCount = cogMissPool().length, starredCount = cogStarredList().length;
@@ -390,8 +408,14 @@ function renderCogHome() {
         <p>Guided briefs that teach the idea, then check you — perception, attention, methods, and the rest of the map.</p>
         <span class="gen-mode-go">Open lessons →</span>
       </button>
-      <button class="gen-mode-card gen-mode-hero cornerframe" data-mode="smart">
-        <span class="gen-mode-tag">recommended · endless</span>
+      <button class="gen-mode-card gen-mode-hero cornerframe" data-mode="hy">
+        <span class="gen-mode-tag">exam today · high yield</span>
+        <h2>High Yield</h2>
+        <p>Lean pack for the exam — only the must-knows across all five units (${(COG_HY && COG_HY.length) ? COG_HY.length : '…'} Q). Skip the long tail.</p>
+        <span class="gen-mode-go">Exam mode →</span>
+      </button>
+      <button class="gen-mode-card cornerframe" data-mode="smart">
+        <span class="gen-mode-tag">full bank · endless</span>
         <h2>Smart Review</h2>
         <p>Endless adaptive loop — keeps feeding you your weakest questions (spaced repetition + interleaving) until every one is mastered. Just keep going.</p>
         <span class="gen-mode-go">Study →</span>
@@ -463,6 +487,7 @@ function renderCogHome() {
   main.querySelectorAll('[data-mode]').forEach(b => b.addEventListener('click', () => {
     const m = b.dataset.mode;
     if (m === 'learn') renderCogLearnHome();
+    else if (m === 'hy') renderCogHyHub();
     else if (m === 'smart') startCogSmart();
     else if (m === 'blitz') startCogBlitz();
     else if (m === 'chapter') renderCogChapterPick();
@@ -601,7 +626,8 @@ function cogNextSmart(run) {
     if (i >= 0) { const r = run.retryQ.splice(i, 1)[0]; run.lastId = r.q.id; run.lastTopic = r.q.topic; return r.q; }
   }
   const now = Date.now();
-  const pool = COG_BANK.filter(q => cogBox(q.id) < 5);
+  const bankSrc = (typeof cogActiveBank === 'function' ? cogActiveBank() : COG_BANK);
+  const pool = bankSrc.filter(q => cogBox(q.id) < 5);
   if (!pool.length) {
     // everything mastered but a retry is still pending -> serve it rather than ending
     if (run.retryQ && run.retryQ.length) { const r = run.retryQ.shift(); run.lastId = r.q.id; run.lastTopic = r.q.topic; return r.q; }
@@ -836,9 +862,10 @@ function cogHud(run) {
     <div class="gen-hud-lives">${'◆'.repeat(Math.max(0, run.lives))}${'◇'.repeat(Math.max(0, 3 - run.lives))}</div>
     <div class="gen-hud-score"><span class="mono">${run.correct}</span><span class="gen-hud-l">correct</span></div></div>`;
   if (run.mode === 'smart' && run.endless) {
-    const mastered = COG_BANK.filter(q => cogBox(q.id) >= 5).length;
+    const bankSrc = (typeof cogActiveBank === 'function' ? cogActiveBank() : COG_BANK);
+    const mastered = bankSrc.filter(q => cogBox(q.id) >= 5).length;
     return `<div class="gen-hud">${quit}
-    <div class="gen-hud-q"><span class="mono">${mastered}/${COG_BANK.length}</span><span class="gen-hud-l">mastered</span></div>
+    <div class="gen-hud-q"><span class="mono">${mastered}/${bankSrc.length}</span><span class="gen-hud-l">mastered</span></div>
     <div class="gen-hud-q"><span class="mono">${cogOverall()}%</span><span class="gen-hud-l">competency</span></div>
     <div class="gen-hud-combo ${run.combo >= 3 ? 'hot' : ''}"><span class="mono">${run.combo}×</span><span class="gen-hud-l">streak</span></div>
     <div class="gen-hud-score"><span class="mono">${run.correct}/${run.answered}</span><span class="gen-hud-l">correct</span></div></div>`;
@@ -855,7 +882,7 @@ function cogFlash(scope, big, small, good) {
   scope.appendChild(f); requestAnimationFrame(() => f.classList.add('in'));
   setTimeout(() => { f.classList.remove('in'); setTimeout(() => f.remove(), 300); }, 700);
 }
-document.addEventListener('click', (e) => { if (e.target && e.target.id === 'cog-quit') { cogClearTimer(); renderCogHome(); } });
+document.addEventListener('click', (e) => { if (e.target && e.target.id === 'cog-quit') { cogClearTimer(); COG_POOL_FILTER = null; renderCogHome(); } });
 
 /* ============================================================================
    RESULTS
@@ -922,4 +949,116 @@ function cogEndRun(run) {
     else startCogChapter(run.chapter);
   });
   root.appendChild(main); root.appendChild(siteFooter()); setView(root);
+}
+
+
+/* ============================================================================
+   HIGH YIELD — exam sprint (lean pack)
+   ========================================================================= */
+function renderCogHyHub() {
+  cogClearTimer();
+  COG_POOL_FILTER = null;
+  const hy = cogHyQs();
+  const m = cogHyMastery();
+  const byCh = {};
+  hy.forEach(q => { (byCh[q.chapter] = byCh[q.chapter] || []).push(q); });
+  const chRows = Object.keys(COG_CH).map(Number).filter(ch => byCh[ch] && byCh[ch].length).map(ch => {
+    const qs = byCh[ch];
+    return `<button class="gen-ch-card cornerframe" data-hy-ch="${ch}">
+      <span class="gen-ch-num mono">${ch}</span><h2>${esc(COG_CH[ch])}</h2>
+      <p>${qs.length} high-yield questions</p>
+      <div class="gen-meter"><div class="gen-bar"><span style="width:${cogComp(qs)}%"></span></div></div>
+      <span class="mono gen-ch-pct">${cogComp(qs)}%</span></button>`;
+  }).join('');
+  const root = el('<div></div>');
+  root.appendChild(topbar('cogpsych'));
+  const main = el(`<main class="panel gen-pick" id="main" tabindex="-1">
+    <div class="gen-pick-head"><button class="ghostbtn" id="gen-back">← Home</button><h1>High Yield</h1></div>
+    <header class="gen-hero cornerframe" style="margin-bottom:1rem">
+      <div class="gen-hero-l">
+        <span class="label">Exam sprint · Ch 1–5</span>
+        <h1 style="font-size:1.35rem;margin:.25rem 0">Must-knows only</h1>
+        <p class="gen-xp-note">${hy.length} questions · definitions, classic experiments, attention models, brain basics. Full bank still available from Home if you want depth.</p>
+      </div>
+      <div class="gen-hero-r">
+        <div class="gen-comp-ring ${m >= 90 ? 'gen-comp-ready' : m >= 50 ? 'gen-comp-building' : 'gen-comp-start'}">
+          <span class="gen-comp-num mono">${m}%</span><span class="gen-comp-lab">HY</span>
+        </div>
+      </div>
+    </header>
+    <section class="gen-modes" style="margin-bottom:1.25rem">
+      <button class="gen-mode-card gen-mode-hero cornerframe" id="hy-all">
+        <span class="gen-mode-tag">recommended · full pack</span>
+        <h2>Run all ${hy.length}</h2>
+        <p>One pass through every high-yield item with explanations. Best first move today.</p>
+        <span class="gen-mode-go">Start →</span>
+      </button>
+      <button class="gen-mode-card cornerframe" id="hy-smart">
+        <span class="gen-mode-tag">adaptive · until mastered</span>
+        <h2>HY Smart Review</h2>
+        <p>Spaced repetition on the lean pack only — keeps hammering weak HY items.</p>
+        <span class="gen-mode-go">Drill →</span>
+      </button>
+      <button class="gen-mode-card cornerframe" id="hy-blitz">
+        <span class="gen-mode-tag">90s · speed</span>
+        <h2>HY Blitz</h2>
+        <p>Rapid-fire high-yield only. Warm up or final polish.</p>
+        <span class="gen-mode-go">Go →</span>
+      </button>
+      <button class="gen-mode-card cornerframe" id="hy-boss">
+        <span class="gen-mode-tag">${Math.min(20, hy.length)} Q · 3 lives</span>
+        <h2>HY Boss</h2>
+        <p>Pressure test on the must-knows. Beat 85%.</p>
+        <span class="gen-mode-go">Fight →</span>
+      </button>
+    </section>
+    <span class="label">By unit</span>
+    <div class="gen-ch-grid" style="margin-top:.75rem">${chRows}</div>
+  </main>`);
+  main.querySelector('#gen-back').addEventListener('click', renderCogHome);
+  main.querySelector('#hy-all').addEventListener('click', () => startCogHyAll());
+  main.querySelector('#hy-smart').addEventListener('click', () => startCogHySmart());
+  main.querySelector('#hy-blitz').addEventListener('click', () => startCogHyBlitz());
+  main.querySelector('#hy-boss').addEventListener('click', () => startCogHyBoss());
+  main.querySelectorAll('[data-hy-ch]').forEach(b => b.addEventListener('click', () => {
+    const ch = +b.dataset.hyCh;
+    const pool = cogShuffle(cogHyQs().filter(q => q.chapter === ch));
+    if (!pool.length) return;
+    COG.plays++; cogSave();
+    cogRunQuestion({ mode: 'topic', topic: pool[0].topic, pool, idx: 0, score: 0, combo: 0, maxCombo: 0, correct: 0, answered: 0, locked: false });
+  }));
+  root.appendChild(main); root.appendChild(siteFooter()); setView(root);
+  cogTrack('hy_hub', { n: hy.length, mastery: m });
+}
+function startCogHyAll() {
+  const pool = cogShuffle(cogHyQs());
+  if (!pool.length) { cogEmpty('High Yield', 'High-yield pack is empty — check connection and reload.'); return; }
+  cogBumpStreak(); COG.plays++; cogSave();
+  COG_POOL_FILTER = null;
+  cogTrack('mode_start', { mode: 'hy-all', n: pool.length });
+  cogRunQuestion({ mode: 'topic', topic: 'high-yield', pool, idx: 0, score: 0, combo: 0, maxCombo: 0, correct: 0, answered: 0, locked: false });
+}
+function startCogHySmart() {
+  const pool = cogHyQs();
+  if (!pool.length) { cogEmpty('High Yield', 'High-yield pack is empty.'); return; }
+  cogBumpStreak(); COG.plays++; cogSave();
+  COG_POOL_FILTER = pool;
+  cogTrack('mode_start', { mode: 'hy-smart', n: pool.length });
+  cogRunQuestion({ mode: 'smart', endless: true, pool: [], retryQ: [], idx: 0, score: 0, combo: 0, maxCombo: 0, correct: 0, answered: 0, locked: false, lastId: null, lastTopic: null });
+}
+function startCogHyBlitz() {
+  COG_POOL_FILTER = null;
+  const pool = cogShuffle(cogHyQs());
+  if (!pool.length) return;
+  cogBumpStreak(); COG.plays++; cogSave();
+  cogTrack('mode_start', { mode: 'hy-blitz' });
+  cogRunQuestion({ mode: 'blitz', pool, idx: 0, score: 0, combo: 0, maxCombo: 0, correct: 0, answered: 0, timeLeft: 90, locked: false });
+}
+function startCogHyBoss() {
+  COG_POOL_FILTER = null;
+  const pool = cogShuffle(cogHyQs()).slice(0, 20);
+  if (pool.length < 8) { cogEmpty('High Yield', 'Not enough high-yield items yet.'); return; }
+  cogBumpStreak(); COG.plays++; cogSave();
+  cogTrack('mode_start', { mode: 'hy-boss', n: pool.length });
+  cogRunQuestion({ mode: 'exam', pool, idx: 0, score: 0, combo: 0, maxCombo: 0, correct: 0, answered: 0, lives: 3, locked: false });
 }
