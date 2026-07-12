@@ -63,7 +63,7 @@ function renderCogLearnHome() {
   COG_LESSONS.filter(l => typeof COG_CH !== 'undefined' && COG_CH[l.chapter]).forEach(l => { (byCh[l.chapter] = byCh[l.chapter] || []).push(l); });
   const hasLessons = Object.keys(byCh).length > 0;
   const chBlock = (ch) => `<section class="gen-learn-ch">
-      <span class="label">Chapter ${ch} · ${(typeof COG_CH !== 'undefined' && COG_CH[ch]) || ''}</span>
+      <span class="label">${ch} · ${(typeof COG_CH !== 'undefined' && COG_CH[ch]) || ''}</span>
       <div class="gen-learn-grid">
         ${byCh[ch].map(l => `<button class="gen-learn-card cornerframe ${cogglDone(l.id) ? 'done' : ''}" data-lesson="${l.id}">
           ${cogglDone(l.id) ? '<span class="gen-learn-check">✓ learned</span>' : '<span class="gen-learn-go2">lesson</span>'}
@@ -76,8 +76,8 @@ function renderCogLearnHome() {
   const root = el('<div></div>');
   root.appendChild(topbar('cogpsych'));
   const main = el(`<main class="panel gen-learn-home" id="main" tabindex="-1">
-    <div class="gen-pick-head"><button class="ghostbtn" id="gen-back">← Home</button><h1>Learn</h1></div>
-    <p class="gen-learn-intro">Short, guided lessons that <b>teach</b> the concept the Socratic way — a question, your reasoning, then the idea — with interactive diagrams you build and step through. When a lesson clicks, jump to the drills to lock it in.</p>
+    <div class="gen-pick-head"><button class="ghostbtn" id="gen-back">← Home</button><h1>Learn Cognitive Psychology</h1></div>
+    <p class="gen-learn-intro">Guided lessons for the <b>subject</b> — teach, check, then drill. Work the map unit by unit; jump to Topic Drills when an idea clicks.</p>
     ${hasLessons ? Object.keys(byCh).sort((a, b) => a - b).map(chBlock).join('') : `<div class="gen-learn-empty cornerframe"><span class="label">Coming soon</span><h2>Guided lessons are on the way</h2><p>If lessons fail to load, check your connection — Ch 1–5 briefs should appear here. For now, <b>Smart Review</b> and the topic drills have you covered — every question comes with a “think it through” hint when you miss it.</p><button class="btn btn-solid" id="gen-learn-smart">Start Smart Review →</button></div>`}
   </main>`);
   const smb = main.querySelector('#gen-learn-smart'); if (smb) smb.addEventListener('click', startCogSmart);

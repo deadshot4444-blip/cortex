@@ -1,12 +1,12 @@
 /* ============================================================================
-   Cortex · Cognitive Psychology  —  the science of learning & the mind
-   Password-gated, arcade-style mastery trainer built on science-of-learning
-   principles: active recall (testing effect), spaced repetition (Leitner
-   boxes), interleaving, and targeted practice on measured weaknesses.
+   Cortex · Cognitive Psychology  —  master the subject
+   Password-gated arcade for the science of mind & behavior: perception,
+   attention, memory, and how cognition is studied. Active recall, spaced
+   repetition, interleaving — not a school portal, a field mastery trainer.
 
    Self-contained: uses app.js globals (el, esc, setView, topbar, siteFooter).
    Progress lives in localStorage['cs-cogpsych'] — fully separate from
-   clinical / MCAT / genetics progress. Bank accumulates by chapter.
+   clinical / MCAT / genetics / CCMA progress. Bank grows by unit/chapter.
    ========================================================================= */
 
 const COG_DIAGRAMS = []; // reserved for inline-SVG diagram questions (bank uses the COG_FIGS registry)
@@ -143,8 +143,8 @@ function cogAccuracy() { return COG.answered ? Math.round(COG.correct / COG.answ
 
 function cogStatus() {
   const c = cogOverall();
-  if (c >= 90) return { c, label: 'EXAM READY', cls: 'ready' };
-  if (c >= 75) return { c, label: 'Almost exam ready', cls: 'almost' };
+  if (c >= 90) return { c, label: 'FIELD READY', cls: 'ready' };
+  if (c >= 75) return { c, label: 'Almost there', cls: 'almost' };
   if (c >= 50) return { c, label: 'Solid progress', cls: 'building' };
   if (c > 0) return { c, label: 'Getting started', cls: 'start' };
   return { c, label: 'Not started', cls: 'none' };
@@ -201,8 +201,8 @@ const COG_ACH = [
   { id: 'method', name: 'Methodologist', desc: 'Reach 100% on Methods' },
   { id: 'filter', name: 'Filter Finder', desc: 'Reach 100% on Attentional Filters' },
   { id: 'survey', name: 'Full Survey', desc: 'Max mastery on Ch 1, 3, 4, and 5' },
-  { id: 'exam', name: 'Exam Slayer', desc: 'Beat the Exam Boss (85%+)' },
-  { id: 'ready', name: 'Exam Ready', desc: 'Hit 90% overall competency' },
+  { id: 'exam', name: 'Boss Cleared', desc: 'Beat the Mastery Boss (85%+)' },
+  { id: 'ready', name: 'Field Ready', desc: 'Hit 90% overall mastery' },
   { id: 'cogscientist', name: 'Certified Cognitive Scientist', desc: 'Reach the Cognitive Neuroscientist level' },
 ];
 function cogGrant(id) {
@@ -317,20 +317,20 @@ function renderCogPassword(errMsg) {
     <div class="gen-lock-box cornerframe">
       <span class="label">Cognitive Psychology</span>
       <h1 class="gen-lock-title">Cognitive Psychology</h1>
-      <p class="gen-lock-sub">The science of the mind — memory, attention, and how we study cognition. Mastery trainer, locked to a class passphrase.</p>
+      <p class="gen-lock-sub">Master cognitive psychology as a subject — how the mind perceives, attends, remembers, and decides. Private access.</p>
       <form id="gen-pass-form" class="gen-pass-form" autocomplete="off">
-        <input type="password" id="gen-pass" class="gen-pass-input" placeholder="Enter passphrase" aria-label="Passphrase" />
-        <button type="submit" class="btn btn-solid">Unlock</button>
+        <input type="password" id="gen-pass" class="gen-pass-input" placeholder="Access code" aria-label="Access code" />
+        <button type="submit" class="btn btn-solid">Enter</button>
       </form>
       ${errMsg ? `<p class="gen-pass-err">${esc(errMsg)}</p>` : ''}
-      <p class="gen-priv">Anonymous usage data (how often modes are used and which questions are hardest — no names or personal info) is collected to improve this tool and support educational research.</p>
+      <p class="gen-priv">Anonymous usage data (modes + hard questions — no names) helps improve the trainer.</p>
     </div>
   </main>`);
   main.querySelector('#gen-pass-form').addEventListener('submit', (e) => {
     e.preventDefault();
     const val = (main.querySelector('#gen-pass').value || '').trim().toLowerCase();
     if (val === COG_PASS) { COG.unlocked = true; cogSave(); cogTrack('unlock', {}); renderCogHome(); }
-    else renderCogPassword('Incorrect passphrase. Try again.');
+    else renderCogPassword('Wrong code. Try again.');
   });
   root.appendChild(main); root.appendChild(siteFooter()); setView(root);
   setTimeout(() => { const i = document.querySelector('#gen-pass'); if (i) i.focus(); }, 30);
@@ -346,7 +346,7 @@ function renderCogHome() {
   const missCount = cogMissPool().length, starredCount = cogStarredList().length;
   const weak = cogWeakTopics();
   const meter = (ch) => `<div class="gen-meter">
-      <div class="gen-meter-top"><span>Ch ${ch} · ${COG_CH[ch]}</span><span class="mono">${cogMastery(ch)}%</span></div>
+      <div class="gen-meter-top"><span>${ch} · ${COG_CH[ch]}</span><span class="mono">${cogMastery(ch)}%</span></div>
       <div class="gen-bar"><span style="width:${cogMastery(ch)}%"></span></div>
     </div>`;
   const weakItems = weak.slice(0, 3).map(w => `<button class="gen-weak-row" data-topic="${w.topic}">
@@ -358,11 +358,11 @@ function renderCogHome() {
   const root = el('<div></div>');
   root.appendChild(topbar('cogpsych'));
   const main = el(`<main class="panel gen-home" id="main" tabindex="-1">
-    ${status.cls === 'ready' ? `<div class="gen-ready-banner"><span class="gen-ready-pulse"></span>EXAM READY · ${status.c}% competency</div>` : ''}
+    ${status.cls === 'ready' ? `<div class="gen-ready-banner"><span class="gen-ready-pulse"></span>FIELD READY · ${status.c}% mastery</div>` : ''}
 
     <header class="gen-hero cornerframe">
       <div class="gen-hero-l">
-        <span class="label">Cognitive Psychology · The Science of the Mind</span>
+        <span class="label">Subject · Cognitive Psychology</span>
         <h1>Cognitive Psychology</h1>
         <div class="gen-rank"><span class="gen-rank-lvl mono">LV ${rank.lvl}</span><span class="gen-rank-name">${esc(rank.name)}</span></div>
         <div class="gen-xpbar"><span style="width:${rank.pct}%"></span></div>
@@ -387,7 +387,7 @@ function renderCogHome() {
       <button class="gen-mode-card gen-mode-learn cornerframe" data-mode="learn">
         <span class="gen-mode-tag">guided · teaches you</span>
         <h2>Learn</h2>
-        <p>New to a topic, or it just won't stick? Work through it the Socratic way — a question, your reasoning, then the idea — with interactive diagrams you build and step through.</p>
+        <p>Guided briefs that teach the idea, then check you — perception, attention, methods, and the rest of the map.</p>
         <span class="gen-mode-go">Open lessons →</span>
       </button>
       <button class="gen-mode-card gen-mode-hero cornerframe" data-mode="smart">
@@ -399,7 +399,7 @@ function renderCogHome() {
       <button class="gen-mode-card cornerframe" data-mode="blitz">
         <span class="gen-mode-tag">90s · combo</span>
         <h2>Blitz</h2>
-        <p>Rapid-fire across the whole chapter. Stack combos, chase your high score.</p>
+        <p>Rapid-fire across the whole field. Stack combos, chase your high score.</p>
         <span class="gen-mode-go">Start →</span>
       </button>
       <button class="gen-mode-card cornerframe" data-mode="chapter">
@@ -410,8 +410,8 @@ function renderCogHome() {
       </button>
       <button class="gen-mode-card cornerframe" data-mode="exam">
         <span class="gen-mode-tag">20 Q · 3 lives</span>
-        <h2>Exam Boss</h2>
-        <p>Mixed gauntlet across every chapter. Beat 85% to slay the boss.${COG.bestExam ? ` Best: ${COG.bestExam}%.` : ''}</p>
+        <h2>Mastery Boss</h2>
+        <p>Mixed gauntlet across the subject. Beat 85% to clear it.${COG.bestExam ? ` Best: ${COG.bestExam}%.` : ''}</p>
         <span class="gen-mode-go">Fight →</span>
       </button>
       <button class="gen-mode-card cornerframe" data-mode="misses">
@@ -430,7 +430,7 @@ function renderCogHome() {
       </section>
 
       <section class="gen-mastery cornerframe">
-        <span class="label">Chapter mastery</span>
+        <span class="label">Field map</span>
         ${Object.keys(COG_CH).map(ch => meter(Number(ch))).join('')}
       </section>
     </div>
@@ -441,12 +441,12 @@ function renderCogHome() {
     </div>
 
     <section class="gen-method cornerframe">
-      <span class="label">How to study this (science-backed) · exam soon?</span>
+      <span class="label">How to master the subject</span>
       <ol class="gen-method-list">
-        <li><b>Test, don't reread.</b> Retrieval practice (answering) builds memory far better than review — this whole arcade is active recall.</li>
-        <li><b>Run Smart Review daily.</b> Spaced repetition resurfaces each item right before you'd forget it; the box meter handles the timing.</li>
-        <li><b>Interleave.</b> Blitz and Smart Review mix topics on purpose — switching topics beats blocking one at a time.</li>
-        <li><b>Chase your weak spots,</b> not what you already know. Exam soon? Topic Drills on your weakest topics → Smart Review until 90% → Exam Boss to pressure-test.</li>
+        <li><b>Test, don't reread.</b> Retrieval practice beats passive review — this whole arcade is active recall.</li>
+        <li><b>Run Smart Review daily.</b> Spaced repetition resurfaces each item right before you'd forget it.</li>
+        <li><b>Interleave.</b> Blitz and Smart Review mix topics on purpose — better than grinding one unit forever.</li>
+        <li><b>Chase weak spots.</b> Topic Drills on your lowest meters → Smart Review to 90% → Mastery Boss to pressure-test.</li>
       </ol>
     </section>
 
@@ -457,7 +457,7 @@ function renderCogHome() {
       </div>
     </section>
 
-    <p class="gen-foot-note">${COG_BANK.length} questions · Cognitive Psychology · ${Object.keys(COG_CH).map(ch => `Ch ${ch}: ${COG_CH[ch]}`).join(' · ')}. <button class="ghostbtn" id="gen-reset">Reset arcade progress</button></p>
+    <p class="gen-foot-note">${COG_BANK.length} questions · Cognitive Psychology field trainer · ${Object.keys(COG_CH).map(ch => `${ch}: ${COG_CH[ch]}`).join(' · ')}. <button class="ghostbtn" id="gen-reset">Reset progress</button></p>
   </main>`);
 
   main.querySelectorAll('[data-mode]').forEach(b => b.addEventListener('click', () => {
@@ -486,13 +486,13 @@ function renderCogHome() {
 function renderCogChapterPick() {
   cogClearTimer();
   const card = (key) => { const t = COG_TOPICS[key], qs = cogTopicQs(key); return `<button class="gen-ch-card cornerframe" data-topic="${key}">
-    <span class="gen-ch-num mono">CH ${t.ch}</span><h2>${esc(t.name)}</h2><p>${esc(t.blurb)}</p>
+    <span class="gen-ch-num mono">${t.ch}</span><h2>${esc(t.name)}</h2><p>${esc(t.blurb)}</p>
     <div class="gen-meter"><div class="gen-bar"><span style="width:${cogComp(qs)}%"></span></div></div>
     <span class="mono gen-ch-pct">${cogComp(qs)}% · ${qs.length} Q</span></button>`; };
   const root = el('<div></div>');
   root.appendChild(topbar('cogpsych'));
   const main = el(`<main class="panel gen-pick" id="main" tabindex="-1">
-    <div class="gen-pick-head"><button class="ghostbtn" id="gen-back">← Home</button><h1>Topic Drills</h1></div>
+    <div class="gen-pick-head"><button class="ghostbtn" id="gen-back">← Home</button><h1>Topics</h1></div>
     <div class="gen-ch-grid">
       ${Object.keys(COG_TOPICS).map(card).join('')}
     </div>
@@ -724,7 +724,7 @@ function cogRunQuestion(run) {
   const main = el(`<main class="panel gen-game" id="main" tabindex="-1">
     ${cogHud(run)}
     <div class="gen-q cornerframe" data-qid="${qq.id}">
-      <div class="gen-q-meta"><span class="mono">CH ${qq.chapter}</span><span class="gen-q-tag">${esc((COG_TOPICS[qq.topic] && COG_TOPICS[qq.topic].name) || 'Practice')}</span><span class="gen-q-diff gen-d-${qq.difficulty}">${qq.difficulty}</span>${qq.type === 'label' ? '<span class="gen-q-pic">diagram</span>' : ''}<button type="button" class="gen-star ${COG.starred && COG.starred[qq.id] ? 'on' : ''}" id="gen-star" aria-label="Star this question">${COG.starred && COG.starred[qq.id] ? '★' : '☆'}</button></div>
+      <div class="gen-q-meta"><span class="mono">${qq.chapter}</span><span class="gen-q-tag">${esc((COG_TOPICS[qq.topic] && COG_TOPICS[qq.topic].name) || 'Practice')}</span><span class="gen-q-diff gen-d-${qq.difficulty}">${qq.difficulty}</span>${qq.type === 'label' ? '<span class="gen-q-pic">diagram</span>' : ''}<button type="button" class="gen-star ${COG.starred && COG.starred[qq.id] ? 'on' : ''}" id="gen-star" aria-label="Star this question">${COG.starred && COG.starred[qq.id] ? '★' : '☆'}</button></div>
       ${qq.svg ? `<div class="gen-q-svg">${qq.svg}</div>` : ''}
       ${qq.fig && window.COG_FIGS && window.COG_FIGS[qq.fig] ? '<div class="gen-q-fig" id="gen-fig"></div>' : ''}
       <h2 class="gen-q-stem">${esc(qq.q)}</h2>
@@ -874,7 +874,7 @@ function cogEndRun(run) {
     extra = grid([[`${run.correct}/${run.answered}`, 'answered'], [`${acc}%`, 'accuracy'], [`${run.maxCombo}×`, 'best combo'], [`${COG.bestScore}`, 'all-time best']]);
   } else if (run.mode === 'exam') {
     const beat = acc >= 85 && run.lives > 0; if (acc > COG.bestExam) COG.bestExam = acc; if (beat) cogGrant('exam');
-    headline = run.lives <= 0 ? 'BOSS WINS' : (beat ? 'BOSS DEFEATED' : 'Boss survives'); sub = `${acc}% · ${run.correct}/${run.answered}`;
+    headline = run.lives <= 0 ? 'BOSS WINS' : (beat ? 'CLEARED' : 'Not yet'); sub = `${acc}% · ${run.correct}/${run.answered}`;
     extra = grid([[`${acc}%`, 'score'], [`${run.maxCombo}×`, 'best combo'], [`${run.lives}`, 'lives left'], [`${COG.bestExam}%`, 'best ever']]);
   } else if (run.mode === 'smart') {
     cogGrant('smart'); if (acc === 100 && run.answered >= 8) cogGrant('perfect');
@@ -903,10 +903,10 @@ function cogEndRun(run) {
       <span class="label">${esc(headline)}</span>
       <h1 class="gen-res-sub">${esc(sub)}</h1>
       ${extra}
-      ${status.cls === 'ready' ? '<p class="gen-res-ready">EXAM READY — 90%+ competency. Keep Smart Review warm.</p>' : ''}
+      ${status.cls === 'ready' ? '<p class="gen-res-ready">FIELD READY — 90%+ mastery. Keep Smart Review warm.</p>' : ''}
       <p class="gen-res-xp mono">${COG.xp.toLocaleString()} XP total · LV ${cogRank(COG.xp).lvl} ${esc(cogRank(COG.xp).name)}</p>
       <div class="gen-res-btns">
-        <button class="btn btn-solid" id="gen-again">${run.mode === 'blitz' ? 'Run it back' : run.mode === 'exam' ? 'Rematch' : run.mode === 'smart' ? 'Another set' : 'Again'}</button>
+        <button class="btn btn-solid" id="gen-again">${run.mode === 'blitz' ? 'Run it back' : run.mode === 'exam' ? 'Try again' : run.mode === 'smart' ? 'Another set' : 'Again'}</button>
         <button class="btn" id="gen-homebtn">Home</button>
       </div>
     </div>

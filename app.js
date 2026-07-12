@@ -68,8 +68,8 @@ const SECTION_INFO = {
   },
   cogpsych: {
     label: 'Cognitive Psychology',
-    headline: 'The science of the mind.',
-    desc: 'A password-gated mastery trainer for cognitive psychology — how we study cognition, mind & brain, behaviorism, and the cognitive approach. Smart Review, drills, interactive diagrams, and a mock exam.',
+    headline: 'Master the science of mind.',
+    desc: 'Cognitive psychology as a subject — perception, attention, memory, methods, and how the mind is studied. Smart Review, drills, interactive figures, and a mastery gauntlet.',
   },
   ccma: {
     label: 'Medical Assistant',
@@ -153,7 +153,7 @@ const SECTION_SCRIPTS = {
   socrates: ['socrates.js?v=40'],
   neuro: ['python-runtime.js?v=3', 'code-evaluator.js?v=2', 'neuro-practitioner.js?v=3', 'neuro.js?v=14'],
   genetics: ['genetics.js?v=25', 'genetics-learn.js?v=6', 'genetics-figs.js?v=1', 'genetics-workshop.js?v=1'],
-  cogpsych: ['cogpsych.js?v=2', 'cogpsych-learn.js?v=2', 'cogpsych-figs.js?v=1'],
+  cogpsych: ['cogpsych.js?v=3', 'cogpsych-learn.js?v=3', 'cogpsych-figs.js?v=1'],
   ccma: ['ccma.js?v=4', 'ccma-learn.js?v=3'],
 };
 const _scriptLoads = {};
@@ -487,7 +487,7 @@ function topbar(active) {
           <span class="menu-head">Access</span>
           <button class="menuitem" data-go="utsa"><span>UTSA &amp; UT Health</span><span class="mi-tag">Free</span></button>
           <button class="menuitem" data-go="genetics"><span>Genetics-2313</span><span class="mi-tag">New</span></button>
-          <button class="menuitem" data-go="cogpsych"><span>Cognitive Psychology</span><span class="mi-tag">New</span></button>
+          <button class="menuitem" data-go="cogpsych"><span>Cognitive Psychology</span></button>
           <button class="menuitem" data-go="ccma"><span>Medical Assistant (CCMA)</span><span class="mi-tag">New</span></button>
         </div>
       </div>
