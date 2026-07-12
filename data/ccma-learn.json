@@ -1,0 +1,2126 @@
+[
+  {
+    "id": "ccma-L01",
+    "chapter": 1,
+    "topic": "d1-foundations",
+    "lessonNum": 1,
+    "title": "L1: Medical Assisting Foundations",
+    "blurb": "Scope, credentials, health care settings, payment models",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Lesson 1: Medical Assisting Foundations</b><br><br>Scope, credentials, health care settings, payment models<br><br><span class='mono'>Program spine:</span> Ch 1: The Medical Assistant, Health Care Team, and Medical Environment, Ch 2: Health Care Settings and Career Benefits, Ch 3: National Certification.<br>This brief is <b>original clinical study material</b> expanded from your lesson objectives + current standards (CDC/CLSI/ACC-AHA/NHA domain map) \u2014 not a textbook reprint."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Learning targets</b><br>\u2022 Differentiate between administrative and clinical job duties of a medical assistant.<br>\u2022 Explain the meaning of scope of practice for medical assistants.<br>\u2022 Identify the health care settings and benefits of a medical assisting career.<br>\u2022 Recognize the importance of professional certification.<br>\u2022 Discuss the members of the health care team.<br>\u2022 State the importance of medical assistants in the health care field."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>NHA map: why foundations still matter</b><br>On the CCMA exam, <b>Foundational Knowledge</b> is only ~15 scored items \u2014 but it underpins every clinical question: who does what, where care happens, and what \u201cscope\u201d means. Clinical Patient Care is <b>84/150 (~56%)</b> of the exam \u2014 you win the test in the clinical domains, but foundation mistakes still kill easy points."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Administrative vs clinical duties</b><br><b>Administrative</b>: schedule, register, code/bill support, records, phones, correspondence.<br><b>Clinical</b>: rooming, vitals, assist exams, specimen collection, injections (if allowed), ECG, wound care assist, point-of-care testing \u2014 always under supervising provider and state/employer rules."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Credentials vs license</b><br><b>Certification</b> (e.g., NHA CCMA) = competency credential from a private org. <b>Licensure</b> = state legal permission for certain professions. MAs are usually certified (not independently licensed like RNs/MDs). Never call yourself a nurse unless you are one."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Care settings that show up on exams</b><br>Ambulatory/outpatient clinic, PCMH, urgent care, specialty offices, home health/hospice concepts, telehealth/patient portals. Know fee-for-service vs value-based/capitation at a definition level."
+      },
+      {
+        "kind": "ask",
+        "prompt": "Approximately what fraction of scored CCMA items fall under Clinical Patient Care (NHA 2022 plan)?",
+        "choices": [
+          "About 10%",
+          "About 56% (84/150)",
+          "About 90%",
+          "Zero"
+        ],
+        "answer": 1,
+        "reveal": "Clinical Patient Care is the dominant domain \u2014 prioritize vitals, infection, phleb, general care, lab, EKG."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "CCMA is a credential awarded by which organization?",
+        "options": [
+          "NHA",
+          "DMV",
+          "FDA only",
+          "WHO only"
+        ],
+        "answer": 0,
+        "explain": "National Healthcareer Association awards the CCMA."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Lock it in</b><br>Lesson 1 deep brief done. Run <b>Topic Drills</b> on this domain, then <b>Smart Review</b>. Cross the lesson off only after you can teach it out loud without notes."
+      }
+    ]
+  },
+  {
+    "id": "ccma-L02",
+    "chapter": 6,
+    "topic": "d6-communication",
+    "lessonNum": 2,
+    "title": "L2: Professional Behavior",
+    "blurb": "Professionalism, appearance, teamwork, cultural competence",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Lesson 2: Professional Behavior</b><br><br>Professionalism, appearance, teamwork, cultural competence<br><br><span class='mono'>Program spine:</span> Ch 2: Professionalism, Ch 1: Professional Traits of a Medical Assistant, Ch 3: Professional Appearance and Workplace Stress.<br>This brief is <b>original clinical study material</b> expanded from your lesson objectives + current standards (CDC/CLSI/ACC-AHA/NHA domain map) \u2014 not a textbook reprint."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Learning targets</b><br>\u2022 Identify the skills, behavior, and traits that a medical assistant must possess.<br>\u2022 List soft skills that are important for the field of medical assisting.<br>\u2022 Explain the importance of a medical assistant\u2019s professional appearance.<br>\u2022 Discuss diversity, stereotypes, and biases in the workplace."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Professionalism as a clinical safety tool</b><br>Late, chaotic, or boundary-crossing behavior isn't just 'soft skills' \u2014 it increases error risk (wrong patient, missed allergy, rushed handoff). Reliability is a patient-safety competency."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Cultural humility (exam angle)</b><br>Use plain language, avoid stereotypes, offer qualified interpreters for LEP patients, and never use minors as medical interpreters for complex consent/teaching when avoidable."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Team communication failures</b><br>Most outpatient harm involves handoff gaps. Read-back critical info, escalate early, document facts not drama."
+      },
+      {
+        "kind": "ask",
+        "prompt": "Which action best demonstrates professionalism after a documentation error?",
+        "choices": [
+          "Delete the entire record quietly",
+          "Correct per policy with transparency; never obliterate",
+          "Blame the patient in the note",
+          "Ignore it"
+        ],
+        "answer": 1,
+        "reveal": "Proper amendment trails protect patients and you."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Lock it in</b><br>Lesson 2 deep brief done. Run <b>Topic Drills</b> on this domain, then <b>Smart Review</b>. Cross the lesson off only after you can teach it out loud without notes."
+      }
+    ]
+  },
+  {
+    "id": "ccma-L03",
+    "chapter": 7,
+    "topic": "d7-law",
+    "lessonNum": 3,
+    "title": "L3: Legal and Ethical Issues",
+    "blurb": "HIPAA, consent, negligence, mandatory reporting",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Lesson 3: Legal and Ethical Issues</b><br><br>HIPAA, consent, negligence, mandatory reporting<br><br><span class='mono'>Program spine:</span> Ch 3: Legal and Ethical Issues, Ch 1: Laws and Ethics, Ch 2: Negligence, Medical Malpractice, and Informed Consent.<br>This brief is <b>original clinical study material</b> expanded from your lesson objectives + current standards (CDC/CLSI/ACC-AHA/NHA domain map) \u2014 not a textbook reprint."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Learning targets</b><br>\u2022 Differentiate between laws and ethics.<br>\u2022 Summarize negligence, medical malpractice, and informed consent<br>\u2022 Define legal terms that apply to health care.<br>\u2022 Explain protected health information and confidentiality.<br>\u2022 Discuss the Privacy Rule and the Security Rule enacted under the Health Insurance"
+      },
+      {
+        "kind": "teach",
+        "body": "<b>HIPAA operationally</b><br>PHI = individually identifiable health info. Minimum necessary. No hallway diagnosis talk, no unlocked EHR, no texting PHI on personal apps. Treatment/Payment/Operations (TPO) are common permitted uses \u2014 still be careful."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Consent stack</b><br><b>Informed consent</b> (provider explains risks/benefits/alternatives) vs <b>implied consent</b> (extending arm for BP) vs <b>written authorization</b> for ROI outside TPO. Capacity + voluntariness matter."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Negligence elements (exam shorthand)</b><br>Duty \u2192 breach \u2192 causation \u2192 damages. Malpractice is professional negligence. Battery = unconsented intentional touching/procedure."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Mandatory reporting</b><br>Child/elder/dependent adult abuse, many communicable diseases, certain injuries \u2014 state-specific lists. Reporting duties can override usual confidentiality."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Exam trap</b><br>Trap: confusing certification with license; gossiping PHI 'just this once.'"
+      },
+      {
+        "kind": "ask",
+        "prompt": "Minimum necessary is a HIPAA concept that means:",
+        "choices": [
+          "Share the entire chart with everyone",
+          "Limit PHI uses/disclosures to what is needed for the purpose",
+          "Never treat patients",
+          "Always post results publicly"
+        ],
+        "answer": 1,
+        "reveal": "Access and disclosure should be limited to job need-to-know."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "Performing a procedure after the patient clearly refuses may be:",
+        "options": [
+          "Good customer service",
+          "Battery / unauthorized touching",
+          "Required always",
+          "A coding modifier only"
+        ],
+        "answer": 1,
+        "explain": "Consent can be withdrawn; forcing care can be battery."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Lock it in</b><br>Lesson 3 deep brief done. Run <b>Topic Drills</b> on this domain, then <b>Smart Review</b>. Cross the lesson off only after you can teach it out loud without notes."
+      }
+    ]
+  },
+  {
+    "id": "ccma-L04",
+    "chapter": 6,
+    "topic": "d6-communication",
+    "lessonNum": 4,
+    "title": "L4: The Art of Communicating",
+    "blurb": "Therapeutic communication, defense mechanisms, tough conversations",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Lesson 4: The Art of Communicating</b><br><br>Therapeutic communication, defense mechanisms, tough conversations<br><br><span class='mono'>Program spine:</span> Ch 4: Applying Communication Skills, Ch 1: Communication Styles and Effective Communication Skills, Ch 2: Verbal and Nonverbal Communication.<br>This brief is <b>original clinical study material</b> expanded from your lesson objectives + current standards (CDC/CLSI/ACC-AHA/NHA domain map) \u2014 not a textbook reprint."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Learning targets</b><br>\u2022 Discuss communication styles and effective communication skills in health care.<br>\u2022 Explain verbal and nonverbal communication.<br>\u2022 Recognize the importance of physical boundaries and touch in communication.<br>\u2022 Identify appropriate patient interview techniques.<br>\u2022 Define the five stages of grief."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Active listening that scores on exams</b><br>Open-ended first \u2192 clarify \u2192 reflect/summarize \u2192 teach-back. Closed questions refine details (yes/no, scales)."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Defense mechanisms high-yield</b><br><b>Reaction formation</b> opposite behavior; <b>projection</b> attribute own feelings to others; <b>repression</b> unconscious burying; <b>sublimation</b> channel impulses into acceptable outlets; <b>rationalization</b> excuse-making; <b>identification</b> mimic another."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>De-escalation</b><br>Calm tone, space, non-threatening posture, acknowledge emotion, set limits, get help for safety threats. Don't argue facts with a raging patient mid-escalation."
+      },
+      {
+        "kind": "ask",
+        "prompt": "Teach-back confirms understanding when the patient:",
+        "choices": [
+          "Nods silently only",
+          "Explains the plan in their own words",
+          "Signs without reading",
+          "Leaves immediately"
+        ],
+        "answer": 1,
+        "reveal": "Teach-back is evidence-based for reducing misunderstanding."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "\u201cYou\u2019re the one who\u2019s angry\u201d when the speaker is angry is closest to:",
+        "options": [
+          "Sublimation",
+          "Projection",
+          "Suppression always good",
+          "Fowler\u2019s position"
+        ],
+        "answer": 1,
+        "explain": "Projection attributes internal states to others."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "First step in a patient teaching plan is typically to:",
+        "options": [
+          "Hand every brochure at once",
+          "Assess learning needs, readiness, and barriers",
+          "Skip to billing",
+          "Use only medical jargon"
+        ],
+        "answer": 1,
+        "explain": "Assess \u2192 objectives \u2192 teach \u2192 evaluate (teach-back) \u2192 document."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Lock it in</b><br>Lesson 4 deep brief done. Run <b>Topic Drills</b> on this domain, then <b>Smart Review</b>. Cross the lesson off only after you can teach it out loud without notes."
+      }
+    ]
+  },
+  {
+    "id": "ccma-L05",
+    "chapter": 6,
+    "topic": "d6-communication",
+    "lessonNum": 5,
+    "title": "L5: Telecommunications",
+    "blurb": "Phone professionalism, triage, messages",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Lesson 5: Telecommunications</b><br><br>Phone professionalism, triage, messages<br><br><span class='mono'>Program spine:</span> Ch 19: Telephone Communications, Ch 1: Types of Telecommunications in the Ambulatory Setting, Ch 2: Telephone Professionalism.<br>This brief is <b>original clinical study material</b> expanded from your lesson objectives + current standards (CDC/CLSI/ACC-AHA/NHA domain map) \u2014 not a textbook reprint."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Learning targets</b><br>\u2022 Discuss the types of telecommunications in the ambulatory setting.<br>\u2022 Explain the importance of professional telephone skills.<br>\u2022 Summarize professional telephone techniques."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Telephone as a clinical channel</b><br>Identify self/clinic, verify identity before PHI, document who/when/what/callback number. Use protocols for symptom triage \u2014 MAs don't diagnose by phone."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Red-flag call content</b><br>Chest pain, severe SOB, anaphylaxis signs, suicidal ideation, uncontrolled bleeding, stroke signs \u2192 emergency pathway per protocol, not 'call back tomorrow'."
+      },
+      {
+        "kind": "ask",
+        "prompt": "Before disclosing lab results by phone, first:",
+        "choices": [
+          "Assume the caller is the patient",
+          "Verify identity per policy",
+          "Text the whole chart",
+          "Post in the waiting room"
+        ],
+        "answer": 1,
+        "reveal": "Identity verification protects PHI."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Lock it in</b><br>Lesson 5 deep brief done. Run <b>Topic Drills</b> on this domain, then <b>Smart Review</b>. Cross the lesson off only after you can teach it out loud without notes."
+      }
+    ]
+  },
+  {
+    "id": "ccma-L06",
+    "chapter": 5,
+    "topic": "d5-admin",
+    "lessonNum": 6,
+    "title": "L6: Written Communications",
+    "blurb": "Letters, email, documentation style",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Lesson 6: Written Communications</b><br><br>Letters, email, documentation style<br><br><span class='mono'>Program spine:</span> Ch 20: Written Communications, Ch 1: Professional Letters, Ch 2: Emails in the Medical Office.<br>This brief is <b>original clinical study material</b> expanded from your lesson objectives + current standards (CDC/CLSI/ACC-AHA/NHA domain map) \u2014 not a textbook reprint."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Learning targets</b><br>\u2022 Explain the importance of spelling, grammar, and sentence structure in written<br>\u2022 Discuss the use of email and patient education within the medical office."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Documentation that survives scrutiny</b><br>Timely, factual, objective, dated/timed, signed. Correct errors per policy (no obliteration). Avoid blame language and unapproved abbreviations (TJC Do Not Use list concepts: U, IU, QD, trailing zeros, etc.)."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Professional letters</b><br>Block vs modified/semi-block formats appear on exams: margins, salutation, complimentary close placement."
+      },
+      {
+        "kind": "ask",
+        "prompt": "Which abbreviation concept belongs on a 'do not use' caution list in many safety systems?",
+        "choices": [
+          "Using trailing zeros after a decimal in doses (e.g., 1.0 mg risk)",
+          "Writing the full drug name",
+          "Using metric units",
+          "Documenting allergies"
+        ],
+        "answer": 0,
+        "reveal": "Trailing zeros and certain abbreviations have caused dosing errors."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Lock it in</b><br>Lesson 6 deep brief done. Run <b>Topic Drills</b> on this domain, then <b>Smart Review</b>. Cross the lesson off only after you can teach it out loud without notes."
+      }
+    ]
+  },
+  {
+    "id": "ccma-L07",
+    "chapter": 3,
+    "topic": "d3-infection",
+    "lessonNum": 7,
+    "title": "L7: Medical Office Environment",
+    "blurb": "Safety, SDS, equipment, opening/closing",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Lesson 7: Medical Office Environment</b><br><br>Safety, SDS, equipment, opening/closing<br><br><span class='mono'>Program spine:</span> Ch 21: The Office Environment, Computers, and Equipment, Ch 1: The Reception Area and Opening and Closing the Office, Ch 2: Medical Office Safety.<br>This brief is <b>original clinical study material</b> expanded from your lesson objectives + current standards (CDC/CLSI/ACC-AHA/NHA domain map) \u2014 not a textbook reprint."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Learning targets</b><br>\u2022 Discuss the role of the medical assistant in maintaining the reception area and opening<br>\u2022 Recognize the OSHA standards and TJC national patient safety goals that address a safe<br>\u2022 Summarize ways to ensure that a medical facility is accessible for people with disabilities.<br>\u2022 Explain the importance of computers in a medical office.<br>\u2022 Describe the features and capabilities of an electronic health record."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Exam weight alert</b><br>Clinical Patient Care is ~<b>56%</b> of CCMA scored items. Time spent here multiplies score more than polishing rare admin trivia."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Office environment = infection + OSHA stage</b><br>SDS for chemicals, sharps containers upright/not overfilled, biohazard bags for saturated infectious waste, eye wash knowledge, incident reports after exposures."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Engineering vs work-practice controls</b><br><b>Engineering</b>: sharps container, safety needles, biosafety features that redesign the environment.<br><b>Work practice</b>: how you work (no recap, hand hygiene timing)."
+      },
+      {
+        "kind": "ask",
+        "prompt": "An SDS is used for:",
+        "choices": [
+          "Scheduling wave appointments",
+          "Chemical hazard info: handling, PPE, first aid, spills",
+          "Coding hypertension",
+          "Measuring BMI"
+        ],
+        "answer": 1,
+        "reveal": "Safety Data Sheets are OSHA hazard communication tools."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Lock it in</b><br>Lesson 7 deep brief done. Run <b>Topic Drills</b> on this domain, then <b>Smart Review</b>. Cross the lesson off only after you can teach it out loud without notes."
+      }
+    ]
+  },
+  {
+    "id": "ccma-L08",
+    "chapter": 5,
+    "topic": "d5-admin",
+    "lessonNum": 8,
+    "title": "L8: Patient Scheduling",
+    "blurb": "Matrix, wave, clustering, no-shows",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Lesson 8: Patient Scheduling</b><br><br>Matrix, wave, clustering, no-shows<br><br><span class='mono'>Program spine:</span> Ch 22: Scheduling Appointments and Receiving Patients, Ch 1: Scheduling Appointments, Ch 2: Methods of Scheduling.<br>This brief is <b>original clinical study material</b> expanded from your lesson objectives + current standards (CDC/CLSI/ACC-AHA/NHA domain map) \u2014 not a textbook reprint."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Learning targets</b><br>\u2022 Discuss key considerations when establishing an appointment scheduling system.<br>\u2022 Explain different methods of scheduling in the ambulatory care setting.<br>\u2022 Identify the information gathered, and the policies and notices given, during new patient"
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Scheduling systems</b><br><b>Wave</b>: multiple pts same start block.<br><b>Clustering</b>: same visit types together.<br><b>Double-booking</b>: two in one slot (efficiency vs wait risk).<br><b>Open/tidal</b>: walk-in flow.<br><b>Matrix</b>: template blocks unavailable time."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>No-show / late policy</b><br>Document missed appointments \u2014 clinical + legal relevance (nonadherence pattern)."
+      },
+      {
+        "kind": "ask",
+        "prompt": "Wave scheduling means:",
+        "choices": [
+          "One patient per week only",
+          "Several patients scheduled at the same time block",
+          "Never using a computer",
+          "Only double-booking no-shows"
+        ],
+        "answer": 1,
+        "reveal": "Wave: multiple arrivals in a block; seen by arrival/need."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Lock it in</b><br>Lesson 8 deep brief done. Run <b>Topic Drills</b> on this domain, then <b>Smart Review</b>. Cross the lesson off only after you can teach it out loud without notes."
+      }
+    ]
+  },
+  {
+    "id": "ccma-L09",
+    "chapter": 5,
+    "topic": "d5-admin",
+    "lessonNum": 9,
+    "title": "L9: Managing Medical Records",
+    "blurb": "EHR, SOAP, filing, release of info",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Lesson 9: Managing Medical Records</b><br><br>EHR, SOAP, filing, release of info<br><br><span class='mono'>Program spine:</span> Ch 23: The Medical Record, Documentation, and Filing, Ch 1: The Medical Record, Ch 2: Medical Reports.<br>This brief is <b>original clinical study material</b> expanded from your lesson objectives + current standards (CDC/CLSI/ACC-AHA/NHA domain map) \u2014 not a textbook reprint."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Learning targets</b><br>\u2022 Summarize the purposes and regulations of medical records.<br>\u2022 Identify different types of medical reports.<br>\u2022 Explain how the Problem-Oriented Medical Record (POMR) and SOAP notes organize<br>\u2022 Discuss standards for medical record documentation and common errors in"
+      },
+      {
+        "kind": "teach",
+        "body": "<b>SOAP mastery</b><br><b>S</b> patient-reported; <b>O</b> vitals/exam/labs you measure; <b>A</b> provider assessment; <b>P</b> plan. Don't put your speculation in S as if patient said it."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Record systems</b><br>POMR problem-oriented; SOMR source-oriented. EHR access is audit-logged \u2014 curiosity viewing is a HIPAA violation."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>ROI</b><br>Valid authorization elements; extra protections for substance-use records (redisclosure prohibitions). Minors/emancipation rules are state-dependent."
+      },
+      {
+        "kind": "ask",
+        "prompt": "In SOAP, a blood pressure reading belongs in:",
+        "choices": [
+          "S",
+          "O",
+          "A only as a feeling",
+          "P only as a wish"
+        ],
+        "answer": 1,
+        "reveal": "Objective = measured data."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Lock it in</b><br>Lesson 9 deep brief done. Run <b>Topic Drills</b> on this domain, then <b>Smart Review</b>. Cross the lesson off only after you can teach it out loud without notes."
+      }
+    ]
+  },
+  {
+    "id": "ccma-L10",
+    "chapter": 5,
+    "topic": "d5-admin",
+    "lessonNum": 10,
+    "title": "L10: Introduction to Health Insurance",
+    "blurb": "Plans, copay, deductible, Medicare/Medicaid",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Lesson 10: Introduction to Health Insurance</b><br><br>Plans, copay, deductible, Medicare/Medicaid<br><br><span class='mono'>Program spine:</span> Ch 24: Health Insurance, Ch 1: Basic Concepts of Health Insurance, Ch 2: Basic Health Insurance Terms.<br>This brief is <b>original clinical study material</b> expanded from your lesson objectives + current standards (CDC/CLSI/ACC-AHA/NHA domain map) \u2014 not a textbook reprint."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Learning targets</b><br>\u2022 Recall the basic concepts of health insurance.<br>\u2022 Define common terms related to health insurance.<br>\u2022 Identify the different types of health insurance.<br>\u2022 Discuss Medicare coverage.<br>\u2022 Explain providers, plan models, and activities associated with managed care."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Payment vocabulary</b><br><b>Premium</b> cost of coverage; <b>deductible</b> patient pays first; <b>copay</b> fixed per visit/service; <b>coinsurance</b> % after deductible; <b>allowed amount</b> contracted rate."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Plan types</b><br>HMO: network + often PCP/gatekeeper/referrals. PPO: more flexibility, higher cost OON. Medicare federal (65+/disability/ESRD concepts). Medicaid state/federal low-income. Workers' comp work injury. TRICARE military."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Birthday rule</b><br>For dependents with dual coverage: plan of parent whose birthday falls earlier in the year is primary (common exam fact)."
+      },
+      {
+        "kind": "ask",
+        "prompt": "A copayment is:",
+        "choices": [
+          "Always 100% of charges",
+          "A fixed amount due at time of service under many plans",
+          "The same as a premium",
+          "Only for hospitals"
+        ],
+        "answer": 1,
+        "reveal": "Copay fixed; coinsurance is percentage; deductible is upfront annual amount."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Lock it in</b><br>Lesson 10 deep brief done. Run <b>Topic Drills</b> on this domain, then <b>Smart Review</b>. Cross the lesson off only after you can teach it out loud without notes."
+      }
+    ]
+  },
+  {
+    "id": "ccma-L11",
+    "chapter": 5,
+    "topic": "d5-admin",
+    "lessonNum": 11,
+    "title": "L11: Medical Coding Overview",
+    "blurb": "ICD, CPT, HCPCS, fraud/abuse",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Lesson 11: Medical Coding Overview</b><br><br>ICD, CPT, HCPCS, fraud/abuse<br><br><span class='mono'>Program spine:</span> Ch 25: Procedural and Diagnostic Coding, Ch 1: Medical Coding, Ch 2: ICD-10-CM.<br>This brief is <b>original clinical study material</b> expanded from your lesson objectives + current standards (CDC/CLSI/ACC-AHA/NHA domain map) \u2014 not a textbook reprint."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Learning targets</b><br>\u2022 Discuss the history of medical coding, the health care code sets, and coding fraud and<br>\u2022 Explain the importance of ICD-10-CM codes and the steps for assigning a valid code.<br>\u2022 Explain the importance of CPT codes and the steps for assigning a correct code.<br>\u2022 Explain the importance of HCPCS Level II codes and the steps for assigning a correct"
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Code families</b><br><b>ICD-10-CM</b> diagnoses/reasons for encounter.<br><b>CPT</b> procedures/services.<br><b>HCPCS II</b> supplies/ambulance/some drugs/services (often alphanumeric)."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Fraud patterns</b><br>Upcoding, unbundling, billing without documentation, kickbacks. Coding must match documented medical necessity."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Claim forms</b><br>CMS-1500 professional; UB-04 institutional/facility."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Exam trap</b><br>Trap: mixing ICD (why) with CPT (what)."
+      },
+      {
+        "kind": "ask",
+        "prompt": "ICD codes primarily describe:",
+        "choices": [
+          "Procedures only",
+          "Diagnoses / diseases / reasons for encounter",
+          "Needle gauges",
+          "Room temperatures"
+        ],
+        "answer": 1,
+        "reveal": "ICD-10-CM = why; CPT/HCPCS = what was done/supplied."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "CPT codes primarily describe:",
+        "options": [
+          "Only patient race",
+          "Procedures and services",
+          "Only zip codes",
+          "Only allergies"
+        ],
+        "answer": 1,
+        "explain": "Current Procedural Terminology bills the work performed."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Lock it in</b><br>Lesson 11 deep brief done. Run <b>Topic Drills</b> on this domain, then <b>Smart Review</b>. Cross the lesson off only after you can teach it out loud without notes."
+      }
+    ]
+  },
+  {
+    "id": "ccma-L12",
+    "chapter": 5,
+    "topic": "d5-admin",
+    "lessonNum": 12,
+    "title": "L12: Patient Accounts",
+    "blurb": "Ledgers, charges, payments, adjustments",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Lesson 12: Patient Accounts</b><br><br>Ledgers, charges, payments, adjustments<br><br><span class='mono'>Program spine:</span> Ch 26: Patient Accounts, Ch 1: Revenue Cycle Management (RCM), Ch 2: Bookkeeping.<br>This brief is <b>original clinical study material</b> expanded from your lesson objectives + current standards (CDC/CLSI/ACC-AHA/NHA domain map) \u2014 not a textbook reprint."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Learning targets</b><br>\u2022 Recognize the importance of revenue cycle management for a medical practice.<br>\u2022 Explain bookkeeping principles, practices, and patient accounts.<br>\u2022 Discuss the importance of optimizing accounts receivable processes and communicating"
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Account anatomy</b><br>Charges, payments, adjustments, balance. Guarantor may differ from patient. Day sheet = daily transaction log."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Collections ethics</b><br>Follow FDCPA-ish professionalism: accurate balances, no harassment, respect financial counseling pathways."
+      },
+      {
+        "kind": "ask",
+        "prompt": "The guarantor is:",
+        "choices": [
+          "Always the physician",
+          "The person financially responsible for the account",
+          "The autoclave log",
+          "The ICD code"
+        ],
+        "answer": 1,
+        "reveal": "Guarantor pays the bill."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Lock it in</b><br>Lesson 12 deep brief done. Run <b>Topic Drills</b> on this domain, then <b>Smart Review</b>. Cross the lesson off only after you can teach it out loud without notes."
+      }
+    ]
+  },
+  {
+    "id": "ccma-L13",
+    "chapter": 5,
+    "topic": "d5-admin",
+    "lessonNum": 13,
+    "title": "L13: Claims, Billing, Collections",
+    "blurb": "CMS-1500, denials, aging",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Lesson 13: Claims, Billing, Collections</b><br><br>CMS-1500, denials, aging<br><br><span class='mono'>Program spine:</span> Ch 27: Preparing Insurance Claims and Posting Insurance Payments, Ch 28: Patient Billing, Posting Patient Payments, and Collecting Fees, Ch 1: Insurance Claims Cycle.<br>This brief is <b>original clinical study material</b> expanded from your lesson objectives + current standards (CDC/CLSI/ACC-AHA/NHA domain map) \u2014 not a textbook reprint."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Learning targets</b><br>\u2022 Summarize the stages of the insurance claim cycle.<br>\u2022 Describe the purpose, sections, and maintenance of the CMS-1500 professional claim<br>\u2022 Discuss Electronic Data Interchange (EDI) and advantages of electronic claims.<br>\u2022 Identify effective patient billing practices.<br>\u2022 Explain the collection process in a medical practice."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Revenue cycle order</b><br>Registration accuracy \u2192 charge capture \u2192 coding \u2192 claim submission \u2192 adjudication \u2192 EOB/ERA \u2192 post payments \u2192 patient statement \u2192 denial management/appeals."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Denial first move</b><br>Read reason codes, fix root cause (eligibility, coding, auth, medical necessity), resubmit/appeal with documentation."
+      },
+      {
+        "kind": "ask",
+        "prompt": "CMS-1500 is primarily used for:",
+        "choices": [
+          "Hospital facility claims only always",
+          "Professional/outpatient provider claims",
+          "Vaccine fridge logs",
+          "ECG electrode orders"
+        ],
+        "answer": 1,
+        "reveal": "CMS-1500 = professional claim form; UB-04 often facility."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Lock it in</b><br>Lesson 13 deep brief done. Run <b>Topic Drills</b> on this domain, then <b>Smart Review</b>. Cross the lesson off only after you can teach it out loud without notes."
+      }
+    ]
+  },
+  {
+    "id": "ccma-L14",
+    "chapter": 5,
+    "topic": "d5-admin",
+    "lessonNum": 14,
+    "title": "L14: Daily Financial Practices",
+    "blurb": "Deposits, petty cash, bank reconciliation",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Lesson 14: Daily Financial Practices</b><br><br>Deposits, petty cash, bank reconciliation<br><br><span class='mono'>Program spine:</span> Ch 29: Banking Procedures, Ch 30: Accounts Payable and Accounting Procedures, Ch 1: Banking Services, Debit and Credit Cards, and Petty Cash.<br>This brief is <b>original clinical study material</b> expanded from your lesson objectives + current standards (CDC/CLSI/ACC-AHA/NHA domain map) \u2014 not a textbook reprint."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Learning targets</b><br>\u2022 Discuss the role of banking services, debit and credit cards, and the petty cash fund in a<br>\u2022 Describe the importance of effectively managing the accounting process and accounts"
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Bank reconciliation exam math</b><br>Adjusted bank = statement balance + outstanding deposits \u2212 outstanding checks. Should match adjusted book balance."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Petty cash</b><br>Small disbursements with receipts; replenish by voucher \u2014 not a personal wallet."
+      },
+      {
+        "kind": "ask",
+        "prompt": "Outstanding checks in a bank reconciliation are:",
+        "choices": [
+          "Added to the bank statement balance",
+          "Subtracted from the bank statement balance",
+          "Ignored",
+          "Multiplied by 2.2"
+        ],
+        "answer": 1,
+        "reveal": "Bank shows money until checks clear \u2014 subtract outstanding checks."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Lock it in</b><br>Lesson 14 deep brief done. Run <b>Topic Drills</b> on this domain, then <b>Smart Review</b>. Cross the lesson off only after you can teach it out loud without notes."
+      }
+    ]
+  },
+  {
+    "id": "ccma-L15",
+    "chapter": 5,
+    "topic": "d5-admin",
+    "lessonNum": 15,
+    "title": "L15: Managing the Office",
+    "blurb": "Leadership, inventory, quality",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Lesson 15: Managing the Office</b><br><br>Leadership, inventory, quality<br><br><span class='mono'>Program spine:</span> Ch 58: Managing the Office, Ch 1: Manager Qualities and Duties, Ch 2: Supervising Staff.<br>This brief is <b>original clinical study material</b> expanded from your lesson objectives + current standards (CDC/CLSI/ACC-AHA/NHA domain map) \u2014 not a textbook reprint."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Learning targets</b><br>\u2022 Identify the qualities and duties of a practice manager.<br>\u2022 Discuss the practice manager's role in staff supervision.<br>\u2022 Recall the importance of a policy and procedure manual and the topics it includes, as well"
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Quality & leadership basics</b><br>Inventory par levels, vaccine fridge monitoring concepts, policy adherence, reporting impaired coworkers to management (patient safety)."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Project management words</b><br>Planning, organizing, directing, controlling \u2014 'controlling' = monitoring/adjusting to hit objectives."
+      },
+      {
+        "kind": "ask",
+        "prompt": "Repeated coworker impairment at work should be:",
+        "choices": [
+          "Covered up as loyalty",
+          "Reported through the proper supervisory channel",
+          "Streamed live",
+          "Ignored if they are skilled clinically"
+        ],
+        "answer": 1,
+        "reveal": "Patient safety > coworker comfort."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Lock it in</b><br>Lesson 15 deep brief done. Run <b>Topic Drills</b> on this domain, then <b>Smart Review</b>. Cross the lesson off only after you can teach it out loud without notes."
+      }
+    ]
+  },
+  {
+    "id": "ccma-L16",
+    "chapter": 3,
+    "topic": "d3-pharm",
+    "lessonNum": 16,
+    "title": "L16: Pharmacology",
+    "blurb": "Drug names, schedules, PK/PD, side effects",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Lesson 16: Pharmacology</b><br><br>Drug names, schedules, PK/PD, side effects<br><br><span class='mono'>Program spine:</span> Ch 49: Pharmacology Fundamentals, Ch 1: Pharmacodynamics, Pharmacokinetics, and Medical Uses for, Ch 2: Drug Classifications and Drug Names.<br>This brief is <b>original clinical study material</b> expanded from your lesson objectives + current standards (CDC/CLSI/ACC-AHA/NHA domain map) \u2014 not a textbook reprint."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Learning targets</b><br>\u2022 Identify pharmacodynamics, pharmacokinetics, and medical uses for drugs.<br>\u2022 Discuss drug classifications and drug names.<br>\u2022 State the roles of the FDA and the DEA.<br>\u2022 Explain prescription drugs, e-prescribing, over-the-counter drugs, and drug formularies.<br>\u2022 Discuss the proper handling of medications in the medical office and in the electronic<br>\u2022 Recall the routes of administration for medication and the \u201crights of medication<br>\u2022 Summarize the goals of pharmacy benefit management and specialty pharmacies."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Exam weight alert</b><br>Clinical Patient Care is ~<b>56%</b> of CCMA scored items. Time spent here multiplies score more than polishing rare admin trivia."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>PK vs PD</b><br><b>Pharmacokinetics</b> ADME (absorption, distribution, metabolism, excretion).<br><b>Pharmacodynamics</b> mechanism/effect on body."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Half-life & schedules</b><br>t\u00bd guides dosing interval. Controlled substance schedules: C-II high abuse potential with medical use, strict Rx rules; inventory/count logs matter."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Interaction types</b><br>Synergism/potentiation > additive; antagonism reduces effect; cumulative effect with repeated dosing."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Look-alike/sound-alike</b><br>Tall-man lettering concepts, barcode checks, never 'borrow' meds between patients."
+      },
+      {
+        "kind": "ask",
+        "prompt": "Pharmacokinetics is best described as:",
+        "choices": [
+          "What the drug does to the body",
+          "What the body does to the drug (ADME)",
+          "Only the brand name",
+          "Only the price"
+        ],
+        "answer": 1,
+        "reveal": "ADME: absorption, distribution, metabolism, excretion."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Lock it in</b><br>Lesson 16 deep brief done. Run <b>Topic Drills</b> on this domain, then <b>Smart Review</b>. Cross the lesson off only after you can teach it out loud without notes."
+      }
+    ]
+  },
+  {
+    "id": "ccma-L17",
+    "chapter": 2,
+    "topic": "d2-anatomy",
+    "lessonNum": 17,
+    "title": "L17: Pathophysiology",
+    "blurb": "Disease processes by system",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Lesson 17: Pathophysiology</b><br><br>Disease processes by system<br><br><span class='mono'>Program spine:</span> Ch 7: through Chapter 18, Ch 1: Nervous System, Ch 2: Sense Organs.<br>This brief is <b>original clinical study material</b> expanded from your lesson objectives + current standards (CDC/CLSI/ACC-AHA/NHA domain map) \u2014 not a textbook reprint."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Learning targets</b><br>\u2022 Discuss the main structures and functions of the nervous system, common diseases that<br>\u2022 Discuss the main structures and functions of the sense organs, common diseases that<br>\u2022 Discuss the main structures and functions of the integumentary system, common diseases<br>\u2022 Discuss the main structures and functions of the musculoskeletal system, common<br>\u2022 Discuss the main structures and functions of the respiratory system, common diseases<br>\u2022 Discuss the main structures and functions of the circulatory system and<br>\u2022 Discuss the main structures and functions of the digestive system, common diseases that<br>\u2022 Discuss the main structures and functions of the urinary system and reproductive system,"
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Patho for MAs (not diagnosing)</b><br>Recognize red flags by system so you room urgently and don't normalize danger: chest pain + diaphoresis, sudden neuro deficit, stridor, anaphylaxis signs, severe abdominal pain with rigidity."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Inflammation vs infection</b><br>Infection implies pathogen; inflammation is host response (can be sterile). Fever is a sign, not a diagnosis."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Homeostasis</b><br>Negative feedback loops maintain set points (glucose, temp, BP). Disease = failed compensation."
+      },
+      {
+        "kind": "ask",
+        "prompt": "Alveoli primarily function in:",
+        "choices": [
+          "Filtration of urine",
+          "Gas exchange (O2/CO2)",
+          "Hormone storage only",
+          "Antibody production only"
+        ],
+        "answer": 1,
+        "reveal": "Respiratory exchange surface."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "The SA node is the heart\u2019s normal:",
+        "options": [
+          "Mitral valve",
+          "Pacemaker",
+          "Aorta",
+          "Pericardium only"
+        ],
+        "answer": 1,
+        "explain": "Sinoatrial node initiates sinus rhythm."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "Insulin is produced by:",
+        "options": [
+          "Adrenal medulla only",
+          "Pancreatic beta cells",
+          "Posterior pituitary only",
+          "Thyroid C cells only"
+        ],
+        "answer": 1,
+        "explain": "Islet beta cells secrete insulin."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Lock it in</b><br>Lesson 17 deep brief done. Run <b>Topic Drills</b> on this domain, then <b>Smart Review</b>. Cross the lesson off only after you can teach it out loud without notes."
+      }
+    ]
+  },
+  {
+    "id": "ccma-L18",
+    "chapter": 3,
+    "topic": "d3-infection",
+    "lessonNum": 18,
+    "title": "L18: Infection Control & Asepsis",
+    "blurb": "Chain of infection, PPE, sterilization",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Lesson 18: Infection Control & Asepsis</b><br><br>Chain of infection, PPE, sterilization<br><br><span class='mono'>Program spine:</span> your course readings.<br>This brief is <b>original clinical study material</b> expanded from your lesson objectives + current standards (CDC/CLSI/ACC-AHA/NHA domain map) \u2014 not a textbook reprint."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Learning targets</b><br>\u2022 Identify helpful and pathogenic microorganisms, different modes of disease transmission,<br>\u2022 Discuss the general guidelines of Universal Precautions and Standard Precautions for<br>\u2022 Describe medical asepsis practices within an ambulatory care setting."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Exam weight alert</b><br>Clinical Patient Care is ~<b>56%</b> of CCMA scored items. Time spent here multiplies score more than polishing rare admin trivia."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>CDC Standard Precautions (all patients)</b><br>Hand hygiene; PPE based on anticipated exposure; respiratory hygiene; safe injection practices; sharps safety; clean/disinfect environment; handle laundry/waste correctly. Used <b>regardless of known infection status</b>."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Transmission-based add-ons</b><br><b>Contact</b> (MRSA/C. diff often): gown+gloves; soap/water for C. diff spores (alcohol incomplete).<br><b>Droplet</b>: mask (influenza, pertussis).<br><b>Airborne</b>: N95/respirator + airborne infection isolation when indicated (TB, measles, varicella)."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Chain of infection \u2014 break it</b><br>Infectious agent \u2192 reservoir \u2192 portal of exit \u2192 mode of transmission \u2192 portal of entry \u2192 susceptible host. Hand hygiene + PPE + sterilization target multiple links."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Asepsis ladder</b><br>Sanitization (clean debris) \u2192 disinfection (kill many pathogens, not always spores) \u2192 sterilization (all microbes incl. spores; autoclave steam under pressure most common)."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Bloodborne pathogens (OSHA)</b><br>Exposure control plan, HBV vaccine offer, PPE, engineering controls, post-exposure protocol: wash, report to supervisor, medical evaluation \u2014 don't start with 'call CDC yourself' as first step."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Exam trap</b><br>Trap: treating Standard Precautions as 'only if infectious.' They are for <b>all</b> patients."
+      },
+      {
+        "kind": "ask",
+        "prompt": "CDC Standard Precautions apply to:",
+        "choices": [
+          "Only known MRSA patients",
+          "All patient care, based on risk assessment, regardless of infection status",
+          "Only airborne diseases",
+          "Only surgical suites"
+        ],
+        "answer": 1,
+        "reveal": "Standard Precautions are the baseline for all patients in all settings."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "Alcohol-based hand rub is generally preferred for routine hand hygiene except when:",
+        "options": [
+          "Hands are not visibly soiled and you are busy",
+          "Hands are visibly soiled or caring for spore-forming organisms like C. difficile (soap/water)",
+          "You wore gloves",
+          "You used a computer"
+        ],
+        "answer": 1,
+        "explain": "Soap and water for visible soil and spore formers; alcohol is incomplete against spores."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "Which is an engineering control?",
+        "options": [
+          "Handwashing technique",
+          "Sharps container / safety-engineered needle",
+          "Choosing not to recap",
+          "Reading the SDS later"
+        ],
+        "answer": 1,
+        "explain": "Engineering controls redesign equipment/environment to reduce hazard."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Lock it in</b><br>Lesson 18 deep brief done. Run <b>Topic Drills</b> on this domain, then <b>Smart Review</b>. Cross the lesson off only after you can teach it out loud without notes."
+      }
+    ]
+  },
+  {
+    "id": "ccma-L19",
+    "chapter": 3,
+    "topic": "d3-intake-vitals",
+    "lessonNum": 19,
+    "title": "L19: Chief Complaint & History",
+    "blurb": "Interview, CC, HPI, ROS, PMH",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Lesson 19: Chief Complaint & History</b><br><br>Interview, CC, HPI, ROS, PMH<br><br><span class='mono'>Program spine:</span> Ch 32: The Medical History and Patient Screening, Ch 1: In-Person Screening, Ch 2: The Chief Complaint.<br>This brief is <b>original clinical study material</b> expanded from your lesson objectives + current standards (CDC/CLSI/ACC-AHA/NHA domain map) \u2014 not a textbook reprint."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Learning targets</b><br>\u2022 Describe the basic aspects of an in-person screening.<br>\u2022 Explain the purpose of documenting the chief complaint.<br>\u2022 Discuss the importance of obtaining a patient's health history and the sections it contains.<br>\u2022 Recall general guidelines for proper charting in the patient's medical record."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Exam weight alert</b><br>Clinical Patient Care is ~<b>56%</b> of CCMA scored items. Time spent here multiplies score more than polishing rare admin trivia."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Chief complaint craft</b><br>Patient's main reason for visit, preferably their words. Don't translate into a diagnosis prematurely."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>History architecture</b><br>CC \u2192 HPI (OLDCARTS/OPQRST) \u2192 PMH/PSH \u2192 meds/allergies \u2192 family \u2192 social \u2192 ROS. Allergy includes reaction type (rash vs anaphylaxis)."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Sensitive history</b><br>Privacy, nonjudgmental tone, screen for safety (IPV) per clinic protocol."
+      },
+      {
+        "kind": "ask",
+        "prompt": "The chief complaint should ideally be documented:",
+        "choices": [
+          "Only as an ICD code you invent",
+          "In the patient\u2019s words when possible",
+          "As a joke",
+          "Never"
+        ],
+        "answer": 1,
+        "reveal": "CC in patient language anchors the visit."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Lock it in</b><br>Lesson 19 deep brief done. Run <b>Topic Drills</b> on this domain, then <b>Smart Review</b>. Cross the lesson off only after you can teach it out loud without notes."
+      }
+    ]
+  },
+  {
+    "id": "ccma-L20",
+    "chapter": 3,
+    "topic": "d3-intake-vitals",
+    "lessonNum": 20,
+    "title": "L20: Body Measurements & Vitals",
+    "blurb": "Ht/Wt/BMI, T/P/R/BP/SpO2, pain",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Lesson 20: Body Measurements & Vitals</b><br><br>Ht/Wt/BMI, T/P/R/BP/SpO2, pain<br><br><span class='mono'>Program spine:</span> Ch 33: Body Measurements and Vital Signs, Ch 1: Body Measurements, Ch 2: Vital Signs: Body Temperature.<br>This brief is <b>original clinical study material</b> expanded from your lesson objectives + current standards (CDC/CLSI/ACC-AHA/NHA domain map) \u2014 not a textbook reprint."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Learning targets</b><br>\u2022 Explain the process of mensuration.<br>\u2022 Explain the process of measuring body temperature.<br>\u2022 Explain the process of measuring pulse rate.<br>\u2022 Explain the process of measuring respiration rate.<br>\u2022 Explain the process of measuring blood pressure."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Exam weight alert</b><br>Clinical Patient Care is ~<b>56%</b> of CCMA scored items. Time spent here multiplies score more than polishing rare admin trivia."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Adult reference ranges (exam-ready)</b><br>Pulse ~60\u2013100; RR ~12\u201320; oral temp ~97.6\u201399.6\u00b0F (site matters); SpO2 often \u226595% on room air (interpret clinically). Bradycardia &lt;60; tachycardia &gt;100."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>BP categories (ACC/AHA 2017 concept)</b><br>Normal &lt;120 and &lt;80; elevated 120\u2013129 and &lt;80; Stage 1 \u2265130 or \u226580 (know your program's preferred table \u2014 many exams still test classic thresholds too). Technique: correct cuff size, arm at heart level, feet floor, no talking."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Orthostatic (postural) hypotension</b><br>Classic definition: drop <b>\u226520 mm Hg systolic</b> or <b>\u226510 mm Hg diastolic</b> within <b>3 minutes</b> of standing. Practical protocol (CDC STEADI style): lie 5 min \u2192 measure \u2192 stand \u2192 measure at 1 and 3 min; note symptoms (dizzy/lightheaded)."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Conversions that show up</b><br>kg = lb \u00f7 2.2; BMI = kg/m\u00b2; \u00b0C = (\u00b0F\u221232)\u00d75/9. Apical pulse common for infants."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Pain scales</b><br>Numeric 0\u201310; Wong-Baker FACES for kids/language barriers; document what scale + score."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Exam trap</b><br>Trap: memorizing BP numbers without technique \u2014 wrong cuff size fails the skill."
+      },
+      {
+        "kind": "ask",
+        "prompt": "Orthostatic hypotension is classically defined as a drop within 3 minutes of standing of at least:",
+        "choices": [
+          "5 mm Hg systolic",
+          "20 mm Hg systolic or 10 mm Hg diastolic",
+          "50 mm Hg diastolic only",
+          "No number \u2014 only dizziness"
+        ],
+        "answer": 1,
+        "reveal": "Sustained \u2193SBP \u226520 or \u2193DBP \u226510 within 3 minutes of standing (from supine) is the standard definition."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "A practical orthostatic protocol includes lying measurement after rest, then standing measurements at about:",
+        "options": [
+          "Only 30 minutes later",
+          "1 and 3 minutes (after ~5 minutes supine rest in many protocols)",
+          "24 hours later",
+          "Never standing"
+        ],
+        "answer": 1,
+        "explain": "CDC STEADI-style: supine ~5 min, stand, recheck at 1 and 3 minutes; note symptoms."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "Correct adult BP technique includes:",
+        "options": [
+          "Cuff over clothing always, arm dangling",
+          "Supported arm at heart level, correct cuff size, feet on floor, quiet patient",
+          "Talking through the reading to distract",
+          "Cuff on forearm for all adults only"
+        ],
+        "answer": 1,
+        "explain": "Bad technique is a top cause of false hypertension readings."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Lock it in</b><br>Lesson 20 deep brief done. Run <b>Topic Drills</b> on this domain, then <b>Smart Review</b>. Cross the lesson off only after you can teach it out loud without notes."
+      }
+    ]
+  },
+  {
+    "id": "ccma-L21",
+    "chapter": 3,
+    "topic": "d3-general-care",
+    "lessonNum": 21,
+    "title": "L21: Preparing for Examinations",
+    "blurb": "Rooming, positions, draping",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Lesson 21: Preparing for Examinations</b><br><br>Rooming, positions, draping<br><br><span class='mono'>Program spine:</span> Ch 34: Preparing for Examinations, Ch 1: Preparing the Exam Room, Ch 2: Assisting the Patient.<br>This brief is <b>original clinical study material</b> expanded from your lesson objectives + current standards (CDC/CLSI/ACC-AHA/NHA domain map) \u2014 not a textbook reprint."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Learning targets</b><br>\u2022 Discuss how to maintain a treatment room prior to and after an examination.<br>\u2022 Discuss how to prepare and assist the patient for an examination.<br>\u2022 Identify standard positions that are required of patients during physical examinations."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Exam weight alert</b><br>Clinical Patient Care is ~<b>56%</b> of CCMA scored items. Time spent here multiplies score more than polishing rare admin trivia."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Position dictionary</b><br>Supine; prone; Fowler's/semi-Fowler's (dyspnea, head/neck/chest exam); lithotomy (pelvic); Sims (rectal/enema); dorsal recumbent; Trendelenburg (classic head-down \u2014 modern shock teaching varies); knee-chest."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Rooming safety</b><br>Two identifiers every time, privacy, fall risk, equipment ready, explain next step, drape for dignity."
+      },
+      {
+        "kind": "ask",
+        "prompt": "Best position among these for a dyspneic patient is often:",
+        "choices": [
+          "Flat prone only",
+          "Fowler\u2019s / semi-Fowler\u2019s",
+          "Trendelenburg always",
+          "Lithotomy"
+        ],
+        "answer": 1,
+        "reveal": "Head elevation eases breathing and is common for respiratory comfort/exams."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "Lithotomy position is primarily used for:",
+        "options": [
+          "Spinal tap only",
+          "Pelvic examinations",
+          "Chest x-ray only",
+          "Eye exam only"
+        ],
+        "answer": 1,
+        "explain": "Supine with hips/knees flexed, feet supported \u2014 pelvic/OB exams."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Lock it in</b><br>Lesson 21 deep brief done. Run <b>Topic Drills</b> on this domain, then <b>Smart Review</b>. Cross the lesson off only after you can teach it out loud without notes."
+      }
+    ]
+  },
+  {
+    "id": "ccma-L22",
+    "chapter": 3,
+    "topic": "d3-general-care",
+    "lessonNum": 22,
+    "title": "L22: Complete Physical Examination",
+    "blurb": "CPE sequence, instruments",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Lesson 22: Complete Physical Examination</b><br><br>CPE sequence, instruments<br><br><span class='mono'>Program spine:</span> Ch 35: The Physical Exam, Ch 1: The Physical Exam, Ch 2: Examination Techniques.<br>This brief is <b>original clinical study material</b> expanded from your lesson objectives + current standards (CDC/CLSI/ACC-AHA/NHA domain map) \u2014 not a textbook reprint."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Learning targets</b><br>\u2022 Discuss the complete physical examination, including the purpose of the examination, the<br>\u2022 Describe the six examination techniques used in physical examinations."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Exam weight alert</b><br>Clinical Patient Care is ~<b>56%</b> of CCMA scored items. Time spent here multiplies score more than polishing rare admin trivia."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Exam skill quartet</b><br>Inspection \u2192 palpation \u2192 percussion \u2192 auscultation (abdominal order may modify auscultation earlier \u2014 know provider preference)."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>CPE sequence (typical ambulatory)</b><br>History/vitals \u2192 exam \u2192 point-of-care/specimens \u2192 other diagnostics \u2192 counseling. Follow standing orders carefully."
+      },
+      {
+        "kind": "ask",
+        "prompt": "Auscultation means:",
+        "choices": [
+          "Looking only",
+          "Listening (usually with stethoscope)",
+          "Tapping only",
+          "Measuring height only"
+        ],
+        "answer": 1,
+        "reveal": "Auscultation = listen."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Lock it in</b><br>Lesson 22 deep brief done. Run <b>Topic Drills</b> on this domain, then <b>Smart Review</b>. Cross the lesson off only after you can teach it out loud without notes."
+      }
+    ]
+  },
+  {
+    "id": "ccma-L23",
+    "chapter": 3,
+    "topic": "d3-general-care",
+    "lessonNum": 23,
+    "title": "L23: Specialty Examinations",
+    "blurb": "Eye/ear/GYN/neuro specialty assist",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Lesson 23: Specialty Examinations</b><br><br>Eye/ear/GYN/neuro specialty assist<br><br><span class='mono'>Program spine:</span> Ch 37: OB/GYN Examinations, Ch 38: Pediatric Examinations, Ch 39: Geriatrics.<br>This brief is <b>original clinical study material</b> expanded from your lesson objectives + current standards (CDC/CLSI/ACC-AHA/NHA domain map) \u2014 not a textbook reprint."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Learning targets</b><br>\u2022 Discuss common procedures and screenings performed on general body systems.<br>\u2022 Discuss common examinations and tests in the field of OB/GYN.<br>\u2022 Explain the importance of growth monitoring, vaccinations, visual screening, and well-<br>\u2022 Discuss the field of geriatrics and the challenges of treating older adults."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Exam weight alert</b><br>Clinical Patient Care is ~<b>56%</b> of CCMA scored items. Time spent here multiplies score more than polishing rare admin trivia."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Specialty high-yield</b><br>Snellen (distance acuity); Ishihara (color); otoscope/ophthalmoscope assist; Weber/Rinne concepts; GYN setup (lithotomy, speculum knowledge); neuro screens (Romberg \u2014 guard against fall)."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Mensuration</b><br>Body measurements: height, weight, head circumference pediatrics, wound size."
+      },
+      {
+        "kind": "ask",
+        "prompt": "Snellen testing measures:",
+        "choices": [
+          "Color vision only",
+          "Distance visual acuity",
+          "Hearing",
+          "Intraocular pressure"
+        ],
+        "answer": 1,
+        "reveal": "Snellen = distance acuity; Ishihara = color; tonometry = pressure."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Lock it in</b><br>Lesson 23 deep brief done. Run <b>Topic Drills</b> on this domain, then <b>Smart Review</b>. Cross the lesson off only after you can teach it out loud without notes."
+      }
+    ]
+  },
+  {
+    "id": "ccma-L24",
+    "chapter": 3,
+    "topic": "d3-lab",
+    "lessonNum": 24,
+    "title": "L24: Physician Office Laboratory",
+    "blurb": "CLIA, QC, common waived tests",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Lesson 24: Physician Office Laboratory</b><br><br>CLIA, QC, common waived tests<br><br><span class='mono'>Program spine:</span> Ch 41: The Physician\u2019s Office Laboratory, Ch 1: Medical Laboratories, Ch 2: Clinical Laboratory Improvement Amendments (CLIA \u201988).<br>This brief is <b>original clinical study material</b> expanded from your lesson objectives + current standards (CDC/CLSI/ACC-AHA/NHA domain map) \u2014 not a textbook reprint."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Learning targets</b><br>\u2022 Discuss the types of medical laboratories, laboratory personnel, safety guidelines, and<br>\u2022 Explain the purpose of Clinical Laboratory Improvement Amendments and CLIA-waived<br>\u2022 Identify body specimens used in laboratory testing, including proper handling, storing,<br>\u2022 Differentiate between laboratory requisitions and reports."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Exam weight alert</b><br>Clinical Patient Care is ~<b>56%</b> of CCMA scored items. Time spent here multiplies score more than polishing rare admin trivia."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>CLIA mindset</b><br>Waived tests = simple, low risk of erroneous result when manufacturer directions followed (urine dip, many rapid strep, glucose meters). Still need QC, training, documentation."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>QC rule</b><br>Run controls as required; if out of range, do not report patient results until corrected/investigated."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Gram stain</b><br>Gram-positive retain crystal violet (purple); Gram-negative take safranin (pink/red)."
+      },
+      {
+        "kind": "ask",
+        "prompt": "If QC is out of range, the correct action is to:",
+        "choices": [
+          "Report patient results anyway",
+          "Troubleshoot/do not release patient results until QC is acceptable",
+          "Delete the controls",
+          "Guess the value"
+        ],
+        "answer": 1,
+        "reveal": "Bad QC means the test system is not verified \u2014 fix first."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "Gram-negative organisms stain:",
+        "options": [
+          "Purple",
+          "Pink/red",
+          "Green always",
+          "Black always"
+        ],
+        "answer": 1,
+        "explain": "Thin peptidoglycan wall does not retain crystal violet; safranin pink."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Lock it in</b><br>Lesson 24 deep brief done. Run <b>Topic Drills</b> on this domain, then <b>Smart Review</b>. Cross the lesson off only after you can teach it out loud without notes."
+      }
+    ]
+  },
+  {
+    "id": "ccma-L25",
+    "chapter": 3,
+    "topic": "d3-lab",
+    "lessonNum": 25,
+    "title": "L25: Specimen Collection",
+    "blurb": "Labeling, urine, cultures, chain of custody",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Lesson 25: Specimen Collection</b><br><br>Labeling, urine, cultures, chain of custody<br><br><span class='mono'>Program spine:</span> Ch 42: Specimen Collection and Processing, Ch 1: Urine Specimens, Ch 2: Fecal Specimens.<br>This brief is <b>original clinical study material</b> expanded from your lesson objectives + current standards (CDC/CLSI/ACC-AHA/NHA domain map) \u2014 not a textbook reprint."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Learning targets</b><br>\u2022 Discuss the collection and processing of urine specimens.<br>\u2022 Discuss the collection and processing of fecal specimens.<br>\u2022 Discuss the collection and processing of culture specimens, throat swabs, and sputum"
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Exam weight alert</b><br>Clinical Patient Care is ~<b>56%</b> of CCMA scored items. Time spent here multiplies score more than polishing rare admin trivia."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Preanalytic errors dominate</b><br>Wrong patient, wrong tube, hemolysis, mislabel, delayed transport, wrong prep (not fasting) wreck results before the analyzer ever runs."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Labeling gold standard</b><br>Label at side of patient immediately after collection with two identifiers + date/time/collector per policy."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Chain of custody</b><br>Legal/forensic/drug screens: unbroken documented possession trail."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Urine culture technique</b><br>Clean-catch midstream reduces contamination from normal flora."
+      },
+      {
+        "kind": "ask",
+        "prompt": "The most important labeling practice is to label:",
+        "choices": [
+          "At the end of the day in batches",
+          "At the time of collection at the patient\u2019s side with correct identifiers",
+          "With room number only",
+          "Never if barcoded somewhere"
+        ],
+        "answer": 1,
+        "reveal": "Wrong-patient specimens are catastrophic preanalytic errors."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Lock it in</b><br>Lesson 25 deep brief done. Run <b>Topic Drills</b> on this domain, then <b>Smart Review</b>. Cross the lesson off only after you can teach it out loud without notes."
+      }
+    ]
+  },
+  {
+    "id": "ccma-L26",
+    "chapter": 3,
+    "topic": "d3-phlebotomy",
+    "lessonNum": 26,
+    "title": "L26: Introduction to Phlebotomy",
+    "blurb": "Order of draw, venipuncture, safety",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Lesson 26: Introduction to Phlebotomy</b><br><br>Order of draw, venipuncture, safety<br><br><span class='mono'>Program spine:</span> Ch 43: Blood Specimen Collection, Ch 1: Composition of Blood, Ch 2: Factors that Influence Blood Test Results and Collection.<br>This brief is <b>original clinical study material</b> expanded from your lesson objectives + current standards (CDC/CLSI/ACC-AHA/NHA domain map) \u2014 not a textbook reprint."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Learning targets</b><br>\u2022 Explain the composition of blood.<br>\u2022 Identify the factors that influence blood test results and collection sites.<br>\u2022 Describe phlebotomy supplies, order of draw, and labeling.<br>\u2022 Discuss venipuncture methods and capillary puncture."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Exam weight alert</b><br>Clinical Patient Care is ~<b>56%</b> of CCMA scored items. Time spent here multiplies score more than polishing rare admin trivia."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>CLSI order of draw (memorize)</b><br>1) Blood culture<br>2) Sodium citrate (light blue)<br>3) Serum (red/gold/SST)<br>4) Heparin (green)<br>5) EDTA (lavender/pink)<br>6) Fluoride/oxalate (gray)<br>Why: additive carryover falsifies results (e.g., EDTA \u2192 falsely high K+, low Ca2+)."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Tube jobs</b><br>Light blue = coags (fill ratio critical, usually 9:1).<br>Lavender EDTA = CBC/hematology.<br>SST = many chemistries.<br>Gray = glucose (glycolytic inhibitor).<br>Pink EDTA often blood bank."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Tourniquet science</b><br>CLSI: ideally \u2264 <b>1 minute</b>. Longer \u2192 hemoconcentration, falsely \u2191 proteins/K+/etc. If on too long during search, release and wait before reapplying."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Vein choice</b><br>Median cubital preferred \u2192 cephalic \u2192 basilic last (proximity to brachial artery/nerves). Avoid fist pumping excessively; alcohol dry before stick."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Complications</b><br>Hematoma (inadequate pressure/through-and-through), syncope, nerve injury, arterial puncture (bright pulsatile \u2014 remove, pressure, help), hemolysis (trauma, tiny needle+force, wet alcohol)."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Safety endgame</b><br>Activate safety device, sharps container immediately, pressure, bandage, label, invert additive tubes gently per count."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Exam trap</b><br>Trap: confusing tube colors or skipping cultures-first order of draw."
+      },
+      {
+        "kind": "ask",
+        "prompt": "Per CLSI-style order of draw, which is collected first among these?",
+        "choices": [
+          "Lavender EDTA",
+          "Light-blue citrate",
+          "Blood culture bottles/tubes",
+          "Gray fluoride"
+        ],
+        "answer": 2,
+        "reveal": "Blood cultures first to reduce contamination, then citrate, serum, heparin, EDTA, glycolytic inhibitor."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "Why is order of draw important?",
+        "options": [
+          "It makes labels prettier",
+          "Additive carryover can falsely alter subsequent test results",
+          "It is only for aesthetics",
+          "Insurance requires rainbows"
+        ],
+        "answer": 1,
+        "explain": "EDTA carryover can raise K+ and lower Ca2+ in later tubes; citrate fill ratios also critical for coags."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "CLSI guidance limits routine tourniquet application to about:",
+        "options": [
+          "10 seconds",
+          "1 minute",
+          "5 minutes",
+          "15 minutes"
+        ],
+        "answer": 1,
+        "explain": "\u22641 minute reduces hemoconcentration; release and wait if prolonged searching was needed."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Lock it in</b><br>Lesson 26 deep brief done. Run <b>Topic Drills</b> on this domain, then <b>Smart Review</b>. Cross the lesson off only after you can teach it out loud without notes."
+      }
+    ]
+  },
+  {
+    "id": "ccma-L27",
+    "chapter": 3,
+    "topic": "d3-lab",
+    "lessonNum": 27,
+    "title": "L27: Diagnostic Testing",
+    "blurb": "Common office diagnostics",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Lesson 27: Diagnostic Testing</b><br><br>Common office diagnostics<br><br><span class='mono'>Program spine:</span> Ch 44: Diagnostic Testing, Ch 1: Hematology Testing, Ch 2: Chemistry Testing.<br>This brief is <b>original clinical study material</b> expanded from your lesson objectives + current standards (CDC/CLSI/ACC-AHA/NHA domain map) \u2014 not a textbook reprint."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Learning targets</b><br>\u2022 Discuss five common hematology tests used in diagnosing and monitoring diseases.<br>\u2022 Identify two CLIA-waived chemistry tests.<br>\u2022 Explain laboratory panels, test reporting, and documentation.<br>\u2022 Summarize immunology testing as it relates to allergies."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Exam weight alert</b><br>Clinical Patient Care is ~<b>56%</b> of CCMA scored items. Time spent here multiplies score more than polishing rare admin trivia."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Diagnostic testing role of MA</b><br>Prep instructions (NPO, meds), correct collection, machine QC, accurate documentation, critical value notification pathway."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Peak vs trough</b><br>Peak = highest level after dose; trough = lowest before next dose \u2014 common for certain antimicrobials."
+      },
+      {
+        "kind": "ask",
+        "prompt": "A trough drug level is typically drawn:",
+        "choices": [
+          "At the peak of effect always",
+          "Just before the next dose (lowest level)",
+          "One year later",
+          "Only after discharge"
+        ],
+        "answer": 1,
+        "reveal": "Trough = nadir before redose."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Lock it in</b><br>Lesson 27 deep brief done. Run <b>Topic Drills</b> on this domain, then <b>Smart Review</b>. Cross the lesson off only after you can teach it out loud without notes."
+      }
+    ]
+  },
+  {
+    "id": "ccma-L28",
+    "chapter": 3,
+    "topic": "d3-ekg",
+    "lessonNum": 28,
+    "title": "L28: Cardiology Procedures",
+    "blurb": "ECG leads, artifacts, Holter",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Lesson 28: Cardiology Procedures</b><br><br>ECG leads, artifacts, Holter<br><br><span class='mono'>Program spine:</span> Ch 45: Cardiology Procedures, Ch 1: Electrical Conduction System of the Heart, Ch 2: Electrocardiogram (ECG).<br>This brief is <b>original clinical study material</b> expanded from your lesson objectives + current standards (CDC/CLSI/ACC-AHA/NHA domain map) \u2014 not a textbook reprint."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Learning targets</b><br>\u2022 Explain the electrical conduction system of the heart.<br>\u2022 Describe the process of recording an electrocardiogram with an electrocardiography<br>\u2022 Differentiate between normal sinus rhythm and arrhythmias.<br>\u2022 Discuss the Holter monitor procedure."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Exam weight alert</b><br>Clinical Patient Care is ~<b>56%</b> of CCMA scored items. Time spent here multiplies score more than polishing rare admin trivia."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>12-lead setup</b><br>10 electrodes \u2192 12 views. Limb leads + V1\u2013V6. V1: 4th ICS right sternal border; V2 left sternal; V4 5th ICS midclavicular; V3 between V2\u2013V4; V5\u2013V6 lateral."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Waveforms</b><br>P atrial depol; QRS ventricular depol; T ventricular repol. Paper speed 25 mm/s: small box 0.04 s; large 0.20 s. Rate \u2248 300 / # large boxes between R waves (regular)."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Artifacts</b><br>Somatic tremor (shiver/Parkinsonian/tense); wandering baseline (loose electrode, oils, hair, breathing); AC interference (60 Hz electrical); interrupted baseline (loose lead wire)."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Patient prep</b><br>Rest, expose chest modestly, dry skin, shave only if needed per policy, no phones on chest, stay still."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Exam trap</b><br>Trap: swapping V1/V2 sides or calling QRS 'atrial.'"
+      },
+      {
+        "kind": "ask",
+        "prompt": "How many electrodes are typically placed for a standard 12-lead ECG?",
+        "choices": [
+          "6",
+          "10",
+          "12",
+          "4"
+        ],
+        "answer": 1,
+        "reveal": "10 electrodes create 12 leads/views."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "V1 is placed at the:",
+        "options": [
+          "5th ICS midclavicular left",
+          "4th intercostal space, right sternal border",
+          "2nd ICS left midclavicular",
+          "Xiphoid tip only"
+        ],
+        "answer": 1,
+        "explain": "V1 = 4th ICS RSB; V2 left sternal border."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "At 25 mm/s, one large ECG box equals:",
+        "options": [
+          "0.04 s",
+          "0.20 s",
+          "1.0 s",
+          "2.0 s"
+        ],
+        "answer": 1,
+        "explain": "Small box 0.04 s; large (5 mm) 0.20 s."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Lock it in</b><br>Lesson 28 deep brief done. Run <b>Topic Drills</b> on this domain, then <b>Smart Review</b>. Cross the lesson off only after you can teach it out loud without notes."
+      }
+    ]
+  },
+  {
+    "id": "ccma-L29",
+    "chapter": 3,
+    "topic": "d3-general-care",
+    "lessonNum": 29,
+    "title": "L29: Diagnostic Imaging",
+    "blurb": "X-ray, CT, MRI patient prep",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Lesson 29: Diagnostic Imaging</b><br><br>X-ray, CT, MRI patient prep<br><br><span class='mono'>Program spine:</span> Ch 46: Radiology Procedures, Ch 1: Radiologic Studies, Ch 2: Computed Tomography (CT).<br>This brief is <b>original clinical study material</b> expanded from your lesson objectives + current standards (CDC/CLSI/ACC-AHA/NHA domain map) \u2014 not a textbook reprint."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Learning targets</b><br>\u2022 Describe common radiologic studies and the patient education provided by the medical<br>\u2022 Describe the computed tomography (CT) scan and the patient education provided by the<br>\u2022 Describe the positron emission tomography (PET) scan used in nuclear medicine and the<br>\u2022 Describe ultrasonography and the patient education provided by the medical assistant.<br>\u2022 Describe magnetic resonance imaging (MRI) and the patient education provided by the"
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Exam weight alert</b><br>Clinical Patient Care is ~<b>56%</b> of CCMA scored items. Time spent here multiplies score more than polishing rare admin trivia."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Imaging safety questions</b><br>Pregnancy possibility, allergies (contrast/iodine/shellfish history is imperfect but often asked), metal/implants for MRI, NPO for some studies, kidney function for certain contrast."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>MA role</b><br>Education + logistics + documentation \u2014 interpretation is provider/radiologist."
+      },
+      {
+        "kind": "ask",
+        "prompt": "MRI safety screening prioritizes:",
+        "choices": [
+          "Favorite color",
+          "Ferromagnetic implants/devices and other contraindications",
+          "Shoe size only",
+          "Zip code only"
+        ],
+        "answer": 1,
+        "reveal": "Metal/device safety is non-negotiable."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Lock it in</b><br>Lesson 29 deep brief done. Run <b>Topic Drills</b> on this domain, then <b>Smart Review</b>. Cross the lesson off only after you can teach it out loud without notes."
+      }
+    ]
+  },
+  {
+    "id": "ccma-L30",
+    "chapter": 3,
+    "topic": "d3-general-care",
+    "lessonNum": 30,
+    "title": "L30: Minor Office Surgeries",
+    "blurb": "Sterile field, instruments, assist",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Lesson 30: Minor Office Surgeries</b><br><br>Sterile field, instruments, assist<br><br><span class='mono'>Program spine:</span> Ch 47: Preparing for Surgery, Ch 48: Assisting with Minor Surgery, Ch 1: Surgical Instruments.<br>This brief is <b>original clinical study material</b> expanded from your lesson objectives + current standards (CDC/CLSI/ACC-AHA/NHA domain map) \u2014 not a textbook reprint."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Learning targets</b><br>\u2022 Recall the names, uses, and care of common surgical instruments.<br>\u2022 Discuss the medical assistant's role in minor office surgeries.<br>\u2022 Explain surgical asepsis as it pertains to minor office surgeries.<br>\u2022 Summarize common types of minor office surgeries."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Exam weight alert</b><br>Clinical Patient Care is ~<b>56%</b> of CCMA scored items. Time spent here multiplies score more than polishing rare admin trivia."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Sterile field rules</b><br>1-inch border nonsterile concept (common teaching), don't turn back on field, wet = contaminated, hands above waist, open packages away from you correctly."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Instrument classes</b><br>Cutting (scissors/scalpel), grasping (forceps), clamping (hemostat), probing/dilating, retracting."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Wound closure assist</b><br>I&D for abscess concepts; sterile dressing vs bandage (dressing contacts wound)."
+      },
+      {
+        "kind": "ask",
+        "prompt": "A sterile dressing primarily:",
+        "choices": [
+          "Decorates the cast",
+          "Covers the wound to protect from contamination",
+          "Replaces hand hygiene",
+          "Is the same as a billing superbill"
+        ],
+        "answer": 1,
+        "reveal": "Dressing contacts the wound; bandage secures."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Lock it in</b><br>Lesson 30 deep brief done. Run <b>Topic Drills</b> on this domain, then <b>Smart Review</b>. Cross the lesson off only after you can teach it out loud without notes."
+      }
+    ]
+  },
+  {
+    "id": "ccma-L31",
+    "chapter": 3,
+    "topic": "d3-pharm",
+    "lessonNum": 31,
+    "title": "L31: Medication Dosage Calculations",
+    "blurb": "Metric, household, dimensional analysis",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Lesson 31: Medication Dosage Calculations</b><br><br>Metric, household, dimensional analysis<br><br><span class='mono'>Program spine:</span> Ch 50: Measurement Systems, Basic Mathematics, and Dosage Calculations, Ch 1: Basic Mathematics, Ch 2: Systems of Measurement.<br>This brief is <b>original clinical study material</b> expanded from your lesson objectives + current standards (CDC/CLSI/ACC-AHA/NHA domain map) \u2014 not a textbook reprint."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Learning targets</b><br>\u2022 Explain how to perform basic mathematics used by medical assistants.<br>\u2022 Define the basic units of measurement in the metric and household systems.<br>\u2022 Identify abbreviations used in medication administration and those on the \u201cDo Not Use\u201d<br>\u2022 Calculate proper dosages of medication from providers' orders."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Exam weight alert</b><br>Clinical Patient Care is ~<b>56%</b> of CCMA scored items. Time spent here multiplies score more than polishing rare admin trivia."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Dimensional analysis</b><br>Set up so units cancel. Pediatric weight-based dosing: verify weight in kg. Never trail zeros that confuse (1.0 vs 10)."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Household \u2248 metric</b><br>1 tsp \u2248 5 mL; 1 Tbsp \u2248 15 mL; 1 oz \u2248 30 mL. Prefer metric in clinical practice."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Sanity check</b><br>If answer is 50 tablets once daily for a maintenance med, recheck math before giving."
+      },
+      {
+        "kind": "ask",
+        "prompt": "1 teaspoon is approximately:",
+        "choices": [
+          "1 mL",
+          "5 mL",
+          "15 mL",
+          "30 mL"
+        ],
+        "answer": 1,
+        "reveal": "1 tsp \u2248 5 mL; 1 Tbsp \u2248 15 mL."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Lock it in</b><br>Lesson 31 deep brief done. Run <b>Topic Drills</b> on this domain, then <b>Smart Review</b>. Cross the lesson off only after you can teach it out loud without notes."
+      }
+    ]
+  },
+  {
+    "id": "ccma-L32",
+    "chapter": 3,
+    "topic": "d3-pharm",
+    "lessonNum": 32,
+    "title": "L32: Administering Medications",
+    "blurb": "Rights, routes, injections",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Lesson 32: Administering Medications</b><br><br>Rights, routes, injections<br><br><span class='mono'>Program spine:</span> Ch 51: Administering Oral and Noninjectable Medications, Ch 52: Administering Injections and Immunizations, Ch 1: Noninjectable Administration of Medication.<br>This brief is <b>original clinical study material</b> expanded from your lesson objectives + current standards (CDC/CLSI/ACC-AHA/NHA domain map) \u2014 not a textbook reprint."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Learning targets</b><br>\u2022 Discuss noninjectable administration of medication, including administration guidelines<br>\u2022 Explain the parts of a syringe and needle, how to withdraw medication, and how to<br>\u2022 Describe three common injectable routes of administration that medical assistants<br>\u2022 Identify the importance of childhood and adult vaccinations."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Exam weight alert</b><br>Clinical Patient Care is ~<b>56%</b> of CCMA scored items. Time spent here multiplies score more than polishing rare admin trivia."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Rights (expanded)</b><br>Patient, drug, dose, route, time, documentation, reason; many also teach right response, education, refuse."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Parenteral angles (classic teaching)</b><br>ID ~10\u201315\u00b0 (wheal); SQ ~45\u00b0 (or 90\u00b0 short needle/insulin per protocol); IM ~90\u00b0. Aspirate rules vary by med/policy \u2014 follow current facility protocol."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Sites</b><br>Deltoid (adult vaccines); vastus lateralis (infants); ventrogluteal preferred many large IM; dorsogluteal out of favor (sciatic risk). Z-track for irritating IM meds."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Insulin / high-alert</b><br>High-alert meds need double-checks per policy. Never mix unless compatible and ordered."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Exam trap</b><br>Trap: wrong angle/site; never freestyle high-alert meds."
+      },
+      {
+        "kind": "ask",
+        "prompt": "Among common routes, the fastest systemic onset is generally:",
+        "choices": [
+          "Oral tablet",
+          "Intravenous",
+          "Transdermal patch",
+          "Topical cream"
+        ],
+        "answer": 1,
+        "reveal": "IV delivers drug directly into blood."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "Intradermal injections are classically given at about:",
+        "options": [
+          "90\u00b0",
+          "45\u00b0",
+          "10\u201315\u00b0 to raise a wheal",
+          "180\u00b0"
+        ],
+        "answer": 2,
+        "explain": "ID is nearly parallel to skin to produce a wheal (TB/allergy testing)."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "A preferred large-volume IM site that avoids sciatic risk better than classic dorsogluteal is:",
+        "options": [
+          "Deltoid only always",
+          "Ventrogluteal",
+          "Earlobe",
+          "Forearm ID"
+        ],
+        "answer": 1,
+        "explain": "Ventrogluteal is preferred for many IM injections; dorsogluteal is out of favor."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Lock it in</b><br>Lesson 32 deep brief done. Run <b>Topic Drills</b> on this domain, then <b>Smart Review</b>. Cross the lesson off only after you can teach it out loud without notes."
+      }
+    ]
+  },
+  {
+    "id": "ccma-L33",
+    "chapter": 3,
+    "topic": "d3-emergency",
+    "lessonNum": 33,
+    "title": "L33: Emergencies in the Office",
+    "blurb": "Crash cart, BLS, common emergencies",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Lesson 33: Emergencies in the Office</b><br><br>Crash cart, BLS, common emergencies<br><br><span class='mono'>Program spine:</span> Ch 53: Emergencies in the Medical Office and the Community, Ch 1: Medical Office Emergencies, Ch 2: Common Medical Office Emergencies.<br>This brief is <b>original clinical study material</b> expanded from your lesson objectives + current standards (CDC/CLSI/ACC-AHA/NHA domain map) \u2014 not a textbook reprint."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Learning targets</b><br>\u2022 Discuss the essential aspects of medical office emergencies.<br>\u2022 Explain how to recognize and respond to common office emergencies."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Exam weight alert</b><br>Clinical Patient Care is ~<b>56%</b> of CCMA scored items. Time spent here multiplies score more than polishing rare admin trivia."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Emergency priorities</b><br>Scene safety \u2192 responsiveness \u2192 activate EMS/AED pathway \u2192 CAB/high-quality CPR if indicated (rate ~100\u2013120, depth ~2 in adults, full recoil)."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Anaphylaxis</b><br>Multi-system: skin + respiratory + cardiovascular. Epinephrine is first-line treatment concept; don't delay for antihistamine-only thinking."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Shock types (names)</b><br>Hypovolemic (volume loss), anaphylactic, septic, cardiogenic \u2014 MA recognizes + supports ABCs, positions per protocol, oxygen if ordered/allowed."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Syncope</b><br>Protect from injury, supine, assess, glucose/considerations per protocol, document prodrome."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Crash cart literacy</b><br>Know location, check logs, common prefilled meds (e.g., epinephrine, lidocaine concepts), airway equipment."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Exam trap</b><br>Trap: delaying epi conceptually for anaphylaxis; delaying EMS activation."
+      },
+      {
+        "kind": "ask",
+        "prompt": "Adult high-quality CPR compression rate target is about:",
+        "choices": [
+          "40\u201350/min",
+          "100\u2013120/min",
+          "20/min",
+          "200/min"
+        ],
+        "answer": 1,
+        "reveal": "Hard and fast ~100\u2013120/min with adequate depth and full recoil; minimize interruptions."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "First-line medication concept for anaphylaxis is:",
+        "options": [
+          "Oral antihistamine only always",
+          "Epinephrine",
+          "Vitamin C",
+          "A billing code"
+        ],
+        "answer": 1,
+        "explain": "Epinephrine addresses airway/vascular collapse; don\u2019t delay for secondary meds."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "Syncope management starts with:",
+        "options": [
+          "Running a full marathon with the patient",
+          "Protect from injury, supine positioning, assess ABCs, notify provider",
+          "Immediate discharge home without assessment",
+          "IM antibiotic"
+        ],
+        "answer": 1,
+        "explain": "Safety + perfusion position + evaluation."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Lock it in</b><br>Lesson 33 deep brief done. Run <b>Topic Drills</b> on this domain, then <b>Smart Review</b>. Cross the lesson off only after you can teach it out loud without notes."
+      }
+    ]
+  },
+  {
+    "id": "ccma-L34",
+    "chapter": 3,
+    "topic": "d3-emergency",
+    "lessonNum": 34,
+    "title": "L34: First Aid & Mental Health",
+    "blurb": "First aid, crisis, psych emergencies",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Lesson 34: First Aid & Mental Health</b><br><br>First aid, crisis, psych emergencies<br><br><span class='mono'>Program spine:</span> Ch 54: First Aid for Accidents and Injuries, Ch 40: Mental Health, Ch 1: Common Injuries Requiring First Aid.<br>This brief is <b>original clinical study material</b> expanded from your lesson objectives + current standards (CDC/CLSI/ACC-AHA/NHA domain map) \u2014 not a textbook reprint."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Learning targets</b><br>\u2022 Discuss first aid procedures for common injuries in the ambulatory health care setting.<br>\u2022 Describe the role of the medical assistant when assisting with mental health patients."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Exam weight alert</b><br>Clinical Patient Care is ~<b>56%</b> of CCMA scored items. Time spent here multiplies score more than polishing rare admin trivia."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>First aid vs medical diagnosis</b><br>Stop life threats, prevent further harm, get advanced help. Stay in scope."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Mental health crisis</b><br>Safety first (weapons, elopement, SI/HI). Calm environment, don't leave high-risk alone if policy requires continuous observation, involve provider/EMS."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Choking</b><br>Severe obstruction (can't speak/cough effectively) \u2192 abdominal thrusts (chest thrusts if pregnant/obese) per training."
+      },
+      {
+        "kind": "ask",
+        "prompt": "For a responsive adult with severe choking (cannot speak/cough effectively), trained responders use:",
+        "choices": [
+          "Abdominal thrusts per protocol",
+          "A nebulizer treatment first always",
+          "Only observation for 2 hours",
+          "Oral antibiotics"
+        ],
+        "answer": 0,
+        "reveal": "Severe obstruction \u2192 thrusts/back blows sequence per training."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Lock it in</b><br>Lesson 34 deep brief done. Run <b>Topic Drills</b> on this domain, then <b>Smart Review</b>. Cross the lesson off only after you can teach it out loud without notes."
+      }
+    ]
+  },
+  {
+    "id": "ccma-L35",
+    "chapter": 3,
+    "topic": "d3-general-care",
+    "lessonNum": 35,
+    "title": "L35: Rehabilitation",
+    "blurb": "Modalities, assistive devices, cane use",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Lesson 35: Rehabilitation</b><br><br>Modalities, assistive devices, cane use<br><br><span class='mono'>Program spine:</span> Ch 55: Rehabilitation, Ch 1: Rehabilitative Medicine, Ch 2: Principles of Body Mechanics.<br>This brief is <b>original clinical study material</b> expanded from your lesson objectives + current standards (CDC/CLSI/ACC-AHA/NHA domain map) \u2014 not a textbook reprint."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Learning targets</b><br>\u2022 Discuss the field of rehabilitative medicine.<br>\u2022 Explain the importance of proper body mechanics.<br>\u2022 Describe assistive and mobility devices used in rehabilitation.<br>\u2022 Identify therapeutic modalities used in rehabilitation."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Exam weight alert</b><br>Clinical Patient Care is ~<b>56%</b> of CCMA scored items. Time spent here multiplies score more than polishing rare admin trivia."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Cane teaching (classic)</b><br>Hold on <b>strong</b> side; cane advances with weak leg; fit to greater trochanter / elbow flexion ~15\u201330\u00b0 (program-dependent wording)."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Modalities</b><br>Cold for acute inflammation/injury; heat for chronic muscle spasm \u2014 contraindications matter (sensation loss, impaired circulation)."
+      },
+      {
+        "kind": "ask",
+        "prompt": "A cane is typically held on the patient\u2019s:",
+        "choices": [
+          "Weak side only as absolute rule",
+          "Strong side (classic teaching)",
+          "Head",
+          "Both hands on one cane always"
+        ],
+        "answer": 1,
+        "reveal": "Strong-side hold with gait pattern teaching; fit matters."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Lock it in</b><br>Lesson 35 deep brief done. Run <b>Topic Drills</b> on this domain, then <b>Smart Review</b>. Cross the lesson off only after you can teach it out loud without notes."
+      }
+    ]
+  },
+  {
+    "id": "ccma-L36",
+    "chapter": 4,
+    "topic": "d4-education",
+    "lessonNum": 36,
+    "title": "L36: Nutrition & Special Diets",
+    "blurb": "Macros, BMI, therapeutic diets",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Lesson 36: Nutrition & Special Diets</b><br><br>Macros, BMI, therapeutic diets<br><br><span class='mono'>Program spine:</span> Ch 56: Nutrition, Exercise, and Healthy Living, Ch 1: Nutrition, Ch 2: Nutrients.<br>This brief is <b>original clinical study material</b> expanded from your lesson objectives + current standards (CDC/CLSI/ACC-AHA/NHA domain map) \u2014 not a textbook reprint."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Learning targets</b><br>\u2022 Summarize the importance of nutrition and nutrition facts labels.<br>\u2022 Discuss the role of essential and nonessential nutrients for healthy living.<br>\u2022 Explain why therapeutic diets are necessary for specific conditions or diseases.<br>\u2022 Identify three common eating disorders and their effects on the human body."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Energy density</b><br>Carb ~4 kcal/g; protein ~4; fat ~9; alcohol ~7. Vitamins/minerals ~0 energy but essential."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>BMI classes (common)</b><br>Underweight &lt;18.5; healthy 18.5\u201324.9; overweight 25\u201329.9; obese \u226530."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Diet patterns</b><br>Vegan no animal products; lacto-ovo dairy+eggs+plants; therapeutic diets are orders (cardiac, diabetic, renal, clear liquid)."
+      },
+      {
+        "kind": "ask",
+        "prompt": "Fat provides approximately how many kcal per gram?",
+        "choices": [
+          "4",
+          "7",
+          "9",
+          "0"
+        ],
+        "answer": 2,
+        "reveal": "Fat ~9 kcal/g; carb/protein ~4; alcohol ~7."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Lock it in</b><br>Lesson 36 deep brief done. Run <b>Topic Drills</b> on this domain, then <b>Smart Review</b>. Cross the lesson off only after you can teach it out loud without notes."
+      }
+    ]
+  },
+  {
+    "id": "ccma-L37",
+    "chapter": 8,
+    "topic": "mock-mixed",
+    "lessonNum": 37,
+    "title": "L37: Certification & Mock Exam",
+    "blurb": "NHA domains, mock final, test strategy",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Lesson 37: Certification & Mock Exam</b><br><br>NHA domains, mock final, test strategy<br><br><span class='mono'>Program spine:</span> Ch 1: The Certification Exam, Ch 2: Study Strategies for Certification Exams, Ch 3: Before the Exam.<br>This brief is <b>original clinical study material</b> expanded from your lesson objectives + current standards (CDC/CLSI/ACC-AHA/NHA domain map) \u2014 not a textbook reprint."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Learning targets</b><br>\u2022 Discuss the advantages of obtaining certification.<br>\u2022 Identify effective certification study strategies.<br>\u2022 Discuss important information to follow before the exam.<br>\u2022 Recall specific tips for the day of the exam."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Exam architecture (NHA 2022 plan)</b><br>150 scored + pretest items; 3 hours. Domains: Foundations 15, A&P 8, Clinical Patient Care 84 (intake/vitals 14, general care 28, infection 15, lab 9, phleb 12, EKG 6), Care coordination 12, Admin 12, Communication 12, Law/ethics 7."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Study physics for ADHD brains</b><br>Rotate domains (don't hyperfocus one). Daily Smart Review. Full mock until 70%+ stable. Sleep &amp; active recall &gt; rereading."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Test-day tactics</b><br>Read stem fully; eliminate absolutes; watch for 'first'/'most appropriate'; flag &amp; return; don't change answers without a reason."
+      },
+      {
+        "kind": "ask",
+        "prompt": "On the NHA CCMA plan, phlebotomy is scored under Clinical Patient Care with about how many items?",
+        "choices": [
+          "2",
+          "12",
+          "50",
+          "0"
+        ],
+        "answer": 1,
+        "reveal": "Phlebotomy ~12 items; infection ~15; vitals ~14; general care ~28 \u2014 know the map."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "A reasonable mock-exam readiness target cited by many programs is about:",
+        "options": [
+          "20% once",
+          "70%+ consistently",
+          "5% average",
+          "100% only on easy modes"
+        ],
+        "answer": 1,
+        "explain": "Treat mocks like the real timed exam; remediate weak domains between attempts."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Lock it in</b><br>Lesson 37 deep brief done. Run <b>Topic Drills</b> on this domain, then <b>Smart Review</b>. Cross the lesson off only after you can teach it out loud without notes."
+      }
+    ]
+  },
+  {
+    "id": "ccma-L38",
+    "chapter": 1,
+    "topic": "d1-foundations",
+    "lessonNum": 38,
+    "title": "L38: Preparing for Your Career",
+    "blurb": "Resume, interview, credentialing",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Lesson 38: Preparing for Your Career</b><br><br>Resume, interview, credentialing<br><br><span class='mono'>Program spine:</span> Ch 57: Practicum and the Job Search, Ch 1: Job Search, Ch 2: Resume, Cover Letter, and Application.<br>This brief is <b>original clinical study material</b> expanded from your lesson objectives + current standards (CDC/CLSI/ACC-AHA/NHA domain map) \u2014 not a textbook reprint."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Learning targets</b><br>\u2022 Discuss how to conduct a job search.<br>\u2022 State the purpose of a r\u00e9sum\u00e9, cover letter, and employment application.<br>\u2022 Recall important strategies for a job interview."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Hireability package</b><br>CCMA + BLS, skills list (vitals, phleb, ECG, injections if trained, EHR), externship outcomes, professional references."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Interview STAR</b><br>Situation\u2013Task\u2013Action\u2013Result with safety, privacy, and difficult patient stories."
+      },
+      {
+        "kind": "ask",
+        "prompt": "The best resume bullet for an MA candidate emphasizes:",
+        "choices": [
+          "Vague soft skills only",
+          "Measurable clinical skills + credentials (e.g., CCMA, phlebotomy, ECG)",
+          "PHI screenshots",
+          "Arguments with charge nurse"
+        ],
+        "answer": 1,
+        "reveal": "Skills + proof beat fluff."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Lock it in</b><br>Lesson 38 deep brief done. Run <b>Topic Drills</b> on this domain, then <b>Smart Review</b>. Cross the lesson off only after you can teach it out loud without notes."
+      }
+    ]
+  }
+]

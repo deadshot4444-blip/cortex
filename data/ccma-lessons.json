@@ -1,0 +1,310 @@
+{
+  "lessons": [
+    {
+      "id": "L1",
+      "n": 1,
+      "title": "Medical Assisting Foundations",
+      "blurb": "Scope, credentials, health care settings, payment models",
+      "topic": "d1-foundations"
+    },
+    {
+      "id": "L2",
+      "n": 2,
+      "title": "Professional Behavior",
+      "blurb": "Professionalism, appearance, teamwork, cultural competence",
+      "topic": "d6-communication"
+    },
+    {
+      "id": "L3",
+      "n": 3,
+      "title": "Legal and Ethical Issues",
+      "blurb": "HIPAA, consent, negligence, mandatory reporting",
+      "topic": "d7-law"
+    },
+    {
+      "id": "L4",
+      "n": 4,
+      "title": "The Art of Communicating",
+      "blurb": "Therapeutic communication, defense mechanisms, tough conversations",
+      "topic": "d6-communication"
+    },
+    {
+      "id": "L5",
+      "n": 5,
+      "title": "Telecommunications",
+      "blurb": "Phone professionalism, triage, messages",
+      "topic": "d6-communication"
+    },
+    {
+      "id": "L6",
+      "n": 6,
+      "title": "Written Communications",
+      "blurb": "Letters, email, documentation style",
+      "topic": "d5-admin"
+    },
+    {
+      "id": "L7",
+      "n": 7,
+      "title": "Medical Office Environment",
+      "blurb": "Safety, SDS, equipment, opening/closing",
+      "topic": "d3-infection"
+    },
+    {
+      "id": "L8",
+      "n": 8,
+      "title": "Patient Scheduling",
+      "blurb": "Matrix, wave, clustering, no-shows",
+      "topic": "d5-admin"
+    },
+    {
+      "id": "L9",
+      "n": 9,
+      "title": "Managing Medical Records",
+      "blurb": "EHR, SOAP, filing, release of info",
+      "topic": "d5-admin"
+    },
+    {
+      "id": "L10",
+      "n": 10,
+      "title": "Introduction to Health Insurance",
+      "blurb": "Plans, copay, deductible, Medicare/Medicaid",
+      "topic": "d5-admin"
+    },
+    {
+      "id": "L11",
+      "n": 11,
+      "title": "Medical Coding Overview",
+      "blurb": "ICD, CPT, HCPCS, fraud/abuse",
+      "topic": "d5-admin"
+    },
+    {
+      "id": "L12",
+      "n": 12,
+      "title": "Patient Accounts",
+      "blurb": "Ledgers, charges, payments, adjustments",
+      "topic": "d5-admin"
+    },
+    {
+      "id": "L13",
+      "n": 13,
+      "title": "Claims, Billing, Collections",
+      "blurb": "CMS-1500, denials, aging",
+      "topic": "d5-admin"
+    },
+    {
+      "id": "L14",
+      "n": 14,
+      "title": "Daily Financial Practices",
+      "blurb": "Deposits, petty cash, bank reconciliation",
+      "topic": "d5-admin"
+    },
+    {
+      "id": "L15",
+      "n": 15,
+      "title": "Managing the Office",
+      "blurb": "Leadership, inventory, quality",
+      "topic": "d5-admin"
+    },
+    {
+      "id": "L16",
+      "n": 16,
+      "title": "Pharmacology",
+      "blurb": "Drug names, schedules, PK/PD, side effects",
+      "topic": "d3-pharm"
+    },
+    {
+      "id": "L17",
+      "n": 17,
+      "title": "Pathophysiology",
+      "blurb": "Disease processes by system",
+      "topic": "d2-anatomy"
+    },
+    {
+      "id": "L18",
+      "n": 18,
+      "title": "Infection Control & Asepsis",
+      "blurb": "Chain of infection, PPE, sterilization",
+      "topic": "d3-infection"
+    },
+    {
+      "id": "L19",
+      "n": 19,
+      "title": "Chief Complaint & History",
+      "blurb": "Interview, CC, HPI, ROS, PMH",
+      "topic": "d3-intake-vitals"
+    },
+    {
+      "id": "L20",
+      "n": 20,
+      "title": "Body Measurements & Vitals",
+      "blurb": "Ht/Wt/BMI, T/P/R/BP/SpO2, pain",
+      "topic": "d3-intake-vitals"
+    },
+    {
+      "id": "L21",
+      "n": 21,
+      "title": "Preparing for Examinations",
+      "blurb": "Rooming, positions, draping",
+      "topic": "d3-general-care"
+    },
+    {
+      "id": "L22",
+      "n": 22,
+      "title": "Complete Physical Examination",
+      "blurb": "CPE sequence, instruments",
+      "topic": "d3-general-care"
+    },
+    {
+      "id": "L23",
+      "n": 23,
+      "title": "Specialty Examinations",
+      "blurb": "Eye/ear/GYN/neuro specialty assist",
+      "topic": "d3-general-care"
+    },
+    {
+      "id": "L24",
+      "n": 24,
+      "title": "Physician Office Laboratory",
+      "blurb": "CLIA, QC, common waived tests",
+      "topic": "d3-lab"
+    },
+    {
+      "id": "L25",
+      "n": 25,
+      "title": "Specimen Collection",
+      "blurb": "Labeling, urine, cultures, chain of custody",
+      "topic": "d3-lab"
+    },
+    {
+      "id": "L26",
+      "n": 26,
+      "title": "Introduction to Phlebotomy",
+      "blurb": "Order of draw, venipuncture, safety",
+      "topic": "d3-phlebotomy"
+    },
+    {
+      "id": "L27",
+      "n": 27,
+      "title": "Diagnostic Testing",
+      "blurb": "Common office diagnostics",
+      "topic": "d3-lab"
+    },
+    {
+      "id": "L28",
+      "n": 28,
+      "title": "Cardiology Procedures",
+      "blurb": "ECG leads, artifacts, Holter",
+      "topic": "d3-ekg"
+    },
+    {
+      "id": "L29",
+      "n": 29,
+      "title": "Diagnostic Imaging",
+      "blurb": "X-ray, CT, MRI patient prep",
+      "topic": "d3-general-care"
+    },
+    {
+      "id": "L30",
+      "n": 30,
+      "title": "Minor Office Surgeries",
+      "blurb": "Sterile field, instruments, assist",
+      "topic": "d3-general-care"
+    },
+    {
+      "id": "L31",
+      "n": 31,
+      "title": "Medication Dosage Calculations",
+      "blurb": "Metric, household, dimensional analysis",
+      "topic": "d3-pharm"
+    },
+    {
+      "id": "L32",
+      "n": 32,
+      "title": "Administering Medications",
+      "blurb": "Rights, routes, injections",
+      "topic": "d3-pharm"
+    },
+    {
+      "id": "L33",
+      "n": 33,
+      "title": "Emergencies in the Office",
+      "blurb": "Crash cart, BLS, common emergencies",
+      "topic": "d3-emergency"
+    },
+    {
+      "id": "L34",
+      "n": 34,
+      "title": "First Aid & Mental Health",
+      "blurb": "First aid, crisis, psych emergencies",
+      "topic": "d3-emergency"
+    },
+    {
+      "id": "L35",
+      "n": 35,
+      "title": "Rehabilitation",
+      "blurb": "Modalities, assistive devices, cane use",
+      "topic": "d3-general-care"
+    },
+    {
+      "id": "L36",
+      "n": 36,
+      "title": "Nutrition & Special Diets",
+      "blurb": "Macros, BMI, therapeutic diets",
+      "topic": "d4-education"
+    },
+    {
+      "id": "L37",
+      "n": 37,
+      "title": "Certification & Mock Exam",
+      "blurb": "NHA domains, mock final, test strategy",
+      "topic": "mock-mixed"
+    },
+    {
+      "id": "L38",
+      "n": 38,
+      "title": "Preparing for Your Career",
+      "blurb": "Resume, interview, credentialing",
+      "topic": "d1-foundations"
+    }
+  ],
+  "lessonTopic": {
+    "1": "d1-foundations",
+    "2": "d6-communication",
+    "3": "d7-law",
+    "4": "d6-communication",
+    "5": "d6-communication",
+    "6": "d5-admin",
+    "7": "d3-infection",
+    "8": "d5-admin",
+    "9": "d5-admin",
+    "10": "d5-admin",
+    "11": "d5-admin",
+    "12": "d5-admin",
+    "13": "d5-admin",
+    "14": "d5-admin",
+    "15": "d5-admin",
+    "16": "d3-pharm",
+    "17": "d2-anatomy",
+    "18": "d3-infection",
+    "19": "d3-intake-vitals",
+    "20": "d3-intake-vitals",
+    "21": "d3-general-care",
+    "22": "d3-general-care",
+    "23": "d3-general-care",
+    "24": "d3-lab",
+    "25": "d3-lab",
+    "26": "d3-phlebotomy",
+    "27": "d3-lab",
+    "28": "d3-ekg",
+    "29": "d3-general-care",
+    "30": "d3-general-care",
+    "31": "d3-pharm",
+    "32": "d3-pharm",
+    "33": "d3-emergency",
+    "34": "d3-emergency",
+    "35": "d3-general-care",
+    "36": "d4-education",
+    "37": "mock-mixed",
+    "38": "d1-foundations"
+  }
+}

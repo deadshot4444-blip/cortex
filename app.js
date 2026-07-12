@@ -71,8 +71,13 @@ const SECTION_INFO = {
     headline: 'The science of the mind.',
     desc: 'A password-gated mastery trainer for cognitive psychology — how we study cognition, mind & brain, behaviorism, and the cognitive approach. Smart Review, drills, interactive diagrams, and a mock exam.',
   },
+  ccma: {
+    label: 'Medical Assistant',
+    headline: 'CCMA mastery. Final-ready.',
+    desc: 'Password-gated CCMA study system — NHA domains, 38-lesson path, Smart Review, and your full mock final. Built to track mastery for certification.',
+  },
 };
-const APP_VERSION = '1.21.0';
+const APP_VERSION = '1.22.2';
 const MEMBERSHIP_START = 'August 1, 2026';
 function cortexFreeNote(sectionPill, sectionName) {
   return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free for now</span><span class="free-note-txt">${sectionName} becomes optional membership ${MEMBERSHIP_START}. The full MCAT suite stays free forever.</span></p>`;
@@ -147,6 +152,7 @@ const SECTION_SCRIPTS = {
   neuro: ['python-runtime.js?v=3', 'code-evaluator.js?v=2', 'neuro-practitioner.js?v=3', 'neuro.js?v=14'],
   genetics: ['genetics.js?v=25', 'genetics-learn.js?v=6', 'genetics-figs.js?v=1', 'genetics-workshop.js?v=1'],
   cogpsych: ['cogpsych.js?v=1', 'cogpsych-learn.js?v=1', 'cogpsych-figs.js?v=1'],
+  ccma: ['ccma.js?v=3', 'ccma-learn.js?v=2'],
 };
 const _scriptLoads = {};
 function loadScript(src) {
@@ -377,7 +383,7 @@ async function boot() {
    The app is a single page; this lets an inbound URL open the right section and keeps
    the address bar in sync as you navigate, so any section link is copy-able. Needs the
    `/* /index.html 200` SPA fallback in _redirects so Netlify serves the app for these paths. */
-const SEC_PATHS = { practice: 'practice', mcat: 'mcat', stats: 'stats', utsa: 'utsa', neuro: 'neuro', reference: 'medicine', genetics: 'genetics', cogpsych: 'cogpsych' };
+const SEC_PATHS = { practice: 'practice', mcat: 'mcat', stats: 'stats', utsa: 'utsa', neuro: 'neuro', reference: 'medicine', genetics: 'genetics', cogpsych: 'cogpsych', ccma: 'ccma' };
 const PATH_SEC = Object.fromEntries(Object.entries(SEC_PATHS).map(([k, v]) => [v, k]));
 
 async function openSection(key) {
@@ -401,6 +407,11 @@ async function openSection(key) {
       if (COMING_SOON.has('cogpsych')) { renderComingSoon('cogpsych'); return true; }
       await ensureSection('cogpsych');
       if (typeof renderCogPsych === 'function') renderCogPsych();
+      return true;
+    case 'ccma':
+      if (COMING_SOON.has('ccma')) { renderComingSoon('ccma'); return true; }
+      await ensureSection('ccma');
+      if (typeof renderCCMA === 'function') renderCCMA();
       return true;
     default: return false;
   }
@@ -463,7 +474,7 @@ function topbar(active) {
       <button class="navlink ${active === 'mcat' ? 'active' : ''}" data-go="mcat">MCAT</button>
       <button class="navlink ${active === 'stats' ? 'active' : ''}" data-go="stats">Stats</button>
       <div class="navmenu">
-        <button class="navlink menubtn ${['anatomy', 'reference', 'socrates', 'utsa', 'pomodoro', 'genetics', 'cogpsych'].includes(active) ? 'active' : ''}" data-menu aria-expanded="false">Explore<span class="caret">&#9662;</span></button>
+        <button class="navlink menubtn ${['anatomy', 'reference', 'socrates', 'utsa', 'pomodoro', 'genetics', 'cogpsych', 'ccma'].includes(active) ? 'active' : ''}" data-menu aria-expanded="false">Explore<span class="caret">&#9662;</span></button>
         <div class="menupanel" hidden>
           <span class="menu-head">Tools</span>
           <button class="menuitem" data-go="pomodoro"><span>Focus Timer</span><span class="mi-tag">New</span></button>
@@ -475,6 +486,7 @@ function topbar(active) {
           <button class="menuitem" data-go="utsa"><span>UTSA &amp; UT Health</span><span class="mi-tag">Free</span></button>
           <button class="menuitem" data-go="genetics"><span>Genetics-2313</span><span class="mi-tag">New</span></button>
           <button class="menuitem" data-go="cogpsych"><span>Cognitive Psychology</span><span class="mi-tag">New</span></button>
+          <button class="menuitem" data-go="ccma"><span>Medical Assistant (CCMA)</span><span class="mi-tag">New</span></button>
         </div>
       </div>
     </nav>
@@ -516,6 +528,11 @@ function topbar(active) {
     if (COMING_SOON.has('cogpsych')) { renderComingSoon('cogpsych'); return; }
     await ensureSection('cogpsych');
     if (typeof renderCogPsych === 'function') renderCogPsych();
+  });
+  root.querySelector('[data-go="ccma"]')?.addEventListener('click', async () => {
+    if (COMING_SOON.has('ccma')) { renderComingSoon('ccma'); return; }
+    await ensureSection('ccma');
+    if (typeof renderCCMA === 'function') renderCCMA();
   });
   root.querySelector('[data-go="updates"]').addEventListener('click', renderUpdates);
   const navmenu = root.querySelector('.navmenu');
@@ -828,6 +845,17 @@ const PRINCIPLES = [
 
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
+  {
+    date: 'July 11, 2026', version: '1.22.2', tag: 'NEW',
+    title: 'CCMA Medical Assistant study system',
+    items: [
+      'New password-gated Medical Assistant (CCMA) section — private study rail for the certified medical assistant program (your passphrase). Deep link: /ccma.',
+      'Full NHA-domain topic map: foundations, A&P, clinical care (vitals, infection control, lab, phlebotomy, EKG, pharm, emergencies), admin, communication, law/ethics.',
+      '38-lesson path checklist matching the course, with Smart Review, Blitz, Topic Drills, Exam Boss, Review Misses, and a Mock Final built from the Lesson 37 mock exam bank (~180 items) plus high-yield domain drills.',
+      'Progress tracks in localStorage: XP, levels, Leitner mastery boxes, streaks, achievements, weak spots — built for final prep.',
+      'v1.22.2: Deep clinical expansion — all 38 Learn briefs thickened with current standards (CDC precautions, CLSI draw order, orthostatics, ECG, NHA domain weights) + bank grown to 400+ questions for final prep.',
+    ],
+  },
   {
     date: 'July 5, 2026', version: '1.21.0', tag: 'NEW',
     title: 'Genetics: Module 4 Workshop',
