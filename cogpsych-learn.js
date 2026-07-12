@@ -26,7 +26,19 @@ const COGLW = {};
 /* ---------------------------------------------------------------------------
    LESSONS  (empty until authored — Learn shows the coming-soon state)
    --------------------------------------------------------------------------- */
-const COG_LESSONS = [];
+let COG_LESSONS = [];
+let cogLearnReady = false;
+async function cogLoadLessons() {
+  if (cogLearnReady) return;
+  try {
+    const r = await fetch('data/cogpsych-learn.json?v=1');
+    if (!r.ok) throw new Error('http '+r.status);
+    const data = await r.json();
+    if (Array.isArray(data)) COG_LESSONS = data;
+  } catch (e) {}
+  cogLearnReady = true;
+}
+
 
 /* ---------------------------------------------------------------------------
    PROGRESS
@@ -39,8 +51,14 @@ function cogglMark(id) { if (!COG.learned) COG.learned = {}; COG.learned[id] = 1
    --------------------------------------------------------------------------- */
 function renderCogLearnHome() {
   cogClearTimer();
+  if (!cogLearnReady) {
+    cogLoadLessons().then(renderCogLearnHome);
+    const root = el('<div></div>'); root.appendChild(topbar('cogpsych'));
+    root.appendChild(el('<main class="panel gen-lock" id="main"><div class="gen-lock-box cornerframe"><span class="label">Learn</span><p class="gen-lock-sub">Loading lessons…</p></div></main>'));
+    root.appendChild(siteFooter()); setView(root);
+    return;
+  }
   cogTrack('learn_home', {});
-  // only show lessons for chapters currently in COG_CH. Others stay dormant.
   const byCh = {};
   COG_LESSONS.filter(l => typeof COG_CH !== 'undefined' && COG_CH[l.chapter]).forEach(l => { (byCh[l.chapter] = byCh[l.chapter] || []).push(l); });
   const hasLessons = Object.keys(byCh).length > 0;
@@ -60,7 +78,7 @@ function renderCogLearnHome() {
   const main = el(`<main class="panel gen-learn-home" id="main" tabindex="-1">
     <div class="gen-pick-head"><button class="ghostbtn" id="gen-back">← Home</button><h1>Learn</h1></div>
     <p class="gen-learn-intro">Short, guided lessons that <b>teach</b> the concept the Socratic way — a question, your reasoning, then the idea — with interactive diagrams you build and step through. When a lesson clicks, jump to the drills to lock it in.</p>
-    ${hasLessons ? Object.keys(byCh).sort((a, b) => a - b).map(chBlock).join('') : `<div class="gen-learn-empty cornerframe"><span class="label">Coming soon</span><h2>Guided lessons are on the way</h2><p>Socratic teach-lessons for this course are being built. For now, <b>Smart Review</b> and the topic drills have you covered — every question comes with a “think it through” hint when you miss it.</p><button class="btn btn-solid" id="gen-learn-smart">Start Smart Review →</button></div>`}
+    ${hasLessons ? Object.keys(byCh).sort((a, b) => a - b).map(chBlock).join('') : `<div class="gen-learn-empty cornerframe"><span class="label">Coming soon</span><h2>Guided lessons are on the way</h2><p>If lessons fail to load, check your connection — Ch 1–5 briefs should appear here. For now, <b>Smart Review</b> and the topic drills have you covered — every question comes with a “think it through” hint when you miss it.</p><button class="btn btn-solid" id="gen-learn-smart">Start Smart Review →</button></div>`}
   </main>`);
   const smb = main.querySelector('#gen-learn-smart'); if (smb) smb.addEventListener('click', startCogSmart);
   main.querySelector('#gen-back').addEventListener('click', renderCogHome);

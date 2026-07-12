@@ -153,7 +153,7 @@ const SECTION_SCRIPTS = {
   socrates: ['socrates.js?v=40'],
   neuro: ['python-runtime.js?v=3', 'code-evaluator.js?v=2', 'neuro-practitioner.js?v=3', 'neuro.js?v=14'],
   genetics: ['genetics.js?v=25', 'genetics-learn.js?v=6', 'genetics-figs.js?v=1', 'genetics-workshop.js?v=1'],
-  cogpsych: ['cogpsych.js?v=1', 'cogpsych-learn.js?v=1', 'cogpsych-figs.js?v=1'],
+  cogpsych: ['cogpsych.js?v=2', 'cogpsych-learn.js?v=2', 'cogpsych-figs.js?v=1'],
   ccma: ['ccma.js?v=4', 'ccma-learn.js?v=3'],
 };
 const _scriptLoads = {};

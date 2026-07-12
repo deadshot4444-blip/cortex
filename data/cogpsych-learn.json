@@ -1,0 +1,592 @@
+[
+  {
+    "id": "cog-L1-what",
+    "chapter": 1,
+    "topic": "ch1-what",
+    "title": "What is cognition?",
+    "blurb": "Definition, everyday examples, why \u201cordinary\u201d behavior is extraordinary.",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Definition</b><br>Cognition = acquisition and processing of sensory information about the world to make <b>behavioral decisions</b> \u2014 the sum of intelligent mental activities (not just breathing/digestion)."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Everyday example: reading</b><br>Device recognition \u2192 memory for controls \u2192 focused vision \u2192 language + concepts \u2192 learning into STM/LTM \u2192 goals/decisions. One \u201csimple\u201d act coordinates many subsystems."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Field stance</b><br>Cognition mostly studies how things <b>go right</b>. No complete unified theory yet \u2014 progress is real but incomplete and debated."
+      },
+      {
+        "kind": "ask",
+        "prompt": "Cognition is best defined as:",
+        "choices": [
+          "Only emotion",
+          "Acquiring/processing sensory info to decide how to act",
+          "Only digestion",
+          "Only social status"
+        ],
+        "answer": 1,
+        "reveal": "Intelligent information processing for decisions."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "The textbook\u2019s aim is mainly to:",
+        "options": [
+          "List final unchanging truths only",
+          "Introduce questions, methods, and key results of mind science",
+          "Prove AI finished the problem",
+          "Ignore experiments"
+        ],
+        "answer": 1,
+        "explain": "Young field: survey science-in-progress."
+      }
+    ]
+  },
+  {
+    "id": "cog-L1-why",
+    "chapter": 1,
+    "topic": "ch1-why",
+    "title": "Why study cognition?",
+    "blurb": "Basic vs applied research; human factors; AI; education/health.",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Basic research</b><br>Understand who we are and how cognition works \u2014 not required to have a product, though applications often follow."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Applied research</b><br>End goal is a solution: disorders, education design, human factors interfaces, building AI systems."
+      },
+      {
+        "kind": "ask",
+        "prompt": "Designing cockpit displays using attention research is:",
+        "choices": [
+          "Only basic pure theory with no use",
+          "Human factors / applied cognition",
+          "Unrelated to perception",
+          "Only dualism"
+        ],
+        "answer": 1,
+        "reveal": "Applied interface design."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "AI in this chapter is framed as:",
+        "options": [
+          "Building machines that perform (some) intelligent tasks",
+          "Only vacuum marketing",
+          "Only reaction-time methods",
+          "Forbidden"
+        ],
+        "answer": 0,
+        "explain": "Engineering/CS branch linked to understanding intelligence."
+      }
+    ]
+  },
+  {
+    "id": "cog-L1-ai",
+    "chapter": 1,
+    "topic": "ch1-ai",
+    "title": "AI as a mirror of understanding",
+    "blurb": "Feynman test, Deep Blue, IFTT limits, open-world hardness.",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Feynman test</b><br>\u201cWhat I cannot create I do not understand.\u201d Building working models gauges true understanding of mind/brain."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Hard vs easy for machines</b><br>Humans: easy common sense, language, messy rooms.<br>Machines historically: fast formal calculation, constrained factory/chess search."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Deep Blue</b><br>Massive search + simple ops \u2014 not a general mind. Winning chess \u2260 solving everyday intelligence."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>IFTT / early chatbots</b><br>Work when conditions are pre-listed. Fail when the world is open-ended. String matching \u2260 understanding."
+      },
+      {
+        "kind": "ask",
+        "prompt": "IFTT automation works best when:",
+        "choices": [
+          "The world is fully open and novel always",
+          "The domain is constrained/predictable",
+          "No rules exist",
+          "Humans never define conditions"
+        ],
+        "answer": 1,
+        "reveal": "Chess/factory \u2260 open house cleaning."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "Deep Blue mainly excelled by:",
+        "options": [
+          "Human-identical intuition",
+          "Huge fast search/calculation",
+          "Never evaluating moves",
+          "Random play"
+        ],
+        "answer": 1,
+        "explain": "Brute-force-style excellence in a formal game."
+      }
+    ]
+  },
+  {
+    "id": "cog-L1-3prong",
+    "chapter": 1,
+    "topic": "ch1-approaches",
+    "title": "Three-pronged approach",
+    "blurb": "Neuroscience + cognitive psychology + computational modeling.",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Three prongs</b><br>1) <b>Cognitive psychology</b> \u2014 behavior experiments to infer processes.<br>2) <b>Neuroscience</b> \u2014 brain structures/activity/mechanisms.<br>3) <b>Computational modeling</b> \u2014 explicit runnable theories."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Why all three?</b><br>Each constrains the others. Behavior alone underdetermines mechanism; brains alone need functional theory; models force precision."
+      },
+      {
+        "kind": "ask",
+        "prompt": "The three broad approaches named in Ch1 include:",
+        "choices": [
+          "Only astrology",
+          "Neuroscience, cognitive psychology, computational modeling",
+          "Only surveys",
+          "Only phrenology"
+        ],
+        "answer": 1,
+        "reveal": "LO 1.4 triad."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "Cognitive psychology primarily:",
+        "options": [
+          "Only implants electrodes always",
+          "Infers mental processes from measured behavior",
+          "Only builds factories",
+          "Ignores data"
+        ],
+        "answer": 1,
+        "explain": "Behavioral experiments + theory."
+      }
+    ]
+  },
+  {
+    "id": "cog-L3-ns",
+    "chapter": 3,
+    "topic": "ch3-ns",
+    "title": "Nervous system map",
+    "blurb": "CNS/PNS, voluntary vs involuntary branches.",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>CNS</b> = brain + spinal cord.<br><b>PNS</b> = nerves outside CNS."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Somatic</b> \u2248 voluntary skeletal control + body senses.<br><b>Autonomic</b> \u2248 involuntary organs; sympathetic (fight/flight) vs parasympathetic (rest/digest)."
+      },
+      {
+        "kind": "ask",
+        "prompt": "CNS includes:",
+        "choices": [
+          "Only arms",
+          "Brain and spinal cord",
+          "Only skin",
+          "Only glands"
+        ],
+        "answer": 1,
+        "reveal": "Brain + cord."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "Parasympathetic is often summarized as:",
+        "options": [
+          "Fight-or-flight",
+          "Rest-and-digest",
+          "Only anger",
+          "Only freezing"
+        ],
+        "answer": 1,
+        "explain": "Complement to sympathetic."
+      }
+    ]
+  },
+  {
+    "id": "cog-L3-cortex",
+    "chapter": 3,
+    "topic": "ch3-cortex-anat",
+    "title": "Cortex anatomy & function",
+    "blurb": "Lobes, maps, methods for functional division.",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Lobes</b><br>Occipital: vision.<br>Temporal: audition/language/memory aspects.<br>Parietal: somatosensory/spatial.<br>Frontal: motor + executive."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Functional mapping tools</b><br>Lesions, stimulation, electrophysiology, neuroimaging \u2014 converging evidence. Double dissociations support separable systems."
+      },
+      {
+        "kind": "ask",
+        "prompt": "Primary vision is mainly:",
+        "choices": [
+          "Frontal",
+          "Occipital",
+          "Spinal only",
+          "Liver"
+        ],
+        "answer": 1,
+        "reveal": "Occipital visual cortex."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "fMRI roughly tracks:",
+        "options": [
+          "Skull thickness",
+          "BOLD blood-oxygen signals related to activity",
+          "Only pure spikes always",
+          "Only questionnaires"
+        ],
+        "answer": 1,
+        "explain": "Hemodynamic proxy."
+      }
+    ]
+  },
+  {
+    "id": "cog-L3-neurons-ann",
+    "chapter": 3,
+    "topic": "ch3-neurons",
+    "title": "Neurons & ANNs",
+    "blurb": "Spikes, synapses, feature detectors; artificial nets as models.",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Neuron basics</b><br>Dendrites receive, axons send, synapses release transmitters, action potentials are all-or-none spikes. Feature detectors prefer specific stimulus properties."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>ANNs</b><br>Units + weights + learning. Not full brains, but useful computational models (and engineering tools). Watch for overfitting vs generalization."
+      },
+      {
+        "kind": "ask",
+        "prompt": "Synaptic transmission is primarily:",
+        "choices": [
+          "Only light",
+          "Chemical (neurotransmitters) between cells",
+          "Only continuous water",
+          "Only wifi"
+        ],
+        "answer": 1,
+        "reveal": "Chemicals at synapses."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "Learning in ANNs typically adjusts:",
+        "options": [
+          "Nothing",
+          "Connection weights",
+          "Only cable length",
+          "Only screen brightness"
+        ],
+        "answer": 1,
+        "explain": "Weights encode learned structure."
+      }
+    ]
+  },
+  {
+    "id": "cog-L4-sensperc",
+    "chapter": 4,
+    "topic": "ch4-sens-perc",
+    "title": "Sensation vs perception",
+    "blurb": "Transduction vs interpretation; constructive mind.",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Sensation</b>: physical energy \u2192 neural signals (transduction).<br><b>Perception</b>: organizing/interpreting those signals into useful experience."
+      },
+      {
+        "kind": "teach",
+        "body": "Same input can yield different percepts (context, knowledge). Illusions reveal the system\u2019s assumptions."
+      },
+      {
+        "kind": "ask",
+        "prompt": "Transduction means:",
+        "choices": [
+          "Forgetting",
+          "Converting stimulus energy to neural signals",
+          "Only eye movement",
+          "Only naming"
+        ],
+        "answer": 1,
+        "reveal": "Receptor conversion."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "Perception is best described as:",
+        "options": [
+          "A perfect passive photograph always",
+          "A constructive interpretation of sensory data",
+          "Impossible",
+          "Only dualist"
+        ],
+        "answer": 1,
+        "explain": "Constructive/inferential."
+      }
+    ]
+  },
+  {
+    "id": "cog-L4-theories",
+    "chapter": 4,
+    "topic": "ch4-theories",
+    "title": "Theories of perception",
+    "blurb": "Bottom-up/top-down, Gestalt, unconscious inference.",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Bottom-up</b> = data-driven features.<br><b>Top-down</b> = knowledge/expectations/context."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Gestalt</b>: organization laws (proximity, similarity, closure\u2026); whole \u2260 mere sum.<br><b>Unconscious inference</b> (Helmholtz): best guesses about the world from incomplete data."
+      },
+      {
+        "kind": "ask",
+        "prompt": "Top-down processing emphasizes:",
+        "choices": [
+          "Only pure receptors with no knowledge",
+          "Knowledge and expectations shaping perception",
+          "Only spinal reflexes",
+          "Only random noise"
+        ],
+        "answer": 1,
+        "reveal": "Knowledge guides perception."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "Gestalt psychology is famous for:",
+        "options": [
+          "Only operant chambers",
+          "Perceptual organization principles",
+          "Only dualism",
+          "Only chatbots"
+        ],
+        "answer": 1,
+        "explain": "Grouping laws."
+      }
+    ]
+  },
+  {
+    "id": "cog-L4-vision-cnn",
+    "chapter": 4,
+    "topic": "ch4-vision",
+    "title": "Vision & CNNs",
+    "blurb": "Depth, constancy, recognition hierarchy; convolutional nets.",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "Vision builds features \u2192 objects. Depth: monocular cues + binocular disparity. Constancies stabilize object properties across conditions."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>CNNs</b>: hierarchical local filters (convolution) + pooling \u2014 engineering success on vision tasks, loosely inspired by visual hierarchy."
+      },
+      {
+        "kind": "ask",
+        "prompt": "Binocular disparity uses:",
+        "choices": [
+          "One eye only",
+          "Slightly different left/right eye images",
+          "Only smell",
+          "Only touch"
+        ],
+        "answer": 1,
+        "reveal": "Stereo depth."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "CNNs are especially strong at:",
+        "options": [
+          "Only integer addition",
+          "Hierarchical visual classification",
+          "Only pure symbolic proofs always",
+          "Only IFTT chat"
+        ],
+        "answer": 1,
+        "explain": "Vision-like hierarchy."
+      }
+    ]
+  },
+  {
+    "id": "cog-L5-filter",
+    "chapter": 5,
+    "topic": "ch5-filter",
+    "title": "Attention filters",
+    "blurb": "Early vs late selection, attenuation, dichotic listening.",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Early selection</b> (Broadbent): filter on physical features before full meaning.<br><b>Late selection</b>: much analysis before selection.<br><b>Attenuation</b> (Treisman): unattended turned down, not fully blocked \u2014 names can break through."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Dichotic listening + shadowing</b> is the classic method. Cocktail party effect challenges pure complete early blocking of meaning."
+      },
+      {
+        "kind": "ask",
+        "prompt": "Treisman attenuation says unattended info is:",
+        "choices": [
+          "Fully destroyed always",
+          "Reduced but not always zero; important items can pass",
+          "Amplified above attended",
+          "Only visual"
+        ],
+        "answer": 1,
+        "reveal": "Turned down, not erased."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "Early-selection models filter mainly on:",
+        "options": [
+          "Full semantic analysis first always",
+          "Physical/sensory channel properties before deep meaning",
+          "Only motor plans",
+          "Only personality"
+        ],
+        "answer": 1,
+        "explain": "Physical bottleneck idea."
+      }
+    ]
+  },
+  {
+    "id": "cog-L5-load-div",
+    "chapter": 5,
+    "topic": "ch5-load",
+    "title": "Load, dividing, purpose of attention",
+    "blurb": "Lavie load, dual-task costs, FIT/binding, endogenous vs exogenous.",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Load theory</b>: high perceptual load uses capacity \u2192 fewer distractor effects; low load leaves spare capacity for distractors."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Divided attention</b>: dual-task costs; practice/automaticity can free resources."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Feature integration</b>: attention binds features into objects; illusory conjunctions when overloaded.<br><b>Endogenous</b> = voluntary; <b>exogenous</b> = stimulus-driven capture. You need both."
+      },
+      {
+        "kind": "ask",
+        "prompt": "Endogenous attention is:",
+        "choices": [
+          "Only a loud bang capturing you",
+          "Voluntary goal-directed control",
+          "Impossible",
+          "Only a reflex arc"
+        ],
+        "answer": 1,
+        "reveal": "You choose to attend."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "Illusory conjunctions support that attention is needed to:",
+        "options": [
+          "Detect any single feature always without binding",
+          "Bind features into objects",
+          "Ignore all vision",
+          "Only hear"
+        ],
+        "answer": 1,
+        "explain": "FIT binding role."
+      }
+    ]
+  },
+  {
+    "id": "cog-L5-neural",
+    "chapter": 5,
+    "topic": "ch5-neural",
+    "title": "Neural attention & ADHD",
+    "blurb": "Networks, sensory gain, ADHD pharmacology theme.",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "Frontoparietal control systems modulate sensory cortex (gain on attended inputs). Disorders like neglect show spatial attention failures."
+      },
+      {
+        "kind": "teach",
+        "body": "ADHD involves attention control difficulties. Stimulants (e.g., methylphenidate class) increase DA/NE availability \u2014 clinical decisions weigh severity and side effects (not first-line freestyle)."
+      },
+      {
+        "kind": "ask",
+        "prompt": "ADHD meds like Ritalin classically increase:",
+        "choices": [
+          "Only melatonin",
+          "Dopamine and norepinephrine availability",
+          "Only insulin",
+          "Only salt"
+        ],
+        "answer": 1,
+        "reveal": "Catecholamine availability \u2192 focus support for many patients."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "Attention often enhances:",
+        "options": [
+          "Attended sensory representations",
+          "Only digestion",
+          "Only bone growth",
+          "Only ear wax"
+        ],
+        "answer": 0,
+        "explain": "Sensory gain control."
+      }
+    ]
+  },
+  {
+    "id": "cog-L2-overview",
+    "chapter": 2,
+    "topic": "ch2-mind-brain",
+    "title": "Ch2 map: How to study cognition",
+    "blurb": "Mind\u2013brain, history, cognitive approach, methods \u2014 your existing bank lives here.",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>You already have a strong Ch2 bank</b> (mind\u2013body, structuralism, behaviorism, cognitive revolution, Donders/Stroop, methods, complementary neuroscience)."
+      },
+      {
+        "kind": "teach",
+        "body": "Study order: Mind & Brain \u2192 Brain & Behavior \u2192 Structuralism \u2192 Behaviorism \u2192 Cognitive Revolution \u2192 Cognitive Approach \u2192 Methods \u2192 Neuroscience."
+      },
+      {
+        "kind": "ask",
+        "prompt": "The mind\u2013body problem asks how:",
+        "choices": [
+          "Only bones grow",
+          "Mental events relate to physical brain processes",
+          "Only AI plays chess",
+          "Only eyes refract"
+        ],
+        "answer": 1,
+        "reveal": "Core philosophical/scientific puzzle of Ch2."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "Behaviorism treated the mind as:",
+        "options": [
+          "Fully open and measured by introspection only",
+          "A black box; study S\u2013R only",
+          "Identical to dualist soul science",
+          "Only neural spikes"
+        ],
+        "answer": 1,
+        "explain": "Stimulus\u2013response, avoid mentalism."
+      }
+    ]
+  }
+]

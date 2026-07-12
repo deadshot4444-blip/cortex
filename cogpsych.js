@@ -26,6 +26,12 @@ let COG_BANK = COG_DIAGRAMS.concat(COG_GENERATORS);   // COG_GENERATED merged in
    Slugs are chXX-<slug>; the bank's `topic` field must match a key here or the
    item is dropped by cogValidBankItem. Add chapters by appending topics + COG_CH. */
 const COG_TOPICS = {
+  // Chapter 1 — Introduction
+  'ch1-what': { name: 'What Is Cognition?', ch: 1, blurb: 'Definition of cognition; everyday intelligent behavior; multi-subsystem coordination; science of things going right.' },
+  'ch1-why': { name: 'Why Study Cognition?', ch: 1, blurb: 'Basic vs applied research; human factors; education/health applications; AI motivation.' },
+  'ch1-ai': { name: 'AI & the State of the Field', ch: 1, blurb: 'Feynman create-to-understand test; Deep Blue; IFTT limits; open-world hardness vs constrained automation.' },
+  'ch1-approaches': { name: 'Three-Pronged Approach', ch: 1, blurb: 'Neuroscience, cognitive psychology, and computational modeling as complementary approaches.' },
+  // Chapter 2 — How to Study Cognition (existing)
   'ch2-mind-brain': { name: 'Mind & Brain', ch: 2, blurb: 'Mind-body problem, dualism, monism (physicalism, idealism, neutral monism), Descartes, pragmatic materialism.' },
   'ch2-brain-behavior': { name: 'Brain & Behavior', ch: 2, blurb: 'Why not just neuroscience: brain complexity, similar brains, nested levels/contexts (brain→body→environment).' },
   'ch2-structuralism': { name: 'Structuralism', ch: 2, blurb: 'Wundt, Titchener, introspection, elements of consciousness; replication, unconscious processing, blindsight.' },
@@ -34,9 +40,36 @@ const COG_TOPICS = {
   'ch2-cognitive-approach': { name: 'The Cognitive Approach', ch: 2, blurb: 'Inferring mental processes from behavior; Donders & reaction time; hypothesis- vs phenomenon-driven research; Stroop, SDT.' },
   'ch2-methods': { name: 'Methods of Cognitive Psychology', ch: 2, blurb: 'IVs/DVs, correctness, thresholds, RT, speed-accuracy tradeoff, subjective & involuntary measures, variability, trials, between-subjects, individual differences.' },
   'ch2-neuroscience': { name: 'Complementary Neuroscience', ch: 2, blurb: 'Cognitive, behavioral, and computational neuroscience; microelectrodes, lesions, optogenetics/opsins.' },
+  // Chapter 3 — Brain & neurons
+  'ch3-ns': { name: 'Nervous System Map', ch: 3, blurb: 'CNS vs PNS; major divisions supporting cognition.' },
+  'ch3-voluntary': { name: 'Voluntary vs Involuntary', ch: 3, blurb: 'Somatic vs autonomic; sympathetic/parasympathetic; emotion and voluntary choice.' },
+  'ch3-cortex-anat': { name: 'Cortical Anatomy', ch: 3, blurb: 'Lobes and large-scale anatomical organization of cortex.' },
+  'ch3-cortex-func': { name: 'Functional Cortex Maps', ch: 3, blurb: 'Functional divisions; lesions, imaging, electrophysiology; double dissociation logic.' },
+  'ch3-neurons': { name: 'Neurons & Feature Detectors', ch: 3, blurb: 'Neuron structure, spikes, synapses; sensory/motor/interneurons; feature detectors.' },
+  'ch3-ann': { name: 'Artificial Neural Networks', ch: 3, blurb: 'Units, weights, learning; models of neural computation; overfitting/generalization.' },
+  // Chapter 4 — Sensation & perception
+  'ch4-sens-perc': { name: 'Sensation vs Perception', ch: 4, blurb: 'Transduction vs constructive interpretation; illusions as evidence.' },
+  'ch4-senses': { name: 'Sensory Systems', ch: 4, blurb: 'Vision, hearing, touch, taste, smell — receptors and transduction themes.' },
+  'ch4-theories': { name: 'Theories of Perception', ch: 4, blurb: 'Bottom-up/top-down; Gestalt; unconscious inference; recognition approaches.' },
+  'ch4-vision': { name: 'Visual Perception', ch: 4, blurb: 'Depth, constancy, organization, recognition hierarchy.' },
+  'ch4-cnn': { name: 'CNNs & Vision AI', ch: 4, blurb: 'Convolutional nets as hierarchical vision models/engineering systems.' },
+  // Chapter 5 — Attention
+  'ch5-importance': { name: 'Why Attention Matters', ch: 5, blurb: 'Limited capacity; inattentional/change blindness; selection under overload.' },
+  'ch5-filter': { name: 'Attentional Filters', ch: 5, blurb: 'Early vs late selection; attenuation; dichotic listening; cocktail party.' },
+  'ch5-load': { name: 'Attentional Load', ch: 5, blurb: 'Lavie load theory; distractor processing depends on capacity use.' },
+  'ch5-divided': { name: 'Divided Attention', ch: 5, blurb: 'Dual-task costs; automaticity; multitasking limits.' },
+  'ch5-purpose': { name: 'Purpose of Attention', ch: 5, blurb: 'Feature integration/binding; search; spotlight/object-based attention.' },
+  'ch5-allocation': { name: 'Endogenous vs Exogenous', ch: 5, blurb: 'Voluntary control vs stimulus-driven capture; everyday coordination of both.' },
+  'ch5-neural': { name: 'Neural Attention & ADHD', ch: 5, blurb: 'Control networks, sensory gain, neglect themes; ADHD & catecholamines.' },
 };
 
-const COG_CH = { 2: 'How to Study Cognition' };
+const COG_CH = {
+  1: 'Introduction to Cognition',
+  2: 'How to Study Cognition',
+  3: 'Brain, Neurons & Networks',
+  4: 'Sensation & Perception',
+  5: 'Attention',
+};
 
 /* ---------- state + persistence ---------- */
 const COG_KEY = 'cs-cogpsych';
@@ -166,6 +199,8 @@ const COG_ACH = [
   { id: 'mind', name: 'Mind Reader', desc: 'Reach 100% on Mind & Brain' },
   { id: 'behav', name: 'Conditioned Response', desc: 'Reach 100% on Behaviorism' },
   { id: 'method', name: 'Methodologist', desc: 'Reach 100% on Methods' },
+  { id: 'filter', name: 'Filter Finder', desc: 'Reach 100% on Attentional Filters' },
+  { id: 'survey', name: 'Full Survey', desc: 'Max mastery on Ch 1, 3, 4, and 5' },
   { id: 'exam', name: 'Exam Slayer', desc: 'Beat the Exam Boss (85%+)' },
   { id: 'ready', name: 'Exam Ready', desc: 'Hit 90% overall competency' },
   { id: 'cogscientist', name: 'Certified Cognitive Scientist', desc: 'Reach the Cognitive Neuroscientist level' },
@@ -186,6 +221,8 @@ function cogCheckAch() {
   if (cogComp(cogTopicQs('ch2-mind-brain')) >= 100) cogGrant('mind');
   if (cogComp(cogTopicQs('ch2-behaviorism')) >= 100) cogGrant('behav');
   if (cogComp(cogTopicQs('ch2-methods')) >= 100) cogGrant('method');
+  if (cogComp(cogTopicQs('ch5-filter')) >= 100) cogGrant('filter');
+  if (cogMastery(1) >= 100 && cogMastery(3) >= 100 && cogMastery(4) >= 100 && cogMastery(5) >= 100) cogGrant('survey');
   if (cogRank(COG.xp).lvl >= 8) cogGrant('cogscientist');
   if (cogOverall() >= 90) { cogGrant('ready'); if (!COG.examReady) { COG.examReady = true; cogSave(); cogTrack('milestone', { kind: 'exam_ready', competency: cogOverall() }); } }
 }
@@ -225,7 +262,7 @@ function cogValidBankItem(q, seen) {
 }
 async function cogLoadBank() {
   try {
-    const r = await fetch('data/cogpsych-bank.json?v=1');
+    const r = await fetch('data/cogpsych-bank.json?v=2');
     if (!r.ok) throw new Error('http ' + r.status);
     const data = await r.json();
     if (!Array.isArray(data)) throw new Error('bad bank');   // an empty array is valid (no content yet)
