@@ -73,8 +73,8 @@ const SECTION_INFO = {
   },
   ccma: {
     label: 'Medical Assistant',
-    headline: 'CCMA mastery. Final-ready.',
-    desc: 'Password-gated CCMA study system — NHA domains, 38-lesson path, Smart Review, and your full mock final. Built to track mastery for certification.',
+    headline: 'Destroy the NHA CCMA exam.',
+    desc: 'Private NHA CCMA exam-prep system — all 7 test-plan domains, a 38-lesson path, daily Smart Review, and a blueprint-weighted timed mock exam. Built to get you past the pass line on test day.',
   },
 };
 // Public “What’s new” version. Private-only sections (CCMA) do NOT bump this or CHANGELOG —
@@ -154,7 +154,7 @@ const SECTION_SCRIPTS = {
   neuro: ['python-runtime.js?v=3', 'code-evaluator.js?v=2', 'neuro-practitioner.js?v=3', 'neuro.js?v=14'],
   genetics: ['genetics.js?v=25', 'genetics-learn.js?v=6', 'genetics-figs.js?v=1', 'genetics-workshop.js?v=1'],
   cogpsych: ['cogpsych.js?v=4', 'cogpsych-learn.js?v=3', 'cogpsych-figs.js?v=1'],
-  ccma: ['ccma.js?v=4', 'ccma-learn.js?v=3'],
+  ccma: ['ccma.js?v=5', 'ccma-learn.js?v=3'],
 };
 const _scriptLoads = {};
 function loadScript(src) {
