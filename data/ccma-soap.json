@@ -1,0 +1,1748 @@
+[
+ {
+  "id": "soap-uri",
+  "title": "Adult Viral URI - Sore Throat and Dry Cough",
+  "setting": "Family Medicine",
+  "difficulty": "easy",
+  "estMin": 10,
+  "chiefLine": "Sore throat + dry cough x4 days, low-grade fever",
+  "patient": {
+   "name": "Daniel Okafor",
+   "dob": "1993-03-22",
+   "age": 33,
+   "sex": "M",
+   "mrn": "FM-004182",
+   "allergies": [
+    "NKDA"
+   ],
+   "meds": [
+    "None"
+   ],
+   "pmh": [
+    "No chronic conditions"
+   ],
+   "reason": "Sore throat and dry cough for 4 days with low-grade fever"
+  },
+  "vitals": {
+   "tempF": 100.6,
+   "pulse": 82,
+   "resp": 16,
+   "systolic": 118,
+   "diastolic": 76,
+   "spo2": 98,
+   "painScore": 3,
+   "weightLb": 180,
+   "heightIn": 70
+  },
+  "steps": [
+   {
+    "kind": "mcq",
+    "tag": "Patient ID",
+    "stem": "You call the patient back to the exam room. Before starting the visit, how should you verify you have the right patient?",
+    "options": [
+     "Confirm his full name and date of birth",
+     "Confirm the room number and the appointment time",
+     "Ask 'Are you Daniel?' and proceed when he nods",
+     "Match the name on the chart to the name on the door"
+    ],
+    "answer": 0,
+    "explain": "Always use TWO patient identifiers. Full name plus date of birth is the standard acceptable pair. Room number, appointment time, and a simple yes/nod are NOT acceptable identifiers and can lead to wrong-patient errors."
+   },
+   {
+    "kind": "vitals",
+    "tag": "Vitals",
+    "explain": "Adult normals: Temp 97.0-99.5 F, Pulse 60-100, Resp 12-20, BP 90-120/60-80, SpO2 95-100%. Everything here is normal EXCEPT the temperature of 100.6 F, which meets the fever threshold (>=100.4 F). Document it accurately and report it to the provider. A low-grade fever with sore throat and cough fits a self-limiting viral picture, but the MA only measures and documents - the provider interprets it."
+   },
+   {
+    "kind": "mcq",
+    "tag": "CC Documentation",
+    "stem": "Which entry correctly documents the chief complaint in the Subjective section?",
+    "options": [
+     "'Sore throat and dry cough for 4 days' in the patient's own words",
+     "'Viral upper respiratory infection'",
+     "'Pharyngeal erythema, no exudate'",
+     "'Give supportive care and fluids'"
+    ],
+    "answer": 0,
+    "explain": "The chief complaint is what the patient reports, ideally in their own words, and belongs in Subjective. A diagnosis (viral URI) is the provider's Assessment, exam findings are Objective, and treatment is the Plan."
+   },
+   {
+    "kind": "mcq",
+    "tag": "Scope",
+    "stem": "The CLIA-waived rapid strep test you performed comes back negative. What is your correct action as the MA?",
+    "options": [
+     "Document the negative result and report it to the provider",
+     "Tell the patient it is viral and he does not need antibiotics",
+     "Enter 'viral URI' as the diagnosis in the chart",
+     "Start the patient on acetaminophen on your own"
+    ],
+    "answer": 0,
+    "explain": "The MA performs the POC test and documents the objective result, then reports it to the provider. Interpreting the result diagnostically, diagnosing, and starting treatment are all provider functions outside MA scope."
+   },
+   {
+    "kind": "sort",
+    "tag": "SOAP Sort",
+    "intro": "Tag each item from this visit into the correct SOAP section.",
+    "items": [
+     {
+      "text": "Reports sore throat and dry cough for 4 days",
+      "bucket": "S"
+     },
+     {
+      "text": "States he has felt feverish at home",
+      "bucket": "S"
+     },
+     {
+      "text": "Temperature 100.6 F",
+      "bucket": "O"
+     },
+     {
+      "text": "Rapid strep test negative",
+      "bucket": "O"
+     },
+     {
+      "text": "Pharyngeal erythema without exudate",
+      "bucket": "O"
+     },
+     {
+      "text": "Viral upper respiratory infection",
+      "bucket": "A"
+     },
+     {
+      "text": "Advise rest, fluids, and acetaminophen for fever",
+      "bucket": "P"
+     },
+     {
+      "text": "Return if symptoms worsen or fever persists",
+      "bucket": "P"
+     }
+    ]
+   },
+   {
+    "kind": "mcq",
+    "tag": "Terminology",
+    "stem": "The patient describes a dry cough with no phlegm. Which term correctly documents this?",
+    "options": [
+     "Nonproductive cough (no sputum produced)",
+     "Productive cough with purulent sputum",
+     "Hemoptysis",
+     "Paroxysmal nocturnal dyspnea"
+    ],
+    "answer": 0,
+    "explain": "A dry cough that brings up no phlegm is a nonproductive cough. Productive means sputum is raised, hemoptysis is coughing up blood, and paroxysmal nocturnal dyspnea is sudden nighttime shortness of breath - none of which apply here."
+   }
+  ],
+  "soap": {
+   "S": [
+    "CC: 'My throat has been sore and I've had a dry cough for 4 days.'",
+    "33-year-old male, sore throat and nonproductive cough x4 days",
+    "Reports subjective low-grade fever at home; denies shortness of breath or chest pain",
+    "No known sick contacts reported; no difficulty swallowing",
+    "PMH: none. Medications: none. Allergies: NKDA"
+   ],
+   "O": [
+    "Temp 100.6 F (fever), Pulse 82, Resp 16, BP 118/76, SpO2 98% on room air",
+    "Pain 3/10 (throat). Weight 180 lb, Height 70 in",
+    "Rapid strep test: negative",
+    "Provider exam: pharyngeal erythema without exudate, no cervical lymphadenopathy, lungs clear"
+   ],
+   "A": [
+    "Viral upper respiratory infection (provider impression)"
+   ],
+   "P": [
+    "Supportive care: rest, increased fluids",
+    "Acetaminophen for fever and throat discomfort per label",
+    "Throat lozenges as needed",
+    "No antibiotics indicated (strep negative, viral picture)",
+    "Return if symptoms worsen or fever persists beyond 3 days"
+   ]
+  },
+  "teaching": [
+   "Verify identity with two identifiers - full name + date of birth - never room number or appointment time.",
+   "A temperature of 100.4 F or higher is a fever; 100.6 F is the one abnormal vital here and must be documented and reported.",
+   "The MA performs and documents POC tests like rapid strep, but interpreting, diagnosing, and prescribing are provider functions.",
+   "Chief complaint and reported symptoms go in Subjective; vitals, exam findings, and test results go in Objective."
+  ],
+  "scopeNote": "The MA gathers the history and vitals and documents the negative strep result; the provider makes the viral URI diagnosis and orders supportive care."
+ },
+ {
+  "id": "soap-htn",
+  "title": "Hypertension 3-Month Follow-Up & Refill",
+  "setting": "Family Medicine",
+  "difficulty": "med",
+  "estMin": 12,
+  "chiefLine": "HTN follow-up + lisinopril refill",
+  "patient": {
+   "name": "Diane Whitfield",
+   "dob": "1968-03-22",
+   "age": 58,
+   "sex": "F",
+   "mrn": "FM-448201",
+   "allergies": [
+    "Sulfa (sulfonamides)"
+   ],
+   "meds": [
+    "Lisinopril 20 mg PO daily",
+    "Hydrochlorothiazide 25 mg PO daily",
+    "Atorvastatin 40 mg PO daily",
+    "Aspirin 81 mg PO daily"
+   ],
+   "pmh": [
+    "Essential hypertension",
+    "Hyperlipidemia",
+    "Overweight"
+   ],
+   "reason": "3-month blood pressure check and medication refill"
+  },
+  "vitals": {
+   "tempF": 98.4,
+   "pulse": 78,
+   "resp": 16,
+   "systolic": 158,
+   "diastolic": 96,
+   "spo2": 98,
+   "weightLb": 182,
+   "heightIn": 64,
+   "painScore": 0
+  },
+  "steps": [
+   {
+    "kind": "mcq",
+    "tag": "Patient ID",
+    "stem": "Before rooming Ms. Whitfield, how do you correctly verify her identity?",
+    "options": [
+     "Confirm she is in exam room 4 at her 10:00 appointment",
+     "Ask her to state her full name and date of birth, then match to the chart",
+     "Call her name in the waiting room and confirm she answers",
+     "Confirm the name printed on the encounter form is correct"
+    ],
+    "answer": 1,
+    "explain": "Always use TWO patient identifiers. The accepted standard pair is full name + date of birth, matched against the chart/wristband. Room number, appointment time, or the patient simply answering to a called name are NOT acceptable identifiers."
+   },
+   {
+    "kind": "vitals",
+    "tag": "Vitals",
+    "explain": "Adult BP normal is <120/<80; 130/80 or higher flags as hypertension. Ms. Whitfield's 158/96 is clearly elevated and is the key finding today. Best practice: patient seated 5 min, feet flat, correct cuff size, arm supported at heart level, then recheck after a few minutes and document both readings for the provider. Temp, pulse, resp, and SpO2 are all within normal adult ranges."
+   },
+   {
+    "kind": "mcq",
+    "tag": "CC documentation",
+    "stem": "Which entry best documents the chief complaint for this visit?",
+    "options": [
+     "Patient likely has uncontrolled hypertension needing a dose increase",
+     "Hypertension — start amlodipine and recheck in 2 weeks",
+     "\"I'm here for my blood pressure check and to refill my pills.\"",
+     "Elevated BP secondary to medication nonadherence"
+    ],
+    "answer": 2,
+    "explain": "The chief complaint is recorded in the patient's own words and states why they came. Options implying a diagnosis or a treatment plan are provider functions (Assessment/Plan), not the MA-documented chief complaint."
+   },
+   {
+    "kind": "mcq",
+    "tag": "Med reconciliation",
+    "stem": "During medication reconciliation, Ms. Whitfield says she stopped her hydrochlorothiazide two weeks ago because it made her urinate too much. What is the correct MA action?",
+    "options": [
+     "Tell her to restart the hydrochlorothiazide today at the same dose",
+     "Reassure her the water pill isn't important and can be skipped",
+     "Document that she stopped hydrochlorothiazide, the reason, and flag it for the provider",
+     "Diagnose her elevated BP as caused by stopping the diuretic"
+    ],
+    "answer": 2,
+    "explain": "The MA gathers and documents an accurate medication list — including what the patient actually takes, stopped, or changed, and why — then flags discrepancies for the provider. Restarting, adjusting, or diagnosing are provider decisions outside MA scope."
+   },
+   {
+    "kind": "mcq",
+    "tag": "Scope",
+    "stem": "The provider hasn't come in yet, and Ms. Whitfield asks, \"Do you think my doctor will raise my blood pressure medicine?\" What is the appropriate MA response?",
+    "options": [
+     "\"Yes, at 158/96 you'll definitely need a higher dose.\"",
+     "\"I can't say — the provider will review your readings and decide. I'll make sure they see today's numbers.\"",
+     "\"Probably not, your pressure looks fine to me.\"",
+     "\"I'll go ahead and put in the refill at a higher dose for you.\""
+    ],
+    "answer": 1,
+    "explain": "Interpreting results diagnostically, predicting treatment, prescribing, or ordering medication changes are provider functions. The MA documents findings, reassures appropriately, and defers clinical decisions to the provider."
+   },
+   {
+    "kind": "sort",
+    "tag": "SOAP sorting",
+    "intro": "Sort each item from today's visit into the correct SOAP section.",
+    "items": [
+     {
+      "text": "\"I'm here for my blood pressure check and refill.\"",
+      "bucket": "S"
+     },
+     {
+      "text": "Stopped hydrochlorothiazide 2 weeks ago due to frequent urination",
+      "bucket": "S"
+     },
+     {
+      "text": "BP 158/96 mmHg, recheck 156/94 mmHg",
+      "bucket": "O"
+     },
+     {
+      "text": "Weight 182 lb, height 64 in",
+      "bucket": "O"
+     },
+     {
+      "text": "Uncontrolled essential hypertension",
+      "bucket": "A"
+     },
+     {
+      "text": "Continue lisinopril; resume hydrochlorothiazide and counsel on adherence",
+      "bucket": "P"
+     },
+     {
+      "text": "Recheck BP in 2 weeks; provide low-sodium diet education",
+      "bucket": "P"
+     }
+    ]
+   },
+   {
+    "kind": "mcq",
+    "tag": "Terminology",
+    "stem": "The provider asks you to document the medication refill order. Which entry follows safe abbreviation standards?",
+    "options": [
+     "Lisinopril 20.0 mg PO QD",
+     "Lisinopril 20 mg PO daily",
+     "Lisinopril 20 mg PO qd",
+     "Lisinopril 20mg by mouth QD"
+    ],
+    "answer": 1,
+    "explain": "Avoid TJC 'Do Not Use' items: 'QD/qd' can be misread as 'QID' or 'OD' — spell out 'daily.' Never use a trailing zero (20.0 mg can be misread as 200 mg). '20 mg PO daily' is clear and safe."
+   }
+  ],
+  "soap": {
+   "S": [
+    "Chief complaint: \"I'm here for my blood pressure check and to refill my pills.\"",
+    "58-year-old female presenting for 3-month hypertension follow-up and medication refill",
+    "Reports stopping hydrochlorothiazide ~2 weeks ago due to bothersome frequent urination",
+    "Denies chest pain, headache, dizziness, or visual changes",
+    "PMH: essential hypertension, hyperlipidemia, overweight",
+    "Allergy: sulfa (sulfonamides)"
+   ],
+   "O": [
+    "BP 158/96 mmHg (elevated), recheck 156/94 mmHg",
+    "Temp 98.4 F, pulse 78 bpm, resp 16/min, SpO2 98% on room air",
+    "Weight 182 lb, height 64 in",
+    "Pain 0/10",
+    "Current meds documented: lisinopril 20 mg daily, hydrochlorothiazide 25 mg daily (self-discontinued), atorvastatin 40 mg daily, aspirin 81 mg daily"
+   ],
+   "A": [
+    "Uncontrolled essential hypertension (provider impression)",
+    "Elevated BP in setting of self-discontinued diuretic (provider impression)"
+   ],
+   "P": [
+    "Continue lisinopril 20 mg PO daily; refilled",
+    "Resume hydrochlorothiazide 25 mg PO daily; counsel on adherence and timing",
+    "Low-sodium (DASH) diet education provided",
+    "Recheck BP in 2 weeks",
+    "Return sooner for chest pain, severe headache, or visual changes"
+   ]
+  },
+  "teaching": [
+   "Two identifiers = full name + DOB; room number and appointment time never count.",
+   "BP of 130/80 or higher flags as hypertension; 158/96 is clearly elevated — position the patient correctly and recheck before finalizing.",
+   "Medication reconciliation means documenting what the patient actually takes (including stopped/changed meds and why) and flagging discrepancies — never adjusting doses.",
+   "Assessment and Plan are provider functions; the MA documents them as dictated but does not diagnose, predict, or prescribe."
+  ],
+  "scopeNote": "The MA verifies ID, obtains vitals, and documents the history, med reconciliation, and the provider's A/P — but does not diagnose, adjust doses, or authorize the refill."
+ },
+ {
+  "id": "soap-dm2",
+  "title": "Type 2 Diabetes 3-Month Follow-Up",
+  "setting": "Family Medicine",
+  "difficulty": "med",
+  "estMin": 10,
+  "chiefLine": "T2DM 3-month follow-up, foot check, labs",
+  "patient": {
+   "name": "Raymond Alvarez",
+   "dob": "1963-11-08",
+   "age": 62,
+   "sex": "M",
+   "mrn": "FM-4471902",
+   "allergies": [
+    "NKDA"
+   ],
+   "meds": [
+    "Metformin 1000 mg by mouth twice daily",
+    "Lisinopril 10 mg by mouth daily",
+    "Atorvastatin 20 mg by mouth daily"
+   ],
+   "pmh": [
+    "Type 2 diabetes mellitus",
+    "Hypertension",
+    "Hyperlipidemia"
+   ],
+   "reason": "Diabetes 3-month follow-up"
+  },
+  "vitals": {
+   "tempF": 98.2,
+   "pulse": 78,
+   "resp": 16,
+   "systolic": 128,
+   "diastolic": 78,
+   "spo2": 98,
+   "weightLb": 214,
+   "heightIn": 70,
+   "glucose": 187,
+   "painScore": 0
+  },
+  "steps": [
+   {
+    "kind": "mcq",
+    "tag": "Patient ID",
+    "stem": "You call Raymond back for his diabetes follow-up. Before starting, how do you correctly verify his identity?",
+    "options": [
+     "Confirm he answered to the name you called in the waiting room",
+     "Ask him to state his full name and date of birth, then match both to the chart",
+     "Verify his room number and appointment time",
+     "Ask, 'You're Raymond Alvarez, right?' and proceed when he says yes"
+    ],
+    "answer": 1,
+    "explain": "Use TWO patient identifiers before any care. The accepted standard pair is full name plus date of birth, matched to the chart and armband/record. Room number, appointment time, and a yes/no confirmation of a name you supplied are NOT acceptable identifiers and can lead to wrong-patient errors."
+   },
+   {
+    "kind": "vitals",
+    "tag": "Vitals & POC glucose",
+    "explain": "Adult ranges: Temp 97.0-99.5 F, Pulse 60-100, Resp 12-20, BP under 130/80, SpO2 95-100%. Raymond's vitals and BP (128/78) are within range. The flag is the POC random glucose of 187 mg/dL - a random glucose at or above 140 is elevated and above his target. Document the value and report it to the provider; do not interpret it as a diagnosis or adjust medications yourself."
+   },
+   {
+    "kind": "mcq",
+    "tag": "CC documentation",
+    "stem": "Raymond says, 'My sugars have been running high in the mornings and my feet feel kind of numb and tingly.' How should you document the chief complaint?",
+    "options": [
+     "Patient has diabetic peripheral neuropathy and poor glycemic control",
+     "Elevated morning blood glucose; needs medication increase",
+     "'My sugars have been running high in the mornings and my feet feel kind of numb and tingly'",
+     "Patient noncompliant with diabetes management"
+    ],
+    "answer": 2,
+    "explain": "The chief complaint is recorded in the patient's own words as reported. Options that assign a diagnosis (neuropathy), recommend a treatment, or label the patient are outside MA scope and add unverified clinical interpretation. Quote the subjective report; let the provider diagnose."
+   },
+   {
+    "kind": "mcq",
+    "tag": "Scope",
+    "stem": "The provider asks you to perform a monofilament diabetic foot exam and document findings, then plans to order an A1c. Which action is within your MA scope?",
+    "options": [
+     "Tell Raymond his foot numbness means he has nerve damage from diabetes",
+     "Perform the delegated monofilament screening and document the sensation findings you observe",
+     "Increase his metformin dose because the glucose is high",
+     "Independently order the A1c lab before the provider sees him"
+    ],
+    "answer": 1,
+    "explain": "MAs carry out delegated screenings (like the monofilament foot exam) and document objective findings. They do NOT diagnose (nerve damage), prescribe or adjust medications, or originate lab orders. Diagnosis and orders are provider functions the MA may document once the provider states them."
+   },
+   {
+    "kind": "sort",
+    "tag": "SOAP sorting",
+    "intro": "Tag each statement from Raymond's visit into the correct SOAP section.",
+    "items": [
+     {
+      "text": "Reports morning blood sugars running high",
+      "bucket": "S"
+     },
+     {
+      "text": "States feet feel numb and tingly",
+      "bucket": "S"
+     },
+     {
+      "text": "POC random glucose 187 mg/dL",
+      "bucket": "O"
+     },
+     {
+      "text": "BP 128/78, weight 214 lb",
+      "bucket": "O"
+     },
+     {
+      "text": "Monofilament: reduced sensation both great toes",
+      "bucket": "O"
+     },
+     {
+      "text": "Type 2 diabetes, suboptimal control",
+      "bucket": "A"
+     },
+     {
+      "text": "Order hemoglobin A1c via venipuncture",
+      "bucket": "P"
+     },
+     {
+      "text": "Return to clinic in 2 weeks to review labs",
+      "bucket": "P"
+     }
+    ]
+   },
+   {
+    "kind": "mcq",
+    "tag": "Terminology",
+    "stem": "The provider dictates the plan for you to document. Which entry avoids TJC 'Do Not Use' abbreviations and is written correctly?",
+    "options": [
+     "Metformin 1000 mg by mouth twice daily; A1c ordered; foot care education given",
+     "Metformin 1.0 g PO QD; A1c ordered; foot care education given",
+     "Metformin 1000mg by mouth QD; recheck sugar QD",
+     "Metformin 1.0 gram by mouth two times a day; draw A1c"
+    ],
+    "answer": 0,
+    "explain": "Spell out 'daily'/'twice daily' instead of QD or BID hazards, avoid trailing zeros (1.0 mg is prohibited - a missed decimal reads as 10x), and keep clear units. 'Metformin 1000 mg by mouth twice daily' uses no Do Not Use abbreviations and no trailing zero, so it is the safe, correct entry."
+   }
+  ],
+  "soap": {
+   "S": [
+    "62-year-old male here for scheduled 3-month type 2 diabetes follow-up",
+    "Reports morning blood sugars 'running high'",
+    "Reports bilateral foot numbness and tingling",
+    "Denies chest pain, foot wounds, or vision changes",
+    "Reports adherence to metformin, lisinopril, and atorvastatin"
+   ],
+   "O": [
+    "Temp 98.2 F, Pulse 78, Resp 16, BP 128/78, SpO2 98% on room air",
+    "Weight 214 lb, Height 70 in",
+    "POC random glucose 187 mg/dL (elevated)",
+    "Monofilament foot exam: reduced sensation at both great toes; skin intact, no ulcers",
+    "Pain 0/10"
+   ],
+   "A": [
+    "Type 2 diabetes mellitus with suboptimal glycemic control (provider)",
+    "Suspected diabetic peripheral neuropathy, to be evaluated (provider)"
+   ],
+   "P": [
+    "Hemoglobin A1c ordered via venipuncture (provider)",
+    "Continue current metformin, lisinopril, atorvastatin pending A1c (provider)",
+    "Diabetic foot care and daily self-inspection education provided",
+    "Return to clinic in 2 weeks to review A1c results (provider)"
+   ]
+  },
+  "teaching": [
+   "Two identifiers before care: full name + date of birth. Room number, appointment time, and 'the patient said yes' never count.",
+   "A random glucose at or above 140 mg/dL is elevated - the MA documents and reports the value but never diagnoses or changes meds.",
+   "The MA gathers/documents S and O; the provider originates A and P. The MA may only document diagnoses and orders the provider dictates.",
+   "Avoid Do Not Use abbreviations: spell out 'daily', use 'mL' not cc, and never use trailing zeros (1.0 mg) which cause 10x dosing errors."
+  ],
+  "scopeNote": "The MA collects and documents the subjective history, vitals, POC glucose, and delegated foot screening; the provider originates the diabetes assessment, the A1c order, and the plan."
+ },
+ {
+  "id": "soap-peds-wcc",
+  "title": "4-Year-Old Well-Child Check",
+  "setting": "Pediatrics",
+  "difficulty": "med",
+  "estMin": 10,
+  "chiefLine": "Routine 4-year well-child visit, immunizations due",
+  "patient": {
+   "name": "Mateo Reyes",
+   "dob": "2022-03-08",
+   "age": 4,
+   "sex": "M",
+   "mrn": "PED-448127",
+   "allergies": [
+    "NKDA"
+   ],
+   "meds": [
+    "Children's multivitamin, 1 gummy by mouth daily"
+   ],
+   "pmh": [
+    "Full-term birth, no complications",
+    "Up to date on immunizations through 18 months"
+   ],
+   "reason": "Routine 4-year well-child check; kindergarten physical and vaccines due"
+  },
+  "vitals": {
+   "tempF": 98.4,
+   "pulse": 96,
+   "resp": 24,
+   "systolic": 100,
+   "diastolic": 62,
+   "spo2": 99,
+   "heightIn": 40,
+   "weightLb": 37,
+   "painScore": 0
+  },
+  "steps": [
+   {
+    "kind": "mcq",
+    "tag": "Patient ID",
+    "stem": "You call Mateo back for his well-child check. His mother is with him. What is the correct way to verify his identity before beginning?",
+    "options": [
+     "Confirm he is the child in room 3 scheduled for 9:00 AM",
+     "Ask the mother to state the child's full name and date of birth, and match both to the chart",
+     "Ask the child if his name is Mateo and proceed when he nods",
+     "Verify the mother's name and assume the child matches"
+    ],
+    "answer": 1,
+    "explain": "Always use TWO patient identifiers. For a young child, have the parent/guardian state the child's full name AND date of birth, then match both against the chart and armband/record. Room number, appointment time, and a child nodding to a leading question are NOT acceptable identifiers."
+   },
+   {
+    "kind": "vitals",
+    "tag": "Vitals",
+    "stem": "Obtain and document Mateo's vital signs and growth measurements for the well-child visit.",
+    "explain": "Use PRESCHOOL ranges, which differ from adult ranges: pulse 80-120 bpm (his 96 is normal), respirations 20-30/min (his 24 is normal), systolic BP roughly 90-110 (his 100/62 is normal), SpO2 95-100% (his 99% is normal), temp 97.0-99.5 F (his 98.4 is normal). A pulse of 96 would be borderline-high for an adult but is perfectly normal for a 4-year-old — this is why age-specific ranges matter. Height and weight are plotted on a growth chart to track percentiles over time."
+   },
+   {
+    "kind": "mcq",
+    "tag": "CC documentation",
+    "stem": "How should the MA document the reason for today's visit in the chief complaint?",
+    "options": [
+     "Patient is healthy, no issues",
+     "Mother reports here for routine 4-year well-child check and kindergarten physical; vaccines due",
+     "Well child, diagnosis deferred to provider",
+     "Annual exam, R/O developmental delay"
+    ],
+    "answer": 1,
+    "explain": "The chief complaint captures why the patient is here, as reported by the patient or guardian, in clear objective language. A well-child visit is documented as a routine/preventive check with the specific purpose (kindergarten physical, immunizations due). Don't add rule-out diagnoses or clinical impressions — that is the provider's job."
+   },
+   {
+    "kind": "mcq",
+    "tag": "Scope",
+    "stem": "The provider says Mateo is due for his DTaP, IPV, MMR, and varicella boosters and asks you to administer them per protocol. The mother asks you, 'Does my son really need all four shots today?' What is the appropriate MA response?",
+    "options": [
+     "Reassure her they are optional and she can skip any she wants",
+     "Explain your clinical opinion on which vaccines matter most",
+     "Let her know you'll bring the provider back to discuss her questions, then administer the ordered vaccines once she consents",
+     "Tell her the shots are required by law so she has no choice"
+    ],
+    "answer": 2,
+    "explain": "The MA administers vaccines as a delegated order and provides standard education (like the VIS sheets), but deciding which vaccines are needed and counseling on medical necessity is the provider's role. Bring clinical questions back to the provider. The MA does not diagnose, prescribe, or override informed consent."
+   },
+   {
+    "kind": "sort",
+    "tag": "SOAP sorting",
+    "intro": "Sort each item from Mateo's visit into the correct SOAP section.",
+    "items": [
+     {
+      "text": "Mother reports Mateo is eating well, sleeping through the night, and speaking in full sentences",
+      "bucket": "S"
+     },
+     {
+      "text": "No parental concerns about vision, hearing, or behavior",
+      "bucket": "S"
+     },
+     {
+      "text": "Weight 37 lb, height 40 in, plotted at ~50th percentile on growth chart",
+      "bucket": "O"
+     },
+     {
+      "text": "Vitals: temp 98.4 F, pulse 96, resp 24, BP 100/62, SpO2 99%",
+      "bucket": "O"
+     },
+     {
+      "text": "Healthy 4-year-old, growth and development age-appropriate",
+      "bucket": "A"
+     },
+     {
+      "text": "Administer DTaP, IPV, MMR, and varicella boosters today",
+      "bucket": "P"
+     },
+     {
+      "text": "Return for next well-child visit at age 5",
+      "bucket": "P"
+     }
+    ]
+   },
+   {
+    "kind": "mcq",
+    "tag": "Terminology",
+    "stem": "When documenting the multivitamin the child takes, which entry avoids TJC 'Do Not Use' abbreviations and is correct?",
+    "options": [
+     "Children's multivitamin 1 gummy PO QD",
+     "Children's multivitamin, 1 gummy by mouth daily",
+     "Children's multivitamin 1.0 gummy q.d.",
+     "Children's multivitamin 1 gummy PO qds"
+    ],
+    "answer": 1,
+    "explain": "Spell out 'daily' instead of QD/q.d. (mistaken for QID or OD), spell out 'by mouth' or use 'PO' cautiously, and never use a trailing zero (1.0). 'By mouth daily' is unambiguous and compliant with the TJC Do Not Use list."
+   }
+  ],
+  "soap": {
+   "S": [
+    "Mother reports Mateo here for routine 4-year well-child check and kindergarten physical",
+    "Eating well, sleeping through the night, speaking in full sentences",
+    "No parental concerns about vision, hearing, or behavior",
+    "Allergies: NKDA. Med: children's multivitamin, 1 gummy by mouth daily",
+    "Up to date on immunizations through 18 months"
+   ],
+   "O": [
+    "Temp 98.4 F, pulse 96, resp 24, BP 100/62, SpO2 99% on room air (all age-normal for preschool)",
+    "Weight 37 lb, height 40 in, plotted ~50th percentile on growth chart",
+    "Alert, active, interactive, no acute distress"
+   ],
+   "A": [
+    "Healthy 4-year-old male; growth and development age-appropriate (provider assessment)"
+   ],
+   "P": [
+    "Administer DTaP, IPV, MMR, and varicella boosters today per provider order",
+    "Anticipatory guidance provided to mother; VIS sheets given",
+    "Return for next well-child visit at age 5 or sooner if concerns"
+   ]
+  },
+  "teaching": [
+   "Pediatric vital ranges differ from adult ranges — a pulse of 96 and respirations of 24 are normal for a 4-year-old but would be flagged in an adult. Always use age-specific ranges.",
+   "Use two identifiers even for children: have the parent state the child's full name and date of birth; room number and appointment time never count.",
+   "The MA administers vaccines as a delegated order and gives standard VIS education, but the provider decides which vaccines are needed and counsels on medical necessity.",
+   "Avoid TJC Do Not Use abbreviations: write 'daily' not QD, no trailing zeros (1 mg not 1.0 mg)."
+  ],
+  "scopeNote": "MA gathers/documents S and O (vitals, growth, history) and administers ordered vaccines; the provider owns the well-child assessment and immunization plan."
+ },
+ {
+  "id": "soap-chest-pain",
+  "title": "Acute Chest Pressure in Urgent Care",
+  "setting": "Urgent Care",
+  "difficulty": "hard",
+  "estMin": 12,
+  "chiefLine": "55M — chest pressure and sweating, sudden onset",
+  "patient": {
+   "name": "Robert Alvarez",
+   "dob": "1971-03-08",
+   "age": 55,
+   "sex": "M",
+   "mrn": "UC-448201",
+   "allergies": [
+    "NKDA"
+   ],
+   "meds": [
+    "Lisinopril 20 mg daily",
+    "Atorvastatin 40 mg daily",
+    "Aspirin 81 mg daily"
+   ],
+   "pmh": [
+    "Hypertension",
+    "Hyperlipidemia",
+    "Former smoker (quit 3 years ago)"
+   ],
+   "reason": "Sudden chest pressure with sweating for the past 40 minutes"
+  },
+  "vitals": {
+   "tempF": 98.4,
+   "pulse": 108,
+   "resp": 22,
+   "systolic": 158,
+   "diastolic": 94,
+   "spo2": 93,
+   "painScore": 7
+  },
+  "steps": [
+   {
+    "kind": "mcq",
+    "tag": "Patient ID",
+    "stem": "Mr. Alvarez is brought back looking pale and diaphoretic. Before you place him on the monitor, how do you correctly verify his identity?",
+    "options": [
+     "Confirm his full name and date of birth",
+     "Confirm the appointment time on the schedule",
+     "Ask \"Are you Robert?\" and proceed when he nods",
+     "Match him to the room number on the door"
+    ],
+    "answer": 0,
+    "explain": "Always use TWO patient identifiers, and the standard acceptable pair is full name + date of birth. Room number, appointment time, and a simple yes/no to a name are NOT acceptable identifiers. Emergencies do not waive identity verification — you still confirm name + DOB before the EKG and any intervention."
+   },
+   {
+    "kind": "vitals",
+    "tag": "Vital signs",
+    "explain": "Adult normals: Pulse 60-100 (his 108 = tachycardia), Resp 12-20 (his 22 = tachypnea), BP <120/80 (his 158/94 = hypertension flag), SpO2 95-100% (his 93% = hypoxemia). Pain 7/10 is significant. This cluster — tachycardia, tachypnea, hypertension, low SpO2, diaphoresis, and chest pressure in a 55-year-old with cardiac risk factors — is an emergency pattern. Get the provider immediately and be ready to activate EMS; the MA does not wait to 're-check' before escalating."
+   },
+   {
+    "kind": "mcq",
+    "tag": "CC documentation",
+    "stem": "Which entry BEST documents his chief complaint in the Subjective section?",
+    "options": [
+     "\"Patient states: chest pressure like a weight, started 40 minutes ago, sweating\"",
+     "\"Rule out myocardial infarction\"",
+     "\"Chest pain, likely cardiac in origin\"",
+     "\"Elevated troponin suspected\""
+    ],
+    "answer": 0,
+    "explain": "The chief complaint is the patient's own reported experience — onset, quality, timing — recorded objectively without interpretation. 'Rule out MI' and 'likely cardiac' are clinical impressions (Assessment), which the MA does not originate. Document what the patient says and what you measure, not a diagnosis."
+   },
+   {
+    "kind": "mcq",
+    "tag": "Terminology",
+    "stem": "The provider asks you to note the EKG order. Which is written correctly, avoiding \"Do Not Use\" abbreviations?",
+    "options": [
+     "12-lead EKG obtained; aspirin 81 mg daily documented on home med list",
+     "EKG obtained; ASA 1.0 mg QD per home meds",
+     "EKG done; give ASA cc dose stat",
+     "EKG obtained; aspirin .81 mg QOD"
+    ],
+    "answer": 0,
+    "explain": "Spell out 'daily' (not QD), never use a trailing zero (1.0 mg is unsafe — reads as 10), always use a leading zero for decimals (0.81, never .81), and don't abbreviate drug names ambiguously. 'cc' is a Do Not Use unit; use mL. Clean, unambiguous documentation prevents medication errors."
+   },
+   {
+    "kind": "mcq",
+    "tag": "Scope / emergency",
+    "stem": "You've obtained the 12-lead EKG and vitals. The tracing looks abnormal to you and the patient's pressure is worsening. What is the correct MA action?",
+    "options": [
+     "Hand the EKG to the provider immediately and report the abnormal vitals so they can evaluate — escalate, do not diagnose",
+     "Tell the patient he is having a heart attack and reassure him",
+     "Interpret the EKG as a STEMI and chart that diagnosis",
+     "Give him a nitroglycerin tablet from the med room to help the pain"
+    ],
+    "answer": 0,
+    "explain": "The MA recognizes an emergency and escalates immediately — get the EKG and vitals to the provider without delay. The MA does NOT interpret the EKG diagnostically, does NOT tell the patient the diagnosis, and does NOT give medication without a provider order. Diagnosis (A) and treatment/prescriptions (P) are provider functions. Recognizing and escalating is exactly the MA's job here."
+   },
+   {
+    "kind": "sort",
+    "tag": "SOAP sorting",
+    "intro": "Sort each item from Mr. Alvarez's visit into the correct SOAP section.",
+    "items": [
+     {
+      "text": "\"Chest pressure like a weight, started 40 minutes ago\"",
+      "bucket": "S"
+     },
+     {
+      "text": "History of hypertension and high cholesterol",
+      "bucket": "S"
+     },
+     {
+      "text": "BP 158/94, pulse 108, SpO2 93% on room air",
+      "bucket": "O"
+     },
+     {
+      "text": "12-lead EKG obtained and given to provider",
+      "bucket": "O"
+     },
+     {
+      "text": "Patient appears pale and diaphoretic",
+      "bucket": "O"
+     },
+     {
+      "text": "Provider impression: acute coronary syndrome",
+      "bucket": "A"
+     },
+     {
+      "text": "Activate EMS for transfer to emergency department",
+      "bucket": "P"
+     },
+     {
+      "text": "Administer aspirin per provider order",
+      "bucket": "P"
+     }
+    ]
+   },
+   {
+    "kind": "mcq",
+    "tag": "Escalation / closing",
+    "stem": "While the provider evaluates and EMS is activated, what is the MA's appropriate role?",
+    "options": [
+     "Stay with the patient, monitor and re-check vitals, and carry out delegated orders like placing him on oxygen when ordered",
+     "Leave to start the next patient's intake since the provider is now in charge",
+     "Independently decide to send him home with follow-up instructions",
+     "Call the patient's family to explain his cardiac diagnosis"
+    ],
+    "answer": 0,
+    "explain": "The MA supports the emergency: stay with the patient, keep monitoring vitals, and perform delegated tasks (oxygen, repeat EKG, IV setup per protocol) as ordered. The MA does not disposition the patient, does not diagnose to family, and doesn't abandon an unstable patient. Supporting and documenting under provider direction is in scope."
+   }
+  ],
+  "soap": {
+   "S": [
+    "Chief complaint: \"chest pressure like a weight\" starting 40 minutes ago, associated with sweating",
+    "55-year-old male; pain rated 7/10, pressure-like, substernal",
+    "PMH: hypertension, hyperlipidemia, former smoker (quit 3 years ago)",
+    "Home meds: lisinopril 20 mg daily, atorvastatin 40 mg daily, aspirin 81 mg daily",
+    "Allergies: NKDA"
+   ],
+   "O": [
+    "Vitals: Temp 98.4 F, pulse 108, resp 22, BP 158/94, SpO2 93% on room air, pain 7/10",
+    "Appears pale and diaphoretic",
+    "12-lead EKG obtained and provided to provider immediately",
+    "Abnormal findings flagged: tachycardia, tachypnea, hypertension, hypoxemia"
+   ],
+   "A": [
+    "Provider clinical impression: acute coronary syndrome, rule out myocardial infarction (documented as dictated by provider)"
+   ],
+   "P": [
+    "EMS activated for emergent transfer to emergency department",
+    "Aspirin administered per provider order",
+    "Oxygen applied per provider order; continuous monitoring",
+    "MA to stay with patient, repeat vitals, and carry out delegated orders until transfer"
+   ]
+  },
+  "teaching": [
+   "Two identifiers (full name + DOB) are required every time — emergencies do not waive identity verification.",
+   "The MA recognizes and escalates emergencies but never diagnoses; interpreting an EKG or naming an MI is a provider function.",
+   "Chief complaint is documented in the patient's own words plus objective measurements — never as a diagnosis.",
+   "Avoid TJC 'Do Not Use' items: spell out 'daily', use leading zeros (0.81), no trailing zeros (1.0), use mL not cc."
+  ],
+  "scopeNote": "The MA gathers vitals and the EKG and escalates immediately to the provider; diagnosis and treatment orders remain provider functions the MA only documents and carries out."
+ },
+ {
+  "id": "soap-asthma",
+  "title": "Asthma Exacerbation with Wheeze and Shortness of Breath",
+  "setting": "Urgent Care / Family Medicine",
+  "difficulty": "med",
+  "estMin": 12,
+  "chiefLine": "Wheezing and shortness of breath since this morning",
+  "patient": {
+   "name": "Maya Delgado",
+   "dob": "2006-03-12",
+   "age": 20,
+   "sex": "F",
+   "mrn": "UC-448210",
+   "allergies": [
+    "NKDA"
+   ],
+   "meds": [
+    "Albuterol HFA inhaler 90 mcg, 2 puffs every 4 hours as needed",
+    "Fluticasone 110 mcg inhaler, 1 puff twice daily",
+    "Cetirizine 10 mg by mouth daily"
+   ],
+   "pmh": [
+    "Mild persistent asthma",
+    "Seasonal allergic rhinitis"
+   ],
+   "reason": "Wheezing, chest tightness, and shortness of breath worsening over the day"
+  },
+  "vitals": {
+   "tempF": 98.7,
+   "pulse": 104,
+   "resp": 24,
+   "systolic": 126,
+   "diastolic": 78,
+   "spo2": 91,
+   "peakFlow": 250,
+   "painScore": 2,
+   "weightLb": 138,
+   "heightIn": 65
+  },
+  "steps": [
+   {
+    "kind": "mcq",
+    "tag": "Patient ID",
+    "stem": "Maya arrives in respiratory distress and is anxious. Before obtaining vitals, how do you correctly verify her identity?",
+    "options": [
+     "Confirm her full name and date of birth against the chart",
+     "Confirm she is in room 3 and it is her 2:15 appointment",
+     "Ask 'Are you Maya?' and proceed when she nods",
+     "Verify her full name and the reason for today's visit"
+    ],
+    "answer": 0,
+    "explain": "Use TWO acceptable identifiers: full name plus date of birth is the standard pair. Room number, appointment time, and a yes/no name check are NOT acceptable identifiers. Distress does not waive verification."
+   },
+   {
+    "kind": "vitals",
+    "tag": "Vitals",
+    "explain": "Adult ranges: Pulse 60-100, Resp 12-20, BP sys 90-120/dia 60-80, SpO2 95-100%. Maya's SpO2 91% is hypoxemia (below 95%) and is the priority abnormal finding — report it to the provider immediately. Resp 24 is tachypnea and pulse 104 is mild tachycardia, both consistent with respiratory distress. Peak flow 250 L/min is well below her personal best (~450), showing significant airway obstruction. BP 126/78 is elevated but not hypertensive."
+   },
+   {
+    "kind": "mcq",
+    "tag": "CC documentation",
+    "stem": "How should you document Maya's chief complaint in the Subjective section?",
+    "options": [
+     "Patient states, 'I can't catch my breath and my chest feels tight,' since this morning",
+     "Acute asthma exacerbation with hypoxemia",
+     "Bronchospasm secondary to viral trigger",
+     "Patient appears short of breath and is wheezing on exam"
+    ],
+    "answer": 0,
+    "explain": "The chief complaint is recorded in the patient's own words as Subjective data. Naming a diagnosis (asthma exacerbation, bronchospasm) is the provider's Assessment, and observed wheezing is Objective — neither belongs in the CC."
+   },
+   {
+    "kind": "mcq",
+    "tag": "Scope",
+    "stem": "With an SpO2 of 91% and audible wheezing, which action is within your MA scope for this visit?",
+    "options": [
+     "Notify the provider of the low SpO2 and distress immediately, and document findings",
+     "Tell Maya she is having a moderate asthma attack",
+     "Start an oral steroid and increase her inhaler dose",
+     "Interpret the peak flow as diagnostic of an exacerbation"
+    ],
+    "answer": 0,
+    "explain": "The MA recognizes the emergency and escalates the abnormal SpO2 to the provider right away, then documents. Diagnosing the attack, interpreting results diagnostically, and starting or changing medications are provider functions the MA never originates."
+   },
+   {
+    "kind": "sort",
+    "tag": "SOAP sorting",
+    "intro": "Tag each item from Maya's visit into the correct SOAP section.",
+    "items": [
+     {
+      "text": "States 'I can't catch my breath and my chest feels tight'",
+      "bucket": "S"
+     },
+     {
+      "text": "Reports using rescue inhaler twice with little relief",
+      "bucket": "S"
+     },
+     {
+      "text": "SpO2 91% on room air",
+      "bucket": "O"
+     },
+     {
+      "text": "Expiratory wheezing heard bilaterally",
+      "bucket": "O"
+     },
+     {
+      "text": "Peak flow 250 L/min, reduced from personal best",
+      "bucket": "O"
+     },
+     {
+      "text": "Acute moderate asthma exacerbation",
+      "bucket": "A"
+     },
+     {
+      "text": "Administer nebulized albuterol treatment per provider order",
+      "bucket": "P"
+     },
+     {
+      "text": "Educate patient on proper inhaler and spacer technique",
+      "bucket": "P"
+     }
+    ]
+   },
+   {
+    "kind": "mcq",
+    "tag": "Terminology",
+    "stem": "The provider orders a nebulized bronchodilator. Which documentation entry uses correct, approved terminology?",
+    "options": [
+     "Give 3 mL albuterol nebulized now, then recheck SpO2 and peak flow",
+     "Give 3 cc albuterol nebulized now",
+     "Give albuterol neb QD",
+     "Give 3.0 mL albuterol nebulized now"
+    ],
+    "answer": 0,
+    "explain": "Use 'mL', not 'cc'. Avoid 'QD' (write 'daily' or the actual frequency) and never use a trailing zero like '3.0 mL', which can be misread as 30 mL. Rechecking SpO2 and peak flow after the treatment documents the response to therapy."
+   }
+  ],
+  "soap": {
+   "S": [
+    "Patient states, 'I can't catch my breath and my chest feels tight,' since this morning",
+    "Wheezing and shortness of breath worsening over the day, worse with exertion",
+    "Used albuterol rescue inhaler twice at home with little relief",
+    "Recent upper respiratory infection last week; denies fever or chest pain",
+    "History of mild persistent asthma and seasonal allergies"
+   ],
+   "O": [
+    "Temp 98.7 F, Pulse 104, Resp 24, BP 126/78, SpO2 91% on room air",
+    "Peak flow 250 L/min, reduced from personal best ~450 L/min",
+    "Audible bilateral expiratory wheezing with mild accessory muscle use",
+    "Speaking in short sentences, mild respiratory distress"
+   ],
+   "A": [
+    "Acute moderate asthma exacerbation with hypoxemia (provider assessment)"
+   ],
+   "P": [
+    "Nebulized albuterol treatment administered per provider order",
+    "Recheck SpO2 and peak flow after treatment",
+    "Oral corticosteroid started per provider",
+    "Reviewed inhaler and spacer technique with patient",
+    "Follow up in 24-48 hours; return precautions given for worsening breathing"
+   ]
+  },
+  "teaching": [
+   "Chief complaint goes in the patient's own words as Subjective data; the diagnosis is the provider's Assessment.",
+   "SpO2 below 95% is hypoxemia — recognize it, escalate to the provider immediately, and document; the MA never diagnoses or prescribes.",
+   "Peak flow and SpO2 are Objective measurements; comparing peak flow to the patient's personal best shows severity.",
+   "Chart with approved terms: use 'mL' not 'cc', 'daily' not 'QD', and no trailing zeros (3 mL, not 3.0 mL)."
+  ],
+  "scopeNote": "The MA gathers and documents S and O and escalates the low SpO2; the provider originates the asthma diagnosis (A) and all treatment orders (P)."
+ },
+ {
+  "id": "soap-uti",
+  "title": "Dysuria and Urinary Frequency — Clean-Catch Urinalysis",
+  "setting": "Family Medicine",
+  "difficulty": "easy",
+  "estMin": 10,
+  "chiefLine": "Burning with urination and going frequently x2 days",
+  "patient": {
+   "name": "Amara Ellison",
+   "dob": "2000-03-18",
+   "age": 26,
+   "sex": "F",
+   "mrn": "FM-408216",
+   "allergies": [
+    "NKDA"
+   ],
+   "meds": [
+    "Ethinyl estradiol/norethindrone oral contraceptive, one tablet daily",
+    "Cetirizine 10 mg daily as needed"
+   ],
+   "pmh": [
+    "Seasonal allergic rhinitis"
+   ],
+   "reason": "Burning with urination and urinary frequency for 2 days"
+  },
+  "vitals": {
+   "tempF": 98.6,
+   "pulse": 78,
+   "resp": 16,
+   "systolic": 118,
+   "diastolic": 74,
+   "spo2": 99,
+   "weightLb": 141,
+   "heightIn": 65,
+   "painScore": 3
+  },
+  "steps": [
+   {
+    "kind": "mcq",
+    "tag": "Patient ID",
+    "stem": "You call Ms. Ellison back to the room. Before starting, how do you correctly verify her identity?",
+    "options": [
+     "Ask her to state her full name and date of birth, then match both to the chart",
+     "Confirm she is the patient in room 4 at the 2:00 PM slot",
+     "Ask 'Are you Amara Ellison?' and proceed when she says yes",
+     "Match her first name and phone number to the schedule"
+    ],
+    "answer": 0,
+    "explain": "Use two identifiers that belong to the person, not the location. Full name plus date of birth is the standard acceptable pair. Room number, appointment time, or a single yes/no confirmation are NOT acceptable identifiers because they can be shared or misheard."
+   },
+   {
+    "kind": "vitals",
+    "tag": "Vitals",
+    "explain": "Every reading is within adult normal ranges: Temp 97.0-99.5 F (98.6 is normal, no fever; fever is >=100.4), Pulse 60-100 (78), Resp 12-20 (16), BP systolic 90-120 / diastolic 60-80 (118/74 normal), SpO2 95-100% (99%). Pain of 3/10 is documented as present (any score >=1 counts). The lack of fever matters here: an afebrile patient with lower-urinary symptoms fits a simple bladder picture rather than a kidney infection, but only the provider assigns that impression."
+   },
+   {
+    "kind": "mcq",
+    "tag": "CC documentation",
+    "stem": "Ms. Ellison says, 'It burns so bad when I pee, and I keep running to the bathroom.' How should you document the chief complaint?",
+    "options": [
+     "Chief complaint: 'It burns so bad when I pee, and I keep running to the bathroom' x2 days",
+     "Assessment: acute urinary tract infection",
+     "Patient has dysuria secondary to cystitis",
+     "Rule out UTI, start antibiotics"
+    ],
+    "answer": 0,
+    "explain": "The chief complaint is recorded in the patient's own words. Naming a diagnosis (UTI, cystitis) or ordering treatment is a provider function and is outside MA scope. 'Dysuria' and 'urinary frequency' are correct terms for the HPI, but the CC itself should quote the patient."
+   },
+   {
+    "kind": "mcq",
+    "tag": "POC testing",
+    "stem": "You will collect a clean-catch midstream urine specimen. Which instruction set is correct to teach the patient?",
+    "options": [
+     "Wash hands, cleanse front to back with the wipes, begin voiding into the toilet, then catch the midstream urine in the cup",
+     "Collect the very first urine that comes out to get the most concentrated sample",
+     "Skip cleansing since the sample goes to a lab anyway",
+     "Wipe back to front, then fill the cup from the start of the stream"
+    ],
+    "answer": 0,
+    "explain": "Clean-catch midstream technique reduces contamination: hand hygiene, cleanse the meatus front to back (away from the rectum), start the stream into the toilet, then collect the midstream portion. First-stream urine and back-to-front wiping both increase contamination and can produce a misleading result."
+   },
+   {
+    "kind": "mcq",
+    "tag": "Scope",
+    "stem": "The CLIA-waived urine dipstick shows positive leukocyte esterase and nitrites. What is the correct MA action?",
+    "options": [
+     "Document the dipstick results and report them to the provider, who interprets them and decides on treatment",
+     "Tell the patient she has a UTI and it should clear up soon",
+     "Start the patient on an antibiotic from the sample cabinet",
+     "Interpret the result as a confirmed infection in the note"
+    ],
+    "answer": 0,
+    "explain": "The MA performs the CLIA-waived test and documents the objective result, then reports it to the provider. Interpreting the result as a diagnosis, telling the patient what it means clinically, or starting a medication are provider functions outside MA scope."
+   },
+   {
+    "kind": "sort",
+    "tag": "SOAP sort",
+    "intro": "Tag each item from this visit into Subjective, Objective, Assessment, or Plan.",
+    "items": [
+     {
+      "text": "'It burns so bad when I pee' for 2 days",
+      "bucket": "S"
+     },
+     {
+      "text": "Reports urinary frequency and no fever or flank pain",
+      "bucket": "S"
+     },
+     {
+      "text": "Temp 98.6 F, BP 118/74, pain 3/10",
+      "bucket": "O"
+     },
+     {
+      "text": "Dipstick positive for leukocyte esterase and nitrites",
+      "bucket": "O"
+     },
+     {
+      "text": "Clinical impression: acute uncomplicated cystitis",
+      "bucket": "A"
+     },
+     {
+      "text": "Prescribe nitrofurantoin 100 mg twice daily for 5 days",
+      "bucket": "P"
+     },
+     {
+      "text": "Educate on hydration and completing the antibiotic course",
+      "bucket": "P"
+     },
+     {
+      "text": "Return if fever, back pain, or symptoms worsen",
+      "bucket": "P"
+     }
+    ]
+   },
+   {
+    "kind": "mcq",
+    "tag": "Abbreviations",
+    "stem": "The provider dictates the plan. Which entry is written correctly per Joint Commission 'Do Not Use' guidance?",
+    "options": [
+     "Nitrofurantoin 100 mg by mouth twice daily for 5 days",
+     "Nitrofurantoin 100.0 mg PO QD",
+     "Nitrofurantoin 100 mg PO QID x5d, 1.0 tab",
+     "Push fluids, 1.0 L daily, take antibiotic QD"
+    ],
+    "answer": 0,
+    "explain": "Spell out frequency ('twice daily,' not QD which can be misread as QID) and avoid trailing zeros (100 mg, not 100.0 mg, which can look like 1000 mg). 'By mouth' is safer than assuming abbreviations. Clear, unambiguous entries prevent medication errors."
+   }
+  ],
+  "soap": {
+   "S": [
+    "Chief complaint: 'It burns so bad when I pee, and I keep running to the bathroom' x2 days",
+    "26-year-old female reports dysuria and urinary frequency for 2 days",
+    "Denies fever, chills, flank/back pain, nausea, or vaginal discharge",
+    "No known drug allergies; on oral contraceptive and as-needed cetirizine",
+    "PMH: seasonal allergic rhinitis"
+   ],
+   "O": [
+    "Vitals: Temp 98.6 F, Pulse 78, Resp 16, BP 118/74, SpO2 99% on room air",
+    "Pain 3/10 with voiding; afebrile",
+    "Height 65 in, weight 141 lb",
+    "Clean-catch midstream urine dipstick: positive leukocyte esterase, positive nitrites"
+   ],
+   "A": [
+    "(Provider) Acute uncomplicated cystitis"
+   ],
+   "P": [
+    "(Provider) Nitrofurantoin 100 mg by mouth twice daily for 5 days",
+    "Educate on increasing fluid intake and completing the full antibiotic course",
+    "Return precautions: fever, flank/back pain, vomiting, or worsening symptoms",
+    "Follow up if symptoms not improved in 48-72 hours"
+   ]
+  },
+  "teaching": [
+   "Chief complaint is recorded in the patient's own words; the MA never assigns the diagnosis (Assessment) or the treatment (Plan).",
+   "Verify identity with two person-specific identifiers — full name plus date of birth. Room number and appointment time do not count.",
+   "Clean-catch midstream technique: hand hygiene, cleanse front to back, start stream into the toilet, catch the midstream portion to limit contamination.",
+   "Document POC test results objectively and report to the provider for interpretation; avoid 'Do Not Use' abbreviations (spell out 'twice daily,' no trailing zeros)."
+  ],
+  "scopeNote": "The MA collects and documents the clean-catch specimen, dipstick result, and patient-reported symptoms; the provider owns the diagnosis and the prescription."
+ },
+ {
+  "id": "soap-laceration",
+  "title": "Forearm Laceration from Kitchen Knife",
+  "setting": "Urgent Care",
+  "difficulty": "med",
+  "estMin": 12,
+  "chiefLine": "Cut on forearm from a kitchen knife, bleeding controlled",
+  "patient": {
+   "name": "Marcus Bell",
+   "dob": "1991-09-22",
+   "age": 34,
+   "sex": "M",
+   "mrn": "UC-4471982",
+   "allergies": [
+    "NKDA"
+   ],
+   "meds": [
+    "Ibuprofen 400 mg as needed for pain"
+   ],
+   "pmh": [
+    "Seasonal allergic rhinitis"
+   ],
+   "reason": "Laceration to right forearm from kitchen knife"
+  },
+  "vitals": {
+   "tempF": 98.4,
+   "pulse": 88,
+   "resp": 16,
+   "systolic": 128,
+   "diastolic": 78,
+   "spo2": 99,
+   "painScore": 4,
+   "weightLb": 185,
+   "heightIn": 70
+  },
+  "steps": [
+   {
+    "kind": "mcq",
+    "tag": "Patient ID",
+    "stem": "Before rooming Mr. Bell, how should the MA correctly verify his identity?",
+    "options": [
+     "Confirm his full name and date of birth",
+     "Confirm the room number he was assigned",
+     "Ask if he is the patient scheduled for this time slot",
+     "Confirm his name and current address"
+    ],
+    "answer": 0,
+    "explain": "Always use TWO patient identifiers, and full name plus date of birth is the standard acceptable pair. Room number, appointment time, or a simple yes/no confirmation are NOT acceptable identifiers because they can be mixed up between patients."
+   },
+   {
+    "kind": "vitals",
+    "tag": "Vitals",
+    "explain": "Adult ranges: Temp 97.0-99.5 F, Pulse 60-100, Resp 12-20, BP systolic 90-120/diastolic 60-80, SpO2 95-100%, Pain 0-10. Mr. Bell's vitals are within normal limits except an elevated BP of 128/78 (systolic 120-129 = elevated category) and a pain score of 4/10, which is expected with an acute laceration. The mildly elevated BP is common with pain and situational stress; document it and recheck as ordered. No emergency findings, but always report abnormal vitals to the provider."
+   },
+   {
+    "kind": "mcq",
+    "tag": "CC Documentation",
+    "stem": "Which entry BEST documents the chief complaint in the Subjective?",
+    "options": [
+     "\"Patient states he cut his right forearm on a kitchen knife about 1 hour ago while cooking.\"",
+     "\"Laceration requires 4 sutures and a tetanus booster.\"",
+     "\"3 cm clean-edged laceration, no active bleeding on exam.\"",
+     "\"Rule out tendon involvement; provider to close wound.\""
+    ],
+    "answer": 0,
+    "explain": "The chief complaint and HPI capture what the patient reports in their own words, including mechanism and timing. Option A is subjective/patient-reported. Option C is an objective exam finding, and B and D are Plan/Assessment items the provider originates, not the chief complaint."
+   },
+   {
+    "kind": "mcq",
+    "tag": "Scope",
+    "stem": "The provider asks the MA to prepare for wound closure. Which action is WITHIN the MA's scope?",
+    "options": [
+     "Set up a sterile suture tray and supplies for the provider",
+     "Suture the laceration since it is a simple wound",
+     "Order a tetanus (Tdap) vaccine and prescribe an antibiotic",
+     "Tell the patient how many sutures the wound will need"
+    ],
+    "answer": 0,
+    "explain": "The MA prepares the sterile field/suture tray, gathers supplies, and assists as delegated. The MA does NOT suture, order or prescribe medications, or tell the patient a treatment plan the provider has not yet stated. Suturing, ordering the vaccine, and prescribing are all provider functions."
+   },
+   {
+    "kind": "mcq",
+    "tag": "Immunization Hx",
+    "stem": "While documenting, the MA should check and record which item most relevant to this laceration?",
+    "options": [
+     "Date of the patient's last tetanus (Td/Tdap) vaccine",
+     "The patient's last eye exam date",
+     "The patient's cholesterol level",
+     "The patient's preferred pharmacy hours"
+    ],
+    "answer": 0,
+    "explain": "For any break in the skin, tetanus immunization status is essential subjective/historical data. The MA gathers and documents the date of the last Td/Tdap so the provider can decide whether a booster is needed. The MA documents this history but does not decide or order the booster."
+   },
+   {
+    "kind": "sort",
+    "tag": "SOAP Sorting",
+    "intro": "Tag each statement from Mr. Bell's visit into the correct SOAP section.",
+    "items": [
+     {
+      "text": "Patient reports cutting his right forearm on a kitchen knife while cooking",
+      "bucket": "S"
+     },
+     {
+      "text": "Last tetanus vaccine was about 9 years ago",
+      "bucket": "S"
+     },
+     {
+      "text": "Pain rated 4 out of 10 at the wound site",
+      "bucket": "S"
+     },
+     {
+      "text": "3 cm linear laceration to the right volar forearm, edges approximated, no active bleeding",
+      "bucket": "O"
+     },
+     {
+      "text": "BP 128/78, pulse 88, SpO2 99% on room air",
+      "bucket": "O"
+     },
+     {
+      "text": "Uncomplicated laceration of the right forearm without tendon or nerve involvement",
+      "bucket": "A"
+     },
+     {
+      "text": "Provider to close wound with sutures under sterile technique",
+      "bucket": "P"
+     },
+     {
+      "text": "Administer Tdap booster per provider order and give wound-care instructions",
+      "bucket": "P"
+     }
+    ]
+   },
+   {
+    "kind": "mcq",
+    "tag": "Terminology",
+    "stem": "When documenting the provider's suture-care instructions, which is written correctly (no TJC \"Do Not Use\" abbreviations)?",
+    "options": [
+     "\"Take ibuprofen 400 mg by mouth daily as needed for pain.\"",
+     "\"Take ibuprofen 400 mg PO QD prn pain.\"",
+     "\"Take ibuprofen 400.0 mg by mouth every day.\"",
+     "\"Take ibuprofen 400 mg PO once daily, recheck wound in 1.0 week.\""
+    ],
+    "answer": 0,
+    "explain": "Spell out \"daily\" instead of QD, and avoid trailing zeros (400.0 mg or 1.0 week) which can be misread as ten times the dose. Option A uses the fully spelled-out, unambiguous form the CCMA exam expects."
+   }
+  ],
+  "soap": {
+   "S": [
+    "34-year-old male reports cutting his right forearm on a kitchen knife about 1 hour ago while cooking",
+    "Reports pain 4/10 at the wound; bleeding controlled at home with pressure",
+    "Last tetanus (Td/Tdap) vaccine approximately 9 years ago",
+    "Allergies: NKDA; Meds: ibuprofen as needed; PMH: seasonal allergic rhinitis"
+   ],
+   "O": [
+    "Vitals: Temp 98.4 F, Pulse 88, Resp 16, BP 128/78 (elevated), SpO2 99% on room air, Pain 4/10",
+    "3 cm linear laceration to the right volar forearm, edges approximated, no active bleeding, no visible foreign body",
+    "Distal circulation, sensation, and movement intact per documented provider exam"
+   ],
+   "A": [
+    "Uncomplicated 3 cm laceration of the right forearm without tendon or nerve involvement (provider)"
+   ],
+   "P": [
+    "Provider to close wound with sutures under sterile technique; MA to set up sterile tray and assist",
+    "Administer Tdap booster per provider order (last dose ~9 years ago)",
+    "Wound-care and dry-dressing instructions provided; ibuprofen 400 mg by mouth as needed for pain",
+    "Return precautions for signs of infection; suture removal follow-up in 10-14 days"
+   ]
+  },
+  "teaching": [
+   "Two identifiers (full name + DOB) are required before any patient care; room number or appointment time do not count.",
+   "The MA gathers and documents S and O (chief complaint, history, vitals, exam findings) but never originates the A or P; suturing, ordering, and prescribing are provider functions.",
+   "For any skin break, always check and document the last tetanus (Td/Tdap) date so the provider can decide on a booster.",
+   "Avoid TJC Do Not Use abbreviations: spell out \"daily\" (not QD), never use trailing zeros (400.0 mg), and use \"mL\" not cc."
+  ],
+  "scopeNote": "The MA sets up the sterile suture tray, documents wound findings and tetanus history, and administers delegated vaccines, but does not suture, diagnose, order, or prescribe."
+ },
+ {
+  "id": "soap-prenatal",
+  "title": "First Prenatal Visit — Initial OB Intake",
+  "setting": "OB/GYN",
+  "difficulty": "med",
+  "estMin": 12,
+  "chiefLine": "New OB — first prenatal visit, ~6 weeks by LMP",
+  "patient": {
+   "name": "Daniela Reyes",
+   "dob": "1998-03-22",
+   "age": 28,
+   "sex": "F",
+   "mrn": "OB-4471902",
+   "allergies": [
+    "NKDA"
+   ],
+   "meds": [
+    "Prenatal vitamin with folic acid 800 mcg daily"
+   ],
+   "pmh": [
+    "G2 P1 (one prior term vaginal delivery)",
+    "No chronic conditions"
+   ],
+   "reason": "First prenatal visit — positive home pregnancy test, missed period"
+  },
+  "vitals": {
+   "tempF": 98.4,
+   "pulse": 78,
+   "resp": 16,
+   "systolic": 114,
+   "diastolic": 72,
+   "spo2": 99,
+   "weightLb": 148,
+   "heightIn": 64,
+   "painScore": 0
+  },
+  "steps": [
+   {
+    "kind": "mcq",
+    "tag": "Patient ID",
+    "stem": "You call Daniela back for her first prenatal visit. Before starting the intake, how do you correctly verify her identity?",
+    "options": [
+     "Confirm she is in exam room 3 as listed on the schedule",
+     "Ask her to state her full name and date of birth, then match both to the chart",
+     "Ask \"Are you Daniela?\" and proceed when she says yes",
+     "Verify her appointment time matches the 9:00 AM slot"
+    ],
+    "answer": 1,
+    "explain": "Two identifiers are required, and the standard acceptable pair is full name + date of birth matched to the chart. Room number, appointment time, and a simple yes/no to a name are NOT acceptable identifiers."
+   },
+   {
+    "kind": "vitals",
+    "tag": "Baseline vitals",
+    "explain": "All readings are within adult normal ranges: Temp 97.0-99.5 F, Pulse 60-100, Resp 12-20, BP systolic 90-120 / diastolic 60-80, SpO2 95-100%. Baseline weight (148 lb) and height (64 in) give a BMI of about 25.4 to trend gestational weight gain, and the baseline BP is critical for later comparison to screen for gestational hypertension and preeclampsia. Document these accurately as the pregnancy reference point."
+   },
+   {
+    "kind": "mcq",
+    "tag": "CC documentation",
+    "stem": "Daniela says, \"My last period started June 1st and my home test was positive.\" Which is the BEST way to document the chief complaint?",
+    "options": [
+     "Patient is 6 weeks pregnant and needs prenatal care",
+     "\"My last period started June 1st and my home test was positive\" — presents for initial prenatal visit",
+     "Rule out intrauterine pregnancy versus ectopic",
+     "Confirmed viable pregnancy at 6 weeks gestation"
+    ],
+    "answer": 1,
+    "explain": "The chief complaint is recorded in the patient's own words plus the reason for the visit. The MA documents what the patient reports — not a diagnosis, gestational-age conclusion, or clinical interpretation, which are provider functions."
+   },
+   {
+    "kind": "mcq",
+    "tag": "POC testing",
+    "stem": "As part of OB intake you perform a CLIA-waived urine dipstick. What are you screening for and how should you handle the result?",
+    "options": [
+     "Protein and glucose — document the values and give them to the provider to interpret",
+     "Protein and glucose — tell the patient she likely has gestational diabetes",
+     "Pregnancy hCG only — to confirm she is actually pregnant",
+     "Ketones — and start her on IV fluids per standing order"
+    ],
+    "answer": 0,
+    "explain": "The baseline prenatal urine dip screens for protein (preeclampsia risk) and glucose (diabetes risk). The MA performs the CLIA-waived test and documents the result as Objective data, but does not interpret it diagnostically or diagnose — that is the provider's role."
+   },
+   {
+    "kind": "mcq",
+    "tag": "Scope",
+    "stem": "Daniela asks, \"When is my baby due?\" You calculated an estimated due date from her LMP. What is the appropriate MA response?",
+    "options": [
+     "Give her the exact date and confirm the pregnancy is definitely due then",
+     "Document the LMP and let her know the provider will review dating and confirm the estimated due date",
+     "Tell her to schedule an ultrasound herself to find out",
+     "Decline to record the LMP since dating is a provider task"
+    ],
+    "answer": 1,
+    "explain": "The MA documents the LMP and may calculate/record an estimated due date as data, but confirming and communicating official pregnancy dating is a provider function. Record the objective information and defer the clinical confirmation to the provider."
+   },
+   {
+    "kind": "sort",
+    "tag": "SOAP sorting",
+    "intro": "Sort each item from Daniela's initial OB visit into the correct SOAP section.",
+    "items": [
+     {
+      "text": "\"My last period started June 1st and my home test was positive\"",
+      "bucket": "S"
+     },
+     {
+      "text": "Reports no cramping, bleeding, or nausea",
+      "bucket": "S"
+     },
+     {
+      "text": "BP 114/72, weight 148 lb, BMI ~25.4",
+      "bucket": "O"
+     },
+     {
+      "text": "Urine dipstick negative for protein and glucose",
+      "bucket": "O"
+     },
+     {
+      "text": "Intrauterine pregnancy, approximately 6 weeks by LMP",
+      "bucket": "A"
+     },
+     {
+      "text": "Order routine prenatal labs and dating ultrasound",
+      "bucket": "P"
+     },
+     {
+      "text": "Continue prenatal vitamin with folic acid daily",
+      "bucket": "P"
+     },
+     {
+      "text": "Return in 4 weeks for follow-up prenatal visit",
+      "bucket": "P"
+     }
+    ]
+   },
+   {
+    "kind": "mcq",
+    "tag": "Terminology",
+    "stem": "You are documenting the provider's plan for Daniela's prenatal vitamin. Which entry avoids TJC \"Do Not Use\" abbreviations and is correct?",
+    "options": [
+     "Prenatal vitamin 1.0 tab QD",
+     "Prenatal vitamin 1 tablet daily",
+     "Prenatal vitamin 1 tab QD",
+     "Prenatal vitamin q.d. with folic acid"
+    ],
+    "answer": 1,
+    "explain": "Write \"daily\" instead of QD/q.d. (mistaken for QID or other doses) and never use a trailing zero (1.0 reads as 10 if the decimal is missed). \"1 tablet daily\" is clear and compliant."
+   }
+  ],
+  "soap": {
+   "S": [
+    "Chief complaint: \"My last period started June 1st and my home test was positive\" — presents for initial prenatal visit",
+    "G2 P1, one prior term vaginal delivery",
+    "Denies cramping, vaginal bleeding, or significant nausea",
+    "Taking prenatal vitamin with folic acid 800 mcg daily; NKDA"
+   ],
+   "O": [
+    "Vitals: Temp 98.4 F, Pulse 78, Resp 16, BP 114/72, SpO2 99%",
+    "Weight 148 lb, Height 64 in, BMI ~25.4 (baseline)",
+    "Urine dipstick: negative for protein and glucose",
+    "Pain 0/10"
+   ],
+   "A": [
+    "Intrauterine pregnancy, approximately 6 weeks gestation by LMP (provider)",
+    "LMP June 1, 2026; estimated due date to be confirmed with dating ultrasound (provider)"
+   ],
+   "P": [
+    "Order routine initial prenatal labs (CBC, blood type/Rh, antibody screen, infectious disease panel, urine culture)",
+    "Schedule dating/viability ultrasound",
+    "Continue prenatal vitamin with folic acid 1 tablet daily",
+    "Prenatal education provided; return in 4 weeks for follow-up prenatal visit"
+   ]
+  },
+  "teaching": [
+   "Two-identifier verification uses full name + date of birth matched to the chart — never room number, appointment time, or a yes/no to a name.",
+   "Baseline OB vitals (BP and weight/BMI) are the reference point for screening later gestational hypertension, preeclampsia, and weight-gain concerns.",
+   "The MA performs the CLIA-waived urine dip and documents protein/glucose as Objective data but never interprets it diagnostically — dating, diagnosis, and orders are provider functions.",
+   "Avoid TJC Do Not Use abbreviations: write \"daily\" not QD, \"units\" not U, no trailing zeros (1 mg not 1.0 mg)."
+  ],
+  "scopeNote": "The MA gathers and documents the LMP, baseline vitals, and urine-dip results; the provider confirms dating, diagnoses the pregnancy, and orders labs and the plan."
+ },
+ {
+  "id": "soap-geriatric-fall",
+  "title": "Ground-Level Fall in an Older Adult",
+  "setting": "Family Medicine",
+  "difficulty": "hard",
+  "estMin": 14,
+  "chiefLine": "Fell at home yesterday, feels dizzy when standing up",
+  "patient": {
+   "name": "Margaret Ellison",
+   "dob": "1948-03-22",
+   "age": 78,
+   "sex": "F",
+   "mrn": "FM-4471820",
+   "allergies": [
+    "Sulfa (sulfonamides)"
+   ],
+   "meds": [
+    "Lisinopril 20 mg daily",
+    "Hydrochlorothiazide 25 mg daily",
+    "Metoprolol tartrate 50 mg twice daily",
+    "Amlodipine 5 mg daily",
+    "Zolpidem 5 mg at bedtime as needed",
+    "Atorvastatin 40 mg daily",
+    "Aspirin 81 mg daily"
+   ],
+   "pmh": [
+    "Hypertension",
+    "Type 2 diabetes mellitus",
+    "Osteoarthritis of both knees",
+    "Osteopenia",
+    "Insomnia"
+   ],
+   "reason": "Follow-up after a ground-level fall at home"
+  },
+  "vitals": {
+   "tempF": 98.2,
+   "pulse": 74,
+   "resp": 16,
+   "systolic": 138,
+   "diastolic": 82,
+   "spo2": 97,
+   "weightLb": 149,
+   "heightIn": 63,
+   "painScore": 3,
+   "glucose": 112
+  },
+  "steps": [
+   {
+    "kind": "mcq",
+    "tag": "Patient ID",
+    "stem": "You bring Ms. Ellison back for her fall follow-up. How do you correctly verify her identity before starting?",
+    "options": [
+     "Confirm she is the patient in exam room 3 with the 10:00 appointment",
+     "Ask her to state her full name and date of birth, and match both to the chart",
+     "Call out \"Margaret?\" and proceed once she answers yes",
+     "Verify her full name only, since her daughter completed the intake form"
+    ],
+    "answer": 1,
+    "explain": "Two identifiers are required, and full name plus date of birth is the standard acceptable pair. Room number, appointment time, or a patient simply answering to a name are NOT acceptable identifiers. In an older adult who may have hearing loss or early cognitive change, actively matching name and DOB to the chart prevents a wrong-patient error."
+   },
+   {
+    "kind": "vitals",
+    "tag": "Orthostatic vitals",
+    "stem": "The provider orders orthostatic (positional) vitals. You record a supine set after she rests 5 minutes, then repeat 1 minute after she stands. Enter this visit's supine readings and note the standing change.",
+    "explain": "Supine reading is 138/82 with pulse 74; the engine flags this as hypertension (systolic >=130 or diastolic >=80). Standing at 1 minute she dropped to 116/70 with pulse 92. Orthostatic hypotension is a systolic fall >=20 mmHg or a diastolic fall >=10 mmHg within 3 minutes of standing - her 22 mmHg systolic drop meets criteria and matches her dizziness and fall. Proper technique: rest supine 5 minutes, then measure standing at 1 and 3 minutes, same arm, and be ready to steady her. Report the positional drop to the provider promptly, since it points to a likely cause of the fall and a possible medication contribution."
+   },
+   {
+    "kind": "mcq",
+    "tag": "Chief complaint",
+    "stem": "Which entry best documents the chief complaint in the patient's own words?",
+    "options": [
+     "Orthostatic hypotension secondary to polypharmacy",
+     "\"I got dizzy when I stood up from the couch and went down - now I'm scared to walk\"",
+     "Mechanical fall, rule out syncope",
+     "Patient is a fall risk and needs medication adjustment"
+    ],
+    "answer": 1,
+    "explain": "The chief complaint is the patient's reason for the visit in her own words, quoted. The other options are clinical interpretations, impressions, or plans - those belong to the provider's assessment and plan, not the MA-documented chief complaint."
+   },
+   {
+    "kind": "mcq",
+    "tag": "Scope",
+    "stem": "After you report the orthostatic drop and the seven-medication list, the provider is still with another patient. Ms. Ellison asks, \"Should I just stop my water pill and the blood pressure ones?\" What is the correct MA response?",
+    "options": [
+     "\"Yes, stop the hydrochlorothiazide and lisinopril - they're dropping your pressure\"",
+     "\"Cut each of your blood pressure pills in half until you feel steadier\"",
+     "\"I can't advise changing your medicines, but I'll make sure the provider reviews them with you before you leave\"",
+     "\"Keep taking everything exactly the same; nothing needs to change\""
+    ],
+    "answer": 2,
+    "explain": "Adjusting, stopping, or dosing medications is a provider function - the MA does not prescribe, change orders, or give medical advice about whether to stop a drug. The MA gathers and documents the medication list and the patient's question, then routes it to the provider. Reassuring her that nothing should change would also be giving clinical advice outside MA scope."
+   },
+   {
+    "kind": "sort",
+    "tag": "SOAP sorting",
+    "intro": "Sort each item from Ms. Ellison's visit into the correct SOAP section.",
+    "items": [
+     {
+      "text": "\"I got dizzy standing up and fell; now I'm afraid to walk\"",
+      "bucket": "S"
+     },
+     {
+      "text": "Reports no loss of consciousness and no head strike",
+      "bucket": "S"
+     },
+     {
+      "text": "Supine BP 138/82, standing BP 116/70 with pulse rising to 92",
+      "bucket": "O"
+     },
+     {
+      "text": "Small bruise noted over the right hip; steady only with wall support",
+      "bucket": "O"
+     },
+     {
+      "text": "Orthostatic hypotension, likely medication-related, with elevated fall risk",
+      "bucket": "A"
+     },
+     {
+      "text": "Hold the zolpidem and reassess the antihypertensive regimen",
+      "bucket": "P"
+     },
+     {
+      "text": "Refer to physical therapy for gait and balance and provide a home-safety handout",
+      "bucket": "P"
+     },
+     {
+      "text": "Order a basic metabolic panel and recheck orthostatic vitals at follow-up",
+      "bucket": "P"
+     }
+    ]
+   },
+   {
+    "kind": "mcq",
+    "tag": "Documentation",
+    "stem": "You are charting the provider's plan to hold the bedtime sleep aid. Which entry avoids \"Do Not Use\" abbreviations and is documented correctly?",
+    "options": [
+     "Hold zolpidem 5.0 mg QHS",
+     "Hold zolpidem 5 mg at bedtime",
+     "D/C zolpidem 5.0 mg qd",
+     "Hold zolpidem 5 mg QD"
+    ],
+    "answer": 1,
+    "explain": "\"5 mg at bedtime\" is correct: no trailing zero (5.0 mg can be misread as 50 mg), and \"at bedtime\" is spelled out instead of the prohibited QHS. \"QD\" for daily and \"D/C\" are also on Do Not Use / error-prone lists. Sedative-hypnotics like zolpidem raise fall risk in older adults, so this medication is a logical one for the provider to hold."
+   }
+  ],
+  "soap": {
+   "S": [
+    "Chief complaint: \"I got dizzy when I stood up from the couch and went down - now I'm scared to walk.\"",
+    "78-year-old woman seen after a ground-level fall at home yesterday; felt lightheaded on standing before falling",
+    "Denies loss of consciousness, head strike, chest pain, palpitations, or new weakness; reports mild right hip soreness",
+    "Reports two near-falls in the past month, worse when getting up at night to use the bathroom",
+    "PMH: hypertension, type 2 diabetes, knee osteoarthritis, osteopenia, insomnia. Allergy: sulfa",
+    "Home meds reviewed: lisinopril, hydrochlorothiazide, metoprolol tartrate, amlodipine, zolpidem as needed, atorvastatin, aspirin 81 mg"
+   ],
+   "O": [
+    "Supine: BP 138/82, pulse 74, resp 16, temp 98.2 F, SpO2 97% on room air",
+    "Standing at 1 minute: BP 116/70, pulse 92 (systolic drop of 22 mmHg)",
+    "Weight 149 lb, height 63 in, pain 3/10 at right hip, POC glucose 112 mg/dL",
+    "Small bruise over right hip; ambulates cautiously, steadying against the wall"
+   ],
+   "A": [
+    "Orthostatic hypotension, likely contributed to by polypharmacy (documented per provider)",
+    "Ground-level fall with elevated fall risk; no evidence of acute head or hip injury (per provider)"
+   ],
+   "P": [
+    "Hold zolpidem; reassess antihypertensive regimen at this visit (per provider)",
+    "Order basic metabolic panel; recheck orthostatic vitals at follow-up",
+    "Refer to physical therapy for gait and balance training",
+    "Provide home-safety handout (remove rugs, night lighting, grab bars) and counsel to rise slowly",
+    "Follow up in 2 weeks or sooner if repeat fall or syncope"
+   ]
+  },
+  "teaching": [
+   "Orthostatic hypotension = systolic drop >=20 mmHg or diastolic drop >=10 mmHg within 3 minutes of standing; correct technique is supine 5 min, then standing at 1 and 3 minutes.",
+   "The MA gathers and documents subjective and objective data - including a full medication reconciliation - but never adjusts, stops, or advises on medications; that is a provider function.",
+   "Verify identity with two acceptable identifiers (full name + DOB); room number, appointment time, or answering to a name do not count.",
+   "Avoid Do Not Use abbreviations: no trailing zeros (write 5 mg not 5.0 mg), spell out \"at bedtime\" and \"daily\" instead of QHS or QD."
+  ],
+  "scopeNote": "The MA obtains orthostatic vitals, reconciles the medication list, and documents the fall history, then routes all diagnosis and medication decisions to the provider."
+ }
+]

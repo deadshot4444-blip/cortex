@@ -154,7 +154,7 @@ const SECTION_SCRIPTS = {
   neuro: ['python-runtime.js?v=3', 'code-evaluator.js?v=2', 'neuro-practitioner.js?v=3', 'neuro.js?v=14'],
   genetics: ['genetics.js?v=25', 'genetics-learn.js?v=6', 'genetics-figs.js?v=1', 'genetics-workshop.js?v=1'],
   cogpsych: ['cogpsych.js?v=4', 'cogpsych-learn.js?v=3', 'cogpsych-figs.js?v=1'],
-  ccma: ['ccma.js?v=5', 'ccma-learn.js?v=3'],
+  ccma: ['ccma.js?v=6', 'ccma-learn.js?v=3', 'ccma-soap.js?v=2'],
 };
 const _scriptLoads = {};
 function loadScript(src) {

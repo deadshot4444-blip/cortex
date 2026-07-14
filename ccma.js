@@ -223,6 +223,9 @@ const CCMA_ACH = [
   { id: 'blueprint', name: 'Blueprint Balanced', desc: 'Reach 70%+ on all 7 exam domains' },
   { id: 'clinical', name: 'Clinical Crusher', desc: 'Reach 90% on Clinical Patient Care (the biggest domain)' },
   { id: 'mock80', name: 'Pass Line Cleared', desc: 'Score 80%+ on the full NHA Mock Exam' },
+  { id: 'soap-first', name: 'Charted', desc: 'Complete your first Clinic Sim SOAP note' },
+  { id: 'soap-perfect', name: 'Clean Chart', desc: 'Sign a Clinic Sim chart at 100%' },
+  { id: 'soap-all', name: 'Full Panel', desc: 'Complete every Clinic Sim patient' },
 ];
 function ccmaGrant(id) {
   if (CCMA.ach.includes(id)) return;
@@ -430,6 +433,12 @@ function renderCcmaHome() {
         <p>Endless adaptive loop — keeps feeding you your weakest questions (spaced repetition + interleaving) until every one is mastered. Your daily driver.</p>
         <span class="gen-mode-go">Study →</span>
       </button>
+      <button class="gen-mode-card gen-mode-hero cornerframe" data-mode="soap">
+        <span class="gen-mode-tag">real-world · EHR simulator</span>
+        <h2>Clinic Sim — SOAP notes</h2>
+        <p>Sit at a simulated exam-room workstation and work real MA visits: verify ID, take &amp; flag vitals, document the visit, and sort every finding into the right SOAP bucket. Charts rotate — learn the job, not just the test.</p>
+        <span class="gen-mode-go">Clock in →</span>
+      </button>
       <button class="gen-mode-card gen-mode-hero cornerframe" data-mode="mock">
         <span class="gen-mode-tag">full mock · blueprint-weighted</span>
         <h2>NHA Mock Exam</h2>
@@ -522,6 +531,7 @@ function renderCcmaHome() {
   main.querySelectorAll('[data-mode]').forEach(b => b.addEventListener('click', () => {
     const m = b.dataset.mode;
     if (m === 'learn') renderCcmaLearnHome();
+    else if (m === 'soap') renderCcmaSoapHome();
     else if (m === 'smart') startCcmaSmart();
     else if (m === 'blitz') startCcmaBlitz();
     else if (m === 'chapter') renderCcmaChapterPick();

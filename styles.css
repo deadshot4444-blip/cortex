@@ -2241,6 +2241,442 @@ button.neuro-ms.done .neuro-ms-sub { color: var(--green); }
 .ccma-brief-item .mono { font-size: 12.5px; color: var(--text); letter-spacing: .02em; }
 .ccma-brief-item span:last-child { font-size: 11.5px; color: var(--dim); line-height: 1.45; }
 
+/* ============================================================================
+   CLINIC SIM — SOAP notes (simulated EHR workstation)
+   "Sealed Chart" — refined medical-minimal, light-only, mono-telemetry.
+   (design panel wf_cb50fe10-910; Fable 5 grafts appended at the end)
+   ========================================================================= */
+.soap-ehr, .soap-hub {
+  --soap-ink: #111113;
+  --soap-line: var(--line);
+  --soap-line-2: var(--line-bright);
+  --soap-red-wash: #fcf3f3;
+  --soap-green-wash: #f3f9f4;
+  --soap-amber-wash: #fdf8ec;
+  --soap-accent: #0b5cad;          /* the one reserved accent — keyboard focus only */
+  --soap-pad: 22px;
+  color: var(--body);
+}
+
+/* ---------- EHR software bar ---------- */
+.soap-ehrbar {
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+  background: var(--soap-ink); color: var(--bg);
+  padding: 9px 16px; border: 1px solid var(--soap-ink);
+}
+.soap-ehr-clinic { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; font-weight: 600; }
+.soap-ehr-room, .soap-ehr-user {
+  font-family: var(--mono); font-size: 11px; letter-spacing: .08em;
+  color: rgba(255,255,255,.62); font-variant-numeric: tabular-nums;
+}
+.soap-ehr-clock {
+  margin-left: auto; display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--mono); font-size: 11px; letter-spacing: .1em;
+  color: rgba(255,255,255,.9); font-variant-numeric: tabular-nums;
+}
+.soap-ehr-clock::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--green); box-shadow: 0 0 0 0 rgba(26,127,55,.55);
+  animation: soap-pulse 2.4s ease-out infinite;
+}
+@keyframes soap-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(45,190,90,.5); }
+  70% { box-shadow: 0 0 0 6px rgba(45,190,90,0); }
+  100% { box-shadow: 0 0 0 0 rgba(45,190,90,0); }
+}
+.soap-ehr-exit {
+  background: none; border: 1px solid rgba(255,255,255,.28); color: var(--bg);
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: .06em;
+  text-transform: uppercase; padding: 4px 11px; cursor: pointer;
+  transition: background .12s, border-color .12s;
+}
+.soap-ehr-exit:hover { background: rgba(255,255,255,.14); border-color: rgba(255,255,255,.55); }
+
+/* ---------- Patient banner ---------- */
+.soap-banner {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 18px; flex-wrap: wrap;
+  border: 1px solid var(--soap-line-2); border-top: none;
+  background: var(--bg); padding: 16px 18px;
+}
+.soap-pt-name { font-size: 20px; font-weight: 650; color: var(--text); letter-spacing: -.02em; line-height: 1.1; }
+.soap-pt-demo {
+  display: block; margin-top: 4px; font-family: var(--mono);
+  font-size: 11.5px; color: var(--dim); letter-spacing: .04em;
+  font-variant-numeric: tabular-nums;
+}
+.soap-banner-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 7px; }
+.soap-alrt {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 10.5px; font-weight: 650; letter-spacing: .05em;
+  color: var(--red); background: var(--soap-red-wash);
+  border: 1px solid var(--red); border-radius: 0; padding: 3px 9px;
+  text-transform: uppercase;
+}
+.soap-alrt::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--red); flex: 0 0 auto; }
+.soap-alrt-none { color: var(--dim); background: transparent; border-color: var(--soap-line-2); }
+.soap-alrt-none::before { background: var(--soap-line-2); }
+.soap-pt-reason { font-size: 12.5px; color: var(--body); }
+
+/* ---------- Stepper ---------- */
+.soap-stepper {
+  display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+  border: 1px solid var(--soap-line); border-top: none;
+  padding: 11px 16px; margin-bottom: 20px;
+}
+.soap-step {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--dim);
+}
+.soap-step-dot {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 18px; height: 18px; border: 1px solid var(--soap-line-2);
+  border-radius: 50%; font-size: 10px; font-weight: 600;
+  transition: background .15s, border-color .15s, color .15s;
+}
+.soap-step.cur { color: var(--text); font-weight: 700; }
+.soap-step.cur .soap-step-dot { border-color: var(--soap-ink); background: var(--soap-ink); color: var(--bg); }
+.soap-step.done { color: var(--green); }
+.soap-step.done .soap-step-dot { border-color: var(--green); color: var(--green); }
+.soap-step-sep { color: var(--soap-line-2); font-size: 12px; }
+
+/* ---------- Visit layout ---------- */
+.soap-layout { display: grid; grid-template-columns: 1fr 340px; gap: 18px; align-items: start; }
+.soap-work { min-width: 0; }
+
+/* ---------- Task card (focal work) ---------- */
+.soap-task { padding: 24px var(--soap-pad); background: var(--bg); }
+.soap-task-tag {
+  display: inline-block; font-family: var(--mono); font-size: 10px;
+  letter-spacing: .11em; text-transform: uppercase; color: var(--dim);
+  border: 1px solid var(--soap-line); padding: 3px 9px; margin-bottom: 16px;
+}
+.soap-task-q { font-size: 18px; line-height: 1.42; color: var(--text); margin-bottom: 10px; font-weight: 600; letter-spacing: -.01em; }
+.soap-task-q b { font-weight: 700; }
+.soap-task-hint { font-size: 12.5px; color: var(--dim); line-height: 1.6; margin-bottom: 18px; }
+.soap-task-hint b.mono, .soap-task-hint .mono {
+  font-family: var(--mono); color: var(--text); border: 1px solid var(--soap-line-2);
+  padding: 0 4px; margin-right: 1px; font-weight: 600;
+}
+.soap-mcq { margin-top: 4px; }
+
+/* ---------- MCQ options (scoped restyle) ---------- */
+.soap-ehr .soap-mcq .gen-opts { display: grid; gap: 9px; }
+.soap-ehr .soap-mcq .gen-opt {
+  position: relative; display: flex; align-items: center; gap: 13px;
+  text-align: left; background: var(--bg); border: 1px solid var(--soap-line);
+  color: var(--body); padding: 14px 16px; cursor: pointer; font-size: 14px;
+  transition: border-color .12s, background .12s;
+}
+.soap-ehr .soap-mcq .gen-opt:hover:not(:disabled) { border-color: var(--soap-ink); background: var(--surface); }
+.soap-ehr .soap-mcq .gen-opt-key {
+  flex: 0 0 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: 11px; color: var(--dim);
+  border: 1px solid var(--soap-line-2);
+}
+.soap-ehr .soap-mcq .gen-opt-txt { flex: 1; line-height: 1.45; }
+.soap-ehr .soap-mcq .gen-opt.correct { border-color: var(--green); background: var(--soap-green-wash); color: var(--text); }
+.soap-ehr .soap-mcq .gen-opt.correct .gen-opt-key { border-color: var(--green); background: var(--green); color: #fff; }
+.soap-ehr .soap-mcq .gen-opt.correct::after { content: '✓'; margin-left: auto; color: var(--green); font-size: 13px; font-weight: 700; }
+.soap-ehr .soap-mcq .gen-opt.wrong { border-color: var(--red); background: var(--soap-red-wash); color: var(--text); }
+.soap-ehr .soap-mcq .gen-opt.wrong .gen-opt-key { border-color: var(--red); background: var(--red); color: #fff; }
+.soap-ehr .soap-mcq .gen-opt.wrong::after { content: '✕'; margin-left: auto; color: var(--red); font-size: 12px; font-weight: 700; }
+.soap-ehr .soap-mcq .gen-opt:disabled { cursor: default; }
+
+/* ---------- Explain block + result label ---------- */
+.soap-ehr .gen-explain {
+  margin-top: 18px; padding: 14px 16px; background: var(--surface);
+  border-left: 2px solid var(--soap-ink); color: var(--body);
+  font-size: 13px; line-height: 1.6;
+}
+.soap-ehr .gen-ex-label {
+  display: inline-block; font-family: var(--mono); font-size: 10.5px;
+  font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--text); margin-right: 8px;
+}
+.soap-ehr .gen-next-row { margin-top: 18px; display: flex; justify-content: flex-end; }
+
+/* ---------- Chart rail (sticky) ---------- */
+.soap-chart {
+  padding: 16px 16px; position: sticky; top: 12px;
+  background: var(--surface); border: 1px solid var(--soap-line);
+}
+.soap-chart-cc, .soap-chart-blk { margin-top: 14px; }
+.soap-chart-cc:first-child, .soap-chart > .soap-chart-lab:first-child { margin-top: 0; }
+.soap-chart-lab {
+  display: block; font-family: var(--mono); font-size: 10px;
+  letter-spacing: .11em; text-transform: uppercase; color: var(--dim);
+  margin-bottom: 7px; padding-bottom: 6px; border-bottom: 1px solid var(--soap-line);
+}
+.soap-chart-cc p { font-size: 12.5px; color: var(--body); line-height: 1.55; }
+.soap-pending { font-size: 12px; color: var(--dim); font-style: italic; }
+
+/* ---------- Flowsheet (read-only recap) ---------- */
+.soap-flow { border: 1px solid var(--soap-line); background: var(--bg); }
+.soap-vrow {
+  display: flex; align-items: center; gap: 10px; width: 100%; text-align: left;
+  padding: 9px 12px; border-bottom: 1px solid var(--soap-line);
+  background: var(--bg); font: inherit;
+}
+.soap-flow .soap-vrow:last-child { border-bottom: none; }
+.soap-vlab { flex: 1; font-size: 12.5px; color: var(--body); }
+.soap-vval {
+  font-family: var(--mono); font-size: 13px; color: var(--text); font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.soap-vunit { font-family: var(--mono); font-size: 10px; color: var(--dim); margin-left: 3px; font-weight: 400; }
+.soap-vflag {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .07em; color: var(--red);
+  border: 1px solid var(--red); padding: 1px 5px; text-transform: uppercase;
+}
+.soap-vrow.abn { background: var(--soap-red-wash); }
+.soap-vrow.abn .soap-vval { color: var(--red); }
+
+/* ---------- Vitals station (interactive monitor) ---------- */
+.soap-flow-live { border-color: var(--soap-line-2); }
+.soap-flow-live .soap-vrow-btn {
+  cursor: pointer; transition: background .12s, box-shadow .12s;
+  position: relative;
+}
+/* the flag square affordance */
+.soap-flow-live .soap-vrow-btn::before {
+  content: ''; flex: 0 0 15px; width: 15px; height: 15px;
+  border: 1px solid var(--soap-line-2); background: var(--bg);
+  transition: background .12s, border-color .12s;
+}
+.soap-flow-live .soap-vrow-btn:hover { background: var(--surface); }
+.soap-flow-live .soap-vrow-btn:hover::before { border-color: var(--amber); }
+.soap-flow-live .soap-vrow-btn.sel {
+  background: var(--soap-amber-wash); box-shadow: inset 3px 0 0 var(--amber);
+}
+.soap-flow-live .soap-vrow-btn.sel::before {
+  background: var(--amber); border-color: var(--amber);
+  box-shadow: inset 0 0 0 2px var(--soap-amber-wash);
+}
+/* value column reads like a monitor */
+.soap-flow-live .soap-vval { font-size: 14px; }
+/* non-scored info rows recede, no flag box */
+.soap-vrow-info { opacity: .7; }
+.soap-vrow-info::before { display: none; }
+.soap-vinfo { font-family: var(--mono); font-size: 9.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--dim); }
+/* tap hint + resolved status */
+.soap-vtap { font-family: var(--mono); font-size: 10px; color: var(--dim); letter-spacing: .04em; white-space: nowrap; }
+.soap-vtap-res { font-weight: 600; }
+/* resolved states after check */
+.soap-vrow-btn.abn { background: var(--soap-red-wash); box-shadow: inset 3px 0 0 var(--red); }
+.soap-vrow-btn.abn::before { background: var(--red); border-color: var(--red); box-shadow: inset 0 0 0 2px var(--soap-red-wash); }
+.soap-vrow-btn.abn .soap-vval { color: var(--red); }
+.soap-vrow-btn.abn .soap-vtap-res { color: var(--red); }
+.soap-vrow-btn.ok { background: var(--bg); box-shadow: inset 3px 0 0 var(--green); }
+.soap-vrow-btn.ok::before { background: var(--green); border-color: var(--green); box-shadow: inset 0 0 0 2px var(--bg); }
+.soap-vrow-btn.ok .soap-vtap-res { color: var(--green); }
+.soap-vrow-btn.wrong { background: var(--soap-red-wash); box-shadow: inset 3px 0 0 var(--red); }
+.soap-vrow-btn.wrong::before { background: var(--bg); border-color: var(--red); }
+.soap-vrow-btn.wrong .soap-vtap-res { color: var(--red); }
+.soap-vrange {
+  font-family: var(--mono); font-size: 10px; color: var(--dim);
+  white-space: nowrap; letter-spacing: .03em; padding-left: 10px;
+}
+
+/* ---------- SOAP sort (keycap classification) ---------- */
+.soap-sort { display: flex; flex-direction: column; gap: 9px; margin-bottom: 8px; }
+.soap-sitem { border: 1px solid var(--soap-line); background: var(--bg); padding: 12px 13px; }
+.soap-sitem-t { font-size: 13px; color: var(--text); line-height: 1.5; margin-bottom: 10px; }
+.soap-bkrow { display: flex; gap: 7px; }
+.soap-bk {
+  width: 36px; height: 32px; border: 1px solid var(--soap-line-2); background: var(--bg);
+  font-family: var(--mono); font-size: 13px; font-weight: 600; color: var(--dim);
+  cursor: pointer; transition: background .1s, color .1s, border-color .1s, transform .06s;
+}
+.soap-bk:hover:not(:disabled) { border-color: var(--soap-ink); color: var(--text); }
+.soap-bk:active:not(:disabled) { transform: translateY(1px); }
+.soap-bk.sel { background: var(--soap-ink); color: var(--bg); border-color: var(--soap-ink); }
+.soap-bk.correct { background: var(--green); color: #fff; border-color: var(--green); }
+.soap-bk.wrong { background: var(--red); color: #fff; border-color: var(--red); }
+.soap-bk:disabled { cursor: default; }
+.soap-sitem-key {
+  display: block; margin-top: 10px; font-family: var(--mono);
+  font-size: 11px; letter-spacing: .02em;
+}
+.soap-sitem-key.ok { color: var(--green); }
+.soap-sitem-key.no { color: var(--red); }
+.soap-sitem-key em { color: var(--dim); font-style: normal; }
+
+/* ---------- Signed note (with scope-of-practice rails) ---------- */
+.soap-note-sec { border: 1px solid var(--soap-line); border-left-width: 2px; margin-top: 9px; }
+.soap-note-sec:first-child { margin-top: 0; }
+/* S & O = MA-owned (green rail); A & P = provider-owned (dim rail) */
+.soap-note-sec:nth-of-type(1), .soap-note-sec:nth-of-type(2) { border-left-color: var(--green); }
+.soap-note-sec:nth-of-type(3), .soap-note-sec:nth-of-type(4) { border-left-color: var(--soap-line-2); }
+.soap-note-h {
+  display: flex; align-items: center; gap: 9px; background: var(--surface);
+  padding: 7px 11px; border-bottom: 1px solid var(--soap-line);
+}
+.soap-note-k {
+  width: 19px; height: 19px; display: inline-flex; align-items: center; justify-content: center;
+  background: var(--soap-ink); color: var(--bg); font-family: var(--mono);
+  font-size: 11px; font-weight: 700;
+}
+/* scope cue: A & P letter boxes are hollow — not the MA's to author */
+.soap-note-sec:nth-of-type(3) .soap-note-k,
+.soap-note-sec:nth-of-type(4) .soap-note-k {
+  background: var(--bg); color: var(--text); border: 1px solid var(--soap-line-2);
+}
+.soap-note-t { font-size: 12px; font-weight: 650; color: var(--text); }
+.soap-note-own {
+  margin-left: auto; font-family: var(--mono); font-size: 9px;
+  letter-spacing: .06em; text-transform: uppercase; color: var(--dim);
+}
+.soap-note ul { margin: 0; padding: 9px 11px 9px 27px; }
+.soap-note li { font-size: 12px; color: var(--body); line-height: 1.55; margin-bottom: 5px; }
+.soap-note li:last-child { margin-bottom: 0; }
+.soap-note li.soap-dim { color: var(--dim); list-style: none; margin-left: -15px; }
+
+/* ---------- SIM HUB ---------- */
+.soap-hub .gen-pick-head h1 { font-size: 24px; letter-spacing: -.02em; }
+.soap-intro {
+  display: grid; grid-template-columns: 1fr 200px; gap: 22px;
+  padding: 24px var(--soap-pad); margin-bottom: 20px; background: var(--bg); align-items: center;
+}
+.soap-intro-l p { font-size: 13.5px; line-height: 1.65; color: var(--body); margin: 10px 0 12px; }
+.soap-intro-facts { margin: 0; padding-left: 18px; }
+.soap-intro-facts li { font-size: 12.5px; color: var(--body); line-height: 1.6; margin-bottom: 6px; }
+.soap-intro-r { display: flex; flex-direction: column; align-items: center; gap: 14px; justify-content: center; }
+.soap-intro-ring {
+  width: 112px; height: 112px; border-radius: 50%; border: 2px solid var(--soap-ink);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+}
+.soap-intro-ring .mono {
+  font-family: var(--mono); font-size: 26px; font-weight: 700; color: var(--text);
+  font-variant-numeric: tabular-nums; letter-spacing: -.01em;
+}
+.soap-intro-ring span:last-child {
+  font-family: var(--mono); font-size: 9.5px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--dim);
+}
+
+/* patient queue */
+.soap-queue { display: grid; grid-template-columns: repeat(auto-fill, minmax(258px, 1fr)); gap: 13px; }
+.soap-pcard {
+  text-align: left; padding: 16px 17px; background: var(--bg); cursor: pointer;
+  display: block; border: 1px solid var(--soap-line); border-left: 2px solid var(--soap-line-2);
+  transition: background .12s, border-color .12s, transform .1s;
+}
+.soap-pcard:hover { background: var(--surface); border-left-color: var(--soap-ink); transform: translateY(-1px); }
+.soap-pcard.done { border-left-color: var(--green); }
+.soap-pcard-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.soap-pcard-tag { font-family: var(--mono); font-size: 9.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--dim); }
+.soap-pcard-diff {
+  font-family: var(--mono); font-size: 9.5px; text-transform: uppercase; letter-spacing: .05em;
+  padding: 2px 7px; border: 1px solid var(--soap-line-2); color: var(--dim);
+}
+.soap-pcard-diff.gen-d-easy { color: var(--green); border-color: var(--green); }
+.soap-pcard-diff.gen-d-med { color: var(--amber); border-color: var(--amber); }
+.soap-pcard-diff.gen-d-hard { color: var(--red); border-color: var(--red); }
+.soap-pcard h3 { font-size: 15px; color: var(--text); margin-bottom: 6px; font-weight: 620; letter-spacing: -.01em; }
+.soap-pcard-age { font-family: var(--mono); font-size: 11px; color: var(--dim); font-weight: 500; font-variant-numeric: tabular-nums; }
+.soap-pcard-cc { font-size: 12px; color: var(--body); line-height: 1.55; min-height: 34px; }
+.soap-pcard-foot {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: 12px; padding-top: 9px; border-top: 1px solid var(--soap-line);
+}
+.soap-pcard-foot .mono { font-family: var(--mono); font-size: 10px; letter-spacing: .05em; color: var(--dim); text-transform: uppercase; }
+.soap-pcard-status { font-family: var(--mono); font-size: 10px; letter-spacing: .04em; color: var(--dim); }
+.soap-pcard.done .soap-pcard-status { color: var(--green); }
+
+/* ---------- SIGN & LOCK — sealed document ---------- */
+.soap-signed {
+  padding: 0; margin-bottom: 18px; background: var(--bg);
+  border: 1px solid var(--soap-line-2); border-top: 2px solid var(--green);
+}
+.soap-signed-head {
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--soap-ink); color: var(--bg);
+  padding: 16px 20px; margin-bottom: 0;
+}
+.soap-lock {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-family: var(--mono); font-size: 11.5px; letter-spacing: .09em;
+  text-transform: uppercase; color: #4ade80; font-weight: 600;
+}
+.soap-lock::before {
+  content: ''; width: 8px; height: 8px; border-radius: 50%;
+  background: #4ade80; box-shadow: 0 0 0 3px rgba(74,222,128,.18); flex: 0 0 auto;
+}
+.soap-signed-acc {
+  font-family: var(--mono); font-size: 30px; font-weight: 700; color: var(--bg);
+  font-variant-numeric: tabular-nums; letter-spacing: -.02em; line-height: 1;
+}
+.soap-signed .gen-res-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+  margin: 0; border-top: 1px solid var(--soap-line);
+}
+.soap-signed .gen-res-grid > div {
+  display: flex; flex-direction: column; gap: 5px;
+  padding: 14px 16px; border-right: 1px solid var(--soap-line);
+}
+.soap-signed .gen-res-grid > div:last-child { border-right: none; }
+.soap-signed .gen-res-grid .mono { font-family: var(--mono); font-size: 20px; color: var(--text); font-variant-numeric: tabular-nums; }
+.soap-signed .gen-res-grid span:last-child {
+  font-family: var(--mono); font-size: 9px; text-transform: uppercase;
+  letter-spacing: .08em; color: var(--dim);
+}
+.soap-signed-miss, .soap-signed-clean { font-size: 12.5px; margin: 0; padding: 14px 20px; border-top: 1px solid var(--soap-line); }
+.soap-signed-miss { color: var(--amber); background: var(--soap-amber-wash); }
+.soap-signed-clean { color: var(--green); background: var(--soap-green-wash); }
+
+/* final note + rail */
+.soap-finalnote, .soap-vitalrecap { margin-top: 0; }
+.soap-finalnote { padding: 16px var(--soap-pad); background: var(--bg); }
+.soap-scope { font-size: 12px; color: var(--body); line-height: 1.6; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--soap-line); }
+.soap-scope .mono {
+  font-family: var(--mono); font-size: 9.5px; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--dim); border: 1px solid var(--soap-line-2); padding: 1px 6px; margin-right: 7px;
+}
+.soap-teach { margin: 8px 0 0; padding-left: 18px; }
+.soap-teach li { font-size: 12px; color: var(--body); line-height: 1.6; margin-bottom: 8px; }
+.soap-vitalrecap { margin-top: 16px; }
+.soap-final-btns { margin-top: 18px; }
+
+/* ---------- Fable 5 grafts: bedside channel-spine, tactile commit, focus rings ---------- */
+/* read-only flowsheet rows read like monitor channels (dim spine; red when abnormal) */
+.soap-flow:not(.soap-flow-live) .soap-vrow { box-shadow: inset 3px 0 0 var(--soap-line-2); }
+.soap-flow:not(.soap-flow-live) .soap-vrow.abn { box-shadow: inset 3px 0 0 var(--red); }
+/* satisfying one-shot pop when a vital or a SOAP keycap resolves */
+@keyframes soap-pop { 0% { transform: scale(.84); } 60% { transform: scale(1.06); } 100% { transform: scale(1); } }
+.soap-vrow-btn.abn .soap-vval, .soap-vrow-btn.ok .soap-vval, .soap-vrow-btn.wrong .soap-vval {
+  display: inline-block; animation: soap-pop .26s ease-out;
+}
+.soap-bk.correct, .soap-bk.wrong { animation: soap-pop .22s ease-out; }
+/* keyboard focus — the one reserved accent, unambiguous vs. selected/correct/wrong */
+.soap-ehr .soap-vrow-btn:focus-visible,
+.soap-ehr .soap-mcq .gen-opt:focus-visible,
+.soap-ehr .soap-ehr-exit:focus-visible,
+.soap-hub .soap-pcard:focus-visible { outline: 2px solid var(--soap-accent); outline-offset: 2px; }
+.soap-ehr .soap-bk:focus-visible { outline: 2px solid var(--soap-accent); outline-offset: -2px; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 760px) {
+  .soap-layout { grid-template-columns: 1fr; }
+  .soap-chart { position: static; }
+  .soap-intro { grid-template-columns: 1fr; }
+  .soap-intro-r { flex-direction: row; justify-content: flex-start; }
+  .soap-ehr-clock { margin-left: 0; }
+  .soap-banner { align-items: flex-start; }
+  .soap-banner-meta { align-items: flex-start; }
+  .soap-signed .gen-res-grid { grid-template-columns: 1fr 1fr; }
+  .soap-signed .gen-res-grid > div:nth-child(2) { border-right: none; }
+  .soap-signed .gen-res-grid > div:nth-child(3), .soap-signed .gen-res-grid > div:nth-child(4) { border-top: 1px solid var(--soap-line); }
+  .soap-bk { width: 44px; height: 40px; }
+  .soap-vrange { padding-left: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .soap-ehr-clock::before,
+  .soap-vrow-btn.abn .soap-vval, .soap-vrow-btn.ok .soap-vval, .soap-vrow-btn.wrong .soap-vval,
+  .soap-bk.correct, .soap-bk.wrong { animation: none; }
+}
+
 /* method */
 .gen-method-list { margin: 0; padding-left: 18px; color: var(--body); }
 .gen-method-list li { font-size: 13px; line-height: 1.65; margin-bottom: 9px; }
