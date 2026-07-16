@@ -68,8 +68,8 @@ const SECTION_INFO = {
   },
   cogpsych: {
     label: 'Cognitive Psychology',
-    headline: 'Master the science of mind.',
-    desc: 'Cognitive psychology as a subject — perception, attention, memory, methods, and how the mind is studied. Smart Review, drills, interactive figures, and a mastery gauntlet.',
+    headline: 'Master Module 2.',
+    desc: 'Chapters 6–9 — short-term, working, long-term, and autobiographical memory, plus knowledge. Guided lessons, adaptive review, high-yield drills, and a full 50-question mock exam.',
   },
   ccma: {
     label: 'Medical Assistant',
@@ -79,7 +79,7 @@ const SECTION_INFO = {
 };
 // Public “What’s new” version. Private-only sections (CCMA) do NOT bump this or CHANGELOG —
 // only their own script/data ?v= cache-busts — so the sitewide update modal stays quiet.
-const APP_VERSION = '1.21.0';
+const APP_VERSION = '1.22.0';
 const MEMBERSHIP_START = 'August 1, 2026';
 function cortexFreeNote(sectionPill, sectionName) {
   return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free for now</span><span class="free-note-txt">${sectionName} becomes optional membership ${MEMBERSHIP_START}. The full MCAT suite stays free forever.</span></p>`;
@@ -153,7 +153,7 @@ const SECTION_SCRIPTS = {
   socrates: ['socrates.js?v=40'],
   neuro: ['python-runtime.js?v=3', 'code-evaluator.js?v=2', 'neuro-practitioner.js?v=3', 'neuro.js?v=14'],
   genetics: ['genetics.js?v=25', 'genetics-learn.js?v=6', 'genetics-figs.js?v=1', 'genetics-workshop.js?v=1'],
-  cogpsych: ['cogpsych.js?v=4', 'cogpsych-learn.js?v=3', 'cogpsych-figs.js?v=1'],
+  cogpsych: ['cogpsych.js?v=5', 'cogpsych-learn.js?v=4', 'cogpsych-figs.js?v=1'],
   ccma: ['ccma.js?v=6', 'ccma-learn.js?v=3', 'ccma-soap.js?v=2'],
 };
 const _scriptLoads = {};
@@ -847,6 +847,15 @@ const PRINCIPLES = [
 
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
+  {
+    date: 'July 15, 2026', version: '1.22.0', tag: 'NEW',
+    title: 'Cognitive Psychology: Module 2 mastery',
+    items: [
+      'Cognitive Psychology now covers the complete Module 2 block from your professor\'s Chapters 6–9 slides: short-term and working memory, long-term memory, autobiographical memory, and knowledge.',
+      'A fresh Module 2 bank, guided retrieval-gated lessons, high-yield exam pack, adaptive Smart Review, topic drills, and a balanced 50-question mock exam now work together to take you from first exposure to verified exam readiness.',
+      'Your old Module 1 progress is archived locally, while Module 2 starts with clean mastery meters so the readiness score reflects only this exam.',
+    ],
+  },
   {
     date: 'July 5, 2026', version: '1.21.0', tag: 'NEW',
     title: 'Genetics: Module 4 Workshop',

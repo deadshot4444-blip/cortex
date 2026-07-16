@@ -1,591 +1,1372 @@
 [
   {
-    "id": "cog-L1-what",
-    "chapter": 1,
-    "topic": "ch1-what",
-    "title": "What is cognition?",
-    "blurb": "Definition, everyday examples, why \u201cordinary\u201d behavior is extraordinary.",
+    "id": "cog-m2-L6-foundations",
+    "chapter": 6,
+    "topic": "ch6-foundations",
+    "title": "Memory: the core machinery",
+    "blurb": "Encoding, storage, retrieval, capacity, duration, and the modal-model map.",
     "steps": [
       {
         "kind": "teach",
-        "body": "<b>Definition</b><br>Cognition = acquisition and processing of sensory information about the world to make <b>behavioral decisions</b> \u2014 the sum of intelligent mental activities (not just breathing/digestion)."
-      },
-      {
-        "kind": "teach",
-        "body": "<b>Everyday example: reading</b><br>Device recognition \u2192 memory for controls \u2192 focused vision \u2192 language + concepts \u2192 learning into STM/LTM \u2192 goals/decisions. One \u201csimple\u201d act coordinates many subsystems."
-      },
-      {
-        "kind": "teach",
-        "body": "<b>Field stance</b><br>Cognition mostly studies how things <b>go right</b>. No complete unified theory yet \u2014 progress is real but incomplete and debated."
+        "body": "<b>Memory connects past information to present cognition.</b><br>The chapter defines memory as using information obtained in the past to generate a cognitive function now. That requires three linked processes: <b>encoding</b> creates a nervous-system representation, <b>storage</b> maintains it beyond immediate processing, and <b>retrieval</b> accesses it for a purpose. If information is never encoded, it cannot later be remembered."
       },
       {
         "kind": "ask",
-        "prompt": "Cognition is best defined as:",
+        "prompt": "You hear a code, keep it available for several seconds, then call it back to type it. Which sequence best describes what happened?",
         "choices": [
-          "Only emotion",
-          "Acquiring/processing sensory info to decide how to act",
-          "Only digestion",
-          "Only social status"
+          "Retrieval → storage → encoding",
+          "Encoding → storage → retrieval",
+          "Storage → rehearsal → sensation",
+          "Attention → decay → interference"
         ],
         "answer": 1,
-        "reveal": "Intelligent information processing for decisions."
-      },
-      {
-        "kind": "checkpoint",
-        "q": "The textbook\u2019s aim is mainly to:",
-        "options": [
-          "List final unchanging truths only",
-          "Introduce questions, methods, and key results of mind science",
-          "Prove AI finished the problem",
-          "Ignore experiments"
-        ],
-        "answer": 1,
-        "explain": "Young field: survey science-in-progress."
-      }
-    ]
-  },
-  {
-    "id": "cog-L1-why",
-    "chapter": 1,
-    "topic": "ch1-why",
-    "title": "Why study cognition?",
-    "blurb": "Basic vs applied research; human factors; AI; education/health.",
-    "steps": [
-      {
-        "kind": "teach",
-        "body": "<b>Basic research</b><br>Understand who we are and how cognition works \u2014 not required to have a product, though applications often follow."
+        "reveal": "The code must first be <b>encoded</b>, then remain <b>stored</b>, and finally be <b>retrieved</b> when you type it."
       },
       {
         "kind": "teach",
-        "body": "<b>Applied research</b><br>End goal is a solution: disorders, education design, human factors interfaces, building AI systems."
+        "body": "<b>Memory systems are compared on two independent dimensions.</b><br><b>Capacity</b> asks how much a system can hold. <b>Duration</b> asks how long information remains. A system can have a small capacity and brief duration, while another can hold far more for much longer. The chapter bases its claim that multiple memory systems have different properties on experiments, behavioral recordings, and observational reports."
       },
       {
         "kind": "ask",
-        "prompt": "Designing cockpit displays using attention research is:",
-        "choices": [
-          "Only basic pure theory with no use",
-          "Human factors / applied cognition",
-          "Unrelated to perception",
-          "Only dualism"
-        ],
-        "answer": 1,
-        "reveal": "Applied interface design."
+        "prompt": "Build the Atkinson-Shiffrin sequence from first contact with a stimulus to durable storage.",
+        "reveal": "<b>Sensory input → sensory memory → short-term memory → long-term memory.</b> Attention selects sensory information for STM; encoding sends STM information to LTM; retrieval brings LTM information back into STM. This is the <b>Atkinson-Shiffrin model</b>, also called the <b>modal model</b> or <b>information-processing model</b>. Its timeline is roughly 1 second for sensory memory, 15–30 seconds for unrehearsed STM, and potentially lifelong storage in LTM."
       },
       {
         "kind": "checkpoint",
-        "q": "AI in this chapter is framed as:",
+        "q": "Which modal-model transition is correctly labeled?",
         "options": [
-          "Building machines that perform (some) intelligent tasks",
-          "Only vacuum marketing",
-          "Only reaction-time methods",
-          "Forbidden"
+          "Sensory memory → STM by attention",
+          "STM → sensory memory by encoding",
+          "LTM → sensory input by rehearsal",
+          "Sensory memory → LTM by retrieval"
         ],
         "answer": 0,
-        "explain": "Engineering/CS branch linked to understanding intelligence."
-      }
-    ]
-  },
-  {
-    "id": "cog-L1-ai",
-    "chapter": 1,
-    "topic": "ch1-ai",
-    "title": "AI as a mirror of understanding",
-    "blurb": "Feynman test, Deep Blue, IFTT limits, open-world hardness.",
-    "steps": [
-      {
-        "kind": "teach",
-        "body": "<b>Feynman test</b><br>\u201cWhat I cannot create I do not understand.\u201d Building working models gauges true understanding of mind/brain."
-      },
-      {
-        "kind": "teach",
-        "body": "<b>Hard vs easy for machines</b><br>Humans: easy common sense, language, messy rooms.<br>Machines historically: fast formal calculation, constrained factory/chess search."
-      },
-      {
-        "kind": "teach",
-        "body": "<b>Deep Blue</b><br>Massive search + simple ops \u2014 not a general mind. Winning chess \u2260 solving everyday intelligence."
-      },
-      {
-        "kind": "teach",
-        "body": "<b>IFTT / early chatbots</b><br>Work when conditions are pre-listed. Fail when the world is open-ended. String matching \u2260 understanding."
-      },
-      {
-        "kind": "ask",
-        "prompt": "IFTT automation works best when:",
-        "choices": [
-          "The world is fully open and novel always",
-          "The domain is constrained/predictable",
-          "No rules exist",
-          "Humans never define conditions"
-        ],
-        "answer": 1,
-        "reveal": "Chess/factory \u2260 open house cleaning."
+        "explain": "Attention selects part of the brief sensory trace and moves it into short-term memory."
       },
       {
         "kind": "checkpoint",
-        "q": "Deep Blue mainly excelled by:",
+        "q": "What distinction did the modal model make between STM and LTM?",
         "options": [
-          "Human-identical intuition",
-          "Huge fast search/calculation",
-          "Never evaluating moves",
-          "Random play"
-        ],
-        "answer": 1,
-        "explain": "Brute-force-style excellence in a formal game."
-      }
-    ]
-  },
-  {
-    "id": "cog-L1-3prong",
-    "chapter": 1,
-    "topic": "ch1-approaches",
-    "title": "Three-pronged approach",
-    "blurb": "Neuroscience + cognitive psychology + computational modeling.",
-    "steps": [
-      {
-        "kind": "teach",
-        "body": "<b>Three prongs</b><br>1) <b>Cognitive psychology</b> \u2014 behavior experiments to infer processes.<br>2) <b>Neuroscience</b> \u2014 brain structures/activity/mechanisms.<br>3) <b>Computational modeling</b> \u2014 explicit runnable theories."
-      },
-      {
-        "kind": "teach",
-        "body": "<b>Why all three?</b><br>Each constrains the others. Behavior alone underdetermines mechanism; brains alone need functional theory; models force precision."
-      },
-      {
-        "kind": "ask",
-        "prompt": "The three broad approaches named in Ch1 include:",
-        "choices": [
-          "Only astrology",
-          "Neuroscience, cognitive psychology, computational modeling",
-          "Only surveys",
-          "Only phrenology"
-        ],
-        "answer": 1,
-        "reveal": "LO 1.4 triad."
-      },
-      {
-        "kind": "checkpoint",
-        "q": "Cognitive psychology primarily:",
-        "options": [
-          "Only implants electrodes always",
-          "Infers mental processes from measured behavior",
-          "Only builds factories",
-          "Ignores data"
-        ],
-        "answer": 1,
-        "explain": "Behavioral experiments + theory."
-      }
-    ]
-  },
-  {
-    "id": "cog-L3-ns",
-    "chapter": 3,
-    "topic": "ch3-ns",
-    "title": "Nervous system map",
-    "blurb": "CNS/PNS, voluntary vs involuntary branches.",
-    "steps": [
-      {
-        "kind": "teach",
-        "body": "<b>CNS</b> = brain + spinal cord.<br><b>PNS</b> = nerves outside CNS."
-      },
-      {
-        "kind": "teach",
-        "body": "<b>Somatic</b> \u2248 voluntary skeletal control + body senses.<br><b>Autonomic</b> \u2248 involuntary organs; sympathetic (fight/flight) vs parasympathetic (rest/digest)."
-      },
-      {
-        "kind": "ask",
-        "prompt": "CNS includes:",
-        "choices": [
-          "Only arms",
-          "Brain and spinal cord",
-          "Only skin",
-          "Only glands"
-        ],
-        "answer": 1,
-        "reveal": "Brain + cord."
-      },
-      {
-        "kind": "checkpoint",
-        "q": "Parasympathetic is often summarized as:",
-        "options": [
-          "Fight-or-flight",
-          "Rest-and-digest",
-          "Only anger",
-          "Only freezing"
-        ],
-        "answer": 1,
-        "explain": "Complement to sympathetic."
-      }
-    ]
-  },
-  {
-    "id": "cog-L3-cortex",
-    "chapter": 3,
-    "topic": "ch3-cortex-anat",
-    "title": "Cortex anatomy & function",
-    "blurb": "Lobes, maps, methods for functional division.",
-    "steps": [
-      {
-        "kind": "teach",
-        "body": "<b>Lobes</b><br>Occipital: vision.<br>Temporal: audition/language/memory aspects.<br>Parietal: somatosensory/spatial.<br>Frontal: motor + executive."
-      },
-      {
-        "kind": "teach",
-        "body": "<b>Functional mapping tools</b><br>Lesions, stimulation, electrophysiology, neuroimaging \u2014 converging evidence. Double dissociations support separable systems."
-      },
-      {
-        "kind": "ask",
-        "prompt": "Primary vision is mainly:",
-        "choices": [
-          "Frontal",
-          "Occipital",
-          "Spinal only",
-          "Liver"
-        ],
-        "answer": 1,
-        "reveal": "Occipital visual cortex."
-      },
-      {
-        "kind": "checkpoint",
-        "q": "fMRI roughly tracks:",
-        "options": [
-          "Skull thickness",
-          "BOLD blood-oxygen signals related to activity",
-          "Only pure spikes always",
-          "Only questionnaires"
-        ],
-        "answer": 1,
-        "explain": "Hemodynamic proxy."
-      }
-    ]
-  },
-  {
-    "id": "cog-L3-neurons-ann",
-    "chapter": 3,
-    "topic": "ch3-neurons",
-    "title": "Neurons & ANNs",
-    "blurb": "Spikes, synapses, feature detectors; artificial nets as models.",
-    "steps": [
-      {
-        "kind": "teach",
-        "body": "<b>Neuron basics</b><br>Dendrites receive, axons send, synapses release transmitters, action potentials are all-or-none spikes. Feature detectors prefer specific stimulus properties."
-      },
-      {
-        "kind": "teach",
-        "body": "<b>ANNs</b><br>Units + weights + learning. Not full brains, but useful computational models (and engineering tools). Watch for overfitting vs generalization."
-      },
-      {
-        "kind": "ask",
-        "prompt": "Synaptic transmission is primarily:",
-        "choices": [
-          "Only light",
-          "Chemical (neurotransmitters) between cells",
-          "Only continuous water",
-          "Only wifi"
-        ],
-        "answer": 1,
-        "reveal": "Chemicals at synapses."
-      },
-      {
-        "kind": "checkpoint",
-        "q": "Learning in ANNs typically adjusts:",
-        "options": [
-          "Nothing",
-          "Connection weights",
-          "Only cable length",
-          "Only screen brightness"
-        ],
-        "answer": 1,
-        "explain": "Weights encode learned structure."
-      }
-    ]
-  },
-  {
-    "id": "cog-L4-sensperc",
-    "chapter": 4,
-    "topic": "ch4-sens-perc",
-    "title": "Sensation vs perception",
-    "blurb": "Transduction vs interpretation; constructive mind.",
-    "steps": [
-      {
-        "kind": "teach",
-        "body": "<b>Sensation</b>: physical energy \u2192 neural signals (transduction).<br><b>Perception</b>: organizing/interpreting those signals into useful experience."
-      },
-      {
-        "kind": "teach",
-        "body": "Same input can yield different percepts (context, knowledge). Illusions reveal the system\u2019s assumptions."
-      },
-      {
-        "kind": "ask",
-        "prompt": "Transduction means:",
-        "choices": [
-          "Forgetting",
-          "Converting stimulus energy to neural signals",
-          "Only eye movement",
-          "Only naming"
-        ],
-        "answer": 1,
-        "reveal": "Receptor conversion."
-      },
-      {
-        "kind": "checkpoint",
-        "q": "Perception is best described as:",
-        "options": [
-          "A perfect passive photograph always",
-          "A constructive interpretation of sensory data",
-          "Impossible",
-          "Only dualist"
-        ],
-        "answer": 1,
-        "explain": "Constructive/inferential."
-      }
-    ]
-  },
-  {
-    "id": "cog-L4-theories",
-    "chapter": 4,
-    "topic": "ch4-theories",
-    "title": "Theories of perception",
-    "blurb": "Bottom-up/top-down, Gestalt, unconscious inference.",
-    "steps": [
-      {
-        "kind": "teach",
-        "body": "<b>Bottom-up</b> = data-driven features.<br><b>Top-down</b> = knowledge/expectations/context."
-      },
-      {
-        "kind": "teach",
-        "body": "<b>Gestalt</b>: organization laws (proximity, similarity, closure\u2026); whole \u2260 mere sum.<br><b>Unconscious inference</b> (Helmholtz): best guesses about the world from incomplete data."
-      },
-      {
-        "kind": "ask",
-        "prompt": "Top-down processing emphasizes:",
-        "choices": [
-          "Only pure receptors with no knowledge",
-          "Knowledge and expectations shaping perception",
-          "Only spinal reflexes",
-          "Only random noise"
-        ],
-        "answer": 1,
-        "reveal": "Knowledge guides perception."
-      },
-      {
-        "kind": "checkpoint",
-        "q": "Gestalt psychology is famous for:",
-        "options": [
-          "Only operant chambers",
-          "Perceptual organization principles",
-          "Only dualism",
-          "Only chatbots"
-        ],
-        "answer": 1,
-        "explain": "Grouping laws."
-      }
-    ]
-  },
-  {
-    "id": "cog-L4-vision-cnn",
-    "chapter": 4,
-    "topic": "ch4-vision",
-    "title": "Vision & CNNs",
-    "blurb": "Depth, constancy, recognition hierarchy; convolutional nets.",
-    "steps": [
-      {
-        "kind": "teach",
-        "body": "Vision builds features \u2192 objects. Depth: monocular cues + binocular disparity. Constancies stabilize object properties across conditions."
-      },
-      {
-        "kind": "teach",
-        "body": "<b>CNNs</b>: hierarchical local filters (convolution) + pooling \u2014 engineering success on vision tasks, loosely inspired by visual hierarchy."
-      },
-      {
-        "kind": "ask",
-        "prompt": "Binocular disparity uses:",
-        "choices": [
-          "One eye only",
-          "Slightly different left/right eye images",
-          "Only smell",
-          "Only touch"
-        ],
-        "answer": 1,
-        "reveal": "Stereo depth."
-      },
-      {
-        "kind": "checkpoint",
-        "q": "CNNs are especially strong at:",
-        "options": [
-          "Only integer addition",
-          "Hierarchical visual classification",
-          "Only pure symbolic proofs always",
-          "Only IFTT chat"
-        ],
-        "answer": 1,
-        "explain": "Vision-like hierarchy."
-      }
-    ]
-  },
-  {
-    "id": "cog-L5-filter",
-    "chapter": 5,
-    "topic": "ch5-filter",
-    "title": "Attention filters",
-    "blurb": "Early vs late selection, attenuation, dichotic listening.",
-    "steps": [
-      {
-        "kind": "teach",
-        "body": "<b>Early selection</b> (Broadbent): filter on physical features before full meaning.<br><b>Late selection</b>: much analysis before selection.<br><b>Attenuation</b> (Treisman): unattended turned down, not fully blocked \u2014 names can break through."
-      },
-      {
-        "kind": "teach",
-        "body": "<b>Dichotic listening + shadowing</b> is the classic method. Cocktail party effect challenges pure complete early blocking of meaning."
-      },
-      {
-        "kind": "ask",
-        "prompt": "Treisman attenuation says unattended info is:",
-        "choices": [
-          "Fully destroyed always",
-          "Reduced but not always zero; important items can pass",
-          "Amplified above attended",
-          "Only visual"
-        ],
-        "answer": 1,
-        "reveal": "Turned down, not erased."
-      },
-      {
-        "kind": "checkpoint",
-        "q": "Early-selection models filter mainly on:",
-        "options": [
-          "Full semantic analysis first always",
-          "Physical/sensory channel properties before deep meaning",
-          "Only motor plans",
-          "Only personality"
-        ],
-        "answer": 1,
-        "explain": "Physical bottleneck idea."
-      }
-    ]
-  },
-  {
-    "id": "cog-L5-load-div",
-    "chapter": 5,
-    "topic": "ch5-load",
-    "title": "Load, dividing, purpose of attention",
-    "blurb": "Lavie load, dual-task costs, FIT/binding, endogenous vs exogenous.",
-    "steps": [
-      {
-        "kind": "teach",
-        "body": "<b>Load theory</b>: high perceptual load uses capacity \u2192 fewer distractor effects; low load leaves spare capacity for distractors."
-      },
-      {
-        "kind": "teach",
-        "body": "<b>Divided attention</b>: dual-task costs; practice/automaticity can free resources."
-      },
-      {
-        "kind": "teach",
-        "body": "<b>Feature integration</b>: attention binds features into objects; illusory conjunctions when overloaded.<br><b>Endogenous</b> = voluntary; <b>exogenous</b> = stimulus-driven capture. You need both."
-      },
-      {
-        "kind": "ask",
-        "prompt": "Endogenous attention is:",
-        "choices": [
-          "Only a loud bang capturing you",
-          "Voluntary goal-directed control",
-          "Impossible",
-          "Only a reflex arc"
-        ],
-        "answer": 1,
-        "reveal": "You choose to attend."
-      },
-      {
-        "kind": "checkpoint",
-        "q": "Illusory conjunctions support that attention is needed to:",
-        "options": [
-          "Detect any single feature always without binding",
-          "Bind features into objects",
-          "Ignore all vision",
-          "Only hear"
-        ],
-        "answer": 1,
-        "explain": "FIT binding role."
-      }
-    ]
-  },
-  {
-    "id": "cog-L5-neural",
-    "chapter": 5,
-    "topic": "ch5-neural",
-    "title": "Neural attention & ADHD",
-    "blurb": "Networks, sensory gain, ADHD pharmacology theme.",
-    "steps": [
-      {
-        "kind": "teach",
-        "body": "Frontoparietal control systems modulate sensory cortex (gain on attended inputs). Disorders like neglect show spatial attention failures."
-      },
-      {
-        "kind": "teach",
-        "body": "ADHD involves attention control difficulties. Stimulants (e.g., methylphenidate class) increase DA/NE availability \u2014 clinical decisions weigh severity and side effects (not first-line freestyle)."
-      },
-      {
-        "kind": "ask",
-        "prompt": "ADHD meds like Ritalin classically increase:",
-        "choices": [
-          "Only melatonin",
-          "Dopamine and norepinephrine availability",
-          "Only insulin",
-          "Only salt"
-        ],
-        "answer": 1,
-        "reveal": "Catecholamine availability \u2192 focus support for many patients."
-      },
-      {
-        "kind": "checkpoint",
-        "q": "Attention often enhances:",
-        "options": [
-          "Attended sensory representations",
-          "Only digestion",
-          "Only bone growth",
-          "Only ear wax"
+          "STM supports current tasks; LTM supports durable storage",
+          "STM stores only visual input; LTM stores only auditory input",
+          "STM has unlimited duration; LTM lasts about one second",
+          "STM performs retrieval; LTM performs sensory transduction"
         ],
         "answer": 0,
-        "explain": "Sensory gain control."
+        "explain": "The model separated temporary storage for current tasks from long-term storage that can persist across the lifespan."
       }
     ]
   },
   {
-    "id": "cog-L2-overview",
-    "chapter": 2,
-    "topic": "ch2-mind-brain",
-    "title": "Ch2 map: How to study cognition",
-    "blurb": "Mind\u2013brain, history, cognitive approach, methods \u2014 your existing bank lives here.",
+    "id": "cog-m2-L6-sensory",
+    "chapter": 6,
+    "topic": "ch6-sensory-modal",
+    "title": "The sensory-memory window",
+    "blurb": "Why a rich sensory trace can be available for only an instant—and how Sperling proved it.",
     "steps": [
       {
         "kind": "teach",
-        "body": "<b>You already have a strong Ch2 bank</b> (mind\u2013body, structuralism, behaviorism, cognitive revolution, Donders/Stroop, methods, complementary neuroscience)."
-      },
-      {
-        "kind": "teach",
-        "body": "Study order: Mind & Brain \u2192 Brain & Behavior \u2192 Structuralism \u2192 Behaviorism \u2192 Cognitive Revolution \u2192 Cognitive Approach \u2192 Methods \u2192 Neuroscience."
+        "body": "<b>Sensory memory is a brief holding stage.</b><br>It retains information just encoded by the sensory organs before attention chooses what will enter short-term memory. The modal-model timeline places this store at roughly <b>1 second</b>. Close your eyes after viewing a scene: for a moment the image seems present, then it rapidly fades."
       },
       {
         "kind": "ask",
-        "prompt": "The mind\u2013body problem asks how:",
+        "prompt": "Why is sensory memory useful if it fades so quickly?",
         "choices": [
-          "Only bones grow",
-          "Mental events relate to physical brain processes",
-          "Only AI plays chess",
-          "Only eyes refract"
+          "It makes every sensory detail permanent",
+          "It briefly holds input for selection",
+          "It eliminates the need for short-term memory",
+          "It prevents retrieval from long-term memory"
         ],
         "answer": 1,
-        "reveal": "Core philosophical/scientific puzzle of Ch2."
+        "reveal": "Its value is the <b>selection window</b>: the trace holds long enough for attention to move chosen information into STM."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Sperling (1960) separated availability from report.</b><br>Participants briefly saw three rows of letters. In <b>whole report</b>, they tried to report the entire grid and produced about 25%, usually one row. In <b>partial report</b>, a high, medium, or low tone presented after the grid identified one row; participants reported about 75–80% of that row."
+      },
+      {
+        "kind": "ask",
+        "prompt": "The tone came after the grid disappeared, yet participants could report whichever row it selected. What does that imply?",
+        "reveal": "Most of the grid was briefly available in <b>sensory memory</b>. Whole report was low because the trace faded during the time needed to speak all the letters, not because only one row had been seen."
       },
       {
         "kind": "checkpoint",
-        "q": "Behaviorism treated the mind as:",
+        "q": "What happened when Sperling increased the delay between the display and the row cue?",
         "options": [
-          "Fully open and measured by introspection only",
-          "A black box; study S\u2013R only",
-          "Identical to dualist soul science",
-          "Only neural spikes"
+          "Recall increased because rehearsal improved",
+          "Recall stayed at 75–80% indefinitely",
+          "Recall fell as the sensory trace faded",
+          "Recall transferred directly into long-term memory"
+        ],
+        "answer": 2,
+        "explain": "A longer display-to-tone delay left less of the rapidly fading sensory trace available."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>The exam logic:</b> immediate partial report estimates how much was briefly available; declining performance across cue delays estimates how quickly that store disappears. Attention is the bridge from this rich but fleeting trace into STM."
+      }
+    ]
+  },
+  {
+    "id": "cog-m2-L6-capacity",
+    "chapter": 6,
+    "topic": "ch6-stm-capacity",
+    "title": "How much fits in STM?",
+    "blurb": "Auditory span, visual capacity, resource limits, and the power of meaningful chunks.",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Short-term memory holds attended information for current use.</b><br>Without active maintenance, the deck gives a typical duration of about 15–30 seconds. Repeating a newly heard phone number keeps it active long enough to use or encode."
+      },
+      {
+        "kind": "ask",
+        "prompt": "Miller presented ordered lists of letters, numbers, or words for immediate repetition. What stable auditory span did he report?",
+        "choices": [
+          "About 1 item",
+          "About 4–5 items",
+          "About 7 ± 2 items",
+          "An unlimited number"
+        ],
+        "answer": 2,
+        "reveal": "Miller's classic estimate was about <b>7 ± 2 auditory items</b>, with reliable individual differences."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Visual STM has its own limit.</b><br>In change detection, a participant sees objects such as colored squares, then judges whether a second display is identical or changed. The chapter's data suggest a capacity of roughly <b>4–5 visual items</b>. A resource-pool figure also shows fewer items retained as each item becomes more complex."
+      },
+      {
+        "kind": "ask",
+        "prompt": "Why can 1776 1492 2001 2018 be easier than 1776149220012018 even though both contain the same digits?",
+        "reveal": "Recognizable years allow <b>chunking</b>: long-term knowledge turns many digits into a few meaningful wholes, reducing the number of STM units. This is why the chapter frames Miller's auditory limit as roughly <b>7 ± 2 chunks</b>, not necessarily 7 ± 2 individual digits."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "What did Chase and Simon's chess result show about expert memory?",
+        "options": [
+          "Experts had unlimited memory for both real and random boards",
+          "Experts led on meaningful boards, not random ones",
+          "Novices recalled meaningful positions better than experts",
+          "Random boards created larger chunks than game positions"
         ],
         "answer": 1,
-        "explain": "Stimulus\u2013response, avoid mentalism."
+        "explain": "Experts used learned chess configurations as chunks. Random arrangements removed the meaningful patterns that supported the advantage."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "What best explains the apparent 'super-memory' of a professional mnemonist?",
+        "options": [
+          "A greatly expanded basic STM capacity",
+          "A sensory trace that never decays",
+          "They form large meaningful chunks",
+          "The absence of any long-term knowledge"
+        ],
+        "answer": 2,
+        "explain": "The deck attributes exceptional string recall to chunking skill, not a fundamentally larger item limit."
+      }
+    ]
+  },
+  {
+    "id": "cog-m2-L6-forgetting",
+    "chapter": 6,
+    "topic": "ch6-stm-forgetting",
+    "title": "Why short-term memories disappear",
+    "blurb": "Rehearsal, the Brown-Peterson task, decay, interference, and the experiment that separated time from competition.",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Rehearsal changes STM duration.</b><br>Rehearsal repeats information and reactivates its encoding, so information can theoretically remain active as long as rehearsal continues. To measure duration without rehearsal, the Brown-Peterson task presented a trigram and then forced participants to count backward by threes."
+      },
+      {
+        "kind": "ask",
+        "prompt": "Why did counting backward by threes matter in the Brown-Peterson task?",
+        "choices": [
+          "It created meaningful chunks",
+          "It blocked rehearsal",
+          "It cued one row of letters",
+          "It moved the trigram into LTM"
+        ],
+        "answer": 1,
+        "reveal": "The counting task occupied the process participants would otherwise use to repeat the trigram. Under distraction, recall suggested about a <b>15-second</b> unrehearsed duration."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Two explanations compete.</b><br><b>Decay</b> says information is lost simply as time passes. <b>Interference</b> says competing information displaces it. <b>Proactive</b> interference carries earlier information forward to disrupt later learning; <b>retroactive</b> interference lets newer information disrupt older material."
+      },
+      {
+        "kind": "ask",
+        "prompt": "Why did Keppel and Underwood focus on the first few trials of the Peterson task?",
+        "reveal": "Early trials contain little buildup from prior trigrams. Recall stayed fairly high for up to about 15 seconds there, showing that <b>proactive interference</b> contributed to the later forgetting curve. Considering later trials left room for both interference and decay."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "Lewandowsky et al. blocked rehearsal with articulatory suppression and varied recall speed. Recall did not worsen at slower speeds. What follows?",
+        "options": [
+          "Time alone caused no decay without interference",
+          "Slower recall always strengthens sensory memory",
+          "Articulatory suppression creates long-term storage",
+          "Only retroactive interference can affect letters"
+        ],
+        "answer": 0,
+        "explain": "If elapsed time alone caused forgetting, slower output should have reduced recall. It did not, so the study argued against pure time-based decay."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Keep the studies straight.</b><br>Peterson's curve first looked like decay. Keppel and Underwood showed that prior trials created proactive interference. Lewandowsky isolated the passage of time more carefully and found no speed effect. The chapter therefore treats the decay-versus-interference question as an empirical design problem, not a definition to memorize in isolation."
+      }
+    ]
+  },
+  {
+    "id": "cog-m2-L6-working",
+    "chapter": 6,
+    "topic": "ch6-working-memory",
+    "title": "Working memory as an active system",
+    "blurb": "Specialized stores, executive filtering, the episodic buffer, individual differences, and training claims.",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Baddeley replaced a passive box with an active workspace.</b><br>The <b>visuo-spatial sketchpad</b> holds and manipulates visual information. The <b>phonological loop</b> repeats and analyzes auditory information. The <b>central executive</b> coordinates the two stores and controls what enters working memory."
+      },
+      {
+        "kind": "ask",
+        "prompt": "Match each task to its best component: mentally rotate a shape; silently repeat a sentence; switch attention between the two.",
+        "reveal": "Mental rotation → <b>visuo-spatial sketchpad</b>. Repeating the sentence → <b>phonological loop</b>. Coordinating and switching → <b>central executive</b>."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Brooks (1968) tested separate memory codes.</b><br>Participants completed verbal or visual-memory tasks using either spoken yes/no responses or pointing on a visual grid. The visual diagram task slowed dramatically with the visual pointing response, supporting distinct auditory/verbal and visual buffers with modality-specific competition."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "Which Brooks result most strongly supports a separate visual working-memory code?",
+        "options": [
+          "The visual task slowed most with visual pointing",
+          "Every task was equally fast with every response mode",
+          "The verbal task could not be completed with speech",
+          "Participants remembered random chess boards perfectly"
+        ],
+        "answer": 0,
+        "explain": "The large within-modality cost is what a separate, capacity-limited visual code predicts."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>The central executive protects limited space.</b><br>In Vogel et al. (2005), high- and low-capacity participants remembered blue rectangles while red rectangles sometimes acted as distractors. With targets alone, both groups' ERP activity tracked two versus four items. With distractors, low-capacity participants showed a strong load response, while high-capacity participants showed a weaker response—evidence that filtering helps determine apparent capacity. The deck applies the same idea to some age-related decline. Its graphs show processing speed, working memory, and LTM declining while world knowledge is more preserved; an adjacent visual shows lower total gray-matter volume and less elaborate neural structure with age. High literacy or numeracy use tracks better skill maintenance than low use in the displayed age-skill profiles."
+      },
+      {
+        "kind": "ask",
+        "prompt": "Why was an episodic buffer added if the visual and auditory stores are separate?",
+        "choices": [
+          "To erase long-term memories during a task",
+          "To bind visual, auditory, and LTM into an episode",
+          "To replace the central executive with sensory memory",
+          "To store only speech without a time limit"
+        ],
+        "answer": 1,
+        "reveal": "The <b>episodic buffer</b> is a time-limited store controlled by the central executive. It binds the specialized stores with long-term knowledge into a multisensory, time-based representation."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "Which statement best captures the chapter's conclusion about individual differences and brain training?",
+        "options": [
+          "Working-memory capacity is unrelated to reasoning or mathematics",
+          "Training never improves performance on working-memory tasks",
+          "WM correlates with g; broad training transfer is unclear",
+          "Any commercial app has proven permanent gains across all cognition"
+        ],
+        "answer": 2,
+        "explain": "Working-memory capacity correlates with g and skills such as math and reasoning. The deck cites musical training alongside improved WM in young children, and WM practice can improve trained performance, but wide transfer claims remain controversial."
+      }
+    ]
+  },
+  {
+    "id": "cog-m2-L6-neural",
+    "chapter": 6,
+    "topic": "ch6-neural",
+    "title": "The neural evidence for working memory",
+    "blurb": "Distributed modality networks, sustained prefrontal activity, human imaging, and lesion evidence.",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Working memory is distributed.</b><br>It begins with perceptual encoding and continues while information is actively maintained. Cabeza and Nyberg's meta-analysis found no single working-memory region. Auditory tasks recruit auditory areas such as temporal cortex; visual tasks recruit visual areas such as occipital cortex. Frontal regions are especially important for executive demands."
+      },
+      {
+        "kind": "ask",
+        "prompt": "Why can the chapter say both 'working memory happens all over the brain' and 'the frontal lobe is especially important'?",
+        "reveal": "Modality-specific regions represent the content, while frontal regions contribute strongly to active maintenance and executive control. A distributed system can still have a particularly important control region."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Funahashi et al. (1989) recorded prefrontal neurons.</b><br>A neuron that responded to a square's location fired strongly during the delay when a monkey had to remember that location. The sustained delay response disappeared when no memory task was required, tying the activity to active maintenance rather than the stimulus alone."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "What human result from Schon et al. (2008) paralleled Funahashi's delay activity?",
+        "options": [
+          "Prefrontal activity rose during the memory delay",
+          "Temporal activity vanished while participants listened to speech",
+          "Occipital damage improved delayed matching",
+          "A cue tone increased sensory-memory duration"
+        ],
+        "answer": 0,
+        "explain": "In a delayed-match-to-sample task, human prefrontal activity increased during the period when the first image had to be maintained."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Activation shows association; damage tests necessity more directly.</b><br>Moore et al. (2010) found that damage to dorsolateral prefrontal cortex impaired tasks similar to delayed matching. Because frontal lobes support executive function, the deck proposes that this region may contribute to the central executive."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "Why is the Moore lesion finding stronger causal evidence than activation alone?",
+        "options": [
+          "Damage impaired working-memory performance",
+          "The region became active during every sensory event",
+          "The study proved all memory is stored in one neuron",
+          "The task removed every executive demand"
+        ],
+        "answer": 0,
+        "explain": "When disruption of a region accompanies loss of function, the evidence more directly supports a necessary contribution than a correlation from activity alone."
+      }
+    ]
+  },
+  {
+    "id": "cog-m2-L7-systems-amnesia",
+    "chapter": 7,
+    "topic": "ch7-systems-amnesia",
+    "title": "Memory systems through amnesia",
+    "blurb": "Use H.M., Clive Wearing, and K.F. to separate short-term and long-term memory.",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>STM and LTM differ in more than duration.</b><br>Short-term memory briefly retains specific stimulus details, usually for about 15–30 seconds. Long-term memory can retain abstracted semantic information indefinitely, but stored information must remain retrievable."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Put amnesia on a timeline.</b><br><b>Retrograde amnesia</b> removes access to events before a neurological event. <b>Anterograde amnesia</b> impairs memory for new information encountered afterward. A person can show either pattern or both."
+      },
+      {
+        "kind": "ask",
+        "prompt": "A patient remembers childhood but repeatedly forgets conversations held after an injury. Which pattern is most direct?",
+        "choices": [
+          "Retrograde amnesia",
+          "Anterograde amnesia",
+          "A primacy effect",
+          "A procedural-memory advantage"
+        ],
+        "answer": 1,
+        "reveal": "The missing information was encountered after the event, so this is anterograde amnesia."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>H.M. and Clive Wearing preserved islands of function.</b><br>After hippocampal surgery, H.M. retained identity, general knowledge, and immediate memory but could not form new LTM. Wearing had severe retrograde and anterograde amnesia yet retained brief STM, language, piano skill, and basic facts."
+      },
+      {
+        "kind": "ask",
+        "prompt": "Why is Patient K.F.—new LTM formation with an STM span of only two or three items—especially valuable evidence?",
+        "choices": [
+          "K.F. exactly duplicates H.M.'s deficit",
+          "K.F. shows that rehearsal is unnecessary",
+          "K.F. supplies the reverse STM-LTM pattern",
+          "K.F. proves all memory is hippocampal"
+        ],
+        "answer": 2,
+        "reveal": "H.M. preserved STM but lost new LTM; K.F. impaired STM but preserved new LTM. The crossed pattern supports distinct systems."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "Which observation most strongly argues that STM and LTM rely on distinguishable mechanisms?",
+        "options": [
+          "Every patient forgets both recent and remote events equally",
+          "H.M. and K.F. show opposite preservation-and-impairment patterns",
+          "The final items in every list are recalled better than the middle",
+          "Category cues improve recall compared with an unguided search"
+        ],
+        "answer": 1,
+        "explain": "Opposing dissociations show that one memory system can function when the other is impaired."
+      }
+    ]
+  },
+  {
+    "id": "cog-m2-L7-encoding-retrieval",
+    "chapter": 7,
+    "topic": "ch7-encoding-retrieval",
+    "title": "Encoding succeeds only when retrieval works",
+    "blurb": "Connect rehearsal, serial position, processing depth, transfer, and encoding specificity.",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Rehearsal is not all equal.</b><br><b>Maintenance rehearsal</b> repeats information without added thought. <b>Elaborative rehearsal</b> considers meaning and is more effective at moving information toward LTM."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>The serial-position curve reveals two mechanisms.</b><br>Early items benefit from rehearsal and LTM—the <b>primacy effect</b>. Final items remain active in STM—the <b>recency effect</b>. A 30-second delay removes recency."
+      },
+      {
+        "kind": "ask",
+        "prompt": "A delay after the last word erases the end-of-list advantage. What does that imply?",
+        "choices": [
+          "Recency normally depends on STM",
+          "Primacy normally depends on STM",
+          "Every list item was semantically encoded",
+          "Category cues caused the original curve"
+        ],
+        "answer": 0,
+        "reveal": "The final items lose their advantage when they are no longer active in STM."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Depth helps—but match can win.</b><br>Craik and Tulving found best memory after meaning-based sentence completion. Morris showed that rhyme encoding can win when the test cue also asks for rhyme. <b>Transfer-appropriate processing</b> is the match between encoding and retrieval operations."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Cues recover what an unguided search may miss.</b><br>Tulving and Pearlstone improved recall with category cues. Encoding specificity extends this: cues linked to the original episode—including incidental surroundings—can facilitate retrieval."
+      },
+      {
+        "kind": "ask",
+        "prompt": "Godden and Baddeley's divers learn words underwater. Which test condition should provide the strongest contextual support?",
+        "choices": [
+          "Recall on land after changing mood",
+          "Recall underwater in the matching environment",
+          "Recall anywhere after a 30-second delay",
+          "Recall only the final three words"
+        ],
+        "answer": 1,
+        "reveal": "Context-dependent memory improves when the external environment matches at encoding and retrieval."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "Which principle best explains why a rhyme cue can favor rhyme-based study over deeper sentence study?",
+        "options": [
+          "The spacing effect",
+          "The primacy effect",
+          "Transfer-appropriate processing",
+          "System consolidation"
+        ],
+        "answer": 2,
+        "explain": "Memory depends on how well the retrieval operation matches the operation used at encoding."
+      }
+    ]
+  },
+  {
+    "id": "cog-m2-L7-memory-factors",
+    "chapter": 7,
+    "topic": "ch7-memory-factors",
+    "title": "Space it, then retrieve it",
+    "blurb": "Turn the spacing and testing effects into an exam-ready study strategy.",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Spacing beats cramming.</b><br>Recall is higher when repetitions occur across separated study periods. Cepeda and colleagues suggest reviewing after roughly 10–20% of the interval before final retrieval; for a test in one week, the slide uses about a one-day gap."
+      },
+      {
+        "kind": "ask",
+        "prompt": "Your test is one week away. Which schedule follows the chapter's spacing example?",
+        "choices": [
+          "One long session the night before",
+          "One session now and no later contact",
+          "Several reviews separated by about a day",
+          "Continuous rereading without a break"
+        ],
+        "answer": 2,
+        "reveal": "A one-day gap is roughly 10–20% of a week and distributes practice across multiple sessions."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Testing is learning.</b><br>The testing effect means that producing information from memory strengthens later retention more than passively seeing it again. Answer first; then check and correct."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>The paired-associate table isolates retrieval practice.</b><br>Full study/full test scored 81%. Reduced repeat study plus full repeat testing also scored 81%. Full repeat study plus reduced repeat testing fell to 36%. Re-exposure did not replace retrieval."
+      },
+      {
+        "kind": "ask",
+        "prompt": "Why did the less-study group still match the full-study group at 81%?",
+        "choices": [
+          "It kept testing every pair",
+          "It never saw missed pairs again",
+          "It removed all spacing between sessions",
+          "It used only context-dependent cues"
+        ],
+        "answer": 0,
+        "reveal": "Comprehensive repeated retrieval remained even though repeat study was limited to missed pairs."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "Which plan combines both chapter-supported retention factors?",
+        "options": [
+          "Reread continuously during one final-night session",
+          "Use spaced sessions and retrieve before checking answers",
+          "Keep every answer visible while copying it repeatedly",
+          "Avoid testing until the real exam to protect the memory"
+        ],
+        "answer": 1,
+        "explain": "Distributed sessions create spacing, and closed-book production creates retrieval practice."
+      }
+    ]
+  },
+  {
+    "id": "cog-m2-L7-explicit",
+    "chapter": 7,
+    "topic": "ch7-explicit",
+    "title": "Two ways to declare the past",
+    "blurb": "Distinguish episodic events from semantic knowledge behaviorally and neurally.",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Explicit means reportable.</b><br>Declarative memories can be consciously described. <b>Episodic memory</b> represents personally experienced events with ordered sensory detail; <b>semantic memory</b> represents facts and meanings without that event context."
+      },
+      {
+        "kind": "ask",
+        "prompt": "Which is semantic rather than episodic?",
+        "choices": [
+          "Reliving a birthday dinner",
+          "Remembering the room where class met",
+          "Knowing your current address",
+          "Replaying the order of a personal event"
+        ],
+        "answer": 2,
+        "reveal": "An address is reportable factual knowledge without the sensory sequence of a personal episode."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Episodes can lose their context.</b><br>You may retain course content while forgetting what you wore or where the professor stood. The original episodic memory has become more semantic as event details fade."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Patient dissociations separate the systems.</b><br>K.C. had no episodic memory but retained some semantic memory and could learn facts about his life. A contrasting encephalitis patient preserved old and new episodes while losing word meanings and famous identities."
+      },
+      {
+        "kind": "ask",
+        "prompt": "What makes the two patient cases stronger together?",
+        "choices": [
+          "They show identical deficits after identical injuries",
+          "They show opposite episodic-semantic patterns",
+          "They show that both systems are procedural",
+          "They show that neither system can learn"
+        ],
+        "answer": 1,
+        "reveal": "Each declarative system can be disproportionately impaired while the other remains functional."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "What did Levine and colleagues' fMRI comparison suggest about episodic retrieval?",
+        "options": [
+          "It reactivates occipital-temporal sensory regions engaged during encoding",
+          "It relies only on frontal-parietal abstraction with no sensory component",
+          "It produces exactly the same activation as basic semantic facts",
+          "It is stored only as a short-term trace that disappears within 30 seconds"
+        ],
+        "answer": 0,
+        "explain": "Personal-event recordings engaged occipital and temporal regions, consistent with reactivating encoding-related sensory areas."
+      }
+    ]
+  },
+  {
+    "id": "cog-m2-L7-implicit",
+    "chapter": 7,
+    "topic": "ch7-implicit",
+    "title": "Memory without remembering",
+    "blurb": "See how skills, bias, familiarity, conditioning, and mirror drawing reveal implicit memory.",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Implicit memory operates outside awareness.</b><br>Stored information can guide behavior without conscious retrieval. Procedural memories—walking, swimming, bicycling—are automatic learned action patterns and are relatively resistant to forgetting."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>The IAT measures compatibility through speed.</b><br>People classify items under two category pairings. Faster responses for one shared-key pairing than the reversed pairing are interpreted as a stronger automatic association."
+      },
+      {
+        "kind": "ask",
+        "prompt": "STEM + Man is sorted faster than STEM + Woman. What does the chapter's example infer?",
+        "choices": [
+          "The faster pairing reflects a stronger automatic association",
+          "The slower pairing proves lower real-world ability",
+          "Both pairings reveal only consciously declared beliefs",
+          "The task measures serial-position memory"
+        ],
+        "answer": 0,
+        "reveal": "The IAT interprets response-time compatibility as an implicit association, not as a measure of actual ability."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Prior exposure changes judgment.</b><br>The <b>familiarity effect</b> raises liking for previously encountered stimuli without recognition. The <b>propaganda effect</b> raises perceived truth for previously heard statements regardless of accuracy."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Conditioning stores durable associations.</b><br>Operant conditioning links stimuli with voluntary responses; classical conditioning links stimuli with involuntary responses. Patient S.M.'s very low fear after bilateral amygdala damage supports an amygdala role in fear conditioning."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>H.M. learned without remembering learning.</b><br>Across mirror-drawing sessions he improved a new mapping skill, although he could not remember the training episodes. Procedural learning survived profound explicit-memory impairment."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "Which result most cleanly demonstrates durable implicit procedural learning?",
+        "options": [
+          "A student verbally recalls where a fact was learned",
+          "H.M. improves at mirror drawing without remembering practice",
+          "A diver recalls more in the same external setting",
+          "A participant remembers the first and last list items"
+        ],
+        "answer": 1,
+        "explain": "Performance improved across sessions even though conscious memory for the learning episodes was absent."
+      }
+    ]
+  },
+  {
+    "id": "cog-m2-L7-neural",
+    "chapter": 7,
+    "topic": "ch7-neural",
+    "title": "How long-term memories stabilize",
+    "blurb": "Link synaptic strengthening, hippocampal-cortical consolidation, replay, and transfer learning.",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Consolidation makes memory durable.</b><br><b>Synaptic consolidation</b> occurs at connections between neurons. With long-term potentiation, repeated stimulation increases effective transmission so the receiving neuron becomes more likely to fire."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>System consolidation reorganizes storage.</b><br>It lays down cortical connections through hippocampal-cortical cooperation. It is much slower than synaptic consolidation and can continue across a lifetime."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>The hippocampus has two proposed roles.</b><br>It may initially store memories and later move them to cortex, or it may coordinate storage that occurs in cortex. The exact role remains debated in the chapter."
+      },
+      {
+        "kind": "ask",
+        "prompt": "A diagram shows cortical links strengthening while hippocampal links fade across time. What does it depict?",
+        "choices": [
+          "System consolidation",
+          "The testing effect",
+          "State-dependent memory",
+          "The recency effect"
+        ],
+        "answer": 0,
+        "reveal": "The memory becomes increasingly supported by cortical connections as system consolidation progresses."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Replay repeats the ordered neural sequence.</b><br>After encoding, hippocampal activity can replay in the same temporal order but much faster. The place-cell figure compresses an active sequence of about six seconds into roughly two-tenths of a second during sleep."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Stability explains the retrograde gradient.</b><br>Events just before a car accident may be forgotten because they were still consolidating, while older memories had more time to stabilize. The chapter closes with an ANN analogy: transfer learning lets an older network help train a new one on a task that shares information."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "Which statement correctly contrasts the two consolidation mechanisms?",
+        "options": [
+          "Synaptic consolidation strengthens local connections; system consolidation reorganizes hippocampal-cortical support over time.",
+          "Synaptic consolidation occurs only in STM; system consolidation occurs only during an IAT.",
+          "Synaptic consolidation requires context cues; system consolidation requires rhyme cues.",
+          "Synaptic consolidation is slower than a lifetime; system consolidation ends within 30 seconds."
+        ],
+        "answer": 0,
+        "explain": "The chapter separates local synaptic strengthening from slower large-scale stabilization across hippocampus and cortex."
+      }
+    ]
+  },
+  {
+    "id": "cog-m2-ch8-foundations",
+    "chapter": 8,
+    "topic": "ch8-foundations",
+    "title": "How Your Life Becomes a Memory System",
+    "blurb": "Build autobiographical memory from its functions, working self, and three levels of detail.",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Autobiographical memory</b> combines episodic memories of events you experienced with semantic facts about yourself. The speaker notes describe retrieval as multidimensional mental time travel with spatial, emotional, and sensory components. Researchers rely on retrospective interviews, limiting control over encoding order and making accuracy difficult to verify."
+      },
+      {
+        "kind": "ask",
+        "prompt": "You remember a failed study strategy and change your plan for the next exam. Which function is doing the work?",
+        "choices": [
+          "Social",
+          "Directive",
+          "Self-representational",
+          "Infantile"
+        ],
+        "answer": 1,
+        "reveal": "The <b>directive</b> function uses a remembered event to guide a current action. Social memory builds bonds; self-representational memory supports identity."
+      },
+      {
+        "kind": "teach",
+        "body": "Autobiographical memory also has a <b>social</b> function—shared experiences create bonds—and a <b>self-representational</b> function—the past supports a stable self-image. One memory can serve more than one function, so identify what the example emphasizes."
+      },
+      {
+        "kind": "ask",
+        "prompt": "In the self-memory system, why might scholarship-related memories become easier to retrieve while you write an application?",
+        "choices": [
+          "The working self uses the current goal to access the knowledge base",
+          "The knowledge base deletes unrelated events",
+          "Every episodic detail becomes semantic",
+          "Lifetime periods are stored outside autobiographical memory"
+        ],
+        "answer": 0,
+        "reveal": "The <b>working self</b> is the active set of current goals. It controls access to the autobiographical knowledge base, the colder store of past-life information."
+      },
+      {
+        "kind": "teach",
+        "body": "Autobiographical knowledge is organized from <b>lifetime periods</b> to <b>general events</b> to <b>event-specific knowledge</b>. Most detailed episodes last only hours or days; their event-specific detail may dissolve, leaving a broader semantic fact or no accessible memory."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "Years later, you know you lived in Madrid but cannot re-experience most individual days. What has most likely happened in the SMS framework?",
+        "options": [
+          "Event-specific knowledge faded while broader self-knowledge remained",
+          "The working self converted the experience into a motor skill",
+          "Every daily episode remained fully preserved",
+          "The lifetime period was never encoded"
+        ],
+        "answer": 0,
+        "explain": "The broad lifetime-period fact can remain after event-specific sensory and contextual knowledge dissolves."
+      }
+    ]
+  },
+  {
+    "id": "cog-m2-ch8-lifespan",
+    "chapter": 8,
+    "topic": "ch8-lifespan",
+    "title": "The Blank Beginning and the Reminiscence Bump",
+    "blurb": "Explain early-childhood forgetting and why life transitions become unusually memorable.",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Infantile amnesia</b> is the adult scarcity of episodic memories from roughly before ages two to four. A less severe form can affect memories from before age ten, and explicit memory is affected more than implicit memory; young children can still learn."
+      },
+      {
+        "kind": "ask",
+        "prompt": "Which proposed explanation says that building the developing brain may overwrite early traces?",
+        "choices": [
+          "Language ability",
+          "State-dependent learning",
+          "Self-image formation",
+          "Neurogenesis"
+        ],
+        "answer": 3,
+        "reveal": "The <b>neurogenesis</b> account proposes that adding new neurons during development can overwrite earlier traces."
+      },
+      {
+        "kind": "teach",
+        "body": "The chapter offers several compatible accounts: the hippocampus is still developing until about age four; neurogenesis may overwrite traces; immature language limits later story-like reconstruction; and a child's internal emotional state may not match the adult retrieval state. Bauer and Larkina found the fastest forgetting in four-year-olds."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "Which finding came from Bauer and Larkina's longitudinal work?",
+        "options": [
+          "Four-year-olds showed the quickest forgetting",
+          "Ten-year-olds had no episodic memory",
+          "Implicit memory disappeared before explicit memory",
+          "Adults recovered every memory after receiving a cue"
+        ],
+        "answer": 0,
+        "explain": "Their longitudinal data showed especially rapid forgetting in the four-year-old group."
+      },
+      {
+        "kind": "teach",
+        "body": "The <b>reminiscence bump</b> is enhanced recall for late adolescence and early adulthood. The self-image hypothesis links it to identity formation. The cognitive hypothesis links it to rapid change followed by stability."
+      },
+      {
+        "kind": "ask",
+        "prompt": "People who emigrated at ages 34–35 show a later bump than people who emigrated at 20–24. Which account does that shift favor?",
+        "choices": [
+          "A fixed biological bump at the same age for everyone",
+          "The cognitive hypothesis based on life transition",
+          "Infantile amnesia caused by hippocampal immaturity",
+          "The misinformation effect caused by leading questions"
+        ],
+        "answer": 1,
+        "reveal": "The bump moved with the timing of a major transition, supporting the <b>cognitive hypothesis</b> rather than a fixed-age explanation."
+      }
+    ]
+  },
+  {
+    "id": "cog-m2-ch8-emotion",
+    "chapter": 8,
+    "topic": "ch8-emotion",
+    "title": "Why Emotional Memories Feel Permanent—but Aren't",
+    "blurb": "Connect attention and the amygdala to emotional encoding, flashbulb accuracy, and confidence.",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "Emotion can improve memory because it captures attention and strengthens encoding. In an <b>attentional blink</b>, a second rapid target is usually missed, yet Anderson found that emotionally charged words were more likely than neutral words to break through."
+      },
+      {
+        "kind": "ask",
+        "prompt": "After 'chair,' participants rapidly see either 'ball' or 'murder.' Which second word should be detected more often?",
+        "choices": [
+          "Ball, because neutral words avoid the blink",
+          "Both equally, because presentation speed controls everything",
+          "Neither, because all second targets are invisible",
+          "Murder, because emotional salience draws processing"
+        ],
+        "answer": 3,
+        "reveal": "The emotionally charged word <b>murder</b> received a perceptual advantage, particularly consistent with the chapter's emphasis on negative valence."
+      },
+      {
+        "kind": "teach",
+        "body": "The <b>amygdala</b> supports emotional encoding. Bilateral damage removed the emotional-blink advantage; in this word task, left—but not right—hemisphere damage also removed it. Temporal-lobe damage involving the amygdala weakened emotional-event recall more than frontal-lobe damage."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "Which lesion group should show the weakest recall for an emotional public event?",
+        "options": [
+          "Healthy controls",
+          "Frontal-lobe damage with intact amygdala",
+          "Temporal-lobe damage involving the amygdala",
+          "High frontal-lobe functioning"
+        ],
+        "answer": 2,
+        "explain": "The chapter's lesion comparison tied the weakest emotional-event recall to temporal-lobe damage involving the amygdala."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Flashbulb memories</b> are vivid memories for shared, high-emotion events. They are not permanent recordings: Neisser and Harsch found changed reports with high confidence, and Talarico and Rubin found declining accuracy while flashbulb confidence stayed high. Relevance and identity also matter, as Brown and Kulik's cultural comparison showed."
+      },
+      {
+        "kind": "ask",
+        "prompt": "A person's account of a public tragedy changes over two years, but confidence stays extremely high. What is the best conclusion?",
+        "choices": [
+          "High confidence proves the later account is accurate",
+          "Everyday memories are always more vivid than public-event memories",
+          "The event cannot qualify as a flashbulb memory",
+          "Flashbulb memories can remain confident while their details change"
+        ],
+        "answer": 3,
+        "reveal": "Flashbulb memories can preserve <b>confidence and vividness</b> even while accuracy declines. Confidence is not a substitute for consistency."
+      }
+    ]
+  },
+  {
+    "id": "cog-m2-ch8-construction",
+    "chapter": 8,
+    "topic": "ch8-construction",
+    "title": "How the Mind Builds a Memory That Never Happened",
+    "blurb": "Use semantic lures, leading questions, and suggestion to understand false details and false events.",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "Autobiographical memory is an <b>unconscious construction</b>, not a recording. The mind interprets an event through existing beliefs and semantic organization, so a sincere memory can still be false."
+      },
+      {
+        "kind": "ask",
+        "prompt": "You study 'bed, rest, pillow, slumber, awake' but never see 'sleep.' Why might 'sleep' appear at recall?",
+        "choices": [
+          "It was the first word and received a primacy boost",
+          "The semantic theme activated an unpresented critical lure",
+          "It was encoded as a procedural action",
+          "The word was supplied during a lineup"
+        ],
+        "answer": 1,
+        "reveal": "The slide labels the Deese-Roediger-McDermott paradigm 'RDM,' but the standard abbreviation is <b>DRM</b>. Related words activate the unpresented <b>critical lure</b>; about 40% reported 'sleep.'"
+      },
+      {
+        "kind": "teach",
+        "body": "The <b>misinformation effect</b> occurs when incorrect post-event information becomes part of memory. Loftus and Palmer showed seven crash videos in random order and changed the verb in a speed question: more forceful wording produced higher estimates and more reports of broken glass that was never shown."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "Which wording should create the most reports of nonexistent broken glass?",
+        "options": [
+          "How fast were the cars going?",
+          "How fast were the cars going when they hit?",
+          "How fast were the cars going when they smashed?",
+          "Did the cars stop before making contact?"
+        ],
+        "answer": 2,
+        "explain": "The most forceful verb, 'smashed,' produced the most false reports of broken glass."
+      },
+      {
+        "kind": "teach",
+        "body": "Suggestion can do more than alter one detail. Loftus and Pickrell supplied four childhood stories, including one false lost-in-public event. About <b>25%</b> accepted and elaborated the false event; most still rejected it."
+      },
+      {
+        "kind": "ask",
+        "prompt": "What is the crucial difference between the traffic-film studies and the lost-in-public study?",
+        "choices": [
+          "Only the traffic studies used autobiographical memory",
+          "The lost story tested motor learning rather than remembering",
+          "Everyone accepted the lost story, but no one accepted broken glass",
+          "The traffic studies altered details; the lost story could create a whole event"
+        ],
+        "answer": 3,
+        "reveal": "The traffic questions reshaped <b>details of a witnessed event</b>; the lost-in-public suggestion could generate an <b>entire event</b> that never occurred."
+      }
+    ]
+  },
+  {
+    "id": "cog-m2-ch8-source-reconsolidation",
+    "chapter": 8,
+    "topic": "ch8-source-reconsolidation",
+    "title": "Familiar Face, Wrong Source, Reopened Memory",
+    "blurb": "Master source-monitoring errors and the vulnerable window created by retrieval.",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "A <b>source-monitoring error</b> happens when information is familiar but the encounter that produced the familiarity is misremembered. Because later information alters an older memory, false memory can function as retroactive interference."
+      },
+      {
+        "kind": "ask",
+        "prompt": "A victim recognizes a suspect, but his strong alibi shows she had seen him earlier on television. What failed?",
+        "choices": [
+          "Recognition of the face",
+          "Source monitoring for where the face was encountered",
+          "Implicit motor learning",
+          "The directive function of memory"
+        ],
+        "answer": 1,
+        "reveal": "The face was genuinely <b>familiar</b>; the error was assigning that familiarity to the assault rather than the television appearance."
+      },
+      {
+        "kind": "teach",
+        "body": "Ross and colleagues created that problem experimentally. Participants who first saw a male observer beside a teacher later tended to select that innocent man from a robbery lineup. The earlier video supplied the familiarity; the robbery supplied the wrong source."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "Which Ross-study group should be most likely to identify the innocent observer as the robber?",
+        "options": [
+          "The group that first saw the male observer with the teacher",
+          "The group that first saw only the teacher",
+          "A group that never saw the robbery clip",
+          "A group that completed no lineup"
+        ],
+        "answer": 0,
+        "explain": "Only the observer-present group had a competing, innocent source of familiarity with that male face."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Reconsolidation</b> occurs when an accessed memory is stored again. Chan found that recalling a television episode before misinformation increased later false recall. In Schiller's study, the ten-minute reminder condition showed no spontaneous recovery of fear, whereas the no-reminder condition showed fear when tested again."
+      },
+      {
+        "kind": "ask",
+        "prompt": "On the Schiller result slide, which condition is explicitly shown as preventing spontaneous recovery of fear to the blue circle?",
+        "choices": [
+          "No reminder before extinction",
+          "A reminder six hours before extinction",
+          "A reminder ten minutes before extinction",
+          "Shock trials with no extinction"
+        ],
+        "answer": 2,
+        "reveal": "The <b>ten-minute reminder</b> likely reopened the fear memory while extinction could update it. The deck shows recovered fear in the no-reminder condition but does not state the six-hour condition's outcome."
+      }
+    ]
+  },
+  {
+    "id": "cog-m2-ch8-justice-neural",
+    "chapter": 8,
+    "topic": "ch8-justice-neural",
+    "title": "Safer Testimony and the Brain Network Behind the Story",
+    "blurb": "Turn memory science into better eyewitness procedure, then map autobiographical recall across the brain.",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "Eyewitness testimony is powerful because confidence persuades juries, but constructive memory means confidence can accompany error. The slide says the Innocence Project used DNA to overturn 350 eyewitness-based convictions since 1982 and estimated 100,000–200,000 wrongful convictions from eyewitness testimony."
+      },
+      {
+        "kind": "ask",
+        "prompt": "Which opening is least likely to contaminate an eyewitness account?",
+        "choices": [
+          "The robber wore red, correct?",
+          "Another witness chose number three—do you agree?",
+          "Tell me everything you remember in your own words",
+          "Choose the closest match because the robber is in this lineup"
+        ],
+        "answer": 2,
+        "reveal": "Begin with <b>free recall</b>. The other openings insert information or pressure the witness to choose."
+      },
+      {
+        "kind": "teach",
+        "body": "The chapter recommends written statements in neutral language and lineups that show one image at a time. Witnesses should be told that the assailant may not be present. The shared goal is to reduce suggestion, emotional interference, and forced choice."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "Which lineup instruction best follows the chapter?",
+        "options": [
+          "One of these people is definitely the assailant",
+          "The assailant may be absent; consider each image separately",
+          "Pick the person who looks most like the others",
+          "Use the investigator's preferred choice if uncertain"
+        ],
+        "answer": 1,
+        "explain": "The chapter specifically recommends sequential viewing plus a warning that the assailant may not be present."
+      },
+      {
+        "kind": "teach",
+        "body": "Autobiographical memory depends on a <b>distributed network</b>: especially left prefrontal cortex reconstructs multisensory information, the medial temporal lobe and hippocampus support retrieval, and the amygdala contributes to emotional encoding and retrieval. The chapter's AI summary adds that deep Q-learning uses replay memory to make past experience useful later."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "A patient remembers that an event occurred but struggles to rebuild its combined sensory and spatial context. Which region is most directly tied to that reconstruction?",
+        "options": [
+          "Amygdala",
+          "Hippocampus",
+          "Left prefrontal cortex",
+          "Primary motor cortex"
+        ],
+        "answer": 2,
+        "explain": "The chapter assigns multisensory reconstruction to the prefrontal cortex, particularly the left side."
+      }
+    ]
+  },
+  {
+    "id": "cog-m2-L9-foundations",
+    "chapter": 9,
+    "topic": "ch9-foundations",
+    "title": "How knowledge fills in the world",
+    "blurb": "Semantic inference, commonsense knowledge, categories, concepts, and the classical view.",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Knowledge does more than store facts.</b><br>When you read that Ayesha dropped a balloon, you infer she is probably a child, the balloon rose, and her nose is in the middle of her face. The sentence never states those facts; interconnected <b>semantic knowledge</b> supplies them."
+      },
+      {
+        "kind": "ask",
+        "prompt": "You immediately know where Ayesha's nose is, but you cannot remember ever being taught that fact. What does that reveal?",
+        "choices": [
+          "Much commonsense knowledge is implicit",
+          "Knowledge must always be episodic",
+          "The inference comes from sensory memory",
+          "Knowledge is stored as isolated facts"
+        ],
+        "answer": 0,
+        "reveal": "<b>Implicit commonsense knowledge</b> can guide interpretation without conscious rule retrieval. Humans do this effortlessly; computers struggle with it."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Keep the three levels straight.</b><br>A <b>category</b> is a set of related items. An <b>exemplar</b> is one individual category member. A <b>concept</b> is the mental representation used to think about the items."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>The classical view</b><br>A category is defined by features that are <b>necessary</b> (membership is impossible without them) and jointly <b>sufficient</b> (having them guarantees membership). This produces a sharp in-or-out boundary."
+      },
+      {
+        "kind": "ask",
+        "prompt": "Why does a three-legged, barkless dog cause trouble for a simple classical definition based on four legs and barking?",
+        "choices": [
+          "The dog is really a bird",
+          "It proves semantic memory is temporary",
+          "It remains a dog despite lacking proposed defining features",
+          "It shows all natural-category members are equally typical once membership has been established"
+        ],
+        "answer": 2,
+        "reveal": "Natural categories often lack a tidy feature list that is both necessary and sufficient. Membership survives exceptions."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "A specific robin seen outside the library is a(n) ___; the mental representation of birds is a(n) ___.",
+        "options": [
+          "category; property",
+          "concept; exemplar",
+          "prototype; category",
+          "exemplar; concept"
+        ],
+        "answer": 3,
+        "explain": "The robin is one individual exemplar. The concept is the mental representation used to think about birds."
+      }
+    ]
+  },
+  {
+    "id": "cog-m2-L9-typicality",
+    "chapter": 9,
+    "topic": "ch9-typicality",
+    "title": "Why a robin feels birdier",
+    "blurb": "Typicality ratings, processing advantages, lexical priming, and the classical-view problem.",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Membership is not the same as representativeness.</b><br>A robin and an ostrich are both birds, but people rate a robin as a better example. This graded treatment of valid members is a <b>typicality effect</b>."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Rosch (1975)</b><br>Participants rated how good an example each item was of a category and showed high agreement. Typical members are also named first and categorized faster. These effects appear early in development."
+      },
+      {
+        "kind": "ask",
+        "prompt": "What would you predict in a rapid category task?",
+        "choices": [
+          "Ostrich will always be rejected as a bird despite being a legitimate category member",
+          "Typicality will affect only adults",
+          "Every bird will produce identical reaction time",
+          "Robin will usually be classified as a bird faster than ostrich"
+        ],
+        "answer": 3,
+        "reveal": "Typical items receive a processing advantage even when atypical items are still legitimate members."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Lexical priming</b><br>In a lexical decision task, people decide whether a letter string is a word. A related prime speeds recognition of the target, and the effect is especially robust for typical words."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Typicality reaches language and memory.</b><br>Onishi et al. found that when a sentence paired an atypical and typical member, participants were more likely to reproduce the typical word. Typicality is not merely a rating preference."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "Why is graded typicality a problem for a strict necessary-and-sufficient classical theory?",
+        "options": [
+          "A strict rule predicts all valid members should have equal membership status",
+          "The theory predicts no category can have members",
+          "The theory requires every category member to be stored as a separate detailed exemplar",
+          "Typicality occurs only when a rule is absent"
+        ],
+        "answer": 0,
+        "explain": "An all-or-none rule explains membership but not why one valid member feels more representative or is processed faster than another."
+      }
+    ]
+  },
+  {
+    "id": "cog-m2-L9-prototype-exemplar",
+    "chapter": 9,
+    "topic": "ch9-prototype-exemplar",
+    "title": "Prototype versus exemplar",
+    "blurb": "Two similarity-based theories, their signature predictions, and the feature-selection problem.",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Prototype theory = compare with an average.</b><br>A prototype combines <b>characteristic</b> features that are likely but not required. It is an abstract category average and may not match any real member exactly."
+      },
+      {
+        "kind": "ask",
+        "prompt": "A rainbow lorikeet is prototypical in Australia but not in the United States. What does this show?",
+        "choices": [
+          "Prototypes are fixed collections of necessary features shared across every cultural context",
+          "Prototype content depends on context and experience",
+          "Exemplars cannot be remembered",
+          "Category membership changes with location"
+        ],
+        "answer": 1,
+        "reveal": "The abstract average reflects the examples common in a person's environment. Prototype similarity is contextual."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Exemplar theory = compare with stored instances.</b><br>Instead of keeping only an average, memory retains actual category members. A new item is classified according to similarity to those encountered examples."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Dopkins &amp; Gleason's diagnostic test</b><br>An ambiguous rectangle matched Category 2's prototype but was closest to one Category 1 exemplar. Participants chose Category 1 more often — the exemplar prediction."
+      },
+      {
+        "kind": "ask",
+        "prompt": "Which theory best explains recognizing a rare bird because it resembles one unusual bird you saw years ago?",
+        "choices": [
+          "Classical theory",
+          "Prototype theory only",
+          "Exemplar theory",
+          "Cognitive economy"
+        ],
+        "answer": 2,
+        "reveal": "A specific stored member can rescue an item that is far from the category prototype."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "Murphy and Medin's 'infinite similarities' criticism says prototype and exemplar theories need to explain:",
+        "options": [
+          "Why natural categories can contain members unless every possible similarity is stored",
+          "Why memory has a limited duration",
+          "How a prototype becomes an essence",
+          "Which possible similarities are relevant for a categorization"
+        ],
+        "answer": 3,
+        "explain": "Almost any two objects share countless trivial features. A complete theory needs knowledge to select the similarities that matter."
+      }
+    ]
+  },
+  {
+    "id": "cog-m2-L9-knowledge-based",
+    "chapter": 9,
+    "topic": "ch9-knowledge-based",
+    "title": "Categories need explanations",
+    "blurb": "Knowledge-based coherence, psychological essentialism, and the path from efficiency to stereotyping.",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Similarity is not enough.</b><br>Knowledge-based theories say broad background knowledge explains why features belong together and tells the mind which comparisons are meaningful."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Coherence advantage</b><br>Murphy &amp; Allopenna found that an underwater building with divers, thick windows, and submarine access was easier to learn than an equally long but incoherent desert/farmer/submarine description. Existing knowledge connects the first set."
+      },
+      {
+        "kind": "ask",
+        "prompt": "Why is the coherent underwater description easier to learn?",
+        "choices": [
+          "It has a complete necessary-and-sufficient definition that applies to every possible building",
+          "Its features are causally and thematically related by prior knowledge",
+          "It contains no semantic information",
+          "It exactly matches one stored rectangle"
+        ],
+        "answer": 1,
+        "reveal": "Knowledge supplies a reason for the features to co-occur. Coherence supports category learning."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Psychological essentialism</b><br>People often assume category members share an underlying essence that determines membership. This can organize biological kinds, but the assumed essence may be invisible or unknown."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>The social danger</b><br>Applying essentialism to people encourages the false idea that every group member shares fixed traits. Bastian &amp; Haslam linked stronger essentialist beliefs with more stereotyping."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "Why does the mind keep categorizing despite this social risk?",
+        "options": [
+          "It reduces cognitive load when navigating a complex world",
+          "It makes every inference about each individual category member accurate and exception-free",
+          "It prevents all individual differences",
+          "It eliminates the need for semantic memory"
+        ],
+        "answer": 0,
+        "explain": "Categories make cognition efficient, but efficiency can become overgeneralization. Use the shortcut without treating it as certainty about individuals."
+      }
+    ]
+  },
+  {
+    "id": "cog-m2-L9-networks",
+    "chapter": 9,
+    "topic": "ch9-hierarchies-networks",
+    "title": "How concepts connect",
+    "blurb": "Category levels, cognitive economy, property inheritance, verification time, and spreading activation.",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Three category levels</b><br>The <b>basic level</b> is 'just right' — informative and distinctive. A <b>subordinate</b> level adds detail but shares much with nearby members. A <b>superordinate</b> level is broad and distinctive but less informative. In the bird-picture graph, nonexperts favored the basic label 'bird,' while experts more often used specific labels such as 'sparrow' or 'robin.'"
+      },
+      {
+        "kind": "ask",
+        "prompt": "Which level gives the best everyday balance of useful detail and distinctiveness?",
+        "choices": [
+          "Superordinate",
+          "Basic",
+          "Subordinate",
+          "Exemplar"
+        ],
+        "answer": 1,
+        "reveal": "Rosch called the basic level special because it balances information with distinction."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Collins–Quillian hierarchy</b><br>Concepts are nodes linked to properties and other nodes. <b>Cognitive economy</b> stores a shared property at the highest appropriate level; <b>property inheritance</b> lets lower nodes access it."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Distance predicts reaction time.</b><br>The visual evidence figure shows slower verification as both category and property judgments cross more hierarchy levels. The model therefore predicts that 'a canary is an animal' takes longer than 'a canary is a bird.' Some results — such as pig–animal being faster than pig–mammal — violate this simple rule."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Collins–Loftus spreading activation</b><br>The revised network drops a fixed hierarchy. Concepts are connected by semantic relatedness, and activation spreads quickly among close meanings — explaining lexical priming and typicality."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "What is the major structural difference between spreading activation and the original hierarchical network?",
+        "options": [
+          "Spreading activation stores no concepts",
+          "It uses necessary features only",
+          "It organizes concepts by semantic relatedness instead of fixed levels",
+          "It cannot predict priming"
+        ],
+        "answer": 2,
+        "explain": "Semantic closeness, not a rigid tree, determines how activation spreads in the later model."
+      }
+    ]
+  },
+  {
+    "id": "cog-m2-L9-schemas-embodied",
+    "chapter": 9,
+    "topic": "ch9-schemas-embodied",
+    "title": "Knowledge in memory and the body",
+    "blurb": "Schemas, reconstructive memory, repeated reproduction, and grounded cognition.",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>A schema is an organized knowledge base about a topic.</b><br>Schemas make interpretation fast by supplying expected structure — but when exact detail is weak, the same expectations can fill gaps incorrectly."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Bartlett's repeated reproduction</b><br>Participants repeatedly drew an image from memory across days. Exact features disappeared while the image became more face-like, showing that memory is <b>reconstructed</b> using schematic knowledge."
+      },
+      {
+        "kind": "ask",
+        "prompt": "A witness inserts a bookshelf into a remembered office because it fits the office schema. What happened?",
+        "choices": [
+          "A schema reconstructed a plausible detail that was never seen",
+          "Property inheritance produced exact recall",
+          "The witness accessed an ATL hub without spokes",
+          "A prototype guaranteed the detail was present"
+        ],
+        "answer": 0,
+        "reveal": "Schemas support useful reconstruction, but plausible expectations can be mistaken for observed details."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Embodied cognition</b><br>The body influences thought. Matching a reclined posture improved retrieval of a past dental visit, and holding hot coffee shifted judgments of another person's 'warmth.' The speaker note adds that favorable parole decisions were about 65% just after judges ate but nearly 0% just before a meal break."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Action meaning recruits action systems.</b><br>Hauk and colleagues found related motor-region activity when people moved body parts and when they silently read matching action words such as <i>lick</i>, <i>pick</i>, and <i>kick</i>."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>The symbol-grounding limit</b><br>The chapter summary notes that artificial neural networks can produce useful knowledge outputs from assigned symbols, but those symbols are not grounded in direct experience unless the system connects to the world through something such as robotics."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "Which finding most directly supports a grounded representation of action words?",
+        "options": [
+          "All category members receive equal ratings",
+          "Semantic dementia follows ATL degeneration",
+          "A canary inherits bird properties",
+          "Reading 'kick' recruits activity related to foot movement"
+        ],
+        "answer": 3,
+        "explain": "Overlap between action execution and action-word processing links meaning to sensorimotor systems."
+      }
+    ]
+  },
+  {
+    "id": "cog-m2-L9-neural",
+    "chapter": 9,
+    "topic": "ch9-neural",
+    "title": "Where semantic knowledge lives",
+    "blurb": "Semantic dementia, the anterior temporal hub, distributed spokes, and virtual-lesion evidence.",
+    "steps": [
+      {
+        "kind": "teach",
+        "body": "<b>Selective semantic loss</b><br>Warrington described patients who could see and speak but could not name pictured objects or state their properties. <b>Semantic dementia</b> progressively removes knowledge while other abilities can remain relatively intact."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>The localization puzzle</b><br>Semantic dementia is strongly associated with <b>anterior temporal lobe (ATL)</b> degeneration, yet healthy semantic tasks often activate widely distributed cortex. Neither a single-location nor a fully diffuse story is enough."
+      },
+      {
+        "kind": "ask",
+        "prompt": "Which model was designed to reconcile localized ATL patient evidence with distributed neuroimaging activity?",
+        "choices": [
+          "Classical categorization",
+          "Hub-and-spoke model",
+          "Modal memory model",
+          "Brown–Peterson model"
+        ],
+        "answer": 1,
+        "reveal": "The hub-and-spoke model combines a specialized integration hub with distributed feature systems."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>Hub versus spokes</b><br>The ATL <b>hub</b> integrates generalized, abstract meaning. Distributed cortical <b>spokes</b> preserve context-dependent and modality-specific details such as appearance, sound, and action."
+      },
+      {
+        "kind": "teach",
+        "body": "<b>TMS tests causality.</b><br>Transcranial magnetic stimulation temporarily disrupts a localized region — a 'virtual lesion.' Pobric and colleagues' ATL/IPL results supported both localized and distributed contributions to knowledge."
+      },
+      {
+        "kind": "checkpoint",
+        "q": "In the hub-and-spoke model, where is generalized cross-modal meaning represented?",
+        "options": [
+          "Only in the visual spoke",
+          "Only in the inferior parietal spoke",
+          "In the anterior temporal hub",
+          "In short-term sensory memory"
+        ],
+        "answer": 2,
+        "explain": "The ATL hub integrates feature information across the distributed spokes into an abstract semantic representation."
       }
     ]
   }

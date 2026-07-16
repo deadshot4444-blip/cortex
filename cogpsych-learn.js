@@ -5,9 +5,7 @@
    cogTrack, startCogTopic, startCogSmart, renderCogHome). Teaching, not graded —
    separate from the box/competency system.
 
-   Ships with NO lessons yet (COG_LESSONS = []) → renderCogLearnHome shows a graceful
-   "coming soon" state pointing to Smart Review. Add teach-lessons by pushing objects
-   into COG_LESSONS (schema below); each auto-appears once its `chapter` is in COG_CH.
+   Lessons load from data/cogpsych-learn.json and are filtered to the current module.
 
    Lesson schema:
      { id, chapter, topic, title, blurb, steps: [ ...step ] }
@@ -28,13 +26,25 @@ const COGLW = {};
    --------------------------------------------------------------------------- */
 let COG_LESSONS = [];
 let cogLearnReady = false;
+function cogValidLesson(l, seen) {
+  const topic = l && typeof COG_TOPICS !== 'undefined' && COG_TOPICS[l.topic];
+  const kinds = new Set(['teach', 'ask', 'interactive', 'checkpoint']);
+  return l && typeof l.id === 'string' && l.id && !seen.has(l.id)
+    && Number.isInteger(l.chapter) && topic && topic.ch === l.chapter && COG_CH[l.chapter]
+    && typeof l.title === 'string' && l.title && typeof l.blurb === 'string' && l.blurb
+    && Array.isArray(l.steps) && l.steps.length >= 4
+    && l.steps.every(s => s && kinds.has(s.kind));
+}
 async function cogLoadLessons() {
   if (cogLearnReady) return;
   try {
-    const r = await fetch('data/cogpsych-learn.json?v=1');
+    const r = await fetch('data/cogpsych-learn.json?v=2');
     if (!r.ok) throw new Error('http '+r.status);
     const data = await r.json();
-    if (Array.isArray(data)) COG_LESSONS = data;
+    if (Array.isArray(data)) {
+      const seen = new Set();
+      COG_LESSONS = data.filter(l => { if (!cogValidLesson(l, seen)) return false; seen.add(l.id); return true; });
+    }
   } catch (e) {}
   cogLearnReady = true;
 }
@@ -69,7 +79,7 @@ function renderCogLearnHome() {
           ${cogglDone(l.id) ? '<span class="gen-learn-check">✓ learned</span>' : '<span class="gen-learn-go2">lesson</span>'}
           <h2>${esc(l.title)}</h2>
           <p>${esc(l.blurb)}</p>
-          <span class="gen-learn-meta mono">${l.steps.length} steps · interactive</span>
+          <span class="gen-learn-meta mono">${l.steps.length} steps · ${l.steps.some(s => s.kind === 'interactive') ? 'interactive' : 'guided mastery'}</span>
         </button>`).join('')}
       </div>
     </section>`;
@@ -77,8 +87,8 @@ function renderCogLearnHome() {
   root.appendChild(topbar('cogpsych'));
   const main = el(`<main class="panel gen-learn-home" id="main" tabindex="-1">
     <div class="gen-pick-head"><button class="ghostbtn" id="gen-back">← Home</button><h1>Learn Cognitive Psychology</h1></div>
-    <p class="gen-learn-intro">Guided lessons for the <b>subject</b> — teach, check, then drill. Work the map unit by unit; jump to Topic Drills when an idea clicks.</p>
-    ${hasLessons ? Object.keys(byCh).sort((a, b) => a - b).map(chBlock).join('') : `<div class="gen-learn-empty cornerframe"><span class="label">Coming soon</span><h2>Guided lessons are on the way</h2><p>If lessons fail to load, check your connection — Ch 1–5 briefs should appear here. For now, <b>Smart Review</b> and the topic drills have you covered — every question comes with a “think it through” hint when you miss it.</p><button class="btn btn-solid" id="gen-learn-smart">Start Smart Review →</button></div>`}
+    <p class="gen-learn-intro">Module 2 lessons follow the exam map: learn the model, retrieve it, pass the checkpoint, then drill. Finish Chapters 6–9 in order or jump straight to a weak topic.</p>
+    ${hasLessons ? Object.keys(byCh).sort((a, b) => a - b).map(chBlock).join('') : `<div class="gen-learn-empty cornerframe"><span class="label">Load error</span><h2>Lessons did not load</h2><p>Reload the page, or use <b>Smart Review</b> while the lesson file reconnects.</p><button class="btn btn-solid" id="gen-learn-smart">Start Smart Review →</button></div>`}
   </main>`);
   const smb = main.querySelector('#gen-learn-smart'); if (smb) smb.addEventListener('click', startCogSmart);
   main.querySelector('#gen-back').addEventListener('click', renderCogHome);
@@ -141,7 +151,7 @@ function renderCogLesson(id) {
         <div class="gen-ask-body"></div>
       </div>`);
       const body = box.querySelector('.gen-ask-body');
-      frame(box, { nextLabel });
+      const handle = frame(box, { gate: true, nextLabel });
       if (Array.isArray(step.choices)) {
         const opts = el('<div class="gen-ask-choices"></div>');
         step.choices.forEach((c, i) => opts.appendChild(el(`<button type="button" class="gen-ask-choice" data-i="${i}">${esc(c)}</button>`)));
@@ -156,12 +166,13 @@ function renderCogLesson(id) {
           reveal.classList.add(right ? 'right' : 'wrong');
           reveal.insertAdjacentHTML('afterbegin', `<p class="gen-ask-verdict"><b>${right ? 'Correct.' : 'Not quite.'}</b></p>`);
           reveal.hidden = false;
+          handle.ungate();
         }));
       } else {
         const btn = el('<button type="button" class="btn gen-ask-show">Show me ▾</button>');
         const reveal = el(`<div class="gen-ask-reveal" hidden><p>${step.reveal}</p></div>`);
         body.append(btn, reveal);
-        btn.addEventListener('click', () => { reveal.hidden = false; btn.hidden = true; });
+        btn.addEventListener('click', () => { reveal.hidden = false; btn.hidden = true; handle.ungate(); });
       }
 
     } else if (step.kind === 'interactive') {
@@ -191,10 +202,18 @@ function renderCogLesson(id) {
       opts.querySelectorAll('.gen-check-opt').forEach(btn => btn.addEventListener('click', () => {
         if (opts.dataset.locked) return; opts.dataset.locked = '1';
         const pick = +btn.dataset.i;
-        opts.querySelectorAll('.gen-check-opt').forEach((b, i) => { b.disabled = true; if (i === step.answer) b.classList.add('correct'); else if (i === pick) b.classList.add('wrong'); });
-        fb.hidden = false; fb.className = 'gen-check-fb ' + (pick === step.answer ? 'right' : 'wrong');
-        fb.innerHTML = `<b>${pick === step.answer ? 'Correct.' : 'Not quite.'}</b> ${esc(step.explain)}`;
-        handle.ungate();
+        const right = pick === step.answer;
+        if (right) {
+          opts.querySelectorAll('.gen-check-opt').forEach((b, i) => { b.disabled = true; if (i === step.answer) b.classList.add('correct'); });
+          fb.hidden = false; fb.className = 'gen-check-fb right';
+          fb.innerHTML = `<b>Correct.</b> ${esc(step.explain)}`;
+          handle.ungate();
+        } else {
+          opts.dataset.locked = '';
+          btn.disabled = true; btn.classList.add('wrong');
+          fb.hidden = false; fb.className = 'gen-check-fb wrong';
+          fb.innerHTML = '<b>Not quite.</b> Use the feedback, then try another answer.';
+        }
       }));
     }
   }
