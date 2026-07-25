@@ -79,7 +79,7 @@ const SECTION_INFO = {
 };
 // Public “What’s new” version. Private-only sections (CCMA) do NOT bump this or CHANGELOG —
 // only their own script/data ?v= cache-busts — so the sitewide update modal stays quiet.
-const APP_VERSION = '1.22.0';
+const APP_VERSION = '1.23.0';
 const MEMBERSHIP_START = 'August 1, 2026';
 function cortexFreeNote(sectionPill, sectionName) {
   return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free for now</span><span class="free-note-txt">${sectionName} becomes optional membership ${MEMBERSHIP_START}. The full MCAT suite stays free forever.</span></p>`;
@@ -175,7 +175,9 @@ async function ensureSection(key) {
 }
 // MCAT is lazy-loaded like every other section; load it on demand then render.
 function gotoMCAT() {
-  ensureSection('mcat').then(gotoMCAT);
+  ensureSection('mcat').then(() => {
+    if (typeof window.renderMCAT === 'function') window.renderMCAT();
+  }).catch(err => console.error('MCAT load failed', err));
 }
 
 function clearClinicalProgress() {
@@ -468,6 +470,8 @@ function topbar(active) {
   const t = totals();
   const streak = store.streak.current > 0 ? `${store.streak.current}&#128293; &middot; ` : '';
   const stat = t.answered ? `${streak}${t.xp.toLocaleString()} XP` : '';
+  const menuActive = key => active === key ? ' active' : '';
+  const menuCurrent = key => active === key ? ' aria-current="page"' : '';
   const root = el(`<header class="topbar mainbar">
     <a class="skip-link" href="#main">Skip to content</a>
     <a class="wordmark" href="#">${MARK_SVG}<span class="wm-name">Cortex <span class="wm-sub">Medical Academy</span></span></a>
@@ -476,19 +480,41 @@ function topbar(active) {
       <button class="navlink ${active === 'mcat' ? 'active' : ''}" data-go="mcat">MCAT</button>
       <button class="navlink ${active === 'stats' ? 'active' : ''}" data-go="stats">Stats</button>
       <div class="navmenu">
-        <button class="navlink menubtn ${['anatomy', 'reference', 'socrates', 'utsa', 'pomodoro', 'genetics', 'cogpsych', 'ccma'].includes(active) ? 'active' : ''}" data-menu aria-expanded="false">Explore<span class="caret">&#9662;</span></button>
-        <div class="menupanel" hidden>
-          <span class="menu-head">Tools</span>
-          <button class="menuitem" data-go="pomodoro"><span>Focus Timer</span><span class="mi-tag">New</span></button>
-          <span class="menu-head">Sections</span>
-          <button class="menuitem" data-go="anatomy"><span>Anatomy</span>${sectionMenuTag('anatomy')}</button>
-          <button class="menuitem" data-go="reference"><span>Medicine</span>${sectionMenuTag('reference')}</button>
-          <button class="menuitem" data-go="socrates"><span>Learn to Learn</span>${sectionMenuTag('socrates')}</button>
-          <span class="menu-head">Access</span>
-          <button class="menuitem" data-go="utsa"><span>UTSA &amp; UT Health</span><span class="mi-tag">Free</span></button>
-          <button class="menuitem" data-go="genetics"><span>Genetics-2313</span><span class="mi-tag">New</span></button>
-          <button class="menuitem" data-go="cogpsych"><span>Cognitive Psychology</span></button>
-          <button class="menuitem" data-go="ccma"><span>Medical Assistant (CCMA)</span><span class="mi-tag">New</span></button>
+        <button class="navlink menubtn ${['anatomy', 'reference', 'socrates', 'utsa', 'pomodoro', 'genetics', 'cogpsych', 'ccma'].includes(active) ? 'active' : ''}" data-menu aria-expanded="false" aria-controls="explore-panel">Explore<span class="caret">&#9662;</span></button>
+        <div class="menupanel" id="explore-panel" aria-label="Explore Cortex" hidden>
+          <div class="menu-intro">
+            <span class="menu-title">Explore Cortex</span>
+            <span class="menu-desc">Choose a study path or jump back into a course.</span>
+          </div>
+          <div class="menu-grid">
+            <section class="menu-group" aria-labelledby="menu-study-title">
+              <span class="menu-head" id="menu-study-title">Study paths</span>
+              <button class="menuitem${menuActive('anatomy')}" data-go="anatomy"${menuCurrent('anatomy')}>
+                <span class="mi-copy"><span class="mi-name">Anatomy</span><span class="mi-desc">Visual recall lab</span></span>
+                ${sectionMenuTag('anatomy')}
+              </button>
+              <button class="menuitem${menuActive('reference')}" data-go="reference"${menuCurrent('reference')}>
+                <span class="mi-copy"><span class="mi-name">Medicine</span><span class="mi-desc">Pharm, micro, labs &amp; ECG</span></span>
+              </button>
+              <button class="menuitem${menuActive('ccma')}" data-go="ccma"${menuCurrent('ccma')}>
+                <span class="mi-copy"><span class="mi-name">Medical Assistant</span><span class="mi-desc">CCMA exam mastery</span></span>
+              </button>
+            </section>
+            <section class="menu-group" aria-labelledby="menu-courses-title">
+              <span class="menu-head" id="menu-courses-title">Course workspaces</span>
+              <button class="menuitem${menuActive('genetics')}" data-go="genetics"${menuCurrent('genetics')}>
+                <span class="mi-copy"><span class="mi-name">Genetics 2313</span><span class="mi-desc">Lessons, drills &amp; smart review</span></span>
+              </button>
+              <button class="menuitem${menuActive('cogpsych')}" data-go="cogpsych"${menuCurrent('cogpsych')}>
+                <span class="mi-copy"><span class="mi-name">Cognitive Psychology</span><span class="mi-desc">Memory systems &amp; mastery</span></span>
+              </button>
+            </section>
+          </div>
+          <div class="menu-quick" aria-label="Tools and access">
+            <button class="menuquick${menuActive('pomodoro')}" data-go="pomodoro"${menuCurrent('pomodoro')}>Focus timer</button>
+            <button class="menuquick${menuActive('socrates')}" data-go="socrates"${menuCurrent('socrates')}>Learn to learn <span class="mq-soon">Soon</span></button>
+            <button class="menuquick${menuActive('utsa')}" data-go="utsa"${menuCurrent('utsa')}>UTSA &amp; UT Health</button>
+          </div>
         </div>
       </div>
     </nav>
@@ -543,13 +569,18 @@ function topbar(active) {
     const panel = navmenu.querySelector('.menupanel');
     const close = () => { panel.hidden = true; mbtn.classList.remove('open'); mbtn.setAttribute('aria-expanded', 'false'); document.removeEventListener('click', onDoc); document.removeEventListener('keydown', onEsc); };
     const onDoc = (e) => { if (!navmenu.contains(e.target)) close(); };
-    const onEsc = (e) => { if (e.key === 'Escape') close(); };
+    const onEsc = (e) => { if (e.key === 'Escape') { close(); mbtn.focus(); } };
     mbtn.addEventListener('click', (e) => {
       e.stopPropagation();
-      if (panel.hidden) { panel.hidden = false; mbtn.classList.add('open'); mbtn.setAttribute('aria-expanded', 'true'); setTimeout(() => { document.addEventListener('click', onDoc); document.addEventListener('keydown', onEsc); }, 0); }
+      if (panel.hidden) {
+        panel.hidden = false;
+        mbtn.classList.add('open');
+        mbtn.setAttribute('aria-expanded', 'true');
+        setTimeout(() => { document.addEventListener('click', onDoc); document.addEventListener('keydown', onEsc); }, 0);
+      }
       else close();
     });
-    panel.querySelectorAll('.menuitem').forEach(mi => mi.addEventListener('click', close));
+    panel.querySelectorAll('.menuitem, .menuquick').forEach(mi => mi.addEventListener('click', close));
   }
   if (window.refreshAuthUI) window.refreshAuthUI();
   return root;
@@ -847,6 +878,15 @@ const PRINCIPLES = [
 
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
+  {
+    date: 'July 24, 2026', version: '1.23.0', tag: 'NEW',
+    title: 'A calmer Explore, a sharper Cortex',
+    items: [
+      'Explore is now a focused map of Cortex: study paths and course workspaces sit in a clear two-column panel, while the Focus Timer, Learn to Learn, and UTSA & UT Health access stay in a quiet utility row. On phones, it becomes a clean single-column menu.',
+      'The Academy now shares one cohesive visual system — clearer hierarchy, quieter surfaces, more consistent cards and controls, a refined mission page and footer, and tighter responsive spacing across every major section.',
+      'Active-section cues, cleaner status labels, Escape-to-close keyboard support, and a fix for the first-open MCAT navigation freeze make moving through Cortex faster and more reliable.',
+    ],
+  },
   {
     date: 'July 15, 2026', version: '1.22.0', tag: 'NEW',
     title: 'Cognitive Psychology: Module 2 mastery',
@@ -1370,14 +1410,18 @@ function renderMission() {
   root.appendChild(topbar('mission'));
   const main = el(`<main class="panel mission">
     <section class="mission-hero">
-      <span class="mcat-eyebrow">Cortex Medical Academy &middot; The mission</span>
-      <h1>Master the human machine.</h1>
-      <p class="mission-lede">Cortex Medical Academy exists to remove every barrier between a capable mind and real medical mastery. Built from first principles and grounded in how learning actually works. The future of medicine shouldn&rsquo;t belong to whoever can afford a $500 prep course &mdash; it should belong to whoever is willing to do the work. That&rsquo;s why our MCAT preparation is, and always will be, free for everyone.</p>
-      <div class="mcat-cta">
-        <button class="btn btn-solid" id="m-mcat">MCAT Prep</button>
-        <button class="btn" id="m-cases">Clinical Scenarios</button>
+      <div class="mission-hero-grid">
+        <div class="mission-hero-copy">
+          <span class="mcat-eyebrow">Cortex Medical Academy &middot; The mission</span>
+          <h1>Master the human machine.</h1>
+          <p class="mission-lede">Cortex Medical Academy exists to remove every barrier between a capable mind and real medical mastery. Built from first principles and grounded in how learning actually works. The future of medicine shouldn&rsquo;t belong to whoever can afford a $500 prep course &mdash; it should belong to whoever is willing to do the work. That&rsquo;s why our MCAT preparation is, and always will be, free for everyone.</p>
+          <div class="mcat-cta">
+            <button class="btn btn-solid" id="m-mcat">MCAT Prep</button>
+            <button class="btn" id="m-cases">Clinical Scenarios</button>
+          </div>
+          <p class="mission-fact"><span class="label">Did you know</span><span class="js-fact"></span></p>
+        </div>
       </div>
-      <p class="mission-fact"><span class="label">Did you know</span><span class="js-fact"></span></p>
     </section>
 
     <div class="mission-meter cornerframe">
