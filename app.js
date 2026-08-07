@@ -134,11 +134,11 @@ function saveHistory() { safeSet('cs-history', JSON.stringify(store.history.slic
 function saveStreak() { safeSet('cs-streak', JSON.stringify(store.streak)); }
 
 const SECTION_SCRIPTS = {
-  mcat: ['mcat.js?v=55'],
+  mcat: ['mcat.js?v=56'],
   anatomy: ['anatomy.js?v=36'],
   reference: ['reference.js?v=49', 'performance-drugs.js?v=7', 'ekg.js?v=36'],
   socrates: ['socrates.js?v=40'],
-  neuro: ['python-runtime.js?v=3', 'code-evaluator.js?v=2', 'neuro-practitioner.js?v=3', 'neuro.js?v=15'],
+  neuro: ['python-runtime.js?v=3', 'code-evaluator.js?v=2', 'neuro-practitioner.js?v=3', 'neuro.js?v=16'],
   cogpsych: ['cogpsych.js?v=6', 'cogpsych-learn.js?v=5', 'cogpsych-figs.js?v=1'],
 };
 const _scriptLoads = {};
