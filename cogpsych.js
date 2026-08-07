@@ -1,13 +1,14 @@
 /* ============================================================================
-   Cortex · Cognitive Psychology  —  master the subject
-   Password-gated arcade for the science of mind & behavior: perception,
-   attention, memory, and how cognition is studied. Active recall, spaced
-   repetition, interleaving — not a school portal, a field mastery trainer.
+   Cortex · Cognitive Psychology  —  the science of the mind
+   A public, lessons-first course across the whole subject: how cognition is
+   studied, the brain, perception, attention, memory, knowledge, imagery,
+   language, problem solving, and decision making. Guided Socratic lessons
+   are the spine; active recall, spaced repetition, and interleaving keep it.
 
    Self-contained: uses app.js globals (el, esc, setView, topbar, siteFooter).
    Progress lives in localStorage['cs-cogpsych'] — fully separate from
-   clinical / MCAT / genetics / CCMA progress. The active bank is scoped to
-   Module 2 (Chapters 6–9); Module 1 progress is archived on first launch.
+   clinical / MCAT progress. Earlier class-module progress is archived under
+   its own key the first time the course loads.
    ========================================================================= */
 
 const COG_DIAGRAMS = []; // reserved for inline-SVG diagram questions (bank uses the COG_FIGS registry)
@@ -15,7 +16,7 @@ const COG_DIAGRAMS = []; // reserved for inline-SVG diagram questions (bank uses
 
 /* ---------- generated + verified MCQ bank (from data/cogpsych-bank.json) ---------- */
 let COG_GENERATED = [];   // loaded from data/cogpsych-bank.json
-let COG_HY = [];           // high-yield exam subset
+let COG_HY = [];           // retired subset — kept declared for legacy helpers
 
 /* ---------- small helpers ---------- */
 function cogRand(a, b) { return a + Math.floor(Math.random() * (b - a + 1)); }
@@ -24,10 +25,38 @@ const COG_GENERATORS = []; // no procedural generators — Cognitive Psychology 
 
 let COG_BANK = COG_DIAGRAMS.concat(COG_GENERATORS);   // COG_GENERATED merged in after cogLoadBank()
 
-/* ---------- Module 2 topic metadata (for weakness reporting) ----------
-   The bank is intentionally scoped to the current exam module. Previous
-   Module 1 progress is archived when the module tag changes. */
+/* ---------- course topic metadata (one lesson per topic; drills + weakness reporting) ----------
+   Must mirror the topic map in scripts/validate-cogpsych.mjs exactly. */
 const COG_TOPICS = {
+  // Chapter 1 — Introduction
+  'ch1-cognition': { name: 'What Cognition Is', ch: 1, blurb: 'The definition of cognition, how ordinary acts recruit perception, attention, memory, language, and decisions.' },
+  'ch1-whystudy': { name: 'Why Study the Mind', ch: 1, blurb: 'Basic versus applied research, and where cognitive science pays off — health, education, design, AI.' },
+  'ch1-ai': { name: 'Measuring Progress with AI', ch: 1, blurb: 'Deep Blue, scripted chatbots, missing housekeeping robots, and what machines reveal about minds.' },
+  'ch1-approaches': { name: 'Three Ways In', ch: 1, blurb: 'Neuroscience, cognitive psychology, and computational modeling — what each contributes and why all three.' },
+  // Chapter 2 — How to Study Cognition
+  'ch2-mindbrain': { name: 'Mind & Brain', ch: 2, blurb: 'The mind–body problem, dualism and monism, Descartes, and levels of explanation.' },
+  'ch2-history': { name: 'Structuralism to Behaviorism', ch: 2, blurb: 'Introspection, Pavlov, Watson, Skinner, and Tolman’s maze rats that learned without reward.' },
+  'ch2-cognitive': { name: 'The Cognitive Revolution', ch: 2, blurb: 'Opening the black box: information processing, Donders’ chronometry, and why behaviorism fell short.' },
+  'ch2-methods': { name: 'Measuring the Mind', ch: 2, blurb: 'Reaction time, accuracy, Stroop interference, and psychophysics as windows on hidden processes.' },
+  'ch2-neuromethods': { name: 'Watching the Brain Work', ch: 2, blurb: 'Lesions, single cells, EEG, fMRI, and TMS — what each can and cannot tell you.' },
+  // Chapter 3 — The Brain
+  'ch3-nervous': { name: 'The Nervous System', ch: 3, blurb: 'Central and peripheral divisions, voluntary and autonomic control, and reflex circuits.' },
+  'ch3-cortex': { name: 'Mapping the Cortex', ch: 3, blurb: 'Lobes, landmarks, gyri and sulci, and the subcortical structures beneath.' },
+  'ch3-function': { name: 'Localization of Function', ch: 3, blurb: 'Motor, sensory, and association cortex, hierarchy, contralateral wiring, and plasticity.' },
+  'ch3-neurons': { name: 'Neurons & Signaling', ch: 3, blurb: 'Action potentials, synapses, neurotransmitters, and how cells compute.' },
+  'ch3-ann': { name: 'Artificial Neural Networks', ch: 3, blurb: 'Units and weights as neuron analogs, learning from data, and where the analogy breaks.' },
+  // Chapter 4 — Perception
+  'ch4-sensation': { name: 'Sensation vs Perception', ch: 4, blurb: 'Transduction, and the leap from registering energy to constructing experience.' },
+  'ch4-systems': { name: 'The Perceptual Systems', ch: 4, blurb: 'Eye and retina, the visual pathway, receptive fields, and the other senses.' },
+  'ch4-theories': { name: 'Theories of Perception', ch: 4, blurb: 'Bottom-up versus top-down, Gibson’s direct pickup, Helmholtz’s unconscious inference, Gestalt grouping.' },
+  'ch4-visual': { name: 'Seeing Objects', ch: 4, blurb: 'Object recognition, the invariance problem, depth cues, and what illusions reveal.' },
+  'ch4-cnn': { name: 'Machine Vision', ch: 4, blurb: 'Convolutional networks as models of seeing — their wins, and their very human-unlike failures.' },
+  // Chapter 5 — Attention
+  'ch5-selective': { name: 'Selective Attention', ch: 5, blurb: 'Limited capacity, the cocktail-party effect, dichotic listening, and shadowing.' },
+  'ch5-filter': { name: 'Where the Filter Sits', ch: 5, blurb: 'Early versus late selection, Broadbent, Treisman’s attenuator, and perceptual load.' },
+  'ch5-divided': { name: 'Divided Attention', ch: 5, blurb: 'Dual-task costs, automaticity, practice, and the driving-while-distracted evidence.' },
+  'ch5-purpose': { name: 'Aiming Attention', ch: 5, blurb: 'Binding, the spotlight, overt and covert shifts, visual search, and inattentional blindness.' },
+  'ch5-neural': { name: 'Attention in the Brain', ch: 5, blurb: 'Biased competition, attentional networks, and how attention amplifies neural responses.' },
   // Chapter 6 — Short-term and working memory
   'ch6-foundations': { name: 'Memory Foundations', ch: 6, blurb: 'Encoding, storage, retrieval, capacity, duration, and evidence for distinct memory systems.' },
   'ch6-sensory-modal': { name: 'Modal Model & Sensory Memory', ch: 6, blurb: 'Atkinson–Shiffrin stages, attention, iconic persistence, and Sperling’s whole- versus partial-report results.' },
@@ -57,38 +86,70 @@ const COG_TOPICS = {
   'ch9-hierarchies-networks': { name: 'Hierarchies & Semantic Networks', ch: 9, blurb: 'Basic/subordinate/superordinate levels, cognitive economy, inheritance, sentence verification, and spreading activation.' },
   'ch9-schemas-embodied': { name: 'Schemas & Embodied Cognition', ch: 9, blurb: 'Organized knowledge, reconstructive memory, repeated reproduction, body-state effects, and grounded representations.' },
   'ch9-neural': { name: 'Neural Representation of Knowledge', ch: 9, blurb: 'Semantic dementia, anterior temporal hub, distributed spokes, TMS virtual lesions, and localized/distributed coding.' },
+  // Chapter 10 — Visual Imagery
+  'ch10-nature': { name: 'What Imagery Is', ch: 10, blurb: 'Recreating perception without a stimulus, multimodal imagery, and Paivio’s dual coding of analog and abstract codes.' },
+  'ch10-debate': { name: 'The Imagery Debate', ch: 10, blurb: 'Kosslyn’s depictive pictures versus Pylyshyn’s propositions and the epiphenomenon challenge.' },
+  'ch10-evidence': { name: 'Scanning, Rotation & Scaling', ch: 10, blurb: 'Mental scanning maps, Shepard–Metzler rotation, size scaling, imagery–perception interference, and the counterevidence.' },
+  'ch10-brain': { name: 'Imagery in the Brain', ch: 10, blurb: 'Patient dissociations, V1 activation, TMS disruption, and what shared circuitry settles.' },
+  'ch10-uses': { name: 'Using the Mind’s Eye', ch: 10, blurb: 'Imagery in memory and practice, vividness differences, aphantasia and hyperphantasia.' },
+  // Chapter 11 — Language
+  'ch11-unique': { name: 'Is Language Uniquely Human?', ch: 11, blurb: 'Design features, generativity, animal communication, and the ape-language projects.' },
+  'ch11-acquisition': { name: 'Learning to Talk', ch: 11, blurb: 'Acquisition stages, universal grammar versus statistical learning, and critical-period evidence.' },
+  'ch11-comprehension': { name: 'Understanding Speech', ch: 11, blurb: 'Segmentation, lexical ambiguity, parsing, garden-path sentences, and eye-tracking evidence.' },
+  'ch11-discourse': { name: 'Beyond the Sentence', ch: 11, blurb: 'Inference, situation models, and how comprehension builds coherence across sentences.' },
+  'ch11-brain': { name: 'Language in the Brain', ch: 11, blurb: 'Broca’s and Wernicke’s aphasias, lateralization, and modern network views.' },
+  'ch11-thought': { name: 'Language & Thought', ch: 11, blurb: 'Linguistic relativity, the Russian-blues evidence, and what large language models change.' },
+  // Chapter 12 — Problem Solving
+  'ch12-nature': { name: 'What a Problem Is', ch: 12, blurb: 'Initial state, goal, obstacle — and well-defined versus ill-defined problems.' },
+  'ch12-process': { name: 'How Solving Unfolds', ch: 12, blurb: 'Reproductive versus productive thinking, restructuring, and the recursive solving cycle.' },
+  'ch12-barriers': { name: 'Why We Get Stuck', ch: 12, blurb: 'Functional fixedness, mental set, irrelevant information, and self-imposed constraints.' },
+  'ch12-insight': { name: 'Insight & Creativity', ch: 12, blurb: 'Aha moments, feeling-of-warmth evidence, incubation, and divergent thinking.' },
+  'ch12-expertise': { name: 'Experts vs Novices', ch: 12, blurb: 'Chess chunking, principle-based categorization, when expertise backfires, and means–end analysis.' },
+  // Chapter 13 — Reasoning & Decision Making
+  'ch13-reasoning': { name: 'Reasoning Beyond the Data', ch: 13, blurb: 'Extrapolating from what you know, and validity versus truth.' },
+  'ch13-deduction': { name: 'Deduction & Its Traps', ch: 13, blurb: 'Syllogisms, valid and invalid forms, belief bias, and the Wason selection task.' },
+  'ch13-induction': { name: 'Induction', ch: 13, blurb: 'Generalizing from cases, what makes an induction strong, and confirmation bias.' },
+  'ch13-heuristics': { name: 'Heuristics & Biases', ch: 13, blurb: 'Availability, anchoring, representativeness, base-rate neglect, conjunction errors, and framing.' },
+  'ch13-decisions': { name: 'Choosing & the Brain', ch: 13, blurb: 'Expected utility and its violations, loss aversion, neuroeconomics, and nudges.' },
 };
 
 const COG_CH = {
+  1: 'Introduction',
+  2: 'How to Study Cognition',
+  3: 'The Brain',
+  4: 'Perception',
+  5: 'Attention',
   6: 'Short-Term & Working Memory',
   7: 'Long-Term Memory',
   8: 'Autobiographical Memory',
   9: 'Knowledge',
+  10: 'Visual Imagery',
+  11: 'Language',
+  12: 'Problem Solving',
+  13: 'Reasoning & Decision Making',
 };
 
 /* ---------- state + persistence ---------- */
 const COG_KEY = 'cs-cogpsych';
-const COG_M1_ARCHIVE_KEY = 'cs-cogpsych-m1';
-const COG_PASS = 'psychology';
-const COG_MODULE = 'cogpsych-m2-ch6-9';
+const COG_MODULE = 'cogpsych-course-v1';   // stable tag — the course accumulates, it doesn't rotate
 function cogLoad() { try { return JSON.parse(localStorage.getItem(COG_KEY)) || {}; } catch { return {}; } }
 let COG = Object.assign({
-  unlocked: false, module: '', xp: 0, answered: 0, correct: 0,
-  bestScore: 0, bestCombo: 0, bestExam: 0, bestMock: 0, mockPassed: false, plays: 0,
+  module: '', xp: 0, answered: 0, correct: 0,
+  bestScore: 0, bestCombo: 0, bestExam: 0, plays: 0,
   streak: { current: 0, longest: 0, lastDate: '' },
   q: {},            // qid -> { box: 0..5, a, c, ts }
-  ach: [], examReady: false, starred: {}, learned: {},
+  ach: [], mastered: false, starred: {}, learned: {},
 }, cogLoad());
-// Module changed since last visit -> wipe progress so rank/XP/mastery reflect THIS module only (keep unlock).
+// Tag changed since last visit (old class-module state) -> archive it, then start the course fresh.
 if (COG.module !== COG_MODULE) {
-  if (COG.module === 'cogpsych-v1') {
-    try { localStorage.setItem(COG_M1_ARCHIVE_KEY, JSON.stringify(COG)); } catch {}
+  if (COG.answered || COG.xp) {
+    try { localStorage.setItem('cs-cogpsych-' + (COG.module || 'legacy'), JSON.stringify(COG)); } catch {}
   }
   COG = {
-    unlocked: COG.unlocked, module: COG_MODULE,
-    xp: 0, answered: 0, correct: 0, bestScore: 0, bestCombo: 0, bestExam: 0, bestMock: 0, mockPassed: false, plays: 0,
+    module: COG_MODULE,
+    xp: 0, answered: 0, correct: 0, bestScore: 0, bestCombo: 0, bestExam: 0, plays: 0,
     streak: { current: 0, longest: 0, lastDate: '' },
-    q: {}, ach: [], examReady: false, starred: {}, learned: {},
+    q: {}, ach: [], mastered: false, starred: {}, learned: {},
   };
   try { localStorage.setItem(COG_KEY, JSON.stringify(COG)); } catch {}
 }
@@ -156,10 +217,9 @@ function cogReadyGate() {
 function cogStatus() {
   const c = cogOverall();
   const gate = cogReadyGate();
-  if (c >= 90 && COG.mockPassed && gate.allSeen && gate.topicFloor) return { c, label: 'MODULE 2 READY', cls: 'ready' };
+  if (c >= 90 && gate.allSeen && gate.topicFloor) return { c, label: 'COURSE MASTERED', cls: 'ready' };
   if (c >= 90 && !gate.allSeen) return { c, label: 'Finish full coverage', cls: 'almost' };
   if (c >= 90 && !gate.topicFloor) return { c, label: 'Raise weak topics', cls: 'almost' };
-  if (c >= 90 && !COG.mockPassed) return { c, label: 'Mock exam needed', cls: 'almost' };
   if (c >= 75) return { c, label: 'Almost there', cls: 'almost' };
   if (c >= 50) return { c, label: 'Solid progress', cls: 'building' };
   if (c > 0) return { c, label: 'Getting started', cls: 'start' };
@@ -212,14 +272,14 @@ const COG_ACH = [
   { id: 'blitz500', name: 'Blitz Master', desc: 'Score 500+ in one Blitz' },
   { id: 'smart', name: 'Study Smart', desc: 'Finish a Smart Review session' },
   { id: 'perfect', name: 'Flawless', desc: 'Finish a run 100% correct (8+ Q)' },
-  { id: 'stm', name: 'Memory Buffer', desc: 'Reach 100% mastery on Chapter 6' },
-  { id: 'ltm', name: 'Long Haul', desc: 'Reach 100% mastery on Chapter 7' },
-  { id: 'autobio', name: 'Life Story', desc: 'Reach 100% mastery on Chapter 8' },
-  { id: 'knowledge', name: 'Knowledge Architect', desc: 'Reach 100% mastery on Chapter 9' },
-  { id: 'survey', name: 'Module Master', desc: 'Max mastery on Chapters 6–9' },
+  { id: 'stm', name: 'Memory Buffer', desc: 'Reach 100% mastery on Short-Term & Working Memory' },
+  { id: 'ltm', name: 'Long Haul', desc: 'Reach 100% mastery on Long-Term Memory' },
+  { id: 'autobio', name: 'Life Story', desc: 'Reach 100% mastery on Autobiographical Memory' },
+  { id: 'knowledge', name: 'Knowledge Architect', desc: 'Reach 100% mastery on Knowledge' },
+  { id: 'survey', name: 'Field Master', desc: 'Reach 100% mastery on every chapter' },
   { id: 'exam', name: 'Boss Cleared', desc: 'Beat the Mastery Boss (85%+)' },
-  { id: 'mock', name: 'Exam Cleared', desc: 'Score 85%+ on the 50-question Module 2 Mock' },
-  { id: 'ready', name: 'Module 2 Ready', desc: 'See every item, hold every topic at 80%+, reach 90% overall, and pass the mock' },
+  { id: 'scholar', name: 'Course Scholar', desc: 'Complete every lesson in the course' },
+  { id: 'ready', name: 'Course Mastered', desc: 'See every question, hold every topic at 80%+, and reach 90% overall' },
   { id: 'cogscientist', name: 'Certified Cognitive Scientist', desc: 'Reach the Cognitive Neuroscientist level' },
 ];
 function cogGrant(id) {
@@ -239,11 +299,10 @@ function cogCheckAch() {
   if (cogMastery(7) >= 100) cogGrant('ltm');
   if (cogMastery(8) >= 100) cogGrant('autobio');
   if (cogMastery(9) >= 100) cogGrant('knowledge');
-  if ([6, 7, 8, 9].every(ch => cogMastery(ch) >= 100)) cogGrant('survey');
+  if (Object.keys(COG_CH).map(Number).every(ch => cogMastery(ch) >= 100)) cogGrant('survey');
   if (cogRank(COG.xp).lvl >= 8) cogGrant('cogscientist');
-  if (COG.mockPassed) cogGrant('mock');
   const gate = cogReadyGate();
-  if (cogOverall() >= 90 && COG.mockPassed && gate.allSeen && gate.topicFloor) { cogGrant('ready'); if (!COG.examReady) { COG.examReady = true; cogSave(); cogTrack('milestone', { kind: 'exam_ready', competency: cogOverall(), mock: COG.bestMock, seen: gate.seen }); } }
+  if (cogOverall() >= 90 && gate.allSeen && gate.topicFloor) { cogGrant('ready'); if (!COG.mastered) { COG.mastered = true; cogSave(); cogTrack('milestone', { kind: 'course_mastered', competency: cogOverall(), seen: gate.seen }); } }
 }
 
 function cogBumpStreak() {
@@ -285,7 +344,7 @@ function cogValidBankItem(q, seen) {
 }
 async function cogLoadBank() {
   try {
-    const r = await fetch('data/cogpsych-bank.json?v=3');
+    const r = await fetch('data/cogpsych-bank.json?v=4');
     if (!r.ok) throw new Error('http ' + r.status);
     const data = await r.json();
     if (!Array.isArray(data)) throw new Error('bad bank');   // an empty array is valid (no content yet)
@@ -300,16 +359,6 @@ async function cogLoadBank() {
     if (data.length && !valid.length) throw new Error('no valid bank items');   // non-empty but all malformed -> failure screen
     COG_GENERATED = valid;
     COG_BANK = COG_DIAGRAMS.concat(COG_GENERATED).concat(COG_GENERATORS);
-    try {
-      const hr = await fetch('data/cogpsych-hy.json?v=2');
-      if (hr.ok) {
-        const hy = await hr.json();
-        if (Array.isArray(hy)) {
-          const byId = Object.fromEntries(COG_BANK.map(q => [q.id, q]));
-          COG_HY = hy.map(q => byId[typeof q === 'string' ? q : q && q.id]).filter(Boolean);
-        }
-      }
-    } catch (e) { COG_HY = []; }
     cogBankReady = true; cogBankFailed = false;
   } catch (e) { cogBankFailed = true; }
 }
@@ -333,8 +382,7 @@ function renderCogPsych() {
     return;
   }
   if (!COG_BANK.length) { renderCogEmpty(); return; }
-  if (COG.unlocked) { renderCogHome(); return; }
-  renderCogPassword();
+  renderCogHome();
 }
 
 function renderCogEmpty() {
@@ -342,31 +390,6 @@ function renderCogEmpty() {
   const root = el('<div></div>'); root.appendChild(topbar('cogpsych'));
   const main = el(`<main class="panel gen-lock" id="main" tabindex="-1"><div class="gen-lock-box cornerframe"><span class="label">Cognitive Psychology</span><h1 class="gen-lock-title">Coming soon</h1><p class="gen-lock-sub">Questions are being added. Check back shortly.</p></div></main>`);
   root.appendChild(main); root.appendChild(siteFooter()); setView(root);
-}
-function renderCogPassword(errMsg) {
-  const root = el('<div></div>');
-  root.appendChild(topbar('cogpsych'));
-  const main = el(`<main class="panel gen-lock" id="main" tabindex="-1">
-    <div class="gen-lock-box cornerframe">
-      <span class="label">Cognitive Psychology</span>
-      <h1 class="gen-lock-title">Cognitive Psychology</h1>
-      <p class="gen-lock-sub">Module 2 mastery — short-term, working, long-term and autobiographical memory, then knowledge. Private access.</p>
-      <form id="gen-pass-form" class="gen-pass-form" autocomplete="off">
-        <input type="password" id="gen-pass" class="gen-pass-input" placeholder="Access code" aria-label="Access code" />
-        <button type="submit" class="btn btn-solid">Enter</button>
-      </form>
-      ${errMsg ? `<p class="gen-pass-err">${esc(errMsg)}</p>` : ''}
-      <p class="gen-priv">Anonymous usage data (modes + hard questions — no names) helps improve the trainer.</p>
-    </div>
-  </main>`);
-  main.querySelector('#gen-pass-form').addEventListener('submit', (e) => {
-    e.preventDefault();
-    const val = (main.querySelector('#gen-pass').value || '').trim().toLowerCase();
-    if (val === COG_PASS) { COG.unlocked = true; cogSave(); cogTrack('unlock', {}); renderCogHome(); }
-    else renderCogPassword('Wrong code. Try again.');
-  });
-  root.appendChild(main); root.appendChild(siteFooter()); setView(root);
-  setTimeout(() => { const i = document.querySelector('#gen-pass'); if (i) i.focus(); }, 30);
 }
 
 /* ============================================================================
@@ -392,12 +415,12 @@ function renderCogHome() {
   const root = el('<div></div>');
   root.appendChild(topbar('cogpsych'));
   const main = el(`<main class="panel gen-home" id="main" tabindex="-1">
-    ${status.cls === 'ready' ? `<div class="gen-ready-banner"><span class="gen-ready-pulse"></span>MODULE 2 READY · ${status.c}% mastery · mock passed</div>` : ''}
+    ${status.cls === 'ready' ? `<div class="gen-ready-banner"><span class="gen-ready-pulse"></span>COURSE MASTERED · ${status.c}% mastery</div>` : ''}
 
     <header class="gen-hero cornerframe">
       <div class="gen-hero-l">
-        <span class="label">Exam Module 2 · Chapters 6–9</span>
-        <h1>Memory &amp; Knowledge</h1>
+        <span class="label">A Cortex course · 13 chapters</span>
+        <h1>Cognitive Psychology</h1>
         <div class="gen-rank"><span class="gen-rank-lvl mono">LV ${rank.lvl}</span><span class="gen-rank-name">${esc(rank.name)}</span></div>
         <div class="gen-xpbar"><span style="width:${rank.pct}%"></span></div>
         <p class="gen-xp-note mono">${COG.xp.toLocaleString()} XP${rank.next ? ` · ${rank.toNext.toLocaleString()} to next level` : ' · MAX'}</p>
@@ -418,47 +441,35 @@ function renderCogHome() {
     </div>
 
     <section class="gen-modes">
-      <button class="gen-mode-card gen-mode-learn cornerframe" data-mode="learn">
-        <span class="gen-mode-tag">guided · teaches you</span>
+      <button class="gen-mode-card gen-mode-learn gen-mode-hero cornerframe" data-mode="learn">
+        <span class="gen-mode-tag">start here · guided lessons</span>
         <h2>Learn</h2>
-        <p>Guided, retrieval-gated lessons for every Module 2 topic — short-term, long-term and autobiographical memory, then knowledge.</p>
+        <p>Guided lessons across all thirteen chapters — how the mind is studied, the brain, perception, attention, memory, knowledge, imagery, language, and how we solve problems and decide. Learn the idea, reason it out, pass the checkpoint.</p>
         <span class="gen-mode-go">Open lessons →</span>
       </button>
-      <button class="gen-mode-card gen-mode-hero cornerframe" data-mode="hy">
-        <span class="gen-mode-tag">exam today · high yield</span>
-        <h2>High Yield</h2>
-        <p>The exam-critical facts and classic experiments across Chapters 6–9 (${(COG_HY && COG_HY.length) ? COG_HY.length : '…'} Q). Skip the long tail.</p>
-        <span class="gen-mode-go">Exam mode →</span>
-      </button>
       <button class="gen-mode-card cornerframe" data-mode="smart">
-        <span class="gen-mode-tag">full bank · endless</span>
+        <span class="gen-mode-tag">daily · adaptive</span>
         <h2>Smart Review</h2>
-        <p>Endless adaptive loop across the full Module 2 bank — misses return with a hint until every question is mastered.</p>
+        <p>Endless adaptive loop over everything you've learned — misses return with a hint until every question is mastered.</p>
         <span class="gen-mode-go">Study →</span>
+      </button>
+      <button class="gen-mode-card cornerframe" data-mode="chapter">
+        <span class="gen-mode-tag">untimed · by topic</span>
+        <h2>Topic Drills</h2>
+        <p>Pick any topic and work through it with full explanations until the meter fills.</p>
+        <span class="gen-mode-go">Choose →</span>
       </button>
       <button class="gen-mode-card cornerframe" data-mode="blitz">
         <span class="gen-mode-tag">90s · combo</span>
         <h2>Blitz</h2>
-        <p>Rapid-fire across all four exam chapters. Stack combos and make retrieval automatic.</p>
+        <p>Rapid-fire across the whole course. Stack combos and make retrieval automatic.</p>
         <span class="gen-mode-go">Start →</span>
-      </button>
-      <button class="gen-mode-card cornerframe" data-mode="chapter">
-        <span class="gen-mode-tag">untimed · learn</span>
-        <h2>Topic Drills</h2>
-        <p>Pick one topic and work through it with full explanations until the meter fills.</p>
-        <span class="gen-mode-go">Choose →</span>
       </button>
       <button class="gen-mode-card cornerframe" data-mode="exam">
         <span class="gen-mode-tag">20 Q · 4 lives</span>
         <h2>Mastery Boss</h2>
-        <p>Fast mixed gauntlet across Chapters 6–9. Beat 85% to clear it.${COG.bestExam ? ` Best: ${COG.bestExam}%.` : ''}</p>
+        <p>A fast mixed gauntlet across every chapter. Beat 85% to clear it.${COG.bestExam ? ` Best: ${COG.bestExam}%.` : ''}</p>
         <span class="gen-mode-go">Fight →</span>
-      </button>
-      <button class="gen-mode-card gen-mode-hero cornerframe" data-mode="mock">
-        <span class="gen-mode-tag">50 Q · balanced · no feedback</span>
-        <h2>Module 2 Mock Exam</h2>
-        <p>A full, chapter-balanced test with answers hidden until the end. Pass at 85%.${COG.bestMock ? ` Best: ${COG.bestMock}%.` : ''}</p>
-        <span class="gen-mode-go">Test me →</span>
       </button>
       <button class="gen-mode-card cornerframe" data-mode="misses">
         <span class="gen-mode-tag">targeted</span>
@@ -492,7 +503,7 @@ function renderCogHome() {
         <li><b>Test, don't reread.</b> Retrieval practice beats passive review — this whole arcade is active recall.</li>
         <li><b>Run Smart Review daily.</b> Spaced repetition resurfaces each item right before you'd forget it.</li>
         <li><b>Interleave.</b> Blitz and Smart Review mix topics on purpose — better than grinding one unit forever.</li>
-        <li><b>Chase weak spots.</b> Topic Drills on your lowest meters → Smart Review to 90% → Module 2 Mock at 85%+.</li>
+        <li><b>Chase weak spots.</b> Topic Drills on your lowest meters → Smart Review to 90% → clear the Mastery Boss.</li>
       </ol>
     </section>
 
@@ -503,26 +514,24 @@ function renderCogHome() {
       </div>
     </section>
 
-    <p class="gen-foot-note">${COG_BANK.length} questions · Module 2 · ${Object.keys(COG_CH).map(ch => `${ch}: ${COG_CH[ch]}`).join(' · ')}. <button class="ghostbtn" id="gen-reset">Reset progress</button></p>
+    <p class="gen-foot-note">${COG_BANK.length} questions · 13 chapters · Introduction to Reasoning &amp; Decision Making. <button class="ghostbtn" id="gen-reset">Reset progress</button></p>
   </main>`);
 
   main.querySelectorAll('[data-mode]').forEach(b => b.addEventListener('click', () => {
     const m = b.dataset.mode;
     if (m === 'learn') renderCogLearnHome();
-    else if (m === 'hy') renderCogHyHub();
     else if (m === 'smart') startCogSmart();
     else if (m === 'blitz') startCogBlitz();
     else if (m === 'chapter') renderCogChapterPick();
     else if (m === 'exam') startCogExam();
-    else if (m === 'mock') startCogMock();
     else if (m === 'misses') startCogMisses();
     else if (m === 'stats') renderCogStats();
     else if (m === 'starred') startCogStarred();
   }));
   main.querySelectorAll('[data-topic]').forEach(b => b.addEventListener('click', () => startCogTopic(b.dataset.topic)));
   main.querySelector('#gen-reset').addEventListener('click', () => {
-    if (!confirm('Reset all Cognitive Psychology progress (XP, mastery, achievements)? You stay unlocked.')) return;
-    COG = Object.assign({ unlocked: true, module: COG_MODULE, xp: 0, answered: 0, correct: 0, bestScore: 0, bestCombo: 0, bestExam: 0, bestMock: 0, mockPassed: false, plays: 0, streak: { current: 0, longest: 0, lastDate: '' }, q: {}, starred: {}, learned: {}, ach: [], examReady: false });
+    if (!confirm('Reset all Cognitive Psychology progress (XP, mastery, lessons, achievements)?')) return;
+    COG = Object.assign({ module: COG_MODULE, xp: 0, answered: 0, correct: 0, bestScore: 0, bestCombo: 0, bestExam: 0, plays: 0, streak: { current: 0, longest: 0, lastDate: '' }, q: {}, starred: {}, learned: {}, ach: [], mastered: false });
     cogSave(); renderCogHome();
   });
   root.appendChild(main); root.appendChild(siteFooter()); setView(root);
@@ -537,13 +546,20 @@ function renderCogChapterPick() {
     <span class="gen-ch-num mono">${t.ch}</span><h2>${esc(t.name)}</h2><p>${esc(t.blurb)}</p>
     <div class="gen-meter"><div class="gen-bar"><span style="width:${cogComp(qs)}%"></span></div></div>
     <span class="mono gen-ch-pct">${cogComp(qs)}% · ${qs.length} Q</span></button>`; };
+  // grouped by chapter so ~70 topic cards stay navigable
+  const chBlocks = Object.keys(COG_CH).map(Number).sort((a, b) => a - b).map(ch => {
+    const keys = Object.keys(COG_TOPICS).filter(key => COG_TOPICS[key].ch === ch && cogTopicQs(key).length);
+    if (!keys.length) return '';
+    return `<section class="gen-learn-ch">
+      <span class="label">${ch} · ${esc(COG_CH[ch])}</span>
+      <div class="gen-ch-grid">${keys.map(card).join('')}</div>
+    </section>`;
+  }).join('');
   const root = el('<div></div>');
   root.appendChild(topbar('cogpsych'));
   const main = el(`<main class="panel gen-pick" id="main" tabindex="-1">
     <div class="gen-pick-head"><button class="ghostbtn" id="gen-back">← Home</button><h1>Topics</h1></div>
-    <div class="gen-ch-grid">
-      ${Object.keys(COG_TOPICS).filter(key => cogTopicQs(key).length).map(card).join('')}
-    </div>
+    ${chBlocks}
   </main>`);
   main.querySelector('#gen-back').addEventListener('click', renderCogHome);
   main.querySelectorAll('[data-topic]').forEach(b => b.addEventListener('click', () => startCogTopic(b.dataset.topic)));
@@ -586,28 +602,6 @@ function startCogExam() {
   cogTrack('mode_start', { mode: 'exam', n: pool.length });
   cogRunQuestion({ mode: 'exam', pool, idx: 0, score: 0, combo: 0, maxCombo: 0, correct: 0, answered: 0, lives: 4, maxLives: 4, locked: false });
 }
-function cogBalancedPool(total) {
-  const chs = Object.keys(COG_CH).map(Number);
-  const each = Math.floor(total / Math.max(1, chs.length));
-  let extra = total - each * chs.length;
-  let pool = [];
-  chs.forEach(ch => {
-    const n = each + (extra > 0 ? 1 : 0); if (extra > 0) extra--;
-    pool = pool.concat(cogShuffle(cogChapterQs(ch)).slice(0, n));
-  });
-  if (pool.length < total) {
-    const have = new Set(pool.map(q => q.id));
-    pool = pool.concat(cogShuffle(COG_BANK).filter(q => !have.has(q.id)).slice(0, total - pool.length));
-  }
-  return cogShuffle(pool).slice(0, total);
-}
-function startCogMock() {
-  const pool = cogBalancedPool(50);
-  if (pool.length < 50) { cogEmpty('Module 2 Mock', 'The question bank is still loading — try again in a moment.'); return; }
-  cogBumpStreak(); COG.plays++; cogSave();
-  cogTrack('mode_start', { mode: 'mock', n: pool.length });
-  cogRunQuestion({ mode: 'mock', pool, idx: 0, score: 0, combo: 0, maxCombo: 0, correct: 0, answered: 0, responses: [], locked: false });
-}
 /* ---------- review misses, starred, stats ---------- */
 function cogMissPool() { return COG_BANK.filter(q => { const r = COG.q[q.id]; return r && r.lastWrong; }); }
 function cogMockWrongPool(responses) {
@@ -628,36 +622,6 @@ function startCogMisses() {
   if (!pool.length) { cogEmpty('Review misses', 'No misses to review right now — nice work. Play a mode to surface your weak spots, then come back.'); return; }
   COG.plays++; cogSave();
   cogRunQuestion({ mode: 'misses', pool, idx: 0, score: 0, combo: 0, maxCombo: 0, correct: 0, answered: 0, locked: false });
-}
-function startCogMockMisses(responses) {
-  const pool = cogShuffle(cogMockWrongPool(responses));
-  if (!pool.length) { cogEmpty('Mock review', 'Perfect mock — there are no missed questions to drill.'); return; }
-  COG.plays++; cogSave();
-  cogRunQuestion({ mode: 'misses', pool, mockResponses: responses, idx: 0, score: 0, combo: 0, maxCombo: 0, correct: 0, answered: 0, locked: false });
-}
-function renderCogMockReview(responses) {
-  cogClearTimer();
-  const rows = (responses || []).map((r, i) => {
-    const q = COG_BANK.find(item => item.id === r.id);
-    if (!q) return '';
-    const selected = Number.isInteger(r.selected) ? q.options[r.selected] : 'No answer saved';
-    const correct = q.options[q.answer];
-    return `<article class="gen-q cornerframe" style="margin-bottom:1rem">
-      <div class="gen-q-meta"><span class="mono">${i + 1}</span><span class="mono">Ch ${q.chapter}</span><span class="gen-q-tag">${esc((COG_TOPICS[q.topic] && COG_TOPICS[q.topic].name) || 'Practice')}</span></div>
-      <h2 class="gen-q-stem">${esc(q.q)}</h2>
-      <p><strong>Your answer:</strong> ${esc(selected)}</p>
-      <p><strong>Correct answer:</strong> ${esc(correct)}</p>
-      <div class="gen-explain"><span class="gen-ex-label">${r.right ? 'Correct' : 'Review'}</span> ${esc(q.explain)}</div>
-    </article>`;
-  }).join('');
-  const root = el('<div></div>'); root.appendChild(topbar('cogpsych'));
-  const main = el(`<main class="panel gen-pick" id="main" tabindex="-1">
-    <div class="gen-pick-head"><button class="ghostbtn" id="gen-back">← Home</button><h1>Module 2 mock answer key</h1></div>
-    <p>Every answer and explanation from this exact 50-question attempt.</p>
-    ${rows}
-  </main>`);
-  main.querySelector('#gen-back').addEventListener('click', renderCogHome);
-  root.appendChild(main); root.appendChild(siteFooter()); setView(root);
 }
 function startCogStarred() {
   const pool = cogShuffle(cogStarredList());
@@ -1049,7 +1013,7 @@ function cogEndRun(run) {
       <span class="label">${esc(headline)}</span>
       <h1 class="gen-res-sub">${esc(sub)}</h1>
       ${extra}
-      ${status.cls === 'ready' ? '<p class="gen-res-ready">MODULE 2 READY — 90%+ mastery and the mock is cleared. Keep Smart Review warm.</p>' : ''}
+      ${status.cls === 'ready' ? '<p class="gen-res-ready">COURSE MASTERED — 90%+ across every topic. Keep Smart Review warm.</p>' : ''}
       ${run.mode === 'mock' ? `<p class="gen-empty-msg">Answer key unlocked — review every answer and explanation from this attempt.</p>` : ''}
       <p class="gen-res-xp mono">${COG.xp.toLocaleString()} XP total · LV ${cogRank(COG.xp).lvl} ${esc(cogRank(COG.xp).name)}</p>
       <div class="gen-res-btns">
@@ -1076,120 +1040,4 @@ function cogEndRun(run) {
     else startCogChapter(run.chapter);
   });
   root.appendChild(main); root.appendChild(siteFooter()); setView(root);
-}
-
-
-/* ============================================================================
-   HIGH YIELD — exam sprint (lean pack)
-   ========================================================================= */
-function renderCogHyHub() {
-  cogClearTimer();
-  COG_POOL_FILTER = null;
-  const hy = cogHyQs();
-  const m = cogHyMastery();
-  const byCh = {};
-  hy.forEach(q => { (byCh[q.chapter] = byCh[q.chapter] || []).push(q); });
-  const chRows = Object.keys(COG_CH).map(Number).filter(ch => byCh[ch] && byCh[ch].length).map(ch => {
-    const qs = byCh[ch];
-    return `<button class="gen-ch-card cornerframe" data-hy-ch="${ch}">
-      <span class="gen-ch-num mono">${ch}</span><h2>${esc(COG_CH[ch])}</h2>
-      <p>${qs.length} high-yield questions</p>
-      <div class="gen-meter"><div class="gen-bar"><span style="width:${cogComp(qs)}%"></span></div></div>
-      <span class="mono gen-ch-pct">${cogComp(qs)}%</span></button>`;
-  }).join('');
-  const root = el('<div></div>');
-  root.appendChild(topbar('cogpsych'));
-  const main = el(`<main class="panel gen-pick" id="main" tabindex="-1">
-    <div class="gen-pick-head"><button class="ghostbtn" id="gen-back">← Home</button><h1>High Yield</h1></div>
-    <header class="gen-hero cornerframe" style="margin-bottom:1rem">
-      <div class="gen-hero-l">
-        <span class="label">Module 2 exam sprint · Ch 6–9</span>
-        <h1 style="font-size:1.35rem;margin:.25rem 0">Must-knows only</h1>
-        <p class="gen-xp-note">${hy.length} questions · memory systems, classic experiments, autobiographical reconstruction, and knowledge models. The full bank stays available for depth.</p>
-      </div>
-      <div class="gen-hero-r">
-        <div class="gen-comp-ring ${m >= 90 ? 'gen-comp-ready' : m >= 50 ? 'gen-comp-building' : 'gen-comp-start'}">
-          <span class="gen-comp-num mono">${m}%</span><span class="gen-comp-lab">HY</span>
-        </div>
-      </div>
-    </header>
-    <section class="gen-modes" style="margin-bottom:1.25rem">
-      <button class="gen-mode-card gen-mode-hero cornerframe" id="hy-all">
-        <span class="gen-mode-tag">recommended · full pack</span>
-        <h2>Run all ${hy.length}</h2>
-        <p>One pass through every high-yield item with explanations. Best first move today.</p>
-        <span class="gen-mode-go">Start →</span>
-      </button>
-      <button class="gen-mode-card cornerframe" id="hy-smart">
-        <span class="gen-mode-tag">adaptive · until mastered</span>
-        <h2>HY Smart Review</h2>
-        <p>Spaced repetition on the lean pack only — keeps hammering weak HY items.</p>
-        <span class="gen-mode-go">Drill →</span>
-      </button>
-      <button class="gen-mode-card cornerframe" id="hy-blitz">
-        <span class="gen-mode-tag">90s · speed</span>
-        <h2>HY Blitz</h2>
-        <p>Rapid-fire high-yield only. Warm up or final polish.</p>
-        <span class="gen-mode-go">Go →</span>
-      </button>
-      <button class="gen-mode-card cornerframe" id="hy-boss">
-        <span class="gen-mode-tag">${Math.min(20, hy.length)} Q · 4 lives</span>
-        <h2>HY Boss</h2>
-        <p>Pressure test on the must-knows. Beat 85%.</p>
-        <span class="gen-mode-go">Fight →</span>
-      </button>
-    </section>
-    <span class="label">By chapter</span>
-    <div class="gen-ch-grid" style="margin-top:.75rem">${chRows}</div>
-  </main>`);
-  main.querySelector('#gen-back').addEventListener('click', renderCogHome);
-  main.querySelector('#hy-all').addEventListener('click', () => startCogHyAll());
-  main.querySelector('#hy-smart').addEventListener('click', () => startCogHySmart());
-  main.querySelector('#hy-blitz').addEventListener('click', () => startCogHyBlitz());
-  main.querySelector('#hy-boss').addEventListener('click', () => startCogHyBoss());
-  main.querySelectorAll('[data-hy-ch]').forEach(b => b.addEventListener('click', () => {
-    const ch = +b.dataset.hyCh;
-    startCogHyChapter(ch);
-  }));
-  root.appendChild(main); root.appendChild(siteFooter()); setView(root);
-  cogTrack('hy_hub', { n: hy.length, mastery: m });
-}
-function startCogHyAll() {
-  const pool = cogShuffle(cogHyQs());
-  if (!pool.length) { cogEmpty('High Yield', 'High-yield pack is empty — check connection and reload.'); return; }
-  cogBumpStreak(); COG.plays++; cogSave();
-  COG_POOL_FILTER = null;
-  cogTrack('mode_start', { mode: 'hy-all', n: pool.length });
-  cogRunQuestion({ mode: 'hy-all', pool, idx: 0, score: 0, combo: 0, maxCombo: 0, correct: 0, answered: 0, locked: false });
-}
-function startCogHyChapter(ch) {
-  const pool = cogShuffle(cogHyQs().filter(q => q.chapter === ch));
-  if (!pool.length) { cogEmpty('High Yield', `No Chapter ${ch} high-yield items found.`); return; }
-  cogBumpStreak(); COG.plays++; cogSave();
-  cogTrack('mode_start', { mode: 'hy-chapter', chapter: ch, n: pool.length });
-  cogRunQuestion({ mode: 'hy-chapter', chapter: ch, pool, idx: 0, score: 0, combo: 0, maxCombo: 0, correct: 0, answered: 0, locked: false });
-}
-function startCogHySmart() {
-  const pool = cogHyQs();
-  if (!pool.length) { cogEmpty('High Yield', 'High-yield pack is empty.'); return; }
-  cogBumpStreak(); COG.plays++; cogSave();
-  COG_POOL_FILTER = pool;
-  cogTrack('mode_start', { mode: 'hy-smart', n: pool.length });
-  cogRunQuestion({ mode: 'smart', endless: true, pool: [], retryQ: [], idx: 0, score: 0, combo: 0, maxCombo: 0, correct: 0, answered: 0, locked: false, lastId: null, lastTopic: null });
-}
-function startCogHyBlitz() {
-  COG_POOL_FILTER = null;
-  const pool = cogShuffle(cogHyQs());
-  if (!pool.length) return;
-  cogBumpStreak(); COG.plays++; cogSave();
-  cogTrack('mode_start', { mode: 'hy-blitz' });
-  cogRunQuestion({ mode: 'blitz', pool, sourcePool: pool.slice(), idx: 0, score: 0, combo: 0, maxCombo: 0, correct: 0, answered: 0, timeLeft: 90, locked: false });
-}
-function startCogHyBoss() {
-  COG_POOL_FILTER = null;
-  const pool = cogShuffle(cogHyQs()).slice(0, 20);
-  if (pool.length < 8) { cogEmpty('High Yield', 'Not enough high-yield items yet.'); return; }
-  cogBumpStreak(); COG.plays++; cogSave();
-  cogTrack('mode_start', { mode: 'hy-boss', n: pool.length });
-  cogRunQuestion({ mode: 'hy-boss', pool, idx: 0, score: 0, combo: 0, maxCombo: 0, correct: 0, answered: 0, lives: 4, maxLives: 4, locked: false });
 }

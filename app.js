@@ -37,7 +37,7 @@ function sectionMenuTag(key) {
   if (key === 'reference') return '<span class="mi-tag">New</span>';
   return '';
 }
-const SECTION_LABELS = { anatomy: 'Anatomy', reference: 'Medicine', socrates: 'Learn how to learn' };
+const SECTION_LABELS = { anatomy: 'Anatomy', reference: 'Medicine', socrates: 'Learn to Learn' };
 const SECTION_INFO = {
   anatomy: {
     label: 'Anatomy',
@@ -51,8 +51,8 @@ const SECTION_INFO = {
   },
   socrates: {
     label: 'Learn to Learn',
-    headline: 'Learn how to learn.',
-    desc: 'Guided, Socratic study sessions that train the skill beneath every other skill — how to question, reason, and remember. Metacognition and proven learning technique, applied directly to medicine.',
+    headline: 'Build the skill beneath every other skill.',
+    desc: 'Choose General, Business, or Medical. Each course shows you how to focus, remember, practice, and improve for that kind of learning.',
   },
   neuro: {
     label: 'Neuroengineering',
@@ -60,26 +60,15 @@ const SECTION_INFO = {
     headline: 'Temporarily under construction.',
     desc: 'The Neuroengineering division is offline while we refine the curriculum, labs, and Practitioner track to the same standard as the rest of Cortex. It will return soon — thank you for your patience.',
   },
-  genetics: {
-    label: 'Genetics',
-    badge: 'Between modules',
-    headline: 'The next module is on the way.',
-    desc: 'The Genetics-2313 exam module has wrapped for this term. New material for the next module is being built — check back soon.',
-  },
   cogpsych: {
     label: 'Cognitive Psychology',
-    headline: 'Master Module 2.',
-    desc: 'Chapters 6–9 — short-term, working, long-term, and autobiographical memory, plus knowledge. Guided lessons, adaptive review, high-yield drills, and a full 50-question mock exam.',
-  },
-  ccma: {
-    label: 'Medical Assistant',
-    headline: 'Destroy the NHA CCMA exam.',
-    desc: 'Private NHA CCMA exam-prep system — all 7 test-plan domains, a 38-lesson path, daily Smart Review, and a blueprint-weighted timed mock exam. Built to get you past the pass line on test day.',
+    headline: 'Understand how the mind works.',
+    desc: 'A free, open course on the science of the mind — 13 chapters from how cognition is studied and the brain, through perception, attention, and memory, to knowledge, imagery, language, problem solving, and decision making. Guided lessons first; adaptive review to make it stick.',
   },
 };
-// Public “What’s new” version. Private-only sections (CCMA) do NOT bump this or CHANGELOG —
+// Public “What’s new” version. Private-only sections do NOT bump this or CHANGELOG —
 // only their own script/data ?v= cache-busts — so the sitewide update modal stays quiet.
-const APP_VERSION = '1.23.0';
+const APP_VERSION = '1.24.0';
 const MEMBERSHIP_START = 'August 1, 2026';
 function cortexFreeNote(sectionPill, sectionName) {
   return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free for now</span><span class="free-note-txt">${sectionName} becomes optional membership ${MEMBERSHIP_START}. The full MCAT suite stays free forever.</span></p>`;
@@ -152,9 +141,7 @@ const SECTION_SCRIPTS = {
   reference: ['reference.js?v=49', 'performance-drugs.js?v=7', 'ekg.js?v=36'],
   socrates: ['socrates.js?v=40'],
   neuro: ['python-runtime.js?v=3', 'code-evaluator.js?v=2', 'neuro-practitioner.js?v=3', 'neuro.js?v=14'],
-  genetics: ['genetics.js?v=25', 'genetics-learn.js?v=6', 'genetics-figs.js?v=1', 'genetics-workshop.js?v=1'],
-  cogpsych: ['cogpsych.js?v=5', 'cogpsych-learn.js?v=4', 'cogpsych-figs.js?v=1'],
-  ccma: ['ccma.js?v=6', 'ccma-learn.js?v=3', 'ccma-soap.js?v=2'],
+  cogpsych: ['cogpsych.js?v=6', 'cogpsych-learn.js?v=5', 'cogpsych-figs.js?v=1'],
 };
 const _scriptLoads = {};
 function loadScript(src) {
@@ -378,17 +365,18 @@ async function boot() {
   try {
     store.manifest = await fetch('data/manifest.json').then(r => r.ok ? r.json() : {});
   } catch { /* case data unavailable; the mission page still renders, sections handle it */ }
-  const routed = await routeFromUrl();   // deep-link straight into a section (e.g. /genetics)
+  const routed = await routeFromUrl();   // deep-link straight into a section (e.g. /medicine)
   if (!routed) renderMission();
   if (hasUnseenUpdate()) setTimeout(showUpdateModal, 420);
 }
 
-/* ---------- URL routing — shareable section deep-links (e.g. /genetics) ----------
+/* ---------- URL routing — shareable section deep-links (e.g. /medicine) ----------
    The app is a single page; this lets an inbound URL open the right section and keeps
    the address bar in sync as you navigate, so any section link is copy-able. Needs the
    `/* /index.html 200` SPA fallback in _redirects so Netlify serves the app for these paths. */
-const SEC_PATHS = { practice: 'practice', mcat: 'mcat', stats: 'stats', utsa: 'utsa', neuro: 'neuro', reference: 'medicine', genetics: 'genetics', cogpsych: 'cogpsych', ccma: 'ccma' };
+const SEC_PATHS = { practice: 'practice', mcat: 'mcat', stats: 'stats', utsa: 'utsa', neuro: 'neuro', reference: 'medicine', socrates: 'learn', cogpsych: 'cogpsych' };
 const PATH_SEC = Object.fromEntries(Object.entries(SEC_PATHS).map(([k, v]) => [v, k]));
+const RETIRED_PATHS = new Set(['genetics', 'ccma']);
 
 async function openSection(key) {
   switch (key) {
@@ -402,20 +390,15 @@ async function openSection(key) {
       try { await ensureSection('reference'); if (typeof renderReference === 'function') await renderReference(); }
       catch (err) { console.error('Medicine load failed', err); }
       return true;
-    case 'genetics':
-      if (COMING_SOON.has('genetics')) { renderComingSoon('genetics'); return true; }
-      await ensureSection('genetics');
-      if (typeof renderGenetics === 'function') renderGenetics();
+    case 'socrates':
+      if (COMING_SOON.has('socrates')) { renderComingSoon('socrates'); return true; }
+      await ensureSection('socrates');
+      if (typeof renderSocrates === 'function') await renderSocrates();
       return true;
     case 'cogpsych':
       if (COMING_SOON.has('cogpsych')) { renderComingSoon('cogpsych'); return true; }
       await ensureSection('cogpsych');
       if (typeof renderCogPsych === 'function') renderCogPsych();
-      return true;
-    case 'ccma':
-      if (COMING_SOON.has('ccma')) { renderComingSoon('ccma'); return true; }
-      await ensureSection('ccma');
-      if (typeof renderCCMA === 'function') renderCCMA();
       return true;
     default: return false;
   }
@@ -423,6 +406,10 @@ async function openSection(key) {
 
 function sectionFromPath() {
   const seg = decodeURIComponent((location.pathname || '').replace(/^\/+|\/+$/g, '').split('/')[0] || '').toLowerCase();
+  if (RETIRED_PATHS.has(seg)) {
+    history.replaceState({ sec: 'mission' }, '', '/');
+    return undefined;
+  }
   return PATH_SEC[seg];
 }
 async function routeFromUrl() {
@@ -480,15 +467,15 @@ function topbar(active) {
       <button class="navlink ${active === 'mcat' ? 'active' : ''}" data-go="mcat">MCAT</button>
       <button class="navlink ${active === 'stats' ? 'active' : ''}" data-go="stats">Stats</button>
       <div class="navmenu">
-        <button class="navlink menubtn ${['anatomy', 'reference', 'socrates', 'utsa', 'pomodoro', 'genetics', 'cogpsych', 'ccma'].includes(active) ? 'active' : ''}" data-menu aria-expanded="false" aria-controls="explore-panel">Explore<span class="caret">&#9662;</span></button>
+        <button class="navlink menubtn ${['anatomy', 'reference', 'socrates', 'utsa', 'pomodoro', 'cogpsych'].includes(active) ? 'active' : ''}" data-menu aria-expanded="false" aria-controls="explore-panel">Explore<span class="caret">&#9662;</span></button>
         <div class="menupanel" id="explore-panel" aria-label="Explore Cortex" hidden>
           <div class="menu-intro">
             <span class="menu-title">Explore Cortex</span>
-            <span class="menu-desc">Choose a study path or jump back into a course.</span>
+            <span class="menu-desc">Choose a learning path or open a study tool.</span>
           </div>
           <div class="menu-grid">
             <section class="menu-group" aria-labelledby="menu-study-title">
-              <span class="menu-head" id="menu-study-title">Study paths</span>
+              <span class="menu-head" id="menu-study-title">Learning paths</span>
               <button class="menuitem${menuActive('anatomy')}" data-go="anatomy"${menuCurrent('anatomy')}>
                 <span class="mi-copy"><span class="mi-name">Anatomy</span><span class="mi-desc">Visual recall lab</span></span>
                 ${sectionMenuTag('anatomy')}
@@ -496,17 +483,8 @@ function topbar(active) {
               <button class="menuitem${menuActive('reference')}" data-go="reference"${menuCurrent('reference')}>
                 <span class="mi-copy"><span class="mi-name">Medicine</span><span class="mi-desc">Pharm, micro, labs &amp; ECG</span></span>
               </button>
-              <button class="menuitem${menuActive('ccma')}" data-go="ccma"${menuCurrent('ccma')}>
-                <span class="mi-copy"><span class="mi-name">Medical Assistant</span><span class="mi-desc">CCMA exam mastery</span></span>
-              </button>
-            </section>
-            <section class="menu-group" aria-labelledby="menu-courses-title">
-              <span class="menu-head" id="menu-courses-title">Course workspaces</span>
-              <button class="menuitem${menuActive('genetics')}" data-go="genetics"${menuCurrent('genetics')}>
-                <span class="mi-copy"><span class="mi-name">Genetics 2313</span><span class="mi-desc">Lessons, drills &amp; smart review</span></span>
-              </button>
               <button class="menuitem${menuActive('cogpsych')}" data-go="cogpsych"${menuCurrent('cogpsych')}>
-                <span class="mi-copy"><span class="mi-name">Cognitive Psychology</span><span class="mi-desc">Memory systems &amp; mastery</span></span>
+                <span class="mi-copy"><span class="mi-name">Cognitive Psychology</span><span class="mi-desc">The science of the mind</span></span>
               </button>
             </section>
           </div>
@@ -547,20 +525,10 @@ function topbar(active) {
   root.querySelector('[data-go="utsa"]').addEventListener('click', renderUTSA);
   root.querySelector('[data-go="pomodoro"]').addEventListener('click', () => { if (typeof renderPomodoro === 'function') renderPomodoro(); });
   root.querySelector('[data-go="neuro"]').addEventListener('click', () => renderNeuro());
-  root.querySelector('[data-go="genetics"]')?.addEventListener('click', async () => {
-    if (COMING_SOON.has('genetics')) { renderComingSoon('genetics'); return; }
-    await ensureSection('genetics');
-    if (typeof renderGenetics === 'function') renderGenetics();
-  });
   root.querySelector('[data-go="cogpsych"]')?.addEventListener('click', async () => {
     if (COMING_SOON.has('cogpsych')) { renderComingSoon('cogpsych'); return; }
     await ensureSection('cogpsych');
     if (typeof renderCogPsych === 'function') renderCogPsych();
-  });
-  root.querySelector('[data-go="ccma"]')?.addEventListener('click', async () => {
-    if (COMING_SOON.has('ccma')) { renderComingSoon('ccma'); return; }
-    await ensureSection('ccma');
-    if (typeof renderCCMA === 'function') renderCCMA();
   });
   root.querySelector('[data-go="updates"]').addEventListener('click', renderUpdates);
   const navmenu = root.querySelector('.navmenu');
@@ -590,8 +558,8 @@ function seenVersion() { try { return localStorage.getItem('cs-seen-ver') || '';
 function markSeenVersion() { safeSet('cs-seen-ver', APP_VERSION); updateVerBadges(); }
 function hasUnseenUpdate() { return seenVersion() !== APP_VERSION; }
 function latestRelease() {
-  return CHANGELOG.find(c => c.version === APP_VERSION)
-    || CHANGELOG.find(c => c.version && c.tag !== 'SOON')
+  return PUBLIC_CHANGELOG.find(c => c.version === APP_VERSION)
+    || PUBLIC_CHANGELOG.find(c => c.version && c.tag !== 'SOON')
     || null;
 }
 function updateVerBadges() {
@@ -763,7 +731,7 @@ function siteFooter() {
     </div>
     <p class="sf-tag">Free, evidence-based medical study for everyone &mdash; our MCAT preparation is, and always will be, free.</p>
     <p class="sf-founder">Founded by Kevin Vigil</p>
-    <p class="sf-legal">&copy; ${yr} Cortex Medical Academy &middot; v${APP_VERSION} &middot; Last updated ${CHANGELOG[0].date} &middot; Original study content, independently reviewed. Not a substitute for official AAMC materials or clinical judgment.</p>
+    <p class="sf-legal">&copy; ${yr} Cortex Medical Academy &middot; v${APP_VERSION} &middot; Last updated ${PUBLIC_CHANGELOG[0].date} &middot; Original study content, independently reviewed. Not a substitute for official AAMC materials or clinical judgment.</p>
   </footer>`);
   f.querySelector('.sf-brand').addEventListener('click', e => { e.preventDefault(); renderMission(); });
   f.querySelector('[data-go="updates"]').addEventListener('click', renderUpdates);
@@ -879,21 +847,21 @@ const PRINCIPLES = [
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
   {
-    date: 'July 24, 2026', version: '1.23.0', tag: 'NEW',
-    title: 'A calmer Explore, a sharper Cortex',
+    date: 'August 7, 2026', version: '1.24.0', tag: 'NEW',
+    title: 'Cognitive Psychology — a full open course',
     items: [
-      'Explore is now a focused map of Cortex: study paths and course workspaces sit in a clear two-column panel, while the Focus Timer, Learn to Learn, and UTSA & UT Health access stay in a quiet utility row. On phones, it becomes a clean single-column menu.',
-      'The Academy now shares one cohesive visual system — clearer hierarchy, quieter surfaces, more consistent cards and controls, a refined mission page and footer, and tighter responsive spacing across every major section.',
-      'Active-section cues, cleaner status labels, Escape-to-close keyboard support, and a fix for the first-open MCAT navigation freeze make moving through Cortex faster and more reliable.',
+      'Cognitive Psychology is now a free, public course covering the whole subject in 13 chapters — from how the mind is studied and the brain, through perception, attention, and memory, to knowledge, imagery, language, problem solving, and decision making.',
+      'Guided lessons are the spine: learn the idea, reason through Socratic questions and interactive figures, pass the checkpoint, then lock it in with adaptive Smart Review, topic drills, Blitz, and the Mastery Boss.',
+      'No password, no sign-up — open the course from Explore or head straight to /cogpsych.',
     ],
   },
   {
-    date: 'July 15, 2026', version: '1.22.0', tag: 'NEW',
-    title: 'Cognitive Psychology: Module 2 mastery',
+    date: 'July 24, 2026', version: '1.23.0', tag: 'NEW',
+    title: 'A calmer Explore, a sharper Cortex',
     items: [
-      'Cognitive Psychology now covers the complete Module 2 block from your professor\'s Chapters 6–9 slides: short-term and working memory, long-term memory, autobiographical memory, and knowledge.',
-      'A fresh Module 2 bank, guided retrieval-gated lessons, high-yield exam pack, adaptive Smart Review, topic drills, and a balanced 50-question mock exam now work together to take you from first exposure to verified exam readiness.',
-      'Your old Module 1 progress is archived locally, while Module 2 starts with clean mastery meters so the readiness score reflects only this exam.',
+      'Explore is now a focused map of Cortex: learning paths sit in one clear list, while the Focus Timer, Learn to Learn, and UTSA & UT Health access stay in a quiet utility row.',
+      'The Academy now shares one cohesive visual system — clearer hierarchy, quieter surfaces, more consistent cards and controls, a refined mission page and footer, and tighter responsive spacing across every major section.',
+      'Active-section cues, cleaner status labels, Escape-to-close keyboard support, and a fix for the first-open MCAT navigation freeze make moving through Cortex faster and more reliable.',
     ],
   },
   {
@@ -902,14 +870,6 @@ const CHANGELOG = [
     items: [
       'The Genetics trainer now has a Module 4 Workshop — your professor\'s Chapters 10–12 packet reproduced word for word: multiple choice, short answer, fill-in-the-blank, true/false, matching, application questions, and the lac/trp operon tables, all interactive with answer checking.',
       'The packet\'s hand-labeled figures (transcription promoter, the transcription bubble, σ-factor initiation, and rho-dependent/independent termination) are rebuilt as interactive label-the-diagram exercises — tap a pin, pick its label, check your work.',
-    ],
-  },
-  {
-    date: 'July 5, 2026', version: '1.20.0', tag: 'NEW',
-    title: 'New: Cognitive Psychology',
-    items: [
-      'A brand-new Cognitive Psychology section — the same arcade-style mastery trainer as Genetics, built for your cog-psych course. Password-gated to the class, with Smart Review, Blitz, topic drills, a mock Exam Boss, XP, and achievements.',
-      'Chapter 2 (How to Study Cognition) is live: mind & brain, structuralism, behaviorism, the cognitive revolution, the cognitive approach, methods, and complementary neuroscience — with interactive diagrams (classical conditioning, the Skinner box, Tolman’s maze, Donders’ reaction-time conditions, the Stroop effect, and more). More chapters roll in as the course goes.',
     ],
   },
   {
@@ -924,7 +884,7 @@ const CHANGELOG = [
     date: 'July 3, 2026', version: '1.18.0', tag: 'NEW',
     title: 'Link straight to any section',
     items: [
-      'You can now share a direct link to a section instead of the homepage — e.g. cortexmedical.academy/genetics opens the Genetics trainer, /mcat opens MCAT, /stats opens your stats. The address bar updates as you move around, so whatever you’re looking at is always a copy-able link.',
+      'You can now share a direct link to a section instead of the homepage — e.g. cortexmedical.academy/medicine opens Medicine, /mcat opens MCAT, /stats opens your stats. The address bar updates as you move around, so whatever you’re looking at is always a copy-able link.',
     ],
   },
   {
@@ -1343,6 +1303,13 @@ const CHANGELOG = [
     ],
   },
 ];
+const RETIRED_CHANGELOG_SUBJECT = /\bgenetics\b/i;
+const PUBLIC_CHANGELOG = CHANGELOG.reduce((entries, release) => {
+  if (RETIRED_CHANGELOG_SUBJECT.test(release.title)) return entries;
+  const items = release.items.filter(item => !RETIRED_CHANGELOG_SUBJECT.test(item));
+  if (items.length) entries.push({ ...release, items });
+  return entries;
+}, []);
 
 function changelogEntry(c, featured) {
   return `<article class="upd ${featured ? 'upd-featured-item' : ''} ${c.tag === 'SOON' ? 'upd-soon' : ''}">
@@ -1362,9 +1329,9 @@ function renderUpdates() {
   stopTimer(); session = null;
   const root = el('<div></div>');
   root.appendChild(topbar('updates'));
-  const latest = CHANGELOG[0];
+  const latest = PUBLIC_CHANGELOG[0];
   const showFeatured = latest && latest.version && latest.tag !== 'SOON';
-  const history = showFeatured ? CHANGELOG.slice(1) : CHANGELOG;
+  const history = showFeatured ? PUBLIC_CHANGELOG.slice(1) : PUBLIC_CHANGELOG;
   const featured = showFeatured ? `
     <section class="upd-featured cornerframe" id="whats-new">
       <div class="upd-featured-top">
@@ -1385,7 +1352,7 @@ function renderUpdates() {
     <div class="updates-head">
       <span class="label">Changelog</span>
       <h1>Updates.</h1>
-      <p class="sub">Full release history &mdash; everything below loads with the page.</p>
+      <p class="sub">Public release history &mdash; everything below loads with the page.</p>
     </div>
     ${featured}
     ${historyBlock}

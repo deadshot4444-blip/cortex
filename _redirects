@@ -5,6 +5,11 @@
 # the page). Netlify fetches abacus server-side; the client only sees first-party.
 /cx-visits/*  https://abacus.jasoncameron.dev/:splat  200
 
-# SPA fallback: serve the app for section deep-links (e.g. /genetics, /mcat).
+# Retired class-specific workspaces. Temporary redirects keep these paths
+# available for a future reorganization without leaving dead course screens.
+/genetics  /  302
+/ccma  /  302
+
+# SPA fallback: serve the app for section deep-links (e.g. /medicine, /mcat).
 # Must stay last — Netlify serves real static files first, then falls back here.
 /*  /index.html  200

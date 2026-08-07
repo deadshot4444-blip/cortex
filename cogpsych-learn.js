@@ -12,9 +12,11 @@
    Step kinds:
      { kind:'teach', body:'<html>' }
      { kind:'ask', prompt:'<html>', reveal:'<html>', choices?:[...], answer?:int }
-     { kind:'interactive', widget:'<COGLW key>', instructions:'text' }
+     { kind:'interactive', widget:'<COGLW or COG_FIGS key>', instructions:'text' }
      { kind:'checkpoint', q:'text', options:[...], answer:int, explain:'text' }
-   Interactive widgets live in COGLW (register: COGLW.myWidget = fn(host, onDone)).
+   Interactive widgets resolve from COGLW first (fn(host, onDone)), then fall
+   back to the COG_FIGS registry in cogpsych-figs.js (fn(host) — self-paced
+   stepped SVG figures; no onDone).
    ========================================================================= */
 
 /* Interactive widget registry — add cognitive-psychology widgets here as lessons need them
@@ -38,7 +40,7 @@ function cogValidLesson(l, seen) {
 async function cogLoadLessons() {
   if (cogLearnReady) return;
   try {
-    const r = await fetch('data/cogpsych-learn.json?v=2');
+    const r = await fetch('data/cogpsych-learn.json?v=3');
     if (!r.ok) throw new Error('http '+r.status);
     const data = await r.json();
     if (Array.isArray(data)) {
@@ -87,7 +89,7 @@ function renderCogLearnHome() {
   root.appendChild(topbar('cogpsych'));
   const main = el(`<main class="panel gen-learn-home" id="main" tabindex="-1">
     <div class="gen-pick-head"><button class="ghostbtn" id="gen-back">← Home</button><h1>Learn Cognitive Psychology</h1></div>
-    <p class="gen-learn-intro">Module 2 lessons follow the exam map: learn the model, retrieve it, pass the checkpoint, then drill. Finish Chapters 6–9 in order or jump straight to a weak topic.</p>
+    <p class="gen-learn-intro">The whole subject, one guided lesson at a time: learn the idea, reason it out, pass the checkpoint, then drill it. Start at Chapter 1 and work forward, or jump straight to whatever you're curious about.</p>
     ${hasLessons ? Object.keys(byCh).sort((a, b) => a - b).map(chBlock).join('') : `<div class="gen-learn-empty cornerframe"><span class="label">Load error</span><h2>Lessons did not load</h2><p>Reload the page, or use <b>Smart Review</b> while the lesson file reconnects.</p><button class="btn btn-solid" id="gen-learn-smart">Start Smart Review →</button></div>`}
   </main>`);
   const smb = main.querySelector('#gen-learn-smart'); if (smb) smb.addEventListener('click', startCogSmart);
@@ -184,7 +186,10 @@ function renderCogLesson(id) {
       frame(box, { nextLabel });
       const host = box.querySelector('.gen-inter-host');
       const doneMsg = box.querySelector('.gen-inter-done');
-      const widget = COGLW[step.widget];
+      const widget = COGLW[step.widget]
+        || (window.COG_FIGS && window.COG_FIGS[step.widget]
+            ? (h) => { try { window.COG_FIGS[step.widget](h); } catch (e) { h.textContent = ''; } }
+            : null);
       if (widget) widget(host, () => { doneMsg.hidden = false; });
       else host.appendChild(el('<p class="gen-inter-instr">[missing widget]</p>'));
 
@@ -220,6 +225,7 @@ function renderCogLesson(id) {
 
   function finish() {
     cogClearTimer();
+    if (COG_LESSONS.length && COG_LESSONS.every(l => cogglDone(l.id)) && typeof cogGrant === 'function') cogGrant('scholar');
     const root = el('<div></div>');
     root.appendChild(topbar('cogpsych'));
     const main = el(`<main class="panel gen-result" id="main" tabindex="-1">
