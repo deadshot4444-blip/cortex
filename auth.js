@@ -14,8 +14,8 @@
    app behaves exactly as before.
    ============================================================ */
 
-const SUPABASE_URL = 'https://cgumxqqlyjwypdqgvstk.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_xsvIj1XPZGGqe09zgCewHQ_fj7W_dRp';  // publishable key — safe to expose; RLS protects data
+const SUPABASE_URL = 'https://fpsqsntbhilrdtlemoos.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_wDu3ys37LZE7SPXz32SsQQ_wbRel6K8';  // publishable key — safe to expose; RLS protects data
 
 const AUTH_ENABLED =
   /^https:\/\/.+\.supabase\.co/.test(SUPABASE_URL) &&
