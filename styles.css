@@ -29,6 +29,27 @@ body {
    Let low-DPI screens use the browser default; Retina keeps `antialiased`. */
 @media (max-resolution: 1.25dppx) {
   body { -webkit-font-smoothing: auto; }
+  /* Negative tracking sub-pixel-shifts every glyph — smeary at 1x. Open it up on low-DPI only. */
+  .mcat-hero h1,
+  .mission-hero h1,
+  .pharm-drugname,
+  .updates-head h1,
+  .upd-featured h2,
+  .neuro-hero h1,
+  .cs-hero h1,
+  .neuro-h1,
+  .pomo-clock,
+  .gen-hero-l h1,
+  .hero h1,
+.mcat-hero h1,
+.cs-hero h1,
+.mission-hero h1,
+.updates-head h1,
+  .mission-principles h2,
+  .founder-note p,
+  .mission .mcat-closing h2,
+  .ms-num, .m-num,
+  .gen-mode-card h2 { letter-spacing: 0; }
 }
 button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
 button:focus-visible, .opt:focus-visible { outline: 1px solid var(--text); outline-offset: 2px; }
@@ -101,7 +122,7 @@ button:focus-visible, .opt:focus-visible { outline: 1px solid var(--text); outli
 .comingsoon { display: flex; align-items: center; justify-content: center; min-height: 52vh; }
 .cs-box { text-align: center; max-width: 480px; }
 .cs-box .label { display: block; }
-.cs-box h1 { font-size: clamp(28px, 6.5vw, 40px); font-weight: 350; letter-spacing: -.01em; margin-top: 12px; }
+.cs-box h1 { font-size: clamp(28px, 6.5vw, 40px); font-size: round(clamp(28px, 6.5vw, 40px), 1px); font-weight: 350; letter-spacing: -.01em; margin-top: 12px; }
 .cs-box .sub { margin: 14px 0 28px; color: var(--dim); font-size: 15px; }
 .cs-box .endbtns { justify-content: center; }
 
@@ -120,7 +141,7 @@ button:focus-visible, .opt:focus-visible { outline: 1px solid var(--text); outli
 
 .home { max-width: 1060px; margin: 0 auto; padding: 64px 28px 96px; }
 
-.hero h1 { font-size: clamp(26px, 6vw, 38px); font-weight: 350; letter-spacing: -.01em; line-height: 1.15; overflow-wrap: break-word; }
+.hero h1 { font-size: clamp(26px, 6vw, 38px); font-size: round(clamp(26px, 6vw, 38px), 1px); font-weight: 350; letter-spacing: -.01em; line-height: 1.15; overflow-wrap: break-word; }
 .hero .sub { margin-top: 10px; color: var(--dim); font-size: 15px; }
 .free-note { margin-top: 14px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 13px; color: var(--dim); }
 .free-pill { font-family: var(--mono); font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: var(--green); border: 1px solid var(--green); padding: 3px 8px; white-space: nowrap; }
@@ -539,7 +560,7 @@ button:focus-visible, .opt:focus-visible { outline: 1px solid var(--text); outli
 .panel.mcat-landing { max-width: 980px; }
 .mcat-hero { max-width: 740px; padding: 18px 0 6px; }
 .mcat-eyebrow { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--dim); }
-.mcat-hero h1 { font-size: clamp(33px, 4.8vw, 52px); font-weight: 300; letter-spacing: -.018em; line-height: 1.07; margin-top: 16px; }
+.mcat-hero h1 { font-size: clamp(33px, 4.8vw, 52px); font-size: round(clamp(33px, 4.8vw, 52px), 1px); font-weight: 300; letter-spacing: -.018em; line-height: 1.07; margin-top: 16px; }
 .mcat-lede { margin-top: 18px; font-size: 16px; line-height: 1.62; color: var(--body); max-width: 680px; }
 .mcat-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
 .mcat-cta .btn { padding: 12px 24px; }
@@ -586,7 +607,7 @@ button:focus-visible, .opt:focus-visible { outline: 1px solid var(--text); outli
 /* ---------- mission / front page ---------- */
 .panel.mission { max-width: 940px; }
 .mission-hero { max-width: 770px; padding: 22px 0 4px; }
-.mission-hero h1 { font-size: clamp(36px, 5.6vw, 60px); font-weight: 300; letter-spacing: -.022em; line-height: 1.04; margin-top: 16px; }
+.mission-hero h1 { font-size: clamp(36px, 5.6vw, 60px); font-size: round(clamp(36px, 5.6vw, 60px), 1px); font-weight: 300; letter-spacing: -.022em; line-height: 1.04; margin-top: 16px; }
 .mission-lede { margin-top: 20px; font-size: 17px; line-height: 1.62; color: var(--body); max-width: 690px; }
 .mission-hero .mcat-cta { margin-top: 26px; }
 .mission-fact { margin-top: 26px; font-size: 13px; color: var(--dim); display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; max-width: 680px; }
@@ -1079,11 +1100,11 @@ button.ver.ver-hasnew::after {
 
 /* ---------- updates / changelog ---------- */
 .panel.updates { max-width: 820px; }
-.updates-head h1 { font-size: clamp(30px, 4vw, 44px); font-weight: 300; letter-spacing: -.015em; margin-top: 12px; }
+.updates-head h1 { font-size: clamp(30px, 4vw, 44px); font-size: round(clamp(30px, 4vw, 44px), 1px); font-weight: 300; letter-spacing: -.015em; margin-top: 12px; }
 .updates-head .sub { margin-top: 12px; color: var(--dim); font-size: 15px; max-width: 620px; }
 .upd-featured { margin-top: 28px; padding: 24px 26px 22px; border: 1px solid var(--line-bright); background: var(--surface); }
 .upd-featured-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-.upd-featured h2 { font-size: clamp(22px, 3.2vw, 30px); font-weight: 600; letter-spacing: -.015em; margin-top: 12px; line-height: 1.2; }
+.upd-featured h2 { font-size: clamp(22px, 3.2vw, 30px); font-size: round(clamp(22px, 3.2vw, 30px), 1px); font-weight: 600; letter-spacing: -.015em; margin-top: 12px; line-height: 1.2; }
 .upd-featured-date { margin-top: 8px; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--dim); }
 .upd-featured-list { margin: 18px 0 0; padding-left: 18px; }
 .upd-featured-list li { font-size: 15px; line-height: 1.62; color: var(--body); margin-bottom: 8px; }
@@ -1321,7 +1342,7 @@ button:focus-visible, a:focus-visible, textarea:focus-visible, input:focus-visib
 }
 .neuro-hero-inner { position: relative; z-index: 2; width: 100%; max-width: 940px; margin: 0 auto; padding: 0 28px; }
 .neuro-eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--ne-label); }
-.neuro-hero h1 { margin-top: 20px; font-size: clamp(40px, 5.8vw, 70px); font-weight: 300; letter-spacing: -.026em; line-height: 1.02; color: #fff; }
+.neuro-hero h1 { margin-top: 20px; font-size: clamp(40px, 5.8vw, 70px); font-size: round(clamp(40px, 5.8vw, 70px), 1px); font-weight: 300; letter-spacing: -.026em; line-height: 1.02; color: #fff; }
 .neuro-lede { margin-top: 18px; max-width: 620px; font-size: 17px; line-height: 1.55; color: var(--ne-body); }
 .neuro-hub .neuro-lede { margin-top: 14px; font-size: 15px; line-height: 1.5; color: var(--ne-meta); }
 .neuro-soon { display: inline-block; margin-top: 28px; font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #0a0a0c; background: #e8e8ea; padding: 6px 12px; }
@@ -1384,7 +1405,7 @@ button:focus-visible, a:focus-visible, textarea:focus-visible, input:focus-visib
   -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 100%);
   mask-image: linear-gradient(to bottom, #000 0%, transparent 100%);
 }
-.cs-hero h1 { font-size: clamp(33px, 4.8vw, 52px); font-weight: 300; letter-spacing: -.018em; line-height: 1.07; margin-top: 16px; }
+.cs-hero h1 { font-size: clamp(33px, 4.8vw, 52px); font-size: round(clamp(33px, 4.8vw, 52px), 1px); font-weight: 300; letter-spacing: -.018em; line-height: 1.07; margin-top: 16px; }
 .cs-hero .free-note { margin-top: 22px; }
 .cs-statband { margin: 38px 0 28px; }
 .cs-statband--compact { grid-template-columns: repeat(4, 1fr); margin: 28px 0 24px; }
@@ -1419,7 +1440,7 @@ button:focus-visible, a:focus-visible, textarea:focus-visible, input:focus-visib
 
 .cs-case { max-width: 800px; }
 .cs-case-head { margin-bottom: 8px; }
-.cs-case-head h2 { margin-top: 14px; font-size: clamp(24px, 4vw, 30px); font-weight: 400; letter-spacing: -.01em; }
+.cs-case-head h2 { margin-top: 14px; font-size: clamp(24px, 4vw, 30px); font-size: round(clamp(24px, 4vw, 30px), 1px); font-weight: 400; letter-spacing: -.01em; }
 .cs-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
 .cs-chip {
   font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
@@ -1594,7 +1615,7 @@ button:focus-visible, a:focus-visible, textarea:focus-visible, input:focus-visib
 
 /* ---------- Neuroengineering course (v1.9) ---------- */
 .neuro-inner { min-height: calc(100vh - 56px); }
-.neuro-h1 { font-size: clamp(28px, 4.5vw, 42px); font-weight: 300; letter-spacing: -.02em; margin-top: 12px; color: #fff; }
+.neuro-h1 { font-size: clamp(28px, 4.5vw, 42px); font-size: round(clamp(28px, 4.5vw, 42px), 1px); font-weight: 300; letter-spacing: -.02em; margin-top: 12px; color: #fff; }
 .neuro-h2 { font-size: 22px; font-weight: 450; margin-top: 10px; color: #fff; }
 .neuro-cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
 .neuro-hub .neuro-cta { margin-top: 28px; }
@@ -2000,8 +2021,8 @@ button.neuro-ms.done .neuro-ms-sub { color: var(--green); }
 
 @media (max-width: 480px) {
   .neuro-hero { min-height: 320px; padding-top: 40px; }
-  .neuro-hero h1 { font-size: clamp(32px, 9vw, 44px); }
-  .neuro-h1 { font-size: clamp(24px, 7vw, 32px); }
+  .neuro-hero h1 { font-size: clamp(32px, 9vw, 44px); font-size: round(clamp(32px, 9vw, 44px), 1px); }
+  .neuro-h1 { font-size: clamp(24px, 7vw, 32px); font-size: round(clamp(24px, 7vw, 32px), 1px); }
   .neuro-sandbox-actions { grid-template-columns: 1fr; }
   .neuro-sandbox-actions .btn[data-run-code],
   .neuro-sandbox-actions .btn[data-check-code] { grid-column: 1; }
@@ -2075,7 +2096,7 @@ button.neuro-ms.done .neuro-ms-sub { color: var(--green); }
 /* ---------- Focus Timer (Pomodoro) ---------- */
 .pomo-timer { border: 1px solid var(--line-bright); padding: 36px 24px 30px; text-align: center; margin-top: 8px; }
 .pomo-timer .label { display: block; color: var(--dim); }
-.pomo-clock { font-family: var(--mono); font-size: clamp(64px, 16vw, 104px); font-weight: 500; line-height: 1; letter-spacing: -.02em; font-variant-numeric: tabular-nums; margin: 10px 0 18px; color: var(--text); }
+.pomo-clock { font-family: var(--mono); font-size: clamp(64px, 16vw, 104px); font-size: round(clamp(64px, 16vw, 104px), 1px); font-weight: 500; line-height: 1; letter-spacing: -.02em; font-variant-numeric: tabular-nums; margin: 10px 0 18px; color: var(--text); }
 .pomo-page.is-break .pomo-clock { color: var(--green); }
 .pomo-page.is-break .pomo-timer .label { color: var(--green); }
 .pomo-bar { height: 3px; background: var(--line); max-width: 420px; margin: 0 auto 24px; overflow: hidden; }
@@ -3025,7 +3046,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   color: var(--text);
   text-wrap: balance;
 }
-.hero h1 { font-size: clamp(34px, 5vw, 50px); line-height: 1.02; }
+.hero h1 { font-size: clamp(34px, 5vw, 50px); font-size: round(clamp(34px, 5vw, 50px), 1px); line-height: 1.02; }
 .hero .sub, .mcat-lede, .mission-lede, .updates-head .sub {
   color: var(--body);
   line-height: 1.68;
@@ -3092,8 +3113,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 }
 .mission-hero-grid { display: block; }
 .mission-hero-copy { max-width: 840px; }
-.mission-hero h1 { max-width: 760px; font-size: clamp(52px, 6.8vw, 84px); line-height: .96; margin-top: 22px; }
-.mission-lede { max-width: 700px; margin-top: 28px; font-size: clamp(16px, 1.45vw, 18px); }
+.mission-hero h1 { max-width: 760px; font-size: clamp(52px, 6.8vw, 84px); font-size: round(clamp(52px, 6.8vw, 84px), 1px); line-height: .96; margin-top: 22px; }
+.mission-lede { max-width: 700px; margin-top: 28px; font-size: clamp(16px, 1.45vw, 18px); font-size: round(clamp(16px, 1.45vw, 18px), 1px); }
 .mission-hero .mcat-cta { margin-top: 30px; }
 .mission-fact { max-width: 660px; margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--line); }
 
@@ -3110,7 +3131,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .mm-progress .bar { overflow: hidden; border-radius: 8px; }
 .mm-progress .bar i { border-radius: inherit; background: linear-gradient(90deg, #111216, #3f4650); }
 .mission-principles { margin-top: 96px; }
-.mission-principles h2 { margin-top: 12px; font-size: clamp(34px, 4.4vw, 50px); font-weight: 580; letter-spacing: -.035em; }
+.mission-principles h2 { margin-top: 12px; font-size: clamp(34px, 4.4vw, 50px); font-size: round(clamp(34px, 4.4vw, 50px), 1px); font-weight: 580; letter-spacing: -.035em; }
 .principle-grid { grid-template-columns: repeat(6, 1fr); gap: 14px; margin-top: 34px; }
 .principle {
   grid-column: span 2;
@@ -3136,7 +3157,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   box-shadow: var(--shadow-sm);
 }
 .founder-note { max-width: 850px; }
-.founder-note p { font-size: clamp(18px, 2vw, 22px); line-height: 1.62; letter-spacing: -.015em; }
+.founder-note p { font-size: clamp(18px, 2vw, 22px); font-size: round(clamp(18px, 2vw, 22px), 1px); line-height: 1.62; letter-spacing: -.015em; }
 .mission .mcat-closing {
   overflow: hidden;
   margin-top: 84px;
@@ -3148,7 +3169,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   color: #fff;
   box-shadow: var(--shadow-md);
 }
-.mission .mcat-closing h2 { color: #fff; font-weight: 560; font-size: clamp(30px, 4vw, 44px); letter-spacing: -.035em; }
+.mission .mcat-closing h2 { color: #fff; font-weight: 560; font-size: clamp(30px, 4vw, 44px); font-size: round(clamp(30px, 4vw, 44px), 1px); letter-spacing: -.035em; }
 .mission .mcat-closing p { color: rgba(255,255,255,.68); }
 .mission .mcat-closing .btn-solid { color: #0b0c0e; background: #fff; border-color: #fff; box-shadow: none; }
 .mission .mcat-closing .btn-solid:hover { background: #edf3ff; border-color: #edf3ff; }
@@ -3240,7 +3261,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   box-shadow: var(--shadow-sm);
 }
 .gen-home .gen-hero.cornerframe::before, .gen-home .gen-hero.cornerframe::after { display: none; }
-.gen-hero-l h1 { font-size: clamp(30px, 4vw, 42px); font-weight: 590; letter-spacing: -.04em; }
+.gen-hero-l h1 { font-size: clamp(30px, 4vw, 42px); font-size: round(clamp(30px, 4vw, 42px), 1px); font-weight: 590; letter-spacing: -.04em; }
 .gen-statrow { gap: 12px; margin-block: 18px; }
 .gen-stat { padding: 18px 12px; }
 .gen-stat-n { font-size: 24px; font-weight: 560; }
@@ -3324,7 +3345,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   }
   .menuitem { min-height: 54px; }
   .panel, .home { padding-left: 20px; padding-right: 20px; }
-  .mission-hero h1 { font-size: clamp(44px, 13vw, 64px); }
+  .mission-hero h1 { font-size: clamp(44px, 13vw, 64px); font-size: round(clamp(44px, 13vw, 64px), 1px); }
   .mission-meter { grid-template-columns: 1fr; gap: 22px; }
   .principle-grid { grid-template-columns: 1fr; }
   .principle:last-child { grid-column: auto; }
