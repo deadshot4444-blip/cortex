@@ -11,8 +11,8 @@ async function loadNeuro() {
   if (NEURO.loaded) return;
   try {
     const [r, m] = await Promise.all([
-      fetch('data/neuro.json'),
-      fetch('data/neuro-milestones.json'),
+      fetch('data/neuro.json?v=2'),
+      fetch('data/neuro-milestones.json?v=2'),
     ]);
     NEURO.data = r.ok ? await r.json() : null;
     NEURO.milestones = m.ok ? await m.json() : null;
@@ -55,6 +55,53 @@ function neuroMilestonesPassed() {
 }
 
 /* ---------- hub ---------- */
+
+/* Foundations primer — the philosophy on-ramp for absolute beginners.
+   Static teach page; the science / coding / track cards on the hub route
+   into existing content (subjects, NeuroCode, The Track). */
+function renderNeuroPrimer() {
+  if (typeof stopTimer === 'function') stopTimer();
+  const root = el('<div></div>');
+  root.appendChild(topbar('neuro'));
+  const main = el(`<main class="neuro-page neuro-inner">
+    <section class="neuro-body">
+      <button class="backbtn topback" id="neback">&larr; Neuroengineering</button>
+      <span class="neuro-eyebrow">Foundations &middot; Start here</span>
+      <h1 class="neuro-h1">Why build brain&ndash;computer interfaces?</h1>
+      <p class="neuro-lede">Before the code and the electrodes, the question. Five minutes, no prerequisites.</p>
+
+      <div class="neuro-block">
+        <span class="label">The oldest problem, made practical</span>
+        <p>For most of history, "how does the mind relate to the body?" was a philosopher's question. Descartes thought mind and matter were two different substances that somehow met in the brain. Today the working assumption of neuroscience is simpler and stranger: the mind is what the brain <em>does</em> &mdash; electricity and chemistry, arranged just so. A brain&ndash;computer interface takes that assumption seriously enough to bet hardware on it. If thought is physical signal, then signal can be read, decoded, and acted on.</p>
+      </div>
+      <div class="neuro-block">
+        <span class="label">Why it matters</span>
+        <p>A person with locked-in syndrome has a mind that works and a body that won't answer it. Paralysis, ALS, brainstem stroke &mdash; in each case the commands are still being issued; they just never arrive. A BCI is a detour: read the intention at its source, skip the broken wiring, move the cursor, the wheelchair, the prosthetic hand. That is the moral core of this field &mdash; not mind-reading, but giving people their outputs back.</p>
+      </div>
+      <div class="neuro-block">
+        <span class="label">What a BCI actually is</span>
+        <p>Every BCI &mdash; from a lab EEG cap to an implanted electrode array &mdash; is the same five-stage pipeline: <b>sense</b> electrical activity, <b>clean</b> the noisy signal, <b>detect</b> the meaningful events, <b>decode</b> what they intend, and <b>act</b> on it fast enough to feel natural. The whole Track you're about to walk is that pipeline, built one stage at a time, by you.</p>
+      </div>
+      <details class="neuro-primer-ask">
+        <summary>Think first: if thought were <em>not</em> physical, could a BCI work at all?</summary>
+        <p>No &mdash; and that's the point. Every cursor a paralyzed patient moves by intention is a small experiment on the mind&ndash;body problem, and the result keeps coming back: the signal is there, in the tissue, readable. Engineering quietly answers what philosophy could only debate.</p>
+      </details>
+      <details class="neuro-primer-ask">
+        <summary>Think first: why does the field obsess over reading signals rather than writing them?</summary>
+        <p>Reading is the easier ethical ground &mdash; restoring lost outputs. Writing into the brain (stimulation) raises harder questions: who controls the input, what counts as consent, where "therapy" ends. You'll meet stimulation later in the course &mdash; with those questions attached.</p>
+      </details>
+
+      <div class="neuro-cta" style="margin-top:22px">
+        <button class="btn btn-solid neuro-btn" id="primer-next">Next: the science &rarr;</button>
+      </div>
+    </section>
+  </main>`);
+  main.querySelector('#neback').addEventListener('click', renderNeuroEngineering);
+  main.querySelector('#primer-next').addEventListener('click', () => renderNeuroSubject('neural-signals'));
+  root.appendChild(main);
+  if (typeof siteFooter === 'function') root.appendChild(siteFooter());
+  setView(root);
+}
 
 /* The Track — the whole course as one visible linear spine (a guide, not a gate:
    any unit is clickable; the current one is highlighted; done units show a check).
@@ -137,6 +184,15 @@ async function renderNeuroEngineering() {
       </div>
     </section>
     <section class="neuro-body">
+      <div class="neuro-section neuro-foundations">
+        <span class="neuro-section-label">Start here &middot; no prerequisites</span>
+        <div class="neuro-lablinks neuro-foundations-row">
+          <button class="neuro-lablink" id="nf-why">1 &middot; Why BCIs? <span>philosophy</span></button>
+          <button class="neuro-lablink" id="nf-sci">2 &middot; The science <span>neurons &rarr; signals</span></button>
+          <button class="neuro-lablink" id="nf-code">3 &middot; Never coded? <span>from zero</span></button>
+          <button class="neuro-lablink" id="nf-track">4 &middot; The Track <span>build the BCI</span></button>
+        </div>
+      </div>
       ${path ? `<div class="neuro-track" id="ne-track">
         <div class="neuro-track-head">
           <span class="label">The Track</span>
@@ -215,6 +271,12 @@ async function renderNeuroEngineering() {
   });
   main.querySelector('#ne-codelab')?.addEventListener('click', renderNeuroCodeLab);
   main.querySelector('#ne-simlib')?.addEventListener('click', renderNeuroSimLibrary);
+  main.querySelector('#nf-why')?.addEventListener('click', renderNeuroPrimer);
+  main.querySelector('#nf-sci')?.addEventListener('click', () => renderNeuroSubject('neural-signals'));
+  main.querySelector('#nf-code')?.addEventListener('click', () => renderNeuroCode('code-variables-voltage'));
+  main.querySelector('#nf-track')?.addEventListener('click', () => {
+    main.querySelector('#ne-track')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
   main.querySelectorAll('[data-ms]').forEach(btn => {
     btn.addEventListener('click', () => {
       if (typeof renderNeuroMilestone === 'function') renderNeuroMilestone(btn.dataset.ms);
@@ -357,7 +419,7 @@ function neuroAtlasAppend() {
     node.querySelector('.socactions')?.remove();
     after.appendChild(el(`<div class="socans"><div class="socblock"><span class="label">Answer</span><p>${esc(s.answer)}</p></div></div>`));
     const row = el(`<div class="continue-row"><button class="btn btn-solid neuro-btn" data-cont>${isLast ? 'Finish study' : 'Next'}</button></div>`);
-    row.querySelector('[data-cont]').addEventListener('click', () => { neAtlas.idx++; neuroAtlasDots(); neuroAtlasAppend(); });
+    row.querySelector('[data-cont]').addEventListener('click', () => { row.remove(); neAtlas.idx++; neuroAtlasDots(); neuroAtlasAppend(); });
     after.appendChild(row);
     row.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   });
@@ -577,6 +639,16 @@ function mountNeuroCodeSandbox(lesson, codeId, opts, shell) {
       <span class="neuro-sandbox-badge" data-pass-badge ${codePassed ? '' : 'hidden'}>Complete</span>
     </div>
     <p class="neuro-sandbox-note">On-the-job style practice: edit the script, <strong>Run</strong> to execute real Python in-browser, <strong>Check</strong> to validate stdout against the reference solution.</p>
+    <details class="neuro-code-help" ${neuroCodePassed(codeId) ? '' : 'open'}>
+      <summary>Never coded before? Read this first (60 seconds)</summary>
+      <ol class="neuro-code-help-list">
+        <li>The dark box below is a <b>script</b> — a list of instructions the computer follows top to bottom. You can click into it and type, like a text message.</li>
+        <li>Press <b>Run</b> and the computer follows your instructions. Anything the script <code>print(&hellip;)</code>s shows up in the black <b>terminal</b> underneath — that's the computer talking back. You never type into the terminal, only into the script.</li>
+        <li>Red text in the terminal is an <b>error</b> — the computer telling you which line confused it. Errors are normal; read the last line, fix, Run again.</li>
+        <li>You cannot break anything. <b>Reset</b> restores the original script; <b>Hint</b> and <b>Load solution</b> are there when you're stuck.</li>
+        <li>When your output looks right, press <b>Check</b> — it compares what your script printed against the expected answer.</li>
+      </ol>
+    </details>
     <div class="neuro-sandbox-goals">
       <span class="neuro-mono">${esc(guidance.exerciseType)}</span>
       <span>Coding: ${esc(guidance.codingGoal)}</span>
@@ -956,13 +1028,20 @@ function neuroUnitAppend() {
       node.querySelector('.socactions')?.remove();
       after.appendChild(el(`<div class="socans"><div class="socblock"><span class="label">Answer</span><p>${esc(p.answer)}</p></div></div>`));
       const row = el(`<div class="continue-row"><button class="btn btn-solid neuro-btn" data-cont>${isLast ? 'Continue' : 'Next'}</button></div>`);
-      row.querySelector('[data-cont]').addEventListener('click', () => { neUnit.recallIdx++; neuroUnitAppend(); });
+      row.querySelector('[data-cont]').addEventListener('click', () => { row.remove(); neUnit.recallIdx++; neuroUnitAppend(); });
       after.appendChild(row);
+      row.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     });
     container.appendChild(node);
     node.scrollIntoView({ behavior: 'smooth', block: 'start' });
     return;
   } else if (stage === 'quiz') {
+    const topicName = topic ? topic.title : 'this topic';
+    const intro = el(`<section class="neuro-stage neuro-quiz-intro"><span class="label">Quick check</span>
+      <p class="neuro-prose">Two questions from <b>${esc(topicName)}</b>. If anything here feels new, read the full explainer first &mdash; the questions draw on it, not just the mini lesson above.</p>
+      <div class="continue-row"><button class="btn neuro-btn" data-topic-first>Read the topic explainer &rarr;</button></div></section>`);
+    intro.querySelector('[data-topic-first]').addEventListener('click', () => renderNeuroTopic(step.topicId));
+    container.appendChild(intro);
     renderNeuroQuiz(step.topicId, {
       limit: 2,
       mount: container,
@@ -1003,7 +1082,10 @@ function neuroUnitAppend() {
     return;
   }
 
-  node.querySelector('[data-cont]')?.addEventListener('click', () => { neUnit.stageIdx++; neuroUnitAppend(); });
+  const contBtn = node.querySelector('[data-cont]');
+  // retire the button once used — stages accumulate as a transcript, and a stale
+  // Continue left clickable would advance stageIdx again (skipping stages)
+  contBtn?.addEventListener('click', () => { contBtn.closest('.continue-row')?.remove(); neUnit.stageIdx++; neuroUnitAppend(); });
   container.appendChild(node);
   node.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }

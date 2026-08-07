@@ -15,8 +15,8 @@
       "title": "Spike Detector + Feature Vector",
       "unlockUnit": 12,
       "phase": "Detection & Features",
-      "shortDescription": "Event detection, spike count + RMS + band-power features across trials.",
-      "status": "planned"
+      "shortDescription": "Adaptive threshold from signal statistics, crossings grouped into discrete spikes, per-spike feature vector (trough index, amplitude, width).",
+      "status": "live"
     },
     {
       "id": "noise-smoother",

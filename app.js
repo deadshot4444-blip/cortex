@@ -67,7 +67,7 @@ const SECTION_INFO = {
 };
 // Public “What’s new” version. Private-only sections do NOT bump this or CHANGELOG —
 // only their own script/data ?v= cache-busts — so the sitewide update modal stays quiet.
-const APP_VERSION = '1.25.0';
+const APP_VERSION = '1.25.1';
 function cortexFreeNote(sectionPill, sectionName) {
   return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free</span><span class="free-note-txt">${sectionName} is free to use — no account, no paywall, no catch.</span></p>`;
 }
@@ -138,7 +138,7 @@ const SECTION_SCRIPTS = {
   anatomy: ['anatomy.js?v=36'],
   reference: ['reference.js?v=49', 'performance-drugs.js?v=7', 'ekg.js?v=36'],
   socrates: ['socrates.js?v=40'],
-  neuro: ['python-runtime.js?v=3', 'code-evaluator.js?v=2', 'neuro-practitioner.js?v=3', 'neuro.js?v=16'],
+  neuro: ['python-runtime.js?v=4', 'code-evaluator.js?v=2', 'neuro-practitioner.js?v=4', 'neuro.js?v=17'],
   cogpsych: ['cogpsych.js?v=6', 'cogpsych-learn.js?v=5', 'cogpsych-figs.js?v=1'],
 };
 const _scriptLoads = {};
@@ -844,6 +844,15 @@ const PRINCIPLES = [
 
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
+  {
+    date: 'August 7, 2026', version: '1.25.1', tag: 'NEW',
+    title: 'Neuro: Foundations on-ramp + Milestone 2',
+    items: [
+      'A new "Start here" row opens the course with zero prerequisites: why brain–computer interfaces exist (the philosophy), the core science of neural signals, and a from-absolute-zero coding on-ramp — then the Track.',
+      'Practitioner Milestone 2 is live: on a drifting recording where a fixed threshold fails, compute an adaptive one from the signal’s own statistics, group crossings into discrete spikes, and report a feature vector per spike.',
+      'Smoother units: the Continue button now follows you down the page, every quiz links its full topic explainer, code labs open with a never-coded-before orientation, and milestone grading is fixed under the hood.',
+    ],
+  },
   {
     date: 'August 7, 2026', version: '1.25.0', tag: 'NEW',
     title: 'Neuroengineering is open — one track, start to finish',

@@ -50,8 +50,10 @@ async function runPythonCode(code, opts = {}) {
   }
   let stdout = '';
   let stderr = '';
-  pyodide.setStdout({ batched: (s) => { stdout += s; } });
-  pyodide.setStderr({ batched: (s) => { stderr += s; } });
+  // Pyodide's `batched` callback delivers each line WITHOUT its trailing newline —
+  // re-add it, or multi-line output glues into one string and line-based graders fail.
+  pyodide.setStdout({ batched: (s) => { stdout += s + '\n'; } });
+  pyodide.setStderr({ batched: (s) => { stderr += s + '\n'; } });
 
   const run = pyodide.runPythonAsync(code);
   const timer = new Promise((_, reject) => {

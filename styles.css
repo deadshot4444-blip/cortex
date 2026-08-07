@@ -3452,3 +3452,27 @@ button.neuro-trackms.open:hover { background: var(--ne-surface); }
   color: var(--ne-text);
   box-shadow: none;
 }
+
+/* ============================================================================
+   NEURO — Foundations on-ramp + primer (and code-lab orientation)
+/* NEURO — Foundations on-ramp + primer */
+.neuro-foundations { margin-bottom: 6px; }
+.neuro-foundations-row .neuro-lablink { flex: 1 1 180px; }
+.neuro-primer-ask {
+  margin-top: 16px; border: 1px dashed var(--ne-line); padding: 12px 14px;
+  color: var(--ne-body); background: rgba(255, 255, 255, .02);
+}
+.neuro-primer-ask summary { cursor: pointer; font-weight: 600; color: var(--ne-text); }
+.neuro-primer-ask[open] summary { margin-bottom: 8px; }
+.neuro-primer-ask p { line-height: 1.6; }
+
+/* NEURO — never-coded orientation box in the code sandbox */
+.neuro-code-help {
+  margin: 10px 0 14px; border: 1px dashed var(--ne-line); padding: 10px 14px;
+  background: rgba(255, 255, 255, .02); color: var(--ne-body);
+}
+.neuro-code-help summary { cursor: pointer; font-weight: 600; color: var(--ne-text); font-size: 13px; }
+.neuro-code-help[open] summary { margin-bottom: 8px; }
+.neuro-code-help-list { margin: 0; padding-left: 20px; }
+.neuro-code-help-list li { margin-bottom: 7px; line-height: 1.55; font-size: 13px; }
+.neuro-code-help-list li:last-child { margin-bottom: 2px; }

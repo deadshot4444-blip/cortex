@@ -14,6 +14,36 @@ for idx, amp in events:
     print("event", idx, ":", amp, "mV")
 `;
 
+const M2_STARTER = `# Adaptive spike detection — starter
+# RECORDING (uV) is injected. Baseline drifts, so a fixed threshold fails here.
+
+n = len(RECORDING)
+mean = sum(RECORDING) / n
+var = sum((s - mean) ** 2 for s in RECORDING) / n
+std = var ** 0.5
+threshold = mean - 3.5 * std
+print("threshold:", round(threshold, 2), "uV")
+
+# TODO this counts every sample below threshold as its own spike — a real
+# spike is 1-3 consecutive samples. Group each below-threshold RUN into ONE
+# spike, then report its trough index, trough amplitude, and width.
+spike_count = 0
+for i, s in enumerate(RECORDING):
+    if s < threshold:
+        spike_count += 1
+        print("spike", i, ": amp", s, "uV width 1")
+print("spikes:", spike_count)
+`;
+
+const M2_SUMMARY_TEMPLATE = `Project: Spike Detector + Feature Vector
+Phase: Detection & Features
+Unlock: Unit 12
+Units: 8-12
+Skills: adaptive thresholding (mean - 3.5*std), event grouping, per-spike feature extraction (trough index, amplitude, width)
+Output: printed threshold + per-spike feature table
+Mastery: Units 8-12 + detector that groups crossings into discrete events.
+(Cortex Neuroengineering – Educational only)`;
+
 function neuroMilestonePassed(id) {
   return !!(NEURO_PROG.milestones && NEURO_PROG.milestones[id]?.passed);
 }
@@ -123,6 +153,52 @@ async function loadM1Recording() {
   return r.ok ? r.json() : null;
 }
 
+function parseM2Stdout(stdout) {
+  const lines = String(stdout || '').trim().split('\n').map(l => l.trim()).filter(Boolean);
+  let threshold = null;
+  let spikeCount = null;
+  const events = [];
+  for (const line of lines) {
+    const mt = line.match(/^threshold:\s*(-?\d+(?:\.\d+)?)\s*uV/i);
+    if (mt) threshold = Number(mt[1]);
+    const mc = line.match(/^spikes:\s*(\d+)/i);
+    if (mc) spikeCount = Number(mc[1]);
+    const me = line.match(/^spike\s+(\d+)\s*:\s*amp\s*(-?\d+(?:\.\d+)?)\s*uV\s*width\s*(\d+)/i);
+    if (me) events.push({ idx: Number(me[1]), amp: Number(me[2]), width: Number(me[3]) });
+  }
+  return { threshold, spikeCount, events };
+}
+
+function gradeM2Lab(stdout, recording) {
+  const ref = recording.reference;
+  const parsed = parseM2Stdout(stdout);
+  const issues = [];
+
+  if (parsed.threshold == null || Math.abs(parsed.threshold - ref.thresholdUv) > 0.01) {
+    issues.push(`Threshold should print as ${ref.thresholdUv} uV (mean - 3.5 * population std), got ${parsed.threshold ?? 'none'}.`);
+  }
+  if (parsed.spikeCount !== ref.spikeCount) {
+    issues.push(`Spike count should be ${ref.spikeCount} (group each below-threshold run into one spike), got ${parsed.spikeCount ?? 'none'}.`);
+  }
+  if (parsed.events.length !== ref.events.length) {
+    issues.push(`Expected ${ref.events.length} spike lines, got ${parsed.events.length}.`);
+  } else {
+    ref.events.forEach((ev, i) => {
+      const got = parsed.events[i];
+      if (!got || got.idx !== ev.idx || Math.abs(got.amp - ev.amp) > 0.01 || got.width !== ev.width) {
+        issues.push(`Spike ${i + 1} should be index ${ev.idx}, amp ${ev.amp} uV, width ${ev.width}.`);
+      }
+    });
+  }
+
+  return { passed: issues.length === 0, issues, parsed };
+}
+
+async function loadM2Recording() {
+  const r = await fetch('data/labs/m2-recording.json');
+  return r.ok ? r.json() : null;
+}
+
 async function renderNeuroMilestone(milestoneId) {
   await loadNeuro();
   const ms = NEURO.milestones?.milestones?.find(m => m.id === milestoneId);
@@ -136,7 +212,150 @@ async function renderNeuroMilestone(milestoneId) {
     await renderM1SignalViewer(ms);
     return;
   }
+  if (milestoneId === 'spike-detector') {
+    await renderM2SpikeDetector(ms);
+    return;
+  }
   renderNeuroEngineering();
+}
+
+async function renderM2SpikeDetector(ms) {
+  const recording = await loadM2Recording();
+  if (!recording) { renderNeuroEngineering(); return; }
+
+  const root = el('<div></div>');
+  root.appendChild(topbar('neuro'));
+  const passed = neuroMilestonePassed(ms.id);
+
+  const main = el(`<main class="neuro-page neuro-inner">
+    <section class="neuro-body">
+      <button class="backbtn topback" id="neback">&larr; Neuroengineering</button>
+      <span class="neuro-eyebrow">Practitioner Track &middot; Milestone 2</span>
+      <h1 class="neuro-h1">Spike Detector + Feature Vector</h1>
+      <p class="neuro-lede">The recording drifts, so the fixed threshold from Milestone 1 fails here. Compute an adaptive threshold from the signal's own statistics, group crossings into discrete spikes, and report a feature vector per spike.</p>
+      <div class="neuro-ojt-brief">
+        <span class="label">Acceptance criteria</span>
+        <ul class="neuro-criteria">
+          <li>Threshold = mean &minus; 3.5 &times; population std of <code>RECORDING</code>; print <code>threshold: X.XX uV</code> (2 dp)</li>
+          <li>Group each run of consecutive below-threshold samples into ONE spike</li>
+          <li>Per spike print <code>spike IDX : amp A uV width W</code> &mdash; trough index, trough amplitude, run length</li>
+          <li>Print <code>spikes: N</code> matching the reference</li>
+        </ul>
+      </div>
+      <div class="neuro-lab-viz">
+        <span class="label">Recording preview &middot; ${recording.sampleRateHz} Hz &middot; ${recording.samples.length} samples &middot; adaptive threshold dashed</span>
+        <canvas class="neuro-wave" id="m2wave" width="900" height="200"></canvas>
+      </div>
+      <textarea class="neuro-code-draft" id="m2code" rows="18" spellcheck="false">${esc(M2_STARTER)}</textarea>
+      <div class="neuro-terminal neuro-ojt-terminal">
+        <div class="neuro-terminal-bar">
+          <span class="neuro-terminal-dot"></span>
+          <span class="neuro-terminal-title">bci-lab@cortex &mdash; milestone_2.py</span>
+          <span class="neuro-terminal-status" id="m2status">Python idle</span>
+        </div>
+        <div class="neuro-terminal-log" id="m2log"></div>
+        <p class="neuro-terminal-msg" id="m2msg">Run the starter first &mdash; watch it overcount. Then make it group runs.</p>
+      </div>
+      <div class="neuro-sandbox-actions">
+        <button class="btn btn-solid neuro-btn" id="m2run">Run</button>
+        <button class="btn neuro-btn" id="m2submit">Submit milestone</button>
+        <button class="btn neuro-btn" id="m2reset">Reset starter</button>
+        <button class="btn neuro-btn" id="m2hint">Hint</button>
+        <button class="btn neuro-btn" id="m2copy">Copy project summary</button>
+      </div>
+      <div class="neuro-sandbox-extra" id="m2extra"></div>
+      ${passed ? '<p class="neuro-terminal-msg ok">Milestone 2 complete — saved to your progress.</p>' : ''}
+    </section>
+  </main>`);
+
+  main.querySelector('#neback').addEventListener('click', renderNeuroEngineering);
+  const canvas = main.querySelector('#m2wave');
+  const code = main.querySelector('#m2code');
+  const log = main.querySelector('#m2log');
+  const msg = main.querySelector('#m2msg');
+  const status = main.querySelector('#m2status');
+
+  const paintWave = () => {
+    const w = Math.min(canvas.parentElement?.clientWidth || 900, 900);
+    canvas.width = w;
+    canvas.height = 200;
+    drawNeuroWaveform(canvas, recording.samples, recording.reference.events, recording.reference.thresholdUv);
+  };
+  paintWave();
+  window.addEventListener('resize', paintWave);
+  main._m2Resize = paintWave;
+
+  const appendLog = (cls, text) => {
+    const line = el(`<div class="neuro-term-line ${cls}"></div>`);
+    line.textContent = text;
+    log.appendChild(line);
+    log.scrollTop = log.scrollHeight;
+  };
+
+  const runLab = async (submit) => {
+    status.textContent = submit ? 'Grading…' : 'Running…';
+    msg.textContent = submit ? 'Submitting against reference…' : 'Executing Python…';
+    try {
+      const pyodide = await ensurePythonRuntime((s) => { status.textContent = s; });
+      const result = await runPythonCode(code.value, {
+        globals: { RECORDING: recording.samples },
+        onStatus: (s) => { status.textContent = s; },
+      });
+      appendLog('cmd', `$ python milestone_2.py${submit ? '  # submit' : ''}`);
+      if (result.stdout) appendLog('out', result.stdout.trimEnd());
+      if (result.stderr) appendLog('err', result.stderr.trimEnd());
+      if (!result.ok) {
+        msg.textContent = 'Execution failed — fix errors before submitting.';
+        msg.classList.add('bad');
+        status.textContent = 'Error';
+        return;
+      }
+      if (!submit) {
+        msg.textContent = 'Run complete. Submit when the spike table groups each event once.';
+        msg.classList.remove('bad');
+        status.textContent = 'Python ready';
+        return;
+      }
+      const grade = gradeM2Lab(result.stdout, recording);
+      if (grade.passed) {
+        if (!NEURO_PROG.milestones) NEURO_PROG.milestones = {};
+        NEURO_PROG.milestones[ms.id] = { passed: true, ts: Date.now() };
+        saveNeuroProg();
+        msg.textContent = 'Milestone 2 passed — feature table matches reference.';
+        msg.classList.add('ok');
+        status.textContent = 'Passed';
+      } else {
+        msg.textContent = grade.issues[0] || 'Output mismatch.';
+        msg.classList.add('bad');
+        status.textContent = 'Failed';
+        grade.issues.forEach(i => appendLog('muted', `# ${i}`));
+      }
+    } catch (e) {
+      appendLog('err', e?.message || String(e));
+      msg.textContent = 'Runtime error.';
+      msg.classList.add('bad');
+    }
+  };
+
+  main.querySelector('#m2run').addEventListener('click', () => runLab(false));
+  main.querySelector('#m2submit').addEventListener('click', () => runLab(true));
+  main.querySelector('#m2reset').addEventListener('click', () => {
+    code.value = M2_STARTER;
+    appendLog('muted', '# reset to starter');
+  });
+  main.querySelector('#m2hint').addEventListener('click', (e) => {
+    e.target.disabled = true;
+    main.querySelector('#m2extra').appendChild(el(`<div class="sochint"><span class="label">Hint</span><p>Walk the recording with an index. When a sample drops below <code>threshold</code>, keep advancing while samples stay below it &mdash; that whole run is <em>one</em> spike. Its <b>width</b> is the run length, its <b>amp</b> is the minimum value in the run, its <b>index</b> is where that minimum sits. Print the spike lines as you find them, then <code>spikes: N</code> last.</p></div>`));
+  });
+  main.querySelector('#m2copy').addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(M2_SUMMARY_TEMPLATE);
+      appendLog('muted', '# project summary copied');
+    } catch {}
+  });
+
+  root.appendChild(main);
+  setView(root);
 }
 
 async function renderM1SignalViewer(ms) {
