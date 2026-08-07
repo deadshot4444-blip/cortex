@@ -31,7 +31,7 @@ const SPECIALTIES = [
 const NAME_BY_KEY = Object.fromEntries(SPECIALTIES.map(s => [s.key, s.name]));
 
 // Sections gated as "Coming soon" for the public launch. Remove a key here to make it live.
-const COMING_SOON = new Set(['anatomy', 'socrates', 'neuro']);
+const COMING_SOON = new Set(['anatomy', 'socrates']);
 function sectionMenuTag(key) {
   if (COMING_SOON.has(key)) return '<span class="mi-soon">Soon</span>';
   if (key === 'reference') return '<span class="mi-tag">New</span>';
@@ -56,9 +56,8 @@ const SECTION_INFO = {
   },
   neuro: {
     label: 'Neuroengineering',
-    badge: 'Under construction',
-    headline: 'Temporarily under construction.',
-    desc: 'The Neuroengineering division is offline while we refine the curriculum, labs, and Practitioner track to the same standard as the rest of Cortex. It will return soon — thank you for your patience.',
+    headline: 'Build the bridge between brain and machine.',
+    desc: 'One linear track — 20 BCI Builder units from raw neural signals to a working brain–computer interface pipeline. Below it: Socratic subject study, a real in-browser Python lab, decision simulations, and the Practitioner Track.',
   },
   cogpsych: {
     label: 'Cognitive Psychology',
@@ -68,7 +67,7 @@ const SECTION_INFO = {
 };
 // Public “What’s new” version. Private-only sections do NOT bump this or CHANGELOG —
 // only their own script/data ?v= cache-busts — so the sitewide update modal stays quiet.
-const APP_VERSION = '1.24.0';
+const APP_VERSION = '1.25.0';
 const MEMBERSHIP_START = 'August 1, 2026';
 function cortexFreeNote(sectionPill, sectionName) {
   return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free for now</span><span class="free-note-txt">${sectionName} becomes optional membership ${MEMBERSHIP_START}. The full MCAT suite stays free forever.</span></p>`;
@@ -140,7 +139,7 @@ const SECTION_SCRIPTS = {
   anatomy: ['anatomy.js?v=36'],
   reference: ['reference.js?v=49', 'performance-drugs.js?v=7', 'ekg.js?v=36'],
   socrates: ['socrates.js?v=40'],
-  neuro: ['python-runtime.js?v=3', 'code-evaluator.js?v=2', 'neuro-practitioner.js?v=3', 'neuro.js?v=14'],
+  neuro: ['python-runtime.js?v=3', 'code-evaluator.js?v=2', 'neuro-practitioner.js?v=3', 'neuro.js?v=15'],
   cogpsych: ['cogpsych.js?v=6', 'cogpsych-learn.js?v=5', 'cogpsych-figs.js?v=1'],
 };
 const _scriptLoads = {};
@@ -846,6 +845,15 @@ const PRINCIPLES = [
 
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
+  {
+    date: 'August 7, 2026', version: '1.25.0', tag: 'NEW',
+    title: 'Neuroengineering is open — one track, start to finish',
+    items: [
+      'The Neuroengineering division is live. The whole course is now one visible track: 20 BCI Builder units in a straight line from raw neural signals to a working brain–computer interface pipeline, with a Continue button that always knows your next step.',
+      'Practitioner milestones sit right on the track where they unlock — clear Unit 7 and the first build lab, the Neural Signal Viewer, opens with a real in-browser Python workspace.',
+      'Below the track, everything is free to explore: 12 subjects of Socratic study and quizzes, 13 NeuroCode Python lessons that run in your browser, and 12 NeuroSim decision labs.',
+    ],
+  },
   {
     date: 'August 7, 2026', version: '1.24.0', tag: 'NEW',
     title: 'Cognitive Psychology — a full open course',

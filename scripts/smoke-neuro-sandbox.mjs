@@ -10,7 +10,7 @@ const errors = [];
 page.on('pageerror', e => errors.push(e.message));
 
 await page.addInitScript(v => localStorage.setItem('cs-seen-ver', v), APP_VERSION);
-await page.goto('http://localhost:8765/', { waitUntil: 'networkidle' });
+await page.goto(process.env.CORTEX_URL || 'http://localhost:8765/', { waitUntil: 'networkidle' });
 await page.click('[data-go="neuro"]');
 await page.waitForSelector('.neuro-page', { timeout: 15000 });
 await page.click('#ne-codelab');
@@ -31,6 +31,8 @@ await page.waitForFunction(
 const runOut = await page.locator('.neuro-term-line.out').last().textContent();
 const starterOk = runOut?.includes('Spikes: 3');
 
+// The solution/check controls live inside a collapsed <details> fold — open it first.
+await page.evaluate(() => document.querySelectorAll('details.neuro-sandbox-more').forEach(d => { d.open = true; }));
 await page.click('[data-load-sol]');
 await page.click('[data-check-code]');
 await page.waitForFunction(

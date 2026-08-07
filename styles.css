@@ -3358,3 +3358,46 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+
+/* ============================================================================
+   NEURO — The Track (single linear course spine on the hub)
+   ========================================================================= */
+.neuro-track { margin: 26px 0 38px; }
+.neuro-track-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+.neuro-track > .bar { display: block; height: 4px; background: var(--ne-line); margin-bottom: 18px; }
+.neuro-track > .bar > i { display: block; height: 100%; background: var(--ne-text); }
+.neuro-tracklist { display: flex; flex-direction: column; }
+.neuro-trackrow {
+  display: flex; align-items: center; gap: 14px; width: 100%; text-align: left;
+  padding: 13px 14px; margin-top: -1px; background: transparent;
+  border: 1px solid var(--ne-line); color: var(--ne-body); cursor: pointer;
+  transition: background .16s ease;
+}
+.neuro-trackrow:hover { background: var(--ne-surface); }
+.neuro-trackrow.current { border-color: var(--ne-text); background: var(--ne-surface); position: relative; z-index: 1; }
+.neuro-trackrow.done { opacity: .55; }
+.neuro-trackrow.done:hover { opacity: .85; }
+.neuro-tracknum { flex: 0 0 30px; font-size: 12px; color: var(--ne-meta); }
+.neuro-trackrow.current .neuro-tracknum { color: var(--ne-text); }
+.neuro-trackcopy { flex: 1 1 auto; min-width: 0; }
+.neuro-tracktitle { display: block; font-size: 14.5px; font-weight: 600; color: var(--ne-text); letter-spacing: -.01em; }
+.neuro-trackmeta { display: block; font-size: 11.5px; color: var(--ne-meta); margin-top: 2px; }
+.neuro-trackgo { flex: 0 0 auto; font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--ne-meta); }
+.neuro-trackrow.current .neuro-trackgo { color: var(--ne-text); }
+.neuro-trackms {
+  display: flex; align-items: center; gap: 10px; width: 100%; text-align: left;
+  padding: 9px 14px; margin-top: -1px; border: 1px dashed var(--ne-line);
+  background: rgba(255, 255, 255, .02); color: var(--ne-meta); font-size: 11.5px;
+}
+button.neuro-trackms.open { cursor: pointer; color: var(--ne-body); border-style: solid; }
+button.neuro-trackms.open:hover { background: var(--ne-surface); }
+.neuro-trackms-tag { font-size: 9.5px; letter-spacing: .09em; text-transform: uppercase; color: var(--ne-faint); border: 1px solid var(--ne-line); padding: 1px 5px; }
+.neuro-trackms-title { font-weight: 600; }
+.neuro-trackms-sub { margin-left: auto; font-size: 10px; text-transform: uppercase; letter-spacing: .06em; white-space: nowrap; }
+.neuro-trackms.done { color: #57ab5a; }
+.neuro-trackms.done .neuro-trackms-tag { border-color: #2b4a2f; }
+@media (max-width: 560px) {
+  .neuro-trackgo { display: none; }
+  .neuro-trackms { flex-wrap: wrap; }
+  .neuro-trackms-sub { margin-left: 0; }
+}

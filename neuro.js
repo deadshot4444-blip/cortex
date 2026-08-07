@@ -56,6 +56,47 @@ function neuroMilestonesPassed() {
 
 /* ---------- hub ---------- */
 
+/* The Track — the whole course as one visible linear spine (a guide, not a gate:
+   any unit is clickable; the current one is highlighted; done units show a check).
+   Practitioner milestones appear inline after the unit that unlocks them. */
+function neuroTrackRows(path, pg) {
+  const msByUnit = {};
+  (NEURO.milestones?.milestones || []).forEach(ms => { msByUnit[ms.unlockUnit] = ms; });
+  return path.steps.map(step => {
+    const done = NEURO_PROG.pathDone.includes(step.id);
+    const current = pg.next && pg.next.id === step.id;
+    // mirror neuroUnitStages(): 5 base stages + optional quiz/code/sim + debrief
+    const stages = 6
+      + ((step.topicId && neuroTopic(step.topicId)?.quizQuestions?.length) ? 1 : 0)
+      + (step.neuroCodeLessonId ? 1 : 0)
+      + (step.simulationId ? 1 : 0);
+    const subj = neuroSubject(step.subjectId);
+    let html = `<button class="neuro-trackrow ${done ? 'done' : ''} ${current ? 'current' : ''}" type="button" data-unit="${step.id}">
+      <span class="neuro-tracknum mono">${done ? '&#10003;' : String(step.order).padStart(2, '0')}</span>
+      <span class="neuro-trackcopy">
+        <span class="neuro-tracktitle">${esc(step.title)}</span>
+        <span class="neuro-trackmeta">${esc(step.estimatedFocus || '')} &middot; ${stages} stages${subj ? ` &middot; ${esc(subj.name)}` : ''}</span>
+      </span>
+      <span class="neuro-trackgo mono">${current ? 'Continue &rarr;' : done ? 'Review' : 'Open'}</span>
+    </button>`;
+    const ms = msByUnit[step.order];
+    if (ms) {
+      const unlocked = neuroMilestoneUnlockedHub(ms, pg);
+      const live = ms.status === 'live';
+      const msDone = NEURO_PROG.milestones?.[ms.id]?.passed;
+      const clickable = unlocked && live;
+      const tag = clickable ? 'button' : 'div';
+      const sub = msDone ? 'Complete' : clickable ? 'Open lab &rarr;' : ms.status === 'planned' ? 'In development' : 'Unlocks here';
+      html += `<${tag} class="neuro-trackms ${msDone ? 'done' : ''} ${clickable ? 'open' : ''}"${clickable ? ` type="button" data-ms="${ms.id}"` : ''}>
+        <span class="neuro-trackms-tag mono">Practitioner</span>
+        <span class="neuro-trackms-title">${esc(ms.title)}</span>
+        <span class="neuro-trackms-sub mono">${sub}</span>
+      </${tag}>`;
+    }
+    return html;
+  }).join('');
+}
+
 async function renderNeuroEngineering() {
   if (typeof stopTimer === 'function') stopTimer();
   if (typeof session !== 'undefined') session = null;
@@ -84,7 +125,7 @@ async function renderNeuroEngineering() {
       <div class="neuro-hero-inner">
         <span class="neuro-eyebrow">Neuroengineering</span>
         <h1>Where the mind meets the machine.</h1>
-        <p class="neuro-lede">${topicN} topics &middot; ${subjN} domains &middot; BCI Builder &middot; NeuroSim &middot; NeuroCode</p>
+        <p class="neuro-lede">One track &middot; ${pg.total || 20} units, start to finish &middot; ${topicN} topics &middot; NeuroCode &middot; NeuroSim</p>
         <p class="neuro-membership">
           <span class="free-pill">MCAT free</span>
           <span class="free-pill free-pill--soft">Neuro free for now</span>
@@ -97,13 +138,28 @@ async function renderNeuroEngineering() {
       </div>
     </section>
     <section class="neuro-body">
-      ${path ? `<div class="neuro-pathband neuro-pathband--slim">
-        <div class="neuro-pathband-head">
-          <span class="label">BCI Builder</span>
+      ${path ? `<div class="neuro-track" id="ne-track">
+        <div class="neuro-track-head">
+          <span class="label">The Track</span>
           <span class="neuro-pathstat">${pg.done}/${pg.total} &middot; ${pg.pct}%</span>
         </div>
         <span class="bar"><i style="width:${pg.pct}%"></i></span>
+        <div class="neuro-tracklist">${neuroTrackRows(path, pg)}</div>
       </div>` : ''}
+      <div class="neuro-section">
+        <span class="neuro-section-label">Lessons &amp; subjects</span>
+        <div class="neuro-grid neuro-grid--hub" id="ne-grid"></div>
+      </div>
+      <div class="neuro-section">
+        <span class="neuro-section-label">Practice &amp; labs</span>
+        <div class="neuro-lablinks">
+          <button class="neuro-lablink" id="ne-codelab">NeuroCode <span>${codeN}</span></button>
+          <button class="neuro-lablink" id="ne-simlib">NeuroSim <span>${simN}</span></button>
+          ${m1 ? `<button class="neuro-lablink neuro-lablink--practitioner ${m1Unlocked ? '' : 'neuro-lablink--locked'}" id="ne-practitioner" type="button" ${m1Unlocked ? '' : 'disabled'}>
+            Practitioner <span>${m1Done ? 'M1 done' : m1Unlocked ? 'M1 open' : `${pg.done}/7`}</span>
+          </button>` : ''}
+        </div>
+      </div>
       ${NEURO.milestones ? `<details class="neuro-practitioner-fold">
         <summary class="neuro-practitioner-sum">
           <span class="label">Practitioner Track</span>
@@ -126,20 +182,6 @@ async function renderNeuroEngineering() {
           </${tag}>`;
         }).join('')}</div>
       </details>` : ''}
-      <div class="neuro-section">
-        <span class="neuro-section-label">Labs</span>
-        <div class="neuro-lablinks">
-          ${m1 ? `<button class="neuro-lablink neuro-lablink--practitioner ${m1Unlocked ? '' : 'neuro-lablink--locked'}" id="ne-practitioner" type="button" ${m1Unlocked ? '' : 'disabled'}>
-            Practitioner <span>${m1Done ? 'M1 done' : m1Unlocked ? 'M1 open' : `${pg.done}/7`}</span>
-          </button>` : ''}
-          <button class="neuro-lablink" id="ne-codelab">NeuroCode <span>${codeN}</span></button>
-          <button class="neuro-lablink" id="ne-simlib">NeuroSim <span>${simN}</span></button>
-        </div>
-      </div>
-      <div class="neuro-section">
-        <span class="neuro-section-label">Subjects</span>
-        <div class="neuro-grid neuro-grid--hub" id="ne-grid"></div>
-      </div>
     </section>
   </main>`);
 
@@ -162,7 +204,12 @@ async function renderNeuroEngineering() {
     const go = main.querySelector('#ne-path');
     if (pg.next) go.addEventListener('click', () => renderNeuroUnit(pg.next.id));
     else go.disabled = true;
-    main.querySelector('#ne-subjects')?.addEventListener('click', () => renderNeuroSubjects());
+    main.querySelector('#ne-subjects')?.addEventListener('click', () => {
+      main.querySelector('#ne-grid')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    main.querySelectorAll('[data-unit]').forEach(btn => {
+      btn.addEventListener('click', () => renderNeuroUnit(btn.dataset.unit));
+    });
   }
   main.querySelector('#ne-practitioner')?.addEventListener('click', () => {
     if (typeof renderNeuroMilestone === 'function') renderNeuroMilestone('neural-signal-viewer');

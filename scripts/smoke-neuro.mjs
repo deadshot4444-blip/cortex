@@ -10,7 +10,7 @@ const errors = [];
 page.on('pageerror', e => errors.push(`${e.message}\n${e.stack?.split('\n')[1] || ''}`));
 
 await page.addInitScript(v => localStorage.setItem('cs-seen-ver', v), APP_VERSION);
-await page.goto('http://localhost:8765/', { waitUntil: 'networkidle' });
+await page.goto(process.env.CORTEX_URL || 'http://localhost:8765/', { waitUntil: 'networkidle' });
 await page.click('[data-go="neuro"]');
 await page.waitForFunction(
   () => typeof renderNeuroEngineering === 'function' && document.querySelector('.neuro-page'),
