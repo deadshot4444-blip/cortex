@@ -30,9 +30,12 @@ const SPECIALTIES = [
 ];
 const NAME_BY_KEY = Object.fromEntries(SPECIALTIES.map(s => [s.key, s.name]));
 
-// Sections gated as "Coming soon" for the public launch. Remove a key here to make it live.
-const COMING_SOON = new Set(['anatomy', 'socrates']);
+// Sections gated from public use. Construction sections stay visible, but their
+// full course experiences remain closed until Kevin finishes evaluating them.
+const UNDER_CONSTRUCTION = new Set(['reference', 'socrates']);
+const COMING_SOON = new Set(['anatomy', ...UNDER_CONSTRUCTION]);
 function sectionMenuTag(key) {
+  if (UNDER_CONSTRUCTION.has(key)) return '<span class="mi-soon">Under construction</span>';
   if (COMING_SOON.has(key)) return '<span class="mi-soon">Soon</span>';
   if (key === 'reference') return '<span class="mi-tag">New</span>';
   return '';
@@ -46,13 +49,15 @@ const SECTION_INFO = {
   },
   reference: {
     label: 'Medicine',
-    headline: 'Master pharmacology.',
-    desc: 'One 81-step study path — pharmacology, performance drugs, micro, labs, ECG — plus browse and drill in every area.',
+    badge: 'Under construction',
+    headline: 'Medicine is under construction.',
+    desc: 'This section is temporarily closed while its curriculum and learning flow are reviewed. It will reopen after the current Neuroengineering evaluation cycle.',
   },
   socrates: {
     label: 'Learn to Learn',
-    headline: 'Build the skill beneath every other skill.',
-    desc: 'Choose General, Business, or Medical. Each course shows you how to focus, remember, practice, and improve for that kind of learning.',
+    badge: 'Under construction',
+    headline: 'Learn to Learn is under construction.',
+    desc: 'This section is temporarily closed while its curriculum and learning flow are reviewed. It will reopen after the current Neuroengineering evaluation cycle.',
   },
   neuro: {
     label: 'Neuroengineering',
@@ -65,9 +70,9 @@ const SECTION_INFO = {
     desc: 'A free, open course on the science of the mind — 13 chapters from how cognition is studied and the brain, through perception, attention, and memory, to knowledge, imagery, language, problem solving, and decision making. Guided lessons first; adaptive review to make it stick.',
   },
 };
-// Public “What’s new” version. Private-only sections do NOT bump this or CHANGELOG —
-// only their own script/data ?v= cache-busts — so the sitewide update modal stays quiet.
-const APP_VERSION = '1.25.1';
+// Local build pace: every completed update or fix advances one patch version.
+// This number can move locally; nothing ships until Kevin explicitly says ship.
+const APP_VERSION = '1.25.13';
 function cortexFreeNote(sectionPill, sectionName) {
   return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free</span><span class="free-note-txt">${sectionName} is free to use — no account, no paywall, no catch.</span></p>`;
 }
@@ -138,7 +143,7 @@ const SECTION_SCRIPTS = {
   anatomy: ['anatomy.js?v=36'],
   reference: ['reference.js?v=49', 'performance-drugs.js?v=7', 'ekg.js?v=36'],
   socrates: ['socrates.js?v=40'],
-  neuro: ['python-runtime.js?v=4', 'code-evaluator.js?v=2', 'neuro-practitioner.js?v=4', 'neuro.js?v=17'],
+  neuro: ['python-runtime.js?v=4', 'code-evaluator.js?v=2', 'neuro-practitioner.js?v=4', 'neuro.js?v=27'],
   cogpsych: ['cogpsych.js?v=6', 'cogpsych-learn.js?v=5', 'cogpsych-figs.js?v=1'],
 };
 const _scriptLoads = {};
@@ -480,6 +485,7 @@ function topbar(active) {
               </button>
               <button class="menuitem${menuActive('reference')}" data-go="reference"${menuCurrent('reference')}>
                 <span class="mi-copy"><span class="mi-name">Medicine</span><span class="mi-desc">Pharm, micro, labs &amp; ECG</span></span>
+                ${sectionMenuTag('reference')}
               </button>
               <button class="menuitem${menuActive('cogpsych')}" data-go="cogpsych"${menuCurrent('cogpsych')}>
                 <span class="mi-copy"><span class="mi-name">Cognitive Psychology</span><span class="mi-desc">The science of the mind</span></span>
@@ -488,7 +494,7 @@ function topbar(active) {
           </div>
           <div class="menu-quick" aria-label="Tools and access">
             <button class="menuquick${menuActive('pomodoro')}" data-go="pomodoro"${menuCurrent('pomodoro')}>Focus timer</button>
-            <button class="menuquick${menuActive('socrates')}" data-go="socrates"${menuCurrent('socrates')}>Learn to learn <span class="mq-soon">Soon</span></button>
+            <button class="menuquick${menuActive('socrates')}" data-go="socrates"${menuCurrent('socrates')}>Learn to learn <span class="mq-soon">Under construction</span></button>
             <button class="menuquick${menuActive('utsa')}" data-go="utsa"${menuCurrent('utsa')}>UTSA &amp; UT Health</button>
           </div>
         </div>
@@ -844,6 +850,18 @@ const PRINCIPLES = [
 
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
+  {
+    date: 'August 7, 2026', version: '1.25.13', tag: 'UPDATE',
+    title: 'Neuroengineering: a clearer path from Start to completion',
+    items: [
+      'The main Neuroengineering page is now focused on Foundations and the primary Track. Units sit inside a clear Show units dropdown, while subjects, NeuroCode, NeuroSim, and Practitioner work have their own Lessons & Labs page.',
+      'The primary Track now behaves like real progress: it says Start before first use, changes to Continue after you begin, resumes the current unit, and always opens the lesson at the true top of the page.',
+      'Lessons have a more polished teaching hierarchy, clearer Objective and Focus rows, obvious Back controls, Track-aligned subject ordering, and cleaner spacing around titles and question counts.',
+      'Active recall now has a visible Submit answer then Next flow. Quick Checks show one question at a time and use an explicit fail, inline review, retry, pass, and Continue sequence so the learner can never get stranded at Stage 6.',
+      'NeuroCode and NeuroSim progression is repaired from end to end: hidden gates stay hidden, incorrect simulations offer Retry, successful work offers Continue, and Unit 1 reaches Complete. The Lists exercise also shows the correct 7-sample target.',
+      'Medicine and Learn to Learn are temporarily closed and clearly marked Under construction while their curriculum and learning flow are evaluated after Neuroengineering.',
+    ],
+  },
   {
     date: 'August 7, 2026', version: '1.25.1', tag: 'NEW',
     title: 'Neuro: Foundations on-ramp + Milestone 2',
@@ -2265,36 +2283,35 @@ function renderStats() {
   if (pomoBtn) pomoBtn.addEventListener('click', () => { if (typeof renderPomodoro === 'function') renderPomodoro(); });
   const neuroBtn = main.querySelector('#stats-neuro');
   if (neuroBtn) neuroBtn.addEventListener('click', () => { if (typeof renderNeuro === 'function') renderNeuro(); });
+  const openMedicineTool = async (open) => {
+    if (COMING_SOON.has('reference')) { renderComingSoon('reference'); return; }
+    await ensureSection('reference');
+    await open();
+  };
   const medPathBtn = main.querySelector('#stats-medpath');
-  if (medPathBtn) medPathBtn.addEventListener('click', async () => {
-    await ensureSection('reference');
+  if (medPathBtn) medPathBtn.addEventListener('click', () => openMedicineTool(async () => {
     if (typeof renderReference === 'function') await renderReference();
-  });
+  }));
   const pharmBtn = main.querySelector('#stats-pharm');
-  if (pharmBtn) pharmBtn.addEventListener('click', async () => {
-    await ensureSection('reference');
+  if (pharmBtn) pharmBtn.addEventListener('click', () => openMedicineTool(() => {
     renderRefSet('pharm', 'classes');
-  });
+  }));
   const pedBtn = main.querySelector('#stats-ped');
-  if (pedBtn) pedBtn.addEventListener('click', async () => {
-    await ensureSection('reference');
+  if (pedBtn) pedBtn.addEventListener('click', () => openMedicineTool(() => {
     renderPerformanceDrugs('hub');
-  });
+  }));
   const microBtn = main.querySelector('#stats-micro');
-  if (microBtn) microBtn.addEventListener('click', async () => {
-    await ensureSection('reference');
+  if (microBtn) microBtn.addEventListener('click', () => openMedicineTool(() => {
     renderRefSet('micro', 'learn');
-  });
+  }));
   const labsBtn = main.querySelector('#stats-labs');
-  if (labsBtn) labsBtn.addEventListener('click', async () => {
-    await ensureSection('reference');
+  if (labsBtn) labsBtn.addEventListener('click', () => openMedicineTool(() => {
     renderRefSet('labs', 'learn');
-  });
+  }));
   const ekgBtn = main.querySelector('#stats-ekg');
-  if (ekgBtn) ekgBtn.addEventListener('click', async () => {
-    await ensureSection('reference');
+  if (ekgBtn) ekgBtn.addEventListener('click', () => openMedicineTool(() => {
     renderEKG('library');
-  });
+  }));
 
   root.appendChild(main);
   setView(root);

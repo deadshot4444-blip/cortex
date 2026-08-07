@@ -1680,8 +1680,9 @@ button:focus-visible, a:focus-visible, textarea:focus-visible, input:focus-visib
 }
 .neuro-row:last-child { border-bottom: 0; }
 .neuro-row:hover { background: #111114; }
+.neuro-row-main { display: flex; min-width: 0; flex-direction: column; align-items: flex-start; }
 .neuro-row-title { font-size: 15px; color: var(--ne-text); }
-.neuro-row-sub { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--ne-meta); margin-top: 4px; }
+.neuro-row-sub { display: block; margin-top: 6px; font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--ne-meta); }
 .neuro-row-right { flex: 0 0 auto; }
 .neuro-block { margin-top: 28px; }
 .neuro-block .label { display: block; color: var(--ne-label); margin-bottom: 10px; }
@@ -1705,9 +1706,56 @@ button:focus-visible, a:focus-visible, textarea:focus-visible, input:focus-visib
 .neuro-page .result-block { background: #0f0f12; border-color: #2a2a30; color: var(--ne-body); }
 .neuro-page .socinput, .neuro-input { background: #0f0f12; border-color: #2a2a30; color: var(--ne-text); }
 .neuro-page .socinput:focus, .neuro-input:focus { border-color: #4a4a52; }
+.neuro-page [hidden] { display: none !important; }
 .neuro-page .sochint, .neuro-page .socblock { background: #0f0f12; }
 .neuro-page .sochint p, .neuro-page .socblock p { color: var(--ne-body); }
 .neuro-page .socblock.why .label { color: var(--ne-meta); }
+.neuro-topic-review {
+  margin-top: 20px;
+  border: 1px solid #303038;
+  background: #0f0f12;
+}
+.neuro-topic-review summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 13px 15px;
+  cursor: pointer;
+  list-style: none;
+  color: var(--ne-text);
+  font-size: 14px;
+  font-weight: 600;
+}
+.neuro-topic-review summary::-webkit-details-marker { display: none; }
+.neuro-topic-review-state {
+  flex: 0 0 auto;
+  color: var(--ne-meta);
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.neuro-topic-review[open] .neuro-topic-review-state { color: var(--ne-text); }
+.neuro-topic-review-body { padding: 18px 16px 20px; border-top: 1px solid #303038; }
+.neuro-topic-review-body > .neuro-prose { margin-top: 0; }
+.neuro-topic-review-body .neuro-block { margin-top: 22px; }
+.neuro-quiz-mount { margin-top: 24px; padding-top: 24px; border-top: 1px solid #222228; }
+.neuro-embed > .neuro-dots { margin-top: 0; }
+.neuro-quiz-result { padding: 8px 0 4px; }
+.neuro-quiz-result > .label {
+  display: block;
+  color: var(--ne-text);
+  font-family: var(--sans);
+  font-size: 18px;
+  font-weight: 620;
+  letter-spacing: -.012em;
+  text-transform: none;
+}
+.neuro-quiz-result.passed { border-left: 2px solid var(--green); padding-left: 16px; }
+.neuro-quiz-result.retry { border-left: 2px solid var(--amber); padding-left: 16px; }
+.neuro-quiz-result .endbtns { margin-top: 20px; }
 .neuro-code {
   margin-top: 10px; padding: 14px 16px; background: #08080a; border: 1px solid #2a2a30;
   font-family: var(--mono); font-size: 12px; line-height: 1.55; color: #e8e8ee;
@@ -1721,6 +1769,71 @@ button:focus-visible, a:focus-visible, textarea:focus-visible, input:focus-visib
 .neuro-score { font-family: var(--mono); font-size: 42px; letter-spacing: .04em; color: #fff; margin-top: 12px; }
 .neuro-score .of { color: var(--ne-meta); }
 .neuro-kv { display: flex; justify-content: space-between; gap: 16px; margin-top: 10px; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--ne-body); }
+.neuro-stage + .neuro-stage {
+  margin-top: 38px;
+  padding-top: 34px;
+  border-top: 1px solid #222228;
+}
+.neuro-stage > .label {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--ne-text);
+  font-family: var(--sans);
+  font-size: 18px;
+  font-weight: 620;
+  letter-spacing: -.012em;
+  text-transform: none;
+}
+.neuro-stage > .label + .neuro-block { margin-top: 16px; }
+.neuro-stage > .neuro-block > .label {
+  color: var(--ne-text);
+  font-family: var(--sans);
+  font-size: 16px;
+  font-weight: 620;
+  letter-spacing: -.006em;
+  text-transform: none;
+}
+.neuro-stage > .neuro-kv {
+  display: grid;
+  grid-template-columns: 104px minmax(0, 1fr);
+  align-items: start;
+  gap: 18px;
+  margin-top: 0;
+  padding: 12px 0;
+  border-top: 1px solid #222228;
+  color: var(--ne-body);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0;
+}
+.neuro-stage > .neuro-kv + .neuro-kv { border-bottom: 1px solid #222228; }
+.neuro-stage > .neuro-kv > span:first-child {
+  padding-top: 3px;
+  color: var(--ne-faint);
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.neuro-stage > .neuro-kv > span:last-child {
+  color: var(--ne-text);
+  font-size: 16px;
+  font-weight: 520;
+  letter-spacing: 0;
+}
+.neuro-stage > .neuro-mono {
+  margin-top: 18px;
+  padding: 14px 16px;
+  border-left: 2px solid #5a5a64;
+  background: rgba(255, 255, 255, .025);
+  color: var(--ne-body);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.6;
+  letter-spacing: 0;
+}
 .neuro-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
 .neuro-page .cs-chip { border-color: #4a4a54; color: var(--ne-body); }
 .neuro-page .cs-runbar { border-color: #2a2a30; background: #0f0f12; }
@@ -1730,6 +1843,24 @@ button:focus-visible, a:focus-visible, textarea:focus-visible, input:focus-visib
 .neuro-hint { margin-top: 8px; font-size: 13px; color: var(--ne-meta); }
 .neuro-page .backbtn { color: var(--ne-meta); }
 .neuro-page .backbtn:hover { color: var(--ne-text); }
+.neuro-page .backbtn.topback {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  min-height: 40px;
+  margin-bottom: 24px;
+  padding: 9px 12px;
+  border: 1px solid #303038;
+  background: #0f0f12;
+  color: #d6d6dc;
+  font-size: 12px;
+  letter-spacing: .08em;
+}
+.neuro-page .backbtn.topback:hover {
+  border-color: #686872;
+  background: #141418;
+  color: #fff;
+}
 .neuro-page .label { color: var(--ne-label); }
 .neuro-page .mod-go { color: var(--ne-meta); }
 .neuro-page .neuro-row:hover .mod-go { color: var(--ne-text); }
@@ -1982,6 +2113,10 @@ button.neuro-ms.done .neuro-ms-sub { color: var(--green); }
   .neuro-page .cs-runbar { margin-top: 18px; padding: 12px 14px; }
   .neuro-page .continue-row { justify-content: stretch; }
   .neuro-page .continue-row .btn { flex: 1; min-height: 44px; }
+  .neuro-topic-review summary { align-items: flex-start; }
+  .neuro-topic-review-state { margin-top: 2px; }
+  .neuro-quiz-result .endbtns { flex-direction: column; }
+  .neuro-quiz-result .endbtns .btn { width: 100%; min-height: 44px; text-align: center; }
 
   .neuro-score { font-size: 36px; }
   .neuro-kv { flex-direction: column; align-items: flex-start; gap: 6px; }
@@ -3389,9 +3524,27 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
    NEURO — The Track (single linear course spine on the hub)
    ========================================================================= */
 .neuro-track { margin: 26px 0 38px; }
+.neuro-track-summary { cursor: pointer; list-style: none; }
+.neuro-track-summary::-webkit-details-marker { display: none; }
+.neuro-track-summary:focus-visible { outline: 2px solid var(--ne-text); outline-offset: 6px; }
 .neuro-track-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
-.neuro-track > .bar { display: block; height: 4px; background: var(--ne-line); margin-bottom: 18px; }
-.neuro-track > .bar > i { display: block; height: 100%; background: var(--ne-text); }
+.neuro-track-summary-meta { display: inline-flex; align-items: center; gap: 12px; }
+.neuro-track-toggle {
+  min-height: 30px; display: inline-flex; align-items: center; gap: 7px;
+  padding: 6px 10px; border: 1px solid #4a4a54; background: var(--ne-surface);
+  color: var(--ne-text); font-family: var(--mono); font-size: 9px;
+  font-weight: 650; letter-spacing: .1em; text-transform: uppercase;
+  transition: border-color .16s ease, background .16s ease;
+}
+.neuro-track-summary:hover .neuro-track-toggle { border-color: var(--ne-text); background: rgba(255,255,255,.06); }
+.neuro-track-toggle-hide { display: none; }
+.neuro-track[open] .neuro-track-toggle-show { display: none; }
+.neuro-track[open] .neuro-track-toggle-hide { display: inline; }
+.neuro-track-toggle-arrow { font-size: 13px; line-height: 1; transition: transform .16s ease; }
+.neuro-track[open] .neuro-track-toggle-arrow { transform: rotate(180deg); }
+.neuro-track-summary > .bar { display: block; height: 4px; background: var(--ne-line); }
+.neuro-track-summary > .bar > i { display: block; height: 100%; background: var(--ne-text); }
+.neuro-track[open] .neuro-track-summary { margin-bottom: 18px; }
 .neuro-tracklist { display: flex; flex-direction: column; }
 .neuro-trackrow {
   display: flex; align-items: center; gap: 14px; width: 100%; text-align: left;

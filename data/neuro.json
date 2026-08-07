@@ -3661,7 +3661,7 @@
    "neuroengineeringConcept": "Sampled neural signals",
    "explanation": "A list stores many values in order. Neural signals are often sampled over time, so a list can represent a short voltage trace.",
    "codeExample": "\nsignal_mv = [-70, -68, -61, -48, -54, -66]\n\nprint(\"First sample:\", signal_mv[0])\nprint(\"Number of samples:\", len(signal_mv))\n",
-   "expectedOutput": "\nFirst sample: -70\nNumber of samples: 6\n",
+   "expectedOutput": "\nNumber of samples: 7\n",
    "challengePrompt": "Add one more sample, -72, to the list and print the new length.",
    "hint": "Use signal_mv.append(-72), then print len(signal_mv).",
    "solution": "\nsignal_mv = [-70, -68, -61, -48, -54, -66]\nsignal_mv.append(-72)\nprint(\"Number of samples:\", len(signal_mv))\n",

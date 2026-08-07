@@ -13,6 +13,8 @@ await page.addInitScript(v => localStorage.setItem('cs-seen-ver', v), APP_VERSIO
 await page.goto(process.env.CORTEX_URL || 'http://localhost:8765/', { waitUntil: 'networkidle' });
 await page.click('[data-go="neuro"]');
 await page.waitForSelector('.neuro-page', { timeout: 15000 });
+await page.click('#ne-library');
+await page.waitForSelector('.neuro-library', { timeout: 10000 });
 await page.click('#ne-codelab');
 await page.waitForSelector('#necodelab .neuro-row', { timeout: 10000 });
 
