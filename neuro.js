@@ -111,7 +111,6 @@ async function renderNeuroEngineering() {
 
   const codeN = NEURO.data?.neuroCodeLessons?.length || 13;
   const simN = NEURO.data?.simulations?.length || 12;
-  const membershipStart = typeof MEMBERSHIP_START === 'string' ? MEMBERSHIP_START : 'August 1, 2026';
   const m1 = NEURO.milestones?.milestones?.find(m => m.id === 'neural-signal-viewer');
   const m1Unlocked = m1 && neuroMilestoneUnlockedHub(m1, pg);
   const m1Done = neuroMilestonePassed('neural-signal-viewer');
@@ -128,8 +127,8 @@ async function renderNeuroEngineering() {
         <p class="neuro-lede">One track &middot; ${pg.total || 20} units, start to finish &middot; ${topicN} topics &middot; NeuroCode &middot; NeuroSim</p>
         <p class="neuro-membership">
           <span class="free-pill">MCAT free</span>
-          <span class="free-pill free-pill--soft">Neuro free for now</span>
-          <span class="neuro-membership-txt">Optional membership ${membershipStart}</span>
+          <span class="free-pill free-pill--soft">Neuro free</span>
+          <span class="neuro-membership-txt">Free to use — no account, no paywall</span>
         </p>
         ${path ? `<div class="neuro-cta">
           <button class="btn btn-solid neuro-btn" id="ne-path">${pg.next ? `Continue &middot; Unit ${pg.next.order}` : 'Path complete'}</button>

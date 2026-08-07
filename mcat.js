@@ -236,7 +236,7 @@ async function renderMCAT() {
   const extras = [
     ['Built on the full AAMC blueprint', 'This is not a curated highlight reel. Every instrument is mapped to the official AAMC content outline, and the Blueprint Navigator shows your measured coverage across every category &mdash; what you have mastered, what you have merely touched, and what you have not yet faced.'],
     ['One integrated system, not nine apps', 'The nine instruments share one record of your performance. A miss in Question Drills surfaces in the Mistake Lab, reshapes your Blueprint coverage, and changes what the Guide Engine assigns tomorrow. You study; the system keeps the bookkeeping.'],
-    ['The free promise', 'MCAT preparation on Cortex is free forever &mdash; no account, no paywall, no catch. Other parts of the Academy may one day be part of a membership that helps fund the mission, but everything in the MCAT suite stays free. The cost of becoming a physician should never be the price of preparing for the exam that begins it.'],
+    ['The free promise', 'MCAT preparation on Cortex is free forever &mdash; no account, no paywall, no catch. The cost of becoming a physician should never be the price of preparing for the exam that begins it.'],
   ];
 
   const root = el('<div></div>');

@@ -68,9 +68,8 @@ const SECTION_INFO = {
 // Public “What’s new” version. Private-only sections do NOT bump this or CHANGELOG —
 // only their own script/data ?v= cache-busts — so the sitewide update modal stays quiet.
 const APP_VERSION = '1.25.0';
-const MEMBERSHIP_START = 'August 1, 2026';
 function cortexFreeNote(sectionPill, sectionName) {
-  return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free for now</span><span class="free-note-txt">${sectionName} becomes optional membership ${MEMBERSHIP_START}. The full MCAT suite stays free forever.</span></p>`;
+  return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free</span><span class="free-note-txt">${sectionName} is free to use — no account, no paywall, no catch.</span></p>`;
 }
 const X_HANDLE = 'kevin__vigil';
 const X_URL = 'https://x.com/kevin__vigil';
@@ -674,7 +673,7 @@ function renderComingSoon(key) {
 function renderUTSA() {
   stopTimer(); session = null;
   const cards = [
-    ['Everything, unlocked', 'Whatever Cortex ever offers as part of a membership, students and trainees at UTSA and UT Health San Antonio receive in full — at no cost, for as long as they are there. The MCAT suite is free for everyone, always; this extends that promise to every section.'],
+    ['Everything, unlocked', 'Every part of Cortex is open to students and trainees at UTSA and UT Health San Antonio in full, at no cost, for as long as they are there. The Academy is free for everyone right now; this is a standing promise that it stays that way for the two schools closest to home.'],
     ['How it will work', 'Verify a school email (@my.utsa.edu or @livemail.uthscsa.edu) once. Your account unlocks every part of the Academy automatically — no codes, no renewals, no catch.'],
     ['Why these two', 'These are home: the university that trains me and the medical school I am working toward. A mission to widen access to medicine should start where the founder is from.'],
   ];
@@ -1092,9 +1091,9 @@ const CHANGELOG = [
   },
   {
     date: 'June 18, 2026', version: '1.9.3', tag: 'NEW',
-    title: 'Membership date clarity',
+    title: 'A clearer free note',
     items: [
-      'Clinical Scenarios and Neuroengineering now show the same free-for-now note \u2014 optional membership starts August 1, 2026.',
+      'Clinical Scenarios and Neuroengineering now show the same note: they are free to use.',
       'MCAT prep stays free forever.',
     ],
   },
@@ -1185,7 +1184,7 @@ const CHANGELOG = [
     date: 'June 16, 2026', version: '1.6.4', tag: 'NEW',
     title: 'Clinical Scenarios — free while we build',
     items: [
-      'Clinical Scenarios will become an optional membership one day — for now, every case is completely free.',
+      'Every clinical case is completely free.',
       'MCAT prep stays free forever, no matter what.',
     ],
   },

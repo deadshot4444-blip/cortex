@@ -3427,3 +3427,28 @@ button.neuro-trackms.open:hover { background: var(--ne-surface); }
   .neuro-trackms { flex-wrap: wrap; }
   .neuro-trackms-sub { margin-left: 0; }
 }
+
+/* Dark-page button hovers.
+   The site-wide polish block above (.btn:hover:not(:disabled) /
+   .btn-solid:hover:not(:disabled)) matches these at equal specificity but sits
+   later in the file, so it repainted neuro buttons light-on-light / black-on-black
+   and they vanished on hover. Re-assert them with a .neuro-page prefix and pin the
+   text colour so a hover can never hide a control. */
+.neuro-page .neuro-btn:hover:not(:disabled) {
+  border-color: #e8e8ea;
+  background: #141418;
+  color: #f4f4f6;
+  box-shadow: none;
+}
+.neuro-page .neuro-btn.btn-solid:hover:not(:disabled) {
+  background: #fff;
+  color: #0a0a0c;
+  border-color: #fff;
+  box-shadow: 0 0 16px rgba(255, 255, 255, .28);
+}
+.neuro-page .neuro-btn-ghost:hover:not(:disabled) {
+  border-color: transparent;
+  background: rgba(255, 255, 255, .06);
+  color: var(--ne-text);
+  box-shadow: none;
+}
