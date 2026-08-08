@@ -66,6 +66,68 @@ for (const viewport of viewports) {
   await page.click('#mcat-panel [data-go="mcat"]');
   await page.waitForURL(new URL('mcat', base).href);
   await page.waitForSelector('.mcat-landing');
+  const mcatHeading = (await page.locator('.mcat-simple-hero h1').textContent())?.trim();
+  const mcatCoreToolCount = await page.locator('#mcat-core-tools [data-mcat-tool]').count();
+  const mcatSupportToolCount = await page.locator('#mcat-support-tools [data-mcat-tool]').count();
+  const mcatFoldCount = await page.locator('.mcat-simple-fold').count();
+  const mcatOpenFoldCount = await page.locator('.mcat-simple-fold[open]').count();
+  const mcatLegacyClutterCount = await page.locator('.mcat-statband, .mcat-group, .mcat-method, .mcat-extras, .mcat-closing').count();
+  if (mcatHeading !== 'MCAT Prep' || mcatCoreToolCount !== 5 || mcatSupportToolCount !== 4
+      || mcatFoldCount !== 2 || mcatOpenFoldCount !== 0 || mcatLegacyClutterCount !== 0) {
+    throw new Error(`MCAT home is not simplified: ${JSON.stringify({ mcatHeading, mcatCoreToolCount, mcatSupportToolCount, mcatFoldCount, mcatOpenFoldCount, mcatLegacyClutterCount })}`);
+  }
+  await assertNoOverflow('MCAT home');
+  await page.click('#mcat-core-tools [data-mcat-tool="0"]');
+  await page.waitForSelector('.hero h1');
+  const mcatFirstToolHeading = (await page.locator('.hero h1').textContent())?.trim();
+  if (mcatFirstToolHeading !== 'Flashcard Reactor.') throw new Error(`MCAT core tool did not open: ${mcatFirstToolHeading}`);
+  await page.click('#back');
+  await page.waitForSelector('.mcat-landing');
+  await page.click('#mc-enter');
+  await page.waitForSelector('.guide-setup-hero');
+  const guideTrackCount = await page.locator('[data-track]').count();
+  await page.click('[data-track="60"]');
+  const guideSelectedTrack = (await page.locator('.guide-track.active strong').textContent())?.trim();
+  await page.click('#begin');
+  await page.waitForSelector('.guide-day-hero');
+  const guideDayLabel = (await page.locator('.guide-day-hero > .label').textContent())?.trim();
+  const guideTaskCount = await page.locator('[data-guide-task]').count();
+  const guideInitialDoneCount = await page.locator('.guide-task.done').count();
+  if (guideTrackCount !== 3 || guideSelectedTrack !== '60-day intensive'
+      || !guideDayLabel?.includes('Day 1 of 60') || guideTaskCount < 3 || guideInitialDoneCount !== 0) {
+    throw new Error(`Guided MCAT setup is wrong: ${JSON.stringify({ guideTrackCount, guideSelectedTrack, guideDayLabel, guideTaskCount, guideInitialDoneCount })}`);
+  }
+  await assertNoOverflow('Guided MCAT dashboard');
+  await page.click('#guide-next');
+  await page.waitForSelector('.flash-stage');
+  const guideFlashProgress = (await page.locator('.topstat').textContent())?.trim() || '';
+  const guideFlashTotal = Number(guideFlashProgress.split('/')[1]?.trim() || 0);
+  for (let step = 0; step < 80 && !(await page.locator('#guide').count()); step++) {
+    await page.click('#reveal');
+    await page.click('.ratebtn.good');
+  }
+  await page.waitForSelector('#guide');
+  const guideReturnLabel = (await page.locator('#guide').textContent())?.trim();
+  await page.click('#guide');
+  await page.waitForSelector('.guide-day-hero');
+  const guideDoneCount = await page.locator('.guide-task.done').count();
+  if (guideFlashTotal < 1 || guideReturnLabel !== "Continue today's plan →" || guideDoneCount !== 1) {
+    throw new Error(`Guided MCAT completion is wrong: ${JSON.stringify({ guideFlashTotal, guideReturnLabel, guideDoneCount })}`);
+  }
+  await assertNoOverflow('Guided MCAT completed task');
+  await page.click('#guide-next');
+  await page.waitForSelector('.case .q');
+  const guideDrillCrumb = (await page.locator('.run-crumb').textContent())?.replace(/\s+/g, ' ').trim();
+  await page.click('#exit');
+  await page.waitForSelector('.guide-day-hero');
+  const guideResumeLabel = (await page.locator('#guide-next').textContent())?.trim();
+  await page.click('#guide-next');
+  await page.waitForSelector('.case .q');
+  await page.click('#exit');
+  await page.waitForSelector('.guide-day-hero');
+  if (!guideDrillCrumb?.includes('Drill') || !guideDrillCrumb.includes('Structure and function of proteins') || guideResumeLabel !== 'Resume current task →') {
+    throw new Error(`Guided MCAT resume is wrong: ${JSON.stringify({ guideDrillCrumb, guideResumeLabel })}`);
+  }
   await page.click('[data-menu="mcat"]');
   await page.click('#mcat-panel [data-go="stats"]');
   await page.waitForURL(new URL('stats', base).href);
@@ -120,6 +182,32 @@ for (const viewport of viewports) {
   }
   await assertNoOverflow('Explore menu');
 
+  await page.click('#explore-panel [data-go="cogpsych"]');
+  await page.waitForURL(new URL('cogpsych', base).href);
+  await page.waitForSelector('.cog-course-home');
+  const cogHeading = (await page.locator('.cog-simple-hero h1').textContent())?.trim();
+  const cogChapterCount = await page.locator('[data-course-chapter]').count();
+  const cogPracticeCount = await page.locator('.cog-practice-list [data-mode]').count();
+  const cogSimpleFoldCount = await page.locator('.cog-simple-fold').count();
+  const cogPresentationSectionCount = await page.locator('.cog-learning-method, .cog-course-section').count();
+  const cogLegacyDashboardCount = await page.locator('.gen-statrow, .gen-modes, .gen-cols').count();
+  if (cogHeading !== 'Cognitive Psychology' || cogChapterCount !== 13
+      || cogPracticeCount !== 5 || cogSimpleFoldCount !== 1
+      || cogPresentationSectionCount !== 0 || cogLegacyDashboardCount !== 0) {
+    throw new Error(`Cognitive Psychology is not simple and course-first: ${JSON.stringify({ cogHeading, cogChapterCount, cogPracticeCount, cogSimpleFoldCount, cogPresentationSectionCount, cogLegacyDashboardCount })}`);
+  }
+  await assertNoOverflow('Cognitive Psychology course home');
+  await page.click('[data-course-action="continue"]');
+  await page.waitForSelector('.gen-lesson');
+  const cogFirstLesson = (await page.locator('.gen-lesson-title').textContent())?.trim();
+  await page.click('#gen-exit');
+  await page.waitForSelector('.cog-curriculum-page');
+  const cogLessonCount = await page.locator('[data-lesson]').count();
+  if (cogFirstLesson !== 'What it took to read this sentence' || cogLessonCount !== 70) {
+    throw new Error(`Cognitive Psychology course flow is wrong: ${JSON.stringify({ cogFirstLesson, cogLessonCount })}`);
+  }
+  await assertNoOverflow('Cognitive Psychology curriculum');
+
   await page.goto(base.href, { waitUntil: 'networkidle' });
   await page.click('[data-menu="mcat"]');
   await page.click('#mcat-panel [data-go="stats"]');
@@ -134,15 +222,19 @@ for (const viewport of viewports) {
   const versionText = (await page.locator('button.ver').textContent())?.trim();
   const whatsNewTitle = (await page.locator('.upd-featured h2').textContent())?.trim();
   const whatsNewItems = await page.locator('.upd-featured-list li').count();
-  if (versionText !== `v${APP_VERSION}` || whatsNewItems !== 6) {
-    throw new Error(`What's New is not the complete ${APP_VERSION} release: ${JSON.stringify({ versionText, whatsNewTitle, whatsNewItems })}`);
+  const priorPublicVersion = (await page.locator('.updates-history .upd-ver').first().textContent())?.trim();
+  if (versionText !== `v${APP_VERSION}`
+      || whatsNewTitle !== 'A clearer course experience and a real MCAT study plan'
+      || whatsNewItems !== 3
+      || priorPublicVersion !== 'v1.25.18') {
+    throw new Error(`What's New is not the cumulative ${APP_VERSION} release: ${JSON.stringify({ versionText, whatsNewTitle, whatsNewItems, priorPublicVersion })}`);
   }
   await assertNoOverflow("What's New");
 
   if (medicineAssets.length) throw new Error(`Construction gates loaded Medicine assets: ${medicineAssets.join(', ')}`);
   if (learnAssets.length) throw new Error(`Construction gate loaded Learn to Learn assets: ${learnAssets.join(', ')}`);
   if (errors.length) throw new Error(`${viewport.name} page errors: ${errors.join(' | ')}`);
-  results.push({ viewport, primaryOrder, clinicalNavLabel, clinicalNavVisibleText, learnVisibleText, mcatMenuItems, mcatMenuDescriptions, statsHeading, mcatParentActiveOnStats, statsAriaCurrent, medicineLabel, learnLabel, directLearnLabel, learnPrimaryActive, medicineMenuTag, exploreLearningPaths, quickLabels, statsGateLabel, versionText, whatsNewTitle, whatsNewItems, medicineAssets, learnAssets, errors });
+  results.push({ viewport, primaryOrder, clinicalNavLabel, clinicalNavVisibleText, learnVisibleText, mcatHeading, mcatCoreToolCount, mcatSupportToolCount, mcatFoldCount, mcatOpenFoldCount, mcatLegacyClutterCount, mcatFirstToolHeading, guideTrackCount, guideSelectedTrack, guideDayLabel, guideTaskCount, guideFlashTotal, guideReturnLabel, guideDoneCount, guideDrillCrumb, guideResumeLabel, mcatMenuItems, mcatMenuDescriptions, statsHeading, mcatParentActiveOnStats, statsAriaCurrent, medicineLabel, learnLabel, directLearnLabel, learnPrimaryActive, medicineMenuTag, exploreLearningPaths, quickLabels, cogHeading, cogChapterCount, cogPracticeCount, cogFirstLesson, cogLessonCount, statsGateLabel, versionText, whatsNewTitle, whatsNewItems, priorPublicVersion, medicineAssets, learnAssets, errors });
   await context.close();
 }
 

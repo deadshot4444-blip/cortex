@@ -137,8 +137,7 @@ function enterMCAT() {
   if (best) {
     try { best.spec.resume(best.r); return; } catch { clearResume(best.spec.key); }
   }
-  if (!guidePlan()) { renderGuide(); return; }
-  renderDrillSetup();
+  renderGuide();
 }
 
 /* ---------- shared in-task header (breadcrumb + safe exit) ---------- */
@@ -187,37 +186,16 @@ async function renderMCAT() {
   const carsN = MCAT.cars.length, sciN = MCAT.sci.length;
   const conceptsN = MCAT.outline ? MCAT.outline.concepts.length : 0;
 
-  const groups = [
-    { title: 'Foundations &middot; Acquire',
-      blurb: 'Build durable knowledge through active retrieval, not passive review. Every fact is earned on a schedule; every question is dissected down to the wrong answers engineered to tempt you.',
-      mods: [
-        { name: 'Flashcard Reactor', desc: '504 cards on SM-2 spaced scheduling, surfaced the moment they start to fade', stat: cn ? `${due} due &middot; ${fresh} new` : 'generating&hellip;', go: renderFlashHome, on: cn > 0 },
-        { name: 'Question Drills', desc: '263 discrete questions, interleaved, with a full distractor autopsy', stat: qn ? `${qn} questions` : 'generating&hellip;', go: renderDrillSetup, on: qn > 0 },
-        { name: 'CARS Studio', desc: '32 original passages, 96+ questions, with a blind-review workflow', stat: carsN ? `${carsN} passages` : 'generating&hellip;', go: renderCarsHome, on: carsN > 0 },
-        { name: 'Passage Lab', desc: '34 AAMC-style passages with live data tables', stat: sciN ? `${sciN} passages` : 'generating&hellip;', go: renderPassageHome, on: sciN > 0 },
-      ] },
-    { title: 'Examination &middot; Prove',
-      blurb: 'Move from knowing to performing under test-day conditions. Train the stamina the real exam demands &mdash; then face yourself honestly in review, before the AAMC charges you to find out.',
-      mods: [
-        { name: 'Exam Simulator', desc: 'Real-time countdown, flag navigator, stamina &amp; full-length chains, periodic table', stat: 'section &amp; full-length', go: renderSimHome, on: qn > 0 && !!MCAT.outline },
-        { name: 'Mistake Lab', desc: 'Confidence-vs-accuracy calibration, weakest categories, root-cause analysis', stat: t.answered ? `${t.answered} answered &middot; ${t.acc}%` : 'no data yet', go: renderMistakeLab, on: true },
-      ] },
-    { title: 'Navigation &middot; Direct',
-      blurb: 'Know exactly where you stand against the full AAMC blueprint, and exactly what to do next &mdash; every day, no guesswork.',
-      mods: [
-        { name: 'Blueprint Navigator', desc: 'The complete AAMC content map with a live coverage heat-check', stat: `${conceptsN} concepts`, go: renderBlueprint, on: !!MCAT.outline },
-        { name: 'Guide Engine', desc: 'A personalized day-by-day campaign on 120 / 90 / 60-day tracks', stat: guidePlan() ? 'plan active' : 'build a plan', go: renderGuide, on: !!MCAT.outline },
-        { name: 'Course Mapper', desc: 'Rate your coursework, generate a pre-study coverage heat map', stat: 'pre-study check', go: renderMapper, on: !!MCAT.outline },
-      ] },
-  ];
-
-  const stats = [
-    [String(cn || 504), 'Spaced-repetition cards'],
-    [String(qn || 263), 'Questions &middot; distractor autopsy'],
-    [String(carsN || 32), 'Original CARS passages'],
-    [String(sciN || 34), 'AAMC-style science passages'],
-    ['9', 'Integrated instruments'],
-    ['$0', 'Free forever &middot; no account'],
+  const tools = [
+    { name: 'Flashcards', desc: 'Recall facts on a spaced schedule', stat: cn ? `${due} due &middot; ${fresh} new` : 'Loading&hellip;', go: renderFlashHome, on: cn > 0, core: true },
+    { name: 'Question drills', desc: 'Practice discrete questions and review every answer', stat: qn ? `${qn} questions` : 'Loading&hellip;', go: renderDrillSetup, on: qn > 0, core: true },
+    { name: 'CARS practice', desc: 'Work through passages with blind review', stat: carsN ? `${carsN} passages` : 'Loading&hellip;', go: renderCarsHome, on: carsN > 0, core: true },
+    { name: 'Science passages', desc: 'Interpret experiments, figures, and data tables', stat: sciN ? `${sciN} passages` : 'Loading&hellip;', go: renderPassageHome, on: sciN > 0, core: true },
+    { name: 'Practice exam', desc: 'Train sections or a full-length exam under time', stat: 'Timed', go: renderSimHome, on: qn > 0 && !!MCAT.outline, core: true },
+    { name: 'Mistake lab', desc: 'See weak areas and why answers were missed', stat: t.answered ? `${t.answered} answered &middot; ${t.acc}%` : 'No data yet', go: renderMistakeLab, on: true, core: false },
+    { name: 'Blueprint', desc: 'Check coverage against the MCAT content map', stat: `${conceptsN} concepts`, go: renderBlueprint, on: !!MCAT.outline, core: false },
+    { name: 'Study plan', desc: 'Build a 120, 90, or 60-day schedule', stat: guidePlan() ? 'Plan active' : 'Build a plan', go: renderGuide, on: !!MCAT.outline, core: false },
+    { name: 'Course mapper', desc: 'Mark the prerequisite courses already completed', stat: 'Pre-study check', go: renderMapper, on: !!MCAT.outline, core: false },
   ];
 
   const method = {
@@ -233,58 +211,52 @@ async function renderMCAT() {
     ],
   };
 
-  const extras = [
-    ['Built on the full AAMC blueprint', 'This is not a curated highlight reel. Every instrument is mapped to the official AAMC content outline, and the Blueprint Navigator shows your measured coverage across every category &mdash; what you have mastered, what you have merely touched, and what you have not yet faced.'],
-    ['One integrated system, not nine apps', 'The nine instruments share one record of your performance. A miss in Question Drills surfaces in the Mistake Lab, reshapes your Blueprint coverage, and changes what the Guide Engine assigns tomorrow. You study; the system keeps the bookkeeping.'],
-    ['The free promise', 'MCAT preparation on Cortex is free forever &mdash; no account, no paywall, no catch. The cost of becoming a physician should never be the price of preparing for the exam that begins it.'],
-  ];
-
   const root = el('<div></div>');
   root.appendChild(topbar('mcat'));
   const main = el(`<main class="panel mcat-landing">
-    <section class="mcat-hero">
-      <span class="mcat-eyebrow">MCAT Preparation &middot; Evidence-Based &middot; Free forever</span>
-      <h1>Prepare the way the science says you should.</h1>
-      <p class="mcat-lede">A complete, research-grade MCAT preparation system built on the cognitive science of how memory actually works &mdash; spaced retrieval, calibrated feedback, full AAMC coverage. Most MCAT tools are flashcard toys. This is the whole instrument. No account. No paywall. No gimmicks.</p>
-      <div class="mcat-cta"><button class="btn btn-solid" id="mc-enter">Enter the system</button><button class="btn" id="mc-method">Read the method</button></div>
+    <header class="mcat-simple-hero">
+      <span class="mcat-eyebrow">Free MCAT preparation</span>
+      <h1>MCAT Prep</h1>
+      <p>Build knowledge, practice passages, and prepare for test day with one focused study system.</p>
+      <div class="mcat-simple-facts"><span><strong>${cn || 504}</strong> cards</span><span><strong>${qn || 263}</strong> questions</span><span><strong>${carsN + sciN || 66}</strong> passages</span></div>
+      <div class="mcat-cta"><button class="btn btn-solid" id="mc-enter">${findHubResume() || guidePlan() ? 'Continue studying' : 'Start studying'} &rarr;</button></div>
+    </header>
+
+    <section class="mcat-simple-tools" id="mcat-study-tools">
+      <div class="mcat-simple-section-head"><span class="label">Study tools</span><span>Choose one place to begin</span></div>
+      <div class="mcat-simple-list" id="mcat-core-tools"></div>
     </section>
-    <div class="mcat-statband cornerframe">${stats.map(s => `<div class="mcat-stat"><span class="ms-num" data-countup="${s[0]}">${s[0]}</span><span class="ms-lab">${s[1]}</span></div>`).join('')}</div>
-    <div id="mcat-groups"></div>
-    <section class="mcat-method" id="mcat-method">
-      <span class="label">The Method</span>
-      <p class="mcat-method-intro">${method.intro}</p>
-      <div class="method-grid" data-reveal-stagger>${method.points.map(p => `<div class="method-pt"><span class="mp-name">${p[0]}</span><p>${p[1]}</p></div>`).join('')}</div>
-    </section>
-    <div class="mcat-extras" data-reveal-stagger>${extras.map(e => `<div class="mcat-extra"><span class="label">${e[0]}</span><p>${e[1]}</p></div>`).join('')}</div>
-    <section class="mcat-closing" data-reveal>
-      <h2>Begin with the system, not the syllabus.</h2>
-      <p>The complete, evidence-based MCAT preparation system &mdash; every instrument, every passage, every card, open and free forever. The only thing required is the discipline to start.</p>
-      <button class="btn btn-solid" id="mc-enter2">Enter the system</button>
-    </section>
+
+    <details class="mcat-simple-fold">
+      <summary><span><strong>Planning &amp; progress</strong><small>Study plan, blueprint, mistakes, and course map</small></span><i>Open</i></summary>
+      <div class="mcat-simple-list" id="mcat-support-tools"></div>
+    </details>
+
+    <details class="mcat-simple-fold" id="mcat-method">
+      <summary><span><strong>How the study system works</strong><small>The learning principles behind the tools</small></span><i>Open</i></summary>
+      <div class="mcat-simple-method">
+        <p>${method.intro}</p>
+        <ul>${method.points.map(p => `<li><strong>${p[0]}</strong><span>${p[1]}</span></li>`).join('')}</ul>
+      </div>
+    </details>
+
+    <p class="mcat-simple-note">Free forever. No account, paywall, or catch.</p>
   </main>`);
 
-  const gWrap = main.querySelector('#mcat-groups');
-  groups.forEach(g => {
-    const sec = el(`<section class="mcat-group"><div class="mcat-group-head"><span class="label">${g.title}</span><p>${g.blurb}</p></div><div class="mcat-mods" data-reveal-stagger></div></section>`);
-    const mc = sec.querySelector('.mcat-mods');
-    g.mods.forEach(m => {
-      const card = el(`<button class="modcard" ${m.on ? '' : 'disabled'}>
-        <span class="mod-name">${m.name}</span>
-        <span class="mod-desc">${m.desc}</span>
-        <span class="mod-stat">${m.stat}</span>
-        ${m.on ? '<span class="mod-go" aria-hidden="true">&rarr;</span>' : ''}
-      </button>`);
-      if (m.on) card.addEventListener('click', m.go);
-      mc.appendChild(card);
-    });
-    gWrap.appendChild(sec);
+  tools.forEach((tool, index) => {
+    const row = el(`<button class="mcat-simple-tool" data-mcat-tool="${index}" ${tool.on ? '' : 'disabled'}>
+      <span class="mcat-simple-tool-num mono">${String(index + 1).padStart(2, '0')}</span>
+      <span class="mcat-simple-tool-copy"><strong>${tool.name}</strong><span>${tool.desc}</span></span>
+      <span class="mcat-simple-tool-stat">${tool.stat}</span>
+      ${tool.on ? '<span class="mcat-simple-tool-go" aria-hidden="true">&rarr;</span>' : ''}
+    </button>`);
+    if (tool.on) row.addEventListener('click', () => { guideClearActiveTask(); tool.go(); });
+    main.querySelector(tool.core ? '#mcat-core-tools' : '#mcat-support-tools').appendChild(row);
   });
 
   main.querySelector('#mc-enter').addEventListener('click', enterMCAT);
-  main.querySelector('#mc-enter2').addEventListener('click', enterMCAT);
-  main.querySelector('#mc-method').addEventListener('click', () => main.querySelector('#mcat-method').scrollIntoView({ behavior: 'smooth', block: 'start' }));
   const hubResume = hubResumeChip();
-  if (hubResume) main.querySelector('.mcat-hero').appendChild(hubResume);
+  if (hubResume) main.querySelector('.mcat-simple-hero').appendChild(hubResume);
 
   root.appendChild(main);
   if (typeof siteFooter === 'function') root.appendChild(siteFooter());
@@ -337,14 +309,23 @@ function renderFlashHome() {
   setView(root);
 }
 
-function startFlash(deck, limitNew = 20, limitDue = 60) {
+function startFlash(deck, limitNew = 20, limitDue = 60, focusCategory = null) {
   const pool = deck === 'all' ? MCAT.cards : MCAT.cards.filter(c => c.section === deck);
   const t = nowTs();
   const dueCards = pool.filter(c => SRS[c.id] && SRS[c.id].reps > 0 && SRS[c.id].due <= t).slice(0, limitDue);
-  const newCards = pool.filter(c => !SRS[c.id] || SRS[c.id].reps === 0).slice(0, limitNew);
+  let newPool = pool.filter(c => !SRS[c.id] || SRS[c.id].reps === 0);
+  if (focusCategory) {
+    const focused = newPool.filter(c => c.category === focusCategory);
+    if (focused.length) newPool = focused.concat(newPool.filter(c => c.category !== focusCategory));
+  }
+  const newCards = newPool.slice(0, limitNew);
   const queue = shuffleArr(dueCards.concat(newCards));
-  if (!queue.length) { renderFlashHome(); return; }
-  flash = { deck, queue, idx: 0, total: queue.length, again: 0, done: 0 };
+  if (!queue.length) {
+    if (guideCompleteActiveTask('flash')) renderGuide();
+    else renderFlashHome();
+    return;
+  }
+  flash = { deck, focusCategory, queue, idx: 0, total: queue.length, again: 0, done: 0 };
   renderFlashCard();
 }
 function shuffleArr(a) { const x = a.slice(); for (let i = x.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1));[x[i], x[j]] = [x[j], x[i]]; } return x; }
@@ -364,7 +345,7 @@ function renderFlashCard() {
       <div class="flash-foot" id="ff"></div>
     </main>
   </div>`);
-  wireRunHeader(root, () => confirmExit(flash && (flash.done > 0 || flash.again > 0 || flash.idx > 0), renderFlashHome));
+  wireRunHeader(root, () => confirmExit(flash && (flash.done > 0 || flash.again > 0 || flash.idx > 0), () => guideLeaveActive('flash', renderFlashHome)));
   setView(root);
   const ff = root.querySelector('#ff');
   const showReveal = () => {
@@ -390,6 +371,7 @@ function rateFlash(c, rating) {
 
 function finishFlash() {
   clearResume('flash');
+  const guided = guideCompleteActiveTask('flash');
   if (typeof bumpStreak === 'function') bumpStreak();
   const root = el('<div></div>');
   root.appendChild(topbar('mcat'));
@@ -397,8 +379,9 @@ function finishFlash() {
     <span class="label">Session complete</span>
     <div class="score">${flash.done}<span class="of"> cards</span></div>
     <div class="anat-pct">${flash.again} needed another look &middot; scheduled by your recall</div>
-    <div class="endbtns"><button class="btn btn-solid" id="more">Study more</button><button class="btn" id="home">&larr; MCAT</button></div>
+    <div class="endbtns">${guided ? '<button class="btn btn-solid" id="guide">Continue today\'s plan &rarr;</button>' : ''}<button class="btn ${guided ? '' : 'btn-solid'}" id="more">Study more</button><button class="btn" id="home">&larr; MCAT</button></div>
   </section></main>`);
+  if (guided) main.querySelector('#guide').addEventListener('click', renderGuide);
   main.querySelector('#more').addEventListener('click', () => startFlash(flash.deck));
   main.querySelector('#home').addEventListener('click', renderMCAT);
   root.appendChild(main); setView(root);
@@ -466,7 +449,7 @@ function renderDrillQ() {
       <div class="after" id="after"></div>
     </main>
   </div>`);
-  wireRunHeader(root, () => confirmExit(drill && drill.results.length > 0, renderDrillSetup));
+  wireRunHeader(root, () => confirmExit(drill && drill.results.length > 0, () => guideLeaveActive('drill', renderDrillSetup)));
   let conf = 'unsure';
   root.querySelectorAll('#conf .mode').forEach(b => b.addEventListener('click', () => { conf = b.dataset.c; root.querySelectorAll('#conf .mode').forEach(x => x.classList.toggle('active', x === b)); }));
   root.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => answerDrill(root, q, +b.dataset.i, conf)));
@@ -505,6 +488,7 @@ function answerDrill(root, q, choice, conf) {
 
 function finishDrill() {
   clearResume('drill');
+  const guided = guideCompleteActiveTask('drill');
   // commit to history + log
   const t = nowTs();
   drill.results.forEach(r => {
@@ -526,7 +510,7 @@ function finishDrill() {
       <div class="ticks">${drill.results.map((r, i) => `<span class="${r.correct ? 'ok' : 'no'}">Q${i + 1} ${r.correct ? '&#10003;' : '&#10007;'}</span>`).join('')}</div>
       <div class="calib-mini" id="cm"></div>
       <div class="drill-review" id="dr"></div>
-      <div class="endbtns"><button class="btn btn-solid" id="again">New drill</button><button class="btn" id="lab">Mistake Lab</button><button class="btn" id="home">&larr; MCAT</button></div>
+      <div class="endbtns">${guided ? '<button class="btn btn-solid" id="guide">Continue today\'s plan &rarr;</button>' : ''}<button class="btn ${guided ? '' : 'btn-solid'}" id="again">New drill</button><button class="btn" id="lab">Mistake Lab</button><button class="btn" id="home">&larr; MCAT</button></div>
     </section>
   </main>`);
   // mini calibration for this drill
@@ -544,6 +528,7 @@ function finishDrill() {
         ${autopsy ? `<div class="autopsy">${autopsy}</div>` : ''}
       </div></details>`;
   }).join('');
+  if (guided) main.querySelector('#guide').addEventListener('click', renderGuide);
   main.querySelector('#again').addEventListener('click', () => renderDrillSetup());
   main.querySelector('#lab').addEventListener('click', renderMistakeLab);
   main.querySelector('#home').addEventListener('click', renderMCAT);
@@ -729,13 +714,14 @@ function renderCarsRunner() {
       </div>
     </main>
   </div>`);
-  wireRunHeader(root, () => confirmExit(cars && cars.results.length > 0, () => { if (cars.timerId) clearInterval(cars.timerId); renderCarsHome(); }));
+  wireRunHeader(root, () => confirmExit(cars && cars.results.length > 0, () => { if (cars.timerId) clearInterval(cars.timerId); guideLeaveActive('cars', renderCarsHome); }));
   root.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => { cars.results.push({ q, chosen: +b.dataset.i, correct: +b.dataset.i === q.answer }); cars.idx++; renderCarsRunner(); window.scrollTo(0, 0); }));
   setView(root); window.scrollTo(0, 0);
   if (cars.timed) carsTick();
 }
 function finishCars() {
   clearResume('cars');
+  const guided = guideCompleteActiveTask('cars');
   if (cars.timerId) clearInterval(cars.timerId);
   const p = cars.p, t = nowTs();
   cars.results.forEach(r => { const cat = 'CARS-' + r.q.skill.split('-')[1]; QLOG.push({ qId: r.q.id, section: 'cars', category: cat, passage: p.id, correct: r.correct, conf: 'unsure', ts: t }); QHIST[r.q.id] = { n: (QHIST[r.q.id]?.n || 0) + 1, lastCorrect: r.correct, ts: t }; });
@@ -748,9 +734,10 @@ function finishCars() {
     <div class="score">${String(correct).padStart(2, '0')}<span class="of">/${String(total).padStart(2, '0')}</span></div>
     <div class="calib"><span class="label">By skill</span>${bySkill}</div>
     <div class="drill-review" id="dr"></div>
-    <div class="endbtns"><button class="btn btn-solid" id="next">Back to passages</button><button class="btn" id="home">&larr; MCAT</button></div>
+    <div class="endbtns">${guided ? '<button class="btn btn-solid" id="guide">Continue today\'s plan &rarr;</button>' : ''}<button class="btn ${guided ? '' : 'btn-solid'}" id="next">Back to passages</button><button class="btn" id="home">&larr; MCAT</button></div>
   </section></main>`);
   main.querySelector('#dr').innerHTML = `<span class="label">Review &amp; justification</span>` + cars.results.map((r, i) => `<details class="rev" ${r.correct ? '' : 'open'}><summary><span class="${r.correct ? 'ok' : 'no'}">${r.correct ? '&#10003;' : '&#10007;'}</span> Q${i + 1} &middot; ${SKILL_LABEL[r.q.skill]}</summary><div class="rev-body"><div class="rev-ans">You: ${'ABCD'[r.chosen]} &middot; Correct: <b>${'ABCD'[r.q.answer]}</b></div><p>${esc(r.q.explanation)}</p></div></details>`).join('');
+  if (guided) main.querySelector('#guide').addEventListener('click', renderGuide);
   main.querySelector('#next').addEventListener('click', renderCarsHome);
   main.querySelector('#home').addEventListener('click', renderMCAT);
   root.appendChild(main); setView(root); window.scrollTo(0, 0);
@@ -812,13 +799,14 @@ function renderPassageRunner() {
       <div class="cars-q"><p class="q">${esc(q.stem)}</p>
         <div class="opts">${q.options.map((o, i) => `<button class="opt" data-i="${i}"><span class="key">${'ABCD'[i]}</span><span>${esc(o)}</span></button>`).join('')}</div></div>
     </main></div>`);
-  wireRunHeader(root, () => confirmExit(plab && plab.results.length > 0, () => { if (plab.timerId) clearInterval(plab.timerId); renderPassageHome(); }));
+  wireRunHeader(root, () => confirmExit(plab && plab.results.length > 0, () => { if (plab.timerId) clearInterval(plab.timerId); guideLeaveActive('passage', renderPassageHome); }));
   root.querySelector('#pt').addEventListener('click', periodicModal);
   root.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => { plab.results.push({ q, chosen: +b.dataset.i, correct: +b.dataset.i === q.answer }); plab.idx++; renderPassageRunner(); }));
   setView(root); window.scrollTo(0, 0); if (plab.timed) plabTick();
 }
 function finishPassage() {
   clearResume('plab');
+  const guided = guideCompleteActiveTask('passage');
   if (plab.timerId) clearInterval(plab.timerId);
   const p = plab.p, t = nowTs();
   plab.results.forEach(r => { QLOG.push({ qId: r.q.id, section: p.section, category: r.q.category, passage: p.id, correct: r.correct, conf: 'unsure', ts: t }); QHIST[r.q.id] = { n: (QHIST[r.q.id]?.n || 0) + 1, lastCorrect: r.correct, ts: t }; });
@@ -829,9 +817,10 @@ function finishPassage() {
     <span class="label">Passage complete &middot; ${esc(p.title)}</span>
     <div class="score">${String(correct).padStart(2, '0')}<span class="of">/${String(total).padStart(2, '0')}</span></div>
     <div class="drill-review" id="dr"></div>
-    <div class="endbtns"><button class="btn btn-solid" id="next">Back to passages</button><button class="btn" id="home">&larr; MCAT</button></div>
+    <div class="endbtns">${guided ? '<button class="btn btn-solid" id="guide">Continue today\'s plan &rarr;</button>' : ''}<button class="btn ${guided ? '' : 'btn-solid'}" id="next">Back to passages</button><button class="btn" id="home">&larr; MCAT</button></div>
   </section></main>`);
   main.querySelector('#dr').innerHTML = `<span class="label">Review</span>` + plab.results.map((r, i) => { const autopsy = (r.q.distractors || []).filter(d => d.i !== r.q.answer).map(d => `<div class="autopsy-row"><span class="ak">${'ABCD'[d.i]}</span><span>${esc(d.why)}</span></div>`).join(''); return `<details class="rev" ${r.correct ? '' : 'open'}><summary><span class="${r.correct ? 'ok' : 'no'}">${r.correct ? '&#10003;' : '&#10007;'}</span> Q${i + 1}</summary><div class="rev-body"><div class="rev-ans">You: ${'ABCD'[r.chosen]} &middot; Correct: <b>${'ABCD'[r.q.answer]}</b></div><p>${esc(r.q.explanation)}</p>${autopsy ? `<div class="autopsy">${autopsy}</div>` : ''}</div></details>`; }).join('');
+  if (guided) main.querySelector('#guide').addEventListener('click', renderGuide);
   main.querySelector('#next').addEventListener('click', renderPassageHome);
   main.querySelector('#home').addEventListener('click', renderMCAT);
   root.appendChild(main); setView(root); window.scrollTo(0, 0);
@@ -907,7 +896,7 @@ function renderSimQ() {
       </div>
       <div id="navwrap"></div>
     </main></div>`);
-  wireRunHeader(root, () => confirmExit(sim && Object.keys(sim.answers).length > 0, () => { if (simTimerId) clearInterval(simTimerId); renderSimHome(); }));
+  wireRunHeader(root, () => confirmExit(sim && Object.keys(sim.answers).length > 0, () => { if (simTimerId) clearInterval(simTimerId); guideLeaveActive('exam', renderSimHome); }));
   root.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => { sim.answers[key] = +b.dataset.i; root.querySelectorAll('.opt').forEach(x => x.classList.toggle('picked', x === b)); }));
   root.querySelector('#flag').addEventListener('click', () => { sim.flags[key] = !sim.flags[key]; renderSimQ(); });
   root.querySelector('#prev').addEventListener('click', () => { if (sim.idx > 0) { sim.idx--; renderSimQ(); } });
@@ -973,6 +962,7 @@ function renderBreak() {
 }
 function finishSim() {
   clearResume('sim');
+  const guided = guideCompleteActiveTask('exam');
   const tot = sim.results.reduce((a, r) => a + r.total, 0), cor = sim.results.reduce((a, r) => a + r.correct, 0);
   const root = el('<div></div>'); root.appendChild(topbar('mcat'));
   const secRows = sim.results.map(r => `<div class="calib-row"><span class="cl">${SIM_SECTIONS[r.key].abbr}</span><span class="cbar"><i style="width:${Math.round(100 * r.correct / r.total)}%"></i></span><span class="cv">${r.correct}/${r.total}</span></div>`).join('');
@@ -981,7 +971,7 @@ function finishSim() {
     <div class="score">${Math.round(100 * cor / tot)}<span class="of">% &middot; ${cor}/${tot}</span></div>
     <div class="calib"><span class="label">By section</span>${secRows}</div>
     <div class="drill-review" id="dr"></div>
-    <div class="endbtns"><button class="btn btn-solid" id="again">New sim</button><button class="btn" id="lab">Mistake Lab</button><button class="btn" id="home">&larr; MCAT</button></div>
+    <div class="endbtns">${guided ? '<button class="btn btn-solid" id="guide">Continue today\'s plan &rarr;</button>' : ''}<button class="btn ${guided ? '' : 'btn-solid'}" id="again">New sim</button><button class="btn" id="lab">Mistake Lab</button><button class="btn" id="home">&larr; MCAT</button></div>
   </section></main>`);
   const dr = main.querySelector('#dr'); dr.innerHTML = `<span class="label">Review</span>`;
   sim.results.forEach(r => r.items.forEach((it, i) => {
@@ -989,6 +979,7 @@ function finishSim() {
     const c = chosen === it.q.answer;
     dr.innerHTML += `<details class="rev" ${c ? '' : 'open'}><summary><span class="${c ? 'ok' : 'no'}">${c ? '&#10003;' : '&#10007;'}</span> ${SIM_SECTIONS[r.key].abbr} Q${i + 1}. ${esc(it.q.stem.slice(0, 80))}&hellip;</summary><div class="rev-body"><div class="rev-ans">You: ${chosen != null ? 'ABCD'[chosen] : '—'} &middot; Correct: <b>${'ABCD'[it.q.answer]}</b></div><p>${esc(it.q.explanation)}</p></div></details>`;
   }));
+  if (guided) main.querySelector('#guide').addEventListener('click', renderGuide);
   main.querySelector('#again').addEventListener('click', renderSimHome);
   main.querySelector('#lab').addEventListener('click', renderMistakeLab);
   main.querySelector('#home').addEventListener('click', renderMCAT);
@@ -1001,58 +992,265 @@ function periodicModal() {
 }
 
 /* ---------- Guide Engine ---------- */
-function guidePlan() { return (typeof loadJSON === 'function') ? loadJSON('cs-mcat-plan', null) : null; }
+const GUIDE_PLAN_VERSION = 2;
 const TRACKS = {
-  '120': { label: '120-day standard', weeks: 17 }, '90': { label: '90-day aggressive', weeks: 13 },
-  '60': { label: '60-day sprint', weeks: 9 }, 'cars': { label: 'CARS rescue', weeks: 8 }, 'final30': { label: 'Final 30 days', weeks: 4 },
+  '120': { label: '120-day steady', days: 120, newCards: 10, questions: 10, minutes: '60–90 min/day', carsDays: [1, 2, 4, 6], passageDays: [3, 6] },
+  '90': { label: '90-day focused', days: 90, newCards: 15, questions: 12, minutes: '90–120 min/day', carsDays: [1, 2, 4, 5, 6], passageDays: [2, 4, 6] },
+  '60': { label: '60-day intensive', days: 60, newCards: 20, questions: 15, minutes: '2–3 hr/day', carsDays: [1, 2, 3, 4, 5, 6], passageDays: [2, 3, 5, 6] },
 };
-function renderGuide() {
-  const existing = guidePlan();
-  const curTrack = (existing && existing.track) || '120';
-  const root = el('<div></div>'); root.appendChild(topbar('mcat'));
-  const main = el(`<main class="panel">
-    <div class="hero"><h1>Guide Engine.</h1><p class="sub">A day-by-day campaign: new content blocked early, then interleaved review, with full-lengths and a taper at the end.</p></div>
-    <div class="ctl"><span class="label">Track</span><div class="modes" id="track">
-      ${Object.entries(TRACKS).map(([k, v]) => `<button class="mode ${k === curTrack ? 'active' : ''}" data-k="${k}">${v.label}</button>`).join('')}</div></div>
-    <div class="endbtns" style="margin-top:18px"><button class="btn btn-solid" id="gen">Generate plan</button>${existing ? '<button class="btn" id="clear">Clear plan</button>' : ''}<button class="btn" id="back">&larr; MCAT</button></div>
-    <div id="plan"></div>
-  </main>`);
-  let track = curTrack;
-  main.querySelectorAll('#track .mode').forEach(b => b.addEventListener('click', () => { track = b.dataset.k; main.querySelectorAll('#track .mode').forEach(x => x.classList.toggle('active', x === b)); }));
-  main.querySelector('#gen').addEventListener('click', () => { const plan = buildPlan(track); mset('cs-mcat-plan', JSON.stringify(plan)); renderGuide(); });
-  if (main.querySelector('#clear')) main.querySelector('#clear').addEventListener('click', () => { if (confirm('Clear your saved study plan?')) { localStorage.removeItem('cs-mcat-plan'); renderGuide(); } });
-  main.querySelector('#back').addEventListener('click', renderMCAT);
-  if (existing) showPlan(main.querySelector('#plan'), existing);
-  root.appendChild(main); setView(root);
+const TRACK_ORDER = ['120', '90', '60'];
+
+function guideDateKey(date = new Date()) {
+  const y = date.getFullYear(), m = String(date.getMonth() + 1).padStart(2, '0'), d = String(date.getDate()).padStart(2, '0');
+  return `${y}-${m}-${d}`;
+}
+function guideDateFromKey(key) {
+  const [y, m, d] = String(key || '').split('-').map(Number);
+  return new Date(y, Math.max(0, (m || 1) - 1), d || 1);
+}
+function guideAddDays(key, days) { const d = guideDateFromKey(key); d.setDate(d.getDate() + days); return guideDateKey(d); }
+function guideFormatDate(key) { return guideDateFromKey(key).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' }); }
+function saveGuidePlan(plan) { mset('cs-mcat-plan', JSON.stringify(plan)); }
+function guidePlan() {
+  const raw = (typeof loadJSON === 'function') ? loadJSON('cs-mcat-plan', null) : null;
+  if (!raw) return null;
+  if (raw.version === GUIDE_PLAN_VERSION && TRACKS[raw.track]) return raw;
+  const migrated = buildPlan(TRACKS[raw.track] ? raw.track : '120');
+  saveGuidePlan(migrated);
+  return migrated;
+}
+function guideClearActiveTask() {
+  const plan = guidePlan();
+  if (!plan || !plan.active) return;
+  delete plan.active;
+  saveGuidePlan(plan);
+}
+function guidePlanDay(plan) {
+  const start = guideDateFromKey(plan.startDate);
+  const today = guideDateFromKey(guideDateKey());
+  const startUTC = Date.UTC(start.getFullYear(), start.getMonth(), start.getDate());
+  const todayUTC = Date.UTC(today.getFullYear(), today.getMonth(), today.getDate());
+  return Math.max(1, Math.min(plan.durationDays, Math.floor((todayUTC - startUTC) / DAY) + 1));
+}
+function guidePhase(plan, day) {
+  if (day > plan.durationDays - 2) return 'Taper';
+  if (day > plan.durationDays - 21) return 'Exam prep';
+  return 'Build';
+}
+function guideCategories() {
+  const out = [];
+  if (!MCAT.outline) return out;
+  MCAT.outline.concepts.filter(c => c.section !== 'cars').forEach(c => c.categories.forEach(cat => out.push({ id: cat.id, title: cat.title, section: c.section })));
+  return out;
+}
+function guideWeakCategory() {
+  const byCat = {};
+  QLOG.filter(x => x.section !== 'cars').forEach(x => { (byCat[x.category] ||= { n: 0, c: 0 }).n++; if (x.correct) byCat[x.category].c++; });
+  const weak = Object.entries(byCat).filter(([, v]) => v.n >= 2).map(([id, v]) => ({ id, n: v.n, acc: Math.round(100 * v.c / v.n) })).sort((a, b) => a.acc - b.acc || b.n - a.n)[0];
+  return weak && weak.acc < 70 ? guideCategories().find(c => c.id === weak.id) || null : null;
+}
+function guideFocusCategory(plan, day) {
+  const cats = guideCategories();
+  if (!cats.length) return null;
+  const weak = day % 4 === 0 ? guideWeakCategory() : null;
+  if (weak) return Object.assign({ adaptive: true }, weak);
+  const contentDays = Math.max(1, plan.durationDays - 21);
+  const index = Math.min(cats.length - 1, Math.floor((Math.min(day, contentDays) - 1) * cats.length / contentDays));
+  return Object.assign({ adaptive: false }, cats[index]);
+}
+function guideTaskKey(day, id) { return `${day}:${id}`; }
+function guideTaskDone(plan, day, id) { return !!(plan.completed && plan.completed[guideTaskKey(day, id)]); }
+function guideDayTasks(plan, day) {
+  const track = TRACKS[plan.track];
+  const phase = guidePhase(plan, day);
+  const focus = guideFocusCategory(plan, day);
+  const weekday = ((day - 1) % 7) + 1;
+  const tasks = [];
+  const add = task => tasks.push(Object.assign({ day, category: focus?.id || null, section: focus?.section || 'bioBiochem' }, task));
+
+  if (phase === 'Taper') {
+    add({ id: 'flash', type: 'flash', title: 'Due flashcards', desc: 'Review only what is due. Add no new material.', meta: 'Due cards · about 15 min', newCards: 0 });
+    add({ id: 'drill', type: 'drill', title: 'Light weak-area review', desc: focus ? `${focus.id} · ${focus.title}` : 'Review the weakest tested category', meta: '10 questions · untimed', questions: 10 });
+    return tasks;
+  }
+
+  if (phase === 'Exam prep') {
+    add({ id: 'flash', type: 'flash', title: 'Due flashcards', desc: 'Keep older material retrievable without adding much new content.', meta: 'Due cards · about 20 min', newCards: 0 });
+    add({ id: 'drill', type: 'drill', title: focus?.adaptive ? 'Weak-area repair' : 'Mixed weak-area drill', desc: focus ? `${focus.id} · ${focus.title}` : 'Target recent misses', meta: '20 questions · review every miss', questions: 20 });
+    if (weekday !== 7) add({ id: 'cars', type: 'cars', title: 'CARS passage', desc: 'One passage with full answer review.', meta: '1 passage · untimed first' });
+    if ((day - (plan.durationDays - 20)) % 7 === 0) {
+      const sections = ['chemPhys', 'bioBiochem', 'psychSoc', 'cars'];
+      const section = sections[Math.floor((day - (plan.durationDays - 20)) / 7) % sections.length];
+      add({ id: 'exam', type: 'exam', title: `${SEC_ABBR[section]} section simulation`, desc: 'Practice under the same no-feedback conditions as test day.', meta: 'Timed section', section });
+    } else if (weekday % 2 === 0) {
+      add({ id: 'passage', type: 'passage', title: 'Science passage', desc: 'Read the experiment, work the data, then review every answer.', meta: '1 passage · about 20 min' });
+    }
+    return tasks;
+  }
+
+  add({ id: 'flash', type: 'flash', title: 'Focused flashcards', desc: focus ? `${focus.id} · ${focus.title}` : 'New and due cards', meta: `${track.newCards} new + anything due`, newCards: track.newCards });
+  add({ id: 'drill', type: 'drill', title: focus?.adaptive ? 'Weak-area drill' : 'Focused question drill', desc: focus ? `${focus.id} · ${focus.title}` : 'Current content block', meta: `${track.questions} questions · full review`, questions: track.questions });
+  if (track.carsDays.includes(weekday)) add({ id: 'cars', type: 'cars', title: 'CARS passage', desc: 'Read for structure and justify every answer from the text.', meta: '1 passage · about 15 min' });
+  if (track.passageDays.includes(weekday)) add({ id: 'passage', type: 'passage', title: 'Science passage', desc: `Apply ${focus ? focus.id : 'today’s content'} to an experiment or data set.`, meta: '1 passage · about 20 min' });
+  return tasks;
+}
+function guideLeastAttempted(list) {
+  if (!list.length) return null;
+  return list.slice().sort((a, b) => QLOG.filter(x => x.passage === a.id).length - QLOG.filter(x => x.passage === b.id).length || a.id.localeCompare(b.id))[0];
+}
+function guideResumeSpec(type) {
+  const key = { flash: 'flash', drill: 'drill', cars: 'cars', passage: 'plab', exam: 'sim' }[type];
+  return key ? RESUME_SPECS.find(spec => spec.key === key) || null : null;
+}
+function guideStartTask(task, plan) {
+  if (plan.active && plan.active.day === task.day && plan.active.id === task.id && plan.active.type === task.type) {
+    const spec = guideResumeSpec(task.type);
+    const resume = spec ? loadResume(spec.key) : null;
+    if (spec && resume) {
+      try { spec.resume(resume); return; } catch { clearResume(spec.key); }
+    }
+  } else if (plan.active) {
+    const oldSpec = guideResumeSpec(plan.active.type);
+    if (oldSpec) clearResume(oldSpec.key);
+  }
+  plan.active = { day: task.day, id: task.id, type: task.type };
+  saveGuidePlan(plan);
+  if (task.type === 'flash') { startFlash('all', task.newCards, 60, task.category); return; }
+  if (task.type === 'drill') {
+    let pool = MCAT.questions.filter(q => q.category === task.category);
+    if (pool.length < task.questions) pool = MCAT.questions.filter(q => q.section === task.section);
+    if (!pool.length) pool = MCAT.questions;
+    drill = { qs: shuffleArr(pool).slice(0, Math.min(task.questions, pool.length)), idx: 0, mode: 'standard', results: [], scope: task.category || task.section };
+    renderDrillQ(); return;
+  }
+  if (task.type === 'cars') { const passage = guideLeastAttempted(MCAT.cars); if (passage) startCars(passage, false); else { guideClearActiveTask(); renderGuide(); } return; }
+  if (task.type === 'passage') {
+    const sectionPool = MCAT.sci.filter(p => p.section === task.section);
+    const passage = guideLeastAttempted(sectionPool.length ? sectionPool : MCAT.sci);
+    if (passage) startPassage(passage, false); else { guideClearActiveTask(); renderGuide(); }
+    return;
+  }
+  if (task.type === 'exam') { startSim([task.section]); return; }
+}
+function guideCompleteActiveTask(expectedType) {
+  const plan = guidePlan();
+  if (!plan?.active || plan.active.type !== expectedType) return false;
+  plan.completed ||= {};
+  plan.completed[guideTaskKey(plan.active.day, plan.active.id)] = nowTs();
+  delete plan.active;
+  saveGuidePlan(plan);
+  return true;
+}
+function guideLeaveActive(expectedType, fallback) {
+  const plan = guidePlan();
+  if (!plan?.active || plan.active.type !== expectedType) { fallback(); return; }
+  renderGuide();
 }
 function buildPlan(track) {
-  const weeks = TRACKS[track].weeks;
-  const cats = [];
-  if (!MCAT.outline) return { track, label: TRACKS[track].label, weeks: [] };
-  MCAT.outline.concepts.filter(c => c.section !== 'cars').forEach(c => c.categories.forEach(cat => cats.push(cat.id)));
-  const flWeeks = Math.min(weeks <= 4 ? 4 : 3, weeks);    // last weeks = full-lengths + review
-  const contentWeeks = Math.max(1, weeks - flWeeks);
-  const perWeek = Math.ceil(cats.length / contentWeeks);
-  const plan = { track, label: TRACKS[track].label, weeks: [] };
-  for (let w = 0; w < weeks; w++) {
-    if (w < contentWeeks) {
-      const slice = cats.slice(w * perWeek, w * perWeek + perWeek);
-      if (!slice.length) {
-        // categories already exhausted — this is a review week, not an empty "Build" week
-        plan.weeks.push({ n: w + 1, phase: 'Review', focus: [], note: `Interleave drills across all prior categories; daily CARS + flashcards (due). No new material this week.` });
-      } else {
-        plan.weeks.push({ n: w + 1, phase: 'Build', focus: slice, note: `Learn: ${slice.join(', ')}. Daily: ${track === 'cars' ? '2 CARS passages' : '1 CARS passage'} + flashcards (due) + a 10-q drill on the week's categories. Block new material, then interleave drills with prior weeks.` });
-      }
-    } else {
-      const fl = weeks - w;
-      plan.weeks.push({ n: w + 1, phase: fl === 1 ? 'Taper' : 'Exam prep', focus: [], note: fl === 1 ? 'Light review of Mistake Lab weak spots, sleep, logistics. No new material. One half-length max, then rest.' : 'One full-length this week + full review in Mistake Lab. Re-drill weakest categories. Daily CARS + flashcards.' });
+  const config = TRACKS[track] || TRACKS['120'];
+  const startDate = guideDateKey();
+  const plan = {
+    version: GUIDE_PLAN_VERSION,
+    track,
+    label: config.label,
+    durationDays: config.days,
+    startDate,
+    targetDate: guideAddDays(startDate, config.days - 1),
+    completed: {},
+    weeks: [],
+  };
+  const cats = guideCategories();
+  const weekCount = Math.ceil(config.days / 7);
+  for (let w = 0; w < weekCount; w++) {
+    const firstDay = w * 7 + 1, lastDay = Math.min(config.days, firstDay + 6);
+    const ids = [];
+    for (let day = firstDay; day <= lastDay; day++) {
+      const focus = guideFocusCategory(plan, day);
+      if (focus && !ids.includes(focus.id)) ids.push(focus.id);
     }
+    const phase = guidePhase(plan, firstDay);
+    const titles = ids.map(id => cats.find(c => c.id === id)).filter(Boolean).map(c => `${c.id} ${c.title}`);
+    const note = phase === 'Build' ? titles.join(' · ') : phase === 'Taper' ? 'Light review, sleep, logistics, and confidence.' : 'Section practice, weak-area repair, daily recall, and passage review.';
+    plan.weeks.push({ n: w + 1, firstDay, lastDay, phase, focus: ids, note });
   }
   return plan;
 }
 function showPlan(host, plan) {
-  host.innerHTML = `<div class="statblock"><span class="label">${esc(plan.label)} &middot; ${plan.weeks.length} weeks</span>` +
-    plan.weeks.map(w => `<div class="week"><div class="week-head"><span class="wk">Week ${w.n}</span><span class="wphase">${w.phase}</span></div><div class="wnote">${esc(w.note)}</div></div>`).join('') + '</div>';
+  host.innerHTML = plan.weeks.map(w => `<div class="guide-week"><span class="guide-week-num">Week ${w.n}</span><span class="guide-week-days">Days ${w.firstDay}–${w.lastDay}</span><strong>${w.phase}</strong><p>${esc(w.note)}</p></div>`).join('');
+}
+function renderGuide() {
+  const existing = guidePlan();
+  const root = el('<div></div>'); root.appendChild(topbar('mcat'));
+
+  if (!existing) {
+    const defaultTrack = '120';
+    const main = el(`<main class="panel guide-page">
+      <button class="backbtn topback" id="back">&larr; MCAT</button>
+      <header class="guide-setup-hero"><span class="label">Guided MCAT plan</span><h1>Choose your pace.</h1><p>Start today. Cortex will give you a short assignment each day, open the correct tools, track completion, and adapt every fourth day to weak areas.</p></header>
+      <div class="guide-track-list">
+        ${TRACK_ORDER.map(key => { const track = TRACKS[key]; return `<button class="guide-track ${key === defaultTrack ? 'active' : ''}" data-track="${key}"><span><strong>${track.label}</strong><small>${track.minutes}</small></span><span>Target ${guideFormatDate(guideAddDays(guideDateKey(), track.days - 1))}</span></button>`; }).join('')}
+      </div>
+      <div class="guide-setup-actions"><button class="btn btn-solid" id="begin">Start the 120-day plan &rarr;</button><span>Starting today · progress stays on this device</span></div>
+    </main>`);
+    let track = defaultTrack;
+    main.querySelectorAll('[data-track]').forEach(button => button.addEventListener('click', () => {
+      track = button.dataset.track;
+      main.querySelectorAll('[data-track]').forEach(item => item.classList.toggle('active', item === button));
+      main.querySelector('#begin').textContent = `Start the ${track}-day plan →`;
+    }));
+    main.querySelector('#begin').addEventListener('click', () => { saveGuidePlan(buildPlan(track)); renderGuide(); });
+    main.querySelector('#back').addEventListener('click', renderMCAT);
+    root.appendChild(main); setView(root); window.scrollTo(0, 0); return;
+  }
+
+  const plan = existing;
+  const day = guidePlanDay(plan);
+  const tasks = guideDayTasks(plan, day);
+  const done = tasks.filter(task => guideTaskDone(plan, day, task.id)).length;
+  const activeTask = tasks.find(task => !guideTaskDone(plan, day, task.id)
+    && plan.active?.day === day && plan.active?.id === task.id && plan.active?.type === task.type);
+  const nextTask = activeTask || tasks.find(task => !guideTaskDone(plan, day, task.id));
+  const phase = guidePhase(plan, day);
+  const focus = guideFocusCategory(plan, day);
+  const pct = tasks.length ? Math.round(done / tasks.length * 100) : 100;
+  const calendarPct = Math.round(day / plan.durationDays * 100);
+  const main = el(`<main class="panel guide-page">
+    <button class="backbtn topback" id="back">&larr; MCAT</button>
+    <header class="guide-day-hero">
+      <span class="label">${esc(plan.label)} &middot; Day ${day} of ${plan.durationDays}</span>
+      <h1>${nextTask ? 'Today’s MCAT plan' : 'Today is complete'}</h1>
+      <p>${phase} &middot; Week ${Math.ceil(day / 7)}${focus ? ` &middot; ${focus.adaptive ? 'Weak-area review' : 'Focus'}: ${focus.id} ${esc(focus.title)}` : ''}</p>
+      <div class="guide-progress"><span><strong>${done}/${tasks.length}</strong> tasks complete</span><span>${pct}% today</span><span class="cog-course-bar"><i style="width:${pct}%"></i></span></div>
+      ${nextTask ? `<button class="btn btn-solid" id="guide-next">${activeTask ? 'Resume current task' : 'Start next task'} &rarr;</button>` : '<div class="guide-day-done">You did the work. Come back tomorrow for the next assignment.</div>'}
+    </header>
+    <section class="guide-today">
+      <div class="guide-section-head"><span class="label">Today</span><span>Target date ${guideFormatDate(plan.targetDate)} &middot; ${calendarPct}% through plan</span></div>
+      <div class="guide-task-list">${tasks.map((task, index) => {
+        const completed = guideTaskDone(plan, day, task.id);
+        return `<button class="guide-task ${completed ? 'done' : ''}" data-guide-task="${task.id}" ${completed ? 'disabled' : ''}>
+          <span class="guide-task-num">${completed ? '&#10003;' : String(index + 1).padStart(2, '0')}</span>
+          <span class="guide-task-copy"><strong>${esc(task.title)}</strong><span>${esc(task.desc)}</span></span>
+          <span class="guide-task-meta">${esc(task.meta)}</span><span class="guide-task-go">${completed ? 'Done' : '&rarr;'}</span>
+        </button>`;
+      }).join('')}</div>
+    </section>
+    <details class="guide-schedule"><summary><span><strong>Full ${plan.track}-day schedule</strong><small>${plan.weeks.length} weeks · content, review, exams, and taper</small></span><i>Open</i></summary><div class="guide-week-list" id="guide-weeks"></div></details>
+    <div class="guide-plan-actions"><button class="ghostbtn" id="restart">Change or restart plan</button></div>
+  </main>`);
+  const launch = task => guideStartTask(task, plan);
+  if (nextTask) main.querySelector('#guide-next').addEventListener('click', () => launch(nextTask));
+  main.querySelectorAll('[data-guide-task]').forEach(button => button.addEventListener('click', () => {
+    const task = tasks.find(item => item.id === button.dataset.guideTask);
+    if (task) launch(task);
+  }));
+  showPlan(main.querySelector('#guide-weeks'), plan);
+  main.querySelector('#restart').addEventListener('click', () => {
+    if (!confirm('Restart your guided MCAT plan? Completed plan days will be cleared. Your flashcard and question history will stay.')) return;
+    localStorage.removeItem('cs-mcat-plan');
+    renderGuide();
+  });
+  main.querySelector('#back').addEventListener('click', renderMCAT);
+  root.appendChild(main); setView(root); window.scrollTo(0, 0);
 }
 
 /* ---------- Course Mapper ---------- */

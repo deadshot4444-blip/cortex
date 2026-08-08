@@ -61,10 +61,10 @@ function cogglMark(id) { if (!COG.learned) COG.learned = {}; COG.learned[id] = 1
 /* ---------------------------------------------------------------------------
    LEARN HOME
    --------------------------------------------------------------------------- */
-function renderCogLearnHome() {
+function renderCogLearnHome(focusChapter) {
   cogClearTimer();
   if (!cogLearnReady) {
-    cogLoadLessons().then(renderCogLearnHome);
+    cogLoadLessons().then(() => renderCogLearnHome(focusChapter));
     const root = el('<div></div>'); root.appendChild(topbar('cogpsych'));
     root.appendChild(el('<main class="panel gen-lock" id="main"><div class="gen-lock-box cornerframe"><span class="label">Learn</span><p class="gen-lock-sub">Loading lessons…</p></div></main>'));
     root.appendChild(siteFooter()); setView(root);
@@ -74,28 +74,42 @@ function renderCogLearnHome() {
   const byCh = {};
   COG_LESSONS.filter(l => typeof COG_CH !== 'undefined' && COG_CH[l.chapter]).forEach(l => { (byCh[l.chapter] = byCh[l.chapter] || []).push(l); });
   const hasLessons = Object.keys(byCh).length > 0;
-  const chBlock = (ch) => `<section class="gen-learn-ch">
-      <span class="label">${ch} · ${(typeof COG_CH !== 'undefined' && COG_CH[ch]) || ''}</span>
+  const completed = COG_LESSONS.filter(l => cogglDone(l.id)).length;
+  const pct = COG_LESSONS.length ? Math.round(completed / COG_LESSONS.length * 100) : 0;
+  const nextLesson = COG_LESSONS.find(l => !cogglDone(l.id)) || COG_LESSONS[0] || null;
+  const chBlock = (ch) => {
+    const done = byCh[ch].filter(l => cogglDone(l.id)).length;
+    return `<section class="gen-learn-ch cog-curriculum-chapter" id="cog-chapter-${ch}">
+      <header class="cog-curriculum-chapter-head">
+        <span class="cog-curriculum-chapter-num mono">${String(ch).padStart(2, '0')}</span>
+        <div><span class="label">Chapter ${ch} · ${done}/${byCh[ch].length} complete</span><h2>${esc((typeof COG_CH !== 'undefined' && COG_CH[ch]) || '')}</h2><p>${esc((typeof COG_CH_OVERVIEW !== 'undefined' && COG_CH_OVERVIEW[ch]) || '')}</p></div>
+      </header>
       <div class="gen-learn-grid">
-        ${byCh[ch].map(l => `<button class="gen-learn-card cornerframe ${cogglDone(l.id) ? 'done' : ''}" data-lesson="${l.id}">
-          ${cogglDone(l.id) ? '<span class="gen-learn-check">✓ learned</span>' : '<span class="gen-learn-go2">lesson</span>'}
+        ${byCh[ch].map((l, index) => `<button class="gen-learn-card ${cogglDone(l.id) ? 'done' : ''}" data-lesson="${l.id}">
+          ${cogglDone(l.id) ? '<span class="gen-learn-check">✓ complete</span>' : `<span class="gen-learn-go2">Lesson ${index + 1}</span>`}
           <h2>${esc(l.title)}</h2>
           <p>${esc(l.blurb)}</p>
-          <span class="gen-learn-meta mono">${l.steps.length} steps · ${l.steps.some(s => s.kind === 'interactive') ? 'interactive' : 'guided mastery'}</span>
+          <span class="gen-learn-meta mono">${l.steps.length} steps · ${l.steps.some(s => s.kind === 'interactive') ? 'interactive' : 'guided lesson'}</span>
         </button>`).join('')}
       </div>
     </section>`;
+  };
   const root = el('<div></div>');
   root.appendChild(topbar('cogpsych'));
-  const main = el(`<main class="panel gen-learn-home" id="main" tabindex="-1">
-    <div class="gen-pick-head"><button class="ghostbtn" id="gen-back">← Home</button><h1>Learn Cognitive Psychology</h1></div>
-    <p class="gen-learn-intro">The whole subject, one guided lesson at a time: learn the idea, reason it out, pass the checkpoint, then drill it. Start at Chapter 1 and work forward, or jump straight to whatever you're curious about.</p>
+  const main = el(`<main class="panel gen-learn-home cog-curriculum-page" id="main" tabindex="-1">
+    <button class="ghostbtn cog-curriculum-back" id="gen-back">← Course home</button>
+    <header class="cog-curriculum-hero">
+      <div><span class="label">Course curriculum · 13 chapters</span><h1>Cognitive Psychology</h1><p>Learn the subject in order, one guided lesson at a time. Every lesson explains the idea, asks you to reason with it, and closes with a checkpoint.</p></div>
+      <aside><strong class="mono">${pct}%</strong><span>${completed} of ${COG_LESSONS.length} lessons complete</span><span class="cog-course-bar"><i style="width:${pct}%"></i></span>${nextLesson ? `<button class="btn btn-solid" id="cog-continue-course">${completed ? 'Continue' : 'Start'} course →</button>` : ''}</aside>
+    </header>
     ${hasLessons ? Object.keys(byCh).sort((a, b) => a - b).map(chBlock).join('') : `<div class="gen-learn-empty cornerframe"><span class="label">Load error</span><h2>Lessons did not load</h2><p>Reload the page, or use <b>Smart Review</b> while the lesson file reconnects.</p><button class="btn btn-solid" id="gen-learn-smart">Start Smart Review →</button></div>`}
   </main>`);
   const smb = main.querySelector('#gen-learn-smart'); if (smb) smb.addEventListener('click', startCogSmart);
+  const continueBtn = main.querySelector('#cog-continue-course'); if (continueBtn && nextLesson) continueBtn.addEventListener('click', () => renderCogLesson(nextLesson.id));
   main.querySelector('#gen-back').addEventListener('click', renderCogHome);
   main.querySelectorAll('[data-lesson]').forEach(b => b.addEventListener('click', () => renderCogLesson(b.dataset.lesson)));
   root.appendChild(main); root.appendChild(siteFooter()); setView(root);
+  if (focusChapter) requestAnimationFrame(() => document.querySelector(`#cog-chapter-${focusChapter}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
 }
 
 /* ---------------------------------------------------------------------------
@@ -127,7 +141,7 @@ function renderCogLesson(id) {
       </div>
     </main>`);
     main.querySelector('#lesson-body').appendChild(inner);
-    main.querySelector('#gen-exit').addEventListener('click', renderCogLearnHome);
+    main.querySelector('#gen-exit').addEventListener('click', () => renderCogLearnHome());
     main.querySelector('#lesson-back').addEventListener('click', () => { if (idx > 0) { idx--; show(); } });
     const nextBtn = main.querySelector('#lesson-next');
     nextBtn.addEventListener('click', () => {
@@ -241,7 +255,7 @@ function renderCogLesson(id) {
       </div>
     </main>`);
     main.querySelector('#l-drill').addEventListener('click', () => { if (typeof startCogTopic === 'function') startCogTopic(lesson.topic); else renderCogHome(); });
-    main.querySelector('#l-more').addEventListener('click', renderCogLearnHome);
+    main.querySelector('#l-more').addEventListener('click', () => renderCogLearnHome());
     main.querySelector('#l-home').addEventListener('click', renderCogHome);
     root.appendChild(main); root.appendChild(siteFooter()); setView(root);
   }

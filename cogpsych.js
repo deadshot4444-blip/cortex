@@ -129,6 +129,22 @@ const COG_CH = {
   13: 'Reasoning & Decision Making',
 };
 
+const COG_CH_OVERVIEW = {
+  1: 'Meet cognitive psychology and learn how hidden mental processes become something science can study.',
+  2: 'Follow the field from philosophy and behaviorism to experiments that measure the mind and brain.',
+  3: 'Build a working map of neurons, brain systems, cortical organization, and artificial neural networks.',
+  4: 'See how sensation becomes perception through pathways, inference, organization, and object recognition.',
+  5: 'Understand selection, divided attention, visual search, automaticity, and the neural control of focus.',
+  6: 'Explore sensory memory, short-term limits, working-memory systems, forgetting, and executive control.',
+  7: 'Learn how long-term memories are encoded, organized, retrieved, consolidated, and expressed.',
+  8: 'Examine the remembered self, emotion, false memory, eyewitness evidence, and memory across a lifetime.',
+  9: 'Study concepts, categories, schemas, semantic networks, embodiment, and how knowledge lives in the brain.',
+  10: 'Investigate mental images, the imagery debate, spatial transformations, vividness, and shared visual circuitry.',
+  11: 'Trace language from acquisition and comprehension to discourse, the brain, thought, and machine language.',
+  12: 'Learn how problems are represented, why solvers get stuck, where insight comes from, and what experts see.',
+  13: 'Finish with deduction, induction, heuristics, bias, choice, loss aversion, and the neuroscience of decisions.',
+};
+
 /* ---------- state + persistence ---------- */
 const COG_KEY = 'cs-cogpsych';
 const COG_MODULE = 'cogpsych-course-v1';   // stable tag — the course accumulates, it doesn't rotate
@@ -364,7 +380,7 @@ async function cogLoadBank() {
 }
 function cogLoadingScreen() {
   const root = el('<div></div>'); root.appendChild(topbar('cogpsych'));
-  root.appendChild(el('<main class="panel gen-lock" id="main" tabindex="-1"><div class="gen-lock-box cornerframe"><span class="label">Cognitive Psychology</span><p class="gen-lock-sub">Loading questions…</p></div></main>'));
+  root.appendChild(el('<main class="panel gen-lock" id="main" tabindex="-1"><div class="gen-lock-box cornerframe"><span class="label">Cognitive Psychology</span><p class="gen-lock-sub">Loading course…</p></div></main>'));
   root.appendChild(siteFooter()); setView(root);
 }
 function cogBankError() {
@@ -375,10 +391,14 @@ function cogBankError() {
 }
 function renderCogPsych() {
   cogClearTimer();
-  if (!cogBankReady) {
+  const lessonsPending = typeof cogLoadLessons === 'function' && !cogLearnReady;
+  if (!cogBankReady || lessonsPending) {
     if (cogBankFailed) { cogBankError(); return; }
     cogLoadingScreen();
-    cogLoadBank().then(renderCogPsych);
+    const loads = [];
+    if (!cogBankReady) loads.push(cogLoadBank());
+    if (lessonsPending) loads.push(cogLoadLessons());
+    Promise.all(loads).then(renderCogPsych);
     return;
   }
   if (!COG_BANK.length) { renderCogEmpty(); return; }
@@ -399,123 +419,96 @@ function renderCogHome() {
   cogClearTimer();
   COG_POOL_FILTER = null;
   if (!COGA_sessionLogged) { COGA_sessionLogged = true; cogTrack('session_start', { competency: cogOverall(), mastered: COG_BANK.filter(q => cogBox(q.id) >= 5).length, total: COG_BANK.length, mobile: (window.innerWidth || 0) < 700 }); }
-  const rank = cogRank(COG.xp), status = cogStatus();
+  const status = cogStatus();
   const missCount = cogMissPool().length, starredCount = cogStarredList().length;
-  const weak = cogWeakTopics();
-  const meter = (ch) => `<div class="gen-meter">
-      <div class="gen-meter-top"><span>${ch} · ${COG_CH[ch]}</span><span class="mono">${cogMastery(ch)}%</span></div>
-      <div class="gen-bar"><span style="width:${cogMastery(ch)}%"></span></div>
-    </div>`;
-  const weakItems = weak.slice(0, 3).map(w => `<button class="gen-weak-row" data-topic="${w.topic}">
-      <span class="gen-weak-name">${esc(w.name)}</span>
-      <span class="gen-weak-bar"><span style="width:${w.comp}%"></span></span>
-      <span class="mono gen-weak-pct">${w.comp}%</span>
-    </button>`).join('');
+  const lessons = (typeof COG_LESSONS !== 'undefined' ? COG_LESSONS : [])
+    .filter(l => COG_CH[l.chapter]);
+  const lessonDone = lessons.filter(l => cogglDone(l.id)).length;
+  const coursePct = lessons.length ? Math.round(lessonDone / lessons.length * 100) : 0;
+  const nextLesson = lessons.find(l => !cogglDone(l.id)) || lessons[0] || null;
+  const currentChapter = nextLesson ? nextLesson.chapter : 1;
+  const chapterRows = Object.keys(COG_CH).map(Number).sort((a, b) => a - b).map(ch => {
+    const chapterLessons = lessons.filter(l => l.chapter === ch);
+    const complete = chapterLessons.filter(l => cogglDone(l.id)).length;
+    const state = chapterLessons.length && complete === chapterLessons.length
+      ? 'done' : ch === currentChapter ? 'current' : '';
+    const action = state === 'done' ? 'Review' : complete ? 'Continue' : 'Explore';
+    return `<button class="cog-chapter-row ${state}" data-course-chapter="${ch}">
+      <span class="cog-chapter-num mono">${String(ch).padStart(2, '0')}</span>
+      <span class="cog-chapter-copy">
+        <strong>${esc(COG_CH[ch])}</strong>
+        <span>Chapter ${ch} · ${chapterLessons.length} ${chapterLessons.length === 1 ? 'lesson' : 'lessons'}</span>
+      </span>
+      <span class="cog-chapter-progress">
+        <span class="cog-chapter-progress-copy">${complete}/${chapterLessons.length} complete</span>
+        <span class="cog-chapter-action">${action} →</span>
+      </span>
+    </button>`;
+  }).join('');
 
   const root = el('<div></div>');
   root.appendChild(topbar('cogpsych'));
-  const main = el(`<main class="panel gen-home" id="main" tabindex="-1">
-    ${status.cls === 'ready' ? `<div class="gen-ready-banner"><span class="gen-ready-pulse"></span>COURSE MASTERED · ${status.c}% mastery</div>` : ''}
-
-    <header class="gen-hero cornerframe">
-      <div class="gen-hero-l">
-        <span class="label">A Cortex course · 13 chapters</span>
-        <h1>Cognitive Psychology</h1>
-        <div class="gen-rank"><span class="gen-rank-lvl mono">LV ${rank.lvl}</span><span class="gen-rank-name">${esc(rank.name)}</span></div>
-        <div class="gen-xpbar"><span style="width:${rank.pct}%"></span></div>
-        <p class="gen-xp-note mono">${COG.xp.toLocaleString()} XP${rank.next ? ` · ${rank.toNext.toLocaleString()} to next level` : ' · MAX'}</p>
+  const main = el(`<main class="panel gen-home cog-course-home" id="main" tabindex="-1">
+    <header class="cog-simple-hero">
+      <span class="label">Cortex open course</span>
+      <h1>Cognitive Psychology</h1>
+      <p>Learn how the mind perceives, remembers, uses language, solves problems, and makes decisions.</p>
+      <div class="cog-simple-progress" aria-label="Course progress">
+        <span><strong>${lessonDone} of ${lessons.length}</strong> lessons complete</span>
+        <span class="mono">${coursePct}%</span>
+        <span class="cog-course-bar"><i style="width:${coursePct}%"></i></span>
       </div>
-      <div class="gen-hero-r">
-        <div class="gen-comp-ring gen-comp-${status.cls}">
-          <span class="gen-comp-num mono">${status.c}%</span><span class="gen-comp-lab">competency</span>
-        </div>
-        <span class="gen-comp-status gen-comp-${status.cls}">${status.label}</span>
+      <div class="cog-course-actions">
+        <button class="btn btn-solid" data-course-action="continue">${lessonDone ? 'Continue course' : 'Start course'} →</button>
+        <button class="ghostbtn" data-course-action="browse">Browse all lessons</button>
       </div>
     </header>
 
-    <div class="gen-statrow">
-      <div class="gen-stat"><span class="gen-stat-n mono">${COG.streak.current}</span><span class="gen-stat-l">Day streak</span></div>
-      <div class="gen-stat"><span class="gen-stat-n mono">${cogAccuracy()}%</span><span class="gen-stat-l">Accuracy</span></div>
-      <div class="gen-stat"><span class="gen-stat-n mono">${COG.bestScore}</span><span class="gen-stat-l">Best blitz</span></div>
-      <div class="gen-stat"><span class="gen-stat-n mono">${COG.bestCombo}×</span><span class="gen-stat-l">Best combo</span></div>
-    </div>
-
-    <section class="gen-modes">
-      <button class="gen-mode-card gen-mode-learn gen-mode-hero cornerframe" data-mode="learn">
-        <span class="gen-mode-tag">start here · guided lessons</span>
-        <h2>Learn</h2>
-        <p>Guided lessons across all thirteen chapters — how the mind is studied, the brain, perception, attention, memory, knowledge, imagery, language, and how we solve problems and decide. Learn the idea, reason it out, pass the checkpoint.</p>
-        <span class="gen-mode-go">Open lessons →</span>
-      </button>
-      <button class="gen-mode-card cornerframe" data-mode="smart">
-        <span class="gen-mode-tag">daily · adaptive</span>
-        <h2>Smart Review</h2>
-        <p>Endless adaptive loop over everything you've learned — misses return with a hint until every question is mastered.</p>
-        <span class="gen-mode-go">Study →</span>
-      </button>
-      <button class="gen-mode-card cornerframe" data-mode="chapter">
-        <span class="gen-mode-tag">untimed · by topic</span>
-        <h2>Topic Drills</h2>
-        <p>Pick any topic and work through it with full explanations until the meter fills.</p>
-        <span class="gen-mode-go">Choose →</span>
-      </button>
-      <button class="gen-mode-card cornerframe" data-mode="blitz">
-        <span class="gen-mode-tag">90s · combo</span>
-        <h2>Blitz</h2>
-        <p>Rapid-fire across the whole course. Stack combos and make retrieval automatic.</p>
-        <span class="gen-mode-go">Start →</span>
-      </button>
-      <button class="gen-mode-card cornerframe" data-mode="exam">
-        <span class="gen-mode-tag">20 Q · 4 lives</span>
-        <h2>Mastery Boss</h2>
-        <p>A fast mixed gauntlet across every chapter. Beat 85% to clear it.${COG.bestExam ? ` Best: ${COG.bestExam}%.` : ''}</p>
-        <span class="gen-mode-go">Fight →</span>
-      </button>
-      <button class="gen-mode-card cornerframe" data-mode="misses">
-        <span class="gen-mode-tag">targeted</span>
-        <h2>Review Misses</h2>
-        <p>Drill only the questions you've gotten wrong, with hints, until they stick.${missCount ? ` ${missCount} waiting.` : ''}</p>
-        <span class="gen-mode-go">Review →</span>
-      </button>
+    <section class="cog-simple-syllabus">
+      <div class="cog-simple-section-head"><span class="label">Course outline</span><span>${COG_CH && Object.keys(COG_CH).length} chapters · ${lessons.length} lessons</span></div>
+      <div class="cog-chapter-list">${chapterRows}</div>
     </section>
 
-    <div class="gen-cols">
-      <section class="gen-weak cornerframe">
-        <span class="label">Your weak spots — focus here</span>
-        ${weak.some(w => w.seen > 0) ? weakItems : '<p class="gen-weak-empty">Answer some questions and your weakest topics will surface here with a one-tap drill.</p>'}
-        <button class="btn btn-solid gen-weak-cta" data-mode="smart">Drill my weak spots</button>
-      </section>
-
-      <section class="gen-mastery cornerframe">
-        <span class="label">Field map</span>
-        ${Object.keys(COG_CH).map(ch => meter(Number(ch))).join('')}
-      </section>
-    </div>
-
-    <div class="gen-utils">
-      <button class="ghostbtn" data-mode="stats">View stats →</button>
-      <button class="ghostbtn" data-mode="starred">★ Starred (${starredCount})</button>
-    </div>
-
-    <section class="gen-method cornerframe">
-      <span class="label">How to master the subject</span>
-      <ol class="gen-method-list">
-        <li><b>Test, don't reread.</b> Retrieval practice beats passive review — this whole arcade is active recall.</li>
-        <li><b>Run Smart Review daily.</b> Spaced repetition resurfaces each item right before you'd forget it.</li>
-        <li><b>Interleave.</b> Blitz and Smart Review mix topics on purpose — better than grinding one unit forever.</li>
-        <li><b>Chase weak spots.</b> Topic Drills on your lowest meters → Smart Review to 90% → clear the Mastery Boss.</li>
-      </ol>
-    </section>
-
-    <section class="gen-trophy cornerframe">
-      <span class="label">Achievements · ${COG.ach.length}/${COG_ACH.length}</span>
-      <div class="gen-badges">
-        ${COG_ACH.map(a => { const got = COG.ach.includes(a.id); return `<div class="gen-badge ${got ? 'got' : ''}" title="${esc(a.desc)}"><span class="gen-badge-name">${esc(a.name)}</span><span class="gen-badge-desc">${esc(a.desc)}</span></div>`; }).join('')}
+    <details class="cog-simple-fold">
+      <summary><span><strong>Practice</strong><small>Optional review tools</small></span><i>Open</i></summary>
+      <div class="cog-practice-list">
+        <button data-mode="smart"><strong>Smart Review</strong><span>Adaptive review</span></button>
+        <button data-mode="chapter"><strong>Practice by topic</strong><span>Choose a subject</span></button>
+        <button data-mode="misses"><strong>Revisit questions</strong><span>${missCount ? `${missCount} waiting` : 'No misses yet'}</span></button>
+        <button data-mode="blitz"><strong>Quick recall</strong><span>90 seconds</span></button>
+        <button data-mode="exam"><strong>Course challenge</strong><span>20 mixed questions${COG.bestExam ? ` · best ${COG.bestExam}%` : ''}</span></button>
       </div>
-    </section>
+    </details>
 
-    <p class="gen-foot-note">${COG_BANK.length} questions · 13 chapters · Introduction to Reasoning &amp; Decision Making. <button class="ghostbtn" id="gen-reset">Reset progress</button></p>
+    <details class="cog-records">
+      <summary><span><strong>Progress, records & achievements</strong><small>Course completion, practice history, saved questions, and milestones</small></span><i>Open</i></summary>
+      <div class="cog-record-stats">
+        <div><strong class="mono">${lessonDone}/${lessons.length}</strong><span>Lessons complete</span></div>
+        <div><strong class="mono">${status.c}%</strong><span>Knowledge retention</span></div>
+        <div><strong class="mono">${cogAccuracy()}%</strong><span>Practice accuracy</span></div>
+        <div><strong class="mono">${COG.streak.current}</strong><span>Day streak</span></div>
+      </div>
+      ${status.cls === 'ready' ? `<p class="cog-course-mastered">Course knowledge mastered · ${status.c}% retained</p>` : ''}
+      <div class="cog-record-actions">
+        <button class="ghostbtn" data-mode="stats">View detailed stats →</button>
+        <button class="ghostbtn" data-mode="starred">★ Saved questions (${starredCount})</button>
+      </div>
+      <div class="gen-trophy">
+        <span class="label">Achievements · ${COG.ach.length}/${COG_ACH.length}</span>
+        <div class="gen-badges">
+          ${COG_ACH.map(a => { const got = COG.ach.includes(a.id); return `<div class="gen-badge ${got ? 'got' : ''}" title="${esc(a.desc)}"><span class="gen-badge-name">${esc(a.name)}</span><span class="gen-badge-desc">${esc(a.desc)}</span></div>`; }).join('')}
+        </div>
+      </div>
+    </details>
+
+    <p class="gen-foot-note">A free Cortex course in the science of the mind. <button class="ghostbtn" id="gen-reset">Reset progress</button></p>
   </main>`);
+
+  main.querySelectorAll('[data-course-action]').forEach(b => b.addEventListener('click', () => {
+    if (b.dataset.courseAction === 'continue' && nextLesson) renderCogLesson(nextLesson.id);
+    else renderCogLearnHome();
+  }));
+  main.querySelectorAll('[data-course-chapter]').forEach(b => b.addEventListener('click', () => renderCogLearnHome(Number(b.dataset.courseChapter))));
 
   main.querySelectorAll('[data-mode]').forEach(b => b.addEventListener('click', () => {
     const m = b.dataset.mode;

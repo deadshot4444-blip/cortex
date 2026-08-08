@@ -72,7 +72,7 @@ const SECTION_INFO = {
 };
 // Local build pace: every completed update or fix advances one patch version.
 // This number can move locally; nothing ships until Kevin explicitly says ship.
-const APP_VERSION = '1.25.18';
+const APP_VERSION = '1.25.23';
 function cortexFreeNote(sectionPill, sectionName) {
   return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free</span><span class="free-note-txt">${sectionName} is free to use — no account, no paywall, no catch.</span></p>`;
 }
@@ -139,12 +139,12 @@ function saveHistory() { safeSet('cs-history', JSON.stringify(store.history.slic
 function saveStreak() { safeSet('cs-streak', JSON.stringify(store.streak)); }
 
 const SECTION_SCRIPTS = {
-  mcat: ['mcat.js?v=56'],
+  mcat: ['mcat.js?v=60'],
   anatomy: ['anatomy.js?v=36'],
   reference: ['reference.js?v=49', 'performance-drugs.js?v=7', 'ekg.js?v=36'],
   socrates: ['socrates.js?v=40'],
   neuro: ['python-runtime.js?v=4', 'code-evaluator.js?v=2', 'neuro-practitioner.js?v=4', 'neuro.js?v=27'],
-  cogpsych: ['cogpsych.js?v=6', 'cogpsych-learn.js?v=5', 'cogpsych-figs.js?v=1'],
+  cogpsych: ['cogpsych.js?v=8', 'cogpsych-learn.js?v=7', 'cogpsych-figs.js?v=1'],
 };
 const _scriptLoads = {};
 function loadScript(src) {
@@ -867,6 +867,15 @@ const PRINCIPLES = [
 
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
+  {
+    date: 'August 8, 2026', version: '1.25.23', tag: 'NEW',
+    title: 'A clearer course experience and a real MCAT study plan',
+    items: [
+      'Cognitive Psychology now presents its 70 lessons as a simple, course-first curriculum, with practice and progress tools available when needed.',
+      'MCAT Prep now opens with a calmer home focused on five core study tools instead of competing cards, statistics, and explanations.',
+      'The 60, 90, and 120-day plans now assign dated daily work, launch the correct study tools, track completion, and adapt to measured weak areas.',
+    ],
+  },
   {
     date: 'August 8, 2026', version: '1.25.18', tag: 'POLISH',
     title: 'Navigation, flagship paths, and Neuroengineering: clearer structure',
