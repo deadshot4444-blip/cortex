@@ -72,7 +72,7 @@ const SECTION_INFO = {
 };
 // Local build pace: every completed update or fix advances one patch version.
 // This number can move locally; nothing ships until Kevin explicitly says ship.
-const APP_VERSION = '1.25.13';
+const APP_VERSION = '1.25.18';
 function cortexFreeNote(sectionPill, sectionName) {
   return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free</span><span class="free-note-txt">${sectionName} is free to use — no account, no paywall, no catch.</span></p>`;
 }
@@ -466,11 +466,26 @@ function topbar(active) {
     <a class="skip-link" href="#main">Skip to content</a>
     <a class="wordmark" href="#">${MARK_SVG}<span class="wm-name">Cortex <span class="wm-sub">Medical Academy</span></span></a>
     <nav class="nav">
-      <button class="navlink ${active === 'practice' ? 'active' : ''}" data-go="practice">Practice</button>
-      <button class="navlink ${active === 'mcat' ? 'active' : ''}" data-go="mcat">MCAT</button>
-      <button class="navlink ${active === 'stats' ? 'active' : ''}" data-go="stats">Stats</button>
       <div class="navmenu">
-        <button class="navlink menubtn ${['anatomy', 'reference', 'socrates', 'utsa', 'pomodoro', 'cogpsych'].includes(active) ? 'active' : ''}" data-menu aria-expanded="false" aria-controls="explore-panel">Explore<span class="caret">&#9662;</span></button>
+        <button class="navlink menubtn ${['mcat', 'stats'].includes(active) ? 'active' : ''}" data-menu="mcat" data-nav-menu aria-label="MCAT" aria-expanded="false" aria-controls="mcat-panel">MCAT<span class="caret">&#9662;</span></button>
+        <div class="menupanel mcat-menupanel" id="mcat-panel" aria-label="MCAT navigation" hidden>
+          <div class="menu-grid">
+            <section class="menu-group" aria-labelledby="mcat-menu-title">
+              <span class="menu-head" id="mcat-menu-title">MCAT</span>
+              <button class="menuitem${menuActive('mcat')}" data-go="mcat"${menuCurrent('mcat')}>
+                <span class="mi-copy"><span class="mi-name">MCAT Prep</span><span class="mi-desc">Forever-free study suite</span></span>
+              </button>
+              <button class="menuitem${menuActive('stats')}" data-go="stats"${menuCurrent('stats')}>
+                <span class="mi-copy"><span class="mi-name">Stats</span><span class="mi-desc">Progress dashboard</span></span>
+              </button>
+            </section>
+          </div>
+        </div>
+      </div>
+      <button class="navlink ${active === 'practice' ? 'active' : ''}" data-go="practice" aria-label="Clinical Scenarios"><span class="clinical-nav-full" aria-hidden="true">Clinical Scenarios</span><span class="clinical-nav-short" aria-hidden="true">Clinical</span></button>
+      <button class="navlink ${active === 'socrates' ? 'active' : ''}" data-go="socrates" aria-label="Learn to Learn"><span class="learn-nav-full" aria-hidden="true">Learn to Learn</span><span class="learn-nav-short" aria-hidden="true">Learn</span></button>
+      <div class="navmenu">
+        <button class="navlink menubtn ${['anatomy', 'reference', 'utsa', 'pomodoro', 'cogpsych'].includes(active) ? 'active' : ''}" data-menu="explore" data-nav-menu aria-label="Explore" aria-expanded="false" aria-controls="explore-panel">Explore<span class="caret">&#9662;</span></button>
         <div class="menupanel" id="explore-panel" aria-label="Explore Cortex" hidden>
           <div class="menu-intro">
             <span class="menu-title">Explore Cortex</span>
@@ -494,7 +509,6 @@ function topbar(active) {
           </div>
           <div class="menu-quick" aria-label="Tools and access">
             <button class="menuquick${menuActive('pomodoro')}" data-go="pomodoro"${menuCurrent('pomodoro')}>Focus timer</button>
-            <button class="menuquick${menuActive('socrates')}" data-go="socrates"${menuCurrent('socrates')}>Learn to learn <span class="mq-soon">Under construction</span></button>
             <button class="menuquick${menuActive('utsa')}" data-go="utsa"${menuCurrent('utsa')}>UTSA &amp; UT Health</button>
           </div>
         </div>
@@ -535,25 +549,28 @@ function topbar(active) {
     if (typeof renderCogPsych === 'function') renderCogPsych();
   });
   root.querySelector('[data-go="updates"]').addEventListener('click', renderUpdates);
-  const navmenu = root.querySelector('.navmenu');
-  if (navmenu) {
-    const mbtn = navmenu.querySelector('[data-menu]');
+  const navmenus = [...root.querySelectorAll('.navmenu')];
+  navmenus.forEach(navmenu => {
+    const mbtn = navmenu.querySelector('[data-nav-menu]');
     const panel = navmenu.querySelector('.menupanel');
     const close = () => { panel.hidden = true; mbtn.classList.remove('open'); mbtn.setAttribute('aria-expanded', 'false'); document.removeEventListener('click', onDoc); document.removeEventListener('keydown', onEsc); };
     const onDoc = (e) => { if (!navmenu.contains(e.target)) close(); };
     const onEsc = (e) => { if (e.key === 'Escape') { close(); mbtn.focus(); } };
+    navmenu.closeMenu = close;
     mbtn.addEventListener('click', (e) => {
       e.stopPropagation();
       if (panel.hidden) {
+        navmenus.forEach(other => { if (other !== navmenu) other.closeMenu?.(); });
         panel.hidden = false;
         mbtn.classList.add('open');
         mbtn.setAttribute('aria-expanded', 'true');
-        setTimeout(() => { document.addEventListener('click', onDoc); document.addEventListener('keydown', onEsc); }, 0);
+        document.addEventListener('click', onDoc);
+        document.addEventListener('keydown', onEsc);
       }
       else close();
     });
     panel.querySelectorAll('.menuitem, .menuquick').forEach(mi => mi.addEventListener('click', close));
-  }
+  });
   if (window.refreshAuthUI) window.refreshAuthUI();
   return root;
 }
@@ -850,6 +867,18 @@ const PRINCIPLES = [
 
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
+  {
+    date: 'August 8, 2026', version: '1.25.18', tag: 'POLISH',
+    title: 'Navigation, flagship paths, and Neuroengineering: clearer structure',
+    items: [
+      'Learn to Learn now holds a flagship place in the primary navigation, with its Under construction gate preserved while the course is evaluated.',
+      'The bottom of Explore is now reserved for the Focus Timer and UTSA & UT Health access.',
+      'Neuroengineering unit headers now give the Unit progress and Stage labels more breathing room inside their corner accents.',
+      'NeuroCode run results now sit comfortably inside the terminal frame instead of touching its edge.',
+      'The primary navigation now names Clinical Scenarios directly instead of using the generic Practice label, with a compact Clinical label on small screens.',
+      'MCAT now leads the navigation as Cortex’s forever-free core, with MCAT Prep and Stats organized together in one focused dropdown.',
+    ],
+  },
   {
     date: 'August 7, 2026', version: '1.25.13', tag: 'UPDATE',
     title: 'Neuroengineering: a clearer path from Start to completion',
@@ -1954,7 +1983,7 @@ async function renderReview(tab = 'history') {
   const sb = main.querySelector('.searchbox');
 
   if (tab === 'history') {
-    if (!store.history.length) rows.appendChild(emptyMsg('No cases yet — go do some on Practice.'));
+    if (!store.history.length) rows.appendChild(emptyMsg('No cases yet — start a Clinical Scenario.'));
     else store.history.slice(0, 100).forEach(h => rows.appendChild(caseRow({
       id: h.id, key: h.key, title: titleFor(h.id), difficulty: '',
       rightHtml: `${scorePill(h.c, h.t)}<span class="row-when">${relTime(h.ts)}</span>`,

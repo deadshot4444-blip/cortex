@@ -183,6 +183,18 @@ if (!visibleExpectedOutput?.includes('Number of samples: 7') || visibleExpectedO
 await page.locator('#neunitstages [data-load-sol]').last().click();
 await page.locator('#neunitstages [data-check-code]').last().click();
 await page.waitForSelector('#neunitstages [data-code-done]:visible', { timeout: 30000 });
+const terminalResultInset = await page.locator('#neunitstages .neuro-ojt-terminal').last().evaluate(terminal => {
+  const message = terminal.querySelector('.neuro-terminal-msg');
+  const hint = terminal.querySelector('.neuro-terminal-hint');
+  return {
+    messageLeft: Number.parseFloat(getComputedStyle(message).paddingLeft),
+    hintLeft: Number.parseFloat(getComputedStyle(hint).paddingLeft),
+    hintBottom: Number.parseFloat(getComputedStyle(hint).paddingBottom),
+  };
+});
+if (terminalResultInset.messageLeft < 12 || terminalResultInset.hintLeft < 12 || terminalResultInset.hintBottom < 12) {
+  throw new Error(`NeuroCode result text should be inset from the terminal frame, got: ${JSON.stringify(terminalResultInset)}`);
+}
 await page.locator('#neunitstages [data-code-done]').last().click();
 await page.waitForTimeout(500);
 const stageAfterCode = (await page.locator('#neunitlab').textContent())?.trim();
@@ -229,6 +241,6 @@ if (!recallSubmitSeen || !recallContinueSeen) throw new Error('Active recall sho
 if (!unitCompleted || unitLab !== 'Complete') throw new Error(`Unit 1 should complete end to end, got: ${JSON.stringify({ unitCompleted, unitLab })}`);
 await assertNoHorizontalOverflow('Unit complete');
 
-console.log(JSON.stringify({ viewport, overflowChecks, hero, mainCards, trackInitiallyOpen, showUnitsVisible, trackOpenedFromFoundation, hideUnitsVisible, libraryCards, libraryLabs, libraryBackText, subjectTopicTitles, subjectTopicMeta, subjectTopicMetaGap, topicBackText, topicNavSeparated, pathText, currentRowText, startEntryScrollY, resumedPathText, resumedRowText, continueEntryScrollY, unitTypeScale, recallSubmitSeen, recallContinueSeen, quickCheckStartLabel, topicReviewInline, failedQuickCheckLabel, failedQuickCheckScore, reviewStayedInUnit, passedQuickCheckScore, stageAfterQuickCheck, visibleExpectedOutput, stageAfterCode, simRetryText, stages, hasQuiz, unitLab, unitCompleted, errors }, null, 2));
+console.log(JSON.stringify({ viewport, overflowChecks, hero, mainCards, trackInitiallyOpen, showUnitsVisible, trackOpenedFromFoundation, hideUnitsVisible, libraryCards, libraryLabs, libraryBackText, subjectTopicTitles, subjectTopicMeta, subjectTopicMetaGap, topicBackText, topicNavSeparated, pathText, currentRowText, startEntryScrollY, resumedPathText, resumedRowText, continueEntryScrollY, unitTypeScale, recallSubmitSeen, recallContinueSeen, quickCheckStartLabel, topicReviewInline, failedQuickCheckLabel, failedQuickCheckScore, reviewStayedInUnit, passedQuickCheckScore, stageAfterQuickCheck, visibleExpectedOutput, terminalResultInset, stageAfterCode, simRetryText, stages, hasQuiz, unitLab, unitCompleted, errors }, null, 2));
 await browser.close();
 process.exit(errors.length ? 1 : 0);

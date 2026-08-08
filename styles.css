@@ -118,6 +118,7 @@ button:focus-visible, .opt:focus-visible { outline: 1px solid var(--text); outli
 .navlink.soon { color: var(--faint); }
 .navlink.soon:hover { color: var(--dim); }
 .navlink sup { font-size: 7px; letter-spacing: .08em; margin-left: 2px; vertical-align: super; color: var(--faint); }
+.clinical-nav-short, .learn-nav-short { display: none; }
 
 .comingsoon { display: flex; align-items: center; justify-content: center; min-height: 52vh; }
 .cs-box { text-align: center; max-width: 480px; }
@@ -1063,6 +1064,10 @@ button:focus-visible, .opt:focus-visible { outline: 1px solid var(--text); outli
   .navlink { padding: 7px 9px; }
   .topbar { padding: 0 16px; }
   .topbar.mainbar { padding: 8px 16px; }
+  .clinical-nav-full { display: none; }
+  .clinical-nav-short { display: inline; }
+  .learn-nav-full { display: none; }
+  .learn-nav-short { display: inline; }
 }
 @media (max-width: 600px) {
   .grid { grid-template-columns: 1fr; }
@@ -1838,6 +1843,8 @@ button:focus-visible, a:focus-visible, textarea:focus-visible, input:focus-visib
 .neuro-page .cs-chip { border-color: #4a4a54; color: var(--ne-body); }
 .neuro-page .cs-runbar { border-color: #2a2a30; background: #0f0f12; }
 .neuro-page .cs-runbar-lab { color: var(--ne-meta); }
+.neuro-runbar { padding: 12px 14px; }
+.neuro-runbar .cs-runbar-meta { margin-bottom: 0; }
 .neuro-page .cornerframe::before { border-color: #6a6a74; }
 .neuro-page .cornerframe::after { border-color: #6a6a74; }
 .neuro-hint { margin-top: 8px; font-size: 13px; color: var(--ne-meta); }
@@ -2018,6 +2025,9 @@ button.neuro-ms:hover { background: rgba(255, 255, 255, .04); }
 button.neuro-ms.done { border-left-color: var(--green); }
 button.neuro-ms.done .neuro-ms-sub { color: var(--green); }
 .neuro-ojt-terminal { padding: 0; overflow: hidden; }
+.neuro-ojt-terminal .neuro-terminal-msg,
+.neuro-ojt-terminal .neuro-terminal-hint { padding-inline: 14px; }
+.neuro-ojt-terminal .neuro-terminal-hint { padding-bottom: 12px; }
 .neuro-terminal-bar {
   display: flex; align-items: center; gap: 10px; padding: 10px 14px;
   background: #121216; border-bottom: 1px solid #222228;
@@ -2137,6 +2147,8 @@ button.neuro-ms.done .neuro-ms-sub { color: var(--green); }
   .neuro-terminal-log { max-height: 180px; font-size: 11px; padding: 10px 12px; }
   .neuro-terminal-bar { padding: 10px 12px; }
   .neuro-terminal-title { font-size: 10px; word-break: break-word; }
+  .neuro-ojt-terminal .neuro-terminal-msg,
+  .neuro-ojt-terminal .neuro-terminal-hint { padding-inline: 12px; }
   .neuro-sandbox-actions {
     display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px;
   }
@@ -3039,6 +3051,11 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   overflow: hidden;
   box-shadow: var(--shadow-md);
 }
+.mcat-menupanel {
+  left: 0;
+  width: min(320px, calc(100vw - 32px));
+  transform: none;
+}
 .menu-intro {
   display: flex;
   align-items: baseline;
@@ -3064,7 +3081,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 }
 .menu-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 0;
   padding: 10px;
   background: #fff;
@@ -3140,7 +3157,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .menuitem:has(.mi-soon)::after { display: none; }
 .menu-quick {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   border-top: 1px solid var(--line);
   background: #f7f8f9;
 }
@@ -3454,7 +3471,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   .principle:last-child { grid-column: 1 / -1; min-height: 0; }
 }
 
-@media (max-width: 760px) {
+@media (max-width: 1240px) {
   .topbar.mainbar { padding-inline: 16px; row-gap: 5px; }
   .topbar.mainbar .wordmark { margin-right: auto; }
   .topbar.mainbar .nav { order: 3; width: 100%; overflow: visible; flex-wrap: wrap; padding-top: 3px; }
@@ -3469,6 +3486,13 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
     transform: none;
     overflow-y: auto;
   }
+}
+
+@media (min-width: 761px) and (max-width: 1240px) {
+  .topbar.mainbar .mcat-menupanel { right: auto; width: min(320px, calc(100vw - 32px)); }
+}
+
+@media (max-width: 760px) {
   .menu-intro { align-items: flex-start; padding: 17px 18px 15px; }
   .menu-desc { max-width: 190px; }
   .menu-grid { grid-template-columns: 1fr; padding: 8px; }
