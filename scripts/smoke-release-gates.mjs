@@ -239,12 +239,31 @@ for (const viewport of viewports) {
   const whatsNewItems = await page.locator('.upd-featured-list li').count();
   const priorPublicVersion = (await page.locator('.updates-history .upd-ver').first().textContent())?.trim();
   if (versionText !== `v${APP_VERSION}`
-      || whatsNewTitle !== 'Clinical Shift, a taught PED course, and a saved-game MCAT hub'
-      || whatsNewItems !== 10
+      || whatsNewTitle !== 'Clinical Shift and a saved-game MCAT hub'
+      || whatsNewItems !== 5
       || priorPublicVersion !== 'v1.25.23') {
     throw new Error(`What's New is not the cumulative ${APP_VERSION} release: ${JSON.stringify({ versionText, whatsNewTitle, whatsNewItems, priorPublicVersion })}`);
   }
   await assertNoOverflow("What's New");
+
+  // First-visit update modal: a fresh profile (no cs-seen-ver seeded) must get a modal
+  // that fits the viewport, closes, and marks the version seen. This is the path real
+  // users hit; the main context above deliberately suppresses it.
+  const modalContext = await browser.newContext({ viewport });
+  const modalPage = await modalContext.newPage();
+  await modalPage.goto(base.href, { waitUntil: 'networkidle' });
+  await modalPage.waitForSelector('.upd-modal', { timeout: 15000 });
+  const modalBox = await modalPage.locator('.upd-modal').boundingBox();
+  const modalItemCount = await modalPage.locator('.upd-modal-list li').count();
+  const modalFits = !!modalBox && modalBox.y >= 0 && modalBox.y + modalBox.height <= viewport.height + 1;
+  const modalCloseVisible = await modalPage.locator('.upd-modal-x').isVisible();
+  await modalPage.locator('.upd-modal-x').click();
+  const modalGone = (await modalPage.locator('.upd-modal-back').count()) === 0;
+  const modalSeenAfter = await modalPage.evaluate(() => localStorage.getItem('cs-seen-ver'));
+  await modalContext.close();
+  if (!modalFits || !modalCloseVisible || !modalGone || modalItemCount !== 5 || modalSeenAfter !== APP_VERSION) {
+    throw new Error(`First-visit update modal is broken: ${JSON.stringify({ modalBox, modalItemCount, modalFits, modalCloseVisible, modalGone, modalSeenAfter, viewport })}`);
+  }
 
   if (medicineAssets.length) throw new Error(`Construction gates loaded Medicine assets: ${medicineAssets.join(', ')}`);
   if (learnAssets.length) throw new Error(`Construction gate loaded Learn to Learn assets: ${learnAssets.join(', ')}`);

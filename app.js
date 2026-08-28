@@ -895,17 +895,14 @@ const PRINCIPLES = [
 const CHANGELOG = [
   {
     date: 'August 28, 2026', version: '1.25.25', tag: 'NEW',
-    title: 'Clinical Shift, a taught PED course, and a saved-game MCAT hub',
+    title: 'Clinical Shift and a saved-game MCAT hub',
+    // Only ship-visible features here — the PED course items are held back until
+    // Medicine un-gates (their text is preserved in context/STATE.md's ship entry).
     items: [
       'Clinical Scenarios now opens as Clinical Shift: choose Emergency Medicine, Cardiology, or Neurology, take a handoff, and work one hidden-diagnosis patient at a time.',
       'You decide what to ask and what to examine — each choice adds real findings to the patient chart and counts toward your evidence score.',
       'Charting is write-first: draft your own Assessment and Plan, then reveal a clinically preferred reference note beside your frozen draft for self-review — nothing is auto-graded.',
       'A shift debrief reviews your differential, decisions, and documentation, and the classic case bank stays one click away.',
-      'Each hormone class now teaches before it tests: a short lesson on a small group of related agents, then recall questions on just that group, repeated, then a mixed module quiz.',
-      'Eleven lessons across steroid, peptide and amine hormones — the androgen cascade and what blocking each arm costs, the somatotropic axis and why anti-doping reads it downstream, pulsatile versus continuous GnRH, the glucose tug of war, and four ways to fake a sympathetic signal.',
-      'Questions are graded recall rather than passive reveal, with wrong answers returning later for a second look, and every detail you miss collected into a Smart review pool.',
-      'An agent counts as mastered only once all four of its details have been recalled correctly, and each module now ends in a quiz you must pass to complete it.',
-      'Every checkpoint on the axis pathways now has four questions, so the advertised 70% genuinely allows one miss instead of quietly demanding a perfect score.',
       'MCAT Prep now opens like a saved game: first-time learners choose a plan, while returning learners land directly on today\'s assignments, progress, and resumable work.',
     ],
   },
