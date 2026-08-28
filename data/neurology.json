@@ -669,7 +669,7 @@
     {
      "type": "result",
      "label": "IMAGING",
-     "content": "CT angiography neck: long tapering ('flame-shaped') narrowing of the right internal carotid artery with an eccentric intramural hematoma and crescent sign, beginning about 2 cm above the bifurcation\nNoncontrast CT head: no hemorrhage, no established infarct\nECG: normal sinus rhythm"
+     "content": "CT angiography neck: long tapering ('flame-shaped') narrowing of the right internal carotid artery with eccentric crescent-shaped mural thickening consistent with intramural hematoma, beginning about 2 cm above the bifurcation\nNoncontrast CT head: no hemorrhage, no established infarct\nECG: normal sinus rhythm"
     },
     {
      "type": "question",
@@ -682,7 +682,7 @@
       "Giant cell arteritis"
      ],
      "answer": 1,
-     "explanation": "The CTA shows a long tapering narrowing of the internal carotid with an eccentric intramural hematoma and crescent sign in a young man after cervical manipulation, which is diagnostic of internal carotid artery dissection. Atherosclerotic carotid stenosis occurs at the bifurcation in older patients with calcified plaque, not an intramural hematoma in a healthy 38-year-old. A carotid body tumor is a vascular paraganglioma at the bifurcation causing a splaying mass, not a tapering luminal narrowing with mural hematoma. Giant cell arteritis affects older patients and involves the extracranial cranial arteries with systemic inflammatory features. The imaging pattern is classic dissection."
+     "explanation": "The CTA shows a long tapering narrowing of the right internal carotid with eccentric crescent-shaped mural thickening indicating intramural hematoma in a young man after cervical manipulation, which is diagnostic of internal carotid artery dissection. Atherosclerotic carotid stenosis occurs at the bifurcation in older patients with calcified plaque, not an intramural hematoma in a healthy 38-year-old. A carotid body tumor is a vascular paraganglioma at the bifurcation causing a splaying mass, not a tapering luminal narrowing with mural hematoma. Giant cell arteritis affects older patients and involves the extracranial cranial arteries with systemic inflammatory features. The imaging pattern is classic dissection."
     },
     {
      "type": "question",
@@ -695,7 +695,7 @@
       "No treatment; reassure and discharge"
      ],
      "answer": 0,
-     "explanation": "Management of carotid dissection centers on antithrombotic therapy to prevent thromboembolic stroke, either an antiplatelet agent or anticoagulation (shown equivalent in the CADISS trial), along with avoiding further neck manipulation. Emergent carotid endarterectomy is not indicated for an acute dissection and risks extending it. High-dose corticosteroids treat inflammatory arteritis, not a mechanical dissection. Discharging without treatment leaves the patient at significant risk for embolic stroke from the dissection flap. Antithrombotic therapy plus avoidance of further trauma is the standard approach, with endovascular intervention reserved for selected refractory cases."
+     "explanation": "Management of carotid dissection centers on antithrombotic therapy to prevent thromboembolic stroke, either an antiplatelet agent or anticoagulation (CADISS found no significant difference between the two, so either is considered reasonable), along with avoiding further neck manipulation. Emergent carotid endarterectomy is not indicated for an acute dissection and risks extending it. High-dose corticosteroids treat inflammatory arteritis, not a mechanical dissection. Discharging without treatment leaves the patient at significant risk for embolic stroke from the dissection flap. Antithrombotic therapy plus avoidance of further trauma is the standard approach, with endovascular intervention reserved for selected refractory cases."
     },
     {
      "type": "question",
@@ -716,7 +716,7 @@
     "Carotid dissection classically presents with the triad of ipsilateral neck/face pain, partial Horner syndrome, and later cerebral or retinal ischemia.",
     "The Horner is painful and partial (ptosis and miosis without facial anhidrosis) because sudomotor fibers follow the external carotid and are spared.",
     "Dissection is often preceded by minor trauma, including cervical manipulation; confirm with CTA or MRA/MRI of the neck.",
-    "Treat with antithrombotic therapy (antiplatelet or anticoagulation, equivalent in CADISS) and avoid further neck manipulation."
+    "Treat with antithrombotic therapy (antiplatelet or anticoagulation; CADISS found no significant difference between them) and avoid further neck manipulation."
    ],
    "id": "nr-008"
   },
@@ -945,7 +945,7 @@
       "Sodium restriction and hydrochlorothiazide"
      ],
      "answer": 0,
-     "explanation": "The Epley canalith repositioning maneuver is first-line therapy for posterior canal BPPV: a sequence of head positions uses gravity to move displaced otoconia out of the posterior semicircular canal and back into the utricle. It resolves symptoms after one to three sessions in roughly 80% of patients and can be repeated immediately if nystagmus persists. Scheduled meclizine is inferior — vestibular suppressants do not remove the otoconia, blunt central compensation, and cause sedation and falls in older adults; at most a dose may be used briefly for severe nausea. Corticosteroids have a role in vestibular neuritis, not BPPV. Sodium restriction with a thiazide is maintenance therapy for Ménière's disease and is irrelevant to a mechanical canalithiasis problem."
+     "explanation": "The Epley canalith repositioning maneuver is first-line therapy for posterior canal BPPV: a sequence of head positions uses gravity to move displaced otoconia out of the posterior semicircular canal and back into the utricle. It resolves symptoms after one to three sessions in roughly 80% of patients and can be repeated immediately if nystagmus persists. Scheduled meclizine is inferior — vestibular suppressants do not remove the otoconia, blunt central compensation, and cause sedation and falls in older adults; at most a dose may be used briefly for severe nausea. Corticosteroids are sometimes used early in vestibular neuritis, though their benefit is debated; they have no role in BPPV. Sodium restriction with a thiazide is maintenance therapy for Ménière's disease and is irrelevant to a mechanical canalithiasis problem."
     },
     {
      "type": "question",
@@ -1011,7 +1011,7 @@
      "question": "What is the most likely diagnosis?",
      "options": [
       "Right vestibular neuritis",
-      "Left lateral medullary (PICA territory) infarction",
+      "Right lateral medullary (PICA territory) infarction",
       "Right labyrinthitis",
       "Benign paroxysmal positional vertigo",
       "Ménière's disease"
@@ -1050,7 +1050,7 @@
    "diagnosis": "Right vestibular neuritis",
    "pearls": [
     "In acute vestibular syndrome, HINTS by a trained examiner beats early MRI-DWI for excluding posterior-circulation stroke; CT is nearly useless for posterior fossa ischemia.",
-    "An abnormal head impulse (catch-up saccade) is reassuring — it localizes the problem to the peripheral vestibular apparatus.",
+    "An abnormal head impulse (catch-up saccade) is reassuring and usually peripheral — but rare AICA infarcts can mimic it, so pair it with bedside hearing (HINTS-plus) and the full HINTS battery before calling the lesion peripheral.",
     "Dangerous signs: normal head impulse, direction-changing nystagmus, skew deviation, or inability to stand — any one mandates MRI.",
     "Limit vestibular suppressants to about 72 hours; early vestibular rehabilitation drives the central compensation that produces recovery."
    ],
@@ -1321,7 +1321,7 @@
     "Temp": "36.9 °C",
     "SpO2": "97% RA"
    },
-   "exam": "GCS 11 (E3 V3 M5), drowsy and intermittently agitated. A boggy hematoma overlies the left temporal scalp. The left pupil is 5 mm and sluggishly reactive; the right pupil is 3 mm and brisk. There is a right pronator drift with right-sided weakness (4-/5) and an extensor right plantar response. Reflexes are brisker on the right. Neck is immobilized and not assessable for stiffness. No battle sign or raccoon eyes yet. Fundi without papilledema.",
+   "exam": "GCS 11 (E3 V3 M5), drowsy and intermittently agitated. A boggy hematoma overlies the left temporal scalp. The left pupil is 5 mm and sluggishly reactive; the right pupil is 3 mm and brisk. There is a right pronator drift with right-sided weakness (4-/5) and an extensor right plantar response. Reflexes are symmetric. Neck is immobilized and not assessable for stiffness. No battle sign or raccoon eyes yet. Fundi without papilledema.",
    "stages": [
     {
      "type": "question",
@@ -1334,7 +1334,7 @@
       "Administer intravenous mannitol and observe for one hour"
      ],
      "answer": 1,
-     "explanation": "A head-injured patient with a lucid interval who is now deteriorating, with a unilateral blown pupil and contralateral weakness, is showing early transtentorial (uncal) herniation from an expanding intracranial hematoma — this demands an emergent non-contrast head CT, which is fast, sensitive for acute blood, and directs immediate neurosurgical management. Lumbar puncture is absolutely contraindicated with a probable mass lesion and impending herniation; it risks precipitating fatal herniation. MRI takes far too long, is logistically impractical in an unstable, agitated trauma patient, and would dangerously delay surgery. Mannitol is a useful temporizing measure for raised intracranial pressure on the way to definitive care, but giving it and merely observing wastes the critical window — imaging and the neurosurgeon cannot wait an hour."
+     "explanation": "A head-injured patient with a lucid interval who is now deteriorating, with a unilaterally dilating, sluggishly reactive pupil and contralateral weakness, is showing early transtentorial (uncal) herniation from an expanding intracranial hematoma — this demands an emergent non-contrast head CT, which is fast, sensitive for acute blood, and directs immediate neurosurgical management. Lumbar puncture is absolutely contraindicated with a probable mass lesion and impending herniation; it risks precipitating fatal herniation. MRI takes far too long, is logistically impractical in an unstable, agitated trauma patient, and would dangerously delay surgery. Mannitol is a useful temporizing measure for raised intracranial pressure on the way to definitive care, but giving it and merely observing wastes the critical window — imaging and the neurosurgeon cannot wait an hour."
     },
     {
      "type": "result",
@@ -1373,7 +1373,7 @@
      "label": "COMPLICATION",
      "question": "While the operating room is being readied, his left pupil dilates further and his right-sided weakness worsens. Which temporizing measure is most appropriate to bridge him to surgery?",
      "options": [
-      "Aggressive hypoventilation to a PaCO2 of 25 mmHg sustained for hours",
+      "Aggressive hyperventilation to a PaCO2 of 25 mmHg sustained for hours",
       "Head elevation to 30 degrees, brief controlled hyperventilation, and hyperosmolar therapy (hypertonic saline or mannitol)",
       "Rapid large-volume hypotonic fluid bolus",
       "Lowering the systolic blood pressure below 100 mmHg with nitroprusside"
@@ -2112,7 +2112,7 @@
     "Temp": "37.0 °C",
     "SpO2": "99% RA"
    },
-   "exam": "The patient is fully alert and oriented with a normal level of consciousness, back to his baseline per his coworker. There is a healing laceration on the left lateral border of the tongue. Pupils are equal and reactive, extraocular movements full, and there is no facial asymmetry. Speech is fluent. Motor strength is 5/5 throughout with normal tone, symmetric 2+ reflexes, and flexor plantar responses. Coordination and gait are normal with a negative Romberg. There is no neck stiffness, photophobia, or rash. The remainder of the general exam, including cardiopulmonary, is unremarkable.",
+   "exam": "The patient is fully alert and oriented with a normal level of consciousness, back to his baseline per his coworker. There is a fresh laceration on the left lateral border of the tongue. Pupils are equal and reactive, extraocular movements full, and there is no facial asymmetry. Speech is fluent. Motor strength is 5/5 throughout with normal tone, symmetric 2+ reflexes, and flexor plantar responses. Coordination and gait are normal with a negative Romberg. There is no neck stiffness, photophobia, or rash. The remainder of the general exam, including cardiopulmonary, is unremarkable.",
    "stages": [
     {
      "type": "question",
@@ -2143,7 +2143,7 @@
       "A first unprovoked seizure"
      ],
      "answer": 3,
-     "explanation": "Lateral tongue biting, urinary incontinence, and roughly 20 minutes of postictal confusion strongly support a true generalized tonic-clonic seizure; with a normal metabolic panel, negative toxicology, and no acute structural or metabolic trigger, this is a first unprovoked seizure. A provoked (acute symptomatic) seizure requires an identifiable acute insult, hypoglycemia, hyponatremia, withdrawal, acute brain injury, none of which is present. Epilepsy is diagnosed after two unprovoked seizures more than 24 hours apart, or one seizure with high recurrence risk (epileptiform EEG or an epileptogenic lesion); with a normal EEG and MRI he does not yet meet criteria. Psychogenic nonepileptic events typically lack true postictal confusion and lateral tongue injury and show no epileptiform correlate. Correct classification directly informs the treatment decision."
+     "explanation": "Lateral tongue biting, urinary incontinence, and roughly 20 minutes of postictal confusion strongly support a true generalized tonic-clonic seizure; with a normal metabolic panel, negative toxicology, and no acute structural or metabolic trigger, this is a first unprovoked seizure. A provoked (acute symptomatic) seizure requires an identifiable acute insult, hypoglycemia, hyponatremia, withdrawal, acute brain injury, none of which is present; his sleep deprivation is a trigger that lowers the seizure threshold, not an acute symptomatic cause, so by ILAE convention the event is still classified as unprovoked. Epilepsy is diagnosed after two unprovoked seizures more than 24 hours apart, or one seizure with high recurrence risk (epileptiform EEG or an epileptogenic lesion); with a normal EEG and MRI he does not yet meet criteria. Psychogenic nonepileptic events typically lack true postictal confusion and lateral tongue injury and show no epileptiform correlate. Correct classification directly informs the treatment decision."
     },
     {
      "type": "question",
@@ -2156,7 +2156,7 @@
       "Yes, admit for an IV levetiracetam infusion"
      ],
      "answer": 0,
-     "explanation": "After a single unprovoked seizure with a normal neurologic exam, normal EEG, and normal MRI, the 2-year recurrence risk is relatively low (roughly 30-40%), and guidelines support deferring antiseizure medication while counseling the patient and arranging neurology follow-up. Immediate treatment reduces near-term recurrence but does not change long-term remission, so shared decision-making is appropriate, weighing occupation, driving, and preference. Mandating lifelong therapy after any seizure overtreats and ignores risk stratification. Starting two drugs is never appropriate initial therapy and adds toxicity. Admitting for an IV levetiracetam infusion is unnecessary in a patient who has returned to baseline with a benign workup. Treatment becomes clearly indicated if he has a second seizure, an epileptiform EEG, or an epileptogenic lesion."
+     "explanation": "After a single unprovoked seizure with a normal neurologic exam, normal EEG, and normal MRI, the 2-year recurrence risk is relatively low (roughly 20-25%, versus 21-45% for first unprovoked seizures overall), and guidelines support deferring antiseizure medication while counseling the patient and arranging neurology follow-up. Immediate treatment reduces near-term recurrence but does not change long-term remission, so shared decision-making is appropriate, weighing occupation, driving, and preference. Mandating lifelong therapy after any seizure overtreats and ignores risk stratification. Starting two drugs is never appropriate initial therapy and adds toxicity. Admitting for an IV levetiracetam infusion is unnecessary in a patient who has returned to baseline with a benign workup. Treatment becomes clearly indicated if he has a second seizure, an epileptiform EEG, or an epileptogenic lesion."
     },
     {
      "type": "question",
@@ -2175,7 +2175,7 @@
    "diagnosis": "First unprovoked generalized tonic-clonic seizure with a normal initial workup.",
    "pearls": [
     "Epilepsy is defined as two unprovoked seizures >24h apart, or one seizure with high recurrence risk.",
-    "After a first unprovoked seizure with normal EEG and MRI, recurrence risk is ~30-40% and AEDs can often be deferred.",
+    "After a first unprovoked seizure with normal EEG and MRI, 2-year recurrence risk is ~20-25% (21-45% overall) and AEDs can often be deferred.",
     "Lateral tongue biting and true postictal confusion favor an epileptic seizure over a nonepileptic event.",
     "Driving and safety counseling are mandatory at discharge after any seizure."
    ],

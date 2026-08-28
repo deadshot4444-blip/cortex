@@ -1,0 +1,1975 @@
+{
+  "version": 1,
+  "title": "Learn to Learn",
+  "researchNote": "Built from the Science of Effective Learning research dossier and checked against the linked reviews and meta-analyses. Evidence strength and boundary conditions are stated inside the lessons.",
+  "sources": [
+    {
+      "id": "S1",
+      "short": "Dunlosky et al. (2013)",
+      "title": "Improving Students' Learning With Effective Learning Techniques",
+      "url": "https://doi.org/10.1177/1529100612453266"
+    },
+    {
+      "id": "S2",
+      "short": "Roediger & Karpicke (2006)",
+      "title": "Test-Enhanced Learning: Taking Memory Tests Improves Long-Term Retention",
+      "url": "https://doi.org/10.1111/j.1467-9280.2006.01693.x"
+    },
+    {
+      "id": "S3",
+      "short": "Yang et al. (2021)",
+      "title": "Testing (quizzing) boosts classroom learning: A systematic and meta-analytic review",
+      "url": "https://doi.org/10.1037/bul0000309"
+    },
+    {
+      "id": "S4",
+      "short": "Rawson & Dunlosky (2022)",
+      "title": "Successive Relearning: An Underexplored but Potent Technique for Obtaining and Maintaining Knowledge",
+      "url": "https://doi.org/10.1177/09637214221100484"
+    },
+    {
+      "id": "S5",
+      "short": "Firth et al. (2021)",
+      "title": "A systematic review of interleaving as a concept learning strategy",
+      "url": "https://doi.org/10.1002/rev3.3266"
+    },
+    {
+      "id": "S6",
+      "short": "Sinha & Kapur (2021)",
+      "title": "When Problem Solving Followed by Instruction Works: Evidence for Productive Failure",
+      "url": "https://doi.org/10.3102/00346543211019105"
+    },
+    {
+      "id": "S7",
+      "short": "Noetel et al. (2022)",
+      "title": "Multimedia Design for Learning: An Overview of Reviews With Meta-Meta-Analysis",
+      "url": "https://doi.org/10.3102/00346543211052329"
+    },
+    {
+      "id": "S8",
+      "short": "Tan et al. (2025)",
+      "title": "Enhancing Academic Performance Through Self-Explanation in Digital Learning Environments",
+      "url": "https://doi.org/10.1007/s10648-025-10001-x"
+    },
+    {
+      "id": "S9",
+      "short": "Chamberland et al. (2021)",
+      "title": "A layered analysis of self-explanation and structured reflection to support clinical reasoning",
+      "url": "https://doi.org/10.1007/s40037-020-00603-2"
+    },
+    {
+      "id": "S10",
+      "short": "Thiede et al. (2020)",
+      "title": "Situation-Model Interventions and Metacomprehension Accuracy",
+      "url": "https://doi.org/10.1007/s10648-020-09558-6"
+    },
+    {
+      "id": "S11",
+      "short": "Urry et al. (2021)",
+      "title": "Don't Ditch the Laptop Just Yet",
+      "url": "https://doi.org/10.1177/0956797620965541"
+    },
+    {
+      "id": "S12",
+      "short": "Crowley et al. (2024)",
+      "title": "The impact of sleep restriction on memory formation",
+      "url": "https://doi.org/10.1016/j.neubiorev.2024.105929"
+    },
+    {
+      "id": "S13",
+      "short": "Vermylen et al. (2025)",
+      "title": "Competency-Based Simulation Training for Procedural Skills",
+      "url": "https://doi.org/10.1097/SIH.0000000000000895"
+    },
+    {
+      "id": "S14",
+      "short": "Barrison et al. (2025)",
+      "title": "Electronic Flashcards in Health Professions Education",
+      "url": "https://doi.org/10.1097/ACM.0000000000005968"
+    },
+    {
+      "id": "S15",
+      "short": "Tannenbaum & Cerasoli (2013)",
+      "title": "Do team and individual debriefs enhance performance?",
+      "url": "https://doi.org/10.1177/0018720812448394"
+    },
+    {
+      "id": "S16",
+      "short": "Macnamara et al. (2014)",
+      "title": "Deliberate Practice and Performance: A Meta-Analysis",
+      "url": "https://doi.org/10.1177/0956797614535810"
+    },
+    {
+      "id": "S17",
+      "short": "Wisniewski et al. (2020)",
+      "title": "The Power of Feedback Revisited",
+      "url": "https://doi.org/10.3389/fpsyg.2019.03087"
+    },
+    {
+      "id": "S18",
+      "short": "Pashler et al. (2009)",
+      "title": "Learning Styles: Concepts and Evidence",
+      "url": "https://doi.org/10.1111/j.1539-6053.2009.01038.x"
+    },
+    {
+      "id": "S19",
+      "short": "Guizani et al. (2025)",
+      "title": "Large language models in higher education: issues and solutions",
+      "url": "https://doi.org/10.1007/s44217-025-00424-7"
+    },
+    {
+      "id": "S20",
+      "short": "Rahman et al. (2026)",
+      "title": "Hallucination to truth: factuality evaluation in large language models",
+      "url": "https://doi.org/10.1007/s10462-025-11454-w"
+    }
+  ],
+  "tracks": [
+    {
+      "id": "general",
+      "number": "01",
+      "eyebrow": "For any kind of learning",
+      "name": "General",
+      "intro": "Build a simple learning routine you can use for any subject or skill.",
+      "audience": "Students, creators, career changers, and lifelong learners.",
+      "estimated": "8 lessons - about 2 hours",
+      "topics": ["Memory", "Understanding", "Focus", "Improving your approach"],
+      "outcomes": [
+        "Tell the difference between something feeling easy and something being truly learned.",
+        "Know when to recall from memory, review over time, study examples, explain ideas, and mix practice.",
+        "Figure out why you missed something and choose a better next step.",
+        "Build a realistic weekly routine that protects your focus and sleep."
+      ],
+      "lessons": [
+        {
+          "id": "g1",
+          "title": "Easy now does not mean learned",
+          "question": "Why can studying feel good even when the memory will not last?",
+          "duration": "12 min",
+          "sources": ["S1", "S2", "S10"],
+          "steps": [
+            {
+              "type": "teach",
+              "eyebrow": "Start here",
+              "title": "Doing well right now does not prove you will remember it later.",
+              "body": [
+                "Learning means you can still remember, explain, or use something later. Performance is what you can do right now with the current hints and conditions. They overlap, but they are not the same.",
+                "Rereading, highlighting, and following a familiar explanation can make an idea feel easy while it is in front of you. Learning scientists call that feeling fluency. It can help you get oriented, but it does not prove you can remember or use the idea on your own.",
+                "A better test removes the help. Close the source, wait long enough to forget a little, and rebuild the idea from memory. If you can still explain and use it, you have evidence of learning. If you only know it when you see it, you have evidence that it is familiar."
+              ],
+              "callout": {
+                "label": "Simple rule",
+                "text": "Do not judge learning only by how easy it feels. Test yourself after the hints, familiar setting, and answer are gone."
+              }
+            },
+            {
+              "type": "example",
+              "eyebrow": "Example",
+              "title": "Two learners; one only seems ahead",
+              "setup": "Maya rereads a chapter three times. Eli reads once, closes the book, writes what he remembers, checks the gaps, and tries again two days later.",
+              "points": [
+                "During the first session, Maya may feel faster and score better on questions that closely resemble the text.",
+                "Eli makes more mistakes and works harder because he is finding what he cannot yet remember.",
+                "On a later test, Eli is more likely to remember because he practiced recalling the idea, checking what he missed, and trying again."
+              ],
+              "lesson": "Harder is not always better, but doing well with the answer in front of you does not prove you learned it."
+            },
+            {
+              "type": "check",
+              "eyebrow": "Quick check",
+              "title": "Which result best shows that the learning lasted?",
+              "prompt": "You finish a lesson on opportunity cost. Which observation should raise your confidence the most?",
+              "options": [
+                "The explanation feels obvious when you reread it.",
+                "You can define it immediately after watching the lesson.",
+                "Two days later, you can explain it and use it in a new decision without notes."
+              ],
+              "answer": 2,
+              "explain": "Explaining it later without help and using it in a similar new situation tests whether the learning lasted. Doing it immediately can look stronger simply because the material is still fresh."
+            },
+            {
+              "type": "practice",
+              "eyebrow": "Try it",
+              "title": "Replace a feeling with a real test.",
+              "prompt": "Choose something you studied recently. Plan a later test that makes you produce the answer from memory instead of merely recognizing it.",
+              "starter": "In 48 hours, without notes, I will...",
+              "model": "In 48 hours, without notes, I will draw the supply-and-demand shift, explain why equilibrium changes, and solve one unfamiliar example. I will compare the result with my notes only after finishing."
+            },
+            {
+              "type": "summary",
+              "eyebrow": "Lesson 01 complete",
+              "title": "Trust what you can do without help.",
+              "takeaways": [
+                "Something feeling easy does not mean the learning will last. That easy feeling is called fluency.",
+                "Recognizing an answer is weaker evidence than recalling it without help.",
+                "What you can do later tells you more than how confident you feel right now.",
+                "A useful learning check makes you recall, explain, or use the idea without the source."
+              ],
+              "action": "Schedule one short check in 48 hours and do it without looking at the source."
+            }
+          ]
+        },
+        {
+          "id": "g2",
+          "title": "Pull answers from memory",
+          "question": "Why does trying to remember beat seeing the answer again?",
+          "duration": "14 min",
+          "sources": ["S2", "S3", "S17"],
+          "steps": [
+            {
+              "type": "teach",
+              "eyebrow": "Why recall works",
+              "title": "Memory is strengthened by being used.",
+              "body": [
+                "Trying to recall and rebuild what you know before looking is called retrieval practice. It is not just a test; the attempt itself helps you learn.",
+                "Research finds that this works across many subjects and age groups. It usually works better when you recall more than once, check the answer afterward, and practice the kind of knowledge you will actually need.",
+                "The order matters: try first, check second. Looking before you commit to an answer turns the exercise back into rereading. Checking afterward keeps a wrong or incomplete answer from going uncorrected."
+              ],
+              "callout": {
+                "label": "Simple process",
+                "text": "Prompt -> recall -> answer -> check -> correct. Look at the answer only after your mind has searched for it."
+              }
+            },
+            {
+              "type": "example",
+              "eyebrow": "Worked example",
+              "title": "Turn a paragraph into memory questions",
+              "setup": "A paragraph explains that price elasticity depends on how strongly quantity demanded responds to a price change.",
+              "points": [
+                "Weak prompt: 'Review the paragraph about elasticity.'",
+                "Better fact prompt: 'What does price elasticity measure?'",
+                "Better relationship prompt: 'Why are goods with close substitutes usually more elastic?'",
+                "Better application prompt: 'A firm raises price and total revenue falls. What does that suggest about demand, and why?'"
+              ],
+              "lesson": "Good recall practice moves from a fact, to how ideas connect, to how the idea is used. A prompt should be small enough to answer but meaningful enough to rebuild the idea."
+            },
+            {
+              "type": "check",
+              "eyebrow": "Checkpoint",
+              "title": "Try before you look.",
+              "prompt": "You cannot remember a concept after five seconds. What is the best next move?",
+              "options": [
+                "Reveal the full answer immediately and reread it twice.",
+                "Use a smaller hint, attempt again, then inspect and explain the answer.",
+                "Skip feedback so the struggle remains difficult."
+              ],
+              "answer": 1,
+              "explain": "A small hint lets the learner keep searching without getting stuck forever. Clear correction still matters when the answer is incomplete or wrong."
+            },
+            {
+              "type": "practice",
+              "eyebrow": "Build it",
+              "title": "Create a three-step memory test.",
+              "prompt": "For one concept, write a fact question, a relationship question, and an application question. Each must be answerable without looking at the source.",
+              "starter": "Fact: ... Relationship: ... Application: ...",
+              "model": "Fact: What is negative feedback? Relationship: Why does negative feedback stabilize a system? Application: If body temperature rises, predict the direction of the responses that return it toward its set range."
+            },
+            {
+              "type": "summary",
+              "eyebrow": "Lesson 02 complete",
+              "title": "Try to remember before you review.",
+              "takeaways": [
+                "Pulling an answer from memory is part of learning, not only a way to measure it.",
+                "Commit to an answer before feedback.",
+                "Use a small hint to keep trying, then check and correct the answer.",
+                "Build prompts that test facts, relationships, and application."
+              ],
+              "action": "Turn one page of notes into five short-answer questions before rereading it."
+            }
+          ]
+        },
+        {
+          "id": "g3",
+          "title": "Come back after time has passed",
+          "question": "How should you spread out practice when you want the memory to last?",
+          "duration": "14 min",
+          "sources": ["S1", "S4"],
+          "steps": [
+            {
+              "type": "teach",
+              "eyebrow": "Why returning later works",
+              "title": "A memory lasts when you come back to it.",
+              "body": [
+                "Practice packed into one session keeps information fresh during that session. This is called massed practice, or cramming. It may help tomorrow, but it can give a false picture of what will remain weeks later. Spreading practice out lets a little forgetting happen, so the next recall has to rebuild the memory.",
+                "There is no perfect 1-3-7-14 schedule for every person and topic. The useful gap depends on difficulty, what you already know, and how long you need to remember it. Return after some forgetting, come back sooner after a miss, and wait longer after stable success.",
+                "Meet a clear standard today, return later, and meet it again. Researchers call this successive relearning. One correct answer is the beginning of lasting knowledge, not the finish line."
+              ],
+              "callout": {
+                "label": "Ready-to-move-on check",
+                "text": "Can you give the complete answer correctly without help? If not, it is not ready for a longer break yet."
+              }
+            },
+            {
+              "type": "example",
+              "eyebrow": "Example schedule",
+              "title": "A flexible four-return plan",
+              "setup": "You need a concept for a cumulative exam six weeks away.",
+              "points": [
+                "Session 1: learn briefly, recall from memory, correct the gaps, and repeat until the answer is complete.",
+                "Return 1: revisit in one to three days. A miss means repair and a shorter next gap.",
+                "Return 2: revisit after a longer gap only if recall was stable.",
+                "Return 3: use a mixed or applied prompt so the memory is not tied to one identical cue."
+              ],
+              "lesson": "Spacing means letting a little forgetting happen, then successfully rebuilding the answer. A calendar helps, but your results should adjust it."
+            },
+            {
+              "type": "check",
+              "eyebrow": "Quick check",
+              "title": "Choose the plan most likely to last.",
+              "prompt": "A learner correctly recalls a definition once and wants to retain it for three months. What should happen next?",
+              "options": [
+                "Repeat it ten more times immediately, then retire it.",
+                "Schedule later no-notes checks, increasing the gap only after success.",
+                "Wait three months so the final test is maximally difficult."
+              ],
+              "answer": 1,
+              "explain": "The strongest plan makes you remember the material successfully in several later sessions. Repeating it too much on one day adds less and less value, while waiting too long can lead to complete failure."
+            },
+            {
+              "type": "practice",
+              "eyebrow": "Try it",
+              "title": "Decide how long you need to remember it.",
+              "prompt": "Choose one body of knowledge. State how long you need it to last, what a correct answer looks like, and when you will check it twice more.",
+              "starter": "I need this until... A correct answer means... I will return...",
+              "model": "I need these formulas through the final in eight weeks. A complete answer means writing each formula, defining every variable, and selecting it for one problem without notes. I will return in two days, then four to seven days later if recall is complete."
+            },
+            {
+              "type": "summary",
+              "eyebrow": "Lesson 03 complete",
+              "title": "Remembering it once is not enough.",
+              "takeaways": [
+                "Spreading practice out feels harder now but helps the memory last.",
+                "No single fixed interval fits every learner, topic, and goal.",
+                "Misses move the next attempt closer; stable recalls move it farther away.",
+                "Meeting the same clear standard in several later sessions is called successive relearning."
+              ],
+              "action": "Put two future memory checks on your calendar before ending today's study."
+            }
+          ]
+        },
+        {
+          "id": "g4",
+          "title": "Understand the why",
+          "question": "How do examples teach the idea instead of becoming steps you copy?",
+          "duration": "15 min",
+          "sources": ["S6", "S8", "S17"],
+          "steps": [
+            {
+              "type": "teach",
+              "eyebrow": "Examples and explanation",
+              "title": "See why each step works, then do more of it yourself.",
+              "body": [
+                "Beginners often need step-by-step examples because guessing every step uses too much of their limited mental workspace. A good example shows the goal, the useful information, each decision, and why that decision follows. It teaches the idea behind the moves, not just the moves.",
+                "The help should then be removed little by little. The next example may hide one step, the next may make you choose the method, and the next may become a problem you solve alone. Keeping all the help creates dependence; removing all help immediately can create confusion.",
+                "Explaining each step to yourself is the bridge. This is called self-explanation. Ask what the step does, why it is valid, how it connects to the main idea, and what would change in a different situation."
+              ],
+              "callout": {
+                "label": "Remove help step by step",
+                "text": "See the full example -> complete a missing step -> choose the method -> solve and explain on your own."
+              }
+            },
+            {
+              "type": "example",
+              "eyebrow": "Example",
+              "title": "Study the reason, not only the move",
+              "setup": "A worked probability problem multiplies two probabilities because the events are independent.",
+              "points": [
+                "Surface copying says: 'The example multiplied, so I multiply.'",
+                "Structural explanation says: 'Independence means one event does not change the probability of the other, so the joint probability is the product.'",
+                "A contrasting case then changes the events so they are dependent and asks why the same move no longer applies."
+              ],
+              "lesson": "The reusable knowledge is the condition that justifies the operation. Explanation should name that condition."
+            },
+            {
+              "type": "check",
+              "eyebrow": "Quick check",
+              "title": "Which help should go first?",
+              "prompt": "After studying a fully worked example, which next task best hands responsibility to the learner without removing all support?",
+              "options": [
+                "A second identical example with every step shown.",
+                "A completely unrelated expert problem with no hints.",
+                "A similar problem with the key decision or one step omitted."
+              ],
+              "answer": 2,
+              "explain": "A partly completed problem keeps some support while making you remember and perform a step yourself. It is a safe move from watching an example to solving one alone."
+            },
+            {
+              "type": "practice",
+              "eyebrow": "Explain it",
+              "title": "Write the missing because.",
+              "prompt": "Choose one worked example from something you are learning. Identify a step that looks mechanical and explain the condition or principle that makes it valid.",
+              "starter": "This step works because...",
+              "model": "Dividing both sides by the coefficient works because equality is preserved when the same nonzero operation is applied to both sides. The move would fail if I divided by a quantity that could be zero without checking it."
+            },
+            {
+              "type": "summary",
+              "eyebrow": "Lesson 04 complete",
+              "title": "An example helps only when you own the reasoning.",
+              "takeaways": [
+                "Step-by-step examples keep beginners from wasting effort on blind guessing.",
+                "Explaining each step reveals the conditions, causes, and relationships.",
+                "Remove help little by little as the learner becomes more reliable.",
+                "A contrasting example reveals which parts of the idea actually matter."
+              ],
+              "action": "Take one step-by-step example and turn it into practice by hiding its most important decision."
+            }
+          ]
+        },
+        {
+          "id": "g5",
+          "title": "Mix similar problems",
+          "question": "Why does mixing problem types help you learn when to use each method?",
+          "duration": "13 min",
+          "sources": ["S5", "S6"],
+          "steps": [
+            {
+              "type": "teach",
+              "eyebrow": "Mixing related problems",
+              "title": "Knowing how is different from knowing when.",
+              "body": [
+                "Practicing one type repeatedly is called blocked practice. It can help at first because you already know which method to use. Mixed practice, called interleaving, combines related problem types so you must first figure out what kind of problem you are facing and choose an approach.",
+                "Mixed practice is most useful when ideas are easy to confuse and future problems will not tell you their type. Comparing similar examples side by side makes the important differences easier to see.",
+                "This does not mean randomizing everything. Repeating one type can help you learn a basic procedure first. Mix practice when choosing between believable options is part of the skill you need."
+              ],
+              "callout": {
+                "label": "Decision rule",
+                "text": "Block to stabilize a new move. Mix to learn which move belongs to which situation."
+              }
+            },
+            {
+              "type": "example",
+              "eyebrow": "Side-by-side example",
+              "title": "Practice the choice before the solution",
+              "setup": "A math set contains only problems that require the quadratic formula. A mixed set contains factoring, completing the square, and quadratic-formula problems.",
+              "points": [
+                "In the blocked set, the page tells the learner which method to use.",
+                "In the mixed set, the learner must inspect the structure and choose.",
+                "The mixed set may feel slower even as it builds the choice-making step that real exams and real work require."
+              ],
+              "lesson": "If the page tells you the problem type, you can use a method without learning when that method belongs."
+            },
+            {
+              "type": "check",
+              "eyebrow": "Quick check",
+              "title": "When is mixed practice most useful?",
+              "prompt": "Which practice set most needs you to tell similar options apart?",
+              "options": [
+                "Typing the same keyboard shortcut twenty times.",
+                "Distinguishing three similar statistical tests from short research scenarios.",
+                "Reading three unrelated books in alternating paragraphs."
+              ],
+              "answer": 1,
+              "explain": "These statistical tests are easy to confuse, and the skill is choosing the right one. Repeating one movement can help when you first learn a motor skill. Randomly switching among unrelated long tasks usually adds confusion without helping you compare them."
+            },
+            {
+              "type": "practice",
+              "eyebrow": "Try it",
+              "title": "Create a comparison table.",
+              "prompt": "Name three ideas you confuse. For each, write the clue that supports it, the closest alternative, and the detail that rules that alternative out.",
+              "starter": "Idea | clue that supports it | closest alternative | detail that rules it out",
+              "model": "Correlation | two measured variables change together | causation | because nothing was changed on purpose and the study does not rule out other explanations, correlation alone cannot prove cause."
+            },
+            {
+              "type": "summary",
+              "eyebrow": "Lesson 05 complete",
+              "title": "Practice choosing the method, not just using it.",
+              "takeaways": [
+                "Practicing one type repeatedly often hides the step where you choose the method.",
+                "Mixed practice is most useful for categories that are easy to confuse.",
+                "Repeating one type first and mixing later can serve different stages of learning.",
+                "Using knowledge in a new situation improves when the details change but the underlying rule stays the same."
+              ],
+              "action": "This week, replace one single-topic practice session with questions from three similar ideas you often confuse."
+            }
+          ]
+        },
+        {
+          "id": "g6",
+          "title": "Protect your attention",
+          "question": "How do you leave enough mental space for the thinking that matters?",
+          "duration": "14 min",
+          "sources": ["S7", "S12"],
+          "steps": [
+            {
+              "type": "teach",
+              "eyebrow": "How much your mind can hold",
+              "title": "Attention is limited; it is not a character test.",
+              "body": [
+                "Your mind can hold and work with only a limited amount of new information at once. This limited mental workspace is called working memory. Complexity is not the enemy; unnecessary searching, split attention, repeated explanations, and interruptions use that space without teaching the idea.",
+                "Good instruction shows the main structure, puts words beside the diagram they explain, breaks a complex process into steps, and reveals detail one layer at a time. The goal is not to make the subject permanently simple. It is to introduce complexity in an order the learner can handle.",
+                "The same idea applies to your study environment. Notifications, switching tasks, and mind wandering compete with forming a memory. A visible next action and a clear stopping point reduce the extra work of deciding what to do while you are trying to learn."
+              ],
+              "callout": {
+                "label": "Screen test",
+                "text": "For every element on screen, ask: does this support the current act of reasoning, or does the learner have to manage it?"
+              }
+            },
+            {
+              "type": "example",
+              "eyebrow": "Example redesign",
+              "title": "From overloaded page to learning sequence",
+              "setup": "A lesson opens with a dense diagram, a long paragraph below it, six decorative icons, and three simultaneous tasks.",
+              "points": [
+                "Start with one main question and a simple diagram.",
+                "Highlight the relevant region while the explanation appears beside it.",
+                "Pause for one no-notes recall or prediction before adding the next interacting element.",
+                "Move reference detail behind an optional reveal instead of competing with the main path."
+              ],
+              "lesson": "Showing one layer at a time keeps the full complexity while preventing everything from competing for attention at once."
+            },
+            {
+              "type": "check",
+              "eyebrow": "Quick check",
+              "title": "Remove unnecessary difficulty.",
+              "prompt": "Which change removes unnecessary mental work without removing what must be learned?",
+              "options": [
+                "Remove the difficult cause-and-effect connection from the lesson.",
+                "Place each diagram label beside the structure it names and remove decorative side facts.",
+                "Add more animations so the page feels engaging."
+              ],
+              "answer": 1,
+              "explain": "Putting labels beside what they describe and removing irrelevant details reduces searching and distraction. Removing the key relationship would remove something learners need to understand. Extra animation can make distraction worse."
+            },
+            {
+              "type": "practice",
+              "eyebrow": "Try it",
+              "title": "Check where your study setup wastes attention.",
+              "prompt": "Describe your current study setup. Name one thing you waste attention searching for, one common interruption, and one next step you can choose before the session begins.",
+              "starter": "What I search for... Interruption... Next step chosen in advance...",
+              "model": "Searching: notes and lecture are on different devices. Interruption: message previews remain visible. Pre-decided action: complete one example and two no-notes recall checks before opening anything else."
+            },
+            {
+              "type": "summary",
+              "eyebrow": "Lesson 06 complete",
+              "title": "Spend your attention on the idea.",
+              "takeaways": [
+                "Because mental workspace is limited, the order and clarity of instruction matter.",
+                "Reduce searching, repetition, and irrelevant detail before removing real complexity.",
+                "Show complexity in layers the learner can handle.",
+                "One clear next action and fewer interruptions help the memory form."
+              ],
+              "action": "Remove one persistent interruption and write tomorrow's first study action tonight."
+            }
+          ]
+        },
+        {
+          "id": "g7",
+          "title": "Use mistakes to improve",
+          "question": "How do strong learners turn a mistake into a better next step?",
+          "duration": "14 min",
+          "sources": ["S3", "S10", "S17"],
+          "steps": [
+            {
+              "type": "teach",
+              "eyebrow": "Check confidence against results",
+              "title": "Confidence becomes useful only when it meets performance.",
+              "body": [
+                "Knowing what you truly understand and changing your study plan when needed is called metacognition. Its weak form is a feeling: 'I think I know this.' Its stronger form is a clear prediction, a real test, and a comparison with the result.",
+                "The most useful signal is not merely wrong versus right. It is the pattern between confidence and performance. High confidence plus a miss reveals dangerous overconfidence. Low confidence plus success may reveal underconfidence or a task that feels harder than it is.",
+                "Before fixing a mistake, name why it happened. A knowledge gap needs relearning. Missing an important clue needs side-by-side practice. A reasoning slip needs a slower decision rule. A misread needs a question-checking routine. A confident mistake needs an earlier test without help."
+              ],
+              "callout": {
+                "label": "Confidence check",
+                "text": "Predict -> perform -> compare -> name the error -> choose a fix -> test again later."
+              }
+            },
+            {
+              "type": "example",
+              "eyebrow": "Why the mistake happened",
+              "title": "One wrong answer can have several causes",
+              "setup": "Two learners miss the same question.",
+              "points": [
+                "Learner A never learned the definition. Fix: a short explanation followed by recall from memory.",
+                "Learner B knew the definition but chose a similar alternative. Fix: compare the two options side by side.",
+                "Learner C knew the difference but rushed past a negative word in the question. Fix: a reading checkpoint, not another lecture.",
+                "Learner D was certain and wrong. Fix: test later without help so confidence has to match the result."
+              ],
+              "lesson": "Doing more questions without finding the reason for each miss can repeat the same mistake."
+            },
+            {
+              "type": "check",
+              "eyebrow": "Quick check",
+              "title": "Fix the cause; do not punish yourself.",
+              "prompt": "You understand two theories separately but confuse them in mixed questions. Which fix best matches the problem?",
+              "options": [
+                "Reread both chapters from the beginning.",
+                "Study the two ideas side by side, focus on their differences, and test yourself again later.",
+                "Do ten more questions from only the first theory."
+              ],
+              "answer": 1,
+              "explain": "The learner is confusing two categories, so the fix must put them side by side and force a choice. Practicing each one alone does not recreate the decision that failed."
+            },
+            {
+              "type": "practice",
+              "eyebrow": "Try it",
+              "title": "Write a rule for your next attempt.",
+              "prompt": "Think of a recent mistake. Was it missing knowledge, a missed clue, a reasoning slip, a misread, or overconfidence? Write one clear rule for your next attempt.",
+              "starter": "Error type... Evidence... Next-attempt rule...",
+              "model": "Error type: missed clue. Evidence: I knew both conditions but ignored the time course. Rule for next time: before choosing, state which single finding most separates the top two options."
+            },
+            {
+              "type": "summary",
+              "eyebrow": "Lesson 07 complete",
+              "title": "Every mistake should change your next try.",
+              "takeaways": [
+                "Confidence is data only when it is compared with performance.",
+                "High-confidence misses deserve special attention.",
+                "Name why the error happened before choosing a fix.",
+                "A fix is incomplete until a later test shows that your behavior changed."
+              ],
+              "action": "Add confidence and error type to the next five questions you answer."
+            }
+          ]
+        },
+        {
+          "id": "g8",
+          "title": "Build your weekly learning routine",
+          "question": "How do these ideas become a routine you can actually keep using?",
+          "duration": "18 min",
+          "sources": ["S1", "S11", "S12", "S18", "S19", "S20"],
+          "steps": [
+            {
+              "type": "teach",
+              "eyebrow": "Bring it together",
+              "title": "Give every study tool a clear job.",
+              "body": [
+                "Reading, lectures, and notes help you meet and organize an idea. Recalling from memory strengthens it. Returning later helps it last. Mixing similar problems teaches you when to use each idea. Examples and explanation build understanding. Comparing confidence with results tells you what to fix next.",
+                "Notes work when you create them through active thinking and later turn them into questions. The format matters less than whether you select, organize, connect, and recall ideas. Do not let a learning-style label choose your method; match the method to the task, what you already know, and your goal.",
+                "Rest is part of the plan. Too little sleep harms memory formation, so trading sleep for more study can weaken the learning you are trying to extend. AI can create questions, hints, comparisons, and feedback, but a confident-sounding answer is not proven truth. Use trusted sources and make your own attempt first."
+              ],
+              "callout": {
+                "label": "Weekly plan",
+                "text": "Learn a little -> recall without notes -> fix gaps -> schedule the next check -> mix similar problems -> compare confidence with results -> rest. Repeat with less help."
+              }
+            },
+            {
+              "type": "example",
+              "eyebrow": "A complete week",
+              "title": "Turn a syllabus into a plan that lasts",
+              "setup": "You have four chapters and a project due in three weeks.",
+              "points": [
+                "Monday: list the goals, study one step-by-step example, and create questions to answer from memory.",
+                "Tuesday: recall Monday's material before learning anything new; find the reason for each miss and fix it.",
+                "Thursday: reach the same clear standard again and mix the material with the second chapter.",
+                "Weekend: use everything in one larger task, predict your score, and compare your confidence with the result.",
+                "Choose a realistic stopping time so you are rested enough to focus during the next session."
+              ],
+              "lesson": "The schedule is not a pile of techniques. It is a chain in which each result determines the next action."
+            },
+            {
+              "type": "check",
+              "eyebrow": "Final quick check",
+              "title": "Find the most useful change.",
+              "prompt": "A learner has beautiful notes, watches every lecture twice, sleeps five hours, and rarely tests without notes. What is the highest-leverage change?",
+              "options": [
+                "Choose a learning style and redesign the notes around it.",
+                "Add more highlighting colors to increase engagement.",
+                "Turn notes into later no-notes recall, fix mistakes, and protect adequate sleep."
+              ],
+              "answer": 2,
+              "explain": "The learner spends most of the time looking at material and feeling familiar with it, but rarely checks what remains later and does not sleep enough. A learning-style label or prettier notes will not fix that."
+            },
+            {
+              "type": "practice",
+              "eyebrow": "Final project",
+              "title": "Write your one-week learning plan.",
+              "prompt": "Design one week for a real goal. Include what you need to do, the first explanation or example, how you will recall it, two later checks, one mixed use, a rule for mistakes, and a clear stopping and sleep plan.",
+              "starter": "Goal... Learn... Recall... Return... Mix... Fix... Rest...",
+              "model": "Goal: explain and use three main ideas. Learn: one clear explanation and example for each. Recall: answer a short question without notes. Return: after 2 days, then 5 days, sooner after a miss. Mix: use one case where I must choose the right idea. Fix: name why I missed it and write one rule for next time. Rest: stop by 10:30 p.m. and silence notifications while studying."
+            },
+            {
+              "type": "summary",
+              "eyebrow": "General course complete",
+              "title": "You now have a complete learning plan.",
+              "takeaways": [
+                "Use reading and lectures to build understanding, not to prove that you know it.",
+                "Use recall and later reviews to make knowledge last.",
+                "Use examples, explanation, side-by-side comparison, and mixed practice to understand and choose.",
+                "Use confidence checks, error fixes, protected focus, and sleep to keep improving."
+              ],
+              "action": "Try your one-week plan, then improve it using the results of your no-notes checks and confidence ratings."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "business",
+      "number": "02",
+      "eyebrow": "Learning at work",
+      "name": "Business",
+      "intro": "Learn difficult work faster, make better decisions, and use what you learn consistently on the job.",
+      "audience": "Founders, operators, managers, analysts, sales teams, and ambitious professionals.",
+      "estimated": "8 lessons - about 2.5 hours",
+      "topics": ["How the business works", "Decisions", "Feedback", "Shared knowledge"],
+      "outcomes": [
+        "See how the parts of a business affect one another instead of memorizing disconnected facts.",
+        "Turn repeated work into focused practice with useful feedback.",
+        "Write down forecasts and decisions, run small tests, and compare similar cases to improve judgment.",
+        "Turn experience into team improvement through short reviews and updated playbooks."
+      ],
+      "lessons": [
+        {
+          "id": "b1",
+          "title": "See how the business works",
+          "question": "What must you understand before business facts and numbers become useful?",
+          "duration": "15 min",
+          "sources": ["S7", "S8"],
+          "steps": [
+            {
+              "type": "teach",
+              "eyebrow": "See the connections first",
+              "title": "A business is a connected system: one part can help, limit, or change another.",
+              "body": [
+                "Memorizing numbers does not produce business understanding. A useful explanation shows how value is created, who receives it, what behavior drives revenue, what limits capacity, and how results change the system over time.",
+                "Begin with the main question: how does this organization turn a customer problem into lasting value? Trace the chain from the customer and sales channel to the product, operations, costs, revenue, and cash. Connect every important number to a cause-and-effect link in that chain.",
+                "Learn the simplest useful version first. Then add customer groups, exceptions, and ripple effects. A giant dashboard without an explanation creates recognition without understanding."
+              ],
+              "callout": {
+                "label": "Simple business map",
+                "text": "Customer problem -> promise -> customer behavior -> delivery -> revenue and cost per customer -> cash -> feedback."
+              }
+            },
+            {
+              "type": "example",
+              "eyebrow": "Example",
+              "title": "Why revenue alone does not explain the business",
+              "setup": "A subscription company grows revenue 40% while cash pressure worsens.",
+              "points": [
+                "The company may be gaining customers through expensive marketing channels.",
+                "Too many customers may be leaving, forcing the company to keep replacing them.",
+                "Service costs may rise faster than revenue as support complexity grows.",
+                "Revenue growth is only the result. To explain it, you also need to know what it costs to gain a customer, how many stay, what remains after direct costs, and when cash arrives."
+              ],
+              "lesson": "Understanding a business means explaining why a number changed and predicting what else should change if your explanation is right."
+            },
+            {
+              "type": "check",
+              "eyebrow": "Quick check",
+              "title": "Choose the question that builds understanding.",
+              "prompt": "You inherit a dashboard with fifty metrics. What is the strongest first move?",
+              "options": [
+                "Memorize every definition before asking how they connect.",
+                "Identify how the business creates value and place each important number on a cause-and-effect link.",
+                "Select the five metrics that look most impressive."
+              ],
+              "answer": 1,
+              "explain": "A cause-and-effect map shows what each number means and what information may be missing. Memorizing numbers without their relationships creates weak understanding; selecting flattering numbers creates bias."
+            },
+            {
+              "type": "practice",
+              "eyebrow": "Try it",
+              "title": "Draw the smallest useful picture of the business.",
+              "prompt": "For a company you know, write one line each for the customer's problem, the promise, how customers find it, how the company delivers, when it gets paid, its largest cost, and how results change what happens next.",
+              "starter": "Problem... Promise... How customers find it... Delivery... Payment... Cost... What changes next...",
+              "model": "Local urgent-care clinic: problem = same-day access; promise = fast, competent care; how patients find it = location, search, and insurance; delivery = staffed rooms and tests; payment = a reimbursed visit; largest cost = clinical staff; what changes next = wait times and patient results affect reviews and repeat use."
+            },
+            {
+              "type": "summary",
+              "eyebrow": "Lesson 01 complete",
+              "title": "Connect every fact to how the business works.",
+              "takeaways": [
+                "A number becomes useful when you know what causes it and what it changes.",
+                "Start with the smallest complete picture of how value is created.",
+                "Ask what else should change if your explanation is correct.",
+                "Add complexity only after the basic picture can make useful predictions."
+              ],
+              "action": "Explain one business number tonight: what causes it, what it measures, and what it changes next."
+            }
+          ]
+        },
+        {
+          "id": "b2",
+          "title": "Practice one part of the job",
+          "question": "Why does repeating a job not automatically make you better at it?",
+          "duration": "15 min",
+          "sources": ["S16", "S17"],
+          "steps": [
+            {
+              "type": "teach",
+              "eyebrow": "Getting better at a skill",
+              "title": "Doing the job repeats it; focused practice changes it.",
+              "body": [
+                "Most work is designed to finish the job, not to help you improve one specific skill. Focused practice, often called deliberate practice, separates one weak part of the skill, sets a clear success standard, gives you several attempts, and uses feedback to improve the next try.",
+                "Practice matters, but it is not the only reason people become experts. Research combining many studies finds that deliberate practice explains only part of why performance differs. Opportunity, what you already know, task design, and feedback quality also matter.",
+                "The useful business question is therefore not 'How many hours have I done this?' It is 'Which observable decision or behavior am I trying to improve, and what feedback arrives soon enough to change it?'"
+              ],
+              "callout": {
+                "label": "One practice round",
+                "text": "One small skill + one clear standard + one attempt + useful feedback + one improved attempt."
+              }
+            },
+            {
+              "type": "example",
+              "eyebrow": "Example redesign",
+              "title": "From sales calls to objection practice",
+              "setup": "A representative completes forty calls a week but keeps losing prospects at the same objection.",
+              "points": [
+                "More complete calls may repeat the same weak response.",
+                "Practice isolates the objection, predicts the customer's concern, and rehearses three responses.",
+                "A manager uses a simple scoring guide for clarity, relevance, and control of the next step.",
+                "The representative tries again immediately, then tests the response in real calls and reviews what happened."
+              ],
+              "lesson": "Doing the whole job gives you experience. To improve, isolate the part that still breaks down, practice it, get feedback, and try again."
+            },
+            {
+              "type": "check",
+              "eyebrow": "Quick check",
+              "title": "Find the practice design.",
+              "prompt": "Which activity is closest to focused practice?",
+              "options": [
+                "Attending the same weekly meeting for another year.",
+                "Watching an expert presentation and feeling inspired.",
+                "Practicing the weakest two minutes of a pitch with a scoring guide, getting feedback, and trying again."
+              ],
+              "answer": 2,
+              "explain": "The third activity isolates one small skill, defines what good looks like, provides feedback, and includes another attempt. Simply spending more time on the job does not guarantee improvement."
+            },
+            {
+              "type": "practice",
+              "eyebrow": "Try it",
+              "title": "Choose one small part of your job to practice.",
+              "prompt": "Name a repeated task. Identify its weakest small skill, a clear success standard, a source of feedback, and a way to repeat that part without waiting for the entire task.",
+              "starter": "Whole task... Small skill... Success standard... Feedback... Repeat...",
+              "model": "Whole task: analyst briefing. Small skill: stating the decision implication in the first 30 seconds. Success standard: the leader can name the requested decision after one hearing. Feedback: record and test with a colleague. Repeat: five openings using different analyses."
+            },
+            {
+              "type": "summary",
+              "eyebrow": "Lesson 02 complete",
+              "title": "Time on the job is not the same as improvement.",
+              "takeaways": [
+                "Normal work is designed for output; focused practice is designed for improvement.",
+                "Find the small part that keeps breaking down and define what a good result looks like.",
+                "Get feedback soon enough to change the next attempt.",
+                "Practice is important but never the only cause of professional performance."
+              ],
+              "action": "Do three scored practice rounds on one small skill before you use it in real work."
+            }
+          ]
+        },
+        {
+          "id": "b3",
+          "title": "Learn from your decisions",
+          "question": "How can you improve your judgment when results come later and luck affects them?",
+          "duration": "17 min",
+          "sources": ["S8", "S10", "S15"],
+          "steps": [
+            {
+              "type": "teach",
+              "eyebrow": "Check your predictions",
+              "title": "Write down your prediction before you know the result.",
+              "body": [
+                "Business decisions are hard to learn from because good processes can produce bad outcomes and bad processes can get lucky. After the result, hindsight makes the path look more obvious than it was.",
+                "A decision note records what you knew and believed at the time: the question, options, evidence, assumptions, predicted results, confidence, and what would change the choice. Later, compare the prediction with reality instead of trusting a rewritten memory.",
+                "You can judge your predictions only when they are specific enough to check. Replace 'this launch should do well' with a range, date, and observable measure. Then separate the quality of the decision from the quality of the result: was the reasoning sound with the information available, and what did the result reveal?"
+              ],
+              "callout": {
+                "label": "Decision note",
+                "text": "Choice -> reasons -> assumptions -> prediction -> confidence -> evidence that would show you were wrong -> review date."
+              }
+            },
+            {
+              "type": "example",
+              "eyebrow": "Example review",
+              "title": "A good decision with a bad outcome",
+              "setup": "A company tests a channel after small pilots show promising economics. A platform policy change destroys performance two weeks later.",
+              "points": [
+                "Outcome review alone says: 'The decision failed.'",
+                "A better review asks whether the early evidence justified a small test and whether the platform risk could have been seen.",
+                "The better response may be to limit how much depends on one platform and set a warning sign for future risk, not to say 'never use this channel again.'"
+              ],
+              "lesson": "To learn fairly, keep a record of what you could know when you decided, then improve your explanation using what happened."
+            },
+            {
+              "type": "check",
+              "eyebrow": "Quick check",
+              "title": "Do not let the result rewrite what you knew at the time.",
+              "prompt": "Which decision note will teach you the most six weeks later?",
+              "options": [
+                "I think this is the right move.",
+                "Launch because leadership prefers it; review later.",
+                "I assign a 65% chance of reaching 500 weekly activations by September 1; the key assumption is referral conversion above 12%."
+              ],
+              "answer": 2,
+              "explain": "The prediction has a date, can be measured, and shows the assumption carrying the decision. That makes a useful later review possible."
+            },
+            {
+              "type": "practice",
+              "eyebrow": "Try it",
+              "title": "Write a prediction you can check later.",
+              "prompt": "Choose a real decision. Write your choice, strongest reason, the main belief that must be true, expected result or range, review date, and what would make you change your decision.",
+              "starter": "Choice... Reason... Assumption... Forecast... Review... Reverse if...",
+              "model": "Choice: pilot onboarding calls for new accounts. Reason: activation failures cluster in setup. Assumption: confusion, not low intent, drives drop-off. Forecast: activation rises from 42% to 52-58% within four weeks. Reverse if call completion is high but activation changes less than three points."
+            },
+            {
+              "type": "summary",
+              "eyebrow": "Lesson 03 complete",
+              "title": "A decision becomes a lesson when you can check it later.",
+              "takeaways": [
+                "A good result and good thinking are not the same thing.",
+                "Write assumptions and forecasts before the result.",
+                "Use ranges, dates, and observable measures.",
+                "Review the result to improve your thinking, not to blame people with the benefit of hindsight."
+              ],
+              "action": "Create one decision note before your next important choice."
+            }
+          ]
+        },
+        {
+          "id": "b4",
+          "title": "Run tests that can prove you wrong",
+          "question": "How do you let customer and product evidence change what you believe?",
+          "duration": "16 min",
+          "sources": ["S6", "S8", "S17"],
+          "steps": [
+            {
+              "type": "teach",
+              "eyebrow": "Learn from evidence",
+              "title": "A useful test starts with a prediction and can change your mind.",
+              "body": [
+                "Teams often collect activity instead of evidence: interviews that ignore other explanations, tests with no result that tells the team what to do next, and dashboards with no belief that could change. The real learning is the change from what you believed before to what the evidence supports now.",
+                "Before collecting data, state what you believe causes the result, what you expect to observe, and what other explanation could produce the same result. Decide what would support, weaken, or leave the belief unresolved.",
+                "When the evidence arrives, look at the original prediction before reading the summary. Compare what you expected with what happened, explain the gap, and choose the next test that best separates the possible explanations."
+              ],
+              "callout": {
+                "label": "Test plan",
+                "text": "We believe X because Y. If true, we expect Z. We will change course if Q. Alternative A could mimic the result."
+              }
+            },
+            {
+              "type": "example",
+              "eyebrow": "Example test",
+              "title": "A feature click is not yet learning",
+              "setup": "A new dashboard receives many clicks during launch week.",
+              "points": [
+                "The team predicted the feature would reduce time to complete a weekly task.",
+                "Clicks show attention, but novelty can also produce clicks.",
+                "The more useful result is task completion time or repeated use after the novelty fades.",
+                "The next update should compare what users did with the reason the team expected the feature to work, not celebrate the easiest number."
+              ],
+              "lesson": "Evidence is useful when it helps you choose between your explanation and another believable one."
+            },
+            {
+              "type": "check",
+              "eyebrow": "Quick check",
+              "title": "Choose the strongest learning test.",
+              "prompt": "Customers say they want a reporting feature. Which next step is most informative?",
+              "options": [
+                "Count how many interviewees used positive language.",
+                "Build the entire feature and judge demand from launch attention.",
+                "Test whether customers complete a realistic reporting task or commit time or money to a limited prototype."
+              ],
+              "answer": 2,
+              "explain": "What customers do under a realistic limit tests the real need more directly than what they say or what they click when something is new. It is still imperfect evidence, but it separates real demand more clearly."
+            },
+            {
+              "type": "practice",
+              "eyebrow": "Try it",
+              "title": "Write the update before running the test.",
+              "prompt": "For one assumption, write the prediction, another possible explanation, the smallest observable test, and the result that would tell you what to do next.",
+              "starter": "Belief... Prediction... Other explanation... Test... Result that changes the decision...",
+              "model": "Belief: users abandon setup because the wording is confusing. Prediction: a plain-language version helps more users finish. Other explanation: users do not have the required information. Test: randomly show similar users one of the two versions. Decision rule: keep the new version if at least 8 percentage points more users finish without submitting more bad information."
+            },
+            {
+              "type": "summary",
+              "eyebrow": "Lesson 04 complete",
+              "title": "Collect evidence that can defeat your favorite story.",
+              "takeaways": [
+                "Activity becomes learning only when it updates a prior belief.",
+                "Write the prediction and the result that would change your decision before the test.",
+                "For every encouraging result, consider another explanation that could also cause it.",
+                "Choose the next test because it separates possible explanations, not because it looks impressive."
+              ],
+              "action": "Rewrite one project update as what you believed, what you predicted, what happened, and what changed your mind."
+            }
+          ]
+        },
+        {
+          "id": "b5",
+          "title": "Compare similar cases",
+          "question": "How do experts learn to recognize the situation they are actually facing?",
+          "duration": "15 min",
+          "sources": ["S5", "S6", "S8"],
+          "steps": [
+            {
+              "type": "teach",
+              "eyebrow": "Tell similar situations apart",
+              "title": "Judgment grows when you compare cases, not memorize slogans.",
+              "body": [
+                "Business frameworks are common ways to organize a problem. Using one well requires seeing which situation you are in, what evidence separates it from the closest alternative, and when the framework no longer fits.",
+                "Build case pairs around common confusions: growth limited by demand versus capacity; customers leaving because of poor fit versus poor onboarding; a pricing problem versus a problem explaining value. Study each pair side by side and name the clues that separate them.",
+                "Then mix the cases so the learner must identify the situation before acting. Expert comments should arrive after an attempt and explain both the chosen path and why tempting alternatives fail."
+              ],
+              "callout": {
+                "label": "Case rule",
+                "text": "Do not ask only 'What worked?' Ask 'What situation was this, and what evidence separates it from the nearest alternative?'"
+              }
+            },
+            {
+              "type": "example",
+              "eyebrow": "Contrast pair",
+              "title": "Two companies with the same symptom",
+              "setup": "Both companies have slowing revenue growth.",
+              "points": [
+                "Company A has strong demand, a growing backlog, and worsening delivery time: it cannot deliver fast enough.",
+                "Company B has room to deliver more, fewer serious potential customers, and stable delivery: it needs more demand.",
+                "The same visible symptom requires opposite actions because the most important evidence lies earlier in the system."
+              ],
+              "lesson": "A framework becomes useful when it points you to the evidence that changes what you should do."
+            },
+            {
+              "type": "check",
+              "eyebrow": "Quick check",
+              "title": "Find the problem before choosing the fix.",
+              "prompt": "A team responds to every growth slowdown by increasing advertising. What learning failure is most likely?",
+              "options": [
+                "They have not practiced the advertising process enough for it to feel automatic.",
+                "They are applying one familiar solution without identifying the current limit.",
+                "They need more unrelated business frameworks."
+              ],
+              "answer": 1,
+              "explain": "The missing skill is identifying the situation. Side-by-side cases would make the team tell apart problems with attracting customers, turning interest into sales, keeping customers, pricing, and delivery capacity before choosing an action."
+            },
+            {
+              "type": "practice",
+              "eyebrow": "Try it",
+              "title": "Create a pair of similar-looking cases.",
+              "prompt": "Choose two business situations that look similar but require different actions. List the shared symptom, the cue that separates them, and the different action each demands.",
+              "starter": "Shared symptom... Case A cue/action... Case B cue/action...",
+              "model": "Shared symptom: few trial users become paying customers. Case A: users never reach the useful part of the product -> simplify setup. Case B: users reach it but reject the price -> test the offer or explain the value better. The difference is what users do before they see the price."
+            },
+            {
+              "type": "summary",
+              "eyebrow": "Lesson 05 complete",
+              "title": "Frameworks help you tell similar problems apart.",
+              "takeaways": [
+                "Side-by-side cases reveal the clues that change a decision.",
+                "Mixed cases make the learner identify the situation before acting.",
+                "The same symptom can come from different causes.",
+                "Expert explanation should address why the closest alternative is wrong."
+              ],
+              "action": "Add one pair of similar-looking cases to your team's next training or project review."
+            }
+          ]
+        },
+        {
+          "id": "b6",
+          "title": "Explain so people can act",
+          "question": "What makes an explanation change what another person understands and does?",
+          "duration": "14 min",
+          "sources": ["S7", "S8", "S11"],
+          "steps": [
+            {
+              "type": "teach",
+              "eyebrow": "Explain for understanding",
+              "title": "A clear message helps people remember the main idea and use it.",
+              "body": [
+                "Business communication is often judged by polish or length. A useful explanation is judged by what the audience can remember and do. It names the decision, shows the cause-and-effect logic, points to the important evidence, and removes detail that does not change the action.",
+                "The format is secondary. Notes, slides, and documents work when people have to select, organize, and connect the ideas. A transcript can preserve every word while still failing to build understanding.",
+                "Ask someone to explain it back without looking. This is often called a teach-back. Have them restate the decision, why it makes sense, what is still uncertain, and what happens next. Their answer shows what they actually understood."
+              ],
+              "callout": {
+                "label": "Useful explanation",
+                "text": "Decision -> because -> evidence -> uncertainty -> next action. Everything else earns its place by supporting one of those five."
+              }
+            },
+            {
+              "type": "example",
+              "eyebrow": "Before and after",
+              "title": "From a tour of the data to a clear decision",
+              "setup": "A presentation walks through twelve charts before revealing the requested decision.",
+              "points": [
+                "Redesign begins with: 'We need to decide whether to expand the pilot.'",
+                "Next comes the reason: customers are staying longer in only one group because setup matches how they work.",
+                "Two charts supply the evidence that separates the options; the rest move to reference.",
+                "The close states what is still uncertain, what result would justify expansion, and who owns the next test."
+              ],
+              "lesson": "Clear structure is not decoration. It helps the audience spend attention on the main idea instead of searching for it."
+            },
+            {
+              "type": "check",
+              "eyebrow": "Quick check",
+              "title": "Test the communication.",
+              "prompt": "Which follow-up best measures whether a briefing produced understanding?",
+              "options": [
+                "Ask whether everyone liked the slides.",
+                "Ask someone to restate the decision logic and apply it to one changed condition.",
+                "Send the transcript so no detail is lost."
+              ],
+              "answer": 1,
+              "explain": "Restating the idea tests memory; changing one condition tests whether the explanation can guide a similar decision. Liking the slides or having a transcript is much weaker evidence."
+            },
+            {
+              "type": "practice",
+              "eyebrow": "Try it",
+              "title": "Compress without deleting the logic.",
+              "prompt": "Rewrite a current update in five lines: the decision, why it should work, the evidence, what is still uncertain, and the next action. Then write one question that asks someone to explain the idea back.",
+              "starter": "Decision... Why... Evidence... What we are unsure about... Next... Explain-it-back question...",
+              "model": "Decision: extend the pilot two weeks, not company-wide. Why: the workflow reduces repeated work only for high-volume teams. Evidence: completion time fell 18% in that group and did not change elsewhere. What we are unsure about: the sample is small. Next: enroll three more high-volume teams. Explain-it-back question: what evidence would justify ending the pilot?"
+            },
+            {
+              "type": "summary",
+              "eyebrow": "Lesson 06 complete",
+              "title": "Communication succeeds when the main idea survives the meeting.",
+              "takeaways": [
+                "Lead with the decision and its cause-and-effect logic.",
+                "Show the evidence that could change the action; move extra detail aside.",
+                "Ask people to explain the idea back so you can see what they understood.",
+                "Application under one changed condition tests more than repetition."
+              ],
+              "action": "In your next important briefing, ask one person to explain the main idea back without notes."
+            }
+          ]
+        },
+        {
+          "id": "b7",
+          "title": "Turn experience into a shared playbook",
+          "question": "How does a team keep what it learned after the meeting ends?",
+          "duration": "16 min",
+          "sources": ["S15", "S17"],
+          "steps": [
+            {
+              "type": "teach",
+              "eyebrow": "Review what happened",
+              "title": "Experience teaches only when you examine it and change what happens next.",
+              "body": [
+                "A short review after an event is often called a debrief or after-action review. Research across many studies suggests that well-run reviews can improve individual and team performance, especially when the purpose, people, and measures fit the event.",
+                "Start with what the team intended before looking at the outcome: what were we trying to do, what did we predict, what happened, and where did our explanation fail? Then choose a few specific changes and decide how to test them.",
+                "Shared team knowledge is not just a folder of meeting notes. It is useful guidance placed in checklists, examples, decision rules, training cases, and reminders people will see when they need it. The guide or tool must change future attention or action."
+              ],
+              "callout": {
+                "label": "Four-question review",
+                "text": "Expected? Observed? Why the gap? What will we do differently and how will we know?"
+              }
+            },
+            {
+              "type": "example",
+              "eyebrow": "Example review",
+              "title": "A launch review that changes behavior",
+              "setup": "A launch was late and the usual meeting becomes a chronology of blame.",
+              "points": [
+                "Return to the original plan and assumptions before judging the result.",
+                "Find the first point where the plan and reality separated: the team accepted integration estimates without first running a small technical test.",
+                "Write the fix as a future action: test important technical estimates before making a commitment.",
+                "Assign an owner and identify the next project where the rule will be tested."
+              ],
+              "lesson": "A useful lesson is not 'communicate better.' It says what to notice and what to do when that situation appears again."
+            },
+            {
+              "type": "check",
+              "eyebrow": "Quick check",
+              "title": "Choose the useful guide or tool.",
+              "prompt": "Which result from the project review is most likely to improve the next project?",
+              "options": [
+                "A detailed transcript of everything participants said.",
+                "A statement that the team should be more proactive.",
+                "A clear rule, owner, warning sign, and future test tied to the cause of the failure."
+              ],
+              "answer": 2,
+              "explain": "The written rule tells the team what to notice and what to do the next time this situation appears. Vague goals and stored details do not reliably change performance."
+            },
+            {
+              "type": "practice",
+              "eyebrow": "Try it",
+              "title": "Turn one event into a rule for next time.",
+              "prompt": "Choose a recent win or miss. Write what you expected, what happened, why they differed, and one 'when this happens, do this' rule. Name where the rule will be tested next.",
+              "starter": "Expected... Happened... Why they differed... When this happens, we will... Next test...",
+              "model": "Expected: approval in two days. Observed: eight days. Gap: legal review began after design freeze. Rule: when a change touches customer data, open legal review before final design. Next test: the account-export project."
+            },
+            {
+              "type": "summary",
+              "eyebrow": "Lesson 07 complete",
+              "title": "Put the lesson where the team will use it.",
+              "takeaways": [
+                "A useful review compares what you expected with what happened and explains the gap.",
+                "Blame and a timeline are not substitutes for understanding why something happened.",
+                "Useful guides say what to notice, what to do, who owns it, and how to test it.",
+                "Shared knowledge lives in future behavior, not document volume."
+              ],
+              "action": "Run a fifteen-minute, four-question review after your next meaningful event."
+            }
+          ]
+        },
+        {
+          "id": "b8",
+          "title": "Make learning part of the work",
+          "question": "How does a team make learning a regular part of how it operates?",
+          "duration": "18 min",
+          "sources": ["S3", "S5", "S15", "S17", "S19", "S20"],
+          "steps": [
+            {
+              "type": "teach",
+              "eyebrow": "How the team keeps improving",
+              "title": "A company learns through repeated steps people can see and measure.",
+              "body": [
+                "A company does not learn just because it says growth matters. It writes down predictions, checks what happened, uses feedback, and changes what people do next. These steps must be built into everyday work.",
+                "Use different methods for different knowledge. Stable facts and procedures need recall and later practice. Judgment needs side-by-side cases and prediction checks. Execution needs focused practice and feedback. Team improvement needs short reviews and playbooks that stay current.",
+                "AI can speed up question writing, comparison, summaries, and scenario changes, but it can also produce confident falsehoods or do thinking a learner needs to practice. Require trusted sources, make the human prediction before using AI, and verify any claim that could change a real decision."
+              ],
+              "callout": {
+                "label": "Recurring team routine",
+                "text": "Predict before work -> observe during work -> review after work -> write the rule -> recall it before similar work."
+              }
+            },
+            {
+              "type": "example",
+              "eyebrow": "Example month",
+              "title": "One routine, four learning jobs",
+          "setup": "A product team wants to improve faster without adding a separate training department.",
+              "points": [
+                "Monday: write specific, checkable assumptions for the week's important decisions.",
+                "Before high-skill work: practice one weak part against a clear standard.",
+                "Friday: review one event and write one 'when this happens, do this' rule.",
+                "Before the next related project: recall the prior rule and test whether it still fits.",
+                "Monthly: compare confidence with results. Where was the team repeatedly too sure or not sure enough?"
+              ],
+              "lesson": "Learning becomes part of the culture when it is built into the team's weekly and monthly routines instead of being left to individual memory."
+            },
+            {
+              "type": "check",
+              "eyebrow": "Final quick check",
+              "title": "Find the real learning system.",
+              "prompt": "Which company behavior best shows that the company is learning?",
+              "options": [
+                "It offers a large library of optional videos.",
+                "It celebrates curiosity in its values deck.",
+                "It records predictions, reviews outcomes, updates playbooks, and recalls the rules before similar work."
+              ],
+              "answer": 2,
+              "explain": "The third behavior connects an idea to evidence and then changes what people do next. Video libraries and company values can help, but they do not prove that the company is learning."
+            },
+            {
+              "type": "practice",
+              "eyebrow": "Final project",
+              "title": "Design your 30-day team learning plan.",
+              "prompt": "Choose one team or business goal. Describe what the team must understand, one small skill to practice, a prediction routine, side-by-side cases, a review routine, a shared team guide, and one rule for AI.",
+              "starter": "Understanding... Skill... Prediction... Cases... Review... Shared guide... AI rule...",
+              "model": "Goal: improve new-user setup. Understanding: steps from signup to first useful result. Skill: identify what is blocking the user in five questions. Prediction: estimate weekly success for each customer group. Cases: compare confusion, missing information, and low interest. Review: examine two accounts on Friday. Shared guide: a troubleshooting tree that says what to notice and what to do. AI rule: use provided transcripts only and verify every product claim."
+            },
+            {
+              "type": "summary",
+              "eyebrow": "Business course complete",
+              "title": "Make work produce better future work.",
+              "takeaways": [
+                "Learn the business through cause-and-effect explanations, not number memorization.",
+                "Turn repeated work into practice measured against a clear standard.",
+                "Make decisions and tests specific enough to check before the results arrive.",
+                "Use cases, explain-it-back questions, reviews, and shared guides to improve the team's judgment."
+              ],
+              "action": "Start the 30-day plan with one prediction and one scheduled review this week."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "medical",
+      "number": "03",
+      "eyebrow": "Learning in health care",
+      "name": "Medical",
+      "intro": "Remember dense science, think through clinical problems, and practice procedures safely enough to use them when care depends on it.",
+      "audience": "Pre-meds, medical students, residents, nurses, EMTs, medical assistants, and allied health professionals.",
+      "estimated": "10 lessons - about 3 hours",
+      "topics": ["Medical knowledge", "Clinical decisions", "Procedures", "Working under pressure"],
+      "outcomes": [
+        "Remember important facts without mistaking a large flashcard count for mastery.",
+        "Connect causes, patient context, and findings so they support clinical decisions.",
+        "Compare similar cases, reflect on decisions, and practice skills with clear safety standards.",
+        "Learn from missed questions, protect performance under pressure, and use AI safely."
+      ],
+      "lessons": [
+        {
+          "id": "m1",
+          "title": "Know what you need to learn",
+          "question": "What different kinds of knowledge and skill does a health professional need?",
+          "duration": "15 min",
+          "sources": ["S3", "S9", "S13"],
+          "steps": [
+            {
+              "type": "teach",
+              "eyebrow": "Four kinds of learning",
+              "title": "Facts, explanations, decisions, and hands-on skills need different practice.",
+              "body": [
+                "Medical learning becomes inefficient when every goal is treated like a fact list. Basic facts must be recalled. You must explain why things happen. You must think through cases and tell believable choices apart. You must perform procedures correctly and safely under realistic conditions.",
+                "Written-exam performance matters, but it does not automatically prove clinical judgment, hands-on skill, or patient benefit. Be clear about the goal: are you trying to recall, explain, decide, perform, or coordinate?",
+                "The four kinds support one another. Facts feed explanations; explanations organize condition patterns; cases train decisions; simulation and supervised practice train procedures. A complete course moves across all four instead of letting one study tool dominate."
+              ],
+              "callout": {
+                "label": "Match the practice",
+                "text": "Recall facts. Explain how things work. Tell similar cases apart. Perform procedures. Test each one with the right kind of task."
+              }
+            },
+            {
+              "type": "example",
+              "eyebrow": "One topic, four targets",
+              "title": "Learning anaphylaxis",
+              "setup": "The same condition can produce four different learning tasks.",
+              "points": [
+                "Fact: recall the first-line medication, route, and main dosing rule from the approved protocol.",
+                "Explanation: explain how mediator release produces airway, blood-vessel, and skin findings.",
+                "Decision: tell anaphylaxis apart from vasovagal syncope or isolated urticaria in a time-pressured case.",
+                "Procedure: recognize, call for help, administer correctly, monitor, and escalate using a clear performance checklist."
+              ],
+              "lesson": "A multiple-choice score may test facts, explanations, and decisions. It cannot by itself prove that someone can safely perform the procedure."
+            },
+            {
+              "type": "check",
+              "eyebrow": "Quick check",
+              "title": "Match the study method to the goal.",
+              "prompt": "Which assessment best establishes that a learner can perform sterile gloving?",
+              "options": [
+                "A flashcard defining sterile technique.",
+                "A written explanation of contamination risk.",
+                "Observed performance using a scoring guide for the steps and contamination risks."
+              ],
+              "answer": 2,
+              "explain": "Facts and explanations support performance, but hands-on skill requires someone to observe the learner and compare the performance with clear standards in practice or simulation."
+            },
+            {
+              "type": "practice",
+              "eyebrow": "Try it",
+              "title": "Separate the four kinds of learning.",
+              "prompt": "Choose one medical topic. Write one fact to remember, one cause to explain, one decision to make, and one hands-on skill to perform. Skip any category that does not fit.",
+              "starter": "Fact... Why it happens... Decision... Hands-on skill...",
+              "model": "Asthma: fact = rescue medication classes; why it happens = how bronchoconstriction and inflammation limit airflow; decision = tell severity levels apart and know when to escalate; hands-on skill = demonstrate inhaler or nebulizer setup and reassessment."
+            },
+            {
+              "type": "summary",
+              "eyebrow": "Lesson 01 complete",
+              "title": "Choose the result you need before the study method.",
+              "takeaways": [
+                "Medical learning includes facts, explanations, decisions, and hands-on skills.",
+                "The learning method and assessment must match the target.",
+                "A better exam score does not automatically prove better clinical performance.",
+                "A strong course connects all four kinds without treating them as the same."
+              ],
+              "action": "Label each item in your next study plan as a fact, explanation, decision, or hands-on skill."
+            }
+          ]
+        },
+        {
+          "id": "m2",
+          "title": "Remember large amounts of information",
+          "question": "How do you remember many facts without drowning in flashcards?",
+          "duration": "16 min",
+          "sources": ["S3", "S4", "S14"],
+          "steps": [
+            {
+              "type": "teach",
+              "eyebrow": "Remembering many facts",
+              "title": "A good flashcard asks one useful question, not one disconnected scrap.",
+              "body": [
+                "Medicine requires a large store of facts, so recalling from memory and reviewing over time are essential. Flashcards work because they can support those actions, not because of a brand or a large card count. Research in health-professions education shows promising results while leaving important design questions open.",
+                "A useful card asks one clear question, gives enough context to know what is being asked, and does not give away most of the answer. Overloaded cards are hard to answer; cards that are too tiny can separate facts from their meaning.",
+                "Recall the answer correctly, return on a later day, and recall it correctly again. This is called successive relearning. Return sooner after a miss and wait longer after stable success. Sometimes change the wording or use a short case so the memory is not tied to one exact card."
+              ],
+              "callout": {
+                "label": "Card test",
+                "text": "Can the learner recall one clinically useful idea, explain it, and recognize when it applies?"
+              }
+            },
+            {
+              "type": "example",
+              "eyebrow": "Flashcard makeover",
+              "title": "Turn a drug list into usable knowledge",
+              "setup": "A learner has one card listing an entire medication class, mechanism, uses, adverse effects, and contraindications.",
+              "points": [
+                "Split the card into useful questions: how the drug works, a common use, a dangerous adverse effect, and the clue that means it should not be used.",
+                "Keep the connections: ask why the way the drug works produces the adverse effect.",
+                "Add a short case that makes you choose the drug class instead of a similar option you might confuse it with.",
+                "Retire or suspend trivial cards that do not support course or clinical outcomes."
+              ],
+              "lesson": "The goal is not to review the most cards. It is to build useful knowledge you can recall, explain, and use in decisions."
+            },
+            {
+              "type": "check",
+              "eyebrow": "Quick check",
+              "title": "Find the stronger card.",
+              "prompt": "Which prompt best tests clinically useful memory?",
+              "options": [
+                "Beta blockers are ______ blockers.",
+                "Review beta blockers.",
+                "Why can a nonselective beta blocker worsen bronchospasm, and which receptor explains the risk?"
+              ],
+              "answer": 2,
+              "explain": "The third prompt recalls how the drug class works and connects it to a meaningful clinical risk. The fill-in-the-blank gives away too much, and 'review' does not say what the learner must remember."
+            },
+            {
+              "type": "practice",
+              "eyebrow": "Try it",
+              "title": "Fix one overloaded card.",
+              "prompt": "Take one dense card. Rewrite it as one fact question, one question about how it works, and one short case asking when it applies. Define what a complete answer must include.",
+              "starter": "Fact... Why it happens... Application... Complete answer...",
+              "model": "Fact: which receptor does albuterol primarily stimulate? Explanation: how does beta-2 stimulation change bronchial smooth muscle? Application: a patient has acute bronchospasm - what effect should the medication produce? Complete answer: receptor, cellular direction, and airway result."
+            },
+            {
+              "type": "summary",
+              "eyebrow": "Lesson 02 complete",
+              "title": "Make fewer, better memory questions.",
+              "takeaways": [
+                "Electronic flashcards are tools for recall and later review, not magic.",
+                "Cards should be coherent, answerable, and connected to meaning.",
+                "Meet the same clear standard again in later sessions.",
+                "Use different prompts and cases so the memory is not tied to one exact question."
+              ],
+              "action": "Delete, split, or deepen ten cards before adding ten new ones."
+            }
+          ]
+        },
+        {
+          "id": "m3",
+          "title": "Understand why things happen",
+          "question": "How do medical facts become a connected explanation you can use?",
+          "duration": "17 min",
+          "sources": ["S7", "S8", "S9"],
+          "steps": [
+            {
+              "type": "teach",
+              "eyebrow": "Understand cause and effect",
+              "title": "A useful explanation predicts what happens next.",
+              "body": [
+                "Understanding a mechanism means connecting what changed, what process followed, and what result it caused. Instead of memorizing that finding A appears with condition B, ask what produces A, which steps connect them, and what else should happen.",
+                "Start with a simple step-by-step explanation. Show the direction of each change and keep labels beside the structures they explain. Then explain it to yourself: why does this step follow, what assumption supports it, and what prediction would fail if the explanation were wrong?",
+                "Add complexity little by little. Beginners need a clear core chain; advanced learners need exceptions and interacting systems. Keep the core visible so the added detail does not become an unorganized list."
+              ],
+              "callout": {
+                "label": "Cause-and-effect sentence",
+                "text": "Because X changes, process Y moves in this direction, producing Z - therefore we predict finding Q."
+              }
+            },
+            {
+              "type": "example",
+              "eyebrow": "Example explanation",
+              "title": "From volume loss to tachycardia",
+              "setup": "A patient loses circulating volume.",
+              "points": [
+                "Reduced venous return lowers preload and can reduce stroke volume.",
+                "Falling arterial pressure reduces baroreceptor firing.",
+                "The autonomic nervous system shifts the body toward a fight-or-flight response: sympathetic activity rises and parasympathetic activity falls.",
+                "Heart rate and vascular tone rise to defend perfusion."
+              ],
+              "lesson": "A useful explanation predicts which findings should appear and how they should change. It also shows where a medication or disease could alter the chain."
+            },
+            {
+              "type": "check",
+              "eyebrow": "Quick check",
+              "title": "Test the explanation, not the label.",
+              "prompt": "Which question best tests whether the learner understands how the process works?",
+              "options": [
+                "What is the definition of preload?",
+                "In acute volume loss, predict how baroreceptor firing changes and explain what happens next to heart rate.",
+                "Which page contained the hemodynamics diagram?"
+              ],
+              "answer": 1,
+              "explain": "The second prompt requires a cause-and-effect chain and a prediction. Remembering the definition helps, but it does not show that the learner can use the idea."
+            },
+            {
+              "type": "practice",
+              "eyebrow": "Try it",
+              "title": "Write one cause-and-effect chain.",
+              "prompt": "Choose one process in the body. Write five linked steps using arrows, then change the first step and predict two findings that should appear later.",
+              "starter": "Change -> process -> intermediate -> response -> finding...",
+              "model": "Insulin deficiency -> reduced cellular glucose uptake and increased lipolysis -> hepatic ketone production -> metabolic acidosis -> compensatory deep respiration. Predictions: rising anion gap and Kussmaul respirations."
+            },
+            {
+              "type": "summary",
+              "eyebrow": "Lesson 03 complete",
+              "title": "You understand a mechanism when you can predict what happens next.",
+              "takeaways": [
+                "A cause-and-effect explanation connects the first change to the steps and findings that follow.",
+                "Begin with a clearly shown core chain, then add complexity little by little.",
+                "Self-explanation should name why each arrow is valid.",
+                "Change one part of the explanation and predict what should happen later in the chain."
+              ],
+              "action": "Replace one memorized association with a five-arrow cause-and-effect chain."
+            }
+          ]
+        },
+        {
+          "id": "m4",
+          "title": "Tell similar conditions apart",
+          "question": "How do you stop confusing diseases, drugs, and patterns that look alike?",
+          "duration": "16 min",
+          "sources": ["S5", "S9"],
+          "steps": [
+            {
+              "type": "teach",
+              "eyebrow": "Compare similar cases",
+              "title": "Clinical mistakes often happen between two believable choices.",
+              "body": [
+                "Reviewing one condition at a time can make it feel clear because you already know which condition you are studying. Real cases present findings first. The learner must decide which pattern is present and which evidence matters.",
+                "Study similar conditions side by side. For each pair, identify shared features, differences that matter, dangerous differences, and the finding that would most change the next action. Then mix the cases so the diagnosis or method is not announced.",
+                "Do not mix random topics merely to make practice harder. Mix cases when the confusion matters clinically or educationally. Study each condition alone at first if needed, then compare and mix them to practice choosing."
+              ],
+              "callout": {
+                "label": "Deciding clue",
+                "text": "The best clue is not the most memorable fact. It is the finding that makes one diagnosis more likely than another or changes what you should do next."
+              }
+            },
+            {
+              "type": "example",
+              "eyebrow": "Side-by-side case",
+              "title": "Vasovagal syncope versus anaphylaxis",
+              "setup": "A patient becomes pale and lightheaded after an injection.",
+              "points": [
+                "Both can occur quickly and involve distress or collapse.",
+                "Vasovagal episodes commonly involve pallor, bradycardia, and improvement when supine.",
+                "Anaphylaxis may involve airway symptoms, wheeze, urticaria, hypotension, and often tachycardia.",
+                "The learner should look for the airway, skin, circulation, and heart-rate findings that separate the two while escalating appropriately."
+              ],
+              "lesson": "The side-by-side comparison focuses attention on the features that separate two urgent conditions instead of two isolated lists."
+            },
+            {
+              "type": "check",
+              "eyebrow": "Quick check",
+              "title": "Choose the practice set.",
+              "prompt": "You repeatedly confuse two ECG rhythms. What practice is most targeted?",
+              "options": [
+                "Study twenty examples of rhythm A, then stop.",
+                "Alternate labeled examples of A and B forever without attempting classification.",
+                "Compare A and B, state the differences that matter, then classify mixed unlabeled tracings with feedback."
+              ],
+              "answer": 2,
+              "explain": "The sequence first makes the contrast explicit, then removes the label and requires selection. That trains the exact decision that has been failing."
+            },
+            {
+              "type": "practice",
+              "eyebrow": "Try it",
+              "title": "Build a guide for telling them apart.",
+              "prompt": "Choose two conditions or drugs you confuse. Write their shared features, the top two deciding clues, one dangerous difference, and the next confirming step.",
+              "starter": "Shared... Deciding clue 1... Deciding clue 2... Danger... Next step...",
+              "model": "Hypoglycemia vs anxiety: shared = tremor, sweating, palpitations. Deciding clues = measured low glucose; confusion from too little glucose reaching the brain (neuroglycopenia). Danger = delayed glucose treatment. Next step = point-of-care glucose while assessing and treating per protocol."
+            },
+            {
+              "type": "summary",
+              "eyebrow": "Lesson 04 complete",
+              "title": "Study competitors together.",
+              "takeaways": [
+                "In real care, you must identify the kind of problem before choosing what to do.",
+                "Compare shared features and important differences directly.",
+                "Mix cases that are easy to confuse after you understand each pattern on its own.",
+                "Focus on clues that make a diagnosis more likely, make the situation more urgent, or change the next action."
+              ],
+              "action": "Create one two-column comparison sheet and test it with five cases that do not reveal the diagnosis."
+            }
+          ]
+        },
+        {
+          "id": "m5",
+          "title": "Organize each disease pattern",
+          "question": "How do you organize what you know so a patient pattern is easier to recognize and revise?",
+          "duration": "18 min",
+          "sources": ["S8", "S9"],
+          "steps": [
+            {
+              "type": "teach",
+              "eyebrow": "Organize a condition",
+              "title": "A condition profile connects cause, patient context, and findings.",
+              "body": [
+                "Clinicians often organize each condition into a profile called an illness script. It includes common risk factors and patient context, what goes wrong in the body, and the consequences that produce the clinical picture. It is more than a symptom list.",
+                "These profiles support reasoning because a case brings several possible diagnoses to mind and each new finding can move them up or down. A useful profile includes typical and atypical forms, time course, findings that separate it from similar conditions, and important alternatives.",
+                "Build condition profiles through cases and explanation. Ask why each finding follows from the cause, which missing finding weakens the diagnosis, and what other diagnosis better explains the pattern. Revisit the profile with varied cases so it does not become one memorized example."
+              ],
+              "callout": {
+                "label": "Condition profile",
+                "text": "Who gets it? What goes wrong? What pattern follows? What separates it? What must not be missed?"
+              }
+            },
+            {
+              "type": "example",
+              "eyebrow": "Example profile",
+              "title": "Pulmonary embolism as an organized pattern",
+              "setup": "A useful profile goes beyond the label 'sudden dyspnea.'",
+              "points": [
+                "Enabling context: thrombosis risk such as immobility, surgery, malignancy, or prior clot.",
+                "Fault: obstruction of pulmonary vasculature creates ventilation-perfusion mismatch and right-heart strain.",
+                "Consequences: acute dyspnea, pleuritic pain, tachycardia, hypoxemia, or syncope in severe cases.",
+                "Comparison: separate it from pneumonia, pneumothorax, acute coronary syndrome, and anxiety using time course, exam, risk, and testing."
+              ],
+              "lesson": "The profile links context to cause to pattern, making each finding understandable instead of separately memorized."
+            },
+            {
+              "type": "check",
+              "eyebrow": "Quick check",
+              "title": "Find the useful condition profile.",
+              "prompt": "Which note is most useful for clinical reasoning?",
+              "options": [
+                "A long alphabetical symptom list.",
+                "A structured map of patient context, cause, time course, findings, deciding clues, and dangerous alternatives.",
+                "A one-word memory trick with no explanation of why the findings happen."
+              ],
+              "answer": 1,
+              "explain": "The organized profile helps possible diagnoses come to mind, lets you compare them, and changes as new evidence appears. Lists and memory tricks may help recall, but they do not organize the reasoning by themselves."
+            },
+            {
+              "type": "practice",
+              "eyebrow": "Try it",
+              "title": "Build one condition profile.",
+              "prompt": "Choose a condition within your scope of study. Write the common patient context, cause, time course, key consequences, two deciding clues, and one dangerous alternative.",
+              "starter": "Context... Cause... Time... Consequences... Deciding clues... Must-not-miss...",
+              "model": "Iron-deficiency anemia: context = blood loss or inadequate intake; cause = insufficient iron limits hemoglobin synthesis; time = usually gradual; consequences = fatigue, shortness of breath with exertion, pale appearance, and small red cells; deciding clues = low ferritin and high iron-binding capacity; must-not-miss = hidden bleeding source."
+            },
+            {
+              "type": "summary",
+              "eyebrow": "Lesson 05 complete",
+              "title": "Organize knowledge around the pattern it must explain.",
+              "takeaways": [
+                "Condition profiles combine patient context, cause, and consequences.",
+                "Time course and deciding clues make the profile useful for decisions.",
+                "A profile should change with new evidence; it is not a fixed stereotype.",
+                "Varied cases prevent one memorized example from becoming the whole category."
+              ],
+              "action": "Build one condition profile, then test it against an atypical or competing case."
+            }
+          ]
+        },
+        {
+          "id": "m6",
+          "title": "Think through cases",
+          "question": "How should a case teach your thinking instead of simply revealing the diagnosis?",
+          "duration": "18 min",
+          "sources": ["S5", "S8", "S9"],
+          "steps": [
+            {
+              "type": "teach",
+              "eyebrow": "Explain your thinking and compare",
+              "title": "Choose an explanation before seeing the expert answer.",
+              "body": [
+                "A reasoning case should begin with findings, not the answer. Write a one-sentence case summary and a short list of likely diagnoses, called a differential. For each possibility, explain which findings it accounts for and which clue would best separate it from the others.",
+                "Explaining the case to yourself connects the findings to what is happening in the body. Then compare believable diagnoses across supporting, opposing, and expected findings. One step deepens the explanation; the other improves your ability to tell the options apart.",
+                "Expert reasoning should arrive after your attempt. Compare not only the final answer but also which information mattered, how strongly it mattered, and when the expert stopped searching. Then try a similar-looking case later in mixed order."
+              ],
+              "callout": {
+                "label": "Case sequence",
+                "text": "Summarize the case -> list possible diagnoses -> find the deciding clues -> choose -> compare with an expert -> fix your reasoning -> try a similar case later."
+              }
+            },
+            {
+              "type": "example",
+              "eyebrow": "Example reasoning",
+              "title": "From findings to a deciding question",
+              "setup": "A patient presents with chest discomfort and dyspnea.",
+              "points": [
+                "The one-sentence summary combines the patient's age, risks, timing, symptoms, triggers, vital signs, and most important findings.",
+                "Initial candidates may include cardiac, pulmonary, gastrointestinal, and musculoskeletal causes.",
+                "The learner identifies which current finding changes probability and what missing information would most separate the top two.",
+                "Only then does the expert model show its weighting and explain why a tempting alternative falls."
+              ],
+              "lesson": "The learning target is how you summarize the case and decide which clues matter most, not only naming the final diagnosis."
+            },
+            {
+              "type": "check",
+              "eyebrow": "Quick check",
+              "title": "Think before viewing the answer.",
+              "prompt": "When should the complete expert explanation appear in a teaching case?",
+              "options": [
+                "Before the learner sees the findings.",
+                "After the learner writes a one-sentence case summary and compares the most likely diagnoses.",
+                "Never; learners should discover everything without guidance."
+              ],
+              "answer": 1,
+              "explain": "Your attempt gives you something real to compare with the expert. Seeing the answer immediately removes the thinking practice, while struggling forever without guidance withholds needed instruction."
+            },
+            {
+              "type": "practice",
+              "eyebrow": "Try it",
+              "title": "Compare the top two possibilities.",
+              "prompt": "Take a case you recently studied. Write a one-sentence summary, the top two possibilities, evidence for and against each, and the single best deciding clue.",
+              "starter": "Summary... Possibility A for/against... Possibility B for/against... Best deciding clue...",
+              "model": "Summary: older adult with abrupt one-sided weakness and speech change, no trauma. A: an ischemic stroke. The sudden problem on one side supports it, with no contradiction yet. B: hypoglycemia. It can look like a stroke but requires low glucose. Best immediate check: point-of-care glucose while activating the stroke pathway."
+            },
+            {
+              "type": "summary",
+              "eyebrow": "Lesson 06 complete",
+              "title": "Cases teach when learners show how they reached the answer.",
+              "takeaways": [
+                "Begin with findings and require a one-sentence summary.",
+                "Explaining the case to yourself connects findings to what is happening in the body.",
+                "Compare believable diagnoses step by step.",
+                "Compare your reasoning with the expert's, then try a similar case later."
+              ],
+              "action": "For your next case, write the best deciding clue before reading the answer."
+            }
+          ]
+        },
+        {
+          "id": "m7",
+          "title": "Practice procedures safely",
+          "question": "How does a learner move from watching a procedure to performing it safely?",
+          "duration": "18 min",
+          "sources": ["S7", "S13", "S17"],
+          "steps": [
+            {
+              "type": "teach",
+              "eyebrow": "Practice to a clear safety standard",
+              "title": "Watching a demonstration is the start, not proof you can do it.",
+              "body": [
+                "Procedures combine things you must notice, ordered actions, decision points, communication, and safety checks. Watching can build an initial picture, but someone must observe the learner perform before the skill is established.",
+                "Begin with a step-by-step demonstration that points out critical clues and explains why each safety step exists. Move to guided practice with immediate feedback. Remove help little by little only after the learner performs reliably. Set the standard in advance: required steps, allowable errors, timing, communication, and when to escalate.",
+                "Simulation is well supported for improving skills, but there is less proof that it always changes real clinical practice or patient outcomes. Use simulation as a safe step before supervised care, not as proof that every later result will improve."
+              ],
+              "callout": {
+                "label": "Step-by-step practice plan",
+                "text": "Observe with explanation -> practice with prompts -> meet the standard -> repeat later -> vary the situation -> verify under supervision."
+              }
+            },
+            {
+              "type": "example",
+              "eyebrow": "Example practice plan",
+              "title": "Learning manual blood pressure",
+              "setup": "The learner has watched the procedure once.",
+              "points": [
+                "Break the procedure into parts: preparation, cuff selection and placement, palpatory estimate, auscultation, reading, documentation, and responding to an abnormal result.",
+                "Practice each part with reminders, then put the full procedure together.",
+                "Use a scoring guide that checks technique and measurement accuracy, not only completion.",
+                "Repeat later with different arm sizes, environmental noise, abnormal values, and communication demands."
+              ],
+              "lesson": "Variation comes after a stable core. It tests whether the procedure survives changing conditions."
+            },
+            {
+              "type": "check",
+              "eyebrow": "Quick check",
+              "title": "Identify the missing evidence.",
+              "prompt": "A learner correctly lists every step of a procedure. What can you conclude?",
+              "options": [
+                "The learner can safely perform the procedure.",
+                "The learner knows the steps, but someone still needs to watch the performance and compare it with a clear standard.",
+                "Simulation is unnecessary because the sequence is memorized."
+              ],
+              "answer": 1,
+              "explain": "Remembering the steps helps, but it does not prove the learner can notice important clues, perform the movements, communicate, prevent errors, or adjust safely."
+            },
+            {
+              "type": "practice",
+              "eyebrow": "Try it",
+              "title": "Define safe performance before practice.",
+              "prompt": "Choose a procedure appropriate to your role. List the critical steps, one serious error that must never happen, the feedback source, the success standard, and two later variations.",
+              "starter": "Critical steps... Safety failure... Feedback... Success standard... Variations...",
+              "model": "Medication administration simulation: critical steps = order, patient, medication, dose, route, time, allergies, explanation, documentation; safety failure = bypassing identity check; feedback = observer checklist; success standard = all safety steps and accurate execution twice; variations = interruption and look-alike label."
+            },
+            {
+              "type": "summary",
+              "eyebrow": "Lesson 07 complete",
+              "title": "You show skill by meeting a clear standard.",
+              "takeaways": [
+                "Break demonstrations into steps and explain critical clues.",
+                "Use guided practice, immediate feedback, and remove help little by little.",
+                "Define the safe performance standard before the attempt.",
+                "After simulation, repeat the skill at different times and under supervision."
+              ],
+              "action": "Obtain or build a clear performance checklist before your next procedural practice."
+            }
+          ]
+        },
+        {
+          "id": "m8",
+          "title": "Learn from questions and mistakes",
+          "question": "How should question banks improve what you know instead of becoming a chase for higher scores?",
+          "duration": "17 min",
+          "sources": ["S3", "S5", "S9", "S17"],
+          "steps": [
+            {
+              "type": "teach",
+              "eyebrow": "How to use question banks",
+              "title": "An explanation helps only after you work out why you missed the question.",
+              "body": [
+                "Question banks can support memory and reasoning within exam-style questions. Their value falls when learners memorize question patterns, read explanations passively, or track percentages without changing how they handle mistakes.",
+                "After a miss, hide the explanation and answer again from memory. State what the question was testing, identify the key clue, and name the failure: missing knowledge, missed clue, reasoning slip, misread question, or overconfidence.",
+                "Write one rule for the next attempt, then schedule a later test in a different order or format. Mix similar categories so you must choose the principle instead of recognizing a repeated question."
+              ],
+              "callout": {
+                "label": "Missed-question routine",
+                "text": "Answer again -> identify the target -> name the error -> write a new rule -> test later with a new prompt."
+              }
+            },
+            {
+              "type": "example",
+              "eyebrow": "Example review",
+              "title": "A missed acid-base question",
+              "setup": "The learner chose the wrong compensation pattern and immediately reads the explanation.",
+              "points": [
+                "First close the explanation and state the primary disturbance from pH and the driving variable.",
+                "Classify the miss: formula gap, direction-of-change confusion, or failure to check expected compensation.",
+                "Write a repair rule: identify pH, identify primary driver, predict compensation, then calculate or compare.",
+                "Test yourself later with a different case involving a similar disorder you might confuse with it."
+              ],
+              "lesson": "The new rule changes how you handle the next question. Copying the explanation may only make it feel familiar."
+            },
+            {
+              "type": "check",
+              "eyebrow": "Quick check",
+              "title": "Choose the useful review.",
+              "prompt": "You miss a question with high confidence because you ignored one word in the question. What is the main fix?",
+              "options": [
+                "Watch another full lecture on the topic.",
+                "Create a question-reading checkpoint and test it on later mixed questions.",
+                "Repeat the same question until the answer is familiar."
+              ],
+              "answer": 1,
+              "explain": "The problem is reading and self-control, not missing knowledge. The fix must change how the learner reads the next question and then be tested on new questions."
+            },
+            {
+              "type": "practice",
+              "eyebrow": "Try it",
+              "title": "Learn from one real mistake.",
+              "prompt": "Use a recent missed question. State the target, confidence before feedback, error type, missed clue, rule for next time, and later test plan.",
+              "starter": "Target... Confidence... Error... Cue... Rule... Re-test...",
+              "model": "Target: distinguish iron deficiency from thalassemia trait. Confidence: 80%. Error: cue miss/overconfidence. Missed cue: RBC count relative to microcytosis. Rule: compare ferritin and RBC pattern before choosing. Re-test: three mixed microcytic-anemia cases in three days."
+            },
+            {
+              "type": "summary",
+              "eyebrow": "Lesson 08 complete",
+              "title": "A question is complete when your next approach changes.",
+              "takeaways": [
+                "Question banks are strongest for exam-style memory and reasoning.",
+                "Re-answer before reading the explanation.",
+                "Record why you missed the question, not only its topic.",
+                "Write a rule and test it later on a changed problem."
+              ],
+              "action": "Review your next five mistakes with the full missed-question routine."
+            }
+          ]
+        },
+        {
+          "id": "m9",
+          "title": "Use your knowledge under pressure",
+          "question": "How do focus, stress, and rest affect your ability to use what you know?",
+          "duration": "16 min",
+          "sources": ["S7", "S12", "S13"],
+          "steps": [
+            {
+              "type": "teach",
+              "eyebrow": "Practice for real conditions",
+              "title": "Knowledge must work in the place where you need it.",
+              "body": [
+                "Clinical and exam performance occurs under time limits, interruption, fatigue, uncertainty, and social pressure. Practice should eventually include those conditions, but only after a sound model and stable core skill exist.",
+                "Add realistic pressure one step at a time: begin with support, then remove prompts, add time limits, mix cases, introduce interruptions, and require communication or escalation. Difficulty is useful only when it trains the needed skill and feedback remains possible.",
+                "Sleep is part of learning. Research across many studies shows that too little sleep makes it harder to form memories and maintain attention. A final-night cram can add more exposure while weakening memory and next-day control."
+              ],
+              "callout": {
+                "label": "Add pressure safely",
+                "text": "Build the core skill first. Add one realistic pressure at a time. Protect safety, feedback, and a clear stopping and rest rule."
+              }
+            },
+            {
+              "type": "example",
+              "eyebrow": "Add pressure step by step",
+              "title": "From calm drill to interrupted scenario",
+              "setup": "A learner can perform a triage sequence correctly in a quiet room.",
+              "points": [
+                "Remove the visual prompt while keeping unlimited time.",
+                "Add a realistic time target and require verbal prioritization.",
+                "Mix in a near-neighbor presentation that changes urgency.",
+                "Add one interruption and require a restart or safety checkpoint.",
+                "Review which clue or step failed and return to the appropriate easier version."
+              ],
+              "lesson": "Adding every pressure at once produces only a bad score. Adding one at a time shows exactly what makes the skill break down."
+            },
+            {
+              "type": "check",
+              "eyebrow": "Quick check",
+              "title": "Choose the final-week plan.",
+              "prompt": "The night before a high-stakes exam, which plan best protects what you learned and your ability to focus tomorrow?",
+              "options": [
+                "Trade most sleep for one more full reread.",
+                "Complete a short, focused no-notes check, fix only critical gaps, prepare logistics, and protect sleep.",
+                "Start a large new topic because novelty increases attention."
+              ],
+              "answer": 1,
+              "explain": "A short, focused check targets the remaining gaps while sleep supports memory and attention. Extensive new studying and too little sleep add strain when there is little time left for the learning to last."
+            },
+            {
+              "type": "practice",
+              "eyebrow": "Try it",
+              "title": "Build a safe progression.",
+              "prompt": "Choose one exam, case, or procedure. Write the core skill, the first pressure to add, the sign that the skill is breaking down, the easier version you will return to, and your stopping and rest rule.",
+              "starter": "Core... Pressure... Breakdown sign... Easier version... Rest rule...",
+              "model": "Core: interpret one ECG without notes. Pressure: eight-minute mixed set. Breakdown sign: rhythm chosen without naming rate and regularity. Easier version: untimed three-step interpretation. Rest rule: stop at 10 p.m. and resume with a morning no-notes check."
+            },
+            {
+              "type": "summary",
+              "eyebrow": "Lesson 09 complete",
+              "title": "Add pressure slowly and protect recovery.",
+              "takeaways": [
+                "Add pressure only after the basic skill is reliable.",
+                "One added pressure reveals more than making everything harder at once.",
+                "If the skill starts breaking down, return to the exact step that is not yet reliable.",
+                "Sleep supports both memory formation and sustained attention."
+              ],
+              "action": "Add one realistic pressure to a stable skill, then review exactly what changed."
+            }
+          ]
+        },
+        {
+          "id": "m10",
+          "title": "Keep learning throughout your career",
+          "question": "How do health professionals keep learning without handing their judgment to a tool?",
+          "duration": "20 min",
+          "sources": ["S9", "S13", "S15", "S19", "S20"],
+          "steps": [
+            {
+              "type": "teach",
+              "eyebrow": "Keep learning safely",
+              "title": "Track what is uncertain, check important claims, and stay within your role.",
+              "body": [
+                "Clinical learning continues through guidelines, cases, supervision, simulation, feedback, and reviews. The basic loop stays the same: predict or recall, observe, compare with a trusted guideline, instructor, or expert, name the gap, change the rule, and return later.",
+                "AI can create memory questions, role-play explanations, generate side-by-side cases, and help organize an error review. It can also make up false information, leave out important context, or sound so confident that people trust it without checking. This is called automation bias. Do not trust a claim just because it sounds believable, especially for medication, diagnosis, dosing, or protocol decisions.",
+                "Give AI current, trusted sources and require it to separate what those sources say from its own conclusions. Verify important claims in the original source. Do your own reasoning first. Use supervisors and local protocols for professional limits, safety, and real patient decisions."
+              ],
+              "callout": {
+                "label": "Rules for using AI",
+                "text": "Try first. Give it trusted sources. Ask what is uncertain. Check the original. Never replace protocol, supervision, or clinical judgment with AI output."
+              }
+            },
+            {
+              "type": "example",
+              "eyebrow": "Example: safe AI use",
+              "title": "From answer engine to reasoning coach",
+              "setup": "A learner asks an AI system for the diagnosis and management of a case.",
+              "points": [
+                "Safer sequence: write a one-sentence case summary and list the likely diagnoses before opening the tool.",
+                "Provide the approved course or guideline source and ask for questions or missing deciding clues, not an answer that lacks trusted support.",
+                "Request citations to exact source sections and independently inspect them.",
+                "Compare the AI's reasoning with the learner's and tag any unsupported or contradictory claim."
+              ],
+              "lesson": "The tool supports learning when you still recall, reason, and check the source. It undermines learning when it does the thinking for you or becomes an unchecked authority."
+            },
+            {
+              "type": "check",
+              "eyebrow": "Final quick check",
+              "title": "Use the tool without surrendering the task.",
+              "prompt": "Which way of using AI is safest and most responsible for learning a clinical guideline?",
+              "options": [
+                "Ask for a confident summary and trust it if it sounds precise.",
+                "Provide the current guideline, write your own answer first, ask for comparison questions, and verify every high-stakes claim in the source.",
+                "Avoid recalling anything yourself because AI can personalize the answer."
+              ],
+              "answer": 1,
+              "explain": "Giving AI trusted sources, trying first, asking it questions instead of requesting the answer, and checking the original lets you keep doing the learning while lowering—but not removing—the risk of false information."
+            },
+            {
+              "type": "practice",
+              "eyebrow": "Final project",
+              "title": "Build your clinical learning plan.",
+              "prompt": "Design a repeatable plan for one topic. Include fact recall, explanation of how it works, side-by-side cases, clear skill standards, error review, pressure added in steps, a review after practice, trusted sources ranked from strongest to weakest, and a rule for AI.",
+              "starter": "Facts... Explanation... Cases... Skill standard... Errors... Pressure... Review... Sources... AI...",
+              "model": "EKG plan: recall rate and rhythm rules; explain how conduction works; mix rhythms that are easy to confuse; score a fixed interpretation sequence; record why each mistake happened; add timed mixed sets after the skill is stable; review high-confidence mistakes; verify with the course text and current clinical references; use AI only to create practice cases from trusted sources, never for clinical decisions."
+            },
+            {
+              "type": "summary",
+              "eyebrow": "Medical course complete",
+              "title": "Build knowledge you can use safely in real care.",
+              "takeaways": [
+                "Match facts, explanations, decisions, and procedures to different learning and testing methods.",
+                "Use recall and later reviews for lasting knowledge; compare cases and reflect on reasoning.",
+                "Use clear performance standards, simulation, varied practice, and supervision for procedures.",
+                "Protect sleep, name the cause of errors, review experience, and check AI against trusted sources."
+              ],
+              "action": "Use this complete learning routine on one subject for two weeks, then improve it based on how you actually perform."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

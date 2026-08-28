@@ -163,7 +163,172 @@
    "The MA performs and documents POC tests like rapid strep, but interpreting, diagnosing, and prescribing are provider functions.",
    "Chief complaint and reported symptoms go in Subjective; vitals, exam findings, and test results go in Objective."
   ],
-  "scopeNote": "The MA gathers the history and vitals and documents the negative strep result; the provider makes the viral URI diagnosis and orders supportive care."
+  "scopeNote": "The MA gathers the history and vitals and documents the negative strep result; the provider makes the viral URI diagnosis and orders supportive care.",
+  "typed": {
+   "cc": {
+    "prompt": "Document the chief complaint in the patient's own words, kept brief.",
+    "model": "Sore throat and dry cough for 4 days with low-grade fever",
+    "required": [
+     {
+      "label": "Sore throat",
+      "accept": [
+       "sore throat",
+       "throat pain",
+       "pharyngitis",
+       "odynophagia",
+       "scratchy throat"
+      ]
+     },
+     {
+      "label": "Dry cough",
+      "accept": [
+       "dry cough",
+       "nonproductive cough",
+       "non productive cough",
+       "cough"
+      ]
+     },
+     {
+      "label": "Duration 4 days",
+      "accept": [
+       "4 day",
+       "four day",
+       "x4",
+       "4d",
+       "4-day"
+      ]
+     },
+     {
+      "label": "Low-grade fever",
+      "accept": [
+       "low grade fever",
+       "low-grade fever",
+       "mild fever",
+       "subjective fever"
+      ]
+     }
+    ]
+   },
+   "hpi": {
+    "prompt": "Type the history of present illness as the patient reported it.",
+    "model": "33 y/o male reports sore throat and dry cough for 4 days with subjective low-grade fever at home. Denies shortness of breath, chest pain, and difficulty swallowing. No sick contacts. PMH none, no medications, NKDA.",
+    "required": [
+     {
+      "label": "Sore throat and dry cough",
+      "accept": [
+       "sore throat",
+       "dry cough",
+       "throat pain",
+       "cough"
+      ]
+     },
+     {
+      "label": "4-day duration",
+      "accept": [
+       "4 day",
+       "four day",
+       "x4",
+       "4d",
+       "4-day"
+      ]
+     },
+     {
+      "label": "Subjective low-grade fever at home",
+      "accept": [
+       "low grade fever",
+       "subjective fever",
+       "fever at home",
+       "mild fever"
+      ]
+     },
+     {
+      "label": "Denies shortness of breath",
+      "accept": [
+       "denies shortness of breath",
+       "no shortness of breath",
+       "denies sob",
+       "no sob",
+       "no dyspnea"
+      ]
+     },
+     {
+      "label": "Denies chest pain",
+      "accept": [
+       "denies chest pain",
+       "no chest pain",
+       "no cp"
+      ]
+     },
+     {
+      "label": "No difficulty swallowing",
+      "accept": [
+       "no difficulty swallowing",
+       "denies difficulty swallowing",
+       "no dysphagia",
+       "no trouble swallowing"
+      ]
+     },
+     {
+      "label": "No sick contacts",
+      "accept": [
+       "no sick contacts",
+       "denies sick contacts",
+       "no sick contact"
+      ]
+     },
+     {
+      "label": "PMH none, no meds, NKDA",
+      "accept": [
+       "nkda",
+       "no known drug allergies",
+       "no medications",
+       "no meds",
+       "pmh none",
+       "no chronic conditions"
+      ]
+     }
+    ]
+   },
+   "objective": {
+    "prompt": "Document your objective findings (POC results and what you observed). Vitals are entered separately.",
+    "model": "Rapid strep test negative. Patient alert, well-appearing, in no acute distress.",
+    "required": [
+     {
+      "label": "Rapid strep negative",
+      "accept": [
+       "rapid strep negative",
+       "strep negative",
+       "negative rapid strep",
+       "rapid strep neg",
+       "negative strep"
+      ]
+     },
+     {
+      "label": "General appearance / no acute distress",
+      "accept": [
+       "no acute distress",
+       "well appearing",
+       "well-appearing",
+       "nad",
+       "alert",
+       "no distress"
+      ]
+     }
+    ]
+   },
+   "scopeTask": {
+    "channel": "Patient message",
+    "situation": "Daniel messages through the portal: 'My rapid strep was negative but my throat still hurts. Can you go ahead and send an antibiotic like amoxicillin to my pharmacy so I feel better faster?'",
+    "options": [
+     "Send amoxicillin to his pharmacy since the strep test was negative and he still has symptoms",
+     "Tell him antibiotics won't help a likely viral infection and advise he doesn't need them",
+     "Document his request and route the message to the provider to review and decide on treatment",
+     "Reassure him the provider already ruled out anything serious and no medication is needed"
+    ],
+    "answer": 2,
+    "explain": "Prescribing and treatment decisions are outside MA scope. The MA does not order medications, diagnose the cause, or advise on whether antibiotics are needed. The correct action is to document the request and route it to the provider, who owns the Assessment and Plan."
+   }
+  }
  },
  {
   "id": "soap-htn",
@@ -346,7 +511,159 @@
    "Medication reconciliation means documenting what the patient actually takes (including stopped/changed meds and why) and flagging discrepancies — never adjusting doses.",
    "Assessment and Plan are provider functions; the MA documents them as dictated but does not diagnose, predict, or prescribe."
   ],
-  "scopeNote": "The MA verifies ID, obtains vitals, and documents the history, med reconciliation, and the provider's A/P — but does not diagnose, adjust doses, or authorize the refill."
+  "scopeNote": "The MA verifies ID, obtains vitals, and documents the history, med reconciliation, and the provider's A/P — but does not diagnose, adjust doses, or authorize the refill.",
+  "typed": {
+   "cc": {
+    "prompt": "Document the chief complaint in the patient's own words.",
+    "model": "Here for my 3-month blood pressure check and to refill my blood pressure pills.",
+    "required": [
+     {
+      "label": "Blood pressure check / follow-up",
+      "accept": [
+       "blood pressure",
+       "bp check",
+       "bp follow",
+       "pressure check"
+      ]
+     },
+     {
+      "label": "Medication refill request",
+      "accept": [
+       "refill",
+       "refill pills",
+       "refill meds",
+       "medication refill",
+       "refill my"
+      ]
+     }
+    ]
+   },
+   "hpi": {
+    "prompt": "Type the history of present illness / subjective as the patient reported it.",
+    "model": "58 y/o female here for routine 3-month HTN follow-up and refill. Reports she stopped hydrochlorothiazide about 2 weeks ago on her own due to frequent urination. Denies chest pain, headache, dizziness, and visual changes. PMH: hypertension, hyperlipidemia, overweight. Allergy: sulfa.",
+    "required": [
+     {
+      "label": "Stopped/self-discontinued HCTZ",
+      "accept": [
+       "stopped hydrochlorothiazide",
+       "stopped hctz",
+       "self discontinued",
+       "discontinued hctz",
+       "quit hctz",
+       "off hctz"
+      ]
+     },
+     {
+      "label": "About 2 weeks ago",
+      "accept": [
+       "2 week",
+       "two week",
+       "2 wk",
+       "x2 week"
+      ]
+     },
+     {
+      "label": "Reason: frequent urination",
+      "accept": [
+       "frequent urination",
+       "urinating frequently",
+       "peeing",
+       "frequent urin",
+       "urinary frequency"
+      ]
+     },
+     {
+      "label": "Denies chest pain",
+      "accept": [
+       "denies chest pain",
+       "no chest pain",
+       "denies cp"
+      ]
+     },
+     {
+      "label": "Denies headache",
+      "accept": [
+       "denies headache",
+       "no headache",
+       "denies ha"
+      ]
+     },
+     {
+      "label": "Denies dizziness",
+      "accept": [
+       "denies dizziness",
+       "no dizziness",
+       "denies dizzy"
+      ]
+     },
+     {
+      "label": "Denies visual changes",
+      "accept": [
+       "denies visual changes",
+       "no visual changes",
+       "denies vision changes",
+       "no vision changes"
+      ]
+     },
+     {
+      "label": "PMH / allergy documented",
+      "accept": [
+       "hypertension",
+       "hyperlipidemia",
+       "sulfa allergy",
+       "sulfa"
+      ]
+     }
+    ]
+   },
+   "objective": {
+    "prompt": "Document your objective findings (general appearance, what you measured/observed, any POC results). Vitals are entered separately.",
+    "model": "Patient appears well, in no acute distress, alert and cooperative. BP rechecked after seated rest and remained elevated at 156/94. Weight 182 lb, height 64 in. Home medications reviewed and reconciled, including patient's self-discontinued HCTZ.",
+    "required": [
+     {
+      "label": "General appearance / no acute distress",
+      "accept": [
+       "no acute distress",
+       "nad",
+       "appears well",
+       "alert",
+       "no distress"
+      ]
+     },
+     {
+      "label": "BP recheck / repeat elevated reading",
+      "accept": [
+       "recheck",
+       "rechecked",
+       "156 94",
+       "repeat bp",
+       "re-check"
+      ]
+     },
+     {
+      "label": "Weight or measurement documented",
+      "accept": [
+       "182",
+       "weight",
+       "64 in",
+       "height"
+      ]
+     }
+    ]
+   },
+   "scopeTask": {
+    "channel": "Patient message",
+    "situation": "Diane messages through the portal: \"My blood pressure was 158/96 today. Does that mean my dose is too low? Can you go ahead and increase my lisinopril to 40 mg and send it to my pharmacy?\"",
+    "options": [
+     "Reply that 158/96 is too low a dose and increase her lisinopril to 40 mg, then e-prescribe it",
+     "Tell her the reading looks fine and she doesn't need any change",
+     "Document her message and forward it to the provider, letting her know the provider will review her BP and medication and follow up",
+     "Advise her to double her current dose tonight and recheck in the morning"
+    ],
+    "answer": 2,
+    "explain": "Adjusting a dose, diagnosing, and prescribing are outside the MA's scope. The MA documents the patient's request and routes it to the provider, who owns the assessment and plan."
+   }
+  }
  },
  {
   "id": "soap-dm2",
@@ -518,7 +835,184 @@
    "The MA gathers/documents S and O; the provider originates A and P. The MA may only document diagnoses and orders the provider dictates.",
    "Avoid Do Not Use abbreviations: spell out 'daily', use 'mL' not cc, and never use trailing zeros (1.0 mg) which cause 10x dosing errors."
   ],
-  "scopeNote": "The MA collects and documents the subjective history, vitals, POC glucose, and delegated foot screening; the provider originates the diabetes assessment, the A1c order, and the plan."
+  "scopeNote": "The MA collects and documents the subjective history, vitals, POC glucose, and delegated foot screening; the provider originates the diabetes assessment, the A1c order, and the plan.",
+  "typed": {
+   "cc": {
+    "prompt": "Document the chief complaint / reason for visit in the patient's own words or as briefly stated.",
+    "model": "Here for my 3-month diabetes checkup, foot check, and labs. Morning blood sugars have been running high.",
+    "required": [
+     {
+      "label": "Diabetes follow-up / reason for visit",
+      "accept": [
+       "diabetes follow",
+       "3 month follow",
+       "dm follow",
+       "diabetes check",
+       "t2dm follow",
+       "routine diabetes"
+      ]
+     },
+     {
+      "label": "Interval / 3-month timeframe",
+      "accept": [
+       "3 month",
+       "3month",
+       "three month",
+       "3 mo",
+       "quarterly"
+      ]
+     },
+     {
+      "label": "Foot check / labs component",
+      "accept": [
+       "foot check",
+       "foot exam",
+       "labs",
+       "lab work",
+       "bloodwork",
+       "blood work"
+      ]
+     }
+    ]
+   },
+   "hpi": {
+    "prompt": "Type the history of present illness / subjective as the patient reported it.",
+    "model": "62 y/o male here for 3-month T2DM follow-up. Reports morning blood sugars running high. Complains of bilateral foot numbness and tingling. Denies chest pain, foot wounds, or vision changes. States he is adherent to his medications.",
+    "required": [
+     {
+      "label": "3-month diabetes follow-up",
+      "accept": [
+       "3 month follow",
+       "3month follow",
+       "three month follow",
+       "diabetes follow",
+       "dm follow",
+       "t2dm follow"
+      ]
+     },
+     {
+      "label": "Morning blood sugars running high",
+      "accept": [
+       "morning blood sugar",
+       "morning sugar",
+       "fasting high",
+       "morning glucose high",
+       "am blood sugar",
+       "sugars running high"
+      ]
+     },
+     {
+      "label": "Bilateral foot numbness",
+      "accept": [
+       "foot numbness",
+       "numbness",
+       "numb feet",
+       "bilateral foot numb",
+       "feet numb"
+      ]
+     },
+     {
+      "label": "Foot tingling / paresthesia",
+      "accept": [
+       "tingling",
+       "paresthesia",
+       "pins and needles",
+       "tingle"
+      ]
+     },
+     {
+      "label": "Denies chest pain",
+      "accept": [
+       "denies chest pain",
+       "no chest pain",
+       "denies cp",
+       "without chest pain"
+      ]
+     },
+     {
+      "label": "Denies foot wounds",
+      "accept": [
+       "denies foot wound",
+       "no foot wound",
+       "denies wounds",
+       "no sores",
+       "no ulcer"
+      ]
+     },
+     {
+      "label": "Denies vision changes",
+      "accept": [
+       "denies vision change",
+       "no vision change",
+       "denies visual",
+       "no vision"
+      ]
+     },
+     {
+      "label": "Medication adherent",
+      "accept": [
+       "adherent to",
+       "is adherent",
+       "medication adherent",
+       "compliant with",
+       "takes his med",
+       "med compliant"
+      ]
+     }
+    ]
+   },
+   "objective": {
+    "prompt": "Document your objective findings (POC results, exam observations, measurements). Vitals are entered separately.",
+    "model": "POC random glucose 187 mg/dL, elevated. Monofilament exam: reduced sensation at both great toes. Skin intact, no ulcers. Patient in no acute distress.",
+    "required": [
+     {
+      "label": "POC random glucose 187 / elevated",
+      "accept": [
+       "187",
+       "poc glucose",
+       "random glucose",
+       "glucose 187",
+       "poc random",
+       "point of care glucose"
+      ]
+     },
+     {
+      "label": "Monofilament reduced sensation both great toes",
+      "accept": [
+       "monofilament",
+       "reduced sensation",
+       "decreased sensation",
+       "great toe",
+       "both toes",
+       "diminished sensation"
+      ]
+     },
+     {
+      "label": "Skin intact / no ulcers",
+      "accept": [
+       "skin intact",
+       "no ulcer",
+       "no ulcers",
+       "intact skin",
+       "no wounds",
+       "no sores"
+      ]
+     }
+    ]
+   },
+   "scopeTask": {
+    "channel": "Patient message",
+    "situation": "Raymond sends a portal message: \"My morning sugars are still high and my feet are numb. Can you go ahead and increase my metformin to 1500 twice a day and start me on something for the nerve pain?\"",
+    "options": [
+     "Reply that you've increased his metformin to 1500 mg twice daily and sent in a nerve pain prescription",
+     "Tell him he has diabetic neuropathy and that gabapentin is the standard treatment",
+     "Document his request and forward the message to the provider; let him know the provider will review and follow up",
+     "Advise him to double his current metformin dose today and monitor his sugars"
+    ],
+    "answer": 2,
+    "explain": "Adjusting medication doses, prescribing, and diagnosing (naming neuropathy) are all outside the MA scope of practice. The MA documents the patient's request and routes it to the provider, who owns the assessment and plan."
+   }
+  }
  },
  {
   "id": "soap-peds-wcc",
@@ -679,7 +1173,179 @@
    "The MA administers vaccines as a delegated order and gives standard VIS education, but the provider decides which vaccines are needed and counsels on medical necessity.",
    "Avoid TJC Do Not Use abbreviations: write 'daily' not QD, no trailing zeros (1 mg not 1.0 mg)."
   ],
-  "scopeNote": "MA gathers/documents S and O (vitals, growth, history) and administers ordered vaccines; the provider owns the well-child assessment and immunization plan."
+  "scopeNote": "MA gathers/documents S and O (vitals, growth, history) and administers ordered vaccines; the provider owns the well-child assessment and immunization plan.",
+  "typed": {
+   "cc": {
+    "prompt": "Document the chief complaint in the patient's (or parent's) own words.",
+    "model": "Mother here for routine 4-year well-child check and kindergarten physical; vaccines due.",
+    "required": [
+     {
+      "label": "Routine well-child / well-check visit",
+      "accept": [
+       "well child",
+       "well-child",
+       "well child check",
+       "well visit",
+       "checkup",
+       "check up"
+      ]
+     },
+     {
+      "label": "Age 4 / 4-year visit",
+      "accept": [
+       "4 year",
+       "four year",
+       "4yo",
+       "4 y",
+       "age 4"
+      ]
+     },
+     {
+      "label": "Kindergarten / school physical or vaccines due",
+      "accept": [
+       "kindergarten",
+       "school physical",
+       "vaccine",
+       "immuniz",
+       "shots due",
+       "kindergarten physical"
+      ]
+     }
+    ]
+   },
+   "hpi": {
+    "prompt": "Type the history of present illness / subjective history as the parent reported it.",
+        "model": "Mother brings 4-year-old for routine well-child check and kindergarten physical. Eating well and sleeping well, speaking in full sentences. No parental concerns about vision, hearing, or behavior. NKDA. Takes children's multivitamin daily. UTD on immunizations through 18 months.",
+    "required": [
+     {
+      "label": "Reported by mother/parent",
+      "accept": [
+       "mother",
+       "mom",
+       "parent",
+       "reports",
+       "per mom"
+      ]
+     },
+     {
+      "label": "Eating well",
+      "accept": [
+       "eating well",
+       "eats well",
+       "good appetite",
+       "eating fine"
+      ]
+     },
+     {
+      "label": "Sleeping well",
+      "accept": [
+       "sleeping well",
+       "sleeps well",
+       "good sleep",
+       "sleeping fine"
+      ]
+     },
+     {
+      "label": "Speaking in full sentences / development",
+      "accept": [
+       "full sentences",
+       "complete sentences",
+       "speaking",
+       "talking",
+       "developmentally"
+      ]
+     },
+     {
+      "label": "No parental concerns re: vision/hearing/behavior",
+      "accept": [
+       "no concerns",
+       "no parental concern",
+       "denies concerns",
+       "no parental concerns",
+       "vision hearing behavior"
+      ]
+     },
+     {
+      "label": "Takes children's multivitamin",
+      "accept": [
+       "multivitamin",
+       "multi vitamin",
+       "vitamin",
+       "mvi"
+      ]
+     },
+     {
+      "label": "UTD immunizations through 18 months",
+      "accept": [
+       "immuniz",
+       "utd",
+       "up to date",
+       "18 month",
+       "through 18"
+      ]
+     },
+     {
+      "label": "NKDA",
+      "accept": [
+       "nkda",
+       "no known drug allerg",
+       "no known allerg",
+       "no allergies"
+      ]
+     }
+    ]
+   },
+   "objective": {
+    "prompt": "Document your objective findings (general appearance, measurements, growth percentile, any POC/screening you performed). Vitals numbers are entered separately.",
+    "model": "Alert, active, interactive preschooler in no distress. Weight 37 lb, height 40 in, ~50th percentile for age.",
+    "required": [
+     {
+      "label": "General appearance: alert/active/interactive, no distress",
+      "accept": [
+       "alert",
+       "active",
+       "interactive",
+       "no distress",
+       "nad",
+       "well appearing"
+      ]
+     },
+     {
+      "label": "Growth measurements (height/weight)",
+      "accept": [
+       "37 lb",
+       "37lb",
+       "40 in",
+       "weight",
+       "height",
+       "height and weight"
+      ]
+     },
+     {
+      "label": "~50th percentile for age",
+      "accept": [
+       "50th percentile",
+       "50 percentile",
+       "~50",
+       "fiftieth percentile",
+       "percentile"
+      ]
+     }
+    ]
+   },
+   "scopeTask": {
+    "channel": "Patient message",
+    "situation": "Mateo's mother messages through the portal: 'His shot spot is a little red and warm and he feels warm. Can you tell me if this is an infection and just call in an antibiotic for him?'",
+    "options": [
+     "Reply that it sounds like a post-vaccine reaction, it's not an infection, and no antibiotic is needed",
+     "Document the mother's reported symptoms and route the message to the provider, letting her know the care team will follow up",
+     "Send in a prescription for an antibiotic under the provider's name so he can start it today",
+     "Tell her to give a double dose of children's ibuprofen and that it will clear up on its own"
+    ],
+    "answer": 1,
+    "explain": "Diagnosing an infection and prescribing/authorizing antibiotics are outside the MA scope. The MA documents the parent's reported symptoms accurately and forwards the message to the provider, who owns assessment and treatment decisions."
+   }
+  }
  },
  {
   "id": "soap-chest-pain",
@@ -859,7 +1525,165 @@
    "Chief complaint is documented in the patient's own words plus objective measurements — never as a diagnosis.",
    "Avoid TJC 'Do Not Use' items: spell out 'daily', use leading zeros (0.81), no trailing zeros (1.0), use mL not cc."
   ],
-  "scopeNote": "The MA gathers vitals and the EKG and escalates immediately to the provider; diagnosis and treatment orders remain provider functions the MA only documents and carries out."
+  "scopeNote": "The MA gathers vitals and the EKG and escalates immediately to the provider; diagnosis and treatment orders remain provider functions the MA only documents and carries out.",
+  "typed": {
+   "cc": {
+    "prompt": "Document the chief complaint in the patient's own words, with onset and associated symptom.",
+    "model": "Chest pressure \"like a weight\" with sweating, sudden onset about 40 minutes ago.",
+    "required": [
+     {
+      "label": "Chest pressure/pressure-like quality",
+      "accept": [
+       "chest pressure",
+       "pressure",
+       "like a weight",
+       "weight on chest",
+       "chest tightness"
+      ]
+     },
+     {
+      "label": "Associated sweating/diaphoresis",
+      "accept": [
+       "sweating",
+       "sweaty",
+       "diaphoresis",
+       "diaphoretic",
+       "perspiring"
+      ]
+     },
+     {
+      "label": "Sudden onset ~40 minutes ago",
+      "accept": [
+       "40 min",
+       "40 minute",
+       "sudden",
+       "sudden onset",
+       "abrupt"
+      ]
+     }
+    ]
+   },
+   "hpi": {
+    "prompt": "Type the history of present illness as the patient reported it — quality, severity, timing, and relevant history/home meds.",
+    "model": "55M reports sudden substernal chest pressure like a weight starting ~40 minutes ago, associated with sweating. Rates pain 7/10, pressure-like. PMH: hypertension, hyperlipidemia, former smoker. Home meds: lisinopril 20 mg daily, atorvastatin 40 mg daily, aspirin 81 mg daily. NKDA.",
+    "required": [
+     {
+      "label": "Substernal/central location",
+      "accept": [
+       "substernal",
+       "central",
+       "middle of chest",
+       "behind breastbone",
+       "sternal"
+      ]
+     },
+     {
+      "label": "Pressure-like quality",
+      "accept": [
+       "pressure",
+       "pressure like",
+       "like a weight",
+       "tightness",
+       "squeezing"
+      ]
+     },
+     {
+      "label": "Severity 7/10",
+      "accept": [
+       "7/10",
+       "7 out of 10",
+       "pain 7",
+       "seven out of ten"
+      ]
+     },
+     {
+      "label": "Onset/duration ~40 minutes",
+      "accept": [
+       "40 min",
+       "40 minute",
+       "forty min",
+       "sudden onset",
+       "past 40"
+      ]
+     },
+     {
+      "label": "PMH hypertension",
+      "accept": [
+       "htn",
+       "hypertension",
+       "high blood pressure"
+      ]
+     },
+     {
+      "label": "PMH hyperlipidemia",
+      "accept": [
+       "hyperlipidemia",
+       "high cholesterol",
+       "hld",
+       "dyslipidemia"
+      ]
+     },
+     {
+      "label": "Former smoker",
+      "accept": [
+       "former smoker",
+       "ex smoker",
+       "smoking history",
+       "quit smoking",
+       "past smoker"
+      ]
+     },
+     {
+      "label": "Home meds (lisinopril/atorvastatin/aspirin)",
+      "accept": [
+       "lisinopril",
+       "atorvastatin",
+       "aspirin",
+       "home meds",
+       "81 mg aspirin"
+      ]
+     }
+    ]
+   },
+   "objective": {
+    "prompt": "Document your objective findings — what you observed and any tests/measurements you performed. Vitals numbers are entered separately.",
+    "model": "Patient pale and diaphoretic, appears in distress. 12-lead EKG obtained and handed to provider immediately.",
+    "required": [
+     {
+      "label": "Pale/diaphoretic appearance",
+      "accept": [
+       "pale",
+       "diaphoretic",
+       "sweaty",
+       "clammy",
+       "ashen"
+      ]
+     },
+     {
+      "label": "12-lead EKG obtained/given to provider",
+      "accept": [
+       "ekg",
+       "ecg",
+       "12 lead",
+       "12-lead",
+       "given to provider"
+      ]
+     }
+    ]
+   },
+   "scopeTask": {
+    "channel": "Nurse chat",
+    "situation": "Patient asks you: \"Am I having a heart attack? Should I take another aspirin right now?\" while you're rooming him.",
+    "options": [
+     "Tell him yes, this looks like a heart attack, and hand him more aspirin",
+     "Reassure him it's probably just anxiety so he stays calm",
+     "Let him know the provider will assess him right away, document his question, and give aspirin only per provider order",
+     "Give the aspirin now since he's already on 81 mg daily at home"
+    ],
+    "answer": 2,
+    "explain": "The MA does not diagnose (can't tell him it is or isn't a heart attack) and does not medicate without an order. The scope-correct action is to escalate to the provider immediately, document the patient's question, and administer aspirin only once the provider orders it."
+   }
+  }
  },
  {
   "id": "soap-asthma",
@@ -1029,7 +1853,176 @@
    "Peak flow and SpO2 are Objective measurements; comparing peak flow to the patient's personal best shows severity.",
    "Chart with approved terms: use 'mL' not 'cc', 'daily' not 'QD', and no trailing zeros (3 mL, not 3.0 mL)."
   ],
-  "scopeNote": "The MA gathers and documents S and O and escalates the low SpO2; the provider originates the asthma diagnosis (A) and all treatment orders (P)."
+  "scopeNote": "The MA gathers and documents S and O and escalates the low SpO2; the provider originates the asthma diagnosis (A) and all treatment orders (P).",
+  "typed": {
+   "cc": {
+    "prompt": "Document the chief complaint in the patient's own words.",
+    "model": "Wheezing and shortness of breath since this morning",
+    "required": [
+     {
+      "label": "Wheezing",
+      "accept": [
+       "wheez",
+       "wheezing"
+      ]
+     },
+     {
+      "label": "Shortness of breath / trouble breathing",
+      "accept": [
+       "shortness of breath",
+       "sob",
+       "short of breath",
+       "cant catch breath",
+       "trouble breathing",
+       "cant breathe"
+      ]
+     },
+     {
+      "label": "Onset this morning",
+      "accept": [
+       "this morning",
+       "since morning",
+       "since this am",
+       "started this morning"
+      ]
+     }
+    ]
+   },
+   "hpi": {
+    "prompt": "Type the history of present illness as the patient reported it.",
+    "model": "20 yo F with mild persistent asthma reports wheezing, chest tightness, and SOB that began this morning and worsened over the day, worse with exertion. Used albuterol inhaler twice with little relief. Had a URI last week. Denies fever and chest pain. Hx of asthma and seasonal allergic rhinitis.",
+    "required": [
+     {
+      "label": "Wheezing / chest tightness",
+      "accept": [
+       "wheez",
+       "chest tight",
+       "chest tightness",
+       "tightness"
+      ]
+     },
+     {
+      "label": "Shortness of breath",
+      "accept": [
+       "shortness of breath",
+       "sob",
+       "short of breath",
+       "cant catch breath",
+       "dyspnea"
+      ]
+     },
+     {
+      "label": "Onset this morning / worsening over the day",
+      "accept": [
+       "this morning",
+       "since morning",
+       "worsening",
+       "worse over the day",
+       "progressive"
+      ]
+     },
+     {
+      "label": "Worse with exertion",
+      "accept": [
+       "with exertion",
+       "on exertion",
+       "exertion",
+       "activity",
+       "exercise"
+      ]
+     },
+     {
+      "label": "Used albuterol with little relief",
+      "accept": [
+       "albuterol",
+       "rescue inhaler",
+       "little relief",
+       "minimal relief",
+       "no relief"
+      ]
+     },
+     {
+      "label": "Recent URI last week",
+      "accept": [
+       "uri",
+       "upper respiratory",
+       "cold last week",
+       "recent cold",
+       "recent uri",
+       "respiratory infection"
+      ]
+     },
+     {
+      "label": "Denies fever and chest pain",
+      "accept": [
+       "denies fever",
+       "no fever",
+       "denies chest pain",
+       "no chest pain",
+       "afebrile"
+      ]
+     },
+     {
+      "label": "History of asthma / seasonal allergies",
+      "accept": [
+       "asthma",
+       "allergic rhinitis",
+       "seasonal allerg",
+       "hay fever",
+       "hx asthma"
+      ]
+     }
+    ]
+   },
+   "objective": {
+    "prompt": "Document your objective findings (POC results, measurements, what you observed). Vitals are entered separately.",
+    "model": "Peak flow 250 L/min, reduced from personal best ~450. Audible bilateral expiratory wheezing with mild accessory muscle use; speaking in short sentences.",
+    "required": [
+     {
+      "label": "Peak flow 250 (reduced from personal best ~450)",
+      "accept": [
+       "peak flow 250",
+       "pef 250",
+       "250",
+       "reduced from 450",
+       "personal best 450",
+       "peak flow reduced"
+      ]
+     },
+     {
+      "label": "Audible bilateral expiratory wheezing",
+      "accept": [
+       "expiratory wheez",
+       "bilateral wheez",
+       "audible wheez",
+       "wheezing"
+      ]
+     },
+     {
+      "label": "Accessory muscle use / short sentences",
+      "accept": [
+       "accessory muscle",
+       "short sentences",
+       "speaking in short",
+       "work of breathing",
+       "labored"
+      ]
+     }
+    ]
+   },
+   "scopeTask": {
+    "channel": "Patient message",
+    "situation": "Maya sends a portal message: \"My peak flow was only 250 and I feel awful. Can you just tell me if this is a bad asthma attack and go ahead and send a prescription for the steroid pills to my pharmacy so I can start them now?\"",
+    "options": [
+     "Reply that this is a moderate asthma exacerbation and e-prescribe the oral steroid to her pharmacy",
+     "Document her message and current peak flow, then forward to the provider to determine the diagnosis and any prescription",
+     "Tell her 250 is normal for asthma and she doesn't need steroids",
+     "Increase her albuterol and prednisone doses yourself and note it in the chart"
+    ],
+    "answer": 1,
+    "explain": "Diagnosing an exacerbation and prescribing medication are outside the MA scope of practice. The MA documents the patient's message and objective data (peak flow) and routes it to the provider, who owns the assessment and plan."
+   }
+  }
  },
  {
   "id": "soap-uti",
@@ -1208,7 +2201,172 @@
    "Clean-catch midstream technique: hand hygiene, cleanse front to back, start stream into the toilet, catch the midstream portion to limit contamination.",
    "Document POC test results objectively and report to the provider for interpretation; avoid 'Do Not Use' abbreviations (spell out 'twice daily,' no trailing zeros)."
   ],
-  "scopeNote": "The MA collects and documents the clean-catch specimen, dipstick result, and patient-reported symptoms; the provider owns the diagnosis and the prescription."
+  "scopeNote": "The MA collects and documents the clean-catch specimen, dipstick result, and patient-reported symptoms; the provider owns the diagnosis and the prescription.",
+  "typed": {
+   "cc": {
+    "prompt": "Document the chief complaint in the patient's own words.",
+    "model": "\"Burning when I pee and keep running to the bathroom\" x2 days",
+    "required": [
+     {
+      "label": "Burning/painful urination (patient words)",
+      "accept": [
+       "burning",
+       "burn when",
+       "hurts to pee",
+       "painful"
+      ]
+     },
+     {
+      "label": "Urinary frequency (patient words)",
+      "accept": [
+       "running to bathroom",
+       "keep going",
+       "frequent",
+       "frequency",
+       "peeing a lot"
+      ]
+     },
+     {
+      "label": "Duration ~2 days",
+      "accept": [
+       "2 day",
+       "two day",
+       "x2",
+       "2d"
+      ]
+     }
+    ]
+   },
+   "hpi": {
+    "prompt": "Type the history of present illness / subjective as the patient reported it.",
+    "model": "26 y/o F reports dysuria and urinary frequency for 2 days. Denies fever, chills, flank pain, nausea, and vaginal discharge. NKDA. Takes daily oral contraceptive and cetirizine PRN. PMH allergic rhinitis.",
+    "required": [
+     {
+      "label": "Dysuria / burning with urination",
+      "accept": [
+       "dysuria",
+       "burning",
+       "painful urination",
+       "hurts to pee"
+      ]
+     },
+     {
+      "label": "Urinary frequency",
+      "accept": [
+       "frequency",
+       "frequent",
+       "urinary frequency"
+      ]
+     },
+     {
+      "label": "Duration 2 days",
+      "accept": [
+       "2 day",
+       "two day",
+       "x2",
+       "2d"
+      ]
+     },
+     {
+      "label": "Denies fever/chills",
+      "accept": [
+       "denies fever",
+       "no fever",
+       "denies chills",
+       "afebrile"
+      ]
+     },
+     {
+      "label": "Denies flank pain",
+      "accept": [
+       "denies flank",
+       "no flank",
+       "flank pain"
+      ]
+     },
+     {
+      "label": "Denies vaginal discharge",
+      "accept": [
+       "denies discharge",
+       "no discharge",
+       "vaginal discharge"
+      ]
+     },
+     {
+      "label": "Meds: OCP + cetirizine",
+      "accept": [
+       "ocp",
+       "oral contraceptive",
+       "cetirizine",
+       "birth control"
+      ]
+     },
+     {
+      "label": "NKDA / PMH allergic rhinitis",
+      "accept": [
+       "nkda",
+       "no known",
+       "allergic rhinitis",
+       "rhinitis"
+      ]
+     }
+    ]
+   },
+   "objective": {
+    "prompt": "Document your objective findings (POC/CLIA-waived results, general appearance, measurements). Vitals are entered separately.",
+    "model": "Afebrile, no acute distress, rates voiding pain 3/10. Clean-catch midstream urine dipstick positive for leukocyte esterase and positive for nitrites.",
+    "required": [
+     {
+      "label": "General appearance / afebrile, no distress",
+      "accept": [
+       "afebrile",
+       "no acute distress",
+       "nad",
+       "no distress",
+       "appears well"
+      ]
+     },
+     {
+      "label": "Clean-catch midstream specimen collected",
+      "accept": [
+       "clean catch",
+       "midstream",
+       "clean-catch",
+       "urine specimen"
+      ]
+     },
+     {
+      "label": "Dipstick positive leukocyte esterase",
+      "accept": [
+       "leukocyte esterase",
+       "leukocytes",
+       "le positive",
+       "positive leukocyte"
+      ]
+     },
+     {
+      "label": "Dipstick positive nitrites",
+      "accept": [
+       "nitrite",
+       "nitrites",
+       "positive nitrite"
+      ]
+     }
+    ]
+   },
+   "scopeTask": {
+    "channel": "Patient message",
+    "situation": "Amara sends a portal message: \"Can you just go ahead and send the antibiotic for my UTI to my pharmacy? I've had this before and I know that's what I need.\"",
+    "options": [
+     "Reply that nitrofurantoin has been sent to her pharmacy and to finish the full course",
+     "Tell her it sounds like a UTI and she should start any leftover antibiotics she has at home",
+          "Document her request, route the message to the provider, and let her know the provider will review her results and decide on treatment",
+     "Send the prescription yourself since her urine dipstick was already positive for a UTI"
+    ],
+    "answer": 2,
+    "explain": "Prescribing and diagnosing are outside MA scope. The MA cannot order or send antibiotics or confirm a diagnosis. The correct action is to forward the request to the provider, who owns the Assessment and Plan, and set expectations that the provider will decide."
+   }
+  }
  },
  {
   "id": "soap-laceration",
@@ -1384,7 +2542,194 @@
    "For any skin break, always check and document the last tetanus (Td/Tdap) date so the provider can decide on a booster.",
    "Avoid TJC Do Not Use abbreviations: spell out \"daily\" (not QD), never use trailing zeros (400.0 mg), and use \"mL\" not cc."
   ],
-  "scopeNote": "The MA sets up the sterile suture tray, documents wound findings and tetanus history, and administers delegated vaccines, but does not suture, diagnose, order, or prescribe."
+  "scopeNote": "The MA sets up the sterile suture tray, documents wound findings and tetanus history, and administers delegated vaccines, but does not suture, diagnose, order, or prescribe.",
+  "typed": {
+   "cc": {
+    "prompt": "Document the chief complaint in the patient's own words.",
+    "model": "Cut on right forearm from a kitchen knife while cooking, bleeding controlled with pressure",
+    "required": [
+     {
+      "label": "Laceration/cut",
+      "accept": [
+       "cut",
+       "laceration",
+       "lac",
+       "sliced",
+       "gash"
+      ]
+     },
+     {
+      "label": "Location: right forearm",
+      "accept": [
+       "right forearm",
+       "r forearm",
+       "right arm",
+       "rt forearm",
+       "forearm"
+      ]
+     },
+     {
+      "label": "Mechanism: kitchen knife",
+      "accept": [
+       "kitchen knife",
+       "knife",
+       "cutting",
+       "cooking",
+       "chopping"
+      ]
+     },
+     {
+      "label": "Bleeding controlled",
+      "accept": [
+       "bleeding controlled",
+       "controlled bleeding",
+       "stopped bleeding",
+       "held pressure",
+       "bleeding stopped"
+      ]
+     }
+    ]
+   },
+   "hpi": {
+    "prompt": "Type the history of present illness as the patient reported it.",
+    "model": "34 yo male cut his right volar forearm on a kitchen knife about 1 hour ago while cooking. Pain 4/10. Bleeding controlled with direct pressure at home. Last tetanus (Td/Tdap) about 9 years ago. NKDA. Takes ibuprofen 400 mg prn. PMH allergic rhinitis.",
+    "required": [
+     {
+      "label": "Onset ~1 hour ago",
+      "accept": [
+       "1 hour",
+       "one hour",
+       "1 hr",
+       "1hr",
+       "hour ago"
+      ]
+     },
+     {
+      "label": "Mechanism: kitchen knife while cooking",
+      "accept": [
+       "kitchen knife",
+       "knife",
+       "cooking",
+       "cutting",
+       "chopping"
+      ]
+     },
+     {
+      "label": "Location: right (volar) forearm",
+      "accept": [
+       "right forearm",
+       "r forearm",
+       "right volar",
+       "volar forearm",
+       "forearm"
+      ]
+     },
+     {
+      "label": "Pain 4/10",
+      "accept": [
+       "4/10",
+       "4 out of 10",
+       "pain 4"
+      ]
+     },
+     {
+      "label": "Bleeding controlled with pressure at home",
+      "accept": [
+       "pressure",
+       "bleeding controlled",
+       "controlled bleeding",
+       "held pressure",
+       "direct pressure"
+      ]
+     },
+     {
+      "label": "Last tetanus ~9 years ago",
+      "accept": [
+       "tetanus",
+       "tdap",
+       "td",
+       "9 year",
+       "nine year"
+      ]
+     },
+     {
+      "label": "NKDA / allergies",
+      "accept": [
+       "nkda",
+       "no known drug",
+       "no known allergies",
+       "nka"
+      ]
+     },
+     {
+      "label": "Ibuprofen prn / PMH allergic rhinitis",
+      "accept": [
+       "ibuprofen",
+       "motrin",
+       "allergic rhinitis",
+       "prn"
+      ]
+     }
+    ]
+   },
+   "objective": {
+    "prompt": "Document your objective findings (POC results, measurements, what you observed). Vitals are entered separately.",
+    "model": "Alert, in no acute distress. 3 cm linear laceration to the right volar forearm; edges approximated, no active bleeding, no foreign body visualized. Pain rated 4/10.",
+    "required": [
+     {
+      "label": "General appearance: no acute distress",
+      "accept": [
+       "no acute distress",
+       "nad",
+       "alert",
+       "no distress",
+       "well appearing"
+      ]
+     },
+     {
+      "label": "Wound size ~3 cm",
+      "accept": [
+       "3 cm",
+       "3cm",
+       "three cm",
+       "3 centimeter"
+      ]
+     },
+     {
+      "label": "Wound description: linear laceration right volar forearm",
+      "accept": [
+       "linear laceration",
+       "laceration",
+       "linear",
+       "right volar",
+       "forearm"
+      ]
+     },
+     {
+      "label": "No active bleeding / edges approximated / no foreign body",
+      "accept": [
+       "no active bleeding",
+       "edges approximated",
+       "approximated",
+       "no foreign body",
+       "no bleeding"
+      ]
+     }
+    ]
+   },
+   "scopeTask": {
+    "channel": "Patient message",
+    "situation": "Marcus sends a portal message before the provider comes in: \"Since it's a knife cut, can you just go ahead and put me on antibiotics so it doesn't get infected? Just send it to my pharmacy.\"",
+    "options": [
+     "Reply that antibiotics aren't needed for a clean laceration and tell him none will be prescribed",
+     "Send an antibiotic prescription to his pharmacy since infection prevention is reasonable",
+     "Document the request and forward it to the provider, who will decide on any medication",
+     "Tell him to start taking any leftover antibiotics he has at home until his visit"
+    ],
+    "answer": 2,
+    "explain": "Prescribing, declining, or advising on medications is outside MA scope. The MA documents the patient's request and routes it to the provider, who owns assessment and plan. The MA does not order, refuse, or recommend prescription drugs."
+   }
+  }
  },
  {
   "id": "soap-prenatal",
@@ -1563,7 +2908,182 @@
    "The MA performs the CLIA-waived urine dip and documents protein/glucose as Objective data but never interprets it diagnostically — dating, diagnosis, and orders are provider functions.",
    "Avoid TJC Do Not Use abbreviations: write \"daily\" not QD, \"units\" not U, no trailing zeros (1 mg not 1.0 mg)."
   ],
-  "scopeNote": "The MA gathers and documents the LMP, baseline vitals, and urine-dip results; the provider confirms dating, diagnoses the pregnancy, and orders labs and the plan."
+  "scopeNote": "The MA gathers and documents the LMP, baseline vitals, and urine-dip results; the provider confirms dating, diagnoses the pregnancy, and orders labs and the plan.",
+  "typed": {
+   "cc": {
+    "prompt": "Document the chief complaint in the patient's own words.",
+    "model": "\"I missed my period and my home pregnancy test was positive\" - here for first prenatal visit.",
+    "required": [
+     {
+      "label": "Missed period",
+      "accept": [
+       "missed period",
+       "missed her period",
+       "no period",
+       "period late",
+       "late period",
+       "amenorrhea"
+      ]
+     },
+     {
+      "label": "Positive home pregnancy test",
+      "accept": [
+       "positive home",
+       "home test positive",
+       "positive pregnancy test",
+       "positive hpt",
+       "positive urine pregnancy",
+       "hpt positive"
+      ]
+     },
+     {
+      "label": "First/initial prenatal visit",
+      "accept": [
+       "first prenatal",
+       "initial prenatal",
+       "new ob",
+       "prenatal visit",
+       "first ob visit"
+      ]
+     }
+    ]
+   },
+   "hpi": {
+    "prompt": "Type the history of present illness / subjective history as the patient reported it.",
+    "model": "28 y/o G2 P1 female presents for initial prenatal visit. Reports last menstrual period June 1 with a positive home pregnancy test. One prior term vaginal delivery. Denies cramping, vaginal bleeding, or significant nausea. Takes a prenatal vitamin with folic acid daily. NKDA.",
+    "required": [
+     {
+      "label": "LMP June 1",
+      "accept": [
+       "june 1",
+       "lmp june",
+       "last period june",
+       "last menstrual period june",
+       "6/1",
+       "lmp 6"
+      ]
+     },
+     {
+      "label": "Positive home pregnancy test",
+      "accept": [
+       "positive home",
+       "home test positive",
+       "positive pregnancy test",
+       "positive hpt",
+       "positive urine pregnancy"
+      ]
+     },
+     {
+      "label": "Obstetric history G2 P1 / one prior term vaginal delivery",
+      "accept": [
+       "g2 p1",
+       "g2p1",
+       "gravida 2",
+       "prior vaginal delivery",
+       "one prior term",
+       "prior term delivery"
+      ]
+     },
+     {
+      "label": "Denies cramping",
+      "accept": [
+       "denies cramping",
+       "no cramping",
+       "denies cramp",
+       "without cramping"
+      ]
+     },
+     {
+      "label": "Denies vaginal bleeding",
+      "accept": [
+       "denies bleeding",
+       "no bleeding",
+       "no vaginal bleeding",
+       "denies vaginal bleeding",
+       "no spotting"
+      ]
+     },
+     {
+      "label": "Denies significant nausea",
+      "accept": [
+       "denies nausea",
+       "no nausea",
+       "no significant nausea",
+       "denies significant nausea"
+      ]
+     },
+     {
+      "label": "Prenatal vitamin with folic acid daily",
+      "accept": [
+       "prenatal vitamin",
+       "folic acid",
+       "prenatal vit",
+       "pnv"
+      ]
+     },
+     {
+      "label": "NKDA",
+      "accept": [
+       "nkda",
+       "no known drug allergies",
+       "no known allergies",
+       "no allergies"
+      ]
+     }
+    ]
+   },
+   "objective": {
+    "prompt": "Document your objective findings (POC/CLIA-waived results, general appearance, measurements). Vitals are entered separately.",
+    "model": "Patient in no acute distress, well-appearing. Weight 148 lb, height 64 in (BMI ~25.4 baseline). Urine dipstick negative for protein and glucose.",
+    "required": [
+     {
+      "label": "General appearance / no acute distress",
+      "accept": [
+       "no acute distress",
+       "nad",
+       "well appearing",
+       "no distress",
+       "alert",
+       "well developed"
+      ]
+     },
+     {
+      "label": "Weight and height / BMI baseline",
+      "accept": [
+       "148",
+       "weight 148",
+       "64 in",
+       "height 64",
+       "bmi",
+       "25.4"
+      ]
+     },
+     {
+      "label": "Urine dipstick negative protein and glucose",
+      "accept": [
+       "dipstick negative",
+       "urine dipstick",
+       "negative protein",
+       "negative glucose",
+       "urine negative",
+       "no protein"
+      ]
+     }
+    ]
+   },
+   "scopeTask": {
+    "channel": "Patient message",
+    "situation": "Daniela sends a portal message: \"My test was positive - can you tell me exactly how many weeks pregnant I am and go ahead and put in the order for my dating ultrasound?\"",
+    "options": [
+     "Reply that she is about 6 weeks pregnant based on her LMP and place the ultrasound order yourself",
+     "Document her question in the chart, route the message to the provider, and let the provider determine gestational age and order the ultrasound",
+     "Tell her the pregnancy is 6 weeks along and to schedule the ultrasound whenever convenient",
+     "Enter the dating ultrasound order under the provider's name so it is ready at her visit"
+    ],
+    "answer": 1,
+    "explain": "Determining gestational age (a diagnostic interpretation) and placing orders are provider responsibilities, outside the MA scope of practice. The MA documents the patient's question and routes it to the provider, who determines dating and enters/authorizes any orders. The MA never diagnoses or independently places orders."
+   }
+  }
  },
  {
   "id": "soap-geriatric-fall",
@@ -1743,6 +3263,195 @@
    "Verify identity with two acceptable identifiers (full name + DOB); room number, appointment time, or answering to a name do not count.",
    "Avoid Do Not Use abbreviations: no trailing zeros (write 5 mg not 5.0 mg), spell out \"at bedtime\" and \"daily\" instead of QHS or QD."
   ],
-  "scopeNote": "The MA obtains orthostatic vitals, reconciles the medication list, and documents the fall history, then routes all diagnosis and medication decisions to the provider."
+  "scopeNote": "The MA obtains orthostatic vitals, reconciles the medication list, and documents the fall history, then routes all diagnosis and medication decisions to the provider.",
+  "typed": {
+   "cc": {
+    "prompt": "Document the chief complaint in the patient's own words (why she is here today).",
+    "model": "\"I got dizzy standing up from the couch and fell — now I'm scared to walk.\"",
+    "required": [
+     {
+      "label": "Fall event",
+      "accept": [
+       "fell",
+       "fall",
+       "fall down",
+       "went down"
+      ]
+     },
+     {
+      "label": "Dizziness / lightheadedness on standing",
+      "accept": [
+       "dizzy",
+       "dizziness",
+       "lightheaded",
+       "light headed"
+      ]
+     },
+     {
+      "label": "Provoked by standing up",
+      "accept": [
+       "standing",
+       "stand up",
+       "standing up",
+       "getting up",
+       "stood up"
+      ]
+     },
+     {
+      "label": "Fear of walking / functional concern (patient words)",
+      "accept": [
+       "scared to walk",
+       "afraid to walk",
+       "scared",
+       "afraid"
+      ]
+     }
+    ]
+   },
+   "hpi": {
+    "prompt": "Type the history of present illness exactly as the patient reported it — onset, what happened, associated symptoms, pertinent negatives, and relevant history.",
+    "model": "78 y/o F here for follow-up after a ground-level fall at home yesterday. Reports feeling lightheaded/dizzy on standing up from the couch just before falling. Denies loss of consciousness, head strike, chest pain, palpitations, and weakness. Reports mild right hip soreness. Describes two near-falls in the past month, worse when getting up at night. History of HTN, T2DM, knee OA, osteopenia, and insomnia. On multiple antihypertensives plus PRN zolpidem (polypharmacy). Sulfa allergy.",
+    "required": [
+     {
+      "label": "Ground-level / same-level fall at home",
+      "accept": [
+       "ground level fall",
+       "ground-level fall",
+       "ground level",
+       "same level",
+       "fall at home"
+      ]
+     },
+     {
+      "label": "Timing — yesterday",
+      "accept": [
+       "yesterday",
+       "1 day ago",
+       "one day ago",
+       "day ago"
+      ]
+     },
+     {
+      "label": "Lightheaded/dizzy on standing before the fall",
+      "accept": [
+       "lightheaded on standing",
+       "dizzy on standing",
+       "lightheaded standing",
+       "dizzy standing",
+       "dizzy before"
+      ]
+     },
+     {
+      "label": "Denies loss of consciousness",
+      "accept": [
+       "denies loc",
+       "no loc",
+       "denies loss of consciousness",
+       "no loss of consciousness",
+       "denies passing out"
+      ]
+     },
+     {
+      "label": "Denies head strike",
+      "accept": [
+       "denies head strike",
+       "no head strike",
+       "denies hitting head",
+       "no head injury",
+       "denied head strike"
+      ]
+     },
+     {
+      "label": "Denies chest pain / palpitations",
+      "accept": [
+       "denies chest pain",
+       "no chest pain",
+       "denies palpitations",
+       "no palpitations"
+      ]
+     },
+     {
+      "label": "Mild right hip soreness",
+      "accept": [
+       "right hip soreness",
+       "right hip pain",
+       "hip soreness",
+       "r hip soreness",
+       "right hip sore"
+      ]
+     },
+     {
+      "label": "Recurrent near-falls, worse at night",
+      "accept": [
+       "two near falls",
+       "2 near falls",
+       "near falls",
+       "near-falls",
+       "worse at night",
+       "getting up at night"
+      ]
+     }
+    ]
+   },
+   "objective": {
+    "prompt": "Document your objective findings — general appearance, POC/CLIA-waived results, and measurements you personally observed. (Vital signs are entered separately.)",
+    "model": "General: alert, ambulates cautiously and steadies self on the wall. Small bruise noted over right hip. POC glucose 112 mg/dL. Weight 149 lb, height 63 in. Orthostatic BP checked: supine 138/82 (HR 74), standing 1 min 116/70 (HR 92) — 22 mmHg systolic drop.",
+    "required": [
+     {
+      "label": "Cautious gait / steadies on wall (general appearance)",
+      "accept": [
+       "ambulates cautiously",
+       "cautious gait",
+       "steadying on wall",
+       "steadies on wall",
+       "holds wall",
+       "unsteady"
+      ]
+     },
+     {
+      "label": "Small bruise over right hip",
+      "accept": [
+       "bruise right hip",
+       "right hip bruise",
+       "small bruise",
+       "bruise on hip",
+       "ecchymosis"
+      ]
+     },
+     {
+      "label": "POC glucose result",
+      "accept": [
+       "glucose 112",
+       "poc glucose 112",
+       "112",
+       "blood sugar 112",
+       "fingerstick 112"
+      ]
+     },
+     {
+      "label": "Orthostatic vital measurement / systolic drop",
+      "accept": [
+       "orthostatic",
+       "systolic drop",
+       "116/70",
+       "supine 138",
+       "22 mmhg drop"
+      ]
+     }
+    ]
+   },
+   "scopeTask": {
+    "channel": "Patient message",
+    "situation": "Margaret sends a portal message: \"After my visit I looked it up and I'm sure the dizziness is from my blood pressure pills. Can you just stop my lisinopril and hydrochlorothiazide for me and tell me which one is really causing this? I don't want to fall again.\"",
+    "options": [
+     "Reply that she is right — the diuretic is the cause — and tell her to stop the hydrochlorothiazide starting today",
+     "Tell her which medication to stop and enter the discontinuation order yourself since it's clearly medication-related",
+     "Document her message and concern, reassure her it will be addressed, and forward it to the provider to review the medications and decide; do not advise stopping or changing any medication",
+     "Advise her to just cut both pills in half until her next visit so her pressure doesn't drop as much"
+    ],
+    "answer": 2,
+    "explain": "Adjusting, stopping, or attributing symptoms to a specific medication is diagnosing and prescribing — outside MA scope. The MA documents the patient's message and concern and routes it to the provider, who owns any medication changes. The MA does not advise stopping/altering meds or tell the patient which drug is the cause."
+   }
+  }
  }
 ]

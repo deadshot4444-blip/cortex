@@ -30,7 +30,7 @@
       "Transthoracic echocardiogram"
      ],
      "answer": 1,
-     "explanation": "Every patient with suspected stable angina should first have a resting 12-lead ECG. It is inexpensive, may reveal prior infarction or conduction disease, and determines whether the baseline tracing is interpretable for exercise stress testing — which shapes the entire downstream workup. Invasive angiography is premature before noninvasive risk stratification in a patient with stable, predictable symptoms. Coronary calcium scoring is a screening tool for asymptomatic patients, not a diagnostic test for symptomatic ones. A stat troponin and ED referral are for acute coronary syndrome; his symptoms are exertional, reproducible, and fully relieved by rest, with no rest pain or crescendo pattern. Echocardiography is useful when heart failure, a murmur, or valvular disease is suspected, none of which applies here."
+     "explanation": "Every patient with suspected stable angina should first have a resting 12-lead ECG. It is inexpensive, may reveal prior infarction or conduction disease, and determines whether the baseline tracing is interpretable for exercise stress testing — which shapes the entire downstream workup. Invasive angiography is premature before noninvasive risk stratification in a patient with stable, predictable symptoms. Coronary calcium scoring stratifies risk from plaque burden — its role is in asymptomatic patients or low-risk chest pain — but it cannot detect or grade a flow-limiting stenosis, so it is not the diagnostic test for this clearly symptomatic, higher-risk man. A stat troponin and ED referral are for acute coronary syndrome; his symptoms are exertional, reproducible, and fully relieved by rest, with no rest pain or crescendo pattern. Echocardiography is useful when heart failure, a murmur, or valvular disease is suspected, none of which applies here."
     },
     {
      "type": "result",
@@ -82,14 +82,14 @@
       "Combination diltiazem and verapamil"
      ],
      "answer": 2,
-     "explanation": "Beta-blockers are first-line antianginal therapy in stable angina: they lower heart rate, contractility, and wall stress, raising the exertional threshold, and sublingual nitroglycerin provides on-demand relief and is given to every angina patient. Ranolazine is an add-on agent when symptoms persist despite first-line drugs, not initial monotherapy. Long-acting nitrate monotherapy is limited by tolerance, requires a nitrate-free interval, and offers no mortality benefit. Routine upfront PCI does not reduce death or myocardial infarction compared with optimal medical therapy in stable coronary disease (COURAGE, ISCHEMIA); revascularization is reserved for refractory symptoms or high-risk anatomy. Combining two nondihydropyridine calcium channel blockers is irrational and risks bradycardia and heart block."
+     "explanation": "Beta-blockers are first-line antianginal therapy in stable angina: they lower heart rate, contractility, and wall stress, raising the exertional threshold, and sublingual nitroglycerin provides on-demand relief and should be prescribed to essentially every angina patient (avoided after recent PDE5-inhibitor use). Ranolazine is an add-on agent when symptoms persist despite first-line drugs, not initial monotherapy. Long-acting nitrate monotherapy is limited by tolerance, requires a nitrate-free interval, and offers no mortality benefit. Routine upfront PCI does not reduce death or myocardial infarction compared with optimal medical therapy in stable coronary disease (COURAGE, ISCHEMIA); revascularization is reserved for refractory symptoms or high-risk anatomy. Combining two nondihydropyridine calcium channel blockers is irrational and risks bradycardia and heart block."
     }
    ],
    "diagnosis": "Chronic stable angina due to obstructive coronary artery disease",
    "pearls": [
     "Exercise treadmill ECG is the stress test of choice when the patient can exercise and the baseline ECG is interpretable.",
     "Beta-blockers are first-line antianginal therapy; sublingual nitroglycerin covers acute episodes.",
-    "In stable angina, optimal medical therapy is as good as upfront revascularization for preventing MI and death (COURAGE, ISCHEMIA).",
+    "In stable angina without high-risk anatomy (e.g., left main disease), optimal medical therapy matches upfront revascularization for preventing MI and death (COURAGE, ISCHEMIA).",
     "Rest pain, a crescendo pattern, or new-onset severe angina redefines the syndrome as unstable angina and warrants emergency evaluation."
    ],
    "id": "cd-001"
@@ -508,7 +508,7 @@
       "Oral digoxin loading"
      ],
      "answer": 0,
-     "explanation": "In hemodynamically stable atrial fibrillation with rapid ventricular response, the first-line strategy is rate control with an AV-nodal blocker — IV diltiazem or IV metoprolol — which reliably slows conduction and relieves symptoms. Synchronized cardioversion is reserved for instability (hypotension, ischemic chest pain, pulmonary edema, shock) or for an elective rhythm-control strategy after anticoagulation issues are addressed. Adenosine transiently blocks the AV node but lasts seconds and cannot control atrial fibrillation. Amiodarone can pharmacologically cardiovert, which in a patient without established anticoagulation creates avoidable stroke risk; it is reserved for refractory cases or those with decompensated heart failure where diltiazem is undesirable. Digoxin has a slow onset over hours and is an adjunct, mainly useful in hypotensive or heart-failure patients, not first-line monotherapy here."
+     "explanation": "In hemodynamically stable atrial fibrillation with rapid ventricular response, the first-line strategy is rate control with an AV-nodal blocker — IV diltiazem or IV metoprolol — which reliably slows conduction and relieves symptoms. Synchronized cardioversion is reserved for instability (hypotension, ischemic chest pain, pulmonary edema, shock) or for an elective rhythm-control strategy after anticoagulation issues are addressed. Adenosine transiently blocks the AV node but lasts seconds and cannot control atrial fibrillation. Amiodarone can pharmacologically cardiovert, which in a patient without established anticoagulation creates avoidable stroke risk; it is reserved for refractory cases or those with decompensated heart failure, where nondihydropyridine blockers such as diltiazem are contraindicated. Digoxin has a slow onset over hours and is an adjunct, mainly useful in hypotensive or heart-failure patients, not first-line monotherapy here."
     },
     {
      "type": "question",
@@ -528,7 +528,7 @@
    "diagnosis": "New-onset atrial fibrillation with rapid ventricular response, precipitated by an alcohol binge ('holiday heart')",
    "pearls": [
     "An irregularly irregular rhythm with no P waves is atrial fibrillation until proven otherwise.",
-    "Stable AF with RVR gets rate control (IV diltiazem or metoprolol); cardioversion is for the unstable patient.",
+    "Stable AF with RVR gets rate control (IV diltiazem or metoprolol); immediate cardioversion is for the unstable patient — elective cardioversion can follow once anticoagulation is addressed.",
     "Adenosine does not work in atrial fibrillation — it only blocks the AV node for seconds.",
     "Anticoagulate by CHA2DS2-VASc score, not by symptom duration or rhythm strategy; DOACs are preferred in nonvalvular AF."
    ],
@@ -1609,7 +1609,7 @@
     "Temp": "36.9 °C",
     "SpO2": "98% RA"
    },
-   "exam": "Anxious woman in moderate distress, diaphoretic. Cardiac: regular rhythm, normal S1 and S2, no murmurs or gallops, no rubs. Lungs clear bilaterally. No JVD. Abdomen soft, gravid uterus involuting, non-tender. Extremities warm, well-perfused, 2+ symmetric pulses, no edema or calf tenderness. No carotid or abdominal bruits appreciated on this exam. Neurologic exam normal. No signs of heart failure. She remains hemodynamically stable but with ongoing chest pain during evaluation.",
+   "exam": "Anxious woman in moderate distress, diaphoretic. Cardiac: regular rhythm, normal S1 and S2, no murmurs or gallops, no rubs. Lungs clear bilaterally. No JVD. Abdomen soft and non-tender; the uterus is no longer palpable abdominally, consistent with appropriate involution. Extremities warm, well-perfused, 2+ symmetric pulses, no edema or calf tenderness. No carotid or abdominal bruits appreciated on this exam. Neurologic exam normal. No signs of heart failure. She remains hemodynamically stable but with ongoing chest pain during evaluation.",
    "stages": [
     {
      "type": "question",
@@ -1632,7 +1632,7 @@
     {
      "type": "question",
      "label": "DIAGNOSIS",
-     "question": "At angiography, the right coronary artery shows a long, smooth, tapering narrowing with a radiolucent intimal flap and contrast staining within the wall, rather than a discrete atherosclerotic plaque. In this peripartum woman with no risk factors, what is the diagnosis?",
+     "question": "At angiography, the right coronary artery shows a long, smooth, tapering narrowing, with an adjacent radiolucent intimal flap and contrast staining within the wall, rather than a discrete atherosclerotic plaque. In this peripartum woman with no risk factors, what is the diagnosis?",
      "options": [
       "Spontaneous coronary artery dissection (SCAD)",
       "Atherosclerotic plaque rupture",
@@ -4751,7 +4751,7 @@
       "Valvular aortic stenosis"
      ],
      "answer": 0,
-     "explanation": "Asymmetric septal hypertrophy of 21 mm with systolic anterior motion of the mitral valve and a provocable LVOT gradient is diagnostic of hypertrophic cardiomyopathy with obstruction — a genetic sarcomere disease (most commonly beta-myosin heavy chain or myosin-binding protein C mutations) and the leading cause of sudden cardiac death in young athletes in the United States. The family history of sudden death at 38 and a father with 'thick walls' strongly supports it. Athlete's heart causes symmetric, mild hypertrophy that almost never exceeds 13–15 mm, with normal or supranormal diastolic function, no SAM, and no pathologic Q waves or deep T-wave inversions. A subaortic membrane causes fixed obstruction with an early diastolic murmur of AR in many cases and no SAM-dependent dynamic gradient. Valvular aortic stenosis produces an ejection click and carotid radiation with a murmur that softens with Valsalva — the opposite of his."
+     "explanation": "Asymmetric septal hypertrophy of 21 mm with systolic anterior motion of the mitral valve and a provocable LVOT gradient is diagnostic of hypertrophic cardiomyopathy with obstruction — a genetic sarcomere disease (most commonly beta-myosin heavy chain or myosin-binding protein C mutations) and a leading cause of sudden cardiac death in young athletes in the United States (classically cited as the most common, though contemporary autopsy series contest this). The family history of sudden death at 38 and a father with 'thick walls' strongly supports it. Athlete's heart causes symmetric, mild hypertrophy that almost never exceeds 13–15 mm, with normal or supranormal diastolic function, no SAM, and no pathologic Q waves or deep T-wave inversions. A subaortic membrane causes fixed obstruction with an early diastolic murmur of AR in many cases and no SAM-dependent dynamic gradient. Valvular aortic stenosis produces an ejection click and carotid radiation with a murmur that softens with Valsalva — the opposite of his."
     },
     {
      "type": "question",
@@ -4782,7 +4782,7 @@
    ],
    "diagnosis": "Hypertrophic obstructive cardiomyopathy",
    "pearls": [
-    "A systolic murmur that gets louder with Valsalva or standing (less preload) and softer with squatting or handgrip is HOCM until proven otherwise — the opposite behavior of aortic stenosis.",
+    "A systolic murmur that gets louder with Valsalva or standing (less preload) and softer with squatting or handgrip is HOCM until proven otherwise — aortic stenosis does the opposite with the preload maneuvers, though handgrip softens both.",
     "Exertional syncope without prodrome in a young athlete is a sudden-death red flag: ECG and echo first, never reassurance or treadmill testing.",
     "Avoid preload/afterload reducers (nitrates, diuretics, ACE inhibitors, dihydropyridines) in obstructive HCM; first-line therapy is a nonvasodilating beta-blocker.",
     "HCM is autosomal dominant — screen all first-degree relatives with ECG and echocardiography and consider cascade genetic testing."
@@ -5239,7 +5239,7 @@
       "Begin oral antibiotics and arrange outpatient echocardiography"
      ],
      "answer": 1,
-     "explanation": "In suspected endocarditis, three sets of blood cultures drawn from separate sites over a short interval maximize the yield for a continuous bacteremia and satisfy a major Duke criterion. Obtaining them before antibiotics is essential because a single dose can sterilize cultures and obscure the diagnosis. Deferring cultures until defervescence is wrong—an acutely septic IV drug user needs prompt cultures then empiric therapy, not delay. A single culture is inadequate and cannot establish persistent bacteremia. Oral antibiotics with outpatient follow-up is dangerously inappropriate for a febrile, hypoxic, tachycardic patient with a new murmur and likely endocarditis requiring admission and IV therapy."
+     "explanation": "In suspected endocarditis, three sets of blood cultures drawn from separate sites over a short interval maximize the yield for a continuous bacteremia and, when positive, establish the microbiologic major Duke criterion. Obtaining them before antibiotics is essential because a single dose can sterilize cultures and obscure the diagnosis. Deferring cultures until defervescence is wrong—an acutely septic IV drug user needs prompt cultures then empiric therapy, not delay. A single culture is inadequate and cannot establish persistent bacteremia. Oral antibiotics with outpatient follow-up is dangerously inappropriate for a febrile, hypoxic, tachycardic patient with a new murmur and likely endocarditis requiring admission and IV therapy."
     },
     {
      "type": "result",
@@ -5270,7 +5270,7 @@
       "Ampicillin plus gentamicin"
      ],
      "answer": 0,
-     "explanation": "Staphylococcus aureus, including MRSA, is by far the most common organism in injection-drug-use right-sided endocarditis, so empiric IV vancomycin is the standard initial choice pending speciation and susceptibilities. Ceftriaxone monotherapy covers streptococci and many gram-negatives but misses MRSA, which is the priority pathogen here. Oral linezolid has anti-MRSA activity but oral therapy is inappropriate for acute bacteremic endocarditis where reliable bactericidal IV levels are required. Ampicillin plus gentamicin targets enterococci and viridans streptococci—reasonable for subacute native-valve disease in older adults but not for the staphylococcal disease expected in this IV drug user."
+     "explanation": "Staphylococcus aureus, including MRSA, is by far the most common organism in injection-drug-use right-sided endocarditis, so empiric IV vancomycin is the standard initial choice pending speciation and susceptibilities. Ceftriaxone monotherapy covers streptococci and many gram-negatives but misses MRSA, which is the priority pathogen here. Oral linezolid has anti-MRSA activity but oral therapy is inappropriate for acute bacteremic endocarditis where reliable bactericidal IV levels are required. Ampicillin plus gentamicin targets enterococci and viridans streptococci, but guideline empiric regimens for native-valve endocarditis do not omit staphylococcal coverage—they add an antistaphylococcal beta-lactam or use vancomycin—so it is inadequate here, especially for the staphylococcal disease expected in this IV drug user."
     },
     {
      "type": "question",
@@ -5291,7 +5291,7 @@
     "Right-sided endocarditis in people who inject drugs most often involves the tricuspid valve and is caused by S. aureus.",
     "Multiple bilateral peripheral cavitary lung nodules plus fever should prompt a search for tricuspid vegetations causing septic pulmonary emboli.",
     "A tricuspid regurgitation murmur classically increases with inspiration (Carvallo sign).",
-    "Draw at least three sets of blood cultures from separate sites before antibiotics to satisfy Duke criteria and capture continuous bacteremia."
+    "Draw at least three sets of blood cultures from separate sites before antibiotics—positive sets are what establish the Duke microbiologic major criterion and demonstrate continuous bacteremia."
    ],
    "id": "cd-061"
   },

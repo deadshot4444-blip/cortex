@@ -133,10 +133,14 @@ function hubResumeChip() {
   return wrap;
 }
 function enterMCAT() {
-  const best = findHubResume();
-  if (best) {
-    try { best.spec.resume(best.r); return; } catch { clearResume(best.spec.key); }
-  }
+  renderGuide();
+}
+
+// The MCAT section is the learner's saved game: first visit chooses a plan,
+// every return after that opens today's dashboard. The full tool library stays
+// available from the dashboard instead of sitting in front of the plan.
+async function renderMCATEntry() {
+  await loadMCAT();
   renderGuide();
 }
 
@@ -150,7 +154,7 @@ function mcatTaskHeader(segs, right, exitLabel) {
   </header>`;
 }
 function wireRunHeader(root, onExit) {
-  const c = root.querySelector('#crumbmcat'); if (c) c.addEventListener('click', renderMCAT);
+  const c = root.querySelector('#crumbmcat'); if (c) c.addEventListener('click', renderMCATEntry);
   const x = root.querySelector('#exit'); if (x) x.addEventListener('click', onExit);
 }
 function confirmExit(hasProgress, onLeave) {
@@ -1185,7 +1189,7 @@ function renderGuide() {
   if (!existing) {
     const defaultTrack = '120';
     const main = el(`<main class="panel guide-page">
-      <button class="backbtn topback" id="back">&larr; MCAT</button>
+      <button class="backbtn topback" id="back">Browse all study tools</button>
       <header class="guide-setup-hero"><span class="label">Guided MCAT plan</span><h1>Choose your pace.</h1><p>Start today. Cortex will give you a short assignment each day, open the correct tools, track completion, and adapt every fourth day to weak areas.</p></header>
       <div class="guide-track-list">
         ${TRACK_ORDER.map(key => { const track = TRACKS[key]; return `<button class="guide-track ${key === defaultTrack ? 'active' : ''}" data-track="${key}"><span><strong>${track.label}</strong><small>${track.minutes}</small></span><span>Target ${guideFormatDate(guideAddDays(guideDateKey(), track.days - 1))}</span></button>`; }).join('')}
@@ -1215,7 +1219,7 @@ function renderGuide() {
   const pct = tasks.length ? Math.round(done / tasks.length * 100) : 100;
   const calendarPct = Math.round(day / plan.durationDays * 100);
   const main = el(`<main class="panel guide-page">
-    <button class="backbtn topback" id="back">&larr; MCAT</button>
+    <button class="backbtn topback" id="back">All study tools</button>
     <header class="guide-day-hero">
       <span class="label">${esc(plan.label)} &middot; Day ${day} of ${plan.durationDays}</span>
       <h1>${nextTask ? 'Today’s MCAT plan' : 'Today is complete'}</h1>
@@ -1332,4 +1336,5 @@ function resetMcatState() {
   keys.forEach(k => { try { localStorage.removeItem(k); } catch {} });
 }
 window.renderMCAT = renderMCAT;
+window.renderMCATEntry = renderMCATEntry;
 window.resetMcatState = resetMcatState;

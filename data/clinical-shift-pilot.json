@@ -1,0 +1,269 @@
+{
+  "version": 4,
+  "title": "Clinical Shift pilot",
+  "reviewStatus": "Adapted from Cortex's existing educational case bank. Formal clinician review is not yet recorded for this pilot.",
+  "rotations": [
+    {
+      "key": "emergency-medicine",
+      "name": "Emergency Medicine",
+      "description": "Prioritize urgent problems, interpret new data, and decide what happens next.",
+      "caseIds": ["em-016", "em-018", "em-015", "em-020", "em-033"]
+    },
+    {
+      "key": "cardiology",
+      "name": "Cardiology",
+      "description": "Connect symptoms, examination findings, testing, and treatment decisions.",
+      "caseIds": ["cd-001", "cd-006", "cd-055", "cd-061", "cd-019"]
+    },
+    {
+      "key": "neurology",
+      "name": "Neurology",
+      "description": "Localize the problem, rank a differential, and protect the patient from dangerous misses.",
+      "caseIds": ["nr-011", "nr-025", "nr-012", "nr-016", "nr-008"]
+    }
+  ],
+  "modelNotes": {
+    "em-016": {
+      "assessment": "32-year-old hemodynamically stable woman with abrupt recurrent regular narrow-complex tachycardia at 188 bpm without visible P waves, terminated by adenosine, consistent with AVNRT. Post-conversion ECG, electrolytes, and TSH are normal, with no pre-excitation or ischemic changes.",
+      "plan": "Acute episode managed per the stable-SVT pathway: modified Valsalva failed, and rapid IV adenosine (6 mg, then 12 mg) converted her to sinus rhythm on continuous monitoring. After observation, discharge with return precautions, caffeine reduction, instruction in vagal maneuvers, and outpatient cardiology follow-up; discuss elective ablation if episodes become frequent or poorly tolerated."
+    },
+    "em-018": {
+      "assessment": "50-year-old man on warfarin with delayed headache, confusion, gait instability, and focal right-sided findings after head trauma. CT shows a 12-mm left crescentic mixed-density extra-axial collection crossing sutures with 6-mm midline shift, consistent with an acute-on-subacute subdural hematoma with mass effect; INR 3.8.",
+      "plan": "Hold warfarin and urgently reverse anticoagulation with four-factor PCC plus IV vitamin K, rechecking INR after infusion to confirm correction. Obtain immediate neurosurgical consultation for operative evacuation, admit to an ICU for close neurologic and intracranial-pressure monitoring with repeat imaging, and avoid restarting anticoagulation until neurosurgery determines it is safe."
+    },
+    "em-015": {
+      "assessment": "78-year-old man with recurrent abrupt syncope and symptomatic bradycardia. ECG shows complete AV dissociation with atrial rate 88, ventricular escape 38, and wide QRS, confirming third-degree AV block.",
+      "plan": "Stop AV-nodal-blocking medication, place the patient on continuous monitoring with pacing pads, and begin transcutaneous pacing with analgesia/sedation, confirming both electrical and mechanical capture, while preparing for urgent transvenous pacing (epinephrine or dopamine infusion as backup if capture fails). Obtain cardiology or electrophysiology consultation and arrange permanent pacemaker implantation; evaluate reversible contributors (trend the pending troponin to exclude acute ischemia; check potassium and magnesium) and admit to a monitored CCU bed, but do not delay pacing in this symptomatic patient."
+    },
+    "em-020": {
+      "assessment": "59-year-old man with poorly controlled diabetes and septic physiology, rapidly progressive perineal pain out of proportion, necrosis, crepitus, and CT-demonstrated soft-tissue gas. Findings are diagnostic of Fournier gangrene with septic shock physiology (hypotension, lactate 4.2 mmol/L) and acute kidney injury.",
+      "plan": "Begin sepsis resuscitation with 30 mL/kg balanced crystalloid and norepinephrine for persistent hypotension, obtain blood cultures, start broad IV coverage for gram-positive, gram-negative, anaerobic, and toxin-producing organisms, such as vancomycin plus piperacillin-tazobactam and clindamycin, and proceed immediately to extensive surgical debridement without delaying for further testing. Admit to the ICU for serial re-debridement, hemodynamic support, glucose control, and later reconstruction."
+    },
+    "em-033": {
+      "assessment": "29-year-old woman at approximately 7 weeks' gestation with acute abdominal pain, shock, hemoglobin 8.1, positive hCG, empty uterus, left adnexal mass, and intraperitoneal free fluid, consistent with ruptured ectopic pregnancy and hemorrhagic shock. Blood type O negative.",
+      "plan": "Stabilize airway, breathing, and circulation; place large-bore IV access, type and cross, and activate blood-product resuscitation with O-negative packed red cells as needed. Obtain immediate obstetric and gynecologic surgical intervention by laparoscopy or laparotomy, admit postoperatively to a monitored bed for ongoing hemodynamic and transfusion surveillance, trend CBC, coagulation, and hemodynamics, and administer Rho(D) immune globulin."
+    },
+    "cd-001": {
+      "assessment": "61-year-old man with reproducible exertional substernal pressure relieved by rest, unchanged over three months. Exercise ECG reproduced symptoms with 1.5-mm horizontal ST depression in V4-V6, supporting chronic stable angina from obstructive coronary artery disease; no resting or unstable features are present.",
+      "plan": "Begin a beta-blocker such as metoprolol succinate for symptom control and prescribe sublingual nitroglycerin with use and emergency instructions. Start aspirin 81 mg daily and high-intensity atorvastatin with adherence counseling, plus smoking cessation, blood-pressure control, and close cardiology follow-up; escalate anatomic evaluation if symptoms persist or risk increases."
+    },
+    "cd-006": {
+      "assessment": "68-year-old man with new symptomatic atrial fibrillation and rapid ventricular response at 138-152 bpm, hemodynamically stable, likely precipitated by an alcohol binge. Troponin, electrolytes, TSH, and chest radiograph show no alternate acute trigger; CHA2DS2-VASc score is 3.",
+      "plan": "Use IV diltiazem for acute rate control with telemetry. Start long-term anticoagulation with a direct oral anticoagulant such as apixaban after bleeding-risk review, counsel alcohol reduction, obtain echocardiographic and cardiology follow-up, and reassess rhythm-control options based on duration, symptoms, and anticoagulation status."
+    },
+    "cd-055": {
+      "assessment": "17-year-old athlete with exertional syncope, exertional chest tightness, family history of sudden death, and a systolic murmur that increases with Valsalva. ECG and echocardiography show asymmetric septal hypertrophy, systolic anterior motion, mitral regurgitation, and a resting LVOT gradient of 60 mmHg, confirming obstructive hypertrophic cardiomyopathy with high-risk syncope.",
+      "plan": "Immediately restrict intense competitive sports and start a nonvasodilating beta-blocker. Refer urgently to a hypertrophic-cardiomyopathy and electrophysiology center for sudden-death risk stratification \u2014 including ambulatory ECG monitoring and cardiac MRI \u2014 and ICD evaluation, counsel hydration and avoidance of preload-reducing drugs, and screen all first-degree relatives with ECG and echocardiography with genetic counseling as appropriate."
+    },
+    "cd-061": {
+      "assessment": "26-year-old man who injects drugs with 10 days of fever, a tricuspid regurgitation murmur, leukocytosis, and bilateral peripheral cavitary pulmonary nodules, highly concerning for Staphylococcus aureus tricuspid-valve infective endocarditis with septic pulmonary emboli.",
+      "plan": "Obtain at least three blood-culture sets before antibiotics, then start IV vancomycin and narrow to culture results (an antistaphylococcal beta-lactam such as cefazolin for MSSA). Repeat blood cultures every 24\u201348 hours to document clearance and time the 4\u20136-week IV course from the first negative set. Obtain transthoracic echocardiography, followed by transesophageal echocardiography if nondiagnostic, admit for monitored IV therapy and complication surveillance, involve infectious disease and cardiology, follow up the pending fourth-generation HIV test and screen for hepatitis B and C, and offer addiction treatment and harm-reduction support."
+    },
+    "cd-019": {
+      "assessment": "39-year-old woman three weeks postpartum with inferior STEMI, rising troponin, and no traditional atherosclerotic risk factors, consistent with pregnancy-associated spontaneous coronary artery dissection causing acute myocardial infarction.",
+      "plan": "Treat in a monitored cardiac setting with aspirin and conservative management when coronary flow and hemodynamics are stable, avoiding unnecessary instrumentation; add beta-blockade, which is associated with lower SCAD recurrence, and control blood pressure. Revascularize with PCI or CABG if ongoing ischemia or instability develops. Arrange cardiac rehabilitation, screen for extracoronary fibromuscular dysplasia, and counsel about recurrence and future-pregnancy risk."
+    },
+    "nr-011": {
+      "assessment": "58-year-old woman with brief position-triggered vertigo and no auditory or focal neurologic symptoms. Right Dix-Hallpike testing produces delayed, transient, fatigable upbeating-torsional nystagmus, confirming right posterior-canal BPPV.",
+      "plan": "Perform an Epley canalith-repositioning maneuver and repeat it if nystagmus persists. Avoid scheduled vestibular suppressants, provide fall precautions and a home repositioning program, and reassess within one month to confirm resolution, with imaging or further workup if symptoms become persistent, atypical, or accompanied by central neurologic findings."
+    },
+    "nr-025": {
+      "assessment": "24-year-old man with a witnessed generalized tonic-clonic seizure, postictal confusion, lateral tongue injury, and incontinence. Glucose, electrolytes, toxicology, CT, MRI, and EEG are normal, supporting a first unprovoked seizure without an identified structural lesion.",
+      "plan": "Defer antiseizure medication after an individualized recurrence-risk discussion given the normal MRI and EEG, and arrange prompt neurology follow-up. Enforce local driving restrictions and seizure precautions, including no swimming alone, unprotected heights, or sleep deprivation; provide return instructions for a recurrent or prolonged seizure."
+    },
+    "nr-012": {
+      "assessment": "45-year-old man with 18 hours of continuous acute vestibular syndrome after an upper respiratory infection. HINTS is peripheral, with an abnormal right head impulse, unidirectional left-beating nystagmus, and no skew; hearing is intact and no focal deficits are present, consistent with right vestibular neuritis.",
+      "plan": "Use antiemetics and vestibular suppressants as needed for no more than the first 72 hours, stopping them promptly, and begin mobilization and vestibular rehabilitation as soon as he can tolerate it; consider a short early corticosteroid course after contraindication review. Give stroke return precautions: return immediately for new weakness, numbness, double vision, slurred speech, trouble swallowing, severe headache, new hearing loss, or inability to stand or walk \u2014 with urgent MRI and stroke evaluation if any of these develop or the re-examination turns central (normal head impulse, direction-changing nystagmus, or skew)."
+    },
+    "nr-016": {
+      "assessment": "22-year-old man after temporal head trauma with a lucid interval followed by rapid neurologic decline, left pupillary dilation, and right weakness. CT shows a 22-mm left biconvex epidural hematoma with temporal fracture, 9-mm midline shift, and early uncal herniation, consistent with middle meningeal artery injury.",
+      "plan": "Secure the airway and ventilation as needed and activate neurosurgery for immediate craniotomy and evacuation. While moving to the operating room, elevate the head 30 degrees with the neck midline, give hypertonic saline or mannitol, use only brief controlled hyperventilation for active herniation, prevent hypoxia and hypotension, maintain cervical spine precautions until cleared, and start 7-day post-traumatic seizure prophylaxis (levetiracetam)."
+    },
+    "nr-008": {
+      "assessment": "38-year-old man with right neck and facial pain after cervical manipulation, painful partial Horner syndrome, and transient contralateral sensory symptoms. CTA shows flame-shaped right internal-carotid narrowing with intramural hematoma, confirming internal carotid artery dissection without established infarct.",
+      "plan": "Admit to a monitored stroke unit for serial neurologic checks, begin antithrombotic therapy with an antiplatelet agent or anticoagulation after contraindication review, obtain stroke and neurology consultation, and monitor for cerebral or retinal ischemia. Avoid further neck manipulation, arrange follow-up vascular imaging, and reserve endovascular treatment for recurrent ischemia or selected refractory disease."
+    }
+  },
+  "investigations": {
+    "em-015": {
+      "interview": [
+        { "prompt": "Ask about the fainting episodes and recovery", "finding": "He had three abrupt syncopal episodes in two days without warning, followed by quick recovery and no postictal confusion, tongue injury, or head trauma." },
+        { "prompt": "Ask about symptoms between episodes", "finding": "Between events he feels fatigued, dizzy, and short of breath with minimal exertion. He has noticed a very slow pulse at home." },
+        { "prompt": "Review cardiac history and medications", "finding": "History includes prior anterior MI, hypertension, and diabetes. Medications include metoprolol 50 mg daily; there were no recent medication changes or illnesses." }
+      ],
+      "exam": [
+        { "prompt": "Assess mental status and perfusion", "finding": "He is alert but pale and fatigued, mildly hypotensive and bradycardic, with mildly delayed capillary refill." },
+        { "prompt": "Examine the heart and neck veins", "finding": "The rhythm is slow and regular with varying S1 intensity and occasional cannon A waves. There is no murmur or gallop." },
+        { "prompt": "Perform a focused neurologic and pulmonary exam", "finding": "The neurologic exam is nonfocal, lungs are clear, and there is no peripheral edema." }
+      ]
+    },
+    "em-016": {
+      "interview": [
+        { "prompt": "Characterize the palpitations", "finding": "The fast, regular pounding began abruptly 40 minutes ago at rest. Several similar episodes over the past year ended spontaneously within minutes." },
+        { "prompt": "Ask about instability or cardiopulmonary symptoms", "finding": "She has mild lightheadedness and throat fluttering but denies chest pain, syncope, or significant dyspnea." },
+        { "prompt": "Ask about triggers and arrhythmia risks", "finding": "She drinks two to three coffees daily and had extra caffeine today. She has no cardiac history, recent illness, thyroid symptoms, recreational stimulant or sympathomimetic drug use, or family history of sudden death." }
+      ],
+      "exam": [
+        { "prompt": "Assess hemodynamic stability and perfusion", "finding": "She is alert, mildly anxious, normally mentating, and well perfused without respiratory distress." },
+        { "prompt": "Auscultate the heart and check the pulse", "finding": "There is a rapid, regular tachycardia with normal heart sounds, no murmur, and rapid regular peripheral pulses of good volume." },
+        { "prompt": "Look for heart-failure or thyroid findings", "finding": "Lungs are clear, there is no JVD or edema, and the neck has no thyromegaly." }
+      ]
+    },
+    "em-018": {
+      "interview": [
+        { "prompt": "Ask about the injury and symptom timeline", "finding": "He struck his head on tile 10 days ago. After only a brief initial headache, he developed three days of worsening headache, drowsiness, confusion, gait difficulty, and vomiting." },
+        { "prompt": "Review bleeding risk and medications", "finding": "He has atrial fibrillation treated with warfarin and believes his recent INR was a little high. He also drinks alcohol regularly." },
+        { "prompt": "Ask about new focal or infectious symptoms", "finding": "His wife reports new word-finding difficulty and right-hand clumsiness. He has had no fever, neck stiffness, or seizures." }
+      ],
+      "exam": [
+        { "prompt": "Assess consciousness and orientation", "finding": "He is drowsy but arousable and oriented to person and place, but not date." },
+        { "prompt": "Perform a focused neurologic exam", "finding": "There is right pronator drift, subtle right-hand clumsiness, mild word-finding hesitancy, and a wide-based unsteady gait." },
+        { "prompt": "Look for trauma and raised-pressure clues", "finding": "There is left parietal scalp tenderness without laceration. Pupils are equal and reactive, and no papilledema or neck rigidity is seen." }
+      ]
+    },
+    "em-020": {
+      "interview": [
+        { "prompt": "Ask about the pain and skin progression", "finding": "Perineal and scrotal pain, swelling, and discoloration worsened rapidly over 24 hours, with pain far out of proportion and a crackling sensation." },
+        { "prompt": "Ask about infection source and risk factors", "finding": "He has poorly controlled diabetes, obesity, tobacco use, and a perianal abscess drained two weeks ago. He now reports foul-smelling discharge." },
+        { "prompt": "Ask about systemic symptoms", "finding": "He has fever, chills, malaise, nausea, poor intake, and orthostatic lightheadedness." }
+      ],
+      "exam": [
+        { "prompt": "Inspect the perineum and scrotum", "finding": "Dusky erythematous-to-violaceous skin, tense edema, areas of necrosis, and foul serosanguinous discharge are present." },
+        { "prompt": "Palpate for extent, tenderness, and crepitus", "finding": "Tenderness extends beyond the erythema with palpable crepitus, patchy anesthesia, and pain out of proportion extending toward the lower abdominal wall." },
+        { "prompt": "Assess systemic toxicity and perfusion", "finding": "He is toxic, diaphoretic, tachycardic, and hypotensive with delayed capillary refill." }
+      ]
+    },
+    "em-033": {
+      "interview": [
+        { "prompt": "Ask about pregnancy possibility and bleeding", "finding": "Her last menstrual period was about seven weeks ago. She has had two days of light vaginal spotting and uses condoms inconsistently." },
+        { "prompt": "Characterize the pain and collapse", "finding": "Sudden severe left lower-quadrant pain became diffuse, followed by near-syncope, increasing weakness, feeling cold, and new right shoulder discomfort." },
+        { "prompt": "Ask about ectopic-pregnancy risks", "finding": "She has a prior medically managed ectopic pregnancy and a history of chlamydial pelvic inflammatory disease." }
+      ],
+      "exam": [
+        { "prompt": "Assess appearance, mentation, and perfusion", "finding": "She is pale, diaphoretic, cool, clammy, and slow to respond, with delayed capillary refill." },
+        { "prompt": "Examine the abdomen", "finding": "The abdomen is diffusely tender, worst in the left lower quadrant, with guarding, rebound, and mild distension." },
+        { "prompt": "Perform a focused pelvic examination", "finding": "There is scant dark blood at the cervical os, marked cervical-motion tenderness, and severe left adnexal tenderness with fullness." }
+      ]
+    },
+    "cd-001": {
+      "interview": [
+        { "prompt": "Characterize the chest discomfort", "finding": "He describes a tight substernal band radiating to the left shoulder, lasting three to five minutes and resolving completely with rest." },
+        { "prompt": "Ask about pattern and unstable features", "finding": "Symptoms occur reliably after two uphill blocks or two flights of stairs and have not changed for three months. There is no rest or nocturnal pain." },
+        { "prompt": "Review vascular risks and medications", "finding": "He has hypertension, hyperlipidemia, a 30 pack-year smoking history, and paternal MI at 58. He often misses atorvastatin doses." }
+      ],
+      "exam": [
+        { "prompt": "Examine the heart, lungs, and neck veins", "finding": "Heart sounds and rhythm are normal without murmur, rub, or gallop; lungs are clear and JVP is not elevated." },
+        { "prompt": "Assess pulses, bruits, and volume status", "finding": "Pulses are symmetric, no carotid or femoral bruits are heard, and there is no edema or abdominal pulsatile mass." },
+        { "prompt": "Try to reproduce the pain mechanically", "finding": "The chest wall is nontender, and pain is not reproduced by palpation, arm movement, or deep inspiration." }
+      ]
+    },
+    "cd-006": {
+      "interview": [
+        { "prompt": "Ask about onset and concerning symptoms", "finding": "Palpitations began abruptly six hours ago with mild exertional breathlessness and fatigue. There is no chest pain, syncope, fever, or cough." },
+        { "prompt": "Ask about possible triggers", "finding": "He drank five or six alcoholic drinks at a wedding last night, far more than usual, and denies stimulant or decongestant use." },
+        { "prompt": "Review stroke-risk history", "finding": "He is 68 with hypertension and diabetes, but no prior stroke, heart failure, or vascular disease." }
+      ],
+      "exam": [
+        { "prompt": "Assess the cardiac rhythm and pulse", "finding": "There is an irregularly irregular tachycardia with variable S1 and a radial pulse deficit." },
+        { "prompt": "Look for poor perfusion or heart failure", "finding": "He is alert, warm, and well perfused. Lungs are clear, JVP is normal, and there is no edema." },
+        { "prompt": "Look for hyperthyroid findings", "finding": "The thyroid is normal in size without nodules, and there is no tremor." }
+      ]
+    },
+    "cd-055": {
+      "interview": [
+        { "prompt": "Clarify the collapse and recovery", "finding": "He collapsed without warning while sprinting, was unresponsive for about 20 seconds, and awoke immediately oriented without tongue injury, incontinence, or confusion." },
+        { "prompt": "Ask about prior exertional symptoms", "finding": "He admits to two prior lightheaded spells during sprints and occasional exertional chest tightness." },
+        { "prompt": "Ask about family cardiac history", "finding": "A paternal uncle died suddenly at 38 while swimming, and his father was once told he had thick heart walls." }
+      ],
+      "exam": [
+        { "prompt": "Auscultate the murmur with maneuvers", "finding": "A harsh systolic murmur at the left lower sternal border and apex grows louder with Valsalva and standing, and softens with squatting and handgrip." },
+        { "prompt": "Assess the precordium and carotid pulse", "finding": "The PMI is forceful but nondisplaced, an S4 is present, and the carotid upstroke is brisk and bifid without carotid radiation." },
+        { "prompt": "Perform a neurologic and volume-status exam", "finding": "Neurologic findings are normal; JVP is normal, lungs are clear, and there is no edema." }
+      ]
+    },
+    "cd-061": {
+      "interview": [
+        { "prompt": "Ask about infectious and constitutional symptoms", "finding": "He has had 10 days of fever, drenching night sweats, fatigue, anorexia, and 4 kg of unintentional weight loss." },
+        { "prompt": "Ask about injection practices and exposure risks", "finding": "He injects heroin several times daily, reuses needles, has unstable housing, and has never been tested for HIV." },
+        { "prompt": "Ask about pulmonary or embolic symptoms", "finding": "For three days he has had pleuritic chest pain, dyspnea, and a productive cough occasionally streaked with blood." }
+      ],
+      "exam": [
+        { "prompt": "Examine the heart and neck veins", "finding": "A soft holosystolic murmur at the left lower sternal border augments with inspiration; JVP is mildly elevated." },
+        { "prompt": "Examine the lungs and respiratory status", "finding": "He is in mild respiratory distress with scattered bilateral crackles." },
+        { "prompt": "Look for injection sites and endocarditis stigmata", "finding": "Fresh and healed track marks are present. No splinter hemorrhages, Osler nodes, Janeway lesions, or conjunctival lesions are identified." }
+      ]
+    },
+    "cd-019": {
+      "interview": [
+        { "prompt": "Characterize the acute chest pain", "finding": "Severe substernal pressure radiating to the left arm began suddenly at rest one hour ago with diaphoresis and nausea." },
+        { "prompt": "Ask about pregnancy and postpartum timing", "finding": "She delivered her first child by uncomplicated vaginal delivery three weeks ago and is currently breastfeeding." },
+        { "prompt": "Review coronary and vascular risks", "finding": "She has no diabetes, hypertension, hyperlipidemia, smoking, cocaine use, or premature family coronary disease. Prior renal imaging noted mild fibromuscular features." }
+      ],
+      "exam": [
+        { "prompt": "Assess hemodynamics and ongoing distress", "finding": "She is anxious and diaphoretic with ongoing chest pain but remains hemodynamically stable and well perfused." },
+        { "prompt": "Examine the heart and lungs", "finding": "Heart sounds and rhythm are normal without murmur, gallop, or rub; lungs are clear and there are no signs of heart failure." },
+        { "prompt": "Look for vascular asymmetry or thromboembolism", "finding": "Pulses are symmetric, no bruits are heard, and there is no edema or calf tenderness." }
+      ]
+    },
+    "nr-011": {
+      "interview": [
+        { "prompt": "Ask about timing and positional triggers", "finding": "Spinning begins seconds after rolling right, looking up, or bending forward, lasts 20 to 40 seconds, and resolves completely between spells." },
+        { "prompt": "Ask about auditory symptoms", "finding": "She denies hearing loss, tinnitus, or ear fullness." },
+        { "prompt": "Screen for central neurologic symptoms", "finding": "She denies headache, diplopia, dysarthria, numbness, weakness, or gait difficulty between episodes." }
+      ],
+      "exam": [
+        { "prompt": "Inspect for spontaneous or gaze-evoked nystagmus", "finding": "No spontaneous or gaze-evoked nystagmus is present while she sits comfortably between spells." },
+        { "prompt": "Test gait and cerebellar function", "finding": "Coordination, regular and tandem gait, and Romberg testing are normal." },
+        { "prompt": "Check hearing and the ears", "finding": "Hearing is grossly symmetric and otoscopy shows normal mobile tympanic membranes without effusion." }
+      ]
+    },
+    "nr-025": {
+      "interview": [
+        { "prompt": "Obtain a witness description of the event", "finding": "He cried out, became rigid, and had generalized shaking for 60 to 90 seconds with frothing and urinary incontinence, followed by about 20 minutes of confusion." },
+        { "prompt": "Ask about potential provoking factors", "finding": "He has slept only three to four hours nightly but denies drugs, heavy alcohol use or withdrawal, trauma, fever, or headache." },
+        { "prompt": "Ask about prior and family seizure history", "finding": "He has never had a seizure, takes no medications, and has no family history of epilepsy or sudden death." }
+      ],
+      "exam": [
+        { "prompt": "Assess recovery and seizure-related injury", "finding": "He is fully alert and back to baseline. A fresh laceration is present on the left lateral tongue." },
+        { "prompt": "Perform a complete neurologic exam", "finding": "Cranial nerves, strength, reflexes, sensation, coordination, gait, and Romberg testing are normal." },
+        { "prompt": "Look for infection or systemic illness", "finding": "There is no neck stiffness, photophobia, rash, or cardiopulmonary abnormality." }
+      ]
+    },
+    "nr-012": {
+      "interview": [
+        { "prompt": "Clarify duration and positional behavior", "finding": "Severe vertigo has been continuous for 18 hours and persists at rest, although any head movement worsens it. He has vomited four times." },
+        { "prompt": "Ask about hearing and ear symptoms", "finding": "He denies hearing change, tinnitus, or ear fullness." },
+        { "prompt": "Screen for central symptoms and vascular risks", "finding": "He denies headache, neck pain, diplopia, dysarthria, dysphagia, sensory loss, or weakness. He has hypertension and a 20 pack-year smoking history." }
+      ],
+      "exam": [
+        { "prompt": "Characterize the nystagmus", "finding": "Spontaneous horizontal left-beating nystagmus intensifies on left gaze, lessens on right gaze, and dampens with visual fixation." },
+        { "prompt": "Test cranial nerves and limb coordination", "finding": "Hearing, speech, facial function, strength, and finger-to-nose testing are normal, without limb ataxia." },
+        { "prompt": "Assess stance and gait", "finding": "He can stand unassisted but veers to the right while walking." }
+      ]
+    },
+    "nr-016": {
+      "interview": [
+        { "prompt": "Clarify the injury and lucid interval", "finding": "He was struck over the left temple, lost consciousness for about one minute, then woke and conversed normally before later deterioration." },
+        { "prompt": "Ask about symptom progression", "finding": "Over 30 minutes he developed severe worsening left-sided headache, two episodes of vomiting, confusion, and increasing sleepiness." },
+        { "prompt": "Review medications and bleeding risks", "finding": "He takes no medications or anticoagulants, has no known bleeding disorder, and drank two beers earlier." }
+      ],
+      "exam": [
+        { "prompt": "Assess GCS and pupils", "finding": "GCS is 11. The left pupil is 5 mm and sluggish; the right is 3 mm and brisk." },
+        { "prompt": "Perform a focused motor exam", "finding": "There is right pronator drift, right-sided 4-/5 weakness, symmetric reflexes, and an extensor right plantar response." },
+        { "prompt": "Inspect for external head trauma", "finding": "A boggy hematoma overlies the left temporal scalp. No battle sign or raccoon eyes are present yet." }
+      ]
+    },
+    "nr-008": {
+      "interview": [
+        { "prompt": "Ask about onset and recent neck events", "finding": "Right neck and facial pain began the day after cervical spinal manipulation; ptosis and a smaller right pupil developed over the next two days." },
+        { "prompt": "Ask about visual and Horner-type symptoms", "finding": "He noticed partial right eyelid droop and miosis but denies diplopia or vision loss." },
+        { "prompt": "Screen for transient neurologic symptoms and vascular risks", "finding": "He had brief left-hand tingling that resolved, without current weakness or dysarthria. He has no major medical or smoking history." }
+      ],
+      "exam": [
+        { "prompt": "Examine pupils, eyelids, and eye movements", "finding": "There is partial right ptosis and reactive right miosis with preserved facial sweating. Eye movements, acuity, and visual fields are normal." },
+        { "prompt": "Perform a complete neurologic exam", "finding": "Apart from the right partial ptosis and reactive miosis, speech, cranial nerves, strength, sensation, coordination, and gait are normal." },
+        { "prompt": "Examine the neck and carotid region", "finding": "The right anterolateral neck is tender, but no carotid bruit is heard and the cardiac rhythm is regular." }
+      ]
+    }
+  }
+}

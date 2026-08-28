@@ -30,7 +30,7 @@ function ccmaSoapValid(s) {
 async function ccmaLoadSoap() {
   if (ccmaSoapReady) return;
   try {
-    const r = await fetch('data/ccma-soap.json?v=2');
+    const r = await fetch('data/ccma-soap.json?v=5');
     if (!r.ok) throw new Error('http ' + r.status);
     const data = await r.json();
     const list = Array.isArray(data) ? data : (data.scenarios || []);

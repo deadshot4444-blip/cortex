@@ -1,5 +1,9 @@
 /share  /share.html  200
 
+# Clinical Scenarios share link — its own og card, then an instant client
+# redirect to /practice. Share THIS url to get the clinical thumbnail.
+/share/clinical  /share-clinical.html  200
+
 # Proxy the visitor counter through our own domain so the browser never makes a
 # third-party request on load (keeps Safari/Brave privacy shields from flagging
 # the page). Netlify fetches abacus server-side; the client only sees first-party.
@@ -9,6 +13,7 @@
 # available for a future reorganization without leaving dead course screens.
 /genetics  /  302
 /ccma  /  302
+/cogpsych  /  302
 
 # SPA fallback: serve the app for section deep-links (e.g. /medicine, /mcat).
 # Must stay last — Netlify serves real static files first, then falls back here.

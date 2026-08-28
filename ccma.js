@@ -434,9 +434,9 @@ function renderCcmaHome() {
         <span class="gen-mode-go">Study →</span>
       </button>
       <button class="gen-mode-card gen-mode-hero cornerframe" data-mode="soap">
-        <span class="gen-mode-tag">real-world · EHR simulator</span>
-        <h2>Clinic Sim — SOAP notes</h2>
-        <p>Sit at a simulated exam-room workstation and work real MA visits: verify ID, take &amp; flag vitals, document the visit, and sort every finding into the right SOAP bucket. Charts rotate — learn the job, not just the test.</p>
+        <span class="gen-mode-tag">real-world · type into the EHR</span>
+        <h2>Clinic Sim — chart a patient</h2>
+        <p>Sit at a real EHR workstation and <b>type</b> the visit: clock in, pull the chart by verifying ID, transcribe vitals, then write the chief complaint, HPI, and note in your own words. Graded on the clinical elements you capture — with a live Do-Not-Use abbreviation check.</p>
         <span class="gen-mode-go">Clock in →</span>
       </button>
       <button class="gen-mode-card gen-mode-hero cornerframe" data-mode="mock">
@@ -531,7 +531,7 @@ function renderCcmaHome() {
   main.querySelectorAll('[data-mode]').forEach(b => b.addEventListener('click', () => {
     const m = b.dataset.mode;
     if (m === 'learn') renderCcmaLearnHome();
-    else if (m === 'soap') renderCcmaSoapHome();
+    else if (m === 'soap') renderCcmaChart();
     else if (m === 'smart') startCcmaSmart();
     else if (m === 'blitz') startCcmaBlitz();
     else if (m === 'chapter') renderCcmaChapterPick();

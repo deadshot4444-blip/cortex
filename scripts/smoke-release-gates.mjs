@@ -54,6 +54,18 @@ for (const viewport of viewports) {
   if (clinicalNavLabel !== 'Clinical Scenarios' || clinicalNavVisibleText !== expectedClinicalNavText) {
     throw new Error(`Clinical navigation label is wrong: ${JSON.stringify({ clinicalNavLabel, clinicalNavVisibleText, expectedClinicalNavText })}`);
   }
+  await clinicalNav.click();
+  await page.waitForURL(new URL('practice', base).href);
+  await page.waitForSelector('.cshift-hub');
+  const clinicalShiftHeading = (await page.locator('.cshift-hub h1').textContent())?.trim();
+  const clinicalRotationCount = await page.locator('[data-shift-specialty]').count();
+  const clinicalLegacyClutterCount = await page.locator('.cs-config, #mixed, .cs-grid').count();
+  const clinicalReviewStatus = (await page.locator('.cshift-content-status').textContent())?.trim() || '';
+  if (clinicalShiftHeading !== 'Start your shift.' || clinicalRotationCount !== 3
+      || clinicalLegacyClutterCount !== 0 || !clinicalReviewStatus.includes('Formal clinician review is not yet recorded')) {
+    throw new Error(`Clinical Shift landing is wrong: ${JSON.stringify({ clinicalShiftHeading, clinicalRotationCount, clinicalLegacyClutterCount, clinicalReviewStatus })}`);
+  }
+  await assertNoOverflow('Clinical Shift hub');
   await page.click('[data-menu="mcat"]');
   await page.waitForSelector('#mcat-panel:not([hidden])');
   const mcatMenuItems = (await page.locator('#mcat-panel .mi-name').allTextContents()).map(label => label.trim());
@@ -65,6 +77,14 @@ for (const viewport of viewports) {
   await assertNoOverflow('MCAT menu');
   await page.click('#mcat-panel [data-go="mcat"]');
   await page.waitForURL(new URL('mcat', base).href);
+  await page.waitForSelector('.guide-setup-hero');
+  const guideEntryHeading = (await page.locator('.guide-setup-hero h1').textContent())?.trim();
+  const guideTrackCount = await page.locator('[data-track]').count();
+  if (guideEntryHeading !== 'Choose your pace.' || guideTrackCount !== 3) {
+    throw new Error(`First MCAT visit did not open plan setup: ${JSON.stringify({ guideEntryHeading, guideTrackCount })}`);
+  }
+  await assertNoOverflow('Guided MCAT setup');
+  await page.click('#back');
   await page.waitForSelector('.mcat-landing');
   const mcatHeading = (await page.locator('.mcat-simple-hero h1').textContent())?.trim();
   const mcatCoreToolCount = await page.locator('#mcat-core-tools [data-mcat-tool]').count();
@@ -85,7 +105,6 @@ for (const viewport of viewports) {
   await page.waitForSelector('.mcat-landing');
   await page.click('#mc-enter');
   await page.waitForSelector('.guide-setup-hero');
-  const guideTrackCount = await page.locator('[data-track]').count();
   await page.click('[data-track="60"]');
   const guideSelectedTrack = (await page.locator('.guide-track.active strong').textContent())?.trim();
   await page.click('#begin');
@@ -98,6 +117,14 @@ for (const viewport of viewports) {
     throw new Error(`Guided MCAT setup is wrong: ${JSON.stringify({ guideTrackCount, guideSelectedTrack, guideDayLabel, guideTaskCount, guideInitialDoneCount })}`);
   }
   await assertNoOverflow('Guided MCAT dashboard');
+  await page.reload({ waitUntil: 'networkidle' });
+  await page.waitForSelector('.guide-day-hero');
+  const guideSavedGameHeading = (await page.locator('.guide-day-hero h1').textContent())?.trim();
+  const guideLandingCount = await page.locator('.mcat-landing').count();
+  if (guideSavedGameHeading !== 'Today’s MCAT plan' || guideLandingCount !== 0) {
+    throw new Error(`Returning MCAT visit did not open the saved dashboard: ${JSON.stringify({ guideSavedGameHeading, guideLandingCount })}`);
+  }
+  await assertNoOverflow('Returning MCAT saved-game dashboard');
   await page.click('#guide-next');
   await page.waitForSelector('.flash-stage');
   const guideFlashProgress = (await page.locator('.topstat').textContent())?.trim() || '';
@@ -144,29 +171,36 @@ for (const viewport of viewports) {
     throw new Error(`MCAT/Stats navigation is wrong: ${JSON.stringify({ statsHeading, mcatParentActiveOnStats, statsAriaCurrent, mcatClosedByEscape, focusedMenuAfterEscape })}`);
   }
 
-  await page.goto(base.href, { waitUntil: 'networkidle' });
+  await page.goto(new URL('?gates=prod', base).href, { waitUntil: 'networkidle' });
   await page.evaluate(() => document.querySelector('[data-go="reference"]')?.click());
   await page.waitForSelector('.comingsoon');
   const medicineLabel = (await page.locator('.cs-box .label').textContent())?.trim();
   if (medicineLabel !== 'Medicine · Under construction') throw new Error(`Medicine gate label is wrong: ${medicineLabel}`);
   await assertNoOverflow('Medicine gate');
 
-  await page.goto(base.href, { waitUntil: 'networkidle' });
+  await page.goto(new URL('?gates=prod', base).href, { waitUntil: 'networkidle' });
   await page.click('.topbar.mainbar .nav > [data-go="socrates"]');
   await page.waitForURL(new URL('learn', base).href);
   await page.waitForSelector('.comingsoon');
   const learnLabel = (await page.locator('.cs-box .label').textContent())?.trim();
   const learnPrimaryActive = await page.locator('.topbar.mainbar .nav > [data-go="socrates"]').evaluate(button => button.classList.contains('active'));
-  if (learnLabel !== 'Learn to Learn · Under construction' || !learnPrimaryActive) {
+  if (learnLabel !== 'Learn to Learn · Coming soon' || !learnPrimaryActive) {
     throw new Error(`Learn flagship gate is wrong: ${JSON.stringify({ learnLabel, learnPrimaryActive })}`);
   }
   await assertNoOverflow('Learn to Learn gate');
-  await page.goto(new URL('learn', base).href, { waitUntil: 'networkidle' });
+  await page.goto(new URL('learn?gates=prod', base).href, { waitUntil: 'networkidle' });
   await page.waitForSelector('.comingsoon');
   const directLearnLabel = (await page.locator('.cs-box .label').textContent())?.trim();
-  if (directLearnLabel !== 'Learn to Learn · Under construction') throw new Error(`Direct Learn gate is wrong: ${directLearnLabel}`);
+  if (directLearnLabel !== 'Learn to Learn · Coming soon') throw new Error(`Direct Learn gate is wrong: ${directLearnLabel}`);
 
-  await page.goto(base.href, { waitUntil: 'networkidle' });
+  await page.goto(new URL('?gates=prod', base).href, { waitUntil: 'networkidle' });
+  await page.evaluate(() => document.querySelector('[data-go="neuro"]')?.click());
+  await page.waitForSelector('.comingsoon');
+  const neuroGateLabel = (await page.locator('.cs-box .label').textContent())?.trim();
+  if (neuroGateLabel !== 'Neuroengineering · Under construction') throw new Error(`Neuro gate label is wrong: ${neuroGateLabel}`);
+  await assertNoOverflow('Neuroengineering gate');
+
+  await page.goto(new URL('?gates=prod', base).href, { waitUntil: 'networkidle' });
   await page.click('[data-menu="mcat"]');
   await page.click('[data-menu="explore"]');
   const mcatExpandedAfterExplore = await page.locator('[data-menu="mcat"]').getAttribute('aria-expanded');
@@ -176,39 +210,20 @@ for (const viewport of viewports) {
   const quickLabels = (await page.locator('.menu-quick .menuquick').allTextContents()).map(label => label.trim());
   if (mcatExpandedAfterExplore !== 'false' || exploreExpanded !== 'true'
       || medicineMenuTag !== 'Under construction'
-      || JSON.stringify(exploreLearningPaths) !== JSON.stringify(['Anatomy', 'Medicine', 'Cognitive Psychology'])
+      || JSON.stringify(exploreLearningPaths) !== JSON.stringify(['Anatomy', 'Medicine'])
       || JSON.stringify(quickLabels) !== JSON.stringify(['Focus timer', 'UTSA & UT Health'])) {
     throw new Error(`Explore menu organization is wrong: ${JSON.stringify({ mcatExpandedAfterExplore, exploreExpanded, medicineMenuTag, exploreLearningPaths, quickLabels })}`);
   }
   await assertNoOverflow('Explore menu');
 
-  await page.click('#explore-panel [data-go="cogpsych"]');
-  await page.waitForURL(new URL('cogpsych', base).href);
-  await page.waitForSelector('.cog-course-home');
-  const cogHeading = (await page.locator('.cog-simple-hero h1').textContent())?.trim();
-  const cogChapterCount = await page.locator('[data-course-chapter]').count();
-  const cogPracticeCount = await page.locator('.cog-practice-list [data-mode]').count();
-  const cogSimpleFoldCount = await page.locator('.cog-simple-fold').count();
-  const cogPresentationSectionCount = await page.locator('.cog-learning-method, .cog-course-section').count();
-  const cogLegacyDashboardCount = await page.locator('.gen-statrow, .gen-modes, .gen-cols').count();
-  if (cogHeading !== 'Cognitive Psychology' || cogChapterCount !== 13
-      || cogPracticeCount !== 5 || cogSimpleFoldCount !== 1
-      || cogPresentationSectionCount !== 0 || cogLegacyDashboardCount !== 0) {
-    throw new Error(`Cognitive Psychology is not simple and course-first: ${JSON.stringify({ cogHeading, cogChapterCount, cogPracticeCount, cogSimpleFoldCount, cogPresentationSectionCount, cogLegacyDashboardCount })}`);
-  }
-  await assertNoOverflow('Cognitive Psychology course home');
-  await page.click('[data-course-action="continue"]');
-  await page.waitForSelector('.gen-lesson');
-  const cogFirstLesson = (await page.locator('.gen-lesson-title').textContent())?.trim();
-  await page.click('#gen-exit');
-  await page.waitForSelector('.cog-curriculum-page');
-  const cogLessonCount = await page.locator('[data-lesson]').count();
-  if (cogFirstLesson !== 'What it took to read this sentence' || cogLessonCount !== 70) {
-    throw new Error(`Cognitive Psychology course flow is wrong: ${JSON.stringify({ cogFirstLesson, cogLessonCount })}`);
-  }
-  await assertNoOverflow('Cognitive Psychology curriculum');
+  const cogMenuCount = await page.locator('#explore-panel [data-go="cogpsych"]').count();
+  if (cogMenuCount !== 0) throw new Error('Cognitive Psychology is still in the Explore menu');
+  await page.goto(new URL('cogpsych?gates=prod', base).href, { waitUntil: 'networkidle' });
+  await page.waitForFunction(() => location.pathname === '/');
+  const cogRetiredCourseCount = await page.locator('.cog-course-home, .cog-simple-hero').count();
+  if (cogRetiredCourseCount !== 0) throw new Error('Retired /cogpsych still renders the course');
 
-  await page.goto(base.href, { waitUntil: 'networkidle' });
+  await page.goto(new URL('?gates=prod', base).href, { waitUntil: 'networkidle' });
   await page.click('[data-menu="mcat"]');
   await page.click('#mcat-panel [data-go="stats"]');
   await page.waitForSelector('#stats-medpath');
@@ -224,9 +239,9 @@ for (const viewport of viewports) {
   const whatsNewItems = await page.locator('.upd-featured-list li').count();
   const priorPublicVersion = (await page.locator('.updates-history .upd-ver').first().textContent())?.trim();
   if (versionText !== `v${APP_VERSION}`
-      || whatsNewTitle !== 'A clearer course experience and a real MCAT study plan'
-      || whatsNewItems !== 3
-      || priorPublicVersion !== 'v1.25.18') {
+      || whatsNewTitle !== 'Clinical Shift, a taught PED course, and a saved-game MCAT hub'
+      || whatsNewItems !== 10
+      || priorPublicVersion !== 'v1.25.23') {
     throw new Error(`What's New is not the cumulative ${APP_VERSION} release: ${JSON.stringify({ versionText, whatsNewTitle, whatsNewItems, priorPublicVersion })}`);
   }
   await assertNoOverflow("What's New");
@@ -234,7 +249,7 @@ for (const viewport of viewports) {
   if (medicineAssets.length) throw new Error(`Construction gates loaded Medicine assets: ${medicineAssets.join(', ')}`);
   if (learnAssets.length) throw new Error(`Construction gate loaded Learn to Learn assets: ${learnAssets.join(', ')}`);
   if (errors.length) throw new Error(`${viewport.name} page errors: ${errors.join(' | ')}`);
-  results.push({ viewport, primaryOrder, clinicalNavLabel, clinicalNavVisibleText, learnVisibleText, mcatHeading, mcatCoreToolCount, mcatSupportToolCount, mcatFoldCount, mcatOpenFoldCount, mcatLegacyClutterCount, mcatFirstToolHeading, guideTrackCount, guideSelectedTrack, guideDayLabel, guideTaskCount, guideFlashTotal, guideReturnLabel, guideDoneCount, guideDrillCrumb, guideResumeLabel, mcatMenuItems, mcatMenuDescriptions, statsHeading, mcatParentActiveOnStats, statsAriaCurrent, medicineLabel, learnLabel, directLearnLabel, learnPrimaryActive, medicineMenuTag, exploreLearningPaths, quickLabels, cogHeading, cogChapterCount, cogPracticeCount, cogFirstLesson, cogLessonCount, statsGateLabel, versionText, whatsNewTitle, whatsNewItems, priorPublicVersion, medicineAssets, learnAssets, errors });
+  results.push({ viewport, primaryOrder, clinicalNavLabel, clinicalNavVisibleText, clinicalShiftHeading, clinicalRotationCount, clinicalLegacyClutterCount, clinicalReviewStatus, learnVisibleText, guideEntryHeading, mcatHeading, mcatCoreToolCount, mcatSupportToolCount, mcatFoldCount, mcatOpenFoldCount, mcatLegacyClutterCount, mcatFirstToolHeading, guideTrackCount, guideSelectedTrack, guideDayLabel, guideTaskCount, guideSavedGameHeading, guideLandingCount, guideFlashTotal, guideReturnLabel, guideDoneCount, guideDrillCrumb, guideResumeLabel, mcatMenuItems, mcatMenuDescriptions, statsHeading, mcatParentActiveOnStats, statsAriaCurrent, medicineLabel, learnLabel, directLearnLabel, learnPrimaryActive, neuroGateLabel, medicineMenuTag, exploreLearningPaths, quickLabels, cogMenuCount, cogRetiredCourseCount, statsGateLabel, versionText, whatsNewTitle, whatsNewItems, priorPublicVersion, medicineAssets, learnAssets, errors });
   await context.close();
 }
 

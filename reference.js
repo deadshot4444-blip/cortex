@@ -240,6 +240,38 @@ const PHARM_CATS = {
   'nsaids': 'NSAIDs, gout & DMARDs', 'diabetes': 'Diabetes drugs', 'endocrine': 'Thyroid & steroids',
   'gi': 'GI drugs', 'respiratory': 'Respiratory drugs',
 };
+const PHARM_CLASS_GROUPS = [
+  {
+    id: 'autonomic',
+    name: 'Autonomic nervous system',
+    desc: 'Receptors, sympathetic tone, parasympathetic tone, and effector organs.',
+    cats: ['cholinergics', 'anticholinergics', 'adrenergic-agonists', 'adrenergic-antagonists'],
+  },
+  {
+    id: 'cardio',
+    name: 'Cardiovascular, renal & blood',
+    desc: 'Pressure, volume, rhythm, ischemia, lipids, and coagulation.',
+    cats: ['diuretics', 'ace-arb', 'beta-blockers', 'ccb', 'antiarrhythmics', 'antianginal', 'lipid', 'anticoagulants'],
+  },
+  {
+    id: 'infectious',
+    name: 'Infectious disease',
+    desc: 'Antibacterial, antifungal, antiviral, and antimycobacterial therapy.',
+    cats: ['penicillins', 'cephalosporins', 'protein-synth', 'quinolones-sulfa', 'antifungal-antiviral', 'antitubercular'],
+  },
+  {
+    id: 'neuro',
+    name: 'Neuropsychiatry, pain & inflammation',
+    desc: 'Mood, psychosis, seizure, sedation, analgesia, and immune modulation.',
+    cats: ['antidepressants', 'antipsychotics', 'sedatives', 'antiepileptics', 'opioids', 'nsaids'],
+  },
+  {
+    id: 'systems',
+    name: 'Endocrine & organ systems',
+    desc: 'Metabolic, thyroid, steroid, gastrointestinal, and respiratory therapy.',
+    cats: ['diabetes', 'endocrine', 'gi', 'respiratory'],
+  },
+];
 const MICRO_CATS = {
   'gram-pos-cocci': 'Gram + cocci', 'gram-pos-rods': 'Gram + rods', 'gram-neg-cocci': 'Gram − cocci',
   'enterics': 'Enteric rods', 'curved-gn': 'Curved gram −', 'zoonotic-gn': 'Zoonotic gram −',
@@ -305,7 +337,9 @@ function medicineHubSnapshot() {
   const pharmN = pharmUniqueLearnedCount(REF.pharm);
   const continueLabel = path.complete
     ? 'Path complete · review any area'
-    : `Continue · ${path.next.node.title}`;
+    : path.next?.node
+      ? `Continue · ${path.next.node.title}`
+      : 'Start the Medicine path';
   return {
     pathDone: path.done, pathTotal: path.total, pathPct: path.pct, pathPhases: path.phases,
     pathComplete: path.complete, continueLabel, next: path.next, pharmN, pharmDrillAcc: drillAcc(PHARM_PROG),
@@ -333,39 +367,65 @@ async function renderReference() {
   root.appendChild(topbar('reference'));
   const hub = medicineHubSnapshot();
   const freeNote = typeof cortexFreeNote === 'function'
-    ? cortexFreeNote('Medicine free for now', 'Medicine reference')
+    ? cortexFreeNote('Medicine', 'Medicine reference')
     : '';
-  const phaseStrip = Object.keys(MED_PHASE_LABEL).map(ph => {
+  const phaseKeys = Object.keys(MED_PHASE_LABEL);
+  const activePhase = hub.next?.node?.phase || null;
+  const phaseStrip = phaseKeys.map((ph, index) => {
     const st = hub.pathPhases[ph] || { done: 0, total: 0 };
     const pct = st.total ? Math.round(100 * st.done / st.total) : 0;
-    const locked = isMedicinePhaseLocked(ph);
-    return `<div class="med-phase ${locked ? 'med-phase--locked' : ''}">
-      <span class="med-phase-lab">${esc(MED_PHASE_LABEL[ph])}</span>
-      <span class="bar"><i style="width:${pct}%"></i></span>
-      <span class="med-phase-stat">${st.done}/${st.total}</span>
-    </div>`;
+    const complete = st.total > 0 && st.done === st.total;
+    return `<li class="medx-phase ${complete ? 'is-complete' : ''} ${activePhase === ph ? 'is-current' : ''}">
+      <span class="medx-phase-no">${complete ? '&#10003;' : String(index + 1).padStart(2, '0')}</span>
+      <span class="medx-phase-copy"><strong>${esc(MED_PHASE_LABEL[ph])}</strong><small>${st.done}/${st.total} steps complete</small></span>
+      <span class="medx-phase-bar" role="progressbar" aria-label="${esc(MED_PHASE_LABEL[ph])} progress" aria-valuemin="0" aria-valuemax="${st.total}" aria-valuenow="${st.done}"><i style="width:${pct}%"></i></span>
+    </li>`;
   }).join('');
-  const main = el(`<main class="panel med-hub">
-    <div class="hero"><h1>Medicine.</h1><p class="sub">One study path &mdash; pharmacology, performance drugs, micro, labs, then ECG. <strong>Continue</strong> always takes the next step. Cards below are free browse &amp; drill.</p></div>
-    ${freeNote}
-    <div class="ped-pathband">
-      <div class="ped-pathband-head">
-        <span class="label">Study path</span>
-        <span class="ped-pathstat">${hub.pathDone}/${hub.pathTotal} &middot; ${hub.pathPct}%</span>
+  const nextTitle = hub.pathComplete ? 'Path complete' : hub.next?.node?.title || 'Cholinergics';
+  const nextMeta = hub.pathComplete
+    ? `All ${hub.pathTotal} steps complete`
+    : `${MED_PHASE_LABEL[hub.next?.node?.phase] || 'Medicine'} · Step ${(hub.next?.index || 0) + 1} of ${hub.pathTotal}`;
+  const main = el(`<main class="panel med-hub medx-hub">
+    <section class="medx-hero">
+      <div class="medx-hero-top"><span class="label">Clinical knowledge system</span><span class="medx-count">5 disciplines &middot; 81 steps</span></div>
+      <h1>Medicine.</h1>
+      <p class="sub">Build the drug, organism, laboratory, and rhythm knowledge that clinical reasoning depends on. Follow one guided sequence—or open the reference you need.</p>
+      ${freeNote}
+    </section>
+    <section class="medx-resume" aria-label="Recommended next step">
+      <div class="medx-resume-copy">
+        <span class="label">${hub.pathComplete ? 'Path complete' : hub.pathDone ? 'Continue learning' : 'Start here'}</span>
+        <h2>${esc(nextTitle)}</h2>
+        <p>${esc(nextMeta)}</p>
       </div>
-      <span class="bar"><i style="width:${hub.pathPct}%"></i></span>
-    </div>
-    <div class="med-phases">${phaseStrip}</div>
-    <div class="ped-cta-row">
-      <button class="btn btn-solid" id="medcontinue">${esc(hub.continueLabel)}</button>
-    </div>
-    <span class="label med-mods-label">Browse &amp; drill</span>
-    <div class="mcat-mods"></div>
+      <div class="medx-resume-progress">
+        <div class="medx-progress-number"><strong>${hub.pathDone}</strong><span>of ${hub.pathTotal}</span></div>
+        <div class="medx-progress-bar" role="progressbar" aria-label="Medicine study path progress" aria-valuemin="0" aria-valuemax="${hub.pathTotal}" aria-valuenow="${hub.pathDone}"><i style="width:${hub.pathPct}%"></i></div>
+        <button class="btn btn-solid" id="medcontinue">${hub.pathComplete ? 'Review the path' : hub.pathDone ? 'Continue' : 'Begin the path'}</button>
+      </div>
+    </section>
+    <details class="medx-map">
+      <summary><span><b>View the full study path</b><small>Pharmacology through ECG, in a recommended order.</small></span><span>${hub.pathPct}% <i aria-hidden="true">+</i></span></summary>
+      <div class="medx-map-body">
+        <p>The path is a guide, not a gate. You can open any reference below at any time.</p>
+        <ol class="medx-phases">${phaseStrip}</ol>
+      </div>
+    </details>
+    <section class="medx-library" aria-labelledby="medx-library-title">
+      <div class="medx-section-head">
+        <div><span class="label">Reference library</span><h2 id="medx-library-title">Choose a discipline.</h2></div>
+        <p>Guided learning, fast lookup, and recall drills live together inside each workspace.</p>
+      </div>
+      <div class="medx-library-list"></div>
+    </section>
     <p class="anat-credit">Original study content, independently reviewed. For study, not a substitute for prescribing references or your clinical judgment.</p>
   </main>`);
-  main.querySelector('#medcontinue').addEventListener('click', medicineContinue);
+  main.querySelector('#medcontinue').addEventListener('click', () => {
+    if (hub.pathComplete) renderRefSet('pharm', 'classes');
+    else medicineContinue();
+  });
 
-  const mc = main.querySelector('.mcat-mods');
+  const library = main.querySelector('.medx-library-list');
   const uniquePharm = pharmUniqueLearnedCount(REF.pharm);
   const pharmDrill = PHARM_PROG.drill.total ? `${PHARM_PROG.drill.correct}/${PHARM_PROG.drill.total} drilled` : null;
   const pharmStat = uniquePharm
@@ -380,65 +440,70 @@ async function renderReference() {
     : LABS_PROG.guidedSection ? `${LABS_PROG.guidedSection}/${labsPanels.length} panels`
     : LABS_PROG.drill.total ? `${drillAcc(LABS_PROG)}% drill` : `${(REF.labs || []).length} labs`;
 
-  [['pharm', 'Pharmacology', 'Class map · guided learn · MOA & pearl drill', pharmStat],
-   ['micro', 'Microbiology', 'Guided groups · browse · bug ID drill', microStat],
-   ['labs', 'Lab values', 'Panel-by-panel learn · ranges · pattern drill', labsStat]].forEach(([k, nm, desc, stat]) => {
-    const n = (REF[k] || []).length;
-    const card = el(`<button class="modcard" ${n ? '' : 'disabled'}>
-      <span class="mod-name">${esc(nm)}</span>
-      <span class="mod-desc">${esc(desc)}</span>
-      <span class="mod-stat">${n ? esc(stat) : 'generating&hellip;'}</span>
+  const addLibraryRow = ({ id, number, name, kicker, desc, stat, onClick, disabled = false }) => {
+    const card = el(`<button class="medx-library-row medx-library-${id}" ${disabled ? 'disabled' : ''}>
+      <span class="medx-library-no">${number}</span>
+      <span class="medx-library-copy"><small>${esc(kicker)}</small><strong>${esc(name)}</strong><span>${esc(desc)}</span></span>
+      <span class="medx-library-stat">${disabled ? 'Loading&hellip;' : esc(stat)}</span>
+      <span class="medx-library-go" aria-hidden="true">&rarr;</span>
     </button>`);
-    if (n) card.addEventListener('click', () => {
-      const phase = k;
-      if (isMedicinePhaseLocked(phase)) { medicineShowPathLock(); return; }
-      touchMedicine(k, k === 'pharm' ? 'classes' : 'learn');
-      if (k === 'pharm') renderRefSet('pharm', 'classes');
-      else {
-        const p = medicinePathProgress();
-        const node = p.next?.node?.phase === phase ? p.next.node : null;
-        renderRefSet(k, 'learn', node ? { section: node.key } : {});
-      }
-    });
-    if (isMedicinePhaseLocked(k)) card.classList.add('modcard--locked');
-    mc.appendChild(card);
+    if (!disabled) card.addEventListener('click', onClick);
+    library.appendChild(card);
+  };
+
+  const openRefArea = (key) => {
+    touchMedicine(key, key === 'pharm' ? 'classes' : 'learn');
+    if (key === 'pharm') renderRefSet('pharm', 'classes');
+    else {
+      const p = medicinePathProgress();
+      const node = p.next?.node?.phase === key ? p.next.node : null;
+      renderRefSet(key, 'learn', node ? { section: node.key } : {});
+    }
+  };
+
+  addLibraryRow({
+    id: 'pharm', number: '01', name: 'Pharmacology', kicker: 'Drug knowledge',
+    desc: 'Mechanisms, indications, adverse effects, and clinical pearls.',
+    stat: pharmStat, disabled: !(REF.pharm || []).length, onClick: () => openRefArea('pharm'),
   });
   if (typeof renderPerformanceDrugs === 'function') {
     const pd = typeof pedStatsSnapshot === 'function' ? pedStatsSnapshot() : null;
     const pedStat = pd?.has ? `${pd.complete}/${pd.total} modules · ${pd.pct}%` : '11-module course';
-    const ped = el(`<button class="modcard">
-      <span class="mod-name">Performance drugs</span>
-      <span class="mod-desc">3-part path — hormone classes, axis flowcharts, agents &amp; clinical</span>
-      <span class="mod-stat">${pedStat}</span>
-    </button>`);
-    ped.addEventListener('click', () => {
-      if (isMedicinePhaseLocked('ped')) { medicineShowPathLock(); return; }
+    addLibraryRow({
+      id: 'ped', number: '02', name: 'Performance drugs', kicker: 'Hormones & physiology',
+      desc: 'Hormone classes, axis flowcharts, agents, risks, and clinical detection.',
+      stat: pedStat, onClick: () => {
       touchMedicine('ped', 'hub');
       renderPerformanceDrugs('hub');
+      },
     });
-    if (isMedicinePhaseLocked('ped')) ped.classList.add('modcard--locked');
-    mc.appendChild(ped);
   }
+  addLibraryRow({
+    id: 'micro', number: '03', name: 'Microbiology', kicker: 'Organism recognition',
+    desc: 'Morphology, diseases, treatments, and pattern-based identification.',
+    stat: microStat, disabled: !(REF.micro || []).length, onClick: () => openRefArea('micro'),
+  });
+  addLibraryRow({
+    id: 'labs', number: '04', name: 'Lab values', kicker: 'Clinical patterns',
+    desc: 'Reference ranges, high and low patterns, panels, and interpretation.',
+    stat: labsStat, disabled: !(REF.labs || []).length, onClick: () => openRefArea('labs'),
+  });
   if (typeof renderEKG === 'function') {
     const ek = typeof ekgHubStats === 'function' ? ekgHubStats() : null;
     const ekTotal = ek?.total || (typeof ekgHubStats === 'function' ? ekgHubStats().total : 20) || 20;
     const ekStat = ek?.has
       ? `${ek.reviewed}/${ekTotal} reviewed${ek.drillAcc != null ? ` · ${ek.drillAcc}% drill` : ''}`
       : `${ekTotal} rhythms`;
-    const ekCard = el(`<button class="modcard">
-      <span class="mod-name">ECG rhythms</span>
-      <span class="mod-desc">Library with review tracking &mdash; category drill</span>
-      <span class="mod-stat">${ekStat}</span>
-    </button>`);
-    ekCard.addEventListener('click', () => {
-      if (isMedicinePhaseLocked('ekg')) { medicineShowPathLock(); return; }
+    addLibraryRow({
+      id: 'ekg', number: '05', name: 'ECG rhythms', kicker: 'Pattern recognition',
+      desc: 'Live tracings, rhythm features, review tracking, and category drills.',
+      stat: ekStat, onClick: () => {
       touchMedicine('ekg', 'library');
       const p = medicinePathProgress();
       const node = p.next?.node?.phase === 'ekg' ? p.next.node : null;
       renderEKG('library', node ? { focus: node.key } : {});
+      },
     });
-    if (isMedicinePhaseLocked('ekg')) ekCard.classList.add('modcard--locked');
-    mc.appendChild(ekCard);
   }
 
   root.appendChild(main);
@@ -489,16 +554,29 @@ function renderRefSet(key, tab = 'browse', opts = {}) {
         ? `${LABS_PROG.guidedDone ? 'Learn complete · ' : ''}${data.length} ${cfg.noun}${drillAcc(LABS_PROG) != null ? ` · ${drillAcc(LABS_PROG)}% drill` : ''}`
         : `${data.length} ${cfg.noun} across ${Object.keys(cfg.catMap).length} groups.`;
   const tabs = isPharm
-    ? `<button class="tab ${tab === 'classes' ? 'active' : ''}" data-tab="classes">Classes</button>
-       <button class="tab ${tab === 'learn' ? 'active' : ''}" data-tab="learn">Learn</button>
-       <button class="tab ${tab === 'browse' ? 'active' : ''}" data-tab="browse">Browse</button>
-       <button class="tab ${tab === 'quiz' ? 'active' : ''}" data-tab="quiz">Drill</button>`
-    : `<button class="tab ${tab === 'learn' ? 'active' : ''}" data-tab="learn">Learn</button>
-       <button class="tab ${tab === 'browse' ? 'active' : ''}" data-tab="browse">Browse</button>
-       <button class="tab ${tab === 'quiz' ? 'active' : ''}" data-tab="quiz">Drill</button>`;
-  const main = el(`<main class="panel">
-    <div class="hero"><h1>${esc(cfg.name)}.</h1><p class="sub">${sub}</p></div>
-    <div class="tabs">${tabs}<button class="ghostbtn refback" id="refback" style="margin-left:auto">&larr; Medicine</button></div>
+    ? `<button class="tab ${tab === 'classes' ? 'active' : ''}" data-tab="classes" role="tab" aria-selected="${tab === 'classes'}">Class map</button>
+       <button class="tab ${tab === 'learn' ? 'active' : ''}" data-tab="learn" role="tab" aria-selected="${tab === 'learn'}">Guided learn</button>
+       <button class="tab ${tab === 'browse' ? 'active' : ''}" data-tab="browse" role="tab" aria-selected="${tab === 'browse'}">Browse all</button>
+       <button class="tab ${tab === 'quiz' ? 'active' : ''}" data-tab="quiz" role="tab" aria-selected="${tab === 'quiz'}">Recall drill</button>`
+    : `<button class="tab ${tab === 'learn' ? 'active' : ''}" data-tab="learn" role="tab" aria-selected="${tab === 'learn'}">Guided learn</button>
+       <button class="tab ${tab === 'browse' ? 'active' : ''}" data-tab="browse" role="tab" aria-selected="${tab === 'browse'}">Browse all</button>
+       <button class="tab ${tab === 'quiz' ? 'active' : ''}" data-tab="quiz" role="tab" aria-selected="${tab === 'quiz'}">Recall drill</button>`;
+  const workspaceNo = isPharm ? '01' : isMicro ? '03' : '04';
+  const workspaceDesc = isPharm
+    ? 'Organize drugs by system, learn the mechanism first, then retrieve the name and clinical pearl.'
+    : isMicro
+      ? 'Learn organisms as recognizable patterns, then test identification across similar groups.'
+      : 'Build panel-level patterns before memorizing isolated ranges.';
+  const main = el(`<main class="panel med-workspace med-workspace-${key}">
+    <button class="med-workspace-back" id="refback">&larr; Medicine overview</button>
+    <section class="med-workspace-hero">
+      <div class="med-workspace-route"><span>Medicine</span><i>/</i><span>${workspaceNo}</span></div>
+      <span class="label">Reference workspace</span>
+      <h1>${esc(cfg.name)}.</h1>
+      <p>${esc(workspaceDesc)}</p>
+      <span class="med-workspace-stat">${esc(sub)}</span>
+    </section>
+    <div class="tabs med-workspace-tabs" role="tablist" aria-label="${esc(cfg.name)} study modes">${tabs}</div>
     <div id="refbody"></div>
   </main>`);
   main.querySelector('#refback').addEventListener('click', renderReference);
@@ -514,31 +592,70 @@ function renderRefSet(key, tab = 'browse', opts = {}) {
   else buildQuiz(body, cfg, data, { ...opts, key });
   root.appendChild(main);
   setView(root);
+  requestAnimationFrame(() => {
+    const centerActive = (rail, active) => {
+      if (!rail || !active || rail.scrollWidth <= rail.clientWidth) return;
+      rail.scrollLeft = Math.max(0, active.offsetLeft - (rail.clientWidth - active.offsetWidth) / 2);
+    };
+    centerActive(main.querySelector('.med-workspace-tabs'), main.querySelector('.med-workspace-tabs .tab.active'));
+    centerActive(main.querySelector('.refchips'), main.querySelector('.refchips .refchip.active'));
+  });
 }
 
 function buildPharmClasses(body, cfg, data, skipLede) {
   let cats = medicinePathKeys('pharm').filter(c => data.some(d => d[cfg.catField] === c));
   if (!cats.length) cats = Object.keys(cfg.catMap).filter(c => data.some(d => d[cfg.catField] === c));
-  if (!skipLede) body.appendChild(el(`<p class="pharm-lede">Pick a drug class. <strong>Learn</strong> walks MOA → uses → toxicities → pearl. <strong>Drill</strong> tests recall.</p>`));
-  const grid = el(`<div class="pharm-classgrid"></div>`);
-  body.appendChild(grid);
-  cats.forEach(cat => {
-    const n = data.filter(d => d[cfg.catField] === cat).length;
-    const learned = pharmClassLearnedCount(cat, data);
-    const acc = pharmCatStats(cat);
-    const locked = isMedicinePathNodeLocked(`pharm:${cat}`);
-    const done = pharmClassComplete(cat, data);
-    const card = el(`<button class="pharm-classcard ${locked ? 'pharm-classcard--locked' : ''} ${done ? 'pharm-classcard--done' : ''}" type="button">
-      <span class="pharm-classname">${esc(cfg.catMap[cat])}${locked ? ' <span class="mod-lock">locked</span>' : ''}${done ? ' <span class="pill ok">done</span>' : ''}</span>
-      <span class="pharm-classmeta">${learned ? `${learned}/${n} studied` : `${n} drugs`}${acc != null ? ` · ${acc}% drilled` : ''}</span>
-      ${learned && learned < n ? `<span class="ped-modbar"><i style="width:${Math.round(100 * learned / n)}%"></i></span>` : ''}
-    </button>`);
-    card.addEventListener('click', () => {
-      if (locked) { medicineShowPathLock(); return; }
-      touchMedicine('pharm', `learn:${cat}`);
-      renderRefSet('pharm', 'learn', { cat });
+  if (!skipLede) body.appendChild(el(`<section class="pharm-map-intro">
+    <span class="label">28 classes &middot; 5 clinical systems</span>
+    <h2>Find the system before the drug.</h2>
+    <p>Open one system at a time. Each class leads into guided mechanism-first learning, then recall practice.</p>
+  </section>`));
+
+  const assigned = new Set(PHARM_CLASS_GROUPS.flatMap(group => group.cats));
+  const extraCats = cats.filter(cat => !assigned.has(cat));
+  const groups = PHARM_CLASS_GROUPS
+    .map(group => ({ ...group, cats: group.cats.filter(cat => cats.includes(cat)) }))
+    .filter(group => group.cats.length);
+  if (extraCats.length) groups.push({ id: 'other', name: 'Additional classes', desc: 'Remaining pharmacology categories.', cats: extraCats });
+
+  const nextPathNode = medicinePathProgress().next?.node;
+  const nextCat = nextPathNode?.phase === 'pharm' ? nextPathNode.key : null;
+  const wrap = el(`<div class="pharm-classgroups"></div>`);
+  body.appendChild(wrap);
+
+  groups.forEach((group, groupIndex) => {
+    const groupTotal = group.cats.reduce((sum, cat) => sum + data.filter(d => d[cfg.catField] === cat).length, 0);
+    const groupLearned = group.cats.reduce((sum, cat) => sum + pharmClassLearnedCount(cat, data), 0);
+    const shouldOpen = nextCat ? group.cats.includes(nextCat) : groupIndex === 0;
+    const section = el(`<details class="pharm-classgroup" ${shouldOpen ? 'open' : ''}>
+      <summary>
+        <span class="pharm-group-no">${String(groupIndex + 1).padStart(2, '0')}</span>
+        <span class="pharm-group-copy"><strong>${esc(group.name)}</strong><small>${esc(group.desc)}</small></span>
+        <span class="pharm-group-stat">${groupLearned}/${groupTotal} studied</span>
+        <span class="pharm-group-toggle" aria-hidden="true">+</span>
+      </summary>
+      <div class="pharm-classgrid"></div>
+    </details>`);
+    const grid = section.querySelector('.pharm-classgrid');
+    group.cats.forEach(cat => {
+      const n = data.filter(d => d[cfg.catField] === cat).length;
+      const learned = pharmClassLearnedCount(cat, data);
+      const acc = pharmCatStats(cat);
+      const locked = isMedicinePathNodeLocked(`pharm:${cat}`);
+      const done = pharmClassComplete(cat, data);
+      const card = el(`<button class="pharm-classcard ${locked ? 'pharm-classcard--locked' : ''} ${done ? 'pharm-classcard--done' : ''}" type="button">
+        <span class="pharm-classname">${esc(cfg.catMap[cat])}${locked ? ' <span class="mod-lock">locked</span>' : ''}${done ? ' <span class="pill ok">done</span>' : ''}</span>
+        <span class="pharm-classmeta">${learned ? `${learned}/${n} studied` : `${n} drugs`}${acc != null ? ` · ${acc}% drilled` : ''}</span>
+        ${learned && learned < n ? `<span class="ped-modbar"><i style="width:${Math.round(100 * learned / n)}%"></i></span>` : ''}
+      </button>`);
+      card.addEventListener('click', () => {
+        if (locked) { medicineShowPathLock(); return; }
+        touchMedicine('pharm', `learn:${cat}`);
+        renderRefSet('pharm', 'learn', { cat });
+      });
+      grid.appendChild(card);
     });
-    grid.appendChild(card);
+    wrap.appendChild(section);
   });
 }
 

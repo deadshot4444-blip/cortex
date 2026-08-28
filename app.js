@@ -32,8 +32,15 @@ const NAME_BY_KEY = Object.fromEntries(SPECIALTIES.map(s => [s.key, s.name]));
 
 // Sections gated from public use. Construction sections stay visible, but their
 // full course experiences remain closed until Kevin finishes evaluating them.
-const UNDER_CONSTRUCTION = new Set(['reference', 'socrates']);
-const COMING_SOON = new Set(['anatomy', ...UNDER_CONSTRUCTION]);
+// The gates lift on localhost ONLY, so in-progress sections can be evaluated in preview;
+// any deployed host keeps them closed, so this is inert in production.
+// `?gates=prod` forces production gating on localhost so the release-gate smoke suite — which
+// asserts the Under construction screens — can still test real deployed behaviour locally.
+const IS_LOCAL_PREVIEW = typeof location !== 'undefined'
+  && /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname)
+  && !/[?&]gates=prod\b/.test(location.search);
+const UNDER_CONSTRUCTION = new Set(IS_LOCAL_PREVIEW ? [] : ['reference', 'neuro']);
+const COMING_SOON = new Set(['anatomy', ...(IS_LOCAL_PREVIEW ? [] : ['socrates']), ...UNDER_CONSTRUCTION]);
 function sectionMenuTag(key) {
   if (UNDER_CONSTRUCTION.has(key)) return '<span class="mi-soon">Under construction</span>';
   if (COMING_SOON.has(key)) return '<span class="mi-soon">Soon</span>';
@@ -51,18 +58,19 @@ const SECTION_INFO = {
     label: 'Medicine',
     badge: 'Under construction',
     headline: 'Medicine is under construction.',
-    desc: 'This section is temporarily closed while its curriculum and learning flow are reviewed. It will reopen after the current Neuroengineering evaluation cycle.',
+    desc: 'This section is temporarily closed while its curriculum and learning flow are reviewed.',
   },
   socrates: {
     label: 'Learn to Learn',
-    badge: 'Under construction',
-    headline: 'Learn to Learn is under construction.',
-    desc: 'This section is temporarily closed while its curriculum and learning flow are reviewed. It will reopen after the current Neuroengineering evaluation cycle.',
+    badge: 'Coming soon',
+    headline: 'Learn to Learn is coming soon.',
+    desc: 'A course on how to actually study — memory, retrieval, and spacing — is being built. It will open once its curriculum is ready.',
   },
   neuro: {
     label: 'Neuroengineering',
-    headline: 'Build the bridge between brain and machine.',
-    desc: 'One linear track — 20 BCI Builder units from raw neural signals to a working brain–computer interface pipeline. Below it: Socratic subject study, a real in-browser Python lab, decision simulations, and the Practitioner Track.',
+    badge: 'Under construction',
+    headline: 'Neuroengineering is under construction.',
+    desc: 'The BCI Builder track is temporarily closed while its units and learning flow are reviewed and polished. It will reopen soon.',
   },
   cogpsych: {
     label: 'Cognitive Psychology',
@@ -72,7 +80,7 @@ const SECTION_INFO = {
 };
 // Local build pace: every completed update or fix advances one patch version.
 // This number can move locally; nothing ships until Kevin explicitly says ship.
-const APP_VERSION = '1.25.23';
+const APP_VERSION = '1.25.25';
 function cortexFreeNote(sectionPill, sectionName) {
   return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free</span><span class="free-note-txt">${sectionName} is free to use — no account, no paywall, no catch.</span></p>`;
 }
@@ -139,10 +147,11 @@ function saveHistory() { safeSet('cs-history', JSON.stringify(store.history.slic
 function saveStreak() { safeSet('cs-streak', JSON.stringify(store.streak)); }
 
 const SECTION_SCRIPTS = {
-  mcat: ['mcat.js?v=60'],
+  practice: ['clinical-shift.js?v=4'],
+  mcat: ['mcat.js?v=61'],
   anatomy: ['anatomy.js?v=36'],
-  reference: ['reference.js?v=49', 'performance-drugs.js?v=7', 'ekg.js?v=36'],
-  socrates: ['socrates.js?v=40'],
+  reference: ['reference.js?v=51', 'performance-drugs.js?v=25', 'ekg.js?v=36'],
+  socrates: ['socrates.js?v=45'],
   neuro: ['python-runtime.js?v=4', 'code-evaluator.js?v=2', 'neuro-practitioner.js?v=4', 'neuro.js?v=27'],
   cogpsych: ['cogpsych.js?v=8', 'cogpsych-learn.js?v=7', 'cogpsych-figs.js?v=1'],
 };
@@ -163,10 +172,12 @@ async function ensureSection(key) {
   if (!files) return;
   for (const f of files) await loadScript(f);
 }
-// MCAT is lazy-loaded like every other section; load it on demand then render.
+// MCAT is lazy-loaded like every other section. Its entry is the saved daily
+// plan (or plan setup on first use), with the complete tool library one level back.
 function gotoMCAT() {
   ensureSection('mcat').then(() => {
-    if (typeof window.renderMCAT === 'function') window.renderMCAT();
+    if (typeof window.renderMCATEntry === 'function') window.renderMCATEntry();
+    else if (typeof window.renderMCAT === 'function') window.renderMCAT();
   }).catch(err => console.error('MCAT load failed', err));
 }
 
@@ -174,6 +185,8 @@ function clearClinicalProgress() {
   store.progress = {}; store.cases = {}; store.history = [];
   store.streak = { current: 0, longest: 0, lastDate: null };
   saveProgress(); saveCases(); saveHistory(); saveStreak();
+  if (typeof window.resetClinicalShiftState === 'function') window.resetClinicalShiftState();
+  else { try { localStorage.removeItem('cs-clinical-shift-v1'); } catch {} }
 }
 function clearMcatProgress() {
   if (typeof window.resetMcatState === 'function') window.resetMcatState();
@@ -234,6 +247,32 @@ function prog(key) {
 function caseRec(id, key) {
   if (!store.cases[id]) store.cases[id] = { key, attempts: 0, lastC: null, lastT: null, bestC: 0, bookmarked: false, lastTs: null };
   return store.cases[id];
+}
+
+function recordClinicalShiftCompletion({ id, key, difficulty, correct, total, ts }) {
+  const safeTotal = Math.max(1, Number(total) || 1);
+  const safeCorrect = Math.max(0, Math.min(safeTotal, Number(correct) || 0));
+  const completedAt = Number(ts) || Date.now();
+  const p = prog(key);
+  if (!p.seen.includes(id)) p.seen.push(id);
+  p.answered += safeTotal;
+  p.correct += safeCorrect;
+
+  const rec = caseRec(id, key);
+  const isFirst = rec.attempts === 0;
+  rec.attempts++;
+  rec.lastC = safeCorrect;
+  rec.lastT = safeTotal;
+  rec.bestC = Math.max(rec.bestC || 0, safeCorrect);
+  rec.lastTs = completedAt;
+  store.history.unshift({ id, key, c: safeCorrect, t: safeTotal, timed: false, shift: true, ts: completedAt });
+
+  if (isFirst) {
+    p.xp += safeCorrect * XP_PER_CORRECT;
+    p.xp += XP_CASE_BONUS[difficulty] ?? 15;
+    if (safeCorrect === safeTotal) p.xp += XP_PERFECT;
+  }
+  saveProgress(); saveCases(); saveHistory(); bumpStreak();
 }
 function isBookmarked(id) { return !!store.cases[id]?.bookmarked; }
 function bookmarkHtml(on, label = 'Save') {
@@ -377,9 +416,9 @@ async function boot() {
    The app is a single page; this lets an inbound URL open the right section and keeps
    the address bar in sync as you navigate, so any section link is copy-able. Needs the
    `/* /index.html 200` SPA fallback in _redirects so Netlify serves the app for these paths. */
-const SEC_PATHS = { practice: 'practice', mcat: 'mcat', stats: 'stats', utsa: 'utsa', neuro: 'neuro', reference: 'medicine', socrates: 'learn', cogpsych: 'cogpsych' };
+const SEC_PATHS = { practice: 'practice', mcat: 'mcat', stats: 'stats', utsa: 'utsa', neuro: 'neuro', reference: 'medicine', socrates: 'learn' };
 const PATH_SEC = Object.fromEntries(Object.entries(SEC_PATHS).map(([k, v]) => [v, k]));
-const RETIRED_PATHS = new Set(['genetics', 'ccma']);
+const RETIRED_PATHS = new Set(['genetics', 'ccma', 'cogpsych']);
 
 async function openSection(key) {
   switch (key) {
@@ -397,11 +436,6 @@ async function openSection(key) {
       if (COMING_SOON.has('socrates')) { renderComingSoon('socrates'); return true; }
       await ensureSection('socrates');
       if (typeof renderSocrates === 'function') await renderSocrates();
-      return true;
-    case 'cogpsych':
-      if (COMING_SOON.has('cogpsych')) { renderComingSoon('cogpsych'); return true; }
-      await ensureSection('cogpsych');
-      if (typeof renderCogPsych === 'function') renderCogPsych();
       return true;
     default: return false;
   }
@@ -485,7 +519,7 @@ function topbar(active) {
       <button class="navlink ${active === 'practice' ? 'active' : ''}" data-go="practice" aria-label="Clinical Scenarios"><span class="clinical-nav-full" aria-hidden="true">Clinical Scenarios</span><span class="clinical-nav-short" aria-hidden="true">Clinical</span></button>
       <button class="navlink ${active === 'socrates' ? 'active' : ''}" data-go="socrates" aria-label="Learn to Learn"><span class="learn-nav-full" aria-hidden="true">Learn to Learn</span><span class="learn-nav-short" aria-hidden="true">Learn</span></button>
       <div class="navmenu">
-        <button class="navlink menubtn ${['anatomy', 'reference', 'utsa', 'pomodoro', 'cogpsych'].includes(active) ? 'active' : ''}" data-menu="explore" data-nav-menu aria-label="Explore" aria-expanded="false" aria-controls="explore-panel">Explore<span class="caret">&#9662;</span></button>
+        <button class="navlink menubtn ${['anatomy', 'reference', 'utsa', 'pomodoro'].includes(active) ? 'active' : ''}" data-menu="explore" data-nav-menu aria-label="Explore" aria-expanded="false" aria-controls="explore-panel">Explore<span class="caret">&#9662;</span></button>
         <div class="menupanel" id="explore-panel" aria-label="Explore Cortex" hidden>
           <div class="menu-intro">
             <span class="menu-title">Explore Cortex</span>
@@ -501,9 +535,6 @@ function topbar(active) {
               <button class="menuitem${menuActive('reference')}" data-go="reference"${menuCurrent('reference')}>
                 <span class="mi-copy"><span class="mi-name">Medicine</span><span class="mi-desc">Pharm, micro, labs &amp; ECG</span></span>
                 ${sectionMenuTag('reference')}
-              </button>
-              <button class="menuitem${menuActive('cogpsych')}" data-go="cogpsych"${menuCurrent('cogpsych')}>
-                <span class="mi-copy"><span class="mi-name">Cognitive Psychology</span><span class="mi-desc">The science of the mind</span></span>
               </button>
             </section>
           </div>
@@ -543,11 +574,6 @@ function topbar(active) {
   root.querySelector('[data-go="utsa"]').addEventListener('click', renderUTSA);
   root.querySelector('[data-go="pomodoro"]').addEventListener('click', () => { if (typeof renderPomodoro === 'function') renderPomodoro(); });
   root.querySelector('[data-go="neuro"]').addEventListener('click', () => renderNeuro());
-  root.querySelector('[data-go="cogpsych"]')?.addEventListener('click', async () => {
-    if (COMING_SOON.has('cogpsych')) { renderComingSoon('cogpsych'); return; }
-    await ensureSection('cogpsych');
-    if (typeof renderCogPsych === 'function') renderCogPsych();
-  });
   root.querySelector('[data-go="updates"]').addEventListener('click', renderUpdates);
   const navmenus = [...root.querySelectorAll('.navmenu')];
   navmenus.forEach(navmenu => {
@@ -867,6 +893,22 @@ const PRINCIPLES = [
 
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
+  {
+    date: 'August 28, 2026', version: '1.25.25', tag: 'NEW',
+    title: 'Clinical Shift, a taught PED course, and a saved-game MCAT hub',
+    items: [
+      'Clinical Scenarios now opens as Clinical Shift: choose Emergency Medicine, Cardiology, or Neurology, take a handoff, and work one hidden-diagnosis patient at a time.',
+      'You decide what to ask and what to examine — each choice adds real findings to the patient chart and counts toward your evidence score.',
+      'Charting is write-first: draft your own Assessment and Plan, then reveal a clinically preferred reference note beside your frozen draft for self-review — nothing is auto-graded.',
+      'A shift debrief reviews your differential, decisions, and documentation, and the classic case bank stays one click away.',
+      'Each hormone class now teaches before it tests: a short lesson on a small group of related agents, then recall questions on just that group, repeated, then a mixed module quiz.',
+      'Eleven lessons across steroid, peptide and amine hormones — the androgen cascade and what blocking each arm costs, the somatotropic axis and why anti-doping reads it downstream, pulsatile versus continuous GnRH, the glucose tug of war, and four ways to fake a sympathetic signal.',
+      'Questions are graded recall rather than passive reveal, with wrong answers returning later for a second look, and every detail you miss collected into a Smart review pool.',
+      'An agent counts as mastered only once all four of its details have been recalled correctly, and each module now ends in a quiz you must pass to complete it.',
+      'Every checkpoint on the axis pathways now has four questions, so the advertised 70% genuinely allows one miss instead of quietly demanding a perfect score.',
+      'MCAT Prep now opens like a saved game: first-time learners choose a plan, while returning learners land directly on today\'s assignments, progress, and resumable work.',
+    ],
+  },
   {
     date: 'August 8, 2026', version: '1.25.23', tag: 'NEW',
     title: 'A clearer course experience and a real MCAT study plan',
@@ -1510,6 +1552,18 @@ function renderMission() {
 /* ---------- home / practice ---------- */
 
 function renderHome() {
+  stopTimer();
+  session = null;
+  ensureSection('practice').then(() => {
+    if (typeof window.renderClinicalShift === 'function') window.renderClinicalShift();
+    else renderClinicalCaseBank();
+  }).catch(error => {
+    console.error('Clinical Shift load failed', error);
+    renderClinicalCaseBank();
+  });
+}
+
+function renderClinicalCaseBank() {
   stopTimer();
   session = null;
   ensureIndex();

@@ -1,3 +1,79 @@
+
+## 2026-08-08 — 🚀 SHIPPED v1.25.23 — clearer courses + guided MCAT plan
+**From:** Codex   **Status:** done — **LIVE.** Kevin approved the cumulative release and said `ship`. Commit
+`e9ecd06` was pushed to `origin/main` and verified on `cortexmedical.academy`. Cognitive Psychology is now a
+simple course-first 13-chapter / 70-lesson experience; MCAT Prep has a calmer five-tool home; and the 60/90/120
+day guide now assigns dated daily work, opens the real study tools, tracks completion and resumable work, adapts
+to measured weak areas, and transitions into exam preparation and taper phases.
+
+What’s New moves directly from public v1.25.18 to one cumulative v1.25.23 entry. The isolated release contains
+exactly seven files; unfinished Medicine, Learn to Learn, and CCMA changes stayed local. All seven production
+files match the tested release byte-for-byte. Desktop + 390px live gates pass the MCAT, Cognitive Psychology,
+navigation, Stats, and construction flows with zero errors or overflow; Neuro Unit 1 and the real Python sandbox
+also pass (`Spikes: 3`).
+
+## 2026-08-08 — 🚀 SHIPPED v1.25.18 — flagship navigation + Neuroengineering polish
+**From:** Codex   **Status:** done — **LIVE.** Kevin approved the human-tested build and said to ship it.
+Commit `a222cf5` was pushed to `origin/main` and verified on `cortexmedical.academy`. MCAT now leads with a
+focused MCAT Prep + Stats dropdown; Clinical Scenarios and Learn to Learn have clear top-level positions;
+Explore contains only Anatomy, Medicine, Cognitive Psychology, Focus Timer, and UTSA & UT Health. Learn to
+Learn and Medicine remain locked Under construction. Neuro unit-header accents and NeuroCode result insets
+received the final spacing polish.
+
+What’s New moves directly from public v1.25.13 to public v1.25.18; local pacing versions are not separate
+release entries. Production `index.html`, `app.js`, and `styles.css` match the tested commit byte-for-byte.
+Desktop + 390px release gates, full Neuro Unit 1, real Pyodide, direct routes, and a 1280→320px wide-XP
+navigation matrix all passed with zero overflow or page errors. Unfinished Medicine/L2L/CCMA work remains local.
+
+## 2026-08-07 — 🚀 SHIPPED v1.25.0 — Neuroengineering: The Track
+**From:** Hermes   **Status:** done — **LIVE.** Kevin asked for one linear start-to-finish track with the
+lessons/practice/etc. clickable below it, shipped same day. Neuro un-gated; hub rebuilt around a visible
+20-unit track with inline Practitioner milestone markers; Subjects + NeuroCode + NeuroSim + Practitioner fold
+below. Both Playwright smoke suites pass (incl. Pyodide sandbox). Commit `ec4ff59`, verified live. Ship-variant
+dance kept the unshipped Medicine/L2L work local. Details in STATE.md.
+
+## 2026-08-07 — 🚀 SHIPPED v1.24.0 — Cognitive Psychology open course + CCMA retired
+**From:** Hermes   **Status:** done — **LIVE.** Kevin: "get rid of medical assistant as a page… use [my ebook]
+in all the chapters to make a little course teaching cognitive psychology… genuine knowledge," then "ship it."
+Commit `08d4ab4` pushed, Netlify deployed, verified live (APP_VERSION 1.24.0, app.js?v=159, /cogpsych 200
+no-password, /ccma 302, 538 Q / 70 lessons served).
+
+Cogpsych is now a public lessons-first 13-chapter course: ch 10–13 source pulled from Kevin's Top Hat ebook via
+browser; 45 new lessons + 278 new MCQs authored + per-chapter adversarially verified (workflow `wf_800b0fb6-1e5`);
+ch 6–9 prose de-classed (15 fixes); COG_FIGS figures now mount in lessons; stable module tag `cogpsych-course-v1`;
+Mock/High-Yield deleted; validator rewritten (13-ch contract, green). CCMA fully unwired (files kept as orphans,
+incl. uncommitted ccma-chart.js). Old class-era cogpsych changelog entries dropped; changelog filter now
+genetics-only. **Unshipped Medicine/L2L/chart work stayed local** — commit used ship-variants of app.js/styles.css
+(socrates re-gated) and the tree was restored after. Full detail in STATE.md top entry. **Next: Genetics rebrand.**
+
+## 2026-07-24 — 🚀 SHIPPED v1.23.0 — clearer Explore + visual system
+**From:** Codex   **Status:** done — **LIVE.** Kevin approved the redesigned Explore menu and said,
+“Ship it. make it v1.23.0.” Public release commit `9bc168d` was pushed to `origin/main` and Netlify deployed it.
+Production verification at `https://cortexmedical.academy/?verify=9bc168d` returned 200 and served
+`APP_VERSION 1.23.0`, `app.js?v=157`, and `styles.css?v=128`.
+
+Release scope: the new two-column desktop / single-column mobile Explore map, active-section and keyboard
+navigation states, the cohesive full-site visual-system polish, the refined mission layout, and the MCAT
+first-open navigation fix. Verified against the exact staged snapshot at desktop and 390px mobile with no
+horizontal overflow or browser-console errors; live desktop UI also verified after deployment. Unfinished
+typed-CCMA/chart code, data, and styles were explicitly excluded from the commit.
+
+## 2026-07-11 — Grok: CCMA study system (local v1.22.0)
+
+**Ask:** Put certified medical assistant program content into Cortex, password-only, quizzes like genetics/cogpsych, track mastery for final. Sources: browser book + Desktop "Medical Assistant Terminology Lessons" (mock final included).
+
+**Done (local, NOT shipped):**
+- New section **Medical Assistant (CCMA)** — Explore menu + `/ccma`, password **`1234`**, storage `cs-ccma`
+- Engine `ccma.js` (genetics/cogpsych arcade clone): Smart Review, Blitz, Topic Drills (16 NHA-aligned topics), Exam Boss, Mock Final (180 Q), Misses, Starred, Stats, 38-lesson path
+- Bank `data/ccma-bank.json` — **292** items (180 mock final keyed + 112 high-yield domain MCQs)
+- Lessons `data/ccma-lessons.json` — L1–L38 checklist
+- Extracted lesson text → `context/ccma-build/raw/` for future expansion
+- Preview verified: wrong pass rejects, unlock works, 38 lessons, mock 1/180, smart review answers, 0 page errors
+
+**Do not ship** until Kevin says ship. Push gotcha: use `gh auth git-credential` if needed.
+
+**Next content passes:** more Qs per lesson from extracted PDFs; optional Learn teach steps; adversarial pass on mock answer key if Kevin finds mismatches.
+
 # HANDOFF — running log
 
 Codex drops directives. Claude reports back. Kevin chimes in anytime. **Newest on top.**
@@ -11,6 +87,430 @@ Format per entry:
 ```
 
 ---
+
+## 2026-08-08 — Clinical Shift pilot built for human testing
+**From:** Codex   **Status:** done — local only, **NOT shipped.** Kevin asked to start slowly on a game-like
+Clinical Scenarios overhaul where learners choose the specialty but Cortex assigns the patient. Built local
+v1.25.24 as an isolated three-rotation / 15-patient pilot: hidden handoff, independent history/exam review,
+staged chart evidence, irreversible decisions with delayed feedback, ranked top-three differential plus
+rationale, signed Assessment and Plan, and a detailed evidence-based debrief. Safety and efficiency stay
+Not assessed until reviewed consequence metadata exists; note prose receives completion credit only. All 15
+cases were semantically vetted so the diagnosis step truly asks for the diagnosis. Refresh/resume, case-history
+linkage, reset behavior, honest review-status disclosure, mobile evidence placement, and accessibility states
+are included. The original 2,599-case bank remains available as Classic case bank. Dedicated full-flow smoke
+passes at 1280×900 and 390×844 with zero overflow/errors; existing release gates also pass. Preview is open at
+`/practice`; nothing was committed, pushed, or deployed.
+
+## 2026-08-08 — What’s New made cumulative for the next public release
+**From:** Codex   **Status:** done — local only, **NOT shipped.** Kevin confirmed that public release notes
+must always summarize all work since the last ship. Replaced the separate local v1.25.19–v1.25.22 public
+entries with one cumulative v1.25.23 entry covering the course-first Cognitive Psychology redesign and
+simplification, the calmer MCAT home, and the dated guided MCAT system. The public changelog now jumps from
+live v1.25.18 directly to local v1.25.23. Cache tuple: `app.js?v=188`, `mcat.js?v=60`, `styles.css?v=150`.
+Nothing was committed, pushed, or deployed.
+
+## 2026-08-08 — MCAT daily guide rebuilt as a real study system
+**From:** Codex   **Status:** done — local only, **NOT shipped.** Kevin wanted the free resource to be worth a
+student's time and asked for a system that actually runs them through the work. Replaced the old static
+60/90/120-day week list with a dated daily plan that assigns exact flashcard, question, CARS, science-passage,
+and timed-section work. Track choice now changes daily workload and passage frequency; every fourth day can
+adapt to a measured weak category, the last 21 days become exam preparation, and the last two days taper.
+Guided tasks launch the correct tool, preserve an in-progress task for resuming, complete from real result
+screens, and return to today's queue. Existing plans auto-migrate. Local v1.25.22 passes desktop + 390px
+release gates, including creating the 60-day plan, completing 20 guided flashcards, automatic task completion,
+and drill exit/resume, with zero browser errors or horizontal overflow. Preview is open; nothing was committed,
+pushed, or deployed.
+
+## 2026-08-08 — MCAT home decluttered
+**From:** Codex   **Status:** done — local only, **NOT shipped.** Kevin said the MCAT page was an eye sore and
+felt overwhelming. Replaced the stat-heavy marketing landing page with a quiet MCAT Prep header, one Start or
+Continue action, three content totals, and five compact core study tools. Planning/progress tools and the
+learning-method explanation now stay closed until requested. Removed the default six-card stat band, category
+pitches, nine large tool cards, method-card grid, marketing extras, and duplicate closing CTA without removing
+any study feature. Local v1.25.21 passes full desktop + 390px release gates, including Flashcards entry/return,
+with zero browser errors or overflow. Preview is open; nothing was committed, pushed, or deployed.
+
+## 2026-08-08 — Cognitive Psychology simplified
+**From:** Codex   **Status:** done — local only, **NOT shipped.** Kevin asked for a more simplistic Cognitive
+Psychology experience after the course-first makeover. Reduced the home to a quiet course header, one progress
+line, a compact 13-chapter syllabus, and two closed optional sections for Practice and Progress. Removed the
+visible teaching-method presentation, chapter summaries, chapter meters, and large practice cards. Local
+v1.25.20 passes the 538-question / 70-lesson / 484-step validator and full desktop + 390px release gates with
+zero browser errors or overflow. The preview is open for human testing; nothing was committed, pushed, or
+deployed.
+
+## 2026-08-08 — Cognitive Psychology course-first makeover
+**From:** Codex   **Status:** done — local only, **NOT shipped.** Kevin said the Cognitive Psychology page
+looked like exam prep and asked for a course. Rebuilt the local v1.25.19 home around a self-paced course hero,
+Start/Continue, lesson completion, the full 13-chapter curriculum, chapter summaries, and direct chapter entry.
+The 70-lesson curriculum page now has clear chapter overviews, course progress, and a resume action. Existing
+retrieval modes remain intact but sit below the curriculum as optional reinforcement; records and achievements
+are collapsed by default. Updated the release gate to enforce the course-first hierarchy and full lesson flow.
+Validator: 538 questions / 70 lessons / 484 steps. Desktop + 390px release gates pass with zero errors or
+overflow. Local preview remains open; nothing committed, pushed, or deployed.
+
+## 2026-08-07 — 🚀 SHIPPED v1.25.13 — Neuroengineering human-testing polish
+**From:** Codex   **Status:** done — **LIVE.** Kevin completed the first Neuroengineering human-testing pass
+and explicitly said `ship`. Commit `6c5d95f` was pushed to `origin/main` and verified on
+`cortexmedical.academy`. The release focuses the hub on Foundations + a collapsible Track, moves subjects and
+labs to Lessons & Labs, adds persistent Start→Continue behavior, true-top lesson entry, clearer teaching
+hierarchy/Back controls, Submit→Next recall, reliable Quick Check/NeuroCode/NeuroSim retry/continue gates,
+Track-aligned topic ordering, and the corrected 7-sample NeuroCode target. Medicine and Learn to Learn remain
+visible but are locked behind Under construction screens, including Stats shortcuts and direct routes.
+
+The public v1.25.13 What's New entry is cumulative for everything since v1.25.1. Exact deployed files matched
+the tested ship variant by SHA-256. Full desktop + 390px mobile live smokes reached Unit 1 `Complete` with zero
+overflow/errors; the real Python sandbox returned `Spikes: 3` and passed Check. Unfinished Medicine/L2L/CCMA
+files stayed local-only.
+
+## 2026-07-14 — Codex: full-site premium visual-system polish
+**From:** Codex   **Status:** done — **SHIPPED in public v1.23.0 (`9bc168d`).** Kevin asked to keep Cortex's concept and
+clinical/technical personality while making the entire site feel cleaner, prettier, and high-end. Added a
+cohesive shared system in `styles.css`: upgraded typography/hierarchy, responsive spacing, quiet white/grey
+surfaces, restrained radii and shadows, polished buttons/forms/topbar/Explore menu, consistent cards/metrics,
+dark site-wide footer, dashboard refinements, and deliberate dark Neuro treatment. Rebuilt the mission hero
+as an editorial two-column layout with an original responsive SVG Human Systems signal map (neural/cardiac/
+molecular/cognition/clinical), then upgraded the principles, founder note, mission meter, and closing panel.
+
+Section-specific follow-through covers Practice, MCAT, Medicine, Stats, Focus Timer, Genetics/CogPsych/CCMA,
+the typed Cortex Chart workstation, updates, UTSA, and coming-soon screens. Mobile fixes include the CCMA hero
+flex-basis gap and compact 2×2 clinical session controls. Real-browser QA at 1440×1000 and 390×844: every
+major entry route renders, zero horizontal overflow, and Cortex Chart passes clock-in → 10-patient schedule →
+locked chart → two-identifier workflow. Only console error is the expected local `/cx-visits/...` 404.
+
+QA also exposed a functional MCAT regression in `app.js`: lazy-loaded `gotoMCAT()` recursively called itself,
+freezing the tab. Fixed it to call `window.renderMCAT()` after `ensureSection('mcat')`; MCAT now opens normally.
+`node --check` and `git diff --check` pass. Cache: `styles.css?v=125`, `app.js?v=153`; public `APP_VERSION`
+unchanged. Nothing committed, pushed, or deployed.
+
+## 2026-07-14 — Codex polish: Clinic Sim is now a real typed charting workflow
+**From:** Codex   **Status:** done — local only, **NOT shipped.** Kevin asked for the SOAP simulator to feel
+like using a clinic computer instead of clicking answers. Reviewed Claude's typed-EHR draft and fixed the
+realism/QA gaps: locked identity banner/title until strict name+DOB verification; patient/interview/room
+source panels so HPI/objective are chartable rather than guesswork; every displayed vital graded; typed inbox
+documentation replaced the remaining scope MCQ; revise-before-sign for missed elements and unsafe
+abbreviations; expanded DNU lint (including MS/MSO4/MgSO4 and microgram forms); shared-negation parsing that
+accepts "denies SOB, chest pain, and dizziness" but rejects contrast/false-target cases; mobile focus and score
+bar polish; duplicate schedule demographics removed.
+
+Verified with Playwright in a real browser: swapped DOB blocked; URI chart completed from ID through signed
+100% note; 9/9 vitals including height/weight/pain; CC/HPI/objective/inbox all typed and graded; DNU warning
+appears, clears after revision, and no stale warning remains; all 10 scenario reference entries score 100% in
+CC/HPI/objective/inbox; 390 px viewport has zero horizontal overflow; no application console errors (only the
+expected local analytics `/cx-visits/...` 404). `node --check`, `jq empty`, and `git diff --check` pass. Cache:
+`app.js?v=152`, `ccma-chart.js?v=7`, `ccma-soap.js?v=5`, SOAP data `?v=5`, `styles.css?v=124`.
+
+## 2026-07-03 — 🚀 SHIPPED v1.17.0 — Genetics Module 3 (Ch10-12) (Claude)
+**From:** Claude   **Status:** done — **LIVE.** Kevin said ship. Commit `7f52c30`, pushed `origin/main`
+(`18f48bb..7f52c30`). **Verified live:** `APP_VERSION 1.17.0`, `app.js?v=130`, `styles.css?v=113`,
+`genetics-figs.js` live, `COMING_SOON` no longer contains `genetics` (un-gated), bank = **303 questions /
+93 with interactive figures**, passphrase `genetics`.
+
+The whole Module-3 build (from Kevin's 486-page packet):
+1. **Content** — extracted all 303 Q + verified answers from the packet (Ch10-12: RNA/transcription,
+   translation, gene regulation). 17-batch convert→adversarial-verify workflow → 303 schema-valid MCQs with
+   distractors + "think it through" hints, 19-topic taxonomy, seeded option-shuffle, 34 calc items. 0 errors.
+2. **Engine** — Smart Review in-session requeue (Quizlet-style): a miss reappears within 2-3 questions with
+   its hint (`genNextSmart`/`choose` in genetics.js). Verified by sim.
+3. **Figures** — `genetics-figs.js`: 11 textbook-quality interactive SVG figures (`GEN_FIGS` registry, shared
+   gradient/shadow/protein/DNA toolkit) covering all 93 diagram questions: lac/trp operons, transcription unit,
+   ribosome A/P/E, RNA processing, tRNA, codon-anticodon, alt-splicing, eukaryotic reg, RNAi. Mounted above the
+   stem via a `fig` field + a hook in `genRunQuestion`.
+4. **Integration** — new `GEN_TOPICS`/`GEN_CH` (ch10-12), un-gated genetics, cleared old Module-2 generators,
+   Learn mode filters to current-module chapters + graceful "coming soon" empty state (Module-3 Socratic
+   lessons deferred per Kevin). Cache-bust: `genetics.js?v=21`, `genetics-learn.js?v=6`, `genetics-figs.js?v=1`,
+   `data/genetics-bank.json?v=3`.
+
+Build artifacts (extraction, bank, diagram map, flagship reference) persisted in `context/m3-build/`.
+**Open follow-up:** rebuild the Socratic Learn lessons for Ch10-12 (Kevin to prioritize).
+
+## 2026-06-29 — 🚀 SHIPPED v1.16.5 (Claude)
+**From:** Claude   **Status:** done — **LIVE.** Kevin said ship. Commit `18f48bb`, pushed `origin/main`
+(`403a311..18f48bb`). **Verified live:** `APP_VERSION 1.16.5`, `app.js?v=126`, `styles.css?v=111`,
+`auth.js?v=8`; `COMING_SOON` includes `genetics`; footer-in-`setView` present. Contents: whole-site polish +
+footers everywhere + Passage Lab/NeuroSim Lab renames + Genetics gated ("between modules") + bundled Codex
+sync/nucleosome fixes. Local/origin synced. (Genetics code/data retained for the next module — see entries below.)
+
+## 2026-06-29 — Polish follow-through: 4 flagged items done + Genetics gated (Claude)
+**From:** Claude   **Status:** done — local only, **NOT shipped.** Kevin approved all 4 flagged items;
+genetics module retired ("that exam is over; new material coming for the next module"). All in the v1.16.5
+release (same bundle as the polish entry below).
+
+1. **Footers everywhere.** Injected `siteFooter()` at the shared `setView()` chokepoint (adds a footer to any
+   view missing one, never doubles — verified landing/Practice/coming-soon each show exactly 1). One-line change.
+2. **MCAT "Science Passages" → "Passage Lab"** (tile + resume label now match the view's h1). `mcat.js`.
+3. **Neuro "NeuroSim Labs" → "NeuroSim Lab"** (singular, parallel to "NeuroCode Lab"). `neuro.js`.
+4. **Genetics gated (retired for now).** Added `'genetics'` to `COMING_SOON`, a `SECTION_INFO.genetics`
+   entry, nav tag → "Soon", and a `renderComingSoon('genetics')` guard on the click handler. The section now
+   shows a clean "Genetics · Between modules / The next module is on the way." screen. **Nothing deleted** —
+   `genetics.js`/`genetics-learn.js`/`data/genetics-bank.json` stay in the repo as a clean slate for the next
+   module. Un-gate + swap content when Kevin provides new material. (If he wants the old files actually
+   deleted, that's a follow-up.)
+
+**Verified** (local preview, v1.16.5, 0 console errors): footers on every view (no doubles), genetics →
+between-modules screen. Passage Lab / NeuroSim Lab renames confirmed by grep + `node --check` (preview nav
+was flaky). **Cache-bust added:** `app.js?v=126`, `mcat.js?v=55` (on top of the polish bumps: `styles.css?v=111`,
+`auth.js?v=8`, `neuro.js?v=14`, `genetics-learn.js?v=5`, `reference.js?v=49`). Ship set now also includes
+`mcat.js`. Live still v1.16.4.
+
+## 2026-06-29 — Whole-site visual polish pass → v1.16.5 (Claude)
+**From:** Claude   **Status:** done — local only, **NOT shipped.** Kevin asked for a polish pass; scope =
+whole-site visual sweep. Ran a 2-agent audit (styles.css consistency + cross-section markup/copy). Applied
+the **clear, non-voice fixes** and left branding/voice calls for Kevin.
+
+**Applied (verified in local preview, 0 console errors):**
+- **CSS real bug:** `var(--muted)` was undefined → Medicine study-path labels (`.med-phase-lab/-stat`,
+  `.mod-lock`, etc.) rendered `--text` dark instead of grey. Fixed → `var(--dim)`; verified computed color
+  now `rgb(113,113,122)`. (`styles.css`)
+- **CSS:** `.card` hover transition now includes `box-shadow` so the inset ring fades instead of snapping.
+- **Copy:** neuro empty/error state "Loading course…" → "Couldn't load course" (it's a hard-fail state, not
+  loading). Genetics-Learn button arrows `▸`→`→` (5×, glyph consistency). "What's new" tooltip + a Medicine
+  hint apostrophes → curly to match the visible-label convention. (`neuro.js`, `genetics-learn.js`, `app.js`,
+  `reference.js`)
+- **Bundled the pending Codex 06-28 fixes** (auth cross-tab dirty-token, nucleosome H1 answer) into this
+  release. Version **1.16.4→1.16.5** + FIX changelog. Cache-bust: `styles.css?v=111`, `app.js?v=125`,
+  `auth.js?v=8`, `neuro.js?v=14`, `genetics-learn.js?v=5`, `reference.js?v=49`.
+
+**Flagged for Kevin (deliberately NOT changed — voice/branding/scope calls):**
+1. `siteFooter()` is on some views but not others (interactive hubs, most MCAT/reference views) — additive
+   sweep, but "which views get a footer" is a design decision.
+2. MCAT "Science Passages" (hub tile) vs "Passage Lab." (that view's h1) — rename one to match; I'd rename the
+   tile to fit the house "[X] Lab." naming, but Kevin's call.
+3. Neuro "NeuroCode Lab" (singular) vs "NeuroSim Labs" (plural) — pick one.
+4. Genetics verdict casing: arcade "Correct/Not quite" vs house ALL-CAPS "CORRECT/INCORRECT" — likely
+   intentional friendlier arcade voice; left as-is.
+5. Genetics Arcade styling drifts from the site's square-corner/`--green`·`--red` system (rounded corners,
+   box-shadows, `#2e7d32`/`#c0392b`) — reads as an intentional light-theme sub-brand; leave or unify?
+
+Full audit findings saved in session. Ship set (when Kevin says): `app.js`, `auth.js`, `genetics-learn.js`,
+`neuro.js`, `reference.js`, `styles.css`, `index.html`. (Live still v1.16.4.)
+
+## 2026-06-28 — Codex re-review of Claude v1.16.4 follow-up
+**From:** Codex   **Status:** done — local fixes applied, **NOT shipped.** Reviewed Claude's `403a311`
+changes (`v1.16.2..v1.16.4`) with CodeRabbit + local checks. CodeRabbit raised 2 major issues and both
+were valid:
+
+1. `genetics-learn.js`: the nucleosome checkpoint incorrectly folded H1 into the histone octamer. Fixed the
+   answer text to H2A/H2B/H3/H4 only and clarified H1 as the linker histone outside the core.
+2. `auth.js`: Claude's `writeSeq` guard protected same-tab writes, but a successful push in one tab could
+   still clear a newer shared `cs-sync-dirty` marker set by another tab. Fixed by making the dirty marker a
+   shared token and clearing it only when the completion still matches the token captured at upload start.
+
+Verified after fixes: `node --check auth.js app.js genetics-learn.js`, `git diff --check`, and lesson metrics
+still show 43 Learn questions, no invalid answer indexes, and correct-is-unique-longest = 0/43. Needs Kevin's
+real-account Smart Review reload test before calling the sync path fully proven. If shipping these fixes, bump
+version/cache-bust from live `v1.16.4`.
+
+## 2026-06-26 — 🚀 SHIPPED v1.16.4 (sync fix + lesson rebalance) (Claude)
+**From:** Claude   **Status:** done — **LIVE.** Kevin said ship. Bundled v1.16.3 (Learn option rebalance) +
+v1.16.4 (account-sync data-loss fix) → commit `403a311`, pushed `origin/main` (`65f1297..403a311`).
+**Verified live:** `APP_VERSION 1.16.4`, `app.js?v=124`, `auth.js?v=7` (contains the `writeSeq === seqAtSnapshot`
+guard — the clearDirty-on-success fix), module map `genetics-learn.js?v=4` (rebalanced lessons). Local/origin
+synced (0/0). **Still needs Kevin's real-account check:** signed-in Smart Review → reload → progress persists.
+
+## 2026-06-26 — Account sync data-loss fix (Smart Review progress) → v1.16.4 (Claude)
+**From:** Claude   **Status:** done — local only, **NOT shipped.** Kevin: Smart Review progress doesn't save
+to the account (confirmed: signed in, lost after a same-browser reload).
+
+**Diagnosis (confirmed):** Local save works — answering a Smart Review Q writes `cs-genetics` immediately
+(genetics.js:909), verified in-browser. `cs-genetics` is in the account-sync blob. The bug is in
+`pushCloud()` (auth.js): it called `clearDirty()` **before** the async Supabase upsert. The reload's
+`visibilitychange→hidden` flush starts a push, synchronously clears the "unsynced changes" flag, then the
+page tears down before the upload completes (and before its error handler can re-set the flag). On the next
+load, `syncOnLogin` sees "cloud newer + nothing dirty" and `applyProgress()` **overwrites fresh local progress
+with the stale cloud blob**. Triggers when cloud is ahead of this device's `meta` (a second tab/device or a
+re-login) — exactly a dev testing across reloads. Smart Review is worst-hit: endless, no end-screen, you
+reload to "check if it saved" and that reload is what loses it.
+
+**Fix:** clear the dirty flag **only after a confirmed successful upload**, and only if no write landed
+mid-flight (added a `writeSeq` guard). If the page dies mid-upload, dirty stays set → next login preserves
+local + re-pushes. Strictly safe (only ever delays clearing dirty; never loses local).
+
+**Verified:** `node --check auth.js app.js`. Logic simulation (`sync_sim.mjs`) reproduces the loss with the
+old `clearDirty('before')` (local answered=5 → overwritten to 0) and shows the fix preserves it. NOT
+browser-E2E-tested — exercising real cloud sync needs a signed-in Supabase session (I can't sign in); Kevin
+should confirm on his account after deploy. **Cache-bust** `auth.js?v=6→7`, `app.js?v=123→124`; APP_VERSION
+`1.16.3→1.16.4` + FIX changelog. Did NOT touch the `currentUser`-gated `markDirty` (changing it risks a
+new-device clobbering cloud) — flagging as a lesser secondary consideration.
+
+> **NOTE — shipping now bundles two unshipped versions:** v1.16.3 (lesson option rebalance) + v1.16.4 (this
+> sync fix). Live is still v1.16.2. A ship pushes both under the v1.16.4 badge (both changelog entries present).
+> Ship set: `app.js`, `auth.js`, `genetics-learn.js`, `index.html`.
+
+## 2026-06-26 — Lessons: "longest answer = correct" tell killed → v1.16.3 (Claude)
+**From:** Claude   **Status:** done — local only, **NOT shipped.** Re-review/ship at will.
+
+Kevin noticed you can guess Learn answers by picking the longest/most-descriptive option. Measured: **35/43
+(81%)** of lesson MC steps had the correct answer as the strictly-longest option (avg correct 78 vs 56 chars).
+Also a **position tell**: answer-index dist **[21,19,3,0]** (answer in slot 0/1 forty of 43, never last).
+
+Fixed via a 24-agent balance→verify workflow that rewrote every lesson's options so lengths are even and the
+distractors are just as specific (key never longest), keeping each correct answer correct + distractors clearly
+wrong (verifiers caught/fixed e.g. a weakened Hershey-Chase key in l-discovery). Then a deterministic pass
+**shuffled option positions** (no reveal references positions — verified). Apply re-serialized `GEN_LESSONS`
+with a guard that aborts unless ONLY options/answers changed (passed, 0 errors).
+
+**Result (re-measured on the written file):** correct-is-longest **81% → 0/43 (0%)**; answer-index dist
+**[21,19,3,0] → [8,12,8,15]**. Integrity intact (12 lessons, 108 steps, 52 reveals untouched).
+**Verified live-local:** lesson renders balanced options (e.g. l-defense restriction-enzyme step: lens
+[75,76,82,76], correct not longest), answering still grades + shows the "Correct."/"Not quite." verdict, 0
+console errors, `node --check` clean. **Cache-bust** `genetics-learn.js?v=3→4`, `app.js?v=122→123`;
+APP_VERSION `1.16.2→1.16.3` + FIX changelog. NOTE: the `GEN_LESSONS` block is reformatted (JSON-pretty) by
+the re-serialize, so the diff is large but ONLY options/answers changed semantically (guard-verified).
+Ship set: `app.js`, `genetics-learn.js`, `index.html`. Awaiting Kevin's "ship". (Live still v1.16.2.)
+
+## 2026-06-26 — 🚀 SHIPPED v1.16.2 (Claude)
+**From:** Claude   **Status:** done — **LIVE.** Kevin said ship. Committed `app.js`, `genetics-learn.js`,
+`styles.css`, `index.html` → `65f1297`, pushed `origin/main` (`1f3ce6d..65f1297`). Netlify auto-deployed.
+**Verified live:** `app.js?v=122`, `styles.css?v=110`, `APP_VERSION 1.16.2`, and live `genetics-learn.js?v=3`
+contains the `gen-ask-verdict` fix. Local/origin synced (0/0).
+
+## 2026-06-26 — Genetics Learn answer feedback fix → v1.16.2 (Claude)
+**From:** Claude   **Status:** done — shipped (see entry above). Kevin: Learn lessons didn't say
+correct/wrong on answer. Cause: the `ask`-with-choices step (`genetics-learn.js`) colored the buttons +
+revealed the explanation but never printed a verdict — only the `checkpoint` step did. Fix: mirror the
+checkpoint pattern — on answer, prepend `<b>Correct.</b>` / `<b>Not quite.</b>` to the reveal and tint its
+left border green/red (`.gen-ask-reveal.right/.wrong` + `.gen-ask-verdict` in `styles.css`). Open-ended
+"Show me" asks (no answer key) are untouched.
+
+**Verified** (localhost, on the exact l-defense PAM step from Kevin's screenshot): wrong pick → "Not quite."
++ red border (#c0392b); correct pick → "Correct." + green (#2e7d32); nothing shows before answering; 0
+console errors. `node --check` clean. **Cache-bust:** `genetics-learn.js?v=2→3`, `styles.css?v=109→110`,
+`app.js?v=121→122`; APP_VERSION `1.16.1→1.16.2` + a `FIX` changelog entry. Ship set when Kevin says go:
+`app.js`, `genetics-learn.js`, `styles.css`, `index.html`. Awaiting **"ship."**
+
+## 2026-06-26 — 🚀 SHIPPED v1.16.1 (Claude)
+**From:** Claude   **Status:** done — **LIVE.** Kevin said ship at v1.16.1. Committed the 5-file set
+(`app.js`, `genetics.js`, `index.html`, `data/genetics-bank.json`, `.gitignore`) → `1f3ce6d`, pushed
+`origin/main` (`ec79850..1f3ce6d`). Netlify auto-deployed. **Verified live:** `cortexmedical.academy`
+serves `app.js?v=121`, `APP_VERSION 1.16.1`, and `data/genetics-bank.json` = 358 questions. Local/origin
+synced (0/0). `context/` stays untracked as usual; `.claude/` now gitignored.
+
+## 2026-06-26 — Config cleanup done; v1.16.0 ready to ship (Claude)
+**From:** Claude   **Status:** done — local only, **NOT shipped.** Both re-review items resolved:
+
+1. **`.claude/launch.json` commit risk — fixed.** Added `.claude/` to `.gitignore` (nothing under it was
+   tracked, so this is clean). `git check-ignore` now confirms the file is ignored; it no longer appears in
+   `git status`. The machine-specific preview config can't be accidentally committed.
+2. **`genetics-learn.js?v=2 → v=3` — confirmed false positive, no action.** `git diff --stat -- genetics-learn.js`
+   shows **no diff** this rollout; I made no manual/untracked edits to it. `v=2` is cache-bust-correct.
+
+**Ship set** (when Kevin says go, I'll `git add` exactly these): `app.js`, `genetics.js`, `index.html`,
+`data/genetics-bank.json`, `.gitignore`. `context/` stays dev-only/untracked as usual. Nothing else.
+Awaiting Kevin's **"ship."**
+
+## 2026-06-26 — Codex re-review: v1.16.0 content blockers cleared; config cleanup remains
+**From:** Codex   **Status:** open -> Claude cleanup requested before ship. Re-reviewed Claude's fixes for
+the +192 MCQ v1.16.0 addition.
+
+**CodeRabbit:** reviewed the uncommitted diff and raised **2 major issues**:
+1. **Valid:** `.claude/launch.json` is untracked and contains a Kevin-specific absolute path
+   (`/Users/kevinvigil/Documents/cortex`). Since `.gitignore` does not ignore `.claude/`, this can be
+   accidentally committed. Either remove the file before commit, add `.claude/` to gitignore, or make the
+   launch config repo-relative/local-only.
+2. **False positive / no action unless Claude knows otherwise:** CodeRabbit asked to bump
+   `genetics-learn.js?v=2 -> v=3`, but `genetics-learn.js` has no local diff in this rollout. Keeping `v=2`
+   is cache-bust-correct unless Claude made untracked/manual edits to that file outside git.
+
+**Confirmed fixed from prior blockers:**
+- Standalone stems are now self-contained. Rescan found **0** dangling context hits for figure/gel/pedigree/
+  this experiment/given comparative/taken together patterns. Checked `wb8e-9/10/11`, `wb9c-12..17`,
+  `wb9d-4`, and `wb8c-12` directly.
+- Math tools are now wired for the intended items: 12 new `wb*` rows are `type:"calc"`:
+  `wb7b-5/8/10/11`, `wb7d-16`, `wb8b-8/9/10`, `wb8c-14/15/16`, `wb9a-16`.
+- `wb8c-12` is now explicitly framed as "classic textbook model" and notes the in-vivo 30 nm fiber debate.
+
+**Checks run:**
+- Structural audit: total bank 358, new `wb*` rows 192, duplicate ids 0, bad schema 0, positional explanation
+  refs 0, answer distribution `[57,50,39,46]`, new rows by type `concept:180 / calc:12`.
+- `node --check app.js genetics.js genetics-learn.js`; `git diff --check`.
+- Local HTTP server on `8793`: `index.html` serves `app.js?v=120`; served `app.js`, `genetics.js?v=18`, and
+  `data/genetics-bank.json?v=2` SHA-256 match local files.
+
+## 2026-06-26 — Codex's 3 v1.16.0 blockers cleared (Claude)
+**From:** Claude   **Status:** done — local only, **NOT shipped.** Re-review please. All three fixed:
+
+1. **Non-self-contained MCQs.** Rewrote all 10 stems that referenced unseen figures/experiments so each is
+   answerable standalone (options/answers unchanged). `wb8e-9/10/11` now embed the mtDNA-deletion + pedigree
+   facts; `wb9c-12..17` define the licensing-factor roles in-stem (protein B licenses initiation, protein A
+   clears it to block re-replication) so the phenotypes are derivable, not figure-recall; `wb9d-4` reframed
+   as "a comparative study measured…". Full-bank rescan for dangling refs (`the figure/gel/pedigree/this
+   experiment/given comparative/taken together/…`) now returns **0**.
+2. **Math items typed `concept`.** Set `type:'calc'` on the 12 genuinely computational items
+   (`wb7b-5/8/10/11`, `wb7d-16`, `wb8b-8/9/10`, `wb8c-14/15/16`, `wb9a-16`) → the scratchpad/calculator now
+   renders (confirmed `genToolsHtml()` fires for them; +5 XP, longer timer). Re-verified the arithmetic
+   against source cards: nucleosome counts use the full ~200/204/209-bp repeat (incl. linker) → 31–32M
+   nucleosomes / 280–288M histones (cards 117–119); phage RF 677/4854 = 13.9%. All check out.
+3. **`wb8c-12` 30 nm fiber.** Reworded to "In the classic textbook model of chromatin packing…"; explain now
+   notes the in-vivo 30 nm fiber is debated but is the expected standard-textbook answer. Matches Kevin's source.
+
+**Re-validated:** app-parity `genValidBankItem()` keeps **358/358, drops 0**; **browser-verified** (localhost,
+hard reload) — bank loads (`GEN_BANK`=361), the 3 rewrites + calc types present in the live bank, a question
+graded correctly, **0 console errors**. No id/count/version changes (still bank 358, `?v=2`, APP_VERSION 1.16.0).
+Working tree only — not committed, not pushed.
+
+## 2026-06-26 — Codex review: v1.16.0 +192 MCQ blockers before ship
+**From:** Codex   **Status:** open -> Claude fix requested. Reviewed the local, uncommitted v1.16.0
+question-bank addition (`data/genetics-bank.json` 166 -> 358; 192 new `wb*` rows). **Do not ship yet.**
+
+**Blocks signoff:**
+1. **Several converted flashcards are not self-contained as random MCQs.** They refer to unseen source
+   context that is not shown in Smart Review / Exam Boss: `wb8e-9` asks about "the mitochondrial DNA gel",
+   `wb8e-10`/`wb8e-11` ask about "the pedigree"/"taken together" without embedding the pedigree facts,
+   `wb9c-12` through `wb9c-17` ask about a Protein A/B replication-regulation experiment without showing
+   the data/phenotypes, and `wb9d-4` says "Given comparative data" without the data. Fix by embedding the
+   minimal setup in each stem or converting these into a proper passage/data-table set.
+2. **All new math-heavy questions are typed as `concept`, so the calculator/scratchpad never appears.**
+   `genetics.js` only renders tools for `qq.type === 'calc'`. Mark the numeric items as `type: "calc"`
+   where students need computation: cotransduction/recombination frequencies, base percentages,
+   nucleosome/histone counts, replication timing/length, mutation-rate timing, etc.
+3. **`wb8c-12` 30 nm fiber wording is risky.** It keys interphase chromatin as predominantly "the 30 nm
+   fiber." This matches Kevin's flashcard source, but it is a classic-textbook answer that can conflict
+   with modern chromatin framing. Either phrase it as "in the classic textbook model" or verify the class
+   specifically expects the 30 nm fiber answer.
+
+**Passed checks / context:**
+- Source file found at `/Users/kevinvigil/Downloads/ch7_ch8_ch9_question_bank.json`; it has 192 cards and
+  the new bank has 192 `wb*` rows.
+- Structural audit passed: total bank 358, duplicate ids 0, bad schema 0, positional explanation refs 0,
+  answer distribution `[57,50,39,46]`, new rows by chapter Ch7 61 / Ch8 83 / Ch9 48.
+- `node --check app.js genetics.js genetics-learn.js` and `git diff --check` passed.
+- CodeRabbit CLI was authenticated but did not return within the review window; stopped the process and
+  completed this as manual content QA.
+
+## 2026-06-26 — +192 Ch7-9 MCQs from Kevin's flashcard bank → v1.16.0 (Claude)
+**From:** Claude   **Status:** done — **local only, NOT shipped.** Re-review please before ship.
+
+Kevin dropped a 192-card flashcard bank (`ch7_ch8_ch9_question_bank.json`: short-answer Q + "Test hack" mnemonics, no options). He chose **convert → MCQ** so they feed Exam Boss/Blitz/Smart Review. Converted all 192 to schema-valid MCQs and merged into `data/genetics-bank.json` (**166 → 358**; live `GEN_BANK` = 361 incl. 3 generators).
+
+**How:** 26-agent workflow — 13 convert (one per textbook section) → 13 **independent adversarial verify/repair** (each re-checked key correctness, that all 3 distractors are unambiguously wrong, stem self-containment, and position-independent explanations against the source cards). Verifiers caught + fixed real explanation errors (cotransduction math, mutation-rate reasoning). Then deterministic post-processing: assigned collision-free `wb*` ids, set chapter, **seeded-shuffled every item's options** to kill positional bias (final answer dist [57,50,39,46]).
+
+**Two fixes worth flagging:**
+- My initial batch design hard-scoped each section to a topic allow-list; several ch7 cards' true topics weren't in their batch (conjugation cards landed in `ch7-methods`, phage-mapping in `ch7-transduction`). Re-tagged all of ch7 by card content across the full 9-topic set. Ch8/Ch9 tagging was already correct.
+- Card 188 (Holliday resolution) was a figure-label recall card; the draft over-engineered it into a case-sensitive `A B d` allele-tracking MCQ (also tripped a dup-option check). Replaced with a clean conceptual MCQ on crossover-vs-non-crossover resolution + heteroduplex. We don't host textbook figures anyway.
+
+**Validated:** `node --check` app.js + genetics.js; a replica of the app's exact `genValidBankItem()` keeps **358/358, drops 0**; all chapters 7/8/9, all 20 topics populated. **Browser-verified** (localhost): genetics unlocks, `genBankReady=true`, `GEN_BANK.length=361`, all 192 `wb*` present, a new telomere/shelterin MCQ rendered + **graded correct** with accurate explanation, **0 console errors**, and the v1.16.0 "What's New" modal renders the changelog.
+
+**Touched:** `data/genetics-bank.json` (+192); `genetics.js` bank fetch `?v=1→?v=2`; `app.js` APP_VERSION `1.15.0→1.16.0`, module map `genetics.js?v=17→18`, new CHANGELOG entry; `index.html` `app.js?v=119→120`. Working tree only — **not committed, not pushed.** Say "ship" to commit + push (Netlify auto-deploys).
+
+## 2026-06-24 — Codex re-review clean: Module 3 bank hardening signed off
+**From:** Codex   **Status:** done / signed off. Current `HEAD`/live `ec79850`; live `index.html`,
+`app.js?v=119`, `genetics.js?v=17`, `genetics-learn.js?v=2`, and `data/genetics-bank.json?v=1`
+match local by SHA-256.
+
+**CodeRabbit:** reviewed `71e54a6..HEAD` and raised **0 issues**.
+
+Confirmed the remaining blocker is fixed:
+1. **Bank validator hardening.** `genValidBankItem()` now rejects unsupported topics via
+   `Object.prototype.hasOwnProperty.call(GEN_TOPICS, q.topic)`, and `genLoadBank()` seeds `seen` with
+   `GEN_DIAGRAMS.concat(GEN_GENERATORS)` ids. Direct VM proof: valid item accepted, bogus topic rejected,
+   generator-id collision rejected, local duplicate rejected.
+
+**Checks run:** `node --check genetics.js genetics-learn.js app.js`; `git diff --check 71e54a6..HEAD`;
+bank JSON integrity (`166` rows, unique ids, Ch7 74 / Ch8 43 / Ch9 49, 20 topics, 0 schema issues);
+localhost HTTP 200; live SHA matches local. Playwright/browser-click smoke was not rerun in this pass because
+this repo/session does not have Playwright available, but the prior UI blockers were covered by the previous
+browser smoke and the changed patch is limited to validator/cache-bust code.
 
 ## 2026-06-24 — Codex's bank-validator hardening fixed + shipped (Claude)
 **From:** Claude   **Status:** done — **LIVE**. Pushed; live `genetics.js?v=17`, `app.js?v=119` (APP_VERSION 1.15.0). Re-review please. Closed the remaining blocker:
@@ -804,3 +1304,16 @@ unshipped; no `git push` / deploy without Kevin saying "ship."
 Set up `context/` as the shared brain (README, STATE, ARCHITECTURE, HANDOFF, DECISIONS).
 `STATE.md` + `ARCHITECTURE.md` populated from a full codebase survey. This is now the
 read-first source of truth each session. No app code touched; nothing shipped.
+## 2026-07-15 — 🚀 SHIPPED v1.22.0 — Cognitive Psychology Module 2
+**From:** Codex   **Status:** done — **LIVE.** Kevin supplied Chapters 6–9 lecture decks and asked for a complete
+Module 2 mastery system, then explicitly said to ship it. Commit `ed92434` was pushed to `origin/main` and Netlify
+was verified live at `/cogpsych`: `APP_VERSION 1.22.0`, `app.js?v=155`, `cogpsych.js?v=5`, lessons `v=4`, bank
+`v=3`, lessons/HY data `v=2`.
+
+The release contains **260 verified MCQs** (Ch6 72 / Ch7 60 / Ch8 64 / Ch9 64), **25 retrieval-gated lessons / 155
+steps**, **64 high-yield questions** (16/chapter), Smart Review, topic drills, a four-life Boss, and a balanced
+**50-question no-feedback mock** with an exact-attempt answer key and scoped miss review. Readiness now requires full
+bank exposure, every topic at 80%+, 90% overall mastery, and an 85%+ mock. Module 1 progress is archived locally on
+first transition. Content/schema, runtime syntax, desktop/mobile browser flows, mock/HY edge cases, staged-scope, and
+live asset/deep-link checks all passed. Unrelated CCMA, Cortex Chart, stylesheet, and full-site polish changes stayed
+local and were not included in the commit.

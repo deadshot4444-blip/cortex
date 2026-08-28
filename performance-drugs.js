@@ -13,9 +13,14 @@ let PED_PROG = (typeof loadJSON === 'function') ? loadJSON('cs-ped', null) : nul
 
 function migratePedProg(raw) {
   const base = {
-    hormones: { steroid: { learned: [] }, peptide: { learned: [] }, amine: { learned: [] } },
+    hormones: {
+      steroid: { learned: [], aspects: {} },
+      peptide: { learned: [], aspects: {} },
+      amine: { learned: [], aspects: {} },
+    },
     pathways: {},
     modules: {},
+    misses: [],
     catalogDone: false,
     catalogSection: 0,
     clinicalDone: false,
@@ -24,6 +29,26 @@ function migratePedProg(raw) {
   if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return base;
   if (raw.hormones) base.hormones = raw.hormones;
   else if (raw.learned) base.hormones = raw.learned;
+  // Normalize each hormone tab and grandfather pre-recall progress: an agent marked learned
+  // under the old click-through flow counts as having mastered every aspect, so nobody loses work.
+  PED_HORMONE_TABS.forEach(t => {
+    const rec = base.hormones[t] && typeof base.hormones[t] === 'object' ? base.hormones[t] : {};
+    if (!Array.isArray(rec.learned)) rec.learned = [];
+    if (!rec.aspects || typeof rec.aspects !== 'object' || Array.isArray(rec.aspects)) rec.aspects = {};
+    rec.learned.forEach(key => {
+      if (!Array.isArray(rec.aspects[key]) || !rec.aspects[key].length) {
+        rec.aspects[key] = PED_HORM_LEARN.map(s => s.key);
+      }
+    });
+    // The module quiz gates completion now. Anyone who already had agents learned finished
+    // under the old rules, so credit the quiz rather than reopening a module they completed.
+    if (typeof rec.quizBest !== 'number') rec.quizBest = rec.learned.length ? 100 : 0;
+    base.hormones[t] = rec;
+  });
+  if (Array.isArray(raw.misses)) {
+    base.misses = raw.misses.filter(m => m && m.tab && m.agent && m.aspect)
+      .map(m => ({ tab: m.tab, agent: m.agent, aspect: m.aspect }));
+  }
   if (raw.pathways) {
     Object.entries(raw.pathways).forEach(([id, v]) => {
       base.pathways[id] = { completed: !!(v.completed || (v.best >= 80)), best: v.best || 0, runs: v.runs || 0 };
@@ -76,10 +101,87 @@ function savePedProg() {
 
 function agentKey(a) { return a.id || a.name; }
 
+/* ---------- recall: per-aspect mastery, misses pool, distractors ---------- */
+const PED_REQUEUE_GAP = 3;   // a missed item returns this many items later, with a hint
+
+function pedTabRec(tab) {
+  if (!PED_PROG.hormones[tab]) PED_PROG.hormones[tab] = { learned: [], aspects: {} };
+  const rec = PED_PROG.hormones[tab];
+  if (!Array.isArray(rec.learned)) rec.learned = [];
+  if (!rec.aspects || typeof rec.aspects !== 'object' || Array.isArray(rec.aspects)) rec.aspects = {};
+  return rec;
+}
+function pedAspectsDone(tab, key) {
+  const v = pedTabRec(tab).aspects[key];
+  return Array.isArray(v) ? v : [];
+}
+// An agent counts as learned only once every aspect has been recalled correctly.
+function pedMarkAspect(tab, key, aspect) {
+  const rec = pedTabRec(tab);
+  const done = pedAspectsDone(tab, key);
+  if (!done.includes(aspect)) done.push(aspect);
+  rec.aspects[key] = done;
+  const full = done.length >= PED_HORM_LEARN.length;
+  if (full && !rec.learned.includes(key)) rec.learned.push(key);
+  savePedProg();
+  return full;
+}
+function pedMisses() {
+  if (!Array.isArray(PED_PROG.misses)) PED_PROG.misses = [];
+  return PED_PROG.misses;
+}
+function pedRecordMiss(tab, key, aspect) {
+  const list = pedMisses();
+  if (!list.some(m => m.tab === tab && m.agent === key && m.aspect === aspect)) {
+    list.push({ tab, agent: key, aspect });
+    savePedProg();
+  }
+}
+function pedClearMiss(tab, key, aspect) {
+  const list = pedMisses();
+  const next = list.filter(m => !(m.tab === tab && m.agent === key && m.aspect === aspect));
+  if (next.length !== list.length) { PED_PROG.misses = next; savePedProg(); }
+}
+function pedShuffle(a) {
+  const x = a.slice();
+  for (let i = x.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [x[i], x[j]] = [x[j], x[i]]; }
+  return x;
+}
+// Distractors are the same field taken from OTHER agents — same hormone class first, so the
+// choice is a real discrimination between plausible agents rather than a giveaway. Deduped by
+// text, which also covers agents that legitimately share a value (e.g. pathway "Exogenous").
+function pedDistractors(tab, field, answer, n = 3) {
+  const same = [], other = [];
+  PED_HORMONE_TABS.forEach(t => {
+    (PED.data?.hormoneTabs?.[t]?.agents || []).forEach(a => {
+      const v = a[field];
+      if (!v || v === answer) return;
+      (t === tab ? same : other).push(v);
+    });
+  });
+  const seen = new Set([answer]);
+  const out = [];
+  pedShuffle(same).concat(pedShuffle(other)).forEach(v => {
+    if (out.length >= n || seen.has(v)) return;
+    seen.add(v); out.push(v);
+  });
+  return out;
+}
+function pedAwardXP(correct) {
+  if (typeof medAwardXP === 'function') { medAwardXP(correct); return; }
+  if (typeof prog !== 'function') return;
+  const p = prog('medicine');
+  p.answered = (p.answered || 0) + 1;
+  if (correct) { p.correct = (p.correct || 0) + 1; p.xp = (p.xp || 0) + (typeof XP_PER_CORRECT === 'number' ? XP_PER_CORRECT : 10); }
+  if (typeof saveProgress === 'function') saveProgress();
+}
+
 async function loadPED() {
   if (PED.loaded) return;
   try {
-    const r = await fetch('data/performance-drugs.json');
+    // Versioned like every other data file — without it an edited JSON never reaches a
+    // returning browser. Bump this whenever data/performance-drugs.json changes.
+    const r = await fetch('data/performance-drugs.json?v=15');
     PED.data = r.ok ? await r.json() : null;
   } catch { PED.data = null; }
   PED.loaded = true;
@@ -96,9 +198,17 @@ function pedHormoneAgents(hormone) {
 function pedModuleStatus(mod) {
   if (mod.type === 'hormone') {
     const total = pedHormoneAgents(mod.hormone).length;
-    const learned = PED_PROG.hormones[mod.hormone]?.learned || [];
-    const done = learned.length;
-    return { done, total, pct: total ? Math.round(100 * done / total) : 0, complete: total > 0 && done >= total };
+    const rec = PED_PROG.hormones[mod.hormone] || {};
+    const done = (rec.learned || []).length;
+    // Progress still reads as agents mastered, but the module quiz is the actual gate —
+    // mastering every agent without passing the quiz leaves the module open.
+    const quizOk = (rec.quizBest || 0) >= PED_QUIZ_PASS;
+    return {
+      done, total,
+      pct: total ? Math.round(100 * done / total) : 0,
+      complete: total > 0 && done >= total && quizOk,
+      quizBest: rec.quizBest || 0,
+    };
   }
   if (mod.type === 'pathway') {
     const p = PED_PROG.pathways[mod.pathwayId] || {};
@@ -178,6 +288,7 @@ function renderPEDHub() {
   const prog = pedOverallProgress();
   const next = pedNextModule();
   const mods = pedModules();
+  const missCount = pedMisses().length;
   const root = el('<div></div>');
   root.appendChild(topbar('reference'));
   const main = el(`<main class="panel ped-page">
@@ -193,8 +304,13 @@ function renderPEDHub() {
     </div>
     ${next ? `<div class="ped-cta-row">
       <button class="btn btn-solid" id="pedcontinue">Continue &middot; ${esc(next.title)}</button>
+      ${missCount ? `<button class="btn" id="pedreview">Smart review &middot; ${missCount}</button>` : ''}
       <button class="btn" id="pedbrowse">Browse reference</button>
-    </div>` : `<p class="ped-complete-msg">Path complete. Use reference tabs to review.</p>`}
+    </div>` : `<div class="ped-cta-row">
+      ${missCount ? `<button class="btn btn-solid" id="pedreview">Smart review &middot; ${missCount}</button>` : ''}
+      <button class="btn" id="pedbrowse">Browse reference</button>
+    </div>
+    <p class="ped-complete-msg">Path complete. Use reference tabs to review.</p>`}
     <span class="label ped-modulelabel">Study path</span>
     <div id="pedmodules"></div>
     <details class="ped-ref-fold">
@@ -207,10 +323,9 @@ function renderPEDHub() {
     </details>
   </main>`);
   main.querySelector('#pedback').addEventListener('click', renderReference);
-  if (next) {
-    main.querySelector('#pedcontinue').addEventListener('click', () => renderPEDModule(next.id));
-    main.querySelector('#pedbrowse')?.addEventListener('click', () => renderPEDHormones('steroid', 'browse'));
-  }
+  if (next) main.querySelector('#pedcontinue').addEventListener('click', () => renderPEDModule(next.id));
+  main.querySelector('#pedbrowse')?.addEventListener('click', () => renderPEDHormones('steroid', 'browse'));
+  main.querySelector('#pedreview')?.addEventListener('click', startPedSmartReview);
   const list = main.querySelector('#pedmodules');
   let lastPhase = '';
   let phaseList = null;
@@ -268,18 +383,16 @@ function renderPEDModule(moduleId) {
 }
 
 /* ---------- hormone module: guided learn ---------- */
-function renderPEDHormoneStudy(mod) {
+function renderPEDHormoneStudy(mod, opts = {}) {
   const block = PED.data.hormoneTabs[mod.hormone];
   const agents = block.agents;
-  const learned = PED_PROG.hormones[mod.hormone]?.learned || [];
-  let idx = agents.findIndex(a => !learned.includes(agentKey(a)));
-  if (idx < 0) idx = 0;
+  const learned = pedTabRec(mod.hormone).learned;
 
   const root = el('<div></div>');
   root.appendChild(topbar('reference'));
   const main = el(`<main class="panel ped-page">
     <button class="backbtn topback" id="pedback">&larr; Study path</button>
-    <div class="hero"><h1>${esc(mod.title)}.</h1><p class="sub">Module ${mod.order} · ${learned.length}/${agents.length} agents studied</p></div>
+    <div class="hero"><h1>${esc(mod.title)}.</h1><p class="sub">Module ${mod.order} · ${learned.length}/${agents.length} agents mastered</p></div>
     <div class="ped-pathband ped-pathband--slim">
       <span class="bar"><i style="width:${agents.length ? Math.round(100 * learned.length / agents.length) : 0}%"></i></span>
     </div>
@@ -288,73 +401,343 @@ function renderPEDHormoneStudy(mod) {
   main.querySelector('#pedback').addEventListener('click', renderPEDHub);
   root.appendChild(main);
   setView(root);
-  runHormoneLearn(mod, agents, learned, idx);
+  runHormoneModule(mod, agents, opts);
 }
 
-function runHormoneLearn(mod, agents, learned, agentIdx, step = 0) {
-  const mount = document.getElementById('pedlearn');
-  if (!mount) return;
-  const block = PED.data.hormoneTabs[mod.hormone];
+// One graded recall question. Shared by the guided modules and Smart review so the two can't
+// drift apart; the caller owns queueing, scoring chrome, and what "next" means.
+function pedRecallCard(cfg) {
+  const { tab, agent, aspect, again, label, stat, nextLabel } = cfg;
+  const LTRS = (typeof LETTERS !== 'undefined' && LETTERS) ? LETTERS : ['A', 'B', 'C', 'D'];
+  const s = PED_HORM_LEARN.find(x => x.key === aspect);
+  const key = agentKey(agent);
+  const answer = agent[s.field];
+  const opts = pedShuffle([answer].concat(pedDistractors(tab, s.field, answer)));
+  const stepNo = PED_HORM_LEARN.findIndex(x => x.key === aspect);
 
-  if (agentIdx >= agents.length) {
-    markPedModuleComplete(mod.id);
-    mount.replaceChildren(el(`<section class="stage">
-      <span class="label">Module ${mod.order} complete</span>
-      <div class="neuro-score">&#10003;</div>
-      <p class="sub">All ${agents.length} agents in ${esc(block.label)} studied.</p>
-      <div class="endbtns">
-        <button class="btn btn-solid" id="pednext">Next module</button>
-        <button class="btn" id="pedhub">Study path</button>
-      </div>
-    </section>`));
-    const nxt = pedModules().find(m => m.order === mod.order + 1);
-    mount.querySelector('#pednext')?.addEventListener('click', () => nxt ? renderPEDModule(nxt.id) : renderPEDHub());
-    mount.querySelector('#pedhub').addEventListener('click', renderPEDHub);
-    return;
-  }
-
-  const agent = agents[agentIdx];
-  const s = PED_HORM_LEARN[step];
   const node = el(`<section class="stage">
     <div class="stage-head">
-      <span class="label">${esc(block.label)} · agent ${agentIdx + 1}/${agents.length}</span>
+      <span class="label">${esc(label)}</span>
       <span class="rule"></span>
-      <span class="topstat">${learned.length}/${agents.length} studied</span>
+      <span class="topstat">${esc(stat)}</span>
     </div>
-    ${pedStepDots(PED_HORM_LEARN.length, step, s.label)}
+    ${pedStepDots(PED_HORM_LEARN.length, stepNo, s.label)}
     <h2 class="ped-drugname">${esc(agent.name)}</h2>
     <p class="ped-drugclass">${esc(agent.role)}</p>
     <p class="q">${esc(s.ask)}</p>
-    <div class="socactions">
-      <button class="btn btn-solid" data-reveal>Reveal</button>
-    </div>
+    ${again ? `<p class="hint">Hint &middot; ${esc(agent.role)}</p>` : ''}
+    <div class="opts">${opts.map((o, i) => `<button class="opt" data-i="${i}"><span class="key">${LTRS[i]}</span><span>${esc(o)}</span></button>`).join('')}</div>
     <div class="after"></div>
   </section>`);
+
   const after = node.querySelector('.after');
-  node.querySelector('[data-reveal]').addEventListener('click', () => {
-    node.querySelector('.socactions')?.remove();
-    after.appendChild(el(`<div class="socans"><div class="socblock"><span class="label">${esc(s.label)}</span><p>${esc(agent[s.field])}</p></div></div>`));
-    const isLast = step === PED_HORM_LEARN.length - 1;
-    const row = el(`<div class="continue-row"><button class="btn btn-solid" data-next>${isLast ? 'Next agent' : 'Continue'}</button></div>`);
-    row.querySelector('[data-next]').addEventListener('click', () => {
-      if (isLast) {
-        const key = agentKey(agent);
-        if (!PED_PROG.hormones[mod.hormone]) PED_PROG.hormones[mod.hormone] = { learned: [] };
-        if (!PED_PROG.hormones[mod.hormone].learned.includes(key)) {
-          PED_PROG.hormones[mod.hormone].learned.push(key);
-          savePedProg();
-        }
-        const fresh = PED_PROG.hormones[mod.hormone].learned;
-        runHormoneLearn(mod, agents, fresh, agentIdx + 1, 0);
-        const bar = document.querySelector('.ped-page .ped-pathband--slim .bar i');
-        if (bar) bar.style.width = `${agents.length ? Math.round(100 * fresh.length / agents.length) : 0}%`;
-        const sub = document.querySelector('.ped-page .hero .sub');
-        if (sub) sub.textContent = `Module ${mod.order} · ${fresh.length}/${agents.length} agents studied`;
-      } else runHormoneLearn(mod, agents, learned, agentIdx, step + 1);
+  node.querySelectorAll('.opt').forEach(btn => btn.addEventListener('click', () => {
+    const correct = opts[Number(btn.dataset.i)] === answer;
+    node.querySelectorAll('.opt').forEach(b => {
+      b.disabled = true;
+      if (opts[Number(b.dataset.i)] === answer) b.classList.add('correct');
+      else if (b === btn) b.classList.add('wrong');
+      else b.classList.add('dimmed');
     });
+
+    let justMastered = false;
+    if (correct) {
+      justMastered = pedMarkAspect(tab, key, aspect);
+      pedClearMiss(tab, key, aspect);
+    } else {
+      pedRecordMiss(tab, key, aspect);
+    }
+    cfg.onAnswer?.(correct, justMastered);
+
+    after.appendChild(el(`<div class="explain ${correct ? 'good' : 'bad'}">
+      <span class="verdict">${correct ? 'CORRECT' : 'INCORRECT'}</span>
+      <p><strong>${esc(s.label)}:</strong> ${esc(answer)}</p>
+      ${correct ? '' : '<p class="hint">Queued to come back around.</p>'}
+      ${justMastered ? `<p class="hint">${esc(agent.name)} mastered &mdash; all four recalled.</p>` : ''}
+    </div>`));
+
+    const row = el(`<div class="continue-row"><span class="hint">ENTER &rarr;</span><button class="btn btn-solid" data-next>${esc(nextLabel || 'Continue')}</button></div>`);
+    row.querySelector('[data-next]').addEventListener('click', () => cfg.onNext?.());
     after.appendChild(row);
+    row.querySelector('[data-next]').focus();
+  }));
+
+  return node;
+}
+
+// Build the module's recall queue in agent order, skipping aspects already mastered so a
+// returning learner is only asked what they still owe.
+function pedBuildQueue(tab, agents) {
+  const q = [];
+  agents.forEach(agent => {
+    const done = pedAspectsDone(tab, agentKey(agent));
+    PED_HORM_LEARN.forEach(s => { if (!done.includes(s.key)) q.push({ agent, aspect: s.key }); });
   });
-  mount.replaceChildren(node);
+  return q;
+}
+
+function pedLessonsFor(tab) { return PED.data?.hormoneLessons?.[tab] || []; }
+function pedLessonsRead(tab) {
+  const rec = pedTabRec(tab);
+  if (!Array.isArray(rec.lessons)) rec.lessons = [];
+  return rec.lessons;
+}
+function pedMarkLessonRead(tab, id) {
+  const list = pedLessonsRead(tab);
+  if (!list.includes(id)) { list.push(id); savePedProg(); }
+}
+const PED_QUIZ_LEN = 8;
+const PED_QUIZ_PASS = 70;
+
+// The module is a teach → test rhythm: a short lesson on a small group of related agents,
+// then recall on just that group, repeated, then one mixed quiz over the whole module.
+// Sections already finished are skipped so returning here resumes rather than restarts.
+function pedModulePlan(tab, agents) {
+  const plan = [];
+  const lessons = pedLessonsFor(tab);
+  const read = pedLessonsRead(tab);
+  const owes = a => pedAspectsDone(tab, agentKey(a)).length < PED_HORM_LEARN.length;
+
+  lessons.forEach((L, i) => {
+    const grp = L.agents.map(n => agents.find(a => a.name === n)).filter(Boolean);
+    if (!grp.length) return;
+    if (!read.includes(L.id)) plan.push({ type: 'teach', lesson: L, agents: grp, n: i + 1, of: lessons.length });
+    if (grp.some(owes)) plan.push({ type: 'recall', agents: grp, label: L.title });
+  });
+
+  // Agents no lesson covers (peptide/amine today) still get recalled.
+  const covered = new Set(lessons.flatMap(L => L.agents));
+  const rest = agents.filter(a => !covered.has(a.name) && owes(a));
+  if (rest.length) plan.push({ type: 'recall', agents: rest, label: lessons.length ? 'Remaining agents' : 'Recall' });
+
+  plan.push({ type: 'quiz', agents });
+  return plan;
+}
+
+function runHormoneModule(mod, agents, opts = {}) {
+  const mount = document.getElementById('pedlearn');
+  if (!mount) return;
+  const tab = mod.hormone;
+  const block = PED.data.hormoneTabs[tab];
+  const plan = pedModulePlan(tab, agents);
+  let stage = 0;
+
+  function chrome() {
+    const fresh = pedTabRec(tab).learned;
+    const bar = document.querySelector('.ped-page .ped-pathband--slim .bar i');
+    if (bar) bar.style.width = `${agents.length ? Math.round(100 * fresh.length / agents.length) : 0}%`;
+    const sub = document.querySelector('.ped-page .hero .sub');
+    if (sub) sub.textContent = `Module ${mod.order} · ${fresh.length}/${agents.length} agents mastered`;
+  }
+
+  function advance() { stage++; runStage(); }
+
+  /* --- mini lesson --- */
+  function renderTeach(sec) {
+    const L = sec.lesson;
+    let i = 0;
+    function paint() {
+      const step = L.teach[i];
+      const last = i === L.teach.length - 1;
+      const node = el(`<section class="stage ped-lesson">
+        <div class="stage-head">
+          <span class="label">Lesson ${sec.n} of ${sec.of} &middot; ${esc(L.title)}</span>
+          <span class="rule"></span>
+          <span class="topstat">${i + 1}/${L.teach.length}</span>
+        </div>
+        ${pedStepDots(L.teach.length, i, step.h)}
+        ${i === 0 && L.blurb ? `<p class="ped-lead">${esc(L.blurb)}</p>` : ''}
+        <h2 class="ped-lesson-h">${step.h}</h2>
+        <div class="ped-lesson-body"><p>${step.p}</p></div>
+        <div class="continue-row">
+          <span class="hint">${esc(L.agents.join(' · '))}</span>
+          <button class="btn btn-solid" data-next>${last ? 'Check yourself' : 'Continue'}</button>
+        </div>
+      </section>`);
+      node.querySelector('[data-next]').addEventListener('click', () => {
+        if (last) { pedMarkLessonRead(tab, L.id); advance(); }
+        else { i++; paint(); }
+      });
+      mount.replaceChildren(node);
+      node.querySelector('[data-next]').focus();
+    }
+    paint();
+  }
+
+  /* --- recall on the group just taught --- */
+  function renderRecall(sec) {
+    const queue = pedBuildQueue(tab, sec.agents);
+    if (!queue.length) { advance(); return; }
+    let pos = 0;
+    const run = { asked: 0, right: 0 };
+    function paint() {
+      if (pos >= queue.length) {
+        const acc = run.asked ? Math.round(100 * run.right / run.asked) : 100;
+        const node = el(`<section class="stage">
+          <span class="label">${esc(sec.label)} &middot; checked</span>
+          <div class="neuro-score">${acc}%</div>
+          <p class="sub">${run.right}/${run.asked} first try.</p>
+          <div class="endbtns"><button class="btn btn-solid" data-advance>Continue</button></div>
+        </section>`);
+        // NOT data-go — that attribute is the global section router (app.js), which would
+        // hijack the click and navigate away instead of advancing the module.
+        node.querySelector('[data-advance]').addEventListener('click', advance);
+        mount.replaceChildren(node);
+        node.querySelector('[data-advance]').focus();
+        return;
+      }
+      const item = queue[pos];
+      mount.replaceChildren(pedRecallCard({
+        tab,
+        agent: item.agent,
+        aspect: item.aspect,
+        again: item.again,
+        label: `${sec.label} · ${item.again ? 'second look' : `${pos + 1}/${queue.length}`}`,
+        stat: `${pedTabRec(tab).learned.length}/${agents.length} mastered`,
+        nextLabel: pos >= queue.length - 1 ? 'Done' : 'Continue',
+        onAnswer: correct => {
+          run.asked++;
+          if (correct) run.right++;
+          // XP only on a first-pass answer, so requeued retries can't farm the pool.
+          if (!item.again) pedAwardXP(correct);
+          if (!correct) queue.splice(Math.min(pos + PED_REQUEUE_GAP, queue.length), 0, { agent: item.agent, aspect: item.aspect, again: true });
+          chrome();
+        },
+        onNext: () => { pos++; paint(); },
+      }));
+    }
+    paint();
+  }
+
+  /* --- module quiz: mixed, graded, gates completion --- */
+  function renderQuiz(sec) {
+    const pool = [];
+    sec.agents.forEach(agent => PED_HORM_LEARN.forEach(s => pool.push({ agent, aspect: s.key })));
+    const items = pedShuffle(pool).slice(0, Math.min(PED_QUIZ_LEN, pool.length));
+    let pos = 0, right = 0;
+
+    function result() {
+      const pct = items.length ? Math.round(100 * right / items.length) : 0;
+      const passed = pct >= PED_QUIZ_PASS;
+      const rec = pedTabRec(tab);
+      rec.quizBest = Math.max(rec.quizBest || 0, pct);
+      savePedProg();
+      if (passed) markPedModuleComplete(mod.id);
+      const nxt = pedModules().find(m => m.order === mod.order + 1);
+      const node = el(`<section class="stage">
+        <span class="label">${passed ? `Module ${mod.order} complete` : 'Quiz — not yet'}</span>
+        <div class="neuro-score">${pct}%</div>
+        <p class="sub">${right}/${items.length} correct${passed ? ` &middot; ${esc(block.label)} signed off.` : ` &middot; ${PED_QUIZ_PASS}% needed to complete the module.`}</p>
+        <div class="endbtns">
+          ${passed
+            ? '<button class="btn btn-solid" data-next>Next module</button>'
+            : '<button class="btn btn-solid" data-retry>Retake quiz</button>'}
+          <button class="btn" data-hub>Study path</button>
+        </div>
+      </section>`);
+      node.querySelector('[data-next]')?.addEventListener('click', () => nxt ? renderPEDModule(nxt.id) : renderPEDHub());
+      node.querySelector('[data-retry]')?.addEventListener('click', () => { pos = 0; right = 0; renderQuiz(sec); });
+      node.querySelector('[data-hub]').addEventListener('click', renderPEDHub);
+      mount.replaceChildren(node);
+    }
+
+    function paint() {
+      if (pos >= items.length) { result(); return; }
+      const item = items[pos];
+      mount.replaceChildren(pedRecallCard({
+        tab,
+        agent: item.agent,
+        aspect: item.aspect,
+        label: `Module quiz · ${pos + 1}/${items.length}`,
+        stat: `${right}/${pos} correct`,
+        nextLabel: pos >= items.length - 1 ? 'See score' : 'Continue',
+        onAnswer: correct => { if (correct) right++; pedAwardXP(correct); chrome(); },
+        onNext: () => { pos++; paint(); },
+      }));
+    }
+    paint();
+  }
+
+  function runStage() {
+    if (stage >= plan.length) { renderPEDHub(); return; }
+    const sec = plan[stage];
+    if (sec.type === 'teach') return renderTeach(sec);
+    if (sec.type === 'recall') return renderRecall(sec);
+    return renderQuiz(sec);
+  }
+
+  runStage();
+}
+
+/* ---------- smart review: everything missed, across all three hormone classes ---------- */
+function pedAgentByKey(tab, key) {
+  return (PED.data?.hormoneTabs?.[tab]?.agents || []).find(a => agentKey(a) === key) || null;
+}
+
+function startPedSmartReview() {
+  const queue = pedShuffle(
+    pedMisses()
+      .map(m => ({ tab: m.tab, agent: pedAgentByKey(m.tab, m.agent), aspect: m.aspect }))
+      .filter(x => x.agent && PED_HORM_LEARN.some(s => s.key === x.aspect))
+  );
+
+  const root = el('<div></div>');
+  root.appendChild(topbar('reference'));
+  const main = el(`<main class="panel ped-page">
+    <button class="backbtn topback" id="pedback">&larr; Study path</button>
+    <div class="hero"><h1>Smart review.</h1><p class="sub">Every detail you have missed &mdash; drilled until it sticks.</p></div>
+    <div class="ped-pathband ped-pathband--slim"><span class="bar"><i style="width:0%"></i></span></div>
+    <div id="pedlearn"></div>
+  </main>`);
+  main.querySelector('#pedback').addEventListener('click', renderPEDHub);
+  root.appendChild(main);
+  setView(root);
+
+  const mount = main.querySelector('#pedlearn');
+  const bar = main.querySelector('.ped-pathband--slim .bar i');
+  let pos = 0;
+  const run = { asked: 0, right: 0 };
+
+  function finish() {
+    const left = pedMisses().length;
+    const acc = run.asked ? Math.round(100 * run.right / run.asked) : 100;
+    mount.replaceChildren(el(`<section class="stage">
+      <span class="label">${left ? 'Review round done' : 'Review cleared'}</span>
+      <div class="neuro-score">${left ? `${acc}%` : '&#10003;'}</div>
+      <p class="sub">${run.right}/${run.asked} correct &middot; ${left ? `${left} still in the review pool` : 'nothing left to review'}.</p>
+      <div class="endbtns">
+        ${left ? '<button class="btn btn-solid" id="pedagain">Review again</button>' : ''}
+        <button class="btn" id="pedhub">Study path</button>
+      </div>
+    </section>`));
+    mount.querySelector('#pedagain')?.addEventListener('click', startPedSmartReview);
+    mount.querySelector('#pedhub').addEventListener('click', renderPEDHub);
+  }
+
+  function render() {
+    if (!queue.length) { finish(); return; }
+    if (pos >= queue.length) { finish(); return; }
+    const item = queue[pos];
+    if (bar) bar.style.width = `${Math.round(100 * pos / queue.length)}%`;
+    mount.replaceChildren(pedRecallCard({
+      tab: item.tab,
+      agent: item.agent,
+      aspect: item.aspect,
+      again: true,
+      label: `Review · ${pos + 1}/${queue.length}`,
+      stat: `${pedMisses().length} in pool`,
+      nextLabel: pos >= queue.length - 1 ? 'Finish review' : 'Continue',
+      onAnswer: correct => {
+        run.asked++;
+        if (correct) run.right++;
+        // Still missed: send it back through this round as well as leaving it in the pool.
+        else queue.splice(Math.min(pos + PED_REQUEUE_GAP, queue.length), 0, item);
+      },
+      onNext: () => { pos++; render(); },
+    }));
+  }
+
+  render();
 }
 
 /* ---------- hormone browse (reference) ---------- */
@@ -480,7 +863,7 @@ function startPathwayLesson(pathway, mod) {
       mount.replaceChildren(el(`<section class="stage">
         <span class="label">Orientation</span>
         <p class="sub">${esc(pathway.orientation || pathway.subtitle)}</p>
-        <p class="ped-lead">Three beats: orient → build the flowchart step-by-step → checkpoint MCQs in order (70% to pass).</p>
+        <p class="ped-lead">Three beats: orient &rarr; build the flowchart step-by-step &rarr; checkpoint MCQs in order (${quizzes.length} question${quizzes.length === 1 ? '' : 's'}; ${Math.ceil(PED_QUIZ_PASS / 100 * quizzes.length)} correct to pass).</p>
         <div class="continue-row"><button class="btn btn-solid" data-go>Build pathway</button></div>
       </section>`));
       mount.querySelector('[data-go]').addEventListener('click', () => { phase = 'build'; render(); });
@@ -538,7 +921,7 @@ function startPathwayLesson(pathway, mod) {
 
   function finishPathway() {
     const pct = quizzes.length ? Math.round(100 * checkpointCorrect / quizzes.length) : 100;
-    const passed = pct >= 70;
+    const passed = pct >= PED_QUIZ_PASS;
     if (!PED_PROG.pathways[pathway.id]) PED_PROG.pathways[pathway.id] = { completed: false, best: 0, runs: 0 };
     PED_PROG.pathways[pathway.id].runs++;
     PED_PROG.pathways[pathway.id].best = Math.max(PED_PROG.pathways[pathway.id].best, pct);
@@ -550,7 +933,7 @@ function startPathwayLesson(pathway, mod) {
     mount.replaceChildren(el(`<section class="stage">
       <span class="label">${passed ? 'Module complete' : 'Checkpoint — retry'}</span>
       <div class="neuro-score">${pct}%</div>
-      <p class="sub">${checkpointCorrect}/${quizzes.length} checkpoint questions correct${passed ? '' : ' · need 70% to complete'}</p>
+      <p class="sub">${checkpointCorrect}/${quizzes.length} checkpoint questions correct${passed ? '' : ` &middot; need ${Math.ceil(PED_QUIZ_PASS / 100 * quizzes.length)}/${quizzes.length} to complete`}</p>
       <div class="endbtns">
         ${passed ? '<button class="btn btn-solid" id="pednext">Next module</button>' : '<button class="btn btn-solid" id="pedretry">Retry checkpoint</button>'}
         <button class="btn" id="pedhub">Study path</button>

@@ -1489,7 +1489,7 @@
    "id": "em-017"
   },
   {
-   "title": "Headache and Confusion Days After a Fall in an Older Man",
+   "title": "Headache and Confusion Days After a Fall in an Anticoagulated Man",
    "difficulty": "medium",
    "setting": "ED",
    "patient": "50-year-old man",
@@ -1533,7 +1533,7 @@
       "Ischemic stroke"
      ],
      "answer": 1,
-     "explanation": "A crescent (concave) shaped extra-axial collection that crosses suture lines is the classic appearance of a subdural hematoma, arising from torn bridging veins; the mixed density indicates a subacute-to-chronic bleed with possible acute extension—fitting the delayed presentation in an anticoagulated patient. An epidural hematoma is biconvex (lens-shaped) and typically does NOT cross suture lines, usually from arterial (middle meningeal) injury. Subarachnoid hemorrhage shows blood in the sulci, cisterns, and fissures, not a crescentic convexity collection. Ischemic stroke is hypodense and intra-axial, not a hyperdense extra-axial collection. The shape and suture-crossing distinguish subdural from epidural."
+     "explanation": "A crescent (concave) shaped extra-axial collection that crosses suture lines is the classic appearance of a subdural hematoma, arising from torn bridging veins; the mixed density indicates a subacute collection with superimposed acute bleeding—fitting the delayed presentation in an anticoagulated patient. An epidural hematoma is biconvex (lens-shaped) and typically does NOT cross suture lines, usually from arterial (middle meningeal) injury. Subarachnoid hemorrhage shows blood in the sulci, cisterns, and fissures, not a crescentic convexity collection. Ischemic stroke is hypodense and intra-axial, not a hyperdense extra-axial collection. The shape and suture-crossing distinguish subdural from epidural."
     },
     {
      "type": "question",
@@ -1738,7 +1738,7 @@
       "Permanent urinary diversion as the first step before any debridement"
      ],
      "answer": 1,
-     "explanation": "Fournier gangrene requires multidisciplinary, ICU-level critical care with serial operative re-explorations and re-debridements (often every 24–48 hours until the infection is controlled), continued broad-spectrum antibiotics, aggressive resuscitation, tight glycemic control in this diabetic, and eventual reconstructive/wound coverage—reflecting its high morbidity and mortality. A single washout with immediate discharge is unsafe and ignores the need for repeated debridement. Outpatient oral antibiotics alone cannot treat this life-threatening infection. Permanent urinary diversion is not the first step; while diverting colostomy or suprapubic catheter may be used for source control, definitive debridement is the immediate priority. Survival depends on early, repeated surgical control."
+     "explanation": "Fournier gangrene requires multidisciplinary, ICU-level critical care with serial operative re-explorations and re-debridements (often every 24–48 hours until the infection is controlled), continued broad-spectrum antibiotics, aggressive resuscitation, tight glycemic control in this diabetic, and eventual reconstructive/wound coverage—reflecting its high morbidity and mortality. A single washout with immediate discharge is unsafe and ignores the need for repeated debridement. Outpatient oral antibiotics alone cannot treat this life-threatening infection. Permanent urinary diversion is not the first step; a temporary diverting colostomy or suprapubic catheter may later be used to keep stool or urine off the wound, but definitive debridement is the immediate priority. Survival depends on early, repeated surgical control."
     }
    ],
    "diagnosis": "Fournier gangrene (necrotizing fasciitis of the perineum)",
@@ -2817,7 +2817,7 @@
    "setting": "ED",
    "patient": "29-year-old woman",
    "chiefComplaint": "Sudden severe lower abdominal pain followed by light-headedness and a near-fainting episode.",
-   "history": "A 29-year-old woman is brought to the ED after sudden, severe left lower abdominal pain that began an hour ago while at work, followed by light-headedness and a near-syncopal episode. She describes the pain as sharp and now diffuse across the lower abdomen, with new right shoulder discomfort. Her last menstrual period was approximately 7 weeks ago, and her cycles are usually regular; she had attributed a missed period to stress. She has had light vaginal spotting for two days. She is sexually active, uses condoms inconsistently, and has a history of chlamydial pelvic inflammatory disease two years ago. She had one prior ectopic pregnancy managed medically. Past medical history is otherwise unremarkable. Medications: none. Allergies: none. She does not smoke and drinks alcohol socially. Family history is noncontributory. She feels increasingly weak and cold. On arrival she is pale and diaphoretic. She has no prior abdominal surgeries and no current contraception with an IUD.",
+   "history": "A 29-year-old woman is brought to the ED after sudden, severe left lower abdominal pain that began an hour ago while at work, followed by light-headedness and a near-syncopal episode. She describes the pain as sharp and now diffuse across the lower abdomen, with new right shoulder discomfort. Her last menstrual period was approximately 7 weeks ago, and her cycles are usually regular; she had attributed a missed period to stress. She has had light vaginal spotting for two days. She is sexually active, uses condoms inconsistently, and has a history of chlamydial pelvic inflammatory disease two years ago. She had one prior ectopic pregnancy managed medically. Past medical history is otherwise unremarkable. Medications: none. Allergies: none. She does not smoke and drinks alcohol socially. Family history is noncontributory. She feels increasingly weak and cold. On arrival she is pale and diaphoretic. She has no prior abdominal surgeries and no intrauterine device in place.",
    "vitals": {
     "BP": "84/52 mmHg",
     "HR": "126 bpm",
@@ -2833,7 +2833,7 @@
      "question": "What is the single most important immediate action in this hypotensive patient?",
      "options": [
       "Send her to CT of the abdomen and pelvis to localize the bleeding",
-      "Establish large-bore IV access and begin aggressive fluid resuscitation while obtaining a bedside pregnancy test",
+      "Establish large-bore IV access, begin crystalloid resuscitation and send type and crossmatch while obtaining a bedside pregnancy test",
       "Administer IV antibiotics for presumed pelvic inflammatory disease",
       "Give IM methotrexate for a presumed ectopic pregnancy"
      ],
@@ -2843,7 +2843,7 @@
     {
      "type": "result",
      "label": "BEDSIDE STUDIES",
-     "content": "Urine beta-hCG: positive\nSerum beta-hCG: 4,800 mIU/mL\nHemoglobin: 8.1 g/dL (baseline 13.0)\nFAST exam: free fluid in Morrison's pouch and the pelvis\nTransvaginal ultrasound: empty uterus, no intrauterine gestational sac; complex left adnexal mass; moderate free fluid in the cul-de-sac\nBlood type: O negative"
+     "content": "Urine beta-hCG: positive\nSerum beta-hCG: 4,800 mIU/mL\nHemoglobin: 8.1 g/dL (baseline 13.0)\nFAST exam: free fluid in Morison's pouch and the pelvis\nTransvaginal ultrasound: empty uterus, no intrauterine gestational sac; complex left adnexal mass; moderate free fluid in the cul-de-sac\nBlood type: O negative"
     },
     {
      "type": "question",
@@ -2869,7 +2869,7 @@
       "Dilation and curettage to evacuate the uterus"
      ],
      "answer": 2,
-     "explanation": "A ruptured ectopic pregnancy with hemodynamic instability and hemoperitoneum requires emergent surgery—laparoscopic salpingectomy or salpingostomy, or laparotomy if the patient is too unstable. Surgery controls hemorrhage and removes the ectopic tissue. That option (methotrexate) is contraindicated in rupture and instability; it is reserved for small, unruptured ectopics in stable patients with low beta-hCG and no contraindications. Another option (expectant management) is dangerous and only ever considered for stable patients with declining low beta-hCG. A third option (D&C) treats the uterus, but the pregnancy is extrauterine, so curettage would not address the bleeding source. This patient needs the operating room immediately alongside ongoing resuscitation and blood products."
+     "explanation": "A ruptured ectopic pregnancy with hemodynamic instability and hemoperitoneum requires emergent surgery—laparoscopic salpingectomy, or laparotomy if the patient is too unstable. Surgery controls hemorrhage and removes the ectopic tissue. That option (methotrexate) is contraindicated in rupture and instability; it is reserved for small, unruptured ectopics in stable patients with low beta-hCG and no contraindications. Another option (expectant management) is dangerous and only ever considered for stable patients with declining low beta-hCG. A third option (D&C) treats the uterus, but the pregnancy is extrauterine, so curettage would not address the bleeding source. This patient needs the operating room immediately alongside ongoing resuscitation and blood products."
     },
     {
      "type": "question",
@@ -2895,13 +2895,13 @@
       "Start broad-spectrum antibiotics for two weeks"
      ],
      "answer": 1,
-     "explanation": "This patient is Rh (D) negative, and any pregnancy-related bleeding event in an Rh-negative woman warrants anti-D immune globulin (Rho(D) immune globulin) to prevent alloimmunization that could affect future pregnancies. That option is incorrect because omitting anti-D risks sensitization. Another option is wrong—she had significant hemorrhage requiring transfusion and surgery, so same-day discharge is inappropriate, and iron alone overlooks the Rh issue and need for monitoring. A third option (prolonged antibiotics) is not routinely indicated after salpingectomy for ectopic; perioperative prophylaxis is sufficient. Recognizing the Rh-negative status and giving anti-D is the high-yield teaching point for any bleeding event in early pregnancy."
+     "explanation": "This patient is Rh (D) negative, and ectopic pregnancy in an Rh-negative woman warrants anti-D immune globulin (Rho(D) immune globulin) to prevent alloimmunization that could affect future pregnancies. That option is incorrect because omitting anti-D risks sensitization. Another option is wrong—she had significant hemorrhage requiring transfusion and surgery, so same-day discharge is inappropriate, and iron alone overlooks the Rh issue and need for monitoring. A third option (prolonged antibiotics) is not routinely indicated after salpingectomy for ectopic; perioperative prophylaxis is sufficient. Recognizing the Rh-negative status and giving anti-D is the high-yield teaching point for ectopic pregnancy and other significant bleeding events in pregnancy."
     }
    ],
    "diagnosis": "Ruptured ectopic pregnancy with hemorrhagic shock",
    "pearls": [
     "Any reproductive-age woman with abdominal pain and shock needs an immediate pregnancy test—assume ectopic until proven otherwise.",
-    "Beta-hCG above the discriminatory zone with an empty uterus and adnexal mass plus free fluid equals ruptured ectopic.",
+    "Beta-hCG above the discriminatory zone with an empty uterus and adnexal mass equals ectopic; substantial free fluid with shock signals rupture.",
     "Hemodynamic instability or rupture mandates emergent surgery; methotrexate is contraindicated and reserved for small, stable, unruptured ectopics.",
     "In hemorrhagic shock, move to blood products early rather than escalating crystalloid, and give anti-D to Rh-negative patients."
    ],
