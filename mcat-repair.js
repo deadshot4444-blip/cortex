@@ -11,7 +11,7 @@ async function loadMcatRepairs() {
       const data = await response.json();
       if (data.version !== 1 || !Array.isArray(data.concepts) || !data.concepts.length) throw new Error('Invalid repair lessons');
       repairData = data;
-      repairState = McatRepairCore.normalize(loadJSON(REPAIR_KEY, null), repairData.concepts);
+      repairState = McatRepairCore.normalize(McatStorage.read(REPAIR_KEY, null), repairData.concepts);
       return true;
     } catch { return false; }
     finally { repairLoading = null; }
@@ -19,8 +19,8 @@ async function loadMcatRepairs() {
   return repairLoading;
 }
 function saveMcatRepair() {
-  try { localStorage.setItem(REPAIR_KEY, JSON.stringify(repairState)); repairSaveFailed=false; }
-  catch { repairSaveFailed=true; }
+  repairSaveFailed=!McatStorage.watch(REPAIR_KEY,()=>repairState).save(repairState);
+  return !repairSaveFailed;
 }
 function setRepairView(root) {
   const footer=siteFooter();

@@ -3,7 +3,7 @@ const browser=await chromium.launch({headless:true}),base=process.env.CORTEX_URL
 const context=await browser.newContext(),page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));
 await page.route('**/api/**',r=>r.fulfill({status:200,contentType:'application/json',body:'{"value":0}'}));
 try{
- await page.goto(base+'mcat?gates=prod',{waitUntil:'networkidle'});await page.click('#begin');await page.click('[data-study-minutes="15"]');
+ await page.goto(base+'mcat?gates=prod',{waitUntil:'networkidle'});await page.click('#guide-reference-options > summary');await page.click('#begin');await page.click('[data-study-minutes="15"]');
  let session=await page.evaluate(()=>studyDailySession(guidePlan()));assert.equal(session.tasks[0].type,'course');assert.equal(session.tasks[0].minutes,12);
  await page.click('#study-next');await page.fill('#course-notes','Saved lesson plan association.');
  const unit=await page.evaluate(()=>courseData.units[0]);await page.click('#course-learned');await page.fill('#course-prediction','Folding can alter activity.');await page.click('#course-reveal');assert.equal(await page.locator('#course-reveal').isVisible(),false);await page.fill('#course-reflection','The sequence can remain intact while the fold changes.');await page.click('#course-explored');
@@ -13,7 +13,7 @@ try{
  await page.evaluate(()=>{QLOG.push({qId:courseData.units[0].questionIds[0],correct:false,ts:Date.now()});saveQ();renderGuide();});
  await page.click('#course-today [data-course-revisit]');await page.waitForSelector('#course-learned');await page.click('#course-learned');
  assert.equal(await page.evaluate(()=>courseRecord(courseData.units[0].id).attempts.length),2);assert.ok(await page.evaluate(()=>courseRecord(courseData.units[0].id).reviewedAt));
- await page.click('.course-nav [data-course-view="today"]');
+ await page.click('[aria-controls="course-study-menu"]');await page.click('.course-nav [data-course-view="today"]');
  // A due course check invalidates the cached daily recommendation.
  await page.evaluate(()=>{const p=guidePlan();p.sessions={};p.completed={};saveGuidePlan(p);const r=courseRecord('protein-structure');r.completedAt=Date.now()-86400001;r.dueAt=Date.now()-1;saveCourse();renderGuide();});
  session=await page.evaluate(()=>studyDailySession(guidePlan()));assert.ok(session.tasks.some(t=>t.type==='course'&&t.unitId==='protein-structure'));

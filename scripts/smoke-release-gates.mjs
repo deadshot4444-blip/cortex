@@ -70,18 +70,20 @@ for (const viewport of viewports) {
   await page.waitForSelector('#mcat-panel:not([hidden])');
   const mcatMenuItems = (await page.locator('#mcat-panel .mi-name').allTextContents()).map(label => label.trim());
   const mcatMenuDescriptions = (await page.locator('#mcat-panel .mi-desc').allTextContents()).map(label => label.trim());
-  if (JSON.stringify(mcatMenuItems) !== JSON.stringify(['MCAT Prep', 'Stats'])
-      || JSON.stringify(mcatMenuDescriptions) !== JSON.stringify(['Forever-free study suite', 'Progress dashboard'])) {
+  if (JSON.stringify(mcatMenuItems) !== JSON.stringify(['MCAT Prep', 'Progress'])
+      || JSON.stringify(mcatMenuDescriptions) !== JSON.stringify(['Forever-free study suite', 'Lessons, practice & saved work'])) {
     throw new Error(`MCAT menu organization is wrong: ${JSON.stringify({ mcatMenuItems, mcatMenuDescriptions })}`);
   }
   await assertNoOverflow('MCAT menu');
   await page.click('#mcat-panel [data-go="mcat"]');
-  await page.waitForURL(new URL('mcat', base).href);
-  await page.waitForSelector('.guide-setup-hero');
-  const guideEntryHeading = (await page.locator('.guide-setup-hero h1').textContent())?.trim();
+  await page.waitForURL(url => url.pathname === '/mcat');
+  await page.waitForSelector('.guide-welcome');
+  const guideEntryHeading = (await page.locator('.guide-welcome h1').textContent())?.trim();
   const guideTrackCount = await page.locator('[data-track]').count();
-  if (guideEntryHeading !== 'Choose your pace.' || guideTrackCount !== 3) {
-    throw new Error(`First MCAT visit did not open plan setup: ${JSON.stringify({ guideEntryHeading, guideTrackCount })}`);
+  if (guideEntryHeading !== 'Start your session.' || guideTrackCount !== 3
+      || !(await page.locator('#first-start').isVisible())
+      || await page.locator('#guide-reference-options').evaluate(el => el.open)) {
+    throw new Error(`First MCAT visit did not open the session entry: ${JSON.stringify({ guideEntryHeading, guideTrackCount })}`);
   }
   await assertNoOverflow('Guided MCAT setup');
   await page.click('#back');
@@ -104,7 +106,8 @@ for (const viewport of viewports) {
   await page.click('#back');
   await page.waitForSelector('.mcat-landing');
   await page.click('#mc-enter');
-  await page.waitForSelector('.guide-setup-hero');
+  await page.waitForSelector('.guide-welcome');
+  await page.click('#guide-reference-options > summary');
   await page.click('[data-track="60"]');
   const guideSelectedTrack = (await page.locator('.guide-track.active strong').textContent())?.trim();
   await page.click('#begin');
@@ -160,16 +163,16 @@ for (const viewport of viewports) {
   }
   await page.click('[data-menu="mcat"]');
   await page.click('#mcat-panel [data-go="stats"]');
-  await page.waitForURL(new URL('stats', base).href);
-  await page.waitForSelector('.hero h1');
-  const statsHeading = (await page.locator('.hero h1').textContent())?.trim();
+  await page.waitForURL(url => url.pathname==='/mcat'&&url.searchParams.get('view')==='progress');
+  await page.waitForSelector('.course-progress-heading h1');
+  const statsHeading = (await page.locator('.course-progress-heading h1').textContent())?.trim();
   const mcatParentActiveOnStats = await page.locator('[data-menu="mcat"]').evaluate(button => button.classList.contains('active'));
   await page.click('[data-menu="mcat"]');
   const statsAriaCurrent = await page.locator('#mcat-panel [data-go="stats"]').getAttribute('aria-current');
   await page.keyboard.press('Escape');
   const mcatClosedByEscape = await page.locator('#mcat-panel').evaluate(panel => panel.hidden);
   const focusedMenuAfterEscape = await page.evaluate(() => document.activeElement?.getAttribute('data-menu'));
-  if (statsHeading !== 'Stats.' || !mcatParentActiveOnStats || statsAriaCurrent !== 'page'
+  if (statsHeading !== 'See what is changing.' || !mcatParentActiveOnStats || statsAriaCurrent !== 'page'
       || !mcatClosedByEscape || focusedMenuAfterEscape !== 'mcat') {
     throw new Error(`MCAT/Stats navigation is wrong: ${JSON.stringify({ statsHeading, mcatParentActiveOnStats, statsAriaCurrent, mcatClosedByEscape, focusedMenuAfterEscape })}`);
   }
@@ -229,6 +232,7 @@ for (const viewport of viewports) {
   await page.goto(new URL('?gates=prod', base).href, { waitUntil: 'networkidle' });
   await page.click('[data-menu="mcat"]');
   await page.click('#mcat-panel [data-go="stats"]');
+  await page.click('#course-academy-activity');
   await page.waitForSelector('#stats-medpath');
   await page.click('#stats-medpath');
   await page.waitForSelector('.comingsoon');
@@ -242,9 +246,9 @@ for (const viewport of viewports) {
   const whatsNewItems = await page.locator('.upd-featured-list li').count();
   const priorPublicVersion = (await page.locator('.updates-history .upd-ver').first().textContent())?.trim();
   if (versionText !== `v${APP_VERSION}`
-      || whatsNewTitle !== 'MCAT 2.0: learn, reason, and plan your week'
+      || whatsNewTitle !== 'MCAT 2.0: a smoother study day'
       || whatsNewItems !== 8
-      || priorPublicVersion !== 'v1.25.25') {
+      || priorPublicVersion !== 'v2.0.0-beta.1') {
     throw new Error(`What's New is not the cumulative ${APP_VERSION} release: ${JSON.stringify({ versionText, whatsNewTitle, whatsNewItems, priorPublicVersion })}`);
   }
   await assertNoOverflow("What's New");

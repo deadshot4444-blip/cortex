@@ -20,7 +20,7 @@ try {
   const plan=async()=>page.evaluate(()=>JSON.parse(localStorage.getItem('cs-mcat-plan')));
   const library=async()=>{await page.goto(base+'mcat?gates=prod',{waitUntil:'networkidle'}); await page.click('#back');};
   await page.addInitScript(()=>{if(!localStorage.getItem('cs-mcat-course-v1'))localStorage.setItem('cs-mcat-course-v1',JSON.stringify({mode:'mixed'}));});
-  await page.goto(base+'mcat?gates=prod',{waitUntil:'networkidle'});await page.click('#begin');await page.waitForSelector('.study-session');
+  await page.goto(base+'mcat?gates=prod',{waitUntil:'networkidle'});await page.click('#guide-reference-options > summary');await page.click('#begin');await page.waitForSelector('.study-session');
   const target=(await plan()).targetDate;
   for(const n of [15,30,60]) { await page.click(`[data-study-minutes="${n}"]`);const state=await plan(),session=Object.values(state.sessions).at(-1);assert.equal(session.minutes,n);assert.ok(session.tasks.reduce((v,t)=>v+t.minutes,0)<=n);assert.equal(state.targetDate,target);await overflow(`budget ${n}`); }
   await page.click('[data-study-minutes="15"]');
@@ -70,7 +70,7 @@ try {
  // Controlled test fixtures: old-day carryover, due-check priority and expired/legacy sessions.
  const ctx=await browser.newContext(),page=await ctx.newPage();
  await page.route('**/api/**',r=>r.fulfill({status:200,contentType:'application/json',body:'{"value":0}'}));
- await page.goto(base+'mcat',{waitUntil:'networkidle'});await page.click('#begin');
+ await page.goto(base+'mcat',{waitUntil:'networkidle'});await page.click('#guide-reference-options > summary');await page.click('#begin');
  await page.evaluate(()=>{
   const plan=guidePlan();plan.startDate=guideAddDays(guideDateKey(),-6);plan.lastStudyDate=plan.startDate;plan.targetDate=guideAddDays(plan.startDate,119);plan.sessions={};plan.completed={'1:drill':Date.now()-6*DAY};
   const task={...guideDayTasks(plan,1).find(t=>t.type==='flash'),limitCards:2};plan.active=task;saveGuidePlan(plan);

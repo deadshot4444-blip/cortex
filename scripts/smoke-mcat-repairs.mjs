@@ -25,7 +25,7 @@ try {
   await page.check('[name="repair-confidence"][value="sure"]');
   await page.click(`[data-repair-answer="${(c.diagnostic.answer+1)%4}"]`);
   await page.reload({waitUntil:'networkidle'});
-  await page.click('[data-repair-start]');
+  await page.click('#guide-other-starts > summary');await page.click('[data-repair-start]');
   assert.ok((await page.locator('.repair-feedback').innerText()).includes('Not yet'));
   assert.equal(await page.locator('[data-repair-answer]:enabled').count(),0);
   await page.click('#repair-next');await page.waitForSelector('.repair-lesson');
@@ -45,11 +45,11 @@ try {
   await page.click('#repair-next');
   assert.ok((await page.locator('.repair-question > .label').innerText()).includes('PREVIOUSLY SEEN'));
   await page.click(`[data-repair-answer="${c.checks[0].answer}"]`);await page.click('#repair-next');
-  await page.click('#repair-finish');await page.waitForSelector('.guide-setup-hero');
+  await page.click('#repair-finish');await page.waitForSelector('.guide-welcome');
   let state=await page.evaluate(()=>JSON.parse(localStorage.getItem('cs-mcat-repairs-v1')));
   assert.equal(core.unseenChecks(c,state).length,2);
   assert.equal(core.stats(data.concepts,state).laterTotal,0);
-  await page.click('#begin');await page.waitForSelector('.guide-day-hero');
+  await page.click('#guide-reference-options > summary');await page.click('#begin');await page.waitForSelector('.guide-day-hero');
   await page.locator('.guide-original > summary').click();
   assert.ok((await page.locator('.guide-section-head').innerText()).includes('Schedule elapsed: 0%'));
   assert.equal(await page.locator('.guide-task.done').count(),0);
@@ -81,8 +81,8 @@ try {
  const ctx=await browser.newContext(),page=await ctx.newPage();
  await page.route('**/data/mcat-repairs.json*',r=>r.fulfill({status:503,body:'unavailable'}));
  await page.goto(`${base}mcat`,{waitUntil:'networkidle'});
- assert.equal(await page.locator('.guide-setup-hero').count(),1);
+ assert.equal(await page.locator('.guide-welcome').count(),1);
  assert.equal(await page.locator('[data-repair-retry]').count(),1);
- await page.unroute('**/data/mcat-repairs.json*');await page.click('[data-repair-retry]');await page.waitForSelector('[data-repair-start]');
+ await page.unroute('**/data/mcat-repairs.json*');await page.click('#guide-other-starts > summary');await page.click('[data-repair-retry]');await page.waitForSelector('[data-repair-start]');
  await ctx.close();console.log('PASS missing lesson file: recovery and retry');
 } finally { await browser.close(); }

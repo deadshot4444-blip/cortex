@@ -4,12 +4,37 @@
   function normalize(raw){
     const s=raw&&typeof raw==='object'&&!Array.isArray(raw)?raw:{};s.version=2;
     for(const k of ['coach','math','diagnostics']){if(!s[k]||typeof s[k]!=='object'||Array.isArray(s[k]))s[k]={};if(!Array.isArray(s[k].history))s[k].history=[];}
+    if(!Array.isArray(s.coach.parked))s.coach.parked=[];
     if(!s.weekly||typeof s.weekly!=='object'||Array.isArray(s.weekly))s.weekly={};
     const w=s.weekly;if(!Array.isArray(w.availability)||w.availability.length!==7)w.availability=[30,30,30,30,30,60,0];
     w.availability=w.availability.map(n=>Math.min(480,Math.max(0,Number(n)||0)));
     if(!Array.isArray(w.exams))w.exams=[];if(!w.done||typeof w.done!=='object'||Array.isArray(w.done))w.done={};
     if(!Array.isArray(s.durations))s.durations=[];if(!s.activityTime||typeof s.activityTime!=='object'||Array.isArray(s.activityTime))s.activityTime={};return s;
   }
+  function parkCoach(s) {
+    const r=s.coach.active;if(!r)return false;
+    if(s.weekly.active?.type==='coach'&&s.weekly.active.key===r.coachId){r.weekTask=s.weekly.active;delete s.weekly.active;}
+    if(!s.coach.parked.some(item=>item.id===r.id))s.coach.parked.push(r);
+    delete s.coach.active;return true;
+  }
+  function resumeCoach(s,id) {
+    if(s.coach.active?.id===id)return s.coach.active;
+    const r=s.coach.parked.find(item=>item.id===id);if(!r)return null;
+    parkCoach(s);s.coach.parked=s.coach.parked.filter(item=>item.id!==id);s.coach.active=r;
+    if(r.weekTask)s.weekly.active=r.weekTask;
+    return r;
+  }
+  function mathPrior(s,qId,before=Infinity,runId) {
+    const first=s.math.exposures?.[qId];
+    if(first&&first.runId!==runId&&first.ts<=before)return first.source;
+    if(s.math.history.some(r=>r.qId===qId&&r.id!==runId&&(r.startedAt||r.completedAt)<before))return 'math';
+    for(const r of [...s.diagnostics.history,s.diagnostics.active].filter(Boolean)){
+      if(r.answers.some(a=>a.qId==='probe-'+qId&&a.ts<=before))return 'investigation';
+    }
+    return null;
+  }
+  function mathEvidence(s,r){return {...r,assisted:!!(r.assisted||r.externalAssistance),repeat:!!(r.repeat||mathPrior(s,r.qId,r.startedAt||r.completedAt,r.id))};}
+  function noteMathExposure(s,qId,runId,source,ts){if(source==='investigation'&&s.math.active?.qId===qId&&!s.math.active.completedAt)s.math.active.externalAssistance=true;s.math.exposures ||= {};s.math.exposures[qId] ||= {runId,source,ts};}
   function bucket(a){return a.repeat?'repeat':a.assisted?'assisted':'independent';}
   function evidence(attempts){
     const result={independent:{correct:0,total:0},assisted:{correct:0,total:0},repeat:{correct:0,total:0}};
@@ -100,6 +125,24 @@
   function week(s,input){
     const w=s.weekly,start=input.start,days=[],selected=new Set(),done=Object.values(w.done),pool=[];
     const courseMin=duration(s,'course',15),coachMin=duration(s,'coach',20),mathMin=duration(s,'math',5);
+    // Completed work counts toward availability even when it began outside this planner.
+    // Derive display records without changing answers, completion times, or stored history.
+    const remember=(task)=>{
+      if(!Number.isFinite(task.ts)||task.ts>(input.now??Date.now()))return;
+      const day=dateKey(new Date(task.ts));
+      if(day<start||day>=addDays(start,7))return;
+      if(done.some(d=>d.day===day&&d.type===task.type&&d.key===task.key
+        &&(d.kind||'lesson')===(task.kind||'lesson')&&Math.abs(d.ts-task.ts)<1000))return;
+      done.push({...task,day,reason:task.reason||'Completed study activity.'});
+    };
+    (input.completedActivities||[]).forEach(remember);
+    for(const u of input.units){const r=input.records[u.id]||{};
+      remember({id:`course:${u.id}`,type:'course',key:u.id,title:u.title,minutes:courseMin,ts:r.completedAt,kind:'lesson'});
+      remember({id:`review:${u.id}:${r.reviewedAt}`,type:'course',key:u.id,title:`Review: ${u.title}`,minutes:5,ts:r.reviewedAt,kind:'review'});
+      (r.attempts||[]).filter(a=>a.kind==='delayed').forEach((a,i)=>remember({id:`later:${u.id}:${i}`,type:'course',key:u.id,title:`Later check: ${u.title}`,minutes:5,ts:a.ts,kind:'delayed'}));
+    }
+    s.coach.history.forEach(h=>remember({id:`coach:${h.coachId}`,type:'coach',key:h.coachId,title:input.coaches.find(c=>c.id===h.coachId)?.title||'Passage workshop',minutes:coachMin,ts:h.completedAt}));
+    s.math.history.forEach(h=>remember({id:`math:${h.skill}`,type:'math',key:h.skill,title:SKILLS[h.skill]||'Quantitative practice',minutes:mathMin,ts:h.completedAt}));
     const add=(type,key,title,minutes,reason,extra={})=>pool.push({id:`${type}:${key}`,type,key,title,minutes,reason,...extra});
     if(w.active&&!done.some(d=>d.id===w.active.id&&d.day===w.active.day))pool.push({...w.active,reason:'Continue your saved activity.'});
     for(const u of input.units){const r=input.records[u.id]||{};if(r.dueAt)add('course',u.id,`Later check: ${u.title}`,5,'Fresh application due.',{notBefore:dateKey(new Date(r.dueAt)),dueAt:r.dueAt,kind:'delayed',id:`later:${u.id}:${r.attempts?.filter(a=>a.kind==='delayed').length||0}`});}
@@ -153,6 +196,6 @@
     }
     return days;
   }
-  const api={DAY,SKILLS,normalize,bucket,evidence,nextSupport,numeric,quant,diagnose,dateKey,dateFrom,addDays,duration,week,priorQuestionIds,optionOrder,optionLabel};
+  const api={DAY,SKILLS,normalize,parkCoach,resumeCoach,mathPrior,mathEvidence,noteMathExposure,bucket,evidence,nextSupport,numeric,quant,diagnose,dateKey,dateFrom,addDays,duration,week,priorQuestionIds,optionOrder,optionLabel};
   if(typeof module!=='undefined'&&module.exports)module.exports=api;root.McatV2Core=api;
 })(typeof window!=='undefined'?window:globalThis);

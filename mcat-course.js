@@ -1,6 +1,6 @@
 /* MCAT workspace: authored foundations and connected local learning records. */
 let courseData = null;
-let courseState = McatCourseCore.normalize(loadJSON('cs-mcat-course-v1', {}));
+let courseState = McatCourseCore.normalize(McatStorage.read('cs-mcat-course-v1', {}));
 const courseStore = McatStorage.watch('cs-mcat-course-v1',()=>courseState);
 let courseFilter = 'all';
 const COURSE_SECTIONS = {bioBiochem:'Biology & biochemistry',chemPhys:'Chemistry & physics',psychSoc:'Psychology & sociology',cars:'Critical analysis & reasoning'};
@@ -10,7 +10,7 @@ async function loadMcatCourse() {
 }
 let courseSaveFailed = false;
 function saveCourse() {
-  try { if(!courseStore.save(courseState))return false;courseSaveFailed=false;return true; }
+  try { courseSaveFailed=!courseStore.save(courseState);return !courseSaveFailed; }
   catch { courseSaveFailed=true; const status=document.querySelector('#course-note-status');if(status)status.textContent='Storage is unavailable. Keep this tab open and copy important notes.';return false; }
 }
 function courseUnit(id) { return courseData?.units.find(u => u.id === id); }
@@ -40,13 +40,29 @@ function mcatWorkspace(root,view) {
   nav.querySelectorAll('[data-course-view]').forEach(b => b.onclick = () => courseGo(b.dataset.courseView));
   root.insertBefore(nav,root.children[1] || null);
   root.classList.add('course-workspace');
+  const main=root.querySelector('main');if(main)mcatDataNotice(main);
   return root;
 }
 function courseView(main,view='course',unit) {
-  const root = el('<div></div>'); root.appendChild(topbar('mcat')); root.appendChild(main);
+  const root = el('<div></div>'); root.appendChild(topbar(view==='progress'?'stats':'mcat')); root.appendChild(main);
   mcatWorkspace(root,view); if (unit) courseRoute(view,unit);
   if(courseSaveFailed)main.prepend(el('<p class="course-notice" role="alert">This browser could not save your course work. Keep this tab open and copy important notes before leaving.</p>'));
+  if(main.classList.contains('course-lesson')||main.dataset.v2Activity||main.dataset.study)courseStudyChrome(root);
   studySetView(root);
+}
+function courseStudyChrome(root) {
+  root.classList.add('course-study');
+  const menus=el('<div id="course-study-menu" hidden></div>');
+  menus.append(root.querySelector('.mainbar'),root.querySelector('.course-nav'));
+  const header=el('<header class="course-study-header"><a class="skip-link" href="#main">Skip to content</a><span>MCAT <small>/ STUDY</small></span><button class="btn" aria-expanded="false" aria-controls="course-study-menu">Study menu</button></header>');
+  const toggle=header.querySelector('button');
+  toggle.onclick=()=>{menus.hidden=!menus.hidden;toggle.setAttribute('aria-expanded',String(!menus.hidden));};
+  menus.onkeydown=e=>{if(e.key==='Escape'){menus.hidden=true;toggle.setAttribute('aria-expanded','false');toggle.focus();}};
+  root.prepend(header,menus);
+}
+function courseFocusPrompt(node) {
+  if(!node?.isConnected)return;
+  node.setAttribute('tabindex','-1');node.focus({preventScroll:true});node.scrollIntoView({block:'start',behavior:'instant'});
 }
 function courseStatus(u) {
   const r=courseRecord(u.id);
@@ -56,15 +72,15 @@ function courseStatus(u) {
   if (r.startedAt) return 'In progress';
   return 'Ready to start';
 }
-function courseToday(host) {
+function courseToday(host, compact = false) {
   if (!courseData) { host.innerHTML='<div class="course-notice"><strong>Course is temporarily unavailable.</strong><p>Your existing study tools and saved work are available. Reload to retry loading lessons.</p></div>'; return; }
   const rec=courseRec(), m=McatCourseCore.metrics(courseData,courseState);
-  host.innerHTML=`<section class="course-today"><div><span class="course-eyebrow">YOUR NEXT CHAPTER</span><h2>${rec ? esc(rec.unit.title) : 'Foundations completed.'}</h2><p>${rec ? esc(rec.reason) : 'Keep applying these ideas in passages. Your later checks will appear when due.'}</p><div class="course-actions">${rec ? `<button class="btn btn-solid" data-course-open="${rec.unit.id}" ${rec.kind==='review'?'data-course-revisit="true"':''}>${rec.kind==='delayed'?'Take later check':rec.kind==='resume'?'Continue lesson':rec.kind==='review'?'Revisit lesson':'Open lesson'} →</button>` : '<button class="btn btn-solid" data-course-view="practice">Practice passages →</button>'}<button class="btn" data-course-view="course">Explore the course</button></div></div><div class="course-today-aside"><span class="course-number">${String(m.completed).padStart(2,'0')}<small> / ${m.available}</small></span><span>lessons complete</span><div class="course-mini-track"><i style="width:${m.completed/m.available*100}%"></i></div><button class="ghostbtn" id="course-placement">${courseState.placement.doneAt?'View starting check':'Find my starting point'} ↗</button><small>Optional · 12 questions · no score prediction</small></div></section>`;
+  host.innerHTML=`<section class="course-today${compact ? " course-today-compact" : ""}"><div><span class="course-eyebrow">${compact ? "YOUR COURSE" : "YOUR NEXT CHAPTER"}</span><h2>${rec ? esc(rec.unit.title) : 'Foundations completed.'}</h2><p>${rec ? esc(rec.reason) : 'Keep applying these ideas in passages. Your later checks will appear when due.'}</p><div class="course-actions">${rec ? `<button class="btn${compact ? "" : " btn-solid"}" data-course-open="${rec.unit.id}" ${rec.kind==='review'?'data-course-revisit="true"':''}>${rec.kind==='delayed'?'Take later check':rec.kind==='resume'?'Continue lesson':rec.kind==='review'?'Revisit lesson':'Open lesson'} →</button>` : `<button class="btn${compact ? "" : " btn-solid"}" data-course-view="practice">Practice passages →</button>`}<button class="btn" data-course-view="course">Explore the course</button></div></div><div class="course-today-aside"><span class="course-number">${String(m.completed).padStart(2,'0')}<small> / ${m.available}</small></span><span>lessons complete</span><div class="course-mini-track"><i style="width:${m.completed/m.available*100}%"></i></div><button class="ghostbtn" id="course-placement">${courseState.placement.doneAt?'View starting check':'Find my starting point'} ↗</button><small>Optional · 12 questions · no score prediction</small></div></section>`;
   host.querySelector('#course-placement').onclick=renderCoursePlacement;
   host.querySelectorAll('[data-course-view]').forEach(b=>b.onclick=()=>courseGo(b.dataset.courseView));
 }
 function courseModeMarkup() {
-  return `<section class="course-mode"><div><span class="label">Study stage</span><p>Choose what to emphasize. Your target date and saved work stay in place.</p></div><div class="course-mode-options">${[['learn','Learn','Lessons + recall'],['mixed','Apply','Mixed passage practice'],['exam','Rehearse','Timed sections + review']].map(([id,title,desc])=>`<button data-course-mode="${id}" aria-pressed="${courseState.mode===id}"><strong>${title}</strong><small>${desc}</small></button>`).join('')}</div></section>`;
+  return `<section class="course-mode"><div><span class="label">Study stage</span><p>Choose what to emphasize. Your saved work and any target date stay in place.</p></div><div class="course-mode-options">${[['learn','Learn','Lessons + recall'],['mixed','Apply','Mixed passage practice'],['exam','Rehearse','Timed sections + review']].map(([id,title,desc])=>`<button data-course-mode="${id}" aria-pressed="${courseState.mode===id}"><strong>${title}</strong><small>${desc}</small></button>`).join('')}</div></section>`;
 }
 function wireCourseModes(main,rerender) {
   main.querySelectorAll('[data-course-mode]').forEach(b=>b.onclick=()=>{courseState.mode=b.dataset.courseMode;saveCourse();const plan=guidePlan();if(plan)studyDailySession(plan,plan.dailyMinutes||30);rerender();});
@@ -108,7 +124,7 @@ function renderCourseUnit(id,requested) {
   const stage=r.stage;
   saveCourse();
   const tabs=[['learn','01 · Learn'],['explore','02 · Explore'],['check','03 · Apply'],['record','Learning record']];
-  const main=el(`<main class="course-page course-lesson"><button class="backbtn" id="course-back">← Course</button><header class="course-lesson-heading"><span class="course-eyebrow">${SEC_ABBR[u.section]} / ${u.categories.join(' · ')} / ~${u.minutes} MIN</span><h1>${esc(u.title)}</h1><p>${esc(u.subtitle)}</p></header><nav class="course-steps" aria-label="Lesson steps">${tabs.map(([s,n])=>`<button data-course-stage="${s}" ${s===stage?'aria-current="step"':''} ${s==='explore'&&!r.learnedAt || s==='check'&&!r.exploredAt?'disabled':''}>${n}</button>`).join('')}</nav><div class="course-lesson-grid"><section id="course-body"></section><aside class="course-notebook"><span class="label">Your notebook</span><label for="course-notes">Keep the idea in your own words.</label><textarea id="course-notes" rows="8" placeholder="A distinction, a question, or the step you want to remember…">${esc(r.notes)}</textarea><small id="course-note-status" role="status">Notes stay on this device.</small><div class="course-next-links"><span class="label">Builds on</span>${u.prerequisites.length?u.prerequisites.map(p=>`<button class="ghostbtn" data-course-open="${p}">${esc(courseUnit(p)?.title || p)} →</button>`).join(''):'<p>No earlier course unit required.</p>'}<span class="label">Source</span><a href="${u.source.url}" target="_blank" rel="noopener">${esc(u.source.title)} ↗</a>${(u.additionalSources||[]).map(source=>`<a href="${source.url}" target="_blank" rel="noopener">${esc(source.title)} ↗</a>`).join('')}<small>Original lessons and practice questions, with explanations to support your study.</small></div></aside></div></main>`);
+  const main=el(`<main class="course-page course-lesson"><button class="backbtn" id="course-back">← Save & leave lesson</button><header class="course-lesson-heading ${stage==='learn'?'':'course-lesson-heading-compact'}"><span class="course-eyebrow">${SEC_ABBR[u.section]} / ${u.categories.join(' · ')} / ~${u.minutes} MIN</span><h1>${esc(u.title)}</h1><p>${esc(u.subtitle)}</p></header><nav class="course-steps" aria-label="Lesson steps">${tabs.map(([s,n])=>`<button data-course-stage="${s}" ${s===stage?'aria-current="step"':''} ${s==='explore'&&!r.learnedAt || s==='check'&&!r.exploredAt?'disabled':''}>${n}</button>`).join('')}</nav><div class="course-lesson-grid"><section id="course-body"></section><aside class="course-notebook"><span class="label">Your notebook · Optional</span><label for="course-notes">Keep an idea or question for yourself.</label><textarea id="course-notes" rows="8" placeholder="A distinction, a question, or the step you want to remember…">${esc(r.notes)}</textarea><small id="course-note-status" role="status">Notes stay on this device.</small><div class="course-next-links"><span class="label">Builds on</span>${u.prerequisites.length?u.prerequisites.map(p=>`<button class="ghostbtn" data-course-open="${p}">${esc(courseUnit(p)?.title || p)} →</button>`).join(''):'<p>No earlier course unit required.</p>'}<span class="label">Source</span><a href="${u.source.url}" target="_blank" rel="noopener">${esc(u.source.title)} ↗</a>${(u.additionalSources||[]).map(source=>`<a href="${source.url}" target="_blank" rel="noopener">${esc(source.title)} ↗</a>`).join('')}<small>Original lessons and practice questions, with explanations to support your study.</small></div></aside></div></main>`);
   main.querySelector('#course-back').onclick=renderCourseHome;
   main.querySelectorAll('[data-course-stage]').forEach(b=>b.onclick=()=>renderCourseUnit(id,b.dataset.courseStage));
   main.querySelector('#course-notes').oninput=e=>{r.notes=e.target.value;const saved=saveCourse();main.querySelector('#course-note-status').textContent=saved?'Saved on this device.':'Storage is unavailable. Copy this note before leaving.';};
@@ -122,17 +138,18 @@ function renderCourseUnit(id,requested) {
   else courseLearningRecord(body,u,r);
   if(stage!=='record'){main.dataset.v2Activity='course';main.dataset.v2Key=id;}
   courseView(main,'course',id);
+  if(stage!=='learn')courseFocusPrompt(body.querySelector('h2'));
 }
 function courseExplore(body,u,r) {
   const lab=r.lab;
-  body.innerHTML=`<article class="course-explore"><span class="label">Predict before you reveal</span><h2>${u.lab?'Make one change. Explain the result.':'Work through the reasoning.'}</h2><p>${esc(u.prediction)}</p><label for="course-prediction">Your prediction</label><textarea id="course-prediction" rows="3">${esc(lab.prediction||'')}</textarea><button class="btn btn-solid" id="course-reveal" ${lab.shown?'hidden':''} ${lab.prediction?.trim()?'':'disabled'}>Reveal & explore →</button><div id="course-experiment" ${lab.shown?'':'hidden'}></div></article>`;
+  body.innerHTML=`<article class="course-explore"><span class="label">Predict before you reveal</span><h2>${u.lab?'Make one change. Explain the result.':'Work through the reasoning.'}</h2><p>${esc(u.prediction)}</p><label for="course-prediction">Your prediction · A short answer is enough</label><textarea id="course-prediction" rows="3">${esc(lab.prediction||'')}</textarea><button class="btn btn-solid" id="course-reveal" ${lab.shown?'hidden':''} ${lab.prediction?.trim()?'':'disabled'}>Reveal & explore →</button><div id="course-experiment" ${lab.shown?'':'hidden'}></div></article>`;
   const input=body.querySelector('#course-prediction'),button=body.querySelector('#course-reveal');
   input.oninput=()=>{lab.prediction=input.value;saveCourse();button.disabled=!input.value.trim();};
   const reveal=()=>{
     const host=body.querySelector('#course-experiment');host.hidden=false;button.hidden=true;
-    host.innerHTML=`${u.lab?'<div id="course-lab"></div>':''}<div class="course-worked"><span class="label">Worked example</span><h3>${esc(u.example.prompt)}</h3><p>${esc(u.example.reasoning)}</p></div><label for="course-reflection">Explain what changed, using the idea from this lesson.</label><textarea id="course-reflection" rows="3">${esc(lab.reflection||'')}</textarea><p class="course-caption">Compare your explanation with the worked reasoning. Your writing is saved for self-review.</p><button class="btn btn-solid" id="course-explored" ${lab.reflection?.trim()?'':'disabled'}>Continue to application →</button>`;
+    host.innerHTML=`${u.lab?'<div id="course-lab"></div>':''}<div class="course-worked"><span class="label">Worked example</span><h3>${esc(u.example.prompt)}</h3><p>${esc(u.example.reasoning)}</p></div><label for="course-reflection">${u.lab?'Which observation supports or changes your prediction?':'Optional: what would you change in your prediction?'}</label><textarea id="course-reflection" rows="3">${esc(lab.reflection||'')}</textarea><p class="course-caption">${u.lab?'Point to one change in the model and connect it to your prediction.':'Compare your prediction with the worked example. Add a note only if it helps.'} Your writing is saved for self-review.</p><button class="btn btn-solid" id="course-explored" ${u.lab&&!lab.reflection?.trim()?'disabled':''}>Continue to application →</button>`;
     if(u.lab) courseLab(host.querySelector('#course-lab'),u,r);
-    host.querySelector('#course-reflection').oninput=e=>{lab.reflection=e.target.value;saveCourse();host.querySelector('#course-explored').disabled=!e.target.value.trim();};
+    host.querySelector('#course-reflection').oninput=e=>{lab.reflection=e.target.value;saveCourse();host.querySelector('#course-explored').disabled=!!u.lab&&!e.target.value.trim();};
     host.querySelector('#course-explored').onclick=()=>{r.exploredAt ||=nowTs();saveCourse();renderCourseUnit(u.id,'check');};
   };
   button.onclick=()=>{lab.shown=true;saveCourse();reveal();};
@@ -156,6 +173,7 @@ function courseCheckpoint(body,u,r,delayed) {
     r.stage=delayed?'delayed':'check';saveCourse();
     // Keep the just-answered question visible before moving to the next one.
     courseAnswerFeedback(body,u,r,q,delayed);
+    courseFocusPrompt(body.querySelector('h2'));
   });
   body.querySelector('#course-check-next')?.addEventListener('click',()=>renderCourseUnit(u.id,qs.some(x=>!r.attempts.some(a=>a.qId===x.id))?(delayed?'delayed':'check'):'record'));
 }
@@ -163,19 +181,39 @@ function courseAnswerFeedback(body,u,r,q,delayed) {
   const a=r.attempts.find(a=>a.qId===q.id);if(!a)return renderCourseUnit(u.id,'record');
   q=McatCourseCore.questionForRecord(q,a);
   r.feedback=q.id;saveCourse();
-  body.innerHTML=`<section class="course-check"><span class="label">${delayed?'Later application':'Application feedback'}</span><h2>${esc(q.stem)}</h2><div class="course-feedback" role="status"><strong>${a.correct?'Correct':'Review this distinction'}</strong><p>Your answer: ${esc(q.options[a.chosen])}</p><p><b>Answer:</b> ${esc(q.options[q.answer])}</p><p>${esc(q.explanation)}</p></div><div class="course-actions"><button class="btn btn-solid" id="course-check-next">Continue →</button>${!a.correct?`<button class="btn" data-v2-diagnose="${u.id}">Find the sticking point →</button>`:''}</div></section>`;
-  body.querySelector('#course-check-next').onclick=()=>{delete r.feedback;saveCourse();const pending=u.questions.some(x=>x.kind==='check'&&!r.attempts.some(a=>a.qId===x.id));renderCourseUnit(u.id,pending?'check':'record');};
+  if(r.helpOpen===q.id)return courseQuestionHelp(body,u,r,q,delayed);
+  body.innerHTML=`<section class="course-check"><span class="label">${delayed?'Later application':'Application feedback'}</span><h2>${esc(q.stem)}</h2><div class="course-feedback" role="status"><strong>${a.correct?'Correct':'Review this distinction'}</strong><p>Your answer: ${esc(q.options[a.chosen])}</p><p><b>Answer:</b> ${esc(q.options[q.answer])}</p><p>${esc(q.explanation)}</p></div><div class="course-actions"><button class="btn btn-solid" id="course-check-next">Continue →</button>${!a.correct?`<button class="btn" id="course-question-help">Help with this answer →</button>`:''}</div></section>`;
+  courseFocusPrompt(body.querySelector('h2'));
+  body.querySelector('#course-question-help')?.addEventListener('click',()=>{r.helpOpen=q.id;saveCourse();courseQuestionHelp(body,u,r,q,delayed);});
+  body.querySelector('#course-check-next').onclick=()=>{delete r.helpOpen;delete r.feedback;saveCourse();const pending=u.questions.some(x=>x.kind==='check'&&!r.attempts.some(a=>a.qId===x.id));renderCourseUnit(u.id,pending?'check':'record');};
+}
+function courseQuestionHelp(body,u,r,q,delayed) {
+  const original=r.attempts.find(a=>a.qId===q.id);
+  const authored=u.questions.find(item=>item.kind==='diagnostic');
+  r.help ||= {};
+  const help=r.help[q.id] ||= {questionSnapshot:McatCourseCore.snapshot(authored),chosen:null};
+  const check=McatCourseCore.questionForRecord(authored,help);
+  body.innerHTML=`<section class="course-check"><span class="label">HELP WITH THIS ANSWER</span><h2>${esc(q.stem)}</h2><div class="course-feedback"><p><b>You chose:</b> ${esc(q.options[original.chosen])}</p><p><b>The supported answer:</b> ${esc(q.options[q.answer])}</p><p>${esc(q.explanation)}</p></div><h3>Check the same idea</h3><p>${esc(check.stem)}</p>${v2Options(check.options,help.chosen,'course-help-answer')}<button class="btn" id="course-help-check" ${help.answeredAt||help.chosen===null?'disabled':''}>Check this distinction</button><div id="course-help-result" role="status">${help.answeredAt?`<div class="course-feedback"><strong>${help.chosen===check.answer?'Correct':'Compare the distinction'}</strong><p>${esc(check.options[check.answer])}</p><p>${esc(check.explanation)}</p></div>`:''}</div><p class="course-caption">This supported check is saved separately. Your original answer and lesson accuracy stay the same.</p><div class="course-actions"><button class="btn btn-solid" id="course-help-return">Return to my lesson answer →</button></div><details class="course-map"><summary>Explore broader skills (optional)</summary><div><p>Three general checks compare reading, data or math skills. They may go beyond this question.</p><button class="btn" data-v2-diagnose="${u.id}">Open broader skill checks</button></div></details></section>`;
+  body.querySelectorAll('[name="course-help-answer"]').forEach(input=>{input.disabled=!!help.answeredAt;input.onchange=()=>{help.chosen=Number(input.value);saveCourse();body.querySelector('#course-help-check').disabled=false;};});
+  body.querySelector('#course-help-check').onclick=()=>{if(help.answeredAt||help.chosen===null)return;help.answeredAt=nowTs();saveCourse();courseQuestionHelp(body,u,r,q,delayed);};
+  body.querySelector('#course-help-return').onclick=()=>{delete r.helpOpen;saveCourse();courseAnswerFeedback(body,u,r,q,delayed);};
+  saveCourse();courseFocusPrompt(help.answeredAt?body.querySelector('#course-help-result strong'):body.querySelector('h2'));
 }
 function courseLearningRecord(body,u,r) {
   const mapped=QLOG.filter(x=>u.questionIds.includes(x.qId)),missed=mapped.filter(x=>!x.correct);
   const cards=u.cards.map(id=>MCAT.cards.find(c=>c.id===id)).filter(Boolean);
   const passages=u.section==='cars'?MCAT.cars.slice(0,3):MCAT.sci.filter(p=>u.passages.includes(p.id));
   const due=r.dueAt && r.dueAt<=nowTs();
-  body.innerHTML=`<section class="course-record"><span class="label">One connected learning record</span><h2>${courseStatus(u)}</h2><p>${r.completedAt?'You worked through the lesson and its two applications. Completion records the work; accuracy is shown separately.':'Finish the lesson, reflection, and applications to schedule a new question for later.'}</p>${r.dueAt?`<div class="course-notice"><strong>${due?'Your later check is ready.':'A new application returns later.'}</strong><p>${due?'Try a different question before rereading the lesson.':`Available ${new Date(r.dueAt).toLocaleString()}. The next fresh question is spaced from your previous work.`}</p>${due?'<button class="btn btn-solid" id="course-later">Take later check →</button>':''}</div>`:''}
+  const plan=guidePlan(),weekly=typeof v2State!=='undefined'&&v2State.weekly.configured;
+  const sessionTasks=weekly?v2WeekDays()[0].tasks:(plan?.sessions?.[guideDateKey()]?.tasks||[]);
+  const remaining=sessionTasks.filter(t=>weekly?!t.done:!guideTaskDone(plan,t.day,t.id)).length;
+  const sessionComplete=sessionTasks.length>0&&remaining===0;
+  body.innerHTML=`<section class="course-record"><span class="label">One connected learning record</span><h2>${courseStatus(u)}</h2><p>${r.completedAt?'You worked through the lesson and its two applications. Completion records the work; accuracy is shown separately.':'Finish the lesson and its applications to schedule a new question for later.'}</p>${r.dueAt?`<div class="course-notice"><strong>${due?'Your later check is ready.':'A new application returns later.'}</strong><p>${due?'Try a different question before rereading the lesson.':`Available ${new Date(r.dueAt).toLocaleString()}. The next fresh question is spaced from your previous work.`}</p>${due?'<button class="btn btn-solid" id="course-later">Take later check →</button>':''}</div>`:''}
+  <div class="course-session-return"><div><strong>${sessionComplete?'Your session is complete.':remaining?`${remaining} planned ${remaining===1?'activity remains':'activities remain'}.`:'Your next step is in Today.'}</strong><p>${sessionComplete?'You can stop here. Today keeps your completed work and the next session.':'Return to your session to see what comes next and adjust your time.'}</p></div><button class="btn${due?'':' btn-solid'}" id="course-today">Return to Today</button></div>
   <div class="course-record-stats"><div><strong>${r.attempts.filter(a=>a.kind==='check'&&a.correct).length}/${r.attempts.filter(a=>a.kind==='check').length}</strong><span>First application answers</span></div><div><strong>${r.attempts.filter(a=>a.kind==='delayed'&&a.correct).length}/${r.attempts.filter(a=>a.kind==='delayed').length}</strong><span>Later answers · ${r.attempts.filter(a=>a.kind==='delayed').length}/3 reviewed</span></div></div>
   ${r.attempts.length?`<details class="course-map"><summary>Review saved answers</summary>${r.attempts.map(a=>{const q=McatCourseCore.questionForRecord(u.questions.find(q=>q.id===a.qId),a);return q?`<article class="course-saved-answer"><span class="label">${a.kind==='delayed'?'Later application':'First application'} · ${a.correct?'Correct':'Missed'} · ${esc(CONF[a.confidence]||'Unsure')}</span><h3>${esc(q.stem)}</h3><p>You: ${esc(q.options[a.chosen])}</p><p>Answer: ${esc(q.options[q.answer])}</p><p>${esc(q.explanation)}</p></article>`:'';}).join('')}</details>`:''}
   <h3>Apply this in practice</h3>${loadResume('flash') || loadResume(u.section==='cars'?'cars':'plab')?'<p>A saved card or passage session will resume first. Related practice stays available here.</p>':''}<p>${mapped.length} related practice answers saved, including ${missed.length} misses. Repeated attempts may be included.</p><div class="course-related-actions">${cards.length?`<button class="btn" id="course-cards">Review ${cards.length} related cards</button>`:''}${passages.map(p=>`<button class="btn" data-course-passage="${p.id}">${esc(p.title)} →</button>`).join('')}${u.repairs.map(id=>`<button class="btn" data-course-repair="${id}">Short concept repair →</button>`).join('')}</div>
-  ${r.lab.prediction?`<details class="course-map"><summary>Your prediction & explanation</summary><div class="course-saved-answer"><h3>Prediction</h3><p>${esc(r.lab.prediction)}</p><h3>Explanation</h3><p>${esc(r.lab.reflection||'No explanation saved yet.')}</p></div></details>`:''}<div class="course-actions"><button class="btn" id="course-today">Return to Today</button><button class="btn" id="course-focus">Make this my focus</button></div></section>`;
+  ${r.lab.prediction?`<details class="course-map"><summary>Your prediction & explanation</summary><div class="course-saved-answer"><h3>Prediction</h3><p>${esc(r.lab.prediction)}</p><h3>Explanation</h3><p>${esc(r.lab.reflection||'No explanation saved yet.')}</p></div></details>`:''}<div class="course-actions"><button class="btn" id="course-focus">Make this my focus</button></div></section>`;
   body.querySelector('#course-later')?.addEventListener('click',()=>{delete r.feedback;renderCourseUnit(u.id,'delayed');});
   body.querySelector('#course-today').onclick=()=>courseGo('today');
   body.querySelector('#course-focus').onclick=()=>{courseState.preferredUnit=u.id;saveCourse();renderCourseUnit(u.id,r.completedAt?'learn':r.stage);};
@@ -244,7 +282,7 @@ function renderCoursePlacement() {
   }
   courseView(main,'course','starting-check');
 }
-function courseExamReports() { return loadJSON('cs-mcat-exam-reviews',[]); }
+function courseExamReports() { return McatStorage.read('cs-mcat-exam-reviews',[]); }
 let courseExamSaveFailed=false;
 function courseArchiveExam(run) {
   if(run.archived)return;
@@ -252,7 +290,7 @@ function courseArchiveExam(run) {
   const reports=courseExamReports().filter(r=>r.attemptId!==run.attemptId);
   const copy={attemptId:run.attemptId,finishedAt:run.finishedAt,archived:true,queue:run.queue.map(s=>({key:s.key})),results:run.results.map(r=>({...r,items:r.items.map(it=>({q:it.q,passageId:it.passageId}))}))};
   reports.unshift(copy);
-  try{localStorage.setItem('cs-mcat-exam-reviews',JSON.stringify(reports.slice(0,8)));courseExamSaveFailed=false;}catch{courseExamSaveFailed=true;}
+  courseExamSaveFailed=!McatStorage.write('cs-mcat-exam-reviews',reports.slice(0,8));return !courseExamSaveFailed;
 }
 function courseOpenExam(id) {
   const run=courseExamReports().find(r=>r.attemptId===id);if(!run)return renderCourseProgress();
@@ -265,10 +303,26 @@ function courseExamReviewControls(main,run) {
   button.onclick=()=>{courseState.examReviews[run.attemptId].reviewedAt ||=nowTs();saveCourse();const plan=guidePlan();if(plan?.active?.type==='examReview' && plan.active.examId===run.attemptId)guideCompleteActiveTask('examReview');button.textContent='Review saved';section.querySelector('#exam-review-status').textContent='Saved to Progress.';};
   main.querySelector('.drill-review')?.before(section);
 }
+function courseSavedWork(main) {
+  const section=el('<section class="course-progress-section"><h2>Saved work to continue</h2><p>Unfinished sessions stay here. Their completed results appear in the records below.</p><div class="course-actions"></div></section>');
+  const actions=section.querySelector('.course-actions');
+  const add=(label,open)=>{const b=el('<button class="btn"></button>');b.textContent=label;b.onclick=open;actions.appendChild(b);};
+  for(const u of courseData.units){const r=courseRecord(u.id);if(r.startedAt&&!r.completedAt)add(u.title+' · Lesson in progress',()=>renderCourseUnit(u.id));}
+  for(const spec of RESUME_SPECS){const saved=loadResume(spec.key);if(saved)add(spec.mod+' · Saved session',()=>spec.resume(saved));}
+  if(typeof v2State!=='undefined'){
+    for(const r of [v2State.coach.active,...(v2State.coach.parked||[])].filter(Boolean))add((v2Coach(r.coachId)?.title||'Workshop')+` · ${r.answers.length} ${r.answers.length===1?'answer':'answers'} saved`,()=>v2ResumeCoach(r.id));
+    if(v2State.math.active&&!v2State.math.active.completedAt)add('Math · Calculation in progress',renderV2Math);
+    if(v2State.diagnostics.active)add('Investigation · Checks in progress',renderV2Diagnostic);
+  }
+  if(repairState.active)add('Concept repair · Session in progress',renderRepairSession);
+  if(actions.children.length)main.querySelector('.course-metrics').before(section);
+}
 function renderCourseProgress() {
   coursePauseTools();if(!courseData)return renderCourseHome();
   const m=McatCourseCore.metrics(courseData,courseState),reports=courseExamReports(),ratio=x=>x.total?`${Math.round(100*x.correct/x.total)}%`:'—';
   const main=el(`<main class="course-page"><header class="course-progress-heading"><span class="course-eyebrow">YOUR LEARNING RECORD</span><h1>See what is changing.</h1><p>Track the work, the answers, and the pace separately. Everything here comes from activity saved on this device.</p></header><div class="course-metrics"><article><span>Content work</span><strong>${m.completed}<small>/${m.available}</small></strong><p>Foundation lessons complete. ${m.categories}/34 outline areas introduced by available lessons.</p></article><article><span>First application accuracy</span><strong>${ratio(m.first)}</strong><p>${m.first.correct}/${m.first.total} first answers to lesson applications. Reopening feedback adds no attempts.</p></article><article><span>Delayed recall</span><strong>${ratio(m.delayed)}</strong><p>${m.delayed.correct}/${m.delayed.total} new application questions answered after at least 24 hours.</p></article><article><span>Timed pacing</span><strong>${reports.length?reports.length:'—'}<small>${reports.length?' runs':''}</small></strong><p>Active time and raw accuracy by section below. No scaled score prediction.</p></article></div>${courseModeMarkup()}<section class="course-progress-section"><h2>Learning by section</h2>${Object.entries(COURSE_SECTIONS).map(([s,n])=>{const us=courseData.units.filter(u=>u.section===s),complete=us.filter(u=>courseRecord(u.id).completedAt).length;return `<div class="course-section-progress"><div><strong>${n}</strong><span>${complete}/${us.length} lessons</span></div><progress value="${complete}" max="${us.length}" aria-label="${n} lessons completed"></progress><div>${us.map(u=>`<button class="ghostbtn" data-course-open="${u.id}">${esc(u.title)} · ${courseStatus(u)}</button>`).join('')}</div></div>`;}).join('')}</section><section class="course-progress-section"><h2>Timed runs & review</h2><p>Original practice sets keep each passage together. Set length and time vary with the available bank; they are not official full-length exams. The most recent eight runs are saved.</p><div id="course-exam-history">${reports.length?reports.map(run=>`<article class="course-exam-record"><div><h3>${new Date(run.finishedAt).toLocaleDateString()} · ${run.results.length}/${run.queue.length} sections</h3><span>${courseState.examReviews[run.attemptId]?.reviewedAt?'Review complete':'Review pending'}</span></div>${run.results.map(r=>`<p><b>${SEC_ABBR[r.key]}</b> · ${r.correct}/${r.total} correct · ${Number.isFinite(r.elapsedMs)?`${(r.elapsedMs/60000).toFixed(1)} active min · ${(r.elapsedMs/1000/r.total).toFixed(0)} sec / presented question`:'Timing unavailable for this older run'}</p>`).join('')}<button class="btn" data-course-exam="${run.attemptId}">Open answers & review →</button></article>`).join(''):'<div class="course-notice">Your first timed run will appear here with its answer review.</div>'}</div></section><section class="course-progress-section"><h2>Practice evidence</h2><p>${QLOG.length} retained practice answers · ${Object.keys(SRS).filter(id=>SRS[id]?.last).length} cards encountered. Practice history retains the latest 1,000 answers and can include repeats. It is separate from the lesson metrics above.</p><div id="course-repair-evidence"></div></section></main>`);
+  courseSavedWork(main);
+  const academy=el('<button class="ghostbtn" id="course-academy-activity">Other academy activity →</button>');academy.onclick=renderAcademyStats;main.appendChild(academy);
   wireCourseModes(main,renderCourseProgress);
   main.querySelectorAll('[data-course-exam]').forEach(b=>b.onclick=()=>courseOpenExam(b.dataset.courseExam));
   mountRepairDashboard(main.querySelector('#course-repair-evidence'));

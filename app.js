@@ -80,7 +80,7 @@ const SECTION_INFO = {
 };
 // Local build pace: every completed update or fix advances one patch version.
 // This number can move locally; nothing ships until Kevin explicitly says ship.
-const APP_VERSION = '2.0.0-beta.1';
+const APP_VERSION = '2.0.0-beta.2';
 function cortexFreeNote(sectionPill, sectionName) {
   return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free</span><span class="free-note-txt">${sectionName} is free to use — no account, no paywall, no catch.</span></p>`;
 }
@@ -148,7 +148,7 @@ function saveStreak() { safeSet('cs-streak', JSON.stringify(store.streak)); }
 
 const SECTION_SCRIPTS = {
   practice: ['clinical-shift.js?v=6'],
-  mcat: ['mcat-storage.js?v=1', 'mcat-repair-engine.js?v=2', 'mcat-repair.js?v=5', 'mcat-workflows.js?v=9', 'mcat-course-engine.js?v=4', 'mcat-course.js?v=8', 'mcat-v2-engine.js?v=4', 'mcat-v2.js?v=6', 'mcat.js?v=71'],
+  mcat: ['mcat-storage.js?v=2', 'mcat-repair-engine.js?v=2', 'mcat-repair.js?v=6', 'mcat-workflows.js?v=13', 'mcat-course-engine.js?v=4', 'mcat-course.js?v=13', 'mcat-v2-engine.js?v=6', 'mcat-v2.js?v=10', 'mcat.js?v=76'],
   anatomy: ['anatomy.js?v=36'],
   reference: ['reference.js?v=52', 'performance-drugs.js?v=25', 'ekg.js?v=36'],
   socrates: ['socrates.js?v=46'],
@@ -514,7 +514,7 @@ function topbar(active) {
                 <span class="mi-copy"><span class="mi-name">MCAT Prep</span><span class="mi-desc">Forever-free study suite</span></span>
               </button>
               <button class="menuitem${menuActive('stats')}" data-go="stats"${menuCurrent('stats')}>
-                <span class="mi-copy"><span class="mi-name">Stats</span><span class="mi-desc">Progress dashboard</span></span>
+                <span class="mi-copy"><span class="mi-name">Progress</span><span class="mi-desc">Lessons, practice &amp; saved work</span></span>
               </button>
             </section>
           </div>
@@ -856,47 +856,37 @@ async function fetchVisits() {
 }
 function updateVisitUI() {
   if (visitCount == null) return;
+  document.querySelectorAll('[data-visit-summary]').forEach(e => e.hidden = false);
   document.querySelectorAll('.js-visits').forEach(e => {
     if (e.dataset.cnt === String(visitCount)) return;   // don't re-animate the same value
     e.dataset.cnt = String(visitCount);
     animateCount(e, visitCount);
   });
-  const goal = 100000, pct = Math.max(1.5, Math.min(100, visitCount / goal * 100));
-  document.querySelectorAll('.js-progressbar').forEach(e => e.style.width = pct.toFixed(2) + '%');
-  document.querySelectorAll('.js-progresslab').forEach(e => e.textContent = `${visitCount.toLocaleString()} reached · goal: 100,000 future doctors`);
-}
 
-const FACTS = [
-  'Quizzing yourself beats re-reading — and the gap only widens the longer you wait.',
-  'Spacing your reviews can roughly double what you remember long-term, versus cramming.',
-  'Explaining an idea in your own words predicts mastery better than reading it again.',
-  'Mixing topics instead of studying them in blocks trains you to tell similar concepts apart.',
-  'Recalling an answer strengthens the memory more than simply seeing it again.',
-  'Small daily reps compound; marathon cram sessions fade fast.',
-];
-function startFactRotator(node) {
-  let i = Math.floor(Math.random() * FACTS.length);
-  node.textContent = FACTS[i];
-  const tick = () => {
-    if (!node.isConnected) return;            // self-cleans when the page changes
-    i = (i + 1) % FACTS.length;
-    node.style.opacity = '0';
-    setTimeout(() => { node.textContent = FACTS[i]; node.style.opacity = '1'; }, 300);
-    setTimeout(tick, 7000);
-  };
-  setTimeout(tick, 7000);
 }
 
 const PRINCIPLES = [
-  ['First principles, not memorized dogma', 'We break medicine down to its mechanisms and rebuild it from the ground up — no curated highlight reels, no "just memorize this." Only what is actually true, and what actually works.'],
-  ['Truth over comfort', 'The system shows you exactly where you stand — what you have mastered and what you have only touched. Honest feedback stings, and it is the only kind that makes you better.'],
-  ['Abundance, by design', 'What decides who becomes a great physician should be effort, not money. Our MCAT preparation is free forever; anything we ever charge for exists only to sustain that promise and fund the mission.'],
-  ['Long-term human flourishing', 'Better-trained doctors mean longer, healthier, stronger lives. Every concept you master strengthens the pipeline of people who will one day heal the rest of us.'],
-  ['High agency compounds', 'Daily action beats heroic cramming. The people who treat this like a mission outrun everyone else — we just hand them the instrument.'],
+  ['Understand the idea', 'Start with mechanisms, clear explanations, and worked examples.'],
+  ['Use what you learn', 'Make a prediction, reason through a passage, or work a clinical case.'],
+  ['Return and build', 'Review your reasoning, revisit difficult concepts, and resume saved work.'],
 ];
 
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
+  {
+    date: 'September 7, 2026', version: '2.0.0-beta.2', tag: 'BETA',
+    title: 'MCAT 2.0: a smoother study day',
+    items: [
+      'A clearer homepage leads into a flexible 15-, 30-, or 60-minute session, with completed work carried into your weekly plan.',
+      'MCAT progress now opens one learning record for lessons, practice, and saved sessions, with direct links to unfinished work.',
+      'Help after a lesson mistake stays with that question: compare the answers, try a related check, and return to your original place.',
+      'Save a Passage Coach workshop for later and switch to another while keeping your answers, notes, hints, and unfinished draft.',
+      'Math practice recognizes setups seen in investigations and keeps repeated practice separate from unseen attempts.',
+      'Optional notes are clearly labeled, paragraph scratchpads are tucked away, and worked examples require less repetitive writing.',
+      'Active study screens have a compact menu, smaller headings, and feedback that moves into view on desktop and phone screens.',
+      'Interrupted saves retain recoverable drafts, content downloads can be retried, and resumed practice avoids counting the same saved answer or card rating twice.',
+    ],
+  },
   {
     date: 'September 6, 2026', version: '2.0.0-beta.1', tag: 'BETA',
     title: 'MCAT 2.0: learn, reason, and plan your week',
@@ -1504,55 +1494,65 @@ function renderUpdates() {
 
 function renderMission() {
   stopTimer(); session = null;
+  const gates = new URLSearchParams(location.search).get('gates') === 'prod';
+  const homePath = '/' + (gates ? '?gates=prod' : '');
+  if (location.pathname !== '/') history.pushState({ sec:'mission' }, '', homePath);
+  const previewQuery = gates ? '&gates=prod' : '';
   const root = el('<div></div>');
   root.appendChild(topbar('mission'));
-  const main = el(`<main class="panel mission">
+  const main = el(`<main class="panel mission academy-home">
     <section class="mission-hero">
       <div class="mission-hero-grid">
         <div class="mission-hero-copy">
-          <span class="mcat-eyebrow">Cortex Medical Academy &middot; The mission</span>
-          <h1>Master the human machine.</h1>
-          <p class="mission-lede">Cortex Medical Academy exists to remove every barrier between a capable mind and real medical mastery. Built from first principles and grounded in how learning actually works. The future of medicine shouldn&rsquo;t belong to whoever can afford a $500 prep course &mdash; it should belong to whoever is willing to do the work. That&rsquo;s why our MCAT preparation is, and always will be, free for everyone.</p>
+          <span class="mcat-eyebrow">Cortex Medical Academy</span>
+          <h1>Master the<br> human machine.</h1>
+          <p class="mission-lede">Understand the science. Put it into practice. Free MCAT preparation and clinical case learning for the work ahead.</p>
           <div class="mcat-cta">
-            <button class="btn btn-solid" id="m-quick">Try a 5-minute session →</button>
-            <button class="btn" id="m-mcat">MCAT Prep</button>
-            <button class="btn" id="m-cases">Clinical Scenarios</button>
+            <button class="btn btn-solid" id="m-mcat">Open MCAT prep →</button>
+            <button class="btn" id="m-quick">Try a 5-minute session</button>
           </div>
-          <p class="mission-fact"><span class="label">Did you know</span><span class="js-fact"></span></p>
+          <p class="academy-promise">MCAT is free forever. Start without an account.</p>
         </div>
+        <aside class="academy-workspace" aria-labelledby="academy-workspace-title">
+          <div class="academy-workspace-head"><span class="label">Inside MCAT 2.0</span><span class="academy-edition">BETA</span></div>
+          <h2 id="academy-workspace-title">Your MCAT workspace.</h2>
+          <p>From your first lesson to your next practice session.</p>
+          <div class="academy-workspace-links">
+            <a href="/mcat?view=course${previewQuery}"><span><strong>Build your foundation</strong><small>36 lessons across 12 chapters</small></span><span aria-hidden="true">↗</span></a>
+            <a href="/mcat?view=practice${previewQuery}"><span><strong>Practice your reasoning</strong><small>Science, CARS, and quantitative skills</small></span><span aria-hidden="true">↗</span></a>
+            <a href="/mcat?view=weekly${previewQuery}"><span><strong>Make time for progress</strong><small>A weekly plan around your availability</small></span><span aria-hidden="true">↗</span></a>
+          </div>
+        </aside>
       </div>
     </section>
 
-    <div class="mission-meter cornerframe">
-      <div class="mm-counter"><span class="mm-num js-visits">&middot;&middot;&middot;</span><span class="mm-lab">people have visited<span class="livetag"><i class="livedot"></i>live</span></span></div>
-      <div class="mm-progress">
-        <div class="mm-progress-head"><span class="label">Mission progress</span><span class="js-progresslab">on the way to 100,000 future doctors reached</span></div>
-        <span class="bar"><i class="js-progressbar" style="width:0%"></i></span>
+    <section class="academy-clinical" aria-labelledby="academy-clinical-title">
+      <div class="academy-clinical-copy">
+        <span class="label">Clinical Scenarios</span>
+        <h2 id="academy-clinical-title">Put your reasoning<br> to work.</h2>
+        <p>Meet a patient, gather the findings, and decide what comes next. Compare your decisions and written note with a model response.</p>
+        <button class="btn" id="m-cases" data-go="practice">Explore clinical cases →</button>
       </div>
-    </div>
-
-    <section class="mission-principles">
-      <span class="label">How we think &middot; first principles</span>
-      <h2>The principles behind everything.</h2>
-      <div class="principle-grid" data-reveal-stagger>${PRINCIPLES.map(p => `<div class="principle"><span class="p-name">${p[0]}</span><p>${p[1]}</p></div>`).join('')}</div>
+      <ol class="academy-case-steps" aria-label="Inside a Clinical Shift">
+        <li><span class="academy-step-index" aria-hidden="true">01</span><div><h3>Gather the story</h3><p>Choose interview questions and focused examinations.</p></div></li>
+        <li><span class="academy-step-index" aria-hidden="true">02</span><div><h3>Make the call</h3><p>Weigh the findings, rank a differential, and write your note.</p></div></li>
+        <li><span class="academy-step-index" aria-hidden="true">03</span><div><h3>Review your reasoning</h3><p>Compare with a model and work through the debrief.</p></div></li>
+      </ol>
     </section>
 
-    <section class="founder" data-reveal>
-      <span class="label">From the founder</span>
-      <div class="founder-note">
-        <p>I started Cortex on a simple first-principles conviction: the path into medicine should never be decided by how much money you have.</p>
-        <p>Human progress depends on extending healthy human lifespan and training the highest-agency minds possible. That is why everything here is built differently. The full MCAT suite is, and always will be, completely free. No barriers. No gatekeeping. Just rigorous, evidence-based mastery grounded in reality.</p>
-        <p>Cortex exists to rip down every artificial limit and accelerate the development of the physicians and scientists who will push civilization forward at maximum velocity.</p>
-      </div>
-      <p class="founder-tagline">Master the Human Machine.</p>
-      <p class="founder-sign">&mdash; Kevin Vigil, Founder</p>
+    <section class="academy-method" aria-labelledby="academy-method-title">
+      <div class="academy-section-heading"><span class="label">How learning works here</span><h2 id="academy-method-title">Build understanding.<br> Then build on it.</h2></div>
+      <div class="academy-principles">${PRINCIPLES.map((p,i) => `<article><span class="label">0${i+1}</span><h3>${p[0]}</h3><p>${p[1]}</p></article>`).join('')}</div>
     </section>
 
-    <section class="mcat-closing" data-reveal>
-      <h2>Talent is everywhere. Opportunity shouldn&rsquo;t be the bottleneck.</h2>
-      <p>Start with the MCAT suite &mdash; rigorous, complete, and free forever &mdash; and grow from there. The only thing required is the discipline to begin.</p>
-      <button class="btn btn-solid" id="m-enter">Enter the Academy &rarr;</button>
-      <p class="mission-whatsnew"><button class="ghostbtn" id="m-updates">See what&rsquo;s new &rarr;</button></p>
+    <section class="academy-mission" aria-labelledby="academy-mission-title">
+      <div><span class="label">Why Cortex exists</span><h2 id="academy-mission-title">Opportunity should<br> stay open.</h2></div>
+      <div class="academy-founder-copy"><p>I started Cortex on a simple first-principles conviction: the path into medicine should never be decided by how much money you have.</p><p class="academy-founder-sign">Kevin Vigil<span>Founder, Cortex Medical Academy</span></p><div class="academy-reach" data-visit-summary hidden><span class="js-visits"></span><span>visits to Cortex</span></div></div>
+    </section>
+
+    <section class="mcat-closing academy-closing">
+      <div><span class="label">Start where you are</span><h2>Your next step starts here.</h2><p>Choose a lesson, plan a session, or pick up your saved work.</p></div>
+      <div class="academy-closing-actions"><button class="btn btn-solid" id="m-enter">Open MCAT prep →</button><button class="ghostbtn" id="m-updates">See what’s new ↗</button></div>
     </section>
   </main>`);
 
@@ -1569,7 +1569,6 @@ function renderMission() {
   root.appendChild(main);
   root.appendChild(siteFooter());
   setView(root);
-  startFactRotator(main.querySelector('.js-fact'));
   updateVisitUI();
 }
 
@@ -2232,10 +2231,16 @@ function neuroStatsSnapshot() {
   };
 }
 
-function renderStats() {
+async function renderStats() {
+  stopTimer(); session = null;
+  await ensureSection('mcat');
+  await loadMCAT();
+  courseGo('progress');
+}
+
+function renderAcademyStats() {
   stopTimer(); session = null;
   const t = totals();
-  const ms = mcatStatsSnapshot();
   const ps = pomoStatsSnapshot();
   const ns = neuroStatsSnapshot();
   const ph = pharmStatsSnapshot();
@@ -2267,17 +2272,12 @@ function renderStats() {
   const root = el(`<div></div>`);
   root.appendChild(topbar('stats'));
   const main = el(`<main class="panel">
-    <div class="hero"><h1>Stats.</h1><p class="sub">Your progress across MCAT prep and clinical scenarios.</p></div>
+    <div class="hero"><h1>Academy activity.</h1><p class="sub">Clinical scenarios and other study tools.</p></div>
 
     <div class="statblock">
-      <span class="label">MCAT prep</span>
-      <div class="metrics">
-        <div class="metric"><span class="m-num" data-countup="${ms.answered}">${ms.answered || '&mdash;'}</span><span class="m-lab">Questions done</span><span class="m-sub">drills, passages &amp; sim</span></div>
-        <div class="metric"><span class="m-num" data-countup="${ms.acc != null ? ms.acc + '%' : ''}">${ms.acc != null ? ms.acc + '%' : '&mdash;'}</span><span class="m-lab">Accuracy</span><span class="m-sub">${ms.answered ? ms.correct + '/' + ms.answered : 'no data yet'}</span></div>
-        <div class="metric"><span class="m-num" data-countup="${ms.learned}">${ms.learned || '&mdash;'}</span><span class="m-lab">Cards learned</span><span class="m-sub">in spaced rotation</span></div>
-        <div class="metric"><span class="m-num" data-countup="${ms.due}">${ms.due || '&mdash;'}</span><span class="m-lab">Due now</span><span class="m-sub">flashcards ready</span></div>
-      </div>
-      ${ms.has ? '<div class="stat-cta"><button class="btn btn-solid" id="stats-mcat">Open MCAT &rarr;</button></div>' : '<p class="stat-empty">No MCAT activity yet &mdash; start with drills or flashcards.</p>'}
+      <span class="label">MCAT learning record</span>
+      <p>Lessons, practice, math and unfinished sessions share one progress page.</p>
+      <button class="btn btn-solid" id="stats-mcat">Open MCAT progress →</button>
     </div>
 
     <div class="statblock">
@@ -2394,7 +2394,7 @@ function renderStats() {
   });
 
   const mcatBtn = main.querySelector('#stats-mcat');
-  if (mcatBtn) mcatBtn.addEventListener('click', gotoMCAT);
+  if (mcatBtn) mcatBtn.addEventListener('click', renderStats);
   const pomoBtn = main.querySelector('#stats-pomo');
   if (pomoBtn) pomoBtn.addEventListener('click', () => { if (typeof renderPomodoro === 'function') renderPomodoro(); });
   const neuroBtn = main.querySelector('#stats-neuro');

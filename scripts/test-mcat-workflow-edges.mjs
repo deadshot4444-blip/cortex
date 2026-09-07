@@ -4,7 +4,7 @@ const browser=await chromium.launch({headless:true});
 try {
  const ctx=await browser.newContext(),page=await ctx.newPage();
  await page.route('**/api/**',r=>r.fulfill({status:200,contentType:'application/json',body:'{"value":0}'}));
- await page.goto((process.env.CORTEX_URL||'http://127.0.0.1:8805/')+'mcat',{waitUntil:'networkidle'});await page.click('#begin');
+ await page.goto((process.env.CORTEX_URL||'http://127.0.0.1:8805/')+'mcat',{waitUntil:'networkidle'});await page.click('#guide-reference-options > summary');await page.click('#begin');
  const checks=await page.evaluate(()=>{
   const plan=guidePlan(),target=plan.targetDate,day=guideDateKey(),c=repairData.concepts[0];
   const old=Date.now()-2*DAY,state=McatRepairCore.empty();

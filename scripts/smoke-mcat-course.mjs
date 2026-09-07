@@ -56,7 +56,7 @@ for(const width of [1280,390,320]){
  }
  assert.ok((await page.locator('#placement-body').innerText()).includes('1/1 answered correctly · 11 skipped'));await overflow('placement');
  // New first-visit plan and existing storage remain usable after the overhaul.
- await open('today');await page.click('#begin');await page.waitForSelector('.study-session');const target=await page.evaluate(()=>JSON.parse(localStorage.getItem('cs-mcat-plan')).targetDate);
+ await open('today');await page.click('#guide-reference-options > summary');await page.click('#begin');await page.waitForSelector('.study-session');const target=await page.evaluate(()=>JSON.parse(localStorage.getItem('cs-mcat-plan')).targetDate);
  await open('practice');await page.click('[data-course-mode="learn"]');await open('today');await page.click('[data-study-minutes="15"]');await overflow('today');assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('cs-mcat-plan')).targetDate),target);
  await page.evaluate(()=>window.scrollTo(0,0));await page.screenshot({path:`output/playwright/mcat-today-overhaul-${width}.png`,fullPage:true});
  assert.deepEqual(errors,[]);console.log(`${width}px: course, all lesson stages, lab formulas, saved drafts, delayed check, placement, progress, daily plan, overflow passed`);await ctx.close();

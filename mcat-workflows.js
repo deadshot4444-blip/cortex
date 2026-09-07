@@ -20,6 +20,17 @@ function studyLastDay(plan) {
   return times.sort().at(-1);
 }
 function studyTouch(plan) { plan.lastStudyDate = guideDateKey(); saveGuidePlan(plan); }
+function studyCompletedActivities(plan) {
+  const completed=new Map();
+  for(const session of Object.values(plan?.sessions||{}))for(const task of session.tasks||[]) {
+    const id=guideTaskKey(task.day,task.id),ts=plan.completed?.[id];
+    if(!Number.isFinite(ts))continue;
+    completed.set(id,{id:`daily:${id}`,type:task.type,key:task.unitId||task.conceptId||task.id,
+      title:task.type==='course'?task.desc:task.title,minutes:task.minutes,ts,
+      day:guideDateKey(new Date(ts)),kind:task.courseKind||'lesson',reason:'Completed in your daily session.'});
+  }
+  return [...completed.values()];
+}
 function studyRestoreGuide(r) {
   const plan = guidePlan();
   if (plan && r.guideTask && !guideTaskDone(plan, r.guideTask.day, r.guideTask.id)) {
@@ -34,6 +45,11 @@ function studySavedTask(plan) {
       const original = a.title ? a : guideDayTasks(plan, a.day).find(t => t.id === a.id);
       if (original) return { ...original, resume: true, minutes: original.minutes || ({flash:10,drill:15,cars:20,passage:25,exam:65,repair:5}[a.type]) };
     }
+  }
+  if(repairState?.active && repairState.active.phase!=='done') {
+    const active=repairState.active,concept=repairConcept(active.conceptId);
+    if(concept)return {...(active.guideTask||{}),id:active.guideTask?.id||`flex-${guideDateKey()}-repair`,day:active.guideTask?.day||guidePlanDay(plan),
+      type:'repair',conceptId:concept.id,title:'Continue your concept session',desc:concept.title,minutes:5,resume:true};
   }
   const best = findHubResume();
   if (!best && courseUnit(courseState.activeUnit) && !courseRecord(courseState.activeUnit).completedAt) { const unit=courseUnit(courseState.activeUnit),record=courseRecord(unit.id);return {...(record.guideTask || {}),id:record.guideTask?.id || `flex-${guideDateKey()}-course`,day:record.guideTask?.day || guidePlanDay(plan),type:'course',unitId:unit.id,title:'Continue your lesson',desc:unit.title,minutes:12,resume:true}; }
@@ -91,6 +107,12 @@ function studyDailySession(plan, minutes) {
   plan.sessions ||= {};
   const today = guideDateKey();
   const old = plan.sessions[today];
+  // An outage must not rebuild an existing assignment as an empty/completed day.
+  const unavailable=task=>task.type==='course'?!courseUnit(task.unitId):task.type==='repair'?!repairData:
+    task.type==='flash'?!MCAT.cards.length:task.type==='drill'?!MCAT.questions.length:
+    task.type==='cars'?!MCAT.cars.length:task.type==='passage'?!MCAT.sci.length:
+    task.type==='exam'?!MCAT.questions.length||!MCAT.cars.length||!MCAT.sci.length:false;
+  if(old?.tasks.some(task=>!guideTaskDone(plan,task.day,task.id)&&unavailable(task)))return old;
   const saved = studySavedTask(plan);
   const first = old?.tasks.find(t => !guideTaskDone(plan,t.day,t.id));
   const rec = repairData && McatRepairCore.recommend(repairData.concepts,repairState,QLOG,nowTs());
@@ -135,14 +157,17 @@ function mountDailySession(host, plan) {
   const done = tasks.filter(t => guideTaskDone(plan,t.day,t.id));
   const next = tasks.find(t => !guideTaskDone(plan,t.day,t.id));
   const estimate = tasks.reduce((n,t) => n+t.minutes,0);
+  const resume = next && (next.resume || (plan.active?.id === next.id && plan.active?.day === next.day));
   host.innerHTML = `<section class="study-session" aria-label="Flexible daily session">
-    <div class="study-session-heading"><div><span class="label">Your time today</span><h2>${session.recoveryDays ? 'Welcome back. Start here.' : 'Make today manageable.'}</h2></div><span class="study-count">${done.length}/${tasks.length} complete</span></div>
+    <div class="study-session-heading"><h2>Your session</h2><span class="study-count">${done.length} of ${tasks.length} complete</span></div>
     ${session.recoveryDays ? `<p class="study-recovery">${session.recoveryDays} ${session.recoveryDays === 1 ? 'day' : 'days'} away. Resume saved work, then take one small next step. Your previous work is still here.</p>` : ''}
-    <div class="study-budgets" role="group" aria-label="Time available today">${[15,30,60].map(n => `<button class="btn ${session.minutes === n ? 'btn-solid' : ''}" data-study-minutes="${n}" aria-pressed="${session.minutes === n}">${n} min</button>`).join('')}</div>
-    <p class="study-budget-note">About ${estimate} minutes, including review. ${estimate > session.minutes ? 'Your saved or completed work exceeds this budget; pause at any point.' : 'Timing varies; you can pause and resume.'} Target date: <strong>${guideFormatDate(plan.targetDate)}</strong>.</p>
+    <div class="study-time-picker"><span class="label">Time today</span><div class="study-budgets" role="group" aria-label="Time available today">${[15,30,60].map(n => `<button class="btn" data-study-minutes="${n}" aria-pressed="${session.minutes === n}">${n} min</button>`).join('')}</div></div>
+    <div class="study-progress-track" aria-hidden="true"><span style="width:${tasks.length ? done.length/tasks.length*100 : 0}%"></span></div>
+    ${next ? `<div class="study-next-step"><span class="label">${resume ? 'Saved work' : 'Up next'} · About ${next.minutes} min</span><h3>${esc(next.title)}</h3><p>${esc(next.desc || '')}</p><button class="btn btn-solid" id="study-next">${resume ? 'Resume session' : done.length ? 'Continue session' : 'Start session'} →</button></div>` : '<div class="study-next-step"><span class="label">All done for today</span><h3>Session complete.</h3><p class="study-complete" role="status">Your work is saved. Your next session will be ready tomorrow.</p></div>'}
+    <h3 class="study-list-heading">Today’s checklist</h3>
     <div class="study-task-list">${tasks.map((t,i) => { const complete = guideTaskDone(plan,t.day,t.id); return `<button class="study-task ${complete ? 'done' : ''}" data-study-task="${i}" ${complete ? 'disabled' : ''}><span class="study-task-index">${complete ? '✓' : String(i+1).padStart(2,'0')}</span><span><strong>${esc(t.title)}</strong><small>${esc(t.desc || '')}${t.resume ? ' · Saved session' : ''}</small></span><span class="study-task-time">~${t.minutes}m</span></button>`; }).join('')}</div>
-    ${next ? '<button class="btn btn-solid" id="study-next">Continue today’s session →</button>' : '<p class="study-complete" role="status">Today’s session is complete. Your next session will be ready tomorrow.</p>'}
-    <p class="repair-fine">This adjusts today’s workload and keeps your target date. It does not promise full content coverage by that date.</p>
+    <p class="study-budget-note">About ${estimate} minutes total, including review. ${estimate > session.minutes ? 'Your saved or completed work exceeds this budget; pause at any point.' : 'Pause whenever you need to.'}${plan.targetDate ? ` Target: <strong>${guideFormatDate(plan.targetDate)}</strong>.` : ''}</p>
+    <p class="repair-fine">${plan.flexible ? 'Changing your time adjusts this session. Build a weekly plan below when you want to set availability or a test date.' : 'Changing your time adjusts this session. Your target date stays the same; full content coverage is not guaranteed.'}</p>
   </section>`;
   host.querySelectorAll('[data-study-minutes]').forEach(b => b.onclick = () => { studyDailySession(guidePlan(),Number(b.dataset.studyMinutes)); renderGuide(); });
   host.querySelectorAll('[data-study-task]').forEach(b => b.onclick = () => studyLaunchTask(tasks[Number(b.dataset.studyTask)],guidePlan()));
@@ -165,7 +190,8 @@ function studyLogAttempt(run, kind) {
     added=true;
     QLOG.push({ qId:r.q.id, section:kind === 'cars' ? 'cars' : run.p.section, category:kind === 'cars' ? 'CARS-'+r.q.skill.split('-')[1] : r.q.category,
       passage:run.p.id, correct:r.correct, conf:r.conf || 'unsure', unanswered:!!r.unanswered, ts:t, attemptId:run.attemptId });
-    QHIST[r.q.id] = { n:(QHIST[r.q.id]?.n || 0)+1, lastCorrect:r.correct, conf:r.conf || 'unsure', ts:t };
+    const old=QHIST[r.q.id];
+    QHIST[r.q.id] = { n:(old?.n || 0)+(old?.lastAttemptId===run.attemptId?0:1), lastAttemptId:run.attemptId, lastCorrect:r.correct, conf:r.conf || 'unsure', ts:t };
   });
   saveQ();
   if (added) {
@@ -174,14 +200,14 @@ function studyLogAttempt(run, kind) {
   }
 }
 function studySaveReport(kind, run) {
-  const reports = loadJSON('cs-mcat-passage-reviews',{});
+  const reports = McatStorage.read('cs-mcat-passage-reviews',{});
   const copy = { ...run, passageId:run.p.id, results:run.results.map(r => ({...r,q:r.q.id})) };
   delete copy.p; delete copy.timerId; delete copy.deadline;
   reports[`${kind}:${run.p.id}`] = copy;
-  mset('cs-mcat-passage-reviews',JSON.stringify(reports));
+  return McatStorage.write('cs-mcat-passage-reviews',reports);
 }
 function studyReportButton(kind, main) {
-  const reports = Object.entries(loadJSON('cs-mcat-passage-reviews',{})).filter(([key]) => key.startsWith(kind+':'));
+  const reports = Object.entries(McatStorage.read('cs-mcat-passage-reviews',{})).filter(([key]) => key.startsWith(kind+':'));
   const report = reports.map(([,v]) => v).sort((a,b) => b.attemptEndedAt-a.attemptEndedAt)[0];
   if (!report) return;
   const p = (kind === 'cars' ? MCAT.cars : MCAT.sci).find(p => p.id === report.passageId);
@@ -328,7 +354,7 @@ function renderExperimentNotebook() {
   plab.phase='analysis'; plab.analysis ||= {};
   const p=plab.p, model=experimentNotes?.[p.id];
   const root=el(`<div>${mcatTaskHeader(['Science','Experiment notebook'],'<span class="topstat">Untimed</span>')}<main class="cars-stage study-review-stage">
-    <section>${passageBody(p.title,p.text,p.table)}${experimentGraph(p)}</section>
+    <section>${passageBody(p.title,p.text,p.table,p.contentNote)}${experimentGraph(p)}</section>
     <section class="cars-q"><span class="label">Before the answer key</span><h1 class="study-question-heading">Map the experiment.</h1><p class="study-instruction">Keep it brief. Your notes save as you write. Use “not applicable” when a variable or control is absent.</p>
     ${EXPERIMENT_FIELDS.map(([id,label,hint]) => `<label class="study-field">${label}<small>${hint}</small><textarea data-experiment="${id}" rows="2" maxlength="1800">${esc(plab.analysis[id] || '')}</textarea></label>`).join('')}
     ${model?.graph ? `<label class="study-field">Read the graph<small>${esc(model.graph.prompt)}</small><textarea data-experiment="graph" rows="3" maxlength="1800">${esc(plab.analysis.graph || '')}</textarea></label>` : ''}

@@ -12,12 +12,14 @@ const CONF = { guess: 'Guess', unsure: 'Unsure', sure: 'Sure' };
 const ROOT_CAUSES = ['Content gap', 'Misread', 'Data/graph', 'Math/setup', 'Reasoning', 'Careless', 'Guessed'];
 
 /* ---------- storage ---------- */
-const SRS = (typeof loadJSON === 'function') ? loadJSON('cs-mcat-srs', {}) : {};      // cardId -> {ease,interval,reps,lapses,due,last}
-const QHIST = (typeof loadJSON === 'function') ? loadJSON('cs-mcat-q', {}) : {};      // qId -> {n,lastCorrect,conf,root,ts}
-let QLOG = (typeof loadJSON === 'function') ? loadJSON('cs-mcat-log', []) : [];       // [{qId,section,category,correct,conf,ts}]
-const mset = (k, v) => { if (typeof safeSet === 'function') safeSet(k, v); else { try { localStorage.setItem(k, v); } catch {} } };
-function saveSRS() { mset('cs-mcat-srs', JSON.stringify(SRS)); }
-function saveQ() { if (QLOG.length > 1000) QLOG.splice(0, QLOG.length - 1000); mset('cs-mcat-q', JSON.stringify(QHIST)); mset('cs-mcat-log', JSON.stringify(QLOG)); }
+const SRS = McatStorage.read('cs-mcat-srs', {});      // cardId -> {ease,interval,reps,lapses,due,last}
+const QHIST = McatStorage.read('cs-mcat-q', {});      // qId -> {n,lastCorrect,conf,root,ts}
+let QLOG = McatStorage.read('cs-mcat-log', []);       // [{qId,section,category,correct,conf,ts}]
+McatStorage.watch('cs-mcat-srs',()=>SRS);
+McatStorage.watch('cs-mcat-q',()=>QHIST);
+McatStorage.watch('cs-mcat-log',()=>QLOG);
+function saveSRS() { return McatStorage.write('cs-mcat-srs', SRS); }
+function saveQ() { if (QLOG.length > 1000) QLOG.splice(0, QLOG.length - 1000); const historySaved=McatStorage.write('cs-mcat-q', QHIST); const logSaved=McatStorage.write('cs-mcat-log', QLOG); return historySaved && logSaved; }
 
 const DAY = 86400000;
 function srsRec(id) { if (!SRS[id]) SRS[id] = { ease: 2.5, interval: 0, reps: 0, lapses: 0, due: 0, last: 0 }; return SRS[id]; }
@@ -42,17 +44,23 @@ function newCount() { return MCAT.cards.filter(c => !SRS[c.id] || SRS[c.id].reps
 async function loadMCAT() {
   await Promise.all([loadMcatRepairs(), loadExperimentNotes(), loadMcatCourse(), loadMcatV2()]);
   if (MCAT.loaded) return;
-  try {
-    const [o, c, q, cars, sci] = await Promise.all([
-      fetch('data/mcat-outline.json').then(r => r.ok ? r.json() : null).catch(() => null),
-      fetch('data/mcat-cards.json').then(r => r.ok ? r.json() : []).catch(() => []),
-      fetch('data/mcat-questions.json').then(r => r.ok ? r.json() : []).catch(() => []),
-      fetch('data/mcat-cars.json?v=3').then(r => r.ok ? r.json() : []).catch(() => []),
-      fetch('data/mcat-science-passages.json?v=2').then(r => r.ok ? r.json() : []).catch(() => []),
-    ]);
-    MCAT.outline = o; MCAT.cards = c || []; MCAT.questions = q || []; MCAT.cars = cars || []; MCAT.sci = sci || [];
-  } catch { /* ok */ }
-  MCAT.loaded = true;
+  await Promise.all(MCAT_DATA.map(async([key,file])=>{
+    if(mcatDataPresent(key))return;
+    try{const response=await fetch(file);if(!response.ok)return;const data=await response.json();
+      if(key==='outline'?Array.isArray(data?.concepts)&&data.concepts.length>0:Array.isArray(data)&&data.length>0)MCAT[key]=data;
+    }catch{ /* The workspace offers retry without replacing saved work. */ }
+  }));
+  MCAT.loaded=MCAT_DATA.every(([key])=>mcatDataPresent(key));
+}
+const MCAT_DATA=[['outline','data/mcat-outline.json','content map'],['cards','data/mcat-cards.json','flashcards'],['questions','data/mcat-questions.json','question drills'],['cars','data/mcat-cars.json?v=3','CARS passages'],['sci','data/mcat-science-passages.json?v=2','science passages']];
+function mcatDataPresent(key){return key==='outline'?Array.isArray(MCAT.outline?.concepts)&&MCAT.outline.concepts.length>0:Array.isArray(MCAT[key])&&MCAT[key].length>0;}
+function mcatDataNotice(main){
+  const missing=MCAT_DATA.filter(([key])=>!mcatDataPresent(key)).map(([, ,label])=>label);
+  if(!courseData)missing.push('course lessons');if(!v2Data)missing.push('coaching tools');if(!repairData)missing.push('concept sessions');
+  if(!missing.length)return;
+  const notice=el(`<aside class="course-notice" role="status"><strong>Some study material could not load.</strong><p>Unavailable: ${esc(missing.join(', '))}. Your saved progress is unchanged. Loaded activities remain available.</p><button class="btn" id="mcat-data-retry">Retry loading study material</button></aside>`);
+  notice.querySelector('button').onclick=async e=>{e.currentTarget.disabled=true;e.currentTarget.textContent='Loading…';await loadMCAT();renderMCATEntry();};
+  main.prepend(notice);
 }
 
 /* ---------- hub ---------- */
@@ -67,11 +75,11 @@ function saveResume(key, obj) {
     delete o.timerId; delete o._reveal;
     if (o.deadline) o._remain = Math.max(0, o.deadline - nowTs());
     o._saved = nowTs();
-    localStorage.setItem('cs-mcat-r-' + key, JSON.stringify(o));
-  } catch {}
+    return McatStorage.watch('cs-mcat-r-' + key,()=>o).save(o);
+  } catch { McatStorage.sessionFailed(); return false; }
 }
-function loadResume(key) { try { return JSON.parse(localStorage.getItem('cs-mcat-r-' + key) || 'null'); } catch { return null; } }
-function clearResume(key) { try { localStorage.removeItem('cs-mcat-r-' + key); } catch {} }
+function loadResume(key) { return McatStorage.read('cs-mcat-r-' + key,null); }
+function clearResume(key) { return McatStorage.remove('cs-mcat-r-' + key); }
 
 const RESUME_SPECS = [
   { key: 'sim', mod: 'Exam Simulator',
@@ -95,7 +103,7 @@ const RESUME_SPECS = [
     resume(r) { resumePassageSession(r); },
   },
   { key: 'flash', mod: 'Flashcard Reactor',
-    progressOf(r) { return r.idx || r.done || 0; },
+    progressOf(r) { return r.queue?.length ? 1 : 0; },
     label(r) { return `${r.done || 0} / ${r.total || 0} cards`; },
     resume(r) { studyRestoreGuide(r); flash = r; renderFlashCard(); },
   },
@@ -109,9 +117,9 @@ function resumeBtn(key) {
   if (!r) return null;
   // a stale/legacy resume blob (wrong shape) must never crash the landing page — treat as "no resume"
   let lbl;
-  try { if (!(spec.progressOf(r) > 0)) return null; lbl = spec.label(r); } catch { clearResume(key); return null; }
+  try { if (!(spec.progressOf(r) > 0)) return null; lbl = spec.label(r); } catch { McatStorage.sessionFailed(); return null; }
   const btn = el(`<button class="btn btn-resume" id="resume">&#8634; Resume &middot; ${lbl}</button>`);
-  btn.addEventListener('click', () => { try { spec.resume(r); } catch { clearResume(key); renderMCAT(); } });
+  btn.addEventListener('click', () => { try { spec.resume(r); } catch { McatStorage.sessionFailed(); } });
   return btn;
 }
 function findHubResume() {
@@ -123,7 +131,7 @@ function findHubResume() {
       if (spec.progressOf(r) <= 0) continue;
       const saved = r._saved || 0;
       if (!best || saved > best.saved) best = { spec, r, saved, lbl: spec.label(r) };
-    } catch { clearResume(spec.key); }
+    } catch { McatStorage.sessionFailed(); }
   }
   return best;
 }
@@ -132,7 +140,7 @@ function hubResumeChip() {
   if (!best) return null;
   const wrap = el('<div class="mcat-resume-hint"></div>');
   const btn = el(`<button class="btn btn-resume" id="hub-resume">&#8634; Resume &middot; ${best.spec.mod} &middot; ${best.lbl}</button>`);
-  btn.addEventListener('click', () => { try { best.spec.resume(best.r); } catch { clearResume(best.spec.key); renderMCAT(); } });
+  btn.addEventListener('click', () => { try { best.spec.resume(best.r); } catch { McatStorage.sessionFailed(); } });
   wrap.appendChild(btn);
   return wrap;
 }
@@ -140,9 +148,8 @@ function enterMCAT() {
   renderGuide();
 }
 
-// The MCAT section is the learner's saved game: first visit chooses a plan,
-// every return after that opens today's dashboard. The full tool library stays
-// available from the dashboard instead of sitting in front of the plan.
+// A first visit starts a flexible session or an optional reference plan.
+// Returning learners open Today; the tool library remains available below it.
 async function renderMCATEntry() {
   coursePauseTools(); await loadMCAT();
   const params = new URLSearchParams(location.search), view = params.get('view'), unit = params.get('unit');
@@ -168,17 +175,16 @@ function wireRunHeader(root, onExit) {
 }
 function confirmExit(hasProgress, onLeave) {
   if (!hasProgress) { onLeave(); return; }
-  const m = el(`<div class="modal" id="cfx"><div class="modal-box">
-    <div class="modal-head"><span class="label">Leave this session?</span></div>
-    <p class="cfx-msg">No problem &mdash; your place is saved. You can resume right where you left off.</p>
-    <div class="endbtns cfx-btns"><button class="btn" id="cfx-cancel">Keep going</button><button class="btn btn-solid" id="cfx-quit">Leave</button></div>
-  </div></div>`);
-  const close = () => { m.remove(); document.removeEventListener('keydown', onKey); };
-  const onKey = e => { if (e.key === 'Escape') close(); };
+  const m = el(`<dialog class="modal" id="cfx" aria-labelledby="cfx-title" aria-describedby="cfx-description"><div class="modal-box">
+    <div class="modal-head"><h2 class="label" id="cfx-title">Leave this session?</h2></div>
+    <p class="cfx-msg" id="cfx-description">Your place is saved. You can resume right where you left off.</p>
+    <div class="endbtns cfx-btns"><button class="btn" id="cfx-cancel" autofocus>Keep going</button><button class="btn btn-solid" id="cfx-quit">Leave</button></div>
+  </div></dialog>`);
+  const close = () => { m.close();m.remove(); };
+  m.addEventListener('cancel',e=>{e.preventDefault();close();});
   m.addEventListener('click', e => { if (e.target.id === 'cfx' || e.target.id === 'cfx-cancel') close(); });
   m.querySelector('#cfx-quit').addEventListener('click', () => { close(); onLeave(); });
-  document.addEventListener('keydown', onKey);
-  document.body.appendChild(m);
+  document.body.appendChild(m);m.showModal();
 }
 
 async function renderMCAT() {
@@ -201,10 +207,10 @@ async function renderMCAT() {
   const conceptsN = MCAT.outline ? MCAT.outline.concepts.length : 0;
 
   const tools = [
-    { name: 'Flashcards', desc: 'Recall facts on a spaced schedule', stat: cn ? `${due} due &middot; ${fresh} new` : 'Loading&hellip;', go: renderFlashHome, on: cn > 0, core: true },
-    { name: 'Question drills', desc: 'Practice discrete questions and review every answer', stat: qn ? `${qn} questions` : 'Loading&hellip;', go: renderDrillSetup, on: qn > 0, core: true },
-    { name: 'CARS practice', desc: 'Work through passages with blind review', stat: carsN ? `${carsN} passages` : 'Loading&hellip;', go: renderCarsHome, on: carsN > 0, core: true },
-    { name: 'Science passages', desc: 'Interpret experiments, figures, and data tables', stat: sciN ? `${sciN} passages` : 'Loading&hellip;', go: renderPassageHome, on: sciN > 0, core: true },
+    { name: 'Flashcards', desc: 'Recall facts on a spaced schedule', stat: cn ? `${due} due &middot; ${fresh} new` : 'Unavailable', go: renderFlashHome, on: cn > 0, core: true },
+    { name: 'Question drills', desc: 'Practice discrete questions and review every answer', stat: qn ? `${qn} questions` : 'Unavailable', go: renderDrillSetup, on: qn > 0, core: true },
+    { name: 'CARS practice', desc: 'Work through passages with blind review', stat: carsN ? `${carsN} passages` : 'Unavailable', go: renderCarsHome, on: carsN > 0, core: true },
+    { name: 'Science passages', desc: 'Interpret experiments, figures, and data tables', stat: sciN ? `${sciN} passages` : 'Unavailable', go: renderPassageHome, on: sciN > 0, core: true },
     { name: 'Practice exam', desc: 'Train with intact passage sets, then review each timed run', stat: 'Timed', go: renderSimHome, on: qn > 0 && !!MCAT.outline, core: true },
     { name: 'Mistake lab', desc: 'Work through gaps and check your learning', stat: t.answered ? `${t.answered} answered &middot; ${t.acc}%` : 'No data yet', go: renderMistakeLab, on: true, core: false },
     { name: 'Blueprint', desc: 'Check coverage against the MCAT content map', stat: `${conceptsN} concepts`, go: renderCourseHome, on: !!MCAT.outline, core: false },
@@ -233,7 +239,7 @@ async function renderMCAT() {
       <h1>Practice with purpose.</h1>
       <p>Apply the ideas you have studied, review the reasoning, and build stamina one session at a time.</p>
       <div id="course-practice-mode"></div>
-      <div class="mcat-simple-facts"><span><strong>${cn || 504}</strong> cards</span><span><strong>${qn || 263}</strong> questions</span><span><strong>${carsN + sciN || 66}</strong> passages</span></div>
+      <div class="mcat-simple-facts"><span><strong>${cn || '—'}</strong> cards</span><span><strong>${qn || '—'}</strong> questions</span><span><strong>${carsN + sciN || '—'}</strong> passages</span></div>
       <div class="mcat-cta"><button class="btn btn-solid" id="mc-enter">${findHubResume() || guidePlan() ? 'Continue studying' : 'Start studying'} &rarr;</button><button class="btn" id="mc-quick">Try a 5-minute session</button></div>
     </header>
 
@@ -349,6 +355,13 @@ function startFlash(deck, limitNew = 20, limitDue = 60, focusCategory = null, li
 function shuffleArr(a) { const x = a.slice(); for (let i = x.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1));[x[i], x[j]] = [x[j], x[i]]; } return x; }
 
 function renderFlashCard() {
+  flash.attemptId ||= studyAttemptId();
+  // A rating may have reached storage before its following resume save failed.
+  while(flash.idx<flash.queue.length){
+    const card=flash.queue[flash.idx],record=SRS[card.id];
+    if(record?.lastRatingId!==`${flash.attemptId}:${flash.idx}`)break;
+    advanceFlash(card,record.lastRating);
+  }
   if (flash.idx >= flash.queue.length) { finishFlash(); return; }
   const c = flash.queue[flash.idx];
   saveResume('flash', flash);
@@ -379,17 +392,23 @@ function renderFlashCard() {
 }
 
 function rateFlash(c, rating) {
+  if(!['again','hard','good','easy'].includes(rating))return;
+  flash.attemptId ||= studyAttemptId();
   const rec = srsRec(c.id);
-  schedule(rec, rating); saveSRS();
+  const ratingId=`${flash.attemptId}:${flash.idx}`;
+  if(rec.lastRatingId!==ratingId){schedule(rec,rating);rec.lastRatingId=ratingId;rec.lastRating=rating;saveSRS();}
+  advanceFlash(c,rec.lastRating);
+  renderFlashCard();
+}
+function advanceFlash(c,rating){
   if (rating === 'again') { flash.again++; flash.queue.push(c); }   // re-show later this session
   else flash.done++;
   flash.idx++;
-  renderFlashCard();
 }
 
 function finishFlash() {
-  clearResume('flash');
   const guided = guideCompleteActiveTask('flash');
+  clearResume('flash');
   if (typeof bumpStreak === 'function') bumpStreak();
   const root = el('<div></div>');
   root.appendChild(topbar('mcat'));
@@ -449,6 +468,7 @@ function startDrill(scope, len, mode) {
 }
 
 function renderDrillQ() {
+  drill.attemptId ||= studyAttemptId();
   if (drill.idx >= drill.qs.length) { finishDrill(); return; }
   const q = drill.qs[drill.idx];
   saveResume('drill', drill);
@@ -472,6 +492,7 @@ function renderDrillQ() {
   root.querySelectorAll('#conf .mode').forEach(b => b.addEventListener('click', () => { conf = b.dataset.c; root.querySelectorAll('#conf .mode').forEach(x => x.classList.toggle('active', x === b)); }));
   root.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => answerDrill(root, q, +b.dataset.i, conf)));
   setView(root);
+  const saved=drill.results[drill.idx];if(saved)answerDrill(root,q,saved.chosen,saved.conf);
 }
 
 function answerDrill(root, q, choice, conf) {
@@ -485,8 +506,8 @@ function answerDrill(root, q, choice, conf) {
     } else if (i === choice) btn.classList.add('chosen-blind');
   });
   root.querySelectorAll('#conf .mode').forEach(b => b.disabled = true);
-  const res = { id: q.id, section: q.section, category: q.category, chosen: choice, correct, conf, root: null };
-  drill.results.push(res);
+  const res = drill.results[drill.idx] ||= { id: q.id, section: q.section, category: q.category, chosen: choice, correct, conf, root: null };
+  saveResume('drill',drill);
 
   const after = root.querySelector('#after');
   if (drill.mode === 'blind') {
@@ -497,7 +518,7 @@ function answerDrill(root, q, choice, conf) {
       ${autopsy ? `<div class="autopsy"><span class="label">Distractor autopsy</span>${autopsy}</div>` : ''}</div>
       ${correct ? '' : `<div class="rootcause"><span class="label">What went wrong? (tags your weak spots)</span><div class="rc-chips">${ROOT_CAUSES.map(rc => `<button class="rc-chip" data-rc="${esc(rc)}">${esc(rc)}</button>`).join('')}</div></div>`}
       <div class="continue-row"><span class="hint">ENTER &rarr;</span><button class="btn btn-solid" data-next>${drill.idx + 1 >= drill.qs.length ? 'Results' : 'Next'}</button></div>`;
-    after.querySelectorAll('.rc-chip').forEach(ch => ch.addEventListener('click', () => { res.root = ch.dataset.rc; after.querySelectorAll('.rc-chip').forEach(x => x.classList.toggle('on', x === ch)); }));
+    after.querySelectorAll('.rc-chip').forEach(ch => {ch.classList.toggle('on',ch.dataset.rc===res.root);ch.addEventListener('click', () => { res.root = ch.dataset.rc; saveResume('drill',drill); after.querySelectorAll('.rc-chip').forEach(x => x.classList.toggle('on', x === ch)); });});
   }
   const nb = after.querySelector('[data-next]');
   nb.addEventListener('click', () => { drill.idx++; renderDrillQ(); });
@@ -505,16 +526,20 @@ function answerDrill(root, q, choice, conf) {
 }
 
 function finishDrill() {
-  clearResume('drill');
+  drill.attemptId ||= studyAttemptId();
   const guided = guideCompleteActiveTask('drill');
   // commit to history + log
-  const t = nowTs();
+  const t = drill.finishedAt ||= (drill.results.map(r=>QHIST[r.id]).find(h=>h?.lastAttemptId===drill.attemptId)?.ts || nowTs());
   drill.results.forEach(r => {
+    if(QLOG.some(a=>a.attemptId===drill.attemptId&&a.qId===r.id))return;
     const h = QHIST[r.id] || { n: 0 };
-    h.n++; h.lastCorrect = r.correct; h.conf = r.conf; h.root = r.root; h.ts = t; QHIST[r.id] = h;
-    QLOG.push({ qId: r.id, section: r.section, category: r.category, correct: r.correct, conf: r.conf, ts: t });
+    if(h.lastAttemptId!==drill.attemptId)h.n++;
+    h.lastAttemptId=drill.attemptId;h.lastCorrect = r.correct; h.conf = r.conf; h.root = r.root; h.ts = t; QHIST[r.id] = h;
+    QLOG.push({ qId: r.id, section: r.section, category: r.category, correct: r.correct, conf: r.conf, ts: t, attemptId:drill.attemptId });
   });
   saveQ();
+  saveResume('drill',drill);
+  clearResume('drill');
   if (typeof bumpStreak === 'function') bumpStreak();
 
   const correct = drill.results.filter(r => r.correct).length;
@@ -963,9 +988,11 @@ function submitSection() {
   s.items.forEach((it, i) => {
     const chosen = sim.answers[s === sim.queue[sim.si] ? sim.si + ':' + i : ''];
     const c = chosen === it.q.answer; if (c) correct++;
+    if(QLOG.some(a=>a.attemptId===sim.attemptId&&a.qId===it.q.id))return;
     const cat = s.key === 'cars' ? 'CARS-' + it.q.skill.split('-')[1] : it.q.category;
     QLOG.push({ qId: it.q.id, section: s.key, category: cat, passage:it.passageId, correct:c, unanswered:chosen == null, conf:'unsure', ts:t, sim:true, attemptId:sim.attemptId });
-    QHIST[it.q.id] = { n: (QHIST[it.q.id]?.n || 0) + 1, lastCorrect: c, ts: t };
+    const old=QHIST[it.q.id];
+    QHIST[it.q.id] = { n: (old?.n || 0) + (old?.lastAttemptId===sim.attemptId?0:1), lastAttemptId:sim.attemptId, lastCorrect: c, ts: t };
   });
   saveQ();
   sim.results.push({ key:s.key, sectionIndex:sim.si, correct, total:s.items.length, items:s.items, answers:Object.assign({},sim.answers), elapsedMs:sim.sectionDurationMs == null ? null : Math.max(0,Math.min(sim.sectionDurationMs,sim.sectionDurationMs-Math.max(0,sim.deadline-t))) });
@@ -991,7 +1018,7 @@ function finishSim() {
   if (simTimerId) clearInterval(simTimerId); simTimerId = null;
   const complete = sim.results.length === sim.queue.length;
   const guided = !sim.archived && complete && guideCompleteActiveTask('exam');
-  if (!sim.archived) { clearResume('sim'); courseArchiveExam(sim); }
+  if (!sim.archived) { courseArchiveExam(sim); clearResume('sim'); }
 
   const tot = sim.results.reduce((a, r) => a + r.total, 0), cor = sim.results.reduce((a, r) => a + r.correct, 0);
   const root = el('<div></div>'); root.appendChild(topbar('mcat'));
@@ -1041,9 +1068,9 @@ function guideDateFromKey(key) {
 }
 function guideAddDays(key, days) { const d = guideDateFromKey(key); d.setDate(d.getDate() + days); return guideDateKey(d); }
 function guideFormatDate(key) { return guideDateFromKey(key).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' }); }
-function saveGuidePlan(plan) { mset('cs-mcat-plan', JSON.stringify(plan)); }
+function saveGuidePlan(plan) { return McatStorage.write('cs-mcat-plan',plan); }
 function guidePlan() {
-  const raw = (typeof loadJSON === 'function') ? loadJSON('cs-mcat-plan', null) : null;
+  const raw = McatStorage.read('cs-mcat-plan',null);
   if (!raw) return null;
   if (raw.version === GUIDE_PLAN_VERSION && TRACKS[raw.track]) return raw;
   const migrated = buildPlan(TRACKS[raw.track] ? raw.track : '120');
@@ -1061,9 +1088,11 @@ function guidePlanDay(plan) {
   const today = guideDateFromKey(guideDateKey());
   const startUTC = Date.UTC(start.getFullYear(), start.getMonth(), start.getDate());
   const todayUTC = Date.UTC(today.getFullYear(), today.getMonth(), today.getDate());
-  return Math.max(1, Math.min(plan.durationDays, Math.floor((todayUTC - startUTC) / DAY) + 1));
+  const day = Math.floor((todayUTC - startUTC) / DAY) + 1;
+  return Math.max(1, plan.flexible ? day : Math.min(plan.durationDays, day));
 }
 function guidePhase(plan, day) {
+  if (plan.flexible) return 'Build';
   if (day > plan.durationDays - 2) return 'Taper';
   if (day > plan.durationDays - 21) return 'Exam prep';
   return 'Build';
@@ -1085,6 +1114,7 @@ function guideFocusCategory(plan, day) {
   if (!cats.length) return null;
   const weak = day % 4 === 0 ? guideWeakCategory() : null;
   if (weak) return Object.assign({ adaptive: true }, weak);
+  if (plan.flexible) return Object.assign({ adaptive: false }, cats[Math.floor((day - 1) / 3) % cats.length]);
   const contentDays = Math.max(1, plan.durationDays - 21);
   const index = Math.min(cats.length - 1, Math.floor((Math.min(day, contentDays) - 1) * cats.length / contentDays));
   return Object.assign({ adaptive: false }, cats[index]);
@@ -1138,7 +1168,7 @@ function guideStartTask(task, plan) {
     const spec = guideResumeSpec(task.type);
     const resume = spec ? loadResume(spec.key) : null;
     if (spec && resume) {
-      try { spec.resume(resume); return; } catch { clearResume(spec.key); }
+      try { spec.resume(resume); return; } catch { McatStorage.sessionFailed(); return; }
     }
   }
   plan.active = { ...task };
@@ -1206,6 +1236,15 @@ function buildPlan(track) {
 function showPlan(host, plan) {
   host.innerHTML = plan.weeks.map(w => `<div class="guide-week"><span class="guide-week-num">Week ${w.n}</span><span class="guide-week-days">Days ${w.firstDay}–${w.lastDay}</span><strong>${w.phase}</strong><p>${esc(w.note)}</p></div>`).join('');
 }
+function buildFlexiblePlan(minutes = 15) {
+  const plan = buildPlan('120');
+  plan.flexible = true;
+  plan.label = 'Flexible study';
+  plan.dailyMinutes = [15,30,60].includes(minutes) ? minutes : 15;
+  plan.targetDate = '';
+  plan.weeks = [];
+  return plan;
+}
 function renderGuide(useOriginal = false) {
   coursePauseTools();
   if(useOriginal !== true && typeof v2State !== 'undefined' && v2State.weekly.configured)return renderV2Today();
@@ -1214,24 +1253,53 @@ function renderGuide(useOriginal = false) {
 
   if (!existing) {
     const defaultTrack = '120';
-    const main = el(`<main class="panel guide-page">
-      <button class="backbtn topback" id="back">Browse all study tools</button>
-      <header class="guide-setup-hero"><span class="label">Guided MCAT plan</span><h1>Choose your pace.</h1><p>Try one five-minute concept session, or choose a daily study plan. Choose 15, 30, or 60 minutes each day. Your reference schedule keeps a target date while unfinished work stays saved.</p></header>
-      <div id="course-today"></div>
-      <div id="guide-first-repair"></div>
-      <h2 class="guide-plan-choice">Or choose a daily plan</h2>
+    const main = el(`<main class="panel guide-page today-page guide-welcome">
+      <header class="guide-day-hero"><span class="label">YOUR FIRST STEP / MCAT</span><h1>Start your session.</h1><p>Learn one idea, check your understanding, and save your place for next time.</p></header>
+      <section class="study-session" aria-label="Your first study session">
+        <div class="study-time-picker"><span class="label">Time today</span><div class="study-budgets" role="group" aria-label="Time available today">${[15,30,60].map(n=>`<button class="btn" data-first-minutes="${n}" aria-pressed="${n===15}">${n} min</button>`).join('')}</div></div>
+        <div id="first-session-preview" aria-live="polite"></div>
+        <button class="btn btn-solid" id="first-start">Start my session →</button>
+        <p id="first-session-detail" class="repair-fine"></p>
+        <p class="study-budget-note">Pause whenever you need to. You can set a weekly schedule or test date later.</p>
+      </section>
+      <p class="study-save-help">Your work saves in this browser. Return here to resume. Optional sign-in adds account sync; guest work stays separate until you choose to copy it into your account.</p>
+      <div class="today-library"><button class="ghostbtn" id="back">Browse all study tools ↗</button></div>
+      <details class="guide-schedule" id="guide-other-starts"><summary><span><strong>Other ways to start</strong><small>Choose a lesson, find your starting point, or try a five-minute concept</small></span><i>Open</i></summary><div id="course-today"></div><div id="guide-first-repair"></div></details>
+      <details class="guide-schedule" id="guide-reference-options"><summary><span><strong>Choose a reference schedule</strong><small>Optional 60-, 90-, or 120-day outline</small></span><i>Open</i></summary>
+      <p class="repair-fine">These dated outlines suggest a pace. Your daily session can still fit the time you have; finishing the schedule does not guarantee full content coverage.</p>
       <div class="guide-track-list">
-        ${TRACK_ORDER.map(key => { const track = TRACKS[key]; return `<button class="guide-track ${key === defaultTrack ? 'active' : ''}" data-track="${key}"><span><strong>${track.label}</strong><small>Reference pace: ${track.minutes}</small></span><span>Target ${guideFormatDate(guideAddDays(guideDateKey(), track.days - 1))}</span></button>`; }).join('')}
+        ${TRACK_ORDER.map(key => { const track = TRACKS[key]; return `<button class="guide-track ${key === defaultTrack ? 'active' : ''}" data-track="${key}" aria-pressed="${key===defaultTrack}"><span><strong>${track.label}</strong><small>Reference pace: ${track.minutes}</small></span><span>Target ${guideFormatDate(guideAddDays(guideDateKey(), track.days - 1))}</span></button>`; }).join('')}
       </div>
-      <div class="guide-setup-actions"><button class="btn btn-solid" id="begin">Start the 120-day plan &rarr;</button><span>Starting today · progress stays on this device</span></div>
+      <div class="guide-setup-actions"><button class="btn" id="begin">Start the 120-day plan &rarr;</button><span>Starting today · progress stays in this browser</span></div>
+      </details>
     </main>`);
-    courseToday(main.querySelector('#course-today'));
-  v2Today(main.querySelector('#course-today'));
+    let minutes = 15;
+    const preview = () => {
+      const session = studyBuildSession(buildFlexiblePlan(minutes), minutes), next = session.tasks[0];
+      main.querySelector('#first-session-preview').innerHTML = next ? `<div class="study-next-step"><span class="label">${next.resume?'SAVED WORK':'UP FIRST'} · About ${next.minutes} min</span><h2>${esc(next.title)}</h2><p>${esc(next.desc || '')}</p></div>` : '<p role="status">Study activities could not load. Reload to try again, or browse your saved work below.</p>';
+      main.querySelector('#first-session-detail').textContent = next ? `${session.tasks.length} ${session.tasks.length===1?'activity':'activities'} · About ${session.tasks.reduce((n,t)=>n+t.minutes,0)} minutes including review` : '';
+      main.querySelector('#first-start').disabled = !next;
+      main.querySelector('#first-start').textContent = next?.resume ? 'Resume my session →' : 'Start my session →';
+    };
+    main.querySelectorAll('[data-first-minutes]').forEach(button=>button.onclick=()=>{
+      minutes = Number(button.dataset.firstMinutes);
+      main.querySelectorAll('[data-first-minutes]').forEach(item=>item.setAttribute('aria-pressed', String(item===button)));
+      preview();
+    });
+    main.querySelector('#first-start').onclick = () => {
+      const plan = guidePlan() || buildFlexiblePlan(minutes);
+      const session = studyDailySession(plan, minutes);
+      const next = session.tasks.find(t=>!guideTaskDone(plan,t.day,t.id));
+      if(next) studyLaunchTask(next,plan); else renderGuide();
+    };
+    preview();
+    courseToday(main.querySelector('#course-today'),true);
+    v2Today(main.querySelector('#course-today'),true);
     mountRepairDashboard(main.querySelector('#guide-first-repair'), false);
     let track = defaultTrack;
     main.querySelectorAll('[data-track]').forEach(button => button.addEventListener('click', () => {
       track = button.dataset.track;
-      main.querySelectorAll('[data-track]').forEach(item => item.classList.toggle('active', item === button));
+      main.querySelectorAll('[data-track]').forEach(item => { item.classList.toggle('active', item === button); item.setAttribute('aria-pressed',String(item===button)); });
       main.querySelector('#begin').textContent = `Start the ${track}-day plan →`;
     }));
     main.querySelector('#begin').addEventListener('click', () => { saveGuidePlan(buildPlan(track)); renderGuide(); });
@@ -1253,19 +1321,20 @@ function renderGuide(useOriginal = false) {
   const elapsedDays = Math.max(0, (Date.UTC(calendarNow.getFullYear(), calendarNow.getMonth(), calendarNow.getDate()) - Date.UTC(calendarStart.getFullYear(), calendarStart.getMonth(), calendarStart.getDate())) / DAY);
   const calendarPct = Math.round(Math.min(1, elapsedDays / plan.durationDays) * 100);
   const completedWork = Object.values(plan.completed || {}).filter(Boolean).length;
-  const main = el(`<main class="panel guide-page">
-    <button class="backbtn topback" id="back">All study tools</button>
+  const main = el(`<main class="panel guide-page today-page">
     <header class="guide-day-hero">
-      <span class="label">${esc(plan.label)} &middot; Day ${day} of ${plan.durationDays}</span>
+      <span class="label">${esc(plan.label)} &middot; Day ${day}${plan.flexible?'':` of ${plan.durationDays}`}</span>
       <h1>Today’s MCAT plan</h1>
-      <p>${phase} &middot; Week ${Math.ceil(day / 7)}${focus ? ` &middot; ${focus.adaptive ? 'Weak-area review' : 'Focus'}: ${focus.id} ${esc(focus.title)}` : ''}</p>
-      <p class="repair-fine">Choose the time you have today. Resume saved work, review due concepts, and keep moving.</p>
+      <p>Choose your time. Take the next step. Pick up where you leave off.</p>
 
     </header>
-    <div id="course-today"></div><div id="guide-daily-session"></div>
+    <div id="guide-daily-session"></div>
+    <div class="today-library"><button class="ghostbtn" id="back">All study tools ↗</button></div>
+    <div id="course-today" class="today-support"></div>
     <details class="guide-schedule"><summary><span><strong>Concept repair &amp; learning evidence</strong><small>All ten concepts and scheduled follow-up checks</small></span><i>Open</i></summary><div id="guide-repair"></div></details>
-    <details class="guide-schedule guide-original"><summary><span><strong>Original track assignments</strong><small>Optional extra work from your ${plan.track}-day schedule</small></span><i>Open</i></summary>
+    ${plan.flexible?'':`<details class="guide-schedule guide-original"><summary><span><strong>Original track assignments</strong><small>Optional extra work from your ${plan.track}-day schedule</small></span><i>Open</i></summary>
     <section class="guide-today">
+      <p class="repair-fine">${phase} &middot; Week ${Math.ceil(day / 7)}${focus ? ` &middot; ${focus.adaptive ? 'Weak-area review' : 'Focus'}: ${focus.id} ${esc(focus.title)}` : ''}</p>
       <div class="guide-section-head"><span class="label">Today</span><span>Target date ${guideFormatDate(plan.targetDate)} &middot; Schedule elapsed: ${calendarPct}%</span></div>
       ${nextTask ? `<button class="btn btn-solid" id="guide-next">${activeTask ? 'Resume current task' : 'Start next task'} &rarr;</button>` : '<div class="guide-day-done">Your planned assignments are complete. Continue a focus session or return tomorrow.</div>'}
       <div class="guide-task-list">${tasks.map((task, index) => {
@@ -1279,23 +1348,23 @@ function renderGuide(useOriginal = false) {
     </section>
     </details>
     <details class="guide-schedule"><summary><span><strong>Full ${plan.track}-day schedule</strong><small>${plan.weeks.length} weeks · content, review, exams, and taper</small></span><i>Open</i></summary><div class="guide-week-list" id="guide-weeks"></div></details>
-    <p class="repair-fine">${completedWork} assignments completed in this plan. Calendar time and assignment completion do not measure understanding.</p>
-    <div class="guide-plan-actions"><button class="ghostbtn" id="restart">Change or restart plan</button></div>
+    <p class="repair-fine">${completedWork} ${completedWork === 1 ? "assignment" : "assignments"} completed in this plan. Calendar time and assignment completion do not measure understanding.</p>
+    <div class="guide-plan-actions"><button class="ghostbtn" id="restart">Change or restart plan</button></div>`}
   </main>`);
-  courseToday(main.querySelector('#course-today'));
-  v2Today(main.querySelector('#course-today'));
+  courseToday(main.querySelector('#course-today'),true);
+  v2Today(main.querySelector('#course-today'),true);
   mountDailySession(main.querySelector('#guide-daily-session'),plan);
   mountRepairDashboard(main.querySelector('#guide-repair'));
   const launch = task => studyLaunchTask(task, guidePlan());
-  if (nextTask) main.querySelector('#guide-next').addEventListener('click', () => launch(nextTask));
+  if (nextTask) main.querySelector('#guide-next')?.addEventListener('click', () => launch(nextTask));
   main.querySelectorAll('[data-guide-task]').forEach(button => button.addEventListener('click', () => {
     const task = tasks.find(item => item.id === button.dataset.guideTask);
     if (task) launch(task);
   }));
-  showPlan(main.querySelector('#guide-weeks'), plan);
-  main.querySelector('#restart').addEventListener('click', () => {
+  if(!plan.flexible) showPlan(main.querySelector('#guide-weeks'), plan);
+  main.querySelector('#restart')?.addEventListener('click', () => {
     if (!confirm('Restart your guided MCAT plan? Completed plan days will be cleared. Your flashcard and question history will stay.')) return;
-    localStorage.removeItem('cs-mcat-plan');
+    McatStorage.remove('cs-mcat-plan');
     Object.values(courseState.units).forEach(r => delete r.guideTask); saveCourse();
     // Keep unfinished study work, but detach assignments from the retired calendar.
     RESUME_SPECS.forEach(spec => { const saved=loadResume(spec.key); if (saved?.guideTask) { delete saved.guideTask; saveResume(spec.key,saved); } });
@@ -1307,7 +1376,7 @@ function renderGuide(useOriginal = false) {
 }
 
 /* ---------- Course Mapper ---------- */
-function mapperState() { return (typeof loadJSON === 'function') ? loadJSON('cs-mcat-coursework', {}) : {}; }
+function mapperState() { return McatStorage.read('cs-mcat-coursework', {}); }
 function renderMapper() {
   if (!MCAT.outline) return renderMCAT();
   const state = mapperState();
@@ -1328,7 +1397,7 @@ function renderMapper() {
     MCAT.outline.concepts.filter(c => c.section === sk).forEach(con => con.categories.forEach(cat => {
       const v = state[cat.id] || '';
       const row = el(`<div class="maprow"><span class="mr-id">${cat.id}</span><span class="mr-title">${esc(cat.title)}</span><span class="mr-rate">${['strong', 'ok', 'weak'].map(r => `<button class="rb ${v === r ? 'on ' + r : ''}" data-cat="${cat.id}" data-r="${r}">${r[0].toUpperCase()}</button>`).join('')}</span></div>`);
-      row.querySelectorAll('.rb').forEach(b => b.addEventListener('click', () => { const s = mapperState(); s[b.dataset.cat] = (s[b.dataset.cat] === b.dataset.r) ? '' : b.dataset.r; localStorage.setItem('cs-mcat-coursework', JSON.stringify(s)); renderMapper(); }));
+      row.querySelectorAll('.rb').forEach(b => b.addEventListener('click', () => { const s = mapperState(); s[b.dataset.cat] = (s[b.dataset.cat] === b.dataset.r) ? '' : b.dataset.r; McatStorage.write('cs-mcat-coursework',s); renderMapper(); }));
       mr.appendChild(row);
     }));
     map.appendChild(wrap);
@@ -1384,10 +1453,28 @@ function resetMcatState() {
     const k = localStorage.key(i);
     if (k && k.startsWith('cs-mcat')) keys.push(k);
   }
-  keys.forEach(k => { try { localStorage.removeItem(k); } catch {} });
+  keys.forEach(k => McatStorage.remove(k));
 }
 window.renderMCAT = renderMCAT;
 window.renderMCATEntry = renderMCATEntry;
 window.resetMcatState = resetMcatState;
 
 window.addEventListener('pagehide', () => { if (sim && simTimerId) saveResume('sim',sim); });
+let mcatPausedTimers=[];
+window.addEventListener('mcat-storage-paused',()=>{
+  if(typeof v2Clock!=='undefined'&&v2Clock){v2Tick();v2Clock=null;v2Save();}
+  for(const [key,run] of [['cars',cars],['plab',plab]])if(run?.timerId){mcatPausedTimers.push({key,run,remaining:Math.max(0,run.deadline-nowTs())});clearInterval(run.timerId);run.timerId=null;saveResume(key,run);}
+  if(sim&&simTimerId){mcatPausedTimers.push({key:'sim',run:sim,remaining:Math.max(0,sim.deadline-nowTs())});clearInterval(simTimerId);simTimerId=null;saveResume('sim',sim);}
+});
+window.addEventListener('mcat-storage-recovered',()=>{
+  courseSaveFailed=false;courseExamSaveFailed=false;repairSaveFailed=false;v2SaveFailed=false;
+  const note=document.querySelector('#course-note-status');if(note)note.textContent='Saved in this browser.';
+  const status=document.querySelector('#v2-save-status');if(status)status.textContent='Your work is saved in this browser. Signed-in sync follows your account settings.';
+  for(const {key,run,remaining} of mcatPausedTimers){
+    if(key==='sim'&&sim===run&&!run.finishedAt&&document.querySelector('#sim-timer')){run.deadline=nowTs()+remaining;simTimerId=setInterval(simTick,500);}
+    if(key==='cars'&&cars===run&&run.phase==='attempt'&&document.querySelector('#cars-timer')){run.deadline=nowTs()+remaining;run.timerId=setInterval(carsTick,500);}
+    if(key==='plab'&&plab===run&&run.phase==='attempt'&&document.querySelector('#plab-timer')){run.deadline=nowTs()+remaining;run.timerId=setInterval(plabTick,500);}
+  }
+  mcatPausedTimers=[];
+  const activity=document.querySelector('[data-v2-activity]');if(activity)v2BeginActivity(activity.dataset.v2Activity,activity.dataset.v2Key);
+});
