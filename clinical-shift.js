@@ -29,13 +29,6 @@
   function setShiftView(root, { preserveScroll = false, focusSelector = '' } = {}) {
     const previousScroll = preserveScroll ? window.scrollY : 0;
     setView(root);
-    const legal = root.querySelector('.sf-legal');
-    if (legal) {
-      legal.textContent = legal.textContent.replace(
-        'Original study content, independently reviewed.',
-        'Clinical Shift pilot content has not yet undergone formal clinician review.',
-      );
-    }
     if (preserveScroll) requestAnimationFrame(() => {
       window.scrollTo(0, previousScroll);
       root.querySelector(focusSelector)?.focus({ preventScroll: true });
@@ -81,7 +74,7 @@
     stopTimer(); session = null;
     const root = el('<div></div>');
     root.appendChild(topbar('practice'));
-    root.appendChild(el(`<main class="panel cshift-loading" id="main"><span class="label">Clinical Shift pilot</span><h1>${esc(message)}</h1><p>Building your patient assignment and opening the chart.</p></main>`));
+    root.appendChild(el(`<main class="panel cshift-loading" id="main"><span class="label">Clinical Shift</span><h1>${esc(message)}</h1><p>Building your patient assignment and opening the chart.</p></main>`));
     setShiftView(root);
   }
 
@@ -106,17 +99,17 @@
     const active = shiftState.active;
     const main = el(`<main class="panel cshift-hub" id="main">
       <header class="cshift-hub-hero">
-        <span class="label">Clinical Scenarios · pilot</span>
+        <span class="label">Clinical Scenarios</span>
         <h1>Start your shift.</h1>
         <p>Choose a specialty. Cortex assigns the patient. Review the chart, lock your decisions, rank a differential, write your note, and compare it with a model before the clinical debrief.</p>
-        <p class="cshift-content-status"><strong>Content status:</strong> ${esc(shiftManifest.reviewStatus)}</p>
+        <p class="cshift-content-status">Educational case practice. Compare your decisions with a model response and a clinical debrief.</p>
       </header>
       ${active ? `<section class="cshift-resume">
         <div><span class="label">Shift in progress</span><strong>${esc(activeRotationName())}</strong><p>Your patient and every locked decision are saved on this device.</p></div>
         <div><button class="btn btn-solid" id="cshift-resume">Continue shift →</button><button class="ghostbtn" id="cshift-end-active">End shift</button></div>
       </section>` : ''}
       <section class="cshift-rotations" aria-labelledby="cshift-rotations-title">
-        <div class="cshift-section-head"><div><span class="label">Pilot rotations</span><h2 id="cshift-rotations-title">Choose your specialty.</h2></div><span>3 specialties · 15 hidden patients</span></div>
+        <div class="cshift-section-head"><div><span class="label">Specialty rotations</span><h2 id="cshift-rotations-title">Choose your specialty.</h2></div><span>3 specialties · 15 hidden patients</span></div>
         <div class="cshift-rotation-list">
           ${shiftManifest.rotations.map((rotation, index) => `<button class="cshift-rotation" data-shift-specialty="${esc(rotation.key)}" aria-label="Start ${esc(rotation.name)} shift · ${completedCount(rotation)} of ${rotation.caseIds.length} completed">
             <span class="cshift-rotation-num mono">${String(index + 1).padStart(2, '0')}</span>
@@ -127,7 +120,7 @@
         </div>
       </section>
       <section class="cshift-classic">
-        <div><span class="label">Existing library</span><h2>The original 2,599 cases are still here.</h2><p>Clinical Shift is the new pilot. The complete case bank and your previous review tools remain untouched while we test this loop.</p></div>
+        <div><span class="label">Existing library</span><h2>The original 2,599 cases are still here.</h2><p>Explore the complete case bank, revisit saved cases, and build on your previous practice.</p></div>
         <div><button class="btn" id="cshift-classic">Classic case bank</button><button class="ghostbtn" id="cshift-review">Case bank history</button></div>
       </section>
     </main>`);
@@ -594,7 +587,7 @@
       <section class="cshift-debrief-section"><span class="label">Charting self-review</span>${noteComparisonMarkup(modelNote)}</section>
       <section class="cshift-debrief-section"><span class="label">Decision review</span><div class="cshift-review-list">${decisionReviewMarkup()}</div></section>
       <section class="cshift-debrief-section"><span class="label">Clinical pearls</span><div class="cshift-pearls">${caseData.pearls.map((pearl, index) => `<article><span>${String(index + 1).padStart(2, '0')}</span><p>${esc(pearl)}</p></article>`).join('')}</div></section>
-      <p class="cshift-provenance"><strong>Content status:</strong> ${esc(shiftManifest.reviewStatus)}</p>
+      <p class="cshift-provenance">Educational case practice. Compare your decisions with a model response and a clinical debrief.</p>
       <div class="cshift-end-actions"><button class="btn btn-solid" id="cshift-next-patient">Next patient in ${esc(rotation.name)} →</button><button class="btn" id="cshift-choose-rotation">Choose another specialty</button><button class="ghostbtn" id="cshift-classic">Classic case bank</button></div>
     </section>`, 'debrief');
     root.querySelector('#cshift-next-patient').addEventListener('click', () => { shiftState.active = null; shiftSession = null; saveShiftState(); startClinicalShift(rotation.key); });

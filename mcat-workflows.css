@@ -1,0 +1,59 @@
+.study-session { margin: 28px 0; border: 1px solid var(--line); padding: 28px; border-radius: 12px; background: #fff; }
+.study-session-heading { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.study-session h2 { font-size: clamp(23px, 3vw, 30px); margin: 10px 0 0; letter-spacing: -.025em; }
+.study-count { font: 11px var(--mono); color: var(--dim); white-space: nowrap; }
+.study-budgets { display: flex; gap: 8px; margin: 24px 0 14px; }
+.study-budgets .btn { min-width: 85px; }
+.study-budget-note, .study-recovery, .study-complete { font-size: 13px; line-height: 1.65; color: var(--body); }
+.study-recovery { border-left: 3px solid var(--blue); padding: 10px 14px; margin-top: 18px; background: #f5f9ff; }
+.study-task-list { border-block: 1px solid var(--line); margin: 22px 0; }
+.study-task { width: 100%; display: grid; grid-template-columns: 26px minmax(0,1fr) auto; align-items: center; gap: 16px; padding: 18px 4px; background: transparent; border: 0; text-align: left; color: var(--text); cursor: pointer; }
+.study-task + .study-task { border-top: 1px solid var(--line); }
+.study-task:hover:not(:disabled) { background: #f7faff; }
+.study-task strong { display: block; font-size: 14px; font-weight: 650; }
+.study-task small { display: block; margin-top: 5px; color: var(--dim); font-size: 12px; line-height: 1.5; }
+.study-task-index, .study-task-time { font: 11px var(--mono); color: var(--dim); }
+.study-task.done .study-task-index { color: var(--green); }
+.study-task.done { opacity: .65; }
+.guide-original .guide-today { margin-top: 0; padding-bottom: 24px; }
+.study-review-stage > *, .study-review-stage .cars-q { min-width: 0; }
+.study-review-stage { display: grid; grid-template-columns: minmax(0,1.1fr) minmax(0,1fr); gap: 34px; max-width: 1160px; align-items: start; }
+.study-question-heading { font-size: clamp(25px,3vw,34px); line-height: 1.2; letter-spacing: -.03em; margin: 12px 0 18px; }
+.study-instruction { font-size: 13px; line-height: 1.65; color: var(--dim); margin: 12px 0 20px; }
+.study-field { display: block; font-size: 14px; font-weight: 600; margin: 24px 0; }
+.study-field small { display: block; font-size: 12px; font-weight: 400; color: var(--dim); margin: 6px 0 9px; line-height: 1.5; }
+.study-field textarea { display: block; box-sizing: border-box; width: 100%; resize: vertical; border: 1px solid #bcc8d5; border-radius: 6px; padding: 12px; margin-top: 9px; font: 14px/1.65 var(--sans); color: var(--text); background: #fff; }
+.study-field textarea:focus { outline: 2px solid var(--blue); outline-offset: 2px; }
+.study-flag { display: flex; gap: 8px; align-items: center; margin: 14px 0 20px; font-size: 13px; }
+.study-actions { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; margin: 20px 0; }
+.study-selected { border-color: var(--blue) !important; background: #eef5ff !important; box-shadow: inset 3px 0 var(--blue); }
+.cars-evidence { display: inline; padding: 2px 0; border: 0; border-radius: 2px; background: transparent; font: inherit; color: inherit; line-height: inherit; text-align: left; cursor: pointer; }
+.cars-evidence:hover { background: #f0f5fb; }
+.cars-evidence.selected { background: #dfecff; box-shadow: 0 2px var(--blue); }
+.cars-evidence:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+.study-result h1 { font-size: clamp(30px,5vw,46px); margin-top: 20px; }
+.study-result > p { color: var(--body); font-size: 14px; line-height: 1.7; max-width: 740px; }
+.study-score-pair { display: flex; gap: 48px; padding: 30px 0; }
+.study-score-pair strong { display: block; font: 36px var(--mono); color: var(--text); }
+.study-score-pair span { display: block; margin-top: 10px; font-size: 12px; color: var(--dim); }
+.study-result blockquote, .experiment-comparison blockquote { padding: 10px 14px; border-left: 3px solid var(--line); white-space: pre-wrap; overflow-wrap: anywhere; }
+.study-quote { color: var(--dim); font-size: 13px; }
+.study-graph { margin: 20px 0; padding: 16px; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
+.study-graph svg { width: 100%; height: auto; display: block; }
+.study-graph figcaption { font-size: 11px; line-height: 1.6; color: var(--dim); margin-top: 8px; }
+.experiment-comparison { margin: 24px 0 36px; text-align: left; }
+.experiment-comparison h2 { font-size: 22px; margin-bottom: 12px; }
+.experiment-comparison .rev-body p { white-space: pre-wrap; overflow-wrap: anywhere; }
+@media (max-width: 600px) {
+  .study-session { padding: 18px 14px; }
+  .study-session-heading { align-items: flex-start; flex-direction: column; gap: 12px; }
+  .study-budgets .btn { min-width: 0; flex: 1; padding-inline: 12px; }
+  .study-task { gap: 10px; }
+  .study-session > .btn, .study-actions > .btn { width: 100%; white-space: normal; }
+  .study-score-pair { gap: 28px; }
+  .study-graph { padding: 8px; }
+}
+@media (max-width: 850px) { .study-review-stage { display: block; } }
+@media (max-width: 850px) {
+  .study-review-stage .cars-passage { max-height: 360px; overflow-y: auto; overscroll-behavior: contain; }
+}

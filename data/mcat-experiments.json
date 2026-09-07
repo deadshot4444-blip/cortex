@@ -1,0 +1,320 @@
+{
+  "cp1": {
+    "hypothesis": "How does launch angle affect projectile range at fixed launch speed?",
+    "independent": "Launch angle, from 15 to 75 degrees.",
+    "dependent": "Horizontal range in meters; also flight time in seconds and maximum height in meters.",
+    "control": "No separate untreated group. The same launcher, ball, nominal speed, and landing height are held constant across angles.",
+    "conclusion": "Range peaks at 14.69 m at 45 degrees among the tested angles; complementary angles have equal ranges in the table.",
+    "limitation": "The constant-speed and level-floor assumptions matter. The table gives means without variability, and does not test every possible launch angle.",
+    "graph": {
+      "xColumn": 0,
+      "xLabel": "Launch angle (degrees)",
+      "yLabel": "Range (m)",
+      "series": [
+        {
+          "column": 1,
+          "label": "Measured range"
+        }
+      ],
+      "description": "Measured range rises to a peak at 45 degrees, then falls.",
+      "prompt": "Does a longer flight time always imply a longer range? Compare the 45- and 75-degree trials using the graph and table.",
+      "answer": "No. At 75 degrees the flight time is longer (2.37 vs 1.73 s), but the range is shorter (7.35 vs 14.69 m). Both horizontal speed and flight time determine range."
+    }
+  },
+  "cp2": {
+    "hypothesis": "Does the titration behavior support a weak monoprotic acid, and what is its pKa?",
+    "independent": "Volume of 0.100 M NaOH added to the acid.",
+    "dependent": "Equilibrated pH after each addition.",
+    "control": "The deionized-water titration provides a comparison without acid buffering. Temperature, acid aliquot, and titrant concentration are controlled.",
+    "conclusion": "At half-equivalence, 12.50 mL, pH is 4.74, so pKa is approximately 4.74. Equivalence near 25 mL has a basic pH.",
+    "limitation": "Sparse sampled volumes cannot locate the exact point of maximum slope; calibration, mixing, and the monoprotic-acid assumption affect interpretation.",
+    "graph": {
+      "xColumn": 0,
+      "xLabel": "NaOH added (mL)",
+      "yLabel": "Measured pH",
+      "series": [
+        {
+          "column": 1,
+          "label": "Measured pH"
+        }
+      ],
+      "description": "Measured pH rises as NaOH volume increases; the sampled central region changes more gradually.",
+      "prompt": "Which point supports a pKa estimate? Does this sparse graph locate the exact steepest slope?",
+      "answer": "The 12.50 mL half-equivalence point has pH 4.74, supporting pKa approximately 4.74. The connecting lines only join sampled measurements; they do not resolve the exact steepest slope."
+    }
+  },
+  "cp3": {
+    "hypothesis": "How does initial product-formation rate depend on starting concentrations of A and B?",
+    "independent": "Starting [A] and [B], varied across trials.",
+    "dependent": "Initial formation rate in M/s, inferred from the early absorbance slope.",
+    "control": "Compare trials with one concentration fixed: 1 vs 2 for A; 1 vs 3 for B. Temperature, pH, and ionic strength are held constant.",
+    "conclusion": "Doubling A doubles rate; doubling B quadruples it. The data support rate = k[A][B]^2.",
+    "limitation": "Reaction orders are empirical. They do not by themselves identify elementary steps or establish a unique mechanism."
+  },
+  "cp4": {
+    "hypothesis": "How does object distance affect image distance and size for one converging lens?",
+    "independent": "Object distance from the lens.",
+    "dependent": "Image distance and height in centimeters; image orientation.",
+    "control": "The same lens, 4.0 cm object, alignment, and lighting are used. There is no separate control group.",
+    "conclusion": "The tested real images are inverted. At object and image distances of 40 cm, the thin-lens equation gives f = 20 cm.",
+    "limitation": "Only object distances greater than the focal length were tested. These observations do not describe virtual images inside the focal length."
+  },
+  "cp5": {
+    "hypothesis": "Does PCC oxidation of anisyl alcohol produce the proposed aldehyde?",
+    "independent": "The synthesis and workup; reagent substitutions and omission of starting alcohol provide comparisons.",
+    "dependent": "TLC behavior and IR, NMR, and mass-spectral features of the isolated product.",
+    "control": "PCC plus solvent without alcohol gives no spot at Rf 0.42. The KMnO4 workup is a comparison with a different oxidant.",
+    "conclusion": "The aldehyde proton at 9.85 ppm, carbonyl absorption, and molecular ion at m/z 136 support 4-methoxybenzaldehyde.",
+    "limitation": "Product identification is based on combined analytical evidence. A single TLC spot does not establish absolute purity or reaction yield."
+  },
+  "cp6": {
+    "hypothesis": "How does copper-ion concentration affect Daniell-cell potential?",
+    "independent": "[Cu2+], with [Zn2+] fixed at 1.00 M.",
+    "dependent": "Open-circuit cell potential in volts.",
+    "control": "The 1.00 M/1.00 M condition is the standard-concentration reference. Temperature, electrodes, and salt-bridge setup are controlled.",
+    "conclusion": "Diluting Cu2+ from 1.00 to 0.000100 M lowers the measured potential from 1.100 to 0.982 V, consistent with the Nernst trend.",
+    "limitation": "Using concentrations in place of activities is an approximation. Open-circuit measurements do not establish power output under load."
+  },
+  "bb1": {
+    "hypothesis": "Does compound X change ALP kinetics in a manner consistent with competitive inhibition?",
+    "independent": "Substrate concentration and absence or presence of 100 micromolar compound X.",
+    "dependent": "Initial product-formation velocity in micromol/min.",
+    "control": "Buffer-only reactions at each substrate concentration; enzyme amount, pH, temperature, and ionic strength are matched.",
+    "conclusion": "X lowers measured velocity at each tested substrate concentration. The passage describes the same extrapolated Vmax and a higher apparent Km with X, consistent with competition.",
+    "limitation": "The largest measured substrate concentration is not infinity. Table points alone do not prove equal asymptotes or directly demonstrate binding at the active site.",
+    "graph": {
+      "xColumn": 0,
+      "xLabel": "Substrate (mM)",
+      "yLabel": "Velocity (micromol/min)",
+      "series": [
+        {
+          "column": 1,
+          "label": "No compound X"
+        },
+        {
+          "column": 2,
+          "label": "With compound X"
+        }
+      ],
+      "description": "Velocity increases with substrate in both conditions and is lower with compound X at every measured point.",
+      "prompt": "Do these measured points alone prove that both curves reach the same maximum? What does the passage add?",
+      "answer": "No. Neither series reaches saturation in the measured range. The passage adds a fitted common Vmax and double-reciprocal analysis, which support the competitive model without directly demonstrating a binding site."
+    }
+  },
+  "bb2": {
+    "hypothesis": "Is HSF1 needed for the full HSP70 response to heat shock in these cells?",
+    "independent": "HSF1-targeting siRNA versus scrambled siRNA or mock treatment; heat-shock status also has baseline comparisons.",
+    "dependent": "HSF1 and HSP70 mRNA by normalized RT-qPCR and protein by normalized Western blot.",
+    "control": "Scrambled siRNA addresses nonspecific RNA/transfection effects; mock, no-heat-shock samples, GAPDH, and beta-actin address additional comparisons and normalization.",
+    "conclusion": "HSF1 knockdown accompanies reduced HSP70 induction: HSP70 mRNA is 0.22 relative to mock in the heat-shock comparison.",
+    "limitation": "Off-target effects, reference stability, detection range, and one cell line limit inference. Independent targeting sequences and a suitable rescue would strengthen attribution to HSF1."
+  },
+  "bb3": {
+    "hypothesis": "Does glucose accumulation depend on the inward sodium gradient and SGLT1 activity?",
+    "independent": "Presence of a sodium gradient, phlorizin, or lower temperature, compared separately with control.",
+    "dependent": "Radiolabeled glucose uptake after 30 seconds, in nmol/mg protein.",
+    "control": "Condition 1 has an inward sodium gradient, no inhibitor, and 37 C. Each other condition changes one listed factor.",
+    "conclusion": "Uptake falls from 9.8 to 1.2 without the sodium gradient and to 1.5 with phlorizin, supporting gradient-dependent transport.",
+    "limitation": "An isolated-vesicle assay does not measure whole-intestine absorption. Low temperature affects many processes, so that comparison is not uniquely specific to SGLT1."
+  },
+  "bb4": {
+    "hypothesis": "How do controlled hydration states relate to ADH and renal water handling?",
+    "independent": "Water loading, normal intake, and fluid abstention, tested within participants.",
+    "dependent": "Plasma osmolality and ADH, urine flow rate, and urine osmolality.",
+    "control": "Each participant serves as their own control; euhydration is the reference, with randomized condition order and matched equilibration.",
+    "conclusion": "Dehydration shows higher ADH and urine osmolality with lower urine flow than water loading, consistent with greater water reabsorption.",
+    "limitation": "Only 12 healthy adults were studied. ADH was measured, not independently manipulated; unchanged GFR does not prove it is the sole mediator."
+  },
+  "bb5": {
+    "hypothesis": "How do affected-newborn frequencies and HWE-based carrier estimates differ across islands?",
+    "independent": "Geographic region is observed, not randomly assigned.",
+    "dependent": "Affected newborn counts; estimated q and 2pq calculated under HWE assumptions.",
+    "control": "Regions are compared using the same newborn screen and equal sample sizes. Region C has a repeat screen; there is no randomized control group.",
+    "conclusion": "Affected frequency ranges from 0.010 to 0.160, giving estimated carrier frequencies from 0.180 to 0.480 under HWE.",
+    "limitation": "Carriers were not genotyped. Nonrandom mating, founder effects, and population structure can invalidate the HWE estimates or a pooled-population interpretation."
+  },
+  "bb6": {
+    "hypothesis": "Does longer fasting shift substrate use during matched submaximal exercise?",
+    "independent": "Fasting duration: 4, 12, or 24 hours.",
+    "dependent": "RER and oxygen consumption; plasma glucose, free fatty acids, and beta-hydroxybutyrate.",
+    "control": "Within-person comparisons with randomized order, matched treadmill workload, standardized preparation, and washout days.",
+    "conclusion": "RER falls from 0.91 to 0.78 while free fatty acids and ketones rise, consistent with a larger fat contribution to oxidation.",
+    "limitation": "RER is an indirect measure of fuel use. Muscle glycogen was not measured, and the small healthy sample limits generalization."
+  },
+  "ps1": {
+    "hypothesis": "Does encoding task affect later free recall?",
+    "independent": "Randomly assigned structural, phonological, semantic, or self-reference encoding task.",
+    "dependent": "Number of words correctly recalled out of 60.",
+    "control": "Shallow-processing tasks provide comparison conditions; word exposure time, filler delay, and recall time are matched, with a blinded scorer.",
+    "conclusion": "Mean recall is 27.4 for self-reference and 21.8 for semantic processing, versus 9.2 and 11.5 for the shallow tasks. The rounded summaries give F approximately 102.8; use the reported post-hoc comparisons to identify differing pairs.",
+    "limitation": "Means alone do not establish significance. Undergraduates recalling words after a short delay do not establish effects for every population or study task."
+  },
+  "ps2": {
+    "hypothesis": "Do noise and incentives affect perceptual sensitivity and decision criterion differently?",
+    "independent": "Background noise and liberal versus conservative payoff, both manipulated within subjects.",
+    "dependent": "Hit and false-alarm rates, d-prime, and reaction time.",
+    "control": "Within-person factorial comparisons with constant tone intensity and counterbalanced block order.",
+    "conclusion": "Higher noise accompanies lower d-prime. Liberal payoff increases both hits and false alarms within each noise level.",
+    "limitation": "These aggregate behavioral results do not localize the effect to a specific receptor or brain pathway; more hits alone need not mean greater sensitivity."
+  },
+  "ps3": {
+    "hypothesis": "Do unanimity, dissent, and response privacy change conformity?",
+    "independent": "Randomly assigned social/response condition: control, unanimous, lone ally, or anonymous.",
+    "dependent": "Percentage matching the incorrect group estimate, plus reported private belief.",
+    "control": "Private responses without confederates provide a baseline. Unanimous versus lone-ally or anonymous conditions isolate useful comparisons.",
+    "conclusion": "Conformity is 37% in the public unanimous condition versus 11% with an ally and 13% with anonymous responses.",
+    "limitation": "A private-belief questionnaire can be biased. The control differs on both group presence and response mode, so use the more specific contrasts to interpret mechanisms."
+  },
+  "ps4": {
+    "hypothesis": "Is higher education associated with lower hypertension prevalence beyond income differences?",
+    "independent": "Educational attainment and socioeconomic exposures, measured observationally.",
+    "dependent": "Hypertension prevalence, chronic-stress score, and food-desert exposure.",
+    "control": "Education strata are compared, including within-income comparisons. There is no randomized education intervention.",
+    "conclusion": "Hypertension prevalence falls from 48.6% in the lowest education stratum to 22.1% in the highest in this sample.",
+    "limitation": "Cross-sectional association does not establish causal direction. Unmeasured early-life conditions or access to care may confound it."
+  },
+  "ps5": {
+    "hypothesis": "Does process praise support persistence after failure compared with trait praise or neutral feedback?",
+    "independent": "Randomized feedback condition within age groups; age is a measured grouping variable.",
+    "dependent": "Voluntary persistence in minutes, performance change in puzzles solved, and enjoyment ratings.",
+    "control": "Neutral feedback is the control. Puzzle difficulty and sequence are matched; the feedback provider is blind to the hypothesis.",
+    "conclusion": "Among 9-year-olds, persistence averages 8.6 minutes with process praise versus 3.1 with trait praise; the difference is smaller in younger children.",
+    "limitation": "Age was not randomized, enjoyment differences were not reliable, and one task does not establish a durable change in mindset."
+  },
+  "ps6": {
+    "hypothesis": "Do behavioral, medication, and combined interventions differ in the durability of sleep-onset improvements?",
+    "independent": "Randomly assigned treatment group, with measurements across time.",
+    "dependent": "Sleep-onset latency in minutes, derived from daily sleep diaries.",
+    "control": "Pill placebo controls pill expectancy; baseline group similarity and blinded diary assessors support comparison. Therapists cannot be fully blinded.",
+    "conclusion": "In this practice dataset, CBT-I mean latency stays near its post-treatment value at follow-up (27 to 29 minutes), while medication alone rises from 24 to 55.",
+    "limitation": "Self-reported diaries and incomplete blinding limit inference. These passage data are not individual treatment advice and do not isolate which behavioral component caused change."
+  },
+  "cp7": {
+    "hypothesis": "How does channel radius affect flow under otherwise matched conditions?",
+    "independent": "Channel radius; viscosity and pressure are explored separately in follow-up trials.",
+    "dependent": "Volumetric flow rate in mL/min.",
+    "control": "Channel length, pressure difference, fluid, and measurement setup are matched in Table 1. There is no separate untreated group.",
+    "conclusion": "The tabulated flow rises from 3.0 at radius 1.0 mm to 48.0 at 2.0 mm, a sixteenfold change consistent with an r^4 relative trend.",
+    "limitation": "The simplified rigid-channel Newtonian model does not fully describe real blood vessels. A relative trend alone does not validate every absolute parameter in the model."
+  },
+  "cp8": {
+    "hypothesis": "How do salts differ in the heat effect of dissolution?",
+    "independent": "Salt identity, with 0.100 mol dissolved per trial.",
+    "dependent": "Water temperature change in C and calculated molar enthalpy of solution.",
+    "control": "Water mass, salt amount, calorimeter procedure, and mixing are matched. Initial temperature is the reference.",
+    "conclusion": "A water temperature rise indicates exothermic dissolution; the reported CaCl2 change of +19.81 C corresponds to negative enthalpy.",
+    "limitation": "Heat loss, neglected cup heat capacity, and approximating solution properties by water can bias the calculated enthalpy."
+  },
+  "cp9": {
+    "hypothesis": "How do added fluoride and pH affect CaF2 solubility?",
+    "independent": "Added NaF concentration; solution pH is varied in a separate comparison.",
+    "dependent": "Dissolved calcium, used to infer molar solubility in mol/L.",
+    "control": "Deionized water is the reference. Temperature, volume, excess solid, and equilibration duration are controlled.",
+    "conclusion": "Molar solubility decreases as added fluoride increases, consistent with the common-ion effect; acid increases solubility in the described follow-up.",
+    "limitation": "The approximation that background fluoride dominates is concentration-dependent. Activities and confirmation of equilibrium may matter."
+  },
+  "cp10": {
+    "hypothesis": "Does a string’s fundamental frequency follow the square-root dependence on tension?",
+    "independent": "String tension, changed through hanging mass.",
+    "dependent": "Lowest observed resonant frequency in Hz.",
+    "control": "The same string, fixed 1.00 m length, and matched boundary conditions are used; no separate control group.",
+    "conclusion": "Increasing tension from 16 to 64 N raises frequency from 50 to 100 Hz, consistent with f proportional to square root of tension.",
+    "limitation": "The model assumes fixed linear density and ideal supports. A visually chosen resonance can introduce measurement error."
+  },
+  "cp11": {
+    "hypothesis": "How do solvent and azide concentration affect substitution outcome?",
+    "independent": "Solvent and azide concentration.",
+    "dependent": "Azide yield, product enantiomeric excess, and styrene yield, in percent.",
+    "control": "Temperature, time, and starting stereochemistry are matched. The zero-azide DMSO trial is a reagent-omission comparison.",
+    "conclusion": "High azide in DMSO gives higher yield and inverted optical enrichment than the near-racemic MeOH products, consistent with different pathway contributions.",
+    "limitation": "Product stereochemistry supports but does not uniquely establish a mechanism. Competing elimination and additional kinetic evidence must be considered."
+  },
+  "cp12": {
+    "hypothesis": "What structure is consistent with all analytical observations?",
+    "independent": "This is an identification exercise, not a manipulation of an independent variable.",
+    "dependent": "IR bands, NMR shifts and integration, and mass-spectral ion/fragment masses.",
+    "control": "Different analytical methods provide cross-checks. A second group repeats MS using chemical ionization; no experimental control group is described.",
+    "conclusion": "A carbonyl, 5:3 aromatic-to-methyl integration, and m/z 120 with a 105 fragment jointly support acetophenone.",
+    "limitation": "No single peak proves identity. A molecular ion alone does not uniquely determine a formula or rule out all isomers."
+  },
+  "bb7": {
+    "hypothesis": "Does perturbing PFK-1 produce the predicted upstream/downstream metabolite pattern?",
+    "independent": "PFK-1 inhibition, variant overexpression, or hypoxia versus standard culture.",
+    "dependent": "Metabolite concentrations in micromolar and lactate secretion as a flux estimate.",
+    "control": "Standard glucose-replete culture is the reference, with matched sampling after 30 minutes.",
+    "conclusion": "PFK-1 inhibition raises F6P from 55 to 140 while lowering F1,6BP from 22 to 6 and lactate flux from 40 to 12.",
+    "limitation": "Steady-state concentrations are not direct flux measurements. Glycogen diversion and off-target effects remain alternatives; isotope tracing would help."
+  },
+  "bb8": {
+    "hypothesis": "What are the roles of the ARE and RE promoter elements in basal and induced expression?",
+    "independent": "Promoter construct and vehicle versus tBHQ treatment.",
+    "dependent": "Firefly/Renilla activity ratio, normalized to WT basal, and fold induction.",
+    "control": "WT, vehicle, and Renilla normalization provide distinct controls. Mutant versus WT comparisons are made within treatment state.",
+    "conclusion": "ARE mutation largely removes induction; RE mutation raises basal activity. The data support activating and restraining roles for the two elements.",
+    "limitation": "A plasmid reporter does not reproduce all endogenous chromatin regulation. Fold induction also depends on the basal denominator."
+  },
+  "bb9": {
+    "hypothesis": "Do adjuvants increase the antibody response to OmpX?",
+    "independent": "Immunization formulation: PBS, antigen alone, or antigen with adjuvants.",
+    "dependent": "Anti-OmpX IgG titer and a separate growth-inhibition IC50.",
+    "control": "PBS is a background control; antigen alone isolates the additional effect of adjuvants. Immunization and sampling times are matched.",
+    "conclusion": "The combined formulation has the highest mean titer, 12,800, and the described lowest IC50; quantity and functional activity are separate outcomes.",
+    "limitation": "Mean differences alone do not establish superiority or synergy. Mouse sera inhibiting growth in culture do not prove protection in humans."
+  },
+  "bb10": {
+    "hypothesis": "How do changes in extracellular ions or channel activity affect measured voltage and firing?",
+    "independent": "Bath potassium concentration or channel-blocking agent.",
+    "dependent": "Resting membrane potential in mV and firing rate in Hz.",
+    "control": "Standard aCSF is the reference, with stated matched stabilization and recording periods.",
+    "conclusion": "TTX eliminates firing despite a near-control resting potential; high extracellular potassium accompanies depolarization and more firing.",
+    "limitation": "The passage mixes spontaneous and current-evoked firing descriptions, so the exact firing protocol needs clarification. Drug selectivity and culture conditions also limit inference."
+  },
+  "bb11": {
+    "hypothesis": "Do vasoactive interventions change arterial pressure through flow, resistance, or both?",
+    "independent": "Infused agent or saline bolus, in randomized order within animals.",
+    "dependent": "Heart rate, stroke volume, cardiac output, arterial/venous pressures, and derived resistance.",
+    "control": "Each animal’s baseline is the reference; randomized order and washout reduce carryover.",
+    "conclusion": "Norepinephrine raises MAP while CO falls; increased calculated resistance accounts for that pattern. MAP alone cannot identify the mechanism.",
+    "limitation": "Anesthetized animals may respond differently from other settings. Resistance is calculated from pressure and flow, not an independent measurement."
+  },
+  "bb12": {
+    "hypothesis": "What gene order and recombination distances fit the three-point cross?",
+    "independent": "A designed testcross reveals inherited allele combinations; offspring classes are observed outcomes, not randomized treatment groups.",
+    "dependent": "Counts of offspring in eight phenotypic classes.",
+    "control": "Parental classes provide the reference for identifying recombinants. The recessive tester exposes gametes from the F1 parent.",
+    "conclusion": "The rare double-crossover classes switch nt relative to parental arrangements, placing nt between sg and pf.",
+    "limitation": "Recombination estimates are subject to sampling error and viability differences. Unobserved multiple crossovers can cause underestimation of larger map distances."
+  },
+  "ps7": {
+    "hypothesis": "Does deliberation reduce the effect of equivalent gain/loss framing on treatment preference?",
+    "independent": "Randomly assigned gain versus loss frame and fast versus deliberate response condition.",
+    "dependent": "Percent choosing surgery and post-choice confidence.",
+    "control": "Radiation outcomes and the numerical surgical outcomes are held equivalent. Compare frames within the same response mode.",
+    "conclusion": "The surgery-choice gap is 34 percentage points in the fast condition and 12 in the deliberate condition.",
+    "limitation": "A smaller framing gap supports an interaction pattern, but does not directly measure an automatic neural mechanism or real patient behavior."
+  },
+  "ps8": {
+    "hypothesis": "Does habit reversal training reduce hair-pulling outcomes beyond nonspecific therapist contact?",
+    "independent": "Random assignment to HRT, supportive therapy, or waitlist.",
+    "dependent": "Self-report severity, blinded bald-patch counts, and sensor-recorded episodes in a subset.",
+    "control": "Supportive therapy matches contact time; waitlist estimates change without active therapy.",
+    "conclusion": "HRT severity drops from 19.8 to 9.4, more than the comparison groups; the passage reports a significant group difference.",
+    "limitation": "HRT contains multiple components. This design does not isolate the competing response as the sole cause of improvement; self-report and subset sensor data have limits."
+  },
+  "ps9": {
+    "hypothesis": "Do group identity and behavior valence interact in dispositional attributions?",
+    "independent": "Target in-group/out-group status and desirable/undesirable behavior; a follow-up changes information about group assignment.",
+    "dependent": "Dispositional attribution rating on a 1–7 scale.",
+    "control": "Within-participant comparisons cross group status and valence using the same rating scale and minimal-group context.",
+    "conclusion": "Desirable in-group behavior receives higher dispositional ratings (5.8 vs 3.4), whereas undesirable behavior shows the reverse pattern (3.1 vs 5.6).",
+    "limitation": "The interaction supports biased attribution but does not directly establish self-esteem as its mediator. An artificial group task may not generalize to all social settings."
+  },
+  "ps10": {
+    "hypothesis": "Is childhood neighborhood disadvantage associated with later college completion beyond family income?",
+    "independent": "Observed neighborhood poverty and family income at age 10.",
+    "dependent": "Bachelor’s degree completion by age 25 and a measured college-information index.",
+    "control": "Neighborhoods are compared within family-income strata. There is no randomized neighborhood assignment.",
+    "conclusion": "Within every income tercile, completion decreases with neighborhood poverty; the middle-income row falls from 44% to 19%.",
+    "limitation": "Selection into neighborhoods and unmeasured family characteristics prevent a simple causal claim. Statistical mediation does not by itself establish a causal mechanism."
+  }
+}

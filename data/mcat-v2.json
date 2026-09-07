@@ -1,0 +1,536 @@
+{
+  "version": 2,
+  "reviewStatus": "Original authored support; independent subject-matter review pending.",
+  "coaches": [
+    {
+      "id": "coach-h1",
+      "passageId": "h1",
+      "kind": "cars",
+      "title": "The Vanishing Line",
+      "unitId": "cars-main-idea",
+      "focus": "Main claim, paragraph roles, and careful transfer",
+      "prompts": [
+        "Give each paragraph a short job label. Which paragraph changes or qualifies the argument?",
+        "Write the author’s main claim in one sentence, including its qualification.",
+        "Identify one piece of passage evidence that should rule out an overly broad answer."
+      ],
+      "hints": [
+        "Separate a view the author describes from the position the author defends. Look for a shift in stance.",
+        "Compare the final claim with the paragraph beginning a qualification. Keep both in your summary."
+      ],
+      "model": [
+        {
+          "label": "Paragraph 1",
+          "text": "Introduce the inherited hierarchy and its historical contingency."
+        },
+        {
+          "label": "Paragraph 2",
+          "text": "Test and reject function as a fixed dividing rule."
+        },
+        {
+          "label": "Paragraph 3",
+          "text": "Consider intention and attention; relocate the distinction to the beholder."
+        },
+        {
+          "label": "Paragraph 4",
+          "text": "State the cultural-judgment thesis and its responsibility for inclusion."
+        },
+        {
+          "label": "Paragraph 5",
+          "text": "Qualify: judgments can be reasoned even though the boundary is not natural."
+        },
+        {
+          "label": "Main claim",
+          "text": "Art and craft are separated by revisable cultural judgments, not an intrinsic border in objects."
+        },
+        {
+          "label": "Boundary",
+          "text": "A culturally drawn boundary can still answer to skill and tradition; the author does not say all objects are equally valuable."
+        },
+        {
+          "label": "Transfer example",
+          "text": "An everyday object entering a museum changes the context of attention, without acquiring a new physical essence."
+        }
+      ],
+      "questionHints": [
+        "Name the task: central claim, evidence, function, or applying the argument to a new case.",
+        "Test each option against both the author’s main claim and its qualification. Reject extra assumptions."
+      ]
+    },
+    {
+      "id": "coach-h2",
+      "passageId": "h2",
+      "kind": "cars",
+      "title": "The Weight of What We Keep",
+      "unitId": "cars-argument",
+      "focus": "Main claim, paragraph roles, and careful transfer",
+      "prompts": [
+        "Give each paragraph a short job label. Which paragraph changes or qualifies the argument?",
+        "Write the author’s main claim in one sentence, including its qualification.",
+        "Identify one piece of passage evidence that should rule out an overly broad answer."
+      ],
+      "hints": [
+        "Separate a view the author describes from the position the author defends. Look for a shift in stance.",
+        "Compare the final claim with the paragraph beginning a qualification. Keep both in your summary."
+      ],
+      "model": [
+        {
+          "label": "Paragraph 1",
+          "text": "Question the apparent duty to remember unconditionally."
+        },
+        {
+          "label": "Paragraph 2",
+          "text": "Show that public memory selects and excludes."
+        },
+        {
+          "label": "Paragraph 3",
+          "text": "Explain how release can serve the living."
+        },
+        {
+          "label": "Paragraph 4",
+          "text": "Distinguish healing release from concealment of injustice."
+        },
+        {
+          "label": "Paragraph 5",
+          "text": "Propose case-specific judgment about whom memory or forgetting serves."
+        },
+        {
+          "label": "Paragraph 6",
+          "text": "Reject a universal formula and return responsibility to the chooser."
+        },
+        {
+          "label": "Main claim",
+          "text": "Whether remembrance or release is appropriate depends on whom it serves and the future it enables."
+        },
+        {
+          "label": "Boundary",
+          "text": "The author rejects both mandatory remembrance and blanket preference for forgetting."
+        },
+        {
+          "label": "Transfer example",
+          "text": "A memorial that hides victims to protect powerful people differs from a survivor choosing private peace."
+        }
+      ],
+      "questionHints": [
+        "Name the task: central claim, evidence, function, or applying the argument to a new case.",
+        "Test each option against both the author’s main claim and its qualification. Reject extra assumptions."
+      ]
+    },
+    {
+      "id": "coach-h3",
+      "passageId": "h3",
+      "kind": "cars",
+      "title": "The Faithful Traitor",
+      "unitId": "cars-transfer",
+      "focus": "Main claim, paragraph roles, and careful transfer",
+      "prompts": [
+        "Give each paragraph a short job label. Which paragraph changes or qualifies the argument?",
+        "Write the author’s main claim in one sentence, including its qualification.",
+        "Identify one piece of passage evidence that should rule out an overly broad answer."
+      ],
+      "hints": [
+        "Separate a view the author describes from the position the author defends. Look for a shift in stance.",
+        "Compare the final claim with the paragraph beginning a qualification. Keep both in your summary."
+      ],
+      "model": [
+        {
+          "label": "Paragraph 1",
+          "text": "Question the assumption that fidelity is a single fixed property."
+        },
+        {
+          "label": "Paragraph 2",
+          "text": "Contrast literal meaning with poetic effects as competing standards."
+        },
+        {
+          "label": "Paragraph 3",
+          "text": "Explain translation as interpretation and choice."
+        },
+        {
+          "label": "Paragraph 4",
+          "text": "Qualify: defensible interpretation still excludes misreading."
+        },
+        {
+          "label": "Paragraph 5",
+          "text": "Show that translation resolves ambiguities left open in the original."
+        },
+        {
+          "label": "Paragraph 6",
+          "text": "Recast responsible choice as a condition of translation."
+        },
+        {
+          "label": "Main claim",
+          "text": "Translation necessarily chooses among competing forms of fidelity; those choices should be textually defensible."
+        },
+        {
+          "label": "Boundary",
+          "text": "Plural standards do not license any interpretation whatsoever."
+        },
+        {
+          "label": "Transfer example",
+          "text": "Two adaptations can make different defensible choices, but neither can ignore evidence that contradicts its reading."
+        }
+      ],
+      "questionHints": [
+        "Name the task: central claim, evidence, function, or applying the argument to a new case.",
+        "Test each option against both the author’s main claim and its qualification. Reject extra assumptions."
+      ]
+    },
+    {
+      "id": "coach-s1",
+      "passageId": "s1",
+      "kind": "cars",
+      "title": "The Myth of the Lonely City",
+      "unitId": "cars-main-idea",
+      "focus": "Main claim, paragraph roles, and careful transfer",
+      "prompts": [
+        "Give each paragraph a short job label. Which paragraph changes or qualifies the argument?",
+        "Write the author’s main claim in one sentence, including its qualification.",
+        "Identify one piece of passage evidence that should rule out an overly broad answer."
+      ],
+      "hints": [
+        "Separate a view the author describes from the position the author defends. Look for a shift in stance.",
+        "Compare the final claim with the paragraph beginning a qualification. Keep both in your summary."
+      ],
+      "model": [
+        {
+          "label": "Paragraph 1",
+          "text": "Present the common village-versus-city lament."
+        },
+        {
+          "label": "Paragraph 2",
+          "text": "Challenge the conflation of many acquaintances with deep attachment."
+        },
+        {
+          "label": "Paragraph 3",
+          "text": "Explain exit and chosen ties as urban possibilities."
+        },
+        {
+          "label": "Paragraph 4",
+          "text": "Qualify: resources to form chosen ties are unequal."
+        },
+        {
+          "label": "Paragraph 5",
+          "text": "Locate the problem in unequal access, rather than universal loss of intimacy."
+        },
+        {
+          "label": "Paragraph 6",
+          "text": "Call for institutions that broaden access to chosen connection."
+        },
+        {
+          "label": "Main claim",
+          "text": "Cities offer chosen connection, but unequal resources leave its benefits unevenly distributed."
+        },
+        {
+          "label": "Boundary",
+          "text": "Neither idealized villages nor universally beneficial cities capture the author’s position."
+        },
+        {
+          "label": "Transfer example",
+          "text": "An accessible community program addresses barriers to chosen ties; restoring compulsory relationships misses the argument."
+        }
+      ],
+      "questionHints": [
+        "Name the task: central claim, evidence, function, or applying the argument to a new case.",
+        "Test each option against both the author’s main claim and its qualification. Reject extra assumptions."
+      ]
+    },
+    {
+      "id": "coach-cp2",
+      "passageId": "cp2",
+      "kind": "science",
+      "title": "Titrating an Unknown Weak Acid",
+      "unitId": "buffer-balance",
+      "focus": "Design, evidence, and the limit of a claim",
+      "prompts": [
+        "State the research question. Name what changed, what was measured, and what was held constant.",
+        "Select the data comparison that matters. Describe its direction before calculating.",
+        "State one conclusion and one thing this design cannot establish."
+      ],
+      "hints": [
+        "Treat each column as a variable with units. Identify which comparisons isolate the proposed factor.",
+        "A result supports a claim only within this design. Ask whether a control or an additional experiment would remove an alternative explanation."
+      ],
+      "model": [
+        {
+          "label": "Question",
+          "text": "Does the titration behavior support a weak monoprotic acid, and what is its pKa?"
+        },
+        {
+          "label": "Changed",
+          "text": "Volume of 0.100 M NaOH added to the acid."
+        },
+        {
+          "label": "Measured",
+          "text": "Equilibrated pH after each addition."
+        },
+        {
+          "label": "Comparison",
+          "text": "The deionized-water titration provides a comparison without acid buffering. Temperature, acid aliquot, and titrant concentration are controlled."
+        },
+        {
+          "label": "Evidence",
+          "text": "At half-equivalence, 12.50 mL, pH is 4.74, so pKa is approximately 4.74. Equivalence near 25 mL has a basic pH."
+        },
+        {
+          "label": "Limit",
+          "text": "Sparse sampled volumes cannot locate the exact point of maximum slope; calibration, mixing, and the monoprotic-acid assumption affect interpretation."
+        }
+      ],
+      "questionHints": [
+        "Identify the requested quantity or claim, then locate the relevant comparison in the passage.",
+        "Check which factors stayed fixed. For a calculation, form a ratio with units before substituting numbers."
+      ]
+    },
+    {
+      "id": "coach-bb1",
+      "passageId": "bb1",
+      "kind": "science",
+      "title": "Inhibition of Alkaline Phosphatase",
+      "unitId": "enzyme-rates",
+      "focus": "Design, evidence, and the limit of a claim",
+      "prompts": [
+        "State the research question. Name what changed, what was measured, and what was held constant.",
+        "Select the data comparison that matters. Describe its direction before calculating.",
+        "State one conclusion and one thing this design cannot establish."
+      ],
+      "hints": [
+        "Treat each column as a variable with units. Identify which comparisons isolate the proposed factor.",
+        "A result supports a claim only within this design. Ask whether a control or an additional experiment would remove an alternative explanation."
+      ],
+      "model": [
+        {
+          "label": "Question",
+          "text": "Does compound X change ALP kinetics in a manner consistent with competitive inhibition?"
+        },
+        {
+          "label": "Changed",
+          "text": "Substrate concentration and absence or presence of 100 micromolar compound X."
+        },
+        {
+          "label": "Measured",
+          "text": "Initial product-formation velocity in micromol/min."
+        },
+        {
+          "label": "Comparison",
+          "text": "Buffer-only reactions at each substrate concentration; enzyme amount, pH, temperature, and ionic strength are matched."
+        },
+        {
+          "label": "Evidence",
+          "text": "X lowers measured velocity at each tested substrate concentration. The passage describes the same extrapolated Vmax and a higher apparent Km with X, consistent with competition."
+        },
+        {
+          "label": "Limit",
+          "text": "The largest measured substrate concentration is not infinity. Table points alone do not prove equal asymptotes or directly demonstrate binding at the active site."
+        }
+      ],
+      "questionHints": [
+        "Identify the requested quantity or claim, then locate the relevant comparison in the passage.",
+        "Check which factors stayed fixed. For a calculation, form a ratio with units before substituting numbers."
+      ]
+    },
+    {
+      "id": "coach-bb2",
+      "passageId": "bb2",
+      "kind": "science",
+      "title": "Knocking Down HSF1",
+      "unitId": "gene-expression",
+      "focus": "Design, evidence, and the limit of a claim",
+      "prompts": [
+        "State the research question. Name what changed, what was measured, and what was held constant.",
+        "Select the data comparison that matters. Describe its direction before calculating.",
+        "State one conclusion and one thing this design cannot establish."
+      ],
+      "hints": [
+        "Treat each column as a variable with units. Identify which comparisons isolate the proposed factor.",
+        "A result supports a claim only within this design. Ask whether a control or an additional experiment would remove an alternative explanation."
+      ],
+      "model": [
+        {
+          "label": "Question",
+          "text": "Is HSF1 needed for the full HSP70 response to heat shock in these cells?"
+        },
+        {
+          "label": "Changed",
+          "text": "HSF1-targeting siRNA versus scrambled siRNA or mock treatment; heat-shock status also has baseline comparisons."
+        },
+        {
+          "label": "Measured",
+          "text": "HSF1 and HSP70 mRNA by normalized RT-qPCR and protein by normalized Western blot."
+        },
+        {
+          "label": "Comparison",
+          "text": "Scrambled siRNA addresses nonspecific RNA/transfection effects; mock, no-heat-shock samples, GAPDH, and beta-actin address additional comparisons and normalization."
+        },
+        {
+          "label": "Evidence",
+          "text": "HSF1 knockdown accompanies reduced HSP70 induction: HSP70 mRNA is 0.22 relative to mock in the heat-shock comparison."
+        },
+        {
+          "label": "Limit",
+          "text": "Off-target effects, reference stability, detection range, and one cell line limit inference. Independent targeting sequences and a suitable rescue would strengthen attribution to HSF1."
+        }
+      ],
+      "questionHints": [
+        "Identify the requested quantity or claim, then locate the relevant comparison in the passage.",
+        "Check which factors stayed fixed. For a calculation, form a ratio with units before substituting numbers."
+      ]
+    },
+    {
+      "id": "coach-ps1",
+      "passageId": "ps1",
+      "kind": "science",
+      "title": "Encoding Depth and Word Recall",
+      "unitId": "research-inference",
+      "focus": "Design, evidence, and the limit of a claim",
+      "prompts": [
+        "State the research question. Name what changed, what was measured, and what was held constant.",
+        "Select the data comparison that matters. Describe its direction before calculating.",
+        "State one conclusion and one thing this design cannot establish."
+      ],
+      "hints": [
+        "Treat each column as a variable with units. Identify which comparisons isolate the proposed factor.",
+        "A result supports a claim only within this design. Ask whether a control or an additional experiment would remove an alternative explanation."
+      ],
+      "model": [
+        {
+          "label": "Question",
+          "text": "Does encoding task affect later free recall?"
+        },
+        {
+          "label": "Changed",
+          "text": "Randomly assigned structural, phonological, semantic, or self-reference encoding task."
+        },
+        {
+          "label": "Measured",
+          "text": "Number of words correctly recalled out of 60."
+        },
+        {
+          "label": "Comparison",
+          "text": "Shallow-processing tasks provide comparison conditions; word exposure time, filler delay, and recall time are matched, with a blinded scorer."
+        },
+        {
+          "label": "Evidence",
+          "text": "Mean recall is 27.4 for self-reference and 21.8 for semantic processing, versus 9.2 and 11.5 for the shallow tasks. The rounded summaries give F approximately 102.8; use the reported post-hoc comparisons to identify differing pairs."
+        },
+        {
+          "label": "Limit",
+          "text": "Means alone do not establish significance. Undergraduates recalling words after a short delay do not establish effects for every population or study task."
+        }
+      ],
+      "questionHints": [
+        "Identify the requested quantity or claim, then locate the relevant comparison in the passage.",
+        "Check which factors stayed fixed. For a calculation, form a ratio with units before substituting numbers."
+      ]
+    }
+  ],
+  "probes": {
+    "science": {
+      "id": "probe-graph-science",
+      "domain": "graph",
+      "stem": "A reaction is measured at 0, 2, and 4 minutes. Product concentrations are 2, 6, and 10 μM. Which observation is supported?",
+      "options": [
+        "The interval rate is 2 μM/min in both intervals.",
+        "The rate is 3 μM/min because 6/2 = 3.",
+        "The enzyme must be inhibited during the second interval.",
+        "The reaction has reached equilibrium at 4 minutes."
+      ],
+      "answer": 0,
+      "explanation": "Each two-minute interval adds 4 μM, giving a slope of 2 μM/min. Neither inhibition nor equilibrium follows from these data.",
+      "graph": {
+        "xLabel": "Time (min)",
+        "yLabel": "Product (μM)",
+        "points": [
+          [
+            0,
+            2
+          ],
+          [
+            2,
+            6
+          ],
+          [
+            4,
+            10
+          ]
+        ]
+      }
+    },
+    "psychSoc": {
+      "id": "probe-graph-psych",
+      "domain": "graph",
+      "stem": "Groups A and B recalled means of 12 and 16 words. No variability, sample size, or significance test is reported. Which statement follows?",
+      "options": [
+        "The difference is statistically significant.",
+        "B has the higher observed mean, but statistical significance is undetermined.",
+        "Every person in B recalled more words than every person in A.",
+        "The intervention caused the difference even without a study design."
+      ],
+      "answer": 1,
+      "explanation": "The reported means establish a descriptive difference only. Variability and design information are needed for stronger inferences.",
+      "table": {
+        "headers": [
+          "Group",
+          "Mean words recalled"
+        ],
+        "rows": [
+          [
+            "A",
+            "12"
+          ],
+          [
+            "B",
+            "16"
+          ]
+        ]
+      }
+    },
+    "cars": {
+      "id": "probe-reading-cars",
+      "domain": "argument",
+      "stem": "An author argues: “Museums can broaden access to art, but lower admission fees alone do not remove every barrier.” Which claim best preserves that qualification?",
+      "options": [
+        "Admission fees are the only barrier to art.",
+        "Museums never broaden access.",
+        "Lower fees may help, while other obstacles can remain.",
+        "All barriers disappear when admission is free."
+      ],
+      "answer": 2,
+      "explanation": "The author allows a benefit while limiting its sufficiency. The other choices remove or reverse that qualification."
+    },
+    "carsTransfer": {
+      "id": "probe-cars-transfer",
+      "domain": "transfer",
+      "stem": "A writer favors trying new policies when they can be reversed and their effects monitored. Which case best applies both conditions?",
+      "options": [
+        "Demolishing a building permanently without collecting outcome data.",
+        "Keeping every existing policy forever because change has costs.",
+        "Calling an irreversible decision an experiment after it fails.",
+        "Testing adjustable library hours for a month and tracking attendance."
+      ],
+      "answer": 3,
+      "explanation": "Adjustable hours are reversible, and attendance provides an observable outcome. The other choices drop the stated conditions or replace the writer’s position."
+    }
+  },
+  "sources": [
+    {
+      "title": "AAMC · Scientific inquiry and reasoning",
+      "url": "https://students-residents.aamc.org/whats-mcat-exam/scientific-inquiry-reasoning-skills-overview"
+    },
+    {
+      "title": "AAMC · General mathematical concepts and techniques",
+      "url": "https://students-residents.aamc.org/scientific-inquiry-and-reasoning-skills/scientific-inquiry-reasoning-skills-general-mathematical-concepts-and-techniques"
+    },
+    {
+      "title": "AAMC · CARS section overview",
+      "url": "https://students-residents.aamc.org/whats-mcat-exam/critical-analysis-and-reasoning-skills-section-overview"
+    }
+  ],
+  "aiReview": {
+    "date": "2026-09-06",
+    "reviewer": "Codex (AI)",
+    "scope": "36 lessons and 216 questions; eight coached passages and 44 questions; four diagnostic probes; 48 math variants; linked notebook models for four coached science passages.",
+    "status": "AI content review with targeted source checks completed; independent human review remains pending.",
+    "learnerPilot": "Prepared; no human observations collected by this review.",
+    "questionQuality": "September 6: 150 course questions revised with plausible distractors and explanatory feedback; h2 display order varied while retaining saved scoring indices. Learner difficulty remains uncalibrated."
+  }
+}

@@ -1,7 +1,8 @@
 /* ============================================================
    Cortex — optional accounts + cross-device progress sync (Supabase)
    Accounts are OPTIONAL. The app works fully offline with localStorage;
-   signing in just backs that up to the user's email and syncs it across devices.
+   each account has separate saved work. Guest work can be explicitly copied into
+   an account. Conflicting device edits pause for a choice instead of overwriting.
 
    SETUP (one time):
    1. Create a free project at supabase.com
@@ -24,138 +25,47 @@ const AUTH_ENABLED =
 
 let sb = null;
 let currentUser = null;
-let pushTimer = null;
-let syncState = 'idle';   // idle | syncing | synced | error
-let syncedThisLoad = false;
+let syncState = 'idle';
+let progress = null;
+let authFailure = false;
 
-const SYNC_KEYS = (k) => k.startsWith('cs-') && k !== 'cs-counted' && k !== 'cs-sync-meta' && k !== 'cs-sync-dirty';
-
-/* ---------- progress blob helpers ---------- */
-function gatherProgress() {
-  const o = {};
-  for (let i = 0; i < localStorage.length; i++) {
-    const k = localStorage.key(i);
-    if (SYNC_KEYS(k)) o[k] = localStorage.getItem(k);
-  }
-  return o;
+function downloadProgress() {
+  const blob = new Blob([JSON.stringify(progress.recovery(), null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob), link = document.createElement('a');
+  link.href = url; link.download = 'cortex-progress-recovery.json'; link.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
-function applyProgress(obj) {
-  if (!obj) return;
-  Object.keys(obj).forEach(k => { if (SYNC_KEYS(k)) _setItem(k, obj[k]); });
-}
-function isEmptyBlob(obj) { return !obj || Object.keys(obj).length === 0; }
-function getMeta() { try { return JSON.parse(localStorage.getItem('cs-sync-meta') || 'null'); } catch { return null; } }
-function setMeta(m) { try { _setItem('cs-sync-meta', JSON.stringify(m)); } catch {} }
-
-/* keep a raw reference so our own writes don't trigger a sync loop */
-const _setItem = localStorage.setItem.bind(localStorage);
-// persisted "unpushed local changes" token — survives reloads, so a signed-in device whose
-// pushes failed won't get its progress silently overwritten by an older cloud blob on next login
-function newDirtyToken() { return `${Date.now()}-${Math.random().toString(36).slice(2)}`; }
-function markDirty() { try { _setItem('cs-sync-dirty', newDirtyToken()); } catch {} }
-function dirtyToken() { try { return localStorage.getItem('cs-sync-dirty') || ''; } catch { return ''; } }
-function clearDirty(expectedToken) {
-  try {
-    if (expectedToken && localStorage.getItem('cs-sync-dirty') === expectedToken) localStorage.removeItem('cs-sync-dirty');
-  } catch {}
-}
-function isDirty() { return !!dirtyToken(); }
-localStorage.setItem = function (k, v) {
-  _setItem(k, v);
-  if (currentUser && SYNC_KEYS(k)) { writeSeq++; markDirty(); schedulePush(); }
-};
-
-/* ---------- cloud read/write ---------- */
-async function pullCloud(uid) {
-  try {
-    const { data, error } = await sb.from('progress').select('data, updated_at').eq('user_id', uid).maybeSingle();
-    if (error) return null;
-    return data;
-  } catch { return null; }
-}
-let pushInFlight = false, pushQueued = false, writeSeq = 0;
-async function pushCloud(uid) {
-  if (!uid) return;
-  // coalesce overlapping calls (debounce vs. visibility-flush) into one re-run, so a write
-  // that lands while a push is in flight is never silently dropped
-  if (pushInFlight) { pushQueued = true; return; }
-  pushInFlight = true;
-  setSyncState('syncing');
-  let ok = false;
-  const seqAtSnapshot = writeSeq;          // which local writes this upload is responsible for
-  const dirtyAtSnapshot = dirtyToken();    // shared across tabs; prevents stale clears from another tab
-  try {
-    const updated_at = new Date().toISOString();
-    const data = gatherProgress();         // snapshot WITHOUT clearing dirty yet
-    const { error } = await sb.from('progress').upsert({ user_id: uid, data, updated_at }, { onConflict: 'user_id' });
-    if (error) { setSyncState('error'); }  // dirty stays set -> retried later; local progress stays protected
-    else {
-      setMeta({ updatedAt: updated_at });
-      // Clear the unpushed-changes flag ONLY after the upload truly succeeds, and only if no new write
-      // landed mid-flight. If the page is torn down (reload/close) before the upload resolves, dirty
-      // stays set, so the next login preserves local progress instead of adopting a stale cloud blob.
-      // (Previously dirty was cleared BEFORE the upload, so a reload-time flush could wipe progress.)
-      if (writeSeq === seqAtSnapshot) clearDirty(dirtyAtSnapshot);
-      setSyncState('synced'); ok = true;
-    }
-  } catch { setSyncState('error'); }       // dirty stays set
-  finally {
-    pushInFlight = false;
-    // after a successful push, flush again if a write landed mid-flight or a call was coalesced
-    const requeue = ok && (pushQueued || isDirty());
-    pushQueued = false;
-    if (requeue) pushCloud(uid);
-  }
-}
-function schedulePush() {
-  if (!currentUser) return;
-  setSyncState('syncing');
-  clearTimeout(pushTimer);
-  pushTimer = setTimeout(() => pushCloud(currentUser.id), 2500);
-}
-
-/* ---------- sync on login: last-write-wins at the blob level ---------- */
-async function syncOnLogin(user) {
-  if (syncedThisLoad) return;
-  syncedThisLoad = true;
-  currentUser = user;
-  refreshAuthUI();
-  const cloud = await pullCloud(user.id);
-  const meta = getMeta();
-  if (!cloud || isEmptyBlob(cloud.data)) {        // fresh account -> push what's on this device
-    await pushCloud(user.id);
-    return;
-  }
-  const cloudNewer = !meta || new Date(cloud.updated_at) > new Date(meta.updatedAt || 0);
-  if (cloudNewer && !isDirty()) {                 // cloud is newer AND no unpushed local edits -> safe to adopt
-    applyProgress(cloud.data);
-    setMeta({ updatedAt: cloud.updated_at });
-    setSyncState('synced');
-    if (!sessionStorage.getItem('cs-sync-reloaded')) {
-      sessionStorage.setItem('cs-sync-reloaded', '1');
-      location.reload();                          // re-read localStorage cleanly
-    } else {
-      refreshAuthUI();
-    }
-  } else {                                        // this device is newer -> push up
-    await pushCloud(user.id);
-  }
+function accountBlocked(message) {
+  if (document.getElementById('account-work-paused')) return;
+  const dialog = document.createElement('dialog');
+  dialog.id = 'account-work-paused';
+  dialog.setAttribute('aria-labelledby', 'account-paused-title');
+  dialog.style.cssText = 'max-width:480px;width:calc(100% - 32px);box-sizing:border-box;padding:24px;border-radius:16px;line-height:1.6';
+  dialog.innerHTML = '<h2 id="account-paused-title">Saving is paused</h2><p></p><div class="fbmodal-btns"><button class="btn" data-download>Download recovery copy</button><button class="btn btn-solid" data-reload>Reload</button></div><p role="status"></p>';
+  dialog.querySelector('p').textContent = message;
+  dialog.querySelector('[data-reload]').onclick = () => location.reload();
+  dialog.querySelector('[data-download]').onclick = () => {
+    try { downloadProgress(); } catch { dialog.querySelector('[role="status"]').textContent = 'Could not prepare a download. Keep this tab open.'; }
+  };
+  dialog.addEventListener('cancel', e => e.preventDefault());
+  document.body.appendChild(dialog); dialog.showModal();
 }
 
 /* ---------- auth actions ---------- */
 async function sendMagicLink(email) {
-  return sb.auth.signInWithOtp({
-    email,
-    options: { emailRedirectTo: location.origin + '/' },
-  });
+  try { return await sb.auth.signInWithOtp({ email, options: { emailRedirectTo: location.origin + '/' } }); }
+  catch (error) { return { error }; }
 }
 async function signOut() {
-  try { await sb.auth.signOut(); } catch {}
-  clearTimeout(pushTimer);
-  currentUser = null;
-  setMeta(null);
-  setSyncState('idle');
-  refreshAuthUI();
+  try {
+    // A failed SDK sign-out must not be reported as success.
+    const { error } = await sb.auth.signOut({ scope: 'local' });
+    if (error) return { error };
+    currentUser = null;
+    await progress.setUser(null);
+    refreshAuthUI();
+    return {};
+  } catch (error) { return { error }; }
 }
 
 /* ---------- UI ---------- */
@@ -166,7 +76,7 @@ function refreshAuthUI() {
     if (!AUTH_ENABLED) { btn.hidden = true; return; }
     btn.hidden = false;
     if (currentUser) {
-      const tip = { syncing: 'Saving…', synced: 'Saved ✓', error: 'Sync error', idle: '' }[syncState] || '';
+      const tip = { syncing: 'Saving…', synced: 'Saved ✓', error: 'Sync error', conflict: 'Choose a saved copy', paused: 'Saving paused', idle: '' }[syncState] || '';
       btn.innerHTML = `<i class="acct-dot ${syncState}"></i>Account`;
       btn.title = `${currentUser.email}${tip ? ' · ' + tip : ''}`;
     } else {
@@ -178,6 +88,7 @@ function refreshAuthUI() {
 }
 
 function openAuth() {
+  if (authFailure) { accountBlocked('Account storage is unavailable. Saving cannot be confirmed. Free browser storage and reload.'); return; }
   const signedIn = !!currentUser;
   const back = document.createElement('div');
   back.className = 'fbmodal-back';
@@ -186,16 +97,21 @@ function openAuth() {
       <span class="label">Your account</span>
       <h3>Signed in</h3>
       <p class="fbmodal-sub">${escapeHTML(currentUser.email)}</p>
-      <p class="acct-state acct-${syncState}">${{ syncing: 'Saving your progress…', synced: 'Your progress is backed up and syncing across your devices.', error: 'Couldn’t reach the server — your progress is still safe on this device.', idle: 'Connected.' }[syncState] || ''}</p>
+      <p class="acct-state acct-${syncState}">${{ syncing: 'Checking and saving your progress…', synced: 'Your latest saved copy is synced. This device checks for changes when you return or save.', error: 'Sync could not finish. Your local changes remain on this device. Retry before relying on another device.', conflict: 'This device and the cloud have different saved work. Sync is paused. Download both copies before choosing which one to continue with.', paused: 'Saving is paused. Reload to continue with the active account.', idle: 'Connected.' }[syncState] || ''}</p>
+      ${syncState === 'conflict' ? '<p>Loading cloud work replaces the active device copy. Keeping device work replaces the cloud copy if it has not changed again. A recovery copy stays in this browser.</p><div class="fbmodal-btns"><button class="btn" data-cloud>Load cloud work</button><button class="btn" data-device>Keep device work</button></div>' : ''}
+      ${progress?.hasGuest ? '<details><summary>Guest work saved in this browser</summary><p>Guest progress stays separate from this account. Copying it here replaces this account’s active progress and syncs that copy. Download your recovery copies first.</p><button class="btn" data-guest>Use guest work in this account</button></details>' : ''}
       <div class="fbmodal-btns">
+        <button class="btn" data-download>Download recovery copies</button>
+        ${syncState === 'error' ? '<button class="btn" data-retry>Retry sync</button>' : ''}
         <button class="btn" data-x>Close</button>
         <button class="btn btn-solid" data-signout>Sign out</button>
       </div>
+      <p class="fbmodal-status" role="status"></p>
     </div>` : `
     <div class="fbmodal" role="dialog" aria-modal="true">
       <span class="label">Optional account</span>
       <h3>Save your progress</h3>
-      <p class="fbmodal-sub">Your progress already saves automatically on this device. Sign in with your email to back it up and sync it across your devices &mdash; no password, we just email you a one-tap sign-in link.</p>
+      <p class="fbmodal-sub">Your progress saves on this device. Sign in to open your account’s saved work and sync it across devices. Guest work stays separate; you can choose to copy it into your account afterward. We email you a one-tap sign-in link.</p>
       <input id="auth-email" type="email" placeholder="you@email.com" autocomplete="email">
       <div class="fbmodal-btns">
         <button class="btn" data-x>Cancel</button>
@@ -205,13 +121,40 @@ function openAuth() {
       <p class="fbmodal-mail">100% optional. We only use your email to save your progress &mdash; nothing else.</p>
     </div>`;
   const close = () => { back.remove(); document.removeEventListener('keydown', onKey); };
+  const modal = back.querySelector('.fbmodal');
+  modal.style.maxHeight = 'calc(100dvh - 32px)'; modal.style.overflowY = 'auto';
+  modal.setAttribute('aria-labelledby', 'auth-dialog-title');
+  modal.querySelector('h3').id = 'auth-dialog-title';
+  back.querySelectorAll('.fbmodal-btns').forEach(row => {
+    row.style.flexWrap = 'wrap';
+    row.querySelectorAll('button').forEach(button => { button.style.flex = '1 1 110px'; });
+  });
   const onKey = e => { if (e.key === 'Escape') close(); };
   back.addEventListener('click', e => { if (e.target === back) close(); });
   back.querySelector('[data-x]').addEventListener('click', close);
   document.addEventListener('keydown', onKey);
 
   if (signedIn) {
-    back.querySelector('[data-signout]').addEventListener('click', async () => { await signOut(); close(); });
+    const status = back.querySelector('[role="status"]');
+    back.querySelector('[data-signout]').addEventListener('click', async e => {
+      e.currentTarget.disabled = true;
+      const { error } = await signOut();
+      if (error) { status.textContent = 'Sign-out could not finish. Try again; this account is still active.'; back.querySelector('[data-signout]').disabled = false; }
+      else close();
+    });
+    back.querySelector('[data-download]').onclick = () => {
+      try { downloadProgress(); status.textContent = 'Recovery download prepared.'; }
+      catch { status.textContent = 'Could not prepare the download. Keep this tab open.'; }
+    };
+    back.querySelector('[data-retry]')?.addEventListener('click', async () => { await progress.sync(); close(); openAuth(); });
+    for (const choice of ['cloud', 'device']) back.querySelector('[data-' + choice + ']')?.addEventListener('click', () => {
+      try { progress.resolve(choice); close(); }
+      catch { status.textContent = 'Could not save a recovery copy. Your active progress has not been replaced.'; }
+    });
+    back.querySelector('[data-guest]')?.addEventListener('click', () => {
+      try { if (!progress.useGuest()) status.textContent = 'Finish syncing or resolve the saved-copy conflict first.'; }
+      catch { status.textContent = 'Could not save a recovery copy. Your active progress has not been replaced.'; }
+    });
   } else {
     const send = back.querySelector('[data-send]');
     send.addEventListener('click', async () => {
@@ -236,21 +179,56 @@ window.openAuth = openAuth;
 /* ---------- init ---------- */
 function initAuth() {
   if (!AUTH_ENABLED) { refreshAuthUI(); return; }
-  // singleton: never create more than one client in this context
   sb = window.__cortexSB || (window.__cortexSB = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY));
+  try {
+    const rawSet = Storage.prototype.setItem, rawRemove = Storage.prototype.removeItem, rawClear = Storage.prototype.clear;
+    const raw = {
+      get length() { return localStorage.length; }, key: i => localStorage.key(i),
+      getItem: k => localStorage.getItem(k),
+      setItem: (k, v) => rawSet.call(localStorage, k, v), removeItem: k => rawRemove.call(localStorage, k)
+    };
+    progress = CortexProgress.create({ storage: raw, client: sb, onState: setSyncState,
+      onReload: () => location.reload(), onBlocked: accountBlocked });
+    // Patch the prototype: assigning methods on a Storage instance can create
+    // named storage entries instead of observing writes in some browsers.
+    Storage.prototype.setItem = function (key, value) {
+      key = String(key);
+      if (this === localStorage) progress.beforeWrite(key);
+      rawSet.call(this, key, value);
+      if (this === localStorage) progress.afterWrite(key);
+    };
+    Storage.prototype.removeItem = function (key) {
+      key = String(key); const existed = this.getItem(key) !== null;
+      if (this === localStorage) progress.beforeWrite(key);
+      rawRemove.call(this, key);
+      if (this === localStorage && existed) progress.afterWrite(key);
+    };
+    Storage.prototype.clear = function () {
+      if (this !== localStorage) return rawClear.call(this);
+      // App resets clear study keys, preserving account ownership and recovery copies.
+      const keys = Object.keys(progress.gather());
+      for (const key of keys) this.removeItem(key);
+    };
+    window.addEventListener('storage', e => {
+      if (e.storageArea === localStorage && (e.key === null || e.key === CortexProgress.OWNER)) progress.checkOwner();
+    });
+  } catch {
+    authFailure = true; syncState = 'error'; refreshAuthUI();
+    accountBlocked('Browser storage could not be opened safely. Keep this tab open and free some browser storage before reloading.');
+    return;
+  }
+  // Keep SDK callbacks synchronous; start database requests after the auth event returns.
   sb.auth.onAuthStateChange((event, session) => {
-    if (session && session.user) {
-      if (event === 'SIGNED_IN' || event === 'INITIAL_SESSION' || event === 'TOKEN_REFRESHED') {
-        syncOnLogin(session.user);
-      }
-    } else if (event === 'SIGNED_OUT') {
-      currentUser = null; refreshAuthUI();
-    }
+    if (!['SIGNED_IN', 'INITIAL_SESSION', 'TOKEN_REFRESHED', 'SIGNED_OUT', 'USER_UPDATED'].includes(event)) return;
+    setTimeout(async () => {
+      currentUser = session?.user || null;
+      await progress.setUser(currentUser);
+      refreshAuthUI();
+    }, 0);
   });
   refreshAuthUI();
-  document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'hidden' && currentUser) { clearTimeout(pushTimer); pushCloud(currentUser.id); }
-  });
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') progress.sync(); });
+  window.addEventListener('online', () => progress.sync());
 }
-if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initAuth);
-else initAuth();
+// This script runs before app.js so interrupted storage transactions recover first.
+initAuth();

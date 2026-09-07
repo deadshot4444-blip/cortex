@@ -6038,3 +6038,8 @@ button.neuro-trackms.open:hover { background: var(--ne-surface); }
 @media (max-width: 460px) {
   .guide-schedule > summary small { display: none; }
 }
+
+/* Availability is visible before opening a gated course. */
+.navlink[data-go="socrates"] { flex-wrap:wrap; justify-content:center; }
+.nav-availability { display:block; flex-basis:100%; font-size:9px; line-height:1.3; letter-spacing:.035em; color:#515b68; margin-top:3px; white-space:nowrap; }
+.neuro-label .nav-availability { text-align:left; }

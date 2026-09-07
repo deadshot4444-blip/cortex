@@ -174,7 +174,7 @@ async function renderLearnTrack(trackId) {
         <div class="ltl-lab-progress"><strong>${done}/${total}</strong><span>complete</span><i><b style="width:${pct}%"></b></i></div>
       </div>
       <div class="mcat-mods ltl-disciplines"></div>
-      <p class="anat-credit">Original guided questions, independently reviewed. Write what you think before revealing the answer.</p>
+      <p class="anat-credit">Original guided questions for self-review. Write what you think before revealing the answer.</p>
     </section>` : ''}
   </main>`);
   main.querySelector('#ltlback').addEventListener('click', renderSocrates);

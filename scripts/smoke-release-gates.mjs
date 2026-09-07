@@ -62,7 +62,7 @@ for (const viewport of viewports) {
   const clinicalLegacyClutterCount = await page.locator('.cs-config, #mixed, .cs-grid').count();
   const clinicalReviewStatus = (await page.locator('.cshift-content-status').textContent())?.trim() || '';
   if (clinicalShiftHeading !== 'Start your shift.' || clinicalRotationCount !== 3
-      || clinicalLegacyClutterCount !== 0 || !clinicalReviewStatus.includes('Formal clinician review is not yet recorded')) {
+      || clinicalLegacyClutterCount !== 0 || !clinicalReviewStatus.includes('Educational case practice.')) {
     throw new Error(`Clinical Shift landing is wrong: ${JSON.stringify({ clinicalShiftHeading, clinicalRotationCount, clinicalLegacyClutterCount, clinicalReviewStatus })}`);
   }
   await assertNoOverflow('Clinical Shift hub');
@@ -92,7 +92,7 @@ for (const viewport of viewports) {
   const mcatFoldCount = await page.locator('.mcat-simple-fold').count();
   const mcatOpenFoldCount = await page.locator('.mcat-simple-fold[open]').count();
   const mcatLegacyClutterCount = await page.locator('.mcat-statband, .mcat-group, .mcat-method, .mcat-extras, .mcat-closing').count();
-  if (mcatHeading !== 'MCAT Prep' || mcatCoreToolCount !== 5 || mcatSupportToolCount !== 4
+  if (mcatHeading !== 'Practice with purpose.' || mcatCoreToolCount !== 5 || mcatSupportToolCount !== 4
       || mcatFoldCount !== 2 || mcatOpenFoldCount !== 0 || mcatLegacyClutterCount !== 0) {
     throw new Error(`MCAT home is not simplified: ${JSON.stringify({ mcatHeading, mcatCoreToolCount, mcatSupportToolCount, mcatFoldCount, mcatOpenFoldCount, mcatLegacyClutterCount })}`);
   }
@@ -125,6 +125,7 @@ for (const viewport of viewports) {
     throw new Error(`Returning MCAT visit did not open the saved dashboard: ${JSON.stringify({ guideSavedGameHeading, guideLandingCount })}`);
   }
   await assertNoOverflow('Returning MCAT saved-game dashboard');
+  if (!(await page.locator('.guide-original').evaluate(el => el.open))) await page.locator('.guide-original > summary').click();
   await page.click('#guide-next');
   await page.waitForSelector('.flash-stage');
   const guideFlashProgress = (await page.locator('.topstat').textContent())?.trim() || '';
@@ -142,12 +143,14 @@ for (const viewport of viewports) {
     throw new Error(`Guided MCAT completion is wrong: ${JSON.stringify({ guideFlashTotal, guideReturnLabel, guideDoneCount })}`);
   }
   await assertNoOverflow('Guided MCAT completed task');
+  if (!(await page.locator('.guide-original').evaluate(el => el.open))) await page.locator('.guide-original > summary').click();
   await page.click('#guide-next');
   await page.waitForSelector('.case .q');
   const guideDrillCrumb = (await page.locator('.run-crumb').textContent())?.replace(/\s+/g, ' ').trim();
   await page.click('#exit');
   await page.waitForSelector('.guide-day-hero');
   const guideResumeLabel = (await page.locator('#guide-next').textContent())?.trim();
+  if (!(await page.locator('.guide-original').evaluate(el => el.open))) await page.locator('.guide-original > summary').click();
   await page.click('#guide-next');
   await page.waitForSelector('.case .q');
   await page.click('#exit');
@@ -239,19 +242,21 @@ for (const viewport of viewports) {
   const whatsNewItems = await page.locator('.upd-featured-list li').count();
   const priorPublicVersion = (await page.locator('.updates-history .upd-ver').first().textContent())?.trim();
   if (versionText !== `v${APP_VERSION}`
-      || whatsNewTitle !== 'Clinical Shift and a saved-game MCAT hub'
-      || whatsNewItems !== 5
-      || priorPublicVersion !== 'v1.25.23') {
+      || whatsNewTitle !== 'MCAT 2.0: learn, reason, and plan your week'
+      || whatsNewItems !== 8
+      || priorPublicVersion !== 'v1.25.25') {
     throw new Error(`What's New is not the cumulative ${APP_VERSION} release: ${JSON.stringify({ versionText, whatsNewTitle, whatsNewItems, priorPublicVersion })}`);
   }
   await assertNoOverflow("What's New");
 
-  // First-visit update modal: a fresh profile (no cs-seen-ver seeded) must get a modal
-  // that fits the viewport, closes, and marks the version seen. This is the path real
-  // users hit; the main context above deliberately suppresses it.
+  // New learners skip announcements; returning learners still get a usable modal.
   const modalContext = await browser.newContext({ viewport });
   const modalPage = await modalContext.newPage();
   await modalPage.goto(base.href, { waitUntil: 'networkidle' });
+  if (await modalPage.locator('.upd-modal').count()) throw new Error('New learner was interrupted by a changelog');
+  if (await modalPage.evaluate(() => localStorage.getItem('cs-seen-ver')) !== APP_VERSION) throw new Error('First visit version not remembered');
+  await modalPage.evaluate(() => localStorage.setItem('cs-seen-ver', '1.25.25'));
+  await modalPage.reload({ waitUntil: 'networkidle' });
   await modalPage.waitForSelector('.upd-modal', { timeout: 15000 });
   const modalBox = await modalPage.locator('.upd-modal').boundingBox();
   const modalItemCount = await modalPage.locator('.upd-modal-list li').count();
@@ -261,7 +266,7 @@ for (const viewport of viewports) {
   const modalGone = (await modalPage.locator('.upd-modal-back').count()) === 0;
   const modalSeenAfter = await modalPage.evaluate(() => localStorage.getItem('cs-seen-ver'));
   await modalContext.close();
-  if (!modalFits || !modalCloseVisible || !modalGone || modalItemCount !== 5 || modalSeenAfter !== APP_VERSION) {
+  if (!modalFits || !modalCloseVisible || !modalGone || modalItemCount !== 8 || modalSeenAfter !== APP_VERSION) {
     throw new Error(`First-visit update modal is broken: ${JSON.stringify({ modalBox, modalItemCount, modalFits, modalCloseVisible, modalGone, modalSeenAfter, viewport })}`);
   }
 

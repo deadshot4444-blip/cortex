@@ -2,8 +2,8 @@
 
 Browser-based study suite for pre-meds, med students, and residents — inspired by Neural Consult. **26 specialties,
 ~100 detailed multi-step multiple-choice clinical cases each (~2,600 total)**, plus an
-Anatomy atlas and the full MCAT PRIME prep suite. No accounts, no backend, fully
-offline — progress lives in localStorage (per device).
+Anatomy atlas and the MCAT prep suite. Guest study progress lives in localStorage
+(per browser). Optional Supabase accounts synchronize separate account workspaces.
 
 ## Run it
 
@@ -96,7 +96,26 @@ interleaving, confidence calibration, and remediation.
 Content: `data/mcat-cards.json` (240), `data/mcat-questions.json` (121), `data/mcat-cars.json` (16
 passages), `data/mcat-science-passages.json` (18 passages / 90 Qs with data tables) — generated then
 fact-checked, tagged to the AAMC blueprint. Progress in localStorage (`cs-mcat-*`); any session feeds
-the daily streak. Fully offline — no cloud, no accounts.
+the daily streak. Guest work stays in the browser; optional account sync requires a connection.
+
+## Account sync checks (local v2 beta)
+
+`auth-progress.js` keeps guest and account work separate, saves recovery copies before
+switching workspaces, and uses the last observed cloud revision for conditional updates.
+Old unattributed browser progress stays with the guest workspace until explicitly copied
+into an account. The account dialog offers recovery downloads and conflict choices.
+Browser copies are not encrypted and are accessible to someone with access to that browser
+profile. Private study reflections, including earlier pilot notes, are not included in account sync.
+
+Run `node scripts/test-auth-progress.cjs` and, with the isolated preview on port 8805,
+`node scripts/test-auth-journeys.mjs`. Browser tests replace the SDK and backend with fixtures;
+they do not send emails or prove live database permissions. `SUPABASE_SCHEMA.sql` defines
+the intended row policies. No SQL migration is required by this sync implementation.
+
+`scripts/check-auth-rls-readonly.mjs` can check read isolation using two dedicated existing
+test accounts. Supply `CORTEX_TEST_ACCOUNT_A_TOKEN` and `CORTEX_TEST_ACCOUNT_B_TOKEN` locally
+through the environment. It reads only, prints no tokens, and requires both own rows to exist.
+It does not test write-policy enforcement, sign-in email delivery, or real-device sync.
 
 ## Data
 

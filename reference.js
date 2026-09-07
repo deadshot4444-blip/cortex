@@ -418,7 +418,7 @@ async function renderReference() {
       </div>
       <div class="medx-library-list"></div>
     </section>
-    <p class="anat-credit">Original study content, independently reviewed. For study, not a substitute for prescribing references or your clinical judgment.</p>
+    <p class="anat-credit">Original study content. For study, not a substitute for prescribing references or your clinical judgment.</p>
   </main>`);
   main.querySelector('#medcontinue').addEventListener('click', () => {
     if (hub.pathComplete) renderRefSet('pharm', 'classes');

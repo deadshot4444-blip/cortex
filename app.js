@@ -80,7 +80,7 @@ const SECTION_INFO = {
 };
 // Local build pace: every completed update or fix advances one patch version.
 // This number can move locally; nothing ships until Kevin explicitly says ship.
-const APP_VERSION = '1.25.25';
+const APP_VERSION = '2.0.0-beta.1';
 function cortexFreeNote(sectionPill, sectionName) {
   return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free</span><span class="free-note-txt">${sectionName} is free to use — no account, no paywall, no catch.</span></p>`;
 }
@@ -147,11 +147,11 @@ function saveHistory() { safeSet('cs-history', JSON.stringify(store.history.slic
 function saveStreak() { safeSet('cs-streak', JSON.stringify(store.streak)); }
 
 const SECTION_SCRIPTS = {
-  practice: ['clinical-shift.js?v=4'],
-  mcat: ['mcat.js?v=61'],
+  practice: ['clinical-shift.js?v=6'],
+  mcat: ['mcat-storage.js?v=1', 'mcat-repair-engine.js?v=2', 'mcat-repair.js?v=5', 'mcat-workflows.js?v=9', 'mcat-course-engine.js?v=4', 'mcat-course.js?v=8', 'mcat-v2-engine.js?v=4', 'mcat-v2.js?v=6', 'mcat.js?v=71'],
   anatomy: ['anatomy.js?v=36'],
-  reference: ['reference.js?v=51', 'performance-drugs.js?v=25', 'ekg.js?v=36'],
-  socrates: ['socrates.js?v=45'],
+  reference: ['reference.js?v=52', 'performance-drugs.js?v=25', 'ekg.js?v=36'],
+  socrates: ['socrates.js?v=46'],
   neuro: ['python-runtime.js?v=4', 'code-evaluator.js?v=2', 'neuro-practitioner.js?v=4', 'neuro.js?v=27'],
   cogpsych: ['cogpsych.js?v=8', 'cogpsych-learn.js?v=7', 'cogpsych-figs.js?v=1'],
 };
@@ -216,7 +216,7 @@ function clearMedicineProgress() {
 function openResetProgress(onDone) {
   const m = el(`<div class="modal" id="rst"><div class="modal-box">
     <div class="modal-head"><span class="label">Reset progress</span></div>
-    <p class="cfx-msg">Choose what to clear on this device. Signed-in accounts will sync the reset. This cannot be undone.</p>
+    <p class="cfx-msg">Choose what to clear from your active study progress. If signed in, the reset syncs when your account reconnects and any save conflict is resolved. Recovery downloads and stored recovery copies are kept.</p>
     <div class="endbtns cfx-btns rst-btns">
       <button class="btn" id="rst-clinical">Clinical scenarios</button>
       <button class="btn" id="rst-medicine">Medicine</button>
@@ -409,7 +409,10 @@ async function boot() {
   } catch { /* case data unavailable; the mission page still renders, sections handle it */ }
   const routed = await routeFromUrl();   // deep-link straight into a section (e.g. /medicine)
   if (!routed) renderMission();
-  if (hasUnseenUpdate()) setTimeout(showUpdateModal, 420);
+  // First visits begin with learning; only returning visitors see release announcements.
+  const priorVersion = seenVersion();
+  if (!priorVersion) markSeenVersion();
+  else if (hasUnseenUpdate()) setTimeout(showUpdateModal, 420);
 }
 
 /* ---------- URL routing — shareable section deep-links (e.g. /medicine) ----------
@@ -421,6 +424,7 @@ const PATH_SEC = Object.fromEntries(Object.entries(SEC_PATHS).map(([k, v]) => [v
 const RETIRED_PATHS = new Set(['genetics', 'ccma', 'cogpsych']);
 
 async function openSection(key) {
+  if (key !== 'mcat') window.pauseMcatTools?.();
   switch (key) {
     case 'practice': renderHome(); return true;
     case 'mcat': gotoMCAT(); return true;
@@ -517,7 +521,7 @@ function topbar(active) {
         </div>
       </div>
       <button class="navlink ${active === 'practice' ? 'active' : ''}" data-go="practice" aria-label="Clinical Scenarios"><span class="clinical-nav-full" aria-hidden="true">Clinical Scenarios</span><span class="clinical-nav-short" aria-hidden="true">Clinical</span></button>
-      <button class="navlink ${active === 'socrates' ? 'active' : ''}" data-go="socrates" aria-label="Learn to Learn"><span class="learn-nav-full" aria-hidden="true">Learn to Learn</span><span class="learn-nav-short" aria-hidden="true">Learn</span></button>
+      <button class="navlink ${active === 'socrates' ? 'active' : ''}" data-go="socrates" aria-label="Learn to Learn" aria-description="${COMING_SOON.has('socrates') ? 'Coming soon' : 'Learning course'}"><span class="learn-nav-full" aria-hidden="true">Learn to Learn</span><span class="learn-nav-short" aria-hidden="true">Learn</span>${COMING_SOON.has('socrates') ? '<span class="nav-availability">Coming soon</span>' : ''}</button>
       <div class="navmenu">
         <button class="navlink menubtn ${['anatomy', 'reference', 'utsa', 'pomodoro'].includes(active) ? 'active' : ''}" data-menu="explore" data-nav-menu aria-label="Explore" aria-expanded="false" aria-controls="explore-panel">Explore<span class="caret">&#9662;</span></button>
         <div class="menupanel" id="explore-panel" aria-label="Explore Cortex" hidden>
@@ -546,7 +550,7 @@ function topbar(active) {
       </div>
     </nav>
     <div class="bar-right">
-      <button class="navlink special ${active === 'neuro' ? 'active' : ''}" data-go="neuro" title="Neuroengineering"><svg class="neuro-ico" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2L17 6V14L10 18L3 14V6Z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span class="neuro-label">Neuro<span class="nl-rest">engineering</span></span></button>
+      <button class="navlink special ${active === 'neuro' ? 'active' : ''}" data-go="neuro" title="${COMING_SOON.has('neuro') ? 'Neuroengineering · Under construction' : 'Neuroengineering'}"><svg class="neuro-ico" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2L17 6V14L10 18L3 14V6Z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span class="neuro-label">Neuro<span class="nl-rest">engineering</span>${COMING_SOON.has('neuro') ? '<span class="nav-availability">In review</span>' : ''}</span></button>
       ${stat ? `<span class="topstat">${stat}</span>` : ''}<a class="xlink" href="${X_URL}" target="_blank" rel="noopener" title="Constant Cortex updates on X · @${X_HANDLE}" aria-label="Constant Cortex updates on X · @${X_HANDLE}">${X_SVG}</a><button class="acctbtn" data-acct hidden>Sign in</button><button class="ver${hasUnseenUpdate() ? ' ver-hasnew' : ''}" data-go="updates" title="What’s new">v${APP_VERSION}</button>
     </div>
   </header>`);
@@ -778,7 +782,7 @@ function siteFooter() {
     </div>
     <p class="sf-tag">Free, evidence-based medical study for everyone &mdash; our MCAT preparation is, and always will be, free.</p>
     <p class="sf-founder">Founded by Kevin Vigil</p>
-    <p class="sf-legal">&copy; ${yr} Cortex Medical Academy &middot; v${APP_VERSION} &middot; Last updated ${PUBLIC_CHANGELOG[0].date} &middot; Original study content, independently reviewed. Not a substitute for official AAMC materials or clinical judgment.</p>
+    <p class="sf-legal">&copy; ${yr} Cortex Medical Academy &middot; v${APP_VERSION} &middot; Last updated ${PUBLIC_CHANGELOG[0].date} &middot; Original study content with guided self-review. Not a substitute for official AAMC materials or clinical judgment.</p>
   </footer>`);
   f.querySelector('.sf-brand').addEventListener('click', e => { e.preventDefault(); renderMission(); });
   f.querySelector('[data-go="updates"]').addEventListener('click', renderUpdates);
@@ -893,6 +897,20 @@ const PRINCIPLES = [
 
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
+  {
+    date: 'September 6, 2026', version: '2.0.0-beta.1', tag: 'BETA',
+    title: 'MCAT 2.0: learn, reason, and plan your week',
+    items: [
+      'Today, Course, Practice, and Progress connect 36 lessons across 12 chapters, including metabolism, genetics, organ systems, organic chemistry, fluids, perception, and sociology.',
+      'Each lesson connects explanations, predictions, worked examples, and two applications with three fresh follow-up questions spaced over time; existing progress is preserved.',
+      'Eight Passage Coach workshops make science and CARS reasoning visible, with saved passage maps, staged hints, and a choice of Guided, Light, or Independent support.',
+      'Short science mistake investigations compare content, data, and setup; CARS checks compare claim, argument, and transfer. You choose the next focus.',
+      'The math and graph gym checks your setup before calculation across six skills and 48 numerical variants, with specific feedback for incorrect methods.',
+      'A weekly planner fits available time, saved work, due checks, and chosen priorities, while reserving practice-exam review and recording self-entered official results separately.',
+      'Progress separates independent, assisted, repeated, and delayed answers. Private study reflections help you capture what clicked and choose what to work on next.',
+      'Interactive science labs, CARS blind review, experiment notebooks, concept repairs, flexible daily sessions, and timed practice with saved answer reviews remain connected to your preparation.',
+    ],
+  },
   {
     date: 'August 28, 2026', version: '1.25.25', tag: 'NEW',
     title: 'Clinical Shift and a saved-game MCAT hub',
@@ -1416,8 +1434,10 @@ const CHANGELOG = [
 ];
 const RETIRED_CHANGELOG_SUBJECT = /\bgenetics\b/i;
 const PUBLIC_CHANGELOG = CHANGELOG.reduce((entries, release) => {
-  if (RETIRED_CHANGELOG_SUBJECT.test(release.title)) return entries;
-  const items = release.items.filter(item => !RETIRED_CHANGELOG_SUBJECT.test(item));
+  // The retired UTSA Genetics course is separate from genetics taught inside MCAT.
+  const mcatRelease = /^MCAT\b/i.test(release.title);
+  if (!mcatRelease && RETIRED_CHANGELOG_SUBJECT.test(release.title)) return entries;
+  const items = mcatRelease ? release.items : release.items.filter(item => !RETIRED_CHANGELOG_SUBJECT.test(item));
   if (items.length) entries.push({ ...release, items });
   return entries;
 }, []);
@@ -1494,7 +1514,8 @@ function renderMission() {
           <h1>Master the human machine.</h1>
           <p class="mission-lede">Cortex Medical Academy exists to remove every barrier between a capable mind and real medical mastery. Built from first principles and grounded in how learning actually works. The future of medicine shouldn&rsquo;t belong to whoever can afford a $500 prep course &mdash; it should belong to whoever is willing to do the work. That&rsquo;s why our MCAT preparation is, and always will be, free for everyone.</p>
           <div class="mcat-cta">
-            <button class="btn btn-solid" id="m-mcat">MCAT Prep</button>
+            <button class="btn btn-solid" id="m-quick">Try a 5-minute session →</button>
+            <button class="btn" id="m-mcat">MCAT Prep</button>
             <button class="btn" id="m-cases">Clinical Scenarios</button>
           </div>
           <p class="mission-fact"><span class="label">Did you know</span><span class="js-fact"></span></p>
@@ -1535,6 +1556,12 @@ function renderMission() {
     </section>
   </main>`);
 
+  main.querySelector('#m-quick').addEventListener('click', async () => {
+    const button = main.querySelector('#m-quick');
+    button.disabled = true; button.textContent = 'Opening session…';
+    try { await ensureSection('mcat'); await startMcatQuickSession(); }
+    catch { button.disabled = false; button.textContent = 'Retry 5-minute session'; }
+  });
   main.querySelector('#m-mcat').addEventListener('click', gotoMCAT);
   main.querySelector('#m-cases').addEventListener('click', renderHome);
   main.querySelector('#m-enter').addEventListener('click', gotoMCAT);

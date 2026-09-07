@@ -40,14 +40,15 @@ function newCount() { return MCAT.cards.filter(c => !SRS[c.id] || SRS[c.id].reps
 
 /* ---------- data ---------- */
 async function loadMCAT() {
+  await Promise.all([loadMcatRepairs(), loadExperimentNotes(), loadMcatCourse(), loadMcatV2()]);
   if (MCAT.loaded) return;
   try {
     const [o, c, q, cars, sci] = await Promise.all([
       fetch('data/mcat-outline.json').then(r => r.ok ? r.json() : null).catch(() => null),
       fetch('data/mcat-cards.json').then(r => r.ok ? r.json() : []).catch(() => []),
       fetch('data/mcat-questions.json').then(r => r.ok ? r.json() : []).catch(() => []),
-      fetch('data/mcat-cars.json').then(r => r.ok ? r.json() : []).catch(() => []),
-      fetch('data/mcat-science-passages.json').then(r => r.ok ? r.json() : []).catch(() => []),
+      fetch('data/mcat-cars.json?v=3').then(r => r.ok ? r.json() : []).catch(() => []),
+      fetch('data/mcat-science-passages.json?v=2').then(r => r.ok ? r.json() : []).catch(() => []),
     ]);
     MCAT.outline = o; MCAT.cards = c || []; MCAT.questions = q || []; MCAT.cars = cars || []; MCAT.sci = sci || [];
   } catch { /* ok */ }
@@ -60,6 +61,9 @@ function saveResume(key, obj) {
   try {
     if (!obj) return;
     const o = Object.assign({}, obj);
+    const type = {flash:'flash',drill:'drill',cars:'cars',plab:'passage',sim:'exam'}[key];
+    const active = guidePlan()?.active;
+    if (!o.guideTask && active?.type === type) o.guideTask = active;
     delete o.timerId; delete o._reveal;
     if (o.deadline) o._remain = Math.max(0, o.deadline - nowTs());
     o._saved = nowTs();
@@ -71,29 +75,29 @@ function clearResume(key) { try { localStorage.removeItem('cs-mcat-r-' + key); }
 
 const RESUME_SPECS = [
   { key: 'sim', mod: 'Exam Simulator',
-    progressOf(r) { return Object.keys(r.answers || {}).length + (r.idx || 0) + (r.si || 0); },
+    progressOf(r) { return r.queue?.length && !r.finishedAt ? 1 : 0; },
     label(r) { const s = r.queue[r.si]; return r.onBreak ? `Break &middot; ${SIM_SECTIONS[s.key].abbr} next` : `${SIM_SECTIONS[s.key].abbr} Q ${(r.idx || 0) + 1}/${s.items.length}`; },
-    resume(r) { sim = r; if (simTimerId) clearInterval(simTimerId); simTimerId = null; if (r.onBreak) { renderBreak(); return; } sim.deadline = nowTs() + (r._remain || 600000); simTimerId = setInterval(simTick, 500); renderSimQ(); },
+    resume(r) { studyRestoreGuide(r); sim = r; if (simTimerId) clearInterval(simTimerId); simTimerId = null; if (r.onBreak) { renderBreak(); return; } sim.deadline = nowTs() + (r._remain ?? 600000); simTimerId = setInterval(simTick, 500); renderSimQ(); },
   },
   { key: 'drill', mod: 'Question Drills',
     progressOf(r) { return (r.results ? r.results.length : 0) || r.idx || 0; },
     label(r) { return `Q ${(r.idx || 0) + 1}/${r.qs.length}`; },
-    resume(r) { drill = r; renderDrillQ(); },
+    resume(r) { studyRestoreGuide(r); drill = r; renderDrillQ(); },
   },
   { key: 'cars', mod: 'CARS Studio',
-    progressOf(r) { return (r.results ? r.results.length : 0); },
-    label(r) { return `Q ${(r.idx || 0) + 1}/${r.p.questions.length}`; },
-    resume(r) { cars = r; cars.timerId = null; if (cars.timed) { cars.deadline = nowTs() + (r._remain || 600000); cars.timerId = setInterval(carsTick, 500); } renderCarsRunner(); },
+    progressOf(r) { return r.phase === 'blind' || r.phase === 'done' ? 1 : (r.results?.length || (r.p?.questions?.length ? 1 : 0)); },
+    label(r) { return r.phase === 'blind' ? 'Blind review' : r.phase === 'done' ? 'Review results' : `Q ${(r.idx || 0) + 1}/${r.p.questions.length}`; },
+    resume(r) { resumeCarsSession(r); },
   },
   { key: 'plab', mod: 'Passage Lab',
-    progressOf(r) { return (r.results ? r.results.length : 0); },
-    label(r) { return `Q ${(r.idx || 0) + 1}/${r.p.questions.length}`; },
-    resume(r) { plab = r; plab.timerId = null; if (plab.timed) { plab.deadline = nowTs() + (r._remain || 600000); plab.timerId = setInterval(plabTick, 500); } renderPassageRunner(); },
+    progressOf(r) { return r.phase === 'analysis' || r.phase === 'done' ? 1 : (r.results?.length || (r.p?.questions?.length ? 1 : 0)); },
+    label(r) { return r.phase === 'analysis' ? 'Experiment notebook' : r.phase === 'done' ? 'Review results' : `Q ${(r.idx || 0) + 1}/${r.p.questions.length}`; },
+    resume(r) { resumePassageSession(r); },
   },
   { key: 'flash', mod: 'Flashcard Reactor',
     progressOf(r) { return r.idx || r.done || 0; },
     label(r) { return `${r.done || 0} / ${r.total || 0} cards`; },
-    resume(r) { flash = r; renderFlashCard(); },
+    resume(r) { studyRestoreGuide(r); flash = r; renderFlashCard(); },
   },
 ];
 
@@ -140,7 +144,12 @@ function enterMCAT() {
 // every return after that opens today's dashboard. The full tool library stays
 // available from the dashboard instead of sitting in front of the plan.
 async function renderMCATEntry() {
-  await loadMCAT();
+  coursePauseTools(); await loadMCAT();
+  const params = new URLSearchParams(location.search), view = params.get('view'), unit = params.get('unit');
+  if (view === 'course') { if (unit === 'starting-check') return renderCoursePlacement(); return unit ? renderCourseUnit(unit) : renderCourseHome(); }
+  if (['coach','math','weekly','diagnose','review'].includes(view)) return v2Go(view);
+  if (view === 'practice') return renderMCAT();
+  if (view === 'progress') return renderCourseProgress();
   renderGuide();
 }
 
@@ -173,6 +182,7 @@ function confirmExit(hasProgress, onLeave) {
 }
 
 async function renderMCAT() {
+  coursePauseTools();
   if (typeof stopTimer === 'function') stopTimer();
   if (typeof session !== 'undefined') session = null;
   // tear down any in-flight timed-module countdowns so a leftover timer can't auto-finish
@@ -195,23 +205,23 @@ async function renderMCAT() {
     { name: 'Question drills', desc: 'Practice discrete questions and review every answer', stat: qn ? `${qn} questions` : 'Loading&hellip;', go: renderDrillSetup, on: qn > 0, core: true },
     { name: 'CARS practice', desc: 'Work through passages with blind review', stat: carsN ? `${carsN} passages` : 'Loading&hellip;', go: renderCarsHome, on: carsN > 0, core: true },
     { name: 'Science passages', desc: 'Interpret experiments, figures, and data tables', stat: sciN ? `${sciN} passages` : 'Loading&hellip;', go: renderPassageHome, on: sciN > 0, core: true },
-    { name: 'Practice exam', desc: 'Train sections or a full-length exam under time', stat: 'Timed', go: renderSimHome, on: qn > 0 && !!MCAT.outline, core: true },
-    { name: 'Mistake lab', desc: 'See weak areas and why answers were missed', stat: t.answered ? `${t.answered} answered &middot; ${t.acc}%` : 'No data yet', go: renderMistakeLab, on: true, core: false },
-    { name: 'Blueprint', desc: 'Check coverage against the MCAT content map', stat: `${conceptsN} concepts`, go: renderBlueprint, on: !!MCAT.outline, core: false },
+    { name: 'Practice exam', desc: 'Train with intact passage sets, then review each timed run', stat: 'Timed', go: renderSimHome, on: qn > 0 && !!MCAT.outline, core: true },
+    { name: 'Mistake lab', desc: 'Work through gaps and check your learning', stat: t.answered ? `${t.answered} answered &middot; ${t.acc}%` : 'No data yet', go: renderMistakeLab, on: true, core: false },
+    { name: 'Blueprint', desc: 'Check coverage against the MCAT content map', stat: `${conceptsN} concepts`, go: renderCourseHome, on: !!MCAT.outline, core: false },
     { name: 'Study plan', desc: 'Build a 120, 90, or 60-day schedule', stat: guidePlan() ? 'Plan active' : 'Build a plan', go: renderGuide, on: !!MCAT.outline, core: false },
     { name: 'Course mapper', desc: 'Mark the prerequisite courses already completed', stat: 'Pre-study check', go: renderMapper, on: !!MCAT.outline, core: false },
   ];
 
   const method = {
-    intro: 'Most MCAT tools stop at one technique and call it a study system. This one is engineered around the techniques cognitive science rates highest-utility &mdash; the same principles Dunlosky and colleagues found most reliably improve real retention and transfer. Nothing here is decoration; every instrument exists to exploit a known mechanism of learning.',
+    intro: 'The study tools combine scheduled review, practice questions, and written reflection. Here is what each tool does with your answers. Practice records describe your work in Cortex; they do not establish mastery or predict an MCAT score.',
     points: [
-      ['Spaced repetition', 'Material returns at the precise interval before you would forget it. SM-2 scheduling fights the forgetting curve instead of ignoring it.'],
-      ['Active retrieval practice', 'Recalling an answer strengthens memory far more than re-reading it. Every drill forces you to produce, not recognize.'],
-      ['Interleaving', 'Mixed topics build the discrimination the real exam requires &mdash; you learn to tell similar concepts apart, not just repeat them in blocks.'],
-      ['Confidence calibration', 'You log how sure you were, then see confidence plotted against accuracy. Overconfidence is the silent score-killer; this makes it visible.'],
-      ['Distractor autopsy', 'For every question, we explain why each wrong answer was engineered to be tempting &mdash; so you stop falling for the same trap twice.'],
-      ['Blind review', 'Re-attempt flagged questions with no feedback before reading explanations. It separates true understanding from lucky recognition.'],
-      ['Teach-back', 'Explaining a concept in your own words is the strongest test of mastery there is. The system prompts you to teach, not just answer.'],
+      ['Scheduled review', 'Flashcard intervals respond to your ratings. Course checks return after scheduled delays that respond to previous answers. These schedules do not measure exactly when you will forget something.'],
+      ['Answer before feedback', 'Choose an answer before reading its explanation. Some activities also ask for a written explanation or passage evidence; multiple-choice drills record your selected answer.'],
+      ['Mixed practice', 'Mixed sessions include questions or activities from different topics. Topic filters remain available when you want to focus on one area.'],
+      ['Confidence and accuracy', 'Record how sure you are, then compare confidence with the accuracy of your saved answers. This can highlight answers you may want to revisit.'],
+      ['Answer explanations', 'Read the authored explanation after answering. Where available, additional notes explain the distractors and suggest a related concept to review.'],
+      ['Blind review', 'Reconsider CARS answers and write your reasoning before seeing explanations. Your first answers and later revisions remain separate in the review.'],
+      ['Teach-back', 'Write an explanation in your own words, then compare it with the authored model where provided. Your writing is saved for self-review and is not automatically graded for mastery.'],
     ],
   };
 
@@ -220,12 +230,14 @@ async function renderMCAT() {
   const main = el(`<main class="panel mcat-landing">
     <header class="mcat-simple-hero">
       <span class="mcat-eyebrow">Free MCAT preparation</span>
-      <h1>MCAT Prep</h1>
-      <p>Build knowledge, practice passages, and prepare for test day with one focused study system.</p>
+      <h1>Practice with purpose.</h1>
+      <p>Apply the ideas you have studied, review the reasoning, and build stamina one session at a time.</p>
+      <div id="course-practice-mode"></div>
       <div class="mcat-simple-facts"><span><strong>${cn || 504}</strong> cards</span><span><strong>${qn || 263}</strong> questions</span><span><strong>${carsN + sciN || 66}</strong> passages</span></div>
-      <div class="mcat-cta"><button class="btn btn-solid" id="mc-enter">${findHubResume() || guidePlan() ? 'Continue studying' : 'Start studying'} &rarr;</button></div>
+      <div class="mcat-cta"><button class="btn btn-solid" id="mc-enter">${findHubResume() || guidePlan() ? 'Continue studying' : 'Start studying'} &rarr;</button><button class="btn" id="mc-quick">Try a 5-minute session</button></div>
     </header>
 
+    ${v2FeatureCards()}
     <section class="mcat-simple-tools" id="mcat-study-tools">
       <div class="mcat-simple-section-head"><span class="label">Study tools</span><span>Choose one place to begin</span></div>
       <div class="mcat-simple-list" id="mcat-core-tools"></div>
@@ -259,12 +271,14 @@ async function renderMCAT() {
   });
 
   main.querySelector('#mc-enter').addEventListener('click', enterMCAT);
+  main.querySelector('#mc-quick').addEventListener('click', startMcatQuickSession);
   const hubResume = hubResumeChip();
   if (hubResume) main.querySelector('.mcat-simple-hero').appendChild(hubResume);
 
-  root.appendChild(main);
-  if (typeof siteFooter === 'function') root.appendChild(siteFooter());
-  setView(root);
+  main.querySelector('#course-practice-mode').innerHTML = courseModeMarkup();
+  wireCourseModes(main, renderMCAT);
+  root.appendChild(main); mcatWorkspace(root,'practice');
+  studySetView(root);
 }
 
 function mcatTotals() {
@@ -313,7 +327,7 @@ function renderFlashHome() {
   setView(root);
 }
 
-function startFlash(deck, limitNew = 20, limitDue = 60, focusCategory = null) {
+function startFlash(deck, limitNew = 20, limitDue = 60, focusCategory = null, limitTotal = Infinity) {
   const pool = deck === 'all' ? MCAT.cards : MCAT.cards.filter(c => c.section === deck);
   const t = nowTs();
   const dueCards = pool.filter(c => SRS[c.id] && SRS[c.id].reps > 0 && SRS[c.id].due <= t).slice(0, limitDue);
@@ -323,7 +337,7 @@ function startFlash(deck, limitNew = 20, limitDue = 60, focusCategory = null) {
     if (focused.length) newPool = focused.concat(newPool.filter(c => c.category !== focusCategory));
   }
   const newCards = newPool.slice(0, limitNew);
-  const queue = shuffleArr(dueCards.concat(newCards));
+  const queue = shuffleArr(dueCards.concat(newCards).slice(0, limitTotal));
   if (!queue.length) {
     if (guideCompleteActiveTask('flash')) renderGuide();
     else renderFlashHome();
@@ -527,9 +541,10 @@ function finishDrill() {
     return `<details class="rev" ${r.correct ? '' : 'open'}>
       <summary><span class="${r.correct ? 'ok' : 'no'}">${r.correct ? '&#10003;' : '&#10007;'}</span> Q${i + 1}. ${esc(q.stem.slice(0, 90))}${q.stem.length > 90 ? '&hellip;' : ''}</summary>
       <div class="rev-body">
-        <div class="rev-ans">You: ${'ABCD'[r.chosen]} &middot; Correct: <b>${'ABCD'[q.answer]}</b> &middot; felt ${CONF[r.conf]}</div>
+        <div class="rev-ans">You: ${r.chosen == null ? 'Unanswered' : 'ABCD'[r.chosen]} &middot; Correct: <b>${'ABCD'[q.answer]}</b> &middot; felt ${CONF[r.conf]}</div>
         <p>${esc(q.explanation)}</p>
         ${autopsy ? `<div class="autopsy">${autopsy}</div>` : ''}
+        ${courseRelatedLinks(q.id)}${!r.correct?'<button class="btn" data-v2-view="diagnose">Investigate the sticking point →</button>':''}
       </div></details>`;
   }).join('');
   if (guided) main.querySelector('#guide').addEventListener('click', renderGuide);
@@ -629,6 +644,7 @@ function renderMistakeLab() {
 
   const main = el(`<main class="panel">
     <div class="hero"><h1>Mistake Lab.</h1><p class="sub">Every miss should generate a next move. Here's where to aim.</p></div>
+    <div id="mistake-repair"></div>
     ${t.answered ? `<div class="metrics">
       <div class="metric"><span class="m-num">${t.answered}</span><span class="m-lab">Answered</span></div>
       <div class="metric"><span class="m-num">${t.acc}%</span><span class="m-lab">Accuracy</span><span class="m-sub">${t.correct} correct</span></div>
@@ -642,11 +658,12 @@ function renderMistakeLab() {
     ${rootRows.length ? `<div class="statblock"><span class="label">Why you miss (root causes)</span><div class="rootbars">${rootRows.map(([k, v]) => `<div class="calib-row"><span class="cl">${esc(k)}</span><span class="cbar"><i style="width:${Math.min(100, v * 20)}%;background:var(--red)"></i></span><span class="cv">${v}</span></div>`).join('')}</div></div>` : ''}
 
     <div class="endbtns">
-      ${missed.length ? '<button class="btn btn-solid" id="redo">Redo missed</button>' : ''}
+      ${missed.length ? '<button class="btn btn-solid" id="redo">Practice missed questions again</button>' : ''}
       <button class="btn" id="home">&larr; MCAT</button>
     </div>
   </main>`);
 
+  mountRepairDashboard(main.querySelector('#mistake-repair'));
   if (weak.length) {
     const wc = main.querySelector('#weak');
     weak.forEach(w => {
@@ -693,17 +710,24 @@ function renderCarsHome() {
   });
   main.querySelector('#rand').addEventListener('click', () => startCars(MCAT.cars[Math.floor(Math.random() * MCAT.cars.length)], timed));
   main.querySelector('#back').addEventListener('click', renderMCAT);
+  studyLockPassageList('cars',main);
+  studyReportButton('cars', main);
   const rb = resumeBtn('cars');
   if (rb) main.querySelector('.endbtns').prepend(rb);
   root.appendChild(main); setView(root);
 }
 function startCars(p, timed) {
-  cars = { p, idx: 0, results: [], timed, deadline: timed ? nowTs() + 600000 : 0, timerId: null };
+  const saved=loadResume('cars');
+  if (saved?.p?.questions?.length && Array.isArray(saved.results)) return resumeCarsSession(saved);
+  cars = { p, phase:'attempt', attemptId:studyAttemptId(), flags:{}, confidence:{}, idx: 0, results: [], timed, deadline: timed ? nowTs() + 600000 : 0, timerId: null };
   if (timed) cars.timerId = setInterval(carsTick, 500);
   renderCarsRunner();
 }
-function carsTick() { if (!cars) return; const left = (cars.deadline - nowTs()) / 1000; const t = document.getElementById('cars-timer'); if (t) { t.textContent = fmtTime(left); t.classList.toggle('crit', left <= 60); } if (left <= 0) { clearInterval(cars.timerId); finishCars(); } }
+function carsTick() { if (!cars || (cars.phase && cars.phase !== 'attempt')) return; const left = (cars.deadline - nowTs()) / 1000; const t = document.getElementById('cars-timer'); if (t) { t.textContent = fmtTime(left); t.classList.toggle('crit', left <= 60); } if (left <= 0) { clearInterval(cars.timerId); finishCars(); } }
 function renderCarsRunner() {
+  if (cars.phase === 'blind') return renderCarsBlindReview();
+  if (cars.phase === 'done') return renderCarsReviewResult();
+  cars.flags ||= {}; cars.confidence ||= {};
   const p = cars.p;
   if (cars.idx >= p.questions.length) { finishCars(); return; }
   const q = p.questions[cars.idx];
@@ -714,46 +738,28 @@ function renderCarsRunner() {
       <div class="cars-passage"><span class="label">${esc(p.title)}</span>${p.text.split(/\n\n+/).map(par => `<p>${esc(par)}</p>`).join('')}</div>
       <div class="cars-q">
         <p class="q">${esc(q.stem)}</p>
-        <div class="opts">${q.options.map((o, i) => `<button class="opt" data-i="${i}"><span class="key">${'ABCD'[i]}</span><span>${esc(o)}</span></button>`).join('')}</div>
+        <fieldset class="repair-confidence"><legend>How sure are you?</legend>${Object.entries(CONF).map(([key,label]) => `<label><input type="radio" name="cars-confidence" value="${key}" ${(cars.confidence[q.id] || 'unsure') === key ? 'checked' : ''}>${label}</label>`).join('')}</fieldset>
+        <label class="study-flag"><input type="checkbox" id="cars-flag" ${cars.flags[q.id] ? 'checked' : ''}> Flag for blind review</label>
+        <div class="opts">${McatV2Core.optionOrder(q.options,q.displayOrder).map((i,position) => `<button class="opt" data-i="${i}"><span class="key">${'ABCD'[position]}</span><span>${esc(q.options[i])}</span></button>`).join('')}</div>
       </div>
     </main>
   </div>`);
-  wireRunHeader(root, () => confirmExit(cars && cars.results.length > 0, () => { if (cars.timerId) clearInterval(cars.timerId); guideLeaveActive('cars', renderCarsHome); }));
-  root.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => { cars.results.push({ q, chosen: +b.dataset.i, correct: +b.dataset.i === q.answer }); cars.idx++; renderCarsRunner(); window.scrollTo(0, 0); }));
+  studyWirePassageExit(root,'cars',cars,renderCarsHome);
+  root.querySelectorAll('[name="cars-confidence"]').forEach(input => input.onchange = () => { cars.confidence[q.id]=input.value; saveResume('cars',cars); });
+  root.querySelector('#cars-flag').onchange = e => { cars.flags[q.id]=e.target.checked; saveResume('cars',cars); };
+  root.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => { cars.results.push({ q, chosen: +b.dataset.i, correct: +b.dataset.i === q.answer, conf:cars.confidence[q.id] || 'unsure', flagged:!!cars.flags[q.id] }); cars.idx++; renderCarsRunner(); window.scrollTo(0, 0); }));
   setView(root); window.scrollTo(0, 0);
   if (cars.timed) carsTick();
 }
-function finishCars() {
-  clearResume('cars');
-  const guided = guideCompleteActiveTask('cars');
-  if (cars.timerId) clearInterval(cars.timerId);
-  const p = cars.p, t = nowTs();
-  cars.results.forEach(r => { const cat = 'CARS-' + r.q.skill.split('-')[1]; QLOG.push({ qId: r.q.id, section: 'cars', category: cat, passage: p.id, correct: r.correct, conf: 'unsure', ts: t }); QHIST[r.q.id] = { n: (QHIST[r.q.id]?.n || 0) + 1, lastCorrect: r.correct, ts: t }; });
-  saveQ(); if (typeof bumpStreak === 'function') bumpStreak();
-  const correct = cars.results.filter(r => r.correct).length, total = cars.results.length;
-  const bySkill = ['cars-1', 'cars-2', 'cars-3'].map(s => { const set = cars.results.filter(r => r.q.skill === s); return set.length ? `<div class="calib-row"><span class="cl">${SKILL_LABEL[s]}</span><span class="cbar"><i style="width:${Math.round(100 * set.filter(r => r.correct).length / set.length)}%"></i></span><span class="cv">${Math.round(100 * set.filter(r => r.correct).length / set.length)}%</span></div>` : ''; }).join('');
-  const root = el('<div></div>'); root.appendChild(topbar('mcat'));
-  const main = el(`<main class="panel"><section class="summary" style="border:0;margin-top:8px">
-    <span class="label">Passage complete &middot; ${esc(p.title)}</span>
-    <div class="score">${String(correct).padStart(2, '0')}<span class="of">/${String(total).padStart(2, '0')}</span></div>
-    <div class="calib"><span class="label">By skill</span>${bySkill}</div>
-    <div class="drill-review" id="dr"></div>
-    <div class="endbtns">${guided ? '<button class="btn btn-solid" id="guide">Continue today\'s plan &rarr;</button>' : ''}<button class="btn ${guided ? '' : 'btn-solid'}" id="next">Back to passages</button><button class="btn" id="home">&larr; MCAT</button></div>
-  </section></main>`);
-  main.querySelector('#dr').innerHTML = `<span class="label">Review &amp; justification</span>` + cars.results.map((r, i) => `<details class="rev" ${r.correct ? '' : 'open'}><summary><span class="${r.correct ? 'ok' : 'no'}">${r.correct ? '&#10003;' : '&#10007;'}</span> Q${i + 1} &middot; ${SKILL_LABEL[r.q.skill]}</summary><div class="rev-body"><div class="rev-ans">You: ${'ABCD'[r.chosen]} &middot; Correct: <b>${'ABCD'[r.q.answer]}</b></div><p>${esc(r.q.explanation)}</p></div></details>`).join('');
-  if (guided) main.querySelector('#guide').addEventListener('click', renderGuide);
-  main.querySelector('#next').addEventListener('click', renderCarsHome);
-  main.querySelector('#home').addEventListener('click', renderMCAT);
-  root.appendChild(main); setView(root); window.scrollTo(0, 0);
-}
+function finishCars() { beginCarsBlindReview(); }
 
 /* ---------- shared passage rendering ---------- */
 function dataTableHTML(table) {
   if (!table || !table.headers) return '';
   return `<div class="dtable">${table.caption ? `<div class="dt-cap">${esc(table.caption)}</div>` : ''}<table><thead><tr>${table.headers.map(h => `<th>${esc(h)}</th>`).join('')}</tr></thead><tbody>${(table.rows || []).map(r => `<tr>${r.map(c => `<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
 }
-function passageBody(title, text, table) {
-  return `<div class="cars-passage"><span class="label">${esc(title)}</span>${text.split(/\n\n+/).map(p => `<p>${esc(p)}</p>`).join('')}${dataTableHTML(table)}</div>`;
+function passageBody(title, text, table, contentNote) {
+  return `<div class="cars-passage"><span class="label">${esc(title)}</span>${contentNote ? `<p class="course-caption">${esc(contentNote)}</p>` : ''}${text.split(/\n\n+/).map(p => `<p>${esc(p)}</p>`).join('')}${dataTableHTML(table)}</div>`;
 }
 
 /* ---------- Passage Lab (AAMC-style science passages) ---------- */
@@ -773,10 +779,13 @@ function renderPassageHome() {
   const list = main.querySelector('#plist');
   const refresh = () => {
     list.replaceChildren();
+    const saved=loadResume('plab');
+    const paused=!!(saved?.p?.questions?.length && Array.isArray(saved.results));
     MCAT.sci.filter(p => sec === 'all' || p.section === sec).forEach(p => {
       const log = QLOG.filter(x => x.passage === p.id);
       const acc = log.length ? Math.round(100 * log.filter(x => x.correct).length / log.length) : null;
       const row = el(`<button class="row"><span class="row-main"><span class="row-spec">${SEC_ABBR[p.section]} &middot; ${esc(p.type)}</span><span class="row-title">${esc(p.title)}</span></span><span class="row-right">${acc != null ? `<span class="pill ${acc >= 75 ? 'ok' : acc >= 50 ? 'mid' : 'no'}">${acc}%</span>` : `<span class="row-when">${p.questions.length}q &rarr;</span>`}</span></button>`);
+      row.disabled=paused;
       row.addEventListener('click', () => startPassage(p, timed));
       list.appendChild(row);
     });
@@ -785,13 +794,17 @@ function renderPassageHome() {
   main.querySelectorAll('#psec .mode').forEach(b => b.addEventListener('click', () => { sec = b.dataset.s; main.querySelectorAll('#psec .mode').forEach(x => x.classList.toggle('active', x === b)); refresh(); }));
   main.querySelectorAll('#ptime .mode').forEach(b => b.addEventListener('click', () => { timed = b.dataset.t === 'on'; main.querySelectorAll('#ptime .mode').forEach(x => x.classList.toggle('active', x === b)); }));
   main.querySelector('#back').addEventListener('click', renderMCAT);
+  studyLockPassageList('plab',main);
+  studyReportButton('plab', main);
   const rb = resumeBtn('plab');
   if (rb) main.querySelector('.endbtns').prepend(rb);
   root.appendChild(main); setView(root);
 }
-function startPassage(p, timed) { plab = { p, idx: 0, results: [], timed, deadline: timed ? nowTs() + 600000 : 0, timerId: null }; if (timed) plab.timerId = setInterval(plabTick, 500); renderPassageRunner(); }
-function plabTick() { if (!plab) return; const left = (plab.deadline - nowTs()) / 1000; const t = document.getElementById('plab-timer'); if (t) { t.textContent = fmtTime(left); t.classList.toggle('crit', left <= 60); } if (left <= 0) { clearInterval(plab.timerId); finishPassage(); } }
+function startPassage(p, timed) { const saved=loadResume('plab'); if (saved?.p?.questions?.length && Array.isArray(saved.results)) return resumePassageSession(saved); plab = { p, phase:'attempt', attemptId:studyAttemptId(), idx: 0, results: [], timed, deadline: timed ? nowTs() + 600000 : 0, timerId: null }; if (timed) plab.timerId = setInterval(plabTick, 500); renderPassageRunner(); }
+function plabTick() { if (!plab || (plab.phase && plab.phase !== 'attempt')) return; const left = (plab.deadline - nowTs()) / 1000; const t = document.getElementById('plab-timer'); if (t) { t.textContent = fmtTime(left); t.classList.toggle('crit', left <= 60); } if (left <= 0) { clearInterval(plab.timerId); finishPassage(); } }
 function renderPassageRunner() {
+  if (plab.phase === 'analysis') return renderExperimentNotebook();
+  if (plab.phase === 'done') return finishPassage();
   const p = plab.p;
   if (plab.idx >= p.questions.length) { finishPassage(); return; }
   const q = p.questions[plab.idx];
@@ -799,22 +812,19 @@ function renderPassageRunner() {
   const root = el(`<div>
     ${mcatTaskHeader([`${SEC_ABBR[p.section]} Passage`], `<button class="bookmark" id="pt" title="Periodic table" aria-label="Periodic table">PT</button>${plab.timed ? '<span class="timer" id="plab-timer"></span>' : ''}<span class="topstat">Q ${plab.idx + 1}/${p.questions.length}</span>`)}
     <main class="cars-stage">
-      ${passageBody(p.title, p.text, p.table)}
+      ${passageBody(p.title, p.text, p.table, p.contentNote)}
       <div class="cars-q"><p class="q">${esc(q.stem)}</p>
         <div class="opts">${q.options.map((o, i) => `<button class="opt" data-i="${i}"><span class="key">${'ABCD'[i]}</span><span>${esc(o)}</span></button>`).join('')}</div></div>
     </main></div>`);
-  wireRunHeader(root, () => confirmExit(plab && plab.results.length > 0, () => { if (plab.timerId) clearInterval(plab.timerId); guideLeaveActive('passage', renderPassageHome); }));
+  studyWirePassageExit(root,'plab',plab,renderPassageHome);
   root.querySelector('#pt').addEventListener('click', periodicModal);
   root.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => { plab.results.push({ q, chosen: +b.dataset.i, correct: +b.dataset.i === q.answer }); plab.idx++; renderPassageRunner(); }));
   setView(root); window.scrollTo(0, 0); if (plab.timed) plabTick();
 }
 function finishPassage() {
-  clearResume('plab');
-  const guided = guideCompleteActiveTask('passage');
-  if (plab.timerId) clearInterval(plab.timerId);
-  const p = plab.p, t = nowTs();
-  plab.results.forEach(r => { QLOG.push({ qId: r.q.id, section: p.section, category: r.q.category, passage: p.id, correct: r.correct, conf: 'unsure', ts: t }); QHIST[r.q.id] = { n: (QHIST[r.q.id]?.n || 0) + 1, lastCorrect: r.correct, ts: t }; });
-  saveQ(); if (typeof bumpStreak === 'function') bumpStreak();
+  if (plab.phase !== 'done') { studyFinishAttempt(plab); renderExperimentNotebook(); return; }
+  if (!plab.archived) { studyLogAttempt(plab,'plab'); plab.guided ||= guideCompleteActiveTask('passage'); studySaveReport('plab',plab); clearResume('plab'); }
+  const guided = plab.guided, p = plab.p;
   const correct = plab.results.filter(r => r.correct).length, total = plab.results.length;
   const root = el('<div></div>'); root.appendChild(topbar('mcat'));
   const main = el(`<main class="panel"><section class="summary" style="border:0;margin-top:8px">
@@ -823,11 +833,11 @@ function finishPassage() {
     <div class="drill-review" id="dr"></div>
     <div class="endbtns">${guided ? '<button class="btn btn-solid" id="guide">Continue today\'s plan &rarr;</button>' : ''}<button class="btn ${guided ? '' : 'btn-solid'}" id="next">Back to passages</button><button class="btn" id="home">&larr; MCAT</button></div>
   </section></main>`);
-  main.querySelector('#dr').innerHTML = `<span class="label">Review</span>` + plab.results.map((r, i) => { const autopsy = (r.q.distractors || []).filter(d => d.i !== r.q.answer).map(d => `<div class="autopsy-row"><span class="ak">${'ABCD'[d.i]}</span><span>${esc(d.why)}</span></div>`).join(''); return `<details class="rev" ${r.correct ? '' : 'open'}><summary><span class="${r.correct ? 'ok' : 'no'}">${r.correct ? '&#10003;' : '&#10007;'}</span> Q${i + 1}</summary><div class="rev-body"><div class="rev-ans">You: ${'ABCD'[r.chosen]} &middot; Correct: <b>${'ABCD'[r.q.answer]}</b></div><p>${esc(r.q.explanation)}</p>${autopsy ? `<div class="autopsy">${autopsy}</div>` : ''}</div></details>`; }).join('');
+  main.querySelector('#dr').innerHTML = experimentComparison(plab) + `<span class="label">Question review · original score</span>` + plab.results.map((r, i) => { const autopsy = (r.q.distractors || []).filter(d => d.i !== r.q.answer).map(d => `<div class="autopsy-row"><span class="ak">${'ABCD'[d.i]}</span><span>${esc(d.why)}</span></div>`).join(''); return `<details class="rev" ${r.correct ? '' : 'open'}><summary><span class="${r.correct ? 'ok' : 'no'}">${r.correct ? '&#10003;' : '&#10007;'}</span> Q${i + 1}</summary><div class="rev-body"><div class="rev-ans">You: ${r.chosen == null ? 'Unanswered' : 'ABCD'[r.chosen]} &middot; Correct: <b>${'ABCD'[r.q.answer]}</b></div><p>${esc(r.q.explanation)}</p>${courseRelatedLinks(r.q.id)}${autopsy ? `<div class="autopsy">${autopsy}</div>` : ''}</div></details>`; }).join('');
   if (guided) main.querySelector('#guide').addEventListener('click', renderGuide);
   main.querySelector('#next').addEventListener('click', renderPassageHome);
   main.querySelector('#home').addEventListener('click', renderMCAT);
-  root.appendChild(main); setView(root); window.scrollTo(0, 0);
+  root.appendChild(main); studySetView(root); window.scrollTo(0, 0);
 }
 
 /* ---------- Exam Simulator ---------- */
@@ -836,15 +846,15 @@ function renderSimHome() {
   if (!MCAT.outline) return renderMCAT();
   const root = el('<div></div>'); root.appendChild(topbar('mcat'));
   const main = el(`<main class="panel">
-    <div class="hero"><h1>Exam Simulator.</h1><p class="sub">Train test-day conditions: a countdown, a question navigator with flags, no feedback until you submit. Builds stamina, not just knowledge.</p></div>
+    <div class="hero"><h1>Timed practice.</h1><p class="sub">Build pacing with whole passage sets, a countdown, flags, and feedback after submission. These original sets vary in length; the timer scales to the number of questions. They are not official full-length exams.</p></div>
     <div class="statblock"><span class="label">Section simulators</span><div id="secs"></div></div>
     <div class="statblock"><span class="label">Stamina</span>
-      <button class="bp-cat" id="full"><span class="bp-cat-id">FL</span><span class="bp-cat-title">Full-length (all four sections, with breaks)</span><span class="bp-cat-stat">~marathon</span></button></div>
+      <button class="bp-cat" id="full"><span class="bp-cat-id">FL</span><span class="bp-cat-title">Four-section practice, with breaks</span><span class="bp-cat-stat">Variable length</span></button></div>
     <div class="endbtns"><button class="btn" id="back">&larr; MCAT</button></div>
   </main>`);
   const secs = main.querySelector('#secs');
   ['chemPhys', 'cars', 'bioBiochem', 'psychSoc'].forEach(k => {
-    const n = simPool(k).length;
+    const n = simPracticeItems(k).length;
     const row = el(`<button class="bp-cat" ${n ? '' : 'disabled'}><span class="bp-cat-id">${SIM_SECTIONS[k].abbr}</span><span class="bp-cat-title">${esc(MCAT.outline.sections[k].name)}</span><span class="bp-cat-stat">${n} q</span></button>`);
     if (n) row.addEventListener('click', () => startSim([k]));
     secs.appendChild(row);
@@ -857,25 +867,35 @@ function renderSimHome() {
 }
 function simPool(secKey) {
   if (secKey === 'cars') {
-    const groups = MCAT.cars.map(p => p.questions.map(q => ({ q, passageText: p.text, passageTitle: p.title })));
+    const groups = MCAT.cars.map(p => p.questions.map(q => ({ q, passageId: p.id, passageText: p.text, passageTitle: p.title })));
     return shuffleArr(groups).flat();
   }
   // science: passage sets (kept together) first, then discretes — like a real section
-  const groups = MCAT.sci.filter(p => p.section === secKey).map(p => p.questions.map(q => ({ q, passageText: p.text, passageTitle: p.title, table: p.table })));
+  const groups = MCAT.sci.filter(p => p.section === secKey).map(p => p.questions.map(q => ({ q, passageId: p.id, passageText: p.text, passageTitle: p.title, table: p.table, contentNote: p.contentNote })));
   const passageItems = shuffleArr(groups).flat();
   const discretes = shuffleArr(MCAT.questions.filter(q => q.section === secKey)).slice(0, 15).map(q => ({ q }));
   return passageItems.concat(discretes);
 }
+function simPracticeItems(key) {
+  const pool = simPool(key), chosen = [], passageLimit = key === 'cars' ? 30 : 25;
+  const groups = new Map();
+  pool.filter(it => it.passageId).forEach(it => { if (!groups.has(it.passageId)) groups.set(it.passageId, []); groups.get(it.passageId).push(it); });
+  for (const group of groups.values()) { if (chosen.length && chosen.length + group.length > passageLimit) break; chosen.push(...group); }
+  return chosen.concat(pool.filter(it => !it.passageId).slice(0, key === 'cars' ? 0 : 15));
+}
 function startSim(sectionKeys) {
-  const queue = sectionKeys.map(k => ({ key: k, items: shuffleArr(simPool(k)).slice(0, k === 'cars' ? 30 : 40) }));
-  sim = { queue, si: 0, idx: 0, answers: {}, flags: {}, deadline: 0, results: [] };
+  const saved = loadResume('sim');
+  if (saved?.queue?.length && !saved.finishedAt) { RESUME_SPECS.find(s => s.key === 'sim').resume(saved); return; }
+  const queue = sectionKeys.map(k => ({ key:k, items:simPracticeItems(k) })).filter(s => s.items.length);
+  if (!queue.length) return renderSimHome();
+  sim = { queue, attemptId:studyAttemptId(), si:0, idx:0, answers:{}, flags:{}, deadline:0, results:[] };
   beginSection();
 }
 function beginSection() {
   const s = sim.queue[sim.si];
   sim.onBreak = false;
   const minutes = Math.max(8, Math.round(SIM_SECTIONS[s.key].min * s.items.length / (s.key === 'cars' ? 53 : 59)));
-  sim.deadline = nowTs() + minutes * 60000; sim.idx = 0;
+  sim.sectionDurationMs = minutes * 60000; sim.deadline = nowTs() + sim.sectionDurationMs; sim.idx = 0;
   if (simTimerId) clearInterval(simTimerId); simTimerId = setInterval(simTick, 500);
   renderSimQ();
 }
@@ -884,13 +904,14 @@ function renderSimQ() {
   const s = sim.queue[sim.si], it = s.items[sim.idx], q = it.q;
   const key = sim.si + ':' + sim.idx;
   const chosen = sim.answers[key];
+  sim.seen ||= [];if(!sim.seen.includes(key))sim.seen.push(key);
   saveResume('sim', sim);
   const root = el(`<div>
     ${mcatTaskHeader([SIM_SECTIONS[s.key].abbr, sim.queue.length > 1 ? `Sec ${sim.si + 1}/${sim.queue.length}` : '', `Q ${sim.idx + 1}/${s.items.length}`], `${s.key !== 'cars' ? '<button class="bookmark" id="pt" title="Periodic table" aria-label="Periodic table">PT</button>' : ''}<span class="timer" id="sim-timer"></span>`, '&larr; Quit')}
     <main class="case">
-      ${it.passageText ? passageBody(it.passageTitle || 'Passage', it.passageText, it.table) : ''}
+      ${it.passageText ? passageBody(it.passageTitle || 'Passage', it.passageText, it.table, it.contentNote) : ''}
       <p class="q">${esc(q.stem)}</p>
-      <div class="opts" id="opts">${q.options.map((o, i) => `<button class="opt ${chosen === i ? 'picked' : ''}" data-i="${i}"><span class="key">${'ABCD'[i]}</span><span>${esc(o)}</span></button>`).join('')}</div>
+      <div class="opts" id="opts">${McatV2Core.optionOrder(q.options,q.displayOrder).map((i,position) => `<button class="opt ${chosen === i ? 'picked' : ''}" data-i="${i}"><span class="key">${'ABCD'[position]}</span><span>${esc(q.options[i])}</span></button>`).join('')}</div>
       <div class="sim-bar">
         <button class="btn" id="flag">${sim.flags[key] ? '&#9873; Flagged' : '&#9872; Flag'}</button>
         <span style="flex:1"></span>
@@ -900,8 +921,8 @@ function renderSimQ() {
       </div>
       <div id="navwrap"></div>
     </main></div>`);
-  wireRunHeader(root, () => confirmExit(sim && Object.keys(sim.answers).length > 0, () => { if (simTimerId) clearInterval(simTimerId); guideLeaveActive('exam', renderSimHome); }));
-  root.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => { sim.answers[key] = +b.dataset.i; root.querySelectorAll('.opt').forEach(x => x.classList.toggle('picked', x === b)); }));
+  wireRunHeader(root, () => confirmExit(sim && Object.keys(sim.answers).length > 0, () => { coursePauseTools(); guideLeaveActive('exam', renderSimHome); }));
+  root.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => { sim.answers[key] = +b.dataset.i; saveResume('sim',sim); root.querySelectorAll('.opt').forEach(x => x.classList.toggle('picked', x === b)); }));
   root.querySelector('#flag').addEventListener('click', () => { sim.flags[key] = !sim.flags[key]; renderSimQ(); });
   root.querySelector('#prev').addEventListener('click', () => { if (sim.idx > 0) { sim.idx--; renderSimQ(); } });
   root.querySelector('#next').addEventListener('click', () => { if (sim.idx + 1 >= s.items.length) renderSimReview(); else { sim.idx++; renderSimQ(); } });
@@ -934,18 +955,20 @@ function renderSimReview() {
   root.appendChild(main); setView(root);
 }
 function submitSection() {
-  if (simTimerId) clearInterval(simTimerId);
+  if (!sim || sim.onBreak || sim.finishedAt) return;
+  if (simTimerId) clearInterval(simTimerId); simTimerId = null;
+  sim.attemptId ||= studyAttemptId();
   const s = sim.queue[sim.si], t = nowTs();
   let correct = 0;
   s.items.forEach((it, i) => {
     const chosen = sim.answers[s === sim.queue[sim.si] ? sim.si + ':' + i : ''];
     const c = chosen === it.q.answer; if (c) correct++;
     const cat = s.key === 'cars' ? 'CARS-' + it.q.skill.split('-')[1] : it.q.category;
-    QLOG.push({ qId: it.q.id, section: s.key, category: cat, correct: c, conf: 'unsure', ts: t, sim: true });
+    QLOG.push({ qId: it.q.id, section: s.key, category: cat, passage:it.passageId, correct:c, unanswered:chosen == null, conf:'unsure', ts:t, sim:true, attemptId:sim.attemptId });
     QHIST[it.q.id] = { n: (QHIST[it.q.id]?.n || 0) + 1, lastCorrect: c, ts: t };
   });
   saveQ();
-  sim.results.push({ key: s.key, correct, total: s.items.length, items: s.items, answers: Object.assign({}, sim.answers) });
+  sim.results.push({ key:s.key, sectionIndex:sim.si, correct, total:s.items.length, items:s.items, answers:Object.assign({},sim.answers), elapsedMs:sim.sectionDurationMs == null ? null : Math.max(0,Math.min(sim.sectionDurationMs,sim.sectionDurationMs-Math.max(0,sim.deadline-t))) });
   if (sim.si + 1 < sim.queue.length) { sim.si++; renderBreak(); }
   else { if (typeof bumpStreak === 'function') bumpStreak(); finishSim(); }
 }
@@ -965,13 +988,16 @@ function renderBreak() {
   root.appendChild(main); setView(root);
 }
 function finishSim() {
-  clearResume('sim');
-  const guided = guideCompleteActiveTask('exam');
+  if (simTimerId) clearInterval(simTimerId); simTimerId = null;
+  const complete = sim.results.length === sim.queue.length;
+  const guided = !sim.archived && complete && guideCompleteActiveTask('exam');
+  if (!sim.archived) { clearResume('sim'); courseArchiveExam(sim); }
+
   const tot = sim.results.reduce((a, r) => a + r.total, 0), cor = sim.results.reduce((a, r) => a + r.correct, 0);
   const root = el('<div></div>'); root.appendChild(topbar('mcat'));
   const secRows = sim.results.map(r => `<div class="calib-row"><span class="cl">${SIM_SECTIONS[r.key].abbr}</span><span class="cbar"><i style="width:${Math.round(100 * r.correct / r.total)}%"></i></span><span class="cv">${r.correct}/${r.total}</span></div>`).join('');
   const main = el(`<main class="panel"><section class="summary" style="border:0;margin-top:8px">
-    <span class="label">Exam complete</span>
+    <span class="label">${complete ? 'Practice complete' : 'Partial practice run'}</span>
     <div class="score">${Math.round(100 * cor / tot)}<span class="of">% &middot; ${cor}/${tot}</span></div>
     <div class="calib"><span class="label">By section</span>${secRows}</div>
     <div class="drill-review" id="dr"></div>
@@ -981,9 +1007,10 @@ function finishSim() {
   sim.results.forEach(r => r.items.forEach((it, i) => {
     const chosen = r.answers[sim.results.indexOf(r) + ':' + i];
     const c = chosen === it.q.answer;
-    dr.innerHTML += `<details class="rev" ${c ? '' : 'open'}><summary><span class="${c ? 'ok' : 'no'}">${c ? '&#10003;' : '&#10007;'}</span> ${SIM_SECTIONS[r.key].abbr} Q${i + 1}. ${esc(it.q.stem.slice(0, 80))}&hellip;</summary><div class="rev-body"><div class="rev-ans">You: ${chosen != null ? 'ABCD'[chosen] : '—'} &middot; Correct: <b>${'ABCD'[it.q.answer]}</b></div><p>${esc(it.q.explanation)}</p></div></details>`;
+    dr.innerHTML += `<details class="rev" ${c ? '' : 'open'}><summary><span class="${c ? 'ok' : 'no'}">${c ? '&#10003;' : '&#10007;'}</span> ${SIM_SECTIONS[r.key].abbr} Q${i + 1}. ${esc(it.q.stem.slice(0, 80))}&hellip;</summary><div class="rev-body"><div class="rev-ans">You: ${chosen != null ? McatV2Core.optionLabel(it.q,chosen) : '—'} &middot; Correct: <b>${McatV2Core.optionLabel(it.q,it.q.answer)}</b></div><p>${esc(it.q.explanation)}</p>${courseRelatedLinks(it.q.id)}</div></details>`;
   }));
   if (guided) main.querySelector('#guide').addEventListener('click', renderGuide);
+  courseExamReviewControls(main,sim);
   main.querySelector('#again').addEventListener('click', renderSimHome);
   main.querySelector('#lab').addEventListener('click', renderMistakeLab);
   main.querySelector('#home').addEventListener('click', renderMCAT);
@@ -1113,13 +1140,10 @@ function guideStartTask(task, plan) {
     if (spec && resume) {
       try { spec.resume(resume); return; } catch { clearResume(spec.key); }
     }
-  } else if (plan.active) {
-    const oldSpec = guideResumeSpec(plan.active.type);
-    if (oldSpec) clearResume(oldSpec.key);
   }
-  plan.active = { day: task.day, id: task.id, type: task.type };
-  saveGuidePlan(plan);
-  if (task.type === 'flash') { startFlash('all', task.newCards, 60, task.category); return; }
+  plan.active = { ...task };
+  studyTouch(plan);
+  if (task.type === 'flash') { startFlash('all', task.newCards, task.limitDue ?? 60, task.category, task.limitCards ?? Infinity); return; }
   if (task.type === 'drill') {
     let pool = MCAT.questions.filter(q => q.category === task.category);
     if (pool.length < task.questions) pool = MCAT.questions.filter(q => q.section === task.section);
@@ -1127,7 +1151,7 @@ function guideStartTask(task, plan) {
     drill = { qs: shuffleArr(pool).slice(0, Math.min(task.questions, pool.length)), idx: 0, mode: 'standard', results: [], scope: task.category || task.section };
     renderDrillQ(); return;
   }
-  if (task.type === 'cars') { const passage = guideLeastAttempted(MCAT.cars); if (passage) startCars(passage, false); else { guideClearActiveTask(); renderGuide(); } return; }
+  if (task.type === 'cars') { const passage = guideLeastAttempted(MCAT.cars); if (passage) startCars(passage, true); else { guideClearActiveTask(); renderGuide(); } return; }
   if (task.type === 'passage') {
     const sectionPool = MCAT.sci.filter(p => p.section === task.section);
     const passage = guideLeastAttempted(sectionPool.length ? sectionPool : MCAT.sci);
@@ -1142,7 +1166,7 @@ function guideCompleteActiveTask(expectedType) {
   plan.completed ||= {};
   plan.completed[guideTaskKey(plan.active.day, plan.active.id)] = nowTs();
   delete plan.active;
-  saveGuidePlan(plan);
+  studyTouch(plan);
   return true;
 }
 function guideLeaveActive(expectedType, fallback) {
@@ -1182,7 +1206,9 @@ function buildPlan(track) {
 function showPlan(host, plan) {
   host.innerHTML = plan.weeks.map(w => `<div class="guide-week"><span class="guide-week-num">Week ${w.n}</span><span class="guide-week-days">Days ${w.firstDay}–${w.lastDay}</span><strong>${w.phase}</strong><p>${esc(w.note)}</p></div>`).join('');
 }
-function renderGuide() {
+function renderGuide(useOriginal = false) {
+  coursePauseTools();
+  if(useOriginal !== true && typeof v2State !== 'undefined' && v2State.weekly.configured)return renderV2Today();
   const existing = guidePlan();
   const root = el('<div></div>'); root.appendChild(topbar('mcat'));
 
@@ -1190,12 +1216,18 @@ function renderGuide() {
     const defaultTrack = '120';
     const main = el(`<main class="panel guide-page">
       <button class="backbtn topback" id="back">Browse all study tools</button>
-      <header class="guide-setup-hero"><span class="label">Guided MCAT plan</span><h1>Choose your pace.</h1><p>Start today. Cortex will give you a short assignment each day, open the correct tools, track completion, and adapt every fourth day to weak areas.</p></header>
+      <header class="guide-setup-hero"><span class="label">Guided MCAT plan</span><h1>Choose your pace.</h1><p>Try one five-minute concept session, or choose a daily study plan. Choose 15, 30, or 60 minutes each day. Your reference schedule keeps a target date while unfinished work stays saved.</p></header>
+      <div id="course-today"></div>
+      <div id="guide-first-repair"></div>
+      <h2 class="guide-plan-choice">Or choose a daily plan</h2>
       <div class="guide-track-list">
-        ${TRACK_ORDER.map(key => { const track = TRACKS[key]; return `<button class="guide-track ${key === defaultTrack ? 'active' : ''}" data-track="${key}"><span><strong>${track.label}</strong><small>${track.minutes}</small></span><span>Target ${guideFormatDate(guideAddDays(guideDateKey(), track.days - 1))}</span></button>`; }).join('')}
+        ${TRACK_ORDER.map(key => { const track = TRACKS[key]; return `<button class="guide-track ${key === defaultTrack ? 'active' : ''}" data-track="${key}"><span><strong>${track.label}</strong><small>Reference pace: ${track.minutes}</small></span><span>Target ${guideFormatDate(guideAddDays(guideDateKey(), track.days - 1))}</span></button>`; }).join('')}
       </div>
       <div class="guide-setup-actions"><button class="btn btn-solid" id="begin">Start the 120-day plan &rarr;</button><span>Starting today · progress stays on this device</span></div>
     </main>`);
+    courseToday(main.querySelector('#course-today'));
+  v2Today(main.querySelector('#course-today'));
+    mountRepairDashboard(main.querySelector('#guide-first-repair'), false);
     let track = defaultTrack;
     main.querySelectorAll('[data-track]').forEach(button => button.addEventListener('click', () => {
       track = button.dataset.track;
@@ -1204,7 +1236,7 @@ function renderGuide() {
     }));
     main.querySelector('#begin').addEventListener('click', () => { saveGuidePlan(buildPlan(track)); renderGuide(); });
     main.querySelector('#back').addEventListener('click', renderMCAT);
-    root.appendChild(main); setView(root); window.scrollTo(0, 0); return;
+    root.appendChild(main); mcatWorkspace(root,'today'); studySetView(root); window.scrollTo(0, 0); return;
   }
 
   const plan = existing;
@@ -1217,18 +1249,25 @@ function renderGuide() {
   const phase = guidePhase(plan, day);
   const focus = guideFocusCategory(plan, day);
   const pct = tasks.length ? Math.round(done / tasks.length * 100) : 100;
-  const calendarPct = Math.round(day / plan.durationDays * 100);
+  const calendarStart = guideDateFromKey(plan.startDate), calendarNow = new Date();
+  const elapsedDays = Math.max(0, (Date.UTC(calendarNow.getFullYear(), calendarNow.getMonth(), calendarNow.getDate()) - Date.UTC(calendarStart.getFullYear(), calendarStart.getMonth(), calendarStart.getDate())) / DAY);
+  const calendarPct = Math.round(Math.min(1, elapsedDays / plan.durationDays) * 100);
+  const completedWork = Object.values(plan.completed || {}).filter(Boolean).length;
   const main = el(`<main class="panel guide-page">
     <button class="backbtn topback" id="back">All study tools</button>
     <header class="guide-day-hero">
       <span class="label">${esc(plan.label)} &middot; Day ${day} of ${plan.durationDays}</span>
-      <h1>${nextTask ? 'Today’s MCAT plan' : 'Today is complete'}</h1>
+      <h1>Today’s MCAT plan</h1>
       <p>${phase} &middot; Week ${Math.ceil(day / 7)}${focus ? ` &middot; ${focus.adaptive ? 'Weak-area review' : 'Focus'}: ${focus.id} ${esc(focus.title)}` : ''}</p>
-      <div class="guide-progress"><span><strong>${done}/${tasks.length}</strong> tasks complete</span><span>${pct}% today</span><span class="cog-course-bar"><i style="width:${pct}%"></i></span></div>
-      ${nextTask ? `<button class="btn btn-solid" id="guide-next">${activeTask ? 'Resume current task' : 'Start next task'} &rarr;</button>` : '<div class="guide-day-done">You did the work. Come back tomorrow for the next assignment.</div>'}
+      <p class="repair-fine">Choose the time you have today. Resume saved work, review due concepts, and keep moving.</p>
+
     </header>
+    <div id="course-today"></div><div id="guide-daily-session"></div>
+    <details class="guide-schedule"><summary><span><strong>Concept repair &amp; learning evidence</strong><small>All ten concepts and scheduled follow-up checks</small></span><i>Open</i></summary><div id="guide-repair"></div></details>
+    <details class="guide-schedule guide-original"><summary><span><strong>Original track assignments</strong><small>Optional extra work from your ${plan.track}-day schedule</small></span><i>Open</i></summary>
     <section class="guide-today">
-      <div class="guide-section-head"><span class="label">Today</span><span>Target date ${guideFormatDate(plan.targetDate)} &middot; ${calendarPct}% through plan</span></div>
+      <div class="guide-section-head"><span class="label">Today</span><span>Target date ${guideFormatDate(plan.targetDate)} &middot; Schedule elapsed: ${calendarPct}%</span></div>
+      ${nextTask ? `<button class="btn btn-solid" id="guide-next">${activeTask ? 'Resume current task' : 'Start next task'} &rarr;</button>` : '<div class="guide-day-done">Your planned assignments are complete. Continue a focus session or return tomorrow.</div>'}
       <div class="guide-task-list">${tasks.map((task, index) => {
         const completed = guideTaskDone(plan, day, task.id);
         return `<button class="guide-task ${completed ? 'done' : ''}" data-guide-task="${task.id}" ${completed ? 'disabled' : ''}>
@@ -1238,10 +1277,16 @@ function renderGuide() {
         </button>`;
       }).join('')}</div>
     </section>
+    </details>
     <details class="guide-schedule"><summary><span><strong>Full ${plan.track}-day schedule</strong><small>${plan.weeks.length} weeks · content, review, exams, and taper</small></span><i>Open</i></summary><div class="guide-week-list" id="guide-weeks"></div></details>
+    <p class="repair-fine">${completedWork} assignments completed in this plan. Calendar time and assignment completion do not measure understanding.</p>
     <div class="guide-plan-actions"><button class="ghostbtn" id="restart">Change or restart plan</button></div>
   </main>`);
-  const launch = task => guideStartTask(task, plan);
+  courseToday(main.querySelector('#course-today'));
+  v2Today(main.querySelector('#course-today'));
+  mountDailySession(main.querySelector('#guide-daily-session'),plan);
+  mountRepairDashboard(main.querySelector('#guide-repair'));
+  const launch = task => studyLaunchTask(task, guidePlan());
   if (nextTask) main.querySelector('#guide-next').addEventListener('click', () => launch(nextTask));
   main.querySelectorAll('[data-guide-task]').forEach(button => button.addEventListener('click', () => {
     const task = tasks.find(item => item.id === button.dataset.guideTask);
@@ -1251,10 +1296,14 @@ function renderGuide() {
   main.querySelector('#restart').addEventListener('click', () => {
     if (!confirm('Restart your guided MCAT plan? Completed plan days will be cleared. Your flashcard and question history will stay.')) return;
     localStorage.removeItem('cs-mcat-plan');
+    Object.values(courseState.units).forEach(r => delete r.guideTask); saveCourse();
+    // Keep unfinished study work, but detach assignments from the retired calendar.
+    RESUME_SPECS.forEach(spec => { const saved=loadResume(spec.key); if (saved?.guideTask) { delete saved.guideTask; saveResume(spec.key,saved); } });
+    if (repairState?.active?.guideTask) { delete repairState.active.guideTask; saveMcatRepair(); }
     renderGuide();
   });
   main.querySelector('#back').addEventListener('click', renderMCAT);
-  root.appendChild(main); setView(root); window.scrollTo(0, 0);
+  root.appendChild(main); mcatWorkspace(root,'today'); studySetView(root); window.scrollTo(0, 0);
 }
 
 /* ---------- Course Mapper ---------- */
@@ -1320,6 +1369,8 @@ document.addEventListener('keydown', (e) => {
 });
 
 function resetMcatState() {
+  courseState = McatCourseCore.normalize({});
+  repairState = McatRepairCore.empty(); repairSaveFailed = false;
   Object.keys(SRS).forEach(k => delete SRS[k]);
   Object.keys(QHIST).forEach(k => delete QHIST[k]);
   QLOG.length = 0;
@@ -1338,3 +1389,5 @@ function resetMcatState() {
 window.renderMCAT = renderMCAT;
 window.renderMCATEntry = renderMCATEntry;
 window.resetMcatState = resetMcatState;
+
+window.addEventListener('pagehide', () => { if (sim && simTimerId) saveResume('sim',sim); });

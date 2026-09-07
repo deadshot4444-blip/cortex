@@ -1,0 +1,714 @@
+{
+  "version": 1,
+  "reviewedOn": "2026-09-05",
+  "reviewStatus": "Original educational pilot. Sources are provided for each concept; this is not official AAMC content.",
+  "concepts": [
+    {
+      "id": "enzyme-inhibition",
+      "title": "Competitive enzyme inhibition",
+      "section": "bioBiochem",
+      "category": "1A",
+      "questionIds": [
+        "bb-biochem-3"
+      ],
+      "lesson": "Reversible competitive inhibitors compete with substrate for the active site. At a given substrate concentration, the reaction slows. Enough substrate can outcompete the inhibitor, so Vmax stays the same, while the apparent Km increases: more substrate is needed to reach half of Vmax.",
+      "distinction": "A slower reaction at one substrate concentration does not establish a lower Vmax. Look at the high-substrate plateau.",
+      "diagram": [
+        "Active-site competition",
+        "More substrate needed",
+        "Same eventual Vmax"
+      ],
+      "source": {
+        "title": "OpenStax Biology 2e · Enzymes",
+        "url": "https://openstax.org/books/biology-2e/pages/6-5-enzymes"
+      },
+      "diagnostic": {
+        "stem": "A reversible inhibitor competes only with substrate for the active site. What should happen at very high substrate concentration?",
+        "options": [
+          "The rate approaches the original Vmax",
+          "The enzyme permanently stops working",
+          "Vmax must fall to half its original value",
+          "The reaction equilibrium shifts toward substrate"
+        ],
+        "answer": 0,
+        "explanation": "Excess substrate can outcompete a reversible competitive inhibitor. The maximum catalytic rate is preserved.",
+        "id": "enzyme-inhibition-diagnose"
+      },
+      "checks": [
+        {
+          "stem": "An enzyme reaches 80 units/min without inhibitor. With compound X, twice as much substrate is needed to reach 40 units/min, but the high-substrate plateau remains 80. Which interpretation fits?",
+          "options": [
+            "Unchanged Km; lower Vmax",
+            "Lower Km; unchanged Vmax",
+            "Higher Km; higher Vmax",
+            "Higher apparent Km; unchanged Vmax"
+          ],
+          "answer": 3,
+          "explanation": "Half-maximal rate is still 40. Needing more substrate there means a higher apparent Km; the plateau establishes an unchanged Vmax.",
+          "id": "enzyme-inhibition-apply-1"
+        },
+        {
+          "stem": "A reversible inhibitor slows an enzyme at low substrate concentration. A researcher adds much more substrate and fully restores the original maximal rate. Which mechanism best fits?",
+          "options": [
+            "Permanent destruction of the enzyme",
+            "Pure noncompetitive inhibition",
+            "Competition for the active site",
+            "Removal of half of the enzyme molecules"
+          ],
+          "answer": 2,
+          "explanation": "Full recovery with excess substrate supports competitive inhibition, rather than loss of functional enzyme or pure noncompetitive inhibition.",
+          "id": "enzyme-inhibition-apply-2"
+        },
+        {
+          "stem": "Two rate-versus-substrate curves reach the same plateau. Curve B is shifted right: its half-maximum occurs at 12 mM rather than 4 mM. What changed?",
+          "options": [
+            "Vmax decreased threefold",
+            "Apparent Km increased threefold",
+            "Apparent Km decreased threefold",
+            "The enzyme concentration tripled"
+          ],
+          "answer": 1,
+          "explanation": "The half-maximum concentration changed from 4 to 12 mM. The common plateau means Vmax is unchanged.",
+          "id": "enzyme-inhibition-apply-3"
+        }
+      ]
+    },
+    {
+      "id": "buffers",
+      "title": "Buffers after adding strong acid",
+      "section": "chemPhys",
+      "category": "5A",
+      "questionIds": [
+        "cp-chem-1",
+        "cp-chem-r2-1"
+      ],
+      "lesson": "A buffer contains a weak acid HA and its conjugate base A−. Added strong acid first consumes A− and forms HA. Update those amounts before using pH = pKa + log10([A−]/[HA]). Equal amounts give pH = pKa. More conjugate base raises pH; more weak acid lowers it. This shortcut assumes both components remain in appreciable amounts.",
+      "distinction": "Do the acid–base reaction first. The original ratio no longer applies after adding strong acid.",
+      "diagram": [
+        "Add H+",
+        "A− becomes HA",
+        "Base/acid ratio falls"
+      ],
+      "source": {
+        "title": "OpenStax Chemistry 2e · Buffers",
+        "url": "https://openstax.org/books/chemistry-2e/pages/14-6-buffers"
+      },
+      "diagnostic": {
+        "stem": "A buffer initially has equal amounts of HA and A−. A small amount of strong acid is added. What happens first?",
+        "options": [
+          "HA is consumed and A− forms",
+          "A− is consumed and HA forms",
+          "Both amounts stay exactly the same",
+          "The weak acid becomes a strong acid"
+        ],
+        "answer": 1,
+        "explanation": "The conjugate base accepts the added H+. The base/acid ratio falls.",
+        "id": "buffers-diagnose"
+      },
+      "checks": [
+        {
+          "stem": "A buffer contains 0.30 mol HA and 0.30 mol A−. Adding 0.10 mol HCl causes negligible volume change. Which ratio belongs in the Henderson–Hasselbalch equation?",
+          "options": [
+            "0.20 / 0.40",
+            "0.30 / 0.30",
+            "0.40 / 0.20",
+            "0.10 / 0.30"
+          ],
+          "answer": 0,
+          "explanation": "HCl consumes 0.10 mol A−, leaving 0.20, and forms 0.10 mol HA, giving 0.40.",
+          "id": "buffers-apply-1"
+        },
+        {
+          "stem": "A buffer has pKa 6.0 and a conjugate-base/weak-acid ratio of 10. What is its approximate pH?",
+          "options": [
+            "5.0",
+            "6.0",
+            "10.0",
+            "7.0"
+          ],
+          "answer": 3,
+          "explanation": "pH = 6.0 + log10(10) = 7.0.",
+          "id": "buffers-apply-2"
+        },
+        {
+          "stem": "A buffer contains 0.40 mol HA and 0.20 mol A−. After adding 0.10 mol NaOH, what is the approximate pH relative to pKa?",
+          "options": [
+            "One unit below pKa",
+            "One unit above pKa",
+            "Equal to pKa",
+            "Impossible because all HA is consumed"
+          ],
+          "answer": 2,
+          "explanation": "OH− consumes 0.10 mol HA and creates 0.10 mol A−. Both amounts become 0.30 mol, so the ratio is 1.",
+          "id": "buffers-apply-3"
+        }
+      ]
+    },
+    {
+      "id": "equilibrium",
+      "title": "Equilibrium versus reaction speed",
+      "section": "chemPhys",
+      "category": "5E",
+      "questionIds": [
+        "cp-chem-2",
+        "cp-chem-r2-24"
+      ],
+      "lesson": "Equilibrium describes composition when forward and reverse rates match. A catalyst speeds both directions and does not change the equilibrium constant at fixed temperature. Compressing a gas mixture favors the side with fewer gas molecules, when the sides have different gas stoichiometries. For an exothermic forward reaction, heating favors the reverse direction.",
+      "distinction": "A faster approach to equilibrium does not necessarily produce more product at equilibrium.",
+      "diagram": [
+        "Change the conditions",
+        "Compare gas counts / heat",
+        "Predict composition separately from speed"
+      ],
+      "source": {
+        "title": "OpenStax Chemistry 2e · Shifting Equilibria",
+        "url": "https://openstax.org/books/chemistry-2e/pages/13-3-shifting-equilibria-le-chateliers-principle"
+      },
+      "diagnostic": {
+        "stem": "A catalyst is added to a reaction at equilibrium at fixed temperature. What changes?",
+        "options": [
+          "The equilibrium constant increases",
+          "More product must accumulate",
+          "Both directions become faster; equilibrium composition stays the same",
+          "Only the forward direction becomes faster"
+        ],
+        "answer": 2,
+        "explanation": "A catalyst lowers kinetic barriers in both directions without changing the equilibrium constant.",
+        "id": "equilibrium-diagnose"
+      },
+      "checks": [
+        {
+          "stem": "For 2X(g) ⇌ Y(g), the vessel volume is halved at constant temperature. Which shift restores equilibrium?",
+          "options": [
+            "No shift because both species are gases",
+            "Toward Y",
+            "The direction depends only on catalyst concentration",
+            "Toward X"
+          ],
+          "answer": 1,
+          "explanation": "Compression favors fewer gas molecules: one Y rather than two X.",
+          "id": "equilibrium-apply-1"
+        },
+        {
+          "stem": "For A(g) ⇌ 2B(g), expansion occurs at constant temperature. Which statement is correct?",
+          "options": [
+            "The mixture shifts toward B; K stays constant",
+            "The mixture shifts toward B; K increases",
+            "A catalyst is required for any shift",
+            "The mixture shifts toward A; K stays constant"
+          ],
+          "answer": 0,
+          "explanation": "Expansion favors the side with more gas molecules. At fixed temperature, K does not change.",
+          "id": "equilibrium-apply-2"
+        },
+        {
+          "stem": "The forward reaction releases heat. What does increasing temperature do to its equilibrium composition?",
+          "options": [
+            "Has no effect on any equilibrium",
+            "Acts exactly like adding a catalyst",
+            "Always favors products because reactions run faster",
+            "Favors reactants"
+          ],
+          "answer": 3,
+          "explanation": "Treat heat as a product of an exothermic forward reaction. Adding heat favors the reverse direction.",
+          "id": "equilibrium-apply-3"
+        }
+      ]
+    },
+    {
+      "id": "circuits",
+      "title": "Series versus parallel resistors",
+      "section": "chemPhys",
+      "category": "4C",
+      "questionIds": [
+        "cp-physics-3",
+        "cp-physics-r2-8"
+      ],
+      "lesson": "In series, every resistor carries the same current and resistances add. In parallel, every branch has the same voltage, currents add, and reciprocal resistances add. With an ideal fixed-voltage battery, adding a parallel branch lowers equivalent resistance and increases total current. Check that parallel resistance is smaller than the smallest branch resistance.",
+      "distinction": "Identify the connections before using V = IR. Branch current and total battery current are different quantities.",
+      "diagram": [
+        "Series: one path → same current",
+        "Parallel: shared ends → same voltage",
+        "Find equivalent R → use I = V/R"
+      ],
+      "source": {
+        "title": "OpenStax University Physics 2 · Resistors",
+        "url": "https://openstax.org/books/university-physics-volume-2/pages/10-2-resistors-in-series-and-parallel"
+      },
+      "diagnostic": {
+        "stem": "Two resistors connect across the same two battery terminals. Which quantity must be equal for both resistors?",
+        "options": [
+          "Resistance of each resistor",
+          "Current through each resistor",
+          "Power dissipated by each resistor",
+          "Voltage across each resistor"
+        ],
+        "answer": 3,
+        "explanation": "Parallel branches share the same two electrical nodes, so they have the same voltage.",
+        "id": "circuits-diagnose"
+      },
+      "checks": [
+        {
+          "stem": "Two 12 Ω resistors are connected in parallel across an ideal 6 V battery. What current does the battery supply?",
+          "options": [
+            "2.0 A",
+            "0.25 A",
+            "1.0 A",
+            "0.50 A"
+          ],
+          "answer": 2,
+          "explanation": "Two equal parallel resistors give 6 Ω. Total current is 6 V / 6 Ω = 1 A; each branch carries 0.5 A.",
+          "id": "circuits-apply-1"
+        },
+        {
+          "stem": "A 2 Ω resistor and a 4 Ω resistor are in series across an ideal 12 V battery. What current flows through the 4 Ω resistor?",
+          "options": [
+            "1 A",
+            "2 A",
+            "3 A",
+            "6 A"
+          ],
+          "answer": 1,
+          "explanation": "Series resistance is 6 Ω. The same 12/6 = 2 A flows through both resistors.",
+          "id": "circuits-apply-2"
+        },
+        {
+          "stem": "A second identical resistor is added in parallel to a resistor on an ideal fixed-voltage battery. What happens to total battery current?",
+          "options": [
+            "It doubles",
+            "It becomes zero",
+            "It halves",
+            "It stays constant"
+          ],
+          "answer": 0,
+          "explanation": "The equivalent resistance halves, so total current doubles at fixed voltage.",
+          "id": "circuits-apply-3"
+        }
+      ]
+    },
+    {
+      "id": "dna-replication",
+      "title": "DNA synthesis and proofreading",
+      "section": "bioBiochem",
+      "category": "1B",
+      "questionIds": [
+        "bb-bio-1"
+      ],
+      "lesson": "DNA polymerase adds nucleotides to a growing strand’s 3′ end, so synthesis proceeds 5′ to 3′. The template is read in the opposite direction. Proofreading removes a mismatched terminal nucleotide using 3′-to-5′ exonuclease activity. Removing proofreading increases errors without reversing the direction of synthesis.",
+      "distinction": "The direction of error removal is not the direction in which the new strand grows.",
+      "diagram": [
+        "Read template 3′ → 5′",
+        "Extend new DNA 5′ → 3′",
+        "Proofread backward from the 3′ end"
+      ],
+      "source": {
+        "title": "OpenStax Biology 2e · DNA Repair",
+        "url": "https://openstax.org/books/biology-2e/pages/14-6-dna-repair"
+      },
+      "diagnostic": {
+        "stem": "A DNA strand is growing during replication. Where does the polymerase add the next nucleotide?",
+        "options": [
+          "The new strand’s 3′ end",
+          "The new strand’s 5′ end",
+          "Either end with equal probability",
+          "The middle of a completed strand"
+        ],
+        "answer": 0,
+        "explanation": "Addition requires the growing strand’s free 3′ hydroxyl, producing 5′-to-3′ synthesis.",
+        "id": "dna-replication-diagnose"
+      },
+      "checks": [
+        {
+          "stem": "A polymerase retains nucleotide addition but loses proofreading. Which change is most likely?",
+          "options": [
+            "New strands now grow 3′ to 5′",
+            "RNA is synthesized instead of DNA",
+            "All nucleotide addition becomes impossible",
+            "More mismatches remain in newly synthesized DNA"
+          ],
+          "answer": 3,
+          "explanation": "Proofreading and polymerization are distinct activities. Losing correction increases errors without changing growth direction.",
+          "id": "dna-replication-apply-1"
+        },
+        {
+          "stem": "A template segment is written 3′-TACG-5′. Which new DNA strand is complementary and antiparallel?",
+          "options": [
+            "5′-TACG-3′",
+            "3′-ATGC-5′",
+            "5′-ATGC-3′",
+            "5′-AUGC-3′"
+          ],
+          "answer": 2,
+          "explanation": "Base pairing gives A–T and G–C; the new DNA runs antiparallel to the template and contains T, not U.",
+          "id": "dna-replication-apply-2"
+        },
+        {
+          "stem": "A replicating polymerase has just inserted a mismatched base. Which activity can remove it from the growing terminus?",
+          "options": [
+            "5′-to-3′ strand extension",
+            "3′-to-5′ exonuclease proofreading",
+            "Joining fragments with ligase",
+            "Unwinding DNA with helicase"
+          ],
+          "answer": 1,
+          "explanation": "Proofreading removes the incorrect nucleotide from the 3′ end before synthesis continues.",
+          "id": "dna-replication-apply-3"
+        }
+      ],
+      "additionalSources": [
+        {
+          "title": "OpenStax Biology 2e · DNA Replication in Prokaryotes",
+          "url": "https://openstax.org/books/biology-2e/pages/14-4-dna-replication-in-prokaryotes"
+        }
+      ]
+    },
+    {
+      "id": "inheritance",
+      "title": "Family evidence and recessive inheritance",
+      "section": "bioBiochem",
+      "category": "1C",
+      "questionIds": [
+        "bb-bio-4"
+      ],
+      "lesson": "For a fully penetrant autosomal recessive condition, an affected child has genotype aa. If both biological parents are unaffected, assume the simple Mendelian model: each parent is Aa. Each pregnancy has a 1/4 chance of aa. Among unaffected children of Aa × Aa, the possible genotypes are AA, Aa, Aa, so the carrier probability is 2/3.",
+      "distinction": "Use the family evidence when it is given. A population allele frequency does not replace known parental genotypes.",
+      "diagram": [
+        "Aa × Aa",
+        "AA · Aa · Aa · aa",
+        "Among unaffected: 2 carriers out of 3"
+      ],
+      "source": {
+        "title": "OpenStax Biology 2e · Laws of Inheritance",
+        "url": "https://openstax.org/books/biology-2e/pages/12-3-laws-of-inheritance"
+      },
+      "diagnostic": {
+        "stem": "Under a fully penetrant autosomal recessive model, two unaffected parents have an affected child. What are the parents’ genotypes?",
+        "options": [
+          "AA and AA",
+          "Aa and Aa",
+          "AA and aa",
+          "aa and aa"
+        ],
+        "answer": 1,
+        "explanation": "The affected child received a recessive allele from each parent. Unaffected parents must therefore both be carriers.",
+        "id": "inheritance-diagnose"
+      },
+      "checks": [
+        {
+          "stem": "Two carriers of a fully penetrant autosomal recessive condition have one affected child. What is the probability their next child is affected?",
+          "options": [
+            "1/4",
+            "1/2",
+            "3/4",
+            "The population allele frequency squared"
+          ],
+          "answer": 0,
+          "explanation": "Each pregnancy is an independent Aa × Aa cross. Prior outcomes do not change its 1/4 risk.",
+          "id": "inheritance-apply-1"
+        },
+        {
+          "stem": "An unaffected child has two Aa parents. Under a fully penetrant recessive model, what is the probability the child is a carrier?",
+          "options": [
+            "1/4",
+            "1/2",
+            "3/4",
+            "2/3"
+          ],
+          "answer": 3,
+          "explanation": "Condition on being unaffected: exclude aa. Two of the remaining three equally weighted outcomes are Aa.",
+          "id": "inheritance-apply-2"
+        },
+        {
+          "stem": "An Aa individual and an AA individual have a child. Under the simple fully penetrant recessive model, what is the chance of an affected child?",
+          "options": [
+            "1/4",
+            "1/2",
+            "0",
+            "3/4"
+          ],
+          "answer": 2,
+          "explanation": "The AA parent always contributes A, so the child can be AA or Aa, but not aa.",
+          "id": "inheritance-apply-3"
+        }
+      ]
+    },
+    {
+      "id": "classical-conditioning",
+      "title": "Classical conditioning: stimulus or response",
+      "section": "psychSoc",
+      "category": "7C",
+      "questionIds": [
+        "ps-psych-9"
+      ],
+      "lesson": "An unconditioned stimulus elicits a response without the relevant training. A previously neutral cue becomes a conditioned stimulus after association with that event. The learned reaction to that cue is the conditioned response. Separate the event from the reaction, and ask whether its effect depended on learning.",
+      "distinction": "The conditioned stimulus is the cue. The conditioned response is what the organism does or feels in response to it.",
+      "diagram": [
+        "Before learning: neutral cue",
+        "Pair cue with unconditioned stimulus",
+        "After learning: cue → conditioned response"
+      ],
+      "source": {
+        "title": "OpenStax Psychology 2e · Classical Conditioning",
+        "url": "https://openstax.org/books/psychology-2e/pages/6-2-classical-conditioning"
+      },
+      "diagnostic": {
+        "stem": "After a tone is repeatedly paired with food, a dog salivates to the tone alone. What is the tone now?",
+        "options": [
+          "A conditioned response",
+          "An unconditioned stimulus",
+          "A conditioned stimulus",
+          "An unconditioned response"
+        ],
+        "answer": 2,
+        "explanation": "The tone is a learned predictive cue. Salivation to it is the conditioned response.",
+        "id": "classical-conditioning-diagnose"
+      },
+      "checks": [
+        {
+          "stem": "A previously neutral clinic odor is repeatedly paired with a nausea-inducing procedure. Later, the odor alone elicits nausea. What is the nausea elicited by the odor?",
+          "options": [
+            "An unconditioned stimulus",
+            "A conditioned response",
+            "A neutral stimulus",
+            "A conditioned stimulus"
+          ],
+          "answer": 1,
+          "explanation": "The nausea is a response. Because this reaction to the odor was learned, it is conditioned.",
+          "id": "classical-conditioning-apply-1"
+        },
+        {
+          "stem": "Before training, an air puff automatically elicits a blink. A light is then paired with the puff. What role does the air puff have?",
+          "options": [
+            "Unconditioned stimulus",
+            "Conditioned response",
+            "Neutral response",
+            "Conditioned stimulus"
+          ],
+          "answer": 0,
+          "explanation": "The air puff elicits blinking without the pairing history. It is the unconditioned stimulus.",
+          "id": "classical-conditioning-apply-2"
+        },
+        {
+          "stem": "After a bell is paired with food, a dog salivates to the bell. Which observation identifies a conditioned response?",
+          "options": [
+            "The sound of the bell itself",
+            "The original salivation to food before pairing",
+            "Food entering the mouth",
+            "Salivation when only the bell sounds"
+          ],
+          "answer": 3,
+          "explanation": "Salivation to the learned cue is the conditioned response; the bell is the stimulus.",
+          "id": "classical-conditioning-apply-3"
+        }
+      ]
+    },
+    {
+      "id": "reinforcement-schedules",
+      "title": "Reinforcement schedules",
+      "section": "psychSoc",
+      "category": "7C",
+      "questionIds": [
+        "ps-psych-10"
+      ],
+      "lesson": "Ratio schedules depend on the number of responses. Interval schedules reward the first response after time has passed. Fixed schedules use a predictable requirement; variable schedules change it unpredictably. A variable-ratio schedule rewards an unpredictable response count. An interval schedule is not simply a reward delivered automatically on a clock.",
+      "distinction": "First decide count versus time. Then decide predictable versus unpredictable.",
+      "diagram": [
+        "Count? Ratio · Time? Interval",
+        "Predictable? Fixed",
+        "Unpredictable? Variable"
+      ],
+      "source": {
+        "title": "OpenStax Psychology 2e · Operant Conditioning",
+        "url": "https://openstax.org/books/psychology-2e/pages/6-3-operant-conditioning"
+      },
+      "diagnostic": {
+        "stem": "A reward follows every fifth button press. Which schedule is this?",
+        "options": [
+          "Variable interval",
+          "Variable ratio",
+          "Fixed interval",
+          "Fixed ratio"
+        ],
+        "answer": 3,
+        "explanation": "The requirement is a response count, and it is predictable: five presses.",
+        "id": "reinforcement-schedules-diagnose"
+      },
+      "checks": [
+        {
+          "stem": "A researcher rewards the first lever press after an unpredictable waiting period. Which schedule is this?",
+          "options": [
+            "Fixed ratio",
+            "Variable ratio",
+            "Variable interval",
+            "Fixed interval"
+          ],
+          "answer": 2,
+          "explanation": "Eligibility depends on variable elapsed time, followed by a response, rather than a variable number of presses.",
+          "id": "reinforcement-schedules-apply-1"
+        },
+        {
+          "stem": "A reward occurs after 2, then 9, then 4 responses, with the required count unpredictable. Which schedule is this?",
+          "options": [
+            "Fixed interval",
+            "Variable ratio",
+            "Fixed ratio",
+            "Variable interval"
+          ],
+          "answer": 1,
+          "explanation": "The changing requirement counts responses, making this variable ratio.",
+          "id": "reinforcement-schedules-apply-2"
+        },
+        {
+          "stem": "The first response after each 60-second waiting period earns a reward. Which schedule is this?",
+          "options": [
+            "Fixed interval",
+            "Variable interval",
+            "Fixed ratio",
+            "Variable ratio"
+          ],
+          "answer": 0,
+          "explanation": "A predictable amount of elapsed time makes reinforcement available for the next response.",
+          "id": "reinforcement-schedules-apply-3"
+        }
+      ]
+    },
+    {
+      "id": "operant-conditioning",
+      "title": "Reinforcement versus punishment",
+      "section": "psychSoc",
+      "category": "7C",
+      "questionIds": [],
+      "lesson": "Reinforcement increases a behavior; punishment decreases it. Positive means adding a consequence, and negative means removing one. Classify by the observed change in behavior, not whether the consequence sounds pleasant. Removing an unpleasant sound and making a behavior more frequent is negative reinforcement.",
+      "distinction": "Negative does not mean punishment. Use two decisions: added or removed, then behavior up or down.",
+      "diagram": [
+        "Added or removed?",
+        "Behavior increases → reinforcement",
+        "Behavior decreases → punishment"
+      ],
+      "source": {
+        "title": "OpenStax Psychology 2e · Operant Conditioning",
+        "url": "https://openstax.org/books/psychology-2e/pages/6-3-operant-conditioning"
+      },
+      "diagnostic": {
+        "stem": "Buckling a seat belt stops a loud chime, and the driver begins buckling sooner. Which process strengthens buckling?",
+        "options": [
+          "Negative reinforcement",
+          "Positive reinforcement",
+          "Negative punishment",
+          "Positive punishment"
+        ],
+        "answer": 0,
+        "explanation": "An unpleasant sound is removed and buckling increases: negative reinforcement.",
+        "id": "operant-conditioning-diagnose"
+      },
+      "checks": [
+        {
+          "stem": "A student loses game access after repeatedly interrupting. Interruptions become less frequent. What is this?",
+          "options": [
+            "Negative reinforcement",
+            "Positive punishment",
+            "Positive reinforcement",
+            "Negative punishment"
+          ],
+          "answer": 3,
+          "explanation": "Something is removed and the target behavior decreases: negative punishment.",
+          "id": "operant-conditioning-apply-1"
+        },
+        {
+          "stem": "A rat presses a lever, receives food, and subsequently presses more often. What process is operating?",
+          "options": [
+            "Negative reinforcement",
+            "Positive punishment",
+            "Positive reinforcement",
+            "Negative punishment"
+          ],
+          "answer": 2,
+          "explanation": "Food is added and lever pressing increases: positive reinforcement.",
+          "id": "operant-conditioning-apply-2"
+        },
+        {
+          "stem": "A warning sound follows a particular action, and that action becomes less frequent. What is this?",
+          "options": [
+            "Negative punishment",
+            "Positive punishment",
+            "Negative reinforcement",
+            "Positive reinforcement"
+          ],
+          "answer": 1,
+          "explanation": "A consequence is added and the behavior decreases: positive punishment.",
+          "id": "operant-conditioning-apply-3"
+        }
+      ]
+    },
+    {
+      "id": "study-design",
+      "title": "Association versus causal evidence",
+      "section": "psychSoc",
+      "category": "7C",
+      "questionIds": [
+        "ps-psych-15"
+      ],
+      "lesson": "A correlation can arise from causation, reverse causation, or a third variable. Random assignment helps balance confounders across treatment groups on average. Random sampling addresses who is represented. An active control matches attention and expectations to help isolate a treatment’s specific effect. No single design feature guarantees a flawless study.",
+      "distinction": "Random assignment and random sampling answer different questions. A control should address the alternative explanation you are trying to exclude.",
+      "diagram": [
+        "Sampling → who is represented",
+        "Assignment → how groups are formed",
+        "Matched control → what differs between groups"
+      ],
+      "source": {
+        "title": "OpenStax Psychology 2e · Analyzing Findings",
+        "url": "https://openstax.org/books/psychology-2e/pages/2-3-analyzing-findings"
+      },
+      "diagnostic": {
+        "stem": "A survey finds that students who use flashcards earn higher scores. What can this result alone establish?",
+        "options": [
+          "Flashcards caused the higher scores",
+          "Flashcard use and scores are associated",
+          "Higher scores cannot influence study habits",
+          "All other group differences have been eliminated"
+        ],
+        "answer": 1,
+        "explanation": "Observational association alone cannot exclude confounding or reverse causation.",
+        "id": "study-design-diagnose"
+      },
+      "checks": [
+        {
+          "stem": "A study randomly assigns volunteers to a learning app or an equally engaging control app with the same study time. What does the active control help address?",
+          "options": [
+            "Benefits caused by attention or engagement rather than the specific app content",
+            "Whether the volunteers represent the entire population",
+            "Whether every participant has identical ability",
+            "Whether the result can never occur by chance"
+          ],
+          "answer": 0,
+          "explanation": "Matching attention, engagement, and time helps separate the specific content effect from those alternative explanations.",
+          "id": "study-design-apply-1"
+        },
+        {
+          "stem": "Researchers randomly sample adults from a city but let each adult choose a treatment. Which limitation remains?",
+          "options": [
+            "The sample must be unrepresentative",
+            "Random sampling guarantees equal treatment groups",
+            "Causal inference is certain because selection was random",
+            "Treatment groups may differ because of self-selection"
+          ],
+          "answer": 3,
+          "explanation": "Random sampling improves representation; it does not replace random assignment to treatments.",
+          "id": "study-design-apply-2"
+        },
+        {
+          "stem": "A study randomly assigns participants to two conditions. What is the main purpose of this assignment?",
+          "options": [
+            "Guarantee a nationally representative sample",
+            "Guarantee identical groups in every small sample",
+            "Reduce systematic confounding between conditions on average",
+            "Eliminate the need to measure outcomes"
+          ],
+          "answer": 2,
+          "explanation": "Random assignment reduces systematic baseline differences on average, but chance imbalances remain possible.",
+          "id": "study-design-apply-3"
+        }
+      ]
+    }
+  ]
+}
