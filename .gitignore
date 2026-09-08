@@ -1,13 +1,21 @@
-# Regenerable generation artifacts (large, not needed to run or deploy)
+# Private working context (Codex/Claude handoff logs, audits, ebook source text,
+# retired-course archives). Never publish: this repo is public.
+context/
+
+# Regenerable content-generation artifacts (large, not needed to run or deploy)
 data/raw/
+
+# Local tooling state
+node_modules/
+scripts/node_modules/
+output/
+.playwright-cli/
+.claude/
+scripts/.og-frame.jpg
 
 # OS / editor junk
 .DS_Store
 *.swp
-
-# Local agent/editor config (machine-specific, e.g. preview launch.json)
-.claude/
-
-# Local build outputs
-node_modules/
+*.log
 *.zip
+__pycache__/
