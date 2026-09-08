@@ -188,29 +188,4 @@ test('Learning completion survives save recovery and repeat completion without c
   assert.equal(s.run('LTL_PROGRESS.general.completed.filter(id=>id==="g1").length'),1);
   assert.equal(JSON.parse(s.data.get('cs-ltl-progress-v1')).general.lessons.g1.completedAt,completedAt);
 });
-test('Psychology preserves prior module records instead of resetting them on route restoration',()=>{
-  const prior={module:'semester-memory',xp:90,answered:5,correct:3,learned:{'older-lesson':1},q:{'older-question':{box:2,a:5,c:3,ts:77}},starred:{'older-question':true}};
-  const raw=JSON.stringify(prior),s=setup(new Map([['cs-cogpsych',raw]]));s.load(['cogpsych.js']);
-  assert.equal(s.data.get('cs-cogpsych'),raw);
-  assert.equal(s.run('COG.previousModule'),'semester-memory');assert.equal(s.run('COG.xp'),90);
-  assert.equal(s.run('COG.learned["older-lesson"]'),1);assert.equal(s.run('COG.q["older-question"].ts'),77);
-  assert.equal(s.run('cogSave()'),true);
-  const saved=JSON.parse(s.data.get('cs-cogpsych'));assert.deepEqual(saved.q,prior.q);assert.deepEqual(saved.learned,prior.learned);
-});
-test('Psychology malformed records remain available for recovery without default replacement',()=>{
-  for(const bad of [[],{learned:[]},{lessons:{x:{steps:[]}}}]){
-    const raw=JSON.stringify(bad),s=setup(new Map([['cs-cogpsych',raw]]));s.load(['cogpsych.js']);
-    assert.equal(s.run('StudyStorage.paused'),true);assert.equal(s.run('cogSave()'),false);assert.equal(s.data.get('cs-cogpsych'),raw);
-  }
-});
-test('Psychology written responses survive failed saving and retry',()=>{
-  const s=setup();s.load(['cogpsych.js','cogpsych-learn.js']);s.failWrite(key=>key==='cs-cogpsych');
-  const lesson=JSON.parse(fs.readFileSync('data/cogpsych-learn.json','utf8'))[0];lesson.id='foundation';lesson.steps[1].id='explain';
-  s.run(`var lesson=${JSON.stringify(lesson)};var record=cogLessonRecord(lesson);record.steps.explain={draft:"First explanation"};`);
-  assert.equal(s.run('cogSave()'),false);s.run('record.steps.explain.draft="Latest explanation";record.steps.explain.revealedAt=123;cogSave()');
-  s.failWrite(null);assert.equal(s.run('StudyStorage.retry()'),true);
-  const restored=setup(new Map(s.data));restored.load(['cogpsych.js','cogpsych-learn.js']);
-  assert.equal(restored.run('COG.lessons.foundation.steps.explain.draft'),'Latest explanation');
-  assert.equal(restored.run('cogStepReady({kind:"ask"},COG.lessons.foundation.steps.explain)'),true);
-});
 process.exitCode=failures?1:0;

@@ -362,10 +362,6 @@ async function renderNeuroLibrary() {
 
 /* ---------- subjects ---------- */
 
-function renderNeuroSubjects() {
-  renderNeuroLibrary();
-}
-
 function renderNeuroSubject(subjectId) {
   const sub = neuroSubject(subjectId);
   if (!sub) { renderNeuroEngineering(); return; }
@@ -827,7 +823,7 @@ function mountNeuroCodeSandbox(lesson, codeId, opts, shell) {
   const entry = neuroCodeEntry(codeId);
   const work = opts.work || (entry.current ||= neuroNewCodeWork(lesson));
   lesson = work.content;
-  const guidance = neuroCodeGuidance(lesson), last = neuroCodeLastCheck(work);
+  const last = neuroCodeLastCheck(work);
   const reflection = !lesson.checks && !neuroCodeIsRunnablePython(lesson.solution);
   saveNeuroProg();
   const sandbox = el(`<div class="neuro-sandbox"><span class="label">${reflection ? 'Written practice' : 'Python practice'}</span>

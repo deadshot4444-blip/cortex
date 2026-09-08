@@ -201,6 +201,4 @@ window.addEventListener('study-storage-recovered', () => {
   const params = new URLSearchParams(location.search);
   if (location.pathname === '/medicine' && params.get('tool') === 'ecg') renderEKG(params.get('mode'), { record: params.get('record'), focus: params.get('focus') });
 });
-window._resetEkgMemory = () => { EKG_PROG = defaultEkgProg(); };
 window.ekgHubStats = ekgHubStats;
-window.EKG_RHYTHM_TOTAL = ECGTrace.kinds.length;

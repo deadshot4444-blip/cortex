@@ -3,7 +3,8 @@ const Core = require('../academy-portfolio-core.js'), Backup = require('../study
 const read = path => JSON.parse(fs.readFileSync(path)), clone = value => JSON.parse(JSON.stringify(value));
 function fixture() {
   const anatomy = read('data/anatomy-foundations.json').lessons[0], medicine = read('data/medicine-foundations.json').lessons[0];
-  const psych = read('data/cogpsych-learn.json')[0], project = read('data/neuro-projects.json').projects[0];
+  // Retired Cognitive Psychology records stay readable; the course content itself is no longer shipped.
+  const psych = { id: 'psych-retired-1', revision: 1, title: 'Retired psychology lesson' }, project = read('data/neuro-projects.json').projects[0];
   const a = (content, steps) => ({ content, startedAt: 100, completedAt: 200, steps });
   const data = {
     'cs-mcat-course-v1': {units:{mcat1:{completedAt:200,notes:'My current MCAT note',attempts:[{qId:'first',kind:'check',chosen:0,correct:false,ts:100,confidence:'unsure',questionSnapshot:{stem:'Original MCAT wording',options:['first','second']}},{qId:'later',kind:'delayed',chosen:1,correct:true,ts:86400200,questionSnapshot:{stem:'A different delayed question',options:['first','second']}}],help:{first:{questionSnapshot:{options:['helpA','helpB']},chosen:1}},privateExtra:'MCAT_PRIVATE_EXTRA'}}},

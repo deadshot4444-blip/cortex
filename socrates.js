@@ -193,7 +193,6 @@ async function renderLearnTrack(trackId, requestedLessonId = null) {
   const completedCount = track.lessons.filter(lesson => ltlCompleted(track.id, lesson.id)).length;
   const coursePct = Math.round(100 * completedCount / track.lessons.length);
   const nextLesson = ltlNextLesson(track);
-  const nextIndex = track.lessons.findIndex(lesson => lesson.id === nextLesson.id);
   const resumeStep = nextLesson.id === progress.lastLesson ? Math.max(0, Number(progress.lastStep) || 0) : 0;
   const isComplete = completedCount === track.lessons.length;
   const root = el('<div></div>');

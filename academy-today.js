@@ -78,15 +78,6 @@
       if (progress.lastLesson && !progress.lessons?.[progress.lastLesson]?.completedAt) Object.assign(result.socrates,
         { url: courseUrl('socrates', { track, lesson: progress.lastLesson, step: (progress.lastStep || 0) + 1 }), label: 'Continue learning methods' });
     }
-    if (result.cogpsych) {
-      const cog = read('cs-cogpsych');
-      result.cogpsych.completed = Object.keys(cog.learned || {}).length;
-      const cogActive = Object.entries(cog.lessons || {}).filter(([id, item]) => object(item) && !cog.learned?.[id]).sort((a, b) => (b[1].startedAt || 0) - (a[1].startedAt || 0))[0];
-      if (cogActive) Object.assign(result.cogpsych, { url: courseUrl('cogpsych', { view: 'lesson', lesson: cogActive[0], step: (cogActive[1].index || 0) + 1 }), label: 'Resume saved psychology lesson' });
-      const research = read('cs-cogpsych-research-v1');
-      const investigation = Array.isArray(research.runs) && research.runs.find(run => run.id === research.activeId && !run.completedAt);
-      if (!cogActive && investigation) Object.assign(result.cogpsych, { url: courseUrl('cogpsych', { view: 'research', demo: investigation.demo, run: investigation.id }), label: 'Resume saved research investigation' });
-    }
     const shift = read('cs-clinical-shift-v1');
     result.practice.completed = Object.values(shift.completed || {}).filter(item => item?.attempts > 0).length;
     result.practice.unit = 'distinct encounters completed';

@@ -10,10 +10,7 @@ from pathlib import Path
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "social-card.png"
-OG_JPG = ROOT / "og.jpg"
-OG_V2 = ROOT / "og-v2.jpg"
-OG_V3 = ROOT / "og-v3.jpg"
+# og-v4.jpg is the URL published by index.html, share.html and _headers; keep the name stable.
 OG_V4 = ROOT / "og-v4.jpg"
 VIDEO = ROOT / "assets" / "neuro-bg.mp4"
 FRAME = ROOT / "scripts" / ".og-frame.jpg"
@@ -274,18 +271,9 @@ def main() -> int:
     img = render_card()
     img = img.filter(ImageFilter.UnsharpMask(radius=0.8, percent=110, threshold=2))
 
-    OUT.parent.mkdir(parents=True, exist_ok=True)
-    img.save(OUT, "PNG", optimize=True)
     jpg_opts = dict(format="JPEG", quality=95, subsampling=0, optimize=True, progressive=False)
-    img.save(OG_JPG, **jpg_opts)
-    img.save(OG_V2, **jpg_opts)
-    img.save(OG_V3, **jpg_opts)
     img.save(OG_V4, **jpg_opts)
 
-    print(f"Wrote {OUT} ({OUT.stat().st_size} bytes)")
-    print(f"Wrote {OG_JPG} ({OG_JPG.stat().st_size} bytes)")
-    print(f"Wrote {OG_V2} ({OG_V2.stat().st_size} bytes)")
-    print(f"Wrote {OG_V3} ({OG_V3.stat().st_size} bytes)")
     print(f"Wrote {OG_V4} ({OG_V4.stat().st_size} bytes)")
     return 0
 

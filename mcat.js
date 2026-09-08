@@ -611,10 +611,6 @@ function currentPracticeLog() {
   const categories = new Map([...MCAT.questions, ...MCAT.sci.flatMap(p => p.questions)].map(q => [q.id, q.category]));
   return QLOG.map(record => categories.has(record.qId) ? { ...record, category: categories.get(record.qId) } : record);
 }
-function catStat(catId) {
-  const log = currentPracticeLog().filter(x => x.category === catId);
-  return { n: log.length, acc: log.length ? Math.round(100 * log.filter(x => x.correct).length / log.length) : 0 };
-}
 function renderCategory(cat, con, secKey) {
   const cards = MCAT.cards.filter(c => c.category === cat.id);
   const qs = MCAT.questions.filter(q => q.category === cat.id);
@@ -1344,13 +1340,11 @@ function renderGuide(useOriginal = false) {
   const plan = existing;
   const day = guidePlanDay(plan);
   const tasks = guideDayTasks(plan, day);
-  const done = tasks.filter(task => guideTaskDone(plan, day, task.id)).length;
   const activeTask = tasks.find(task => !guideTaskDone(plan, day, task.id)
     && plan.active?.day === day && plan.active?.id === task.id && plan.active?.type === task.type);
   const nextTask = activeTask || tasks.find(task => !guideTaskDone(plan, day, task.id));
   const phase = guidePhase(plan, day);
   const focus = guideFocusCategory(plan, day);
-  const pct = tasks.length ? Math.round(done / tasks.length * 100) : 100;
   const calendarStart = guideDateFromKey(plan.startDate), calendarNow = new Date();
   const elapsedDays = Math.max(0, (Date.UTC(calendarNow.getFullYear(), calendarNow.getMonth(), calendarNow.getDate()) - Date.UTC(calendarStart.getFullYear(), calendarStart.getMonth(), calendarStart.getDate())) / DAY);
   const calendarPct = Math.round(Math.min(1, elapsedDays / plan.durationDays) * 100);

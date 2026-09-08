@@ -3,7 +3,7 @@ const fs = require('node:fs');
 const vm = require('node:vm');
 const source = fs.readFileSync('academy-today.js', 'utf8').replace('window.AcademyToday = Object.freeze({ render });',
   'window.AcademyToday = { render, state, validState, plan, start, finish, evidence, dateKey };');
-const ids = ['mcat', 'socrates', 'cogpsych', 'practice', 'anatomy', 'reference', 'neuro'];
+const ids = ['mcat', 'socrates', 'practice', 'anatomy', 'reference', 'neuro'];
 function harness(saved = new Map(), local = true) {
   let invalid = 0, fail = false;
   const writes = [];
@@ -21,7 +21,6 @@ function harness(saved = new Map(), local = true) {
 const fixtures = {
   'cs-mcat-course-v1': { activeUnit: 'unit-a', units: { done: { completedAt: 1, dueAt: 2 }, later: { completedAt: 3, dueAt: Date.now() + 100000 } } },
   'cs-clinical-shift-v1': { completed: { case1: { attempts: 2 } }, active: { runId: 'case-run' } },
-  'cs-cogpsych': { learned: { done: 1234 }, lessons: { saved: { index: 2, startedAt: 10 } } },
   'cs-ltl-progress-v1': { general: { lastLesson: 'remember', lastStep: 3, lessons: { complete: { completedAt: '2026-09-06' } } } },
   'cs-academy-anatomy-v1': { lessons: { arm: { index: 1, startedAt: 5, content: { title: 'Arm lesson' } } } },
   'cs-academy-reference-v1': { lessons: { flow: { completedAt: 5 } } },
@@ -35,7 +34,6 @@ const beforeEvidence = api.evidence();
 assert.equal(beforeEvidence.mcat.completed, 2); assert.equal(beforeEvidence.mcat.due, 1);
 assert.equal(beforeEvidence.practice.completed, 1); assert.equal(beforeEvidence.neuro.completed, 1);
 assert.match(beforeEvidence.mcat.url, /view=course&unit=unit-a/);
-assert.match(beforeEvidence.cogpsych.url, /step=3/);
 assert.match(beforeEvidence.socrates.url, /track=general&lesson=remember&step=4/);
 assert.match(beforeEvidence.practice.url, /run=case-run/);
 assert.match(beforeEvidence.neuro.url, /unit=saved/);
@@ -61,7 +59,7 @@ assert.ok(h.writes.every(key => key === 'cs-academy-today-v1'));
 const reload = harness(saved); assert.equal(reload.api.plan().spent, 12); assert.equal(reload.api.plan().items[0].id, 'practice');
 assert.equal(reload.api.validState(reload.api.state), true);
 reload.api.state.priority = [...ids]; reload.api.state.days = {}; reload.api.state.budget = 30;
-assert.equal(reload.api.plan().items.length, 2); assert.equal(reload.api.plan().deferred.length, 5);
+assert.equal(reload.api.plan().items.length, 2); assert.equal(reload.api.plan().deferred.length, ids.length - 2);
 assert.equal(reload.api.plan().planned, 30);
 for (let budget = 0; budget <= 240; budget += 15) {
   reload.api.state.budget = budget; assert.ok(reload.api.plan().planned <= budget, 'New allocation never exceeds the target');
@@ -72,9 +70,6 @@ const production = harness(new Map(), false); production.api.state.priority = ['
 assert.equal(production.api.plan().items.length, 1); assert.equal(production.api.plan().items[0].id, 'mcat');
 const damaged = new Map([['cs-academy-today-v1', JSON.stringify({ budget: -1 })]]), broken = harness(damaged);
 assert.equal(broken.invalid, 1); assert.equal(damaged.get('cs-academy-today-v1'), JSON.stringify({ budget: -1 }));
-const lab = harness(new Map([['cs-cogpsych-research-v1',JSON.stringify({activeId:'lab-1',runs:[{id:'lab-1',demo:'design'}]})]]));
-assert.match(lab.api.evidence().cogpsych.url,/view=research&demo=design&run=lab-1/);
-assert.equal(lab.api.evidence().cogpsych.completed,0,'Investigation activity is not lesson completion');
 const neuroLabData = {code:{code1:{current:{startedAt:10,content:{title:'Saved code'}}}}, simWork:{sim1:{startedAt:20,content:{title:'Saved simulation'}}}};
 const neuroLabs = harness(new Map([['cs-neuro',JSON.stringify(neuroLabData)]]));
 assert.match(neuroLabs.api.evidence().neuro.url,/sim=sim1/);

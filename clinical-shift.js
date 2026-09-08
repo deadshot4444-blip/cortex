@@ -795,5 +795,4 @@
   window.renderClinicalShift = renderClinicalShift;
   window.startClinicalShift = startClinicalShift;
   window.openClinicalShiftHistory = openClinicalShiftHistory;
-  window.resetClinicalShiftState = () => { shiftState = blankShiftState(); shiftSession = null; return StudyStorage.remove(SHIFT_STORAGE_KEY); };
 })();

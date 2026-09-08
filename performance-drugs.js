@@ -1168,6 +1168,3 @@ function renderPEDClinical(fromRef, moduleId) {
   setView(root);
 }
 
-window._resetPedMemory = function () {
-  PED_PROG = migratePedProg(null);
-};

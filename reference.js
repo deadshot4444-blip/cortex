@@ -3,7 +3,6 @@
 const REF = { pharm: null, micro: null, labs: null, loaded: false };
 const MED_PATH = { nodes: null, loaded: false };
 let MED_VIEW = 0;
-const MED_PHASE_START = { pharm: 0, ped: 28, micro: 39, labs: 51, ekg: 61 };
 const MED_PHASE_LABEL = { pharm: 'Pharmacology', ped: 'Performance drugs', micro: 'Microbiology', labs: 'Lab values', ekg: 'ECG' };
 /* PHARM_UNIQUE_TOTAL lives in app.js (stats + hub share it) */
 function safeProg(raw, defaults) {
@@ -72,10 +71,6 @@ function medicinePathKeys(phase) {
   return medicinePathNodes().filter(n => n.phase === phase).map(n => n.key);
 }
 
-function medicinePathNodeIndex(nodeId) {
-  return medicinePathNodes().findIndex(n => n.id === nodeId);
-}
-
 function pharmClassComplete(cat, data) {
   if (!data?.length) return false;
   const pool = data.filter(d => d.cat === cat);
@@ -142,14 +137,8 @@ function medicinePathProgress() {
   };
 }
 
-function medicinePathLockIndex() { return medicinePathProgress().lockIndex; }
-
 function isMedicinePathNodeLocked(nodeId) {
   return false; // Medicine is fully free-access; the study path is a recommended sequence, not a gate.
-}
-
-function isMedicinePhaseLocked(phase) {
-  return false; // free-access: any card opens its browse / drill / guided learn anytime.
 }
 
 function medicineShowPathLock() {
@@ -205,12 +194,6 @@ function pharmUniqueLearnedCount(data) {
 }
 function pharmClassLearnedCount(cat, data) {
   return data.filter(d => d.cat === cat && PHARM_PROG.learned[d.id || d.name]).length;
-}
-function refStepDots(total, current, label) {
-  const dots = Array.from({ length: total }, (_, i) =>
-    `<span class="ped-dot ${i < current ? 'done' : i === current ? 'active' : ''}" aria-hidden="true"></span>`
-  ).join('');
-  return `<div class="ped-steps" aria-label="${esc(label)}"><span class="ped-steps-lab">${esc(label)}</span><span class="ped-steps-dots">${dots}</span><span class="ped-steps-num">${current + 1}/${total}</span></div>`;
 }
 function recordRefDrill(prog, save, catField, cat, correct) {
   prog.drill.total++; if (correct) prog.drill.correct++;
@@ -329,12 +312,6 @@ async function loadRef() {
 
 function drillAcc(prog) {
   return prog?.drill?.total ? Math.round(100 * prog.drill.correct / prog.drill.total) : null;
-}
-
-function guidedTrackPct(prog, total) {
-  if (!total) return 0;
-  if (prog.guidedDone) return 100;
-  return Math.round(100 * (prog.guidedSection || 0) / total);
 }
 
 function medicineHubSnapshot() {
@@ -693,13 +670,6 @@ function buildPharmClasses(body, cfg, data, skipLede) {
   });
 }
 
-const PHARM_LEARN_STEPS = [
-  { key: 'moa', label: 'Mechanism', field: 'moa', ask: 'How does this drug work?', hint: d => `Class: ${d.drug_class}. Think receptor, enzyme, or channel.` },
-  { key: 'indications', label: 'Indications', field: 'indications', ask: 'What is it used for?', hint: d => `It’s a ${d.drug_class.split('(')[0].trim()}.` },
-  { key: 'side_effects', label: 'Adverse effects', field: 'side_effects', ask: 'Key toxicities or side effects?', hint: () => 'Board exams love class-wide effects and one drug-specific killer.' },
-  { key: 'pearl', label: 'Pearl', field: 'pearl', ask: 'One board pearl?', hint: d => `Mnemonic or buzzword tied to ${d.name}.` },
-];
-
 /* ---------- guided MCQ helpers — answering Medicine questions earns XP into the global pool ---------- */
 function medShuffle(a) { const x = a.slice(); for (let i = x.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1));[x[i], x[j]] = [x[j], x[i]]; } return x; }
 function medAwardXP(correct) {
@@ -1020,10 +990,3 @@ function buildQuiz(body, cfg, data, opts = {}) {
 
 window.medicineHubSnapshot = medicineHubSnapshot;
 window.medicinePathProgress = medicinePathProgress;
-window._resetMedicineMemory = function () {
-  PHARM_PROG = defaultPharmProg();
-  MICRO_PROG = defaultMicroProg();
-  LABS_PROG = defaultLabsProg();
-  MED_META = defaultMedMeta();
-  MED_PATH.loaded = false;
-};
