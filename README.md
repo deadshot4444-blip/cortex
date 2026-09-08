@@ -110,8 +110,10 @@ See `supabase/README.md` for setup and checks.
 
 ## Deployment
 
-Netlify deploys `main` to https://cortexmedical.academy. Pushing to `main` ships;
-`_headers` sets long-lived caching for `?v=`-busted scripts, and
+Netlify deploys `main` to https://cortexmedical.academy. Pushing to `main` ships.
+`netlify.toml` pins the configuration: the repository root is the publish directory, there
+is no build step, and the dependency install is a no-op (the root package.json is developer
+tooling only). `_headers` sets long-lived caching for `?v=`-busted scripts and
 `netlify/edge-functions/practice-og.js` rewrites social-card metadata for `/practice`.
 
 ## Release recovery

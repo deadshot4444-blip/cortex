@@ -1,0 +1,20 @@
+# Netlify deploy configuration. Settings here override the dashboard, so the deploy no
+# longer depends on UI state.
+#
+# This is a static site: the published directory is the repository root and there is no
+# build step. The root package.json only holds developer tooling (tests, lint, format),
+# so the dependency install is turned into a no-op and node_modules never exists on the
+# build machine, let alone in the deploy.
+#
+# Routing and caching stay in _redirects and _headers (Netlify reads both from the publish
+# directory). The /practice social card is netlify/edge-functions/practice-og.js, which
+# declares its own path, so no [[edge_functions]] block is needed.
+
+[build]
+  publish = "."
+  command = "echo 'Static site: nothing to build'"
+
+[build.environment]
+  # Netlify runs `npm install $NPM_FLAGS` whenever a package.json exists at the base.
+  # `--version` makes that command print npm's version and exit without installing.
+  NPM_FLAGS = "--version"
