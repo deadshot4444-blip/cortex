@@ -1,0 +1,4207 @@
+{
+  "format": 1,
+  "objectives": [
+    {
+      "id": "retrieval-transfer",
+      "title": "Retrieve before checking",
+      "description": "Explain an idea from memory, then use feedback to identify a specific gap."
+    },
+    {
+      "id": "attention-task",
+      "title": "Protect the task in working memory",
+      "description": "Separate selecting information from holding and using it."
+    },
+    {
+      "id": "evidence-claim",
+      "title": "Match the claim to the evidence",
+      "description": "Distinguish a measured association, a designed comparison and a causal explanation."
+    },
+    {
+      "id": "pressure-flow",
+      "title": "Trace a pressure-driven flow",
+      "description": "Connect the route of blood with a simplified pressure-flow relationship."
+    },
+    {
+      "id": "breathing-exchange",
+      "title": "Separate ventilation, exchange and delivery",
+      "description": "Follow a mechanism across the thorax, alveoli and circulation."
+    },
+    {
+      "id": "feedback-target",
+      "title": "Name the regulated variable and intervention",
+      "description": "Explain feedback and the location of a mechanism without assuming identical effects."
+    },
+    {
+      "id": "signal-units",
+      "title": "Keep measurement, units and time together",
+      "description": "Translate a recorded sequence into a measurement with an explicit scale."
+    },
+    {
+      "id": "probability-context",
+      "title": "Interpret evidence in context",
+      "description": "Keep a test result, its units and the question being asked together."
+    },
+    {
+      "id": "buffer-response",
+      "title": "Separate a buffer from a physiological response",
+      "description": "Use acid-base foundations before interpreting compensation."
+    },
+    {
+      "id": "measurement-artifact",
+      "title": "Ask what the measurement actually represents",
+      "description": "Consider the sample, device and procedure before assigning a cause."
+    },
+    {
+      "id": "independent-clocks",
+      "title": "Separate timing from the cause of a pattern",
+      "description": "Explain the relation between events before assigning a mechanism."
+    },
+    {
+      "id": "location-function",
+      "title": "Use anatomy to constrain an explanation",
+      "description": "Locate a structure and pathway before reasoning about an observed effect."
+    }
+  ],
+  "entries": [
+    {
+      "id": "mcat:protein-structure",
+      "track": "mcat",
+      "title": "From amino acid to protein",
+      "summary": "Follow a side chain from its chemistry to a protein’s behavior.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/mcat?view=course&unit=protein-structure",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "mcat:enzyme-rates",
+      "track": "mcat",
+      "title": "Read an enzyme curve",
+      "summary": "Separate substrate limitation, saturation, and competition.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/mcat?view=course&unit=enzyme-rates",
+      "prerequisites": [
+        "mcat:protein-structure"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "mcat:membrane-transport",
+      "track": "mcat",
+      "title": "Cross a membrane",
+      "summary": "Use gradients and energy to explain movement.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/mcat?view=course&unit=membrane-transport",
+      "prerequisites": [
+        "mcat:protein-structure"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "mcat:buffer-balance",
+      "track": "mcat",
+      "title": "Balance a buffer",
+      "summary": "Neutralize added acid first, then calculate pH.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/mcat?view=course&unit=buffer-balance",
+      "prerequisites": [],
+      "objectives": [
+        "buffer-response"
+      ]
+    },
+    {
+      "id": "mcat:circuit-paths",
+      "track": "mcat",
+      "title": "Follow current through a circuit",
+      "summary": "Change a branch and see what happens to resistance and current.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/mcat?view=course&unit=circuit-paths",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "mcat:rate-equilibrium",
+      "track": "mcat",
+      "title": "Separate speed from destination",
+      "summary": "Distinguish activation barriers, equilibrium, and reaction direction.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/mcat?view=course&unit=rate-equilibrium",
+      "prerequisites": [
+        "mcat:buffer-balance"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "mcat:learning-consequences",
+      "track": "mcat",
+      "title": "Read a behavioral consequence",
+      "summary": "Track what is added or removed and whether behavior increases.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/mcat?view=course&unit=learning-consequences",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "mcat:memory-retrieval",
+      "track": "mcat",
+      "title": "Build and retrieve a memory",
+      "summary": "Separate encoding, storage, and access.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/mcat?view=course&unit=memory-retrieval",
+      "prerequisites": [
+        "mcat:learning-consequences"
+      ],
+      "objectives": [
+        "retrieval-transfer"
+      ]
+    },
+    {
+      "id": "mcat:research-inference",
+      "track": "mcat",
+      "title": "Decide what a study can claim",
+      "summary": "Use learning and memory experiments to practice research reasoning.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/mcat?view=course&unit=research-inference",
+      "prerequisites": [
+        "mcat:memory-retrieval"
+      ],
+      "objectives": [
+        "evidence-claim",
+        "probability-context"
+      ]
+    },
+    {
+      "id": "mcat:cars-main-idea",
+      "track": "mcat",
+      "title": "Find the author’s claim",
+      "summary": "Track the argument before judging the topic.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/mcat?view=course&unit=cars-main-idea",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "mcat:cars-argument",
+      "track": "mcat",
+      "title": "Test an argument from within",
+      "summary": "Identify support, assumptions, and warranted inferences.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/mcat?view=course&unit=cars-argument",
+      "prerequisites": [
+        "mcat:cars-main-idea"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "mcat:cars-transfer",
+      "track": "mcat",
+      "title": "Carry a principle into a new case",
+      "summary": "Apply the author’s reasoning without changing its conditions.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/mcat?view=course&unit=cars-transfer",
+      "prerequisites": [
+        "mcat:cars-argument"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "mcat:glycolysis",
+      "track": "mcat",
+      "title": "Account for glycolysis",
+      "summary": "Follow carbon and distinguish investment from payoff.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/mcat?view=course&unit=glycolysis",
+      "prerequisites": [
+        "mcat:enzyme-rates"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "mcat:oxidative-phosphorylation",
+      "track": "mcat",
+      "title": "Link electrons to ATP",
+      "summary": "Predict how transport, gradients, and ATP synthesis depend on one another.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/mcat?view=course&unit=oxidative-phosphorylation",
+      "prerequisites": [
+        "mcat:glycolysis"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "mcat:fuel-regulation",
+      "track": "mcat",
+      "title": "Choose a fuel pathway",
+      "summary": "Connect energy state to pathway regulation.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/mcat?view=course&unit=fuel-regulation",
+      "prerequisites": [
+        "mcat:oxidative-phosphorylation"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "mcat:dna-copying",
+      "track": "mcat",
+      "title": "Copy and repair DNA",
+      "summary": "Use directionality to explain leading and lagging synthesis.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/mcat?view=course&unit=dna-copying",
+      "prerequisites": [
+        "mcat:protein-structure"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "mcat:gene-expression",
+      "track": "mcat",
+      "title": "Follow a gene into a protein",
+      "summary": "Separate transcription, RNA processing, and translation.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/mcat?view=course&unit=gene-expression",
+      "prerequisites": [
+        "mcat:dna-copying"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "mcat:inheritance-linkage",
+      "track": "mcat",
+      "title": "Reason through inheritance",
+      "summary": "Distinguish genotype probability from linkage evidence.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/mcat?view=course&unit=inheritance-linkage",
+      "prerequisites": [
+        "mcat:gene-expression"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "mcat:circulatory-flow",
+      "track": "mcat",
+      "title": "Connect pressure to blood flow",
+      "summary": "Use gradients, resistance, and vessel geometry.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/mcat?view=course&unit=circulatory-flow",
+      "prerequisites": [
+        "mcat:membrane-transport"
+      ],
+      "objectives": [
+        "pressure-flow",
+        "location-function"
+      ]
+    },
+    {
+      "id": "mcat:gas-exchange",
+      "track": "mcat",
+      "title": "Move oxygen across a barrier",
+      "summary": "Connect partial pressure, diffusion, and hemoglobin.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/mcat?view=course&unit=gas-exchange",
+      "prerequisites": [
+        "mcat:circulatory-flow"
+      ],
+      "objectives": [
+        "breathing-exchange"
+      ]
+    },
+    {
+      "id": "mcat:renal-water",
+      "track": "mcat",
+      "title": "Regulate water in the nephron",
+      "summary": "Distinguish filtration, reabsorption, secretion, and excretion.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/mcat?view=course&unit=renal-water",
+      "prerequisites": [
+        "mcat:gas-exchange"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "mcat:stereochemistry",
+      "track": "mcat",
+      "title": "Compare molecules in three dimensions",
+      "summary": "Identify connectivity, mirror relationships, and stereocenters.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/mcat?view=course&unit=stereochemistry",
+      "prerequisites": [
+        "mcat:protein-structure"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "mcat:carbonyl-reactions",
+      "track": "mcat",
+      "title": "Follow electrons at a carbonyl",
+      "summary": "Use polarity and leaving groups to distinguish reaction paths.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/mcat?view=course&unit=carbonyl-reactions",
+      "prerequisites": [
+        "mcat:stereochemistry"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "mcat:separation-methods",
+      "track": "mcat",
+      "title": "Choose a separation method",
+      "summary": "Connect polarity, charge, size, and measurement.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/mcat?view=course&unit=separation-methods",
+      "prerequisites": [
+        "mcat:carbonyl-reactions"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "mcat:work-energy",
+      "track": "mcat",
+      "title": "Choose a force or energy model",
+      "summary": "Recognize which conservation statement applies.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/mcat?view=course&unit=work-energy",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "mcat:hydrostatics",
+      "track": "mcat",
+      "title": "Read pressure in a fluid",
+      "summary": "Separate depth pressure from buoyant force.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/mcat?view=course&unit=hydrostatics",
+      "prerequisites": [
+        "mcat:work-energy"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "mcat:fluid-flow",
+      "track": "mcat",
+      "title": "Follow flow through a narrowing",
+      "summary": "Use continuity and resistance without mixing assumptions.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/mcat?view=course&unit=fluid-flow",
+      "prerequisites": [
+        "mcat:hydrostatics"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "mcat:sensory-coding",
+      "track": "mcat",
+      "title": "From stimulus to perception",
+      "summary": "Separate transduction, adaptation, and interpretation.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/mcat?view=course&unit=sensory-coding",
+      "prerequisites": [
+        "mcat:memory-retrieval"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "mcat:psychophysics",
+      "track": "mcat",
+      "title": "Separate sensitivity from response bias",
+      "summary": "Read thresholds, proportional changes, and decisions.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/mcat?view=course&unit=psychophysics",
+      "prerequisites": [
+        "mcat:sensory-coding"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "mcat:attention-control",
+      "track": "mcat",
+      "title": "Allocate attention",
+      "summary": "Connect selection, interference, and task demands.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/mcat?view=course&unit=attention-control",
+      "prerequisites": [
+        "mcat:psychophysics"
+      ],
+      "objectives": [
+        "attention-task"
+      ]
+    },
+    {
+      "id": "mcat:social-structure",
+      "track": "mcat",
+      "title": "Read a social structure",
+      "summary": "Distinguish institutions, roles, and levels of explanation.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/mcat?view=course&unit=social-structure",
+      "prerequisites": [
+        "mcat:learning-consequences"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "mcat:stratification",
+      "track": "mcat",
+      "title": "Distinguish income, wealth, and mobility",
+      "summary": "Read inequality without turning group patterns into individual certainty.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/mcat?view=course&unit=stratification",
+      "prerequisites": [
+        "mcat:social-structure"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "mcat:social-interaction",
+      "track": "mcat",
+      "title": "Interpret groups and populations",
+      "summary": "Distinguish influence mechanisms and demographic measures.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/mcat?view=course&unit=social-interaction",
+      "prerequisites": [
+        "mcat:stratification"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "mcat:gels-blots",
+      "track": "mcat",
+      "title": "Interpret bands and controls",
+      "summary": "Ask what molecule the assay detects.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/mcat?view=course&unit=gels-blots",
+      "prerequisites": [
+        "mcat:gene-expression"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "mcat:absorbance",
+      "track": "mcat",
+      "title": "Turn absorbance into evidence",
+      "summary": "Use a blank, a calibration, and a valid range.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/mcat?view=course&unit=absorbance",
+      "prerequisites": [
+        "mcat:gels-blots"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "mcat:uncertainty-controls",
+      "track": "mcat",
+      "title": "Match evidence to a conclusion",
+      "summary": "Use replication, uncertainty, and comparison groups.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/mcat?view=course&unit=uncertainty-controls",
+      "prerequisites": [
+        "mcat:research-inference",
+        "mcat:absorbance"
+      ],
+      "objectives": [
+        "measurement-artifact"
+      ]
+    },
+    {
+      "id": "mcat:microbial-strategies",
+      "track": "mcat",
+      "title": "Distinguish cells from viral passengers",
+      "summary": "Use host dependence and transfer conditions to explain how microbial information spreads.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/mcat?view=course&unit=microbial-strategies",
+      "prerequisites": [
+        "mcat:gene-expression"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "mcat:cell-cycle-checkpoints",
+      "track": "mcat",
+      "title": "Explain a cell-cycle pause",
+      "summary": "Identify what a checkpoint protects before predicting a failure.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/mcat?view=course&unit=cell-cycle-checkpoints",
+      "prerequisites": [
+        "mcat:dna-copying"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "mcat:endocrine-feedback",
+      "track": "mcat",
+      "title": "Trace a hormonal feedback loop",
+      "summary": "Use receptor location and feedback direction to predict a response.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/mcat?view=course&unit=endocrine-feedback",
+      "prerequisites": [
+        "mcat:membrane-transport"
+      ],
+      "objectives": [
+        "feedback-target"
+      ]
+    },
+    {
+      "id": "mcat:atomic-structure",
+      "track": "mcat",
+      "title": "Keep atomic identity and charge separate",
+      "summary": "Use protons, neutrons and electrons to distinguish isotopes from ions.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/mcat?view=course&unit=atomic-structure",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "mcat:periodic-trends",
+      "track": "mcat",
+      "title": "Explain a periodic trend",
+      "summary": "Use electron shielding and nuclear attraction without treating trends as exceptionless laws.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/mcat?view=course&unit=periodic-trends",
+      "prerequisites": [
+        "mcat:atomic-structure"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "mcat:nuclear-decay",
+      "track": "mcat",
+      "title": "Follow a decay model",
+      "summary": "Distinguish isotope conversion, half-life and measured count rate.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/mcat?view=course&unit=nuclear-decay",
+      "prerequisites": [
+        "mcat:atomic-structure"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "mcat:thin-lenses",
+      "track": "mcat",
+      "title": "Predict a thin-lens image",
+      "summary": "Use a stated sign convention and check the physical interpretation.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/mcat?view=course&unit=thin-lenses",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "mcat:wave-sound",
+      "track": "mcat",
+      "title": "Read a wave and a logarithmic level",
+      "summary": "Separate wave speed, frequency, wavelength and intensity.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/mcat?view=course&unit=wave-sound",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "mcat:thermal-balance",
+      "track": "mcat",
+      "title": "Build a heat balance",
+      "summary": "Track signs, heat capacities and the boundary of a calorimetry model.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/mcat?view=course&unit=thermal-balance",
+      "prerequisites": [
+        "mcat:work-energy"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "socrates:general:g1",
+      "track": "socrates",
+      "title": "Easy now does not mean learned",
+      "summary": "Why can studying feel good even when the memory will not last?",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/learn?track=general&lesson=g1&step=1",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "socrates:general:g2",
+      "track": "socrates",
+      "title": "Pull answers from memory",
+      "summary": "Why does trying to remember beat seeing the answer again?",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/learn?track=general&lesson=g2&step=1",
+      "prerequisites": [],
+      "objectives": [
+        "retrieval-transfer"
+      ]
+    },
+    {
+      "id": "socrates:general:g3",
+      "track": "socrates",
+      "title": "Come back after time has passed",
+      "summary": "How should you spread out practice when you want the memory to last?",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/learn?track=general&lesson=g3&step=1",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "socrates:general:g4",
+      "track": "socrates",
+      "title": "Understand the why",
+      "summary": "How do examples teach the idea instead of becoming steps you copy?",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/learn?track=general&lesson=g4&step=1",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "socrates:general:g5",
+      "track": "socrates",
+      "title": "Mix similar problems",
+      "summary": "Why does mixing problem types help you learn when to use each method?",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/learn?track=general&lesson=g5&step=1",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "socrates:general:g6",
+      "track": "socrates",
+      "title": "Protect your attention",
+      "summary": "How do you leave enough mental space for the thinking that matters?",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/learn?track=general&lesson=g6&step=1",
+      "prerequisites": [],
+      "objectives": [
+        "attention-task"
+      ]
+    },
+    {
+      "id": "socrates:general:g7",
+      "track": "socrates",
+      "title": "Use mistakes to improve",
+      "summary": "How do strong learners turn a mistake into a better next step?",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/learn?track=general&lesson=g7&step=1",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "socrates:general:g8",
+      "track": "socrates",
+      "title": "Build your weekly learning routine",
+      "summary": "How do these ideas become a routine you can actually keep using?",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/learn?track=general&lesson=g8&step=1",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "socrates:business:b1",
+      "track": "socrates",
+      "title": "See how the business works",
+      "summary": "What must you understand before business facts and numbers become useful?",
+      "kind": "Lesson",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/learn?track=business&lesson=b1&step=1",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "socrates:business:b2",
+      "track": "socrates",
+      "title": "Practice one part of the job",
+      "summary": "Why does repeating a job not automatically make you better at it?",
+      "kind": "Lesson",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/learn?track=business&lesson=b2&step=1",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "socrates:business:b3",
+      "track": "socrates",
+      "title": "Learn from your decisions",
+      "summary": "How can you improve your judgment when results come later and luck affects them?",
+      "kind": "Lesson",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/learn?track=business&lesson=b3&step=1",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "socrates:business:b4",
+      "track": "socrates",
+      "title": "Run tests that can prove you wrong",
+      "summary": "How do you let customer and product evidence change what you believe?",
+      "kind": "Lesson",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/learn?track=business&lesson=b4&step=1",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "socrates:business:b5",
+      "track": "socrates",
+      "title": "Compare similar cases",
+      "summary": "How do experts learn to recognize the situation they are actually facing?",
+      "kind": "Lesson",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/learn?track=business&lesson=b5&step=1",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "socrates:business:b6",
+      "track": "socrates",
+      "title": "Explain so people can act",
+      "summary": "What makes an explanation change what another person understands and does?",
+      "kind": "Lesson",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/learn?track=business&lesson=b6&step=1",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "socrates:business:b7",
+      "track": "socrates",
+      "title": "Turn experience into a shared playbook",
+      "summary": "How does a team keep what it learned after the meeting ends?",
+      "kind": "Lesson",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/learn?track=business&lesson=b7&step=1",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "socrates:business:b8",
+      "track": "socrates",
+      "title": "Make learning part of the work",
+      "summary": "How does a team make learning a regular part of how it operates?",
+      "kind": "Lesson",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/learn?track=business&lesson=b8&step=1",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "socrates:medical:m1",
+      "track": "socrates",
+      "title": "Know what you need to learn",
+      "summary": "What different kinds of knowledge and skill does a health professional need?",
+      "kind": "Lesson",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/learn?track=medical&lesson=m1&step=1",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "socrates:medical:m2",
+      "track": "socrates",
+      "title": "Remember large amounts of information",
+      "summary": "How do you remember many facts without drowning in flashcards?",
+      "kind": "Lesson",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/learn?track=medical&lesson=m2&step=1",
+      "prerequisites": [],
+      "objectives": [
+        "retrieval-transfer"
+      ]
+    },
+    {
+      "id": "socrates:medical:m3",
+      "track": "socrates",
+      "title": "Understand why things happen",
+      "summary": "How do medical facts become a connected explanation you can use?",
+      "kind": "Lesson",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/learn?track=medical&lesson=m3&step=1",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "socrates:medical:m4",
+      "track": "socrates",
+      "title": "Tell similar conditions apart",
+      "summary": "How do you stop confusing diseases, drugs, and patterns that look alike?",
+      "kind": "Lesson",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/learn?track=medical&lesson=m4&step=1",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "socrates:medical:m5",
+      "track": "socrates",
+      "title": "Organize each disease pattern",
+      "summary": "How do you organize what you know so a patient pattern is easier to recognize and revise?",
+      "kind": "Lesson",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/learn?track=medical&lesson=m5&step=1",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "socrates:medical:m6",
+      "track": "socrates",
+      "title": "Think through cases",
+      "summary": "How should a case teach your thinking instead of simply revealing the diagnosis?",
+      "kind": "Lesson",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/learn?track=medical&lesson=m6&step=1",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "socrates:medical:m7",
+      "track": "socrates",
+      "title": "Practice procedures safely",
+      "summary": "How does a learner move from watching a procedure to performing it safely?",
+      "kind": "Lesson",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/learn?track=medical&lesson=m7&step=1",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "socrates:medical:m8",
+      "track": "socrates",
+      "title": "Learn from questions and mistakes",
+      "summary": "How should question banks improve what you know instead of becoming a chase for higher scores?",
+      "kind": "Lesson",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/learn?track=medical&lesson=m8&step=1",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "socrates:medical:m9",
+      "track": "socrates",
+      "title": "Use your knowledge under pressure",
+      "summary": "How do focus, stress, and rest affect your ability to use what you know?",
+      "kind": "Lesson",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/learn?track=medical&lesson=m9&step=1",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "socrates:medical:m10",
+      "track": "socrates",
+      "title": "Keep learning throughout your career",
+      "summary": "How do health professionals keep learning without handing their judgment to a tool?",
+      "kind": "Lesson",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/learn?track=medical&lesson=m10&step=1",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "anatomy:anat-position-forearm",
+      "track": "anatomy",
+      "title": "Orientation and the forearm",
+      "summary": "Use the person’s anatomical position to describe the radius and ulna.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/anatomy?lesson=anat-position-forearm&step=1",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "anatomy:anat-leg-load",
+      "track": "anatomy",
+      "title": "The leg: location and load",
+      "summary": "Locate the tibia and fibula and distinguish their main structural roles.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/anatomy?lesson=anat-leg-load&step=1",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "anatomy:anat-elbow-muscles",
+      "track": "anatomy",
+      "title": "Muscles that move the elbow",
+      "summary": "Connect the location of biceps and triceps with flexion and extension.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 2,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/anatomy?lesson=anat-elbow-muscles&step=1",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "anatomy:anat-breathing",
+      "track": "anatomy",
+      "title": "The diaphragm and quiet breathing",
+      "summary": "Relate diaphragm movement to thoracic volume and airflow.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/anatomy?lesson=anat-breathing&step=1",
+      "prerequisites": [],
+      "objectives": [
+        "breathing-exchange"
+      ]
+    },
+    {
+      "id": "anatomy:anat-heart-route",
+      "track": "anatomy",
+      "title": "Trace blood through the heart",
+      "summary": "Connect chambers and vessels in the adult pulmonary and systemic circuits.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/anatomy?lesson=anat-heart-route&step=1",
+      "prerequisites": [],
+      "objectives": [
+        "pressure-flow",
+        "location-function"
+      ]
+    },
+    {
+      "id": "anatomy:anat-brain-relationships",
+      "track": "anatomy",
+      "title": "Brain regions and relationships",
+      "summary": "Locate two major brain regions without relying on diagram colors.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/anatomy?lesson=anat-brain-relationships&step=1",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "anatomy:anat-shoulder-cuff",
+      "track": "anatomy",
+      "title": "The shoulder: movement and support",
+      "summary": "Use anterior and posterior relationships to connect shoulder muscles with rotation and stability.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 2,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/anatomy?lesson=anat-shoulder-cuff&step=1",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "anatomy:anat-knee-extension",
+      "track": "anatomy",
+      "title": "The knee: trace force through the extensor mechanism",
+      "summary": "Trace the anterior extensor connection and distinguish force transmission from joint-surface support.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/anatomy?lesson=anat-knee-extension&step=1",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "anatomy:anat-pleural-layers",
+      "track": "anatomy",
+      "title": "The thorax: layers around a lung",
+      "summary": "Distinguish pleural relationships from the airway route and explain their mechanical relevance.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/anatomy?lesson=anat-pleural-layers&step=1",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "anatomy:anat-urinary-route",
+      "track": "anatomy",
+      "title": "Abdomen and pelvis: follow urine and locate the organs",
+      "summary": "Separate the urine pathway from the position of the kidneys and ureters relative to the peritoneum.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/anatomy?lesson=anat-urinary-route&step=1",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "anatomy:anat-spinal-roots",
+      "track": "anatomy",
+      "title": "Spinal roots: sensory entry and motor exit",
+      "summary": "Distinguish a sensory root, a motor root and a mixed spinal nerve in a supplied somatic pathway.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/anatomy?lesson=anat-spinal-roots&step=1",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "anatomy:anat-motor-crossing",
+      "track": "anatomy",
+      "title": "Motor pathways: locate the crossing before choosing a side",
+      "summary": "Use the major lateral corticospinal route to reason about a supplied selective interruption above or below its crossing.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/anatomy?lesson=anat-motor-crossing&step=1",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "reference:med-feedback",
+      "track": "reference",
+      "title": "Homeostasis is active regulation",
+      "summary": "Distinguish a regulated variable, a response and the direction of feedback.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/medicine?lesson=med-feedback&step=1",
+      "prerequisites": [],
+      "objectives": [
+        "feedback-target"
+      ]
+    },
+    {
+      "id": "reference:med-flow-resistance",
+      "track": "reference",
+      "title": "Pressure, flow and resistance",
+      "summary": "Use a simple flow model and state what it leaves out.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/medicine?lesson=med-flow-resistance&step=1",
+      "prerequisites": [],
+      "objectives": [
+        "pressure-flow"
+      ]
+    },
+    {
+      "id": "reference:med-oxygen-delivery",
+      "track": "reference",
+      "title": "Oxygen saturation is not oxygen delivery",
+      "summary": "Distinguish saturation, carrying capacity and blood flow.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/medicine?lesson=med-oxygen-delivery&step=1",
+      "prerequisites": [],
+      "objectives": [
+        "breathing-exchange"
+      ]
+    },
+    {
+      "id": "reference:med-lab-context",
+      "track": "reference",
+      "title": "Read a laboratory result in context",
+      "summary": "Separate a reference interval from a diagnosis or an automatic action threshold.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/medicine?lesson=med-lab-context&step=1",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "reference:med-acid-base",
+      "track": "reference",
+      "title": "Begin an acid–base explanation",
+      "summary": "Identify a direction of change while preserving uncertainty about the full disorder.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 2,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/medicine?lesson=med-acid-base&step=1",
+      "prerequisites": [],
+      "objectives": [
+        "buffer-response"
+      ]
+    },
+    {
+      "id": "reference:med-observation-mechanism",
+      "track": "reference",
+      "title": "From observations to a bounded explanation",
+      "summary": "Separate what a simulated case shows from what remains to be established.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 2,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/medicine?lesson=med-observation-mechanism&step=1",
+      "prerequisites": [],
+      "objectives": [
+        "evidence-claim"
+      ]
+    },
+    {
+      "id": "reference:med-receptor-effects",
+      "track": "reference",
+      "title": "Receptor action connects benefit and caution",
+      "summary": "Distinguish receptor activation, blockade and selectivity in a bounded airway example.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/medicine?lesson=med-receptor-effects&step=1",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "reference:med-raas-targets",
+      "track": "reference",
+      "title": "One pathway, two different drug targets",
+      "summary": "Compare ACE inhibition and AT1 blockade, including shared and distinct cautions.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/medicine?lesson=med-raas-targets&step=1",
+      "prerequisites": [],
+      "objectives": [
+        "feedback-target"
+      ]
+    },
+    {
+      "id": "reference:med-prostaglandin-context",
+      "track": "reference",
+      "title": "A mechanism can affect several organs",
+      "summary": "Explain why an NSAID’s intended effects and major harms must be considered together.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/medicine?lesson=med-prostaglandin-context&step=1",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "reference:med-antibacterial-targets",
+      "track": "reference",
+      "title": "Antibacterial classes target different processes",
+      "summary": "Distinguish cell-wall and protein-synthesis targets without inferring a treatment from the class name.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/medicine?lesson=med-antibacterial-targets&step=1",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "reference:med-bacterial-envelopes",
+      "track": "reference",
+      "title": "Read a bacterial envelope without overcalling it",
+      "summary": "Connect envelope structure with staining and access to targets.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/medicine?lesson=med-bacterial-envelopes&step=1",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "reference:med-virus-host",
+      "track": "reference",
+      "title": "Viruses use hosts through distinct replication steps",
+      "summary": "Distinguish a viral replication problem from a bacterial target.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/medicine?lesson=med-virus-host&step=1",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "reference:med-colonization-context",
+      "track": "reference",
+      "title": "A detected organism needs context",
+      "summary": "Separate colonization, disease evidence and transmission without treating a positive screen as a diagnosis.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/medicine?lesson=med-colonization-context&step=1",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "reference:med-resistance-selection",
+      "track": "reference",
+      "title": "Resistance belongs to microbes and mechanisms",
+      "summary": "Explain selection and distinguish ways a bacterial population can resist a drug.",
+      "kind": "Lesson",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/medicine?lesson=med-resistance-selection&step=1",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "reference:med-ecg-measure",
+      "track": "reference",
+      "title": "Measure before naming an ECG pattern",
+      "summary": "Use time, voltage and event timing to describe an ECG without inferring mechanical function.",
+      "kind": "Lesson",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/medicine?lesson=med-ecg-measure&step=1",
+      "prerequisites": [],
+      "objectives": [
+        "signal-units"
+      ]
+    },
+    {
+      "id": "reference:med-ecg-av-timing",
+      "track": "reference",
+      "title": "Follow the atrial and ventricular clocks",
+      "summary": "Distinguish changing PR, failed conduction and independent atrial and ventricular timing.",
+      "kind": "Lesson",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/medicine?lesson=med-ecg-av-timing&step=1",
+      "prerequisites": [],
+      "objectives": [
+        "independent-clocks"
+      ]
+    },
+    {
+      "id": "reference:med-lab-intervals",
+      "track": "reference",
+      "title": "A reference interval is not a diagnosis",
+      "summary": "Separate reference intervals, decision limits and treatment targets while checking specimen and population context.",
+      "kind": "Lesson",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/medicine?lesson=med-lab-intervals&step=1",
+      "prerequisites": [],
+      "objectives": [
+        "measurement-artifact"
+      ]
+    },
+    {
+      "id": "reference:med-potassium-sample",
+      "track": "reference",
+      "title": "Potassium: patient, sample and ECG",
+      "summary": "Distinguish possible sample artifact from true hyperkalemia without using a normal ECG as exclusion.",
+      "kind": "Lesson",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/medicine?lesson=med-potassium-sample&step=1",
+      "prerequisites": [],
+      "objectives": [
+        "measurement-artifact"
+      ]
+    },
+    {
+      "id": "reference:med-acid-base-compensation",
+      "track": "reference",
+      "title": "Check whether compensation fits",
+      "summary": "Use a supplied compensation model to identify a second acid–base process without diagnosing the cause from arithmetic.",
+      "kind": "Lesson",
+      "level": "applied",
+      "status": "revised",
+      "revision": 2,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/medicine?lesson=med-acid-base-compensation&step=1",
+      "prerequisites": [],
+      "objectives": [
+        "buffer-response"
+      ]
+    },
+    {
+      "id": "reference:med-st-troponin",
+      "track": "reference",
+      "title": "ST changes and troponin answer different questions",
+      "summary": "Separate an electrical pattern, myocardial injury and evidence needed for myocardial infarction.",
+      "kind": "Lesson",
+      "level": "applied",
+      "status": "revised",
+      "revision": 2,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/medicine?lesson=med-st-troponin&step=1",
+      "prerequisites": [],
+      "objectives": [
+        "location-function"
+      ]
+    },
+    {
+      "id": "reference:med-ddimer-context",
+      "track": "reference",
+      "title": "D-dimer: units and the prior probability",
+      "summary": "Use a stated assay and pathway to interpret a D-dimer decision limit without treating it as a universal diagnosis.",
+      "kind": "Lesson",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/medicine?lesson=med-ddimer-context&step=1",
+      "prerequisites": [],
+      "objectives": [
+        "probability-context"
+      ]
+    },
+    {
+      "id": "reference:med-hemoglobin-delivery",
+      "track": "reference",
+      "title": "Oxygen saturation is not oxygen content",
+      "summary": "Connect hemoglobin, saturation and circulation without deriving transfusion decisions from one number.",
+      "kind": "Lesson",
+      "level": "applied",
+      "status": "revised",
+      "revision": 2,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/medicine?lesson=med-hemoglobin-delivery&step=1",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "neuro-unit:bci-path-01-time-series",
+      "track": "neuro",
+      "title": "Neural data as time series",
+      "summary": "Recognize neural recordings as ordered voltage samples over time.",
+      "kind": "Guided unit",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 3,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/neuro?unit=bci-path-01-time-series",
+      "prerequisites": [],
+      "objectives": [
+        "signal-units"
+      ]
+    },
+    {
+      "id": "neuro-unit:bci-path-02-spike-detection",
+      "track": "neuro",
+      "title": "Candidate event detection",
+      "summary": "Practice scanning a signal for threshold crossings that could represent spikes.",
+      "kind": "Guided unit",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 3,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/neuro?unit=bci-path-02-spike-detection",
+      "prerequisites": [
+        "neuro-unit:bci-path-01-time-series"
+      ],
+      "objectives": [
+        "independent-clocks"
+      ]
+    },
+    {
+      "id": "neuro-unit:bci-path-03-firing-rate",
+      "track": "neuro",
+      "title": "Firing rate",
+      "summary": "Convert spike counts and time windows into a reusable firing-rate calculation.",
+      "kind": "Guided unit",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 3,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/neuro?unit=bci-path-03-firing-rate",
+      "prerequisites": [
+        "neuro-unit:bci-path-02-spike-detection"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "neuro-unit:bci-path-04-signal-noise",
+      "track": "neuro",
+      "title": "Signal noise",
+      "summary": "Recognize possible artifact and describe evidence needed to investigate it.",
+      "kind": "Guided unit",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 2,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/neuro?unit=bci-path-04-signal-noise",
+      "prerequisites": [
+        "neuro-unit:bci-path-03-firing-rate"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "neuro-unit:bci-path-05-filtering-smoothing",
+      "track": "neuro",
+      "title": "Filtering and smoothing",
+      "summary": "Calculate a moving average and explain its effect on peaks and boundaries.",
+      "kind": "Guided unit",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 3,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/neuro?unit=bci-path-05-filtering-smoothing",
+      "prerequisites": [
+        "neuro-unit:bci-path-04-signal-noise"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "neuro-unit:bci-path-06-feature-extraction",
+      "track": "neuro",
+      "title": "Feature extraction",
+      "summary": "Turn raw or filtered neural data into compact numbers such as amplitude, power, spike count, and firing rate.",
+      "kind": "Guided unit",
+      "level": "advanced",
+      "status": "draft",
+      "revision": 1,
+      "reviewStatus": "Draft material; detailed revision and independent review are pending.",
+      "url": "/neuro?unit=bci-path-06-feature-extraction",
+      "prerequisites": [
+        "neuro-unit:bci-path-05-filtering-smoothing"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "neuro-unit:bci-path-07-simple-decoder",
+      "track": "neuro",
+      "title": "Simple decoder logic",
+      "summary": "Map extracted features to intent or action with a rule, threshold, or classifier.",
+      "kind": "Guided unit",
+      "level": "advanced",
+      "status": "draft",
+      "revision": 1,
+      "reviewStatus": "Draft material; detailed revision and independent review are pending.",
+      "url": "/neuro?unit=bci-path-07-simple-decoder",
+      "prerequisites": [
+        "neuro-unit:bci-path-06-feature-extraction"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "neuro-unit:bci-path-08-cursor-control",
+      "track": "neuro",
+      "title": "Cursor-control BCI",
+      "summary": "Connect neural decoding to visible cursor movement and user feedback.",
+      "kind": "Guided unit",
+      "level": "advanced",
+      "status": "draft",
+      "revision": 1,
+      "reviewStatus": "Draft material; detailed revision and independent review are pending.",
+      "url": "/neuro?unit=bci-path-08-cursor-control",
+      "prerequisites": [
+        "neuro-unit:bci-path-07-simple-decoder"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "neuro-unit:bci-path-09-decoder-drift",
+      "track": "neuro",
+      "title": "Calibration and decoder drift",
+      "summary": "Explain common drift causes and choose a first recalibration move.",
+      "kind": "Guided unit",
+      "level": "advanced",
+      "status": "draft",
+      "revision": 1,
+      "reviewStatus": "Draft material; detailed revision and independent review are pending.",
+      "url": "/neuro?unit=bci-path-09-decoder-drift",
+      "prerequisites": [
+        "neuro-unit:bci-path-08-cursor-control"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "neuro-unit:bci-path-10-closed-loop-feedback",
+      "track": "neuro",
+      "title": "Closed-loop feedback",
+      "summary": "Practice the safety trade-off between detection, action, and feedback.",
+      "kind": "Guided unit",
+      "level": "advanced",
+      "status": "draft",
+      "revision": 1,
+      "reviewStatus": "Draft material; detailed revision and independent review are pending.",
+      "url": "/neuro?unit=bci-path-10-closed-loop-feedback",
+      "prerequisites": [
+        "neuro-unit:bci-path-09-decoder-drift"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "neuro-unit:bci-path-11-human-centered-ux",
+      "track": "neuro",
+      "title": "Human-centered BCI UX",
+      "summary": "Treat feedback, latency, fatigue, calibration transparency, and autonomy as part of the BCI system.",
+      "kind": "Guided unit",
+      "level": "advanced",
+      "status": "draft",
+      "revision": 1,
+      "reviewStatus": "Draft material; detailed revision and independent review are pending.",
+      "url": "/neuro?unit=bci-path-11-human-centered-ux",
+      "prerequisites": [
+        "neuro-unit:bci-path-10-closed-loop-feedback"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "neuro-unit:bci-path-12-brain-data-ethics",
+      "track": "neuro",
+      "title": "Brain data safety and ethics",
+      "summary": "Apply privacy, consent, minimization, and mental-data safety to BCI design.",
+      "kind": "Guided unit",
+      "level": "advanced",
+      "status": "draft",
+      "revision": 1,
+      "reviewStatus": "Draft material; detailed revision and independent review are pending.",
+      "url": "/neuro?unit=bci-path-12-brain-data-ethics",
+      "prerequisites": [
+        "neuro-unit:bci-path-11-human-centered-ux"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "neuro-unit:bci-path-13-population-vectors",
+      "track": "neuro",
+      "title": "Population vectors & linear readouts",
+      "summary": "Understand how a population of neurons can be represented as a vector of features for decoding.",
+      "kind": "Guided unit",
+      "level": "advanced",
+      "status": "draft",
+      "revision": 1,
+      "reviewStatus": "Draft material; detailed revision and independent review are pending.",
+      "url": "/neuro?unit=bci-path-13-population-vectors",
+      "prerequisites": [
+        "neuro-unit:bci-path-12-brain-data-ethics"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "neuro-unit:bci-path-14-weighted-decoder",
+      "track": "neuro",
+      "title": "Weighted linear decoder",
+      "summary": "Build and tune a real weighted linear readout: score = w1·f1 + w2·f2 + ... and evaluate accuracy.",
+      "kind": "Guided unit",
+      "level": "advanced",
+      "status": "draft",
+      "revision": 1,
+      "reviewStatus": "Draft material; detailed revision and independent review are pending.",
+      "url": "/neuro?unit=bci-path-14-weighted-decoder",
+      "prerequisites": [
+        "neuro-unit:bci-path-13-population-vectors"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "neuro-unit:bci-path-15-online-adaptation",
+      "track": "neuro",
+      "title": "Online adaptation & recalibration",
+      "summary": "Distinguish baseline offset correction from full model re-fit and choose the right first action.",
+      "kind": "Guided unit",
+      "level": "advanced",
+      "status": "draft",
+      "revision": 1,
+      "reviewStatus": "Draft material; detailed revision and independent review are pending.",
+      "url": "/neuro?unit=bci-path-15-online-adaptation",
+      "prerequisites": [
+        "neuro-unit:bci-path-14-weighted-decoder"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "neuro-unit:bci-path-16-latency-and-timing",
+      "track": "neuro",
+      "title": "Latency, timing budgets & user adaptation",
+      "summary": "Quantify the cost of latency and understand how users adapt their strategy when feedback is delayed.",
+      "kind": "Guided unit",
+      "level": "advanced",
+      "status": "draft",
+      "revision": 1,
+      "reviewStatus": "Draft material; detailed revision and independent review are pending.",
+      "url": "/neuro?unit=bci-path-16-latency-and-timing",
+      "prerequisites": [
+        "neuro-unit:bci-path-15-online-adaptation"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "neuro-unit:bci-path-17-confidence-and-degradation",
+      "track": "neuro",
+      "title": "Confidence, error handling & graceful degradation",
+      "summary": "Design simple confidence-aware behavior and graceful fallback when the neural evidence is weak.",
+      "kind": "Guided unit",
+      "level": "advanced",
+      "status": "draft",
+      "revision": 1,
+      "reviewStatus": "Draft material; detailed revision and independent review are pending.",
+      "url": "/neuro?unit=bci-path-17-confidence-and-degradation",
+      "prerequisites": [
+        "neuro-unit:bci-path-16-latency-and-timing"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "neuro-unit:bci-path-18-safety-and-risk",
+      "track": "neuro",
+      "title": "Safety engineering in closed-loop systems",
+      "summary": "Apply asymmetric cost thinking and basic interlocks to closed-loop neurotechnology.",
+      "kind": "Guided unit",
+      "level": "advanced",
+      "status": "draft",
+      "revision": 1,
+      "reviewStatus": "Draft material; detailed revision and independent review are pending.",
+      "url": "/neuro?unit=bci-path-18-safety-and-risk",
+      "prerequisites": [
+        "neuro-unit:bci-path-17-confidence-and-degradation"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "neuro-unit:bci-path-19-data-and-regulatory",
+      "track": "neuro",
+      "title": "Data architecture, privacy & regulatory reality",
+      "summary": "Reason about on-device vs cloud trade-offs, consent versioning, and high-level regulatory expectations for neural data.",
+      "kind": "Guided unit",
+      "level": "advanced",
+      "status": "draft",
+      "revision": 1,
+      "reviewStatus": "Draft material; detailed revision and independent review are pending.",
+      "url": "/neuro?unit=bci-path-19-data-and-regulatory",
+      "prerequisites": [
+        "neuro-unit:bci-path-18-safety-and-risk"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "neuro-unit:bci-path-20-unit20-capstone",
+      "track": "neuro",
+      "title": "Unit 20 Capstone: full toy BCI integration & reflection",
+      "summary": "Produce a documented end-to-end toy BCI pipeline and a clear-eyed reflection on its limitations versus real clinical systems.",
+      "kind": "Guided unit",
+      "level": "advanced",
+      "status": "draft",
+      "revision": 1,
+      "reviewStatus": "Draft material; detailed revision and independent review are pending.",
+      "url": "/neuro?unit=bci-path-20-unit20-capstone",
+      "prerequisites": [
+        "neuro-unit:bci-path-19-data-and-regulatory"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "neuro-code:code-variables-voltage",
+      "track": "neuro",
+      "title": "Variables: Calculate a Voltage Difference",
+      "summary": "Synthetic signal analysis",
+      "kind": "Coding exercise",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 2,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/neuro?code=code-variables-voltage",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "neuro-code:code-if-threshold",
+      "track": "neuro",
+      "title": "Conditions: Test a Numerical Threshold",
+      "summary": "Threshold-based spiking",
+      "kind": "Coding exercise",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 2,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/neuro?code=code-if-threshold",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "neuro-code:code-lists-samples",
+      "track": "neuro",
+      "title": "Lists: Keep Ordered Samples",
+      "summary": "Sampled neural signals",
+      "kind": "Coding exercise",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 2,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/neuro?code=code-lists-samples",
+      "prerequisites": [],
+      "objectives": [
+        "signal-units"
+      ]
+    },
+    {
+      "id": "neuro-code:code-loops-spike-counting",
+      "track": "neuro",
+      "title": "Loops: Count Threshold Episodes",
+      "summary": "Threshold-event counting",
+      "kind": "Coding exercise",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 2,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/neuro?code=code-loops-spike-counting",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "neuro-code:code-functions-firing-rate",
+      "track": "neuro",
+      "title": "Functions: Mean Event Rate",
+      "summary": "Firing rate",
+      "kind": "Coding exercise",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 2,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/neuro?code=code-functions-firing-rate",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "neuro-code:code-plotting-eeg-series",
+      "track": "neuro",
+      "title": "Time Axes: Place Each Sample",
+      "summary": "Synthetic signal analysis",
+      "kind": "Coding exercise",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 2,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/neuro?code=code-plotting-eeg-series",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "neuro-code:code-noise-smoothing",
+      "track": "neuro",
+      "title": "Moving Averages: Inspect What Changes",
+      "summary": "Noise reduction",
+      "kind": "Coding exercise",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 2,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/neuro?code=code-noise-smoothing",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "neuro-code:code-feature-extraction",
+      "track": "neuro",
+      "title": "Features: Mean, RMS and a Sample Count",
+      "summary": "Synthetic signal analysis",
+      "kind": "Coding exercise",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 2,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/neuro?code=code-feature-extraction",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "neuro-code:code-simple-bci-decoder",
+      "track": "neuro",
+      "title": "Linear Readout: Calculate Before Labeling",
+      "summary": "Synthetic signal analysis",
+      "kind": "Coding exercise",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 2,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/neuro?code=code-simple-bci-decoder",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "neuro-code:code-weighted-linear-decoder",
+      "track": "neuro",
+      "title": "Held-Out Evaluation: Keep the Rule Fixed",
+      "summary": "Synthetic signal analysis",
+      "kind": "Coding exercise",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 2,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/neuro?code=code-weighted-linear-decoder",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "neuro-code:code-closed-loop-rule",
+      "track": "neuro",
+      "title": "Logic Gates: Require Every Condition",
+      "summary": "Synthetic signal analysis",
+      "kind": "Coding exercise",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 2,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/neuro?code=code-closed-loop-rule",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "neuro-code:code-decoder-drift",
+      "track": "neuro",
+      "title": "Baseline Correction: State the Offset Assumption",
+      "summary": "Synthetic signal analysis",
+      "kind": "Coding exercise",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 2,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/neuro?code=code-decoder-drift",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "neuro-code:code-data-minimization",
+      "track": "neuro",
+      "title": "Data Selection: Use an Explicit Allowlist",
+      "summary": "Synthetic signal analysis",
+      "kind": "Coding exercise",
+      "level": "foundation",
+      "status": "revised",
+      "revision": 2,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/neuro?code=code-data-minimization",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "neuro-sim:sim-ns-noisy-signal",
+      "track": "neuro",
+      "title": "Spike or Noise?",
+      "summary": "In a synthetic recording exercise, several microelectrode channels show large deflections roughly once per second. They align with an ECG reference.",
+      "kind": "Synthetic simulation",
+      "level": "applied",
+      "status": "draft",
+      "revision": 2,
+      "reviewStatus": "Draft material; detailed revision and independent review are pending.",
+      "url": "/neuro?sim=sim-ns-noisy-signal",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "neuro-sim:sim-bci-cursor-drift",
+      "track": "neuro",
+      "title": "Why Is the Cursor Drifting?",
+      "summary": "A BCI user trained yesterday performs beautifully then. Today, the cursor drifts upward even when they 'rest.' Electrodes are intact and impedance is normal.",
+      "kind": "Synthetic simulation",
+      "level": "applied",
+      "status": "draft",
+      "revision": 1,
+      "reviewStatus": "Draft material; detailed revision and independent review are pending.",
+      "url": "/neuro?sim=sim-bci-cursor-drift",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "neuro-sim:sim-dec-overfit",
+      "track": "neuro",
+      "title": "The 90% Decoder That Doesn't Work",
+      "summary": "A fixed decoder matches 90% of offline direction labels, but live cursor target acquisition succeeds on 25% of attempts. You randomly split trials 80/20 after computing normalization parameters from the full dataset.",
+      "kind": "Synthetic simulation",
+      "level": "applied",
+      "status": "draft",
+      "revision": 2,
+      "reviewStatus": "Draft material; detailed revision and independent review are pending.",
+      "url": "/neuro?sim=sim-dec-overfit",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "neuro-sim:sim-stim-dbs-side-effect",
+      "track": "neuro",
+      "title": "DBS Programming Trade-off",
+      "summary": "A Parkinson's patient's tremor responds well at 3.2 V on contact 1, but reports tingling in the contralateral hand and some slurred speech. Tremor is fully suppressed only at this amplitude.",
+      "kind": "Synthetic simulation",
+      "level": "applied",
+      "status": "draft",
+      "revision": 1,
+      "reviewStatus": "Draft material; detailed revision and independent review are pending.",
+      "url": "/neuro?sim=sim-stim-dbs-side-effect",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "neuro-sim:sim-cl-false-positive",
+      "track": "neuro",
+      "title": "Trigger-Happy Detector",
+      "summary": "An epilepsy responsive stim device triggers ~80 times a day. The patient feels constant subtle paresthesias. EEG review shows most triggers don't precede any seizure activity.",
+      "kind": "Synthetic simulation",
+      "level": "applied",
+      "status": "draft",
+      "revision": 1,
+      "reviewStatus": "Draft material; detailed revision and independent review are pending.",
+      "url": "/neuro?sim=sim-cl-false-positive",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "neuro-sim:sim-np-no-feedback",
+      "track": "neuro",
+      "title": "Prosthetic Hand Without Sensation",
+      "summary": "A user with a myoelectric prosthesis can grip well in the lab. At home they crush eggs and drop heavier objects. They report exhaustion from constantly watching their hand.",
+      "kind": "Synthetic simulation",
+      "level": "applied",
+      "status": "draft",
+      "revision": 1,
+      "reviewStatus": "Draft material; detailed revision and independent review are pending.",
+      "url": "/neuro?sim=sim-np-no-feedback",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "neuro-sim:sim-cn-troubleshoot",
+      "track": "neuro",
+      "title": "DBS Patient with New Symptoms",
+      "summary": "A long-time DBS patient calls reporting sudden return of tremor. They missed last week's medication refill and recently went through airport security.",
+      "kind": "Synthetic simulation",
+      "level": "applied",
+      "status": "draft",
+      "revision": 1,
+      "reviewStatus": "Draft material; detailed revision and independent review are pending.",
+      "url": "/neuro?sim=sim-cn-troubleshoot",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "neuro-sim:sim-cn-firing-rate",
+      "track": "neuro",
+      "title": "Reading a Firing Rate Model",
+      "summary": "A rate model of a decision-making circuit has two populations, each with τ = 100 ms, mutual inhibition, and self-excitation. After a step input the rates split: one rises, the other falls.",
+      "kind": "Synthetic simulation",
+      "level": "applied",
+      "status": "draft",
+      "revision": 1,
+      "reviewStatus": "Draft material; detailed revision and independent review are pending.",
+      "url": "/neuro?sim=sim-cn-firing-rate",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "neuro-sim:sim-nim-lesion",
+      "track": "neuro",
+      "title": "Lesion in the Wrong Place?",
+      "summary": "A patient has profound naming difficulty after a small stroke. Their MRI shows a tiny lesion in the left thalamus — far from classic language cortex.",
+      "kind": "Synthetic simulation",
+      "level": "applied",
+      "status": "draft",
+      "revision": 1,
+      "reviewStatus": "Draft material; detailed revision and independent review are pending.",
+      "url": "/neuro?sim=sim-nim-lesion",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "neuro-sim:sim-im-degradation",
+      "track": "neuro",
+      "title": "Signals Fade After 6 Months",
+      "summary": "A penetrating microelectrode array's signal-to-noise on most channels has dropped 40% over six months. Impedances have crept up. Patient reports no new symptoms.",
+      "kind": "Synthetic simulation",
+      "level": "applied",
+      "status": "draft",
+      "revision": 1,
+      "reviewStatus": "Draft material; detailed revision and independent review are pending.",
+      "url": "/neuro?sim=sim-im-degradation",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "neuro-sim:sim-re-stroke-rehab",
+      "track": "neuro",
+      "title": "Choosing a Rehab Device",
+      "summary": "A stroke patient with partial hand function plateaus in outpatient therapy. They have motor cortex sparing but minimal voluntary finger extension. You can recommend one home device.",
+      "kind": "Synthetic simulation",
+      "level": "applied",
+      "status": "draft",
+      "revision": 1,
+      "reviewStatus": "Draft material; detailed revision and independent review are pending.",
+      "url": "/neuro?sim=sim-re-stroke-rehab",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "neuro-sim:sim-eth-data-privacy",
+      "track": "neuro",
+      "title": "Selling Attention Scores",
+      "summary": "A wearable EEG headset company offers users free hardware in exchange for the right to sell 'aggregated attention scores' to advertisers and employers.",
+      "kind": "Synthetic simulation",
+      "level": "applied",
+      "status": "draft",
+      "revision": 1,
+      "reviewStatus": "Draft material; detailed revision and independent review are pending.",
+      "url": "/neuro?sim=sim-eth-data-privacy",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "neuro-sim:sim-sampling-time",
+      "track": "neuro",
+      "title": "Sampling: First to Last",
+      "summary": "Five synthetic samples are recorded uniformly at 2 Hz, with the first sample at time zero.",
+      "kind": "Synthetic simulation",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/neuro?sim=sim-sampling-time",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "neuro-sim:sim-feature-meaning",
+      "track": "neuro",
+      "title": "Features: A Constant Negative Window",
+      "summary": "You summarize the synthetic window [-3, -3] µV using mean, RMS and the count strictly above the mean.",
+      "kind": "Synthetic simulation",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/neuro?sim=sim-feature-meaning",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "neuro-sim:sim-held-out-meaning",
+      "track": "neuro",
+      "title": "Evaluation: What Does 4/4 Mean?",
+      "summary": "A fixed toy decoder correctly labels all four invented test rows. The weights were selected before those rows were shown.",
+      "kind": "Synthetic simulation",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/neuro?sim=sim-held-out-meaning",
+      "prerequisites": [],
+      "objectives": [
+        "evidence-claim"
+      ]
+    },
+    {
+      "id": "neuro-project:neural-signal-viewer",
+      "track": "neuro",
+      "title": "Neural Signal Viewer",
+      "summary": "Describe a sampled signal with units and separate threshold samples from inferred biological events.",
+      "kind": "Synthetic engineering project",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/neuro?project=neural-signal-viewer",
+      "prerequisites": [
+        "neuro-unit:bci-path-01-time-series",
+        "neuro-unit:bci-path-02-spike-detection",
+        "neuro-unit:bci-path-03-firing-rate",
+        "neuro-unit:bci-path-04-signal-noise",
+        "neuro-unit:bci-path-05-filtering-smoothing",
+        "neuro-unit:bci-path-06-feature-extraction",
+        "neuro-unit:bci-path-07-simple-decoder"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "neuro-project:spike-detector",
+      "track": "neuro",
+      "title": "Spike Detector + Feature Vector",
+      "summary": "Group threshold excursions and explain what a global statistical threshold can and cannot establish.",
+      "kind": "Synthetic engineering project",
+      "level": "applied",
+      "status": "revised",
+      "revision": 2,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/neuro?project=spike-detector",
+      "prerequisites": [
+        "neuro-unit:bci-path-01-time-series",
+        "neuro-unit:bci-path-02-spike-detection",
+        "neuro-unit:bci-path-03-firing-rate",
+        "neuro-unit:bci-path-04-signal-noise",
+        "neuro-unit:bci-path-05-filtering-smoothing",
+        "neuro-unit:bci-path-06-feature-extraction",
+        "neuro-unit:bci-path-07-simple-decoder",
+        "neuro-unit:bci-path-08-cursor-control",
+        "neuro-unit:bci-path-09-decoder-drift",
+        "neuro-unit:bci-path-10-closed-loop-feedback",
+        "neuro-unit:bci-path-11-human-centered-ux",
+        "neuro-unit:bci-path-12-brain-data-ethics",
+        "neuro-project:neural-signal-viewer"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "neuro-project:noise-smoother",
+      "track": "neuro",
+      "title": "Noise Smoother & Drift Corrector",
+      "summary": "Implement a causal rolling baseline estimate and quantify its edge and waveform distortion.",
+      "kind": "Synthetic engineering project",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/neuro?project=noise-smoother",
+      "prerequisites": [
+        "neuro-unit:bci-path-01-time-series",
+        "neuro-unit:bci-path-02-spike-detection",
+        "neuro-unit:bci-path-03-firing-rate",
+        "neuro-unit:bci-path-04-signal-noise",
+        "neuro-unit:bci-path-05-filtering-smoothing",
+        "neuro-unit:bci-path-06-feature-extraction",
+        "neuro-unit:bci-path-07-simple-decoder",
+        "neuro-unit:bci-path-08-cursor-control",
+        "neuro-unit:bci-path-09-decoder-drift",
+        "neuro-unit:bci-path-10-closed-loop-feedback",
+        "neuro-unit:bci-path-11-human-centered-ux",
+        "neuro-unit:bci-path-12-brain-data-ethics",
+        "neuro-unit:bci-path-13-population-vectors",
+        "neuro-unit:bci-path-14-weighted-decoder",
+        "neuro-project:spike-detector"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "neuro-project:leftright-decoder",
+      "track": "neuro",
+      "title": "Weighted Linear Decoder",
+      "summary": "Fit an inspectable two-class linear rule using training data only and keep the held-out result separate.",
+      "kind": "Synthetic engineering project",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/neuro?project=leftright-decoder",
+      "prerequisites": [
+        "neuro-unit:bci-path-01-time-series",
+        "neuro-unit:bci-path-02-spike-detection",
+        "neuro-unit:bci-path-03-firing-rate",
+        "neuro-unit:bci-path-04-signal-noise",
+        "neuro-unit:bci-path-05-filtering-smoothing",
+        "neuro-unit:bci-path-06-feature-extraction",
+        "neuro-unit:bci-path-07-simple-decoder",
+        "neuro-unit:bci-path-08-cursor-control",
+        "neuro-unit:bci-path-09-decoder-drift",
+        "neuro-unit:bci-path-10-closed-loop-feedback",
+        "neuro-unit:bci-path-11-human-centered-ux",
+        "neuro-unit:bci-path-12-brain-data-ethics",
+        "neuro-unit:bci-path-13-population-vectors",
+        "neuro-unit:bci-path-14-weighted-decoder",
+        "neuro-unit:bci-path-15-online-adaptation",
+        "neuro-unit:bci-path-16-latency-and-timing",
+        "neuro-project:noise-smoother"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "neuro-project:cursor-simulator",
+      "track": "neuro",
+      "title": "Cursor Simulator + Latency",
+      "summary": "Reproduce a delayed-feedback trajectory and distinguish model time from execution time.",
+      "kind": "Synthetic engineering project",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/neuro?project=cursor-simulator",
+      "prerequisites": [
+        "neuro-unit:bci-path-01-time-series",
+        "neuro-unit:bci-path-02-spike-detection",
+        "neuro-unit:bci-path-03-firing-rate",
+        "neuro-unit:bci-path-04-signal-noise",
+        "neuro-unit:bci-path-05-filtering-smoothing",
+        "neuro-unit:bci-path-06-feature-extraction",
+        "neuro-unit:bci-path-07-simple-decoder",
+        "neuro-unit:bci-path-08-cursor-control",
+        "neuro-unit:bci-path-09-decoder-drift",
+        "neuro-unit:bci-path-10-closed-loop-feedback",
+        "neuro-unit:bci-path-11-human-centered-ux",
+        "neuro-unit:bci-path-12-brain-data-ethics",
+        "neuro-unit:bci-path-13-population-vectors",
+        "neuro-unit:bci-path-14-weighted-decoder",
+        "neuro-unit:bci-path-15-online-adaptation",
+        "neuro-unit:bci-path-16-latency-and-timing",
+        "neuro-unit:bci-path-17-confidence-and-degradation",
+        "neuro-unit:bci-path-18-safety-and-risk",
+        "neuro-project:leftright-decoder"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "neuro-project:closed-loop-capstone",
+      "track": "neuro",
+      "title": "Closed-Loop BCI Capstone",
+      "summary": "Reproduce a bounded synthetic pipeline and trace how preprocessing, detection and decoding affect its cursor output.",
+      "kind": "Synthetic engineering project",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/neuro?project=closed-loop-capstone",
+      "prerequisites": [
+        "neuro-unit:bci-path-01-time-series",
+        "neuro-unit:bci-path-02-spike-detection",
+        "neuro-unit:bci-path-03-firing-rate",
+        "neuro-unit:bci-path-04-signal-noise",
+        "neuro-unit:bci-path-05-filtering-smoothing",
+        "neuro-unit:bci-path-06-feature-extraction",
+        "neuro-unit:bci-path-07-simple-decoder",
+        "neuro-unit:bci-path-08-cursor-control",
+        "neuro-unit:bci-path-09-decoder-drift",
+        "neuro-unit:bci-path-10-closed-loop-feedback",
+        "neuro-unit:bci-path-11-human-centered-ux",
+        "neuro-unit:bci-path-12-brain-data-ethics",
+        "neuro-unit:bci-path-13-population-vectors",
+        "neuro-unit:bci-path-14-weighted-decoder",
+        "neuro-unit:bci-path-15-online-adaptation",
+        "neuro-unit:bci-path-16-latency-and-timing",
+        "neuro-unit:bci-path-17-confidence-and-degradation",
+        "neuro-unit:bci-path-18-safety-and-risk",
+        "neuro-unit:bci-path-19-data-and-regulatory",
+        "neuro-unit:bci-path-20-unit20-capstone",
+        "neuro-project:cursor-simulator"
+      ],
+      "objectives": []
+    },
+    {
+      "id": "practice:em-016",
+      "track": "practice",
+      "title": "Case teaching focus: em-016",
+      "summary": "Prioritize stability and distinguish a regular narrow-complex rhythm.",
+      "kind": "Case objective register",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/practice?view=content#case-em-016",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "practice:em-018",
+      "track": "practice",
+      "title": "Case teaching focus: em-018",
+      "summary": "Recognize traumatic intracranial bleeding and coordinate reversal with urgent surgery.",
+      "kind": "Case objective register",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/practice?view=content#case-em-018",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "practice:em-015",
+      "track": "practice",
+      "title": "Case teaching focus: em-015",
+      "summary": "Identify complete AV dissociation and respond to unstable bradycardia.",
+      "kind": "Case objective register",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/practice?view=content#case-em-015",
+      "prerequisites": [],
+      "objectives": [
+        "independent-clocks"
+      ]
+    },
+    {
+      "id": "practice:em-020",
+      "track": "practice",
+      "title": "Case teaching focus: em-020",
+      "summary": "Recognize a necrotizing infection and coordinate resuscitation, antibiotics, and source control.",
+      "kind": "Case objective register",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/practice?view=content#case-em-020",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "practice:em-033",
+      "track": "practice",
+      "title": "Case teaching focus: em-033",
+      "summary": "Connect pregnancy, shock, and abdominal findings to urgent hemorrhage control.",
+      "kind": "Case objective register",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/practice?view=content#case-em-033",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "practice:em-101",
+      "track": "practice",
+      "title": "Case teaching focus: em-101",
+      "summary": "Use event sequence to distinguish a likely faint from seizure and recognize a cardiac reason to reconsider.",
+      "kind": "Case objective register",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/practice?view=content#case-em-101",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "practice:cd-001",
+      "track": "practice",
+      "title": "Case teaching focus: cd-001",
+      "summary": "Distinguish a stable symptom pattern and separate ischemia evidence from coronary anatomy.",
+      "kind": "Case objective register",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/practice?view=content#case-cd-001",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "practice:cd-006",
+      "track": "practice",
+      "title": "Case teaching focus: cd-006",
+      "summary": "Interpret AF, choose context-appropriate rate control, and assess stroke prevention.",
+      "kind": "Case objective register",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/practice?view=content#case-cd-006",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "practice:cd-055",
+      "track": "practice",
+      "title": "Case teaching focus: cd-055",
+      "summary": "Recognize dynamic obstruction and identify the need for specialist risk assessment.",
+      "kind": "Case objective register",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/practice?view=content#case-cd-055",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "practice:cd-061",
+      "track": "practice",
+      "title": "Case teaching focus: cd-061",
+      "summary": "Connect systemic infection and pulmonary embolic findings to a cardiac source.",
+      "kind": "Case objective register",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/practice?view=content#case-cd-061",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "practice:cd-019",
+      "track": "practice",
+      "title": "Case teaching focus: cd-019",
+      "summary": "Revise a management plan when initially stable coronary dissection deteriorates.",
+      "kind": "Case objective register",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/practice?view=content#case-cd-019",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "practice:cd-101",
+      "track": "practice",
+      "title": "Case teaching focus: cd-101",
+      "summary": "Interpret posture-linked pressure changes, separate a finding from its cause and reassess persistent symptoms.",
+      "kind": "Case objective register",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/practice?view=content#case-cd-101",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "practice:nr-011",
+      "track": "practice",
+      "title": "Case teaching focus: nr-011",
+      "summary": "Use timing and positional findings to identify a treatable vestibular pattern.",
+      "kind": "Case objective register",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/practice?view=content#case-nr-011",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "practice:nr-025",
+      "track": "practice",
+      "title": "Case teaching focus: nr-025",
+      "summary": "Classify a first seizure and discuss treatment using individual recurrence risk.",
+      "kind": "Case objective register",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/practice?view=content#case-nr-025",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "practice:nr-012",
+      "track": "practice",
+      "title": "Case teaching focus: nr-012",
+      "summary": "Interpret a vestibular examination within its training and syndrome limits.",
+      "kind": "Case objective register",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/practice?view=content#case-nr-012",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "practice:nr-016",
+      "track": "practice",
+      "title": "Case teaching focus: nr-016",
+      "summary": "Connect trauma, focal deterioration, and CT findings to urgent decompression.",
+      "kind": "Case objective register",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/practice?view=content#case-nr-016",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "practice:nr-008",
+      "track": "practice",
+      "title": "Case teaching focus: nr-008",
+      "summary": "Connect a painful partial Horner syndrome to arterial imaging and stroke prevention.",
+      "kind": "Case objective register",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/practice?view=content#case-nr-008",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "practice:nr-101",
+      "track": "practice",
+      "title": "Case teaching focus: nr-101",
+      "summary": "Assess a first suspected seizure without overclassifying its onset or treating a normal EEG as exclusion.",
+      "kind": "Case objective register",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/practice?view=content#case-nr-101",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "practice-timeline:timeline-chest",
+      "track": "practice",
+      "title": "Chest discomfort across a changing shift",
+      "summary": "Revisit an early working explanation when symptoms, an ECG and serial biomarkers change.",
+      "kind": "Patient timeline",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/practice?view=longitudinal&case=timeline-chest",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "practice-timeline:timeline-potassium",
+      "track": "practice",
+      "title": "A critical laboratory callback",
+      "summary": "Reconcile a concerning result with repeat sampling and communicate what remains unresolved.",
+      "kind": "Patient timeline",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/practice?view=longitudinal&case=timeline-potassium",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "practice-timeline:timeline-syncope",
+      "track": "practice",
+      "title": "A faint with an unfinished explanation",
+      "summary": "Update an initial situational explanation after collateral history and rhythm evidence.",
+      "kind": "Patient timeline",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/practice?view=longitudinal&case=timeline-syncope",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "ecg:sinus",
+      "track": "reference",
+      "title": "Sinus rhythm",
+      "summary": "Regular atrial activation is followed by ventricular activation. Measure the PR and QRS before judging them by appearance.",
+      "kind": "Synthetic ECG pattern",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/medicine?tool=ecg&mode=library&focus=sinus",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "ecg:brady",
+      "track": "reference",
+      "title": "Sinus bradycardia",
+      "summary": "The P-to-QRS relationship is maintained while the cycle length is longer. Here 60 / 1.25 gives 48 ventricular complexes per minute.",
+      "kind": "Synthetic ECG pattern",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/medicine?tool=ecg&mode=library&focus=brady",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "ecg:tachy",
+      "track": "reference",
+      "title": "Sinus tachycardia",
+      "summary": "P waves precede narrow complexes with a short R–R interval. The modeled rate is 60 / 0.48 = 125 per minute.",
+      "kind": "Synthetic ECG pattern",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/medicine?tool=ecg&mode=library&focus=tachy",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "ecg:afib",
+      "track": "reference",
+      "title": "Atrial fibrillation pattern",
+      "summary": "Look for the combination of irregular ventricular timing and absent organized P waves. Irregularity alone is insufficient.",
+      "kind": "Synthetic ECG pattern",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/medicine?tool=ecg&mode=library&focus=afib",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "ecg:flutter",
+      "track": "reference",
+      "title": "Atrial flutter with 2:1 conduction",
+      "summary": "Atrial activity repeats twice as often as ventricular complexes in this model. At 2:1 conduction, some flutter activity overlaps the QRS or T wave.",
+      "kind": "Synthetic ECG pattern",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/medicine?tool=ecg&mode=library&focus=flutter",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "ecg:svt",
+      "track": "reference",
+      "title": "Regular narrow-complex tachycardia",
+      "summary": "The rhythm is fast and regular with narrow QRS complexes (narrow means under 120 ms; the modeled QRS is 80 ms). Atrial activation cannot be confidently separated on this strip.",
+      "kind": "Synthetic ECG pattern",
+      "level": "applied",
+      "status": "revised",
+      "revision": 2,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/medicine?tool=ecg&mode=library&focus=svt",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "ecg:junctional",
+      "track": "reference",
+      "title": "Junctional escape pattern",
+      "summary": "A slow regular rhythm has narrow ventricular complexes and no identifiable preceding P wave in this projection.",
+      "kind": "Synthetic ECG pattern",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/medicine?tool=ecg&mode=library&focus=junctional",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "ecg:avb1",
+      "track": "reference",
+      "title": "First-degree AV block pattern",
+      "summary": "Every P conducts, but the modeled PR interval is 260 ms. The delay is measured from P onset to QRS onset. Adult reference PR is 120–200 ms, so the modeled value is prolonged.",
+      "kind": "Synthetic ECG pattern",
+      "level": "applied",
+      "status": "revised",
+      "revision": 2,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/medicine?tool=ecg&mode=library&focus=avb1",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "ecg:mobitz1",
+      "track": "reference",
+      "title": "Mobitz I (Wenckebach) pattern",
+      "summary": "Atrial timing remains regular while the PR interval lengthens through conducted beats; a P then lacks a QRS and the sequence restarts.",
+      "kind": "Synthetic ECG pattern",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/medicine?tool=ecg&mode=library&focus=mobitz1",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "ecg:mobitz2",
+      "track": "reference",
+      "title": "Mobitz II pattern",
+      "summary": "Conducted beats retain the same PR interval, with intermittent nonconducted P waves. This example includes a wide QRS: the modeled duration is 140 ms against an adult reference of under 120 ms.",
+      "kind": "Synthetic ECG pattern",
+      "level": "applied",
+      "status": "revised",
+      "revision": 2,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/medicine?tool=ecg&mode=library&focus=mobitz2",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "ecg:chb",
+      "track": "reference",
+      "title": "Complete AV block pattern",
+      "summary": "P waves and ventricular complexes follow independent schedules. The gap from the nearest preceding P to each QRS shortens beat by beat (260 ms, then 110 ms), and the P waves at 3.34 s and 4.94 s fall inside a QRS or T wave.",
+      "kind": "Synthetic ECG pattern",
+      "level": "applied",
+      "status": "revised",
+      "revision": 2,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/medicine?tool=ecg&mode=library&focus=chb",
+      "prerequisites": [],
+      "objectives": [
+        "independent-clocks"
+      ]
+    },
+    {
+      "id": "ecg:pvc",
+      "track": "reference",
+      "title": "Premature ventricular complex pattern",
+      "summary": "A premature broad complex differs from the surrounding narrow complexes and is followed by a longer interval. The T-wave direction also differs.",
+      "kind": "Synthetic ECG pattern",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/medicine?tool=ecg&mode=library&focus=pvc",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "ecg:vt",
+      "track": "reference",
+      "title": "Regular wide-complex tachycardia",
+      "summary": "Fast, regular, broad complexes have a similar shape from beat to beat (broad means 120 ms or more; the modeled QRS is 160 ms). This is compatible with monomorphic ventricular tachycardia.",
+      "kind": "Synthetic ECG pattern",
+      "level": "applied",
+      "status": "revised",
+      "revision": 2,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/medicine?tool=ecg&mode=library&focus=vt",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "ecg:torsades",
+      "track": "reference",
+      "title": "Torsades de pointes pattern",
+      "summary": "Broad complexes vary in direction and amplitude. The supplied context includes a preceding prolonged QT, which distinguishes the intended torsades example from polymorphic VT with normal QT.",
+      "kind": "Synthetic ECG pattern",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/medicine?tool=ecg&mode=library&focus=torsades",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "ecg:vfib",
+      "track": "reference",
+      "title": "Ventricular fibrillation pattern",
+      "summary": "The signal lacks repeatable organized ventricular complexes. Counting the largest deflections would create a misleading heart-rate estimate.",
+      "kind": "Synthetic ECG pattern",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/medicine?tool=ecg&mode=library&focus=vfib",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "ecg:asystole",
+      "track": "reference",
+      "title": "Asystole-like flat signal",
+      "summary": "No organized cardiac complexes are modeled. A nearly flat recording can also result from equipment or connection problems.",
+      "kind": "Synthetic ECG pattern",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/medicine?tool=ecg&mode=library&focus=asystole",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "ecg:stemi",
+      "track": "reference",
+      "title": "ST-segment elevation pattern",
+      "summary": "The ST segment is displaced above the baseline in this synthetic projection. Measure the displacement without turning the measurement into a diagnosis.",
+      "kind": "Synthetic ECG pattern",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/medicine?tool=ecg&mode=library&focus=stemi",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "ecg:hyperk",
+      "track": "reference",
+      "title": "Prominent pointed T-wave pattern",
+      "summary": "The T waves are relatively tall and pointed in this example. QRS complexes remain narrow; a complete stereotyped progression is not required for a potassium disorder.",
+      "kind": "Synthetic ECG pattern",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/medicine?tool=ecg&mode=library&focus=hyperk",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "ecg:wpw",
+      "track": "reference",
+      "title": "Ventricular pre-excitation pattern",
+      "summary": "A short PR is followed by a slurred initial QRS upstroke and a widened complex. The model includes an actual gradual delta-like segment. Adult reference limits: PR 120–200 ms and QRS under 120 ms; the modeled PR is 100 ms and the modeled QRS is 140 ms.",
+      "kind": "Synthetic ECG pattern",
+      "level": "applied",
+      "status": "revised",
+      "revision": 2,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/medicine?tool=ecg&mode=library&focus=wpw",
+      "prerequisites": [],
+      "objectives": []
+    },
+    {
+      "id": "ecg:paced",
+      "track": "reference",
+      "title": "Ventricular pacing pattern",
+      "summary": "A modeled pacing stimulus precedes each broad ventricular complex. The temporal relationship is consistent with electrical capture in this example.",
+      "kind": "Synthetic ECG pattern",
+      "level": "applied",
+      "status": "revised",
+      "revision": 1,
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "url": "/medicine?tool=ecg&mode=library&focus=paced",
+      "prerequisites": [],
+      "objectives": []
+    }
+  ],
+  "connections": [
+    {
+      "to": "mcat:memory-retrieval",
+      "relation": "application",
+      "why": "Connect the learning routine to the memory concepts used in MCAT preparation.",
+      "limits": "Completing a learning-method lesson does not complete the MCAT lesson.",
+      "from": "socrates:general:g2"
+    },
+    {
+      "to": "socrates:medical:m2",
+      "relation": "application",
+      "why": "Adapt retrieval to a large body of healthcare knowledge.",
+      "limits": "Remembering a fact alone does not establish safe clinical performance.",
+      "from": "socrates:general:g2"
+    },
+    {
+      "to": "mcat:attention-control",
+      "relation": "application",
+      "why": "Use the distinction in MCAT examples of task goals and interference.",
+      "limits": "A practical study adjustment is not a diagnosis of an attention disorder.",
+      "from": "socrates:general:g6"
+    },
+    {
+      "to": "reference:med-observation-mechanism",
+      "relation": "application",
+      "why": "Practice separating observations from a proposed clinical mechanism.",
+      "limits": "A plausible mechanism is not a confirmed diagnosis.",
+      "from": "mcat:research-inference"
+    },
+    {
+      "to": "neuro-sim:sim-held-out-meaning",
+      "relation": "comparison",
+      "why": "Compare a research inference with the limits of held-out model evaluation.",
+      "limits": "Good held-out performance is not proof of clinical usefulness or causation.",
+      "from": "mcat:research-inference"
+    },
+    {
+      "to": "anatomy:anat-heart-route",
+      "relation": "foundation",
+      "why": "Locate the chambers and vessels before explaining movement through the circuit.",
+      "limits": "A route diagram does not specify pressure or flow in a patient.",
+      "from": "mcat:circulatory-flow"
+    },
+    {
+      "to": "reference:med-flow-resistance",
+      "relation": "application",
+      "why": "Use pressure difference and resistance to explain a flow change.",
+      "limits": "The simplified relation does not reproduce pulsatile, regulated circulation.",
+      "from": "mcat:circulatory-flow"
+    },
+    {
+      "to": "anatomy:anat-breathing",
+      "relation": "foundation",
+      "why": "Locate the diaphragm and relate its movement to quiet inspiration.",
+      "limits": "Movement of air is not itself a measurement of oxygen delivery.",
+      "from": "mcat:gas-exchange"
+    },
+    {
+      "to": "reference:med-oxygen-delivery",
+      "relation": "application",
+      "why": "Distinguish oxygen saturation from the amount delivered to tissue.",
+      "limits": "A single saturation value does not establish overall physiological adequacy.",
+      "from": "mcat:gas-exchange"
+    },
+    {
+      "to": "reference:med-feedback",
+      "relation": "foundation",
+      "why": "Use the regulated variable, sensor and response to explain a feedback loop.",
+      "limits": "A useful diagram does not imply instant or perfect regulation.",
+      "from": "mcat:endocrine-feedback"
+    },
+    {
+      "to": "reference:med-raas-targets",
+      "relation": "application",
+      "why": "Compare interventions at different targets in the same pathway.",
+      "limits": "Shared pathway membership does not make drugs interchangeable.",
+      "from": "mcat:endocrine-feedback"
+    },
+    {
+      "to": "neuro-unit:bci-path-01-time-series",
+      "relation": "comparison",
+      "why": "Compare ECG timing with the ordered voltage samples of a neural recording.",
+      "limits": "The recordings measure different signals; neither is a direct readout of all cellular activity.",
+      "from": "reference:med-ecg-measure"
+    },
+    {
+      "to": "neuro-code:code-lists-samples",
+      "relation": "application",
+      "why": "Represent the samples as an ordered sequence before calculating times.",
+      "limits": "A list index becomes a time only when its sampling interval is known.",
+      "from": "reference:med-ecg-measure"
+    },
+    {
+      "to": "mcat:research-inference",
+      "relation": "comparison",
+      "why": "Use the distinction between an observation and a supported conclusion.",
+      "limits": "General research reasoning does not replace a validated clinical testing pathway.",
+      "from": "reference:med-ddimer-context"
+    },
+    {
+      "to": "reference:med-acid-base",
+      "relation": "application",
+      "why": "Connect acid-base variables to a bounded physiological explanation.",
+      "limits": "A chemistry buffer calculation alone does not identify a clinical disorder.",
+      "from": "mcat:buffer-balance"
+    },
+    {
+      "to": "reference:med-acid-base-compensation",
+      "relation": "application",
+      "why": "Examine whether a measured response fits an expected compensation.",
+      "limits": "A compensation rule is an approximation, not a complete diagnosis.",
+      "from": "mcat:buffer-balance"
+    },
+    {
+      "to": "mcat:uncertainty-controls",
+      "relation": "foundation",
+      "why": "Use controls and uncertainty to consider an artifact or alternative explanation.",
+      "limits": "A control improves interpretation but does not remove every source of error.",
+      "from": "reference:med-lab-intervals"
+    },
+    {
+      "to": "reference:med-potassium-sample",
+      "relation": "application",
+      "why": "Apply sample context to a result that may be affected by collection or handling.",
+      "limits": "A possible artifact must not be used to dismiss a clinically important result without appropriate assessment.",
+      "from": "reference:med-lab-intervals"
+    },
+    {
+      "to": "ecg:chb",
+      "relation": "application",
+      "why": "Inspect a synthetic example with independent atrial and ventricular timing.",
+      "limits": "A schematic lacks the full clinical and recording context.",
+      "from": "reference:med-ecg-av-timing"
+    },
+    {
+      "to": "practice:em-015",
+      "relation": "application",
+      "why": "Read the related encounter objective and review questions.",
+      "limits": "This opens the case teaching focus and can reveal its target; use it after a blind encounter if you want to preserve that experience.",
+      "from": "reference:med-ecg-av-timing"
+    },
+    {
+      "to": "neuro-unit:bci-path-02-spike-detection",
+      "relation": "comparison",
+      "why": "Compare observed event timing with the separate question of what generated an event.",
+      "limits": "A candidate neural event and a cardiac conduction pattern are not equivalent diagnoses.",
+      "from": "reference:med-ecg-av-timing"
+    },
+    {
+      "to": "reference:med-st-troponin",
+      "relation": "application",
+      "why": "Distinguish cardiac anatomy from the different questions answered by an electrical pattern and a biomarker.",
+      "limits": "Neither a simplified route nor one test result establishes a complete clinical explanation.",
+      "from": "anatomy:anat-heart-route"
+    },
+    {
+      "to": "mcat:circulatory-flow",
+      "relation": "comparison",
+      "why": "Connect the chamber-to-vessel route with pressure and flow reasoning.",
+      "limits": "A correct route is necessary background, not proof of normal function.",
+      "from": "anatomy:anat-heart-route"
+    }
+  ],
+  "cards": [
+    {
+      "id": "retrieval-transfer",
+      "revision": 2,
+      "title": "Retrieve before checking",
+      "level": "foundation",
+      "prompt": "You reread a page and it feels familiar. Design one short next step that would give you better evidence about what you can explain tomorrow. Say what you would compare after checking.",
+      "model": "Close the page, explain its central idea from memory, and keep that first explanation. Check against the source and name one missing relationship or error. Return after a delay and try again. Familiarity during rereading is different from being able to retrieve later; this routine does not guarantee a particular exam result.",
+      "compare": "Compare the retrieval attempt, the use of feedback and the delayed return. Name one change to your proposed routine.",
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "links": [
+        {
+          "id": "socrates:general:g2",
+          "track": "socrates",
+          "title": "Pull answers from memory",
+          "summary": "Why does trying to remember beat seeing the answer again?",
+          "kind": "Lesson",
+          "level": "foundation",
+          "status": "revised",
+          "revision": 1,
+          "reviewStatus": "Author-revised material. Independent subject review is pending.",
+          "url": "/learn?track=general&lesson=g2&step=1",
+          "prerequisites": [],
+          "objectives": [
+            "retrieval-transfer"
+          ]
+        },
+        {
+          "id": "mcat:memory-retrieval",
+          "track": "mcat",
+          "title": "Build and retrieve a memory",
+          "summary": "Separate encoding, storage, and access.",
+          "kind": "Lesson",
+          "level": "foundation",
+          "status": "revised",
+          "revision": 1,
+          "reviewStatus": "Author-revised material. Independent subject review is pending.",
+          "url": "/mcat?view=course&unit=memory-retrieval",
+          "prerequisites": [
+            "mcat:learning-consequences"
+          ],
+          "objectives": [
+            "retrieval-transfer"
+          ]
+        },
+        {
+          "id": "socrates:medical:m2",
+          "track": "socrates",
+          "title": "Remember large amounts of information",
+          "summary": "How do you remember many facts without drowning in flashcards?",
+          "kind": "Lesson",
+          "level": "applied",
+          "status": "revised",
+          "revision": 1,
+          "reviewStatus": "Author-revised material. Independent subject review is pending.",
+          "url": "/learn?track=medical&lesson=m2&step=1",
+          "prerequisites": [],
+          "objectives": [
+            "retrieval-transfer"
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "title": "Test-Enhanced Learning: Taking Memory Tests Improves Long-Term Retention",
+          "url": "https://doi.org/10.1111/j.1467-9280.2006.01693.x"
+        },
+        {
+          "title": "Testing (quizzing) boosts classroom learning: A systematic and meta-analytic review",
+          "url": "https://doi.org/10.1037/bul0000309"
+        },
+        {
+          "title": "The Power of Feedback Revisited",
+          "url": "https://doi.org/10.3389/fpsyg.2019.03087"
+        },
+        {
+          "title": "Successive Relearning: An Underexplored but Potent Technique for Obtaining and Maintaining Knowledge",
+          "url": "https://doi.org/10.1177/09637214221100484"
+        },
+        {
+          "title": "Electronic Flashcards in Health Professions Education",
+          "url": "https://doi.org/10.1097/ACM.0000000000005968"
+        }
+      ]
+    },
+    {
+      "id": "attention-task",
+      "revision": 2,
+      "title": "Protect the task in working memory",
+      "level": "foundation",
+      "prompt": "While solving a calculation, you keep switching to message alerts. Explain what selecting the relevant information and holding intermediate values each contribute. Propose one change that could reduce interference.",
+      "model": "Selecting the task-relevant input helps direct attention; working memory holds and manipulates the instruction and intermediate values. Silencing alerts for a defined work interval reduces one source of competing input. It does not remove all limits or establish the cause of every mistake.",
+      "compare": "Check whether you distinguished selection from holding and using information, and whether your proposed change addresses a specific distraction.",
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "links": [
+        {
+          "id": "socrates:general:g6",
+          "track": "socrates",
+          "title": "Protect your attention",
+          "summary": "How do you leave enough mental space for the thinking that matters?",
+          "kind": "Lesson",
+          "level": "foundation",
+          "status": "revised",
+          "revision": 1,
+          "reviewStatus": "Author-revised material. Independent subject review is pending.",
+          "url": "/learn?track=general&lesson=g6&step=1",
+          "prerequisites": [],
+          "objectives": [
+            "attention-task"
+          ]
+        },
+        {
+          "id": "mcat:attention-control",
+          "track": "mcat",
+          "title": "Allocate attention",
+          "summary": "Connect selection, interference, and task demands.",
+          "kind": "Lesson",
+          "level": "foundation",
+          "status": "revised",
+          "revision": 1,
+          "reviewStatus": "Author-revised material. Independent subject review is pending.",
+          "url": "/mcat?view=course&unit=attention-control",
+          "prerequisites": [
+            "mcat:psychophysics"
+          ],
+          "objectives": [
+            "attention-task"
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "title": "Multimedia Design for Learning: An Overview of Reviews With Meta-Meta-Analysis",
+          "url": "https://doi.org/10.3102/00346543211052329"
+        },
+        {
+          "title": "The impact of sleep restriction on memory formation",
+          "url": "https://doi.org/10.1016/j.neubiorev.2024.105929"
+        }
+      ]
+    },
+    {
+      "id": "evidence-claim",
+      "revision": 2,
+      "title": "Match the claim to the evidence",
+      "level": "applied",
+      "prompt": "A fictional study finds that learners who use a new study tool have higher scores. They chose whether to use it. Explain why the result alone does not establish that the tool caused the difference. Name one useful design improvement.",
+      "model": "Self-selection permits other differences, such as prior preparation or available time, to contribute to the score difference. Random assignment with a defined comparison can improve causal interpretation, while still requiring attention to adherence, measurement and the study population. A held-out prediction test answers a different question from a causal study.",
+      "compare": "Identify the alternative explanation you named and whether your design change addresses it. Keep prediction and causal effects separate.",
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "links": [
+        {
+          "id": "mcat:research-inference",
+          "track": "mcat",
+          "title": "Decide what a study can claim",
+          "summary": "Use learning and memory experiments to practice research reasoning.",
+          "kind": "Lesson",
+          "level": "foundation",
+          "status": "revised",
+          "revision": 1,
+          "reviewStatus": "Author-revised material. Independent subject review is pending.",
+          "url": "/mcat?view=course&unit=research-inference",
+          "prerequisites": [
+            "mcat:memory-retrieval"
+          ],
+          "objectives": [
+            "evidence-claim",
+            "probability-context"
+          ]
+        },
+        {
+          "id": "reference:med-observation-mechanism",
+          "track": "reference",
+          "title": "From observations to a bounded explanation",
+          "summary": "Separate what a simulated case shows from what remains to be established.",
+          "kind": "Lesson",
+          "level": "foundation",
+          "status": "revised",
+          "revision": 2,
+          "reviewStatus": "Author-revised material. Independent subject review is pending.",
+          "url": "/medicine?lesson=med-observation-mechanism&step=1",
+          "prerequisites": [],
+          "objectives": [
+            "evidence-claim"
+          ]
+        },
+        {
+          "id": "neuro-sim:sim-held-out-meaning",
+          "track": "neuro",
+          "title": "Evaluation: What Does 4/4 Mean?",
+          "summary": "A fixed toy decoder correctly labels all four invented test rows. The weights were selected before those rows were shown.",
+          "kind": "Synthetic simulation",
+          "level": "applied",
+          "status": "revised",
+          "revision": 1,
+          "reviewStatus": "Author-revised material. Independent subject review is pending.",
+          "url": "/neuro?sim=sim-held-out-meaning",
+          "prerequisites": [],
+          "objectives": [
+            "evidence-claim"
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e: Transport of gases",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-5-transport-of-gases"
+        },
+        {
+          "title": "MedlinePlus: How to understand your lab results",
+          "url": "https://medlineplus.gov/lab-tests/how-to-understand-your-lab-results/"
+        },
+        {
+          "title": "scikit-learn: avoid data leakage",
+          "url": "https://scikit-learn.org/stable/common_pitfalls.html#data-leakage"
+        }
+      ]
+    },
+    {
+      "id": "pressure-flow",
+      "revision": 1,
+      "title": "Trace a pressure-driven flow",
+      "level": "foundation",
+      "prompt": "In a fictional steady-flow model, the pressure difference stays fixed while resistance doubles. Predict the relative flow and explain why naming the upstream chamber alone would not answer this question.",
+      "model": "For the supplied model Q = pressure difference / resistance, doubling resistance at fixed pressure difference halves flow. Anatomy tells us the route and relationships; it does not supply the numerical driving difference or resistance. Real circulation requires additional assumptions and feedback.",
+      "compare": "Check the fixed quantity, the direction and size of the change, and the distinction between a route and a mechanism.",
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "links": [
+        {
+          "id": "mcat:circulatory-flow",
+          "track": "mcat",
+          "title": "Connect pressure to blood flow",
+          "summary": "Use gradients, resistance, and vessel geometry.",
+          "kind": "Lesson",
+          "level": "foundation",
+          "status": "revised",
+          "revision": 1,
+          "reviewStatus": "Author-revised material. Independent subject review is pending.",
+          "url": "/mcat?view=course&unit=circulatory-flow",
+          "prerequisites": [
+            "mcat:membrane-transport"
+          ],
+          "objectives": [
+            "pressure-flow",
+            "location-function"
+          ]
+        },
+        {
+          "id": "anatomy:anat-heart-route",
+          "track": "anatomy",
+          "title": "Trace blood through the heart",
+          "summary": "Connect chambers and vessels in the adult pulmonary and systemic circuits.",
+          "kind": "Lesson",
+          "level": "foundation",
+          "status": "revised",
+          "revision": 1,
+          "reviewStatus": "Author-revised material. Independent subject review is pending.",
+          "url": "/anatomy?lesson=anat-heart-route&step=1",
+          "prerequisites": [],
+          "objectives": [
+            "pressure-flow",
+            "location-function"
+          ]
+        },
+        {
+          "id": "reference:med-flow-resistance",
+          "track": "reference",
+          "title": "Pressure, flow and resistance",
+          "summary": "Use a simple flow model and state what it leaves out.",
+          "kind": "Lesson",
+          "level": "foundation",
+          "status": "revised",
+          "revision": 1,
+          "reviewStatus": "Author-revised material. Independent subject review is pending.",
+          "url": "/medicine?lesson=med-flow-resistance&step=1",
+          "prerequisites": [],
+          "objectives": [
+            "pressure-flow"
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e: Heart anatomy",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-1-heart-anatomy"
+        },
+        {
+          "title": "OpenStax: blood flow, blood pressure and resistance",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/20-2-blood-flow-blood-pressure-and-resistance"
+        }
+      ]
+    },
+    {
+      "id": "breathing-exchange",
+      "revision": 1,
+      "title": "Separate ventilation, exchange and delivery",
+      "level": "applied",
+      "prompt": "A classmate says: “The diaphragm moved, so oxygen delivery must be adequate.” Explain two missing links in that reasoning without diagnosing a patient.",
+      "model": "Diaphragm movement contributes to ventilation through changes in thoracic volume and pressure. Gas exchange and transport still depend on other conditions. Oxygen delivery depends on blood flow and oxygen content, including hemoglobin, so neither visible movement nor saturation alone establishes adequate delivery.",
+      "compare": "Check that you named ventilation and at least two later requirements. Remove any conclusion about a real patient that these observations cannot support.",
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "links": [
+        {
+          "id": "mcat:gas-exchange",
+          "track": "mcat",
+          "title": "Move oxygen across a barrier",
+          "summary": "Connect partial pressure, diffusion, and hemoglobin.",
+          "kind": "Lesson",
+          "level": "foundation",
+          "status": "revised",
+          "revision": 1,
+          "reviewStatus": "Author-revised material. Independent subject review is pending.",
+          "url": "/mcat?view=course&unit=gas-exchange",
+          "prerequisites": [
+            "mcat:circulatory-flow"
+          ],
+          "objectives": [
+            "breathing-exchange"
+          ]
+        },
+        {
+          "id": "anatomy:anat-breathing",
+          "track": "anatomy",
+          "title": "The diaphragm and quiet breathing",
+          "summary": "Relate diaphragm movement to thoracic volume and airflow.",
+          "kind": "Lesson",
+          "level": "foundation",
+          "status": "revised",
+          "revision": 1,
+          "reviewStatus": "Author-revised material. Independent subject review is pending.",
+          "url": "/anatomy?lesson=anat-breathing&step=1",
+          "prerequisites": [],
+          "objectives": [
+            "breathing-exchange"
+          ]
+        },
+        {
+          "id": "reference:med-oxygen-delivery",
+          "track": "reference",
+          "title": "Oxygen saturation is not oxygen delivery",
+          "summary": "Distinguish saturation, carrying capacity and blood flow.",
+          "kind": "Lesson",
+          "level": "foundation",
+          "status": "revised",
+          "revision": 1,
+          "reviewStatus": "Author-revised material. Independent subject review is pending.",
+          "url": "/medicine?lesson=med-oxygen-delivery&step=1",
+          "prerequisites": [],
+          "objectives": [
+            "breathing-exchange"
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e: The process of breathing",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-3-the-process-of-breathing"
+        },
+        {
+          "title": "OpenStax Anatomy and Physiology 2e: Transport of gases",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-5-transport-of-gases"
+        },
+        {
+          "title": "OpenStax Anatomy and Physiology 2e: Blood flow",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/20-2-blood-flow-blood-pressure-and-resistance"
+        }
+      ]
+    },
+    {
+      "id": "feedback-target",
+      "revision": 1,
+      "title": "Name the regulated variable and intervention",
+      "level": "applied",
+      "prompt": "Two fictional interventions act at different points in one feedback pathway. A peer assumes they must have identical effects. Explain why the location of each target and the response of the rest of the loop matter.",
+      "model": "Changing different steps can change different intermediates and downstream signals. Feedback can alter upstream activity after the intervention. Sharing a pathway therefore supports comparison but does not establish identical benefits, risks or time courses. Start by identifying the regulated variable, the target and the predicted compensatory response.",
+      "compare": "Check whether your explanation names the target and a feedback response instead of relying only on the pathway name.",
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "links": [
+        {
+          "id": "mcat:endocrine-feedback",
+          "track": "mcat",
+          "title": "Trace a hormonal feedback loop",
+          "summary": "Use receptor location and feedback direction to predict a response.",
+          "kind": "Lesson",
+          "level": "foundation",
+          "status": "revised",
+          "revision": 1,
+          "reviewStatus": "Author-revised material. Independent subject review is pending.",
+          "url": "/mcat?view=course&unit=endocrine-feedback",
+          "prerequisites": [
+            "mcat:membrane-transport"
+          ],
+          "objectives": [
+            "feedback-target"
+          ]
+        },
+        {
+          "id": "reference:med-feedback",
+          "track": "reference",
+          "title": "Homeostasis is active regulation",
+          "summary": "Distinguish a regulated variable, a response and the direction of feedback.",
+          "kind": "Lesson",
+          "level": "foundation",
+          "status": "revised",
+          "revision": 1,
+          "reviewStatus": "Author-revised material. Independent subject review is pending.",
+          "url": "/medicine?lesson=med-feedback&step=1",
+          "prerequisites": [],
+          "objectives": [
+            "feedback-target"
+          ]
+        },
+        {
+          "id": "reference:med-raas-targets",
+          "track": "reference",
+          "title": "One pathway, two different drug targets",
+          "summary": "Compare ACE inhibition and AT1 blockade, including shared and distinct cautions.",
+          "kind": "Lesson",
+          "level": "foundation",
+          "status": "revised",
+          "revision": 1,
+          "reviewStatus": "Author-revised material. Independent subject review is pending.",
+          "url": "/medicine?lesson=med-raas-targets&step=1",
+          "prerequisites": [],
+          "objectives": [
+            "feedback-target"
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e: Homeostasis",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/1-5-homeostasis"
+        },
+        {
+          "title": "DailyMed: Lisinopril tablet label",
+          "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=0e6364a4-6d66-4151-8197-d45e2a762895"
+        },
+        {
+          "title": "DailyMed: Losartan potassium tablet label",
+          "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=c43e9dc6-2c8a-47d7-b40d-eb55dfe11a51"
+        }
+      ]
+    },
+    {
+      "id": "signal-units",
+      "revision": 1,
+      "title": "Keep measurement, units and time together",
+      "level": "foundation",
+      "prompt": "A fictional uniformly sampled signal uses 250 samples per second. A feature is 50 sample intervals after a marked start. Give the elapsed time and explain what would be missing if you only reported “50.”",
+      "model": "Elapsed time is 50 / 250 = 0.20 seconds. The sampling rate converts intervals to time. The number 50 alone does not state whether it means a sample index, intervals or seconds; voltage amplitude would need its own units. This arithmetic does not identify the biological source or diagnose a pattern.",
+      "compare": "Check intervals versus samples counted, the division and units, and one limit on what the number establishes.",
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "links": [
+        {
+          "id": "reference:med-ecg-measure",
+          "track": "reference",
+          "title": "Measure before naming an ECG pattern",
+          "summary": "Use time, voltage and event timing to describe an ECG without inferring mechanical function.",
+          "kind": "Lesson",
+          "level": "applied",
+          "status": "revised",
+          "revision": 1,
+          "reviewStatus": "Author-revised material. Independent subject review is pending.",
+          "url": "/medicine?lesson=med-ecg-measure&step=1",
+          "prerequisites": [],
+          "objectives": [
+            "signal-units"
+          ]
+        },
+        {
+          "id": "neuro-unit:bci-path-01-time-series",
+          "track": "neuro",
+          "title": "Neural data as time series",
+          "summary": "Recognize neural recordings as ordered voltage samples over time.",
+          "kind": "Guided unit",
+          "level": "foundation",
+          "status": "revised",
+          "revision": 3,
+          "reviewStatus": "Author-revised material. Independent subject review is pending.",
+          "url": "/neuro?unit=bci-path-01-time-series",
+          "prerequisites": [],
+          "objectives": [
+            "signal-units"
+          ]
+        },
+        {
+          "id": "neuro-code:code-lists-samples",
+          "track": "neuro",
+          "title": "Lists: Keep Ordered Samples",
+          "summary": "Sampled neural signals",
+          "kind": "Coding exercise",
+          "level": "foundation",
+          "status": "revised",
+          "revision": 2,
+          "reviewStatus": "Author-revised material. Independent subject review is pending.",
+          "url": "/neuro?code=code-lists-samples",
+          "prerequisites": [],
+          "objectives": [
+            "signal-units"
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "title": "University of Waterloo: ECG display calibration",
+          "url": "https://uwaterloo.ca/systems-design-engineering/electrocardiography-cardiac-function"
+        },
+        {
+          "title": "MSD Manual: Electrocardiography",
+          "url": "https://www.msdmanuals.com/professional/cardiovascular-disorders/cardiovascular-tests-and-procedures/electrocardiography"
+        },
+        {
+          "title": "PyNWB: TimeSeries data and timing",
+          "url": "https://pynwb.readthedocs.io/en/latest/pynwb.base.html"
+        },
+        {
+          "title": "Perel et al. (2015): single units, threshold crossings and LFPs",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/26133797/"
+        },
+        {
+          "title": "OpenStax: The action potential",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-4-the-action-potential"
+        }
+      ]
+    },
+    {
+      "id": "probability-context",
+      "revision": 2,
+      "title": "Interpret evidence in context",
+      "level": "applied",
+      "prompt": "A fictional report says a result was above the laboratory threshold. A peer concludes the suspected condition is proven. Name the missing information needed to assess that claim; do not choose a treatment or a numerical clinical cutoff.",
+      "model": "The analyte, assay, units, intended threshold, clinical question and prior probability matter. Other processes may produce an elevated result, and the testing pathway determines its role. “Above threshold” is an observation, not by itself proof of one condition. The amount of uncertainty cannot be inferred from that phrase alone.",
+      "compare": "Check whether you identified both measurement context and alternative explanations, and kept the conclusion bounded.",
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "links": [
+        {
+          "id": "reference:med-ddimer-context",
+          "track": "reference",
+          "title": "D-dimer: units and the prior probability",
+          "summary": "Use a stated assay and pathway to interpret a D-dimer decision limit without treating it as a universal diagnosis.",
+          "kind": "Lesson",
+          "level": "applied",
+          "status": "revised",
+          "revision": 1,
+          "reviewStatus": "Author-revised material. Independent subject review is pending.",
+          "url": "/medicine?lesson=med-ddimer-context&step=1",
+          "prerequisites": [],
+          "objectives": [
+            "probability-context"
+          ]
+        },
+        {
+          "id": "mcat:research-inference",
+          "track": "mcat",
+          "title": "Decide what a study can claim",
+          "summary": "Use learning and memory experiments to practice research reasoning.",
+          "kind": "Lesson",
+          "level": "foundation",
+          "status": "revised",
+          "revision": 1,
+          "reviewStatus": "Author-revised material. Independent subject review is pending.",
+          "url": "/mcat?view=course&unit=research-inference",
+          "prerequisites": [
+            "mcat:memory-retrieval"
+          ],
+          "objectives": [
+            "evidence-claim",
+            "probability-context"
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "title": "Mayo Clinic Laboratories: D-dimer, assay 40936",
+          "url": "https://prd1.mayocliniclabs.com/test-catalog/overview/40936"
+        },
+        {
+          "title": "MedlinePlus: Understanding laboratory results",
+          "url": "https://medlineplus.gov/lab-tests/how-to-understand-your-lab-results/"
+        }
+      ]
+    },
+    {
+      "id": "buffer-response",
+      "revision": 1,
+      "title": "Separate a buffer from a physiological response",
+      "level": "applied",
+      "prompt": "A learner treats chemical buffering and a change in ventilation as the same process because both can affect pH. Distinguish the mechanisms and explain why a compensation rule needs an appropriate clinical context.",
+      "model": "Chemical buffering involves reversible acid-base reactions. A change in ventilation changes carbon dioxide elimination, while renal processes affect acid excretion and bicarbonate handling. These mechanisms differ in what changes and on what time scale. An expected compensation is a context-dependent check; a match does not explain every cause or exclude every additional process.",
+      "compare": "Check the mechanism you assigned to each process and the limit you placed on the compensation check.",
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "links": [
+        {
+          "id": "mcat:buffer-balance",
+          "track": "mcat",
+          "title": "Balance a buffer",
+          "summary": "Neutralize added acid first, then calculate pH.",
+          "kind": "Lesson",
+          "level": "foundation",
+          "status": "revised",
+          "revision": 1,
+          "reviewStatus": "Author-revised material. Independent subject review is pending.",
+          "url": "/mcat?view=course&unit=buffer-balance",
+          "prerequisites": [],
+          "objectives": [
+            "buffer-response"
+          ]
+        },
+        {
+          "id": "reference:med-acid-base",
+          "track": "reference",
+          "title": "Begin an acid–base explanation",
+          "summary": "Identify a direction of change while preserving uncertainty about the full disorder.",
+          "kind": "Lesson",
+          "level": "foundation",
+          "status": "revised",
+          "revision": 2,
+          "reviewStatus": "Author-revised material. Independent subject review is pending.",
+          "url": "/medicine?lesson=med-acid-base&step=1",
+          "prerequisites": [],
+          "objectives": [
+            "buffer-response"
+          ]
+        },
+        {
+          "id": "reference:med-acid-base-compensation",
+          "track": "reference",
+          "title": "Check whether compensation fits",
+          "summary": "Use a supplied compensation model to identify a second acid–base process without diagnosing the cause from arithmetic.",
+          "kind": "Lesson",
+          "level": "applied",
+          "status": "revised",
+          "revision": 2,
+          "reviewStatus": "Author-revised material. Independent subject review is pending.",
+          "url": "/medicine?lesson=med-acid-base-compensation&step=1",
+          "prerequisites": [],
+          "objectives": [
+            "buffer-response"
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e: Acid–base balance",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/26-4-acid-base-balance"
+        },
+        {
+          "title": "Merck Manual: Primary changes and compensation in acid–base disorders",
+          "url": "https://www.merckmanuals.com/en-ca/professional/multimedia/table/primary-changes-and-compensations-in-simple-acid-base-disorders"
+        }
+      ]
+    },
+    {
+      "id": "measurement-artifact",
+      "revision": 2,
+      "title": "Ask what the measurement actually represents",
+      "level": "applied",
+      "prompt": "A fictional instrument gives a surprising result. Explain how you would separate the displayed observation from possible sample or measurement effects before asserting a mechanism. Keep this a reasoning framework, not a patient-care instruction.",
+      "model": "Record what was measured, with its units and method. Consider the sample, collection procedure, instrument and relevant controls, alongside plausible biological or task-related explanations. A surprising value can be real or affected by measurement conditions. A possible artifact is a hypothesis to investigate, not permission to discard the observation.",
+      "compare": "Check whether your approach retains the original observation and names a specific measurement condition to investigate.",
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "links": [
+        {
+          "id": "reference:med-lab-intervals",
+          "track": "reference",
+          "title": "A reference interval is not a diagnosis",
+          "summary": "Separate reference intervals, decision limits and treatment targets while checking specimen and population context.",
+          "kind": "Lesson",
+          "level": "applied",
+          "status": "revised",
+          "revision": 1,
+          "reviewStatus": "Author-revised material. Independent subject review is pending.",
+          "url": "/medicine?lesson=med-lab-intervals&step=1",
+          "prerequisites": [],
+          "objectives": [
+            "measurement-artifact"
+          ]
+        },
+        {
+          "id": "mcat:uncertainty-controls",
+          "track": "mcat",
+          "title": "Match evidence to a conclusion",
+          "summary": "Use replication, uncertainty, and comparison groups.",
+          "kind": "Lesson",
+          "level": "foundation",
+          "status": "revised",
+          "revision": 1,
+          "reviewStatus": "Author-revised material. Independent subject review is pending.",
+          "url": "/mcat?view=course&unit=uncertainty-controls",
+          "prerequisites": [
+            "mcat:research-inference",
+            "mcat:absorbance"
+          ],
+          "objectives": [
+            "measurement-artifact"
+          ]
+        },
+        {
+          "id": "reference:med-potassium-sample",
+          "track": "reference",
+          "title": "Potassium: patient, sample and ECG",
+          "summary": "Distinguish possible sample artifact from true hyperkalemia without using a normal ECG as exclusion.",
+          "kind": "Lesson",
+          "level": "applied",
+          "status": "revised",
+          "revision": 1,
+          "reviewStatus": "Author-revised material. Independent subject review is pending.",
+          "url": "/medicine?lesson=med-potassium-sample&step=1",
+          "prerequisites": [],
+          "objectives": [
+            "measurement-artifact"
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "title": "MedlinePlus: Understanding laboratory results",
+          "url": "https://medlineplus.gov/lab-tests/how-to-understand-your-lab-results/"
+        },
+        {
+          "title": "UK Kidney Association: Hyperkalaemia guideline, updated July 2026",
+          "url": "https://www.ukkidney.org/health-professionals/guidelines/treatment-acute-hyperkalaemia-adults-0"
+        }
+      ]
+    },
+    {
+      "id": "independent-clocks",
+      "revision": 1,
+      "title": "Separate timing from the cause of a pattern",
+      "level": "applied",
+      "prompt": "Two event sequences have regular intervals individually, but no stable one-to-one timing relationship with each other. Describe the timing observation, then state one conclusion that would go beyond those data alone.",
+      "model": "Each sequence is individually regular, while their relative alignment changes rather than maintaining a fixed interval. That description concerns timing. Inferring the exact physiological source, a unique mechanism or a patient treatment from those abstract sequences alone would require more evidence and context.",
+      "compare": "Check that you described both within-sequence regularity and between-sequence alignment. Keep the timing observation separate from a diagnosis.",
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "links": [
+        {
+          "id": "reference:med-ecg-av-timing",
+          "track": "reference",
+          "title": "Follow the atrial and ventricular clocks",
+          "summary": "Distinguish changing PR, failed conduction and independent atrial and ventricular timing.",
+          "kind": "Lesson",
+          "level": "applied",
+          "status": "revised",
+          "revision": 1,
+          "reviewStatus": "Author-revised material. Independent subject review is pending.",
+          "url": "/medicine?lesson=med-ecg-av-timing&step=1",
+          "prerequisites": [],
+          "objectives": [
+            "independent-clocks"
+          ]
+        },
+        {
+          "id": "ecg:chb",
+          "track": "reference",
+          "title": "Complete AV block pattern",
+          "summary": "P waves and ventricular complexes follow independent schedules. The gap from the nearest preceding P to each QRS shortens beat by beat (260 ms, then 110 ms), and the P waves at 3.34 s and 4.94 s fall inside a QRS or T wave.",
+          "kind": "Synthetic ECG pattern",
+          "level": "applied",
+          "status": "revised",
+          "revision": 2,
+          "reviewStatus": "Author-revised material. Independent subject review is pending.",
+          "url": "/medicine?tool=ecg&mode=library&focus=chb",
+          "prerequisites": [],
+          "objectives": [
+            "independent-clocks"
+          ]
+        },
+        {
+          "id": "practice:em-015",
+          "track": "practice",
+          "title": "Case teaching focus: em-015",
+          "summary": "Identify complete AV dissociation and respond to unstable bradycardia.",
+          "kind": "Case objective register",
+          "level": "applied",
+          "status": "revised",
+          "revision": 1,
+          "reviewStatus": "Author-revised material. Independent subject review is pending.",
+          "url": "/practice?view=content#case-em-015",
+          "prerequisites": [],
+          "objectives": [
+            "independent-clocks"
+          ]
+        },
+        {
+          "id": "neuro-unit:bci-path-02-spike-detection",
+          "track": "neuro",
+          "title": "Candidate event detection",
+          "summary": "Practice scanning a signal for threshold crossings that could represent spikes.",
+          "kind": "Guided unit",
+          "level": "foundation",
+          "status": "revised",
+          "revision": 3,
+          "reviewStatus": "Author-revised material. Independent subject review is pending.",
+          "url": "/neuro?unit=bci-path-02-spike-detection",
+          "prerequisites": [
+            "neuro-unit:bci-path-01-time-series"
+          ],
+          "objectives": [
+            "independent-clocks"
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "title": "MSD Manual: Electrocardiography",
+          "url": "https://www.msdmanuals.com/professional/cardiovascular-disorders/cardiovascular-tests-and-procedures/electrocardiography"
+        },
+        {
+          "title": "AHA adult advanced life support (2025)",
+          "url": "https://cpr.heart.org/en/resuscitation-science/cpr-and-ecc-guidelines/adult-advanced-life-support"
+        },
+        {
+          "title": "Perel et al. (2015): single units, threshold crossings and LFPs",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/26133797/"
+        },
+        {
+          "title": "OpenStax: The action potential",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-4-the-action-potential"
+        }
+      ]
+    },
+    {
+      "id": "location-function",
+      "revision": 1,
+      "title": "Use anatomy to constrain an explanation",
+      "level": "applied",
+      "prompt": "A learner has correctly drawn the blood route through the heart and says this means they can infer electrical conduction and tissue injury from the same diagram. Explain why the route is useful and what further evidence those other questions require.",
+      "model": "The route establishes chambers, vessels and the direction of circulation. Electrical timing and evidence of tissue injury ask different questions and require appropriate observations, such as a recording or biomarker interpreted in context. A correct anatomical diagram helps organize reasoning but does not supply those measurements.",
+      "compare": "Check that your answer gives anatomy a useful role while naming the separate observations needed for electrical timing and injury.",
+      "reviewStatus": "Author-revised material. Independent subject review is pending.",
+      "links": [
+        {
+          "id": "anatomy:anat-heart-route",
+          "track": "anatomy",
+          "title": "Trace blood through the heart",
+          "summary": "Connect chambers and vessels in the adult pulmonary and systemic circuits.",
+          "kind": "Lesson",
+          "level": "foundation",
+          "status": "revised",
+          "revision": 1,
+          "reviewStatus": "Author-revised material. Independent subject review is pending.",
+          "url": "/anatomy?lesson=anat-heart-route&step=1",
+          "prerequisites": [],
+          "objectives": [
+            "pressure-flow",
+            "location-function"
+          ]
+        },
+        {
+          "id": "reference:med-st-troponin",
+          "track": "reference",
+          "title": "ST changes and troponin answer different questions",
+          "summary": "Separate an electrical pattern, myocardial injury and evidence needed for myocardial infarction.",
+          "kind": "Lesson",
+          "level": "applied",
+          "status": "revised",
+          "revision": 2,
+          "reviewStatus": "Author-revised material. Independent subject review is pending.",
+          "url": "/medicine?lesson=med-st-troponin&step=1",
+          "prerequisites": [],
+          "objectives": [
+            "location-function"
+          ]
+        },
+        {
+          "id": "mcat:circulatory-flow",
+          "track": "mcat",
+          "title": "Connect pressure to blood flow",
+          "summary": "Use gradients, resistance, and vessel geometry.",
+          "kind": "Lesson",
+          "level": "foundation",
+          "status": "revised",
+          "revision": 1,
+          "reviewStatus": "Author-revised material. Independent subject review is pending.",
+          "url": "/mcat?view=course&unit=circulatory-flow",
+          "prerequisites": [
+            "mcat:membrane-transport"
+          ],
+          "objectives": [
+            "pressure-flow",
+            "location-function"
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e: Heart anatomy",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-1-heart-anatomy"
+        },
+        {
+          "title": "ACC: High-sensitivity troponin and chest pain evaluation",
+          "url": "https://www.acc.org/Latest-in-Cardiology/ten-points-to-remember/2022/07/14/18/12/High-Sensitivity-CTn-and-2021-Chest-Pain"
+        },
+        {
+          "title": "MSD Manual: Electrocardiography",
+          "url": "https://www.msdmanuals.com/professional/cardiovascular-disorders/cardiovascular-tests-and-procedures/electrocardiography"
+        }
+      ]
+    }
+  ]
+}

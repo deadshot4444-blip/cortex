@@ -1,13 +1,18 @@
-/* Cortex — Reference: Pharmacology, Microbiology, Lab values
-   Browse + search + multiple-choice recall drill over fact-checked datasets. */
+/* Medicine foundations and the separately labeled draft reference library. */
 
 const REF = { pharm: null, micro: null, labs: null, loaded: false };
 const MED_PATH = { nodes: null, loaded: false };
+let MED_VIEW = 0;
 const MED_PHASE_START = { pharm: 0, ped: 28, micro: 39, labs: 51, ekg: 61 };
 const MED_PHASE_LABEL = { pharm: 'Pharmacology', ped: 'Performance drugs', micro: 'Microbiology', labs: 'Lab values', ekg: 'ECG' };
 /* PHARM_UNIQUE_TOTAL lives in app.js (stats + hub share it) */
 function safeProg(raw, defaults) {
-  if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return { ...defaults };
+  if (!raw || typeof raw !== 'object' || Array.isArray(raw)
+    || Object.keys(defaults).some(key => defaults[key] && typeof defaults[key] === 'object' && raw[key] !== undefined
+      && (!raw[key] || typeof raw[key] !== 'object' || Array.isArray(raw[key])))) {
+    StudyStorage.sessionFailed();
+    return { ...defaults };
+  }
   return { ...defaults, ...raw };
 }
 
@@ -22,43 +27,42 @@ function defaultLabsProg() {
 }
 function defaultMedMeta() { return { last: null }; }
 
-let PHARM_PROG = safeProg((typeof loadJSON === 'function') ? loadJSON('cs-pharm', {}) : null, defaultPharmProg());
-let MICRO_PROG = safeProg((typeof loadJSON === 'function') ? loadJSON('cs-micro', {}) : null, defaultMicroProg());
-let LABS_PROG = safeProg((typeof loadJSON === 'function') ? loadJSON('cs-labs', {}) : null, defaultLabsProg());
-let MED_META = safeProg((typeof loadJSON === 'function') ? loadJSON('cs-medicine', {}) : null, defaultMedMeta());
-PHARM_PROG.learnResume = (PHARM_PROG.learnResume && typeof PHARM_PROG.learnResume === 'object') ? PHARM_PROG.learnResume : {};
-PHARM_PROG.drill = PHARM_PROG.drill && typeof PHARM_PROG.drill === 'object' ? PHARM_PROG.drill : { correct: 0, total: 0 };
-MICRO_PROG.drill = MICRO_PROG.drill && typeof MICRO_PROG.drill === 'object' ? MICRO_PROG.drill : { correct: 0, total: 0 };
-LABS_PROG.drill = LABS_PROG.drill && typeof LABS_PROG.drill === 'object' ? LABS_PROG.drill : { correct: 0, total: 0 };
+let PHARM_PROG = safeProg(StudyStorage.read('cs-pharm', {}), defaultPharmProg());
+let MICRO_PROG = safeProg(StudyStorage.read('cs-micro', {}), defaultMicroProg());
+let LABS_PROG = safeProg(StudyStorage.read('cs-labs', {}), defaultLabsProg());
+let MED_META = safeProg(StudyStorage.read('cs-medicine', {}), defaultMedMeta());
+StudyStorage.watch('cs-pharm', () => PHARM_PROG);
+StudyStorage.watch('cs-micro', () => MICRO_PROG);
+StudyStorage.watch('cs-labs', () => LABS_PROG);
+StudyStorage.watch('cs-medicine', () => MED_META);
 
 function savePharmProg() {
-  if (typeof safeSet === 'function') safeSet('cs-pharm', JSON.stringify(PHARM_PROG));
-  else try { localStorage.setItem('cs-pharm', JSON.stringify(PHARM_PROG)); } catch {}
+  return StudyStorage.write('cs-pharm', PHARM_PROG);
 }
 function saveMicroProg() {
-  if (typeof safeSet === 'function') safeSet('cs-micro', JSON.stringify(MICRO_PROG));
-  else try { localStorage.setItem('cs-micro', JSON.stringify(MICRO_PROG)); } catch {}
+  return StudyStorage.write('cs-micro', MICRO_PROG);
 }
 function saveLabsProg() {
-  if (typeof safeSet === 'function') safeSet('cs-labs', JSON.stringify(LABS_PROG));
-  else try { localStorage.setItem('cs-labs', JSON.stringify(LABS_PROG)); } catch {}
+  return StudyStorage.write('cs-labs', LABS_PROG);
 }
 function saveMedMeta() {
-  if (typeof safeSet === 'function') safeSet('cs-medicine', JSON.stringify(MED_META));
-  else try { localStorage.setItem('cs-medicine', JSON.stringify(MED_META)); } catch {}
+  return StudyStorage.write('cs-medicine', MED_META);
 }
 function touchMedicine(area, detail) {
+  MED_VIEW++;
   MED_META.last = { area, detail: detail || area, ts: Date.now() };
   saveMedMeta();
 }
 
 async function loadMedPath() {
   if (MED_PATH.loaded) return;
-  try {
-    const r = await fetch('data/medicine-path.json');
-    const j = r.ok ? await r.json() : null;
-    MED_PATH.nodes = j?.nodes?.length ? j.nodes : [];
-  } catch { MED_PATH.nodes = []; }
+  const r = await fetch('data/medicine-path.json');
+  if (!r.ok) throw new Error('Medicine reference path did not download');
+  const j = await r.json();
+  if (!Array.isArray(j.nodes) || !j.nodes.length || j.nodes.length !== j.total
+    || new Set(j.nodes.map(node => node.id)).size !== j.nodes.length
+    || j.nodes.some(node => !node.id || !node.key || !MED_PHASE_LABEL[node.phase])) throw new Error('Medicine reference path is invalid');
+  MED_PATH.nodes = j.nodes;
   MED_PATH.loaded = true;
 }
 
@@ -75,7 +79,7 @@ function medicinePathNodeIndex(nodeId) {
 function pharmClassComplete(cat, data) {
   if (!data?.length) return false;
   const pool = data.filter(d => d.cat === cat);
-  if (!pool.length) return true; // empty pool = vacuously complete; never lock the path on missing data
+  if (!pool.length) return false;
   return pool.every(d => PHARM_PROG.learned[d.id || d.name]);
 }
 
@@ -303,7 +307,7 @@ const REF_SETS = {
   labs: {
     name: 'Lab values', noun: 'labs', store: 'labs', catMap: LAB_PANELS, catField: 'panel',
     title: d => d.test, sub: d => `${d.range}${d.units ? ' ' + d.units : ''}`,
-    fields: [['Reference range', d => `${d.range}${d.units ? ' ' + d.units : ''}`], ['High suggests', 'high_means'], ['Low suggests', 'low_means'], ['Pearl', 'pearl']],
+    fields: [['Illustrative range or decision limit', d => `${d.range}${d.units ? ' ' + d.units : ''}`], ['Context for this value', 'rangeContext'], ['Possible high-result associations', 'high_means'], ['Possible low-result associations', 'low_means'], ['Interpretation note', 'pearl']],
     search: d => `${d.test} ${d.high_means} ${d.low_means}`.toLowerCase(),
     quizClue: d => `High → ${d.high_means}\nLow → ${d.low_means}`, quizAsk: 'Which lab test?',
   },
@@ -311,14 +315,15 @@ const REF_SETS = {
 
 async function loadRef() {
   if (REF.loaded) return;
-  try {
-    const [p, m, l] = await Promise.all([
-      fetch('data/pharm.json').then(r => r.ok ? r.json() : []).catch(() => []),
-      fetch('data/micro.json').then(r => r.ok ? r.json() : []).catch(() => []),
-      fetch('data/labs.json').then(r => r.ok ? r.json() : []).catch(() => []),
-    ]);
-    REF.pharm = p || []; REF.micro = m || []; REF.labs = l || [];
-  } catch { REF.pharm = REF.pharm || []; REF.micro = REF.micro || []; REF.labs = REF.labs || []; }
+  const results = await Promise.allSettled(['pharm', 'micro', 'labs'].filter(key => !REF[key]).map(async key => {
+    const response = await fetch(`data/${key}.json${key === 'labs' ? '?v=3' : ''}`);
+    if (!response.ok) throw new Error(`${key} reference did not download`);
+    const data = await response.json();
+    if (!Array.isArray(data) || !data.length || data.some(item => !item || typeof item !== 'object' || Array.isArray(item))) throw new Error(`${key} reference is invalid`);
+    REF[key] = data;
+  }));
+  const failure = results.find(result => result.status === 'rejected');
+  if (failure) throw failure.reason;
   REF.loaded = true;
 }
 
@@ -356,12 +361,25 @@ async function medicineContinue() {
 }
 
 /* ---------- hub ---------- */
+function medicineHome() {
+  history.pushState({}, '', sectionUrl('reference'));
+  return renderReference();
+}
 async function renderReference() {
+  const requestedView = ++MED_VIEW;
   if (typeof stopTimer === 'function') stopTimer();
   if (typeof session !== 'undefined') session = null;
+  const requestedUrl = location.pathname + location.search;
+  await AcademyLessons.load('reference', 'data/medicine-foundations.json?v=5');
+  if (StudyStorage.paused || MED_VIEW !== requestedView || location.pathname !== '/medicine' || location.pathname + location.search !== requestedUrl) return;
+  if (AcademyLessons.fromUrl('reference', renderReference)) return;
+  const toolParams = new URLSearchParams(location.search);
+  if (toolParams.get('tool') === 'ecg') return renderEKG(toolParams.get('mode'), { record: toolParams.get('record'), focus: toolParams.get('focus') });
   try {
   await loadRef();
   await loadMedPath();
+  if (MED_VIEW !== requestedView || location.pathname !== '/medicine' || location.pathname + location.search !== requestedUrl) return;
+  if (toolParams.get('tool') === 'labs') return renderRefSet('labs', ['learn', 'quiz'].includes(toolParams.get('mode')) ? toolParams.get('mode') : 'browse');
 
   const root = el('<div></div>');
   root.appendChild(topbar('reference'));
@@ -387,14 +405,17 @@ async function renderReference() {
     : `${MED_PHASE_LABEL[hub.next?.node?.phase] || 'Medicine'} · Step ${(hub.next?.index || 0) + 1} of ${hub.pathTotal}`;
   const main = el(`<main class="panel med-hub medx-hub">
     <section class="medx-hero">
-      <div class="medx-hero-top"><span class="label">Clinical knowledge system</span><span class="medx-count">5 disciplines &middot; 81 steps</span></div>
+      <div class="medx-hero-top"><span class="label">Preclinical foundations</span><span class="medx-count">Mechanisms · ECG · Laboratory reasoning</span></div>
       <h1>Medicine.</h1>
-      <p class="sub">Build the drug, organism, laboratory, and rhythm knowledge that clinical reasoning depends on. Follow one guided sequence—or open the reference you need.</p>
+      <p class="sub">Connect physiology, anatomy and mechanisms with ECG and laboratory interpretation, then explain what the evidence does and does not establish.</p>
       ${freeNote}
     </section>
+    ${AcademyLessons.catalog('reference')}
+    <h2>Existing reference path</h2>
+    <p class="course-caption">This 81-step library is draft material with a separate review scope. Reference reading, recall practice and clinical decisions are different activities; completion is not a clinical credential.</p>
     <section class="medx-resume" aria-label="Recommended next step">
       <div class="medx-resume-copy">
-        <span class="label">${hub.pathComplete ? 'Path complete' : hub.pathDone ? 'Continue learning' : 'Start here'}</span>
+        <span class="label">${hub.pathComplete ? 'Reference path complete' : hub.pathDone ? 'Continue reference study' : 'Reference entry'}</span>
         <h2>${esc(nextTitle)}</h2>
         <p>${esc(nextMeta)}</p>
       </div>
@@ -496,7 +517,7 @@ async function renderReference() {
       : `${ekTotal} rhythms`;
     addLibraryRow({
       id: 'ekg', number: '05', name: 'ECG rhythms', kicker: 'Pattern recognition',
-      desc: 'Live tracings, rhythm features, review tracking, and category drills.',
+      desc: 'Calibrated synthetic traces, saved explanations, pattern features and interpretation limits.',
       stat: ekStat, onClick: () => {
       touchMedicine('ekg', 'library');
       const p = medicinePathProgress();
@@ -506,17 +527,21 @@ async function renderReference() {
     });
   }
 
+  AcademyLessons.bind(main, 'reference', renderReference);
   root.appendChild(main);
   setView(root);
   } catch (err) {
+    if (MED_VIEW !== requestedView || location.pathname !== '/medicine' || location.pathname + location.search !== requestedUrl) return;
     console.error('Medicine hub failed', err);
     const root = el('<div></div>');
     root.appendChild(topbar('reference'));
     const main = el(`<main class="panel">
-      <div class="hero"><h1>Medicine.</h1><p class="sub">Something went wrong loading this section. Try a hard refresh; if it persists, reset Medicine progress from Practice.</p></div>
+      <div class="hero"><h1>Medicine.</h1><p class="sub">The reference library did not download. Your saved work is kept, and the foundation path remains available.</p></div>
+      ${AcademyLessons.catalog('reference')}
       <div class="ped-cta-row"><button class="btn btn-solid" id="medretry">Retry</button></div>
     </main>`);
     main.querySelector('#medretry').addEventListener('click', renderReference);
+    AcademyLessons.bind(main, 'reference', renderReference);
     root.appendChild(main);
     setView(root);
   }
@@ -529,6 +554,11 @@ function renderRefSet(key, tab = 'browse', opts = {}) {
   const isPharm = key === 'pharm';
   const isMicro = key === 'micro';
   const isLabs = key === 'labs';
+  const labsLessonUrl = new URL(sectionUrl('reference'), location.origin); labsLessonUrl.searchParams.set('lesson', 'med-lab-intervals');
+  if (isLabs) {
+    const url = new URL(sectionUrl('reference'), location.origin); url.searchParams.set('tool', 'labs'); url.searchParams.set('mode', tab);
+    history.replaceState({}, '', url.pathname + url.search);
+  }
   if (tab === 'learn' && isPharm && opts.cat && isMedicinePathNodeLocked(`pharm:${opts.cat}`)) {
     medicineShowPathLock();
     return renderRefSet('pharm', 'classes');
@@ -576,10 +606,14 @@ function renderRefSet(key, tab = 'browse', opts = {}) {
       <p>${esc(workspaceDesc)}</p>
       <span class="med-workspace-stat">${esc(sub)}</span>
     </section>
+    ${isLabs ? `<aside class="lab-scope"><h2>Read the reporting lab’s units and interval first</h2>
+      <p>This draft library uses illustrative adult values. A reference interval, a diagnostic decision limit and a treatment target answer different questions. Age, pregnancy, sampling conditions, assay and reporting laboratory can change the interpretation. Values within an interval do not rule out disease; values outside it do not establish a diagnosis.</p>
+      <p>Independent clinical and laboratory review is pending. <a href="${esc(labsLessonUrl.pathname + labsLessonUrl.search)}">Start the laboratory interpretation lessons</a>.</p>
+      <p><a href="https://medlineplus.gov/lab-tests/how-to-understand-your-lab-results/" target="_blank" rel="noopener">MedlinePlus: understanding laboratory results</a></p></aside>` : ''}
     <div class="tabs med-workspace-tabs" role="tablist" aria-label="${esc(cfg.name)} study modes">${tabs}</div>
     <div id="refbody"></div>
   </main>`);
-  main.querySelector('#refback').addEventListener('click', renderReference);
+  main.querySelector('#refback').addEventListener('click', medicineHome);
   main.querySelectorAll('.tab').forEach(b => b.addEventListener('click', () => {
     const t = b.dataset.tab;
     renderRefSet(key, t, (t === 'learn' || t === 'quiz') ? opts : {});
@@ -698,7 +732,7 @@ function medMCQCard(item, pool, cfg, label, ask, clue, onAnswered) {
     medAwardXP(correct);
     node.querySelectorAll('.opt').forEach(b2 => { const o = options[Number(b2.dataset.i)]; b2.disabled = true; if (cfg.title(o) === cfg.title(item)) b2.classList.add('correct'); else if (b2 === btn) b2.classList.add('wrong'); else b2.classList.add('dimmed'); });
     const xp = typeof XP_PER_CORRECT === 'number' ? XP_PER_CORRECT : 10;
-    after.appendChild(el(`<div class="explain ${correct ? 'good' : 'bad'}"><span class="verdict">${correct ? `CORRECT &middot; +${xp} XP` : 'INCORRECT'} &middot; ${esc(cfg.title(item))}</span>${cfg.fields.map(([lab, src]) => { const v = fieldVal(item, src); return v && v !== '—' ? `<p><b>${esc(lab)}:</b> ${esc(v)}</p>` : ''; }).join('')}</div>`));
+    after.appendChild(el(`<div class="explain ${correct ? 'good' : 'bad'}"><span class="verdict">${correct ? `CORRECT &middot; +${xp} XP` : 'INCORRECT'} &middot; ${esc(cfg.title(item))}</span>${cfg.fields.map(([lab, src]) => { const v = fieldVal(item, src); return v && v !== '—' ? `<p><b>${esc(lab)}:</b> ${esc(v)}</p>` : ''; }).join('')}${refSources(item)}</div>`));
     onAnswered(after, correct);
   }));
   return node;
@@ -776,7 +810,7 @@ function buildGuidedLearn(body, cfg, data, refProg, saveProg, key, opts = {}) {
         </div>
       </section>`));
       body.querySelector('[data-drill]').addEventListener('click', () => renderRefSet(key, 'quiz'));
-      body.querySelector('[data-hub]').addEventListener('click', renderReference);
+      body.querySelector('[data-hub]').addEventListener('click', medicineHome);
       return;
     }
     const cat = cats[gidx];
@@ -844,6 +878,11 @@ function buildBrowse(body, cfg, data) {
 
 function fieldVal(d, src) { return typeof src === 'function' ? src(d) : d[src]; }
 
+function refSources(item) {
+  if (!Array.isArray(item.sources)) return '';
+  return `<div class="academy-source-note"><p>Independent clinical and laboratory review: pending. ${item.sourceCheckedOn ? 'Selected interpretation sources checked ' + esc(item.sourceCheckedOn) + '.' : 'Detailed source validation remains pending; the link below explains general interpretation limits.'}</p>${item.sources.filter(source => /^https:\/\//.test(source.url)).map(source => `<p><a href="${esc(source.url)}" target="_blank" rel="noopener">${esc(source.title)}</a></p>`).join('')}</div>`;
+}
+
 function refCard(cfg, d) {
   const card = el(`<div class="refitem">
     <button class="refhead">
@@ -851,7 +890,7 @@ function refCard(cfg, d) {
       <span class="refsub">${esc(cfg.sub(d))}</span>
     </button>
     <div class="refdetail" hidden>
-      ${cfg.fields.map(([lab, src]) => { const v = fieldVal(d, src); return v && v !== '—' ? `<div class="refrow"><span class="label">${esc(lab)}</span><p>${esc(v)}</p></div>` : ''; }).join('')}
+      ${cfg.fields.map(([lab, src]) => { const v = fieldVal(d, src); return v && v !== '—' ? `<div class="refrow"><span class="label">${esc(lab)}</span><p>${esc(v)}</p></div>` : ''; }).join('')}${refSources(d)}
     </div>
   </div>`);
   const detail = card.querySelector('.refdetail');
@@ -967,7 +1006,7 @@ function buildQuiz(body, cfg, data, opts = {}) {
       });
       after.appendChild(el(`<div class="explain ${correct ? 'good' : 'bad'}">
         <span class="verdict">${correct ? 'CORRECT' : 'INCORRECT'} &middot; ${esc(cfg.title(item))}</span>
-        ${cfg.fields.map(([lab, src]) => { const v = fieldVal(item, src); return v && v !== '—' ? `<p><b>${esc(lab)}:</b> ${esc(v)}</p>` : ''; }).join('')}
+        ${cfg.fields.map(([lab, src]) => { const v = fieldVal(item, src); return v && v !== '—' ? `<p><b>${esc(lab)}:</b> ${esc(v)}</p>` : ''; }).join('')}${refSources(item)}
       </div>`));
       const row = el(`<div class="continue-row"><button class="btn btn-solid" data-continue>Next</button></div>`);
       row.querySelector('[data-continue]').addEventListener('click', nextQ);

@@ -1,54 +1,66 @@
 {
   "track": "Practitioner",
-  "tagline": "Six build milestones + capstone. Real data, graded projects, staff-engineer bar.",
+  "tagline": "Six synthetic projects, including a capstone. Reproducible code checks and written engineering comparisons; independent review pending.",
   "milestones": [
     {
       "id": "neural-signal-viewer",
       "title": "Neural Signal Viewer",
       "unlockUnit": 7,
       "phase": "Signal Acquisition",
-      "shortDescription": "Load a recording, plot the trace, threshold candidate spikes, export an event table.",
-      "status": "live"
+      "shortDescription": "Describe a sampled signal with units and separate threshold samples from inferred biological events.",
+      "status": "live",
+      "reviewStatus": "Independent engineering review pending",
+      "revision": 1
     },
     {
       "id": "spike-detector",
       "title": "Spike Detector + Feature Vector",
       "unlockUnit": 12,
       "phase": "Detection & Features",
-      "shortDescription": "Adaptive threshold from signal statistics, crossings grouped into discrete spikes, per-spike feature vector (trough index, amplitude, width).",
-      "status": "live"
+      "shortDescription": "Group threshold excursions and explain what a global statistical threshold can and cannot establish.",
+      "status": "live",
+      "reviewStatus": "Independent engineering review pending",
+      "revision": 1
     },
     {
       "id": "noise-smoother",
       "title": "Noise Smoother & Drift Corrector",
       "unlockUnit": 14,
       "phase": "Preprocessing & Stability",
-      "shortDescription": "Baseline correction, drift compensation, before/after stability metrics.",
-      "status": "planned"
+      "shortDescription": "Implement a causal rolling baseline estimate and quantify its edge and waveform distortion.",
+      "status": "live",
+      "reviewStatus": "Independent engineering review pending",
+      "revision": 1
     },
     {
       "id": "leftright-decoder",
       "title": "Weighted Linear Decoder",
       "unlockUnit": 16,
       "phase": "Decoding & Control",
-      "shortDescription": "Inspectable weights, train vs held-out accuracy, overfitting diagnosis.",
-      "status": "planned"
+      "shortDescription": "Fit an inspectable two-class linear rule using training data only and keep the held-out result separate.",
+      "status": "live",
+      "reviewStatus": "Independent engineering review pending",
+      "revision": 1
     },
     {
       "id": "cursor-simulator",
       "title": "Cursor Simulator + Latency",
       "unlockUnit": 18,
       "phase": "Closed-Loop Feedback",
-      "shortDescription": "Closed-loop cursor with 0/80/150ms latency injection and strategy notes.",
-      "status": "planned"
+      "shortDescription": "Reproduce a delayed-feedback trajectory and distinguish model time from execution time.",
+      "status": "live",
+      "reviewStatus": "Independent engineering review pending",
+      "revision": 1
     },
     {
       "id": "closed-loop-capstone",
       "title": "Closed-Loop BCI Capstone",
       "unlockUnit": 20,
       "phase": "Capstone Integration",
-      "shortDescription": "End-to-end pipeline + design-review memo: drift, detection, response, safety, next step.",
-      "status": "planned"
+      "shortDescription": "Reproduce a bounded synthetic pipeline and trace how preprocessing, detection and decoding affect its cursor output.",
+      "status": "live",
+      "reviewStatus": "Independent engineering review pending",
+      "revision": 1
     }
   ]
 }

@@ -2860,20 +2860,20 @@
      "subjectId": "neural-signals",
      "topicId": "ns-lfp-vs-spikes",
      "neuroCodeLessonId": "code-lists-samples",
-     "simulationId": "sim-ns-noisy-signal",
+     "simulationId": "sim-sampling-time",
      "primaryActionType": "atlas",
      "primaryActionLabel": "Socratic study",
      "checkpointPrompt": null,
      "reflectionQuestion": "What makes a neural recording different from a single voltage value?",
-     "estimatedFocus": "10 min",
+     "estimatedFocus": "20–30 min",
      "stepObjective": "Recognize neural recordings as ordered voltage samples over time.",
      "explanation": "BCI systems start with measurements over time. Learning to see samples as a time series makes spikes, noise, drift, and features easier to reason about.",
-     "oneLineMaster": "A BCI begins by turning neural activity into time-stamped data."
+     "oneLineMaster": "Keep measurements, units and timing together."
     },
     {
      "id": "bci-path-02-spike-detection",
      "order": 2,
-     "title": "Spike detection",
+     "title": "Candidate event detection",
      "subjectId": "neural-signals",
      "topicId": "ns-action-potential",
      "neuroCodeLessonId": "code-loops-spike-counting",
@@ -2882,10 +2882,10 @@
      "primaryActionLabel": "Open NeuroCode",
      "checkpointPrompt": null,
      "reflectionQuestion": "How could a threshold mistake turn noise into fake spikes?",
-     "estimatedFocus": "15 min",
+     "estimatedFocus": "20–30 min",
      "stepObjective": "Practice scanning a signal for threshold crossings that could represent spikes.",
-     "explanation": "Many invasive BCIs depend on separating real action potentials from baseline noise. Detection is the first place signal reasoning can succeed or fail.",
-     "oneLineMaster": "Spike detection asks whether a waveform is neural activity or noise."
+     "explanation": "A threshold rule turns a synthetic voltage trace into candidate events. The exercise separates numerical detection from evidence about a biological source.",
+     "oneLineMaster": "Count threshold episodes without claiming a biological source."
     },
     {
      "id": "bci-path-03-firing-rate",
@@ -2898,11 +2898,11 @@
      "primaryActionType": "neuroCode",
      "primaryActionLabel": "Open NeuroCode",
      "checkpointPrompt": null,
-     "reflectionQuestion": "Why is spikes per second easier for a decoder to use than raw spike timing?",
-     "estimatedFocus": "15 min",
+     "reflectionQuestion": "What information does a mean event rate preserve, and what does it discard?",
+     "estimatedFocus": "20–30 min",
      "stepObjective": "Convert spike counts and time windows into a reusable firing-rate calculation.",
      "explanation": "Firing rate compresses many spikes into a rate that can drive models and decoders. It is one of the cleanest bridges from biology to computation.",
-     "oneLineMaster": "Firing rate turns spike timing into a decoder-friendly number."
+     "oneLineMaster": "Compare rates with their time windows and limitations."
     },
     {
      "id": "bci-path-04-signal-noise",
@@ -2916,10 +2916,10 @@
      "primaryActionLabel": "Try NeuroSim",
      "checkpointPrompt": null,
      "reflectionQuestion": "What evidence would convince you that an event is artifact instead of neural activity?",
-     "estimatedFocus": "10 min",
-     "stepObjective": "Separate neural signal from movement, electrical, cardiac, or biological artifact.",
+     "estimatedFocus": "20–30 min",
+     "stepObjective": "Recognize possible artifact and describe evidence needed to investigate it.",
      "explanation": "Noise is unwanted variation in the recording: movement artifact, electrical interference, cardiac contamination, electrode instability, or unrelated biological activity. Bad signal-to-noise makes a decoder learn the wrong thing.",
-     "oneLineMaster": "Signal noise is messy non-intent data that can quietly break a decoder."
+     "oneLineMaster": "Investigate contamination before interpreting events."
     },
     {
      "id": "bci-path-05-filtering-smoothing",
@@ -2933,10 +2933,10 @@
      "primaryActionLabel": "Open NeuroCode",
      "checkpointPrompt": null,
      "reflectionQuestion": "How could smoothing help an LFP feature but hurt spike timing?",
-     "estimatedFocus": "15 min",
-     "stepObjective": "Understand preprocessing as cleaning signal without deleting task-relevant information.",
+     "estimatedFocus": "20–30 min",
+     "stepObjective": "Calculate a moving average and explain its effect on peaks and boundaries.",
      "explanation": "Filtering and smoothing are preprocessing steps. They reduce unwanted frequencies or local jumps, but every filter is a trade-off: clean enough to decode, not so aggressive that spikes, timing, or frequency-band evidence disappears.",
-     "oneLineMaster": "Filtering is useful only when it removes noise while preserving the feature you need."
+     "oneLineMaster": "Describe what a filter changes and what it may discard."
     },
     {
      "id": "bci-path-06-feature-extraction",
@@ -3203,13 +3203,13 @@
    "subjectId": "neural-signals",
    "relatedTopicId": "ns-lfp-vs-spikes",
    "difficulty": "beginner",
-   "scenario": "You're recording from a penetrating microelectrode array in motor cortex. One channel shows large negative deflections every 200 ms — but they always coincide with the patient's heartbeat on the ECG monitor.",
-   "signalDescription": "Periodic ~5 Hz deflections, coincident with QRS complex on ECG, similar shape across multiple electrodes simultaneously.",
-   "decisionQuestion": "What do you do with this channel?",
+   "scenario": "In a synthetic recording exercise, several microelectrode channels show large deflections roughly once per second. They align with an ECG reference.",
+   "signalDescription": "Approximately 1 Hz deflections, aligned with ECG QRS complexes and visible on multiple channels.",
+   "decisionQuestion": "What is the best next analytical step?",
    "choices": [
     {
-     "label": "Treat as cardiac artifact and reject for spike analysis",
-     "rationale": "Correct — synchrony with ECG and across electrodes points to a non-neural source. Reject or notch out cardiac components."
+     "label": "Flag possible cardiac contamination and inspect synchronized raw traces",
+     "rationale": "ECG and cross-channel timing support investigation of contamination. Confirm the context before deciding which segments or methods are appropriate; threshold alone does not identify a neuron."
     },
     {
      "label": "Lower the spike threshold to catch more events",
@@ -3220,17 +3220,19 @@
      "rationale": "Unsafe — stimulation should not be used to mask recording artifacts; you'd inject current without clinical justification."
     },
     {
-     "label": "Replace the electrode",
-     "rationale": "Premature — cardiac artifact is common and software-removable; surgery is not the first step."
+     "label": "Replace the electrode immediately",
+     "rationale": "This synthetic analysis does not justify a hardware or patient intervention. Investigate the recording evidence first."
     }
    ],
    "bestAnswerIndex": 0,
-   "oneLineMaster": "Synchrony across channels and with ECG = artifact, not a neuron.",
+   "oneLineMaster": "ECG alignment raises an artifact hypothesis; inspect the evidence before accepting events.",
    "topicToReviewNext": "ns-lfp-vs-spikes",
    "scoringCategories": [
     "signalReasoning",
     "clinicalSafety"
-   ]
+   ],
+   "revision": 2,
+   "curriculumStatus": "draft"
   },
   {
    "id": "sim-bci-cursor-drift",
@@ -3265,7 +3267,8 @@
    "scoringCategories": [
     "signalReasoning",
     "engineeringLogic"
-   ]
+   ],
+   "curriculumStatus": "draft"
   },
   {
    "id": "sim-dec-overfit",
@@ -3273,13 +3276,13 @@
    "subjectId": "decoding-ai",
    "relatedTopicId": "dec-overfitting",
    "difficulty": "beginner",
-   "scenario": "Your decoder reports 90% offline accuracy, but the user can barely move the cursor. You used a random 80/20 split across all trials, and normalization was computed on the full dataset.",
-   "signalDescription": "Offline R² = 0.90 on held-out split; live cursor success rate = 25%.",
-   "decisionQuestion": "What's most likely wrong?",
+   "scenario": "A fixed decoder matches 90% of offline direction labels, but live cursor target acquisition succeeds on 25% of attempts. You randomly split trials 80/20 after computing normalization parameters from the full dataset.",
+   "signalDescription": "Offline direction-label accuracy = 90%; live target-acquisition success = 25%. These measure different outcomes and are not a single 65-percentage-point accuracy drop.",
+   "decisionQuestion": "Which evaluation problem is directly established by the description?",
    "choices": [
     {
-     "label": "Data leakage and overfitting — random shuffling plus full-data normalization leaked test info into training",
-     "rationale": "Correct — preprocessing using the full set and random shuffles is a textbook leakage pattern."
+     "label": "Full-data normalization used held-out information; rebuild and reassess the evaluation",
+     "rationale": "Fit normalization using the training subset only, then apply those parameters to held-out data. This corrects the stated leakage. It does not prove why live control performed poorly or establish overfitting."
     },
     {
      "label": "The patient is uncooperative",
@@ -3287,7 +3290,7 @@
     },
     {
      "label": "The cursor pixels are too small",
-     "rationale": "Weaker — visual size doesn't explain a 65-point gap between offline and online performance."
+     "rationale": "The description does not isolate display size as the cause. Offline label accuracy and live target acquisition are different endpoints."
     },
     {
      "label": "Surgery missed the target",
@@ -3295,13 +3298,22 @@
     }
    ],
    "bestAnswerIndex": 0,
-   "oneLineMaster": "Great offline numbers + bad online performance = check your splits and preprocessing first.",
+   "oneLineMaster": "Separate training from evaluation before fitting preprocessing. Check that evaluation data and outcomes match the intended use; a random split alone does not establish leakage.",
    "topicToReviewNext": "dec-overfitting",
    "scoringCategories": [
     "engineeringLogic",
     "signalReasoning",
     "ethics"
-   ]
+   ],
+   "reviewStatus": "Author-corrected draft. Independent engineering and subject review are pending.",
+   "revision": 2,
+   "sources": [
+    {
+     "title": "scikit-learn: Data leakage during preprocessing",
+     "url": "https://scikit-learn.org/stable/common_pitfalls.html#data-leakage"
+    }
+   ],
+   "curriculumStatus": "draft"
   },
   {
    "id": "sim-stim-dbs-side-effect",
@@ -3337,7 +3349,8 @@
     "clinicalSafety",
     "engineeringLogic",
     "ethics"
-   ]
+   ],
+   "curriculumStatus": "draft"
   },
   {
    "id": "sim-cl-false-positive",
@@ -3373,7 +3386,8 @@
     "engineeringLogic",
     "clinicalSafety",
     "efficiency"
-   ]
+   ],
+   "curriculumStatus": "draft"
   },
   {
    "id": "sim-np-no-feedback",
@@ -3409,7 +3423,8 @@
     "engineeringLogic",
     "clinicalSafety",
     "efficiency"
-   ]
+   ],
+   "curriculumStatus": "draft"
   },
   {
    "id": "sim-cn-troubleshoot",
@@ -3444,7 +3459,8 @@
    "scoringCategories": [
     "clinicalSafety",
     "engineeringLogic"
-   ]
+   ],
+   "curriculumStatus": "draft"
   },
   {
    "id": "sim-cn-firing-rate",
@@ -3479,7 +3495,8 @@
    "scoringCategories": [
     "engineeringLogic",
     "signalReasoning"
-   ]
+   ],
+   "curriculumStatus": "draft"
   },
   {
    "id": "sim-nim-lesion",
@@ -3514,7 +3531,8 @@
    "scoringCategories": [
     "signalReasoning",
     "clinicalSafety"
-   ]
+   ],
+   "curriculumStatus": "draft"
   },
   {
    "id": "sim-im-degradation",
@@ -3549,7 +3567,8 @@
    "scoringCategories": [
     "signalReasoning",
     "engineeringLogic"
-   ]
+   ],
+   "curriculumStatus": "draft"
   },
   {
    "id": "sim-re-stroke-rehab",
@@ -3585,7 +3604,8 @@
     "clinicalSafety",
     "engineeringLogic",
     "efficiency"
-   ]
+   ],
+   "curriculumStatus": "draft"
   },
   {
    "id": "sim-eth-data-privacy",
@@ -3620,210 +3640,1522 @@
    "scoringCategories": [
     "ethics",
     "clinicalSafety"
-   ]
+   ],
+   "curriculumStatus": "draft"
+  },
+  {
+   "id": "sim-sampling-time",
+   "title": "Sampling: First to Last",
+   "subjectId": "neural-signals",
+   "relatedTopicId": "ns-lfp-vs-spikes",
+   "topicToReviewNext": "ns-lfp-vs-spikes",
+   "difficulty": "beginner",
+   "scenario": "Five synthetic samples are recorded uniformly at 2 Hz, with the first sample at time zero.",
+   "signalDescription": "Values [1, 3, -1, 2, 0] µV; indexes [0, 1, 2, 3, 4].",
+   "decisionQuestion": "How much time passes from the first sample to the last?",
+   "choices": [
+    {
+     "label": "2.5 seconds",
+     "rationale": "Five divided by two counts five intervals; five sample points have four intervals between the first and last."
+    },
+    {
+     "label": "2 seconds",
+     "rationale": "Four intervals divided by two samples per second gives two seconds."
+    },
+    {
+     "label": "0.5 seconds",
+     "rationale": "One interval lasts 0.5 seconds; there are four intervals between the first and last sample."
+    },
+    {
+     "label": "4 seconds",
+     "rationale": "Four is the number of intervals, not their total duration in seconds."
+    }
+   ],
+   "bestAnswerIndex": 1,
+   "oneLineMaster": "First-to-last duration is (N - 1) / sampling rate when the first sample is at time zero.",
+   "scoringCategories": [
+    "numericalReasoning"
+   ],
+   "revision": 1,
+   "reviewStatus": "Author-revised synthetic exercise. Independent engineering review is pending.",
+   "sources": [
+    {
+     "title": "Python tutorial: functions and control flow",
+     "url": "https://docs.python.org/3/tutorial/controlflow.html"
+    }
+   ],
+   "series": {
+    "title": "Five synthetic samples",
+    "description": "Invented values for timing practice. Lines join samples as visual guides; no values between samples were measured.",
+    "values": [
+     1,
+     3,
+     -1,
+     2,
+     0
+    ],
+    "sampleRateHz": 2,
+    "unit": "µV"
+   },
+   "curriculumStatus": "revised"
+  },
+  {
+   "id": "sim-feature-meaning",
+   "title": "Features: A Constant Negative Window",
+   "subjectId": "neural-signals",
+   "relatedTopicId": "ns-lfp-vs-spikes",
+   "topicToReviewNext": "ns-lfp-vs-spikes",
+   "difficulty": "beginner",
+   "scenario": "You summarize the synthetic window [-3, -3] µV using mean, RMS and the count strictly above the mean.",
+   "signalDescription": "Mean = sum/N; RMS = sqrt(sum of squares/N); compare samples using > mean.",
+   "decisionQuestion": "Which summary follows those definitions?",
+   "choices": [
+    {
+     "label": "Mean -3 µV, RMS -3 µV, count 0",
+     "rationale": "RMS is a nonnegative square root, even when every sample is negative."
+    },
+    {
+     "label": "Mean 3 µV, RMS 3 µV, count 2",
+     "rationale": "The signed mean remains negative; equal samples are not strictly above their mean."
+    },
+    {
+     "label": "Mean -3 µV, RMS 3 µV, count 2",
+     "rationale": "The mean and RMS are right, but equality does not satisfy the strict comparison."
+    },
+    {
+     "label": "Mean -3 µV, RMS 3 µV, count 0",
+     "rationale": "The mean is -3, squares average to 9 and their square root is 3, and neither sample exceeds -3."
+    }
+   ],
+   "bestAnswerIndex": 3,
+   "oneLineMaster": "RMS does not retain the sign of a constant signal; a strict count excludes equality.",
+   "scoringCategories": [
+    "numericalReasoning"
+   ],
+   "revision": 1,
+   "reviewStatus": "Author-revised synthetic exercise. Independent engineering review is pending.",
+   "sources": [
+    {
+     "title": "Python tutorial: functions and control flow",
+     "url": "https://docs.python.org/3/tutorial/controlflow.html"
+    }
+   ],
+   "series": {
+    "title": "Constant synthetic window",
+    "description": "Two invented samples for comparing signed mean with RMS.",
+    "values": [
+     -3,
+     -3
+    ],
+    "sampleRateHz": 2,
+    "unit": "µV"
+   },
+   "curriculumStatus": "revised"
+  },
+  {
+   "id": "sim-held-out-meaning",
+   "title": "Evaluation: What Does 4/4 Mean?",
+   "subjectId": "decoding-ai",
+   "relatedTopicId": "dec-linear-decoder",
+   "topicToReviewNext": "dec-linear-decoder",
+   "difficulty": "beginner",
+   "scenario": "A fixed toy decoder correctly labels all four invented test rows. The weights were selected before those rows were shown.",
+   "signalDescription": "Test score: 4 correct / 4 synthetic rows. No people or independent real-world recordings were evaluated.",
+   "decisionQuestion": "Which conclusion is supported?",
+   "choices": [
+    {
+     "label": "The fixed rule matches all four supplied labels",
+     "rationale": "This accurately states the observed result and its denominator. Generalization requires suitable independent data and a defined evaluation design."
+    },
+    {
+     "label": "The rule will classify every new recording correctly",
+     "rationale": "Four invented rows cannot establish that population claim."
+    },
+    {
+     "label": "The test set can now be used to choose the best weights",
+     "rationale": "Changing model choices based on the test results makes the test set part of model selection."
+    },
+    {
+     "label": "The result establishes clinical usefulness",
+     "rationale": "No patient outcomes, clinical workflow or suitable validation were evaluated."
+    }
+   ],
+   "bestAnswerIndex": 0,
+   "oneLineMaster": "Report the observed denominator and keep model selection separate from final evaluation.",
+   "scoringCategories": [
+    "numericalReasoning"
+   ],
+   "revision": 1,
+   "reviewStatus": "Author-revised synthetic exercise. Independent engineering review is pending.",
+   "sources": [
+    {
+     "title": "scikit-learn: avoid data leakage",
+     "url": "https://scikit-learn.org/stable/common_pitfalls.html#data-leakage"
+    }
+   ],
+   "curriculumStatus": "revised"
   }
  ],
  "neuroCodeLessons": [
   {
    "id": "code-variables-voltage",
-   "title": "Variables: Membrane Voltage and Threshold",
-   "codingConcept": "Variables",
-   "neuroengineeringConcept": "Membrane voltage and firing threshold",
-   "explanation": "A variable is a named value you can reuse. In neuroengineering, variables let you label measurements such as membrane voltage, threshold, or spike count so the logic stays readable.",
-   "codeExample": "\n# Store two measurements in variables.\nmembrane_voltage_mv = -55\nfiring_threshold_mv = -50\n\nprint(\"Voltage:\", membrane_voltage_mv)\nprint(\"Threshold:\", firing_threshold_mv)\n",
-   "expectedOutput": "\nVoltage: -55\nThreshold: -50\n",
-   "challengePrompt": "Create a variable named resting_voltage_mv with a value of -70 and print it.",
-   "hint": "Use the pattern name = value, then pass the name to print().",
-   "solution": "\nresting_voltage_mv = -70\nprint(\"Resting voltage:\", resting_voltage_mv)\n",
-   "oneLineMaster": "Variables turn neural measurements into named values your program can reason about.",
+   "title": "Variables: Calculate a Voltage Difference",
+   "codingConcept": "Named inputs and subtraction",
+   "neuroengineeringConcept": "Synthetic signal analysis",
+   "explanation": "A signed difference is the target value minus the reference value. These arbitrary millivolt values illustrate arithmetic; they are not a model that predicts whether a neuron will fire.",
+   "codeExample": "def voltage_difference(resting_mv, threshold_mv):\n    return 0  # Replace this line\n\nprint(voltage_difference(-70, -50))\n",
+   "expectedOutput": "20",
+   "challengePrompt": "Define voltage_difference(resting_mv, threshold_mv). Return threshold_mv minus resting_mv in millivolts. Keep the sign, including when the threshold value is lower. Do not change either input.",
+   "hint": "Subtraction order matters: subtract the resting value from the threshold value.",
+   "solution": "def voltage_difference(resting_mv, threshold_mv):\n    return threshold_mv - resting_mv\n\nprint(voltage_difference(-70, -50))\n",
+   "oneLineMaster": "A signed difference is the target value minus the reference value.",
    "difficulty": "beginner",
-   "relatedSubjectId": "neural-signals"
+   "relatedSubjectId": "neural-signals",
+   "revision": 2,
+   "checks": {
+    "function": "voltage_difference",
+    "preserveArgs": true,
+    "cases": [
+     {
+      "args": [
+       -70,
+       -50
+      ],
+      "expected": 20
+     },
+     {
+      "args": [
+       -55,
+       -50
+      ],
+      "expected": 5
+     },
+     {
+      "args": [
+       -50,
+       -50
+      ],
+      "expected": 0
+     },
+     {
+      "args": [
+       -40,
+       -50
+      ],
+      "expected": -10
+     },
+     {
+      "args": [
+       -65.5,
+       -52
+      ],
+      "expected": 13.5
+     }
+    ]
+   },
+   "reviewStatus": "Author-revised synthetic exercise. Independent engineering review is pending.",
+   "sources": [
+    {
+     "title": "Python tutorial: functions and control flow",
+     "url": "https://docs.python.org/3/tutorial/controlflow.html"
+    }
+   ]
   },
   {
    "id": "code-if-threshold",
-   "title": "If-Statements: Did the Neuron Fire?",
-   "codingConcept": "If-statements",
+   "title": "Conditions: Test a Numerical Threshold",
+   "codingConcept": "Comparisons and functions",
    "neuroengineeringConcept": "Threshold-based spiking",
-   "explanation": "An if-statement lets code choose a path. A simple neuron model can use one to decide whether voltage crossed a firing threshold.",
-   "codeExample": "\nmembrane_voltage_mv = -45\nfiring_threshold_mv = -50\n\nif membrane_voltage_mv >= firing_threshold_mv:\n    print(\"Spike detected\")\nelse:\n    print(\"No spike\")\n",
-   "expectedOutput": "Spike detected",
-   "challengePrompt": "Change the voltage to -60 and predict the printed result.",
-   "hint": "-60 is below -50, so the condition is false.",
-   "solution": "\nmembrane_voltage_mv = -60\nfiring_threshold_mv = -50\n\nif membrane_voltage_mv >= firing_threshold_mv:\n    print(\"Spike detected\")\nelse:\n    print(\"No spike\")\n",
+   "explanation": "A comparison answers a numerical question about one sample. A single above-threshold value does not prove a neuron fired.",
+   "codeExample": "def at_or_above(sample, threshold):\n    return False  # Replace this line\n\nprint(at_or_above(-45, -50))",
+   "expectedOutput": "True",
+   "challengePrompt": "Complete at_or_above(sample, threshold), returning True when sample >= threshold and False otherwise. Equality counts as above in this exercise.",
+   "hint": "Return the result of sample >= threshold. This is a Boolean, not the text \"True\".",
+   "solution": "def at_or_above(sample, threshold):\n    return sample >= threshold\n\nprint(at_or_above(-45, -50))",
    "oneLineMaster": "If-statements model decisions such as whether a neural signal crossed threshold.",
    "difficulty": "beginner",
-   "relatedSubjectId": "neural-signals"
+   "relatedSubjectId": "neural-signals",
+   "revision": 2,
+   "reviewStatus": "Author-revised foundation practice. Independent subject review is pending. All traces and examples are synthetic; completion is not a professional qualification.",
+   "outputLabel": "Reference example output",
+   "checks": {
+    "function": "at_or_above",
+    "cases": [
+     {
+      "args": [
+       -45,
+       -50
+      ],
+      "expected": true
+     },
+     {
+      "args": [
+       -60,
+       -50
+      ],
+      "expected": false
+     },
+     {
+      "args": [
+       -50,
+       -50
+      ],
+      "expected": true
+     },
+     {
+      "args": [
+       0,
+       1
+      ],
+      "expected": false
+     },
+     {
+      "args": [
+       2,
+       1
+      ],
+      "expected": true
+     }
+    ]
+   },
+   "sources": [
+    {
+     "title": "Perel et al. (2015): single units, threshold crossings and LFPs",
+     "url": "https://pubmed.ncbi.nlm.nih.gov/26133797/"
+    }
+   ]
   },
   {
    "id": "code-lists-samples",
-   "title": "Lists: Neural Signal Samples",
-   "codingConcept": "Lists and arrays",
+   "title": "Lists: Keep Ordered Samples",
+   "codingConcept": "Lists and functions",
    "neuroengineeringConcept": "Sampled neural signals",
-   "explanation": "A list stores many values in order. Neural signals are often sampled over time, so a list can represent a short voltage trace.",
-   "codeExample": "\nsignal_mv = [-70, -68, -61, -48, -54, -66]\n\nprint(\"First sample:\", signal_mv[0])\nprint(\"Number of samples:\", len(signal_mv))\n",
-   "expectedOutput": "\nNumber of samples: 7\n",
-   "challengePrompt": "Add one more sample, -72, to the list and print the new length.",
-   "hint": "Use signal_mv.append(-72), then print len(signal_mv).",
-   "solution": "\nsignal_mv = [-70, -68, -61, -48, -54, -66]\nsignal_mv.append(-72)\nprint(\"Number of samples:\", len(signal_mv))\n",
+   "explanation": "This exercise uses synthetic values. Return a new list with one value appended; keep the original list unchanged.",
+   "codeExample": "def append_sample(samples, value):\n    return samples  # Replace this line\n\nprint(append_sample([-70, -68], -72))",
+   "expectedOutput": "[-70, -68, -72]",
+   "challengePrompt": "Complete append_sample(samples, value). Return all original samples in order followed by value, without modifying samples. The checks use several lists, including an empty list.",
+   "hint": "samples + [value] makes a new list. Printing a fixed example does not implement the function.",
+   "solution": "def append_sample(samples, value):\n    return samples + [value]\n\nprint(append_sample([-70, -68], -72))",
    "oneLineMaster": "Lists let code hold a neural time series instead of one isolated measurement.",
    "difficulty": "beginner",
-   "relatedSubjectId": "neural-signals"
+   "relatedSubjectId": "neural-signals",
+   "revision": 2,
+   "reviewStatus": "Author-revised foundation practice. Independent subject review is pending. All traces and examples are synthetic; completion is not a professional qualification.",
+   "outputLabel": "Reference example output",
+   "checks": {
+    "function": "append_sample",
+    "cases": [
+     {
+      "args": [
+       [
+        -70,
+        -68
+       ],
+       -72
+      ],
+      "expected": [
+       -70,
+       -68,
+       -72
+      ]
+     },
+     {
+      "args": [
+       [],
+       3
+      ],
+      "expected": [
+       3
+      ]
+     },
+     {
+      "args": [
+       [
+        1,
+        1
+       ],
+       0
+      ],
+      "expected": [
+       1,
+       1,
+       0
+      ]
+     },
+     {
+      "args": [
+       [
+        5
+       ],
+       -2
+      ],
+      "expected": [
+       5,
+       -2
+      ]
+     }
+    ],
+    "preserveArgs": true
+   },
+   "sources": [
+    {
+     "title": "PyNWB: TimeSeries data and timing",
+     "url": "https://pynwb.readthedocs.io/en/latest/pynwb.base.html"
+    },
+    {
+     "title": "Perel et al. (2015): single units, threshold crossings and LFPs",
+     "url": "https://pubmed.ncbi.nlm.nih.gov/26133797/"
+    },
+    {
+     "title": "OpenStax: The action potential",
+     "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-4-the-action-potential"
+    }
+   ]
   },
   {
    "id": "code-loops-spike-counting",
-   "title": "Loops: Count Spikes in a Trace",
-   "codingConcept": "Loops",
-   "neuroengineeringConcept": "Spike counting",
-   "explanation": "A loop repeats the same logic over many samples. That is exactly what you need when scanning a signal for threshold crossings.",
-   "codeExample": "\nsignal_mv = [-70, -55, -42, -66, -44, -39, -71]\nthreshold_mv = -50\nspike_count = 0\n\nfor sample in signal_mv:\n    if sample >= threshold_mv:\n        spike_count = spike_count + 1\n\nprint(\"Spikes:\", spike_count)\n",
-   "expectedOutput": "Spikes: 3",
-   "challengePrompt": "Change the threshold to -45. How many spikes are counted now?",
-   "hint": "Only samples at or above -45 count.",
-   "solution": "\nsignal_mv = [-70, -55, -42, -66, -44, -39, -71]\nthreshold_mv = -45\nspike_count = 0\n\nfor sample in signal_mv:\n    if sample >= threshold_mv:\n        spike_count = spike_count + 1\n\nprint(\"Spikes:\", spike_count)\n",
+   "title": "Loops: Count Threshold Episodes",
+   "codingConcept": "Loops and state",
+   "neuroengineeringConcept": "Threshold-event counting",
+   "explanation": "Synthetic membrane-voltage examples teach a positive-threshold rule. Count the start of each contiguous episode; these are not validated physiological spikes.",
+   "codeExample": "def count_events(samples, threshold):\n    count = 0\n    previous_above = False\n    for sample in samples:\n        above = sample >= threshold\n        # Add the missing event-count and state-update lines\n    return count\n\ntrace = [-70, -55, -42, -66, -44, -39, -71]\nprint(\"Events:\", count_events(trace, -50))",
+   "expectedOutput": "Events: 2",
+   "challengePrompt": "Complete count_events(samples, threshold). Count a new event when the current sample is >= threshold and the preceding sample was below. Assume an initially below-threshold state. Empty input returns 0. Test the example at -50 (2 events) and -40 (1 event).",
+   "hint": "Increment only when above is true and previous_above is false. Update previous_above on every iteration.",
+   "solution": "def count_events(samples, threshold):\n    count = 0\n    previous_above = False\n    for sample in samples:\n        above = sample >= threshold\n        if above and not previous_above:\n            count += 1\n        previous_above = above\n    return count\n\ntrace = [-70, -55, -42, -66, -44, -39, -71]\nprint(\"Events:\", count_events(trace, -50))",
    "oneLineMaster": "Loops turn a single signal rule into a scan across an entire recording.",
    "difficulty": "beginner",
-   "relatedSubjectId": "neural-signals"
+   "relatedSubjectId": "neural-signals",
+   "revision": 2,
+   "reviewStatus": "Author-revised foundation practice. Independent subject review is pending. All traces and examples are synthetic; completion is not a professional qualification.",
+   "outputLabel": "Reference example output",
+   "checks": {
+    "function": "count_events",
+    "cases": [
+     {
+      "args": [
+       [
+        0,
+        3,
+        4,
+        0,
+        5
+       ],
+       2
+      ],
+      "expected": 2
+     },
+     {
+      "args": [
+       [
+        -70,
+        -55,
+        -42,
+        -66,
+        -44,
+        -39,
+        -71
+       ],
+       -50
+      ],
+      "expected": 2
+     },
+     {
+      "args": [
+       [
+        -70,
+        -55,
+        -42,
+        -66,
+        -44,
+        -39,
+        -71
+       ],
+       -40
+      ],
+      "expected": 1
+     },
+     {
+      "args": [
+       [
+        3,
+        3,
+        3
+       ],
+       3
+      ],
+      "expected": 1
+     },
+     {
+      "args": [
+       [],
+       2
+      ],
+      "expected": 0
+     },
+     {
+      "args": [
+       [
+        0,
+        0
+       ],
+       2
+      ],
+      "expected": 0
+     }
+    ]
+   },
+   "sources": [
+    {
+     "title": "Perel et al. (2015): single units, threshold crossings and LFPs",
+     "url": "https://pubmed.ncbi.nlm.nih.gov/26133797/"
+    },
+    {
+     "title": "OpenStax: The action potential",
+     "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-4-the-action-potential"
+    }
+   ]
   },
   {
    "id": "code-functions-firing-rate",
-   "title": "Functions: Firing Rate Calculation",
-   "codingConcept": "Functions",
+   "title": "Functions: Mean Event Rate",
+   "codingConcept": "Functions and units",
    "neuroengineeringConcept": "Firing rate",
-   "explanation": "A function packages reusable logic. Firing rate is a perfect example: count spikes, divide by recording time, reuse the calculation anywhere.",
-   "codeExample": "\ndef firing_rate_hz(spike_count, duration_seconds):\n    return spike_count / duration_seconds\n\nrate = firing_rate_hz(24, 3)\nprint(\"Firing rate:\", rate, \"Hz\")\n",
-   "expectedOutput": "Firing rate: 8.0 Hz",
-   "challengePrompt": "Use the function to calculate the firing rate for 15 spikes in 5 seconds.",
-   "hint": "Call firing_rate_hz(15, 5).",
-   "solution": "\ndef firing_rate_hz(spike_count, duration_seconds):\n    return spike_count / duration_seconds\n\nrate = firing_rate_hz(15, 5)\nprint(\"Firing rate:\", rate, \"Hz\")\n",
+   "explanation": "Count divided by seconds is a mean rate over that observation window. This exercise accepts nonnegative counts and strictly positive durations; input validation is outside this exercise.",
+   "codeExample": "def event_rate_hz(event_count, duration_seconds):\n    return 0  # Replace this line\n\nprint(\"Event rate:\", event_rate_hz(15, 5), \"Hz\")",
+   "expectedOutput": "Event rate: 3.0 Hz",
+   "challengePrompt": "Complete event_rate_hz(event_count, duration_seconds), returning count / duration. Check includes zero events and fractional-second windows. Do not return a fixed rate.",
+   "hint": "Use the two function parameters. Python / performs division, including fractional results.",
+   "solution": "def event_rate_hz(event_count, duration_seconds):\n    return event_count / duration_seconds\n\nprint(\"Event rate:\", event_rate_hz(15, 5), \"Hz\")",
    "oneLineMaster": "Functions make neuroengineering calculations repeatable and easier to trust.",
    "difficulty": "beginner",
-   "relatedSubjectId": "comp-neuro"
+   "relatedSubjectId": "comp-neuro",
+   "revision": 2,
+   "reviewStatus": "Author-revised foundation practice. Independent subject review is pending. All traces and examples are synthetic; completion is not a professional qualification.",
+   "outputLabel": "Reference example output",
+   "checks": {
+    "function": "event_rate_hz",
+    "cases": [
+     {
+      "args": [
+       15,
+       5
+      ],
+      "expected": 3
+     },
+     {
+      "args": [
+       24,
+       3
+      ],
+      "expected": 8
+     },
+     {
+      "args": [
+       0,
+       2
+      ],
+      "expected": 0
+     },
+     {
+      "args": [
+       2,
+       0.5
+      ],
+      "expected": 4
+     },
+     {
+      "args": [
+       1,
+       3
+      ],
+      "expected": 0.3333333333333333
+     }
+    ]
+   },
+   "sources": [
+    {
+     "title": "Gerstner et al.: Mean firing rate",
+     "url": "https://neuronaldynamics.epfl.ch/online/Ch7.S2.html"
+    }
+   ]
   },
   {
    "id": "code-plotting-eeg-series",
-   "title": "Plotting Concept: EEG-Like Time Series",
-   "codingConcept": "Plotting",
-   "neuroengineeringConcept": "EEG-like time series",
-   "explanation": "Plots help you inspect signal shape, timing, and artifacts. The MVP does not run Python yet, but this shows the plotting pattern used in notebooks.",
-   "codeExample": "\ntime_seconds = [0, 1, 2, 3, 4]\neeg_uv = [2, 5, -1, -4, 1]\n\n# In a Python notebook:\n# plot(time_seconds, eeg_uv)\n\nprint(\"Plot x-axis:\", time_seconds)\nprint(\"Plot y-axis:\", eeg_uv)\n",
-   "expectedOutput": "\nPlot x-axis: [0, 1, 2, 3, 4]\nPlot y-axis: [2, 5, -1, -4, 1]\n",
-   "challengePrompt": "Describe what the x-axis and y-axis represent in this signal plot.",
-   "hint": "The x-axis is time. The y-axis is signal amplitude.",
-   "solution": "The x-axis is time in seconds, and the y-axis is EEG-like voltage in microvolts.",
-   "oneLineMaster": "Plotting turns arrays of neural samples into shapes your eyes can debug.",
+   "title": "Time Axes: Place Each Sample",
+   "codingConcept": "Lists, sampling rate and plotting coordinates",
+   "neuroengineeringConcept": "Synthetic signal analysis",
+   "explanation": "For a uniformly sampled series starting at time zero, sample i occurs at i divided by the sampling rate. Five samples at 2 Hz span 2 seconds from the first sample to the last; five divided by 2 describes a different interval convention.",
+   "codeExample": "def time_axis(sample_count, rate_hz):\n    return []  # Add validation and calculate each time\n\nprint(time_axis(5, 2))\n",
+   "expectedOutput": "[0.0, 0.5, 1.0, 1.5, 2.0]",
+   "challengePrompt": "Define time_axis(sample_count, rate_hz). Return a list of sample times in seconds, beginning with zero. sample_count is an integer; return [] for zero samples. Raise ValueError for a negative count or rate_hz less than or equal to zero. The displayed plot uses the fixed example, not output from your editor.",
+   "hint": "Use range(sample_count) to produce indexes 0 through sample_count - 1, then divide each by rate_hz.",
+   "solution": "def time_axis(sample_count, rate_hz):\n    if sample_count < 0 or rate_hz <= 0:\n        raise ValueError(\"Count must be nonnegative and rate positive\")\n    return [i / rate_hz for i in range(sample_count)]\n\nprint(time_axis(5, 2))\n",
+   "oneLineMaster": "For a uniformly sampled series starting at time zero, sample i occurs at i divided by the sampling rate.",
    "difficulty": "beginner",
-   "relatedSubjectId": "neuroimaging"
+   "relatedSubjectId": "neuroimaging",
+   "revision": 2,
+   "checks": {
+    "function": "time_axis",
+    "preserveArgs": true,
+    "cases": [
+     {
+      "args": [
+       5,
+       2
+      ],
+      "expected": [
+       0,
+       0.5,
+       1,
+       1.5,
+       2
+      ]
+     },
+     {
+      "args": [
+       3,
+       1000
+      ],
+      "expected": [
+       0,
+       0.001,
+       0.002
+      ]
+     },
+     {
+      "args": [
+       0,
+       10
+      ],
+      "expected": []
+     },
+     {
+      "args": [
+       1,
+       0.5
+      ],
+      "expected": [
+       0
+      ]
+     },
+     {
+      "args": [
+       2,
+       0
+      ],
+      "raises": "ValueError"
+     },
+     {
+      "args": [
+       -1,
+       2
+      ],
+      "raises": "ValueError"
+     }
+    ]
+   },
+   "reviewStatus": "Author-revised synthetic exercise. Independent engineering review is pending.",
+   "sources": [
+    {
+     "title": "Python tutorial: functions and control flow",
+     "url": "https://docs.python.org/3/tutorial/controlflow.html"
+    }
+   ],
+   "series": {
+    "title": "Five synthetic samples",
+    "description": "Invented values for timing practice. Lines join samples as visual guides; no values between samples were measured.",
+    "values": [
+     1,
+     3,
+     -1,
+     2,
+     0
+    ],
+    "sampleRateHz": 2,
+    "unit": "µV"
+   }
   },
   {
    "id": "code-noise-smoothing",
-   "title": "Noise and Smoothing: Clean a Neural Signal",
-   "codingConcept": "Moving averages",
+   "title": "Moving Averages: Inspect What Changes",
+   "codingConcept": "Lists, loops and averaging",
    "neuroengineeringConcept": "Noise reduction",
-   "explanation": "Signals are noisy. A simple moving average smooths local jumps, making slow trends easier to see while sacrificing some detail.",
-   "codeExample": "\nsignal = [10, 12, 50, 13, 11]\n\nsmoothed_middle = (signal[1] + signal[2] + signal[3]) / 3\n\nprint(\"Raw middle sample:\", signal[2])\nprint(\"Smoothed middle:\", smoothed_middle)\n",
-   "expectedOutput": "\nRaw middle sample: 50\nSmoothed middle: 25.0\n",
-   "challengePrompt": "Explain why smoothing can help and why it can also hide fast spikes.",
-   "hint": "Averages reduce extremes by mixing each point with its neighbors.",
-   "solution": "Smoothing reduces sudden noise by averaging nearby samples, but it can blur true fast events such as spikes.",
+   "explanation": "The function averages full windows of three synthetic samples. It returns N-2 values for N >= 3; fewer than three samples return an empty list. The lesson asks separately what detail is lost.",
+   "codeExample": "def smooth_three(samples):\n    result = []\n    for i in range(1, len(samples) - 1):\n        # Append the mean of samples[i-1], samples[i], samples[i+1]\n        pass\n    return result\n\nprint(smooth_three([10, 12, 50, 13, 11]))",
+   "expectedOutput": "[24.0, 25.0, 24.666666666666668]",
+   "challengePrompt": "Complete smooth_three(samples). Return the mean of each consecutive three-sample window in order. Use full windows only, with no padded endpoints.",
+   "hint": "Use result.append((samples[i-1] + samples[i] + samples[i+1]) / 3). Keep the loop range so both neighbors exist.",
+   "solution": "def smooth_three(samples):\n    result = []\n    for i in range(1, len(samples) - 1):\n        result.append((samples[i-1] + samples[i] + samples[i+1]) / 3)\n    return result\n\nprint(smooth_three([10, 12, 50, 13, 11]))",
    "oneLineMaster": "Smoothing trades fast detail for a cleaner view of the signal trend.",
    "difficulty": "beginner",
-   "relatedSubjectId": "decoding-ai"
+   "relatedSubjectId": "decoding-ai",
+   "revision": 2,
+   "reviewStatus": "Author-revised foundation practice. Independent subject review is pending. All traces and examples are synthetic; completion is not a professional qualification.",
+   "outputLabel": "Reference example output",
+   "checks": {
+    "function": "smooth_three",
+    "cases": [
+     {
+      "args": [
+       [
+        10,
+        12,
+        50,
+        13,
+        11
+       ]
+      ],
+      "expected": [
+       24,
+       25,
+       24.666666666666668
+      ]
+     },
+     {
+      "args": [
+       [
+        3,
+        3,
+        3
+       ]
+      ],
+      "expected": [
+       3
+      ]
+     },
+     {
+      "args": [
+       [
+        1,
+        2
+       ]
+      ],
+      "expected": []
+     },
+     {
+      "args": [
+       []
+      ],
+      "expected": []
+     },
+     {
+      "args": [
+       [
+        0,
+        3,
+        0,
+        3
+       ]
+      ],
+      "expected": [
+       1,
+       2
+      ]
+     }
+    ]
+   },
+   "sources": [
+    {
+     "title": "SciPy: Signal processing and filtering",
+     "url": "https://docs.scipy.org/doc/scipy/tutorial/signal.html"
+    }
+   ]
   },
   {
    "id": "code-feature-extraction",
-   "title": "Feature Extraction: Building a Real Feature Vector",
-   "codingConcept": "Feature extraction",
-   "neuroengineeringConcept": "Population activity as a compact vector (count + energy)",
-   "explanation": "A real decoder never sees the raw voltage trace. It receives a small feature vector — typically spike count or multi-unit activity per channel (or sorted unit), RMS or band power, and sometimes LFP features. In high-channel arrays this vector can be hundreds of dimensions before dimensionality reduction. These compact numbers are what the linear (or lightly adaptive) decoder actually consumes.",
-   "codeExample": "\nsignal = [2, -1, 8, 3, -2, 9, 1, 4]   # toy 8-sample window (real systems use per-channel or per-unit windows)\n\nspike_count = 0\nfor v in signal:\n    if v > 5:\n        spike_count += 1\n\nrms = (sum(v*v for v in signal) / len(signal)) ** 0.5\n\nprint(\"spike_count:\", spike_count)\nprint(\"rms:\", round(rms, 2))\n",
-   "expectedOutput": "\nspike_count: 2\nrms: 4.74\n",
-   "challengePrompt": "Add a third feature called 'energy_above_mean' that counts how many samples are above the mean of the window. In real pipelines you would compute this per channel across an array.",
-   "hint": "First compute mean, then count how many values are strictly greater than it.",
-   "solution": "\nsignal = [2, -1, 8, 3, -2, 9, 1, 4]\nmean = sum(signal) / len(signal)\nenergy_above_mean = sum(1 for v in signal if v > mean)\nprint(\"energy_above_mean:\", energy_above_mean)\n",
-   "oneLineMaster": "A feature vector (often per-channel in high-density arrays) turns raw signal into the small list of numbers a decoder actually sees.",
+   "title": "Features: Mean, RMS and a Sample Count",
+   "codingConcept": "Summaries with distinct units",
+   "neuroengineeringConcept": "Synthetic signal analysis",
+   "explanation": "Mean and root mean square (RMS) summarize different properties. For N samples, RMS is the square root of the mean of their squares. Both have the input units. The number of samples strictly above the mean is a dimensionless count and is not signal energy.",
+   "codeExample": "def window_features(samples):\n    return [0, 0, 0]  # Calculate three distinct summaries\n\nprint(window_features([2, -1, 8, 3, -2, 9, 1, 4]))\n",
+   "expectedOutput": "[3.0, 4.743416490252569, 3]",
+   "challengePrompt": "Define window_features(samples). Return [mean, rms, count_above_mean]. The count uses strictly greater than, not greater than or equal to. Raise ValueError for an empty list. Retain the original input list. Inputs are finite numerical values.",
+   "hint": "Compute the mean once, square values before averaging for RMS, then count values greater than that mean.",
+   "solution": "def window_features(samples):\n    if not samples:\n        raise ValueError(\"At least one sample is required\")\n    mean = sum(samples) / len(samples)\n    rms = (sum(value * value for value in samples) / len(samples)) ** 0.5\n    count = sum(value > mean for value in samples)\n    return [mean, rms, count]\n\nprint(window_features([2, -1, 8, 3, -2, 9, 1, 4]))\n",
+   "oneLineMaster": "Mean and root mean square (RMS) summarize different properties.",
    "difficulty": "beginner",
-   "relatedSubjectId": "decoding-ai"
+   "relatedSubjectId": "decoding-ai",
+   "revision": 2,
+   "checks": {
+    "function": "window_features",
+    "preserveArgs": true,
+    "cases": [
+     {
+      "args": [
+       [
+        2,
+        -1,
+        8,
+        3,
+        -2,
+        9,
+        1,
+        4
+       ]
+      ],
+      "expected": [
+       3,
+       4.743416490252569,
+       3
+      ]
+     },
+     {
+      "args": [
+       [
+        -3,
+        -3
+       ]
+      ],
+      "expected": [
+       -3,
+       3,
+       0
+      ]
+     },
+     {
+      "args": [
+       [
+        0,
+        0
+       ]
+      ],
+      "expected": [
+       0,
+       0,
+       0
+      ]
+     },
+     {
+      "args": [
+       [
+        -2,
+        2
+       ]
+      ],
+      "expected": [
+       0,
+       2,
+       1
+      ]
+     },
+     {
+      "args": [
+       [
+        4
+       ]
+      ],
+      "expected": [
+       4,
+       4,
+       0
+      ]
+     },
+     {
+      "args": [
+       []
+      ],
+      "raises": "ValueError"
+     }
+    ]
+   },
+   "reviewStatus": "Author-revised synthetic exercise. Independent engineering review is pending.",
+   "sources": [
+    {
+     "title": "Python tutorial: functions and control flow",
+     "url": "https://docs.python.org/3/tutorial/controlflow.html"
+    }
+   ],
+   "series": {
+    "title": "Synthetic feature window",
+    "description": "Eight invented samples used in the example. The count above the mean is a count, not energy or a count of distinct neural events.",
+    "values": [
+     2,
+     -1,
+     8,
+     3,
+     -2,
+     9,
+     1,
+     4
+    ],
+    "sampleRateHz": 1000,
+    "unit": "µV"
+   }
   },
   {
    "id": "code-simple-bci-decoder",
-   "title": "Weighted Linear Decoder: Tuning a Real Readout",
-   "codingConcept": "Linear decoding with weights",
-   "neuroengineeringConcept": "Population vector to binary intent via learned weights",
-   "explanation": "A linear decoder computes score = w_left * feat_left + w_right * feat_right + bias. The weights are the 'votes' each feature gets. The learner can now change the weights and immediately see the effect on accuracy across several 'trials'.",
-   "codeExample": "\nfeat_left = 4.0\nfeat_right = 9.0\n\nw_left = 1.0\nw_right = 1.5\nbias = -3.0\n\nscore = w_left * feat_left + w_right * feat_right + bias\ncommand = \"right\" if score > 0 else \"left\"\n\nprint(\"score:\", round(score, 2))\nprint(\"command:\", command)\n",
-   "expectedOutput": "\nscore: 14.5\ncommand: right\n",
-   "challengePrompt": "Change only the weights (not the features) so the decoder now outputs 'left' on this trial. Then add a second trial with different features and report accuracy on both.",
-   "hint": "Make w_left much larger than w_right or make bias strongly negative.",
-   "solution": "\nfeat_left = 4.0\nfeat_right = 9.0\nw_left = 3.0\nw_right = 0.5\nbias = -12.0\n\nscore = w_left * feat_left + w_right * feat_right + bias\ncommand = \"right\" if score > 0 else \"left\"\nprint(\"score:\", round(score, 2))\nprint(\"command:\", command)\n",
-   "oneLineMaster": "A linear decoder is a weighted vote across features plus a bias. You can see and tune every vote.",
+   "title": "Linear Readout: Calculate Before Labeling",
+   "codingConcept": "Dot product and an explicit tie rule",
+   "neuroengineeringConcept": "Synthetic signal analysis",
+   "explanation": "This toy readout multiplies two features by two fixed weights and adds a bias. A positive score maps to right; a zero or negative score maps to left. The invented labels are programming conventions, not decoded intentions.",
+   "codeExample": "def linear_command(features, weights, bias):\n    return [0, \"left\"]  # Compute and validate the readout\n\nprint(linear_command([4, 9], [3, 0.5], -12))\n",
+   "expectedOutput": "[4.5, 'right']",
+   "challengePrompt": "Define linear_command(features, weights, bias). Both lists must contain exactly two numbers; otherwise raise ValueError. Return [score, label] with label right only when score is greater than zero, and left otherwise. Do not change either list.",
+   "hint": "score = features[0] * weights[0] + features[1] * weights[1] + bias. Check the zero case.",
+   "solution": "def linear_command(features, weights, bias):\n    if len(features) != 2 or len(weights) != 2:\n        raise ValueError(\"Exactly two features and weights are required\")\n    score = features[0] * weights[0] + features[1] * weights[1] + bias\n    return [score, \"right\" if score > 0 else \"left\"]\n\nprint(linear_command([4, 9], [3, 0.5], -12))\n",
+   "oneLineMaster": "This toy readout multiplies two features by two fixed weights and adds a bias.",
    "difficulty": "beginner",
-   "relatedSubjectId": "decoding-ai"
+   "relatedSubjectId": "decoding-ai",
+   "revision": 2,
+   "checks": {
+    "function": "linear_command",
+    "preserveArgs": true,
+    "cases": [
+     {
+      "args": [
+       [
+        4,
+        9
+       ],
+       [
+        3,
+        0.5
+       ],
+       -12
+      ],
+      "expected": [
+       4.5,
+       "right"
+      ]
+     },
+     {
+      "args": [
+       [
+        4,
+        9
+       ],
+       [
+        -1,
+        1
+       ],
+       -6
+      ],
+      "expected": [
+       -1,
+       "left"
+      ]
+     },
+     {
+      "args": [
+       [
+        2,
+        2
+       ],
+       [
+        -1,
+        1
+       ],
+       0
+      ],
+      "expected": [
+       0,
+       "left"
+      ]
+     },
+     {
+      "args": [
+       [
+        0,
+        0
+       ],
+       [
+        1,
+        1
+       ],
+       2
+      ],
+      "expected": [
+       2,
+       "right"
+      ]
+     },
+     {
+      "args": [
+       [
+        1
+       ],
+       [
+        1,
+        2
+       ],
+       0
+      ],
+      "raises": "ValueError"
+     },
+     {
+      "args": [
+       [
+        1,
+        2
+       ],
+       [
+        1
+       ],
+       0
+      ],
+      "raises": "ValueError"
+     }
+    ]
+   },
+   "reviewStatus": "Author-revised synthetic exercise. Independent engineering review is pending.",
+   "sources": [
+    {
+     "title": "Python tutorial: functions and control flow",
+     "url": "https://docs.python.org/3/tutorial/controlflow.html"
+    }
+   ]
   },
   {
    "id": "code-weighted-linear-decoder",
-   "title": "Weighted Linear Decoder with Held-Out Evaluation",
-   "codingConcept": "Linear model + train/test split",
-   "neuroengineeringConcept": "Seeing overfitting vs generalization on synthetic BCI trials",
-   "explanation": "You now have two sets of trials: training (used to choose weights) and held-out test (never seen during tuning). Good weights (often found with ridge/L2 regularization in practice) perform well on both. Overfit weights only look good on the training set. After training you should always inspect the actual weight values — they tell you which features the decoder is truly using.",
-   "codeExample": "\n# Training trials (you can change weights while looking at these)\ntrain = [(3, 8, \"right\"), (7, 2, \"left\"), (4, 9, \"right\")]\n\nw_left, w_right, bias = 1.0, 1.8, -4.0   # in real code you would add a small L2 penalty on the weights\n\ndef predict(fl, fr):\n    return \"right\" if w_left*fl + w_right*fr + bias > 0 else \"left\"\n\ncorrect_train = sum(1 for fl, fr, label in train if predict(fl, fr) == label)\nprint(\"train accuracy:\", correct_train, \"/\", len(train))\n",
-   "expectedOutput": "train accuracy: 3 / 3",
-   "challengePrompt": "Add a held-out test set with 4 trials. Tune the weights on the training set only (try a small L2-style penalty in your head), then report accuracy on the unseen test set. Can you get >75 % on test while keeping weights reasonable?",
-   "hint": "Do not look at the test labels while choosing w_left / w_right / bias.",
-   "solution": "\ntrain = [(3, 8, \"right\"), (7, 2, \"left\"), (4, 9, \"right\")]\ntest  = [(2, 5, \"right\"), (8, 3, \"left\"), (1, 10, \"right\"), (6, 1, \"left\")]\n\nw_left, w_right, bias = 1.2, 1.6, -5.5   # tuned only on train (in practice add L2 regularization)\n\ndef predict(fl, fr):\n    return \"right\" if w_left*fl + w_right*fr + bias > 0 else \"left\"\n\ncorrect_test = sum(1 for fl, fr, label in test if predict(fl, fr) == label)\nprint(\"test accuracy:\", correct_test, \"/\", len(test))\n",
-   "oneLineMaster": "A decoder is only as good as its performance on unseen data. Always inspect the weights after training or adaptation.",
+   "title": "Held-Out Evaluation: Keep the Rule Fixed",
+   "codingConcept": "Count correct predictions on a fixed test set",
+   "neuroengineeringConcept": "Synthetic signal analysis",
+   "explanation": "A test set is used after model choices have been fixed. Here the authored weights [-1, 1] and bias 0 were fixed before the four synthetic test trials were supplied. Their 4/4 result describes only these invented rows. Changing weights after viewing test results would use the test set for model selection.",
+   "codeExample": "def accuracy(trials, weights, bias):\n    return 0  # Evaluate each row using the fixed readout\n\ntest = [[3, 8, \"right\"], [9, 2, \"left\"], [4, 7, \"right\"], [8, 3, \"left\"]]\nprint(accuracy(test, [-1, 1], 0))\n",
+   "expectedOutput": "1.0",
+   "challengePrompt": "Define accuracy(trials, weights, bias). Each trial is [feature_0, feature_1, label]. Use the same positive-score right / otherwise left rule as the preceding exercise. Return correct predictions divided by number of trials, as a fraction from 0 to 1. Raise ValueError for no trials or weights not of length two. Do not tune the model on these test rows or change the inputs.",
+   "hint": "Count matches, then divide once by the number of trials. A zero score predicts left.",
+   "solution": "def accuracy(trials, weights, bias):\n    if not trials or len(weights) != 2:\n        raise ValueError(\"Trials and two weights are required\")\n    correct = 0\n    for a, b, label in trials:\n        score = a * weights[0] + b * weights[1] + bias\n        prediction = \"right\" if score > 0 else \"left\"\n        correct += prediction == label\n    return correct / len(trials)\n\ntest = [[3, 8, \"right\"], [9, 2, \"left\"], [4, 7, \"right\"], [8, 3, \"left\"]]\nprint(accuracy(test, [-1, 1], 0))\n",
+   "oneLineMaster": "A test set is used after model choices have been fixed.",
    "difficulty": "beginner",
-   "relatedSubjectId": "decoding-ai"
+   "relatedSubjectId": "decoding-ai",
+   "revision": 2,
+   "checks": {
+    "function": "accuracy",
+    "preserveArgs": true,
+    "cases": [
+     {
+      "args": [
+       [
+        [
+         3,
+         8,
+         "right"
+        ],
+        [
+         9,
+         2,
+         "left"
+        ],
+        [
+         4,
+         7,
+         "right"
+        ],
+        [
+         8,
+         3,
+         "left"
+        ]
+       ],
+       [
+        -1,
+        1
+       ],
+       0
+      ],
+      "expected": 1
+     },
+     {
+      "args": [
+       [
+        [
+         3,
+         8,
+         "right"
+        ],
+        [
+         9,
+         2,
+         "left"
+        ],
+        [
+         4,
+         7,
+         "right"
+        ],
+        [
+         8,
+         3,
+         "left"
+        ]
+       ],
+       [
+        1,
+        -1
+       ],
+       0
+      ],
+      "expected": 0
+     },
+     {
+      "args": [
+       [
+        [
+         2,
+         2,
+         "left"
+        ],
+        [
+         2,
+         2,
+         "right"
+        ]
+       ],
+       [
+        -1,
+        1
+       ],
+       0
+      ],
+      "expected": 0.5
+     },
+     {
+      "args": [
+       [
+        [
+         1,
+         2,
+         "right"
+        ],
+        [
+         1,
+         2,
+         "left"
+        ],
+        [
+         2,
+         1,
+         "left"
+        ]
+       ],
+       [
+        -1,
+        1
+       ],
+       0
+      ],
+      "expected": 0.6666666666666666
+     },
+     {
+      "args": [
+       [],
+       [
+        -1,
+        1
+       ],
+       0
+      ],
+      "raises": "ValueError"
+     },
+     {
+      "args": [
+       [
+        [
+         3,
+         8,
+         "right"
+        ],
+        [
+         9,
+         2,
+         "left"
+        ],
+        [
+         4,
+         7,
+         "right"
+        ],
+        [
+         8,
+         3,
+         "left"
+        ]
+       ],
+       [
+        1
+       ],
+       0
+      ],
+      "raises": "ValueError"
+     }
+    ]
+   },
+   "reviewStatus": "Author-revised synthetic exercise. Independent engineering review is pending.",
+   "sources": [
+    {
+     "title": "Python tutorial: functions and control flow",
+     "url": "https://docs.python.org/3/tutorial/controlflow.html"
+    },
+    {
+     "title": "scikit-learn: avoid data leakage",
+     "url": "https://scikit-learn.org/stable/common_pitfalls.html#data-leakage"
+    }
+   ]
   },
   {
    "id": "code-closed-loop-rule",
-   "title": "Closed-Loop Rule: Detect and Stimulate",
-   "codingConcept": "Closed-loop control rule",
-   "neuroengineeringConcept": "Abnormal activity detection and stimulation",
-   "explanation": "Closed-loop systems sense, decide, and act. A beginner rule can detect abnormal activity and trigger stimulation only when needed.",
-   "codeExample": "\nline_length = 18.5\nalarm_threshold = 15.0\nstimulation_on = False\n\nif line_length > alarm_threshold:\n    stimulation_on = True\n\nprint(\"Stimulate:\", stimulation_on)\n",
-   "expectedOutput": "Stimulate: True",
-   "challengePrompt": "Add a safety rule that stimulation turns on only if battery_percent is above 20.",
-   "hint": "Use an and condition with line_length and battery_percent.",
-   "solution": "\nline_length = 18.5\nalarm_threshold = 15.0\nbattery_percent = 80\nstimulation_on = False\n\nif line_length > alarm_threshold and battery_percent > 20:\n    stimulation_on = True\n\nprint(\"Stimulate:\", stimulation_on)\n",
-   "oneLineMaster": "Closed-loop code connects a signal feature to a cautious device action.",
+   "title": "Logic Gates: Require Every Condition",
+   "codingConcept": "Boolean conjunction and boundaries",
+   "neuroengineeringConcept": "Synthetic signal analysis",
+   "explanation": "A toy output flag can illustrate a rule that requires multiple conditions. This exercise does not operate a device, diagnose abnormal activity, or establish a safe stimulation policy. The threshold and battery cutoff are arbitrary programming inputs.",
+   "codeExample": "def gate_output(feature, threshold, battery, armed):\n    return False  # Add all three required conditions\n\nprint(gate_output(18.5, 15, 80, True))\n",
+   "expectedOutput": "True",
+   "challengePrompt": "Define gate_output(feature, threshold, battery, armed). Return a Boolean that is True only when feature is strictly greater than threshold, battery is strictly greater than 20, and armed is True. Inputs use finite numbers and a Boolean armed value. Equality at either cutoff must return False.",
+   "hint": "Use and to require all three conditions at the same time.",
+   "solution": "def gate_output(feature, threshold, battery, armed):\n    return feature > threshold and battery > 20 and armed\n\nprint(gate_output(18.5, 15, 80, True))\n",
+   "oneLineMaster": "A toy output flag can illustrate a rule that requires multiple conditions.",
    "difficulty": "beginner",
-   "relatedSubjectId": "closed-loop"
+   "relatedSubjectId": "closed-loop",
+   "revision": 2,
+   "checks": {
+    "function": "gate_output",
+    "preserveArgs": true,
+    "cases": [
+     {
+      "args": [
+       18.5,
+       15,
+       80,
+       true
+      ],
+      "expected": true
+     },
+     {
+      "args": [
+       15,
+       15,
+       80,
+       true
+      ],
+      "expected": false
+     },
+     {
+      "args": [
+       18.5,
+       15,
+       20,
+       true
+      ],
+      "expected": false
+     },
+     {
+      "args": [
+       18.5,
+       15,
+       80,
+       false
+      ],
+      "expected": false
+     },
+     {
+      "args": [
+       14,
+       15,
+       10,
+       true
+      ],
+      "expected": false
+     },
+     {
+      "args": [
+       15.1,
+       15,
+       20.1,
+       true
+      ],
+      "expected": true
+     }
+    ]
+   },
+   "reviewStatus": "Author-revised synthetic exercise. Independent engineering review is pending.",
+   "sources": [
+    {
+     "title": "Python tutorial: functions and control flow",
+     "url": "https://docs.python.org/3/tutorial/controlflow.html"
+    }
+   ]
   },
   {
    "id": "code-decoder-drift",
-   "title": "Decoder Drift: Recalibrate a Cursor Baseline",
-   "codingConcept": "Baseline correction",
-   "neuroengineeringConcept": "BCI decoder drift and recalibration",
-   "explanation": "A cursor decoder can drift when the resting neural feature changes across sessions (baseline offset, gain change, or slow tuning shifts). A simple baseline correction subtracts today's resting value. Real teams often combine this with a slow recursive update (e.g., exponential moving average on the weights or per-channel baseline) that continuously tracks gradual drift without requiring the user to stop and recalibrate.",
-   "codeExample": "\n# Yesterday's decoder expected rest near 2.0.\nold_rest_power = 2.0\n\n# Today's calibration says rest is higher.\ntoday_rest_power = 3.5\nobserved_power = 6.0\n\n# Correct the observed feature before decoding.\nbaseline_shift = today_rest_power - old_rest_power\ncorrected_power = observed_power - baseline_shift\n\nif corrected_power > 4.0:\n    command = \"move cursor right\"\nelse:\n    command = \"hold still\"\n\nprint(command)\n",
-   "expectedOutput": "move cursor right",
-   "challengePrompt": "Change observed_power so the corrected command becomes hold still. In a real system you would also maintain a slow EMA on the weights or baseline across days.",
-   "hint": "Make corrected_power less than or equal to 4.0 after subtracting baseline_shift.",
-   "solution": "\nold_rest_power = 2.0\ntoday_rest_power = 3.5\nobserved_power = 5.0\n\nbaseline_shift = today_rest_power - old_rest_power\ncorrected_power = observed_power - baseline_shift\n\nif corrected_power > 4.0:\n    command = \"move cursor right\"\nelse:\n    command = \"hold still\"\n\nprint(command)\n",
-   "oneLineMaster": "Recalibration (baseline correction + slow recursive updates) keeps decoder thresholds aligned with today's neural baseline and slow drift.",
+   "title": "Baseline Correction: State the Offset Assumption",
+   "codingConcept": "Signed offsets",
+   "neuroengineeringConcept": "Synthetic signal analysis",
+   "explanation": "Under a simple additive-offset model, subtract the change in baseline from the observed feature. This calculation only follows the assumed model. It does not identify the cause of drift or correct a change in gain, noise or the feature-to-label relationship.",
+   "codeExample": "def corrected_feature(observed, reference_baseline, current_baseline):\n    return observed  # Correct for the assumed additive shift\n\nprint(corrected_feature(6.0, 2.0, 3.5))\n",
+   "expectedOutput": "4.5",
+   "challengePrompt": "Define corrected_feature(observed, reference_baseline, current_baseline). Return observed minus (current_baseline minus reference_baseline). The values share the same arbitrary feature units. Keep the signs and do not clip negative results.",
+   "hint": "Calculate the current-minus-reference shift first, then subtract that shift from the observation.",
+   "solution": "def corrected_feature(observed, reference_baseline, current_baseline):\n    return observed - (current_baseline - reference_baseline)\n\nprint(corrected_feature(6.0, 2.0, 3.5))\n",
+   "oneLineMaster": "Under a simple additive-offset model, subtract the change in baseline from the observed feature.",
    "difficulty": "beginner",
-   "relatedSubjectId": "bci"
+   "relatedSubjectId": "bci",
+   "revision": 2,
+   "checks": {
+    "function": "corrected_feature",
+    "preserveArgs": true,
+    "cases": [
+     {
+      "args": [
+       6,
+       2,
+       3.5
+      ],
+      "expected": 4.5
+     },
+     {
+      "args": [
+       5,
+       2,
+       3.5
+      ],
+      "expected": 3.5
+     },
+     {
+      "args": [
+       4,
+       2,
+       2
+      ],
+      "expected": 4
+     },
+     {
+      "args": [
+       1,
+       3,
+       1
+      ],
+      "expected": 3
+     },
+     {
+      "args": [
+       0,
+       0,
+       2
+      ],
+      "expected": -2
+     }
+    ]
+   },
+   "reviewStatus": "Author-revised synthetic exercise. Independent engineering review is pending.",
+   "sources": [
+    {
+     "title": "Python tutorial: functions and control flow",
+     "url": "https://docs.python.org/3/tutorial/controlflow.html"
+    }
+   ]
   },
   {
    "id": "code-data-minimization",
-   "title": "Data Minimization: Collect Only What You Need",
-   "codingConcept": "Data structures and filtering",
-   "neuroengineeringConcept": "Brain-data privacy and minimization",
-   "explanation": "BCI pipelines often collect far more than a decoder needs. Data minimization means storing and transmitting only the features required for the task — not raw waveforms, not unrelated channels, not identifiable metadata you will never use.",
-   "codeExample": "\n# Raw recording has 64 channels; decoder only needs motor cortex summary.\nraw_channels = list(range(64))\nmotor_channels = [12, 13, 14, 15]\n\nfeatures_to_store = []\nfor ch in motor_channels:\n    features_to_store.append({\"channel\": ch, \"spike_count\": 8, \"rms\": 2.1})\n\nprint(\"stored channels:\", len(features_to_store))\nprint(\"dropped channels:\", len(raw_channels) - len(motor_channels))\n",
-   "expectedOutput": "\nstored channels: 4\ndropped channels: 60\n",
-   "challengePrompt": "Add a variable consent_level set to 'features_only'. Only append to features_to_store when consent_level is not 'raw_waveforms'. Print how many feature records were stored.",
-   "hint": "Wrap the append in an if consent_level != 'raw_waveforms' guard.",
-   "solution": "\nraw_channels = list(range(64))\nmotor_channels = [12, 13, 14, 15]\nconsent_level = 'features_only'\n\nfeatures_to_store = []\nif consent_level != 'raw_waveforms':\n    for ch in motor_channels:\n        features_to_store.append({\"channel\": ch, \"spike_count\": 8, \"rms\": 2.1})\n\nprint(\"stored channels:\", len(features_to_store))\n",
-   "oneLineMaster": "Minimize neural data at collection time — fewer bytes, fewer privacy risks, same decoder.",
+   "title": "Data Selection: Use an Explicit Allowlist",
+   "codingConcept": "Build new records from permitted fields",
+   "neuroengineeringConcept": "Synthetic signal analysis",
+   "explanation": "This synthetic exercise has one explicit permission value: features_only. Unknown values allow no output. Selected rows contain only channel, spike_count and rms. Filtering fields is a small programming measure; it does not by itself establish consent, anonymity, legal compliance or safe governance of neural data.",
+   "codeExample": "def select_features(records, allowed_channels, permission):\n    return []  # Select only explicitly allowed rows and fields\n\nrecords = [{\"channel\": 12, \"spike_count\": 8, \"rms\": 2.1, \"raw_waveform\": [1, 2]}]\nprint(select_features(records, [12], \"features_only\"))\n",
+   "expectedOutput": "[{'channel': 12, 'spike_count': 8, 'rms': 2.1}]",
+   "challengePrompt": "Define select_features(records, allowed_channels, permission). Return [] unless permission equals features_only exactly. For rows whose channel is allowed, create a new dictionary with only channel, spike_count and rms, retaining row order. All rows contain those fields. Never copy raw_waveform or unrelated fields, and never mutate the source records.",
+   "hint": "Check permission with equality, then build each output dictionary by naming the three permitted fields.",
+   "solution": "def select_features(records, allowed_channels, permission):\n    if permission != \"features_only\":\n        return []\n    return [{\"channel\": row[\"channel\"], \"spike_count\": row[\"spike_count\"], \"rms\": row[\"rms\"]}\n            for row in records if row[\"channel\"] in allowed_channels]\n\nrecords = [{\"channel\": 12, \"spike_count\": 8, \"rms\": 2.1, \"raw_waveform\": [1, 2]}]\nprint(select_features(records, [12], \"features_only\"))\n",
+   "oneLineMaster": "This synthetic exercise has one explicit permission value: features_only.",
    "difficulty": "beginner",
-   "relatedSubjectId": "ethics"
+   "relatedSubjectId": "ethics",
+   "revision": 2,
+   "checks": {
+    "function": "select_features",
+    "preserveArgs": true,
+    "cases": [
+     {
+      "args": [
+       [
+        {
+         "channel": 12,
+         "spike_count": 8,
+         "rms": 2.1,
+         "raw_waveform": [
+          1,
+          2
+         ],
+         "person": "synthetic-A"
+        },
+        {
+         "channel": 3,
+         "spike_count": 4,
+         "rms": 1.2,
+         "raw_waveform": [
+          3,
+          4
+         ]
+        }
+       ],
+       [
+        12
+       ],
+       "features_only"
+      ],
+      "expected": [
+       {
+        "channel": 12,
+        "spike_count": 8,
+        "rms": 2.1
+       }
+      ]
+     },
+     {
+      "args": [
+       [
+        {
+         "channel": 12,
+         "spike_count": 8,
+         "rms": 2.1,
+         "raw_waveform": [
+          1,
+          2
+         ],
+         "person": "synthetic-A"
+        },
+        {
+         "channel": 3,
+         "spike_count": 4,
+         "rms": 1.2,
+         "raw_waveform": [
+          3,
+          4
+         ]
+        }
+       ],
+       [
+        12
+       ],
+       "unknown"
+      ],
+      "expected": []
+     },
+     {
+      "args": [
+       [
+        {
+         "channel": 12,
+         "spike_count": 8,
+         "rms": 2.1,
+         "raw_waveform": [
+          1,
+          2
+         ],
+         "person": "synthetic-A"
+        },
+        {
+         "channel": 3,
+         "spike_count": 4,
+         "rms": 1.2,
+         "raw_waveform": [
+          3,
+          4
+         ]
+        }
+       ],
+       [
+        12
+       ],
+       "raw_waveforms"
+      ],
+      "expected": []
+     },
+     {
+      "args": [
+       [
+        {
+         "channel": 12,
+         "spike_count": 8,
+         "rms": 2.1,
+         "raw_waveform": [
+          1,
+          2
+         ],
+         "person": "synthetic-A"
+        },
+        {
+         "channel": 3,
+         "spike_count": 4,
+         "rms": 1.2,
+         "raw_waveform": [
+          3,
+          4
+         ]
+        }
+       ],
+       [],
+       "features_only"
+      ],
+      "expected": []
+     },
+     {
+      "args": [
+       [
+        {
+         "channel": 12,
+         "spike_count": 8,
+         "rms": 2.1,
+         "raw_waveform": [
+          1,
+          2
+         ],
+         "person": "synthetic-A"
+        },
+        {
+         "channel": 3,
+         "spike_count": 4,
+         "rms": 1.2,
+         "raw_waveform": [
+          3,
+          4
+         ]
+        }
+       ],
+       [
+        3,
+        12
+       ],
+       "features_only"
+      ],
+      "expected": [
+       {
+        "channel": 12,
+        "spike_count": 8,
+        "rms": 2.1
+       },
+       {
+        "channel": 3,
+        "spike_count": 4,
+        "rms": 1.2
+       }
+      ]
+     },
+     {
+      "args": [
+       [],
+       [
+        12
+       ],
+       "features_only"
+      ],
+      "expected": []
+     }
+    ]
+   },
+   "reviewStatus": "Author-revised synthetic exercise. Independent engineering review is pending.",
+   "sources": [
+    {
+     "title": "Python tutorial: functions and control flow",
+     "url": "https://docs.python.org/3/tutorial/controlflow.html"
+    }
+   ]
   }
  ],
  "unitLessons": {
   "1": {
-   "whyItMatters": "Every BCI begins by sampling neural activity over time. Code cannot detect spikes, smooth noise, or decode intent until the signal is represented as ordered samples.",
-   "shortLesson": "A neural recording is not one number. It is a sequence: sample 1, sample 2, sample 3, each tied to a time point. Voltage changes mean different things depending on when they happen and how they relate to nearby samples. Two kinds of activity live in these traces: sharp, brief dips or blips lasting a millisecond or two — spikes, the action potentials of individual neurons near the electrode — and slower, rolling waves that ride underneath them, the local field potential (LFP), which is the summed activity of thousands of neurons in the neighborhood. Same wire, two signals at different timescales. In toy BCI code, all of it usually becomes a list or array of values.",
+   "whyItMatters": "Neurons receive and transmit signals through electrical and chemical processes. A membrane voltage is measured across the cell membrane; an extracellular electrode measures voltage outside cells. Before calculating features, identify what was measured and how each sample maps to time.",
+   "shortLesson": "A time series needs ordered measurements, units and timing. For equally spaced samples, time at index i is start time + i / sampling rate. A list alone does not tell us the sampling rate. Intracellular membrane voltage and extracellular electrode voltage are different measurements; do not transfer their thresholds or amplitudes between recordings. Extracellular signals can be processed to study rapid events or slower field activity. Detecting an event does not by itself identify a neuron.",
    "keyTerms": [
     "time series",
     "sample",
@@ -3833,7 +5165,7 @@
     "LFP"
    ],
    "mentalModel": "Think of neural data like a movie made of voltage frames. One frame is rarely enough; the pattern across frames is what the decoder reads.",
-   "workedExample": "If samples are [-70, -68, -45, -42, -70] mV, the middle values only look spike-like because they rise sharply relative to the surrounding samples.",
+   "workedExample": "Synthetic membrane-voltage example: [-70, -68, -45, -42, -70] mV, sampled at 1,000 samples/second starting at 0 seconds. Index 2 occurs at 2/1,000 = 0.002 seconds. The first-to-last timestamp span is 4 milliseconds. This short toy list is not a validated spike recording.",
    "activeRecallPrompts": [
     {
      "prompt": "Explain why a neural signal is more like a movie than a photograph.",
@@ -3847,63 +5179,246 @@
     }
    ],
    "commonMistake": "Treating one voltage value as meaningful without asking what came before and after it.",
-   "masteryCriteria": "You can describe samples, time windows, and why ordered data is the starting point for BCI code."
+   "masteryCriteria": "You can describe samples, time windows, and why ordered data is the starting point for BCI code.",
+   "checks": [
+    {
+     "prompt": "At 2,000 samples/second, how far apart are adjacent samples?",
+     "choices": [
+      "0.5 milliseconds",
+      "2 milliseconds",
+      "500 milliseconds",
+      "2 seconds"
+     ],
+     "correctIndex": 0,
+     "explanation": "The interval is 1/2,000 second = 0.5 ms.",
+     "id": "bci-path-01-time-series-check-1"
+    },
+    {
+     "prompt": "A list contains six voltage values but no timestamps or sampling rate. What is still unknown?",
+     "choices": [
+      "The number of values",
+      "The time between measurements",
+      "The order in the list",
+      "Whether the list can be stored"
+     ],
+     "correctIndex": 1,
+     "explanation": "Order and length are available; timing needs metadata.",
+     "id": "bci-path-01-time-series-check-2"
+    }
+   ],
+   "revision": 3,
+   "reviewStatus": "Author-revised foundation practice. Independent subject review is pending. All traces and examples are synthetic; completion is not a professional qualification.",
+   "sources": [
+    {
+     "title": "PyNWB: TimeSeries data and timing",
+     "url": "https://pynwb.readthedocs.io/en/latest/pynwb.base.html"
+    },
+    {
+     "title": "Perel et al. (2015): single units, threshold crossings and LFPs",
+     "url": "https://pubmed.ncbi.nlm.nih.gov/26133797/"
+    },
+    {
+     "title": "OpenStax: The action potential",
+     "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-4-the-action-potential"
+    }
+   ]
   },
   "2": {
    "whyItMatters": "Spike detection is often the first transformation from raw voltage to useful neural events. Bad thresholds create fake spikes or miss real ones.",
-   "shortLesson": "A spike detector usually checks whether a waveform crosses a threshold and has a plausible shape. The hard part is not writing `if voltage > threshold`; it is choosing a threshold that separates neural events from noise and artifact.",
+   "shortLesson": "A positive-threshold event starts when a sample reaches or exceeds a chosen level after the previous sample was below it. Consecutive above-threshold samples belong to one continuous episode in this toy detector. We assume the trace starts below threshold; an above-threshold first sample is counted as one episode by convention. Real detection also needs recording context, waveform checks and handling of artifacts and repeated detections. An event is not automatically a physiological spike or an identified neuron.",
    "keyTerms": [
     "threshold",
     "action potential",
     "false positive",
     "false negative"
    ],
-   "mentalModel": "Spike detection is a gate. Set the gate too low and noise walks in; set it too high and real spikes get locked out.",
-   "workedExample": "With threshold -50 mV, samples [-70, -62, -48, -44, -69] include a threshold crossing. If noise also reaches -49 mV, code needs more evidence than threshold alone.",
+   "mentalModel": "Count entries through a gate, not every moment spent beyond the gate. A more permissive threshold can admit more unwanted events. Which numerical direction is permissive depends on detection polarity.",
+   "workedExample": "Synthetic membrane-voltage samples [-70, -55, -42, -66, -44, -39, -71] mV contain three samples at or above -50 mV, but only two above-threshold episodes. At -40 mV only the -39 sample qualifies, so the episode count is one. These are toy threshold events, not confirmed spikes.",
    "activeRecallPrompts": [
     {
-     "prompt": "What happens if a spike threshold is too low?",
-     "hint": "Think false positives.",
-     "answer": "Noise or artifact can be counted as spikes."
+     "prompt": "Why are -44 and -39 counted as one event in this trace?",
+     "hint": "Look for a return below threshold between them.",
+     "answer": "They are consecutive qualifying samples without a return below threshold. Counting each would split one episode."
     },
     {
-     "prompt": "Why might threshold crossing alone be unsafe?",
-     "hint": "Artifacts can also be large.",
-     "answer": "Large non-neural artifacts can cross the same threshold as real spikes."
+     "prompt": "Does a threshold event establish which neuron fired?",
+     "hint": "Separate detection from source identification.",
+     "answer": "No. Artifacts and activity from multiple neurons can cross a threshold; further evidence is needed."
     }
    ],
    "commonMistake": "Lowering the threshold until the output looks busy, even if the events are mostly noise.",
-   "masteryCriteria": "You can explain threshold crossings, false positives, and false negatives in spike detection."
+   "masteryCriteria": "You can explain threshold crossings, false positives, and false negatives in spike detection.",
+   "checks": [
+    {
+     "prompt": "For [0, 3, 4, 0, 5], threshold 2 and an initially below-threshold state, how many positive-threshold episodes occur?",
+     "choices": [
+      "1",
+      "2",
+      "3",
+      "5"
+     ],
+     "correctIndex": 1,
+     "explanation": "The values 3 and 4 form one episode; 5 begins another after the return to 0.",
+     "id": "bci-path-02-spike-detection-check-1"
+    },
+    {
+     "prompt": "A detector counts a large event. What can be concluded from threshold alone?",
+     "choices": [
+      "A specific neuron fired",
+      "The event is definitely artifact",
+      "The chosen numerical rule was met",
+      "The signal contains no noise"
+     ],
+     "correctIndex": 2,
+     "explanation": "The rule identifies a candidate; it does not establish a biological source.",
+     "id": "bci-path-02-spike-detection-check-2"
+    }
+   ],
+   "revision": 3,
+   "reviewStatus": "Author-revised foundation practice. Independent subject review is pending. All traces and examples are synthetic; completion is not a professional qualification.",
+   "sources": [
+    {
+     "title": "Perel et al. (2015): single units, threshold crossings and LFPs",
+     "url": "https://pubmed.ncbi.nlm.nih.gov/26133797/"
+    },
+    {
+     "title": "OpenStax: The action potential",
+     "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-4-the-action-potential"
+    }
+   ],
+   "simulation": {
+    "id": "unit-threshold-episodes",
+    "title": "Count entries, not samples",
+    "revision": 1,
+    "reviewStatus": "Author-revised synthetic exercise. Independent subject review is pending.",
+    "scenario": "A toy positive-threshold detector starts below threshold and groups adjacent qualifying samples into one episode.",
+    "signalDescription": "Synthetic samples [0, 2, 2, 0, 2] at 5 samples/second. A sample qualifies when it is at least 2.",
+    "decisionQuestion": "How many qualifying samples and threshold episodes are present?",
+    "choices": [
+     {
+      "label": "Three qualifying samples and two episodes",
+      "rationale": "Indices 1, 2 and 4 qualify. Indices 1 and 2 share one continuous episode; index 4 starts another after the return below threshold."
+     },
+     {
+      "label": "Three qualifying samples and three episodes",
+      "rationale": "This counts each qualifying sample as a separate episode. Adjacent qualifying samples share one episode."
+     },
+     {
+      "label": "Two qualifying samples and two episodes",
+      "rationale": "There are three qualifying samples: both samples equal to 2 in the first episode and the final sample equal to 2."
+     },
+     {
+      "label": "Zero qualifying samples and zero episodes",
+      "rationale": "The rule includes equality. Samples equal to the threshold qualify."
+     }
+    ],
+    "bestAnswerIndex": 0,
+    "series": {
+     "title": "Synthetic threshold trace",
+     "description": "Invented samples. Connecting lines are visual guides; intermediate values were not measured.",
+     "values": [
+      0,
+      2,
+      2,
+      0,
+      2
+     ],
+     "sampleRateHz": 5,
+     "unit": "arbitrary units"
+    }
+   }
   },
   "3": {
-   "whyItMatters": "Firing rate turns raw spike events into a stable number a decoder can use for movement intent or state estimation.",
-   "shortLesson": "Firing rate means spikes per unit time. A decoder often cares less about every exact spike time and more about whether a neuron is firing more or less during a movement or intention window.",
+   "whyItMatters": "A rate summarizes event count per time window. Keeping the window explicit makes comparisons interpretable.",
+   "shortLesson": "For a specified observation window, mean firing rate is spike count divided by duration in seconds. If the events are only threshold candidates, call the result a threshold-event rate. A rate discards exact event timing. Longer windows pool more observations but can hide rapid changes; shorter windows can fluctuate strongly. Neither choice is universally best for a decoder.",
    "keyTerms": [
     "spike count",
     "time window",
     "rate",
     "Hz"
    ],
-   "mentalModel": "Firing rate is a speedometer for spiking: how many spikes happened during this time window?",
+   "mentalModel": "The rate is a summary with a window attached, not a complete description of the event train.",
    "workedExample": "If 12 spikes occur in 2 seconds, the firing rate is 6 spikes/second, or 6 Hz.",
    "activeRecallPrompts": [
     {
-     "prompt": "Calculate the firing rate for 20 spikes in 4 seconds.",
-     "hint": "Divide spikes by seconds.",
-     "answer": "5 Hz."
+     "prompt": "Calculate the rate for 20 verified spikes over 4 seconds.",
+     "hint": "Count divided by seconds.",
+     "answer": "5 spikes/second, or 5 Hz, over that 4-second window."
     },
     {
-     "prompt": "Why might a decoder prefer firing rate over raw spike times?",
-     "hint": "Think stability.",
-     "answer": "Firing rate is a compact, stable feature that is easier to compare across windows."
+     "prompt": "What could two event trains share while differing in precise timing?",
+     "hint": "Think about the information that division discards.",
+     "answer": "They can have the same count and mean rate over the same window but different event times."
     }
    ],
    "commonMistake": "Comparing spike counts from different window lengths without converting to rate.",
-   "masteryCriteria": "You can calculate spikes per second and explain why decoders use rate features."
+   "masteryCriteria": "You can calculate spikes per second and explain why decoders use rate features.",
+   "checks": [
+    {
+     "prompt": "Twelve events in 2 seconds correspond to which mean event rate?",
+     "choices": [
+      "24 Hz",
+      "10 Hz",
+      "6 Hz",
+      "0.17 Hz"
+     ],
+     "correctIndex": 2,
+     "explanation": "12 / 2 = 6 events per second.",
+     "id": "bci-path-03-firing-rate-check-1"
+    },
+    {
+     "prompt": "Two 4-second recordings each have 20 events. What is established?",
+     "choices": [
+      "Identical event timing",
+      "A shared mean rate of 5 Hz",
+      "The same neuron was recorded",
+      "Identical noise levels"
+     ],
+     "correctIndex": 1,
+     "explanation": "Equal count and duration imply equal mean rate, not equal timing, source or quality.",
+     "id": "bci-path-03-firing-rate-check-2"
+    }
+   ],
+   "revision": 3,
+   "reviewStatus": "Author-revised foundation practice. Independent subject review is pending. All traces and examples are synthetic; completion is not a professional qualification.",
+   "sources": [
+    {
+     "title": "Gerstner et al.: Mean firing rate",
+     "url": "https://neuronaldynamics.epfl.ch/online/Ch7.S2.html"
+    }
+   ],
+   "simulation": {
+    "id": "unit-rate-window",
+    "title": "Keep the observation window",
+    "revision": 1,
+    "reviewStatus": "Author-revised synthetic exercise. Independent subject review is pending.",
+    "scenario": "Two synthetic event trains each contain six verified events. Recording A lasts 2 seconds; recording B lasts 3 seconds.",
+    "signalDescription": "Only counts and observation windows are given. Exact event times are unavailable.",
+    "decisionQuestion": "Which comparison is supported?",
+    "choices": [
+     {
+      "label": "A averages 3 Hz and B averages 2 Hz; exact event timing remains unknown",
+      "rationale": "Six divided by two is 3 events/second; six divided by three is 2. Counts and durations do not specify when individual events occurred."
+     },
+     {
+      "label": "Both average 6 Hz because both contain six events",
+      "rationale": "A count is not a rate until divided by the observation duration."
+     },
+     {
+      "label": "A averages 2 Hz and B averages 3 Hz",
+      "rationale": "Divide each count by its own duration; this choice reverses the rates."
+     },
+     {
+      "label": "A and B have identical event timing because the counts match",
+      "rationale": "Equal counts do not establish equal timing, and these observation windows differ."
+     }
+    ],
+    "bestAnswerIndex": 0
+   }
   },
   "4": {
    "whyItMatters": "BCI code can only decode intent if the input signal is actually related to intent. Noise and artifacts can make a decoder learn the wrong relationship.",
-   "shortLesson": "Noise is unwanted variation in the signal. It can come from movement, electrical interference, heart activity, muscle activity, electrode instability, or unrelated neural activity. Signal-to-noise ratio asks how much useful signal exists compared with unwanted activity.",
+   "shortLesson": "A useful signal depends on the question being asked. Movement, muscle activity, electrical interference and electrode instability can contaminate a recording. An artifact correlated with task labels may look predictive during training. Compare raw traces, reference channels, timing and recording conditions before interpreting a detected event. A numerical threshold is only one observation.",
    "keyTerms": [
     "artifact",
     "signal-to-noise ratio",
@@ -3911,7 +5426,7 @@
     "electrical interference"
    ],
    "mentalModel": "Noise is like static over a radio message. The message may still be there, but the code needs to know what not to trust.",
-   "workedExample": "If a large deflection appears on many electrodes exactly with the ECG heartbeat, it is more likely cardiac artifact than a single neuron.",
+   "workedExample": "Synthetic lab example: deflections recur roughly once per second and align with an ECG reference on several channels. This raises suspicion of cardiac contamination. Flag the segment and inspect synchronized traces and acquisition settings before deciding how to exclude or process it; do not infer a neuron identity or recommend a patient intervention.",
    "activeRecallPrompts": [
     {
      "prompt": "Name two non-neural sources of noise.",
@@ -3925,11 +5440,45 @@
     }
    ],
    "commonMistake": "Assuming every large deflection is neural just because it crosses a threshold.",
-   "masteryCriteria": "You can identify artifact sources and explain why bad signal-to-noise damages decoder reliability."
+   "masteryCriteria": "You can identify artifact sources and explain why bad signal-to-noise damages decoder reliability.",
+   "checks": [
+    {
+     "prompt": "Large deflections align with an ECG reference across several channels. What is the best next analytical step?",
+     "choices": [
+      "Label each as a single-neuron spike",
+      "Inspect synchronized traces and flag possible contamination",
+      "Assume the pattern proves intention",
+      "Remove every low-frequency component without inspection"
+     ],
+     "correctIndex": 1,
+     "explanation": "The timing supports an artifact hypothesis, which requires investigation; it is not proof of source.",
+     "id": "bci-path-04-signal-noise-check-1"
+    },
+    {
+     "prompt": "Lowering a positive detection threshold produces more events. What should be checked before calling the detector better?",
+     "choices": [
+      "Whether the event count is larger",
+      "Whether the chart looks busier",
+      "Whether added events include noise or artifact",
+      "Whether the code has more lines"
+     ],
+     "correctIndex": 2,
+     "explanation": "Sensitivity can increase alongside false detections.",
+     "id": "bci-path-04-signal-noise-check-2"
+    }
+   ],
+   "revision": 2,
+   "reviewStatus": "Author-revised foundation practice. Independent subject review is pending. All traces and examples are synthetic; completion is not a professional qualification.",
+   "sources": [
+    {
+     "title": "Perel et al. (2015): single units, threshold crossings and LFPs",
+     "url": "https://pubmed.ncbi.nlm.nih.gov/26133797/"
+    }
+   ]
   },
   "5": {
    "whyItMatters": "Filtering and smoothing prepare the signal so feature extraction sees the relevant pattern instead of avoidable noise.",
-   "shortLesson": "Filtering keeps some frequency ranges and suppresses others. Smoothing reduces rapid jumps by averaging nearby samples. Both are preprocessing steps, and both can help or hurt depending on the feature you need.",
+   "shortLesson": "A filter transforms a signal. A centered three-sample moving average replaces a middle value with the average of itself and its two neighbors. It changes genuine events as well as unwanted variation. Here we output only centers with the center and both neighbors available. A list of N samples produces N-2 values when N is at least 3; shorter lists produce no full-window averages. Boundary handling and timing conventions belong in the method description.",
    "keyTerms": [
     "filter",
     "smoothing",
@@ -3937,7 +5486,7 @@
     "preprocessing"
    ],
    "mentalModel": "Filtering is a lens. It can make the target clearer, but the wrong lens can blur away the thing you need.",
-   "workedExample": "A moving average may make an LFP trend easier to see, but it can smear the exact timing of a narrow spike.",
+   "workedExample": "For synthetic values [10, 12, 50, 13, 11], the full-window centered averages are [24, 25, 24.6667]. The middle output is (12 + 50 + 13) / 3 = 25. A real narrow peak would also be reduced; a smoother plot is not evidence that only noise was removed.",
    "activeRecallPrompts": [
     {
      "prompt": "Why might smoothing help an LFP feature?",
@@ -3951,7 +5500,82 @@
     }
    ],
    "commonMistake": "Smoothing until the feature you need disappears.",
-   "masteryCriteria": "You can explain preprocessing as cleaning signal while preserving the evidence the decoder needs."
+   "masteryCriteria": "You can explain preprocessing as cleaning signal while preserving the evidence the decoder needs.",
+   "checks": [
+    {
+     "prompt": "What is the centered three-sample average of [12, 50, 13]?",
+     "choices": [
+      "50",
+      "25",
+      "37.5",
+      "12"
+     ],
+     "correctIndex": 1,
+     "explanation": "(12 + 50 + 13) / 3 = 25.",
+     "id": "bci-path-05-filtering-smoothing-check-1"
+    },
+    {
+     "prompt": "Why compare filtered and raw traces?",
+     "choices": [
+      "Filtering can change task-relevant events too",
+      "Every filtered peak is an artifact",
+      "A smooth trace proves correct preprocessing",
+      "Raw data are useful only for storage"
+     ],
+     "correctIndex": 0,
+     "explanation": "The operation does not know which features matter to your scientific question.",
+     "id": "bci-path-05-filtering-smoothing-check-2"
+    }
+   ],
+   "revision": 3,
+   "reviewStatus": "Author-revised foundation practice. Independent subject review is pending. All traces and examples are synthetic; completion is not a professional qualification.",
+   "sources": [
+    {
+     "title": "SciPy: Signal processing and filtering",
+     "url": "https://docs.scipy.org/doc/scipy/tutorial/signal.html"
+    }
+   ],
+   "simulation": {
+    "id": "unit-smoothing-peak",
+    "title": "Inspect a smoothed peak",
+    "revision": 1,
+    "reviewStatus": "Author-revised synthetic exercise. Independent subject review is pending.",
+    "scenario": "A centered three-sample moving average uses full windows only. Apply it to the synthetic list [0, 0, 9, 0, 0].",
+    "signalDescription": "The output samples align with original center indices 1, 2 and 3. No endpoints are padded.",
+    "decisionQuestion": "Which output and interpretation are correct?",
+    "choices": [
+     {
+      "label": "[3, 3, 3]; the narrow peak is reduced and spread across three output samples",
+      "rationale": "Each full window sums to 9 and averages to 3. The operation changes a genuine peak as well as unwanted variation; it cannot establish that the removed detail was noise."
+     },
+     {
+      "label": "[0, 0, 9, 0, 0]; averaging preserves every peak exactly",
+      "rationale": "A moving average changes the values. This full-window method produces only three output samples."
+     },
+     {
+      "label": "[0, 3, 3, 3, 0]; zero-padding is required",
+      "rationale": "The stated method uses full windows only. Adding endpoints would change the boundary rule."
+     },
+     {
+      "label": "[3, 3, 3]; the result proves the original peak was noise",
+      "rationale": "The numbers are correct, but an averaging operation cannot identify the source of the original peak."
+     }
+    ],
+    "bestAnswerIndex": 0,
+    "series": {
+     "title": "Synthetic isolated peak before smoothing",
+     "description": "Invented input samples. Compare the full-window output with the original center timestamps.",
+     "values": [
+      0,
+      0,
+      9,
+      0,
+      0
+     ],
+     "sampleRateHz": 5,
+     "unit": "arbitrary units"
+    }
+   }
   },
   "6": {
    "whyItMatters": "Feature extraction is where raw neural data becomes model-ready evidence. A good feature set often beats a fancier model on bad features.",
@@ -4368,5 +5992,15 @@
    "commonMistake": "Declaring the toy 'done' without naming the concrete engineering or clinical work that would be required to make it useful for a real person.",
    "masteryCriteria": "You have produced a documented, runnable end-to-end toy BCI pipeline and a concise, technically honest reflection that names at least two specific mechanisms of chronic non-stationarity, one detection method, one practical response (e.g., recursive update or per-channel correction), one safety or regulatory implication, and the single most important concrete next engineering step."
   }
+ },
+ "foundationStatus": {
+  "unitOrders": [
+   1,
+   2,
+   3,
+   4,
+   5
+  ],
+  "reviewStatus": "Author-revised foundation practice. Independent subject review is pending. All traces and examples are synthetic; completion is not a professional qualification."
  }
 }

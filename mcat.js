@@ -12,14 +12,14 @@ const CONF = { guess: 'Guess', unsure: 'Unsure', sure: 'Sure' };
 const ROOT_CAUSES = ['Content gap', 'Misread', 'Data/graph', 'Math/setup', 'Reasoning', 'Careless', 'Guessed'];
 
 /* ---------- storage ---------- */
-const SRS = McatStorage.read('cs-mcat-srs', {});      // cardId -> {ease,interval,reps,lapses,due,last}
-const QHIST = McatStorage.read('cs-mcat-q', {});      // qId -> {n,lastCorrect,conf,root,ts}
-let QLOG = McatStorage.read('cs-mcat-log', []);       // [{qId,section,category,correct,conf,ts}]
-McatStorage.watch('cs-mcat-srs',()=>SRS);
-McatStorage.watch('cs-mcat-q',()=>QHIST);
-McatStorage.watch('cs-mcat-log',()=>QLOG);
-function saveSRS() { return McatStorage.write('cs-mcat-srs', SRS); }
-function saveQ() { if (QLOG.length > 1000) QLOG.splice(0, QLOG.length - 1000); const historySaved=McatStorage.write('cs-mcat-q', QHIST); const logSaved=McatStorage.write('cs-mcat-log', QLOG); return historySaved && logSaved; }
+const SRS = StudyStorage.read('cs-mcat-srs', {});      // cardId -> {ease,interval,reps,lapses,due,last}
+const QHIST = StudyStorage.read('cs-mcat-q', {});      // qId -> {n,lastCorrect,conf,root,ts}
+let QLOG = StudyStorage.read('cs-mcat-log', []);       // [{qId,section,category,correct,conf,ts}]
+StudyStorage.watch('cs-mcat-srs',()=>SRS);
+StudyStorage.watch('cs-mcat-q',()=>QHIST);
+StudyStorage.watch('cs-mcat-log',()=>QLOG);
+function saveSRS() { return StudyStorage.write('cs-mcat-srs', SRS); }
+function saveQ() { if (QLOG.length > 1000) QLOG.splice(0, QLOG.length - 1000); const historySaved=StudyStorage.write('cs-mcat-q', QHIST); const logSaved=StudyStorage.write('cs-mcat-log', QLOG); return historySaved && logSaved; }
 
 const DAY = 86400000;
 function srsRec(id) { if (!SRS[id]) SRS[id] = { ease: 2.5, interval: 0, reps: 0, lapses: 0, due: 0, last: 0 }; return SRS[id]; }
@@ -52,7 +52,7 @@ async function loadMCAT() {
   }));
   MCAT.loaded=MCAT_DATA.every(([key])=>mcatDataPresent(key));
 }
-const MCAT_DATA=[['outline','data/mcat-outline.json','content map'],['cards','data/mcat-cards.json','flashcards'],['questions','data/mcat-questions.json','question drills'],['cars','data/mcat-cars.json?v=3','CARS passages'],['sci','data/mcat-science-passages.json?v=2','science passages']];
+const MCAT_DATA=[['outline','data/mcat-outline.json?v=2','content map'],['cards','data/mcat-cards.json?v=2','flashcards'],['questions','data/mcat-questions.json?v=5','question drills'],['cars','data/mcat-cars.json?v=4','CARS passages'],['sci','data/mcat-science-passages.json?v=7','science passages']];
 function mcatDataPresent(key){return key==='outline'?Array.isArray(MCAT.outline?.concepts)&&MCAT.outline.concepts.length>0:Array.isArray(MCAT[key])&&MCAT[key].length>0;}
 function mcatDataNotice(main){
   const missing=MCAT_DATA.filter(([key])=>!mcatDataPresent(key)).map(([, ,label])=>label);
@@ -75,20 +75,20 @@ function saveResume(key, obj) {
     delete o.timerId; delete o._reveal;
     if (o.deadline) o._remain = Math.max(0, o.deadline - nowTs());
     o._saved = nowTs();
-    return McatStorage.watch('cs-mcat-r-' + key,()=>o).save(o);
-  } catch { McatStorage.sessionFailed(); return false; }
+    return StudyStorage.watch('cs-mcat-r-' + key,()=>o).save(o);
+  } catch { StudyStorage.sessionFailed(); return false; }
 }
-function loadResume(key) { return McatStorage.read('cs-mcat-r-' + key,null); }
-function clearResume(key) { return McatStorage.remove('cs-mcat-r-' + key); }
+function loadResume(key) { return StudyStorage.read('cs-mcat-r-' + key,null); }
+function clearResume(key) { return StudyStorage.remove('cs-mcat-r-' + key); }
 
 const RESUME_SPECS = [
   { key: 'sim', mod: 'Exam Simulator',
-    progressOf(r) { return r.queue?.length && !r.finishedAt ? 1 : 0; },
-    label(r) { const s = r.queue[r.si]; return r.onBreak ? `Break &middot; ${SIM_SECTIONS[s.key].abbr} next` : `${SIM_SECTIONS[s.key].abbr} Q ${(r.idx || 0) + 1}/${s.items.length}`; },
-    resume(r) { studyRestoreGuide(r); sim = r; if (simTimerId) clearInterval(simTimerId); simTimerId = null; if (r.onBreak) { renderBreak(); return; } sim.deadline = nowTs() + (r._remain ?? 600000); simTimerId = setInterval(simTick, 500); renderSimQ(); },
+    progressOf(r) { return r.queue?.length && (!r.finishedAt || r.rehearsalVersion && !r.archived) ? 1 : 0; },
+    label(r) { const s = r.queue[r.si]; if(r.rehearsalVersion && r.phase==='finished')return 'Save completed rehearsal'; return r.onBreak ? `Break &middot; ${SIM_SECTIONS[s.key].abbr} next` : `${SIM_SECTIONS[s.key].abbr} Q ${(r.idx || 0) + 1}/${s.items.length}`; },
+    resume(r) { if(r.rehearsalVersion && window.McatRehearsal)return window.McatRehearsal.resume(r); studyRestoreGuide(r); sim = r; if(r.finishedAt)return finishSim(); if (simTimerId) clearInterval(simTimerId); simTimerId = null; if (r.onBreak) { renderBreak(); return; } sim.deadline = nowTs() + (r._remain ?? 600000); simTimerId = setInterval(simTick, 500); renderSimQ(); },
   },
   { key: 'drill', mod: 'Question Drills',
-    progressOf(r) { return (r.results ? r.results.length : 0) || r.idx || 0; },
+    progressOf(r) { return (r.results ? r.results.length : 0) || r.idx || (r.qs?.length ? 1 : 0); },
     label(r) { return `Q ${(r.idx || 0) + 1}/${r.qs.length}`; },
     resume(r) { studyRestoreGuide(r); drill = r; renderDrillQ(); },
   },
@@ -117,9 +117,9 @@ function resumeBtn(key) {
   if (!r) return null;
   // a stale/legacy resume blob (wrong shape) must never crash the landing page — treat as "no resume"
   let lbl;
-  try { if (!(spec.progressOf(r) > 0)) return null; lbl = spec.label(r); } catch { McatStorage.sessionFailed(); return null; }
+  try { if (!(spec.progressOf(r) > 0)) return null; lbl = spec.label(r); } catch { StudyStorage.sessionFailed(); return null; }
   const btn = el(`<button class="btn btn-resume" id="resume">&#8634; Resume &middot; ${lbl}</button>`);
-  btn.addEventListener('click', () => { try { spec.resume(r); } catch { McatStorage.sessionFailed(); } });
+  btn.addEventListener('click', () => { try { spec.resume(r); } catch { StudyStorage.sessionFailed(); } });
   return btn;
 }
 function findHubResume() {
@@ -131,7 +131,7 @@ function findHubResume() {
       if (spec.progressOf(r) <= 0) continue;
       const saved = r._saved || 0;
       if (!best || saved > best.saved) best = { spec, r, saved, lbl: spec.label(r) };
-    } catch { McatStorage.sessionFailed(); }
+    } catch { StudyStorage.sessionFailed(); }
   }
   return best;
 }
@@ -140,7 +140,7 @@ function hubResumeChip() {
   if (!best) return null;
   const wrap = el('<div class="mcat-resume-hint"></div>');
   const btn = el(`<button class="btn btn-resume" id="hub-resume">&#8634; Resume &middot; ${best.spec.mod} &middot; ${best.lbl}</button>`);
-  btn.addEventListener('click', () => { try { best.spec.resume(best.r); } catch { McatStorage.sessionFailed(); } });
+  btn.addEventListener('click', () => { try { best.spec.resume(best.r); } catch { StudyStorage.sessionFailed(); } });
   wrap.appendChild(btn);
   return wrap;
 }
@@ -151,12 +151,17 @@ function enterMCAT() {
 // A first visit starts a flexible session or an optional reference plan.
 // Returning learners open Today; the tool library remains available below it.
 async function renderMCATEntry() {
-  coursePauseTools(); await loadMCAT();
+  coursePauseTools();
+  if (new URLSearchParams(location.search).get('view') === 'quality' && window.McatItemQuality) return McatItemQuality.render();
+  await loadMCAT();
   const params = new URLSearchParams(location.search), view = params.get('view'), unit = params.get('unit');
   if (view === 'course') { if (unit === 'starting-check') return renderCoursePlacement(); return unit ? renderCourseUnit(unit) : renderCourseHome(); }
   if (['coach','math','weekly','diagnose','review'].includes(view)) return v2Go(view);
   if (view === 'practice') return renderMCAT();
   if (view === 'progress') return renderCourseProgress();
+  if (view === 'coverage') return McatCoverage.render();
+  if (view === 'cars') return renderCarsHome();
+  if (view === 'rehearsal' && window.McatRehearsal) return window.McatRehearsal.entry();
   renderGuide();
 }
 
@@ -213,7 +218,7 @@ async function renderMCAT() {
     { name: 'Science passages', desc: 'Interpret experiments, figures, and data tables', stat: sciN ? `${sciN} passages` : 'Unavailable', go: renderPassageHome, on: sciN > 0, core: true },
     { name: 'Practice exam', desc: 'Train with intact passage sets, then review each timed run', stat: 'Timed', go: renderSimHome, on: qn > 0 && !!MCAT.outline, core: true },
     { name: 'Mistake lab', desc: 'Work through gaps and check your learning', stat: t.answered ? `${t.answered} answered &middot; ${t.acc}%` : 'No data yet', go: renderMistakeLab, on: true, core: false },
-    { name: 'Blueprint', desc: 'Check coverage against the MCAT content map', stat: `${conceptsN} concepts`, go: renderCourseHome, on: !!MCAT.outline, core: false },
+    { name: 'Coverage map', desc: 'Find learning objectives, practice, and remaining gaps', stat: `${conceptsN} concepts`, go: renderBlueprint, on: !!MCAT.outline, core: false },
     { name: 'Study plan', desc: 'Build a 120, 90, or 60-day schedule', stat: guidePlan() ? 'Plan active' : 'Build a plan', go: renderGuide, on: !!MCAT.outline, core: false },
     { name: 'Course mapper', desc: 'Mark the prerequisite courses already completed', stat: 'Pre-study check', go: renderMapper, on: !!MCAT.outline, core: false },
   ];
@@ -252,6 +257,7 @@ async function renderMCAT() {
     <details class="mcat-simple-fold">
       <summary><span><strong>Planning &amp; progress</strong><small>Study plan, blueprint, mistakes, and course map</small></span><i>Open</i></summary>
       <div class="mcat-simple-list" id="mcat-support-tools"></div>
+      <p><a href="${esc(sectionUrl('mcat'))}${sectionUrl('mcat').includes('?')?'&':'?'}view=quality">Practice quality and private item concerns</a></p>
     </details>
 
     <details class="mcat-simple-fold" id="mcat-method">
@@ -471,7 +477,8 @@ function renderDrillQ() {
   drill.attemptId ||= studyAttemptId();
   if (drill.idx >= drill.qs.length) { finishDrill(); return; }
   const q = drill.qs[drill.idx];
-  saveResume('drill', drill);
+  if (!saveResume('drill', drill)) return;
+  if (window.McatRehearsal && !window.McatRehearsal.allow({questionId:q.id},renderDrillQ)) return;
   const root = el(`<div>
     ${mcatTaskHeader(['Drill', SEC_ABBR[q.section] || '', esc(catTitle(q.category))], `<span class="topstat">Q ${drill.idx + 1}/${drill.qs.length}</span>`)}
     <main class="case">
@@ -491,6 +498,7 @@ function renderDrillQ() {
   let conf = 'unsure';
   root.querySelectorAll('#conf .mode').forEach(b => b.addEventListener('click', () => { conf = b.dataset.c; root.querySelectorAll('#conf .mode').forEach(x => x.classList.toggle('active', x === b)); }));
   root.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => answerDrill(root, q, +b.dataset.i, conf)));
+  window.McatRehearsal?.tag(root,{questionId:q.id,context:'question-drill'});
   setView(root);
   const saved=drill.results[drill.idx];if(saved)answerDrill(root,q,saved.chosen,saved.conf);
 }
@@ -527,6 +535,8 @@ function answerDrill(root, q, choice, conf) {
 
 function finishDrill() {
   drill.attemptId ||= studyAttemptId();
+  const reserved = window.McatRehearsal && drill.qs.find(q => !window.McatRehearsal.allowed(q.id));
+  if (reserved) { if (saveResume('drill',drill)) window.McatRehearsal.allow({questionId:reserved.id},finishDrill); return; }
   const guided = guideCompleteActiveTask('drill');
   // commit to history + log
   const t = drill.finishedAt ||= (drill.results.map(r=>QHIST[r.id]).find(h=>h?.lastAttemptId===drill.attemptId)?.ts || nowTs());
@@ -592,60 +602,46 @@ function calibRows(results) {
 
 /* ---------- Blueprint Navigator ---------- */
 function renderBlueprint() {
-  const root = el('<div></div>');
-  root.appendChild(topbar('mcat'));
-  const o = MCAT.outline;
-  const main = el(`<main class="panel">
-    <button class="backbtn topback" id="back">&larr; MCAT</button>
-    <div class="hero"><h1>Blueprint Navigator.</h1><p class="sub">The full AAMC content map. Coverage = how you've performed on each category's questions. Tap any category to drill or study it.</p></div>
-    <div class="bp-legend"><span class="bpl ok">Solid 75%+</span><span class="bpl mid">Shaky 50&ndash;74%</span><span class="bpl no">Weak &lt;50%</span><span class="bpl">&mdash; Not tested yet</span></div>
-    <div id="bp"></div>
-  </main>`);
-  main.querySelector('#back').addEventListener('click', renderMCAT);
-  const bp = main.querySelector('#bp');
-  ['bioBiochem', 'chemPhys', 'psychSoc', 'cars'].forEach(secKey => {
-    const sec = o.sections[secKey];
-    const concepts = o.concepts.filter(c => c.section === secKey);
-    const wrap = el(`<div class="bp-sec"><div class="bp-sec-head"><span class="bp-abbr">${sec.abbr}</span><span class="bp-name">${esc(sec.name)}</span></div></div>`);
-    concepts.forEach(con => {
-      con.categories.forEach(cat => {
-        const stat = catStat(cat.id);
-        const cls = stat.n === 0 ? '' : stat.acc >= 75 ? 'ok' : stat.acc >= 50 ? 'mid' : 'no';
-        const row = el(`<button class="bp-cat">
-          <span class="bp-cat-id">${cat.id}</span>
-          <span class="bp-cat-title">${esc(cat.title)}</span>
-          <span class="bp-cat-stat ${cls}">${stat.n ? stat.acc + '%' : '&mdash;'}</span>
-        </button>`);
-        // CARS categories have no discrete questions/cards — send the user to CARS Studio instead of a dead-end
-        row.addEventListener('click', () => secKey === 'cars' ? renderCarsHome() : renderCategory(cat, con, secKey));
-        wrap.appendChild(row);
-      });
-    });
-    bp.appendChild(wrap);
-  });
-  root.appendChild(main); setView(root);
+  const url = new URL(location.href); url.searchParams.delete('category');
+  history.replaceState({}, '', url.pathname + url.search);
+  return McatCoverage.render();
+}
+
+function currentPracticeLog() {
+  const categories = new Map([...MCAT.questions, ...MCAT.sci.flatMap(p => p.questions)].map(q => [q.id, q.category]));
+  return QLOG.map(record => categories.has(record.qId) ? { ...record, category: categories.get(record.qId) } : record);
 }
 function catStat(catId) {
-  const log = QLOG.filter(x => x.category === catId);
+  const log = currentPracticeLog().filter(x => x.category === catId);
   return { n: log.length, acc: log.length ? Math.round(100 * log.filter(x => x.correct).length / log.length) : 0 };
 }
 function renderCategory(cat, con, secKey) {
   const cards = MCAT.cards.filter(c => c.category === cat.id);
   const qs = MCAT.questions.filter(q => q.category === cat.id);
+  const passages = MCAT.sci.filter(p => p.questions.some(q => q.category === cat.id));
+  const url = new URL(location.href); url.searchParams.set('view', 'coverage'); url.searchParams.set('category', cat.id);
+  history.replaceState({}, '', url.pathname + url.search);
   const root = el('<div></div>');
   root.appendChild(topbar('mcat'));
   const main = el(`<main class="panel">
-    <button class="backbtn" id="back" style="margin-bottom:18px">&larr; Blueprint</button>
+    <button class="backbtn" id="back" style="margin-bottom:18px">&larr; Coverage map</button>
     <div class="hero"><h1 style="font-size:26px">${cat.id} &middot; ${esc(cat.title)}</h1><p class="sub">${esc(con.summary)}</p></div>
     <div class="statblock"><span class="label">Topics</span><div class="topic-chips">${cat.topics.map(t => `<span class="tchip">${esc(t)}</span>`).join('')}</div></div>
     <div class="endbtns">
-      <button class="btn btn-solid" id="drill" ${qs.length ? '' : 'disabled'}>${qs.length ? `Drill ${qs.length} question${qs.length === 1 ? '' : 's'}` : 'No questions yet'}</button>
+      <button class="btn btn-solid" id="drill" ${qs.length ? '' : 'disabled'}>${qs.length ? `Drill ${qs.length} standalone question${qs.length === 1 ? '' : 's'}` : 'No standalone questions yet'}</button>
       <button class="btn" id="study" ${cards.length ? '' : 'disabled'}>${cards.length ? `Study ${cards.length} card${cards.length === 1 ? '' : 's'}` : 'No cards yet'}</button>
     </div>
+    ${passages.length ? `<section class="statblock"><h2>Science passages</h2><p>Keep each question with its passage and data. A passage can include more than one outline area.</p><div class="rows" id="plist">${passages.map(p => `<button class="row" data-category-passage="${p.id}"><span class="row-main"><span class="row-title">${esc(p.title)}</span><span>${p.questions.filter(q => q.category === cat.id).length} questions in ${cat.id} · ${p.questions.length} in the full passage</span></span><span class="row-right">Open →</span></button>`).join('')}</div></section>` : ''}
   </main>`);
   main.querySelector('#back').addEventListener('click', renderBlueprint);
   if (qs.length) main.querySelector('#drill').addEventListener('click', () => { drill = { qs: shuffleArr(qs).slice(0, 10), idx: 0, mode: 'standard', results: [], scope: cat.id }; renderDrillQ(); });
   if (cards.length) main.querySelector('#study').addEventListener('click', () => { flash = { deck: cat.id, queue: shuffleArr(cards), idx: 0, total: cards.length, again: 0, done: 0 }; renderFlashCard(); });
+  main.querySelectorAll('[data-category-passage]').forEach(button => button.onclick = () => startPassage(passages.find(p => p.id === button.dataset.categoryPassage), false));
+  if (passages.length) {
+    studyLockPassageList('plab', main);
+    const resume = resumeBtn('plab');
+    if (resume) main.querySelector('.endbtns').append(resume);
+  }
   root.appendChild(main); setView(root);
 }
 
@@ -658,7 +654,7 @@ function renderMistakeLab() {
   const calib = calibRows(QLOG.map(x => ({ conf: x.conf, correct: x.correct })));
   // weak categories (>=2 attempts)
   const byCat = {};
-  QLOG.forEach(x => { (byCat[x.category] ||= { n: 0, c: 0 }); byCat[x.category].n++; if (x.correct) byCat[x.category].c++; });
+  currentPracticeLog().forEach(x => { (byCat[x.category] ||= { n: 0, c: 0 }); byCat[x.category].n++; if (x.correct) byCat[x.category].c++; });
   const weak = Object.entries(byCat).filter(([, v]) => v.n >= 2).map(([k, v]) => ({ cat: k, acc: Math.round(100 * v.c / v.n), n: v.n })).sort((a, b) => a.acc - b.acc).slice(0, 6);
   // root causes
   const roots = {};
@@ -715,6 +711,7 @@ function catTitle(id) { const c = findCat(id); return c ? c.title : (id || ''); 
 let cars = null;
 const SKILL_LABEL = { 'cars-1': 'Comprehension', 'cars-2': 'Reasoning within', 'cars-3': 'Reasoning beyond' };
 function renderCarsHome() {
+  courseRoute('cars');
   const root = el('<div></div>'); root.appendChild(topbar('mcat'));
   const main = el(`<main class="panel">
     <div class="hero"><h1>CARS Studio.</h1><p class="sub">Original passages. No outside knowledge — just reading, logic, and disciplined answer-choice analysis.</p></div>
@@ -729,7 +726,7 @@ function renderCarsHome() {
   MCAT.cars.forEach(p => {
     const log = QLOG.filter(x => x.passage === p.id);
     const acc = log.length ? Math.round(100 * log.filter(x => x.correct).length / log.length) : null;
-    const row = el(`<button class="row"><span class="row-main"><span class="row-spec">${esc(p.discipline)}</span><span class="row-title">${esc(p.title)}</span></span><span class="row-right">${acc != null ? `<span class="pill ${acc >= 75 ? 'ok' : acc >= 50 ? 'mid' : 'no'}">${acc}%</span>` : `<span class="row-when">${p.questions.length}q &rarr;</span>`}</span></button>`);
+    const row = el(`<button class="row"><span class="row-main"><span class="row-spec">${esc(p.discipline)}</span><span class="row-title">${esc(p.title)}</span></span><span class="row-right">${acc != null ? `<span class="pill ${acc >= 75 ? 'ok' : acc >= 50 ? 'mid' : 'no'}">${log.filter(x => x.correct).length}/${log.length} recorded correct</span>` : `<span class="row-when">${p.questions.length}q &rarr;</span>`}</span></button>`);
     row.addEventListener('click', () => startCars(p, timed));
     list.appendChild(row);
   });
@@ -744,6 +741,7 @@ function renderCarsHome() {
 function startCars(p, timed) {
   const saved=loadResume('cars');
   if (saved?.p?.questions?.length && Array.isArray(saved.results)) return resumeCarsSession(saved);
+  if (window.McatRehearsal && !window.McatRehearsal.allow({ passageId: p.id, questionId: p.questions[0]?.id }, () => startCars(p, timed), renderCarsHome)) return;
   cars = { p, phase:'attempt', attemptId:studyAttemptId(), flags:{}, confidence:{}, idx: 0, results: [], timed, deadline: timed ? nowTs() + 600000 : 0, timerId: null };
   if (timed) cars.timerId = setInterval(carsTick, 500);
   renderCarsRunner();
@@ -754,9 +752,10 @@ function renderCarsRunner() {
   if (cars.phase === 'done') return renderCarsReviewResult();
   cars.flags ||= {}; cars.confidence ||= {};
   const p = cars.p;
+  if (!saveResume('cars', cars)) return;
+  if(window.McatRehearsal && !window.McatRehearsal.allow({passageId:p.id,questionId:p.questions[cars.idx]?.id},()=>resumeCarsSession(loadResume('cars')||cars),renderCarsHome))return;
   if (cars.idx >= p.questions.length) { finishCars(); return; }
   const q = p.questions[cars.idx];
-  saveResume('cars', cars);
   const root = el(`<div>
     ${mcatTaskHeader(['CARS', esc(p.discipline)], `${cars.timed ? '<span class="timer" id="cars-timer"></span>' : ''}<span class="topstat">Q ${cars.idx + 1}/${p.questions.length}</span>`)}
     <main class="cars-stage">
@@ -773,6 +772,7 @@ function renderCarsRunner() {
   root.querySelectorAll('[name="cars-confidence"]').forEach(input => input.onchange = () => { cars.confidence[q.id]=input.value; saveResume('cars',cars); });
   root.querySelector('#cars-flag').onchange = e => { cars.flags[q.id]=e.target.checked; saveResume('cars',cars); };
   root.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => { cars.results.push({ q, chosen: +b.dataset.i, correct: +b.dataset.i === q.answer, conf:cars.confidence[q.id] || 'unsure', flagged:!!cars.flags[q.id] }); cars.idx++; renderCarsRunner(); window.scrollTo(0, 0); }));
+  window.McatRehearsal?.tag(root,{questionId:q.id,passageId:p.id,context:'cars-practice'});
   setView(root); window.scrollTo(0, 0);
   if (cars.timed) carsTick();
 }
@@ -783,8 +783,8 @@ function dataTableHTML(table) {
   if (!table || !table.headers) return '';
   return `<div class="dtable">${table.caption ? `<div class="dt-cap">${esc(table.caption)}</div>` : ''}<table><thead><tr>${table.headers.map(h => `<th>${esc(h)}</th>`).join('')}</tr></thead><tbody>${(table.rows || []).map(r => `<tr>${r.map(c => `<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
 }
-function passageBody(title, text, table, contentNote) {
-  return `<div class="cars-passage"><span class="label">${esc(title)}</span>${contentNote ? `<p class="course-caption">${esc(contentNote)}</p>` : ''}${text.split(/\n\n+/).map(p => `<p>${esc(p)}</p>`).join('')}${dataTableHTML(table)}</div>`;
+function passageBody(title, text, table, contentNote, sources = []) {
+  return `<div class="cars-passage"><span class="label">${esc(title)}</span>${contentNote ? `<p class="course-caption">${esc(contentNote)}</p>` : ''}${text.split(/\n\n+/).map(p => `<p>${esc(p)}</p>`).join('')}${dataTableHTML(table)}${sources.length ? `<details class="course-map"><summary>Sources and context</summary><p>These sources support the identified background concepts or research claims. The practice questions are authored by Cortex.</p>${sources.map(source => `<p><a href="${esc(source.url)}" target="_blank" rel="noopener">${esc(source.title)}</a>${source.note ? `<br>${esc(source.note)}` : ''}</p>`).join('')}</details>` : ''}</div>`;
 }
 
 /* ---------- Passage Lab (AAMC-style science passages) ---------- */
@@ -809,7 +809,7 @@ function renderPassageHome() {
     MCAT.sci.filter(p => sec === 'all' || p.section === sec).forEach(p => {
       const log = QLOG.filter(x => x.passage === p.id);
       const acc = log.length ? Math.round(100 * log.filter(x => x.correct).length / log.length) : null;
-      const row = el(`<button class="row"><span class="row-main"><span class="row-spec">${SEC_ABBR[p.section]} &middot; ${esc(p.type)}</span><span class="row-title">${esc(p.title)}</span></span><span class="row-right">${acc != null ? `<span class="pill ${acc >= 75 ? 'ok' : acc >= 50 ? 'mid' : 'no'}">${acc}%</span>` : `<span class="row-when">${p.questions.length}q &rarr;</span>`}</span></button>`);
+      const row = el(`<button class="row"><span class="row-main"><span class="row-spec">${SEC_ABBR[p.section]} &middot; ${esc(p.type)}</span><span class="row-title">${esc(p.title)}</span></span><span class="row-right">${acc != null ? `<span class="pill ${acc >= 75 ? 'ok' : acc >= 50 ? 'mid' : 'no'}">${log.filter(x => x.correct).length}/${log.length} recorded correct</span>` : `<span class="row-when">${p.questions.length}q &rarr;</span>`}</span></button>`);
       row.disabled=paused;
       row.addEventListener('click', () => startPassage(p, timed));
       list.appendChild(row);
@@ -825,28 +825,39 @@ function renderPassageHome() {
   if (rb) main.querySelector('.endbtns').prepend(rb);
   root.appendChild(main); setView(root);
 }
-function startPassage(p, timed) { const saved=loadResume('plab'); if (saved?.p?.questions?.length && Array.isArray(saved.results)) return resumePassageSession(saved); plab = { p, phase:'attempt', attemptId:studyAttemptId(), idx: 0, results: [], timed, deadline: timed ? nowTs() + 600000 : 0, timerId: null }; if (timed) plab.timerId = setInterval(plabTick, 500); renderPassageRunner(); }
+function startPassage(p, timed) {
+  const saved = loadResume('plab');
+  if (saved?.p?.questions?.length && Array.isArray(saved.results)) return resumePassageSession(saved);
+  if (window.McatRehearsal && !window.McatRehearsal.allow({ passageId: p.id, questionId: p.questions[0]?.id }, () => startPassage(p, timed), renderPassageHome)) return;
+  plab = { p, phase:'attempt', attemptId:studyAttemptId(), idx: 0, results: [], timed, deadline: timed ? nowTs() + 600000 : 0, timerId: null };
+  experimentModel(plab);
+  if (timed) plab.timerId = setInterval(plabTick, 500);
+  renderPassageRunner();
+}
 function plabTick() { if (!plab || (plab.phase && plab.phase !== 'attempt')) return; const left = (plab.deadline - nowTs()) / 1000; const t = document.getElementById('plab-timer'); if (t) { t.textContent = fmtTime(left); t.classList.toggle('crit', left <= 60); } if (left <= 0) { clearInterval(plab.timerId); finishPassage(); } }
 function renderPassageRunner() {
   if (plab.phase === 'analysis') return renderExperimentNotebook();
   if (plab.phase === 'done') return finishPassage();
   const p = plab.p;
+  if (!saveResume('plab', plab)) return;
+  if(window.McatRehearsal && !window.McatRehearsal.allow({passageId:p.id,questionId:p.questions[plab.idx]?.id},()=>resumePassageSession(loadResume('plab')||plab),renderPassageHome))return;
   if (plab.idx >= p.questions.length) { finishPassage(); return; }
   const q = p.questions[plab.idx];
-  saveResume('plab', plab);
   const root = el(`<div>
     ${mcatTaskHeader([`${SEC_ABBR[p.section]} Passage`], `<button class="bookmark" id="pt" title="Periodic table" aria-label="Periodic table">PT</button>${plab.timed ? '<span class="timer" id="plab-timer"></span>' : ''}<span class="topstat">Q ${plab.idx + 1}/${p.questions.length}</span>`)}
     <main class="cars-stage">
-      ${passageBody(p.title, p.text, p.table, p.contentNote)}
+      ${passageBody(p.title, p.text, p.table, p.contentNote, p.sources)}
       <div class="cars-q"><p class="q">${esc(q.stem)}</p>
         <div class="opts">${q.options.map((o, i) => `<button class="opt" data-i="${i}"><span class="key">${'ABCD'[i]}</span><span>${esc(o)}</span></button>`).join('')}</div></div>
     </main></div>`);
   studyWirePassageExit(root,'plab',plab,renderPassageHome);
   root.querySelector('#pt').addEventListener('click', periodicModal);
   root.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => { plab.results.push({ q, chosen: +b.dataset.i, correct: +b.dataset.i === q.answer }); plab.idx++; renderPassageRunner(); }));
+  window.McatRehearsal?.tag(root,{questionId:q.id,passageId:p.id,context:'science-practice'});
   setView(root); window.scrollTo(0, 0); if (plab.timed) plabTick();
 }
 function finishPassage() {
+  if (window.McatRehearsal && !window.McatRehearsal.allow({passageId:plab.p.id},finishPassage,renderPassageHome)) return;
   if (plab.phase !== 'done') { studyFinishAttempt(plab); renderExperimentNotebook(); return; }
   if (!plab.archived) { studyLogAttempt(plab,'plab'); plab.guided ||= guideCompleteActiveTask('passage'); studySaveReport('plab',plab); clearResume('plab'); }
   const guided = plab.guided, p = plab.p;
@@ -857,7 +868,8 @@ function finishPassage() {
     <div class="score">${String(correct).padStart(2, '0')}<span class="of">/${String(total).padStart(2, '0')}</span></div>
     <div class="drill-review" id="dr"></div>
     <div class="endbtns">${guided ? '<button class="btn btn-solid" id="guide">Continue today\'s plan &rarr;</button>' : ''}<button class="btn ${guided ? '' : 'btn-solid'}" id="next">Back to passages</button><button class="btn" id="home">&larr; MCAT</button></div>
-  </section></main>`);
+    </section></main>`);
+  studyLegacyReviewNotice(main,plab);
   main.querySelector('#dr').innerHTML = experimentComparison(plab) + `<span class="label">Question review · original score</span>` + plab.results.map((r, i) => { const autopsy = (r.q.distractors || []).filter(d => d.i !== r.q.answer).map(d => `<div class="autopsy-row"><span class="ak">${'ABCD'[d.i]}</span><span>${esc(d.why)}</span></div>`).join(''); return `<details class="rev" ${r.correct ? '' : 'open'}><summary><span class="${r.correct ? 'ok' : 'no'}">${r.correct ? '&#10003;' : '&#10007;'}</span> Q${i + 1}</summary><div class="rev-body"><div class="rev-ans">You: ${r.chosen == null ? 'Unanswered' : 'ABCD'[r.chosen]} &middot; Correct: <b>${'ABCD'[r.q.answer]}</b></div><p>${esc(r.q.explanation)}</p>${courseRelatedLinks(r.q.id)}${autopsy ? `<div class="autopsy">${autopsy}</div>` : ''}</div></details>`; }).join('');
   if (guided) main.querySelector('#guide').addEventListener('click', renderGuide);
   main.querySelector('#next').addEventListener('click', renderPassageHome);
@@ -867,14 +879,15 @@ function finishPassage() {
 
 /* ---------- Exam Simulator ---------- */
 let sim = null, simTimerId = null;
-function renderSimHome() {
+function renderSimHome() { return window.McatRehearsal ? window.McatRehearsal.home() : renderLegacySimHome(); }
+function renderLegacySimHome() {
   if (!MCAT.outline) return renderMCAT();
   const root = el('<div></div>'); root.appendChild(topbar('mcat'));
   const main = el(`<main class="panel">
     <div class="hero"><h1>Timed practice.</h1><p class="sub">Build pacing with whole passage sets, a countdown, flags, and feedback after submission. These original sets vary in length; the timer scales to the number of questions. They are not official full-length exams.</p></div>
     <div class="statblock"><span class="label">Section simulators</span><div id="secs"></div></div>
     <div class="statblock"><span class="label">Stamina</span>
-      <button class="bp-cat" id="full"><span class="bp-cat-id">FL</span><span class="bp-cat-title">Four-section practice, with breaks</span><span class="bp-cat-stat">Variable length</span></button></div>
+      <button class="bp-cat" id="full"><span class="bp-cat-id">4×</span><span class="bp-cat-title">Four-section practice, with breaks</span><span class="bp-cat-stat">Variable length</span></button></div>
     <div class="endbtns"><button class="btn" id="back">&larr; MCAT</button></div>
   </main>`);
   const secs = main.querySelector('#secs');
@@ -910,7 +923,7 @@ function simPracticeItems(key) {
 }
 function startSim(sectionKeys) {
   const saved = loadResume('sim');
-  if (saved?.queue?.length && !saved.finishedAt) { RESUME_SPECS.find(s => s.key === 'sim').resume(saved); return; }
+  if (saved?.queue?.length) { RESUME_SPECS.find(s => s.key === 'sim').resume(saved); return; }
   const queue = sectionKeys.map(k => ({ key:k, items:simPracticeItems(k) })).filter(s => s.items.length);
   if (!queue.length) return renderSimHome();
   sim = { queue, attemptId:studyAttemptId(), si:0, idx:0, answers:{}, flags:{}, deadline:0, results:[] };
@@ -927,6 +940,7 @@ function beginSection() {
 function simTick() { if (!sim) return; const left = (sim.deadline - nowTs()) / 1000; const t = document.getElementById('sim-timer'); if (t) { t.textContent = fmtTime(left); t.classList.toggle('warn', left <= 300 && left > 60); t.classList.toggle('crit', left <= 60); } if (left <= 0) { submitSection(); } }
 function renderSimQ() {
   const s = sim.queue[sim.si], it = s.items[sim.idx], q = it.q;
+  if(window.McatRehearsal && !window.McatRehearsal.allow({passageId:it.passageId,questionId:q.id},()=>RESUME_SPECS.find(s=>s.key==='sim').resume(loadResume('sim')||sim),renderLegacySimHome))return;
   const key = sim.si + ':' + sim.idx;
   const chosen = sim.answers[key];
   sim.seen ||= [];if(!sim.seen.includes(key))sim.seen.push(key);
@@ -953,6 +967,7 @@ function renderSimQ() {
   root.querySelector('#next').addEventListener('click', () => { if (sim.idx + 1 >= s.items.length) renderSimReview(); else { sim.idx++; renderSimQ(); } });
   root.querySelector('#nav').addEventListener('click', () => toggleNav(root));
   const pt = root.querySelector('#pt'); if (pt) pt.addEventListener('click', periodicModal);
+  window.McatRehearsal?.tag(root,{questionId:q.id,passageId:it.passageId,context:'legacy-timed-practice'});
   setView(root); window.scrollTo(0, 0); simTick();
 }
 function toggleNav(root) {
@@ -1016,6 +1031,8 @@ function renderBreak() {
 }
 function finishSim() {
   if (simTimerId) clearInterval(simTimerId); simTimerId = null;
+  const reserved = window.McatRehearsal && sim.results.flatMap(r => r.items).find(it => !window.McatRehearsal.allowed(it.q.id,it.passageId));
+  if (reserved) { if (sim.archived || saveResume('sim',sim)) window.McatRehearsal.allow({questionId:reserved.q.id,passageId:reserved.passageId},finishSim,renderLegacySimHome); return; }
   const complete = sim.results.length === sim.queue.length;
   const guided = !sim.archived && complete && guideCompleteActiveTask('exam');
   if (!sim.archived) { courseArchiveExam(sim); clearResume('sim'); }
@@ -1044,9 +1061,26 @@ function finishSim() {
   root.appendChild(main); setView(root); window.scrollTo(0, 0);
 }
 function periodicModal() {
-  const m = el(`<div class="modal" id="ptm"><div class="modal-box"><div class="modal-head"><span class="label">Periodic table</span><button class="btn" id="close">Close</button></div><img src="assets/periodic-table.svg" alt="Periodic table" style="max-width:100%;display:block" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><p style="display:none;color:var(--dim);font-size:13px">Periodic table image unavailable offline.</p></div></div>`);
-  m.addEventListener('click', e => { if (e.target.id === 'ptm' || e.target.id === 'close') m.remove(); });
+  const m = el(`<dialog class="periodic-dialog" aria-labelledby="periodic-title">
+    <div class="modal-head"><h2 class="label" id="periodic-title">Periodic table</h2><button class="btn" id="periodic-close" autofocus>Close</button></div>
+    <label class="periodic-zoom">Zoom <select aria-label="Periodic table zoom"><option value="100">Fit to window</option><option value="200">200%</option><option value="300">300%</option><option value="400">400%</option></select></label>
+    <p id="periodic-help">Zoom in to read each element. Scroll or use the arrow keys to move around the table.</p>
+    <div class="periodic-scroll" role="region" aria-label="Periodic table image" aria-describedby="periodic-help" tabindex="0"><img src="assets/periodic-table.svg" alt="Periodic table of the elements"></div>
+    <p id="periodic-error" role="status" hidden>Periodic table image unavailable. Close this window and try again when the image is available.</p>
+  </dialog>`);
+  const picture = m.querySelector('img'), zoom = m.querySelector('select');
+  zoom.addEventListener('change', () => { picture.style.width = `${zoom.value}%`; });
+  picture.addEventListener('error', () => {
+    m.querySelector('.periodic-scroll').hidden = true;
+    m.querySelector('#periodic-help').hidden = true;
+    m.querySelector('#periodic-error').hidden = false;
+    zoom.disabled = true;
+  });
+  m.querySelector('#periodic-close').addEventListener('click', () => m.close());
+  m.addEventListener('close', () => m.remove());
   document.body.appendChild(m);
+  trapModal(m);
+  m.showModal();
 }
 
 /* ---------- Guide Engine ---------- */
@@ -1068,9 +1102,9 @@ function guideDateFromKey(key) {
 }
 function guideAddDays(key, days) { const d = guideDateFromKey(key); d.setDate(d.getDate() + days); return guideDateKey(d); }
 function guideFormatDate(key) { return guideDateFromKey(key).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' }); }
-function saveGuidePlan(plan) { return McatStorage.write('cs-mcat-plan',plan); }
+function saveGuidePlan(plan) { return StudyStorage.write('cs-mcat-plan',plan); }
 function guidePlan() {
-  const raw = McatStorage.read('cs-mcat-plan',null);
+  const raw = StudyStorage.read('cs-mcat-plan',null);
   if (!raw) return null;
   if (raw.version === GUIDE_PLAN_VERSION && TRACKS[raw.track]) return raw;
   const migrated = buildPlan(TRACKS[raw.track] ? raw.track : '120');
@@ -1105,7 +1139,7 @@ function guideCategories() {
 }
 function guideWeakCategory() {
   const byCat = {};
-  QLOG.filter(x => x.section !== 'cars').forEach(x => { (byCat[x.category] ||= { n: 0, c: 0 }).n++; if (x.correct) byCat[x.category].c++; });
+  currentPracticeLog().filter(x => x.section !== 'cars').forEach(x => { (byCat[x.category] ||= { n: 0, c: 0 }).n++; if (x.correct) byCat[x.category].c++; });
   const weak = Object.entries(byCat).filter(([, v]) => v.n >= 2).map(([id, v]) => ({ id, n: v.n, acc: Math.round(100 * v.c / v.n) })).sort((a, b) => a.acc - b.acc || b.n - a.n)[0];
   return weak && weak.acc < 70 ? guideCategories().find(c => c.id === weak.id) || null : null;
 }
@@ -1168,7 +1202,7 @@ function guideStartTask(task, plan) {
     const spec = guideResumeSpec(task.type);
     const resume = spec ? loadResume(spec.key) : null;
     if (spec && resume) {
-      try { spec.resume(resume); return; } catch { McatStorage.sessionFailed(); return; }
+      try { spec.resume(resume); return; } catch { StudyStorage.sessionFailed(); return; }
     }
   }
   plan.active = { ...task };
@@ -1364,7 +1398,7 @@ function renderGuide(useOriginal = false) {
   if(!plan.flexible) showPlan(main.querySelector('#guide-weeks'), plan);
   main.querySelector('#restart')?.addEventListener('click', () => {
     if (!confirm('Restart your guided MCAT plan? Completed plan days will be cleared. Your flashcard and question history will stay.')) return;
-    McatStorage.remove('cs-mcat-plan');
+    StudyStorage.remove('cs-mcat-plan');
     Object.values(courseState.units).forEach(r => delete r.guideTask); saveCourse();
     // Keep unfinished study work, but detach assignments from the retired calendar.
     RESUME_SPECS.forEach(spec => { const saved=loadResume(spec.key); if (saved?.guideTask) { delete saved.guideTask; saveResume(spec.key,saved); } });
@@ -1376,7 +1410,7 @@ function renderGuide(useOriginal = false) {
 }
 
 /* ---------- Course Mapper ---------- */
-function mapperState() { return McatStorage.read('cs-mcat-coursework', {}); }
+function mapperState() { return StudyStorage.read('cs-mcat-coursework', {}); }
 function renderMapper() {
   if (!MCAT.outline) return renderMCAT();
   const state = mapperState();
@@ -1397,7 +1431,7 @@ function renderMapper() {
     MCAT.outline.concepts.filter(c => c.section === sk).forEach(con => con.categories.forEach(cat => {
       const v = state[cat.id] || '';
       const row = el(`<div class="maprow"><span class="mr-id">${cat.id}</span><span class="mr-title">${esc(cat.title)}</span><span class="mr-rate">${['strong', 'ok', 'weak'].map(r => `<button class="rb ${v === r ? 'on ' + r : ''}" data-cat="${cat.id}" data-r="${r}">${r[0].toUpperCase()}</button>`).join('')}</span></div>`);
-      row.querySelectorAll('.rb').forEach(b => b.addEventListener('click', () => { const s = mapperState(); s[b.dataset.cat] = (s[b.dataset.cat] === b.dataset.r) ? '' : b.dataset.r; McatStorage.write('cs-mcat-coursework',s); renderMapper(); }));
+      row.querySelectorAll('.rb').forEach(b => b.addEventListener('click', () => { const s = mapperState(); s[b.dataset.cat] = (s[b.dataset.cat] === b.dataset.r) ? '' : b.dataset.r; StudyStorage.write('cs-mcat-coursework',s); renderMapper(); }));
       mr.appendChild(row);
     }));
     map.appendChild(wrap);
@@ -1438,6 +1472,7 @@ document.addEventListener('keydown', (e) => {
 });
 
 function resetMcatState() {
+  window.McatRehearsal?.reset();
   courseState = McatCourseCore.normalize({});
   repairState = McatRepairCore.empty(); repairSaveFailed = false;
   Object.keys(SRS).forEach(k => delete SRS[k]);
@@ -1453,7 +1488,7 @@ function resetMcatState() {
     const k = localStorage.key(i);
     if (k && k.startsWith('cs-mcat')) keys.push(k);
   }
-  keys.forEach(k => McatStorage.remove(k));
+  keys.forEach(k => StudyStorage.remove(k));
 }
 window.renderMCAT = renderMCAT;
 window.renderMCATEntry = renderMCATEntry;
@@ -1461,12 +1496,12 @@ window.resetMcatState = resetMcatState;
 
 window.addEventListener('pagehide', () => { if (sim && simTimerId) saveResume('sim',sim); });
 let mcatPausedTimers=[];
-window.addEventListener('mcat-storage-paused',()=>{
+window.addEventListener('study-storage-paused',()=>{
   if(typeof v2Clock!=='undefined'&&v2Clock){v2Tick();v2Clock=null;v2Save();}
   for(const [key,run] of [['cars',cars],['plab',plab]])if(run?.timerId){mcatPausedTimers.push({key,run,remaining:Math.max(0,run.deadline-nowTs())});clearInterval(run.timerId);run.timerId=null;saveResume(key,run);}
   if(sim&&simTimerId){mcatPausedTimers.push({key:'sim',run:sim,remaining:Math.max(0,sim.deadline-nowTs())});clearInterval(simTimerId);simTimerId=null;saveResume('sim',sim);}
 });
-window.addEventListener('mcat-storage-recovered',()=>{
+window.addEventListener('study-storage-recovered',()=>{
   courseSaveFailed=false;courseExamSaveFailed=false;repairSaveFailed=false;v2SaveFailed=false;
   const note=document.querySelector('#course-note-status');if(note)note.textContent='Saved in this browser.';
   const status=document.querySelector('#v2-save-status');if(status)status.textContent='Your work is saved in this browser. Signed-in sync follows your account settings.';

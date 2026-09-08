@@ -1,0 +1,855 @@
+{
+  "format": 1,
+  "title": "Draft section-length rehearsals",
+  "sourceCheckedOn": "2026-09-07",
+  "formatSource": {
+    "title": "AAMC: What’s on the MCAT Exam? (2026 Essentials)",
+    "url": "https://students-residents.aamc.org/whats-mcat-exam/publication-chapters/whats-mcat-exam"
+  },
+  "contentStatus": "All 230 selected questions and their 39 passages have completed a local author check. Independent subject and originality/rights reviews remain pending. All forms remain draft and uncalibrated.",
+  "protectedPassages": [
+    "cars-path-archive"
+  ],
+  "forms": [
+    {
+      "id": "rehearsal-chemphys-a",
+      "title": "Chemistry and physics A",
+      "revision": 3,
+      "section": "chemPhys",
+      "minutes": 95,
+      "status": "draft",
+      "review": {
+        "approved": false,
+        "reviewer": null,
+        "date": null,
+        "evidence": null
+      },
+      "rightsReview": {
+        "approved": false,
+        "evidence": null
+      },
+      "selectionNote": "Fixed selected question IDs from the existing Cortex practice bank. Passage text stays intact; this form intentionally uses the listed subset of each passage’s questions. Material can overlap lessons, workshops and earlier practice. No calibrated score or complete content-coverage claim.",
+      "passages": [
+        {
+          "id": "cp2",
+          "questions": [
+            "cp2-1",
+            "cp2-2",
+            "cp2-3",
+            "cp2-4",
+            "cp2-5"
+          ]
+        },
+        {
+          "id": "cp4",
+          "questions": [
+            "cp4-1",
+            "cp4-2",
+            "cp4-3",
+            "cp4-4",
+            "cp4-5"
+          ]
+        },
+        {
+          "id": "cp5",
+          "questions": [
+            "cp5-1",
+            "cp5-2",
+            "cp5-3",
+            "cp5-4",
+            "cp5-5"
+          ]
+        },
+        {
+          "id": "cp7",
+          "questions": [
+            "cp7-1",
+            "cp7-2",
+            "cp7-3",
+            "cp7-4",
+            "cp7-5"
+          ]
+        },
+        {
+          "id": "cp8",
+          "questions": [
+            "cp8-1",
+            "cp8-2",
+            "cp8-3",
+            "cp8-4"
+          ]
+        },
+        {
+          "id": "cp9",
+          "questions": [
+            "cp9-1",
+            "cp9-2",
+            "cp9-3",
+            "cp9-4"
+          ]
+        },
+        {
+          "id": "cp10",
+          "questions": [
+            "cp10-1",
+            "cp10-2",
+            "cp10-3",
+            "cp10-4"
+          ]
+        },
+        {
+          "id": "cp11",
+          "questions": [
+            "cp11-1",
+            "cp11-2",
+            "cp11-3",
+            "cp11-4"
+          ]
+        },
+        {
+          "id": "cp-transfer-decay",
+          "questions": [
+            "cp-transfer-decay-1",
+            "cp-transfer-decay-2",
+            "cp-transfer-decay-3",
+            "cp-transfer-decay-4"
+          ]
+        },
+        {
+          "id": "cp-transfer-assay",
+          "questions": [
+            "cp-transfer-assay-1",
+            "cp-transfer-assay-2",
+            "cp-transfer-assay-3",
+            "cp-transfer-assay-4"
+          ]
+        }
+      ],
+      "discretes": [
+        "cp-physics-1",
+        "cp-physics-5",
+        "cp-physics-3",
+        "cp-physics-4",
+        "cp-chem-r2-10",
+        "cp-chem-1",
+        "cp-chem-4",
+        "cp-chem-r2-17",
+        "cp-chem-6",
+        "cp-chem-2",
+        "cp-physics-2",
+        "cp-physics-6",
+        "cp-physics-13",
+        "cp-physics-8",
+        "cp-chem-9"
+      ],
+      "contentSha256": "88b9905a44dd231d41d32eb188c8bedca7e63382b6650b318a05ba89a9ef6ec1"
+    },
+    {
+      "id": "rehearsal-cars-a",
+      "title": "CARS A",
+      "revision": 2,
+      "section": "cars",
+      "minutes": 90,
+      "status": "draft",
+      "review": {
+        "approved": false,
+        "reviewer": null,
+        "date": null,
+        "evidence": null
+      },
+      "rightsReview": {
+        "approved": false,
+        "evidence": null
+      },
+      "selectionNote": "Fixed selected question IDs from the existing Cortex practice bank. Passage text stays intact; this form intentionally uses the listed subset of each passage’s questions. Material can overlap lessons, workshops and earlier practice. No calibrated score or complete content-coverage claim.",
+      "passages": [
+        {
+          "id": "h4",
+          "questions": [
+            "h4-1",
+            "h4-2",
+            "h4-3",
+            "h4-4",
+            "h4-5"
+          ]
+        },
+        {
+          "id": "h5",
+          "questions": [
+            "h5-1",
+            "h5-2",
+            "h5-3",
+            "h5-4",
+            "h5-5",
+            "h5-6"
+          ]
+        },
+        {
+          "id": "h6",
+          "questions": [
+            "h6-1",
+            "h6-2",
+            "h6-3",
+            "h6-4",
+            "h6-5",
+            "h6-6"
+          ]
+        },
+        {
+          "id": "h7",
+          "questions": [
+            "h7-1",
+            "h7-2",
+            "h7-3",
+            "h7-4",
+            "h7-5",
+            "h7-6"
+          ]
+        },
+        {
+          "id": "h8",
+          "questions": [
+            "h8-1",
+            "h8-2",
+            "h8-3",
+            "h8-4",
+            "h8-5",
+            "h8-6"
+          ]
+        },
+        {
+          "id": "s2",
+          "questions": [
+            "s2-1",
+            "s2-2",
+            "s2-3",
+            "s2-4",
+            "s2-5",
+            "s2-6"
+          ]
+        },
+        {
+          "id": "s3",
+          "questions": [
+            "s3-1",
+            "s3-2",
+            "s3-3",
+            "s3-4",
+            "s3-5",
+            "s3-6"
+          ]
+        },
+        {
+          "id": "s4",
+          "questions": [
+            "s4-1",
+            "s4-2",
+            "s4-3",
+            "s4-4",
+            "s4-5",
+            "s4-6"
+          ]
+        },
+        {
+          "id": "s5",
+          "questions": [
+            "s5-1",
+            "s5-2",
+            "s5-3",
+            "s5-4",
+            "s5-5",
+            "s5-6"
+          ]
+        }
+      ],
+      "discretes": [],
+      "contentSha256": "d7a4d4bc7c84ba2d3cff37039f27f9ef4cec4d3e0da5d3a180d7a487096c8e29",
+      "optionOrders": {
+        "h4-1": [
+          3,
+          1,
+          0,
+          2
+        ],
+        "h4-2": [
+          2,
+          0,
+          1,
+          3
+        ],
+        "h4-3": [
+          2,
+          1,
+          3,
+          0
+        ],
+        "h4-4": [
+          0,
+          1,
+          3,
+          2
+        ],
+        "h4-5": [
+          3,
+          0,
+          2,
+          1
+        ],
+        "h5-1": [
+          1,
+          2,
+          3,
+          0
+        ],
+        "h5-2": [
+          0,
+          2,
+          1,
+          3
+        ],
+        "h5-3": [
+          0,
+          2,
+          3,
+          1
+        ],
+        "h5-4": [
+          3,
+          2,
+          1,
+          0
+        ],
+        "h5-5": [
+          2,
+          1,
+          3,
+          0
+        ],
+        "h5-6": [
+          1,
+          2,
+          3,
+          0
+        ],
+        "h6-1": [
+          0,
+          2,
+          1,
+          3
+        ],
+        "h6-2": [
+          1,
+          2,
+          3,
+          0
+        ],
+        "h6-3": [
+          2,
+          3,
+          0,
+          1
+        ],
+        "h6-4": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "h6-5": [
+          2,
+          1,
+          3,
+          0
+        ],
+        "h6-6": [
+          1,
+          3,
+          2,
+          0
+        ],
+        "h7-1": [
+          3,
+          2,
+          1,
+          0
+        ],
+        "h7-2": [
+          2,
+          0,
+          1,
+          3
+        ],
+        "h7-3": [
+          2,
+          0,
+          1,
+          3
+        ],
+        "h7-4": [
+          3,
+          1,
+          0,
+          2
+        ],
+        "h7-5": [
+          1,
+          2,
+          0,
+          3
+        ],
+        "h7-6": [
+          0,
+          3,
+          2,
+          1
+        ],
+        "h8-1": [
+          1,
+          0,
+          2,
+          3
+        ],
+        "h8-2": [
+          2,
+          1,
+          3,
+          0
+        ],
+        "h8-3": [
+          2,
+          0,
+          3,
+          1
+        ],
+        "h8-4": [
+          3,
+          0,
+          1,
+          2
+        ],
+        "h8-5": [
+          2,
+          1,
+          3,
+          0
+        ],
+        "h8-6": [
+          2,
+          0,
+          3,
+          1
+        ],
+        "s2-1": [
+          0,
+          3,
+          2,
+          1
+        ],
+        "s2-2": [
+          1,
+          3,
+          2,
+          0
+        ],
+        "s2-3": [
+          3,
+          0,
+          1,
+          2
+        ],
+        "s2-4": [
+          0,
+          2,
+          3,
+          1
+        ],
+        "s2-5": [
+          0,
+          2,
+          3,
+          1
+        ],
+        "s2-6": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "s3-1": [
+          0,
+          2,
+          3,
+          1
+        ],
+        "s3-2": [
+          2,
+          3,
+          0,
+          1
+        ],
+        "s3-3": [
+          0,
+          1,
+          3,
+          2
+        ],
+        "s3-4": [
+          2,
+          1,
+          0,
+          3
+        ],
+        "s3-5": [
+          2,
+          3,
+          1,
+          0
+        ],
+        "s3-6": [
+          3,
+          0,
+          2,
+          1
+        ],
+        "s4-1": [
+          3,
+          0,
+          1,
+          2
+        ],
+        "s4-2": [
+          1,
+          2,
+          3,
+          0
+        ],
+        "s4-3": [
+          1,
+          0,
+          3,
+          2
+        ],
+        "s4-4": [
+          0,
+          3,
+          1,
+          2
+        ],
+        "s4-5": [
+          2,
+          1,
+          3,
+          0
+        ],
+        "s4-6": [
+          1,
+          0,
+          2,
+          3
+        ],
+        "s5-1": [
+          1,
+          0,
+          2,
+          3
+        ],
+        "s5-2": [
+          2,
+          0,
+          3,
+          1
+        ],
+        "s5-3": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "s5-4": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "s5-5": [
+          2,
+          3,
+          1,
+          0
+        ],
+        "s5-6": [
+          3,
+          0,
+          1,
+          2
+        ]
+      }
+    },
+    {
+      "id": "rehearsal-biobiochem-a",
+      "title": "Biology and biochemistry A",
+      "revision": 2,
+      "section": "bioBiochem",
+      "minutes": 95,
+      "status": "draft",
+      "review": {
+        "approved": false,
+        "reviewer": null,
+        "date": null,
+        "evidence": null
+      },
+      "rightsReview": {
+        "approved": false,
+        "evidence": null
+      },
+      "selectionNote": "Fixed selected question IDs from the existing Cortex practice bank. Passage text stays intact; this form intentionally uses the listed subset of each passage’s questions. Material can overlap lessons, workshops and earlier practice. No calibrated score or complete content-coverage claim.",
+      "passages": [
+        {
+          "id": "bb1",
+          "questions": [
+            "bb1-1",
+            "bb1-2",
+            "bb1-3",
+            "bb1-4",
+            "bb1-5"
+          ]
+        },
+        {
+          "id": "bb2",
+          "questions": [
+            "bb2-1",
+            "bb2-2",
+            "bb2-3",
+            "bb2-4",
+            "bb2-5"
+          ]
+        },
+        {
+          "id": "bb3",
+          "questions": [
+            "bb3-1",
+            "bb3-2",
+            "bb3-3",
+            "bb3-4",
+            "bb3-5"
+          ]
+        },
+        {
+          "id": "bb4",
+          "questions": [
+            "bb4-1",
+            "bb4-2",
+            "bb4-3",
+            "bb4-4",
+            "bb4-5"
+          ]
+        },
+        {
+          "id": "bb5",
+          "questions": [
+            "bb5-1",
+            "bb5-2",
+            "bb5-3",
+            "bb5-4"
+          ]
+        },
+        {
+          "id": "bb7",
+          "questions": [
+            "bb7-1",
+            "bb7-2",
+            "bb7-3",
+            "bb7-4"
+          ]
+        },
+        {
+          "id": "bb8",
+          "questions": [
+            "bb8-1",
+            "bb8-2",
+            "bb8-3",
+            "bb8-4"
+          ]
+        },
+        {
+          "id": "bb9",
+          "questions": [
+            "bb9-1",
+            "bb9-2",
+            "bb9-3",
+            "bb9-4"
+          ]
+        },
+        {
+          "id": "bb11",
+          "questions": [
+            "bb11-1",
+            "bb11-2",
+            "bb11-3",
+            "bb11-4"
+          ]
+        },
+        {
+          "id": "bb12",
+          "questions": [
+            "bb12-1",
+            "bb12-2",
+            "bb12-3",
+            "bb12-4"
+          ]
+        }
+      ],
+      "discretes": [
+        "bb-biochem-1",
+        "bb-bio-1",
+        "bb-bio-4",
+        "bb-biochem-4",
+        "bb-bio-10",
+        "bb-bio-8",
+        "bb-bio-9",
+        "bb-bio-3",
+        "bb-bio-5",
+        "bb-biochem-2",
+        "bb-bio-2",
+        "bb-bio-15",
+        "bb-biochem-6",
+        "bb-biochem-r2-17",
+        "bb-bio-11"
+      ],
+      "contentSha256": "c211c386b39e904aaa64797c0e77778aad6fc16878b7bfe13effff1ca6eafdd9"
+    },
+    {
+      "id": "rehearsal-psychsoc-a",
+      "title": "Psychology and sociology A",
+      "revision": 3,
+      "section": "psychSoc",
+      "minutes": 95,
+      "status": "draft",
+      "review": {
+        "approved": false,
+        "reviewer": null,
+        "date": null,
+        "evidence": null
+      },
+      "rightsReview": {
+        "approved": false,
+        "evidence": null
+      },
+      "selectionNote": "Fixed selected question IDs from the existing Cortex practice bank. Passage text stays intact; this form intentionally uses the listed subset of each passage’s questions. Material can overlap lessons, workshops and earlier practice. No calibrated score or complete content-coverage claim.",
+      "passages": [
+        {
+          "id": "ps1",
+          "questions": [
+            "ps1-1",
+            "ps1-2",
+            "ps1-3",
+            "ps1-4",
+            "ps1-5"
+          ]
+        },
+        {
+          "id": "ps2",
+          "questions": [
+            "ps2-1",
+            "ps2-2",
+            "ps2-3",
+            "ps2-4",
+            "ps2-5"
+          ]
+        },
+        {
+          "id": "ps3",
+          "questions": [
+            "ps3-1",
+            "ps3-2",
+            "ps3-3",
+            "ps3-4",
+            "ps3-5"
+          ]
+        },
+        {
+          "id": "ps4",
+          "questions": [
+            "ps4-1",
+            "ps4-2",
+            "ps4-3",
+            "ps4-4",
+            "ps4-5"
+          ]
+        },
+        {
+          "id": "ps5",
+          "questions": [
+            "ps5-1",
+            "ps5-2",
+            "ps5-3",
+            "ps5-4"
+          ]
+        },
+        {
+          "id": "ps6",
+          "questions": [
+            "ps6-1",
+            "ps6-2",
+            "ps6-3",
+            "ps6-4"
+          ]
+        },
+        {
+          "id": "ps7",
+          "questions": [
+            "ps7-1",
+            "ps7-2",
+            "ps7-3",
+            "ps7-4"
+          ]
+        },
+        {
+          "id": "ps8",
+          "questions": [
+            "ps8-1",
+            "ps8-2",
+            "ps8-3",
+            "ps8-4"
+          ]
+        },
+        {
+          "id": "ps9",
+          "questions": [
+            "ps9-1",
+            "ps9-2",
+            "ps9-3",
+            "ps9-4"
+          ]
+        },
+        {
+          "id": "ps10",
+          "questions": [
+            "ps10-1",
+            "ps10-2",
+            "ps10-3",
+            "ps10-4"
+          ]
+        }
+      ],
+      "discretes": [
+        "ps-soc-3",
+        "ps-psych-1",
+        "ps-psych-2",
+        "ps-psych-15",
+        "ps-psych-8",
+        "ps-psych-12",
+        "ps-psych-3",
+        "ps-psych-r2-18",
+        "ps-soc-7",
+        "ps-soc-8",
+        "ps-soc-r2-1",
+        "ps-soc-5",
+        "ps-soc-4",
+        "ps-psych-r2-2",
+        "ps-psych-4"
+      ],
+      "contentSha256": "015d72f08352a790ecd7964bad749814e6f66a451c7b9e16cefd81730c2f3845"
+    }
+  ]
+}

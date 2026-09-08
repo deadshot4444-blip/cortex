@@ -1,0 +1,341 @@
+{
+  "format": 1,
+  "authorship": "Original cross-course prompts and selected links. Independent review pending.",
+  "groups": [
+    {
+      "id": "retrieval-transfer",
+      "title": "Retrieve before checking",
+      "description": "Explain an idea from memory, then use feedback to identify a specific gap.",
+      "anchor": "socrates:general:g2",
+      "links": [
+        {
+          "to": "mcat:memory-retrieval",
+          "relation": "application",
+          "why": "Connect the learning routine to the memory concepts used in MCAT preparation.",
+          "limits": "Completing a learning-method lesson does not complete the MCAT lesson."
+        },
+        {
+          "to": "socrates:medical:m2",
+          "relation": "application",
+          "why": "Adapt retrieval to a large body of healthcare knowledge.",
+          "limits": "Remembering a fact alone does not establish safe clinical performance."
+        }
+      ],
+      "card": {
+        "revision": 2,
+        "level": "foundation",
+        "prompt": "You reread a page and it feels familiar. Design one short next step that would give you better evidence about what you can explain tomorrow. Say what you would compare after checking.",
+        "model": "Close the page, explain its central idea from memory, and keep that first explanation. Check against the source and name one missing relationship or error. Return after a delay and try again. Familiarity during rereading is different from being able to retrieve later; this routine does not guarantee a particular exam result.",
+        "compare": "Compare the retrieval attempt, the use of feedback and the delayed return. Name one change to your proposed routine.",
+        "sources": []
+      }
+    },
+    {
+      "id": "attention-task",
+      "title": "Protect the task in working memory",
+      "description": "Separate selecting information from holding and using it.",
+      "anchor": "socrates:general:g6",
+      "links": [
+        {
+          "to": "mcat:attention-control",
+          "relation": "application",
+          "why": "Use the distinction in MCAT examples of task goals and interference.",
+          "limits": "A practical study adjustment is not a diagnosis of an attention disorder."
+        }
+      ],
+      "card": {
+        "revision": 2,
+        "level": "foundation",
+        "prompt": "While solving a calculation, you keep switching to message alerts. Explain what selecting the relevant information and holding intermediate values each contribute. Propose one change that could reduce interference.",
+        "model": "Selecting the task-relevant input helps direct attention; working memory holds and manipulates the instruction and intermediate values. Silencing alerts for a defined work interval reduces one source of competing input. It does not remove all limits or establish the cause of every mistake.",
+        "compare": "Check whether you distinguished selection from holding and using information, and whether your proposed change addresses a specific distraction.",
+        "sources": []
+      }
+    },
+    {
+      "id": "evidence-claim",
+      "title": "Match the claim to the evidence",
+      "description": "Distinguish a measured association, a designed comparison and a causal explanation.",
+      "anchor": "mcat:research-inference",
+      "links": [
+        {
+          "to": "reference:med-observation-mechanism",
+          "relation": "application",
+          "why": "Practice separating observations from a proposed clinical mechanism.",
+          "limits": "A plausible mechanism is not a confirmed diagnosis."
+        },
+        {
+          "to": "neuro-sim:sim-held-out-meaning",
+          "relation": "comparison",
+          "why": "Compare a research inference with the limits of held-out model evaluation.",
+          "limits": "Good held-out performance is not proof of clinical usefulness or causation."
+        }
+      ],
+      "card": {
+        "revision": 2,
+        "level": "applied",
+        "prompt": "A fictional study finds that learners who use a new study tool have higher scores. They chose whether to use it. Explain why the result alone does not establish that the tool caused the difference. Name one useful design improvement.",
+        "model": "Self-selection permits other differences, such as prior preparation or available time, to contribute to the score difference. Random assignment with a defined comparison can improve causal interpretation, while still requiring attention to adherence, measurement and the study population. A held-out prediction test answers a different question from a causal study.",
+        "compare": "Identify the alternative explanation you named and whether your design change addresses it. Keep prediction and causal effects separate.",
+        "sources": []
+      }
+    },
+    {
+      "id": "pressure-flow",
+      "title": "Trace a pressure-driven flow",
+      "description": "Connect the route of blood with a simplified pressure-flow relationship.",
+      "anchor": "mcat:circulatory-flow",
+      "links": [
+        {
+          "to": "anatomy:anat-heart-route",
+          "relation": "foundation",
+          "why": "Locate the chambers and vessels before explaining movement through the circuit.",
+          "limits": "A route diagram does not specify pressure or flow in a patient."
+        },
+        {
+          "to": "reference:med-flow-resistance",
+          "relation": "application",
+          "why": "Use pressure difference and resistance to explain a flow change.",
+          "limits": "The simplified relation does not reproduce pulsatile, regulated circulation."
+        }
+      ],
+      "card": {
+        "revision": 1,
+        "level": "foundation",
+        "prompt": "In a fictional steady-flow model, the pressure difference stays fixed while resistance doubles. Predict the relative flow and explain why naming the upstream chamber alone would not answer this question.",
+        "model": "For the supplied model Q = pressure difference / resistance, doubling resistance at fixed pressure difference halves flow. Anatomy tells us the route and relationships; it does not supply the numerical driving difference or resistance. Real circulation requires additional assumptions and feedback.",
+        "compare": "Check the fixed quantity, the direction and size of the change, and the distinction between a route and a mechanism.",
+        "sources": [
+          {
+            "title": "OpenStax: blood flow, blood pressure and resistance",
+            "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/20-2-blood-flow-blood-pressure-and-resistance"
+          }
+        ]
+      }
+    },
+    {
+      "id": "breathing-exchange",
+      "title": "Separate ventilation, exchange and delivery",
+      "description": "Follow a mechanism across the thorax, alveoli and circulation.",
+      "anchor": "mcat:gas-exchange",
+      "links": [
+        {
+          "to": "anatomy:anat-breathing",
+          "relation": "foundation",
+          "why": "Locate the diaphragm and relate its movement to quiet inspiration.",
+          "limits": "Movement of air is not itself a measurement of oxygen delivery."
+        },
+        {
+          "to": "reference:med-oxygen-delivery",
+          "relation": "application",
+          "why": "Distinguish oxygen saturation from the amount delivered to tissue.",
+          "limits": "A single saturation value does not establish overall physiological adequacy."
+        }
+      ],
+      "card": {
+        "revision": 1,
+        "level": "applied",
+        "prompt": "A classmate says: “The diaphragm moved, so oxygen delivery must be adequate.” Explain two missing links in that reasoning without diagnosing a patient.",
+        "model": "Diaphragm movement contributes to ventilation through changes in thoracic volume and pressure. Gas exchange and transport still depend on other conditions. Oxygen delivery depends on blood flow and oxygen content, including hemoglobin, so neither visible movement nor saturation alone establishes adequate delivery.",
+        "compare": "Check that you named ventilation and at least two later requirements. Remove any conclusion about a real patient that these observations cannot support.",
+        "sources": []
+      }
+    },
+    {
+      "id": "feedback-target",
+      "title": "Name the regulated variable and intervention",
+      "description": "Explain feedback and the location of a mechanism without assuming identical effects.",
+      "anchor": "mcat:endocrine-feedback",
+      "links": [
+        {
+          "to": "reference:med-feedback",
+          "relation": "foundation",
+          "why": "Use the regulated variable, sensor and response to explain a feedback loop.",
+          "limits": "A useful diagram does not imply instant or perfect regulation."
+        },
+        {
+          "to": "reference:med-raas-targets",
+          "relation": "application",
+          "why": "Compare interventions at different targets in the same pathway.",
+          "limits": "Shared pathway membership does not make drugs interchangeable."
+        }
+      ],
+      "card": {
+        "revision": 1,
+        "level": "applied",
+        "prompt": "Two fictional interventions act at different points in one feedback pathway. A peer assumes they must have identical effects. Explain why the location of each target and the response of the rest of the loop matter.",
+        "model": "Changing different steps can change different intermediates and downstream signals. Feedback can alter upstream activity after the intervention. Sharing a pathway therefore supports comparison but does not establish identical benefits, risks or time courses. Start by identifying the regulated variable, the target and the predicted compensatory response.",
+        "compare": "Check whether your explanation names the target and a feedback response instead of relying only on the pathway name.",
+        "sources": []
+      }
+    },
+    {
+      "id": "signal-units",
+      "title": "Keep measurement, units and time together",
+      "description": "Translate a recorded sequence into a measurement with an explicit scale.",
+      "anchor": "reference:med-ecg-measure",
+      "links": [
+        {
+          "to": "neuro-unit:bci-path-01-time-series",
+          "relation": "comparison",
+          "why": "Compare ECG timing with the ordered voltage samples of a neural recording.",
+          "limits": "The recordings measure different signals; neither is a direct readout of all cellular activity."
+        },
+        {
+          "to": "neuro-code:code-lists-samples",
+          "relation": "application",
+          "why": "Represent the samples as an ordered sequence before calculating times.",
+          "limits": "A list index becomes a time only when its sampling interval is known."
+        }
+      ],
+      "card": {
+        "revision": 1,
+        "level": "foundation",
+        "prompt": "A fictional uniformly sampled signal uses 250 samples per second. A feature is 50 sample intervals after a marked start. Give the elapsed time and explain what would be missing if you only reported “50.”",
+        "model": "Elapsed time is 50 / 250 = 0.20 seconds. The sampling rate converts intervals to time. The number 50 alone does not state whether it means a sample index, intervals or seconds; voltage amplitude would need its own units. This arithmetic does not identify the biological source or diagnose a pattern.",
+        "compare": "Check intervals versus samples counted, the division and units, and one limit on what the number establishes.",
+        "sources": []
+      }
+    },
+    {
+      "id": "probability-context",
+      "title": "Interpret evidence in context",
+      "description": "Keep a test result, its units and the question being asked together.",
+      "anchor": "reference:med-ddimer-context",
+      "links": [
+        {
+          "to": "mcat:research-inference",
+          "relation": "comparison",
+          "why": "Use the distinction between an observation and a supported conclusion.",
+          "limits": "General research reasoning does not replace a validated clinical testing pathway."
+        }
+      ],
+      "card": {
+        "revision": 2,
+        "level": "applied",
+        "prompt": "A fictional report says a result was above the laboratory threshold. A peer concludes the suspected condition is proven. Name the missing information needed to assess that claim; do not choose a treatment or a numerical clinical cutoff.",
+        "model": "The analyte, assay, units, intended threshold, clinical question and prior probability matter. Other processes may produce an elevated result, and the testing pathway determines its role. “Above threshold” is an observation, not by itself proof of one condition. The amount of uncertainty cannot be inferred from that phrase alone.",
+        "compare": "Check whether you identified both measurement context and alternative explanations, and kept the conclusion bounded.",
+        "sources": []
+      }
+    },
+    {
+      "id": "buffer-response",
+      "title": "Separate a buffer from a physiological response",
+      "description": "Use acid-base foundations before interpreting compensation.",
+      "anchor": "mcat:buffer-balance",
+      "links": [
+        {
+          "to": "reference:med-acid-base",
+          "relation": "application",
+          "why": "Connect acid-base variables to a bounded physiological explanation.",
+          "limits": "A chemistry buffer calculation alone does not identify a clinical disorder."
+        },
+        {
+          "to": "reference:med-acid-base-compensation",
+          "relation": "application",
+          "why": "Examine whether a measured response fits an expected compensation.",
+          "limits": "A compensation rule is an approximation, not a complete diagnosis."
+        }
+      ],
+      "card": {
+        "revision": 1,
+        "level": "applied",
+        "prompt": "A learner treats chemical buffering and a change in ventilation as the same process because both can affect pH. Distinguish the mechanisms and explain why a compensation rule needs an appropriate clinical context.",
+        "model": "Chemical buffering involves reversible acid-base reactions. A change in ventilation changes carbon dioxide elimination, while renal processes affect acid excretion and bicarbonate handling. These mechanisms differ in what changes and on what time scale. An expected compensation is a context-dependent check; a match does not explain every cause or exclude every additional process.",
+        "compare": "Check the mechanism you assigned to each process and the limit you placed on the compensation check.",
+        "sources": []
+      }
+    },
+    {
+      "id": "measurement-artifact",
+      "title": "Ask what the measurement actually represents",
+      "description": "Consider the sample, device and procedure before assigning a cause.",
+      "anchor": "reference:med-lab-intervals",
+      "links": [
+        {
+          "to": "mcat:uncertainty-controls",
+          "relation": "foundation",
+          "why": "Use controls and uncertainty to consider an artifact or alternative explanation.",
+          "limits": "A control improves interpretation but does not remove every source of error."
+        },
+        {
+          "to": "reference:med-potassium-sample",
+          "relation": "application",
+          "why": "Apply sample context to a result that may be affected by collection or handling.",
+          "limits": "A possible artifact must not be used to dismiss a clinically important result without appropriate assessment."
+        }
+      ],
+      "card": {
+        "revision": 2,
+        "level": "applied",
+        "prompt": "A fictional instrument gives a surprising result. Explain how you would separate the displayed observation from possible sample or measurement effects before asserting a mechanism. Keep this a reasoning framework, not a patient-care instruction.",
+        "model": "Record what was measured, with its units and method. Consider the sample, collection procedure, instrument and relevant controls, alongside plausible biological or task-related explanations. A surprising value can be real or affected by measurement conditions. A possible artifact is a hypothesis to investigate, not permission to discard the observation.",
+        "compare": "Check whether your approach retains the original observation and names a specific measurement condition to investigate.",
+        "sources": []
+      }
+    },
+    {
+      "id": "independent-clocks",
+      "title": "Separate timing from the cause of a pattern",
+      "description": "Explain the relation between events before assigning a mechanism.",
+      "anchor": "reference:med-ecg-av-timing",
+      "links": [
+        {
+          "to": "ecg:chb",
+          "relation": "application",
+          "why": "Inspect a synthetic example with independent atrial and ventricular timing.",
+          "limits": "A schematic lacks the full clinical and recording context."
+        },
+        {
+          "to": "practice:em-015",
+          "relation": "application",
+          "why": "Read the related encounter objective and review questions.",
+          "limits": "This opens the case teaching focus and can reveal its target; use it after a blind encounter if you want to preserve that experience."
+        },
+        {
+          "to": "neuro-unit:bci-path-02-spike-detection",
+          "relation": "comparison",
+          "why": "Compare observed event timing with the separate question of what generated an event.",
+          "limits": "A candidate neural event and a cardiac conduction pattern are not equivalent diagnoses."
+        }
+      ],
+      "card": {
+        "revision": 1,
+        "level": "applied",
+        "prompt": "Two event sequences have regular intervals individually, but no stable one-to-one timing relationship with each other. Describe the timing observation, then state one conclusion that would go beyond those data alone.",
+        "model": "Each sequence is individually regular, while their relative alignment changes rather than maintaining a fixed interval. That description concerns timing. Inferring the exact physiological source, a unique mechanism or a patient treatment from those abstract sequences alone would require more evidence and context.",
+        "compare": "Check that you described both within-sequence regularity and between-sequence alignment. Keep the timing observation separate from a diagnosis.",
+        "sources": []
+      }
+    },
+    {
+      "id": "location-function",
+      "title": "Use anatomy to constrain an explanation",
+      "description": "Locate a structure and pathway before reasoning about an observed effect.",
+      "anchor": "anatomy:anat-heart-route",
+      "links": [
+        {
+          "to": "reference:med-st-troponin",
+          "relation": "application",
+          "why": "Distinguish cardiac anatomy from the different questions answered by an electrical pattern and a biomarker.",
+          "limits": "Neither a simplified route nor one test result establishes a complete clinical explanation."
+        },
+        {
+          "to": "mcat:circulatory-flow",
+          "relation": "comparison",
+          "why": "Connect the chamber-to-vessel route with pressure and flow reasoning.",
+          "limits": "A correct route is necessary background, not proof of normal function."
+        }
+      ],
+      "card": {
+        "revision": 1,
+        "level": "applied",
+        "prompt": "A learner has correctly drawn the blood route through the heart and says this means they can infer electrical conduction and tissue injury from the same diagram. Explain why the route is useful and what further evidence those other questions require.",
+        "model": "The route establishes chambers, vessels and the direction of circulation. Electrical timing and evidence of tissue injury ask different questions and require appropriate observations, such as a recording or biomarker interpreted in context. A correct anatomical diagram helps organize reasoning but does not supply those measurements.",
+        "compare": "Check that your answer gives anatomy a useful role while naming the separate observations needed for electrical timing and injury.",
+        "sources": []
+      }
+    }
+  ]
+}

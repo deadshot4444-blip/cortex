@@ -115,7 +115,7 @@ for (const [i, lesson] of lessons.entries()) {
   else lessonIds.add(lesson.id);
   if (!(lesson.topic in topics)) fail(`${lesson.id || at} has unknown topic ${lesson.topic}`);
   if (topics[lesson.topic] !== lesson.chapter) fail(`${lesson.id || at} topic/chapter mismatch`);
-  lessonsByTopic[lesson.topic] = (lessonsByTopic[lesson.topic] || 0) + 1;
+  if (!lesson.researchOrder) lessonsByTopic[lesson.topic] = (lessonsByTopic[lesson.topic] || 0) + 1;
   if (typeof lesson.title !== 'string' || !lesson.title.trim()) fail(`${lesson.id || at} missing title`);
   if (typeof lesson.blurb !== 'string' || !lesson.blurb.trim()) fail(`${lesson.id || at} missing blurb`);
   if (!Array.isArray(lesson.steps) || lesson.steps.length < 5) { fail(`${lesson.id || at} needs at least five steps`); continue; }
@@ -137,7 +137,13 @@ for (const [i, lesson] of lessons.entries()) {
     if (step.kind === 'checkpoint' && (!Array.isArray(step.options) || step.options.length !== 4 || !Number.isInteger(step.answer) || step.answer < 0 || step.answer > 3 || typeof step.explain !== 'string')) fail(`${where} has invalid checkpoint schema`);
   }
 }
-for (const topic of Object.keys(topics)) if (lessonsByTopic[topic] !== 1) fail(`${topic} must have exactly one lesson, got ${lessonsByTopic[topic] || 0}`);
+for (const topic of Object.keys(topics)) if (lessonsByTopic[topic] !== 1) fail(`${topic} must have exactly one base lesson, got ${lessonsByTopic[topic] || 0}`);
+const researchLessons = lessons.filter(lesson => lesson.researchOrder).sort((a, b) => a.researchOrder - b.researchOrder);
+if (researchLessons.length !== 4 || researchLessons.some((lesson, i) => lesson.researchOrder !== i + 1)) fail('Research sequence must have four distinct ordered lessons');
+for (const lesson of researchLessons) {
+  if (!Array.isArray(lesson.sources) || !lesson.sources.length || lesson.sources.some(source => !source.title || !/^https:\/\//.test(source.url))) fail(`${lesson.id} needs source links`);
+  if (!lesson.reviewStatus || !lesson.sourceCheckedOn) fail(`${lesson.id} needs source date and review status`);
+}
 
 const summary = {
   questions: bank.length,

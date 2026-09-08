@@ -74,6 +74,7 @@
 .repair-table caption { text-align:left; font-size:13px; padding:0 0 12px; }
 .repair-table th, .repair-table td { border:1px solid #cbd5df; padding:14px 10px; text-align:left; overflow-wrap:break-word; }
 .repair-table th { background:#f0f4f8; }
+.repair-consequence-table th:first-child { width:28%; }
 @media(max-width:380px) { .repair-table th, .repair-table td { font-size:12px; padding:10px 7px; } }
 .guide-today > #guide-next { margin:8px 0 22px; }
 @media(max-width:600px) { .guide-today > #guide-next { width:100%; } }

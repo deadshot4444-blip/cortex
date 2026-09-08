@@ -1,0 +1,679 @@
+{
+  "version": 1,
+  "checkedOn": "2026-09-07",
+  "scope": "Context and overclaim corrections to the existing draft library. Not a full independent validation of every listed range, association or clinical recommendation. All 84 rows retain pending review.",
+  "rows": [
+    {
+      "id": "cbc-3",
+      "changedFields": [
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "MedlinePlus: Hemoglobin test",
+          "url": "https://medlineplus.gov/lab-tests/hemoglobin-test/"
+        }
+      ],
+      "checkScope": "Targeted source check for the changed interpretation; not validation of every original range or association."
+    },
+    {
+      "id": "cbc-4",
+      "changedFields": [
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "MedlinePlus: Understanding laboratory results",
+          "url": "https://medlineplus.gov/lab-tests/how-to-understand-your-lab-results/"
+        }
+      ],
+      "checkScope": "General interpretation-scope correction; detailed clinical validation remains pending."
+    },
+    {
+      "id": "cbc-5",
+      "changedFields": [
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "MedlinePlus: Understanding laboratory results",
+          "url": "https://medlineplus.gov/lab-tests/how-to-understand-your-lab-results/"
+        }
+      ],
+      "checkScope": "General interpretation-scope correction; detailed clinical validation remains pending."
+    },
+    {
+      "id": "cbc-8",
+      "changedFields": [
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "MedlinePlus: Understanding laboratory results",
+          "url": "https://medlineplus.gov/lab-tests/how-to-understand-your-lab-results/"
+        }
+      ],
+      "checkScope": "General interpretation-scope correction; detailed clinical validation remains pending."
+    },
+    {
+      "id": "cbc-10",
+      "changedFields": [
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "MedlinePlus: Understanding laboratory results",
+          "url": "https://medlineplus.gov/lab-tests/how-to-understand-your-lab-results/"
+        }
+      ],
+      "checkScope": "General interpretation-scope correction; detailed clinical validation remains pending."
+    },
+    {
+      "id": "cbc-13",
+      "changedFields": [
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "MedlinePlus: Understanding laboratory results",
+          "url": "https://medlineplus.gov/lab-tests/how-to-understand-your-lab-results/"
+        }
+      ],
+      "checkScope": "General interpretation-scope correction; detailed clinical validation remains pending."
+    },
+    {
+      "id": "bmp-2",
+      "changedFields": [
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "UK Kidney Association: Hyperkalaemia guideline, updated July 2026",
+          "url": "https://www.ukkidney.org/health-professionals/guidelines/treatment-acute-hyperkalaemia-adults-0"
+        }
+      ],
+      "checkScope": "Targeted source check for the changed interpretation; not validation of every original range or association."
+    },
+    {
+      "id": "bmp-4",
+      "changedFields": [
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "Merck Manual: Acid–base disorders",
+          "url": "https://www.merckmanuals.com/en-ca/professional/nephrology/acid-base-regulation-and-disorders/acid-base-disorders"
+        }
+      ],
+      "checkScope": "Targeted source check for the changed interpretation; not validation of every original range or association."
+    },
+    {
+      "id": "bmp-5",
+      "changedFields": [
+        "high_means",
+        "low_means",
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "NIDDK: A1C test and diabetes",
+          "url": "https://www.niddk.nih.gov/health-information/diagnostic-tests/a1c-test"
+        }
+      ],
+      "checkScope": "Targeted source check for the changed interpretation; not validation of every original range or association."
+    },
+    {
+      "id": "bmp-6",
+      "changedFields": [
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "MedlinePlus: Understanding laboratory results",
+          "url": "https://medlineplus.gov/lab-tests/how-to-understand-your-lab-results/"
+        }
+      ],
+      "checkScope": "General interpretation-scope correction; detailed clinical validation remains pending."
+    },
+    {
+      "id": "bmp-7",
+      "changedFields": [
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "MedlinePlus: Understanding laboratory results",
+          "url": "https://medlineplus.gov/lab-tests/how-to-understand-your-lab-results/"
+        }
+      ],
+      "checkScope": "General interpretation-scope correction; detailed clinical validation remains pending."
+    },
+    {
+      "id": "bmp-8",
+      "changedFields": [
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "MedlinePlus: Understanding laboratory results",
+          "url": "https://medlineplus.gov/lab-tests/how-to-understand-your-lab-results/"
+        }
+      ],
+      "checkScope": "General interpretation-scope correction; detailed clinical validation remains pending."
+    },
+    {
+      "id": "lft-3",
+      "changedFields": [
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "MedlinePlus: Understanding laboratory results",
+          "url": "https://medlineplus.gov/lab-tests/how-to-understand-your-lab-results/"
+        }
+      ],
+      "checkScope": "General interpretation-scope correction; detailed clinical validation remains pending."
+    },
+    {
+      "id": "lft-4",
+      "changedFields": [
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "MedlinePlus: Understanding laboratory results",
+          "url": "https://medlineplus.gov/lab-tests/how-to-understand-your-lab-results/"
+        }
+      ],
+      "checkScope": "General interpretation-scope correction; detailed clinical validation remains pending."
+    },
+    {
+      "id": "lft-6",
+      "changedFields": [
+        "high_means",
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "MedlinePlus: Understanding laboratory results",
+          "url": "https://medlineplus.gov/lab-tests/how-to-understand-your-lab-results/"
+        }
+      ],
+      "checkScope": "General interpretation-scope correction; detailed clinical validation remains pending."
+    },
+    {
+      "id": "lipids-cardiac-3",
+      "changedFields": [
+        "range",
+        "high_means",
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "MedlinePlus: Understanding laboratory results",
+          "url": "https://medlineplus.gov/lab-tests/how-to-understand-your-lab-results/"
+        }
+      ],
+      "checkScope": "General interpretation-scope correction; detailed clinical validation remains pending."
+    },
+    {
+      "id": "lipids-cardiac-5",
+      "changedFields": [
+        "range",
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "MedlinePlus: Understanding laboratory results",
+          "url": "https://medlineplus.gov/lab-tests/how-to-understand-your-lab-results/"
+        }
+      ],
+      "checkScope": "General interpretation-scope correction; detailed clinical validation remains pending."
+    },
+    {
+      "id": "lipids-cardiac-6",
+      "changedFields": [
+        "range",
+        "units",
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "ACC: High-sensitivity troponin and chest pain evaluation",
+          "url": "https://www.acc.org/Latest-in-Cardiology/ten-points-to-remember/2022/07/14/18/12/High-Sensitivity-CTn-and-2021-Chest-Pain"
+        }
+      ],
+      "checkScope": "Targeted source check for the changed interpretation; not validation of every original range or association."
+    },
+    {
+      "id": "lipids-cardiac-8",
+      "changedFields": [
+        "range",
+        "low_means",
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "MedlinePlus: Understanding laboratory results",
+          "url": "https://medlineplus.gov/lab-tests/how-to-understand-your-lab-results/"
+        }
+      ],
+      "checkScope": "General interpretation-scope correction; detailed clinical validation remains pending."
+    },
+    {
+      "id": "lipids-cardiac-9",
+      "changedFields": [
+        "range",
+        "low_means",
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "ACC: Sacubitril/valsartan and NT-proBNP in PIONEER-HF",
+          "url": "https://www.acc.org/Latest-in-Cardiology/Clinical-Trials/2018/11/10/01/50/PIONEER-HF"
+        }
+      ],
+      "checkScope": "Targeted source check for the changed interpretation; not validation of every original range or association."
+    },
+    {
+      "id": "coags-2",
+      "changedFields": [
+        "range",
+        "low_means",
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "MedlinePlus: Understanding laboratory results",
+          "url": "https://medlineplus.gov/lab-tests/how-to-understand-your-lab-results/"
+        }
+      ],
+      "checkScope": "General interpretation-scope correction; detailed clinical validation remains pending."
+    },
+    {
+      "id": "coags-4",
+      "changedFields": [
+        "range",
+        "units",
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "Mayo Clinic Laboratories: D-dimer assay 40936",
+          "url": "https://prd1.mayocliniclabs.com/test-catalog/overview/40936"
+        }
+      ],
+      "checkScope": "Targeted source check for the changed interpretation; not validation of every original range or association."
+    },
+    {
+      "id": "coags-5",
+      "changedFields": [
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "MedlinePlus: Understanding laboratory results",
+          "url": "https://medlineplus.gov/lab-tests/how-to-understand-your-lab-results/"
+        }
+      ],
+      "checkScope": "General interpretation-scope correction; detailed clinical validation remains pending."
+    },
+    {
+      "id": "coags-6",
+      "changedFields": [
+        "range",
+        "units",
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "MedlinePlus: Understanding laboratory results",
+          "url": "https://medlineplus.gov/lab-tests/how-to-understand-your-lab-results/"
+        }
+      ],
+      "checkScope": "General interpretation-scope correction; detailed clinical validation remains pending."
+    },
+    {
+      "id": "abg-3",
+      "changedFields": [
+        "range",
+        "high_means",
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "MedlinePlus: Understanding laboratory results",
+          "url": "https://medlineplus.gov/lab-tests/how-to-understand-your-lab-results/"
+        }
+      ],
+      "checkScope": "General interpretation-scope correction; detailed clinical validation remains pending."
+    },
+    {
+      "id": "abg-5",
+      "changedFields": [
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "Merck Manual: Acid–base disorders",
+          "url": "https://www.merckmanuals.com/en-ca/professional/nephrology/acid-base-regulation-and-disorders/acid-base-disorders"
+        }
+      ],
+      "checkScope": "Targeted source check for the changed interpretation; not validation of every original range or association."
+    },
+    {
+      "id": "abg-6",
+      "changedFields": [
+        "range",
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "MedlinePlus: Lactate test",
+          "url": "https://medlineplus.gov/lab-tests/lactate-test/"
+        }
+      ],
+      "checkScope": "Targeted source check for the changed interpretation; not validation of every original range or association."
+    },
+    {
+      "id": "endocrine-1",
+      "changedFields": [
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "American Thyroid Association: Thyroid function tests",
+          "url": "https://www.thyroid.org/thyroid-function-tests/"
+        }
+      ],
+      "checkScope": "Targeted source check for the changed interpretation; not validation of every original range or association."
+    },
+    {
+      "id": "endocrine-2",
+      "changedFields": [
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "American Thyroid Association: Thyroid function tests",
+          "url": "https://www.thyroid.org/thyroid-function-tests/"
+        }
+      ],
+      "checkScope": "Targeted source check for the changed interpretation; not validation of every original range or association."
+    },
+    {
+      "id": "endocrine-3",
+      "changedFields": [
+        "range",
+        "low_means",
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "NIDDK: A1C test and diabetes",
+          "url": "https://www.niddk.nih.gov/health-information/diagnostic-tests/a1c-test"
+        }
+      ],
+      "checkScope": "Targeted source check for the changed interpretation; not validation of every original range or association."
+    },
+    {
+      "id": "endocrine-4",
+      "changedFields": [
+        "range",
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "Endocrine Society: Hormone replacement in hypopituitarism",
+          "url": "https://www.endocrine.org/clinical-practice-guidelines/hormone-replacement-in-hypopituitarism"
+        }
+      ],
+      "checkScope": "Targeted source check for the changed interpretation; not validation of every original range or association."
+    },
+    {
+      "id": "endocrine-5",
+      "changedFields": [
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "MedlinePlus: PTH test",
+          "url": "https://medlineplus.gov/lab-tests/parathyroid-hormone-pth-test/"
+        }
+      ],
+      "checkScope": "Targeted source check for the changed interpretation; not validation of every original range or association."
+    },
+    {
+      "id": "endocrine-6",
+      "changedFields": [
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "MedlinePlus: Understanding laboratory results",
+          "url": "https://medlineplus.gov/lab-tests/how-to-understand-your-lab-results/"
+        }
+      ],
+      "checkScope": "General interpretation-scope correction; detailed clinical validation remains pending."
+    },
+    {
+      "id": "urinalysis-5",
+      "changedFields": [
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "MedlinePlus: Understanding laboratory results",
+          "url": "https://medlineplus.gov/lab-tests/how-to-understand-your-lab-results/"
+        }
+      ],
+      "checkScope": "General interpretation-scope correction; detailed clinical validation remains pending."
+    },
+    {
+      "id": "urinalysis-6",
+      "changedFields": [
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "MedlinePlus: Nitrites in urine",
+          "url": "https://medlineplus.gov/lab-tests/nitrites-in-urine/"
+        }
+      ],
+      "checkScope": "Targeted source check for the changed interpretation; not validation of every original range or association."
+    },
+    {
+      "id": "urinalysis-7",
+      "changedFields": [
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "MedlinePlus: Nitrites in urine",
+          "url": "https://medlineplus.gov/lab-tests/nitrites-in-urine/"
+        }
+      ],
+      "checkScope": "Targeted source check for the changed interpretation; not validation of every original range or association."
+    },
+    {
+      "id": "csf-1",
+      "changedFields": [
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "NICE NG240: Bacterial meningitis, CSF interpretation",
+          "url": "https://www.nice.org.uk/guidance/ng240/chapter/recommendations"
+        }
+      ],
+      "checkScope": "Targeted source check for the changed interpretation; not validation of every original range or association."
+    },
+    {
+      "id": "csf-2",
+      "changedFields": [
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "NICE NG240: Bacterial meningitis, CSF interpretation",
+          "url": "https://www.nice.org.uk/guidance/ng240/chapter/recommendations"
+        }
+      ],
+      "checkScope": "Targeted source check for the changed interpretation; not validation of every original range or association."
+    },
+    {
+      "id": "csf-3",
+      "changedFields": [
+        "high_means",
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "NICE NG240: Bacterial meningitis, CSF interpretation",
+          "url": "https://www.nice.org.uk/guidance/ng240/chapter/recommendations"
+        }
+      ],
+      "checkScope": "Targeted source check for the changed interpretation; not validation of every original range or association."
+    },
+    {
+      "id": "csf-4",
+      "changedFields": [
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "NICE NG240: Bacterial meningitis, CSF interpretation",
+          "url": "https://www.nice.org.uk/guidance/ng240/chapter/recommendations"
+        }
+      ],
+      "checkScope": "Targeted source check for the changed interpretation; not validation of every original range or association."
+    },
+    {
+      "id": "csf-5",
+      "changedFields": [
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "NICE NG240: Bacterial meningitis, CSF interpretation",
+          "url": "https://www.nice.org.uk/guidance/ng240/chapter/recommendations"
+        }
+      ],
+      "checkScope": "Targeted source check for the changed interpretation; not validation of every original range or association."
+    },
+    {
+      "id": "csf-6",
+      "changedFields": [
+        "range",
+        "high_means",
+        "low_means",
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "NICE NG240: Bacterial meningitis, CSF interpretation",
+          "url": "https://www.nice.org.uk/guidance/ng240/chapter/recommendations"
+        }
+      ],
+      "checkScope": "Targeted source check for the changed interpretation; not validation of every original range or association."
+    },
+    {
+      "id": "csf-7",
+      "changedFields": [
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "NICE NG240: Bacterial meningitis, CSF interpretation",
+          "url": "https://www.nice.org.uk/guidance/ng240/chapter/recommendations"
+        }
+      ],
+      "checkScope": "Targeted source check for the changed interpretation; not validation of every original range or association."
+    },
+    {
+      "id": "iron-misc-1",
+      "changedFields": [
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "Mayo Clinic: Ferritin test",
+          "url": "https://www.mayoclinic.org/tests-procedures/ferritin-test/about/pac-20384928"
+        }
+      ],
+      "checkScope": "Targeted source check for the changed interpretation; not validation of every original range or association."
+    },
+    {
+      "id": "iron-misc-3",
+      "changedFields": [
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "Mayo Clinic: Ferritin test",
+          "url": "https://www.mayoclinic.org/tests-procedures/ferritin-test/about/pac-20384928"
+        }
+      ],
+      "checkScope": "Targeted source check for the changed interpretation; not validation of every original range or association."
+    },
+    {
+      "id": "iron-misc-4",
+      "changedFields": [
+        "range",
+        "high_means",
+        "low_means",
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "Mayo Clinic: Ferritin test",
+          "url": "https://www.mayoclinic.org/tests-procedures/ferritin-test/about/pac-20384928"
+        }
+      ],
+      "checkScope": "Targeted source check for the changed interpretation; not validation of every original range or association."
+    },
+    {
+      "id": "iron-misc-7",
+      "changedFields": [
+        "range",
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "Mayo Clinic Laboratories: Serum folate",
+          "url": "https://www.mayocliniclabs.com/test-catalog/overview/800039"
+        }
+      ],
+      "checkScope": "Targeted source check for the changed interpretation; not validation of every original range or association."
+    },
+    {
+      "id": "iron-misc-8",
+      "changedFields": [
+        "range",
+        "high_means",
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "MedlinePlus: Understanding laboratory results",
+          "url": "https://medlineplus.gov/lab-tests/how-to-understand-your-lab-results/"
+        }
+      ],
+      "checkScope": "General interpretation-scope correction; detailed clinical validation remains pending."
+    },
+    {
+      "id": "iron-misc-9",
+      "changedFields": [
+        "high_means",
+        "pearl"
+      ],
+      "sources": [
+        {
+          "title": "MedlinePlus: Understanding laboratory results",
+          "url": "https://medlineplus.gov/lab-tests/how-to-understand-your-lab-results/"
+        }
+      ],
+      "checkScope": "General interpretation-scope correction; detailed clinical validation remains pending."
+    }
+  ]
+}

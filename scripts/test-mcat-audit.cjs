@@ -38,4 +38,20 @@ test('Interrupted passage exposure counts, but unseen exam queue entries do not'
   sim.seen=['0:1'];assert.deepEqual(core.priorQuestionIds(p,{resumes:{sim}}),['p1','p2']);
   delete sim.seen;sim.answers['0:1']=0;assert.deepEqual(core.priorQuestionIds(p,{resumes:{sim}}),['p1','p2']);
 });
+test('Completed rehearsal displays and answered legacy passages make every later coach question repeated',()=>{
+  const p={id:'p',questions:[{id:'p1'},{id:'p2'}]};
+  assert.deepEqual(core.priorQuestionIds(p,{passageDisplays:{p:100}}),['p1','p2']);
+  assert.deepEqual(core.priorQuestionIds(p,{qlog:[{passage:'p',qId:'p1',ts:100}]}),['p1','p2']);
+  assert.deepEqual(core.priorQuestionIds(p,{qlog:[{passage:'p',qId:'p1',ts:100,unanswered:true}]}),['p1']);
+  assert.deepEqual(core.priorQuestionIds(p,{passageDisplays:{other:100}}),[]);
+});
+test('Exposure correction preserves original choices, correctness and prior flags, and ignores later displays',()=>{
+  const p={id:'p',questions:[{id:'p1'},{id:'p2'}]},run={content:{passage:p},startedAt:200,prior:['p1'],answers:[{qId:'p1',chosen:3,correct:false,repeat:true},{qId:'p2',chosen:1,correct:true,repeat:false}]};
+  const state=core.normalize({coach:{active:null,parked:[],history:[run]}}),saved=state.coach.history[0];
+  assert.equal(core.reconcileCoachExposure(state,{passageDisplays:{p:201}}),false);
+  assert.equal(core.reconcileCoachExposure(state,{passageDisplays:{p:100}}),true);
+  assert.deepEqual(saved.answers.map(a=>[a.chosen,a.correct,a.repeat]),[[3,false,true],[1,true,true]]);
+  assert.deepEqual(saved.exposureCorrection.previousRepeat,[{qId:'p1',repeat:true},{qId:'p2',repeat:false}]);
+  assert.deepEqual(saved.prior,['p1','p2']);assert.equal(core.reconcileCoachExposure(state,{passageDisplays:{p:100}}),false);
+});
 process.exitCode=failures?1:0;

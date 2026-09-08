@@ -117,5 +117,47 @@ await test('The exact timestamp returned by Postgres is retained for subsequent 
  b.from=function(){const q=original();const run=q.maybeSingle;q.maybeSingle=async()=>{const out=await run();if(out.data?.updated_at){out.data.updated_at=out.data.updated_at.replace('Z','+00:00');const r=b.rows.get('A');if(r)r.updated_at=r.updated_at.replace('Z','+00:00');}return out;};return q;};
  const {e}=engine(s,b);await e.setUser({id:'A'});assert.match(JSON.parse(s.getItem('cs-sync-meta')).revision,/\+00:00$/);write(e,s,'cs-mcat-v2','second');await e.sync();assert.equal(e.state,'synced');assert.equal(b.rows.get('A').data['cs-mcat-v2'],'second');
 });
-console.log(`${checks} account and sync checks passed.`);
+await test('A portable restore replaces exactly the reviewed guest workspace and keeps the previous copy',async()=>{
+ const s=new MemoryStorage({'cs-mcat-q':'{"a":1}','cs-mode':'timed','sb-session':'private'}),a=engine(s,backend());
+ const data={'cs-mcat-q':'{"b":2}'},p=a.e.prepareRestore(data);data['cs-mcat-q']='changed after preview';
+ assert.deepEqual(p.changes.map(c=>c.action),['replace','remove']);assert.equal(s.getItem('cs-mcat-q'),'{"a":1}');
+ assert.equal(a.e.restore(p),true);assert.equal(s.getItem('cs-mcat-q'),'{"b":2}');assert.equal(s.getItem('cs-mode'),null);
+ assert.equal(s.getItem('sb-session'),'private');assert.equal(a.reloads,1);assert.equal(JSON.parse(s.getItem(archiveKey('guest'))).data['cs-mode'],'timed');assert.ok(s.getItem('cs-sync-dirty'));
+});
+await test('A restore preview is invalidated by newer work or another account',async()=>{
+ const s=new MemoryStorage({'cs-mode':'timed'}),a=engine(s,backend()),p=a.e.prepareRestore({'cs-mode':'untimed'});
+ write(a.e,s,'cs-mode','changed');assert.throws(()=>a.e.restore(p),/changed after/);assert.equal(s.getItem('cs-mode'),'changed');
+ const p2=a.e.prepareRestore({'cs-mode':'untimed'});s.setItem(OWNER,JSON.stringify({id:'B',token:'new'}));assert.throws(()=>a.e.restore(p2));assert.throws(()=>a.e.portableSnapshot());
+});
+await test('Portable snapshots exclude authentication, sync metadata and other account archives',async()=>{
+ const s=new MemoryStorage({'cs-mode':'timed','sb-session':'private',[archiveKey('other')]:JSON.stringify({data:{'cs-mode':'other private'}})}),{e}=engine(s,backend());
+ assert.deepEqual(e.portableSnapshot().data,{'cs-mode':'timed'});assert.throws(()=>e.prepareRestore({'sb-session':'evil'}));assert.throws(()=>e.restore({}));
+});
+await test('Restores wait for account initialization and unresolved cloud operations',async()=>{
+ const s=new MemoryStorage(owned('A',{'cs-mode':'timed'})),b=backend({A:row({'cs-mode':'timed'})}),{e}=engine(s,b);
+ assert.throws(()=>e.prepareRestore({'cs-mode':'untimed'}),/Finish signing/);
+ let release;b.before=()=>new Promise(r=>{release=r;});const syncing=e.setUser({id:'A'});assert.throws(()=>e.prepareRestore({'cs-mode':'untimed'}));release();await syncing;
+ const p=e.prepareRestore({'cs-mode':'untimed'});b.before=null;write(e,s,'cs-mode','device');b.rows.set('A',row({'cs-mode':'cloud'},'2026-09-06T00:00:09Z'));await e.sync();assert.equal(e.state,'conflict');assert.throws(()=>e.restore(p));
+});
+await test('Restored account work checks the retained cloud revision before upload',async()=>{
+ const s=new MemoryStorage(owned('A',{'cs-mode':'timed'})),b=backend({A:row({'cs-mode':'timed'})}),a=engine(s,b);await a.e.setUser({id:'A'});
+ a.e.restore(a.e.prepareRestore({'cs-mode':'untimed'}));assert.equal(JSON.parse(s.getItem('cs-sync-meta')).revision,revision);
+ b.rows.set('A',row({'cs-mode':'newer cloud'},'2026-09-06T00:00:12Z'));const after=engine(s,b);await after.e.setUser({id:'A'});
+ assert.equal(after.e.state,'conflict');assert.equal(s.getItem('cs-mode'),'untimed');assert.equal(b.rows.get('A').data['cs-mode'],'newer cloud');
+});
+await test('Quota failure before a restore does not remove or replace active records',async()=>{
+ const s=new MemoryStorage({'cs-mode':'timed'}),a=engine(s,backend()),p=a.e.prepareRestore({'cs-mode':'untimed'});s.failKey=archiveKey('guest');
+ assert.throws(()=>a.e.restore(p));assert.equal(s.getItem('cs-mode'),'timed');assert.equal(s.getItem(JOURNAL),null);assert.equal(a.reloads,0);
+});
+await test('A failed multi-key restore rolls back its earlier writes',async()=>{
+ const s=new MemoryStorage({'cs-mode':'timed','cs-diff':'all'}),a=engine(s,backend()),p=a.e.prepareRestore({'cs-mode':'untimed','cs-diff':'hard'});
+ const original=s.setItem.bind(s);let failed=false;s.setItem=(k,v)=>{if(k==='cs-diff'&&v==='hard'&&!failed){failed=true;throw Error('Quota');}original(k,v);};
+ assert.throws(()=>a.e.restore(p));assert.equal(s.getItem('cs-mode'),'timed');assert.equal(s.getItem('cs-diff'),'all');assert.equal(s.getItem(JOURNAL),null);assert.equal(a.reloads,0);
+});
+await test('An interrupted restore with failed rollback recovers from its journal on restart',async()=>{
+ const s=new MemoryStorage({'cs-mode':'timed','cs-diff':'all'}),a=engine(s,backend()),p=a.e.prepareRestore({'cs-mode':'untimed','cs-diff':'hard'});
+ s.failKey='cs-diff';assert.throws(()=>a.e.restore(p));assert.ok(s.getItem(JOURNAL));assert.equal(a.e.state,'paused');assert.match(a.blocked.at(-1),/reload to recover the previous workspace/);s.failKey=null;
+ const next=engine(s,backend());assert.equal(next.e.owner,'guest');assert.equal(s.getItem('cs-mode'),'timed');assert.equal(s.getItem('cs-diff'),'all');assert.equal(s.getItem(JOURNAL),null);
+});
+console.log(`${checks} account, restoration and sync checks passed.`);
 })().catch(e=>{console.error(e);process.exitCode=1;});

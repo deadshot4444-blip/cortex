@@ -7,7 +7,7 @@ lines were programmatically removed; some were cropped.
 |------|---------------|---------|
 | skeleton.svg | Mariana Ruiz Villarreal (LadyofHats) — "Human skeleton front" | Public domain |
 | skull.svg | Mariana Ruiz Villarreal (LadyofHats) — "Human skull front bones" | Public domain |
-| hand.svg | Mariana Ruiz Villarreal (LadyofHats) — "Scheme human hand bones – no text" | Public domain |
+| hand.svg | Mariana Ruiz Villarreal (LadyofHats), retouches by Nyks and Bibi Saint-Pol — [Scheme human hand bones – no text](https://commons.wikimedia.org/wiki/File:Scheme_human_hand_bones_-_no_text.svg), cropped | Public domain |
 | thorax.svg | Mikael Häggström, M.D. — "Rib cage anterior" | Public domain |
 | spine.svg | mikeingram1, recolored by MJL — "SagittalSpineVector-recolored" | CC0 |
 | foot.svg | VonTasha; derivative by mario modest — "Ospied" | CC BY-SA 3.0 |

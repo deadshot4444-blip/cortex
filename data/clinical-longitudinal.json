@@ -1,0 +1,425 @@
+{
+  "version": 1,
+  "status": "Local author draft; independent clinician review pending",
+  "cases": [
+    {
+      "id": "timeline-chest",
+      "revision": 1,
+      "title": "Chest discomfort across a changing shift",
+      "objective": "Revisit an early working explanation when symptoms, an ECG and serial biomarkers change.",
+      "prerequisites": "Advanced student practice: basic clinical assessment, laboratory units and uncertainty in diagnosis.",
+      "scope": "Emergency-department reasoning followed by an inpatient handoff. Troponin values and the assay-specific limit belong only to this invented laboratory; they are not a universal rule-out algorithm. The 2026 MI update is acknowledged; this exercise does not assign a mechanism subtype. All people, measurements and outcomes are fictional. Branches change the teaching sequence, not an estimated patient outcome. Reconsideration pauses do not simulate a delay in care. No drug doses or independent treatment decisions are taught.",
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "reviewedOn": null,
+        "authorCheckedOn": "2026-09-07"
+      },
+      "sources": [
+        {
+          "title": "ACC: 2022 acute chest-pain pathway, key points",
+          "url": "https://www.acc.org/latest-in-cardiology/ten-points-to-remember/2022/10/10/23/15/2022-acc-expert-consensus-on-chest-pain",
+          "note": "Supports serial assessment with an appropriate assay-specific clinical pathway. The synthetic values do not reproduce a validated pathway."
+        },
+        {
+          "title": "ACC: Fifth Universal Definition of Myocardial Infarction, August 2026 update",
+          "url": "https://www.acc.org/latest-in-cardiology/journal-scans/2026/08/25/13/59/global-cv-societies-release-updated-universal-definition-of-mi-esc-2026",
+          "note": "Official summary checked September 7, 2026. The full JACC paper was not accessible in this author pass; exact application of the revised criteria requires clinician review."
+        }
+      ],
+      "start": "arrival",
+      "nodes": [
+        {
+          "id": "arrival",
+          "kind": "decision",
+          "title": "An initially reassuring result",
+          "time": "09:10 · Arrival",
+          "observation": "A 54-year-old woman reports 50 minutes of intermittent central pressure, beginning while carrying groceries. One episode followed a meal. She has hypertension and smokes. She is alert; BP 146/88 mmHg, pulse 88/min, respiratory rate 16/min, oxygen saturation 98% on room air. There is no focal neurologic deficit, pulse asymmetry or pleuritic pain. An initial 12-lead ECG has no acute ischemic changes. High-sensitivity troponin I is 7 ng/L; this fictional laboratory reports a relevant female 99th-percentile limit of 16 ng/L. Symptom onset is recent. No validated rule-out pathway has yet been completed.",
+          "prompt": "Which course will you carry into the next assessment?",
+          "options": [
+            {
+              "id": "serial",
+              "text": "Keep the cause open and continue supervised serial assessment.",
+              "next": "repeat",
+              "feedback": "You retained a time-dependent question. The next checkpoint supplies observations, not a reward for picking a label."
+            },
+            {
+              "id": "close",
+              "text": "Conclude that the first ECG and biomarker exclude an acute coronary cause.",
+              "next": "reconsider-initial",
+              "feedback": "That conclusion is stronger than the information available. Revisit what the early measurements can establish before moving on."
+            }
+          ],
+          "model": "Reflux and other explanations remain possible, but early testing has not resolved the coronary concern. A nonischemic ECG and one value below the laboratory limit do not establish safe exclusion in this presentation.",
+          "reviewQuestions": [
+            "Does the presentation warrant serial reassessment without implying that one specific testing interval is universally appropriate?",
+            "Are important alternative time-critical diagnoses and their limits represented fairly?"
+          ]
+        },
+        {
+          "id": "reconsider-initial",
+          "kind": "decision",
+          "title": "Separate a result from an exclusion",
+          "time": "Teaching pause · No additional clinical time",
+          "observation": "The chart is unchanged: the onset was recent, the first ECG was nonischemic, and only one troponin result is available. The patient remains under supervised assessment. No discharge, treatment effect or clinical deterioration is simulated by this branch.",
+          "prompt": "What change in your reasoning is justified now?",
+          "options": [
+            {
+              "id": "reopen",
+              "text": "Reopen the working explanation and evaluate the evolving evidence.",
+              "next": "repeat",
+              "feedback": "Your first explanation remains in the timeline. A revision records learning without rewriting the earlier decision."
+            }
+          ],
+          "model": "Distinguish “not demonstrated on this measurement” from “excluded.” State what additional evidence would change your confidence.",
+          "reviewQuestions": [
+            "Does the corrective branch avoid implying that early discharge actually occurred?",
+            "Is the distinction between initial evidence and exclusion clear?"
+          ]
+        },
+        {
+          "id": "repeat",
+          "kind": "decision",
+          "title": "The pattern changes",
+          "time": "10:15 · Reassessment",
+          "observation": "Pressure recurs while she is resting. A repeat ECG now shows new horizontal ST depression in contiguous lateral leads; there is no ST elevation. Troponin I is 42 ng/L at the repeat measurement. BP is 142/86 mmHg and oxygen saturation remains 98%. The bedside team continues monitored assessment and has called senior clinical support. No angiographic result is available.",
+          "prompt": "How should the handoff priority change?",
+          "options": [
+            {
+              "id": "escalate",
+              "text": "Communicate the dynamic changes and the increased concern for an acute ischemic process.",
+              "next": "handoff",
+              "feedback": "The handoff should make the change and its uncertainty visible. Do not invent an angiographic mechanism."
+            },
+            {
+              "id": "anchor",
+              "text": "Keep the original reassuring explanation because the first troponin was below the limit.",
+              "next": "reconsider-trend",
+              "feedback": "The earlier result cannot erase the later change. Compare both measurements and the new ECG finding."
+            }
+          ],
+          "model": "The rise beyond this assay limit indicates acute myocardial injury in the clinical context. Recurrent pressure and new ischemic ECG changes strengthen concern for acute MI; the underlying mechanism has not been established.",
+          "reviewQuestions": [
+            "Does the interpretation align with the 2026 definition and the supplied assay context?",
+            "Does the escalation language avoid prescribing a patient-specific regimen or asserting a mechanism without evidence?"
+          ]
+        },
+        {
+          "id": "reconsider-trend",
+          "kind": "decision",
+          "title": "Make the change explicit",
+          "time": "Teaching pause · Same reassessment",
+          "observation": "Compare the actual observations: troponin I 7 → 42 ng/L, new lateral ST depression, and recurrent pressure. The first result is part of the sequence, not a veto over later findings.",
+          "prompt": "What will you emphasize to the receiving team?",
+          "options": [
+            {
+              "id": "update",
+              "text": "The evolving evidence and the need for timely senior reassessment.",
+              "next": "handoff",
+              "feedback": "Carry the updated concern forward while keeping the mechanism unresolved."
+            }
+          ],
+          "model": "A useful revision identifies which new finding changed the working explanation. “I changed my mind” alone does not communicate the evidence.",
+          "reviewQuestions": [
+            "Is the teaching pause free of invented patient harm?",
+            "Can the learner name the evidence that invalidates their earlier certainty?"
+          ]
+        },
+        {
+          "id": "handoff",
+          "kind": "handoff",
+          "title": "The next team takes over",
+          "time": "Next morning · Inpatient handoff",
+          "observation": "The patient is admitted to a monitored setting. At 12:15, troponin I is 118 ng/L. The next morning she is pain-free after care from the treating team; no causal treatment effect is assigned in this exercise. Echocardiography reports a new regional wall-motion abnormality. Coronary evaluation is pending. You are asked to hand off the evidence, current concern and unfinished work.",
+          "model": {
+            "situation": "54-year-old woman admitted after recurrent pressure with evolving ECG and biomarker changes; now pain-free in a monitored setting.",
+            "assessment": "Working concern is acute MI in the setting of acute myocardial injury and evidence of ischemia. The record does not establish the coronary mechanism.",
+            "uncertainty": "Do not substitute symptom improvement for resolution of risk. Coronary findings and the treating team’s final mechanism assessment remain pending.",
+            "next": "Communicate the timed results, current monitoring and the pending coronary evaluation. Confirm who owns that result and promptly relay recurrent symptoms or new instability to the treating team.",
+            "changed": "The early nonischemic ECG and low initial value gave way to recurrent pressure, new ST depression, a substantial rise in troponin and a new wall-motion abnormality."
+          },
+          "reviewQuestions": [
+            "Does the complete handoff retain timing, uncertainty and ownership of pending results?",
+            "Which revised 2026 diagnostic criteria or clinically important omissions need correction before release?"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "timeline-potassium",
+      "revision": 1,
+      "title": "A critical laboratory callback",
+      "objective": "Reconcile a concerning result with repeat sampling and communicate what remains unresolved.",
+      "prerequisites": "Advanced student practice: basic clinical assessment, laboratory units and uncertainty in diagnosis.",
+      "scope": "Urgent laboratory verification and next-day follow-up. UK guidance supplies a sampling principle; this is not a US institutional treatment protocol. A clinically concerning potassium result remains urgent while artifact is investigated. All people, measurements and outcomes are fictional. Branches change the teaching sequence, not an estimated patient outcome. Reconsideration pauses do not simulate a delay in care. No drug doses or independent treatment decisions are taught.",
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "reviewedOn": null,
+        "authorCheckedOn": "2026-09-07"
+      },
+      "sources": [
+        {
+          "title": "UK Kidney Association: Management of Hyperkalaemia in Adults, 2023",
+          "url": "https://www.ukkidney.org/sites/default/files/FINAL%20VERSION%20-%20UKKA%20CLINICAL%20PRACTICE%20GUIDELINE%20-%20MANAGEMENT%20OF%20HYPERKALAEMIA%20IN%20ADULTS%20-%20191223.pdf",
+          "note": "Section 15.3 supports paired sampling when pseudohyperkalaemia is suspected. ECG context and sampling limitations were checked; this exercise does not teach treatment doses."
+        }
+      ],
+      "start": "arrival",
+      "nodes": [
+        {
+          "id": "arrival",
+          "kind": "decision",
+          "title": "One result needs urgent attention",
+          "time": "14:00 · Laboratory callback",
+          "observation": "A 46-year-old man is called back for a potassium result of 6.7 mmol/L from routine outpatient blood work. The report flags marked hemolysis. In the assessment area he feels well; BP 128/78 mmHg, pulse 76/min, oxygen saturation 99%. The ECG has no typical hyperkalemic changes. Creatinine is 0.9 mg/dL, similar to his prior value. He reports no potassium supplement. The first draw was difficult. The team has not yet received a repeat sample.",
+          "prompt": "What is the most defensible next framing?",
+          "options": [
+            {
+              "id": "verify",
+              "text": "Treat the callback as unresolved and urgently verify the result under clinical supervision.",
+              "next": "repeat",
+              "feedback": "You kept both possibilities open while arranging timely clarification."
+            },
+            {
+              "id": "dismiss",
+              "text": "Dismiss the result because he feels well and the ECG looks normal.",
+              "next": "reconsider-initial",
+              "feedback": "The symptoms and ECG do not establish that the measured elevation is harmless or artifactual."
+            }
+          ],
+          "model": "Hemolysis raises concern about sample artifact; it does not prove that the circulating potassium is safe. The immediate task is urgent clinical assessment and reliable confirmation.",
+          "reviewQuestions": [
+            "Is urgency preserved during verification of a severely elevated reported value?",
+            "Does the case avoid treating a normal ECG as a reliable exclusion?"
+          ]
+        },
+        {
+          "id": "reconsider-initial",
+          "kind": "decision",
+          "title": "Keep the laboratory question open",
+          "time": "Teaching pause · No additional clinical time",
+          "observation": "Only the first hemolyzed specimen is available. No repeat result, treatment or discharge has occurred. A difficult draw is a reason to question sample integrity, not evidence of the current circulating concentration.",
+          "prompt": "How will you revise the explanation?",
+          "options": [
+            {
+              "id": "reopen",
+              "text": "Separate suspected artifact from a confirmed safe repeat result.",
+              "next": "repeat",
+              "feedback": "Preserve the unresolved result in the handoff until a reliable sample answers it."
+            }
+          ],
+          "model": "Write down what would distinguish artifact from a true elevation. The original result should remain traceable after confirmation.",
+          "reviewQuestions": [
+            "Does the branch avoid implying that verification may be deferred?",
+            "Is the difference between suspected and confirmed artifact explicit?"
+          ]
+        },
+        {
+          "id": "repeat",
+          "kind": "decision",
+          "title": "The specimens disagree",
+          "time": "14:25 · Urgent repeat results",
+          "observation": "The supervising team arranged a careful repeat draw with prompt analysis. Paired lithium-heparin plasma potassium is 4.4 mmol/L and serum potassium is 4.5 mmol/L; neither specimen is flagged for hemolysis. No potassium-lowering treatment occurred between samples. The patient remains well. The laboratory confirms that the first specimen was markedly hemolyzed. These values are invented for the exercise.",
+          "prompt": "Which account fits this sequence?",
+          "options": [
+            {
+              "id": "reconcile",
+              "text": "Document likely artifact in the first specimen, including the reliable repeat values and lack of intervening treatment.",
+              "next": "handoff",
+              "feedback": "This explanation connects specimen quality with the observed sequence. It does not claim that every later abnormal potassium will be artifact."
+            },
+            {
+              "id": "diagnose",
+              "text": "Keep confirmed persistent hyperkalemia as the final label despite the repeat findings.",
+              "next": "reconsider-trend",
+              "feedback": "Persistent circulating elevation is not demonstrated by this untreated repeat sequence."
+            }
+          ],
+          "model": "The unhemolyzed repeats and absence of treatment support a spurious first value in this fictional episode. They do not justify deleting the original result or inventing a drug response.",
+          "reviewQuestions": [
+            "Do the sample types, units and untreated sequence support the stated inference?",
+            "Are artifact and biological variability distinguished without unsupported certainty?"
+          ]
+        },
+        {
+          "id": "reconsider-trend",
+          "kind": "decision",
+          "title": "Preserve the sequence, revise the label",
+          "time": "Teaching pause · Same repeat results",
+          "observation": "The record contains one hemolyzed result, two prompt unhemolyzed repeat values and no potassium-lowering intervention. A treatment response would require a treatment that actually occurred.",
+          "prompt": "What will you carry into the documentation?",
+          "options": [
+            {
+              "id": "reconcile",
+              "text": "Describe the discrepancy and the evidence supporting a sample-related explanation.",
+              "next": "handoff",
+              "feedback": "A reconciled note retains both the concerning callback and its resolution."
+            }
+          ],
+          "model": "Explain how the repeat evidence changes the working label. Keep any unanswered questions explicit rather than importing a diagnosis from the first result alone.",
+          "reviewQuestions": [
+            "Is the first result retained in the audit trail?",
+            "Does the correction avoid suggesting a universal rule for every specimen discrepancy?"
+          ]
+        },
+        {
+          "id": "handoff",
+          "kind": "handoff",
+          "title": "The next team takes over",
+          "time": "Next day · Follow-up communication",
+          "observation": "At the next-day clinician follow-up, the patient remains asymptomatic and the laboratory has appended a sample-quality comment to the first report. Medication review finds no recent change or potassium-containing supplement. No new potassium result is supplied. The clinician asks you to summarize the episode and the rationale for the revised explanation.",
+          "model": {
+            "situation": "Urgent callback for 6.7 mmol/L potassium on a markedly hemolyzed specimen; patient assessed and reliable repeat samples obtained.",
+            "assessment": "The episode is most consistent with a spurious initial elevation: paired unhemolyzed repeats were 4.4 and 4.5 mmol/L before any potassium-lowering treatment.",
+            "uncertainty": "There is no new next-day concentration in the record. Normal repeat values resolve this measurement discrepancy, not every future electrolyte risk.",
+            "next": "Keep the original and repeat results visible, record the specimen-quality explanation and confirm the treating clinician’s follow-up plan and responsibility for any requested testing.",
+            "changed": "The first value warranted concern. Specimen quality and the reliable untreated repeat sequence shifted the explanation toward artifact."
+          },
+          "reviewQuestions": [
+            "Does the handoff communicate resolution without inventing additional testing?",
+            "Is any clinical follow-up or safety-net omission important enough to revise before publication?"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "timeline-syncope",
+      "revision": 1,
+      "title": "A faint with an unfinished explanation",
+      "objective": "Update an initial situational explanation after collateral history and rhythm evidence.",
+      "prerequisites": "Advanced student practice: basic clinical assessment, laboratory units and uncertainty in diagnosis.",
+      "scope": "A witnessed loss of consciousness followed by observation and next-day rhythm review. This case teaches evidence revision and ownership of pending findings, not a complete syncope or device-implantation protocol. All people, measurements and outcomes are fictional. Branches change the teaching sequence, not an estimated patient outcome. Reconsideration pauses do not simulate a delay in care. No drug doses or independent treatment decisions are taught.",
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "reviewedOn": null,
+        "authorCheckedOn": "2026-09-07"
+      },
+      "sources": [
+        {
+          "title": "AHA: 2017 syncope guideline, top things to know",
+          "url": "https://professional.heart.org/en/science-news/2017-acc-aha-hrs-guideline-for-the-evaluation-and-management-of-patients-with-syncope/top-things-to-know",
+          "note": "Supports history, examination, ECG and evaluation appropriate to serious associated conditions. The synthetic rhythm report is not a diagnostic tracing."
+        }
+      ],
+      "start": "arrival",
+      "nodes": [
+        {
+          "id": "arrival",
+          "kind": "decision",
+          "title": "The first story sounds situational",
+          "time": "16:20 · Initial account",
+          "observation": "A 68-year-old man briefly lost consciousness while standing in a warm checkout line. He recalls feeling lightheaded and recovered quickly. At assessment he is alert with BP 132/76 mmHg, pulse 68/min and glucose 104 mg/dL. There is no persistent neurologic deficit or prolonged confusion. He has a history of coronary disease. His companion has not yet been interviewed and a 12-lead ECG is pending. No rhythm was recorded during the original event.",
+          "prompt": "Which explanation should guide the next assessment?",
+          "options": [
+            {
+              "id": "open",
+              "text": "Retain a situational cause as possible while obtaining the missing history and ECG.",
+              "next": "repeat",
+              "feedback": "The environment is one part of the account. You left room for information that could change its weight."
+            },
+            {
+              "id": "close",
+              "text": "Treat warmth and standing as sufficient proof of a harmless faint.",
+              "next": "reconsider-initial",
+              "feedback": "The initial story does not resolve the missing collateral history or cardiac context."
+            }
+          ],
+          "model": "A reflex or orthostatic explanation is plausible, but this record is incomplete. Seek the circumstances, associated symptoms, medications and cardiac findings before settling on a cause.",
+          "reviewQuestions": [
+            "Does the initial framing fairly represent reflex, orthostatic and cardiac possibilities?",
+            "Are omitted history and examination elements sufficiently identified?"
+          ]
+        },
+        {
+          "id": "reconsider-initial",
+          "kind": "decision",
+          "title": "Name the missing evidence",
+          "time": "Teaching pause · No additional clinical time",
+          "observation": "The companion and ECG are still pending. The initial event was brief, but there is no rhythm correlation. The patient remains in the assessment area; this teaching branch does not simulate a discharge.",
+          "prompt": "What would make your first explanation less secure?",
+          "options": [
+            {
+              "id": "reopen",
+              "text": "A conflicting witness account, exertional symptoms or a concerning cardiac finding.",
+              "next": "repeat",
+              "feedback": "Record a specific finding that would make you revise your explanation."
+            }
+          ],
+          "model": "An apparently familiar trigger should not make uncollected information disappear. Distinguish a plausible explanation from a demonstrated one.",
+          "reviewQuestions": [
+            "Does the branch reopen uncertainty without asserting that every faint requires the same tests?",
+            "Is the absence of rhythm correlation kept explicit?"
+          ]
+        },
+        {
+          "id": "repeat",
+          "kind": "decision",
+          "title": "Collateral information changes the picture",
+          "time": "16:50 · History and ECG",
+          "observation": "The companion reports two earlier episodes this month: one while the patient was seated, another during a short walk. The patient had not remembered them when first asked. The ECG shows a conduction abnormality new compared with an available older tracing. The supervising clinician regards it as concerning and arranges monitored hospital evaluation. Medication reconciliation and orthostatic measurements have not yet resolved an alternative cause. No exact conduction subtype is supplied at this checkpoint.",
+          "prompt": "What should the next team hear first?",
+          "options": [
+            {
+              "id": "update",
+              "text": "The recurrent episodes and new conduction finding, with the cause still under investigation.",
+              "next": "handoff",
+              "feedback": "You revised the priority based on evidence. The original situational account remains part of the history."
+            },
+            {
+              "id": "ignore",
+              "text": "Only the warm-store trigger, since the later history complicates an otherwise simple explanation.",
+              "next": "reconsider-trend",
+              "feedback": "Leaving out the additional episodes and new ECG finding would hide the evidence that changed risk assessment."
+            }
+          ],
+          "model": "The revised account raises concern for a cardiac contribution. It does not establish the exact rhythm at the initial collapse, nor prove that all episodes share one cause.",
+          "reviewQuestions": [
+            "Is the new conduction finding sufficient in this context to motivate supervised hospital evaluation?",
+            "Does the branch avoid overinterpreting an unspecified ECG subtype?"
+          ]
+        },
+        {
+          "id": "reconsider-trend",
+          "kind": "decision",
+          "title": "Use the whole account",
+          "time": "Teaching pause · Same collateral findings",
+          "observation": "The episodes now span standing, sitting and walking. The ECG finding is newly documented. There is still no recorded rhythm from the original checkout-line event.",
+          "prompt": "How will you revise the working explanation?",
+          "options": [
+            {
+              "id": "include",
+              "text": "Communicate the additional episodes and cardiac concern while preserving uncertainty about causation.",
+              "next": "handoff",
+              "feedback": "A revised handoff should explain what changed, not silently replace the history."
+            }
+          ],
+          "model": "Avoid selecting only the observations that support the first story. The next team needs both the conflicting evidence and the limits of what it proves.",
+          "reviewQuestions": [
+            "Is the revision grounded in the actual reported findings?",
+            "Does the case avoid calling a possible mechanism a proven explanation for all episodes?"
+          ]
+        },
+        {
+          "id": "handoff",
+          "kind": "handoff",
+          "title": "The next team takes over",
+          "time": "Next morning · Observation follow-up",
+          "observation": "The next morning, while monitored, he develops presyncope. The telemetry service reports intermittent high-grade atrioventricular block during the symptoms; this is an authored report, not a supplied tracing. He is now stable. The treating team has requested urgent cardiology assessment and evaluation for reversible contributors. No device decision or final cause is provided. The original checkout-line event remains without a recorded rhythm.",
+          "model": {
+            "situation": "Recurrent loss-of-consciousness episodes with a newly identified conduction abnormality; now monitored after presyncope associated with reported high-grade AV block.",
+            "assessment": "The symptom-linked rhythm finding supports a cardiac mechanism for the monitored episode and raises concern about the earlier events.",
+            "uncertainty": "The original event was not captured. Do not claim that every episode had the same cause or that a device decision has already been made. Reversible contributors remain under assessment.",
+            "next": "Handoff the symptom-rhythm timing, present stability and urgent cardiology review. Identify who will review the rhythm record and pending contributor assessment; relay recurrent symptoms or instability immediately to the treating team.",
+            "changed": "Warmth and standing initially suggested a situational explanation. Collateral recurrence, a new conduction finding and later symptom-rhythm correlation increased concern for a cardiac cause."
+          },
+          "reviewQuestions": [
+            "Does the symptom-rhythm interpretation remain within the limits of the authored report?",
+            "Are urgency, reversible contributors and the pending specialist decision adequately communicated?"
+          ]
+        }
+      ]
+    }
+  ]
+}

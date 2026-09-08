@@ -1,0 +1,708 @@
+{
+  "changedOn": "2026-09-07",
+  "scope": "18 Clinical Shift encounters; original case and answer IDs preserved. Local source and browser authoring passes; independent review pending. Later entries align cd-101 feedback with its revised options and the cd-020 classic-bank narrative with its corrected non-obstructive labeling.",
+  "changes": [
+    {
+      "caseId": "em-016",
+      "path": "/case/pearls/0",
+      "before": "Stable regular narrow-complex SVT: start with vagal maneuvers (modified Valsalva, carotid massage), then adenosine.",
+      "after": "For stable regular narrow-complex SVT, try a coached modified Valsalva, then monitored adenosine if appropriate."
+    },
+    {
+      "caseId": "em-016",
+      "path": "/case/stages/0/explanation",
+      "before": "In a stable patient with regular narrow-complex SVT, vagal maneuvers—particularly the modified Valsalva or carotid sinus massage (after auscultating for bruits)—are the appropriate first step, increasing vagal tone to slow AV-nodal conduction and often terminating the arrhythmia. Synchronized cardioversion is reserved for unstable patients, not a stable, comfortable one. Amiodarone is not first-line for typical stable SVT and carries more adverse effects. Procainamide is used for pre-excited or wide-complex tachyarrhythmias, not routine narrow-complex SVT. Starting with the least invasive, safest maneuver is the standard approach.",
+      "after": "The patient is stable with a regular narrow-complex tachycardia. A modified Valsalva is an appropriate initial vagal maneuver. If it fails, monitored adenosine is a next option after checking contraindications. Deterioration requires prompt synchronized cardioversion. Carotid sinus massage is not a home exercise; it has additional stroke-related risks and requires clinical assessment."
+    },
+    {
+      "caseId": "em-016",
+      "path": "/case/stages/0/options/1",
+      "before": "Vagal maneuvers (Valsalva or carotid sinus massage)",
+      "after": "A coached modified Valsalva maneuver while monitoring the rhythm"
+    },
+    {
+      "caseId": "em-016",
+      "path": "/case/stages/3/explanation",
+      "before": "A regular, narrow-complex tachycardia with abrupt onset and offset that terminates with vagal maneuvers or adenosine is classic for paroxysmal SVT, most commonly AV-nodal reentrant tachycardia (AVNRT). Atrial fibrillation is irregularly irregular and would not terminate so cleanly with AV-nodal blockade. Multifocal atrial tachycardia is an irregular rhythm with multiple distinct P-wave morphologies, typically in patients with severe pulmonary disease. Ventricular tachycardia is a wide-complex rhythm. The clean conversion to sinus rhythm with adenosine strongly supports an AV-node-dependent reentrant SVT.",
+      "after": "The abrupt regular narrow-complex rhythm and response to AV-nodal blockade support an AV-node-dependent reentrant SVT. AVNRT is a likely mechanism, but this response alone does not distinguish it from every other SVT mechanism. The irregular alternatives fit less well; a full rhythm assessment remains necessary."
+    },
+    {
+      "caseId": "em-018",
+      "path": "/case/stages/4/explanation",
+      "before": "A symptomatic subdural hematoma with significant midline shift and clinical deterioration requires surgical evacuation—craniotomy for acute clot or burr-hole drainage for more liquefied subacute/chronic components—to relieve mass effect and prevent herniation. Observation alone is inappropriate once there is neurologic decline and progressive shift. Mannitol is a useful temporizing measure to reduce ICP but is not definitive and does not remove the clot. Resuming therapeutic anticoagulation is contraindicated in the acute phase of an expanding intracranial bleed. Surgical decompression is the definitive treatment for a deteriorating patient with significant mass effect.",
+      "after": "The initial size, shift, and focal deficits already justify urgent neurosurgical evacuation. Reversal and operative preparation proceed together; deterioration is not a prerequisite. The surgeon selects the operative approach for the clot and clinical state. Observation or osmotic therapy alone does not remove this mass lesion."
+    },
+    {
+      "caseId": "em-018",
+      "path": "/case/stages/4/question",
+      "before": "After reversal, the patient becomes more somnolent with worsening right-sided weakness and his midline shift increases. What is the definitive treatment?",
+      "after": "The initial CT already shows a 12-mm hematoma and 6-mm midline shift. While urgent anticoagulation reversal proceeds, what definitive treatment should be arranged without waiting for further deterioration?"
+    },
+    {
+      "caseId": "em-020",
+      "path": "/case/stages/1/content",
+      "before": "WBC: 22.4 ×10³/µL with bandemia\nNa: 128 mEq/L\nGlucose: 412 mg/dL\nCreatinine: 1.9 mg/dL (baseline 1.1)\nCRP: 320 mg/L\nLactate: 4.2 mmol/L\nPlain film/CT of pelvis: subcutaneous gas tracking through the perineal soft tissues and scrotum",
+      "after": "The surgical team is activated while resuscitation and empiric antibiotics begin. Imaging already obtained is shown below; treatment does not wait for additional imaging.\nWBC: 22.4 ×10³/µL with bandemia\nNa: 128 mEq/L\nGlucose: 412 mg/dL\nCreatinine: 1.9 mg/dL (baseline 1.1)\nCRP: 320 mg/L\nLactate: 4.2 mmol/L\nPlain film/CT of pelvis: subcutaneous gas tracking through the perineal soft tissues and scrotum"
+    },
+    {
+      "caseId": "em-020",
+      "path": "/case/stages/5/explanation",
+      "before": "Fournier gangrene requires multidisciplinary, ICU-level critical care with serial operative re-explorations and re-debridements (often every 24–48 hours until the infection is controlled), continued broad-spectrum antibiotics, aggressive resuscitation, tight glycemic control in this diabetic, and eventual reconstructive/wound coverage—reflecting its high morbidity and mortality. A single washout with immediate discharge is unsafe and ignores the need for repeated debridement. Outpatient oral antibiotics alone cannot treat this life-threatening infection. Permanent urinary diversion is not the first step; a temporary diverting colostomy or suprapubic catheter may later be used to keep stool or urine off the wound, but definitive debridement is the immediate priority. Survival depends on early, repeated surgical control.",
+      "after": "Fournier gangrene requires multidisciplinary, ICU-level critical care with serial operative re-explorations and re-debridements (often every 24–48 hours until the infection is controlled), continued broad-spectrum antibiotics, aggressive resuscitation, glucose management that avoids hypoglycemia in this diabetic, and eventual reconstructive/wound coverage—reflecting its high morbidity and mortality. A single washout with immediate discharge is unsafe and ignores the need for repeated debridement. Outpatient oral antibiotics alone cannot treat this life-threatening infection. Permanent urinary diversion is not the first step; a temporary diverting colostomy or suprapubic catheter may later be used to keep stool or urine off the wound, but definitive debridement is the immediate priority. Survival depends on early, repeated surgical control."
+    },
+    {
+      "caseId": "em-033",
+      "path": "/case/pearls/1",
+      "before": "Beta-hCG above the discriminatory zone with an empty uterus and adnexal mass equals ectopic; substantial free fluid with shock signals rupture.",
+      "after": "Interpret hCG with ultrasound and the clinical picture. An empty uterus or a single hCG threshold alone does not prove ectopic pregnancy."
+    },
+    {
+      "caseId": "em-033",
+      "path": "/case/stages/0/explanation",
+      "before": "This patient is in hemorrhagic shock. The immediate priority is resuscitation: two large-bore IVs, fluids, type and crossmatch, and a bedside qualitative beta-hCG to rapidly confirm pregnancy. Stabilization and identifying pregnancy guide everything that follows. That option (CT) is inappropriate for an unstable patient—she cannot safely leave the resuscitation area, and a bedside FAST is faster. Another option treats PID, which does not explain shock from hemoperitoneum and delays correct management. A third option (methotrexate) is absolutely contraindicated in a hemodynamically unstable patient or ruptured ectopic—surgery is required, not medical therapy. Resuscitate first, confirm pregnancy, then proceed to definitive surgical care.",
+      "after": "Treat the shock immediately while assessing its cause. Obtain vascular access and blood for crossmatch, prepare early blood products, and activate urgent gynecologic surgical care. Bedside testing can proceed in parallel. An unstable patient should not wait for elective CT, methotrexate, or repeated large crystalloid boluses."
+    },
+    {
+      "caseId": "em-033",
+      "path": "/case/stages/0/options/1",
+      "before": "Establish large-bore IV access, begin crystalloid resuscitation and send type and crossmatch while obtaining a bedside pregnancy test",
+      "after": "Establish large-bore IV access, activate hemorrhage resuscitation and urgent gynecologic care, send type and crossmatch, and obtain a bedside pregnancy test"
+    },
+    {
+      "caseId": "em-033",
+      "path": "/case/stages/2/explanation",
+      "before": "A positive beta-hCG of 4,800 mIU/mL (above the discriminatory zone) with an empty uterus, a complex adnexal mass, and free fluid on FAST in a shocked patient is diagnostic of a ruptured ectopic pregnancy with hemoperitoneum. The shoulder pain reflects diaphragmatic irritation from intraperitoneal blood. That option is excluded—above the discriminatory zone an intrauterine sac should be visible if the pregnancy were intrauterine. Another option requires an identifiable intrauterine pregnancy, which is absent. A third option ignores the positive pregnancy test, which mandates assuming ectopic until proven otherwise. Her prior ectopic and PID are major risk factors. This is a surgical emergency.",
+      "after": "Pregnancy, an adnexal mass, intraperitoneal fluid, severe pain, and shock make ruptured ectopic pregnancy the leading emergency in this case. An hCG value or an empty uterus alone cannot establish pregnancy location. The combination of findings and instability requires urgent surgical assessment."
+    },
+    {
+      "caseId": "em-033",
+      "path": "/case/stages/4/question",
+      "before": "She remains hypotensive despite 2 L of crystalloid. What is the most appropriate next step?",
+      "after": "She remains hypotensive with ongoing suspected intra-abdominal bleeding while the operating room is prepared. What resuscitation is needed now?"
+    },
+    {
+      "caseId": "cd-001",
+      "path": "/case/diagnosis",
+      "before": "Chronic stable angina due to obstructive coronary artery disease",
+      "after": "Chronic stable angina with suspected obstructive coronary artery disease"
+    },
+    {
+      "caseId": "cd-001",
+      "path": "/case/pearls/0",
+      "before": "Exercise treadmill ECG is the stress test of choice when the patient can exercise and the baseline ECG is interpretable.",
+      "after": "An interpretable resting ECG and adequate exercise capacity make exercise ECG one possible test; risk and available imaging guide selection."
+    },
+    {
+      "caseId": "cd-001",
+      "path": "/case/pearls/1",
+      "before": "Beta-blockers are first-line antianginal therapy; sublingual nitroglycerin covers acute episodes.",
+      "after": "A beta-blocker or calcium channel blocker can relieve chronic angina. Provide an appropriate plan for acute symptoms."
+    },
+    {
+      "caseId": "cd-001",
+      "path": "/case/stages/2/explanation",
+      "before": "When a patient can exercise adequately and the baseline ECG is interpretable (no LBBB, paced rhythm, pre-excitation, LVH with strain, or >1 mm resting ST depression), exercise treadmill ECG is the initial stress test of choice — it is functional, inexpensive, and provides prognostic data such as exercise capacity and the Duke treadmill score. Adenosine perfusion imaging is a pharmacologic stress option reserved for patients who cannot exercise. Dobutamine echocardiography is likewise for patients unable to exercise who need an imaging-based test. Invasive angiography is not a first-line tool for stable, low-to-intermediate risk chest pain. Holter monitoring detects arrhythmias and has no role in diagnosing exertional ischemia.",
+      "after": "Among the listed options, exercise ECG is reasonable because he can exercise and his baseline tracing is interpretable. Test selection also depends on pretest probability, available imaging, and local expertise; stress imaging or coronary CT angiography can be appropriate alternatives. This test assesses inducible ischemia, not coronary anatomy directly."
+    },
+    {
+      "caseId": "cd-001",
+      "path": "/case/stages/4/explanation",
+      "before": "He has chronic stable angina: a fixed, predictable exertional threshold for over 3 months, complete relief with rest within minutes, and a stress test reproducing his symptoms with ischemic ST depression — the classic picture of flow-limiting coronary atherosclerosis. Unstable angina requires rest pain, new-onset severe angina, or a crescendo pattern with decreasing threshold, none of which he reports. Vasospastic angina causes episodic rest pain, often at night, with transient ST elevation rather than exertional ST depression. Reflux disease does not produce a reproducible exertional threshold or ischemic ECG changes during exercise. Severe aortic stenosis can cause exertional angina, but his exam shows no systolic murmur, making it effectively excluded.",
+      "after": "The consistent exertional symptoms and ischemic stress response support chronic stable angina. Obstructive coronary disease is suspected, but the test has not directly demonstrated a stenosis. Rest or crescendo symptoms would change the urgency. The alternatives fit the available pattern less well; a normal auscultation alone does not definitively exclude valve disease."
+    },
+    {
+      "caseId": "cd-001",
+      "path": "/case/stages/4/options/3",
+      "before": "Chronic stable angina due to obstructive coronary artery disease",
+      "after": "Chronic stable angina with suspected obstructive coronary artery disease"
+    },
+    {
+      "caseId": "cd-001",
+      "path": "/case/stages/5/explanation",
+      "before": "Beta-blockers are first-line antianginal therapy in stable angina: they lower heart rate, contractility, and wall stress, raising the exertional threshold, and sublingual nitroglycerin provides on-demand relief and should be prescribed to essentially every angina patient (avoided after recent PDE5-inhibitor use). Ranolazine is an add-on agent when symptoms persist despite first-line drugs, not initial monotherapy. Long-acting nitrate monotherapy is limited by tolerance, requires a nitrate-free interval, and offers no mortality benefit. Routine upfront PCI does not reduce death or myocardial infarction compared with optimal medical therapy in stable coronary disease (COURAGE, ISCHEMIA); revascularization is reserved for refractory symptoms or high-risk anatomy. Combining two nondihydropyridine calcium channel blockers is irrational and risks bradycardia and heart block.",
+      "after": "Metoprolol provides maintenance symptom control and sublingual nitroglycerin provides rapid relief, after checking blood pressure and interacting drugs. A calcium channel blocker can also be appropriate initial antianginal treatment. Treatment should fit comorbidities and preferences. Persistent symptoms or high-risk findings warrant reassessment; beta-blockers are not automatically a mortality-reducing treatment for every stable coronary patient."
+    },
+    {
+      "caseId": "cd-001",
+      "path": "/case/stages/5/question",
+      "before": "In addition to daily aspirin and intensifying his statin to high-intensity dosing, which is the most appropriate initial antianginal regimen?",
+      "after": "Which listed regimen combines heart-rate-lowering maintenance treatment with rapid relief of an angina episode, alongside risk-factor treatment?"
+    },
+    {
+      "caseId": "cd-006",
+      "path": "/case/stages/1/content",
+      "before": "12-lead ECG: irregularly irregular rhythm at 138–152 bpm, no discernible P waves, coarse fibrillatory baseline, narrow QRS, no ST-segment deviation\nTroponin I: <0.01 ng/mL\nBMP: Na 138 mEq/L, K 4.0 mEq/L, Mg 1.9 mg/dL, creatinine 1.0 mg/dL, glucose 162 mg/dL\nTSH 1.4 µIU/mL\nCBC: hemoglobin 14.8 g/dL, WBC 7.9 ×10³/µL\nChest X-ray: normal cardiac silhouette, clear lung fields",
+      "after": "12-lead ECG: irregularly irregular rhythm at 138–152 bpm, no discernible P waves, coarse fibrillatory baseline, narrow QRS, no ST-segment deviation\nTroponin I: <0.01 ng/mL\nBMP: Na 138 mEq/L, K 4.0 mEq/L, Mg 1.9 mg/dL, creatinine 1.0 mg/dL, glucose 162 mg/dL\nTSH 1.4 µIU/mL\nCBC: hemoglobin 14.8 g/dL, WBC 7.9 ×10³/µL\nChest X-ray: normal cardiac silhouette, clear lung fields\nAvailable echocardiogram: LVEF 60%; no moderate/severe mitral stenosis; no prosthetic valve"
+    },
+    {
+      "caseId": "cd-006",
+      "path": "/case/stages/3/explanation",
+      "before": "In hemodynamically stable atrial fibrillation with rapid ventricular response, the first-line strategy is rate control with an AV-nodal blocker — IV diltiazem or IV metoprolol — which reliably slows conduction and relieves symptoms. Synchronized cardioversion is reserved for instability (hypotension, ischemic chest pain, pulmonary edema, shock) or for an elective rhythm-control strategy after anticoagulation issues are addressed. Adenosine transiently blocks the AV node but lasts seconds and cannot control atrial fibrillation. Amiodarone can pharmacologically cardiovert, which in a patient without established anticoagulation creates avoidable stroke risk; it is reserved for refractory cases or those with decompensated heart failure, where nondihydropyridine blockers such as diltiazem are contraindicated. Digoxin has a slow onset over hours and is an adjunct, mainly useful in hypotensive or heart-failure patients, not first-line monotherapy here.",
+      "after": "With preserved LVEF, no pre-excitation, and stable perfusion, IV diltiazem is an appropriate listed option for rate control. A beta-blocker is another common option. Diltiazem is unsuitable in significant systolic dysfunction or decompensated heart failure. Instability requires prompt cardioversion; elective rhythm control also requires attention to duration and anticoagulation."
+    },
+    {
+      "caseId": "cd-006",
+      "path": "/case/stages/4/explanation",
+      "before": "His CHA2DS2-VASc score is 3 — one point each for hypertension, diabetes, and age 65–74 — which carries an annual stroke risk of roughly 3% and mandates oral anticoagulation; direct oral anticoagulants are preferred over warfarin in nonvalvular atrial fibrillation for equal or better stroke prevention with about half the intracranial hemorrhage. Aspirin alone is no longer recommended for stroke prevention in atrial fibrillation — it adds bleeding risk with minimal protection. Episode duration under 48 hours does not eliminate stroke risk and does not exempt a patient with this score from anticoagulation; even brief or subclinical episodes confer risk. The anticoagulation decision is independent of whether a rate- or rhythm-control strategy is chosen. Dual antiplatelet therapy was inferior to anticoagulation in the ACTIVE-W trial.",
+      "after": "Age 68, hypertension, and diabetes give a CHA2DS2-VASc score of 3. Anticoagulation is recommended after evaluating bleeding risk and contraindications. A DOAC is preferred here because there is no mechanical valve or moderate/severe mitral stenosis. Aspirin is not an equivalent substitute. The six-hour symptom history does not remove long-term stroke risk."
+    },
+    {
+      "caseId": "cd-055",
+      "path": "/case/pearls/0",
+      "before": "A systolic murmur that gets louder with Valsalva or standing (less preload) and softer with squatting or handgrip is HOCM until proven otherwise — aortic stenosis does the opposite with the preload maneuvers, though handgrip softens both.",
+      "after": "A murmur that increases with Valsalva suggests dynamic obstruction; echocardiography establishes the anatomy and gradient."
+    },
+    {
+      "caseId": "cd-055",
+      "path": "/case/pearls/1",
+      "before": "Exertional syncope without prodrome in a young athlete is a sudden-death red flag: ECG and echo first, never reassurance or treadmill testing.",
+      "after": "Recent exertional syncope warrants prompt cardiac assessment before return to competitive exercise."
+    },
+    {
+      "caseId": "cd-055",
+      "path": "/case/pearls/2",
+      "before": "Avoid preload/afterload reducers (nitrates, diuretics, ACE inhibitors, dihydropyridines) in obstructive HCM; first-line therapy is a nonvasodilating beta-blocker.",
+      "after": "Avoid unnecessary preload reduction in symptomatic obstruction. Individualize medication and exercise decisions with an HCM specialist."
+    },
+    {
+      "caseId": "cd-055",
+      "path": "/case/stages/3/explanation",
+      "before": "First-line pharmacotherapy for obstructive HCM is a nonvasodilating beta-blocker, which slows heart rate, lengthens diastolic filling, and blunts the dynamic gradient. Critically, his unexplained exertional syncope is a major risk factor for sudden cardiac death, making ICD evaluation a guideline-supported priority (family history of sudden death, septal thickness ≥30 mm, nonsustained VT, and abnormal exercise BP response are the other classic markers). Vasodilators such as ACE inhibitors and especially nitrates reduce afterload and preload, worsening obstruction — lisinopril is wrong and the verapamil option is poisoned by the nitroglycerin attached to it (verapamil alone can be an alternative, though it carries risk with severe gradients and hypotension). Diuretics drop preload and intensify SAM, so furosemide aggravates rather than lowers the gradient. He must also avoid dehydration.",
+      "after": "A nonvasodilating beta-blocker can reduce symptoms of obstructive HCM. Recent exertional syncope warrants urgent specialist sudden-death risk assessment and discussion of an ICD; a device decision uses the full age-appropriate risk profile. Nitrates and unnecessary volume depletion can worsen obstruction. Some alternative medicines are appropriate under specialist supervision; they are not interchangeable without considering gradients, pressure, and symptoms."
+    },
+    {
+      "caseId": "cd-061",
+      "path": "/case/pearls/3",
+      "before": "Draw at least three sets of blood cultures from separate sites before antibiotics—positive sets are what establish the Duke microbiologic major criterion and demonstrate continuous bacteremia.",
+      "after": "Obtain cultures promptly, begin appropriate empiric therapy, and request echocardiography in parallel. Do not let specimen collection cause a dangerous treatment delay."
+    },
+    {
+      "caseId": "cd-061",
+      "path": "/case/stages/0/explanation",
+      "before": "In suspected endocarditis, three sets of blood cultures drawn from separate sites over a short interval maximize the yield for a continuous bacteremia and, when positive, establish the microbiologic major Duke criterion. Obtaining them before antibiotics is essential because a single dose can sterilize cultures and obscure the diagnosis. Deferring cultures until defervescence is wrong—an acutely septic IV drug user needs prompt cultures then empiric therapy, not delay. A single culture is inadequate and cannot establish persistent bacteremia. Oral antibiotics with outpatient follow-up is dangerously inappropriate for a febrile, hypoxic, tachycardic patient with a new murmur and likely endocarditis requiring admission and IV therapy.",
+      "after": "Draw multiple blood-culture sets promptly before antibiotics when this can be done without delaying urgent treatment. In suspected endocarditis, three sets from separate venipunctures improve diagnostic yield. This hypoxic, febrile patient needs hospital care, respiratory assessment, and prompt empiric therapy; waiting for defervescence or outpatient testing is inappropriate."
+    },
+    {
+      "caseId": "cd-061",
+      "path": "/case/stages/3/explanation",
+      "before": "Staphylococcus aureus, including MRSA, is by far the most common organism in injection-drug-use right-sided endocarditis, so empiric IV vancomycin is the standard initial choice pending speciation and susceptibilities. Ceftriaxone monotherapy covers streptococci and many gram-negatives but misses MRSA, which is the priority pathogen here. Oral linezolid has anti-MRSA activity but oral therapy is inappropriate for acute bacteremic endocarditis where reliable bactericidal IV levels are required. Ampicillin plus gentamicin targets enterococci and viridans streptococci, but guideline empiric regimens for native-valve endocarditis do not omit staphylococcal coverage—they add an antistaphylococcal beta-lactam or use vancomycin—so it is inadequate here, especially for the staphylococcal disease expected in this IV drug user.",
+      "after": "IV vancomycin supplies MRSA coverage while cultures and susceptibilities are pending. The full empiric regimen depends on acuity, valve status, exposure, allergies, and local resistance; this choice does not imply that vancomycin alone covers every endocarditis presentation. Once MSSA is identified, narrow to an appropriate antistaphylococcal beta-lactam when tolerated."
+    },
+    {
+      "caseId": "cd-061",
+      "path": "/case/stages/3/question",
+      "before": "While awaiting culture speciation, which empiric antibiotic regimen is most appropriate?",
+      "after": "Which listed IV agent provides the essential empiric MRSA coverage while the complete regimen is selected for this acutely ill patient?"
+    },
+    {
+      "caseId": "cd-061",
+      "path": "/case/stages/4/explanation",
+      "before": "Transthoracic echocardiography (TTE) is the appropriate first imaging test to confirm vegetations and assess valvular function. In right-sided endocarditis the tricuspid valve is anterior and well visualized by TTE, which has good sensitivity for the typically large right-sided vegetations—so it is the reasonable starting study. Going straight to TEE is unnecessary first-line for suspected right-sided disease and is more invasive; TEE is reserved for nondiagnostic TTE, suspected left-sided or prosthetic involvement, or complications such as abscess. Cardiac MRI is not a standard endocarditis tool. Repeating chest CT tracks emboli but does not establish the cardiac diagnosis or guide therapy now.",
+      "after": "TTE is a usual initial study and often provides useful views of the tricuspid valve. Do not wait for culture speciation to request it. TEE is appropriate when TTE is inadequate, suspicion remains high, or other valves or complications need assessment. A negative TTE does not exclude endocarditis."
+    },
+    {
+      "caseId": "cd-061",
+      "path": "/case/stages/4/question",
+      "before": "Blood cultures grow methicillin-sensitive S. aureus. What is the most appropriate next diagnostic step?",
+      "after": "Blood cultures grow MSSA. Echocardiography has been requested during the initial evaluation. Which initial echo study is generally appropriate to assess the tricuspid valve and cardiac function?"
+    },
+    {
+      "caseId": "nr-008",
+      "path": "/case/pearls/3",
+      "before": "Treat with antithrombotic therapy (antiplatelet or anticoagulation; CADISS found no significant difference between them) and avoid further neck manipulation.",
+      "after": "Choose antithrombotic treatment and duration with the stroke team using the individual ischemic and bleeding risks."
+    },
+    {
+      "caseId": "nr-008",
+      "path": "/case/stages/4/explanation",
+      "before": "Management of carotid dissection centers on antithrombotic therapy to prevent thromboembolic stroke, either an antiplatelet agent or anticoagulation (CADISS found no significant difference between the two, so either is considered reasonable), along with avoiding further neck manipulation. Emergent carotid endarterectomy is not indicated for an acute dissection and risks extending it. High-dose corticosteroids treat inflammatory arteritis, not a mechanical dissection. Discharging without treatment leaves the patient at significant risk for embolic stroke from the dissection flap. Antithrombotic therapy plus avoidance of further trauma is the standard approach, with endovascular intervention reserved for selected refractory cases.",
+      "after": "Begin an individualized antithrombotic strategy with the stroke team after evaluating bleeding and ischemic risks. Antiplatelet treatment or anticoagulation may be selected; trial uncertainty does not mean they are identical for every patient. Monitor for cerebral or retinal ischemia and arrange follow-up. Further neck manipulation and discharge without a plan are inappropriate."
+    },
+    {
+      "caseId": "nr-011",
+      "path": "/case/pearls/0",
+      "before": "Vertigo lasting under a minute and triggered by rolling over or head extension is BPPV until proven otherwise — diagnose it with Dix-Hallpike, not MRI.",
+      "after": "Brief position-triggered vertigo suggests BPPV. Confirm the characteristic positional findings and assess for alternatives."
+    },
+    {
+      "caseId": "nr-011",
+      "path": "/case/pearls/2",
+      "before": "The Epley maneuver treats the cause by repositioning otoconia and beats any medication; vestibular suppressants delay central compensation.",
+      "after": "Canalith repositioning is a recommended treatment for posterior-canal BPPV; routine vestibular suppressants are not."
+    },
+    {
+      "caseId": "nr-011",
+      "path": "/case/pearls/3",
+      "before": "Recurrence is common (15–50%) and is simply retreated with repositioning; teach patients a home program.",
+      "after": "BPPV can recur. Reassess and repeat appropriate repositioning rather than assuming every later dizzy spell has the same cause."
+    },
+    {
+      "caseId": "nr-011",
+      "path": "/case/stages/3/explanation",
+      "before": "The Epley canalith repositioning maneuver is first-line therapy for posterior canal BPPV: a sequence of head positions uses gravity to move displaced otoconia out of the posterior semicircular canal and back into the utricle. It resolves symptoms after one to three sessions in roughly 80% of patients and can be repeated immediately if nystagmus persists. Scheduled meclizine is inferior — vestibular suppressants do not remove the otoconia, blunt central compensation, and cause sedation and falls in older adults; at most a dose may be used briefly for severe nausea. Corticosteroids are sometimes used early in vestibular neuritis, though their benefit is debated; they have no role in BPPV. Sodium restriction with a thiazide is maintenance therapy for Ménière's disease and is irrelevant to a mechanical canalithiasis problem.",
+      "after": "A canalith-repositioning procedure such as the Epley maneuver treats the mechanical problem in posterior-canal BPPV. Routine scheduled vestibular suppressants are not recommended. Assess mobility and neck limitations, provide fall advice, and reassess symptoms. Persistent or atypical findings warrant evaluation for another cause."
+    },
+    {
+      "caseId": "nr-011",
+      "path": "/case/stages/4/explanation",
+      "before": "BPPV recurs in roughly 15–50% of patients over the following years, and recurrence with the identical, classic positional response is managed the same way as the first episode — repeat canalith repositioning, which remains highly effective. Teaching the patient a home repositioning program (self-Epley or Brandt-Daroff exercises) is a reasonable adjunct. MRI is unnecessary because the recurrence is stereotyped, fatigable, and peripheral in pattern; imaging is for atypical, persistent, or central-appearing nystagmus. Canal occlusion surgery is a last resort reserved for rare, truly intractable BPPV that has failed many properly performed repositioning attempts over a prolonged period. Indefinite daily meclizine does not treat the underlying canalithiasis, impairs compensation, and adds anticholinergic and sedative risk in a 58-year-old.",
+      "after": "The recurrent, characteristic positional response supports another episode of right posterior-canal BPPV. Repeat an appropriate repositioning maneuver and arrange reassessment. Recurrence alone does not require surgery or indefinite medication; atypical or persistent findings change the evaluation."
+    },
+    {
+      "caseId": "nr-012",
+      "path": "/case/pearls/0",
+      "before": "In acute vestibular syndrome, HINTS by a trained examiner beats early MRI-DWI for excluding posterior-circulation stroke; CT is nearly useless for posterior fossa ischemia.",
+      "after": "HINTS requires the appropriate vestibular syndrome and a trained examiner."
+    },
+    {
+      "caseId": "nr-012",
+      "path": "/case/pearls/1",
+      "before": "An abnormal head impulse (catch-up saccade) is reassuring and usually peripheral — but rare AICA infarcts can mimic it, so pair it with bedside hearing (HINTS-plus) and the full HINTS battery before calling the lesion peripheral.",
+      "after": "Central, equivocal, or unreliable findings require further urgent assessment."
+    },
+    {
+      "caseId": "nr-012",
+      "path": "/case/pearls/2",
+      "before": "Dangerous signs: normal head impulse, direction-changing nystagmus, skew deviation, or inability to stand — any one mandates MRI.",
+      "after": "Reassess changing symptoms; a peripheral-appearing pattern is not an absolute stroke exclusion."
+    },
+    {
+      "caseId": "nr-012",
+      "path": "/case/pearls/3",
+      "before": "Limit vestibular suppressants to about 72 hours; early vestibular rehabilitation drives the central compensation that produces recovery.",
+      "after": "Use short-term symptom relief and begin rehabilitation as tolerated."
+    },
+    {
+      "caseId": "nr-012",
+      "path": "/case/stages/0/explanation",
+      "before": "For the acute vestibular syndrome, a properly performed HINTS examination by a trained clinician is the most accurate immediate way to separate peripheral vestibular failure from a posterior-circulation stroke — it outperforms even early MRI, since diffusion-weighted imaging is falsely negative in up to 15–20% of posterior fossa infarcts within the first 24–48 hours. Non-contrast CT is very insensitive for acute posterior fossa ischemia and serves mainly to exclude hemorrhage. Immediate MRI is reasonable when HINTS is central or unreliable, but a normal early MRI cannot exclude stroke and should not precede the bedside assessment. Dix-Hallpike is designed for brief, episodic positional vertigo, not continuous vertigo, and can be misleading here. Audiometry is not urgent in a patient without auditory complaints.",
+      "after": "Use HINTS with hearing assessment when a trained examiner evaluates this syndrome. Central or equivocal findings require stroke evaluation and MRI/MRA. An untrained or unreliable examination must not be used to rule out stroke; the local urgent assessment pathway applies."
+    },
+    {
+      "caseId": "nr-012",
+      "path": "/case/stages/0/question",
+      "before": "In this patient with an acute vestibular syndrome (continuous vertigo, nystagmus, head-motion intolerance, and gait unsteadiness), what is the best next step to distinguish a peripheral from a central cause?",
+      "after": "A clinician trained in HINTS is available. In this continuous vestibular syndrome with spontaneous nystagmus, which bedside assessment is appropriate?"
+    },
+    {
+      "caseId": "nr-012",
+      "path": "/case/stages/2/explanation",
+      "before": "All three HINTS components are reassuringly peripheral: an abnormal head impulse toward the right (a catch-up saccade indicating a failed right vestibulo-ocular reflex), strictly unidirectional nystagmus that suppresses with fixation, and no skew deviation. Combined with the recent viral illness, intact hearing, and an otherwise nonfocal examination, this is right vestibular neuritis — the nystagmus beats away from the hypofunctioning side and he veers toward it. A lateral medullary infarct typically shows the dangerous HINTS pattern (normal head impulse, direction-changing nystagmus, or skew) plus crossed sensory loss, Horner syndrome, dysphagia, or hoarseness, all absent. Labyrinthitis is the same syndrome plus acute hearing loss, which he does not have. BPPV causes seconds-long positional spells, not 18 hours of continuous vertigo. Ménière's attacks last 20 minutes to 12 hours with auditory symptoms.",
+      "after": "The documented right-sided vestibular deficit, unidirectional nystagmus, intact hearing, and absent skew favor right vestibular neuritis. This is the best fit among the listed diagnoses, not an absolute exclusion of stroke. Clinical context, examiner reliability, and evolution still matter."
+    },
+    {
+      "caseId": "nr-012",
+      "path": "/case/stages/3/explanation",
+      "before": "Vestibular neuritis is managed supportively: antiemetics and vestibular suppressants (meclizine, dimenhydrinate, or benzodiazepines) for no more than about 72 hours to control the worst symptoms, followed by early mobilization and vestibular rehabilitation exercises, which drive the central compensation that produces recovery. Many clinicians add a short corticosteroid taper if started early, which may speed recovery of vestibular function, though long-term benefit is debated. Thrombolysis is not indicated — the bedside examination just demonstrated a peripheral lesion, not an infarct. Four weeks of scheduled meclizine is actively harmful because prolonged vestibular suppression delays the central compensation the brain needs and prolongs disability. Decompressive surgery is a treatment for large cerebellar infarcts with swelling and brainstem compression, a diagnosis that has been excluded clinically.",
+      "after": "Provide brief symptom relief and early rehabilitation as tolerated. Prolonged vestibular suppression can impede recovery. Early steroids are a shared decision with uncertain benefit. Reassess atypical or evolving findings rather than treating the initial bedside pattern as final proof."
+    },
+    {
+      "caseId": "nr-012",
+      "path": "/case/stages/4/explanation",
+      "before": "In acute vestibular syndrome, a normal head impulse test is paradoxically alarming: if the vestibulo-ocular reflex is intact on both sides, peripheral vestibular failure cannot explain the continuous vertigo, so the lesion is presumed central (most often a PICA-territory cerebellar or brainstem infarct) until MRI proves otherwise. The other dangerous HINTS findings are direction-changing (gaze-evoked) nystagmus and skew deviation; severe truncal ataxia with inability to stand or walk is an additional red flag. Duration beyond 24 hours and repeated vomiting are typical of vestibular neuritis itself and carry no localizing value. Fixation suppression of nystagmus is a peripheral feature — central nystagmus persists despite fixation. Veering toward the affected side while remaining ambulatory is the expected peripheral pattern, in contrast to the profound inability to stand seen with cerebellar stroke.",
+      "after": "A normal head impulse in this context raises central concern and warrants urgent assessment. Direction-changing nystagmus, skew, or marked inability to stand also change the plan. No single reassuring sign or normal early scan should override persistent concern."
+    },
+    {
+      "caseId": "nr-016",
+      "path": "/case/pearls/3",
+      "before": "Definitive treatment is emergent craniotomy; promptly evacuated epidural hematomas in young patients have an excellent prognosis.",
+      "after": "A deteriorating patient with this epidural hematoma requires urgent neurosurgical evacuation; outcome depends on injury severity and treatment timing."
+    },
+    {
+      "caseId": "nr-016",
+      "path": "/case/stages/2/explanation",
+      "before": "A biconvex (lens-shaped) hyperdense collection that does not cross suture lines, paired with a temporal bone fracture, is the signature of an acute epidural hematoma — here from laceration of the middle meningeal artery, which runs in a groove on the inner table of the temporal bone and is torn by temporal fractures. The classic lucid interval followed by rapid arterial-pressure deterioration matches perfectly. A subdural hematoma is crescentic, crosses sutures, and is venous and slower. Diffuse axonal injury follows high-velocity acceleration-deceleration with coma out of proportion to a near-normal CT, not a focal lens-shaped clot. Traumatic subarachnoid hemorrhage tracks within sulci and cisterns. A cerebral contusion is an intraparenchymal bruise, not an extra-axial lens-shaped collection bounded by sutures.",
+      "after": "A biconvex (lens-shaped) hyperdense collection that does not cross suture lines, paired with a temporal bone fracture, is the signature of an acute epidural hematoma — here from laceration of the middle meningeal artery, which runs in a groove on the inner table of the temporal bone and is torn by temporal fractures. The classic lucid interval followed by rapid arterial-pressure deterioration matches perfectly. A subdural hematoma is crescentic, crosses sutures, and often involves bridging veins, but can also cause rapid deterioration. Diffuse axonal injury follows high-velocity acceleration-deceleration with coma out of proportion to a near-normal CT, not a focal lens-shaped clot. Traumatic subarachnoid hemorrhage tracks within sulci and cisterns. A cerebral contusion is an intraparenchymal bruise, not an extra-axial lens-shaped collection bounded by sutures."
+    },
+    {
+      "caseId": "nr-016",
+      "path": "/case/stages/3/explanation",
+      "before": "A large epidural hematoma (22 mm, >30 mL) with 9 mm of midline shift, a declining GCS, and clinical signs of herniation is a neurosurgical emergency requiring emergent craniotomy for clot evacuation and hemostasis of the bleeding middle meningeal artery. Promptly evacuated epidural hematomas, especially in young patients without underlying brain injury, carry an excellent prognosis. Watchful waiting with serial exams and delayed CT is appropriate only for small epidural hematomas in neurologically intact, stable patients — the opposite of this case — and here would be lethal. Seizure prophylaxis and blood pressure control are useful adjuncts but do not address the expanding clot. Therapeutic hypothermia has no role in evacuating a surgical mass lesion and only delays the operation he needs now.",
+      "after": "A large epidural hematoma (22-mm thickness) with 9 mm of midline shift, a declining GCS, and clinical signs of herniation is a neurosurgical emergency requiring emergent craniotomy for clot evacuation and hemostasis of the bleeding middle meningeal artery. Promptly evacuated epidural hematomas, especially in young patients without underlying brain injury, can have favorable outcomes, depending on injury severity and treatment timing. Watchful waiting with serial exams and delayed CT is appropriate only for small epidural hematomas in neurologically intact, stable patients — the opposite of this case — and here would be lethal. Seizure prophylaxis and blood pressure control are useful adjuncts but do not address the expanding clot. Therapeutic hypothermia has no role in evacuating a surgical mass lesion and only delays the operation he needs now."
+    },
+    {
+      "caseId": "nr-025",
+      "path": "/case/pearls/0",
+      "before": "Epilepsy is defined as two unprovoked seizures >24h apart, or one seizure with high recurrence risk.",
+      "after": "A first seizure does not automatically establish epilepsy; diagnosis depends on recurrence, risk, and syndrome criteria."
+    },
+    {
+      "caseId": "nr-025",
+      "path": "/case/pearls/1",
+      "before": "After a first unprovoked seizure with normal EEG and MRI, 2-year recurrence risk is ~20-25% (21-45% overall) and AEDs can often be deferred.",
+      "after": "After a first unprovoked seizure, discuss immediate treatment versus deferral using individual risk and preferences."
+    },
+    {
+      "caseId": "nr-025",
+      "path": "/case/stages/2/explanation",
+      "before": "Lateral tongue biting, urinary incontinence, and roughly 20 minutes of postictal confusion strongly support a true generalized tonic-clonic seizure; with a normal metabolic panel, negative toxicology, and no acute structural or metabolic trigger, this is a first unprovoked seizure. A provoked (acute symptomatic) seizure requires an identifiable acute insult, hypoglycemia, hyponatremia, withdrawal, acute brain injury, none of which is present; his sleep deprivation is a trigger that lowers the seizure threshold, not an acute symptomatic cause, so by ILAE convention the event is still classified as unprovoked. Epilepsy is diagnosed after two unprovoked seizures more than 24 hours apart, or one seizure with high recurrence risk (epileptiform EEG or an epileptogenic lesion); with a normal EEG and MRI he does not yet meet criteria. Psychogenic nonepileptic events typically lack true postictal confusion and lateral tongue injury and show no epileptiform correlate. Correct classification directly informs the treatment decision.",
+      "after": "The witnessed convulsion, lateral tongue injury, and post-event confusion support an epileptic seizure. The available assessment identifies no acute symptomatic cause, so a first unprovoked seizure is the best classification. Normal MRI and EEG do not exclude epilepsy. An epilepsy diagnosis after one event depends on sufficiently high recurrence risk or a defined syndrome; the provided record has not established either."
+    },
+    {
+      "caseId": "nr-025",
+      "path": "/case/stages/3/explanation",
+      "before": "After a single unprovoked seizure with a normal neurologic exam, normal EEG, and normal MRI, the 2-year recurrence risk is relatively low (roughly 20-25%, versus 21-45% for first unprovoked seizures overall), and guidelines support deferring antiseizure medication while counseling the patient and arranging neurology follow-up. Immediate treatment reduces near-term recurrence but does not change long-term remission, so shared decision-making is appropriate, weighing occupation, driving, and preference. Mandating lifelong therapy after any seizure overtreats and ignores risk stratification. Starting two drugs is never appropriate initial therapy and adds toxicity. Admitting for an IV levetiracetam infusion is unnecessary in a patient who has returned to baseline with a benign workup. Treatment becomes clearly indicated if he has a second seizure, an epileptiform EEG, or an epileptogenic lesion.",
+      "after": "Immediate medication can reduce near-term recurrence but has not been shown to improve long-term sustained remission. Normal MRI and EEG do not guarantee a low individual risk. Discuss recurrence factors, adverse effects, occupation, safety, and preference. Deferral or treatment can be reasonable after an individualized assessment; neither lifelong therapy nor two-drug treatment is mandatory after this event."
+    },
+    {
+      "caseId": "nr-025",
+      "path": "/case/stages/3/options/0",
+      "before": "No, with a normal EEG and MRI, recurrence risk is relatively low; defer treatment, counsel, and arrange neurology follow-up",
+      "after": "Discuss benefits and risks with the patient; deferring medication with prompt neurology follow-up is a reasonable option"
+    },
+    {
+      "caseId": "em-020",
+      "path": "/modelNote/plan",
+      "before": "Begin sepsis resuscitation with 30 mL/kg balanced crystalloid and norepinephrine for persistent hypotension, obtain blood cultures, start broad IV coverage for gram-positive, gram-negative, anaerobic, and toxin-producing organisms, such as vancomycin plus piperacillin-tazobactam and clindamycin, and proceed immediately to extensive surgical debridement without delaying for further testing. Admit to the ICU for serial re-debridement, hemodynamic support, glucose control, and later reconstruction.",
+      "after": "Activate surgery immediately for debridement while starting broad IV antibiotics, cultures, and resuscitation. Use balanced crystalloid with frequent assessment of perfusion and fluid tolerance; add norepinephrine when hypotension persists or shock severity warrants concurrent support. One empiric option is vancomycin plus piperacillin-tazobactam, with toxin-suppressing therapy when indicated. Adjust to renal function and microbiology. ICU care, repeat operative assessment, glucose management, and wound reconstruction follow source control."
+    },
+    {
+      "caseId": "em-020",
+      "path": "/modelNote/assessment",
+      "before": "59-year-old man with poorly controlled diabetes and septic physiology, rapidly progressive perineal pain out of proportion, necrosis, crepitus, and CT-demonstrated soft-tissue gas. Findings are diagnostic of Fournier gangrene with septic shock physiology (hypotension, lactate 4.2 mmol/L) and acute kidney injury.",
+      "after": "59-year-old man with poorly controlled diabetes and septic physiology, rapidly progressive perineal pain out of proportion, necrosis, crepitus, and CT-demonstrated soft-tissue gas. Findings are consistent with Fournier gangrene and sepsis with hypoperfusion (hypotension, lactate 4.2 mmol/L) and acute kidney injury."
+    },
+    {
+      "caseId": "cd-001",
+      "path": "/modelNote/assessment",
+      "before": "61-year-old man with reproducible exertional substernal pressure relieved by rest, unchanged over three months. Exercise ECG reproduced symptoms with 1.5-mm horizontal ST depression in V4-V6, supporting chronic stable angina from obstructive coronary artery disease; no resting or unstable features are present.",
+      "after": "61-year-old man with reproducible exertional substernal pressure relieved by rest, unchanged over three months. Exercise ECG reproduced symptoms with 1.5-mm horizontal ST depression in V4-V6, supporting chronic stable angina with suspected obstructive coronary disease; coronary anatomy has not yet been demonstrated; no resting or unstable features are present."
+    },
+    {
+      "caseId": "cd-055",
+      "path": "/modelNote/plan",
+      "before": "Immediately restrict intense competitive sports and start a nonvasodilating beta-blocker. Refer urgently to a hypertrophic-cardiomyopathy and electrophysiology center for sudden-death risk stratification — including ambulatory ECG monitoring and cardiac MRI — and ICD evaluation, counsel hydration and avoidance of preload-reducing drugs, and screen all first-degree relatives with ECG and echocardiography with genetic counseling as appropriate.",
+      "after": "Pause intense competitive sports pending specialist evaluation and start a nonvasodilating beta-blocker. Refer urgently to a hypertrophic-cardiomyopathy and electrophysiology center for sudden-death risk stratification — including ambulatory ECG monitoring and cardiac MRI — and ICD evaluation, counsel hydration and avoidance of preload-reducing drugs, use shared decision-making about later exercise participation, and screen all first-degree relatives with ECG and echocardiography with genetic counseling as appropriate."
+    },
+    {
+      "caseId": "cd-061",
+      "path": "/modelNote/plan",
+      "before": "Obtain at least three blood-culture sets before antibiotics, then start IV vancomycin and narrow to culture results (an antistaphylococcal beta-lactam such as cefazolin for MSSA). Repeat blood cultures every 24–48 hours to document clearance and time the 4–6-week IV course from the first negative set. Obtain transthoracic echocardiography, followed by transesophageal echocardiography if nondiagnostic, admit for monitored IV therapy and complication surveillance, involve infectious disease and cardiology, follow up the pending fourth-generation HIV test and screen for hepatitis B and C, and offer addiction treatment and harm-reduction support.",
+      "after": "Admit for respiratory support, prompt cultures, IV antibiotics, and complication assessment. Include MRSA coverage while choosing the full empiric regimen with infectious disease input; narrow to an antistaphylococcal beta-lactam for confirmed MSSA when tolerated. Obtain TTE promptly, using TEE when indicated. Repeat cultures to establish clearance and individualize antibiotic duration and surgical assessment to the organism, valve findings, response, and complications. Follow pending HIV and hepatitis testing, and offer addiction treatment and harm-reduction support."
+    },
+    {
+      "caseId": "cd-019",
+      "path": "/modelNote/plan",
+      "before": "Treat in a monitored cardiac setting with aspirin and conservative management when coronary flow and hemodynamics are stable, avoiding unnecessary instrumentation; add beta-blockade, which is associated with lower SCAD recurrence, and control blood pressure. Revascularize with PCI or CABG if ongoing ischemia or instability develops. Arrange cardiac rehabilitation, screen for extracoronary fibromuscular dysplasia, and counsel about recurrence and future-pregnancy risk.",
+      "after": "Activate urgent repeat coronary assessment and revascularization planning with interventional cardiology and cardiac surgery because ischemia and hypotension have recurred. Continue monitored supportive care and avoid thrombolysis for known SCAD. After stabilization, individualize antiplatelet and other treatment to the intervention and clinical course; arrange rehabilitation, extracoronary vascular assessment, and specialist counseling about recurrence, breastfeeding-compatible medications, and future pregnancy."
+    },
+    {
+      "caseId": "cd-019",
+      "path": "/modelNote/assessment",
+      "before": "39-year-old woman three weeks postpartum with inferior STEMI, rising troponin, and no traditional atherosclerotic risk factors, consistent with pregnancy-associated spontaneous coronary artery dissection causing acute myocardial infarction.",
+      "after": "39-year-old woman three weeks postpartum with inferior STEMI and angiographic RCA dissection. Initially preserved coronary flow allowed monitored conservative management, but later recurrent ischemia and hypotension indicate deterioration requiring urgent reassessment."
+    },
+    {
+      "caseId": "nr-011",
+      "path": "/modelNote/plan",
+      "before": "Perform an Epley canalith-repositioning maneuver and repeat it if nystagmus persists. Avoid scheduled vestibular suppressants, provide fall precautions and a home repositioning program, and reassess within one month to confirm resolution, with imaging or further workup if symptoms become persistent, atypical, or accompanied by central neurologic findings.",
+      "after": "Repeat an appropriate Epley maneuver for the documented recurrence of right posterior-canal BPPV, after checking mobility and neck limitations. Avoid routine scheduled vestibular suppressants. Give fall advice and suitable home instructions, and reassess within one month; persistent, atypical, or central findings require further evaluation."
+    },
+    {
+      "caseId": "nr-025",
+      "path": "/modelNote/plan",
+      "before": "Defer antiseizure medication after an individualized recurrence-risk discussion given the normal MRI and EEG, and arrange prompt neurology follow-up. Enforce local driving restrictions and seizure precautions, including no swimming alone, unprotected heights, or sleep deprivation; provide return instructions for a recurrent or prolonged seizure.",
+      "after": "Discuss recurrence risk, benefits and adverse effects of medication, occupation, and the patient’s preferences with prompt neurology follow-up. Deferring medication is one reasonable option; normal tests do not eliminate recurrence risk. Give practical seizure precautions and applicable driving guidance, and clear return instructions for another or prolonged event."
+    },
+    {
+      "caseId": "nr-012",
+      "path": "/modelNote/plan",
+      "before": "Use antiemetics and vestibular suppressants as needed for no more than the first 72 hours, stopping them promptly, and begin mobilization and vestibular rehabilitation as soon as he can tolerate it; consider a short early corticosteroid course after contraindication review. Give stroke return precautions: return immediately for new weakness, numbness, double vision, slurred speech, trouble swallowing, severe headache, new hearing loss, or inability to stand or walk — with urgent MRI and stroke evaluation if any of these develop or the re-examination turns central (normal head impulse, direction-changing nystagmus, or skew).",
+      "after": "Provide brief symptom relief and early vestibular rehabilitation. Discuss uncertain steroid benefit. Reassess promptly for new neurologic or auditory findings, severe gait impairment, or other atypical evolution; activate stroke assessment when concern persists."
+    },
+    {
+      "caseId": "nr-012",
+      "path": "/modelNote/assessment",
+      "before": "45-year-old man with 18 hours of continuous acute vestibular syndrome after an upper respiratory infection. HINTS is peripheral, with an abnormal right head impulse, unidirectional left-beating nystagmus, and no skew; hearing is intact and no focal deficits are present, consistent with right vestibular neuritis.",
+      "after": "45-year-old man with 18 hours of continuous acute vestibular syndrome after an upper respiratory infection. HINTS by a trained examiner favors a peripheral pattern, with an abnormal right head impulse, unidirectional left-beating nystagmus, and no skew; hearing is intact and no focal deficits are present, consistent with right vestibular neuritis."
+    },
+    {
+      "caseId": "em-101",
+      "path": "/case/stages/0/options/0",
+      "before": "Request an EEG first, using the limb jerks to classify the event before reviewing the witness account",
+      "after": "Obtain a routine EEG and arrange a first-seizure clinic assessment"
+    },
+    {
+      "caseId": "em-101",
+      "path": "/case/stages/0/options/1",
+      "before": "Review the event with the witness, examine for concerning features and obtain a 12-lead ECG",
+      "after": "Review the witness account, examine her and obtain a 12-lead ECG"
+    },
+    {
+      "caseId": "em-101",
+      "path": "/case/stages/0/options/2",
+      "before": "Request brain imaging first, using a normal scan to establish a reflex cause for the collapse",
+      "after": "Obtain a head CT and observe for delayed neurologic symptoms"
+    },
+    {
+      "caseId": "em-101",
+      "path": "/case/stages/0/options/3",
+      "before": "Arrange an exercise test first, using age alone to decide that resting cardiac assessment can wait",
+      "after": "Obtain echocardiography and arrange an exercise tolerance test"
+    },
+    {
+      "caseId": "em-101",
+      "path": "/case/stages/2/options/0",
+      "before": "An epileptic seizure, established by the presence of any limb movement",
+      "after": "First epileptic seizure with bilateral motor activity"
+    },
+    {
+      "caseId": "em-101",
+      "path": "/case/stages/2/options/1",
+      "before": "A ventricular arrhythmia, established by the brief loss of consciousness",
+      "after": "Arrhythmic syncope from an intermittent tachyarrhythmia"
+    },
+    {
+      "caseId": "em-101",
+      "path": "/case/stages/2/options/2",
+      "before": "An uncomplicated vasovagal faint with brief associated jerking",
+      "after": "Vasovagal syncope with brief associated jerking"
+    },
+    {
+      "caseId": "em-101",
+      "path": "/case/stages/2/options/3",
+      "before": "Postural hypotension, established by being upright before the event",
+      "after": "Postural hypotension related to reduced circulating volume"
+    },
+    {
+      "caseId": "em-101",
+      "path": "/case/stages/3/options/0",
+      "before": "Explain likely triggers and recurrence precautions, document the event and arrange appropriate follow-up",
+      "after": "Explain triggers, recurrence precautions and appropriate follow-up"
+    },
+    {
+      "caseId": "em-101",
+      "path": "/case/stages/3/options/1",
+      "before": "Begin antiseizure treatment based on the witnessed jerks and postpone discussion of the trigger",
+      "after": "Arrange first-seizure assessment and EEG before deciding on follow-up"
+    },
+    {
+      "caseId": "em-101",
+      "path": "/case/stages/3/options/2",
+      "before": "Use a routine EEG result as the requirement for all discharge decisions after this typical event",
+      "after": "Arrange tilt testing to confirm the mechanism before giving trigger advice"
+    },
+    {
+      "caseId": "em-101",
+      "path": "/case/stages/3/options/3",
+      "before": "Reassure her that the normal resting ECG excludes every future cause of loss of consciousness",
+      "after": "Arrange ambulatory rhythm monitoring and defer counseling until results"
+    },
+    {
+      "caseId": "cd-101",
+      "path": "/case/stages/0/options/0",
+      "before": "Repeat seated pressure several times without asking whether symptoms occur after standing",
+      "after": "Measure seated BP at repeated visits and compare it with home readings"
+    },
+    {
+      "caseId": "cd-101",
+      "path": "/case/stages/0/options/1",
+      "before": "Use the lying pressure alone because it is above the usual hypertension treatment target",
+      "after": "Measure lying BP in both arms and use the higher reading for interpretation"
+    },
+    {
+      "caseId": "cd-101",
+      "path": "/case/stages/0/options/2",
+      "before": "Measure pressure lying and after at least one minute of supported standing, recording symptoms",
+      "after": "Measure lying BP and BP after at least one minute standing, with symptoms"
+    },
+    {
+      "caseId": "cd-101",
+      "path": "/case/stages/0/options/3",
+      "before": "Compare pulse oximetry before and after standing as a substitute for blood-pressure measurement",
+      "after": "Measure heart rate and oxygen saturation during a supported standing test"
+    },
+    {
+      "caseId": "cd-101",
+      "path": "/case/stages/2/options/0",
+      "before": "Symptomatic postural hypotension, with medication and intake as possible contributors",
+      "after": "Symptomatic postural hypotension with potentially reversible contributors"
+    },
+    {
+      "caseId": "cd-101",
+      "path": "/case/stages/2/options/1",
+      "before": "A proven primary autonomic disorder, because all posture-related symptoms have one cause",
+      "after": "Primary autonomic failure causing neurogenic postural hypotension"
+    },
+    {
+      "caseId": "cd-101",
+      "path": "/case/stages/2/options/2",
+      "before": "Sustained ventricular tachycardia, because a normal resting ECG confirms intermittent rhythm events",
+      "after": "Intermittent ventricular tachyarrhythmia causing recurrent presyncope"
+    },
+    {
+      "caseId": "cd-101",
+      "path": "/case/stages/2/options/3",
+      "before": "An uncomplicated vasovagal faint, established solely by the absence of chest pain",
+      "after": "Reflex syncope triggered by prolonged standing in a warm environment"
+    },
+    {
+      "caseId": "cd-101",
+      "path": "/case/stages/3/options/0",
+      "before": "Intensify all antihypertensive medication using only the lying pressure, ignoring standing symptoms",
+      "after": "Adjust hypertension therapy toward the lying BP target and review seated home readings"
+    },
+    {
+      "caseId": "cd-101",
+      "path": "/case/stages/3/options/1",
+      "before": "Prescribe salt loading to every patient with this finding before considering comorbid conditions",
+      "after": "Arrange autonomic function testing before changing any current medication"
+    },
+    {
+      "caseId": "cd-101",
+      "path": "/case/stages/3/options/2",
+      "before": "Label autonomic failure now and omit a review of the new medication and reduced intake",
+      "after": "Monitor home pressure for four weeks before assessing the new symptoms"
+    },
+    {
+      "caseId": "cd-101",
+      "path": "/case/stages/3/options/3",
+      "before": "Review drugs and volume status, address contributors, reduce fall risk and reassess standing BP",
+      "after": "Review medication and volume status, reduce fall risk and recheck standing BP"
+    },
+    {
+      "caseId": "cd-101",
+      "path": "/case/stages/5/options/0",
+      "before": "Close the assessment because the initial blood-pressure fall already explained every future symptom",
+      "after": "Continue the same plan and review symptoms at the next annual hypertension visit"
+    },
+    {
+      "caseId": "cd-101",
+      "path": "/case/stages/5/options/1",
+      "before": "Reassess likely causes and consider specialist evaluation for the persistent symptoms",
+      "after": "Reassess causes and consider specialist evaluation"
+    },
+    {
+      "caseId": "cd-101",
+      "path": "/case/stages/5/options/2",
+      "before": "Infer that the initial measurements were fabricated because symptoms did not fully resolve",
+      "after": "Attribute the remaining episodes to reflex syncope and arrange tilt testing"
+    },
+    {
+      "caseId": "cd-101",
+      "path": "/case/stages/5/options/3",
+      "before": "Choose a permanent neurologic diagnosis from the blood-pressure readings alone",
+      "after": "Treat the pressure fall as primary autonomic failure and begin disease-specific therapy"
+    },
+    {
+      "caseId": "nr-101",
+      "path": "/case/stages/0/options/0",
+      "before": "Classify generalized epilepsy from the bilateral movements alone and omit the cardiac assessment",
+      "after": "Request outpatient MRI and classify the episode from the convulsive pattern"
+    },
+    {
+      "caseId": "nr-101",
+      "path": "/case/stages/0/options/1",
+      "before": "Use a normal current neurologic examination as proof that no seizure occurred",
+      "after": "Observe for another event before investigating the recovered patient"
+    },
+    {
+      "caseId": "nr-101",
+      "path": "/case/stages/0/options/2",
+      "before": "Request a routine EEG as the only investigation and treat its result as a definitive exclusion test",
+      "after": "Request an urgent EEG and defer the remaining assessment until it is reported"
+    },
+    {
+      "caseId": "nr-101",
+      "path": "/case/stages/0/options/3",
+      "before": "Review the witness account, examine her, check metabolic factors and obtain a 12-lead ECG",
+      "after": "Review the witness account, examine her, check metabolic factors and obtain an ECG"
+    },
+    {
+      "caseId": "nr-101",
+      "path": "/case/stages/2/options/0",
+      "before": "An uncomplicated faint, because normal vital signs afterward settle the event’s mechanism",
+      "after": "Reflex syncope with associated convulsive movements"
+    },
+    {
+      "caseId": "nr-101",
+      "path": "/case/stages/2/options/1",
+      "before": "A first suspected epileptic seizure, with onset and underlying cause not yet classified",
+      "after": "First suspected epileptic seizure with onset and cause unclassified"
+    },
+    {
+      "caseId": "nr-101",
+      "path": "/case/stages/2/options/2",
+      "before": "A specific generalized epilepsy syndrome, established by one bilateral convulsive episode",
+      "after": "First generalized-onset tonic-clonic seizure in a generalized epilepsy syndrome"
+    },
+    {
+      "caseId": "nr-101",
+      "path": "/case/stages/2/options/3",
+      "before": "A psychogenic event, established by the absence of a metabolic abnormality",
+      "after": "Functional seizure requiring assessment by a specialist in nonepileptic events"
+    },
+    {
+      "caseId": "nr-101",
+      "path": "/case/stages/3/options/0",
+      "before": "Wait for a second event before arranging any specialist assessment or safety discussion",
+      "after": "Provide safety advice and request specialist review if another event occurs"
+    },
+    {
+      "caseId": "nr-101",
+      "path": "/case/stages/3/options/1",
+      "before": "Issue an unconditional all-clear because the initial ECG and metabolic findings are reassuring",
+      "after": "Arrange a routine outpatient EEG, then decide whether specialist referral is needed"
+    },
+    {
+      "caseId": "nr-101",
+      "path": "/case/stages/3/options/2",
+      "before": "Arrange urgent first-seizure specialist assessment, provide interim safety advice and plan indicated testing",
+      "after": "Arrange urgent first-seizure assessment with interim safety advice and indicated tests"
+    },
+    {
+      "caseId": "nr-101",
+      "path": "/case/stages/3/options/3",
+      "before": "Choose a permanent antiseizure regimen solely from the partner’s estimate of the episode length",
+      "after": "Start maintenance antiseizure treatment and arrange routine follow-up after titration"
+    },
+    {
+      "caseId": "nr-101",
+      "path": "/case/stages/5/options/0",
+      "before": "It does not exclude epilepsy; continue interpreting the event and any further testing in clinical context",
+      "after": "Epilepsy remains possible; interpret the EEG with the history and further assessment"
+    },
+    {
+      "caseId": "nr-101",
+      "path": "/case/stages/5/options/1",
+      "before": "It proves that the witnessed event was a vasovagal faint rather than a seizure",
+      "after": "Reflex syncope becomes the leading diagnosis; redirect follow-up to cardiovascular assessment"
+    },
+    {
+      "caseId": "nr-101",
+      "path": "/case/stages/5/options/2",
+      "before": "It proves that no later seizure can occur, so interim safety advice can be withdrawn automatically",
+      "after": "Recurrence risk is now low enough to withdraw the interim activity precautions"
+    },
+    {
+      "caseId": "nr-101",
+      "path": "/case/stages/5/options/3",
+      "before": "It establishes a functional diagnosis without further history or specialist assessment",
+      "after": "A functional seizure becomes the leading diagnosis; arrange psychological assessment"
+    },
+    {
+      "caseId": "nr-012",
+      "path": "/modelNote/assessment",
+      "before": "45-year-old man with 18 hours of continuous acute vestibular syndrome after an upper respiratory infection. HINTS by a trained examiner favors a peripheral pattern, with an abnormal right head impulse, unidirectional left-beating nystagmus, and no skew; hearing is intact and no focal deficits are present, consistent with right vestibular neuritis.",
+      "after": "45-year-old man with 18 hours of continuous acute vestibular syndrome. HINTS by a trained examiner favors a peripheral pattern, with an abnormal right head impulse, unidirectional left-beating nystagmus, and no skew; hearing is intact and no focal deficits are present, consistent with right vestibular neuritis."
+    },
+    {
+      "caseId": "cd-020",
+      "path": "/case/chiefComplaint",
+      "before": "Recurrent episodes of chest pain at rest with a positive troponin but no blockages found on catheterization.",
+      "after": "Recurrent episodes of chest pain at rest with a positive troponin but no obstructive disease found on catheterization."
+    },
+    {
+      "caseId": "cd-020",
+      "path": "/case/history",
+      "before": "A 47-year-old woman is admitted after recurrent episodes of substernal chest pain, several occurring at rest and a few in the early morning hours. One prolonged episode prompted ED evaluation, where troponin was elevated and the ECG showed transient ST changes that resolved. She underwent coronary angiography that revealed no obstructive coronary disease. She has migraines and Raynaud phenomenon. She is a current smoker. She denies cocaine use. PMH: migraine with aura, Raynaud phenomenon, anxiety. Medications: combined estrogen-progestin oral contraceptive pill, sumatriptan PRN for migraines, no regular cardiac medications. Allergies: none. Social: current smoker (one pack daily for 25 years), social alcohol, denies illicit drugs. Family history: mother with coronary disease in her 60s. Review of systems notable for episodic chest pain that sometimes wakes her from sleep and resolves spontaneously within 15 minutes. The combination of rest/nocturnal angina, smoking, migraine, and Raynaud raises suspicion for a vasomotor coronary disorder despite angiographically normal vessels.",
+      "after": "A 47-year-old woman is admitted after recurrent episodes of substernal chest pain, several occurring at rest and a few in the early morning hours. One prolonged episode prompted ED evaluation, where troponin was elevated and the ECG showed transient ST changes that resolved. She underwent coronary angiography that revealed no obstructive coronary disease. She has migraines and Raynaud phenomenon. She is a current smoker. She denies cocaine use. PMH: migraine with aura, Raynaud phenomenon, anxiety. Medications: combined estrogen-progestin oral contraceptive pill, sumatriptan PRN for migraines, no regular cardiac medications. Allergies: none. Social: current smoker (one pack daily for 25 years), social alcohol, denies illicit drugs. Family history: mother with coronary disease in her 60s. Review of systems notable for episodic chest pain that sometimes wakes her from sleep and resolves spontaneously within 15 minutes. The combination of rest/nocturnal angina, smoking, migraine, and Raynaud raises suspicion for a vasomotor coronary disorder despite non-obstructive coronary arteries."
+    },
+    {
+      "caseId": "cd-101",
+      "path": "/case/stages/3/explanation",
+      "before": "Management should respond to symptoms and likely contributors, with an individualized medication and volume assessment. Universal drug changes or fluid/salt instructions ignore comorbidity and uncertainty. Standing follow-up measurements help assess the response.",
+      "after": "Management should respond to symptoms and likely contributors, with an individualized medication and volume assessment. Adjusting therapy toward the lying pressure target alone leaves the symptomatic standing fall unaddressed; autonomic testing before any medication review, or four weeks of home monitoring, defers action on the reversible contributors already identified. Standing follow-up measurements help assess the response."
+    }
+  ]
+}

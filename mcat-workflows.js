@@ -3,7 +3,7 @@ let experimentNotes = null;
 async function loadExperimentNotes() {
   if (experimentNotes) return;
   try {
-    const response = await fetch('data/mcat-experiments.json?v=2');
+    const response = await fetch('data/mcat-experiments.json?v=4');
     if (response.ok) experimentNotes = await response.json();
   } catch { /* The notebook remains usable without model notes. */ }
 }
@@ -130,9 +130,18 @@ function studyLaunchTask(task, plan) {
   if (task.type === 'course') { const record=courseRecord(task.unitId);record.guideTask=task;plan.active=task;studyTouch(plan);saveCourse();renderCourseUnit(task.unitId,task.courseKind==='review'?'learn':undefined);return; }
   if (task.type === 'examReview') { plan.active=task;studyTouch(plan);courseOpenExam(task.examId);return; }
   if (task.type === 'repair') {
-    const concept = repairConcept(task.conceptId || repairState?.active?.conceptId);
+    const concept = repairData && repairState ? repairConcept(task.conceptId || repairState.active?.conceptId) : null;
     if (!concept) return renderRepairHub();
-    if (!repairState.active) McatRepairCore.begin(concept, repairState, task.repairKind || 'repair', nowTs());
+    const active = repairState.active;
+    // A task never attaches to a saved session for a different concept; the hub explains finishing that first.
+    if (active && active.conceptId !== concept.id) return renderRepairHub();
+    if (!active && !McatRepairCore.begin(concept, repairState, task.repairKind || 'repair', nowTs())) {
+      // The scheduled check is no longer available: it was already taken today, or the schedule moved on.
+      const today = guideDateKey();
+      const checkedToday = (repairState.records[concept.id]?.attempts || []).some(a => a.mode !== 'diagnose' && guideDateKey(new Date(a.at)) === today);
+      if (checkedToday) studyCompleteRepair({ guideTask: task }); else studyDailySession(plan, plan.dailyMinutes || 30);
+      return renderGuide();
+    }
     repairState.active.guideTask = task;
     plan.active = task; studyTouch(plan); saveMcatRepair(); renderRepairSession(); return;
   }
@@ -200,33 +209,36 @@ function studyLogAttempt(run, kind) {
   }
 }
 function studySaveReport(kind, run) {
-  const reports = McatStorage.read('cs-mcat-passage-reviews',{});
-  const copy = { ...run, passageId:run.p.id, results:run.results.map(r => ({...r,q:r.q.id})) };
+  const reports = StudyStorage.read('cs-mcat-passage-reviews',{});
+  const copy = { ...run, passageId:run.p.id, content:JSON.parse(JSON.stringify(run.p)), results:run.results.map(r => ({...r,q:r.q.id})) };
   delete copy.p; delete copy.timerId; delete copy.deadline;
   reports[`${kind}:${run.p.id}`] = copy;
-  return McatStorage.write('cs-mcat-passage-reviews',reports);
+  return StudyStorage.write('cs-mcat-passage-reviews',reports);
 }
 function studyReportButton(kind, main) {
-  const reports = Object.entries(McatStorage.read('cs-mcat-passage-reviews',{})).filter(([key]) => key.startsWith(kind+':'));
+  const reports = Object.entries(StudyStorage.read('cs-mcat-passage-reviews',{})).filter(([key]) => key.startsWith(kind+':'));
   const report = reports.map(([,v]) => v).sort((a,b) => b.attemptEndedAt-a.attemptEndedAt)[0];
   if (!report) return;
-  const p = (kind === 'cars' ? MCAT.cars : MCAT.sci).find(p => p.id === report.passageId);
+  const p = report.content || (kind === 'cars' ? MCAT.cars : MCAT.sci).find(p => p.id === report.passageId);
   if (!p) return;
   const button = el('<button class="btn">Open last review</button>');
   const open = (saved,passage) => {
-    const run = { ...saved, p:passage, archived:true, results:saved.results.map(r => ({...r,q:passage.questions.find(q => q.id === r.q)})) };
+    const run = { ...saved, p:passage, archived:true, sourceSnapshotMissing:!!saved.sourceSnapshotMissing || !saved.content, results:saved.results.map(r => ({...r,q:passage.questions.find(q => q.id === r.q)})) };
     if (kind === 'cars') { cars = run; renderCarsReviewResult(); } else { plab = run; finishPassage(); }
   };
   button.onclick=() => open(report,p);
   main.querySelector('.endbtns').prepend(button);
   const history=el('<details class="guide-schedule"><summary><span><strong>Saved passage reviews</strong><small>Your most recent review for each passage</small></span><i>Open</i></summary><div class="rows"></div></details>');
   reports.map(([,r]) => r).sort((a,b) => b.attemptEndedAt-a.attemptEndedAt).forEach(r => {
-    const passage=(kind === 'cars' ? MCAT.cars : MCAT.sci).find(p => p.id === r.passageId);
+    const passage=r.content || (kind === 'cars' ? MCAT.cars : MCAT.sci).find(p => p.id === r.passageId);
     if (!passage) return;
     const row=el(`<button class="row"><span class="row-main"><span class="row-title">${esc(passage.title)}</span><span class="row-when">${new Date(r.attemptEndedAt).toLocaleDateString()}</span></span><span class="row-right">Review →</span></button>`);
     row.onclick=() => open(r,passage); history.querySelector('.rows').appendChild(row);
   });
   main.appendChild(history);
+}
+function studyLegacyReviewNotice(main,run) {
+  if (run.sourceSnapshotMissing) main.prepend(el('<p class="course-notice">This older report kept answer choices but not its original question text. Current wording is shown and may have changed. The saved results are unchanged.</p>'));
 }
 function studySetView(root) {
   if(typeof v2TrackView==='function')v2TrackView(root);
@@ -277,6 +289,7 @@ function beginCarsBlindReview() {
   saveResume('cars',cars); renderCarsBlindReview();
 }
 function renderCarsBlindReview() {
+  if(window.McatRehearsal && !window.McatRehearsal.allow({passageId:cars.p.id},renderCarsBlindReview,renderCarsHome))return;
   const order = cars.reviewOrder, index = order[cars.reviewIdx];
   if (index == null) { cars.phase='done'; saveResume('cars',cars); renderCarsReviewResult(); return; }
   const r = cars.results[index], q = r.q;
@@ -310,6 +323,7 @@ function renderCarsBlindReview() {
   studyWirePassageExit(root,'cars',cars,renderCarsHome); update(); studySetView(root);
 }
 function renderCarsReviewResult() {
+  if(window.McatRehearsal && !window.McatRehearsal.allow({passageId:cars.p.id},renderCarsReviewResult,renderCarsHome))return;
   if (!cars.archived) {
     studyLogAttempt(cars,'cars'); cars.guided ||= guideCompleteActiveTask('cars');
     studySaveReport('cars',cars); clearResume('cars');
@@ -328,6 +342,7 @@ function renderCarsReviewResult() {
     <div class="drill-review">${cars.results.map((r,i) => { const d=cars.reviews?.[r.q.id]; return `<details class="rev"><summary>Q${i+1} · ${SKILL_LABEL[r.q.skill]} · ${r.correct ? 'Correct first pass' : r.unanswered ? 'Unanswered first pass' : 'Missed first pass'}</summary><div class="rev-body"><p>Original: ${r.chosen == null ? 'Unanswered' : McatV2Core.optionLabel(r.q,r.chosen)} · Review: ${d?.reviewed ? McatV2Core.optionLabel(r.q,d.chosen) : 'Skipped'} · Correct: <b>${McatV2Core.optionLabel(r.q,r.q.answer)}</b></p><p>${esc(r.q.stem)}</p>${d?.reviewed ? `<blockquote>${esc(d.rationale)}</blockquote>${d.evidence.map(n => `<p class="study-quote">“${esc(sentences[n] || '')}”</p>`).join('')}` : ''}<p><b>Explanation</b> · ${esc(r.q.explanation)}</p>${courseRelatedLinks(r.q.id)}</div></details>`; }).join('')}</div>
     <div class="endbtns"><button class="btn btn-solid" id="review-plan">Back to my MCAT plan →</button><button class="btn" id="review-passages">Back to passages</button></div></main>`);
   main.querySelector('#review-plan').onclick=renderMCATEntry; main.querySelector('#review-passages').onclick=renderCarsHome;
+  studyLegacyReviewNotice(main,cars);
   root.appendChild(main); studySetView(root); window.scrollTo(0,0);
 }
 
@@ -340,8 +355,15 @@ const EXPERIMENT_FIELDS = [
   ['conclusion','Supported conclusion','Use a specific result. Separate what the data show from a proposed mechanism.'],
   ['limitation','Limit or alternative explanation','What cannot be concluded from this design or sample?']
 ];
-function experimentGraph(p) {
-  const graph=experimentNotes?.[p.id]?.graph;
+function experimentModel(run) {
+  if (!Object.prototype.hasOwnProperty.call(run, 'experimentModel')) {
+    const model=experimentNotes?.[run.p.id];
+    run.experimentModel=model ? JSON.parse(JSON.stringify(model)) : null;
+  }
+  return run.experimentModel;
+}
+function experimentGraph(p, model=experimentNotes?.[p.id]) {
+  const graph=model?.graph;
   if (!graph) return '';
   const rows=p.table.rows, xs=rows.map(r => Number(r[graph.xColumn]));
   const series=graph.series.map(s => ({...s,ys:rows.map(r => Number(r[s.column]))}));
@@ -351,10 +373,11 @@ function experimentGraph(p) {
   return `<figure class="study-graph"><svg viewBox="0 0 430 265" role="img" aria-label="${esc(graph.description)}"><title>${esc(graph.description)}</title><path d="M52 35V205H390" fill="none" stroke="#677786"/>${[0,.5,1].map(f => `<text x="46" y="${y(maxY*f)+4}" text-anchor="end" font-size="11">${Number((maxY*f).toFixed(1))}</text><path d="M52 ${y(maxY*f)}H390" stroke="#dae2eb"/>`).join('')}${xs.map(v => `<text x="${x(v)}" y="223" text-anchor="middle" font-size="11">${v}</text>`).join('')}${series.map((s,i) => `<path d="${s.ys.map((v,j) => `${j ? 'L' : 'M'}${x(xs[j])},${y(v)}`).join(' ')}" fill="none" stroke="${colors[i]}" stroke-width="2.5" ${i ? 'stroke-dasharray="5 4"' : ''}/>${s.ys.map((v,j) => `<circle cx="${x(xs[j])}" cy="${y(v)}" r="3" fill="${colors[i]}"/>`).join('')}`).join('')}<text x="52" y="18" font-size="12">${esc(graph.yLabel)}</text><text x="220" y="247" text-anchor="middle" font-size="12">${esc(graph.xLabel)}</text></svg><figcaption>${series.map((s,i) => `${i ? 'Dashed' : 'Solid'}: ${esc(s.label)}`).join(' · ')}. Points come directly from the passage table; connecting lines are guides.</figcaption></figure>`;
 }
 function renderExperimentNotebook() {
+  if(window.McatRehearsal && !window.McatRehearsal.allow({passageId:plab.p.id},renderExperimentNotebook,renderPassageHome))return;
   plab.phase='analysis'; plab.analysis ||= {};
-  const p=plab.p, model=experimentNotes?.[p.id];
+  const p=plab.p, model=experimentModel(plab);
   const root=el(`<div>${mcatTaskHeader(['Science','Experiment notebook'],'<span class="topstat">Untimed</span>')}<main class="cars-stage study-review-stage">
-    <section>${passageBody(p.title,p.text,p.table,p.contentNote)}${experimentGraph(p)}</section>
+    <section>${passageBody(p.title,p.text,p.table,p.contentNote,p.sources)}${experimentGraph(p,model)}</section>
     <section class="cars-q"><span class="label">Before the answer key</span><h1 class="study-question-heading">Map the experiment.</h1><p class="study-instruction">Keep it brief. Your notes save as you write. Use “not applicable” when a variable or control is absent.</p>
     ${EXPERIMENT_FIELDS.map(([id,label,hint]) => `<label class="study-field">${label}<small>${hint}</small><textarea data-experiment="${id}" rows="2" maxlength="1800">${esc(plab.analysis[id] || '')}</textarea></label>`).join('')}
     ${model?.graph ? `<label class="study-field">Read the graph<small>${esc(model.graph.prompt)}</small><textarea data-experiment="graph" rows="3" maxlength="1800">${esc(plab.analysis.graph || '')}</textarea></label>` : ''}
@@ -362,17 +385,17 @@ function renderExperimentNotebook() {
   const next=root.querySelector('#experiment-reveal');
   const save=() => { next.disabled=!EXPERIMENT_FIELDS.every(([id]) => plab.analysis[id]?.trim()) || !!(model?.graph && !plab.analysis.graph?.trim()); saveResume('plab',plab); };
   root.querySelectorAll('[data-experiment]').forEach(input => input.oninput=() => { plab.analysis[input.dataset.experiment]=input.value; save(); });
-  next.onclick=() => { plab.analysisSkipped=false; plab.phase='done'; saveResume('plab',plab); finishPassage(); };
-  root.querySelector('#experiment-skip').onclick=() => { plab.analysisSkipped=true; plab.phase='done'; saveResume('plab',plab); finishPassage(); };
+  next.onclick=() => { if (StudyStorage.paused || next.disabled || plab.phase==='done') return; plab.analysisSkipped=false; plab.phase='done'; saveResume('plab',plab); finishPassage(); };
+  root.querySelector('#experiment-skip').onclick=() => { if (StudyStorage.paused || plab.phase==='done') return; plab.analysisSkipped=true; plab.phase='done'; saveResume('plab',plab); finishPassage(); };
   root.querySelector('.cars-passage').setAttribute('tabindex','0');
   root.querySelector('.cars-passage').setAttribute('aria-label','Science passage and data table');
   studyWirePassageExit(root,'plab',plab,renderPassageHome); save(); studySetView(root); window.scrollTo(0,0);
 }
 function experimentComparison(run) {
-  const model=experimentNotes?.[run.p.id];
+  const model=experimentModel(run);
   return `<section class="experiment-comparison"><h2>Your experiment notebook</h2><p class="repair-fine">${run.analysisSkipped ? 'Notebook skipped. Any draft notes are preserved below.' : 'Compare the reasoning, rather than matching exact wording. This notebook has no automated score.'}</p>
     ${EXPERIMENT_FIELDS.map(([id,label]) => `<details class="rev"><summary>${label}</summary><div class="rev-body"><span class="label">Your note</span><p>${esc(run.analysis?.[id] || 'No note saved.')}</p><span class="label">Model note</span><p>${esc(model?.[id] || 'Model notes are unavailable. Recheck this point against the passage and its answer explanations.')}</p></div></details>`).join('')}
-    ${model?.graph ? `<details class="rev"><summary>Graph interpretation</summary><div class="rev-body">${experimentGraph(run.p)}<p>${esc(model.graph.prompt)}</p><blockquote>${esc(run.analysis?.graph || 'No note saved.')}</blockquote><p>${esc(model.graph.answer)}</p></div></details>` : ''}
+    ${model?.graph ? `<details class="rev"><summary>Graph interpretation</summary><div class="rev-body">${experimentGraph(run.p,model)}<p>${esc(model.graph.prompt)}</p><blockquote>${esc(run.analysis?.graph || 'No note saved.')}</blockquote><p>${esc(model.graph.answer)}</p></div></details>` : ''}
     <p class="repair-fine">Model notes interpret this original practice passage. They are examples for self-review, not an official AAMC answer key.</p></section>`;
 }
 

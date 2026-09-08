@@ -11,7 +11,7 @@ async function loadMcatRepairs() {
       const data = await response.json();
       if (data.version !== 1 || !Array.isArray(data.concepts) || !data.concepts.length) throw new Error('Invalid repair lessons');
       repairData = data;
-      repairState = McatRepairCore.normalize(McatStorage.read(REPAIR_KEY, null), repairData.concepts);
+      repairState = McatRepairCore.normalize(StudyStorage.read(REPAIR_KEY, null), repairData.concepts);
       return true;
     } catch { return false; }
     finally { repairLoading = null; }
@@ -19,7 +19,8 @@ async function loadMcatRepairs() {
   return repairLoading;
 }
 function saveMcatRepair() {
-  repairSaveFailed=!McatStorage.watch(REPAIR_KEY,()=>repairState).save(repairState);
+  if (!repairState) return false; // Nothing loaded: never replace saved records with an empty write.
+  repairSaveFailed=!StudyStorage.watch(REPAIR_KEY,()=>repairState).save(repairState);
   return !repairSaveFailed;
 }
 function setRepairView(root) {
@@ -45,10 +46,11 @@ function mountRepairDashboard(host, showEvidence = true) {
     return;
   }
   const recommendation=McatRepairCore.recommend(repairData.concepts,repairState,QLOG,Date.now());
+  const exhausted=!repairData.concepts.some(c=>McatRepairCore.unseenChecks(c,repairState).length);
   host.innerHTML=`<section class="repair-priority" aria-label="Your next concept session">
-    <span class="label">${recommendation?.resume ? 'Session in progress' : recommendation?.kind === 'later' ? 'Check it again' : 'Five-minute focus'}</span>
-    <h2>${recommendation ? esc(recommendation.concept.title) : 'Your next checks are scheduled.'}</h2>
-    <p>${recommendation ? esc(recommendation.reason) : 'Keep following your study plan. Later checks will appear here when they are due.'}</p>
+    <span class="label">${recommendation?.resume ? 'Session in progress' : recommendation?.kind === 'later' ? 'Check it again' : exhausted && !recommendation ? 'Review & practice' : 'Five-minute focus'}</span>
+    <h2>${recommendation ? esc(recommendation.concept.title) : exhausted ? 'All authored applications have been seen.' : 'Your next checks are scheduled.'}</h2>
+    <p>${recommendation ? esc(recommendation.reason) : exhausted ? 'You can revisit any concept in the library. Further questions will be labeled as repeat practice.' : 'Keep following your study plan. Later checks will appear here when they are due.'}</p>
     <div class="repair-actions">${recommendation ? `<button class="btn btn-solid" data-repair-start>${recommendation.resume ? 'Continue session' : recommendation.kind === 'later' ? 'Start later check' : 'Start 5-minute session'} →</button>` : ''}<button class="ghostbtn" data-repair-library>All 10 concepts &amp; evidence</button></div>
     </section>${showEvidence ? repairStatsMarkup() : ''}`;
   host.querySelector('[data-repair-start]')?.addEventListener('click',() => launchRepairRecommendation(recommendation));
@@ -99,7 +101,7 @@ function repairVisual(c) {
     const curve = km => Array.from({length:81},(_,i) => { const x=i/4; return `${i?'L':'M'}${40+15*x},${175-130*x/(km+x)}`; }).join(' ');
     return `<figure class="repair-figure"><svg viewBox="0 0 410 235" role="img" aria-labelledby="repair-curve-title repair-curve-desc"><title id="repair-curve-title">Competitive inhibition shifts the curve right</title><desc id="repair-curve-desc">Both curves approach the same maximum rate. With competitive inhibitor, more substrate is required to reach half that rate. Curves are illustrative.</desc><path d="M40 30V175H345" fill="none" stroke="#657181"/><path d="M40 45H345 M40 110H345" stroke="#b6c1cd" stroke-dasharray="4 4"/><path d="${curve(2)}" fill="none" stroke="#17212d" stroke-width="3"/><path d="${curve(6)}" fill="none" stroke="#0b5cad" stroke-width="3"/><text x="350" y="48" font-size="12">Vmax</text><text x="347" y="114" font-size="11">½ Vmax</text><text x="40" y="20" font-size="13">Rate</text><text x="124" y="198" font-size="13">Substrate concentration →</text><path d="M43 220H65" stroke="#17212d" stroke-width="3"/><text x="72" y="224" font-size="12">No inhibitor</text><path d="M201 220H223" stroke="#0b5cad" stroke-width="3"/><text x="230" y="224" font-size="12">Competitive inhibitor</text></svg><figcaption>Same plateau. More substrate needed for the same rate below that plateau. Illustrative curves.</figcaption></figure>`;
   }
-  if (c.id === 'operant-conditioning') return `<div class="repair-table-wrap"><table class="repair-table"><caption>Classify by the observed change in behavior</caption><thead><tr><th scope="col">Consequence</th><th scope="col">Behavior increases</th><th scope="col">Behavior decreases</th></tr></thead><tbody><tr><th scope="row">Added</th><td>Positive reinforcement</td><td>Positive punishment</td></tr><tr><th scope="row">Removed</th><td>Negative reinforcement</td><td>Negative punishment</td></tr></tbody></table></div>`;
+  if (c.id === 'operant-conditioning') return `<div class="repair-table-wrap"><table class="repair-table repair-consequence-table"><caption>Classify by the observed change in behavior</caption><thead><tr><th scope="col">Change</th><th scope="col">Behavior increases</th><th scope="col">Behavior decreases</th></tr></thead><tbody><tr><th scope="row">Added</th><td>Positive reinforcement</td><td>Positive punishment</td></tr><tr><th scope="row">Removed</th><td>Negative reinforcement</td><td>Negative punishment</td></tr></tbody></table></div>`;
   if (c.id === 'inheritance') return `<div class="repair-table-wrap"><table class="repair-table"><caption>Aa × Aa: each cell has probability 1/4</caption><thead><tr><th scope="col">Gametes</th><th scope="col">A</th><th scope="col">a</th></tr></thead><tbody><tr><th scope="row">A</th><td>AA · unaffected</td><td>Aa · carrier</td></tr><tr><th scope="row">a</th><td>Aa · carrier</td><td>aa · affected</td></tr></tbody></table></div>`;
   return '';
 }
@@ -108,7 +110,7 @@ function repairLessonMarkup(c) {
     ${repairVisual(c)}<ol class="repair-map" aria-label="Concept map">${c.diagram.map(x => `<li>${esc(x)}</li>`).join('')}</ol>
     <aside class="repair-distinction"><strong>Keep this distinction</strong><p>${esc(c.distinction)}</p></aside>
     <p class="repair-source">Concept reference: <a href="${esc(c.source.url)}" target="_blank" rel="noopener">${esc(c.source.title)}</a>${(c.additionalSources || []).map(source => ` · <a href="${esc(source.url)}" target="_blank" rel="noopener">${esc(source.title)}</a>`).join('')}. Original Cortex questions.</p>
-    <button class="btn btn-solid" id="repair-next">${repairState.active.lessonAfterCheck ? 'See session result' : repairState.active.kind==='practice' ? 'Practice a seen question' : 'Try a different question'} →</button></section>`;
+    <button class="btn btn-solid" id="repair-next">${repairState.active.lessonAfterCheck ? 'See session result' : repairState.active.kind==='practice' || repairState.records[c.id]?.dueAt > Date.now() ? 'Practice a seen question' : 'Try a different question'} →</button></section>`;
 }
 function renderRepairSession() {
   const a=repairState?.active, c=repairConcept(a?.conceptId);
@@ -120,7 +122,7 @@ function renderRepairSession() {
   const stage=main.querySelector('#repair-stage');
   if (a.phase==='lesson') {
     stage.innerHTML=repairLessonMarkup(c);
-    stage.querySelector('#repair-next').onclick=() => { if(a.lessonAfterCheck){a.phase='done';a.lessonAfterCheck=false;}else McatRepairCore.afterLesson(c,repairState); saveMcatRepair();renderRepairSession(); };
+    stage.querySelector('#repair-next').onclick=() => { if(a.lessonAfterCheck){a.phase='done';a.lessonAfterCheck=false;}else McatRepairCore.afterLesson(c,repairState,Date.now()); saveMcatRepair();renderRepairSession(); };
   } else if(a.phase==='done') {
     studyCompleteRepair(a);
     const r=repairState.records[c.id], result=a.result;
@@ -136,7 +138,7 @@ function renderRepairSession() {
     const q=[c.diagnostic,...c.checks].find(q=>q.id===a.questionId);
     const answered=a.phase==='feedback';
     const first=!(repairState.records[c.id]?.attempts || []).some(x=>x.questionId===q.id);
-    const label=a.phase==='diagnose' || (answered && a.result.mode==='diagnose') ? 'Find the gap' : a.kind==='later' ? 'Later check · answer before review' : a.kind==='practice' || (!first && !answered) ? 'Practice · previously seen question' : 'Apply the idea · new question';
+    const label=a.phase==='diagnose' || (answered && a.result.mode==='diagnose') ? 'Find the gap' : a.kind==='later' ? 'Later check · answer before review' : a.kind==='practice' || (answered ? a.result.mode==='practice' : !first) ? 'Practice · previously seen question' : 'Apply the idea · new question';
     stage.innerHTML=`<section class="repair-question"><span class="label">${label}</span><h1>${a.kind==='later' ? 'What can you retrieve now?' : 'Test the idea.'}</h1><p class="repair-stem">${esc(q.stem)}</p>
       <fieldset class="repair-confidence" ${answered ? 'disabled' : ''}><legend>How sure are you?</legend>${['guess','unsure','sure'].map(v=>`<label><input type="radio" name="repair-confidence" value="${v}" ${a.confidence===v ? 'checked' : ''}>${CONF[v]}</label>`).join('')}</fieldset>
       <div class="opts">${q.options.map((option,i)=>`<button class="opt ${answered ? i===q.answer ? 'correct' : i===a.result.choice ? 'wrong' : 'dimmed' : ''}" data-repair-answer="${i}" ${answered?'disabled':''}><span class="key">${'ABCD'[i]}</span><span>${esc(option)}${answered && i===q.answer ? ' · Correct answer' : answered && i===a.result.choice ? ' · Your answer' : ''}</span></button>`).join('')}</div>

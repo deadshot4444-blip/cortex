@@ -65,10 +65,10 @@
       const saved = read(OWNER);
       return !paused && !saved?.transition && saved?.token === owner.token;
     }
-    function block(message) { paused = true; clearTimeout(timer); setState('paused'); onBlocked(message); }
+    function block(message, kind = 'storage') { paused = true; clearTimeout(timer); setState('paused'); onBlocked(message, kind); }
     function beforeWrite(k) {
       if (syncKey(k) && !owns()) {
-        block('The active account changed in another tab. Reload before continuing.');
+        block('The active workspace changed in another tab. Reload before continuing.', 'workspace');
         throw Error('Account workspace changed');
       }
       // Persist the intent first. A quota failure must not leave a new study
@@ -96,7 +96,7 @@
       } catch (error) {
         // The journal remains available if rollback itself fails or the tab closes.
         try { replace(read(backupKey)); put(OWNER, owner); storage.removeItem(JOURNAL); } catch {}
-        onBlocked('Could not switch saved work. Keep this tab open and download a recovery copy.');
+        block('Could not replace saved work. Download a recovery copy, restore browser storage access, then reload to recover the previous workspace.');
         throw error;
       }
       onReload();
@@ -211,8 +211,38 @@
       if (!owns() || !user || !guest || !meta()?.known || ['conflict', 'syncing', 'error'].includes(state)) return false;
       transition(owner.id, { data: guest.data, meta: meta(), dirty: token() }); return true;
     }
-    return { beforeWrite, afterWrite, setUser, sync, resolve, useGuest, recovery, gather,
-      checkOwner() { if (!owns()) block('The active account changed in another tab. Reload before continuing.'); },
+    const restores = new WeakMap();
+    function portableSnapshot() {
+      if (!owns()) throw Error('The active workspace changed. Reload before preparing a backup.');
+      return { owner: owner.id, data: gather() };
+    }
+    function prepareRestore(data) {
+      // Both the restore and reset dialogs print this message, so keep it flow-neutral.
+      if (!owns() || (owner.id !== 'guest' && !user)) throw Error('Finish signing in before replacing saved work.');
+      if (state === 'conflict') throw Error('Resolve the saved-copy conflict before replacing saved work.');
+      if (running || state === 'syncing') throw Error('Saving to your account is still in progress. Try again in a moment.');
+      const next = validData(data);
+      if (Object.keys(next).length !== Object.keys(data).length) throw Error('The backup contains unsupported storage keys.');
+      const before = gather(), keys = [...new Set([...Object.keys(before), ...Object.keys(next)])].sort();
+      const preview = Object.freeze({ owner: owner.id, changes: Object.freeze(keys.map(key => Object.freeze({ key,
+        action: !(key in next) ? 'remove' : !(key in before) ? 'add' : before[key] === next[key] ? 'keep' : 'replace' }))) });
+      restores.set(preview, { next, before, token: owner.token });
+      return preview;
+    }
+    function restore(preview) {
+      const saved = restores.get(preview);
+      if (!saved || saved.token !== owner.token || !owns() || running || ['syncing', 'conflict'].includes(state) || !sameData(saved.before, gather())) {
+        throw Error('Saved work changed after the preview. Choose the backup again before restoring.');
+      }
+      // Use the account transaction, including its journal and startup rollback.
+      // Retain the known cloud revision; the next sync still has to compare it.
+      restores.delete(preview);
+      epoch++;
+      transition(owner.id, { data: saved.next, meta: meta(), dirty: token() });
+      return true;
+    }
+    return { beforeWrite, afterWrite, setUser, sync, resolve, useGuest, recovery, gather, portableSnapshot, prepareRestore, restore,
+      checkOwner() { if (!owns()) block('The active workspace changed in another tab. Reload before continuing.', 'workspace'); },
       get state() { return state; }, get owner() { return owner.id; }, get paused() { return paused; },
       get hasGuest() { return !!read(archiveKey('guest')) && Object.keys(read(archiveKey('guest')).data).length > 0; },
       stop() { clearTimeout(timer); epoch++; paused = true; }

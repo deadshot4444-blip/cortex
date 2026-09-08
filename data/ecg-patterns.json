@@ -1,0 +1,523 @@
+{
+  "version": 1,
+  "reviewStatus": "Original synthetic teaching examples. Independent clinical review is pending.",
+  "calibrationSource": {
+    "title": "University of Waterloo: ECG display calibration",
+    "url": "https://uwaterloo.ca/systems-design-engineering/electrocardiography-cardiac-function"
+  },
+  "patterns": [
+    {
+      "id": "sinus",
+      "name": "Sinus rhythm",
+      "cat": "Baseline",
+      "rate": "75",
+      "clue": "Regular atrial activation is followed by ventricular activation. Measure the PR and QRS before judging them by appearance.",
+      "limits": "This schematic illustrates an organized sinus pattern. It does not measure cardiac output or establish that every lead, coronary artery or clinical finding is normal.",
+      "prompt": "Connect electrical timing with blood flow: why can an organized ECG coexist with impaired pumping?",
+      "revision": 1,
+      "sourceCheckedOn": "2026-09-07",
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "reviewedAt": null
+      },
+      "sources": [
+        {
+          "title": "MSD Manual: Electrocardiography",
+          "url": "https://www.msdmanuals.com/professional/cardiovascular-disorders/cardiovascular-tests-and-procedures/electrocardiography",
+          "accessed": "2026-09-07"
+        }
+      ]
+    },
+    {
+      "id": "brady",
+      "name": "Sinus bradycardia",
+      "cat": "Sinus",
+      "rate": "48",
+      "clue": "The P-to-QRS relationship is maintained while the cycle length is longer. Here 60 / 1.25 gives 48 ventricular complexes per minute.",
+      "limits": "A slow sinus rate may occur with conditioning, medication effects or illness. A number alone does not establish symptoms or a need for treatment.",
+      "prompt": "Compare a resting athlete with a person who has new syncope: what additional evidence changes the interpretation?",
+      "revision": 1,
+      "sourceCheckedOn": "2026-09-07",
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "reviewedAt": null
+      },
+      "sources": [
+        {
+          "title": "MSD Manual: Electrocardiography",
+          "url": "https://www.msdmanuals.com/professional/cardiovascular-disorders/cardiovascular-tests-and-procedures/electrocardiography",
+          "accessed": "2026-09-07"
+        },
+        {
+          "title": "AHA 2025: Adult advanced life support",
+          "url": "https://cpr.heart.org/en/resuscitation-science/cpr-and-ecc-guidelines/adult-advanced-life-support"
+        }
+      ]
+    },
+    {
+      "id": "tachy",
+      "name": "Sinus tachycardia",
+      "cat": "Sinus",
+      "rate": "125",
+      "clue": "P waves precede narrow complexes with a short R–R interval. The modeled rate is 60 / 0.48 = 125 per minute.",
+      "limits": "The rate describes a response, not its cause. Exertion, fever, pain, reduced circulating volume and other conditions can produce a fast sinus rate.",
+      "prompt": "Explain how reduced stroke volume might accompany a compensatory rise in heart rate without proving a specific diagnosis.",
+      "revision": 1,
+      "sourceCheckedOn": "2026-09-07",
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "reviewedAt": null
+      },
+      "sources": [
+        {
+          "title": "MSD Manual: Electrocardiography",
+          "url": "https://www.msdmanuals.com/professional/cardiovascular-disorders/cardiovascular-tests-and-procedures/electrocardiography",
+          "accessed": "2026-09-07"
+        },
+        {
+          "title": "AHA 2025: Adult advanced life support",
+          "url": "https://cpr.heart.org/en/resuscitation-science/cpr-and-ecc-guidelines/adult-advanced-life-support"
+        }
+      ]
+    },
+    {
+      "id": "afib",
+      "name": "Atrial fibrillation pattern",
+      "cat": "Atrial",
+      "rate": "Variable",
+      "clue": "Look for the combination of irregular ventricular timing and absent organized P waves. Irregularity alone is insufficient.",
+      "limits": "Artifact and other irregular rhythms can confuse a short strip. Clinical confirmation uses an interpretable recording; this example cannot choose anticoagulation or cardioversion timing.",
+      "prompt": "Describe the timing evidence, then name one missing clinical fact that would matter beyond rhythm recognition.",
+      "revision": 1,
+      "sourceCheckedOn": "2026-09-07",
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "reviewedAt": null
+      },
+      "sources": [
+        {
+          "title": "MSD Manual: Electrocardiography",
+          "url": "https://www.msdmanuals.com/professional/cardiovascular-disorders/cardiovascular-tests-and-procedures/electrocardiography",
+          "accessed": "2026-09-07"
+        },
+        {
+          "title": "AHA 2025: Adult advanced life support",
+          "url": "https://cpr.heart.org/en/resuscitation-science/cpr-and-ecc-guidelines/adult-advanced-life-support"
+        }
+      ]
+    },
+    {
+      "id": "flutter",
+      "name": "Atrial flutter with 2:1 conduction",
+      "cat": "Atrial",
+      "rate": "150 ventricular / 300 atrial",
+      "clue": "Atrial activity repeats twice as often as ventricular complexes in this model. At 2:1 conduction, some flutter activity overlaps the QRS or T wave.",
+      "limits": "A ventricular rate near 150 does not alone establish flutter. Other conduction ratios and other causes of a regular fast rhythm occur.",
+      "prompt": "Calculate both rates from their separate intervals and explain why they differ.",
+      "revision": 1,
+      "sourceCheckedOn": "2026-09-07",
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "reviewedAt": null
+      },
+      "sources": [
+        {
+          "title": "MSD Manual: Electrocardiography",
+          "url": "https://www.msdmanuals.com/professional/cardiovascular-disorders/cardiovascular-tests-and-procedures/electrocardiography",
+          "accessed": "2026-09-07"
+        }
+      ]
+    },
+    {
+      "id": "svt",
+      "name": "Regular narrow-complex tachycardia",
+      "cat": "Atrial",
+      "rate": "180",
+      "clue": "The rhythm is fast and regular with narrow QRS complexes (narrow means under 120 ms; the modeled QRS is 80 ms). Atrial activation cannot be confidently separated on this strip.",
+      "limits": "The image supports a narrow-complex tachycardia pattern, not a unique re-entry mechanism. It cannot distinguish every supraventricular cause or establish clinical stability.",
+      "prompt": "Separate the directly observed rate and QRS width from the unproven claim that the mechanism must be AVNRT.",
+      "revision": 2,
+      "sourceCheckedOn": "2026-09-07",
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "reviewedAt": null
+      },
+      "sources": [
+        {
+          "title": "MSD Manual: Electrocardiography",
+          "url": "https://www.msdmanuals.com/professional/cardiovascular-disorders/cardiovascular-tests-and-procedures/electrocardiography",
+          "accessed": "2026-09-07"
+        },
+        {
+          "title": "AHA 2025: Adult advanced life support",
+          "url": "https://cpr.heart.org/en/resuscitation-science/cpr-and-ecc-guidelines/adult-advanced-life-support"
+        }
+      ]
+    },
+    {
+      "id": "junctional",
+      "name": "Junctional escape pattern",
+      "cat": "Atrial",
+      "rate": "50",
+      "clue": "A slow regular rhythm has narrow ventricular complexes and no identifiable preceding P wave in this projection.",
+      "limits": "This is compatible with a junctional escape rhythm; absent visible P waves alone do not prove the pacemaker location. P waves may be hidden, retrograde or visible in another lead.",
+      "prompt": "Explain why a narrow QRS suggests relatively coordinated ventricular activation but does not locate every part of the conduction pathway.",
+      "revision": 1,
+      "sourceCheckedOn": "2026-09-07",
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "reviewedAt": null
+      },
+      "sources": [
+        {
+          "title": "MSD Manual: Electrocardiography",
+          "url": "https://www.msdmanuals.com/professional/cardiovascular-disorders/cardiovascular-tests-and-procedures/electrocardiography",
+          "accessed": "2026-09-07"
+        }
+      ]
+    },
+    {
+      "id": "avb1",
+      "name": "First-degree AV block pattern",
+      "cat": "Blocks",
+      "rate": "70",
+      "clue": "Every P conducts, but the modeled PR interval is 260 ms. The delay is measured from P onset to QRS onset. Adult reference PR is 120–200 ms, so the modeled value is prolonged.",
+      "limits": "A prolonged PR interval describes timing rather than the precise site or cause of delay. Medication history, previous ECGs and symptoms add context.",
+      "prompt": "Contrast delayed conduction with a P wave that fails to produce a QRS.",
+      "revision": 2,
+      "sourceCheckedOn": "2026-09-07",
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "reviewedAt": null
+      },
+      "sources": [
+        {
+          "title": "MSD Manual: Electrocardiography",
+          "url": "https://www.msdmanuals.com/professional/cardiovascular-disorders/cardiovascular-tests-and-procedures/electrocardiography",
+          "accessed": "2026-09-07"
+        }
+      ]
+    },
+    {
+      "id": "mobitz1",
+      "name": "Mobitz I (Wenckebach) pattern",
+      "cat": "Blocks",
+      "rate": "Grouped ventricular beats",
+      "clue": "Atrial timing remains regular while the PR interval lengthens through conducted beats; a P then lacks a QRS and the sequence restarts.",
+      "limits": "This illustrates a specific sequence. A single dropped QRS without its neighboring PR intervals cannot establish this pattern.",
+      "prompt": "Use the P-onset and PR measurements to explain which clock stays regular and which conduction interval changes.",
+      "revision": 1,
+      "sourceCheckedOn": "2026-09-07",
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "reviewedAt": null
+      },
+      "sources": [
+        {
+          "title": "MSD Manual: Electrocardiography",
+          "url": "https://www.msdmanuals.com/professional/cardiovascular-disorders/cardiovascular-tests-and-procedures/electrocardiography",
+          "accessed": "2026-09-07"
+        }
+      ]
+    },
+    {
+      "id": "mobitz2",
+      "name": "Mobitz II pattern",
+      "cat": "Blocks",
+      "rate": "Intermittent conduction",
+      "clue": "Conducted beats retain the same PR interval, with intermittent nonconducted P waves. This example includes a wide QRS: the modeled duration is 140 ms against an adult reference of under 120 ms.",
+      "limits": "The pattern warrants prompt clinical assessment because advanced conduction disease may be present. A 2:1 block alone cannot reliably be assigned Mobitz I or II from PR behavior.",
+      "prompt": "Compare this 3:2 sequence with the progressively changing PR intervals in the Mobitz I example.",
+      "revision": 2,
+      "sourceCheckedOn": "2026-09-07",
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "reviewedAt": null
+      },
+      "sources": [
+        {
+          "title": "MSD Manual: Electrocardiography",
+          "url": "https://www.msdmanuals.com/professional/cardiovascular-disorders/cardiovascular-tests-and-procedures/electrocardiography",
+          "accessed": "2026-09-07"
+        },
+        {
+          "title": "AHA 2025: Adult advanced life support",
+          "url": "https://cpr.heart.org/en/resuscitation-science/cpr-and-ecc-guidelines/adult-advanced-life-support"
+        }
+      ]
+    },
+    {
+      "id": "chb",
+      "name": "Complete AV block pattern",
+      "cat": "Blocks",
+      "rate": "About 41 ventricular / 75 atrial",
+      "clue": "P waves and ventricular complexes follow independent schedules. The gap from the nearest preceding P to each QRS shortens beat by beat (260 ms, then 110 ms), and the P waves at 3.34 s and 4.94 s fall inside a QRS or T wave.",
+      "limits": "This model specifies absent atrioventricular conduction. AV dissociation by itself can occur in other circumstances, so rate relationships and the full recording matter.",
+      "prompt": "Trace atrial and ventricular event times separately; explain why choosing the nearest P does not create a true PR relationship.",
+      "revision": 2,
+      "sourceCheckedOn": "2026-09-07",
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "reviewedAt": null
+      },
+      "sources": [
+        {
+          "title": "MSD Manual: Electrocardiography",
+          "url": "https://www.msdmanuals.com/professional/cardiovascular-disorders/cardiovascular-tests-and-procedures/electrocardiography",
+          "accessed": "2026-09-07"
+        },
+        {
+          "title": "AHA 2025: Adult advanced life support",
+          "url": "https://cpr.heart.org/en/resuscitation-science/cpr-and-ecc-guidelines/adult-advanced-life-support"
+        }
+      ]
+    },
+    {
+      "id": "pvc",
+      "name": "Premature ventricular complex pattern",
+      "cat": "Ventricular",
+      "rate": "Sinus rhythm with one early beat",
+      "clue": "A premature broad complex differs from the surrounding narrow complexes and is followed by a longer interval. The T-wave direction also differs.",
+      "limits": "This constructed example is compatible with a PVC. Timing, other leads and clinical context help distinguish ventricular ectopy from an aberrantly conducted supraventricular beat.",
+      "prompt": "Compare the early beat with its neighbors using onset, width, atrial relationship and the following pause.",
+      "revision": 1,
+      "sourceCheckedOn": "2026-09-07",
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "reviewedAt": null
+      },
+      "sources": [
+        {
+          "title": "MSD Manual: Electrocardiography",
+          "url": "https://www.msdmanuals.com/professional/cardiovascular-disorders/cardiovascular-tests-and-procedures/electrocardiography",
+          "accessed": "2026-09-07"
+        }
+      ]
+    },
+    {
+      "id": "vt",
+      "name": "Regular wide-complex tachycardia",
+      "cat": "Ventricular",
+      "rate": "About 167",
+      "clue": "Fast, regular, broad complexes have a similar shape from beat to beat (broad means 120 ms or more; the modeled QRS is 160 ms). This is compatible with monomorphic ventricular tachycardia.",
+      "limits": "A single schematic cannot exclude supraventricular tachycardia with aberrancy or pre-excitation. Real wide-complex tachycardia requires urgent clinical assessment; stability and pulse are not visible here.",
+      "prompt": "State the observed pattern first, then the uncertainty that remains about its mechanism.",
+      "revision": 2,
+      "sourceCheckedOn": "2026-09-07",
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "reviewedAt": null
+      },
+      "sources": [
+        {
+          "title": "MSD Manual: Electrocardiography",
+          "url": "https://www.msdmanuals.com/professional/cardiovascular-disorders/cardiovascular-tests-and-procedures/electrocardiography",
+          "accessed": "2026-09-07"
+        },
+        {
+          "title": "AHA 2025: Adult advanced life support",
+          "url": "https://cpr.heart.org/en/resuscitation-science/cpr-and-ecc-guidelines/adult-advanced-life-support"
+        }
+      ]
+    },
+    {
+      "id": "torsades",
+      "name": "Torsades de pointes pattern",
+      "cat": "Ventricular",
+      "rate": "About 222",
+      "clue": "Broad complexes vary in direction and amplitude. The supplied context includes a preceding prolonged QT, which distinguishes the intended torsades example from polymorphic VT with normal QT.",
+      "limits": "The QT interval cannot be measured during this run. Under AHA 2025 guidance, sustained polymorphic VT requires immediate unsynchronized shock; magnesium may be considered for recurrence associated with long QT. A strip alone is not a resuscitation protocol.",
+      "prompt": "Explain why both the changing morphology and the preceding QT context matter. Do not infer a normal pulse from organized-looking deflections.",
+      "revision": 1,
+      "sourceCheckedOn": "2026-09-07",
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "reviewedAt": null
+      },
+      "sources": [
+        {
+          "title": "AHA 2025: Adult advanced life support",
+          "url": "https://cpr.heart.org/en/resuscitation-science/cpr-and-ecc-guidelines/adult-advanced-life-support"
+        },
+        {
+          "title": "MSD Manual: Electrocardiography",
+          "url": "https://www.msdmanuals.com/professional/cardiovascular-disorders/cardiovascular-tests-and-procedures/electrocardiography",
+          "accessed": "2026-09-07"
+        }
+      ]
+    },
+    {
+      "id": "vfib",
+      "name": "Ventricular fibrillation pattern",
+      "cat": "Ventricular",
+      "rate": "No organized rate",
+      "clue": "The signal lacks repeatable organized ventricular complexes. Counting the largest deflections would create a misleading heart-rate estimate.",
+      "limits": "In an unresponsive patient without normal breathing or a definite pulse, VF is a shockable arrest rhythm. Artifact can resemble chaotic activity; actual assessment and resuscitation follow the relevant emergency protocol.",
+      "prompt": "Explain the difference between recognizing a chaotic pattern and assessing the patient or equipment.",
+      "revision": 1,
+      "sourceCheckedOn": "2026-09-07",
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "reviewedAt": null
+      },
+      "sources": [
+        {
+          "title": "AHA 2025: Adult advanced life support",
+          "url": "https://cpr.heart.org/en/resuscitation-science/cpr-and-ecc-guidelines/adult-advanced-life-support"
+        },
+        {
+          "title": "MSD Manual: Electrocardiography",
+          "url": "https://www.msdmanuals.com/professional/cardiovascular-disorders/cardiovascular-tests-and-procedures/electrocardiography",
+          "accessed": "2026-09-07"
+        }
+      ]
+    },
+    {
+      "id": "asystole",
+      "name": "Asystole-like flat signal",
+      "cat": "Arrest",
+      "rate": "No organized complexes",
+      "clue": "No organized cardiac complexes are modeled. A nearly flat recording can also result from equipment or connection problems.",
+      "limits": "A flat image cannot confirm cardiac arrest by itself. Confirmed asystole in cardiac arrest is nonshockable; this example does not replace patient assessment or a resuscitation algorithm.",
+      "prompt": "Name the clinical and recording checks needed before treating a flat trace as a biological finding.",
+      "revision": 1,
+      "sourceCheckedOn": "2026-09-07",
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "reviewedAt": null
+      },
+      "sources": [
+        {
+          "title": "AHA 2025: Adult advanced life support",
+          "url": "https://cpr.heart.org/en/resuscitation-science/cpr-and-ecc-guidelines/adult-advanced-life-support"
+        },
+        {
+          "title": "MSD Manual: Electrocardiography",
+          "url": "https://www.msdmanuals.com/professional/cardiovascular-disorders/cardiovascular-tests-and-procedures/electrocardiography",
+          "accessed": "2026-09-07"
+        }
+      ]
+    },
+    {
+      "id": "stemi",
+      "name": "ST-segment elevation pattern",
+      "cat": "ST changes",
+      "rate": "70",
+      "clue": "The ST segment is displaced above the baseline in this synthetic projection. Measure the displacement without turning the measurement into a diagnosis.",
+      "limits": "ST elevation has ischemic and nonischemic causes. Regional distribution, other leads, symptoms and change over time matter. Troponin above an assay-specific threshold indicates injury, not myocardial infarction by itself.",
+      "prompt": "Explain why this one trace cannot identify a coronary territory or establish STEMI.",
+      "revision": 1,
+      "sourceCheckedOn": "2026-09-07",
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "reviewedAt": null
+      },
+      "sources": [
+        {
+          "title": "MSD Manual: Electrocardiography",
+          "url": "https://www.msdmanuals.com/professional/cardiovascular-disorders/cardiovascular-tests-and-procedures/electrocardiography",
+          "accessed": "2026-09-07"
+        },
+        {
+          "title": "ACC: High-sensitivity troponin and chest pain evaluation",
+          "url": "https://www.acc.org/Latest-in-Cardiology/ten-points-to-remember/2022/07/14/18/12/High-Sensitivity-CTn-and-2021-Chest-Pain",
+          "accessed": "2026-09-07"
+        }
+      ]
+    },
+    {
+      "id": "hyperk",
+      "name": "Prominent pointed T-wave pattern",
+      "cat": "Metabolic",
+      "rate": "70",
+      "clue": "The T waves are relatively tall and pointed in this example. QRS complexes remain narrow; a complete stereotyped progression is not required for a potassium disorder.",
+      "limits": "T-wave appearance neither confirms potassium concentration nor reliably excludes dangerous hyperkalaemia when absent. Sample quality, a measured potassium result and the clinical situation must be assessed together.",
+      "prompt": "Contrast true hyperkalaemia with an elevated potassium caused by sample hemolysis. Explain why a reassuring-looking ECG cannot resolve that distinction.",
+      "revision": 1,
+      "sourceCheckedOn": "2026-09-07",
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "reviewedAt": null
+      },
+      "sources": [
+        {
+          "title": "UK Kidney Association: Hyperkalaemia guideline, updated July 2026",
+          "url": "https://www.ukkidney.org/health-professionals/guidelines/treatment-acute-hyperkalaemia-adults-0"
+        },
+        {
+          "title": "MSD Manual: Electrocardiography",
+          "url": "https://www.msdmanuals.com/professional/cardiovascular-disorders/cardiovascular-tests-and-procedures/electrocardiography",
+          "accessed": "2026-09-07"
+        }
+      ]
+    },
+    {
+      "id": "wpw",
+      "name": "Ventricular pre-excitation pattern",
+      "cat": "Conduction",
+      "rate": "75",
+      "clue": "A short PR is followed by a slurred initial QRS upstroke and a widened complex. The model includes an actual gradual delta-like segment. Adult reference limits: PR 120–200 ms and QRS under 120 ms; the modeled PR is 100 ms and the modeled QRS is 140 ms.",
+      "limits": "A pre-excitation pattern does not by itself establish symptomatic Wolff–Parkinson–White syndrome. It also cannot identify a pathway location from one projection.",
+      "prompt": "Connect early ventricular activation to the altered QRS onset, and distinguish a pattern from a clinical syndrome.",
+      "revision": 2,
+      "sourceCheckedOn": "2026-09-07",
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "reviewedAt": null
+      },
+      "sources": [
+        {
+          "title": "MSD Manual: Electrocardiography",
+          "url": "https://www.msdmanuals.com/professional/cardiovascular-disorders/cardiovascular-tests-and-procedures/electrocardiography",
+          "accessed": "2026-09-07"
+        }
+      ]
+    },
+    {
+      "id": "paced",
+      "name": "Ventricular pacing pattern",
+      "cat": "Conduction",
+      "rate": "60",
+      "clue": "A modeled pacing stimulus precedes each broad ventricular complex. The temporal relationship is consistent with electrical capture in this example.",
+      "limits": "Electrical capture is different from mechanical capture or adequate perfusion. Some modern pacing stimuli are difficult to see on surface ECGs.",
+      "prompt": "Explain what evidence would be needed to connect the paced electrical event with an effective contraction.",
+      "revision": 1,
+      "sourceCheckedOn": "2026-09-07",
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "reviewedAt": null
+      },
+      "sources": [
+        {
+          "title": "MSD Manual: Electrocardiography",
+          "url": "https://www.msdmanuals.com/professional/cardiovascular-disorders/cardiovascular-tests-and-procedures/electrocardiography",
+          "accessed": "2026-09-07"
+        },
+        {
+          "title": "AHA 2025: Adult advanced life support",
+          "url": "https://cpr.heart.org/en/resuscitation-science/cpr-and-ecc-guidelines/adult-advanced-life-support"
+        }
+      ]
+    }
+  ]
+}

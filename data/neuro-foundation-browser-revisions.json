@@ -1,0 +1,159 @@
+{
+  "date": "2026-09-08",
+  "scope": "Browser-discovered repetition and prerequisite mismatch in foundation applications; correct full-window boundary wording.",
+  "independentReview": "pending",
+  "changes": [
+    {
+      "path": "/learningPaths/0/steps/0/simulationId",
+      "before": "sim-ns-noisy-signal",
+      "after": "sim-sampling-time"
+    },
+    {
+      "path": "/unitLessons/1/revision",
+      "before": 2,
+      "after": 3
+    },
+    {
+      "path": "/unitLessons/2/revision",
+      "before": 2,
+      "after": 3
+    },
+    {
+      "path": "/unitLessons/2/simulation",
+      "before": null,
+      "after": {
+        "id": "unit-threshold-episodes",
+        "title": "Count entries, not samples",
+        "revision": 1,
+        "reviewStatus": "Author-revised synthetic exercise. Independent subject review is pending.",
+        "scenario": "A toy positive-threshold detector starts below threshold and groups adjacent qualifying samples into one episode.",
+        "signalDescription": "Synthetic samples [0, 2, 2, 0, 2] at 5 samples/second. A sample qualifies when it is at least 2.",
+        "decisionQuestion": "How many qualifying samples and threshold episodes are present?",
+        "choices": [
+          {
+            "label": "Three qualifying samples and two episodes",
+            "rationale": "Indices 1, 2 and 4 qualify. Indices 1 and 2 share one continuous episode; index 4 starts another after the return below threshold."
+          },
+          {
+            "label": "Three qualifying samples and three episodes",
+            "rationale": "This counts each qualifying sample as a separate episode. Adjacent qualifying samples share one episode."
+          },
+          {
+            "label": "Two qualifying samples and two episodes",
+            "rationale": "There are three qualifying samples: both samples equal to 2 in the first episode and the final sample equal to 2."
+          },
+          {
+            "label": "Zero qualifying samples and zero episodes",
+            "rationale": "The rule includes equality. Samples equal to the threshold qualify."
+          }
+        ],
+        "bestAnswerIndex": 0,
+        "series": {
+          "title": "Synthetic threshold trace",
+          "description": "Invented samples. Connecting lines are visual guides; intermediate values were not measured.",
+          "values": [
+            0,
+            2,
+            2,
+            0,
+            2
+          ],
+          "sampleRateHz": 5,
+          "unit": "arbitrary units"
+        }
+      }
+    },
+    {
+      "path": "/unitLessons/3/revision",
+      "before": 2,
+      "after": 3
+    },
+    {
+      "path": "/unitLessons/3/simulation",
+      "before": null,
+      "after": {
+        "id": "unit-rate-window",
+        "title": "Keep the observation window",
+        "revision": 1,
+        "reviewStatus": "Author-revised synthetic exercise. Independent subject review is pending.",
+        "scenario": "Two synthetic event trains each contain six verified events. Recording A lasts 2 seconds; recording B lasts 3 seconds.",
+        "signalDescription": "Only counts and observation windows are given. Exact event times are unavailable.",
+        "decisionQuestion": "Which comparison is supported?",
+        "choices": [
+          {
+            "label": "A averages 3 Hz and B averages 2 Hz; exact event timing remains unknown",
+            "rationale": "Six divided by two is 3 events/second; six divided by three is 2. Counts and durations do not specify when individual events occurred."
+          },
+          {
+            "label": "Both average 6 Hz because both contain six events",
+            "rationale": "A count is not a rate until divided by the observation duration."
+          },
+          {
+            "label": "A averages 2 Hz and B averages 3 Hz",
+            "rationale": "Divide each count by its own duration; this choice reverses the rates."
+          },
+          {
+            "label": "A and B have identical event timing because the counts match",
+            "rationale": "Equal counts do not establish equal timing, and these observation windows differ."
+          }
+        ],
+        "bestAnswerIndex": 0
+      }
+    },
+    {
+      "path": "/unitLessons/5/revision",
+      "before": 2,
+      "after": 3
+    },
+    {
+      "path": "/unitLessons/5/shortLesson",
+      "before": "A filter transforms a signal. A centered three-sample moving average replaces a middle value with the average of itself and its two neighbors. It changes genuine events as well as unwanted variation. Here we output only centers with all three neighbors available, so a list of N samples produces N-2 values. Boundary handling and timing conventions belong in the method description.",
+      "after": "A filter transforms a signal. A centered three-sample moving average replaces a middle value with the average of itself and its two neighbors. It changes genuine events as well as unwanted variation. Here we output only centers with the center and both neighbors available. A list of N samples produces N-2 values when N is at least 3; shorter lists produce no full-window averages. Boundary handling and timing conventions belong in the method description."
+    },
+    {
+      "path": "/unitLessons/5/simulation",
+      "before": null,
+      "after": {
+        "id": "unit-smoothing-peak",
+        "title": "Inspect a smoothed peak",
+        "revision": 1,
+        "reviewStatus": "Author-revised synthetic exercise. Independent subject review is pending.",
+        "scenario": "A centered three-sample moving average uses full windows only. Apply it to the synthetic list [0, 0, 9, 0, 0].",
+        "signalDescription": "The output samples align with original center indices 1, 2 and 3. No endpoints are padded.",
+        "decisionQuestion": "Which output and interpretation are correct?",
+        "choices": [
+          {
+            "label": "[3, 3, 3]; the narrow peak is reduced and spread across three output samples",
+            "rationale": "Each full window sums to 9 and averages to 3. The operation changes a genuine peak as well as unwanted variation; it cannot establish that the removed detail was noise."
+          },
+          {
+            "label": "[0, 0, 9, 0, 0]; averaging preserves every peak exactly",
+            "rationale": "A moving average changes the values. This full-window method produces only three output samples."
+          },
+          {
+            "label": "[0, 3, 3, 3, 0]; zero-padding is required",
+            "rationale": "The stated method uses full windows only. Adding endpoints would change the boundary rule."
+          },
+          {
+            "label": "[3, 3, 3]; the result proves the original peak was noise",
+            "rationale": "The numbers are correct, but an averaging operation cannot identify the source of the original peak."
+          }
+        ],
+        "bestAnswerIndex": 0,
+        "series": {
+          "title": "Synthetic isolated peak before smoothing",
+          "description": "Invented input samples. Compare the full-window output with the original center timestamps.",
+          "values": [
+            0,
+            0,
+            9,
+            0,
+            0
+          ],
+          "sampleRateHz": 5,
+          "unit": "arbitrary units"
+        }
+      }
+    }
+  ]
+}

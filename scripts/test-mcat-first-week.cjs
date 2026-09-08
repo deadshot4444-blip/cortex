@@ -28,7 +28,7 @@ function setup() {
     inputMcat: { outline: json('data/mcat-outline.json'), cards: json('data/mcat-cards.json'), questions: json('data/mcat-questions.json'), cars: json('data/mcat-cars.json'), sci: json('data/mcat-science-passages.json') }
   });
   const run = code => vm.runInContext(code, context);
-  for (const file of ['mcat-storage.js','mcat.js','mcat-course.js','mcat-workflows.js']) run(fs.readFileSync(path.join(root,file),'utf8'));
+  for (const file of ['study-storage.js','mcat.js','mcat-course.js','mcat-workflows.js']) run(fs.readFileSync(path.join(root,file),'utf8'));
   run('courseData=inputCourse; Object.assign(MCAT,inputMcat);');
   return { run, advance: days => { clock += days*86400000; }, setDate: date => { clock = date.getTime(); } };
 }

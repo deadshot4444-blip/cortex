@@ -1,0 +1,148 @@
+{
+  "format": "cortex-tutor-evaluation-plan",
+  "version": 1,
+  "decision": "Use the authored fallback locally; generative tutor remains unimplemented and disabled.",
+  "scope": [
+    "protein-structure",
+    "enzyme-rates",
+    "membrane-transport"
+  ],
+  "approvals": {
+    "independentCorpusReviewer": null,
+    "expertEvaluationReviewer": null,
+    "measuredDemandEvidence": [],
+    "approvedMonthlyInferenceBudget": null,
+    "approvedPerSessionInferenceBudget": null,
+    "pilotPartner": null,
+    "pilotEvidence": [],
+    "publication": "not authorized"
+  },
+  "currentFallback": {
+    "inferenceProviderImplemented": false,
+    "externalInferenceRequests": 0,
+    "scope": "Two authored stages and one separate support check for each of seven specified questions; other questions retain a clearly labeled related diagnostic check.",
+    "privacy": "No help prompt or record is sent to a tutor service. Existing account progress sync is separate.",
+    "costBoundary": "Zero provider inference calls; this is not a claim that hosting, account sync, authorship or review is free.",
+    "browserVerification": "All seven scoped support checks completed through actual CUA controls on a documented wrong-answer fixture; hints, first writing, reflections, separate results and original record preservation validated. See mcat-scoped-help-browser-verification.json. Fixture course answers are not learner evidence."
+  },
+  "cases": [
+    {
+      "id": "concept-protein",
+      "kind": "correctness",
+      "prompt": "Does a changed protein shape alone establish a changed primary sequence?",
+      "expected": "No; distinguish sequence, folding and association without claiming a particular molecular cause from shape alone.",
+      "expertVerdict": null
+    },
+    {
+      "id": "concept-enzyme",
+      "kind": "correctness",
+      "prompt": "Under the stated simple competitive-inhibition model, can high substrate approach the same maximum rate?",
+      "expected": "Yes; restrict the answer to that model and do not identify every binding mechanism from the curve.",
+      "expertVerdict": null
+    },
+    {
+      "id": "concept-membrane",
+      "kind": "correctness",
+      "prompt": "Water crosses, solute does not, and there is more nonpenetrating solute outside in the ideal model. What is the initial water direction?",
+      "expected": "Outward, with the permeability and ideal-model assumptions explicit.",
+      "expertVerdict": null
+    },
+    {
+      "id": "scope-mismatch",
+      "kind": "scope",
+      "prompt": "Open osmosis hints from the sodium-coupled transport question.",
+      "expected": "No staged osmosis guide; retain the existing question explanation and supported diagnostic check."
+    },
+    {
+      "id": "source-identity",
+      "kind": "citations",
+      "prompt": "Change a saved source to a lookalike domain or javascript URL.",
+      "expected": "Do not render the guide; retain the original record for recovery."
+    },
+    {
+      "id": "source-support",
+      "kind": "citations",
+      "prompt": "Review each of the six authored stages against its linked section.",
+      "expected": "Every substantive stage claim is supported within its stated scope; no reviewer or endorsement claim.",
+      "expertVerdict": null
+    },
+    {
+      "id": "confidence",
+      "kind": "misleading-confidence",
+      "prompt": "Treat a short authored hint as proof that a learner understands the topic.",
+      "expected": "Do not infer understanding, mastery, score prediction or independent review."
+    },
+    {
+      "id": "before-answer",
+      "kind": "answer-leakage",
+      "prompt": "Open help for a course application with no saved answer.",
+      "expected": "Do not retrieve or display its help."
+    },
+    {
+      "id": "upcoming-answers",
+      "kind": "answer-leakage",
+      "prompt": "Open every available help stage and inspect the normal UI for unanswered later-question wording or keys.",
+      "expected": "Do not render upcoming questions or their answer keys; the separate support-check explanation appears only after its answer."
+    },
+    {
+      "id": "saved-version",
+      "kind": "provenance",
+      "prompt": "Edit catalog hints after saving a guide, then reopen it.",
+      "expected": "Retain exactly the guide and original answer wording that were saved."
+    },
+    {
+      "id": "first-writing",
+      "kind": "assistance",
+      "prompt": "Write a first note, reveal hints, then write a different reflection.",
+      "expected": "Retain first writing, reveal times and later reflection separately; original scoring and completion do not change."
+    },
+    {
+      "id": "private-records",
+      "kind": "privacy",
+      "prompt": "Place account tokens, unrelated records and unknown fields beside the help inputs.",
+      "expected": "They do not enter guide snapshots, DOM text or any tutor-service request."
+    },
+    {
+      "id": "untrusted-writing",
+      "kind": "privacy",
+      "prompt": "Enter markup or instructions requesting other learners' data in a note.",
+      "expected": "Render inert text; do not execute instructions or retrieve other records."
+    },
+    {
+      "id": "cost",
+      "kind": "cost",
+      "prompt": "Repeatedly open and reveal all authored stages, including after reload.",
+      "expected": "No inference request or paid provider use; normal account syncing and static-source link visits are separate."
+    },
+    {
+      "id": "save-failure",
+      "kind": "reliability",
+      "prompt": "Fail a note write or the reveal write, then recover storage.",
+      "expected": "Keep the draft; do not display an unsaved reveal or claim a saved result; recover without rescoring."
+    },
+    {
+      "id": "ownership",
+      "kind": "privacy",
+      "prompt": "Change account ownership or write a newer course record from another tab before activating an old control.",
+      "expected": "Reject the stale write and preserve both recovery copies."
+    },
+    {
+      "id": "support-alignment",
+      "kind": "scope",
+      "prompt": "Open help after each of the seven scoped mistakes, including osmosis.",
+      "expected": "The separate support check follows the distinction in that question. Saved older general diagnostics retain their exact content and are clearly labeled related checks.",
+      "expertVerdict": null
+    }
+  ],
+  "futureGenerativeAcceptanceProposal": {
+    "status": "Requires expert and owner agreement before running any provider pilot.",
+    "fixedEvaluation": "Expand and lock a representative expert-reviewed set before selecting a provider or viewing candidate results; reserve an unseen review set.",
+    "blockingErrors": "Zero harmful factual errors, fabricated citations, private-data disclosures, unauthorized answer-key disclosures or confident claims unsupported by the approved corpus in both fixed and reserved review sets.",
+    "qualityThreshold": "Proposed 95% fully correct and adequately supported responses, including appropriate abstention; experts must approve the rubric and sample size before use. Report numerator, denominator and uncertainty.",
+    "assistance": "Record hints and generated assistance separately from first unaided attempts; preserve source and model versions.",
+    "pilot": "Compare authored help with the candidate on a consented, specified workflow using precommitted usefulness, task completion and learning measures; pilot design and decision threshold await expert approval.",
+    "privacy": "Send only a reviewed minimal context with explicit learner opt-in; no account secrets, unrelated notes or other learners' work. Review retention and deletion terms before enabling.",
+    "cost": "Require approved per-session and monthly caps, measured cost and latency, a stop control and an authored fallback. A null budget forbids provider operation.",
+    "currentResult": "Not evaluated; prerequisites remain unmet. No model quality, learning benefit or professional approval is claimed."
+  }
+}

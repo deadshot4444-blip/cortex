@@ -1,0 +1,1163 @@
+{
+  "date": "2026-09-07",
+  "scope": "First five foundations, five code exercises and shared artifact scenario",
+  "independentReview": "pending",
+  "changes": [
+    {
+      "path": "/unitLessons/4/checks",
+      "before": null,
+      "after": [
+        {
+          "prompt": "Large deflections align with an ECG reference across several channels. What is the best next analytical step?",
+          "choices": [
+            "Label each as a single-neuron spike",
+            "Inspect synchronized traces and flag possible contamination",
+            "Assume the pattern proves intention",
+            "Remove every low-frequency component without inspection"
+          ],
+          "correctIndex": 1,
+          "explanation": "The timing supports an artifact hypothesis, which requires investigation; it is not proof of source.",
+          "id": "bci-path-04-signal-noise-check-1"
+        },
+        {
+          "prompt": "Lowering a positive detection threshold produces more events. What should be checked before calling the detector better?",
+          "choices": [
+            "Whether the event count is larger",
+            "Whether the chart looks busier",
+            "Whether added events include noise or artifact",
+            "Whether the code has more lines"
+          ],
+          "correctIndex": 2,
+          "explanation": "Sensitivity can increase alongside false detections.",
+          "id": "bci-path-04-signal-noise-check-2"
+        }
+      ]
+    },
+    {
+      "path": "/unitLessons/4/revision",
+      "before": null,
+      "after": 2
+    },
+    {
+      "path": "/unitLessons/4/reviewStatus",
+      "before": null,
+      "after": "Author-revised foundation practice. Independent subject review is pending. All traces and examples are synthetic; completion is not a professional qualification."
+    },
+    {
+      "path": "/unitLessons/4/shortLesson",
+      "before": "Noise is unwanted variation in the signal. It can come from movement, electrical interference, heart activity, muscle activity, electrode instability, or unrelated neural activity. Signal-to-noise ratio asks how much useful signal exists compared with unwanted activity.",
+      "after": "A useful signal depends on the question being asked. Movement, muscle activity, electrical interference and electrode instability can contaminate a recording. An artifact correlated with task labels may look predictive during training. Compare raw traces, reference channels, timing and recording conditions before interpreting a detected event. A numerical threshold is only one observation."
+    },
+    {
+      "path": "/unitLessons/4/workedExample",
+      "before": "If a large deflection appears on many electrodes exactly with the ECG heartbeat, it is more likely cardiac artifact than a single neuron.",
+      "after": "Synthetic lab example: deflections recur roughly once per second and align with an ECG reference on several channels. This raises suspicion of cardiac contamination. Flag the segment and inspect synchronized traces and acquisition settings before deciding how to exclude or process it; do not infer a neuron identity or recommend a patient intervention."
+    },
+    {
+      "path": "/unitLessons/4/sources",
+      "before": null,
+      "after": [
+        {
+          "title": "Perel et al. (2015): single units, threshold crossings and LFPs",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/26133797/"
+        }
+      ]
+    },
+    {
+      "path": "/unitLessons/1/checks",
+      "before": null,
+      "after": [
+        {
+          "prompt": "At 2,000 samples/second, how far apart are adjacent samples?",
+          "choices": [
+            "0.5 milliseconds",
+            "2 milliseconds",
+            "500 milliseconds",
+            "2 seconds"
+          ],
+          "correctIndex": 0,
+          "explanation": "The interval is 1/2,000 second = 0.5 ms.",
+          "id": "bci-path-01-time-series-check-1"
+        },
+        {
+          "prompt": "A list contains six voltage values but no timestamps or sampling rate. What is still unknown?",
+          "choices": [
+            "The number of values",
+            "The time between measurements",
+            "The order in the list",
+            "Whether the list can be stored"
+          ],
+          "correctIndex": 1,
+          "explanation": "Order and length are available; timing needs metadata.",
+          "id": "bci-path-01-time-series-check-2"
+        }
+      ]
+    },
+    {
+      "path": "/unitLessons/1/revision",
+      "before": null,
+      "after": 2
+    },
+    {
+      "path": "/unitLessons/1/reviewStatus",
+      "before": null,
+      "after": "Author-revised foundation practice. Independent subject review is pending. All traces and examples are synthetic; completion is not a professional qualification."
+    },
+    {
+      "path": "/unitLessons/1/shortLesson",
+      "before": "A neural recording is not one number. It is a sequence: sample 1, sample 2, sample 3, each tied to a time point. Voltage changes mean different things depending on when they happen and how they relate to nearby samples. Two kinds of activity live in these traces: sharp, brief dips or blips lasting a millisecond or two — spikes, the action potentials of individual neurons near the electrode — and slower, rolling waves that ride underneath them, the local field potential (LFP), which is the summed activity of thousands of neurons in the neighborhood. Same wire, two signals at different timescales. In toy BCI code, all of it usually becomes a list or array of values.",
+      "after": "A time series needs ordered measurements, units and timing. For equally spaced samples, time at index i is start time + i / sampling rate. A list alone does not tell us the sampling rate. Intracellular membrane voltage and extracellular electrode voltage are different measurements; do not transfer their thresholds or amplitudes between recordings. Extracellular signals can be processed to study rapid events or slower field activity. Detecting an event does not by itself identify a neuron."
+    },
+    {
+      "path": "/unitLessons/1/workedExample",
+      "before": "If samples are [-70, -68, -45, -42, -70] mV, the middle values only look spike-like because they rise sharply relative to the surrounding samples.",
+      "after": "Synthetic membrane-voltage example: [-70, -68, -45, -42, -70] mV, sampled at 1,000 samples/second starting at 0 seconds. Index 2 occurs at 2/1,000 = 0.002 seconds. The first-to-last timestamp span is 4 milliseconds. This short toy list is not a validated spike recording."
+    },
+    {
+      "path": "/unitLessons/1/sources",
+      "before": null,
+      "after": [
+        {
+          "title": "PyNWB: TimeSeries data and timing",
+          "url": "https://pynwb.readthedocs.io/en/latest/pynwb.base.html"
+        },
+        {
+          "title": "Perel et al. (2015): single units, threshold crossings and LFPs",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/26133797/"
+        },
+        {
+          "title": "OpenStax: The action potential",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-4-the-action-potential"
+        }
+      ]
+    },
+    {
+      "path": "/unitLessons/3/checks",
+      "before": null,
+      "after": [
+        {
+          "prompt": "Twelve events in 2 seconds correspond to which mean event rate?",
+          "choices": [
+            "24 Hz",
+            "10 Hz",
+            "6 Hz",
+            "0.17 Hz"
+          ],
+          "correctIndex": 2,
+          "explanation": "12 / 2 = 6 events per second.",
+          "id": "bci-path-03-firing-rate-check-1"
+        },
+        {
+          "prompt": "Two 4-second recordings each have 20 events. What is established?",
+          "choices": [
+            "Identical event timing",
+            "A shared mean rate of 5 Hz",
+            "The same neuron was recorded",
+            "Identical noise levels"
+          ],
+          "correctIndex": 1,
+          "explanation": "Equal count and duration imply equal mean rate, not equal timing, source or quality.",
+          "id": "bci-path-03-firing-rate-check-2"
+        }
+      ]
+    },
+    {
+      "path": "/unitLessons/3/mentalModel",
+      "before": "Firing rate is a speedometer for spiking: how many spikes happened during this time window?",
+      "after": "The rate is a summary with a window attached, not a complete description of the event train."
+    },
+    {
+      "path": "/unitLessons/3/revision",
+      "before": null,
+      "after": 2
+    },
+    {
+      "path": "/unitLessons/3/reviewStatus",
+      "before": null,
+      "after": "Author-revised foundation practice. Independent subject review is pending. All traces and examples are synthetic; completion is not a professional qualification."
+    },
+    {
+      "path": "/unitLessons/3/shortLesson",
+      "before": "Firing rate means spikes per unit time. A decoder often cares less about every exact spike time and more about whether a neuron is firing more or less during a movement or intention window.",
+      "after": "For a specified observation window, mean firing rate is spike count divided by duration in seconds. If the events are only threshold candidates, call the result a threshold-event rate. A rate discards exact event timing. Longer windows pool more observations but can hide rapid changes; shorter windows can fluctuate strongly. Neither choice is universally best for a decoder."
+    },
+    {
+      "path": "/unitLessons/3/activeRecallPrompts/0/hint",
+      "before": "Divide spikes by seconds.",
+      "after": "Count divided by seconds."
+    },
+    {
+      "path": "/unitLessons/3/activeRecallPrompts/0/answer",
+      "before": "5 Hz.",
+      "after": "5 spikes/second, or 5 Hz, over that 4-second window."
+    },
+    {
+      "path": "/unitLessons/3/activeRecallPrompts/0/prompt",
+      "before": "Calculate the firing rate for 20 spikes in 4 seconds.",
+      "after": "Calculate the rate for 20 verified spikes over 4 seconds."
+    },
+    {
+      "path": "/unitLessons/3/activeRecallPrompts/1/hint",
+      "before": "Think stability.",
+      "after": "Think about the information that division discards."
+    },
+    {
+      "path": "/unitLessons/3/activeRecallPrompts/1/answer",
+      "before": "Firing rate is a compact, stable feature that is easier to compare across windows.",
+      "after": "They can have the same count and mean rate over the same window but different event times."
+    },
+    {
+      "path": "/unitLessons/3/activeRecallPrompts/1/prompt",
+      "before": "Why might a decoder prefer firing rate over raw spike times?",
+      "after": "What could two event trains share while differing in precise timing?"
+    },
+    {
+      "path": "/unitLessons/3/sources",
+      "before": null,
+      "after": [
+        {
+          "title": "Gerstner et al.: Mean firing rate",
+          "url": "https://neuronaldynamics.epfl.ch/online/Ch7.S2.html"
+        }
+      ]
+    },
+    {
+      "path": "/unitLessons/3/whyItMatters",
+      "before": "Firing rate turns raw spike events into a stable number a decoder can use for movement intent or state estimation.",
+      "after": "A rate summarizes event count per time window. Keeping the window explicit makes comparisons interpretable."
+    },
+    {
+      "path": "/unitLessons/2/checks",
+      "before": null,
+      "after": [
+        {
+          "prompt": "For [0, 3, 4, 0, 5], threshold 2 and an initially below-threshold state, how many positive-threshold episodes occur?",
+          "choices": [
+            "1",
+            "2",
+            "3",
+            "5"
+          ],
+          "correctIndex": 1,
+          "explanation": "The values 3 and 4 form one episode; 5 begins another after the return to 0.",
+          "id": "bci-path-02-spike-detection-check-1"
+        },
+        {
+          "prompt": "A detector counts a large event. What can be concluded from threshold alone?",
+          "choices": [
+            "A specific neuron fired",
+            "The event is definitely artifact",
+            "The chosen numerical rule was met",
+            "The signal contains no noise"
+          ],
+          "correctIndex": 2,
+          "explanation": "The rule identifies a candidate; it does not establish a biological source.",
+          "id": "bci-path-02-spike-detection-check-2"
+        }
+      ]
+    },
+    {
+      "path": "/unitLessons/2/mentalModel",
+      "before": "Spike detection is a gate. Set the gate too low and noise walks in; set it too high and real spikes get locked out.",
+      "after": "Count entries through a gate, not every moment spent beyond the gate. A more permissive threshold can admit more unwanted events. Which numerical direction is permissive depends on detection polarity."
+    },
+    {
+      "path": "/unitLessons/2/revision",
+      "before": null,
+      "after": 2
+    },
+    {
+      "path": "/unitLessons/2/reviewStatus",
+      "before": null,
+      "after": "Author-revised foundation practice. Independent subject review is pending. All traces and examples are synthetic; completion is not a professional qualification."
+    },
+    {
+      "path": "/unitLessons/2/shortLesson",
+      "before": "A spike detector usually checks whether a waveform crosses a threshold and has a plausible shape. The hard part is not writing `if voltage > threshold`; it is choosing a threshold that separates neural events from noise and artifact.",
+      "after": "A positive-threshold event starts when a sample reaches or exceeds a chosen level after the previous sample was below it. Consecutive above-threshold samples belong to one continuous episode in this toy detector. We assume the trace starts below threshold; an above-threshold first sample is counted as one episode by convention. Real detection also needs recording context, waveform checks and handling of artifacts and repeated detections. An event is not automatically a physiological spike or an identified neuron."
+    },
+    {
+      "path": "/unitLessons/2/workedExample",
+      "before": "With threshold -50 mV, samples [-70, -62, -48, -44, -69] include a threshold crossing. If noise also reaches -49 mV, code needs more evidence than threshold alone.",
+      "after": "Synthetic membrane-voltage samples [-70, -55, -42, -66, -44, -39, -71] mV contain three samples at or above -50 mV, but only two above-threshold episodes. At -40 mV only the -39 sample qualifies, so the episode count is one. These are toy threshold events, not confirmed spikes."
+    },
+    {
+      "path": "/unitLessons/2/activeRecallPrompts/0/hint",
+      "before": "Think false positives.",
+      "after": "Look for a return below threshold between them."
+    },
+    {
+      "path": "/unitLessons/2/activeRecallPrompts/0/answer",
+      "before": "Noise or artifact can be counted as spikes.",
+      "after": "They are consecutive qualifying samples without a return below threshold. Counting each would split one episode."
+    },
+    {
+      "path": "/unitLessons/2/activeRecallPrompts/0/prompt",
+      "before": "What happens if a spike threshold is too low?",
+      "after": "Why are -44 and -39 counted as one event in this trace?"
+    },
+    {
+      "path": "/unitLessons/2/activeRecallPrompts/1/hint",
+      "before": "Artifacts can also be large.",
+      "after": "Separate detection from source identification."
+    },
+    {
+      "path": "/unitLessons/2/activeRecallPrompts/1/answer",
+      "before": "Large non-neural artifacts can cross the same threshold as real spikes.",
+      "after": "No. Artifacts and activity from multiple neurons can cross a threshold; further evidence is needed."
+    },
+    {
+      "path": "/unitLessons/2/activeRecallPrompts/1/prompt",
+      "before": "Why might threshold crossing alone be unsafe?",
+      "after": "Does a threshold event establish which neuron fired?"
+    },
+    {
+      "path": "/unitLessons/2/sources",
+      "before": null,
+      "after": [
+        {
+          "title": "Perel et al. (2015): single units, threshold crossings and LFPs",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/26133797/"
+        },
+        {
+          "title": "OpenStax: The action potential",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-4-the-action-potential"
+        }
+      ]
+    },
+    {
+      "path": "/unitLessons/5/checks",
+      "before": null,
+      "after": [
+        {
+          "prompt": "What is the centered three-sample average of [12, 50, 13]?",
+          "choices": [
+            "50",
+            "25",
+            "37.5",
+            "12"
+          ],
+          "correctIndex": 1,
+          "explanation": "(12 + 50 + 13) / 3 = 25.",
+          "id": "bci-path-05-filtering-smoothing-check-1"
+        },
+        {
+          "prompt": "Why compare filtered and raw traces?",
+          "choices": [
+            "Filtering can change task-relevant events too",
+            "Every filtered peak is an artifact",
+            "A smooth trace proves correct preprocessing",
+            "Raw data are useful only for storage"
+          ],
+          "correctIndex": 0,
+          "explanation": "The operation does not know which features matter to your scientific question.",
+          "id": "bci-path-05-filtering-smoothing-check-2"
+        }
+      ]
+    },
+    {
+      "path": "/unitLessons/5/revision",
+      "before": null,
+      "after": 2
+    },
+    {
+      "path": "/unitLessons/5/reviewStatus",
+      "before": null,
+      "after": "Author-revised foundation practice. Independent subject review is pending. All traces and examples are synthetic; completion is not a professional qualification."
+    },
+    {
+      "path": "/unitLessons/5/shortLesson",
+      "before": "Filtering keeps some frequency ranges and suppresses others. Smoothing reduces rapid jumps by averaging nearby samples. Both are preprocessing steps, and both can help or hurt depending on the feature you need.",
+      "after": "A filter transforms a signal. A centered three-sample moving average replaces a middle value with the average of itself and its two neighbors. It changes genuine events as well as unwanted variation. Here we output only centers with all three neighbors available, so a list of N samples produces N-2 values. Boundary handling and timing conventions belong in the method description."
+    },
+    {
+      "path": "/unitLessons/5/workedExample",
+      "before": "A moving average may make an LFP trend easier to see, but it can smear the exact timing of a narrow spike.",
+      "after": "For synthetic values [10, 12, 50, 13, 11], the full-window centered averages are [24, 25, 24.6667]. The middle output is (12 + 50 + 13) / 3 = 25. A real narrow peak would also be reduced; a smoother plot is not evidence that only noise was removed."
+    },
+    {
+      "path": "/unitLessons/5/sources",
+      "before": null,
+      "after": [
+        {
+          "title": "SciPy: Signal processing and filtering",
+          "url": "https://docs.scipy.org/doc/scipy/tutorial/signal.html"
+        }
+      ]
+    },
+    {
+      "path": "/learningPaths/0/steps/0/estimatedFocus",
+      "before": "10 min",
+      "after": "20–30 min"
+    },
+    {
+      "path": "/learningPaths/0/steps/0/oneLineMaster",
+      "before": "A BCI begins by turning neural activity into time-stamped data.",
+      "after": "Keep measurements, units and timing together."
+    },
+    {
+      "path": "/learningPaths/0/steps/1/estimatedFocus",
+      "before": "15 min",
+      "after": "20–30 min"
+    },
+    {
+      "path": "/learningPaths/0/steps/1/oneLineMaster",
+      "before": "Spike detection asks whether a waveform is neural activity or noise.",
+      "after": "Count threshold episodes without claiming a biological source."
+    },
+    {
+      "path": "/learningPaths/0/steps/2/estimatedFocus",
+      "before": "15 min",
+      "after": "20–30 min"
+    },
+    {
+      "path": "/learningPaths/0/steps/2/reflectionQuestion",
+      "before": "Why is spikes per second easier for a decoder to use than raw spike timing?",
+      "after": "What information does a mean event rate preserve, and what does it discard?"
+    },
+    {
+      "path": "/learningPaths/0/steps/2/oneLineMaster",
+      "before": "Firing rate turns spike timing into a decoder-friendly number.",
+      "after": "Compare rates with their time windows and limitations."
+    },
+    {
+      "path": "/learningPaths/0/steps/3/estimatedFocus",
+      "before": "10 min",
+      "after": "20–30 min"
+    },
+    {
+      "path": "/learningPaths/0/steps/3/stepObjective",
+      "before": "Separate neural signal from movement, electrical, cardiac, or biological artifact.",
+      "after": "Recognize possible artifact and describe evidence needed to investigate it."
+    },
+    {
+      "path": "/learningPaths/0/steps/3/oneLineMaster",
+      "before": "Signal noise is messy non-intent data that can quietly break a decoder.",
+      "after": "Investigate contamination before interpreting events."
+    },
+    {
+      "path": "/learningPaths/0/steps/4/estimatedFocus",
+      "before": "15 min",
+      "after": "20–30 min"
+    },
+    {
+      "path": "/learningPaths/0/steps/4/stepObjective",
+      "before": "Understand preprocessing as cleaning signal without deleting task-relevant information.",
+      "after": "Calculate a moving average and explain its effect on peaks and boundaries."
+    },
+    {
+      "path": "/learningPaths/0/steps/4/oneLineMaster",
+      "before": "Filtering is useful only when it removes noise while preserving the feature you need.",
+      "after": "Describe what a filter changes and what it may discard."
+    },
+    {
+      "path": "/simulations/0/signalDescription",
+      "before": "Periodic ~5 Hz deflections, coincident with QRS complex on ECG, similar shape across multiple electrodes simultaneously.",
+      "after": "Approximately 1 Hz deflections, aligned with ECG QRS complexes and visible on multiple channels."
+    },
+    {
+      "path": "/simulations/0/decisionQuestion",
+      "before": "What do you do with this channel?",
+      "after": "What is the best next analytical step?"
+    },
+    {
+      "path": "/simulations/0/revision",
+      "before": null,
+      "after": 2
+    },
+    {
+      "path": "/simulations/0/scenario",
+      "before": "You're recording from a penetrating microelectrode array in motor cortex. One channel shows large negative deflections every 200 ms — but they always coincide with the patient's heartbeat on the ECG monitor.",
+      "after": "In a synthetic recording exercise, several microelectrode channels show large deflections roughly once per second. They align with an ECG reference."
+    },
+    {
+      "path": "/simulations/0/oneLineMaster",
+      "before": "Synchrony across channels and with ECG = artifact, not a neuron.",
+      "after": "ECG alignment raises an artifact hypothesis; inspect the evidence before accepting events."
+    },
+    {
+      "path": "/simulations/0/choices/0/rationale",
+      "before": "Correct — synchrony with ECG and across electrodes points to a non-neural source. Reject or notch out cardiac components.",
+      "after": "ECG and cross-channel timing support investigation of contamination. Confirm the context before deciding which segments or methods are appropriate; threshold alone does not identify a neuron."
+    },
+    {
+      "path": "/simulations/0/choices/0/label",
+      "before": "Treat as cardiac artifact and reject for spike analysis",
+      "after": "Flag possible cardiac contamination and inspect synchronized raw traces"
+    },
+    {
+      "path": "/simulations/0/choices/3/rationale",
+      "before": "Premature — cardiac artifact is common and software-removable; surgery is not the first step.",
+      "after": "This synthetic analysis does not justify a hardware or patient intervention. Investigate the recording evidence first."
+    },
+    {
+      "path": "/simulations/0/choices/3/label",
+      "before": "Replace the electrode",
+      "after": "Replace the electrode immediately"
+    },
+    {
+      "path": "/foundationStatus",
+      "before": null,
+      "after": {
+        "unitOrders": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "reviewStatus": "Author-revised foundation practice. Independent subject review is pending. All traces and examples are synthetic; completion is not a professional qualification."
+      }
+    },
+    {
+      "path": "/neuroCodeLessons/1/checks",
+      "before": null,
+      "after": {
+        "function": "at_or_above",
+        "cases": [
+          {
+            "args": [
+              -45,
+              -50
+            ],
+            "expected": true
+          },
+          {
+            "args": [
+              -60,
+              -50
+            ],
+            "expected": false
+          },
+          {
+            "args": [
+              -50,
+              -50
+            ],
+            "expected": true
+          },
+          {
+            "args": [
+              0,
+              1
+            ],
+            "expected": false
+          },
+          {
+            "args": [
+              2,
+              1
+            ],
+            "expected": true
+          }
+        ]
+      }
+    },
+    {
+      "path": "/neuroCodeLessons/1/title",
+      "before": "If-Statements: Did the Neuron Fire?",
+      "after": "Conditions: Test a Numerical Threshold"
+    },
+    {
+      "path": "/neuroCodeLessons/1/solution",
+      "before": "\nmembrane_voltage_mv = -60\nfiring_threshold_mv = -50\n\nif membrane_voltage_mv >= firing_threshold_mv:\n    print(\"Spike detected\")\nelse:\n    print(\"No spike\")\n",
+      "after": "def at_or_above(sample, threshold):\n    return sample >= threshold\n\nprint(at_or_above(-45, -50))"
+    },
+    {
+      "path": "/neuroCodeLessons/1/codeExample",
+      "before": "\nmembrane_voltage_mv = -45\nfiring_threshold_mv = -50\n\nif membrane_voltage_mv >= firing_threshold_mv:\n    print(\"Spike detected\")\nelse:\n    print(\"No spike\")\n",
+      "after": "def at_or_above(sample, threshold):\n    return False  # Replace this line\n\nprint(at_or_above(-45, -50))"
+    },
+    {
+      "path": "/neuroCodeLessons/1/revision",
+      "before": null,
+      "after": 2
+    },
+    {
+      "path": "/neuroCodeLessons/1/challengePrompt",
+      "before": "Change the voltage to -60 and predict the printed result.",
+      "after": "Complete at_or_above(sample, threshold), returning True when sample >= threshold and False otherwise. Equality counts as above in this exercise."
+    },
+    {
+      "path": "/neuroCodeLessons/1/reviewStatus",
+      "before": null,
+      "after": "Author-revised foundation practice. Independent subject review is pending. All traces and examples are synthetic; completion is not a professional qualification."
+    },
+    {
+      "path": "/neuroCodeLessons/1/sources",
+      "before": null,
+      "after": [
+        {
+          "title": "Perel et al. (2015): single units, threshold crossings and LFPs",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/26133797/"
+        }
+      ]
+    },
+    {
+      "path": "/neuroCodeLessons/1/codingConcept",
+      "before": "If-statements",
+      "after": "Comparisons and functions"
+    },
+    {
+      "path": "/neuroCodeLessons/1/explanation",
+      "before": "An if-statement lets code choose a path. A simple neuron model can use one to decide whether voltage crossed a firing threshold.",
+      "after": "A comparison answers a numerical question about one sample. A single above-threshold value does not prove a neuron fired."
+    },
+    {
+      "path": "/neuroCodeLessons/1/expectedOutput",
+      "before": "Spike detected",
+      "after": "True"
+    },
+    {
+      "path": "/neuroCodeLessons/1/hint",
+      "before": "-60 is below -50, so the condition is false.",
+      "after": "Return the result of sample >= threshold. This is a Boolean, not the text \"True\"."
+    },
+    {
+      "path": "/neuroCodeLessons/1/outputLabel",
+      "before": null,
+      "after": "Reference example output"
+    },
+    {
+      "path": "/neuroCodeLessons/2/checks",
+      "before": null,
+      "after": {
+        "function": "append_sample",
+        "cases": [
+          {
+            "args": [
+              [
+                -70,
+                -68
+              ],
+              -72
+            ],
+            "expected": [
+              -70,
+              -68,
+              -72
+            ]
+          },
+          {
+            "args": [
+              [],
+              3
+            ],
+            "expected": [
+              3
+            ]
+          },
+          {
+            "args": [
+              [
+                1,
+                1
+              ],
+              0
+            ],
+            "expected": [
+              1,
+              1,
+              0
+            ]
+          },
+          {
+            "args": [
+              [
+                5
+              ],
+              -2
+            ],
+            "expected": [
+              5,
+              -2
+            ]
+          }
+        ],
+        "preserveArgs": true
+      }
+    },
+    {
+      "path": "/neuroCodeLessons/2/title",
+      "before": "Lists: Neural Signal Samples",
+      "after": "Lists: Keep Ordered Samples"
+    },
+    {
+      "path": "/neuroCodeLessons/2/solution",
+      "before": "\nsignal_mv = [-70, -68, -61, -48, -54, -66]\nsignal_mv.append(-72)\nprint(\"Number of samples:\", len(signal_mv))\n",
+      "after": "def append_sample(samples, value):\n    return samples + [value]\n\nprint(append_sample([-70, -68], -72))"
+    },
+    {
+      "path": "/neuroCodeLessons/2/codeExample",
+      "before": "\nsignal_mv = [-70, -68, -61, -48, -54, -66]\n\nprint(\"First sample:\", signal_mv[0])\nprint(\"Number of samples:\", len(signal_mv))\n",
+      "after": "def append_sample(samples, value):\n    return samples  # Replace this line\n\nprint(append_sample([-70, -68], -72))"
+    },
+    {
+      "path": "/neuroCodeLessons/2/revision",
+      "before": null,
+      "after": 2
+    },
+    {
+      "path": "/neuroCodeLessons/2/challengePrompt",
+      "before": "Add one more sample, -72, to the list and print the new length.",
+      "after": "Complete append_sample(samples, value). Return all original samples in order followed by value, without modifying samples. The checks use several lists, including an empty list."
+    },
+    {
+      "path": "/neuroCodeLessons/2/reviewStatus",
+      "before": null,
+      "after": "Author-revised foundation practice. Independent subject review is pending. All traces and examples are synthetic; completion is not a professional qualification."
+    },
+    {
+      "path": "/neuroCodeLessons/2/sources",
+      "before": null,
+      "after": [
+        {
+          "title": "PyNWB: TimeSeries data and timing",
+          "url": "https://pynwb.readthedocs.io/en/latest/pynwb.base.html"
+        },
+        {
+          "title": "Perel et al. (2015): single units, threshold crossings and LFPs",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/26133797/"
+        },
+        {
+          "title": "OpenStax: The action potential",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-4-the-action-potential"
+        }
+      ]
+    },
+    {
+      "path": "/neuroCodeLessons/2/codingConcept",
+      "before": "Lists and arrays",
+      "after": "Lists and functions"
+    },
+    {
+      "path": "/neuroCodeLessons/2/explanation",
+      "before": "A list stores many values in order. Neural signals are often sampled over time, so a list can represent a short voltage trace.",
+      "after": "This exercise uses synthetic values. Return a new list with one value appended; keep the original list unchanged."
+    },
+    {
+      "path": "/neuroCodeLessons/2/expectedOutput",
+      "before": "\nNumber of samples: 7\n",
+      "after": "[-70, -68, -72]"
+    },
+    {
+      "path": "/neuroCodeLessons/2/hint",
+      "before": "Use signal_mv.append(-72), then print len(signal_mv).",
+      "after": "samples + [value] makes a new list. Printing a fixed example does not implement the function."
+    },
+    {
+      "path": "/neuroCodeLessons/2/outputLabel",
+      "before": null,
+      "after": "Reference example output"
+    },
+    {
+      "path": "/neuroCodeLessons/3/checks",
+      "before": null,
+      "after": {
+        "function": "count_events",
+        "cases": [
+          {
+            "args": [
+              [
+                0,
+                3,
+                4,
+                0,
+                5
+              ],
+              2
+            ],
+            "expected": 2
+          },
+          {
+            "args": [
+              [
+                -70,
+                -55,
+                -42,
+                -66,
+                -44,
+                -39,
+                -71
+              ],
+              -50
+            ],
+            "expected": 2
+          },
+          {
+            "args": [
+              [
+                -70,
+                -55,
+                -42,
+                -66,
+                -44,
+                -39,
+                -71
+              ],
+              -40
+            ],
+            "expected": 1
+          },
+          {
+            "args": [
+              [
+                3,
+                3,
+                3
+              ],
+              3
+            ],
+            "expected": 1
+          },
+          {
+            "args": [
+              [],
+              2
+            ],
+            "expected": 0
+          },
+          {
+            "args": [
+              [
+                0,
+                0
+              ],
+              2
+            ],
+            "expected": 0
+          }
+        ]
+      }
+    },
+    {
+      "path": "/neuroCodeLessons/3/title",
+      "before": "Loops: Count Spikes in a Trace",
+      "after": "Loops: Count Threshold Episodes"
+    },
+    {
+      "path": "/neuroCodeLessons/3/solution",
+      "before": "\nsignal_mv = [-70, -55, -42, -66, -44, -39, -71]\nthreshold_mv = -45\nspike_count = 0\n\nfor sample in signal_mv:\n    if sample >= threshold_mv:\n        spike_count = spike_count + 1\n\nprint(\"Spikes:\", spike_count)\n",
+      "after": "def count_events(samples, threshold):\n    count = 0\n    previous_above = False\n    for sample in samples:\n        above = sample >= threshold\n        if above and not previous_above:\n            count += 1\n        previous_above = above\n    return count\n\ntrace = [-70, -55, -42, -66, -44, -39, -71]\nprint(\"Events:\", count_events(trace, -50))"
+    },
+    {
+      "path": "/neuroCodeLessons/3/codeExample",
+      "before": "\nsignal_mv = [-70, -55, -42, -66, -44, -39, -71]\nthreshold_mv = -50\nspike_count = 0\n\nfor sample in signal_mv:\n    if sample >= threshold_mv:\n        spike_count = spike_count + 1\n\nprint(\"Spikes:\", spike_count)\n",
+      "after": "def count_events(samples, threshold):\n    count = 0\n    previous_above = False\n    for sample in samples:\n        above = sample >= threshold\n        # Add the missing event-count and state-update lines\n    return count\n\ntrace = [-70, -55, -42, -66, -44, -39, -71]\nprint(\"Events:\", count_events(trace, -50))"
+    },
+    {
+      "path": "/neuroCodeLessons/3/revision",
+      "before": null,
+      "after": 2
+    },
+    {
+      "path": "/neuroCodeLessons/3/challengePrompt",
+      "before": "Change the threshold to -45. How many spikes are counted now?",
+      "after": "Complete count_events(samples, threshold). Count a new event when the current sample is >= threshold and the preceding sample was below. Assume an initially below-threshold state. Empty input returns 0. Test the example at -50 (2 events) and -40 (1 event)."
+    },
+    {
+      "path": "/neuroCodeLessons/3/reviewStatus",
+      "before": null,
+      "after": "Author-revised foundation practice. Independent subject review is pending. All traces and examples are synthetic; completion is not a professional qualification."
+    },
+    {
+      "path": "/neuroCodeLessons/3/sources",
+      "before": null,
+      "after": [
+        {
+          "title": "Perel et al. (2015): single units, threshold crossings and LFPs",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/26133797/"
+        },
+        {
+          "title": "OpenStax: The action potential",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-4-the-action-potential"
+        }
+      ]
+    },
+    {
+      "path": "/neuroCodeLessons/3/codingConcept",
+      "before": "Loops",
+      "after": "Loops and state"
+    },
+    {
+      "path": "/neuroCodeLessons/3/explanation",
+      "before": "A loop repeats the same logic over many samples. That is exactly what you need when scanning a signal for threshold crossings.",
+      "after": "Synthetic membrane-voltage examples teach a positive-threshold rule. Count the start of each contiguous episode; these are not validated physiological spikes."
+    },
+    {
+      "path": "/neuroCodeLessons/3/expectedOutput",
+      "before": "Spikes: 3",
+      "after": "Events: 2"
+    },
+    {
+      "path": "/neuroCodeLessons/3/hint",
+      "before": "Only samples at or above -45 count.",
+      "after": "Increment only when above is true and previous_above is false. Update previous_above on every iteration."
+    },
+    {
+      "path": "/neuroCodeLessons/3/outputLabel",
+      "before": null,
+      "after": "Reference example output"
+    },
+    {
+      "path": "/neuroCodeLessons/4/checks",
+      "before": null,
+      "after": {
+        "function": "event_rate_hz",
+        "cases": [
+          {
+            "args": [
+              15,
+              5
+            ],
+            "expected": 3
+          },
+          {
+            "args": [
+              24,
+              3
+            ],
+            "expected": 8
+          },
+          {
+            "args": [
+              0,
+              2
+            ],
+            "expected": 0
+          },
+          {
+            "args": [
+              2,
+              0.5
+            ],
+            "expected": 4
+          },
+          {
+            "args": [
+              1,
+              3
+            ],
+            "expected": 0.3333333333333333
+          }
+        ]
+      }
+    },
+    {
+      "path": "/neuroCodeLessons/4/title",
+      "before": "Functions: Firing Rate Calculation",
+      "after": "Functions: Mean Event Rate"
+    },
+    {
+      "path": "/neuroCodeLessons/4/solution",
+      "before": "\ndef firing_rate_hz(spike_count, duration_seconds):\n    return spike_count / duration_seconds\n\nrate = firing_rate_hz(15, 5)\nprint(\"Firing rate:\", rate, \"Hz\")\n",
+      "after": "def event_rate_hz(event_count, duration_seconds):\n    return event_count / duration_seconds\n\nprint(\"Event rate:\", event_rate_hz(15, 5), \"Hz\")"
+    },
+    {
+      "path": "/neuroCodeLessons/4/codeExample",
+      "before": "\ndef firing_rate_hz(spike_count, duration_seconds):\n    return spike_count / duration_seconds\n\nrate = firing_rate_hz(24, 3)\nprint(\"Firing rate:\", rate, \"Hz\")\n",
+      "after": "def event_rate_hz(event_count, duration_seconds):\n    return 0  # Replace this line\n\nprint(\"Event rate:\", event_rate_hz(15, 5), \"Hz\")"
+    },
+    {
+      "path": "/neuroCodeLessons/4/revision",
+      "before": null,
+      "after": 2
+    },
+    {
+      "path": "/neuroCodeLessons/4/challengePrompt",
+      "before": "Use the function to calculate the firing rate for 15 spikes in 5 seconds.",
+      "after": "Complete event_rate_hz(event_count, duration_seconds), returning count / duration. Check includes zero events and fractional-second windows. Do not return a fixed rate."
+    },
+    {
+      "path": "/neuroCodeLessons/4/reviewStatus",
+      "before": null,
+      "after": "Author-revised foundation practice. Independent subject review is pending. All traces and examples are synthetic; completion is not a professional qualification."
+    },
+    {
+      "path": "/neuroCodeLessons/4/sources",
+      "before": null,
+      "after": [
+        {
+          "title": "Gerstner et al.: Mean firing rate",
+          "url": "https://neuronaldynamics.epfl.ch/online/Ch7.S2.html"
+        }
+      ]
+    },
+    {
+      "path": "/neuroCodeLessons/4/codingConcept",
+      "before": "Functions",
+      "after": "Functions and units"
+    },
+    {
+      "path": "/neuroCodeLessons/4/explanation",
+      "before": "A function packages reusable logic. Firing rate is a perfect example: count spikes, divide by recording time, reuse the calculation anywhere.",
+      "after": "Count divided by seconds is a mean rate over that observation window. This exercise accepts nonnegative counts and strictly positive durations; input validation is outside this ticket."
+    },
+    {
+      "path": "/neuroCodeLessons/4/expectedOutput",
+      "before": "Firing rate: 8.0 Hz",
+      "after": "Event rate: 3.0 Hz"
+    },
+    {
+      "path": "/neuroCodeLessons/4/hint",
+      "before": "Call firing_rate_hz(15, 5).",
+      "after": "Use the two function parameters. Python / performs division, including fractional results."
+    },
+    {
+      "path": "/neuroCodeLessons/4/outputLabel",
+      "before": null,
+      "after": "Reference example output"
+    },
+    {
+      "path": "/neuroCodeLessons/6/checks",
+      "before": null,
+      "after": {
+        "function": "smooth_three",
+        "cases": [
+          {
+            "args": [
+              [
+                10,
+                12,
+                50,
+                13,
+                11
+              ]
+            ],
+            "expected": [
+              24,
+              25,
+              24.666666666666668
+            ]
+          },
+          {
+            "args": [
+              [
+                3,
+                3,
+                3
+              ]
+            ],
+            "expected": [
+              3
+            ]
+          },
+          {
+            "args": [
+              [
+                1,
+                2
+              ]
+            ],
+            "expected": []
+          },
+          {
+            "args": [
+              []
+            ],
+            "expected": []
+          },
+          {
+            "args": [
+              [
+                0,
+                3,
+                0,
+                3
+              ]
+            ],
+            "expected": [
+              1,
+              2
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "path": "/neuroCodeLessons/6/title",
+      "before": "Noise and Smoothing: Clean a Neural Signal",
+      "after": "Moving Averages: Inspect What Changes"
+    },
+    {
+      "path": "/neuroCodeLessons/6/solution",
+      "before": "Smoothing reduces sudden noise by averaging nearby samples, but it can blur true fast events such as spikes.",
+      "after": "def smooth_three(samples):\n    result = []\n    for i in range(1, len(samples) - 1):\n        result.append((samples[i-1] + samples[i] + samples[i+1]) / 3)\n    return result\n\nprint(smooth_three([10, 12, 50, 13, 11]))"
+    },
+    {
+      "path": "/neuroCodeLessons/6/codeExample",
+      "before": "\nsignal = [10, 12, 50, 13, 11]\n\nsmoothed_middle = (signal[1] + signal[2] + signal[3]) / 3\n\nprint(\"Raw middle sample:\", signal[2])\nprint(\"Smoothed middle:\", smoothed_middle)\n",
+      "after": "def smooth_three(samples):\n    result = []\n    for i in range(1, len(samples) - 1):\n        # Append the mean of samples[i-1], samples[i], samples[i+1]\n        pass\n    return result\n\nprint(smooth_three([10, 12, 50, 13, 11]))"
+    },
+    {
+      "path": "/neuroCodeLessons/6/revision",
+      "before": null,
+      "after": 2
+    },
+    {
+      "path": "/neuroCodeLessons/6/challengePrompt",
+      "before": "Explain why smoothing can help and why it can also hide fast spikes.",
+      "after": "Complete smooth_three(samples). Return the mean of each consecutive three-sample window in order. Use full windows only, with no padded endpoints."
+    },
+    {
+      "path": "/neuroCodeLessons/6/reviewStatus",
+      "before": null,
+      "after": "Author-revised foundation practice. Independent subject review is pending. All traces and examples are synthetic; completion is not a professional qualification."
+    },
+    {
+      "path": "/neuroCodeLessons/6/sources",
+      "before": null,
+      "after": [
+        {
+          "title": "SciPy: Signal processing and filtering",
+          "url": "https://docs.scipy.org/doc/scipy/tutorial/signal.html"
+        }
+      ]
+    },
+    {
+      "path": "/neuroCodeLessons/6/codingConcept",
+      "before": "Moving averages",
+      "after": "Lists, loops and averaging"
+    },
+    {
+      "path": "/neuroCodeLessons/6/explanation",
+      "before": "Signals are noisy. A simple moving average smooths local jumps, making slow trends easier to see while sacrificing some detail.",
+      "after": "The function averages full windows of three synthetic samples. It returns N-2 values for N >= 3; fewer than three samples return an empty list. The lesson asks separately what detail is lost."
+    },
+    {
+      "path": "/neuroCodeLessons/6/expectedOutput",
+      "before": "\nRaw middle sample: 50\nSmoothed middle: 25.0\n",
+      "after": "[24.0, 25.0, 24.666666666666668]"
+    },
+    {
+      "path": "/neuroCodeLessons/6/hint",
+      "before": "Averages reduce extremes by mixing each point with its neighbors.",
+      "after": "Use result.append((samples[i-1] + samples[i] + samples[i+1]) / 3). Keep the loop range so both neighbors exist."
+    },
+    {
+      "path": "/neuroCodeLessons/6/outputLabel",
+      "before": null,
+      "after": "Reference example output"
+    },
+    {
+      "path": "/unitLessons/1/whyItMatters",
+      "before": "Every BCI begins by sampling neural activity over time. Code cannot detect spikes, smooth noise, or decode intent until the signal is represented as ordered samples.",
+      "after": "Neurons receive and transmit signals through electrical and chemical processes. A membrane voltage is measured across the cell membrane; an extracellular electrode measures voltage outside cells. Before calculating features, identify what was measured and how each sample maps to time."
+    },
+    {
+      "path": "/learningPaths/0/steps/1/title",
+      "before": "Spike detection",
+      "after": "Candidate event detection"
+    },
+    {
+      "path": "/learningPaths/0/steps/1/explanation",
+      "before": "Many invasive BCIs depend on separating real action potentials from baseline noise. Detection is the first place signal reasoning can succeed or fail.",
+      "after": "A threshold rule turns a synthetic voltage trace into candidate events. The exercise separates numerical detection from evidence about a biological source."
+    },
+    {
+      "path": "/neuroCodeLessons/3/neuroengineeringConcept",
+      "before": "Spike counting",
+      "after": "Threshold-event counting"
+    }
+  ]
+}

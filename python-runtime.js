@@ -1,70 +1,61 @@
-/* Cortex — in-browser Python 3 (Pyodide) for NeuroCode OJT labs */
-
-const PYODIDE_CDN = 'https://cdn.jsdelivr.net/pyodide/v0.26.4/full/';
+/* Each Python run owns a worker; stopping it also discards its interpreter. */
 const PYTHON_TIMEOUT_MS = 10000;
+const PYTHON_LOAD_TIMEOUT_MS = 45000;
+let pythonActiveRun = null;
+let pythonRunId = 0;
 
-let _pyodideReady = null;
-
-function loadExternalScript(src) {
-  if (document.querySelector(`script[src="${src}"]`)) {
-    return window.loadPyodide ? Promise.resolve() : new Promise((res, rej) => {
-      const t = setInterval(() => { if (window.loadPyodide) { clearInterval(t); res(); } }, 50);
-      setTimeout(() => { clearInterval(t); rej(new Error('Pyodide script stalled')); }, 30000);
-    });
-  }
-  return new Promise((resolve, reject) => {
-    const s = document.createElement('script');
-    s.src = src;
-    s.onload = () => resolve();
-    s.onerror = () => reject(new Error(`Failed to load ${src}`));
-    document.head.appendChild(s);
-  });
+function stopPythonCode(message = 'Python stopped. Your editor draft is retained.') {
+  pythonActiveRun?.finish({ ok: false, reason: 'stopped', stderr: message });
 }
 
-async function ensurePythonRuntime(onStatus) {
-  if (_pyodideReady) return _pyodideReady;
-  _pyodideReady = (async () => {
-    onStatus?.('Loading Python 3 runtime…');
-    await loadExternalScript(`${PYODIDE_CDN}pyodide.js`);
-    onStatus?.('Initializing Python runtime…');
-    const pyodide = await loadPyodide({ indexURL: PYODIDE_CDN });
-    onStatus?.('Python lab ready.');
-    return pyodide;
-  })().catch(err => {
-    _pyodideReady = null;
-    throw err;
+function runPythonCode(code, opts = {}) {
+  const failure = (reason, stderr) => Promise.resolve({ ok: false, reason, stdout: '', stderr });
+  if (opts.signal?.aborted) return failure('stopped', 'Python stopped before execution.');
+  if (typeof Worker === 'undefined') return failure('unsupported', 'This browser cannot run the Python worker. Use the authored trace activity or export your code for another environment.');
+  if (pythonActiveRun) return failure('busy', 'Another Python run is active. Stop it or wait for its result.');
+  return new Promise(resolve => {
+    const id = ++pythonRunId;
+    let worker, timer, finished = false, running = false, stdout = '', stderr = '';
+    const abort = () => job.finish({ ok: false, reason: 'stopped', stderr: 'Python stopped. Your editor draft is retained.' });
+    const job = { finish(result) {
+      if (finished) return;
+      finished = true; clearTimeout(timer); opts.signal?.removeEventListener('abort', abort);
+      worker?.terminate();
+      if (pythonActiveRun === job) pythonActiveRun = null;
+      resolve({ stdout, stderr, ...result });
+    } };
+    pythonActiveRun = job;
+    opts.signal?.addEventListener('abort', abort, { once: true });
+    const startTimer = (milliseconds, reason, message) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => job.finish({ ok: false, reason, stderr: message }), milliseconds);
+    };
+    try {
+      opts.onStatus?.('Loading Python in a separate worker…');
+      if (finished) return;
+      worker = new Worker('python-runtime-worker.js?v=1');
+      startTimer(PYTHON_LOAD_TIMEOUT_MS, 'load-timeout', 'Python or its packages did not load within 45 seconds. Your draft is retained; retry when the connection is available.');
+      worker.onerror = event => { event.preventDefault?.(); job.finish({ ok: false, reason: 'runtime', stderr: event.message || 'The Python worker could not load.' }); };
+      worker.onmessageerror = () => job.finish({ ok: false, reason: 'runtime', stderr: 'The Python worker returned an unreadable result.' });
+      worker.onmessage = event => {
+        const message = event.data;
+        if (finished || !message || message.id !== id) return;
+        if (message.type === 'running' && !running) {
+          running = true; opts.onStatus?.('Running Python. Stop is available.');
+          if (finished) return;
+          startTimer(PYTHON_TIMEOUT_MS, 'timeout', 'Python stopped after 10 seconds of execution. Check loops or reduce the workload, then retry.');
+        } else if (message.type === 'status') opts.onStatus?.(String(message.text));
+        else if (message.type === 'output') {
+          stdout = String(message.stdout || '').slice(0, 32768); stderr = String(message.stderr || '').slice(0, 32768);
+          opts.onOutput?.({ stdout, stderr });
+        } else if (message.type === 'result' && typeof message.ok === 'boolean') {
+          job.finish({ ok: message.ok, reason: message.reason,
+            stdout: String(message.stdout || '').slice(0, 32768), stderr: String(message.stderr || '').slice(0, 32768) });
+        }
+      };
+      worker.postMessage({ id, code: String(code || ''), packages: opts.packages || [], globals: opts.globals || {} });
+    } catch (error) { job.finish({ ok: false, reason: 'runtime', stderr: error.message || String(error) }); }
   });
-  return _pyodideReady;
 }
-
-async function runPythonCode(code, opts = {}) {
-  const pyodide = await ensurePythonRuntime(opts.onStatus);
-  if (opts.packages?.length) {
-    opts.onStatus?.(`Loading ${opts.packages.join(', ')}…`);
-    await pyodide.loadPackage(opts.packages);
-  }
-  if (opts.globals) {
-    for (const [key, val] of Object.entries(opts.globals)) {
-      pyodide.globals.set(key, pyodide.toPy(val));
-    }
-  }
-  let stdout = '';
-  let stderr = '';
-  // Pyodide's `batched` callback delivers each line WITHOUT its trailing newline —
-  // re-add it, or multi-line output glues into one string and line-based graders fail.
-  pyodide.setStdout({ batched: (s) => { stdout += s + '\n'; } });
-  pyodide.setStderr({ batched: (s) => { stderr += s + '\n'; } });
-
-  const run = pyodide.runPythonAsync(code);
-  const timer = new Promise((_, reject) => {
-    setTimeout(() => reject(new Error(`Timeout — execution exceeded ${PYTHON_TIMEOUT_MS / 1000}s`)), PYTHON_TIMEOUT_MS);
-  });
-
-  try {
-    await Promise.race([run, timer]);
-    return { ok: true, stdout, stderr };
-  } catch (e) {
-    const msg = e?.message || String(e);
-    return { ok: false, stdout, stderr: stderr ? `${stderr}\n${msg}` : msg };
-  }
-}
+window.addEventListener?.('pagehide', () => stopPythonCode());
+window.addEventListener?.('study-storage-paused', () => stopPythonCode('Python stopped while study saving is paused. Your draft is retained.'));

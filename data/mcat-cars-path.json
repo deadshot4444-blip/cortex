@@ -1,0 +1,522 @@
+{
+  "version": 1,
+  "title": "CARS: claim, argument and transfer",
+  "reviewStatus": "Local authored-content check: September 7, 2026. Independent CARS review and learner evaluation remain pending.",
+  "source": {
+    "title": "AAMC CARS section and reasoning-skill overview",
+    "url": "https://students-residents.aamc.org/whats-mcat-exam/critical-analysis-and-reasoning-skills-section-overview"
+  },
+  "steps": [
+    {
+      "coachId": "coach-h1",
+      "unitId": "cars-main-idea",
+      "title": "1. Find the claim",
+      "support": "guided"
+    },
+    {
+      "coachId": "coach-h2",
+      "unitId": "cars-argument",
+      "title": "2. Test the argument",
+      "support": "light"
+    },
+    {
+      "coachId": "coach-cars-repair",
+      "unitId": "cars-argument",
+      "title": "3. Apply the method",
+      "support": "light"
+    },
+    {
+      "coachId": "coach-cars-archive",
+      "unitId": "cars-transfer",
+      "title": "4. Try a fresh transfer passage",
+      "support": "independent"
+    }
+  ],
+  "coaches": [
+    {
+      "id": "coach-cars-repair",
+      "passageId": "cars-path-repair",
+      "kind": "cars",
+      "title": "Repair and the Public Library",
+      "unitId": "cars-argument",
+      "pathOrder": 3,
+      "suggestedSupport": "light",
+      "reservedTransfer": false,
+      "blindReview": true,
+      "focus": "Apply a qualified claim, evaluate evidence and compare a proposal’s tradeoffs.",
+      "prompts": [
+        "State the author’s central claim and one qualification.",
+        "Describe the job of each paragraph in the argument.",
+        "Identify an alternative position the author considers and the response to it."
+      ],
+      "hints": [
+        "Separate the issue being debated from the decision rule the author proposes.",
+        "Look for both a positive recommendation and a limit on what it establishes."
+      ],
+      "questionHints": [
+        "Identify whether the question asks for the claim, a relationship within the passage, or a new application.",
+        "Check the proposed answer against a specific paragraph and the conclusion’s qualification."
+      ],
+      "model": [
+        {
+          "label": "Paragraph 1",
+          "text": "Frame the mission dispute and propose a different decision question."
+        },
+        {
+          "label": "Paragraph 2",
+          "text": "Offer a sharing benefit, then distinguish inventory and use from access."
+        },
+        {
+          "label": "Paragraph 3",
+          "text": "Derive new operating duties from the service’s distinct risks."
+        },
+        {
+          "label": "Paragraph 4",
+          "text": "Take resource displacement seriously and propose an accountable trial."
+        },
+        {
+          "label": "Paragraph 5",
+          "text": "Reject both rigid identity and unlimited expansion; limit the trial’s inference."
+        },
+        {
+          "label": "Main claim",
+          "text": "New services can be justified through revisable public reasoning about access, obligations and tradeoffs."
+        },
+        {
+          "label": "Boundary",
+          "text": "Neither popularity nor one successful trial establishes that every useful service belongs in a library."
+        },
+        {
+          "label": "Transfer example",
+          "text": "A community center considering a shared workshop should assess who can use it, its operating duties and which existing activities it would displace."
+        }
+      ],
+      "passage": {
+        "id": "cars-path-repair",
+        "title": "Repair and the Public Library",
+        "discipline": "Humanities",
+        "revision": 1,
+        "contentNote": "Original Cortex practice essay and fictional examples. Independent CARS review is pending. This is not an official AAMC item.",
+        "text": "A public library considering a lending collection of household tools faces a deceptively simple question: does a drill belong among books? One critic says that a library preserves recorded thought, whereas a drill merely makes holes. A supporter replies that libraries have always helped people do things, including things that occur beyond a reading room. Both arguments make the decision appear to depend on discovering the institution’s timeless essence. Yet the dispute may be more useful if it asks what a shared collection enables, whom it excludes, and which obligations follow from its use.\n\nImagine that the proposed collection begins with equipment residents need occasionally but cannot easily purchase or store. Ownership would leave many tools idle in separate cupboards; lending would make a smaller stock available to more households. This is a reason for the collection, but it is not yet a sufficient defense. A tool available on paper may be practically unavailable to someone unable to collect it during opening hours. A catalog can count objects without recording the obstacles between those objects and their intended users. The number of loans tells us something about use, not everything about access.\n\nMaintenance makes the difference especially visible. A book with a torn cover may remain readable; a damaged ladder can become dangerous. Lending tools therefore creates duties that cannot be discharged by applying every existing rule unchanged. Inspection, clear instruction and a reliable way to report defects become part of the service itself. These duties do not prove that tool lending falls outside the library’s mission. They show why an expanded mission needs expanded practices. The relevant comparison is between plausible versions of the service, not between an idealized new collection and a costless familiar one.\n\nA second objection deserves more weight: a popular tool collection might consume funds needed for books, quiet space or skilled staff. Calling every useful activity a library service would provide no principled way to choose among them. The answer cannot simply be that communities want tools. A proposal must explain how shared access serves the institution’s public purpose and what it would displace. A limited trial with published costs and opportunities for nonusers to respond could reveal tradeoffs that a declaration of mission conceals. Evidence of demand would then be considered alongside evidence about neglected needs.\n\nThe institution need not choose between an identity fixed forever and an identity rewritten by each fashionable request. It can treat its mission as a continuing public argument, constrained by resources and responsibilities. On this view, a successful trial would justify retaining a particular service under particular conditions, not demonstrate that libraries should lend every useful object. The drill matters less as a new symbol on the shelf than as a test of whether an institution can revise its practices while remaining answerable to the people it exists to serve.",
+        "questions": [
+          {
+            "id": "cars-path-repair-1",
+            "stem": "Which statement best captures the author’s central claim?",
+            "options": [
+              "Give demand priority over competing duties.",
+              "Weigh access, duties and competing uses.",
+              "Replace reading services with tool sharing.",
+              "Fix its services through a timeless definition."
+            ],
+            "answer": 1,
+            "skill": "cars-1",
+            "explanation": "Paragraphs 3–5 connect an expanded service to responsibility, resource choices and revisable public justification.",
+            "optionFeedback": [
+              "Popularity is explicitly insufficient in paragraph 4.",
+              "Paragraphs 3–5 connect an expanded service to responsibility, resource choices and revisable public justification.",
+              "The idle-tool example supports a possible benefit; the author does not recommend replacing books.",
+              "The opening and conclusion question the use of a timeless essence to settle the decision."
+            ],
+            "evidenceParagraphs": [
+              3,
+              4,
+              5
+            ],
+            "displayOrder": [
+              1,
+              3,
+              0,
+              2
+            ]
+          },
+          {
+            "id": "cars-path-repair-2",
+            "stem": "The damaged-ladder example primarily serves to:",
+            "options": [
+              "Establish that lending tools cannot be made safe.",
+              "Show that familiar library practices may need to change when services expand.",
+              "Prove that books require no maintenance.",
+              "Demonstrate that tool users are less responsible than readers."
+            ],
+            "answer": 1,
+            "skill": "cars-2",
+            "explanation": "Paragraph 3 uses the different consequences of damage to explain why inspection and reporting must become part of the service.",
+            "optionFeedback": [
+              "The example identifies duties rather than declaring the risks impossible to address.",
+              "Paragraph 3 uses the different consequences of damage to explain why inspection and reporting must become part of the service.",
+              "The comparison concerns consequences of damage, not the absence of book maintenance.",
+              "No comparison of user character is made."
+            ],
+            "evidenceParagraphs": [
+              3
+            ],
+            "displayOrder": [
+              0,
+              1,
+              3,
+              2
+            ]
+          },
+          {
+            "id": "cars-path-repair-3",
+            "stem": "Why does the author distinguish loan counts from access?",
+            "options": [
+              "Loan counts include only damaged tools.",
+              "Every resident must borrow a tool for access to exist.",
+              "Loan totals can hide barriers faced by nonusers.",
+              "Opening hours are unrelated to whether a tool can be borrowed."
+            ],
+            "answer": 2,
+            "skill": "cars-1",
+            "explanation": "Paragraph 2 shows how a stocked collection can remain unusable for people whose schedules prevent collection.",
+            "optionFeedback": [
+              "No such counting rule is given.",
+              "Access does not require universal use, and the passage does not propose that criterion.",
+              "Paragraph 2 shows how a stocked collection can remain unusable for people whose schedules prevent collection.",
+              "The opening-hours example directly shows a relationship to practical access."
+            ],
+            "evidenceParagraphs": [
+              2
+            ],
+            "displayOrder": [
+              3,
+              0,
+              2,
+              1
+            ]
+          },
+          {
+            "id": "cars-path-repair-4",
+            "stem": "Which finding would most directly weaken the proposed collection’s initial resource-sharing rationale?",
+            "options": [
+              "An effective local sharing service already meets intended users’ needs.",
+              "Residents disagree about the wording of the library’s mission statement.",
+              "Some books in the library require replacement covers.",
+              "A small number of patrons initially mistake the new catalog for the book catalog."
+            ],
+            "answer": 0,
+            "skill": "cars-3",
+            "explanation": "The initial rationale depends on improving access through shared rather than idle individual ownership. An existing effective shared service reduces that particular added benefit.",
+            "optionFeedback": [
+              "The initial rationale depends on improving access through shared rather than idle individual ownership. An existing effective shared service reduces that particular added benefit.",
+              "Disagreement about wording does not by itself undermine resource sharing.",
+              "Book maintenance reinforces the need to compare real costs, but does not directly challenge the sharing benefit.",
+              "Initial catalog confusion could be corrected and does not address the proposed resource benefit."
+            ],
+            "evidenceParagraphs": [
+              2,
+              3
+            ],
+            "displayOrder": [
+              2,
+              3,
+              1,
+              0
+            ]
+          },
+          {
+            "id": "cars-path-repair-5",
+            "stem": "Which trial design best fits the author’s recommendation?",
+            "options": [
+              "Count loans and make the service permanent if the count rises.",
+              "Approve the collection once supporters produce a petition.",
+              "Publish tradeoffs and consult users and nonusers.",
+              "Require agreement from every resident before collecting any evidence."
+            ],
+            "answer": 2,
+            "skill": "cars-3",
+            "explanation": "Paragraph 4 proposes a limited trial whose evidence includes costs, tradeoffs and people who do not use the collection.",
+            "optionFeedback": [
+              "A loan count alone omits access barriers and displaced needs.",
+              "Demand alone is explicitly insufficient.",
+              "Paragraph 4 proposes a limited trial whose evidence includes costs, tradeoffs and people who do not use the collection.",
+              "The author recommends accountable judgment, not unanimous permission before inquiry."
+            ],
+            "evidenceParagraphs": [
+              4,
+              5
+            ],
+            "displayOrder": [
+              2,
+              3,
+              0,
+              1
+            ]
+          },
+          {
+            "id": "cars-path-repair-6",
+            "stem": "Which claim would the author most likely reject?",
+            "options": [
+              "A service can be useful while still imposing unacceptable opportunity costs.",
+              "Different library services may require different operating practices.",
+              "A successful tool trial justifies lending all useful objects.",
+              "A mission can guide decisions while remaining open to reasoned revision."
+            ],
+            "answer": 2,
+            "skill": "cars-2",
+            "explanation": "The final paragraph explicitly limits what a successful particular trial would justify.",
+            "optionFeedback": [
+              "The paragraph about displaced books, space and staff allows this possibility.",
+              "The maintenance discussion supports this claim.",
+              "The final paragraph explicitly limits what a successful particular trial would justify.",
+              "This is the conclusion’s proposed middle course."
+            ],
+            "evidenceParagraphs": [
+              3,
+              4,
+              5
+            ],
+            "displayOrder": [
+              0,
+              2,
+              1,
+              3
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "coach-cars-archive",
+      "passageId": "cars-path-archive",
+      "kind": "cars",
+      "title": "The Archive’s Gaps",
+      "unitId": "cars-transfer",
+      "pathOrder": 4,
+      "suggestedSupport": "independent",
+      "reservedTransfer": true,
+      "blindReview": true,
+      "focus": "Try a reserved fresh passage, then review your first choices before seeing feedback.",
+      "prompts": [
+        "State the author’s central claim and one qualification.",
+        "Describe the job of each paragraph in the argument.",
+        "Identify an alternative position the author considers and the response to it."
+      ],
+      "hints": [
+        "Separate the issue being debated from the decision rule the author proposes.",
+        "Look for both a positive recommendation and a limit on what it establishes."
+      ],
+      "questionHints": [
+        "Identify whether the question asks for the claim, a relationship within the passage, or a new application.",
+        "Check the proposed answer against a specific paragraph and the conclusion’s qualification."
+      ],
+      "model": [
+        {
+          "label": "Paragraph 1",
+          "text": "Distinguish preserved material from a complete past; introduce accountable boundaries."
+        },
+        {
+          "label": "Paragraph 2",
+          "text": "Show that accurate surviving records can still have limited scope."
+        },
+        {
+          "label": "Paragraph 3",
+          "text": "Explain why adding interviews introduces further selection choices."
+        },
+        {
+          "label": "Paragraph 4",
+          "text": "Accept resource constraints while defending documented, challengeable reasons."
+        },
+        {
+          "label": "Paragraph 5",
+          "text": "Require usable accountability rather than disclosure alone; retain judgment."
+        },
+        {
+          "label": "Main claim",
+          "text": "Archives earn trust by making the assembly and limits of evidence meaningfully open to examination and revision."
+        },
+        {
+          "label": "Boundary",
+          "text": "Accountability does not promise completeness or give each objection a veto."
+        },
+        {
+          "label": "Transfer example",
+          "text": "A museum’s acquisition policy is accountable only if affected people can examine its reasons and make objections that can influence decisions."
+        }
+      ],
+      "passage": {
+        "id": "cars-path-archive",
+        "title": "The Archive’s Gaps",
+        "discipline": "Humanities",
+        "revision": 1,
+        "contentNote": "Original Cortex practice essay and fictional examples. Independent CARS review is pending. This is not an official AAMC item.",
+        "text": "An archive often presents itself as a place where the past has been kept. This description is convenient but incomplete. No institution preserves every document, conversation or object, and surviving material does not arrive without a history of selection. The danger is not simply that an archive has gaps. It is that a reader may mistake what happens to have survived for a complete account of what once mattered. An honest archive must therefore preserve ways to question its own boundaries as well as material within them.\n\nConsider a fictional town whose records consist largely of property transactions and council minutes. The collection can support detailed accounts of ownership and formal decisions. It may say much less about the work of residents who owned little property or addressed disputes outside the council chamber. This imbalance does not make the surviving records false. It limits the questions they can answer alone. To discard them because they are partial would lose valuable evidence; to treat them as sufficient would turn a condition of survival into an unwarranted claim about historical importance.\n\nInviting residents to contribute recorded memories seems an obvious remedy, but it creates new choices rather than abolishing selection. Who hears the invitation? Who has time to respond? Which languages can the institution record and interpret? A collection that adds many interviews may still repeat the exclusions of its earlier holdings. Counting contributions cannot by itself establish that missing experiences are now adequately represented. Nor can a single narrator be made responsible for speaking on behalf of everyone whose circumstances resemble their own. More material can widen inquiry without completing it.\n\nOne might object that attention to every omission would leave archivists unable to collect anything. Resources are limited, and selection is unavoidable. The objection succeeds against an impossible demand for completeness, but not against a demand for accountability. An institution can document why it chose a collection, name important limits and make the rationale open to challenge. Such records will not restore every lost voice. They can help later researchers distinguish an absence produced by an explicit collecting rule from an absence whose cause remains uncertain. That distinction changes what can responsibly be inferred.\n\nTransparency itself can become a ritual. A long policy document may satisfy an administrative requirement while remaining inaccessible to the people whose experience it describes. Accountability requires a usable opportunity to question a decision and, where appropriate, alter it. This does not give every objection the force of a veto; competing requests still require judgment. It does require reasons that can be examined rather than assurances that the institution has already considered everything. An archive earns trust less by appearing to contain the whole past than by helping readers understand how its evidence was assembled and how its limits might be revised.",
+        "questions": [
+          {
+            "id": "cars-path-archive-1",
+            "stem": "The author’s main recommendation is that archives should:",
+            "options": [
+              "Preserve all available material before permitting historical research.",
+              "Replace official documents with oral histories.",
+              "Expose collection choices to meaningful challenge and revision.",
+              "Avoid judgments about which collections deserve resources."
+            ],
+            "answer": 2,
+            "skill": "cars-1",
+            "explanation": "The opening and conclusion connect trustworthy evidence to usable accountability for collection boundaries.",
+            "optionFeedback": [
+              "The author rejects completeness as an attainable requirement.",
+              "The author preserves the value of official documents and also questions the selection involved in interviews.",
+              "The opening and conclusion connect trustworthy evidence to usable accountability for collection boundaries.",
+              "Selection and competing requests still require judgment in the final paragraph."
+            ],
+            "evidenceParagraphs": [
+              1,
+              4,
+              5
+            ],
+            "displayOrder": [
+              2,
+              0,
+              1,
+              3
+            ]
+          },
+          {
+            "id": "cars-path-archive-2",
+            "stem": "The town-records example supports which distinction?",
+            "options": [
+              "A record can be accurate yet insufficient for a broader historical question.",
+              "Official records are accurate only when they include oral testimony.",
+              "Property ownership determines which experiences mattered historically.",
+              "The absence of a record proves that an event did not occur."
+            ],
+            "answer": 0,
+            "skill": "cars-2",
+            "explanation": "Paragraph 2 explicitly separates the truth of surviving records from the range of questions they can answer alone.",
+            "optionFeedback": [
+              "Paragraph 2 explicitly separates the truth of surviving records from the range of questions they can answer alone.",
+              "No such necessary condition for accuracy is given.",
+              "The example warns against turning survival patterns into claims about importance.",
+              "The passage cautions against drawing unsupported conclusions from absence."
+            ],
+            "evidenceParagraphs": [
+              2
+            ],
+            "displayOrder": [
+              2,
+              0,
+              1,
+              3
+            ]
+          },
+          {
+            "id": "cars-path-archive-3",
+            "stem": "Which observation most directly supports the author’s concern about an interview campaign?",
+            "options": [
+              "The archive stores interviews in a different room from council minutes.",
+              "New interviews mostly duplicate already represented experiences.",
+              "Some interview transcripts are longer than property records.",
+              "Interviewers number each recording before storing it."
+            ],
+            "answer": 1,
+            "skill": "cars-2",
+            "explanation": "The campaign can increase volume without reaching missing perspectives, which is the exact concern in paragraph 3.",
+            "optionFeedback": [
+              "Physical separation is not evidence that the campaign repeats prior exclusion.",
+              "The campaign can increase volume without reaching missing perspectives, which is the exact concern in paragraph 3.",
+              "Length alone does not establish inclusion or exclusion.",
+              "Numbering is compatible with either broad or narrow participation."
+            ],
+            "evidenceParagraphs": [
+              3
+            ],
+            "displayOrder": [
+              0,
+              2,
+              1,
+              3
+            ]
+          },
+          {
+            "id": "cars-path-archive-4",
+            "stem": "A museum publishes its acquisition rules but accepts objections only through a form unavailable in the languages used by most affected residents. The author would most likely say that:",
+            "options": [
+              "Publication is sufficient because selection is unavoidable.",
+              "Every affected resident should therefore receive a veto over acquisitions.",
+              "The rules should be withdrawn so that nobody can challenge them.",
+              "Disclosure has not yet established usable accountability."
+            ],
+            "answer": 3,
+            "skill": "cars-3",
+            "explanation": "This new case combines the language-access concern in paragraph 3 with the warning about ritual transparency in paragraph 5.",
+            "optionFeedback": [
+              "The final paragraph expressly distinguishes publication from usable accountability.",
+              "The author denies that every objection must become a veto.",
+              "The remedy is meaningful access to challenge, not hiding reasons.",
+              "This new case combines the language-access concern in paragraph 3 with the warning about ritual transparency in paragraph 5."
+            ],
+            "evidenceParagraphs": [
+              3,
+              5
+            ],
+            "displayOrder": [
+              0,
+              1,
+              2,
+              3
+            ]
+          },
+          {
+            "id": "cars-path-archive-5",
+            "stem": "Which finding would most directly challenge a particular archive’s claim that publishing its policy has had no practical effect?",
+            "options": [
+              "Policy objections regularly produce documented changes in collecting decisions.",
+              "The archive’s policy contains several pages of technical vocabulary.",
+              "The archive receives few objections after making its form hard to locate.",
+              "The archive adds more documents without recording the reasons for selecting them."
+            ],
+            "answer": 0,
+            "skill": "cars-3",
+            "explanation": "Documented changes resulting from policy objections directly challenge the claim of no practical effect. This does not establish that every archive’s policy works.",
+            "optionFeedback": [
+              "Documented changes resulting from policy objections directly challenge the claim of no practical effect. This does not establish that every archive’s policy works.",
+              "Technical vocabulary alone does not establish an effect on decisions.",
+              "Few objections under an inaccessible process do not establish practical influence.",
+              "More holdings without recorded reasons do not connect any change to the published policy."
+            ],
+            "evidenceParagraphs": [
+              5
+            ],
+            "displayOrder": [
+              0,
+              3,
+              2,
+              1
+            ]
+          },
+          {
+            "id": "cars-path-archive-6",
+            "stem": "What limitation does the author acknowledge about documenting selection decisions?",
+            "options": [
+              "It necessarily makes all historical inference impossible.",
+              "It eliminates the need to preserve incomplete records.",
+              "Recorded reasons clarify gaps without filling them.",
+              "It requires researchers to agree with every institutional decision."
+            ],
+            "answer": 2,
+            "skill": "cars-1",
+            "explanation": "Paragraph 4 says that recording reasons can distinguish kinds of absence without restoring every lost voice.",
+            "optionFeedback": [
+              "The purpose is to support more responsible inference.",
+              "Incomplete records retain value in paragraph 2.",
+              "Paragraph 4 says that recording reasons can distinguish kinds of absence without restoring every lost voice.",
+              "Open challenge is part of the recommendation, so agreement is not required."
+            ],
+            "evidenceParagraphs": [
+              2,
+              4,
+              5
+            ],
+            "displayOrder": [
+              0,
+              2,
+              3,
+              1
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

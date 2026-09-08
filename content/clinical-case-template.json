@@ -1,0 +1,41 @@
+{
+  "key": "specialty-key",
+  "case": {
+    "id": "unused-stable-case-id",
+    "contentRevision": 1,
+    "reviewStatus": "Original fictional teaching case; independent clinician review pending.",
+    "title": "Presentation title without the diagnosis",
+    "difficulty": "medium",
+    "setting": "Care setting and relevant regional pathway",
+    "patient": "Fictional age and clinically relevant context",
+    "chiefComplaint": "What the learner receives at handoff",
+    "history": "History that may be opened before the first decision; no later results",
+    "exam": "Examination findings available at this stage",
+    "vitals": { "BP": "value and unit", "HR": "value and unit", "RR": "value and unit", "Temp": "value and unit", "SpO2": "value and oxygen context" },
+    "stages": [
+      { "type": "question", "label": "INITIAL APPROACH", "question": "Decision justified by the currently available information?", "options": ["Plausible option A", "Plausible option B", "Plausible option C", "Plausible option D"], "answer": 0, "explanation": "Why the best choice fits this stage, and why each alternative is less appropriate" },
+      { "type": "result", "label": "NEW FINDINGS", "content": "New results with units, time, reference ranges when needed, and measurement limitations" },
+      { "type": "question", "label": "DIAGNOSIS", "question": "Best working formulation after these findings?", "options": ["Working diagnosis A", "Working diagnosis B", "Working diagnosis C", "Working diagnosis D"], "answer": 1, "explanation": "How the findings discriminate without claiming more certainty than they support" },
+      { "type": "question", "label": "MANAGEMENT", "question": "Next action under the stated circumstances?", "options": ["Plan A", "Plan B", "Plan C", "Plan D"], "answer": 2, "explanation": "Why this plan fits, legitimate alternatives, contraindications and unresolved questions" },
+      { "type": "result", "label": "FOLLOW-UP", "content": "A later finding, response or change that matters for reassessment" },
+      { "type": "question", "label": "REASSESSMENT", "question": "How does the new information change the plan?", "options": ["Response A", "Response B", "Response C", "Response D"], "answer": 3, "explanation": "Explain the update without rewriting what was justified earlier" }
+    ],
+    "diagnosis": "Final working formulation, including uncertainty where appropriate",
+    "pearls": ["A transferable distinction", "A limitation of the evidence", "A reason to reassess"]
+  },
+  "investigations": {
+    "interview": [{ "prompt": "A useful question", "finding": "The fictional answer available now" }],
+    "exam": [{ "prompt": "An examination action", "finding": "The fictional result available now" }]
+  },
+  "modelNote": { "assessment": "Synthesis of all findings through the final stage", "plan": "Proportionate next steps, alternatives, follow-up and uncertainty" },
+  "review": {
+    "sourceCheckedOn": null,
+    "independentReview": "pending",
+    "reviewer": null,
+    "contentRevision": 1,
+    "objective": "One observable reasoning task",
+    "alternativesAndLimits": "Reasonable alternatives, excluded contexts and claims the case cannot support",
+    "sources": [{ "title": "Primary guideline and relevant section/version", "url": "https://example.org/replace-with-primary-source" }],
+    "reviewQuestions": ["Is every keyed choice justified at its stage?", "Are any legitimate alternatives incorrectly marked wrong?", "Does the final note agree with the complete encounter?"]
+  }
+}

@@ -1,0 +1,2704 @@
+{
+  "version": 1,
+  "checkedOn": "2026-09-07",
+  "review": "Assistant alignment audit. No independent subject review is claimed.",
+  "source": "https://students-residents.aamc.org/prepare-mcat-exam/whats-mcat-exam-pdf-outline",
+  "note": "Primary content category indicates context; reasoning skill is recorded separately. Question, card, passage, and saved-attempt identifiers are unchanged.",
+  "changes": [
+    {
+      "bank": "mcat-questions",
+      "id": "cp-physics-3",
+      "before": "4B",
+      "after": "4C"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "cp-physics-4",
+      "before": "4B",
+      "after": "4D"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "cp-physics-8",
+      "before": "4C",
+      "after": "4D"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "cp-physics-9",
+      "before": "4C",
+      "after": "4D"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "cp-physics-10",
+      "before": "4B",
+      "after": "4D"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "cp-physics-13",
+      "before": "4B",
+      "after": "4C"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "cp-physics-14",
+      "before": "4B",
+      "after": "4C"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "cp-physics-15",
+      "before": "4B",
+      "after": "4D"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "cp-physics-18",
+      "before": "4B",
+      "after": "4D"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "cp-physics-19",
+      "before": "4B",
+      "after": "4C"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "cp-chem-2",
+      "before": "5A",
+      "after": "5E"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "cp-chem-3",
+      "before": "5E",
+      "after": "4C"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "cp-chem-4",
+      "before": "5D",
+      "after": "5B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "cp-chem-7",
+      "before": "5D",
+      "after": "4D"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "cp-chem-8",
+      "before": "5D",
+      "after": "5B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "cp-chem-14",
+      "before": "5D",
+      "after": "5B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "cp-chem-16",
+      "before": "5E",
+      "after": "4C"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "bb-biochem-1",
+      "before": "1D",
+      "after": "1A"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "bb-biochem-3",
+      "before": "1D",
+      "after": "1A"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "bb-biochem-8",
+      "before": "1D",
+      "after": "1A"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "bb-biochem-13",
+      "before": "1D",
+      "after": "1A"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "bb-biochem-17",
+      "before": "1D",
+      "after": "1A"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "bb-biochem-19",
+      "before": "1D",
+      "after": "1A"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "bb-bio-2",
+      "before": "1A",
+      "after": "1B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "bb-bio-4",
+      "before": "1A",
+      "after": "1C"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "bb-bio-8",
+      "before": "1A",
+      "after": "2B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "bb-bio-9",
+      "before": "1B",
+      "after": "2C"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "bb-bio-10",
+      "before": "3A",
+      "after": "2A"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "bb-bio-11",
+      "before": "1A",
+      "after": "2B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "bb-bio-12",
+      "before": "3A",
+      "after": "3B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "bb-bio-15",
+      "before": "1A",
+      "after": "1C"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "bb-bio-17",
+      "before": "1B",
+      "after": "2C"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-psych-2",
+      "before": "6A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-psych-3",
+      "before": "7A",
+      "after": "7C"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-psych-4",
+      "before": "7A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-psych-5",
+      "before": "7A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-psych-6",
+      "before": "7A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-psych-7",
+      "before": "7A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-psych-9",
+      "before": "7A",
+      "after": "7C"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-psych-10",
+      "before": "7A",
+      "after": "7C"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-psych-11",
+      "before": "7A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-psych-12",
+      "before": "7A",
+      "after": "7B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-psych-14",
+      "before": "6A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-psych-15",
+      "before": "7A",
+      "after": "6C"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-psych-17",
+      "before": "7A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-psych-18",
+      "before": "7A",
+      "after": "6C"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-psych-20",
+      "before": "7A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-soc-1",
+      "before": "7C",
+      "after": "7B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-soc-2",
+      "before": "7C",
+      "after": "7B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-soc-3",
+      "before": "9B",
+      "after": "10A"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-soc-5",
+      "before": "10B",
+      "after": "9B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-soc-6",
+      "before": "10A",
+      "after": "9B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-soc-7",
+      "before": "7C",
+      "after": "8B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-soc-8",
+      "before": "9B",
+      "after": "8C"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-soc-10",
+      "before": "10B",
+      "after": "7B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-soc-11",
+      "before": "7C",
+      "after": "7B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-soc-13",
+      "before": "10A",
+      "after": "8C"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-soc-14",
+      "before": "7C",
+      "after": "7B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-soc-15",
+      "before": "9B",
+      "after": "10A"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-soc-16",
+      "before": "7C",
+      "after": "7B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-soc-17",
+      "before": "10A",
+      "after": "9B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-soc-18",
+      "before": "10B",
+      "after": "7B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-soc-20",
+      "before": "9B",
+      "after": "10A"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "cp-physics-r2-3",
+      "before": "4C",
+      "after": "4A"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "cp-physics-r2-4",
+      "before": "4C",
+      "after": "4A"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "cp-physics-r2-5",
+      "before": "4C",
+      "after": "4A"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "cp-physics-r2-6",
+      "before": "4B",
+      "after": "4C"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "cp-physics-r2-7",
+      "before": "4B",
+      "after": "4C"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "cp-physics-r2-8",
+      "before": "4B",
+      "after": "4C"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "cp-physics-r2-9",
+      "before": "4B",
+      "after": "4C"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "cp-physics-r2-10",
+      "before": "4B",
+      "after": "4D"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "cp-physics-r2-11",
+      "before": "4B",
+      "after": "4D"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "cp-physics-r2-12",
+      "before": "4B",
+      "after": "4D"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "cp-physics-r2-14",
+      "before": "4B",
+      "after": "4A"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "cp-physics-r2-15",
+      "before": "4B",
+      "after": "4A"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "cp-physics-r2-16",
+      "before": "4B",
+      "after": "5E"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "cp-physics-r2-17",
+      "before": "4B",
+      "after": "5E"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "cp-physics-r2-18",
+      "before": "4B",
+      "after": "4C"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "cp-physics-r2-19",
+      "before": "4B",
+      "after": "4C"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "cp-physics-r2-20",
+      "before": "4B",
+      "after": "4D"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "cp-physics-r2-21",
+      "before": "4C",
+      "after": "4A"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "cp-physics-r2-22",
+      "before": "4B",
+      "after": "4C"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "cp-physics-r2-23",
+      "before": "4B",
+      "after": "4D"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "cp-physics-r2-24",
+      "before": "4B",
+      "after": "4C"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "cp-chem-r2-3",
+      "before": "5E",
+      "after": "4C"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "cp-chem-r2-4",
+      "before": "5D",
+      "after": "5B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "cp-chem-r2-7",
+      "before": "5D",
+      "after": "4D"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "cp-chem-r2-8",
+      "before": "5D",
+      "after": "5B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "cp-chem-r2-10",
+      "before": "5A",
+      "after": "4E"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "cp-chem-r2-12",
+      "before": "5E",
+      "after": "4C"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "cp-chem-r2-15",
+      "before": "5A",
+      "after": "5B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "cp-chem-r2-17",
+      "before": "5D",
+      "after": "5C"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "cp-chem-r2-23",
+      "before": "5D",
+      "after": "4D"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "bb-biochem-r2-17",
+      "before": "1D",
+      "after": "2A"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "bb-biochem-r2-18",
+      "before": "1A",
+      "after": "1B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "bb-bio-r2-2",
+      "before": "1C",
+      "after": "1B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "bb-bio-r2-3",
+      "before": "3A",
+      "after": "2A"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "bb-bio-r2-8",
+      "before": "2C",
+      "after": "2B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "bb-bio-r2-10",
+      "before": "3A",
+      "after": "3B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "bb-bio-r2-11",
+      "before": "1A",
+      "after": "2A"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "bb-bio-r2-12",
+      "before": "3A",
+      "after": "3B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "bb-bio-r2-15",
+      "before": "3A",
+      "after": "3B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "bb-bio-r2-16",
+      "before": "1B",
+      "after": "2C"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "bb-bio-r2-17",
+      "before": "2C",
+      "after": "2B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "bb-bio-r2-23",
+      "before": "1C",
+      "after": "1B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-psych-r2-1",
+      "before": "7A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-psych-r2-3",
+      "before": "7A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-psych-r2-4",
+      "before": "7A",
+      "after": "7C"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-psych-r2-5",
+      "before": "7A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-psych-r2-6",
+      "before": "7A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-psych-r2-7",
+      "before": "7A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-psych-r2-8",
+      "before": "7A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-psych-r2-10",
+      "before": "6C",
+      "after": "7A"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-psych-r2-12",
+      "before": "6C",
+      "after": "7A"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-psych-r2-14",
+      "before": "6C",
+      "after": "7A"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-psych-r2-15",
+      "before": "7A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-psych-r2-16",
+      "before": "7A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-psych-r2-17",
+      "before": "7A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-psych-r2-18",
+      "before": "7A",
+      "after": "8A"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-psych-r2-19",
+      "before": "7A",
+      "after": "6A"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-psych-r2-22",
+      "before": "7A",
+      "after": "8B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-soc-r2-1",
+      "before": "10A",
+      "after": "9A"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-soc-r2-2",
+      "before": "10A",
+      "after": "8C"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-soc-r2-3",
+      "before": "7C",
+      "after": "7B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-soc-r2-4",
+      "before": "10B",
+      "after": "9B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-soc-r2-5",
+      "before": "7C",
+      "after": "7B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-soc-r2-6",
+      "before": "10A",
+      "after": "9A"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-soc-r2-7",
+      "before": "10A",
+      "after": "8B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-soc-r2-9",
+      "before": "10A",
+      "after": "8C"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-soc-r2-10",
+      "before": "10A",
+      "after": "8C"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-soc-r2-11",
+      "before": "7C",
+      "after": "8C"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-soc-r2-12",
+      "before": "10A",
+      "after": "9A"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-soc-r2-13",
+      "before": "10A",
+      "after": "8C"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-soc-r2-15",
+      "before": "10A",
+      "after": "9B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-soc-r2-16",
+      "before": "7C",
+      "after": "8B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-soc-r2-18",
+      "before": "7C",
+      "after": "8C"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-soc-r2-20",
+      "before": "10B",
+      "after": "10A"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-soc-r2-21",
+      "before": "7C",
+      "after": "8C"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-soc-r2-22",
+      "before": "10B",
+      "after": "10A"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-soc-r2-23",
+      "before": "10A",
+      "after": "7B"
+    },
+    {
+      "bank": "mcat-questions",
+      "id": "ps-soc-r2-24",
+      "before": "10B",
+      "after": "9B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "molbio-1",
+      "before": "1C",
+      "after": "1B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "molbio-2",
+      "before": "1C",
+      "after": "1B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "molbio-3",
+      "before": "1C",
+      "after": "1B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "molbio-4",
+      "before": "1C",
+      "after": "1B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "molbio-5",
+      "before": "1C",
+      "after": "1B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "molbio-6",
+      "before": "1C",
+      "after": "1B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "molbio-7",
+      "before": "1C",
+      "after": "1B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "molbio-8",
+      "before": "1C",
+      "after": "1B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "molbio-9",
+      "before": "1C",
+      "after": "1B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "molbio-10",
+      "before": "1C",
+      "after": "1B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "molbio-11",
+      "before": "1C",
+      "after": "1B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "molbio-12",
+      "before": "1C",
+      "after": "1B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "molbio-13",
+      "before": "1C",
+      "after": "1B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "molbio-19",
+      "before": "1C",
+      "after": "2C"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "molbio-20",
+      "before": "1C",
+      "after": "2C"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "cell-5",
+      "before": "2B",
+      "after": "2A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "cell-6",
+      "before": "2B",
+      "after": "2A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "cell-7",
+      "before": "2B",
+      "after": "2A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "cell-8",
+      "before": "2B",
+      "after": "2A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "cell-9",
+      "before": "2B",
+      "after": "2A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "cell-13",
+      "before": "2A",
+      "after": "2B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "physio-8",
+      "before": "3B",
+      "after": "3A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "physio-9",
+      "before": "3B",
+      "after": "3A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "physio-10",
+      "before": "3B",
+      "after": "3A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "physio-12",
+      "before": "3A",
+      "after": "3B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "physio-13",
+      "before": "3A",
+      "after": "3B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "genchem-5",
+      "before": "4E",
+      "after": "5B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "genchem-20",
+      "before": "5E",
+      "after": "4C"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "physics-15",
+      "before": "4B",
+      "after": "4C"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "physics-16",
+      "before": "4B",
+      "after": "4C"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "physics-17",
+      "before": "4C",
+      "after": "4D"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "physics-18",
+      "before": "4C",
+      "after": "4D"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "physics-19",
+      "before": "4C",
+      "after": "4D"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "orgo-1",
+      "before": "5C",
+      "after": "5D"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "orgo-2",
+      "before": "5C",
+      "after": "5D"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "orgo-3",
+      "before": "5C",
+      "after": "5B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "orgo-4",
+      "before": "5C",
+      "after": "5B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "orgo-5",
+      "before": "5C",
+      "after": "5B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "orgo-6",
+      "before": "5C",
+      "after": "5B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "orgo-7",
+      "before": "5C",
+      "after": "5B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "orgo-19",
+      "before": "5D",
+      "after": "4D"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "orgo-20",
+      "before": "5D",
+      "after": "4D"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "sens-16",
+      "before": "6A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "sens-17",
+      "before": "6A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "sens-18",
+      "before": "6A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "sens-19",
+      "before": "6A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "sens-20",
+      "before": "6A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "learnmem-1",
+      "before": "7A",
+      "after": "7C"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "learnmem-2",
+      "before": "7A",
+      "after": "7C"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "learnmem-3",
+      "before": "7A",
+      "after": "7C"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "learnmem-4",
+      "before": "7A",
+      "after": "7C"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "learnmem-5",
+      "before": "7A",
+      "after": "7C"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "learnmem-6",
+      "before": "7A",
+      "after": "7C"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "learnmem-7",
+      "before": "7A",
+      "after": "7C"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "learnmem-8",
+      "before": "7A",
+      "after": "7C"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "learnmem-9",
+      "before": "7A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "learnmem-10",
+      "before": "7A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "learnmem-11",
+      "before": "7A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "learnmem-12",
+      "before": "7A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "learnmem-13",
+      "before": "7A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "learnmem-14",
+      "before": "7A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "learnmem-15",
+      "before": "7C",
+      "after": "7A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "learnmem-16",
+      "before": "7C",
+      "after": "7A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "learnmem-18",
+      "before": "7C",
+      "after": "7B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "learnmem-19",
+      "before": "7C",
+      "after": "7B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "learnmem-20",
+      "before": "7C",
+      "after": "7B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "soc-1",
+      "before": "10A",
+      "after": "9A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "soc-2",
+      "before": "10A",
+      "after": "9A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "soc-3",
+      "before": "10A",
+      "after": "9A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "soc-4",
+      "before": "10A",
+      "after": "9A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "soc-5",
+      "before": "10A",
+      "after": "9A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "soc-6",
+      "before": "10B",
+      "after": "9A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "soc-7",
+      "before": "10A",
+      "after": "7B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "soc-8",
+      "before": "10A",
+      "after": "7B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "soc-9",
+      "before": "10B",
+      "after": "9B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "soc-10",
+      "before": "10B",
+      "after": "10A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "soc-11",
+      "before": "10B",
+      "after": "10A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "soc-12",
+      "before": "10B",
+      "after": "10A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "soc-13",
+      "before": "10B",
+      "after": "10A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "soc-14",
+      "before": "10B",
+      "after": "10A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "soc-15",
+      "before": "10B",
+      "after": "10A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "soc-16",
+      "before": "10B",
+      "after": "10A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "soc-17",
+      "before": "10B",
+      "after": "10A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "soc-18",
+      "before": "10B",
+      "after": "10A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "soc-19",
+      "before": "10B",
+      "after": "10A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "soc-20",
+      "before": "10B",
+      "after": "10A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "devdis-1",
+      "before": "7A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "devdis-2",
+      "before": "7A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "devdis-3",
+      "before": "7A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "devdis-4",
+      "before": "7A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "devdis-5",
+      "before": "7A",
+      "after": "8A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "devdis-6",
+      "before": "7A",
+      "after": "8A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "devdis-7",
+      "before": "7A",
+      "after": "8A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "devdis-8",
+      "before": "7A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "devdis-9",
+      "before": "7A",
+      "after": "8C"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "devdis-10",
+      "before": "7A",
+      "after": "8C"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "devdis-14",
+      "before": "7A",
+      "after": "6C"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "devdis-15",
+      "before": "7A",
+      "after": "6C"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "devdis-16",
+      "before": "7A",
+      "after": "6C"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "molbio-r2-1",
+      "before": "1C",
+      "after": "1B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "molbio-r2-2",
+      "before": "1C",
+      "after": "1B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "molbio-r2-3",
+      "before": "1C",
+      "after": "1B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "molbio-r2-4",
+      "before": "1C",
+      "after": "1B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "molbio-r2-5",
+      "before": "1C",
+      "after": "1B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "molbio-r2-13",
+      "before": "1C",
+      "after": "1B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "molbio-r2-14",
+      "before": "1C",
+      "after": "1B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "molbio-r2-15",
+      "before": "1C",
+      "after": "1B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "molbio-r2-21",
+      "before": "1C",
+      "after": "1B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "molbio-r2-22",
+      "before": "1C",
+      "after": "1B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "cell-r2-11",
+      "before": "2A",
+      "after": "2C"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "cell-r2-12",
+      "before": "2A",
+      "after": "2C"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "cell-r2-13",
+      "before": "2A",
+      "after": "2C"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "cell-r2-14",
+      "before": "2A",
+      "after": "2C"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "physio-r2-3",
+      "before": "3A",
+      "after": "3B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "physio-r2-4",
+      "before": "3A",
+      "after": "3B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "physio-r2-11",
+      "before": "3B",
+      "after": "3A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "genchem-r2-1",
+      "before": "5A",
+      "after": "4E"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "genchem-r2-2",
+      "before": "5A",
+      "after": "4E"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "genchem-r2-3",
+      "before": "5A",
+      "after": "4E"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "genchem-r2-4",
+      "before": "5A",
+      "after": "4E"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "genchem-r2-5",
+      "before": "5A",
+      "after": "5B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "genchem-r2-6",
+      "before": "5A",
+      "after": "5B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "genchem-r2-7",
+      "before": "5A",
+      "after": "5B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "genchem-r2-8",
+      "before": "5E",
+      "after": "5B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "genchem-r2-9",
+      "before": "5E",
+      "after": "4B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "genchem-r2-10",
+      "before": "5E",
+      "after": "4B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "genchem-r2-11",
+      "before": "5E",
+      "after": "4B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "genchem-r2-12",
+      "before": "5E",
+      "after": "5A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "genchem-r2-13",
+      "before": "5E",
+      "after": "5A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "genchem-r2-14",
+      "before": "5E",
+      "after": "5A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "genchem-r2-15",
+      "before": "5E",
+      "after": "5A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "genchem-r2-16",
+      "before": "5E",
+      "after": "5A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "genchem-r2-17",
+      "before": "5E",
+      "after": "5A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "genchem-r2-20",
+      "before": "5E",
+      "after": "4C"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "genchem-r2-21",
+      "before": "5E",
+      "after": "4C"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "physics-r2-10",
+      "before": "4B",
+      "after": "5E"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "physics-r2-11",
+      "before": "4B",
+      "after": "5E"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "physics-r2-18",
+      "before": "4B",
+      "after": "4A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "physics-r2-19",
+      "before": "4B",
+      "after": "4A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "physics-r2-20",
+      "before": "4B",
+      "after": "4D"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "orgo-r2-1",
+      "before": "5D",
+      "after": "5B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "orgo-r2-2",
+      "before": "5D",
+      "after": "5B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "orgo-r2-3",
+      "before": "5D",
+      "after": "5B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "orgo-r2-4",
+      "before": "5D",
+      "after": "5B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "orgo-r2-5",
+      "before": "5D",
+      "after": "5B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "orgo-r2-14",
+      "before": "5C",
+      "after": "5D"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "orgo-r2-15",
+      "before": "5C",
+      "after": "5D"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "orgo-r2-16",
+      "before": "5C",
+      "after": "5D"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "orgo-r2-17",
+      "before": "5D",
+      "after": "4E"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "orgo-r2-18",
+      "before": "5D",
+      "after": "4E"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "orgo-r2-19",
+      "before": "5D",
+      "after": "4D"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "orgo-r2-20",
+      "before": "5D",
+      "after": "4D"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "orgo-r2-21",
+      "before": "5D",
+      "after": "4D"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "sens-r2-14",
+      "before": "6A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "sens-r2-15",
+      "before": "6A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "sens-r2-17",
+      "before": "6A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "sens-r2-18",
+      "before": "6A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "sens-r2-19",
+      "before": "6A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "sens-r2-20",
+      "before": "6A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "sens-r2-21",
+      "before": "6C",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "sens-r2-22",
+      "before": "6C",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "learnmem-r2-1",
+      "before": "7A",
+      "after": "7C"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "learnmem-r2-2",
+      "before": "7A",
+      "after": "7C"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "learnmem-r2-3",
+      "before": "7A",
+      "after": "7C"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "learnmem-r2-4",
+      "before": "7A",
+      "after": "7C"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "learnmem-r2-5",
+      "before": "7A",
+      "after": "7C"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "learnmem-r2-6",
+      "before": "7A",
+      "after": "7C"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "learnmem-r2-7",
+      "before": "7A",
+      "after": "7C"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "learnmem-r2-8",
+      "before": "7A",
+      "after": "7C"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "learnmem-r2-9",
+      "before": "7A",
+      "after": "7C"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "learnmem-r2-10",
+      "before": "7A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "learnmem-r2-11",
+      "before": "7A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "learnmem-r2-12",
+      "before": "7A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "learnmem-r2-13",
+      "before": "7A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "learnmem-r2-14",
+      "before": "7A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "learnmem-r2-15",
+      "before": "7A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "learnmem-r2-16",
+      "before": "7A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "learnmem-r2-17",
+      "before": "7C",
+      "after": "8B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "learnmem-r2-18",
+      "before": "7C",
+      "after": "8B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "learnmem-r2-19",
+      "before": "7C",
+      "after": "8B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "learnmem-r2-20",
+      "before": "7C",
+      "after": "7A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "learnmem-r2-21",
+      "before": "7C",
+      "after": "7B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "learnmem-r2-22",
+      "before": "7C",
+      "after": "7B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "soc-r2-1",
+      "before": "10A",
+      "after": "9A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "soc-r2-2",
+      "before": "10A",
+      "after": "9A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "soc-r2-3",
+      "before": "10A",
+      "after": "9A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "soc-r2-4",
+      "before": "10A",
+      "after": "9A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "soc-r2-5",
+      "before": "10A",
+      "after": "9A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "soc-r2-6",
+      "before": "10A",
+      "after": "9A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "soc-r2-7",
+      "before": "10A",
+      "after": "9A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "soc-r2-8",
+      "before": "10A",
+      "after": "9A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "soc-r2-9",
+      "before": "10A",
+      "after": "9A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "soc-r2-10",
+      "before": "10A",
+      "after": "9A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "soc-r2-11",
+      "before": "10A",
+      "after": "9A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "soc-r2-12",
+      "before": "10A",
+      "after": "8B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "soc-r2-13",
+      "before": "10A",
+      "after": "9A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "soc-r2-14",
+      "before": "10A",
+      "after": "7B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "soc-r2-15",
+      "before": "10A",
+      "after": "7B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "soc-r2-16",
+      "before": "10A",
+      "after": "7B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "soc-r2-17",
+      "before": "10A",
+      "after": "7B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "soc-r2-18",
+      "before": "10A",
+      "after": "9B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "soc-r2-19",
+      "before": "10A",
+      "after": "9B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "soc-r2-20",
+      "before": "10A",
+      "after": "9B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "soc-r2-21",
+      "before": "10A",
+      "after": "9B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "devdis-r2-1",
+      "before": "7A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "devdis-r2-2",
+      "before": "7A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "devdis-r2-3",
+      "before": "7A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "devdis-r2-4",
+      "before": "7A",
+      "after": "8A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "devdis-r2-5",
+      "before": "7A",
+      "after": "8A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "devdis-r2-6",
+      "before": "7A",
+      "after": "8A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "devdis-r2-7",
+      "before": "7A",
+      "after": "8A"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "devdis-r2-8",
+      "before": "7A",
+      "after": "8C"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "devdis-r2-10",
+      "before": "7A",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "devdis-r2-15",
+      "before": "7A",
+      "after": "6C"
+    },
+    {
+      "bank": "mcat-cards",
+      "id": "devdis-r2-16",
+      "before": "7A",
+      "after": "6C"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "cp2-1",
+      "before": "5E",
+      "after": "5A"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "cp2-2",
+      "before": "5E",
+      "after": "5A"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "cp2-4",
+      "before": "5E",
+      "after": "5A"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "cp2-5",
+      "before": "5E",
+      "after": "5A"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "cp5-1",
+      "before": "5D",
+      "after": "4D"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "cp5-2",
+      "before": "5B",
+      "after": "5C"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "cp5-3",
+      "before": "5C",
+      "after": "5D"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "cp5-4",
+      "before": "5D",
+      "after": "4D"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "cp5-5",
+      "before": "5B",
+      "after": "5C"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "cp6-1",
+      "before": "5E",
+      "after": "4C"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "cp6-2",
+      "before": "5E",
+      "after": "4C"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "cp6-3",
+      "before": "5E",
+      "after": "4C"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "cp6-5",
+      "before": "5E",
+      "after": "4C"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "bb3-1",
+      "before": "2A Plasma membrane (transport mechanisms)",
+      "after": "2A"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "bb3-2",
+      "before": "2A Plasma membrane (transport mechanisms)",
+      "after": "2A"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "bb3-3",
+      "before": "2A Plasma membrane (transport mechanisms)",
+      "after": "2A"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "bb3-4",
+      "before": "2A Plasma membrane (transport mechanisms)",
+      "after": "2A"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "bb3-5",
+      "before": "2A Plasma membrane (transport mechanisms)",
+      "after": "2A"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "ps1-1",
+      "before": "Encoding and levels of processing (7A)",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "ps1-2",
+      "before": "Experimental design and controls (7A)",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "ps1-3",
+      "before": "Data interpretation (7A)",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "ps1-4",
+      "before": "Statistical reasoning (7A)",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "ps1-5",
+      "before": "Encoding and the self-reference effect (7A)",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "ps3-1",
+      "before": "7C",
+      "after": "7B"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "ps3-2",
+      "before": "7C",
+      "after": "7B"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "ps3-3",
+      "before": "7C",
+      "after": "7B"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "ps3-4",
+      "before": "7C",
+      "after": "7B"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "ps3-5",
+      "before": "7C",
+      "after": "7B"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "ps4-1",
+      "before": "10B",
+      "after": "10A"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "ps4-5",
+      "before": "10B",
+      "after": "10A"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "ps6-1",
+      "before": "8A: Therapeutic approaches and study design (validity/controls)",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "ps6-2",
+      "before": "8A: Study design (confounds, experimenter bias, validity)",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "ps6-3",
+      "before": "8A: Data interpretation of treatment outcomes",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "ps6-4",
+      "before": "8A: Data interpretation (within-group change, durability)",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "ps6-5",
+      "before": "8A: Learning principles in therapy (classical conditioning)",
+      "after": "7C"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "cp7-1",
+      "before": "4B Fluids",
+      "after": "4B"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "cp7-2",
+      "before": "4B Fluids",
+      "after": "4B"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "cp7-3",
+      "before": "4B Fluids",
+      "after": "4B"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "cp7-4",
+      "before": "4B Fluids",
+      "after": "4B"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "cp7-5",
+      "before": "4B Fluids",
+      "after": "4B"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "cp8-1",
+      "before": "4E",
+      "after": "5E"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "cp8-2",
+      "before": "4E",
+      "after": "5E"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "cp8-3",
+      "before": "4D",
+      "after": "5E"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "cp8-4",
+      "before": "4E",
+      "after": "5E"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "cp8-5",
+      "before": "4E",
+      "after": "5E"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "cp8-6",
+      "before": "4D",
+      "after": "5E"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "cp9-1",
+      "before": "5E",
+      "after": "5A"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "cp9-2",
+      "before": "5E",
+      "after": "5A"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "cp9-3",
+      "before": "5E",
+      "after": "5A"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "cp9-4",
+      "before": "5E",
+      "after": "5A"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "cp10-1",
+      "before": "Sound; standing waves and harmonics (4C)",
+      "after": "4D"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "cp10-2",
+      "before": "Sound; standing waves and harmonics (4C)",
+      "after": "4D"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "cp10-3",
+      "before": "Sound; standing waves and harmonics (4C)",
+      "after": "4D"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "cp10-4",
+      "before": "Sound; standing waves and harmonics (4C)",
+      "after": "4D"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "cp10-5",
+      "before": "Sound; standing waves and harmonics (4C)",
+      "after": "4D"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "cp10-6",
+      "before": "Sound; standing waves and harmonics (4C)",
+      "after": "4D"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "cp11-5",
+      "before": "5D",
+      "after": "5B"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "cp12-1",
+      "before": "5D",
+      "after": "4E"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "cp12-2",
+      "before": "5D",
+      "after": "4D"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "cp12-3",
+      "before": "5D",
+      "after": "5B"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "cp12-4",
+      "before": "5D",
+      "after": "4E"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "cp12-5",
+      "before": "5D",
+      "after": "4D"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "bb8-5",
+      "before": "2C",
+      "after": "1B"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "bb9-1",
+      "before": "2B",
+      "after": "3B"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "bb9-2",
+      "before": "2B",
+      "after": "3B"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "bb9-3",
+      "before": "2B",
+      "after": "3B"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "bb9-4",
+      "before": "2B",
+      "after": "3B"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "bb9-5",
+      "before": "2B",
+      "after": "3B"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "bb10-1",
+      "before": "Action potential / resting potential (3A)",
+      "after": "3A"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "bb10-2",
+      "before": "Action potential / ion channels (3A)",
+      "after": "3A"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "bb10-3",
+      "before": "Research design / controls (3A)",
+      "after": "3A"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "bb10-4",
+      "before": "Data interpretation (3A)",
+      "after": "3A"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "bb10-5",
+      "before": "Action potential phases (3A)",
+      "after": "3A"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "bb11-1",
+      "before": "Mechanisms of blood pressure regulation (3B)",
+      "after": "3B"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "bb11-2",
+      "before": "Autonomic control of the cardiovascular system (3B)",
+      "after": "3B"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "bb11-3",
+      "before": "Experimental design in physiology research (3B)",
+      "after": "3B"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "bb11-4",
+      "before": "Cardiac output and the Frank-Starling relationship (3B)",
+      "after": "3B"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "bb11-5",
+      "before": "Quantitative analysis of hemodynamic variables (3B)",
+      "after": "3B"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "ps7-1",
+      "before": "6C",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "ps7-2",
+      "before": "6C",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "ps7-3",
+      "before": "6C",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "ps7-5",
+      "before": "6C",
+      "after": "6B"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "ps8-1",
+      "before": "7A",
+      "after": "7C"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "ps8-2",
+      "before": "7A",
+      "after": "7C"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "ps8-3",
+      "before": "7A",
+      "after": "7C"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "ps8-4",
+      "before": "7A",
+      "after": "7C"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "ps8-5",
+      "before": "7A",
+      "after": "7C"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "ps9-1",
+      "before": "8C",
+      "after": "8B"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "ps9-2",
+      "before": "8C",
+      "after": "8B"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "ps9-3",
+      "before": "8C",
+      "after": "8B"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "ps9-4",
+      "before": "8C",
+      "after": "8A"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "ps9-5",
+      "before": "8C",
+      "after": "8B"
+    },
+    {
+      "bank": "mcat-science-passages",
+      "id": "ps10-5",
+      "before": "9B",
+      "after": "10A"
+    }
+  ],
+  "scope": "Primary category alignment for existing discrete questions, science-passage questions and flashcards against the currently linked official outline. Original IDs and answer content are unchanged. Selected course topic groups are navigation aids, not a complete exam specification."
+}

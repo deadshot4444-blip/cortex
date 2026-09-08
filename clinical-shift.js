@@ -3,7 +3,7 @@
   'use strict';
 
   const SHIFT_STORAGE_KEY = 'cs-clinical-shift-v1';
-  const SHIFT_MANIFEST_URL = 'data/clinical-shift-pilot.json?v=4';
+  const SHIFT_MANIFEST_URL = 'data/clinical-shift-pilot.json?v=8';
   const SHIFT_STEPS = ['Handoff', 'Investigate', 'Reason', 'Chart', 'Debrief'];
   let shiftManifest = null;
   let shiftSession = null;
@@ -13,17 +13,53 @@
   }
 
   function loadShiftState() {
-    const value = loadJSON(SHIFT_STORAGE_KEY, blankShiftState());
-    if (!value || value.version !== 1) return blankShiftState();
-    value.completed ||= {};
-    value.history = Array.isArray(value.history) ? value.history : [];
-    return value;
+    const value = StudyStorage.read(SHIFT_STORAGE_KEY, blankShiftState());
+    const object = v => v && typeof v === 'object' && !Array.isArray(v);
+    if (!object(value) || value.version !== 1 || !object(value.completed) || !Array.isArray(value.history) ||
+        (value.active != null && (!object(value.active) || !value.active.caseId || !value.active.key ||
+          !object(value.active.locks) || !object(value.active.drafts) || !object(value.active.optionOrders) ||
+          !object(value.active.differential) || !Array.isArray(value.active.differential.ranked) ||
+          !Array.isArray(value.active.resultsRevealed) || !object(value.active.note)))) {
+      StudyStorage.sessionFailed();
+      return blankShiftState();
+    }
+    return { ...blankShiftState(), ...value };
   }
 
   let shiftState = loadShiftState();
+  StudyStorage.watch(SHIFT_STORAGE_KEY, () => shiftState);
+  for (const [key, field] of [['cs-progress', 'progress'], ['cs-cases', 'cases'], ['cs-history', 'history'], ['cs-streak', 'streak']]) {
+    const saved = StudyStorage.read(key, store[field]);
+    if (JSON.stringify(saved) !== JSON.stringify(field === 'history' ? store.history.slice(0, 400) : store[field])) StudyStorage.sessionFailed();
+    StudyStorage.watch(key, () => field === 'history' ? store.history.slice(0, 400) : store[field]);
+  }
+  window.addEventListener('study-storage-recovered', () => {
+    if (location.pathname.replace(/\/$/, '') !== '/practice') return;
+    if (new URLSearchParams(location.search).get('view') === 'longitudinal') return;
+    if (new URLSearchParams(location.search).get('view') === 'shift-history') { renderClinicalShift(); return; }
+    if (shiftSession && shiftState.active) { shiftRoute(shiftState.active); renderActiveShiftPhase(); }
+    else renderClinicalShift();
+  });
 
   function saveShiftState() {
-    safeSet(SHIFT_STORAGE_KEY, JSON.stringify(shiftState));
+    return StudyStorage.write(SHIFT_STORAGE_KEY, shiftState);
+  }
+
+  function shiftRoute(active = null) {
+    const url = new URL(location.href);
+    url.pathname = '/practice';
+    ['view', 'run'].forEach(key => url.searchParams.delete(key));
+    if (active) { url.searchParams.set('view', 'shift'); url.searchParams.set('run', active.runId); }
+    if (url.href !== location.href) history.pushState({}, '', url.pathname + url.search);
+  }
+
+  function renderShiftError(message, retry) {
+    const root = el('<div></div>');
+    root.appendChild(topbar('practice'));
+    const main = el(`<main class="panel cshift-loading" id="main"><span class="label">Clinical Shift</span><h1>The patient could not open.</h1><p>${esc(message)} Your saved work has been kept.</p><button class="btn btn-solid" id="cshift-retry">Try again</button><button class="btn" id="cshift-back-hub">Back to specialties</button></main>`);
+    main.querySelector('#cshift-retry').addEventListener('click', retry);
+    main.querySelector('#cshift-back-hub').addEventListener('click', () => { shiftRoute(); renderClinicalShift(); });
+    root.appendChild(main); setShiftView(root);
   }
 
   function setShiftView(root, { preserveScroll = false, focusSelector = '' } = {}) {
@@ -39,8 +75,12 @@
     if (shiftManifest) return shiftManifest;
     const response = await fetch(SHIFT_MANIFEST_URL);
     if (!response.ok) throw new Error('Clinical Shift manifest unavailable');
-    shiftManifest = await response.json();
-    if (!Array.isArray(shiftManifest.rotations) || !shiftManifest.rotations.length) throw new Error('Clinical Shift manifest is empty');
+    const value = await response.json();
+    if (!Array.isArray(value.rotations) || !value.rotations.length || value.rotations.some(rotation =>
+      !rotation.key || !rotation.name || !Array.isArray(rotation.caseIds) || !rotation.caseIds.length ||
+      rotation.caseIds.some(id => !value.modelNotes?.[id]?.assessment || !value.modelNotes[id].plan ||
+        !value.investigations?.[id]?.interview?.length || !value.investigations[id].exam?.length))) throw new Error('Clinical Shift manifest is incomplete');
+    shiftManifest = value;
     return shiftManifest;
   }
 
@@ -49,7 +89,8 @@
   }
 
   function caseIsCompatible(caseData) {
-    if (!caseData || !Array.isArray(caseData.stages)) return false;
+    if (!caseData?.id || !caseData.patient || !caseData.history || !caseData.exam || !caseData.vitals ||
+        !Array.isArray(caseData.pearls) || !Array.isArray(caseData.stages)) return false;
     const diagnosisStages = caseData.stages.filter(stage => stage.type === 'question' && stage.label === 'DIAGNOSIS');
     const firstResult = caseData.stages.findIndex(stage => stage.type === 'result');
     const diagnosisIndex = caseData.stages.findIndex(stage => stage.type === 'question' && stage.label === 'DIAGNOSIS');
@@ -59,11 +100,30 @@
       && firstResult > 0
       && firstResult < diagnosisIndex
       && caseData.stages.slice(diagnosisIndex + 1).some(stage => stage.type === 'question')
-      && caseData.stages.filter(stage => stage.type === 'question').every(stage => Array.isArray(stage.options)
+      && caseData.stages.every(stage => stage.type === 'result' ? typeof stage.content === 'string' : stage.type === 'question')
+      && caseData.stages.filter(stage => stage.type === 'question').every(stage => stage.question && stage.explanation && Array.isArray(stage.options)
         && stage.options.length >= 4
+        && stage.options.every(option => typeof option === 'string' && option.trim())
         && Number.isInteger(stage.answer)
         && stage.answer >= 0
         && stage.answer < stage.options.length);
+  }
+
+  function activeIsCompatible(active, caseData) {
+    const validChoice = (index, choice) => {
+      const stage = caseData.stages[Number(index)];
+      return stage?.type === 'question' && Number.isInteger(choice) && choice >= 0 && choice < stage.options.length;
+    };
+    return ['handoff', 'investigate', 'timeline', 'decision', 'differential', 'note', 'debrief'].includes(active.phase)
+      && Number.isInteger(active.stageCursor) && active.stageCursor >= 0 && active.stageCursor <= caseData.stages.length
+      && Object.entries(active.locks).every(([index, lock]) => lock && validChoice(index, lock.choice))
+      && Object.entries(active.drafts).every(([index, choice]) => validChoice(index, choice))
+      && Object.entries(active.optionOrders).every(([index, order]) => Array.isArray(order) && order.length === caseData.stages[Number(index)]?.options?.length && new Set(order).size === order.length && order.every(choice => validChoice(index, choice)))
+      && active.resultsRevealed.every(index => Number.isInteger(index) && caseData.stages[index]?.type === 'result')
+      && new Set(active.differential.ranked).size === active.differential.ranked.length
+      && active.differential.ranked.length <= 3
+      && active.differential.ranked.every(choice => validChoice(active.differential.stageIndex, choice))
+      && ['assessment', 'plan'].every(key => typeof active.note[key] === 'string');
   }
 
   function completedCount(rotation) {
@@ -78,38 +138,76 @@
     setShiftView(root);
   }
 
+  /* A debriefed encounter is already archived in history; it is never an unfinished shift. */
+  const shiftInProgress = () => !!shiftState.active && !shiftState.active.completedAt;
+  function releaseFinishedShift() {
+    if (!shiftState.active?.completedAt) return false;
+    shiftState.active = null; shiftSession = null; return true;
+  }
+
   function activeRotationName() {
     return rotationFor(shiftState.active?.key)?.name || NAME_BY_KEY[shiftState.active?.key] || 'Clinical Shift';
   }
 
+  function confirmShiftEnd(trigger, onConfirm, replacement = false) {
+    const main = trigger.closest('main'), runId = shiftState.active?.runId;
+    if (!main || main.querySelector('dialog') || StudyStorage.paused) return;
+    const dialog = el(`<dialog class="cshift-confirm" aria-labelledby="cshift-confirm-title" aria-describedby="cshift-confirm-description">
+      <h2 id="cshift-confirm-title">${replacement ? 'Accept a different patient?' : 'End this shift?'}</h2>
+      <p id="cshift-confirm-description">${replacement ? 'Your current patient will be replaced when the new patient is ready.' : 'Your current patient and unfinished decisions will be removed.'} Completed shifts and saved notes will stay in your history.</p>
+      <div><button class="btn" id="cshift-keep" autofocus>Keep current shift</button><button class="btn btn-solid" id="cshift-confirm-end">${replacement ? 'Replace patient' : 'End shift'}</button></div>
+    </dialog>`);
+    const finish = accepted => {
+      dialog.close(); dialog.remove();
+      if (accepted && main.isConnected && shiftState.active?.runId === runId && !StudyStorage.paused) onConfirm();
+      else if (trigger.isConnected && !StudyStorage.paused) trigger.focus();
+    };
+    dialog.querySelector('#cshift-keep').addEventListener('click', () => finish(false));
+    dialog.querySelector('#cshift-confirm-end').addEventListener('click', () => finish(true));
+    dialog.addEventListener('cancel', event => { event.preventDefault(); finish(false); });
+    dialog.addEventListener('keydown', event => {
+      if (event.key !== 'Tab') return;
+      const first = dialog.querySelector('#cshift-keep'), last = dialog.querySelector('#cshift-confirm-end');
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+    });
+    main.appendChild(dialog); dialog.showModal(); dialog.querySelector('#cshift-keep').focus();
+  }
+
   async function renderClinicalShift() {
     stopTimer(); session = null;
+    const params = new URLSearchParams(location.search);
+    if (params.get('view') === 'shift-history') { renderShiftHistory(params.get('run')); return; }
+    if (new URLSearchParams(location.search).get('view') === 'longitudinal') { await ClinicalLongitudinal.entry(); return; }
     if (!shiftManifest) {
       renderShiftLoading();
       try { await loadShiftManifest(); }
       catch (error) {
         console.error('Clinical Shift load failed', error);
-        renderClinicalCaseBank();
+        renderShiftError('The rotation download failed.', renderClinicalShift);
         return;
       }
     }
 
+    if (location.pathname.replace(/\/$/, '') !== '/practice') return;
+    if (params.get('view') === 'content') { renderShiftContentStatus(); return; }
+    if (params.get('view') === 'shift' && params.get('run') === shiftState.active?.runId) { await resumeClinicalShift(); return; }
     const root = el('<div></div>');
     root.appendChild(topbar('practice'));
-    const active = shiftState.active;
+    const active = shiftInProgress() ? shiftState.active : null;
     const main = el(`<main class="panel cshift-hub" id="main">
       <header class="cshift-hub-hero">
         <span class="label">Clinical Scenarios</span>
         <h1>Start your shift.</h1>
         <p>Choose a specialty. Cortex assigns the patient. Review the chart, lock your decisions, rank a differential, write your note, and compare it with a model before the clinical debrief.</p>
-        <p class="cshift-content-status">Educational case practice. Compare your decisions with a model response and a clinical debrief.</p>
+        <p class="cshift-content-status">Local preview for advanced students with basic clinical knowledge. ${shiftManifest.rotations.reduce((sum, rotation) => sum + rotation.caseIds.length, 0)} fictional encounters, about 15–25 minutes each. Sources checked September 7, 2026; independent clinician review remains pending. Practice decisions and note comparison do not establish clinical competence.</p>
       </header>
       ${active ? `<section class="cshift-resume">
         <div><span class="label">Shift in progress</span><strong>${esc(activeRotationName())}</strong><p>Your patient and every locked decision are saved on this device.</p></div>
         <div><button class="btn btn-solid" id="cshift-resume">Continue shift →</button><button class="ghostbtn" id="cshift-end-active">End shift</button></div>
       </section>` : ''}
       <section class="cshift-rotations" aria-labelledby="cshift-rotations-title">
-        <div class="cshift-section-head"><div><span class="label">Specialty rotations</span><h2 id="cshift-rotations-title">Choose your specialty.</h2></div><span>3 specialties · 15 hidden patients</span></div>
+        <div class="cshift-section-head"><div><span class="label">Specialty rotations</span><h2 id="cshift-rotations-title">Choose your specialty.</h2></div><span>${shiftManifest.rotations.length} specialties · ${shiftManifest.rotations.reduce((sum, rotation) => sum + rotation.caseIds.length, 0)} hidden patients</span></div>
         <div class="cshift-rotation-list">
           ${shiftManifest.rotations.map((rotation, index) => `<button class="cshift-rotation" data-shift-specialty="${esc(rotation.key)}" aria-label="Start ${esc(rotation.name)} shift · ${completedCount(rotation)} of ${rotation.caseIds.length} completed">
             <span class="cshift-rotation-num mono">${String(index + 1).padStart(2, '0')}</span>
@@ -120,24 +218,100 @@
         </div>
       </section>
       <section class="cshift-classic">
-        <div><span class="label">Existing library</span><h2>The original 2,599 cases are still here.</h2><p>Explore the complete case bank, revisit saved cases, and build on your previous practice.</p></div>
-        <div><button class="btn" id="cshift-classic">Classic case bank</button><button class="ghostbtn" id="cshift-review">Case bank history</button></div>
+        <div><span class="label">Your completed work</span><h2>Return to your notes and decisions.</h2><p>Open the original case, reasoning and model comparison from a completed shift.</p></div>
+        <button class="btn" id="cshift-history">Saved shifts</button>
+      </section>
+      <section class="cshift-classic">
+        <div><span class="label">Patient timelines</span><h2>Follow a patient over time.</h2><p>Three fictional encounters with new evidence, competing explanations and a written handoff. Preserve your first reasoning and explain what changed. Independent clinician review is pending.</p></div>
+        <button class="btn" id="cshift-longitudinal">Open patient timelines</button>
+      </section>
+      <section class="cshift-classic">
+        <div><span class="label">Existing draft library</span><h2>Explore the full case bank.</h2><p>The original cases and new rotation encounters are available here. Source checks for the selected shifts do not cover the broader draft library.</p></div>
+        <div><button class="btn" id="cshift-classic">Classic case bank</button><button class="ghostbtn" id="cshift-review">Case bank history</button><button class="ghostbtn" id="cshift-content">Case sources & teaching objectives</button></div>
       </section>
     </main>`);
 
-    main.querySelectorAll('[data-shift-specialty]').forEach(button => button.addEventListener('click', async () => {
-      if (shiftState.active && !confirm('End the current shift and accept a different patient?')) return;
-      shiftState.active = null; saveShiftState();
-      await startClinicalShift(button.dataset.shiftSpecialty);
+    main.querySelectorAll('[data-shift-specialty]').forEach(button => button.addEventListener('click', () => {
+      const start = () => startClinicalShift(button.dataset.shiftSpecialty);
+      if (shiftInProgress()) confirmShiftEnd(button, start, true);
+      else start();
     }));
     main.querySelector('#cshift-resume')?.addEventListener('click', resumeClinicalShift);
-    main.querySelector('#cshift-end-active')?.addEventListener('click', () => {
-      if (!confirm('End this shift? Your current patient and unfinished decisions will be removed.')) return;
-      shiftState.active = null; shiftSession = null; saveShiftState(); renderClinicalShift();
+    main.querySelector('#cshift-end-active')?.addEventListener('click', event => {
+      confirmShiftEnd(event.currentTarget, () => {
+        shiftState.active = null; shiftSession = null; if (saveShiftState()) { shiftRoute(); renderClinicalShift(); }
+      });
     });
     main.querySelector('#cshift-classic').addEventListener('click', renderClinicalCaseBank);
+    main.querySelector('#cshift-history').addEventListener('click', () => openClinicalShiftHistory());
+    main.querySelector('#cshift-longitudinal').addEventListener('click', () => ClinicalLongitudinal.open());
     main.querySelector('#cshift-review').addEventListener('click', () => renderReview());
+    main.querySelector('#cshift-content').addEventListener('click', () => {
+      const url = new URL(location.href); url.searchParams.set('view', 'content'); url.searchParams.delete('run');
+      history.pushState({}, '', url.pathname + url.search); renderShiftContentStatus();
+    });
     root.appendChild(main); setShiftView(root);
+  }
+
+  function openClinicalShiftHistory({ runId, caseId, ts } = {}) {
+    const record = caseId ? shiftState.history.find(item => item?.caseId === caseId && item.ts === ts) : null;
+    const selected = runId || (caseId ? record?.encounter?.runId || 'unavailable' : null);
+    const url = new URL(location.href);
+    url.pathname = '/practice'; url.searchParams.set('view', 'shift-history');
+    if (selected) url.searchParams.set('run', selected); else url.searchParams.delete('run');
+    history.pushState({}, '', url.pathname + url.search);
+    renderClinicalShift();
+  }
+
+  function renderShiftHistory(runId) {
+    const records = shiftState.history.filter(item => item && typeof item === 'object');
+    const record = records.find(item => item.encounter?.runId === runId);
+    const active = record?.encounter;
+    let valid = false;
+    try {
+      valid = Number.isFinite(active?.completedAt) && caseIsCompatible(active.content?.caseData)
+        && activeIsCompatible(active, active.content.caseData)
+        && active.content.modelNote?.assessment && active.content.modelNote?.plan;
+    } catch { /* Older or damaged records remain available in the recovery export. */ }
+    if (runId && valid) {
+      const priorSession = shiftSession;
+      shiftSession = { active: JSON.parse(JSON.stringify(active)), caseData: active.content.caseData,
+        rotation: { key: record.key, name: NAME_BY_KEY[record.key] || record.key } };
+      try { renderShiftDebrief({ readOnly: true }); } finally { shiftSession = priorSession; }
+      return;
+    }
+    const root = el('<div></div>'); root.appendChild(topbar('practice'));
+    const main = el(`<main class="panel cshift-hub" id="main"><button class="backbtn" id="cshift-history-home">← Back to rotations</button>
+      <header class="cshift-hub-hero"><span class="label">Completed encounters</span><h1>Your saved shifts.</h1><p>Revisit your original notes, choices and model comparison. Opening a record does not change your progress. The most recent 100 completed shifts are retained here.</p></header>
+      ${runId ? '<p role="status">The full encounter is unavailable or incomplete. Its summary and any recovery data are preserved.</p>' : ''}
+      <div class="rows cs-rows cshift-history-list">${records.length ? records.map(item => `<button class="row cs-row" data-shift-record="${esc(item.encounter?.runId || 'unavailable')}"><span class="row-main"><span class="row-spec">${esc(NAME_BY_KEY[item.key] || item.key)}</span><span class="row-title">${esc(item.encounter?.content?.caseData?.title || item.caseId)}</span></span><span class="row-right">${esc(new Date(item.ts).toLocaleString())} · Open saved shift</span></button>`).join('') : '<p>No completed shifts yet. Your finished notes and debriefs will appear here.</p>'}</div>
+    </main>`);
+    main.querySelector('#cshift-history-home').addEventListener('click', () => { shiftRoute(); renderClinicalShift(); });
+    main.querySelectorAll('[data-shift-record]').forEach(button => button.addEventListener('click', () => openClinicalShiftHistory({ runId: button.dataset.shiftRecord })));
+    root.appendChild(main); setShiftView(root);
+  }
+
+  function renderShiftContentStatus() {
+    const root = el('<div></div>'); root.appendChild(topbar('practice'));
+    const main = el(`<main class="panel cshift-hub" id="main"><button class="backbtn" id="cshift-status-back">← Back to rotations</button>
+      <header class="cshift-hub-hero"><span class="label">Content status</span><h1>Case sources & objectives.</h1>
+        <p>These are original fictional encounters. Source checks are recorded separately from independent clinician review, which is still pending. Opening the details reveals each case’s teaching focus.</p></header>
+      ${shiftManifest.rotations.map(rotation => `<section class="cshift-content-register"><h2>${esc(rotation.name)}</h2>${rotation.caseIds.map(id => {
+        const review = shiftManifest.caseReviews?.[id];
+        return `<details id="case-${esc(id)}"><summary>Case ${esc(id)} · ${review?.batch ? 'New rotation practice' : 'Foundation encounter'}</summary>
+          <h3>Teaching objective</h3><p>${esc(review?.objective || 'Objective has not been recorded.')}</p>
+          <p>${esc(review?.alternativesAndLimits || 'Scope review is pending.')}</p>
+          ${(review?.learningLinks || []).map(link => { const url = new URL(sectionUrl('reference'), location.origin); url.searchParams.set('lesson', link.lesson); const back = window.AcademyCurriculum?.safeReturn(url.searchParams.get('returnTo') || location.pathname + location.search + location.hash); if (back) url.searchParams.set('returnTo', back); return `<p><a href="${esc(url.pathname + url.search)}">Related lesson: ${esc(link.title)}</a></p>`; }).join('')}
+          <p>Source check: ${esc(review?.sourceCheckedOn || 'not recorded')} · Independent clinician review: pending.</p>
+          ${(review?.reviewQuestions || []).length ? `<h3>Questions for review</h3><ul>${review.reviewQuestions.map(question => `<li>${esc(question)}</li>`).join('')}</ul>` : ''}
+          <ul>${(review?.sources || []).filter(source => /^https:\/\//.test(source.url)).map(source => `<li><a href="${esc(source.url)}" target="_blank" rel="noopener noreferrer">${esc(source.title)}</a></li>`).join('')}</ul></details>`;
+      }).join('')}</section>`).join('')}</main>`);
+    main.querySelector('#cshift-status-back').onclick = () => { shiftRoute(); renderClinicalShift(); };
+    root.appendChild(main); setShiftView(root);
+    if (/^#case-[a-z0-9-]+$/.test(location.hash)) {
+      const target = main.querySelector(location.hash);
+      if (target) { target.open = true; target.scrollIntoView({ block: 'start' }); }
+    }
   }
 
   function newActiveShift(rotation, caseData) {
@@ -157,14 +331,20 @@
       note: { assessment: '', plan: '', revealedAt: null },
       completedAt: null,
       scores: null,
+      content: JSON.parse(JSON.stringify({ revision: shiftManifest.version, caseData,
+        investigation: shiftManifest.investigations[caseData.id], modelNote: shiftManifest.modelNotes[caseData.id],
+        review: shiftManifest.caseReviews?.[caseData.id] || null })),
     };
   }
 
   async function startClinicalShift(key) {
+    if (StudyStorage.paused) return;
+    const previousRun = shiftState.active?.runId;
     renderShiftLoading('Assigning a patient…');
     try {
       const rotation = rotationFor(key);
       const data = await loadSpecialty(key);
+      if (location.pathname.replace(/\/$/, '') !== '/practice' || StudyStorage.paused || shiftState.active?.runId !== previousRun) return;
       const allowed = new Set(rotation?.caseIds || []);
       const eligible = data.cases.filter(caseData => allowed.has(caseData.id) && caseIsCompatible(caseData));
       if (!rotation || !eligible.length) throw new Error('No compatible pilot cases');
@@ -173,12 +353,10 @@
       const caseData = pool[Math.floor(Math.random() * pool.length)];
       shiftState.active = newActiveShift(rotation, caseData);
       shiftSession = { rotation, caseData, active: shiftState.active };
-      saveShiftState();
-      renderShiftHandoff();
+      if (saveShiftState()) { shiftRoute(shiftState.active); renderShiftHandoff(); }
     } catch (error) {
       console.error('Clinical Shift patient assignment failed', error);
-      shiftState.active = null; saveShiftState();
-      renderClinicalShift();
+      renderShiftError('The patient download failed.', () => startClinicalShift(key));
     }
   }
 
@@ -187,15 +365,18 @@
     renderShiftLoading('Reopening your patient…');
     try {
       const rotation = rotationFor(shiftState.active.key);
-      const data = await loadSpecialty(shiftState.active.key);
-      const caseData = data.cases.find(item => item.id === shiftState.active.caseId);
+      const saved = shiftState.active.content?.caseData;
+      const data = saved ? null : await loadSpecialty(shiftState.active.key);
+      if (location.pathname.replace(/\/$/, '') !== '/practice') return;
+      const caseData = saved || data.cases.find(item => item.id === shiftState.active.caseId);
       if (!rotation || !caseData || !rotation.caseIds.includes(caseData.id) || !caseIsCompatible(caseData)) throw new Error('Saved patient is unavailable');
+      if (!activeIsCompatible(shiftState.active, caseData)) { StudyStorage.sessionFailed(); return; }
       shiftSession = { rotation, caseData, active: shiftState.active };
+      shiftRoute(shiftState.active);
       renderActiveShiftPhase();
     } catch (error) {
       console.error('Clinical Shift resume failed', error);
-      shiftState.active = null; saveShiftState();
-      renderClinicalShift();
+      renderShiftError('The saved patient is temporarily unavailable.', resumeClinicalShift);
     }
   }
 
@@ -230,7 +411,7 @@
   }
 
   function investigationFor(caseData) {
-    const authored = shiftManifest?.investigations?.[caseData.id];
+    const authored = shiftSession?.active.content?.investigation || shiftManifest?.investigations?.[caseData.id];
     if (authored?.interview?.length && authored?.exam?.length) return authored;
     return {
       interview: [{ prompt: 'Ask for the complete symptom and medical history', finding: caseData.history }],
@@ -272,16 +453,17 @@
       <details ${interviewCount || active.revealed.history ? 'open' : ''}><summary>History <span>${active.revealed.history ? 'Reviewed' : `${interviewCount}/${investigation.interview.length} asked`}</span></summary><div class="cshift-chart-findings">${active.revealed.history && !interviewCount ? `<p>${esc(caseData.history)}</p>` : selectedInvestigationMarkup(investigation.interview, active.revealed.interviewItems, 'Choose an interview question to add its answer.')}</div></details>
       <details ${examCount || active.revealed.exam ? 'open' : ''}><summary>Examination <span>${active.revealed.exam ? 'Reviewed' : `${examCount}/${investigation.exam.length} examined`}</span></summary><div class="cshift-chart-findings">${active.revealed.exam && !examCount ? `<p>${esc(caseData.exam)}</p>` : selectedInvestigationMarkup(investigation.exam, active.revealed.examItems, 'Choose a focused examination to add its findings.')}</div></details>
       <section class="cshift-chart-results"><span class="label">Results</span>${resultMarkup()}</section>
+      <details><summary>Encounter prompts so far</summary><div class="cshift-chart-findings"><p>Reports above remain as originally received. These prompts may describe later changes or ask about a hypothetical situation.</p>${caseData.stages.slice(0, ['handoff', 'investigate'].includes(active.phase) ? 0 : active.stageCursor + 1).filter(stage => stage.type === 'question').map(stage => `<article><strong>${esc(stage.label)}</strong><p>${esc(stage.question)}</p></article>`).join('') || '<p>No decision prompts have been opened.</p>'}</div></details>
     </aside>`;
   }
 
-  function shiftFrame(content, phase) {
+  function shiftFrame(content, phase, { readOnly = false } = {}) {
     const { rotation } = shiftSession;
     const root = el(`<div>
-      <header class="topbar cshift-runbar"><div class="side"><button class="backbtn" id="cshift-exit">← Save &amp; exit</button></div><div class="center"><span class="topstat">${esc(rotation.name)} · Clinical Shift</span></div><div class="side right"><span class="topstat">Patient assigned</span></div></header>
+      <header class="topbar cshift-runbar"><div class="side"><button class="backbtn" id="cshift-exit">${readOnly ? '← Saved shifts' : '← Save &amp; exit'}</button></div><div class="center"><span class="topstat">${esc(rotation.name)} · Clinical Shift</span></div><div class="side right"><span class="topstat">${readOnly ? 'Saved encounter' : 'Patient assigned'}</span></div></header>
       <main class="panel cshift-workspace" id="main">${shiftProgressMarkup(phase)}${content}</main>
     </div>`);
-    root.querySelector('#cshift-exit').addEventListener('click', renderClinicalShift);
+    root.querySelector('#cshift-exit').addEventListener('click', () => { if (readOnly) { openClinicalShiftHistory(); return; } releaseFinishedShift(); if (saveShiftState()) { shiftRoute(); renderClinicalShift(); } });
     return root;
   }
 
@@ -293,7 +475,7 @@
     const { caseData, active } = shiftSession;
     active.phase = 'handoff'; saveShiftState();
     const root = shiftFrame(`<section class="cshift-handoff">
-      <div class="cshift-handoff-main"><span class="label">New patient handoff</span><h1>A patient is waiting.</h1><p class="cshift-patient-line">${esc(caseData.patient)} · ${esc(caseData.setting)}</p><div class="cshift-complaint"><span>Chief complaint</span><blockquote>“${esc(caseData.chiefComplaint)}”</blockquote></div><button class="btn btn-solid" id="cshift-open-chart">Open patient chart →</button></div>
+      <div class="cshift-handoff-main"><span class="label">New patient handoff</span><h1>A patient is waiting.</h1><p>This simulation separates practice tasks. In urgent clinical care, assessment and stabilization proceed together.</p><p class="cshift-patient-line">${esc(caseData.patient)} · ${esc(caseData.setting)}</p><div class="cshift-complaint"><span>Chief complaint</span><blockquote>${esc(caseData.chiefComplaint.replace(/^[“\"]|[”\"]$/g, ""))}</blockquote></div><button class="btn btn-solid" id="cshift-open-chart">Open patient chart →</button></div>
       <aside class="cshift-vitals"><span class="label">Initial vitals</span>${vitalsMarkup(caseData)}</aside>
     </section>`, 'handoff');
     root.querySelector('#cshift-open-chart').addEventListener('click', () => { active.phase = 'investigate'; saveShiftState(); renderShiftInvestigation(); });
@@ -412,10 +594,10 @@
     const stage = caseData.stages[stageIndex];
     const locked = !!active.differential.lockedAt;
     const root = shiftFrame(`<div class="cshift-two-col">
-      <section class="cshift-task"><span class="label">Clinical reasoning</span>${reasoningEvidenceMarkup()}<h1>Rank your differential.</h1><p>Select exactly three possibilities in order, then explain why your first choice is ahead of the second. The written rationale is saved for reflection and is not auto-graded.</p>
+      <section class="cshift-task"><span class="label">Clinical reasoning</span>${reasoningEvidenceMarkup()}<h1>Rank your differential.</h1><p class="cshift-review-question">${esc(stage.question)}</p><p>Rank one to three possibilities, leading choice first. Explain the evidence and why alternatives fit less well in at least 20 characters. The written rationale is saved for reflection and is not auto-graded.</p>
         <div class="cshift-dx-list">${differentialOptionsMarkup(stage, stageIndex)}</div>
         <label class="cshift-field"><span>Reasoning note</span><textarea id="cshift-rationale" rows="4" ${locked ? 'disabled' : ''} placeholder="My leading diagnosis is ahead because…">${esc(active.differential.rationale || '')}</textarea></label>
-        ${locked ? '<div class="cshift-locked"><span>Differential locked</span><strong>Your ranking and rationale are saved for the debrief.</strong></div><button class="btn btn-solid" id="cshift-next-stage">Continue →</button>' : `<button class="btn btn-solid" id="cshift-lock-differential" ${active.differential.ranked.length !== 3 || (active.differential.rationale || '').trim().length < 20 ? 'disabled' : ''}>Lock differential</button>`}
+        ${locked ? '<div class="cshift-locked"><span>Differential locked</span><strong>Your ranking and rationale are saved for the debrief.</strong></div><button class="btn btn-solid" id="cshift-next-stage">Continue →</button>' : `<button class="btn btn-solid" id="cshift-lock-differential" ${active.differential.ranked.length < 1 || (active.differential.rationale || '').trim().length < 20 ? 'disabled' : ''}>Lock differential</button>`}
       </section>${chartMarkup()}</div>`, 'differential');
     if (!locked) {
       const rationale = root.querySelector('#cshift-rationale');
@@ -429,7 +611,7 @@
           button.setAttribute('aria-label', `${rank >= 0 ? `Rank ${rank + 1}` : 'Unranked'}: ${stage.options[choice]}`);
           button.querySelector('span').textContent = rank >= 0 ? rank + 1 : '+';
         });
-        lockButton.disabled = active.differential.ranked.length !== 3 || rationale.value.trim().length < 20;
+        lockButton.disabled = active.differential.ranked.length < 1 || rationale.value.trim().length < 20;
       };
       root.querySelectorAll('[data-cshift-dx]').forEach(button => button.addEventListener('click', () => {
         const choice = Number(button.dataset.cshiftDx); const current = active.differential.ranked.indexOf(choice);
@@ -437,10 +619,10 @@
         else if (active.differential.ranked.length < 3) active.differential.ranked.push(choice);
         active.differential.rationale = rationale.value; saveShiftState(); syncDifferential();
       }));
-      rationale.addEventListener('input', () => { active.differential.rationale = rationale.value; saveShiftState(); lockButton.disabled = active.differential.ranked.length !== 3 || rationale.value.trim().length < 20; });
+      rationale.addEventListener('input', () => { active.differential.rationale = rationale.value; saveShiftState(); lockButton.disabled = active.differential.ranked.length < 1 || rationale.value.trim().length < 20; });
       lockButton.addEventListener('click', () => {
         active.differential.rationale = rationale.value;
-        if (active.differential.ranked.length !== 3 || active.differential.rationale.trim().length < 20) return;
+        if (active.differential.ranked.length < 1 || active.differential.rationale.trim().length < 20) return;
         active.differential.lockedAt = Date.now(); saveShiftState(); renderShiftDifferential({ preserveScroll: true });
       });
     }
@@ -449,7 +631,7 @@
   }
 
   function modelNoteFor(caseData) {
-    const authored = shiftManifest?.modelNotes?.[caseData.id];
+    const authored = shiftSession?.active.content?.modelNote || shiftManifest?.modelNotes?.[caseData.id];
     if (authored?.assessment && authored?.plan) return authored;
     const keyedActions = caseData.stages
       .filter(stage => stage.type === 'question' && stage.label !== 'DIAGNOSIS')
@@ -485,7 +667,7 @@
       : `<section class="cshift-task"><span class="label">Charting</span><h1>Write your assessment and plan.</h1><p>Capture what you think is happening and what should happen next. When you are ready, reveal a case-specific model note and compare it with your own.</p>
           <label class="cshift-field"><span>Assessment</span><textarea id="cshift-assessment" rows="6" placeholder="Problem representation, leading diagnosis, and supporting evidence…">${esc(active.note.assessment)}</textarea></label>
           <label class="cshift-field"><span>Plan</span><textarea id="cshift-plan" rows="6" placeholder="Immediate actions, testing, treatment, consultation, and disposition…">${esc(active.note.plan)}</textarea></label>
-          <p class="cshift-sign-note">Nothing is submitted or clinically graded. Revealing the model freezes this response for self-review.</p><button class="btn btn-solid" id="cshift-reveal-note" ${active.note.assessment.trim().length < 30 || active.note.plan.trim().length < 30 ? 'disabled' : ''}>Reveal model note →</button>
+          <p class="cshift-sign-note">Write at least 30 characters in each field. Nothing is submitted or clinically graded. Revealing the model freezes this response for self-review.</p><button class="btn btn-solid" id="cshift-reveal-note" ${active.note.assessment.trim().length < 30 || active.note.plan.trim().length < 30 ? 'disabled' : ''}>Reveal model note →</button>
         </section>`;
     const root = shiftFrame(`<div class="cshift-two-col">${content}${chartMarkup()}</div>`, 'note');
     if (!revealed) {
@@ -510,8 +692,7 @@
     }
     root.querySelector('#cshift-finish-note')?.addEventListener('click', () => {
       active.phase = 'debrief';
-      finishClinicalShift();
-      renderShiftDebrief();
+      if (finishClinicalShift()) renderShiftDebrief();
     });
     setShiftView(root);
   }
@@ -539,13 +720,16 @@
 
   function finishClinicalShift() {
     const { caseData, rotation, active } = shiftSession;
-    if (active.completedAt) return;
-    active.completedAt = Date.now(); active.scores = calculateScores();
-    const previous = shiftState.completed[caseData.id] || { attempts: 0, bestScore: 0 };
-    shiftState.completed[caseData.id] = { attempts: previous.attempts + 1, bestScore: Math.max(previous.bestScore || 0, active.scores.total), lastScore: active.scores.total, lastAt: active.completedAt, key: rotation.key };
-    shiftState.history.unshift({ caseId: caseData.id, key: rotation.key, score: active.scores.total, ts: active.completedAt });
-    shiftState.history = shiftState.history.slice(0, 100);
-    if (typeof recordClinicalShiftCompletion === 'function') {
+    if (!active.completedAt) {
+      active.completedAt = Date.now(); active.scores = calculateScores();
+      const previous = shiftState.completed[caseData.id] || { attempts: 0, bestScore: 0 };
+      shiftState.completed[caseData.id] = { attempts: previous.attempts + 1, bestScore: Math.max(previous.bestScore || 0, active.scores.total), lastScore: active.scores.total, lastAt: active.completedAt, key: rotation.key };
+      shiftState.history.unshift({ caseId: caseData.id, key: rotation.key, score: active.scores.total, ts: active.completedAt,
+        encounter: JSON.parse(JSON.stringify(active)) });
+      shiftState.history = shiftState.history.slice(0, 100);
+    }
+    const saved = saveShiftState();
+    if (saved && typeof recordClinicalShiftCompletion === 'function') {
       recordClinicalShiftCompletion({
         id: caseData.id,
         key: rotation.key,
@@ -555,7 +739,14 @@
         ts: active.completedAt,
       });
     }
-    saveShiftState();
+    return saved;
+  }
+
+  function reviewSourceMarkup() {
+    const { caseData, active } = shiftSession;
+    const review = active.content?.review || shiftManifest?.caseReviews?.[caseData.id];
+    if (!review) return '<p class="cshift-provenance">This older encounter has no recorded source pass. Independent clinician review remains pending.</p>';
+    return `<section class="cshift-debrief-section"><h2>Scope and alternatives</h2><p>${esc(review.objective)}</p><p>${esc(review.alternativesAndLimits)}</p><p>Sources checked ${esc(review.sourceCheckedOn)}. Independent clinician review remains pending. Your written reasoning is retained, not automatically judged against one model.</p><ul>${review.sources.filter(source => /^https:\/\//.test(source.url)).map(source => `<li><a href="${esc(source.url)}" target="_blank" rel="noopener noreferrer">${esc(source.title)}</a></li>`).join('')}</ul></section>`;
   }
 
   function decisionReviewMarkup() {
@@ -566,14 +757,16 @@
     }).join('');
   }
 
-  function renderShiftDebrief() {
+  function renderShiftDebrief({ readOnly = false } = {}) {
     const { caseData, rotation, active } = shiftSession;
-    active.phase = 'debrief'; if (!active.completedAt) finishClinicalShift(); saveShiftState();
+    if (!readOnly) { active.phase = 'debrief'; if (!finishClinicalShift()) return; }
     const scores = active.scores || calculateScores();
     const diagnosisStage = caseData.stages[active.differential.stageIndex];
     const modelNote = modelNoteFor(caseData);
     const root = shiftFrame(`<section class="cshift-debrief">
-      <header class="cshift-debrief-hero"><div><span class="label">Shift debrief · ${esc(rotation.name)}</span><h1>${esc(caseData.title)}</h1><p>${esc(caseData.patient)} · ${esc(caseData.setting)} · ${esc(caseData.difficulty)} case</p></div><div class="cshift-score"><strong>${scores.total}</strong><span>/100 evidence score</span></div></header>
+      <header class="cshift-debrief-hero"><div><span class="label">Shift debrief · ${esc(rotation.name)}</span><h1>${esc(caseData.title)}</h1><p>${esc(caseData.patient)} · ${esc(caseData.setting)} · ${esc(caseData.difficulty)} case</p><p>Completed ${esc(new Date(active.completedAt).toLocaleString())}</p></div><div class="cshift-score"><strong>${scores.total}</strong><span>/100 exercise points</span></div></header>
+      ${readOnly ? '<p class="cshift-provenance">Saved encounter: your original response and the teaching content available at that time. Later corrections do not rewrite this record.</p>' : ''}
+      <p class="cshift-provenance">Points combine information opened, agreement with the case key, and note comparison. They are not a validated measure of clinical ability or patient safety.</p>
       <section class="cshift-diagnosis"><span class="label">Final diagnosis</span><h2>${esc(caseData.diagnosis)}</h2></section>
       <div class="cshift-domain-grid">
         <article><span>Patient safety</span><strong>Not assessed</strong><small>Branching safety consequences require authored review metadata.</small></article>
@@ -585,18 +778,22 @@
       </div>
       <section class="cshift-debrief-section"><span class="label">Your differential</span><ol class="cshift-ranked-review">${active.differential.ranked.map((choice, index) => `<li class="${choice === diagnosisStage.answer ? 'correct' : ''}"><span>${index + 1}</span><strong>${esc(diagnosisStage.options[choice])}</strong>${choice === diagnosisStage.answer ? '<em>Final diagnosis</em>' : ''}</li>`).join('')}</ol><blockquote>${esc(active.differential.rationale)}</blockquote></section>
       <section class="cshift-debrief-section"><span class="label">Charting self-review</span>${noteComparisonMarkup(modelNote)}</section>
+      ${readOnly ? `<details class="cshift-saved-chart"><summary>Review the saved patient chart</summary>${chartMarkup()}</details>` : ''}
       <section class="cshift-debrief-section"><span class="label">Decision review</span><div class="cshift-review-list">${decisionReviewMarkup()}</div></section>
       <section class="cshift-debrief-section"><span class="label">Clinical pearls</span><div class="cshift-pearls">${caseData.pearls.map((pearl, index) => `<article><span>${String(index + 1).padStart(2, '0')}</span><p>${esc(pearl)}</p></article>`).join('')}</div></section>
-      <p class="cshift-provenance">Educational case practice. Compare your decisions with a model response and a clinical debrief.</p>
-      <div class="cshift-end-actions"><button class="btn btn-solid" id="cshift-next-patient">Next patient in ${esc(rotation.name)} →</button><button class="btn" id="cshift-choose-rotation">Choose another specialty</button><button class="ghostbtn" id="cshift-classic">Classic case bank</button></div>
-    </section>`, 'debrief');
-    root.querySelector('#cshift-next-patient').addEventListener('click', () => { shiftState.active = null; shiftSession = null; saveShiftState(); startClinicalShift(rotation.key); });
-    root.querySelector('#cshift-choose-rotation').addEventListener('click', () => { shiftState.active = null; shiftSession = null; saveShiftState(); renderClinicalShift(); });
-    root.querySelector('#cshift-classic').addEventListener('click', renderClinicalCaseBank);
+      ${reviewSourceMarkup()}
+      <div class="cshift-end-actions">${readOnly ? '<button class="btn" id="cshift-back-history">Back to saved shifts</button><button class="btn" id="cshift-history-rotations">Back to rotations</button>' : `<button class="btn btn-solid" id="cshift-next-patient">Next patient in ${esc(rotation.name)} →</button><button class="btn" id="cshift-choose-rotation">Choose another specialty</button><button class="ghostbtn" id="cshift-classic">Classic case bank</button>`}</div>
+    </section>`, 'debrief', { readOnly });
+    root.querySelector('#cshift-back-history')?.addEventListener('click', () => openClinicalShiftHistory());
+    root.querySelector('#cshift-history-rotations')?.addEventListener('click', () => { shiftRoute(); renderClinicalShift(); });
+    root.querySelector('#cshift-next-patient')?.addEventListener('click', () => startClinicalShift(rotation.key));
+    root.querySelector('#cshift-choose-rotation')?.addEventListener('click', () => { shiftState.active = null; shiftSession = null; if (saveShiftState()) { shiftRoute(); renderClinicalShift(); } });
+    root.querySelector('#cshift-classic')?.addEventListener('click', renderClinicalCaseBank);
     setShiftView(root);
   }
 
   window.renderClinicalShift = renderClinicalShift;
   window.startClinicalShift = startClinicalShift;
-  window.resetClinicalShiftState = () => { shiftState = blankShiftState(); shiftSession = null; try { localStorage.removeItem(SHIFT_STORAGE_KEY); } catch {} };
+  window.openClinicalShiftHistory = openClinicalShiftHistory;
+  window.resetClinicalShiftState = () => { shiftState = blankShiftState(); shiftSession = null; return StudyStorage.remove(SHIFT_STORAGE_KEY); };
 })();

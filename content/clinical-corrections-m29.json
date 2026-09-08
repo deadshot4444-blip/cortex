@@ -1,0 +1,304 @@
+{
+  "format": "cortex-local-clinical-corrections",
+  "checkedOn": "2026-09-07",
+  "independentReview": "pending",
+  "scope": "Targeted MI terminology and vasospasm-case safety corrections; not a complete review of the classic bank.",
+  "case": {
+    "id": "cd-020",
+    "before": {
+      "title": "Chest Pain and a Positive Troponin, Clean Arteries",
+      "difficulty": "hard",
+      "setting": "ward",
+      "patient": "47-year-old woman",
+      "chiefComplaint": "Recurrent episodes of chest pain at rest with a positive troponin but no blockages found on catheterization.",
+      "history": "A 47-year-old woman is admitted after recurrent episodes of substernal chest pain, several occurring at rest and a few in the early morning hours. One prolonged episode prompted ED evaluation, where troponin was elevated and the ECG showed transient ST changes that resolved. She underwent coronary angiography that revealed no obstructive coronary disease. She has migraines and Raynaud phenomenon. She is a current smoker. She denies cocaine use. PMH: migraine with aura, Raynaud phenomenon, anxiety. Medications: oral contraceptive pill, sumatriptan PRN for migraines, no regular cardiac medications. Allergies: none. Social: current smoker (one pack daily for 25 years), social alcohol, denies illicit drugs. Family history: mother with coronary disease in her 60s. Review of systems notable for episodic chest pain that sometimes wakes her from sleep and resolves spontaneously within 15 minutes. The combination of rest/nocturnal angina, smoking, migraine, and Raynaud raises suspicion for a vasomotor coronary disorder despite angiographically normal vessels.",
+      "vitals": {
+        "BP": "126/80 mmHg",
+        "HR": "76 bpm",
+        "RR": "16 /min",
+        "Temp": "36.8 °C",
+        "SpO2": "98% RA"
+      },
+      "exam": "Comfortable and pain-free at the time of exam. Cardiac: regular rate and rhythm, normal S1 and S2, no murmurs, rubs, or gallops. Lungs clear bilaterally. No JVD. Abdomen soft, non-tender. Extremities warm with intact pulses; cool fingertips with mild color change reported on cold exposure. No peripheral edema, no calf tenderness. During one monitored episode of chest pain on the ward, telemetry captured transient ST-segment elevation in the inferior leads that resolved as the pain subsided spontaneously.",
+      "stages": [
+        {
+          "type": "question",
+          "label": "INITIAL APPROACH",
+          "question": "She has troponin-positive chest pain with transient ST changes but non-obstructive coronaries on angiography. What is the correct overarching term for this clinical entity?",
+          "options": [
+            "Non-cardiac chest pain",
+            "Myocardial infarction with non-obstructive coronary arteries (MINOCA)",
+            "Stable exertional angina",
+            "Takotsubo cardiomyopathy by definition"
+          ],
+          "answer": 1,
+          "explanation": "MINOCA describes a myocardial infarction (ischemic symptoms plus a rise/fall in troponin meeting MI criteria) in the setting of angiographically non-obstructive coronary arteries (<50% stenosis). It is a working diagnosis that mandates a search for the underlying mechanism. Stable exertional angina implies reproducible exertional symptoms with obstructive disease and would not explain a troponin-positive rest event. Takotsubo (stress) cardiomyopathy is one possible cause within the MINOCA differential but cannot be assumed without characteristic apical ballooning and a trigger; it is not synonymous with the term. Non-cardiac chest pain is excluded by the elevated troponin and dynamic ECG changes. Labeling it MINOCA correctly frames the next diagnostic steps to find the cause."
+        },
+        {
+          "type": "result",
+          "label": "MONITORING & LABS",
+          "content": "Troponin T peak 0.42 ng/mL, now down-trending\nECG during pain: transient inferior ST-segment elevation, fully resolved between episodes\nLipid panel: LDL 110 mg/dL, HDL 50 mg/dL\nHemoglobin 13.5 g/dL, TSH normal\nUrine toxicology: negative for cocaine and amphetamines\nEchocardiogram: normal LV size and systolic function, no apical ballooning, no wall-motion abnormality at rest\nCoronary angiography (reviewed): no stenosis >30% in any vessel, no dissection, no thrombus"
+        },
+        {
+          "type": "question",
+          "label": "DIAGNOSIS",
+          "question": "Given transient ST-segment elevation during rest/nocturnal pain that resolves spontaneously, with clean coronaries and negative toxicology, which mechanism is most likely?",
+          "options": [
+            "Pulmonary embolism",
+            "Coronary artery vasospasm (vasospastic / Prinzmetal angina)",
+            "Demand ischemia from anemia",
+            "Aortic dissection"
+          ],
+          "answer": 1,
+          "explanation": "Rest and nocturnal/early-morning angina with transient ST-segment elevation that resolves spontaneously, in a smoker with migraine and Raynaud (vasomotor) phenomena and non-obstructive coronaries, is classic for coronary artery vasospasm (Prinzmetal/variant angina). Transient ST elevation reflects reversible transmural ischemia from focal spasm. Demand ischemia from anemia is excluded by a normal hemoglobin and would not cause focal ST elevation at rest. Pulmonary embolism causes dyspnea, tachycardia, and right-heart strain patterns, not transient inferior ST elevation that resolves with pain. Aortic dissection causes tearing pain with pulse/BP differentials and a widened mediastinum, not self-resolving ST elevation with clean coronaries. The vasospastic pattern fits the picture best."
+        },
+        {
+          "type": "question",
+          "label": "NEXT STEP",
+          "question": "To confirm the mechanism in MINOCA when vasospasm or microvascular dysfunction is suspected, which approach is most appropriate?",
+          "options": [
+            "Immediate coronary artery bypass grafting",
+            "Functional/provocative coronary testing (e.g., acetylcholine provocation, coronary flow reserve) and cardiac MRI to identify the underlying mechanism",
+            "Empiric long-term anticoagulation",
+            "Repeat standard coronary angiography only"
+          ],
+          "answer": 1,
+          "explanation": "MINOCA is a call to identify the mechanism. Invasive functional testing — acetylcholine or ergonovine provocation to elicit spasm and measurement of coronary flow reserve/microvascular resistance — can confirm epicardial vasospasm or microvascular dysfunction, while cardiac MRI helps distinguish infarction from myocarditis or Takotsubo and detects edema/scar. Simply repeating standard angiography adds little because the epicardial vessels are already known to be non-obstructive and the question is functional. Empiric anticoagulation does not address a vasomotor mechanism and adds bleeding risk without diagnostic value. CABG is illogical with non-obstructive coronaries. Pivoting to functional and imaging studies is precisely how the MINOCA workup proceeds once obstructive plaque, dissection, and thrombus are excluded."
+        },
+        {
+          "type": "question",
+          "label": "MANAGEMENT",
+          "question": "Provocative testing confirms coronary vasospasm. What are the most appropriate cornerstones of management?",
+          "options": [
+            "No treatment, as clean coronaries indicate a benign condition",
+            "Beta-blockers and high-intensity statin only",
+            "Dual antiplatelet therapy and long-term anticoagulation",
+            "Smoking cessation and a calcium channel blocker (with nitrates as needed), while avoiding non-dihydropyridine triggers and nonselective beta-blockers that can worsen spasm"
+          ],
+          "answer": 3,
+          "explanation": "Management of coronary vasospasm centers on calcium channel blockers (the mainstay to prevent spasm), nitrates for acute relief and prophylaxis, and aggressive smoking cessation, since smoking is a major precipitant. Triggers (cocaine, certain vasoconstrictors) should be avoided. Nonselective beta-blockers can worsen spasm by leaving alpha-mediated vasoconstriction unopposed and are generally avoided, so beta-blocker monotherapy is not appropriate as the cornerstone. Dual antiplatelet plus anticoagulation does not target the vasomotor mechanism and increases bleeding risk. Calling it benign and withholding treatment is wrong: vasospasm can cause MI, life-threatening arrhythmias, and sudden death. Calcium channel blockers plus risk-factor modification, especially smoking cessation, are the proven cornerstones."
+        },
+        {
+          "type": "question",
+          "label": "DISPOSITION",
+          "question": "She is also taking an oral contraceptive pill and uses sumatriptan for migraines. How should these be addressed in her vasospasm management plan?",
+          "options": [
+            "Counsel that triptans are vasoconstrictors that can provoke coronary spasm and should be avoided/used cautiously, and reassess the combined oral contraceptive given her smoking and vascular risk",
+            "Continue both unchanged, as neither affects coronary tone",
+            "Increase the sumatriptan dose to treat the chest pain episodes",
+            "Stop the calcium channel blocker and rely on sumatriptan for chest pain"
+          ],
+          "answer": 0,
+          "explanation": "Triptans such as sumatriptan are vasoconstrictors and are relatively contraindicated in patients with coronary vasospasm or ischemic heart disease because they can precipitate spasm and ischemia — she should be counseled to avoid them and use alternative migraine therapy. Her combined oral contraceptive also warrants reassessment: estrogen-containing contraception in a smoker over a certain age increases cardiovascular and thrombotic risk, so a safer alternative is preferable. Continuing both unchanged ignores these vasoactive and vascular risks. Stopping the calcium channel blocker removes the mainstay anti-spasm therapy, and using a triptan to treat ischemic chest pain would be dangerous. Increasing sumatriptan would worsen vasoconstriction. Comprehensive care addresses provocative medications alongside calcium channel blockade and smoking cessation."
+        }
+      ],
+      "diagnosis": "Coronary vasospasm presenting as MINOCA (myocardial infarction with non-obstructive coronary arteries)",
+      "pearls": [
+        "MINOCA = MI criteria (ischemic symptoms + troponin rise/fall) with non-obstructive coronaries (<50%); it is a working diagnosis that mandates a search for the underlying mechanism.",
+        "Rest/nocturnal angina with transient ST elevation that resolves spontaneously, especially in smokers with migraine or Raynaud, suggests coronary vasospasm (Prinzmetal/variant angina).",
+        "Confirm the mechanism with functional/provocative testing (acetylcholine provocation, coronary flow reserve) and cardiac MRI to distinguish infarction, myocarditis, and Takotsubo.",
+        "Treat vasospasm with calcium channel blockers and nitrates plus smoking cessation; avoid nonselective beta-blockers and triggers like cocaine that can worsen spasm."
+      ],
+      "id": "cd-020"
+    },
+    "after": {
+      "title": "Chest Pain, Troponin Elevation and Non-obstructive Arteries",
+      "difficulty": "hard",
+      "setting": "ward",
+      "patient": "47-year-old woman",
+      "chiefComplaint": "Recurrent episodes of chest pain at rest with a positive troponin but no blockages found on catheterization.",
+      "history": "A 47-year-old woman is admitted after recurrent episodes of substernal chest pain, several occurring at rest and a few in the early morning hours. One prolonged episode prompted ED evaluation, where troponin was elevated and the ECG showed transient ST changes that resolved. She underwent coronary angiography that revealed no obstructive coronary disease. She has migraines and Raynaud phenomenon. She is a current smoker. She denies cocaine use. PMH: migraine with aura, Raynaud phenomenon, anxiety. Medications: combined estrogen-progestin oral contraceptive pill, sumatriptan PRN for migraines, no regular cardiac medications. Allergies: none. Social: current smoker (one pack daily for 25 years), social alcohol, denies illicit drugs. Family history: mother with coronary disease in her 60s. Review of systems notable for episodic chest pain that sometimes wakes her from sleep and resolves spontaneously within 15 minutes. The combination of rest/nocturnal angina, smoking, migraine, and Raynaud raises suspicion for a vasomotor coronary disorder despite angiographically normal vessels.",
+      "vitals": {
+        "BP": "126/80 mmHg",
+        "HR": "76 bpm",
+        "RR": "16 /min",
+        "Temp": "36.8 °C",
+        "SpO2": "98% RA"
+      },
+      "exam": "Comfortable and pain-free at the time of exam. Cardiac: regular rate and rhythm, normal S1 and S2, no murmurs, rubs, or gallops. Lungs clear bilaterally. No JVD. Abdomen soft, non-tender. Extremities warm with intact pulses; cool fingertips with mild color change reported on cold exposure. No peripheral edema, no calf tenderness. During one monitored episode of chest pain on the ward, telemetry captured transient ST-segment elevation in the inferior leads that resolved as the pain subsided spontaneously.",
+      "stages": [
+        {
+          "type": "question",
+          "label": "INITIAL APPROACH",
+          "question": "Troponin is reported above the appropriate assay reference limit, with transient ST changes and non-obstructive coronary arteries. Under the 2026 Universal Definition, what is the appropriate working label while the mechanism is investigated?",
+          "options": [
+            "Non-cardiac chest pain",
+            "Myocardial injury with non-obstructive coronary arteries (MINOCA)",
+            "Stable exertional angina",
+            "Takotsubo cardiomyopathy by definition"
+          ],
+          "answer": 1,
+          "explanation": "The 2026 Fifth Universal Definition uses MINOCA for myocardial injury with non-obstructive coronary arteries. It is a working label, not a final mechanism. Troponin above the relevant assay limit establishes injury; serial results and evidence of ischemia help determine whether infarction is present. The label alone does not establish vasospasm or Takotsubo. Older sources expand MINOCA as myocardial infarction with non-obstructive coronary arteries."
+        },
+        {
+          "type": "result",
+          "label": "MONITORING & LABS",
+          "content": "Troponin T is above the laboratory’s appropriate assay-specific 99th-percentile upper reference limit and is falling on serial testing\nECG during pain: transient inferior ST-segment elevation, fully resolved between episodes\nLipid panel: LDL 110 mg/dL, HDL 50 mg/dL\nHemoglobin 13.5 g/dL, TSH normal\nUrine toxicology: negative for cocaine and amphetamines\nEchocardiogram: normal LV size and systolic function, no apical ballooning, no wall-motion abnormality at rest\nCoronary angiography (reviewed): no stenosis >30% in any vessel, no dissection, no thrombus"
+        },
+        {
+          "type": "question",
+          "label": "DIAGNOSIS",
+          "question": "Given transient ST-segment elevation during rest/nocturnal pain that resolves spontaneously, with non-obstructive coronary arteries and negative toxicology, which mechanism is most likely?",
+          "options": [
+            "Pulmonary embolism",
+            "Coronary artery vasospasm (vasospastic / Prinzmetal angina)",
+            "Demand ischemia from anemia",
+            "Aortic dissection"
+          ],
+          "answer": 1,
+          "explanation": "Rest pain with transient ST elevation and non-obstructive arteries makes a coronary vasomotor disorder the best fit among these choices. The associated history is suggestive, not proof of spasm. These observations alone do not exclude every pulmonary, aortic or other cardiac cause; mechanism-specific evaluation remains necessary."
+        },
+        {
+          "type": "question",
+          "label": "NEXT STEP",
+          "question": "To confirm the mechanism in MINOCA when vasospasm or microvascular dysfunction is suspected, which approach is most appropriate?",
+          "options": [
+            "Immediate coronary artery bypass grafting",
+            "Functional/provocative coronary testing (e.g., acetylcholine provocation, coronary flow reserve) and cardiac MRI to identify the underlying mechanism",
+            "Empiric long-term anticoagulation",
+            "Repeat standard coronary angiography only"
+          ],
+          "answer": 1,
+          "explanation": "Further evaluation should identify the cause rather than treat the angiogram as the final diagnosis. Cardiac MRI assesses myocardial tissue; coronary imaging and specialist functional or provocation testing answer different structural and vasomotor questions. The sequence depends on the presentation and specialist assessment. Revascularization or long-term anticoagulation requires an appropriate indication."
+        },
+        {
+          "type": "question",
+          "label": "MANAGEMENT",
+          "question": "Provocative testing confirms coronary vasospasm. What are the most appropriate cornerstones of management?",
+          "options": [
+            "No treatment, as clean coronaries indicate a benign condition",
+            "Beta-blockers and high-intensity statin only",
+            "Dual antiplatelet therapy and long-term anticoagulation",
+            "Smoking cessation and a calcium channel blocker, with appropriate nitrate therapy and avoidance of vasoconstricting triggers"
+          ],
+          "answer": 3,
+          "explanation": "For confirmed coronary spasm, calcium channel blockers are central therapy; nitrates may provide additional benefit. Treatment and risk-factor management should fit the individual mechanism. Beta-blocker monotherapy is not the default treatment for pure vasospastic disease."
+        },
+        {
+          "type": "question",
+          "label": "DISPOSITION",
+          "question": "She is also taking an oral contraceptive pill and uses sumatriptan for migraines. How should these be addressed in her vasospasm management plan?",
+          "options": [
+            "Avoid sumatriptan in confirmed coronary vasospasm and arrange alternative migraine treatment; replace estrogen-containing contraception with a suitable alternative through shared clinical decision-making",
+            "Continue both unchanged, as neither affects coronary tone",
+            "Increase the sumatriptan dose to treat the chest pain episodes",
+            "Stop the calcium channel blocker and rely on sumatriptan for chest pain"
+          ],
+          "answer": 0,
+          "explanation": "The sumatriptan prescribing information lists coronary vasospasm as a contraindication, not a precaution that permits routine cautious use. A clinician should arrange a suitable alternative for migraine. Under the CDC U.S. MEC, combined hormonal contraception is category 4 (unacceptable health risk) with migraine with aura and separately for age 35 or older with at least 15 cigarettes daily. Both apply to this fictional patient. Discuss an appropriate alternative contraceptive method and smoking cessation; do not use sumatriptan to treat chest pain."
+        }
+      ],
+      "diagnosis": "Confirmed coronary vasospasm after evaluation of myocardial injury with non-obstructive coronary arteries",
+      "pearls": [
+        "The 2026 MINOCA label means myocardial injury with non-obstructive coronary arteries. Establish the underlying mechanism; the working label does not by itself establish infarction or vasospasm.",
+        "Rest/nocturnal angina with transient ST elevation that resolves spontaneously, especially in smokers with migraine or Raynaud, suggests coronary vasospasm (Prinzmetal/variant angina).",
+        "Confirm the mechanism with functional/provocative testing (acetylcholine provocation, coronary flow reserve) and cardiac MRI to distinguish infarction, myocarditis, and Takotsubo.",
+        "Treat vasospasm with calcium channel blockers and nitrates plus smoking cessation; avoid nonselective beta-blockers and triggers like cocaine that can worsen spasm."
+      ],
+      "id": "cd-020",
+      "revision": 2,
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "reviewedAt": null
+      },
+      "sourceCheckedOn": "2026-09-07",
+      "sources": [
+        {
+          "title": "AHA: Fifth Universal Definition of Myocardial Infarction (2026), Top Things to Know",
+          "url": "https://professional.heart.org/en/science-news/fifth-universal-definition-of-myocardial-infarction-2026/top-things-to-know"
+        },
+        {
+          "title": "DailyMed: sumatriptan tablets, contraindications",
+          "url": "https://dailymed.nlm.nih.gov/dailymed/fda/fdaDrugXsl.cfm?setid=c87cf537-9f7f-400e-ac4b-86e6f7e78775&type=display"
+        },
+        {
+          "title": "CDC U.S. MEC: combined hormonal contraceptives",
+          "url": "https://www.cdc.gov/contraception/hcp/usmec/combined-hormonal-contraceptives.html"
+        },
+        {
+          "title": "ESC CardioPractice: MINOCA, mechanism-specific evaluation and treatment",
+          "url": "https://www.escardio.org/communities/councils/cardiology-practice/education/cardiopractice/minoca-state-of-the-art/"
+        }
+      ]
+    }
+  },
+  "lab": {
+    "id": "lipids-cardiac-6",
+    "before": {
+      "test": "Troponin (hs-cTnI/T)",
+      "range": "Assay-specific 99th-percentile upper reference limit",
+      "units": "Use the reported assay units, commonly ng/L for high-sensitivity assays",
+      "high_means": "Myocardial injury: MI, myocarditis, type 2 MI, PE, sepsis, renal failure, HF, takotsubo",
+      "low_means": "—",
+      "pearl": "Above the relevant assay limit supports myocardial injury. Serial change helps assess acuity; infarction also requires evidence of ischemia in the clinical setting. Do not transfer a cutoff between assays or units.",
+      "id": "lipids-cardiac-6",
+      "panel": "lipids-cardiac",
+      "panelName": "Lipid panel & cardiac markers (troponin, BNP, CK-MB, cholesterol)",
+      "rangeContext": "This row may describe an assay interval or a context-dependent decision limit. A treatment target requires its own clinical indication and protocol.",
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "reviewedAt": null
+      },
+      "sources": [
+        {
+          "title": "ACC: High-sensitivity troponin and chest pain evaluation",
+          "url": "https://www.acc.org/Latest-in-Cardiology/ten-points-to-remember/2022/07/14/18/12/High-Sensitivity-CTn-and-2021-Chest-Pain"
+        }
+      ],
+      "sourceCheckedOn": "2026-09-07"
+    },
+    "after": {
+      "test": "Troponin (hs-cTnI/T)",
+      "range": "Assay-specific 99th-percentile upper reference limit",
+      "units": "Use the reported assay units, commonly ng/L for high-sensitivity assays",
+      "high_means": "Myocardial injury associated with ischemic or nonischemic causes, including MI, myocarditis, pulmonary embolism, sepsis, heart failure, renal disease or Takotsubo syndrome",
+      "low_means": "—",
+      "pearl": "Above the relevant assay limit supports myocardial injury. Serial change helps assess acuity; infarction also requires evidence of ischemia in the clinical setting. Do not transfer a cutoff between assays or units.",
+      "id": "lipids-cardiac-6",
+      "panel": "lipids-cardiac",
+      "panelName": "Lipid panel & cardiac markers (troponin, BNP, CK-MB, cholesterol)",
+      "rangeContext": "This row may describe an assay interval or a context-dependent decision limit. A treatment target requires its own clinical indication and protocol.",
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "reviewedAt": null
+      },
+      "sources": [
+        {
+          "title": "ACC: High-sensitivity troponin and chest pain evaluation",
+          "url": "https://www.acc.org/Latest-in-Cardiology/ten-points-to-remember/2022/07/14/18/12/High-Sensitivity-CTn-and-2021-Chest-Pain"
+        },
+        {
+          "title": "AHA: Fifth Universal Definition of Myocardial Infarction (2026), Top Things to Know",
+          "url": "https://professional.heart.org/en/science-news/fifth-universal-definition-of-myocardial-infarction-2026/top-things-to-know"
+        }
+      ],
+      "sourceCheckedOn": "2026-09-07"
+    }
+  },
+  "sources": [
+    {
+      "title": "AHA: Fifth Universal Definition of Myocardial Infarction (2026), Top Things to Know",
+      "url": "https://professional.heart.org/en/science-news/fifth-universal-definition-of-myocardial-infarction-2026/top-things-to-know"
+    },
+    {
+      "title": "DailyMed: sumatriptan tablets, contraindications",
+      "url": "https://dailymed.nlm.nih.gov/dailymed/fda/fdaDrugXsl.cfm?setid=c87cf537-9f7f-400e-ac4b-86e6f7e78775&type=display"
+    },
+    {
+      "title": "CDC U.S. MEC: combined hormonal contraceptives",
+      "url": "https://www.cdc.gov/contraception/hcp/usmec/combined-hormonal-contraceptives.html"
+    },
+    {
+      "title": "ESC CardioPractice: MINOCA, mechanism-specific evaluation and treatment",
+      "url": "https://www.escardio.org/communities/councils/cardiology-practice/education/cardiopractice/minoca-state-of-the-art/"
+    }
+  ],
+  "notes": [
+    "AHA and ACC summaries of the 2026 Fifth Universal Definition were read. The previously inaccessible full consensus paper was not treated as read.",
+    "The ESC article is used for mechanism-specific evaluation and therapy; its older numeric MI terminology is not used to override the newer consensus summary.",
+    "Existing answer indices are retained. No saved learner records were rewritten or rescored. The original authored case and lab row are retained here."
+  ]
+}

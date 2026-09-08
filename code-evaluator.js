@@ -1,199 +1,116 @@
-/* Cortex — NeuroCode OJT evaluator (real Python + reflection fallback) */
-
-const _solutionOutCache = {};
-
+/* NeuroCode: bounded Python checks. Reflection is explicitly self-reviewed. */
+const _solutionOutCache = new Map();
 function neuroCodeGuidance(lesson) {
   return {
-    codingGoal: `Use ${(lesson.codingConcept || '').toLowerCase()} to solve the exercise prompt.`,
-    neuroengineeringGoal: `Connect the code to ${(lesson.neuroengineeringConcept || '').toLowerCase()} so the output means something in a toy BCI workflow.`,
-    exerciseType: neuroCodeExerciseType(lesson),
+    codingGoal: lesson.codingConcept || 'Complete the authored exercise',
+    neuroengineeringGoal: lesson.neuroengineeringConcept || 'Interpret a synthetic example',
+    exerciseType: lesson.checks ? 'Function practice' : 'Example practice',
     expectedOutput: lesson.expectedOutput,
-    successExplanation: 'Your code ran and produced the target output for this OJT exercise.',
-    retryExplanation: 'Run your draft first, read stdout/stderr, then adjust until Check passes.',
+    successExplanation: lesson.checks ? 'The submitted function passed the listed input cases. This is exercise evidence, not a general proficiency score.' : 'Only the example output was compared; this does not establish correctness on other inputs.',
+    retryExplanation: 'Read the prompt and failed case, edit the function, then check again.',
   };
 }
-
-function neuroCodeExerciseType(lesson) {
-  const prompt = (lesson.challengePrompt || '').toLowerCase();
-  if (prompt.includes('predict')) return 'Predict output';
-  if (prompt.includes('threshold') || prompt.includes('tune')) return 'Tune a parameter';
-  if (prompt.includes('fix') || prompt.includes('bug')) return 'Fix a bug';
-  if (prompt.includes('function')) return 'Complete a function';
-  if (prompt.includes('missing') || prompt.includes('fill')) return 'Fill a missing line';
-  if (prompt.includes('explain') || prompt.includes('describe')) return 'Explain & verify';
-  return 'OJT code task';
-}
-
 function neuroCodeIsRunnablePython(code) {
-  const c = String(code || '').trim();
-  if (!c) return false;
-  return /print\s*\(|def\s+\w|for\s+\w|if\s+.+:|=\s*[\[\-0-9"']|import\s+\w/.test(c);
+  return /print\s*\(|def\s+\w|for\s+\w|if\s+.+:|=\s*[\[\-0-9"']|import\s+\w/.test(String(code || '').trim());
 }
-
 function neuroCodeNormalizeOutput(text) {
-  return String(text || '')
-    .replace(/\r\n/g, '\n')
-    .trim()
-    .split('\n')
-    .map(l => l.trim())
-    .filter(Boolean)
-    .join('\n');
+  return String(text || '').replace(/\r\n/g, '\n').trim().split('\n').map(line => line.trim()).filter(Boolean).join('\n');
 }
-
-function neuroCodeParseLineValue(line) {
-  const m = line.match(/^(.+?):\s*(.+)$/);
-  if (!m) return { key: null, raw: line.trim() };
-  return { key: m[1].trim().toLowerCase(), raw: m[2].trim() };
-}
-
-function neuroCodeValuesEqual(a, b) {
-  if (a === b) return true;
-  const na = Number(a), nb = Number(b);
-  if (!Number.isNaN(na) && !Number.isNaN(nb)) return Math.abs(na - nb) < 0.02;
-  return neuroCodeNormalizeOutput(a).toLowerCase() === neuroCodeNormalizeOutput(b).toLowerCase();
-}
-
 function neuroCodeOutputsMatch(actual, expected) {
-  const a = neuroCodeNormalizeOutput(actual);
-  const e = neuroCodeNormalizeOutput(expected);
-  if (!e) return !!a;
-  if (a === e) return true;
-
-  const al = a.split('\n'), el = e.split('\n');
-  if (al.length !== el.length) {
-    if (a.includes(e) || e.includes(a)) return true;
-    return false;
-  }
-  return al.every((line, i) => {
-    const av = neuroCodeParseLineValue(line);
-    const ev = neuroCodeParseLineValue(el[i]);
-    if (av.key && ev.key && av.key === ev.key) return neuroCodeValuesEqual(av.raw, ev.raw);
-    return neuroCodeValuesEqual(line, el[i]);
-  });
+  const a = neuroCodeNormalizeOutput(actual), e = neuroCodeNormalizeOutput(expected);
+  return !!e && a === e;
 }
-
-function neuroCodeReflectionMatch(code, solution) {
-  const draft = neuroCodeNormalizeOutput(code).toLowerCase();
-  const target = neuroCodeNormalizeOutput(solution).toLowerCase();
-  if (!target) return false;
-  if (draft.includes(target) || target.includes(draft)) return true;
-  const keywords = target.split(/\s+/).filter(w => w.length > 5);
-  if (!keywords.length) return false;
-  const hits = keywords.filter(w => draft.includes(w)).length;
-  return hits >= Math.ceil(keywords.length * 0.45);
+function neuroCodeCheckScript(code, lesson, marker) {
+  const spec = JSON.stringify(lesson.checks);
+  return `
+def _cortex_check():
+    import json, math, copy, io, contextlib
+    spec = json.loads(${JSON.stringify(spec)})
+    scope = {'__name__': '__cortex_exercise__'}
+    class LimitedOutput(io.StringIO):
+        def write(self, value):
+            if self.tell() + len(value) > 16000:
+                raise ValueError('Output limit reached; print a smaller sample')
+            return super().write(value)
+    output = LimitedOutput()
+    with contextlib.redirect_stdout(output):
+        exec(${JSON.stringify(code)}, scope)
+    function = scope.get(spec['function'])
+    if not callable(function):
+        raise ValueError('Define the function ' + spec['function'])
+    def equal(actual, expected):
+        if isinstance(expected, bool):
+            return isinstance(actual, bool) and actual == expected
+        if isinstance(expected, (int, float)):
+            return isinstance(actual, (int, float)) and not isinstance(actual, bool) and math.isclose(actual, expected, rel_tol=1e-7, abs_tol=1e-9)
+        if isinstance(expected, list):
+            return isinstance(actual, list) and len(actual) == len(expected) and all(equal(a, e) for a, e in zip(actual, expected))
+        if isinstance(expected, dict):
+            return isinstance(actual, dict) and actual.keys() == expected.keys() and all(equal(actual[k], expected[k]) for k in expected)
+        return type(actual) == type(expected) and actual == expected
+    def clip(value):
+        return value if len(value) <= 2000 else value[:2000] + '… (truncated; full length ' + str(len(value)) + ' characters)'
+    results = []
+    for index, case in enumerate(spec['cases']):
+        args = copy.deepcopy(case['args'])
+        expected_label = case.get('raises') or repr(case['expected'])
+        try:
+            with contextlib.redirect_stdout(output):
+                actual = function(*args)
+            unchanged = not spec.get('preserveArgs') or args == case['args']
+            item = {'passed': not case.get('raises') and equal(actual, case.get('expected')) and unchanged, 'actual': clip(repr(actual)), 'expected': clip(expected_label), 'argsPreserved': unchanged}
+            if spec.get('captureExampleResult') and index in spec.get('captureResultIndices', [0]):
+                try:
+                    encoded = json.dumps(actual, allow_nan=False)
+                    if len(encoded) <= 16000:
+                        item['value'] = json.loads(encoded)
+                except (TypeError, ValueError, OverflowError):
+                    pass
+            results.append(item)
+        except Exception as error:
+            unchanged = not spec.get('preserveArgs') or args == case['args']
+            results.append({'passed': case.get('raises') == type(error).__name__ and unchanged, 'actual': clip(type(error).__name__ + ': ' + str(error)), 'expected': clip(expected_label), 'argsPreserved': unchanged})
+    print(${JSON.stringify(marker)} + json.dumps({'cases': results, 'stdout': output.getvalue()}))
+_cortex_check()
+`;
 }
-
-async function neuroCodeSolutionOutput(lesson, onStatus) {
-  if (_solutionOutCache[lesson.id]) return _solutionOutCache[lesson.id];
-  if (!neuroCodeIsRunnablePython(lesson.solution)) {
-    _solutionOutCache[lesson.id] = { runnable: false, stdout: '', stderr: '' };
-    return _solutionOutCache[lesson.id];
-  }
-  const result = await runPythonCode(lesson.solution.trim(), { onStatus });
-  _solutionOutCache[lesson.id] = {
-    runnable: true,
-    stdout: result.stdout,
-    stderr: result.stderr,
-    ok: result.ok,
+async function neuroCodeEvaluateOJT(code, lesson, onStatus, options = {}) {
+  const draft = String(code || '').trim(), guidance = neuroCodeGuidance(lesson);
+  if (!draft) return { passed: false, message: 'Write a response before checking.', explanation: guidance.retryExplanation };
+  if (!lesson.checks && !neuroCodeIsRunnablePython(lesson.solution)) return {
+    passed: false, mode: 'self-review', needsSelfReview: true,
+    message: 'Compare your explanation with the authored model.',
+    explanation: 'Written explanations are saved without automatic grading.', model: lesson.solution,
   };
-  return _solutionOutCache[lesson.id];
-}
-
-async function neuroCodeEvaluateOJT(code, lesson, onStatus) {
-  const guidance = neuroCodeGuidance(lesson);
-  const trimmed = String(code || '').trim();
-
-  if (!trimmed) {
-    return {
-      passed: false,
-      mode: 'python',
-      stdout: '',
-      stderr: '',
-      message: 'Write code in the editor before running.',
-      explanation: guidance.retryExplanation,
-    };
-  }
-
-  const solRef = await neuroCodeSolutionOutput(lesson, onStatus);
-
-  if (!solRef.runnable) {
-    const refl = neuroCodeReflectionMatch(trimmed, lesson.solution);
-    if (refl) {
-      return {
-        passed: true,
-        mode: 'reflection',
-        stdout: trimmed,
-        stderr: '',
-        message: 'Check passed — your explanation covers the key ideas.',
-        explanation: guidance.successExplanation,
-      };
+  if (lesson.checks) {
+    const marker = `CORTEX_CHECK_${Date.now()}_${Math.random().toString(36).slice(2)}:`;
+    const run = await runPythonCode(neuroCodeCheckScript(draft, lesson, marker), { ...options, onStatus });
+    const line = run.stdout?.split('\n').find(line => line.startsWith(marker));
+    let result;
+    try { if (line) result = JSON.parse(line.slice(marker.length)); } catch {}
+    if (!run.ok || !result || !Array.isArray(result.cases) || result.cases.length !== lesson.checks.cases.length) {
+      const message = run.reason === 'stopped' ? 'Check stopped. No pass assigned.'
+        : ['runtime', 'load-timeout', 'unsupported'].includes(run.reason) ? 'Python is unavailable. Retry the check or download your code to run it elsewhere. No pass assigned.'
+        : run.reason === 'timeout' ? 'Python reached the execution time limit. Check loops or reduce the workload, then retry. No pass assigned.'
+        : 'The function check could not complete.';
+      return { passed: false, mode: 'function', reason: run.reason, stdout: run.stdout, stderr: run.stderr, message, explanation: guidance.retryExplanation };
     }
-    const run = await runPythonCode(trimmed, { onStatus });
-    if (run.ok && neuroCodeOutputsMatch(run.stdout, lesson.expectedOutput)) {
-      return {
-        passed: true,
-        mode: 'python',
-        stdout: run.stdout,
-        stderr: run.stderr,
-        message: 'Check passed — starter output reproduced.',
-        explanation: guidance.successExplanation,
-      };
-    }
-    return {
-      passed: false,
-      mode: 'reflection',
-      stdout: run.stdout,
-      stderr: run.stderr,
-      message: 'For this OJT task, print your explanation or match the challenge in code.',
-      explanation: `Target ideas: ${lesson.solution.trim().slice(0, 120)}…`,
-    };
+    const passed = result.cases.every(item => item.passed === true), count = result.cases.filter(item => item.passed).length;
+    return { passed, mode: 'function', cases: result.cases, stdout: result.stdout, stderr: run.stderr,
+      message: `${count}/${result.cases.length} input cases passed.`, explanation: passed ? guidance.successExplanation : guidance.retryExplanation };
   }
-
-  const run = await runPythonCode(trimmed, { onStatus });
-  const targetOut = solRef.stdout || lesson.expectedOutput || '';
-  const passed = run.ok && neuroCodeOutputsMatch(run.stdout, targetOut);
-
-  if (passed) {
-    return {
-      passed: true,
-      mode: 'python',
-      stdout: run.stdout,
-      stderr: run.stderr,
-      message: 'Check passed — stdout matches the reference solution.',
-      explanation: guidance.successExplanation,
-      targetOutput: targetOut,
-    };
+  const key = lesson.id + ':' + lesson.solution;
+  let reference = _solutionOutCache.get(key);
+  if (!reference) {
+    reference = await runPythonCode(lesson.solution.trim(), { ...options, onStatus });
+    if (reference.ok) _solutionOutCache.set(key, reference);
   }
-
-  let message = run.ok
-    ? 'Output mismatch — compare your stdout to the challenge goal.'
-    : 'Python error — read stderr and fix before checking again.';
-  if (!run.ok && run.stderr) message = 'Execution failed.';
-
-  return {
-    passed: false,
-    mode: 'python',
-    stdout: run.stdout,
-    stderr: run.stderr,
-    message,
-    explanation: guidance.retryExplanation,
-    targetOutput: targetOut,
-  };
+  if (!reference.ok) return { passed: false, mode: 'example', message: 'The reference example could not run. Retry when Python is available.', stderr: reference.stderr };
+  const run = await runPythonCode(draft, { ...options, onStatus });
+  const passed = run.ok && neuroCodeOutputsMatch(run.stdout, reference.stdout);
+  return { passed, mode: 'example', stdout: run.stdout, stderr: run.stderr, targetOutput: reference.stdout,
+    message: passed ? 'Example output matches.' : 'The example output does not match.', explanation: guidance.successExplanation };
 }
-
-/* Legacy sync matcher — kept for offline fallback only */
-function neuroCodeEvaluate(input, lesson) {
-  const guidance = neuroCodeGuidance(lesson);
-  const normalizedInput = neuroCodeNormalizeOutput(input).toLowerCase().replace(/\s+/g, '');
-  const normalizedSolution = neuroCodeNormalizeOutput(lesson.solution).toLowerCase().replace(/\s+/g, '');
-  const passed = normalizedInput.length > 0 && (
-    normalizedInput === normalizedSolution ||
-    normalizedInput.includes(normalizedSolution)
-  );
-  return {
-    passed,
-    output: passed ? lesson.expectedOutput : 'No matching expected output yet.',
-    message: passed ? 'Structure match (runtime unavailable).' : 'Keep going.',
-    explanation: passed ? guidance.successExplanation : guidance.retryExplanation,
-  };
+function neuroCodeEvaluate() {
+  return { passed: false, output: '', message: 'Python execution is unavailable.', explanation: 'Your draft is retained. Retry the runtime to check it; no result has been assigned.' };
 }

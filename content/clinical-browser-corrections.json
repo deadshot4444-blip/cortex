@@ -1,0 +1,298 @@
+{
+  "changedOn": "2026-09-07",
+  "method": "Authoring corrections triggered by actual browser walkthrough and checked against primary NICE recommendations via indexed official-source text. Direct fetches returned 403.",
+  "scope": "Three new rotation cases and nr-012 model assessment",
+  "independentReview": "pending",
+  "preserved": [
+    "case IDs",
+    "answer indices",
+    "existing frozen learner encounters"
+  ],
+  "changes": [
+    {
+      "caseId": "em-101",
+      "path": "/case/stages/0/options/0",
+      "before": "Request an EEG first, using the limb jerks to classify the event before reviewing the witness account",
+      "after": "Obtain a routine EEG and arrange a first-seizure clinic assessment"
+    },
+    {
+      "caseId": "em-101",
+      "path": "/case/stages/0/options/1",
+      "before": "Review the event with the witness, examine for concerning features and obtain a 12-lead ECG",
+      "after": "Review the witness account, examine her and obtain a 12-lead ECG"
+    },
+    {
+      "caseId": "em-101",
+      "path": "/case/stages/0/options/2",
+      "before": "Request brain imaging first, using a normal scan to establish a reflex cause for the collapse",
+      "after": "Obtain a head CT and observe for delayed neurologic symptoms"
+    },
+    {
+      "caseId": "em-101",
+      "path": "/case/stages/0/options/3",
+      "before": "Arrange an exercise test first, using age alone to decide that resting cardiac assessment can wait",
+      "after": "Obtain echocardiography and arrange an exercise tolerance test"
+    },
+    {
+      "caseId": "em-101",
+      "path": "/case/stages/2/options/0",
+      "before": "An epileptic seizure, established by the presence of any limb movement",
+      "after": "First epileptic seizure with bilateral motor activity"
+    },
+    {
+      "caseId": "em-101",
+      "path": "/case/stages/2/options/1",
+      "before": "A ventricular arrhythmia, established by the brief loss of consciousness",
+      "after": "Arrhythmic syncope from an intermittent tachyarrhythmia"
+    },
+    {
+      "caseId": "em-101",
+      "path": "/case/stages/2/options/2",
+      "before": "An uncomplicated vasovagal faint with brief associated jerking",
+      "after": "Vasovagal syncope with brief associated jerking"
+    },
+    {
+      "caseId": "em-101",
+      "path": "/case/stages/2/options/3",
+      "before": "Postural hypotension, established by being upright before the event",
+      "after": "Postural hypotension related to reduced circulating volume"
+    },
+    {
+      "caseId": "em-101",
+      "path": "/case/stages/3/options/0",
+      "before": "Explain likely triggers and recurrence precautions, document the event and arrange appropriate follow-up",
+      "after": "Explain triggers, recurrence precautions and appropriate follow-up"
+    },
+    {
+      "caseId": "em-101",
+      "path": "/case/stages/3/options/1",
+      "before": "Begin antiseizure treatment based on the witnessed jerks and postpone discussion of the trigger",
+      "after": "Arrange first-seizure assessment and EEG before deciding on follow-up"
+    },
+    {
+      "caseId": "em-101",
+      "path": "/case/stages/3/options/2",
+      "before": "Use a routine EEG result as the requirement for all discharge decisions after this typical event",
+      "after": "Arrange tilt testing to confirm the mechanism before giving trigger advice"
+    },
+    {
+      "caseId": "em-101",
+      "path": "/case/stages/3/options/3",
+      "before": "Reassure her that the normal resting ECG excludes every future cause of loss of consciousness",
+      "after": "Arrange ambulatory rhythm monitoring and defer counseling until results"
+    },
+    {
+      "caseId": "cd-101",
+      "path": "/case/stages/0/options/0",
+      "before": "Repeat seated pressure several times without asking whether symptoms occur after standing",
+      "after": "Measure seated BP at repeated visits and compare it with home readings"
+    },
+    {
+      "caseId": "cd-101",
+      "path": "/case/stages/0/options/1",
+      "before": "Use the lying pressure alone because it is above the usual hypertension treatment target",
+      "after": "Measure lying BP in both arms and use the higher reading for interpretation"
+    },
+    {
+      "caseId": "cd-101",
+      "path": "/case/stages/0/options/2",
+      "before": "Measure pressure lying and after at least one minute of supported standing, recording symptoms",
+      "after": "Measure lying BP and BP after at least one minute standing, with symptoms"
+    },
+    {
+      "caseId": "cd-101",
+      "path": "/case/stages/0/options/3",
+      "before": "Compare pulse oximetry before and after standing as a substitute for blood-pressure measurement",
+      "after": "Measure heart rate and oxygen saturation during a supported standing test"
+    },
+    {
+      "caseId": "cd-101",
+      "path": "/case/stages/2/options/0",
+      "before": "Symptomatic postural hypotension, with medication and intake as possible contributors",
+      "after": "Symptomatic postural hypotension with potentially reversible contributors"
+    },
+    {
+      "caseId": "cd-101",
+      "path": "/case/stages/2/options/1",
+      "before": "A proven primary autonomic disorder, because all posture-related symptoms have one cause",
+      "after": "Primary autonomic failure causing neurogenic postural hypotension"
+    },
+    {
+      "caseId": "cd-101",
+      "path": "/case/stages/2/options/2",
+      "before": "Sustained ventricular tachycardia, because a normal resting ECG confirms intermittent rhythm events",
+      "after": "Intermittent ventricular tachyarrhythmia causing recurrent presyncope"
+    },
+    {
+      "caseId": "cd-101",
+      "path": "/case/stages/2/options/3",
+      "before": "An uncomplicated vasovagal faint, established solely by the absence of chest pain",
+      "after": "Reflex syncope triggered by prolonged standing in a warm environment"
+    },
+    {
+      "caseId": "cd-101",
+      "path": "/case/stages/3/options/0",
+      "before": "Intensify all antihypertensive medication using only the lying pressure, ignoring standing symptoms",
+      "after": "Adjust hypertension therapy toward the lying BP target and review seated home readings"
+    },
+    {
+      "caseId": "cd-101",
+      "path": "/case/stages/3/options/1",
+      "before": "Prescribe salt loading to every patient with this finding before considering comorbid conditions",
+      "after": "Arrange autonomic function testing before changing any current medication"
+    },
+    {
+      "caseId": "cd-101",
+      "path": "/case/stages/3/options/2",
+      "before": "Label autonomic failure now and omit a review of the new medication and reduced intake",
+      "after": "Monitor home pressure for four weeks before assessing the new symptoms"
+    },
+    {
+      "caseId": "cd-101",
+      "path": "/case/stages/3/options/3",
+      "before": "Review drugs and volume status, address contributors, reduce fall risk and reassess standing BP",
+      "after": "Review medication and volume status, reduce fall risk and recheck standing BP"
+    },
+    {
+      "caseId": "cd-101",
+      "path": "/case/stages/5/options/0",
+      "before": "Close the assessment because the initial blood-pressure fall already explained every future symptom",
+      "after": "Continue the same plan and review symptoms at the next annual hypertension visit"
+    },
+    {
+      "caseId": "cd-101",
+      "path": "/case/stages/5/options/1",
+      "before": "Reassess likely causes and consider specialist evaluation for the persistent symptoms",
+      "after": "Reassess causes and consider specialist evaluation"
+    },
+    {
+      "caseId": "cd-101",
+      "path": "/case/stages/5/options/2",
+      "before": "Infer that the initial measurements were fabricated because symptoms did not fully resolve",
+      "after": "Attribute the remaining episodes to reflex syncope and arrange tilt testing"
+    },
+    {
+      "caseId": "cd-101",
+      "path": "/case/stages/5/options/3",
+      "before": "Choose a permanent neurologic diagnosis from the blood-pressure readings alone",
+      "after": "Treat the pressure fall as primary autonomic failure and begin disease-specific therapy"
+    },
+    {
+      "caseId": "nr-101",
+      "path": "/case/stages/0/options/0",
+      "before": "Classify generalized epilepsy from the bilateral movements alone and omit the cardiac assessment",
+      "after": "Request outpatient MRI and classify the episode from the convulsive pattern"
+    },
+    {
+      "caseId": "nr-101",
+      "path": "/case/stages/0/options/1",
+      "before": "Use a normal current neurologic examination as proof that no seizure occurred",
+      "after": "Observe for another event before investigating the recovered patient"
+    },
+    {
+      "caseId": "nr-101",
+      "path": "/case/stages/0/options/2",
+      "before": "Request a routine EEG as the only investigation and treat its result as a definitive exclusion test",
+      "after": "Request an urgent EEG and defer the remaining assessment until it is reported"
+    },
+    {
+      "caseId": "nr-101",
+      "path": "/case/stages/0/options/3",
+      "before": "Review the witness account, examine her, check metabolic factors and obtain a 12-lead ECG",
+      "after": "Review the witness account, examine her, check metabolic factors and obtain an ECG"
+    },
+    {
+      "caseId": "nr-101",
+      "path": "/case/stages/2/options/0",
+      "before": "An uncomplicated faint, because normal vital signs afterward settle the event’s mechanism",
+      "after": "Reflex syncope with associated convulsive movements"
+    },
+    {
+      "caseId": "nr-101",
+      "path": "/case/stages/2/options/1",
+      "before": "A first suspected epileptic seizure, with onset and underlying cause not yet classified",
+      "after": "First suspected epileptic seizure with onset and cause unclassified"
+    },
+    {
+      "caseId": "nr-101",
+      "path": "/case/stages/2/options/2",
+      "before": "A specific generalized epilepsy syndrome, established by one bilateral convulsive episode",
+      "after": "First generalized-onset tonic-clonic seizure in a generalized epilepsy syndrome"
+    },
+    {
+      "caseId": "nr-101",
+      "path": "/case/stages/2/options/3",
+      "before": "A psychogenic event, established by the absence of a metabolic abnormality",
+      "after": "Functional seizure requiring assessment by a specialist in nonepileptic events"
+    },
+    {
+      "caseId": "nr-101",
+      "path": "/case/stages/3/options/0",
+      "before": "Wait for a second event before arranging any specialist assessment or safety discussion",
+      "after": "Provide safety advice and request specialist review if another event occurs"
+    },
+    {
+      "caseId": "nr-101",
+      "path": "/case/stages/3/options/1",
+      "before": "Issue an unconditional all-clear because the initial ECG and metabolic findings are reassuring",
+      "after": "Arrange a routine outpatient EEG, then decide whether specialist referral is needed"
+    },
+    {
+      "caseId": "nr-101",
+      "path": "/case/stages/3/options/2",
+      "before": "Arrange urgent first-seizure specialist assessment, provide interim safety advice and plan indicated testing",
+      "after": "Arrange urgent first-seizure assessment with interim safety advice and indicated tests"
+    },
+    {
+      "caseId": "nr-101",
+      "path": "/case/stages/3/options/3",
+      "before": "Choose a permanent antiseizure regimen solely from the partner’s estimate of the episode length",
+      "after": "Start maintenance antiseizure treatment and arrange routine follow-up after titration"
+    },
+    {
+      "caseId": "nr-101",
+      "path": "/case/stages/5/options/0",
+      "before": "It does not exclude epilepsy; continue interpreting the event and any further testing in clinical context",
+      "after": "Epilepsy remains possible; interpret the EEG with the history and further assessment"
+    },
+    {
+      "caseId": "nr-101",
+      "path": "/case/stages/5/options/1",
+      "before": "It proves that the witnessed event was a vasovagal faint rather than a seizure",
+      "after": "Reflex syncope becomes the leading diagnosis; redirect follow-up to cardiovascular assessment"
+    },
+    {
+      "caseId": "nr-101",
+      "path": "/case/stages/5/options/2",
+      "before": "It proves that no later seizure can occur, so interim safety advice can be withdrawn automatically",
+      "after": "Recurrence risk is now low enough to withdraw the interim activity precautions"
+    },
+    {
+      "caseId": "nr-101",
+      "path": "/case/stages/5/options/3",
+      "before": "It establishes a functional diagnosis without further history or specialist assessment",
+      "after": "A functional seizure becomes the leading diagnosis; arrange psychological assessment"
+    },
+    {
+      "caseId": "nr-012",
+      "path": "/modelNote/assessment",
+      "before": "45-year-old man with 18 hours of continuous acute vestibular syndrome after an upper respiratory infection. HINTS by a trained examiner favors a peripheral pattern, with an abnormal right head impulse, unidirectional left-beating nystagmus, and no skew; hearing is intact and no focal deficits are present, consistent with right vestibular neuritis.",
+      "after": "45-year-old man with 18 hours of continuous acute vestibular syndrome. HINTS by a trained examiner favors a peripheral pattern, with an abnormal right head impulse, unidirectional left-beating nystagmus, and no skew; hearing is intact and no focal deficits are present, consistent with right vestibular neuritis."
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://www.nice.org.uk/guidance/cg109/chapter/Recommendations",
+      "sections": "1.1.1-1.1.4, 1.2.2, 1.3.2.5"
+    },
+    {
+      "url": "https://www.nice.org.uk/guidance/ng136/chapter/recommendations",
+      "sections": "1.1.5-1.1.8, 1.4.16"
+    },
+    {
+      "url": "https://www.nice.org.uk/guidance/ng217/chapter/1-Diagnosis-and-assessment-of-epilepsy",
+      "sections": "1.1.1, 1.2.2-1.2.7"
+    }
+  ],
+  "browserRetest": "pending"
+}

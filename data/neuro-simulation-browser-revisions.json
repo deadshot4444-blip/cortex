@@ -1,0 +1,58 @@
+{
+  "date": "2026-09-08",
+  "scope": "Concrete statistics and display wording found in actual browser QA; saved records retain their original content.",
+  "independentReview": "pending",
+  "sources": [
+    {
+      "title": "scikit-learn: Data leakage during preprocessing",
+      "url": "https://scikit-learn.org/stable/common_pitfalls.html#data-leakage"
+    }
+  ],
+  "changes": [
+    {
+      "path": "simulations.sim-dec-overfit.scenario",
+      "before": "Your decoder reports 90% offline accuracy, but the user can barely move the cursor. You used a random 80/20 split across all trials, and normalization was computed on the full dataset.",
+      "after": "A fixed decoder matches 90% of offline direction labels, but live cursor target acquisition succeeds on 25% of attempts. You randomly split trials 80/20 after computing normalization parameters from the full dataset."
+    },
+    {
+      "path": "simulations.sim-dec-overfit.signalDescription",
+      "before": "Offline R² = 0.90 on held-out split; live cursor success rate = 25%.",
+      "after": "Offline direction-label accuracy = 90%; live target-acquisition success = 25%. These measure different outcomes and are not a single 65-percentage-point accuracy drop."
+    },
+    {
+      "path": "simulations.sim-dec-overfit.decisionQuestion",
+      "before": "What's most likely wrong?",
+      "after": "Which evaluation problem is directly established by the description?"
+    },
+    {
+      "path": "simulations.sim-dec-overfit.choices.0.label",
+      "before": "Data leakage and overfitting — random shuffling plus full-data normalization leaked test info into training",
+      "after": "Full-data normalization used held-out information; rebuild and reassess the evaluation"
+    },
+    {
+      "path": "simulations.sim-dec-overfit.choices.0.rationale",
+      "before": "Correct — preprocessing using the full set and random shuffles is a textbook leakage pattern.",
+      "after": "Fit normalization using the training subset only, then apply those parameters to held-out data. This corrects the stated leakage. It does not prove why live control performed poorly or establish overfitting."
+    },
+    {
+      "path": "simulations.sim-dec-overfit.choices.2.rationale",
+      "before": "Weaker — visual size doesn't explain a 65-point gap between offline and online performance.",
+      "after": "The description does not isolate display size as the cause. Offline label accuracy and live target acquisition are different endpoints."
+    },
+    {
+      "path": "simulations.sim-dec-overfit.oneLineMaster",
+      "before": "Great offline numbers + bad online performance = check your splits and preprocessing first.",
+      "after": "Separate training from evaluation before fitting preprocessing. Check that evaluation data and outcomes match the intended use; a random split alone does not establish leakage."
+    },
+    {
+      "path": "neuroCodeLessons.code-functions-firing-rate.explanation",
+      "before": "Count divided by seconds is a mean rate over that observation window. This exercise accepts nonnegative counts and strictly positive durations; input validation is outside this ticket.",
+      "after": "Count divided by seconds is a mean rate over that observation window. This exercise accepts nonnegative counts and strictly positive durations; input validation is outside this exercise."
+    },
+    {
+      "path": "neuroCodeLessons.code-plotting-eeg-series.challengePrompt",
+      "before": "Define time_axis(sample_count, rate_hz). Return a list of sample times in seconds, beginning with zero. sample_count is an integer; return [] for zero samples. Raise ValueError for a negative count or rate_hz less than or equal to zero. The plot below uses the fixed example, not output from your editor.",
+      "after": "Define time_axis(sample_count, rate_hz). Return a list of sample times in seconds, beginning with zero. sample_count is an integer; return [] for zero samples. Raise ValueError for a negative count or rate_hz less than or equal to zero. The displayed plot uses the fixed example, not output from your editor."
+    }
+  ]
+}

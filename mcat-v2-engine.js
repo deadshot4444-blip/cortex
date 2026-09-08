@@ -9,6 +9,7 @@
     const w=s.weekly;if(!Array.isArray(w.availability)||w.availability.length!==7)w.availability=[30,30,30,30,30,60,0];
     w.availability=w.availability.map(n=>Math.min(480,Math.max(0,Number(n)||0)));
     if(!Array.isArray(w.exams))w.exams=[];if(!w.done||typeof w.done!=='object'||Array.isArray(w.done))w.done={};
+    if(w.planDays===undefined)w.planDays={};
     if(!Array.isArray(s.durations))s.durations=[];if(!s.activityTime||typeof s.activityTime!=='object'||Array.isArray(s.activityTime))s.activityTime={};return s;
   }
   function parkCoach(s) {
@@ -98,6 +99,23 @@
     const shift=n%3;q.setups=q.setups.slice(shift).concat(q.setups.slice(0,shift));q.errors=q.errors.slice(shift).concat(q.errors.slice(0,shift));q.answer=(3-shift)%3;
     return {...q,id:`math-${skill}-${n}`,skill,variant:n};
   }
+  function validMathTransfer(data) {
+    if (!data || typeof data.reviewStatus !== 'string' || typeof data.exposurePolicy !== 'string'
+      || !Array.isArray(data.sources) || !data.sources.length || !data.sources.every(source => source && typeof source.title === 'string' && /^https:\/\//.test(source.url))
+      || !Array.isArray(data.items) || data.items.length !== 12 || new Set(data.items.map(q => q?.id)).size !== 12) return false;
+    return Object.keys(SKILLS).every(skill => data.items.filter(q => q?.skill === skill).length === 2)
+      && data.items.every(q => q && SKILLS[q.skill] && [0, 1].includes(q.variant) && q.id === `math-transfer-${q.skill}-${q.variant}`
+        && typeof q.stem === 'string' && typeof q.unit === 'string' && Number.isFinite(q.value)
+        && Array.isArray(q.setups) && q.setups.length === 3 && new Set(q.setups).size === 3 && q.setups.every(s => typeof s === 'string')
+        && Array.isArray(q.errors) && q.errors.length === 3 && q.errors.every(s => typeof s === 'string')
+        && Number.isInteger(q.answer) && q.answer >= 0 && q.answer < 3 && typeof q.explanation === 'string'
+        && Array.isArray(q.unitIds) && q.unitIds.length && q.unitIds.every(id => typeof id === 'string')
+        && (!q.graph || Array.isArray(q.graph.points) && q.graph.points.length >= 2 && q.graph.points.every(p => Array.isArray(p) && p.length === 2 && p.every(Number.isFinite))));
+  }
+  function mathTransferAllowed(state, skill) {
+    const foundationIds = new Set(Array.from({ length: 8 }, (_, i) => `math-${skill}-${i}`));
+    return new Set(state.math.history.filter(run => run.completedAt && foundationIds.has(run.qId)).map(run => run.qId)).size >= 2;
+  }
   function diagnose(probes){
     const failed=probes.filter(p=>!p.correct).map(p=>p.domain);
     if(!failed.length)return {cause:'uncertain',text:'All three short checks were correct. The original miss may depend on the passage, timing, or wording. These checks cannot identify a cause.'};
@@ -105,9 +123,28 @@
     return {cause:failed[0],text:`The ${failed[0]} check was missed while the other two were correct. This suggests a useful place to investigate, not a confirmed diagnosis.`};
   }
   function dateKey(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
-  function priorQuestionIds(p,{qlog=[],qhist={},coachHistory=[],resumes={}}={}){
+  function firstPassageDisplay(id,{passageDisplays={},qlog=[]}={}) {
+    const times=[passageDisplays[id],...qlog.filter(a=>a.passage===id&&!a.unanswered).map(a=>a.ts)].filter(t=>Number.isFinite(t)&&t>0);
+    return times.length?Math.min(...times):Infinity;
+  }
+  function reconcileCoachExposure(s,history) {
+    let changed=false;
+    for(const run of [s.coach.active,...s.coach.parked,...s.coach.history].filter(Boolean)) {
+      const passage=run.content?.passage,firstAt=passage&&firstPassageDisplay(passage.id,history);
+      if(!passage||!Number.isFinite(run.startedAt)||!(firstAt<run.startedAt))continue;
+      const prior=new Set(run.prior||[]);
+      if(passage.questions.every(q=>prior.has(q.id))&&run.answers.every(a=>a.repeat))continue;
+      run.exposureCorrection ||= {firstDisplayAt:firstAt,previousPrior:[...prior],previousRepeat:run.answers.map(a=>({qId:a.qId,repeat:!!a.repeat}))};
+      run.prior=[...new Set([...prior,...passage.questions.map(q=>q.id)])];
+      for(const answer of run.answers)answer.repeat=true;
+      changed=true;
+    }
+    return changed;
+  }
+  function priorQuestionIds(p,{qlog=[],qhist={},coachHistory=[],coachExposures={},resumes={},passageDisplays={}}={}){
     const seen=new Set([...qlog.map(a=>a.qId),...Object.keys(qhist),...coachHistory.flatMap(h=>(h.answers||[]).map(a=>a.qId))]);
     const passageSeen=()=>p.questions.forEach(q=>seen.add(q.id));
+    if(coachExposures?.[p.id]||Number.isFinite(firstPassageDisplay(p.id,{passageDisplays,qlog})))passageSeen();
     for(const key of ['cars','plab'])if(resumes[key]?.p?.id===p.id)passageSeen();
     const drill=resumes.drill;if(drill){for(const a of drill.results||[])seen.add(a.id||a.qId);const q=drill.qs?.[drill.idx];if(q)seen.add(q.id);}
     const sim=resumes.sim;
@@ -119,11 +156,103 @@
     }
     return p.questions.filter(q=>seen.has(q.id)).map(q=>q.id);
   }
+  function validCarsPath(data) {
+    const text=value=>typeof value==='string'&&value.trim().length>0;
+    if(!data||!Array.isArray(data.steps)||!data.steps.length||!Array.isArray(data.coaches)||!data.coaches.length
+      ||!text(data.title)||!text(data.reviewStatus)||!text(data.source?.title)||!/^https:\/\//.test(data.source?.url))return false;
+    const ids=new Set(),questions=new Set();
+    return data.coaches.every(coach=>{
+      if(!coach||!text(coach.id)||ids.has(coach.id)||coach.kind!=='cars'||!text(coach.title)||!text(coach.unitId)
+        ||!Array.isArray(coach.prompts)||!coach.prompts.length||!coach.prompts.every(text)
+        ||!Array.isArray(coach.hints)||coach.hints.length!==2||!coach.hints.every(text)
+        ||!Array.isArray(coach.questionHints)||coach.questionHints.length!==2||!coach.questionHints.every(text)
+        ||!Array.isArray(coach.model)||!coach.model.every(item=>text(item.label)&&text(item.text)))return false;
+      ids.add(coach.id);
+      const passage=coach.passage;
+      if(!passage||passage.id!==coach.passageId||!text(passage.text)||!text(passage.title)||!Array.isArray(passage.questions)||!passage.questions.length)return false;
+      const paragraphs=passage.text.split(/\n\n+/).length;
+      return passage.questions.every(question=>{
+        if(!question||!text(question.id)||questions.has(question.id)||!text(question.stem)||!text(question.explanation)
+          ||!Array.isArray(question.options)||question.options.length!==4||!question.options.every(text)||new Set(question.options).size!==4
+          ||!Number.isInteger(question.answer)||question.answer<0||question.answer>3||!['cars-1','cars-2','cars-3'].includes(question.skill)
+          ||!Array.isArray(question.optionFeedback)||question.optionFeedback.length!==4||!question.optionFeedback.every(text)
+          ||!Array.isArray(question.evidenceParagraphs)||!question.evidenceParagraphs.length
+          ||!question.evidenceParagraphs.every(index=>Number.isInteger(index)&&index>0&&index<=paragraphs))return false;
+        questions.add(question.id);return true;
+      });
+    })&&new Set(data.steps.map(step=>step.coachId)).size===data.steps.length
+      &&data.steps.every(step=>text(step.coachId)&&text(step.unitId)&&text(step.title)&&['guided','light','independent'].includes(step.support));
+  }
   function dateFrom(s){const [y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d,12);}
   function addDays(s,n){const d=dateFrom(s);d.setDate(d.getDate()+n);return dateKey(d);}
-  function duration(s,type,fallback){const xs=s.durations.filter(d=>d.type===type&&d.ms>=60000&&d.ms<=4*3600000).slice(-10).map(d=>d.ms/60000).sort((a,b)=>a-b);return xs.length?Math.max(5,Math.min(60,Math.ceil((xs[Math.floor((xs.length-1)/2)]+xs[Math.floor(xs.length/2)])/2/5)*5)):fallback;}
+  function duration(s,type,fallback){const xs=s.durations.filter(d=>d.type===type&&d.ms>=60000&&d.ms<=4*3600000).slice(-10).map(d=>d.ms/60000).sort((a,b)=>a-b);return xs.length?Math.max(5,Math.min(240,Math.ceil((xs[Math.floor((xs.length-1)/2)]+xs[Math.floor(xs.length/2)])/2/5)*5)):fallback;}
+  function validPlanTask(task) {
+    return task && ['id','key','title'].every(key=>typeof task[key]==='string'&&task[key].length>0) && typeof task.reason==='string'
+      && ['course','coach','math','externalReview'].includes(task.type)
+      && Number.isFinite(task.minutes) && task.minutes>0 && task.minutes<=480
+      && (task.selectedAt==null || Number.isFinite(task.selectedAt))
+      && (task.dueAt==null || Number.isFinite(task.dueAt))
+      && (task.notBefore==null || /^\d{4}-\d{2}-\d{2}$/.test(task.notBefore))
+      && (task.manualPrerequisites==null || typeof task.manualPrerequisites==='boolean');
+  }
+  function validPlanDays(plans) {
+    const valid = plan => plan && Number.isFinite(plan.savedAt) && Array.isArray(plan.tasks) && plan.tasks.length<=3
+      && plan.tasks.every(validPlanTask) && new Set(plan.tasks.map(task=>task.id)).size===plan.tasks.length
+      && (plan.released==null || typeof plan.released==='boolean');
+    return plans && typeof plans==='object' && !Array.isArray(plans) && Object.entries(plans).every(([date,plan])=>
+      /^\d{4}-\d{2}-\d{2}$/.test(date) && dateKey(dateFrom(date))===date && valid(plan) && (plan.previous==null || valid(plan.previous)));
+  }
+  function keepDay(s,date,tasks,now,released=false) {
+    if(!/^\d{4}-\d{2}-\d{2}$/.test(date)||dateKey(dateFrom(date))!==date||!Number.isFinite(now)||date<dateKey(new Date(now))||!validPlanDays(s.weekly.planDays)
+      ||!Array.isArray(tasks)||tasks.length>3||!tasks.every(validPlanTask)||new Set(tasks.map(task=>task.id)).size!==tasks.length)return false;
+    if(Object.entries(s.weekly.planDays).some(([day,plan])=>day!==date&&day>=dateKey(new Date(now))&&!plan.released&&plan.tasks.some(old=>tasks.some(task=>task.id===old.id))))return false;
+    const previous=s.weekly.planDays[date],clean=task=>{
+      const copy={selectedAt:task.selectedAt||now};
+      for(const key of ['id','type','key','title','minutes','reason','kind','dueAt','notBefore','manualPrerequisites'])if(task[key]!=null)copy[key]=task[key];
+      return copy;
+    };
+    s.weekly.planDays[date]={tasks:tasks.map(clean),savedAt:now,released,
+      ...(previous?{previous:{tasks:previous.tasks,savedAt:previous.savedAt,released:!!previous.released}}:{})};
+    return true;
+  }
+  function taskPrerequisites(input,task) {
+    if(task.manualPrerequisites || task.resume || task.type==='course'&&task.key===input.activeUnit)return [];
+    const unit=input.units.find(unit=>unit.id===(task.type==='course'?task.key:input.coaches.find(coach=>coach.id===task.key)?.unitId));
+    if(!unit || task.type==='course'&&(task.kind==='review'||task.kind==='delayed'||input.records[unit.id]?.completedAt))return [];
+    const ids=task.type==='coach'?[unit.id]:(unit.prerequisites||[]);
+    return ids.filter(id=>!input.records[id]?.completedAt);
+  }
+  function taskCompleted(s,input,task,since=0) {
+    if(Object.values(s.weekly.done).some(done=>done.id===task.id&&done.ts>=since))return true;
+    if(task.type==='course') {
+      const record=input.records[task.key]||{};
+      if(task.kind==='review')return !!record.reviewedAt&&record.reviewedAt>=since;
+      if(task.kind==='delayed')return (record.attempts||[]).filter(a=>a.kind==='delayed').length>Number(task.id.split(':').at(-1));
+      return !!record.completedAt;
+    }
+    if(task.type==='coach')return s.coach.history.some(run=>run.coachId===task.key&&run.completedAt>=since);
+    if(task.type==='math')return s.math.history.some(run=>run.skill===task.key&&run.completedAt>=since);
+    return task.type==='externalReview'&&s.weekly.exams.some(exam=>exam.id===task.key&&exam.reviewedAt>=since);
+  }
+  function plannerEvidence(s,input,task) {
+    if(task.type==='externalReview')return 'Review time follows the practice exam you scheduled. Any entered exam results are self-reported.';
+    if(task.type==='course') {
+      const record=input.records[task.key]||{},answers=(record.attempts||[]).filter(a=>['check','delayed'].includes(a.kind));
+      const checks=answers.filter(a=>a.kind==='check'),later=answers.filter(a=>a.kind==='delayed');
+      return answers.length?`${checks.filter(a=>a.correct).length}/${checks.length} first lesson applications and ${later.filter(a=>a.correct).length}/${later.length} later applications correct. These lesson records do not establish unaided mastery; post-answer help stays separate.`:'No completed application answers for this lesson yet. The recommendation follows the course sequence, not an ability estimate.';
+    }
+    const answers=task.type==='math'?s.math.history.filter(run=>run.skill===task.key).map(run=>({...mathEvidence(s,run),assisted:typeof run.assisted==='boolean'||typeof run.externalAssistance==='boolean'?!!(run.assisted||run.externalAssistance):undefined}))
+      :task.type==='coach'?s.coach.history.filter(run=>run.coachId===task.key).flatMap(run=>run.answers||[]):[];
+    if(!answers.length)return 'No retained answers for this activity yet. One correct answer would still be limited evidence.';
+    const counts={independent:0,assisted:0,repeat:0,unknown:0};
+    for(const answer of answers)counts[answer.repeat?'repeat':typeof answer.assisted!=='boolean'?'unknown':answer.assisted?'assisted':'independent']++;
+    return `${counts.independent} first answers without recorded help; ${counts.assisted} assisted; ${counts.repeat} repeated; ${counts.unknown} with support conditions unrecorded. Counts describe practice conditions, not mastery.`;
+  }
   function week(s,input){
-    const w=s.weekly,start=input.start,days=[],selected=new Set(),done=Object.values(w.done),pool=[];
+    const w=s.weekly,start=input.start,days=[],selected=new Set(),pool=[];
+    const done=Object.values(w.done).map(task=>Number.isFinite(task.ts)?{...task,plannedDay:task.plannedDay||task.day,day:dateKey(new Date(task.ts))}:task);
+    const plans=validPlanDays(w.planDays)?w.planDays:{},reserved=new Map(),planned=new Set(input.units.filter(unit=>input.records[unit.id]?.completedAt).map(unit=>unit.id));
+    for(const [date,plan] of Object.entries(plans))if(!plan.released&&date>=start&&date<addDays(start,7))for(const task of plan.tasks)reserved.set(task.id,date);
     const courseMin=duration(s,'course',15),coachMin=duration(s,'coach',20),mathMin=duration(s,'math',5);
     // Completed work counts toward availability even when it began outside this planner.
     // Derive display records without changing answers, completion times, or stored history.
@@ -144,13 +273,13 @@
     s.coach.history.forEach(h=>remember({id:`coach:${h.coachId}`,type:'coach',key:h.coachId,title:input.coaches.find(c=>c.id===h.coachId)?.title||'Passage workshop',minutes:coachMin,ts:h.completedAt}));
     s.math.history.forEach(h=>remember({id:`math:${h.skill}`,type:'math',key:h.skill,title:SKILLS[h.skill]||'Quantitative practice',minutes:mathMin,ts:h.completedAt}));
     const add=(type,key,title,minutes,reason,extra={})=>pool.push({id:`${type}:${key}`,type,key,title,minutes,reason,...extra});
-    if(w.active&&!done.some(d=>d.id===w.active.id&&d.day===w.active.day))pool.push({...w.active,reason:'Continue your saved activity.'});
-    for(const u of input.units){const r=input.records[u.id]||{};if(r.dueAt)add('course',u.id,`Later check: ${u.title}`,5,'Fresh application due.',{notBefore:dateKey(new Date(r.dueAt)),dueAt:r.dueAt,kind:'delayed',id:`later:${u.id}:${r.attempts?.filter(a=>a.kind==='delayed').length||0}`});}
+    if(w.active&&!done.some(d=>d.id===w.active.id&&d.day===w.active.day))pool.push({...w.active,resume:true,reason:'Continue your saved activity. Missed days do not add extra work.'});
+    for(const u of [...input.units].sort((a,b)=>(input.records[a.id]?.dueAt||Infinity)-(input.records[b.id]?.dueAt||Infinity))){const r=input.records[u.id]||{};if(r.completedAt&&r.dueAt)add('course',u.id,`Later check: ${u.title}`,5,'A new application is due after a spacing interval. The oldest due check comes first.',{notBefore:dateKey(new Date(r.dueAt)),dueAt:r.dueAt,kind:'delayed',id:`later:${u.id}:${r.attempts?.filter(a=>a.kind==='delayed').length||0}`});}
     const cause=s.diagnostics.history.filter(d=>d.confirmedAt).at(-1);
     if(cause?.cause==='math')add('math','units','Check the units',mathMin,'Your chosen focus after a mistake check.');
     if(cause&&['graph','reading','argument','transfer'].includes(cause.cause))add('coach',input.coaches.find(c=>c.kind===(cause.cause==='graph'?'science':'cars'))?.id,'Practice passage reasoning',coachMin,'Your chosen focus after a mistake check.');
     const active=input.units.find(u=>u.id===input.activeUnit);
-    if(active&&!input.records[active.id]?.completedAt)add('course',active.id,active.title,courseMin,'Finish the lesson you started.');
+    if(active&&!input.records[active.id]?.completedAt)add('course',active.id,active.title,courseMin,'Finish the lesson you started.',{resume:true});
     const focus=input.units.find(u=>u.id===(cause?.cause==='content'?cause.unitId:input.preferredUnit));
     if(focus)add('course',focus.id,focus.title,courseMin,'Revisit your chosen focus.',{kind:input.records[focus.id]?.completedAt?'review':'lesson'});
     // Use observed lesson misses and explicitly entered official results as transparent priorities.
@@ -163,39 +292,71 @@
       if(unit)add('course',unit.id,unit.title,courseMin,reason);
       else{const coach=input.coaches.find(c=>input.units.find(u=>u.id===c.unitId)?.section===section&&!s.coach.history.some(h=>h.coachId===c.id));if(coach)add('coach',coach.id,coach.title,coachMin,reason);}
     }}
+    for(const [key,title] of Object.entries(SKILLS)) {
+      const history=s.math.history.filter(run=>run.skill===key),first=history.filter(run=>run.assisted===false&&!mathEvidence(s,run).repeat);
+      if(history.length&&first.length<2)add('math',key,title,mathMin,'Few first answers without help are recorded for this skill. Try another variant with the support you need.');
+    }
     pool.forEach(t=>t.priority=true);
     // Interleave sections while preserving prerequisite order inside each section.
     const groups=['bioBiochem','chemPhys','psychSoc','cars'].map(section=>input.units.filter(u=>u.section===section&&!input.records[u.id]?.completedAt));
     for(let i=0;i<Math.max(...groups.map(g=>g.length),0);i++)for(const group of groups)if(group[i])add('course',group[i].id,group[i].title,courseMin,'Build the next idea in the course.');
     for(const c of input.coaches){if(!s.coach.history.some(h=>h.coachId===c.id))add('coach',c.id,c.title,coachMin,'Apply the science or argument in context.');}
     Object.entries(SKILLS).forEach(([key,title])=>add('math',key,title,mathMin,'Short quantitative practice.'));
+    for(const unit of input.units.filter(unit=>input.records[unit.id]?.completedAt))add('course',unit.id,`Review: ${unit.title}`,5,'A lesson review you can choose.',{kind:'review',id:`review:chosen:${unit.id}`,alternateOnly:true});
+    for(const coach of input.coaches.filter(coach=>s.coach.history.some(run=>run.coachId===coach.id)))add('coach',coach.id,coach.title,coachMin,'A workshop you can revisit. Prior exposure remains recorded.',{id:`coach:chosen:${coach.id}`,alternateOnly:true});
+    const expand=(task,path=[])=>{
+      if(task.alternateOnly)return [task];
+      const parents=taskPrerequisites(input,task).flatMap(id=>{
+        const unit=input.units.find(unit=>unit.id===id);if(!unit||path.includes(id))return [];
+        return expand({id:`course:${id}`,type:'course',key:id,title:unit.title,minutes:courseMin,kind:'lesson',priority:task.priority,
+          reason:`Foundation for ${task.title}: this prerequisite has no recorded completion.`},[...path,id]);
+      });
+      return [...parents,task];
+    };
+    const candidateIds=new Set(),candidates=pool.flatMap(task=>expand(task)).filter(task=>{
+      if(!task.key||candidateIds.has(task.id))return false;candidateIds.add(task.id);return true;
+    });
     const pendingReviews=w.exams.filter(e=>!e.reviewedAt&&e.date<addDays(start,7));
     const reviewsPlaced=new Set();
     for(let i=0;i<7;i++){
       const date=addDays(start,i),weekday=(dateFrom(date).getDay()+6)%7,budget=w.availability[weekday],pastTarget=!!w.targetDate&&date>w.targetDate;
       const completed=done.filter(t=>t.day===date).map(t=>({...t,done:true}));
       for(const e of w.exams)if(e.reviewedAt&&dateKey(new Date(e.reviewedAt))===date&&!completed.some(t=>t.id===`examReview:${e.id}`))completed.push({id:`examReview:${e.id}`,type:'externalReview',key:e.id,title:`Review: ${e.name}`,minutes:20,reason:'Your completed practice-exam review.',day:date,done:true});
-      const day={date,budget,tasks:[...completed],pastTarget};days.push(day);
+      const kept=plans[date]&&!plans[date].released?plans[date]:null;
+      const day={date,budget,tasks:[...completed],pastTarget,kept:!!kept,held:[],alternatives:[]};days.push(day);
       const exams=w.exams.filter(e=>e.date===date);
       for(const e of exams)day.tasks.push({id:`exam:${e.id}`,type:'externalExam',key:e.id,title:e.name,minutes:e.minutes,reason:'Your scheduled practice exam.',done:!!e.completedAt});
       let remaining=budget-day.tasks.reduce((n,t)=>n+t.minutes,0);
-      if(pastTarget||budget===0||remaining<5)continue;
-      for(const e of pendingReviews){if(e.date>=date||reviewsPlaced.has(e.id))continue;if(remaining>=20){day.tasks.push({id:`examReview:${e.id}`,type:'externalReview',key:e.id,title:`Review: ${e.name}`,minutes:20,reason:'Reserved review after your practice exam.'});reviewsPlaced.add(e.id);remaining-=20;}}
+      if(!kept&&!pastTarget&&budget)for(const e of pendingReviews){if(e.date>=date||reviewsPlaced.has(e.id)||reserved.has(`examReview:${e.id}`)&&reserved.get(`examReview:${e.id}`)!==date)continue;if(remaining>=20&&day.tasks.filter(task=>!task.done).length<3){day.tasks.push({id:`examReview:${e.id}`,type:'externalReview',key:e.id,title:`Review: ${e.name}`,minutes:20,reason:'Reserved review after your practice exam.'});reviewsPlaced.add(e.id);remaining-=20;}}
       const order=input.mode==='mixed'||input.mode==='exam'||weekday%3===1?['coach','math','course']:['course','math','coach'];
-      const buckets=order.map(type=>pool.filter(t=>!t.priority&&t.type===type)),mixed=[];
+      const buckets=order.map(type=>candidates.filter(t=>!t.priority&&!t.alternateOnly&&t.type===type)),mixed=[];
       for(let j=0;j<Math.max(...buckets.map(b=>b.length),0);j++)for(const bucket of buckets)if(bucket[j])mixed.push(bucket[j]);
-      for(const t of [...pool.filter(t=>t.priority),...mixed]){
+      for(const t of kept?kept.tasks:[...candidates.filter(t=>t.priority),...mixed]){
         const nextMidnight=dateFrom(addDays(date,1));nextMidnight.setHours(0,0,0,0);
-        if(!t.key||day.tasks.filter(x=>!x.done).length>=3||t.minutes>remaining||selected.has(t.id)||completed.some(d=>d.id===t.id)||t.notBefore&&t.notBefore>date||t.dueAt&&(i===0?t.dueAt>(input.now??Date.now()):t.dueAt>=nextMidnight.getTime()))continue;
+        if(kept&&taskCompleted(s,input,t,t.selectedAt||kept.savedAt))continue;
+        const missing=taskPrerequisites(input,t),available=t.type==='course'?input.units.some(unit=>unit.id===t.key):t.type==='coach'?input.coaches.some(coach=>coach.id===t.key):t.type==='math'?!!SKILLS[t.key]:w.exams.some(exam=>exam.id===t.key);
+        const hold=!available?'This activity is not currently available. Your choice is retained.':pastTarget?'After your target date. Adjust the target to schedule this choice.':!budget?'Rest day. Your choice is retained.':t.minutes>remaining?'This choice does not fit the remaining time.':day.tasks.filter(x=>!x.done).length>=3?'Three activities are already planned.':missing.some(id=>!planned.has(id))?'Complete the prerequisite or explicitly use your prior background.':t.notBefore&&t.notBefore>date||t.dueAt&&(i===0?t.dueAt>(input.now??Date.now()):t.dueAt>=nextMidnight.getTime())?'The spacing interval has not elapsed.':null;
+        if(hold){if(kept)day.held.push({...t,hold});continue;}
+        if(!t.key||selected.has(t.id)||completed.some(d=>d.id===t.id)||reserved.has(t.id)&&reserved.get(t.id)!==date)continue;
         // A completed task may be done on an earlier day in this rolling week.
         if(done.some(d=>d.id===t.id&&d.day>=start))continue;
         if(t.type==='course'&&day.tasks.some(d=>d.type==='course'&&d.key===t.key))continue;
-        day.tasks.push({...t,day:date});selected.add(t.id);remaining-=t.minutes;
+        const prerequisiteNote=missing.length?`Planned after ${missing.map(id=>input.units.find(unit=>unit.id===id)?.title||id).join(', ')}. This depends on completing that work.`:t.manualPrerequisites?'You chose to use your prior background instead of recorded prerequisite completion.':'';
+        day.tasks.push({...t,day:date,prerequisiteNote,evidence:plannerEvidence(s,input,t)});selected.add(t.id);remaining-=t.minutes;
+        if(t.type==='course'&&(!t.kind||t.kind==='lesson'))planned.add(t.key);
+        if(t.type==='externalReview')reviewsPlaced.add(t.key);
       }
       day.unallocated=Math.max(0,remaining);
+      if(!pastTarget&&budget&&day.tasks.filter(task=>!task.done).length<3)day.alternatives=candidates.filter(task=>task.minutes<=remaining
+        &&!selected.has(task.id)&&!done.some(completed=>completed.id===task.id&&completed.day>=start)
+        &&!day.tasks.some(other=>other.id===task.id||other.type===task.type&&other.key===task.key)
+        &&!day.held.some(other=>other.id===task.id)&&(!reserved.has(task.id)||reserved.get(task.id)===date)
+        &&(!task.notBefore||task.notBefore<=date)&&(!task.dueAt||task.dueAt<=(i===0?(input.now??Date.now()):nextDayStart(date)-1)))
+        .map(task=>({...task,prerequisites:taskPrerequisites(input,task),evidence:plannerEvidence(s,input,task)}));
     }
     return days;
   }
-  const api={DAY,SKILLS,normalize,parkCoach,resumeCoach,mathPrior,mathEvidence,noteMathExposure,bucket,evidence,nextSupport,numeric,quant,diagnose,dateKey,dateFrom,addDays,duration,week,priorQuestionIds,optionOrder,optionLabel};
+  function nextDayStart(date){const next=dateFrom(addDays(date,1));next.setHours(0,0,0,0);return next.getTime();}
+  const api={DAY,SKILLS,normalize,parkCoach,resumeCoach,mathPrior,mathEvidence,noteMathExposure,bucket,evidence,nextSupport,numeric,quant,validMathTransfer,mathTransferAllowed,diagnose,dateKey,dateFrom,addDays,duration,week,priorQuestionIds,reconcileCoachExposure,optionOrder,optionLabel,validCarsPath,validPlanDays,validPlanTask,keepDay,taskPrerequisites,taskCompleted,plannerEvidence};
   if(typeof module!=='undefined'&&module.exports)module.exports=api;root.McatV2Core=api;
 })(typeof window!=='undefined'?window:globalThis);

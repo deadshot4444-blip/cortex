@@ -1,497 +1,221 @@
-/* Cortex — Practitioner Track milestone labs */
-
-const M1_STARTER = `threshold_mv = -50
-spike_count = 0
-events = []
-
-for i, sample in enumerate(RECORDING):
-    if sample >= threshold_mv:
-        spike_count += 1
-        events.append((i, sample))
-
-print("spikes:", spike_count)
-for idx, amp in events:
-    print("event", idx, ":", amp, "mV")
-`;
-
-const M2_STARTER = `# Adaptive spike detection — starter
-# RECORDING (uV) is injected. Baseline drifts, so a fixed threshold fails here.
-
-n = len(RECORDING)
-mean = sum(RECORDING) / n
-var = sum((s - mean) ** 2 for s in RECORDING) / n
-std = var ** 0.5
-threshold = mean - 3.5 * std
-print("threshold:", round(threshold, 2), "uV")
-
-# TODO this counts every sample below threshold as its own spike — a real
-# spike is 1-3 consecutive samples. Group each below-threshold RUN into ONE
-# spike, then report its trough index, trough amplitude, and width.
-spike_count = 0
-for i, s in enumerate(RECORDING):
-    if s < threshold:
-        spike_count += 1
-        print("spike", i, ": amp", s, "uV width 1")
-print("spikes:", spike_count)
-`;
-
-const M2_SUMMARY_TEMPLATE = `Project: Spike Detector + Feature Vector
-Phase: Detection & Features
-Unlock: Unit 12
-Units: 8-12
-Skills: adaptive thresholding (mean - 3.5*std), event grouping, per-spike feature extraction (trough index, amplitude, width)
-Output: printed threshold + per-spike feature table
-Mastery: Units 8-12 + detector that groups crossings into discrete events.
-(Cortex Neuroengineering – Educational only)`;
-
-function neuroMilestonePassed(id) {
-  return !!(NEURO_PROG.milestones && NEURO_PROG.milestones[id]?.passed);
+/* Practitioner projects: saved code, frozen inputs, bounded Python and written engineering review. */
+let neuroProjectCatalog = null, neuroProjectLoading = null, neuroProjectGeneration = 0, neuroProjectJob = null;
+const projectCore = () => NeuroProjectCore;
+const projectIds = ['neural-signal-viewer', 'spike-detector', 'noise-smoother', 'leftright-decoder', 'cursor-simulator', 'closed-loop-capstone'];
+const projectLabels = { result: 'What did the analysis show?', limitation: 'What is one important limitation or failure mode?', next: 'What specific test would you run next?' };
+const projectId = prefix => `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+function neuroMilestonePassed(id) { return projectCore().completed(NEURO_PROG.projects?.[id]); }
+function neuroMilestoneRequirement(ms) {
+  if (!neuroPath()?.steps.filter(step => step.order <= ms.unlockUnit).every(step => NEURO_PROG.pathDone.includes(step.id))) return `Complete units 1–${ms.unlockUnit}`;
+  const prior = projectIds[projectIds.indexOf(ms.id) - 1];
+  if (prior && !neuroMilestonePassed(prior) && !NEURO_PROG.milestones?.[prior]?.passed) {
+    const title = NEURO.milestones?.milestones.find(item => item.id === prior)?.title;
+    return title ? `Complete ${title}` : 'Complete the preceding project';
+  }
+  return 'In development';
 }
-
-function neuroMilestoneUnlocked(ms, pg) {
-  if (ms.status === 'planned') return false;
-  return pg.done >= ms.unlockUnit;
+function neuroMilestoneUnlocked(ms) {
+  if (NEURO_PROG.projects?.[ms.id]?.current || NEURO_PROG.milestones?.[ms.id]?.passed) return true;
+  const prior = projectIds[projectIds.indexOf(ms.id) - 1];
+  return ms.status === 'live' && neuroPath()?.steps.filter(step => step.order <= ms.unlockUnit).every(step => NEURO_PROG.pathDone.includes(step.id))
+    && (!prior || neuroMilestonePassed(prior) || NEURO_PROG.milestones?.[prior]?.passed);
 }
-
-const M1_SUMMARY_TEMPLATE = `Project: Neural Signal Viewer
-Phase: Signal Acquisition
-Unlock: Unit 7
-Units: 1-7
-Skills: time-series, thresholding, basic event detection
-Output: plotted trace + table of detected events
-Mastery: Units 1-7 + working viewer on noisy data.
-(Cortex Neuroengineering – Educational only)`;
-
-function drawNeuroWaveform(canvas, samples, events, threshold) {
-  const ctx = canvas.getContext('2d');
-  const w = canvas.width;
-  const h = canvas.height;
-  const pad = 16;
-  const min = Math.min(...samples);
-  const max = Math.max(...samples);
-  const range = max - min || 1;
-
-  ctx.fillStyle = '#050506';
-  ctx.fillRect(0, 0, w, h);
-
-  const yFor = (v) => pad + (h - pad * 2) * (1 - (v - min) / range);
-  const xFor = (i) => pad + (w - pad * 2) * (i / Math.max(samples.length - 1, 1));
-
-  if (threshold != null) {
-    const ty = yFor(threshold);
-    ctx.strokeStyle = '#c4a24a';
-    ctx.setLineDash([4, 4]);
-    ctx.beginPath();
-    ctx.moveTo(pad, ty);
-    ctx.lineTo(w - pad, ty);
-    ctx.stroke();
-    ctx.setLineDash([]);
-  }
-
-  ctx.strokeStyle = '#4fc3f7';
-  ctx.lineWidth = 1.5;
-  ctx.beginPath();
-  samples.forEach((v, i) => {
-    const x = xFor(i);
-    const y = yFor(v);
-    if (i === 0) ctx.moveTo(x, y);
-    else ctx.lineTo(x, y);
-  });
-  ctx.stroke();
-
-  const eventSet = new Set((events || []).map(e => e.idx));
-  samples.forEach((v, i) => {
-    if (!eventSet.has(i)) return;
-    ctx.fillStyle = '#1a7f37';
-    ctx.beginPath();
-    ctx.arc(xFor(i), yFor(v), 4, 0, Math.PI * 2);
-    ctx.fill();
-  });
+function neuroProjectRoute(id, runId) {
+  const url = new URL(sectionUrl('neuro'), location.origin);
+  url.searchParams.set('project', id);
+  if (runId) url.searchParams.set('run', runId);
+  if (url.pathname + url.search === location.pathname + location.search) return;
+  // Only the run changed (Start, history, popstate re-route): replace so Back still leaves the project.
+  const sameProject = new URLSearchParams(location.search).get('project') === id;
+  history[sameProject ? 'replaceState' : 'pushState']({}, '', url.pathname + url.search);
 }
-
-function parseM1Stdout(stdout) {
-  const lines = String(stdout || '').trim().split('\n').map(l => l.trim()).filter(Boolean);
-  let spikeCount = null;
-  const events = [];
-  for (const line of lines) {
-    const m1 = line.match(/^spikes:\s*(\d+)/i);
-    if (m1) spikeCount = Number(m1[1]);
-    const m2 = line.match(/^event\s+(\d+)\s*:\s*(-?\d+(?:\.\d+)?)\s*mV/i);
-    if (m2) events.push({ idx: Number(m2[1]), amp: Number(m2[2]) });
-  }
-  return { spikeCount, events };
+async function loadNeuroProjects() {
+  if (neuroProjectCatalog) return neuroProjectCatalog;
+  if (!neuroProjectLoading) neuroProjectLoading = fetch('data/neuro-projects.json?v=2').then(async response => {
+    if (!response.ok) throw Error('The project collection did not download.');
+    const data = await response.json();
+    if (data.version !== 1 || !Array.isArray(data.projects) || new Set(data.projects.map(p => p.id)).size !== data.projects.length) throw Error('The project collection is invalid.');
+    data.projects.forEach(projectCore().validateProject);
+    for (const project of data.projects) if (!await projectCore().verifyInputs(project)) throw Error('The project inputs do not match their recorded version.');
+    neuroProjectCatalog = data; return data;
+  }).finally(() => { neuroProjectLoading = null; });
+  return neuroProjectLoading;
 }
-
-function gradeM1Lab(stdout, recording) {
-  const ref = recording.reference;
-  const parsed = parseM1Stdout(stdout);
-  const issues = [];
-
-  if (parsed.spikeCount !== ref.spikeCount) {
-    issues.push(`Spike count should be ${ref.spikeCount}, got ${parsed.spikeCount ?? 'none'}.`);
-  }
-  if (parsed.events.length !== ref.events.length) {
-    issues.push(`Expected ${ref.events.length} event lines, got ${parsed.events.length}.`);
-  } else {
-    ref.events.forEach((ev, i) => {
-      const got = parsed.events[i];
-      if (!got || got.idx !== ev.idx || Math.abs(got.amp - ev.amp) > 0.01) {
-        issues.push(`Event ${i + 1} should be index ${ev.idx} at ${ev.amp} mV.`);
-      }
-    });
-  }
-
-  return {
-    passed: issues.length === 0,
-    issues,
-    parsed,
-  };
+function projectFrame(title, body) {
+  const root = el('<div></div>'); root.appendChild(topbar('neuro'));
+  root.appendChild(el(`<main class="neuro-page neuro-inner" id="main"><section class="neuro-body neuro-project"><button class="backbtn topback" id="project-back">← Neuroengineering</button><p class="neuro-eyebrow">Practitioner projects</p><h1 class="neuro-h1">${esc(title)}</h1>${body}<p id="project-status" role="status" aria-live="polite"></p></section></main>`));
+  root.querySelectorAll('.btn').forEach(button => button.classList.add('neuro-btn'));
+  root.querySelector('#project-back').onclick = () => renderNeuroEngineering(); setView(root); return root;
 }
-
-async function loadM1Recording() {
-  const r = await fetch('data/labs/m1-recording.json');
-  return r.ok ? r.json() : null;
+function projectSources(project) {
+  const hash = projectCore().portableInputHash(project);
+  return `<details><summary>Inputs, provenance and review status</summary><p>${esc(project.provenance)}</p><p>Independent engineering review: ${esc(project.review.status)}. These are synthetic learning exercises, not clinical device evidence.</p><p class="project-digest">Example-input SHA-256: ${esc(hash)}</p>${hash !== project.inputSha256 ? `<p>Zero values are normalized for portable storage. The original signed-zero checksum is retained in your saved record: <span class="project-digest">${esc(project.inputSha256)}</span>.</p>` : ''}${project.sources.map(s => `<p><a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.title)}</a></p>`).join('')}</details>`;
 }
-
-function parseM2Stdout(stdout) {
-  const lines = String(stdout || '').trim().split('\n').map(l => l.trim()).filter(Boolean);
-  let threshold = null;
-  let spikeCount = null;
-  const events = [];
-  for (const line of lines) {
-    const mt = line.match(/^threshold:\s*(-?\d+(?:\.\d+)?)\s*uV/i);
-    if (mt) threshold = Number(mt[1]);
-    const mc = line.match(/^spikes:\s*(\d+)/i);
-    if (mc) spikeCount = Number(mc[1]);
-    const me = line.match(/^spike\s+(\d+)\s*:\s*amp\s*(-?\d+(?:\.\d+)?)\s*uV\s*width\s*(\d+)/i);
-    if (me) events.push({ idx: Number(me[1]), amp: Number(me[2]), width: Number(me[3]) });
+async function renderNeuroMilestone(id) {
+  const token = ++neuroProjectGeneration;
+  neuroProjectJob?.abort();
+  const params = new URLSearchParams(location.search), requested = params.get('project') === id ? params.get('run') : null;
+  neuroProjectRoute(id, requested);
+  const group = NEURO_PROG.projects?.[id];
+  const saved = requested ? [group?.current, ...(group?.history || [])].find(work => work?.runId === requested) : group?.current;
+  if (saved) {
+    try { if (!await projectCore().verifyInputs(saved.content)) throw Error('Input mismatch'); }
+    catch { StudyStorage.sessionFailed(); projectFrame('The saved project inputs could not be verified.', '<p>The original saved record has been kept for recovery.</p>'); return; }
+    if (token !== neuroProjectGeneration || new URLSearchParams(location.search).get('project') !== id) return;
+    if (projectCore().interrupt(saved) && !saveNeuroProg()) return;
+    neuroProjectRoute(id, saved.runId); renderNeuroProjectWork(saved, group.current === saved); return;
   }
-  return { threshold, spikeCount, events };
-}
-
-function gradeM2Lab(stdout, recording) {
-  const ref = recording.reference;
-  const parsed = parseM2Stdout(stdout);
-  const issues = [];
-
-  if (parsed.threshold == null || Math.abs(parsed.threshold - ref.thresholdUv) > 0.01) {
-    issues.push(`Threshold should print as ${ref.thresholdUv} uV (mean - 3.5 * population std), got ${parsed.threshold ?? 'none'}.`);
-  }
-  if (parsed.spikeCount !== ref.spikeCount) {
-    issues.push(`Spike count should be ${ref.spikeCount} (group each below-threshold run into one spike), got ${parsed.spikeCount ?? 'none'}.`);
-  }
-  if (parsed.events.length !== ref.events.length) {
-    issues.push(`Expected ${ref.events.length} spike lines, got ${parsed.events.length}.`);
-  } else {
-    ref.events.forEach((ev, i) => {
-      const got = parsed.events[i];
-      if (!got || got.idx !== ev.idx || Math.abs(got.amp - ev.amp) > 0.01 || got.width !== ev.width) {
-        issues.push(`Spike ${i + 1} should be index ${ev.idx}, amp ${ev.amp} uV, width ${ev.width}.`);
-      }
-    });
-  }
-
-  return { passed: issues.length === 0, issues, parsed };
-}
-
-async function loadM2Recording() {
-  const r = await fetch('data/labs/m2-recording.json');
-  return r.ok ? r.json() : null;
-}
-
-async function renderNeuroMilestone(milestoneId) {
-  await loadNeuro();
-  const ms = NEURO.milestones?.milestones?.find(m => m.id === milestoneId);
-  const pg = pathProgress();
-  if (!ms || !neuroMilestoneUnlocked(ms, pg)) {
-    renderNeuroEngineering();
-    return;
-  }
-
-  if (milestoneId === 'neural-signal-viewer') {
-    await renderM1SignalViewer(ms);
-    return;
-  }
-  if (milestoneId === 'spike-detector') {
-    await renderM2SpikeDetector(ms);
-    return;
-  }
-  renderNeuroEngineering();
-}
-
-async function renderM2SpikeDetector(ms) {
-  const recording = await loadM2Recording();
-  if (!recording) { renderNeuroEngineering(); return; }
-
-  const root = el('<div></div>');
-  root.appendChild(topbar('neuro'));
-  const passed = neuroMilestonePassed(ms.id);
-
-  const main = el(`<main class="neuro-page neuro-inner">
-    <section class="neuro-body">
-      <button class="backbtn topback" id="neback">&larr; Neuroengineering</button>
-      <span class="neuro-eyebrow">Practitioner Track &middot; Milestone 2</span>
-      <h1 class="neuro-h1">Spike Detector + Feature Vector</h1>
-      <p class="neuro-lede">The recording drifts, so the fixed threshold from Milestone 1 fails here. Compute an adaptive threshold from the signal's own statistics, group crossings into discrete spikes, and report a feature vector per spike.</p>
-      <div class="neuro-ojt-brief">
-        <span class="label">Acceptance criteria</span>
-        <ul class="neuro-criteria">
-          <li>Threshold = mean &minus; 3.5 &times; population std of <code>RECORDING</code>; print <code>threshold: X.XX uV</code> (2 dp)</li>
-          <li>Group each run of consecutive below-threshold samples into ONE spike</li>
-          <li>Per spike print <code>spike IDX : amp A uV width W</code> &mdash; trough index, trough amplitude, run length</li>
-          <li>Print <code>spikes: N</code> matching the reference</li>
-        </ul>
-      </div>
-      <div class="neuro-lab-viz">
-        <span class="label">Recording preview &middot; ${recording.sampleRateHz} Hz &middot; ${recording.samples.length} samples &middot; adaptive threshold dashed</span>
-        <canvas class="neuro-wave" id="m2wave" width="900" height="200"></canvas>
-      </div>
-      <textarea class="neuro-code-draft" id="m2code" rows="18" spellcheck="false">${esc(M2_STARTER)}</textarea>
-      <div class="neuro-terminal neuro-ojt-terminal">
-        <div class="neuro-terminal-bar">
-          <span class="neuro-terminal-dot"></span>
-          <span class="neuro-terminal-title">bci-lab@cortex &mdash; milestone_2.py</span>
-          <span class="neuro-terminal-status" id="m2status">Python idle</span>
-        </div>
-        <div class="neuro-terminal-log" id="m2log"></div>
-        <p class="neuro-terminal-msg" id="m2msg">Run the starter first &mdash; watch it overcount. Then make it group runs.</p>
-      </div>
-      <div class="neuro-sandbox-actions">
-        <button class="btn btn-solid neuro-btn" id="m2run">Run</button>
-        <button class="btn neuro-btn" id="m2submit">Submit milestone</button>
-        <button class="btn neuro-btn" id="m2reset">Reset starter</button>
-        <button class="btn neuro-btn" id="m2hint">Hint</button>
-        <button class="btn neuro-btn" id="m2copy">Copy project summary</button>
-      </div>
-      <div class="neuro-sandbox-extra" id="m2extra"></div>
-      ${passed ? '<p class="neuro-terminal-msg ok">Milestone 2 complete — saved to your progress.</p>' : ''}
-    </section>
-  </main>`);
-
-  main.querySelector('#neback').addEventListener('click', renderNeuroEngineering);
-  const canvas = main.querySelector('#m2wave');
-  const code = main.querySelector('#m2code');
-  const log = main.querySelector('#m2log');
-  const msg = main.querySelector('#m2msg');
-  const status = main.querySelector('#m2status');
-
-  const paintWave = () => {
-    const w = Math.min(canvas.parentElement?.clientWidth || 900, 900);
-    canvas.width = w;
-    canvas.height = 200;
-    drawNeuroWaveform(canvas, recording.samples, recording.reference.events, recording.reference.thresholdUv);
-  };
-  paintWave();
-  window.addEventListener('resize', paintWave);
-  main._m2Resize = paintWave;
-
-  const appendLog = (cls, text) => {
-    const line = el(`<div class="neuro-term-line ${cls}"></div>`);
-    line.textContent = text;
-    log.appendChild(line);
-    log.scrollTop = log.scrollHeight;
-  };
-
-  const runLab = async (submit) => {
-    status.textContent = submit ? 'Grading…' : 'Running…';
-    msg.textContent = submit ? 'Submitting against reference…' : 'Executing Python…';
-    try {
-      const pyodide = await ensurePythonRuntime((s) => { status.textContent = s; });
-      const result = await runPythonCode(code.value, {
-        globals: { RECORDING: recording.samples },
-        onStatus: (s) => { status.textContent = s; },
-      });
-      appendLog('cmd', `$ python milestone_2.py${submit ? '  # submit' : ''}`);
-      if (result.stdout) appendLog('out', result.stdout.trimEnd());
-      if (result.stderr) appendLog('err', result.stderr.trimEnd());
-      if (!result.ok) {
-        msg.textContent = 'Execution failed — fix errors before submitting.';
-        msg.classList.add('bad');
-        status.textContent = 'Error';
-        return;
-      }
-      if (!submit) {
-        msg.textContent = 'Run complete. Submit when the spike table groups each event once.';
-        msg.classList.remove('bad');
-        status.textContent = 'Python ready';
-        return;
-      }
-      const grade = gradeM2Lab(result.stdout, recording);
-      if (grade.passed) {
-        if (!NEURO_PROG.milestones) NEURO_PROG.milestones = {};
-        NEURO_PROG.milestones[ms.id] = { passed: true, ts: Date.now() };
-        saveNeuroProg();
-        msg.textContent = 'Milestone 2 passed — feature table matches reference.';
-        msg.classList.add('ok');
-        status.textContent = 'Passed';
-      } else {
-        msg.textContent = grade.issues[0] || 'Output mismatch.';
-        msg.classList.add('bad');
-        status.textContent = 'Failed';
-        grade.issues.forEach(i => appendLog('muted', `# ${i}`));
-      }
-    } catch (e) {
-      appendLog('err', e?.message || String(e));
-      msg.textContent = 'Runtime error.';
-      msg.classList.add('bad');
+  if (requested) { projectFrame('This saved project is not in this workspace.', '<p>Your other work has been kept. Return to the project list to choose an available record.</p>'); return; }
+  const loading = projectFrame('Opening project…', '<p>Loading the task and its reproducible inputs.</p>');
+  let data;
+  try { [, data] = await Promise.all([loadNeuro(), loadNeuroProjects()]); }
+  catch (error) {
+    if (token === neuroProjectGeneration && loading.isConnected) {
+      loading.querySelector('h1').textContent = 'The project could not open.';
+      loading.querySelector('#project-status').textContent = error.message;
+      const button = el('<button class="btn neuro-btn">Retry project</button>'); button.onclick = () => renderNeuroMilestone(id); loading.querySelector('.neuro-project').appendChild(button);
     }
+    return;
+  }
+  if (token !== neuroProjectGeneration || !loading.isConnected) return;
+  const project = data.projects.find(p => p.id === id), ms = NEURO.milestones?.milestones?.find(m => m.id === id);
+  if (!project || !ms) { projectFrame('This project is unavailable.', '<p>No saved work has been changed.</p>'); return; }
+  const unlocked = neuroMilestoneUnlocked(ms);
+  const root = projectFrame(project.title, `<p>${esc(project.objective)}</p><p>${esc(project.prompt)}</p><p>Complete the first ${project.unlockUnit} course units${project.previousProject ? ' and the preceding project' : ''} before starting this project. Previously recorded project access is retained.</p><p>About 30–60 minutes; the capstone may take longer. Python runs in a disposable browser worker and needs its external runtime to download. Only the Python standard library is available in that browser runtime; numpy, scipy and other packages cannot be imported. You can export the exact code and inputs for standard Python.</p><p>Record a prediction, implement the function, inspect the checks, then write an engineering memo. Passing checks proves only the listed behavior. The memo requires independent review to assess its quality.</p><button class="btn btn-solid" id="project-start" ${unlocked ? '' : 'disabled'}>Start saved project</button>${projectSources(project)}`);
+  root.querySelector('#project-start').onclick = () => {
+    if (StudyStorage.paused || !unlocked) return;
+    NEURO_PROG.projects ||= {};
+    const work = projectCore().create(project, projectId('project'));
+    NEURO_PROG.projects[id] = { current: work, history: group?.history || [] };
+    if (saveNeuroProg()) { neuroProjectRoute(id, work.runId); renderNeuroProjectWork(work, true); }
   };
-
-  main.querySelector('#m2run').addEventListener('click', () => runLab(false));
-  main.querySelector('#m2submit').addEventListener('click', () => runLab(true));
-  main.querySelector('#m2reset').addEventListener('click', () => {
-    code.value = M2_STARTER;
-    appendLog('muted', '# reset to starter');
-  });
-  main.querySelector('#m2hint').addEventListener('click', (e) => {
-    e.target.disabled = true;
-    main.querySelector('#m2extra').appendChild(el(`<div class="sochint"><span class="label">Hint</span><p>Walk the recording with an index. When a sample drops below <code>threshold</code>, keep advancing while samples stay below it &mdash; that whole run is <em>one</em> spike. Its <b>width</b> is the run length, its <b>amp</b> is the minimum value in the run, its <b>index</b> is where that minimum sits. Print the spike lines as you find them, then <code>spikes: N</code> last.</p></div>`));
-  });
-  main.querySelector('#m2copy').addEventListener('click', async () => {
-    try {
-      await navigator.clipboard.writeText(M2_SUMMARY_TEMPLATE);
-      appendLog('muted', '# project summary copied');
-    } catch {}
-  });
-
-  root.appendChild(main);
-  setView(root);
 }
-
-async function renderM1SignalViewer(ms) {
-  const recording = await loadM1Recording();
-  if (!recording) { renderNeuroEngineering(); return; }
-
-  const root = el('<div></div>');
-  root.appendChild(topbar('neuro'));
-  const passed = neuroMilestonePassed(ms.id);
-
-  const main = el(`<main class="neuro-page neuro-inner">
-    <section class="neuro-body">
-      <button class="backbtn topback" id="neback">&larr; Neuroengineering</button>
-      <span class="neuro-eyebrow">Practitioner Track &middot; Milestone 1</span>
-      <h1 class="neuro-h1">Neural Signal Viewer</h1>
-      <p class="neuro-lede">OJT lab: load a real recording snippet, detect threshold crossings, print an event table. This is the first build employers want to see.</p>
-      <div class="neuro-ojt-brief">
-        <span class="label">Acceptance criteria</span>
-        <ul class="neuro-criteria">
-          <li>Scan <code>RECORDING</code> (injected, mV) with <code>threshold_mv = -50</code></li>
-          <li>Print <code>spikes: N</code> where N matches the reference</li>
-          <li>Print one line per event: <code>event INDEX : AMP mV</code></li>
-        </ul>
-      </div>
-      <div class="neuro-lab-viz">
-        <span class="label">Recording preview &middot; ${recording.sampleRateHz} Hz &middot; ${recording.samples.length} samples</span>
-        <canvas class="neuro-wave" id="m1wave" width="900" height="200"></canvas>
-      </div>
-      <textarea class="neuro-code-draft" id="m1code" rows="14" spellcheck="false">${esc(M1_STARTER)}</textarea>
-      <div class="neuro-terminal neuro-ojt-terminal">
-        <div class="neuro-terminal-bar">
-          <span class="neuro-terminal-dot"></span>
-          <span class="neuro-terminal-title">bci-lab@cortex &mdash; milestone_1.py</span>
-          <span class="neuro-terminal-status" id="m1status">Python idle</span>
-        </div>
-        <div class="neuro-terminal-log" id="m1log"></div>
-        <p class="neuro-terminal-msg" id="m1msg">Run to execute. Submit grades against the reference recording.</p>
-      </div>
-      <div class="neuro-sandbox-actions">
-        <button class="btn btn-solid neuro-btn" id="m1run">Run</button>
-        <button class="btn neuro-btn" id="m1submit">Submit milestone</button>
-        <button class="btn neuro-btn" id="m1reset">Reset starter</button>
-        <button class="btn neuro-btn" id="m1hint">Hint</button>
-        <button class="btn neuro-btn" id="m1copy">Copy project summary</button>
-      </div>
-      <div class="neuro-sandbox-extra" id="m1extra"></div>
-      ${passed ? '<p class="neuro-terminal-msg ok">Milestone 1 complete — saved to your progress.</p>' : ''}
-    </section>
-  </main>`);
-
-  main.querySelector('#neback').addEventListener('click', renderNeuroEngineering);
-  const canvas = main.querySelector('#m1wave');
-  const code = main.querySelector('#m1code');
-  const log = main.querySelector('#m1log');
-  const msg = main.querySelector('#m1msg');
-  const status = main.querySelector('#m1status');
-
-  const paintWave = () => {
-    const w = Math.min(canvas.parentElement?.clientWidth || 900, 900);
-    canvas.width = w;
-    canvas.height = 200;
-    drawNeuroWaveform(canvas, recording.samples, recording.reference.events, recording.reference.thresholdMv);
-  };
-  paintWave();
-  window.addEventListener('resize', paintWave);
-  main._m1Resize = paintWave;
-
-  const appendLog = (cls, text) => {
-    const line = el(`<div class="neuro-term-line ${cls}"></div>`);
-    line.textContent = text;
-    log.appendChild(line);
-    log.scrollTop = log.scrollHeight;
-  };
-
-  const runLab = async (submit) => {
-    status.textContent = submit ? 'Grading…' : 'Running…';
-    msg.textContent = submit ? 'Submitting against reference…' : 'Executing Python…';
-    try {
-      const pyodide = await ensurePythonRuntime((s) => { status.textContent = s; });
-      const result = await runPythonCode(code.value, {
-        globals: { RECORDING: recording.samples },
-        onStatus: (s) => { status.textContent = s; },
-      });
-      appendLog('cmd', `$ python milestone_1.py${submit ? '  # submit' : ''}`);
-      if (result.stdout) appendLog('out', result.stdout.trimEnd());
-      if (result.stderr) appendLog('err', result.stderr.trimEnd());
-      if (!result.ok) {
-        msg.textContent = 'Execution failed — fix errors before submitting.';
-        msg.classList.add('bad');
-        status.textContent = 'Error';
-        return;
-      }
-      if (!submit) {
-        msg.textContent = 'Run complete. Submit when output looks right.';
-        msg.classList.remove('bad');
-        status.textContent = 'Python ready';
-        return;
-      }
-      const grade = gradeM1Lab(result.stdout, recording);
-      if (grade.passed) {
-        if (!NEURO_PROG.milestones) NEURO_PROG.milestones = {};
-        NEURO_PROG.milestones[ms.id] = { passed: true, ts: Date.now() };
-        saveNeuroProg();
-        msg.textContent = 'Milestone 1 passed — event table matches reference.';
-        msg.classList.add('ok');
-        status.textContent = 'Passed';
-      } else {
-        msg.textContent = grade.issues[0] || 'Output mismatch.';
-        msg.classList.add('bad');
-        status.textContent = 'Failed';
-        grade.issues.forEach(i => appendLog('muted', `# ${i}`));
-      }
-    } catch (e) {
-      appendLog('err', e?.message || String(e));
-      msg.textContent = 'Runtime error.';
-      msg.classList.add('bad');
+function projectJSON(value) { return `<pre class="project-json">${esc(JSON.stringify(value, null, 2))}</pre>`; }
+function projectPlot(title, values, rate, unit, description, annotations = {}) {
+  return neuroSeriesMarkup({ ...annotations, title, values, sampleRateHz: rate, unit, description }, 512);
+}
+function projectPreview(project) {
+  const p = project.preview;
+  if (p.kind === 'signal') return projectPlot('Input waveform', p.samples, p.sampleRateHz, p.units, p.note);
+  if (p.kind === 'cursor') return projectPlot('Fixed target sequence', p.targets, 1 / p.dt, p.units, 'Targets are sampled model inputs. The controller begins at position zero.');
+  if (p.kind === 'decoder') return `<details><summary>Training and held-out input rows</summary>${projectJSON({ train_x: p.train, train_y: p.trainLabels, test_x: p.test })}<p>Evaluation labels are kept out of the function inputs. This small synthetic split is a practice example, not a reserved final benchmark.</p></details>`;
+  return `<p>The capstone has ${p.example.train_trials.length} training trials and ${p.example.test_trials.length} held-out trials. Each trial contains two channels with ${p.example.train_trials[0][0].length} synthetic samples per channel. Units: ${esc(p.units)}.</p><details><summary>Inspect the exact pipeline inputs</summary>${projectJSON(p.example)}</details>`;
+}
+function projectAnalysis(project, result) {
+  const value = result?.cases?.[0]?.value;
+  if (!value || typeof value !== 'object') return '';
+  let html = `<section><h2>Your saved example output</h2><p>This is the function result from the recorded code. Passing the whole project requires all listed checks and your written memo.</p>`;
+  if (project.preview.kind === 'signal' && Array.isArray(value.events)) {
+    html += projectPlot('Detected candidate events', project.preview.samples, project.preview.sampleRateHz, project.preview.units,
+      'Marked troughs come from your saved function result. They are candidate threshold events, not identified neurons or confirmed action potentials.',
+      { markerIndices: value.events.map(event => event?.index), threshold: value.threshold });
+  }
+  if (project.preview.kind === 'signal' && Array.isArray(value.residual)) {
+    html += projectPlot('Estimated baseline', value.baseline, project.preview.sampleRateHz, project.preview.units, 'Your causal baseline estimate. Each chart has its own labeled vertical range.');
+    html += projectPlot('Residual after subtraction', value.residual, project.preview.sampleRateHz, project.preview.units, 'Subtraction can attenuate signal components; a smaller residual is not automatically better.');
+  }
+  if (project.preview.kind === 'decoder' && Array.isArray(value.test_predictions) && value.test_predictions.length === project.preview.testLabels.length) {
+    const accuracy = (a, b) => Array.isArray(a) && a.length === b.length ? `${a.filter((v, i) => v === b[i]).length}/${b.length}` : 'unavailable';
+    html += `<p>Training: ${accuracy(value.train_predictions || [], project.preview.trainLabels)}. Held-out example: ${accuracy(value.test_predictions, project.preview.testLabels)}. These small synthetic counts are separate from function-check results.</p>`;
+    html += projectJSON({ weights: value.weights, bias: value.bias, predictions: value.test_predictions, evaluationLabels: project.preview.testLabels });
+  }
+  if (['cursor', 'pipeline'].includes(project.preview.kind)) {
+    for (let i = 0; i < Math.min(3, result.cases.length); i++) {
+      const output = result.cases[i].value, spec = project.checks.cases[i];
+      if (!output || !Array.isArray(output.positions)) continue;
+      const dt = project.preview.kind === 'cursor' ? spec.args[4] : spec.args[0].dt;
+      html += projectPlot(spec.label, output.positions, 1 / dt, 'cursor units', 'Position at each modeled time step, including the initial zero. The horizontal axis is model time, not Python execution time.');
+      if (project.preview.kind === 'pipeline') html += projectJSON({ train_features: output.train_features, test_features: output.test_features, weights: output.weights, bias: output.bias, predictions: output.predictions });
     }
-  };
-
-  main.querySelector('#m1run').addEventListener('click', () => runLab(false));
-  main.querySelector('#m1submit').addEventListener('click', () => runLab(true));
-  main.querySelector('#m1reset').addEventListener('click', () => {
-    code.value = M1_STARTER;
-    appendLog('muted', '# reset to starter');
+    if (project.preview.kind === 'pipeline') html += `<p>Designated held-out labels: ${esc(project.preview.testLabels.join(', '))}. Compare these with the predictions; labels were not supplied to the pipeline function. A correct recurrence can still follow an incorrectly decoded target.</p>`;
+  }
+  html += `<details><summary>Exact recorded example result</summary>${projectJSON(value)}</details></section>`;
+  return html;
+}
+function projectAttemptMarkup(work) {
+  return `<details><summary>Saved checks · ${work.attempts.length}</summary>${work.attempts.map(a => `<article><h3>${new Date(a.startedAt).toLocaleString()} · ${esc(a.status)}</h3><p>${esc(a.result?.message || (a.status === 'interrupted' ? 'Interrupted; no result assigned.' : 'Check in progress.'))}${a.assisted ? ' Reference had been opened before this check.' : ''}</p><details><summary>Code used for this check</summary><pre class="project-code">${esc(a.draft)}</pre></details>${a.result?.cases ? `<ol>${a.result.cases.map((c, i) => `<li><strong>${esc(work.content.checks.cases[i]?.label || 'Input case')}: ${c.passed ? 'passed' : 'not passed'}</strong><pre class="project-json">Returned: ${esc(c.actual)}\nExpected: ${esc(c.expected)}</pre></li>`).join('')}</ol>` : ''}</article>`).join('')}</details>`;
+}
+function projectDownload(name, content, type) {
+  const url = URL.createObjectURL(new Blob([content], { type })), link = document.createElement('a');
+  link.href = url; link.download = name; link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+function projectExportPython(work) {
+  return `# Cortex original synthetic project: ${work.content.id}\n# Revision: ${work.content.revision}; input SHA-256: ${projectCore().portableInputHash(work.content)}\n# Numeric zero is normalized for portable JSON storage.\n# Run with Python 3. No third-party packages are needed.\n# The listed checks are exercise evidence, not general engineering proficiency.\n` + neuroCodeCheckScript(work.draft, work.content, 'CORTEX_PROJECT_RESULT:');
+}
+function projectRecordExport(work, legacy) {
+  const record = { format: 'cortex-neuro-project', version: 1, exportedAt: new Date().toISOString(), canonicalInputSha256: projectCore().portableInputHash(work.content), legacy: legacy || null, work };
+  if (!work.modelViewedAt) {
+    // The reference stays out of the export until it has been opened in-app, so the assisted flag remains meaningful.
+    record.work = { ...work, content: { ...work.content } }; delete record.work.content.solution; delete record.work.content.modelMemo;
+    record.omitted = 'content.solution and content.modelMemo are excluded until the reference implementation is opened in-app.';
+  }
+  return record;
+}
+function renderNeuroProjectWork(work, isCurrent) {
+  const Core = projectCore(), p = work.content, last = work.attempts.at(-1), complete = work.completedAt !== null, editable = isCurrent && !complete;
+  const group = NEURO_PROG.projects[p.id], legacy = NEURO_PROG.milestones?.[p.id];
+  const root = projectFrame(p.title, `<p>${esc(p.objective)}</p><p>Project revision ${p.revision} · Original inputs and instructions saved with this run · Independent engineering review ${esc(p.review.status)}</p>
+    ${legacy?.passed ? '<p class="project-notice">Your earlier output-only milestone completion is kept. It does not certify the revised checks or the memo in this project.</p>' : ''}
+    <section><h2>Build specification</h2><p>${esc(p.prompt)}</p><ul>${p.method.map(x => `<li>${esc(x)}</li>`).join('')}</ul><p>${esc(p.inputContract)}</p><p>Only the Python standard library is available in the browser runtime; numpy, scipy and other packages cannot be imported.</p>${projectPreview(p)}</section>
+    <section><h2>Acceptance rubric</h2><ul>${p.rubric.map(x => `<li>${esc(x)}</li>`).join('')}</ul><details><summary>Listed input cases</summary>${p.checks.cases.map(c => `<article><h3>${esc(c.label)}</h3>${projectJSON(c.args)}${c.raises ? `<p>Expected rejection: ${esc(c.raises)}</p>` : ''}</article>`).join('')}</details></section>
+    <label class="project-field">Before running: what result or failure do you predict?<textarea id="project-prediction" rows="3" maxlength="6000" ${work.firstPrediction || !editable ? 'readonly' : ''}>${esc(work.firstPrediction?.text || work.prediction)}</textarea></label>
+    <label class="project-field">Your Python function<textarea class="neuro-code-draft" id="project-code" rows="20" maxlength="40000" spellcheck="false" ${editable ? '' : 'readonly'}>${esc(work.draft)}</textarea></label>
+    <div class="project-actions">${editable ? '<button class="btn btn-solid" id="project-check">Check all listed inputs</button><button class="btn" id="project-stop" hidden>Stop Python</button><button class="btn" id="project-reset">Restore starter</button>' : ''}<button class="btn" id="project-python">Download reproducible Python</button><button class="btn" id="project-record" title="${work.modelViewedAt ? 'Includes the reference implementation, which was opened in-app.' : 'Excludes the reference implementation until it is opened in-app.'}">Download saved record</button>${editable && !work.modelViewedAt ? '<button class="ghostbtn" id="project-reference">Open reference implementation</button>' : ''}</div>
+    <p id="project-runtime" role="status">${esc(last?.result?.message || 'Python idle. No result assigned to unexecuted code.')}</p><pre id="project-output" class="project-json">${esc([last?.result?.stdout, last?.result?.stderr].filter(Boolean).join('\n'))}</pre>
+    ${projectAnalysis(p, last?.result)}${projectAttemptMarkup(work)}
+    ${work.modelViewedAt ? `<details open><summary>Reference implementation · assistance recorded</summary><pre class="project-code">${esc(p.solution)}</pre></details>` : ''}
+    <section><h2>Your engineering memo</h2><p>Describe evidence and limitations in your own words. Writing is retained without automatic quality grading.</p>${Core.MEMO.map(key => `<label class="project-field">${esc(projectLabels[key])}<textarea data-project-memo="${key}" rows="3" maxlength="6000" ${editable ? '' : 'readonly'}>${esc(work.memo[key])}</textarea></label>`).join('')}
+    ${complete ? `<p>Project comparison completed. ${work.completion.assisted ? 'Reference assistance was recorded.' : 'No in-app reference opening was recorded.'} This is exercise completion, not independent engineering approval.</p>${isCurrent ? '<button class="btn" id="project-new">Start another saved attempt</button>' : ''}` : '<button class="btn btn-solid" id="project-finish">Save memo & finish project</button><p id="project-gate">A passing check must match your current code, and all three memo fields must be filled.</p>'}</section>
+    ${complete || work.modelViewedAt ? `<details><summary>Authored memo comparison</summary>${Core.MEMO.map(key => `<h3>${esc(projectLabels[key])}</h3><p>${esc(p.modelMemo[key])}</p>`).join('')}</details>` : ''}
+    ${projectSources(p)}<section><h2>Earlier saved project runs</h2>${group.history.length ? group.history.map(item => `<button class="btn neuro-project-history-button" data-project-history="${esc(item.runId)}">Revision ${item.content.revision} · ${new Date(item.startedAt).toLocaleString()}</button>`).join('') : '<p>No earlier runs in this workspace.</p>'}${!isCurrent ? '<button class="btn" id="project-current">Return to current project</button>' : ''}</section>`);
+  const message = text => root.querySelector('#project-status').textContent = text;
+  const refresh = () => { const button = root.querySelector('#project-finish'); if (button) button.disabled = !editable || !Core.ready(work) || StudyStorage.paused; };
+  const save = () => { const ok = saveNeuroProg(); if (ok) { message('Draft saved on this device.'); refresh(); } return ok; };
+  root.querySelector('#project-code').addEventListener('input', e => { if (!StudyStorage.paused && Core.edit(work, 'draft', e.target.value)) save(); });
+  root.querySelector('#project-prediction').addEventListener('input', e => { if (!StudyStorage.paused && Core.edit(work, 'prediction', e.target.value)) save(); });
+  root.querySelectorAll('[data-project-memo]').forEach(input => input.addEventListener('input', () => { if (!StudyStorage.paused && Core.edit(work, input.dataset.projectMemo, input.value)) save(); }));
+  root.querySelector('#project-check')?.addEventListener('click', () => executeNeuroProject(work, root));
+  root.querySelector('#project-stop')?.addEventListener('click', () => neuroProjectJob?.abort());
+  root.querySelector('#project-reset')?.addEventListener('click', () => {
+    if (StudyStorage.paused || neuroProjectJob || !confirm('Restore this starter? Your prior draft will remain in the saved record.')) return;
+    work.previousDraft = work.draft; Core.edit(work, 'draft', p.starter); if (save()) renderNeuroProjectWork(work, true);
   });
-  main.querySelector('#m1hint').addEventListener('click', (e) => {
-    e.target.disabled = true;
-    main.querySelector('#m1extra').appendChild(el(`<div class="sochint"><span class="label">Hint</span><p>Spikes are samples <em>above</em> the threshold (less negative than &minus;50 mV). Loop every index, compare with <code>threshold_mv</code>, append matches to a list, then print count and one line per event.</p></div>`));
+  root.querySelector('#project-reference')?.addEventListener('click', () => {
+    if (StudyStorage.paused || neuroProjectJob) return;
+    work.modelViewedAt = Date.now(); if (save()) renderNeuroProjectWork(work, true);
   });
-  main.querySelector('#m1copy').addEventListener('click', async () => {
-    try {
-      await navigator.clipboard.writeText(M1_SUMMARY_TEMPLATE);
-      appendLog('muted', '# project summary copied');
-    } catch {}
+  root.querySelector('#project-python').onclick = () => projectDownload(p.id + '.py', projectExportPython(work), 'text/x-python');
+  root.querySelector('#project-record').onclick = () => projectDownload(p.id + '-record.json', JSON.stringify(projectRecordExport(work, legacy), null, 2), 'application/json');
+  root.querySelector('#project-finish')?.addEventListener('click', () => { if (!StudyStorage.paused && !neuroProjectJob && editable && Core.complete(work)) { if (saveNeuroProg()) renderNeuroProjectWork(work, true); } });
+  root.querySelector('#project-new')?.addEventListener('click', () => {
+    if (StudyStorage.paused) return;
+    group.history.push(Core.clone(work)); group.current = Core.create(p, projectId('project'));
+    if (saveNeuroProg()) { neuroProjectRoute(p.id, group.current.runId); renderNeuroProjectWork(group.current, true); }
   });
-
-  root.appendChild(main);
-  setView(root);
+  for (const button of root.querySelectorAll('[data-project-history]')) button.onclick = () => { neuroProjectRoute(p.id, button.dataset.projectHistory); renderNeuroMilestone(p.id); };
+  root.querySelector('#project-current')?.addEventListener('click', () => { neuroProjectRoute(p.id, group.current.runId); renderNeuroMilestone(p.id); });
+  refresh();
+}
+async function executeNeuroProject(work, root) {
+  if (StudyStorage.paused || neuroProjectJob || work.completedAt !== null) return;
+  let attempt;
+  try { attempt = projectCore().begin(work, projectId('check')); }
+  catch (error) { root.querySelector('#project-status').textContent = error.message; return; }
+  if (!saveNeuroProg()) return;
+  const controller = new AbortController(); neuroProjectJob = controller;
+  const observer = new MutationObserver(() => { if (!root.isConnected) controller.abort(); });
+  observer.observe(document.body, { childList: true, subtree: true });
+  root.querySelectorAll('textarea').forEach(input => input.readOnly = true);
+  root.querySelectorAll('.project-actions button, #project-finish').forEach(button => button.disabled = true);
+  const stop = root.querySelector('#project-stop'); stop.hidden = false; stop.disabled = false;
+  try {
+    const result = await neuroCodeEvaluateOJT(attempt.draft, work.content, text => { if (root.isConnected) root.querySelector('#project-runtime').textContent = text; }, { signal: controller.signal });
+    projectCore().finish(work, attempt.id, result);
+    if (saveNeuroProg() && root.isConnected) renderNeuroProjectWork(work, true);
+  } catch (error) {
+    projectCore().finish(work, attempt.id, { passed: false, message: 'The project check could not finish.', stderr: error.message || String(error) });
+    if (saveNeuroProg() && root.isConnected) renderNeuroProjectWork(work, true);
+  } finally {
+    observer.disconnect(); if (neuroProjectJob === controller) neuroProjectJob = null;
+  }
 }

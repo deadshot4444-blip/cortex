@@ -1,0 +1,356 @@
+{
+  "version": 1,
+  "title": "Apply the method in another context",
+  "reviewStatus": "Original authored applications. Independent subject review is pending; these are not calibrated transfer tests.",
+  "accessRule": "Two different completed foundation variants in a skill open its two new-context exercises. This is a practice sequence, not a mastery threshold.",
+  "exposurePolicy": "New IDs are kept out of foundation variants and mistake-investigation probes. The first display is recorded; later displays remain repeated practice.",
+  "items": [
+    {
+      "id": "math-transfer-units-0",
+      "skill": "units",
+      "variant": 0,
+      "transfer": true,
+      "stem": "A synthetic detector records 3.6 × 10⁵ events per minute over an area of 2.0 cm². What is the event flux in events/(s·m²)?",
+      "unit": "events/(s·m²)",
+      "value": 30000000.0,
+      "setups": [
+        "(3.6 × 10⁵ × 60) / (2.0 × 10⁻⁴)",
+        "(3.6 × 10⁵ / 60) / (2.0 × 10⁻²)",
+        "(3.6 × 10⁵ / 60) / (2.0 × 10⁻⁴)"
+      ],
+      "errors": [
+        "Multiplying by 60 increases rather than converts the per-minute count to a per-second count.",
+        "One cm² is 10⁻⁴ m², not 10⁻² m².",
+        "Convert minutes to seconds and square the length conversion for area."
+      ],
+      "answer": 2,
+      "hint": "Write the denominator as seconds times square meters; both conversions matter.",
+      "explanation": "3.6 × 10⁵ / 60 = 6.0 × 10³ events/s. Dividing by 2.0 × 10⁻⁴ m² gives 3.0 × 10⁷ events/(s·m²). The area conversion must be squared.",
+      "unitIds": [
+        "nuclear-decay"
+      ]
+    },
+    {
+      "id": "math-transfer-units-1",
+      "skill": "units",
+      "variant": 1,
+      "transfer": true,
+      "stem": "An assay consumes 120 nmol of substrate in 0.25 mL over 2.0 minutes. Assume fixed volume. What is the average consumption rate in μmol/(L·s)?",
+      "unit": "μmol/(L·s)",
+      "value": 4,
+      "setups": [
+        "(120 / 1000) / (0.25 / 1000) × (2 × 60)",
+        "(120 / 1000) / (0.25 / 1000) / (2 × 60)",
+        "120 / (0.25 / 1000) / (2 × 60)"
+      ],
+      "errors": [
+        "A rate divides by elapsed time; multiplication produces the wrong time unit.",
+        "Convert amount and volume separately, then divide by elapsed seconds.",
+        "This leaves the amount in nmol while the requested rate uses μmol."
+      ],
+      "answer": 1,
+      "hint": "1 μmol = 1000 nmol; 1 L = 1000 mL; 2 minutes = 120 seconds.",
+      "explanation": "The consumed amount is 0.120 μmol in 0.00025 L, a concentration change of 480 μmol/L. Dividing by 120 s gives 4 μmol/(L·s).",
+      "unitIds": [
+        "enzyme-rates",
+        "absorbance"
+      ]
+    },
+    {
+      "id": "math-transfer-notation-0",
+      "skill": "notation",
+      "variant": 0,
+      "transfer": true,
+      "stem": "A suspension contains 2.0 × 10⁶ cells/mL. How many cells are in 3.0 × 10⁻³ L, assuming uniform mixing?",
+      "unit": "cells",
+      "value": 6000000.0,
+      "setups": [
+        "(2.0 × 10⁶) × (3.0 × 10⁻³ × 10³)",
+        "(2.0 × 10⁶) × (3.0 × 10⁻³)",
+        "(2.0 × 10⁶) / (3.0 × 10⁻³ × 10³)"
+      ],
+      "errors": [
+        "Convert liters to milliliters before multiplying by cells per milliliter.",
+        "The concentration and volume units do not cancel until L is converted to mL.",
+        "Cell count is concentration times volume, not concentration divided by volume."
+      ],
+      "answer": 0,
+      "hint": "The volume is 3.0 mL. Keep the conversion factor visible before combining exponents.",
+      "explanation": "3.0 × 10⁻³ L × 10³ mL/L = 3.0 mL. Multiplying by 2.0 × 10⁶ cells/mL gives 6.0 × 10⁶ cells.",
+      "unitIds": [
+        "microbial-strategies"
+      ]
+    },
+    {
+      "id": "math-transfer-notation-1",
+      "skill": "notation",
+      "variant": 1,
+      "transfer": true,
+      "stem": "Light in vacuum has wavelength 5.0 × 10² nm. Use c = 3.0 × 10⁸ m/s. What is its frequency?",
+      "unit": "Hz",
+      "value": 600000000000000.0,
+      "setups": [
+        "(3.0 × 10⁸) × (5.0 × 10² × 10⁻⁹)",
+        "(3.0 × 10⁸) / (5.0 × 10²)",
+        "(3.0 × 10⁸) / (5.0 × 10² × 10⁻⁹)"
+      ],
+      "errors": [
+        "Speed times wavelength has units m²/s, not Hz.",
+        "The nm-to-m conversion is missing, leaving a factor of 10⁹ error.",
+        "Frequency is speed divided by wavelength expressed in meters."
+      ],
+      "answer": 2,
+      "hint": "First convert 500 nm to 5.0 × 10⁻⁷ m; then divide the powers of ten.",
+      "explanation": "(3.0/5.0) × 10^(8 − (−7)) = 0.60 × 10¹⁵ = 6.0 × 10¹⁴ Hz. This uses light in vacuum.",
+      "unitIds": [
+        "wave-sound"
+      ]
+    },
+    {
+      "id": "math-transfer-logs-0",
+      "skill": "logs",
+      "variant": 0,
+      "transfer": true,
+      "stem": "Sound-intensity level is L = 10 log₁₀(I/I₀). Two measurements use the same reference. The second level is 20 dB higher. What is I₂/I₁?",
+      "unit": "intensity ratio",
+      "value": 100,
+      "setups": [
+        "10^(10/20)",
+        "10^(20/10)",
+        "20/10"
+      ],
+      "errors": [
+        "The exponent reverses the level difference and the factor of 10.",
+        "Subtract levels, divide by 10, then undo the logarithm.",
+        "This gives the logarithm of the ratio, not the ratio itself."
+      ],
+      "answer": 1,
+      "hint": "ΔL = 10 log₁₀(I₂/I₁), so log₁₀(I₂/I₁) = 2.",
+      "explanation": "The intensity ratio is 10² = 100. This is a ratio of intensities, not pressure amplitudes or subjective loudness.",
+      "unitIds": [
+        "wave-sound"
+      ]
+    },
+    {
+      "id": "math-transfer-logs-1",
+      "skill": "logs",
+      "variant": 1,
+      "transfer": true,
+      "stem": "Absorbance is A = −log₁₀(T), where T is transmitted-light fraction. Estimate T for A = 0.60 using 10^0.30 ≈ 2.",
+      "unit": "transmitted fraction",
+      "value": 0.25,
+      "setups": [
+        "10^(−0.60)",
+        "−log₁₀(0.60)",
+        "10^(0.60)"
+      ],
+      "errors": [
+        "Undo the negative logarithm: T = 10^(−A).",
+        "The unknown is T; applying another logarithm to A does not invert the relation.",
+        "A positive exponent would give T > 1 for this positive absorbance."
+      ],
+      "answer": 0,
+      "hint": "10^0.60 ≈ 2² = 4, so its reciprocal is about one quarter.",
+      "explanation": "T = 10⁻⁰·⁶⁰ ≈ 1/4 = 0.25, or approximately 25%. Enter the fraction, not 25.",
+      "unitIds": [
+        "absorbance"
+      ]
+    },
+    {
+      "id": "math-transfer-ratios-0",
+      "skill": "ratios",
+      "variant": 0,
+      "transfer": true,
+      "stem": "In a supplied diffusion model, characteristic time t is proportional to L²/D. Initially t = 4.0 s. Distance L triples and diffusion coefficient D doubles. What is the new time?",
+      "unit": "s",
+      "value": 18,
+      "setups": [
+        "4.0 × 3 / 2",
+        "4.0 × 2 / 3²",
+        "4.0 × 3² / 2"
+      ],
+      "errors": [
+        "The model specifies squared distance, not a linear distance factor.",
+        "Both proportional relationships have been reversed.",
+        "Apply the square-distance factor and the inverse diffusion-coefficient factor."
+      ],
+      "answer": 2,
+      "hint": "Form tnew/told = (Lnew/Lold)² × (Dold/Dnew).",
+      "explanation": "The new/old time ratio is 9/2. Therefore tnew = 4 × 4.5 = 18 s within the supplied model.",
+      "unitIds": [
+        "membrane-transport"
+      ]
+    },
+    {
+      "id": "math-transfer-ratios-1",
+      "skill": "ratios",
+      "variant": 1,
+      "transfer": true,
+      "stem": "An ideal spring stores E = ½kx². Its initial energy is 8.0 J. A second configuration has three times the spring constant and half the extension. What energy does it store?",
+      "unit": "J",
+      "value": 6,
+      "setups": [
+        "8.0 × (1/3) × 2²",
+        "8.0 × 3 × (1/2)²",
+        "8.0 × 3 × (1/2)"
+      ],
+      "errors": [
+        "This reverses both changes from the stated second configuration.",
+        "Energy is linear in k and quadratic in extension.",
+        "Halving extension contributes a factor of one quarter, not one half."
+      ],
+      "answer": 1,
+      "hint": "Use the ratio so the factor of one half in the energy law cancels.",
+      "explanation": "E₂/E₁ = 3 × (1/2)² = 3/4. The second energy is 8 × 3/4 = 6 J under the ideal-spring model.",
+      "unitIds": [
+        "work-energy"
+      ]
+    },
+    {
+      "id": "math-transfer-slopes-0",
+      "skill": "slopes",
+      "variant": 0,
+      "transfer": true,
+      "stem": "A current sensor has a constant zero-offset error. It reads 3.0 mA at 1.0 V and 7.0 mA at 3.0 V across an ohmic resistor. Infer resistance from the change in voltage and current.",
+      "unit": "Ω",
+      "value": 500,
+      "setups": [
+        "(3.0 − 1.0) / ((7.0 − 3.0) × 10⁻³)",
+        "3.0 / (7.0 × 10⁻³)",
+        "((7.0 − 3.0) × 10⁻³) / (3.0 − 1.0)"
+      ],
+      "errors": [
+        "The constant offset cancels in ΔI, and resistance is ΔV/ΔI.",
+        "V/I from one offset-contaminated point does not remove the zero error.",
+        "This calculates conductance, the reciprocal of resistance."
+      ],
+      "answer": 0,
+      "hint": "Use differences to cancel the constant sensor offset, then convert mA to A.",
+      "explanation": "ΔV = 2.0 V and ΔI = 4.0 mA = 0.004 A. R = 2.0/0.004 = 500 Ω. The slope of I versus V is conductance.",
+      "unitIds": [
+        "circuit-paths"
+      ],
+      "graph": {
+        "xLabel": "Voltage (V)",
+        "yLabel": "Measured current (mA)",
+        "points": [
+          [
+            1,
+            3
+          ],
+          [
+            3,
+            7
+          ]
+        ]
+      }
+    },
+    {
+      "id": "math-transfer-slopes-1",
+      "skill": "slopes",
+      "variant": 1,
+      "transfer": true,
+      "stem": "An object’s velocity increases linearly from 2.0 m/s at t = 0 to 6.0 m/s at t = 4.0 s. What is its displacement during that interval?",
+      "unit": "m",
+      "value": 16,
+      "setups": [
+        "(6.0 − 2.0) / 4.0",
+        "6.0 × 4.0",
+        "((2.0 + 6.0)/2) × 4.0"
+      ],
+      "errors": [
+        "This is acceleration, with units m/s², not displacement.",
+        "The velocity is not 6.0 m/s throughout the interval.",
+        "Displacement is the area under the velocity-time graph; a linear segment uses average velocity times time."
+      ],
+      "answer": 2,
+      "hint": "A graph can ask for area rather than slope. The area is a rectangle plus a triangle.",
+      "explanation": "Average velocity is (2 + 6)/2 = 4 m/s, so displacement is 4 × 4 = 16 m. The graph slope instead gives acceleration.",
+      "unitIds": [
+        "work-energy"
+      ],
+      "graph": {
+        "xLabel": "Time (s)",
+        "yLabel": "Velocity (m/s)",
+        "points": [
+          [
+            0,
+            2
+          ],
+          [
+            4,
+            6
+          ]
+        ]
+      }
+    },
+    {
+      "id": "math-transfer-estimation-0",
+      "skill": "estimation",
+      "variant": 0,
+      "transfer": true,
+      "stem": "A 100 g sample has specific heat 4.20 J/(g·°C) and warms by 2.98 °C with no phase change. Estimate its heat gain within 2% using q = mcΔT.",
+      "unit": "J",
+      "value": 1251.6,
+      "setups": [
+        "4.20 × 2.98 / 100",
+        "100 × 4.20 × 2.98",
+        "100 × 4.20 / 2.98"
+      ],
+      "errors": [
+        "Heat gain scales with mass, not inversely with mass.",
+        "Multiply mass, specific heat and the temperature change with matching units.",
+        "Dividing by temperature change gives incompatible units and reverses the trend."
+      ],
+      "answer": 1,
+      "hint": "Replace 2.98 by 3.00 for an estimate; the correction is less than 1%.",
+      "explanation": "100 × 4.20 × 3.00 ≈ 1,260 J; the unrounded result is 1,251.6 J. The simple estimate differs by about 0.67%, within the 2% tolerance.",
+      "unitIds": [
+        "thermal-balance"
+      ]
+    },
+    {
+      "id": "math-transfer-estimation-1",
+      "skill": "estimation",
+      "variant": 1,
+      "transfer": true,
+      "stem": "Treat a gas as ideal. For n = 0.98 mol, T = 298 K, P = 101 kPa and R = 8.31 J/(mol·K), estimate volume in liters within 2% using PV = nRT.",
+      "unit": "L",
+      "value": 24.02824158415842,
+      "setups": [
+        "(0.98 × 8.31 × 298 / 101000) × 1000",
+        "0.98 × 8.31 × 298 × 101000",
+        "(0.98 × 8.31 × 298 / 101000) / 1000"
+      ],
+      "errors": [
+        "Use pressure in Pa for these R units, then convert m³ to liters.",
+        "Volume is inversely proportional to pressure in the stated equation.",
+        "One m³ is 1000 L, so the final conversion multiplies rather than divides."
+      ],
+      "answer": 0,
+      "hint": "Use the scale nRT ≈ 2.4 × 10³ J and P ≈ 10⁵ Pa, giving about 0.024 m³.",
+      "explanation": "nRT/P ≈ 0.02403 m³ = 24.03 L, so 24 L is a suitable estimate. Pressure and the gas constant must use compatible units.",
+      "unitIds": [
+        "fluid-flow"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "title": "OpenStax: sound intensity and level",
+      "url": "https://openstax.org/books/college-physics-2e/pages/17-3-sound-intensity-and-sound-level"
+    },
+    {
+      "title": "OpenStax: electromagnetic energy",
+      "url": "https://openstax.org/books/chemistry-2e/pages/6-1-electromagnetic-energy"
+    },
+    {
+      "title": "OpenStax: calorimetry",
+      "url": "https://openstax.org/books/chemistry-2e/pages/5-2-calorimetry"
+    },
+    {
+      "title": "OpenStax: ideal gas law",
+      "url": "https://openstax.org/books/chemistry-2e/pages/9-2-relating-pressure-volume-amount-and-temperature-the-ideal-gas-law"
+    }
+  ]
+}

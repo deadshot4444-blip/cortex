@@ -1,0 +1,1220 @@
+{
+  "version": 2,
+  "title": "Location, regions and function",
+  "description": "Six starting lessons and six regional applications. Compare relationship views, connect structures with function and use bounded localization models. Every core task works with text and ordinary keyboard controls.",
+  "reviewStatus": "Local source and consistency check: September 7, 2026. Independent anatomy review is pending. Existing atlas labels and hotspot geometry have separate draft status.",
+  "authorship": "Original Cortex explanations, relationship diagrams and questions, with primary sources linked for factual review. No new third-party figures are reproduced.",
+  "groups": [
+    {
+      "id": "foundations",
+      "title": "1. Six starting lessons",
+      "description": "Orientation, load, movement, breathing, the route through the heart and brain relationships, each built from text and ordinary keyboard controls."
+    },
+    {
+      "id": "regions",
+      "title": "2. Six regional applications",
+      "description": "Apply the same relationships to the shoulder, knee, thorax, abdomen and pelvis, spinal roots and motor pathways, with relationship views and bounded localization models."
+    }
+  ],
+  "lessons": [
+    {
+      "id": "anat-position-forearm",
+      "title": "Orientation and the forearm",
+      "revision": 1,
+      "objective": "Use the person’s anatomical position to describe the radius and ulna.",
+      "minutes": 6,
+      "group": "foundations",
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e: Anatomical terminology",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/1-6-anatomical-terminology"
+        },
+        {
+          "title": "OpenStax Anatomy and Physiology 2e: Bones of the upper limb",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/8-2-bones-of-the-upper-limb"
+        }
+      ],
+      "steps": [
+        {
+          "id": "anat-position-forearm-orientation",
+          "kind": "read",
+          "paragraphs": [
+            "Anatomical position means standing upright with palms forward. Left and right belong to the person being described. Facing a person does not exchange their anatomical sides.",
+            "In this position, the radius is the forearm bone on the thumb side, lateral to the ulna. The ulna is nearer the body’s midline."
+          ]
+        },
+        {
+          "id": "anat-position-forearm-locate",
+          "kind": "check",
+          "prompt": "A person faces you with palms forward. Which bone is lateral in their right forearm?",
+          "options": [
+            "Ulna",
+            "Radius",
+            "Humerus",
+            "Scapula"
+          ],
+          "answer": 1,
+          "explanation": "Use the person’s thumb side. The humerus is in the upper arm; the scapula is at the shoulder."
+        },
+        {
+          "id": "anat-position-forearm-function",
+          "kind": "read",
+          "paragraphs": [
+            "During forearm pronation, the radius crosses over the ulna. Describing a palm-down arm still uses anatomical-position terminology. Position and movement are related but different descriptions."
+          ]
+        },
+        {
+          "id": "anat-position-forearm-apply",
+          "kind": "check",
+          "prompt": "A palm turns from facing forward to facing backward while the elbow stays at the side. What changes?",
+          "options": [
+            "The radius crosses the ulna",
+            "The forearm bones fuse together",
+            "The radius and ulna remain parallel",
+            "The humerus crosses the ulna"
+          ],
+          "answer": 0,
+          "explanation": "Rotation changes the relationship between the two forearm bones; it does not rename the side or bones."
+        },
+        {
+          "id": "anat-position-forearm-explain",
+          "kind": "reflect",
+          "prompt": "How would you prevent a left–right mistake when describing a forearm?",
+          "model": "State the person’s side and the reference position first. Identify the thumb side, then describe radius and ulna relative to each other."
+        }
+      ]
+    },
+    {
+      "id": "anat-leg-load",
+      "title": "The leg: location and load",
+      "revision": 1,
+      "objective": "Locate the tibia and fibula and distinguish their main structural roles.",
+      "minutes": 6,
+      "group": "foundations",
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e: Bones of the lower limb",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/8-4-bones-of-the-lower-limb"
+        }
+      ],
+      "steps": [
+        {
+          "id": "anat-leg-load-orientation",
+          "kind": "read",
+          "paragraphs": [
+            "The anatomical leg runs from knee to ankle. The tibia lies medially; the slender fibula lies laterally.",
+            "The tibia receives most of the load passing from the femur toward the ankle. The fibula also has important muscle attachments and contributes to ankle stability."
+          ]
+        },
+        {
+          "id": "anat-leg-load-locate",
+          "kind": "check",
+          "prompt": "Which bone lies on the medial side of the leg?",
+          "options": [
+            "Fibula",
+            "Radius",
+            "Tibia",
+            "Ulna"
+          ],
+          "answer": 2,
+          "explanation": "The tibia is the medial shinbone. The radius and ulna are in the forearm."
+        },
+        {
+          "id": "anat-leg-load-function",
+          "kind": "read",
+          "paragraphs": [
+            "At the ankle, the tibia forms the medial malleolus and the fibula forms the lateral malleolus. Both help frame the joint with the talus."
+          ]
+        },
+        {
+          "id": "anat-leg-load-apply",
+          "kind": "check",
+          "prompt": "Which pairing correctly locates an ankle landmark?",
+          "options": [
+            "Lateral malleolus — tibia",
+            "Medial malleolus — fibula",
+            "Lateral malleolus — femur",
+            "Medial malleolus — tibia"
+          ],
+          "answer": 3,
+          "explanation": "The medial ankle projection belongs to the tibia. The lateral projection belongs to the fibula."
+        },
+        {
+          "id": "anat-leg-load-explain",
+          "kind": "reflect",
+          "prompt": "Explain why “the fibula is smaller” does not mean “the fibula has no function.”",
+          "model": "Size alone does not determine importance. The fibula contributes to ankle stability and provides attachments even though the tibia carries most axial load."
+        }
+      ]
+    },
+    {
+      "id": "anat-elbow-muscles",
+      "title": "Muscles that move the elbow",
+      "revision": 2,
+      "objective": "Connect the location of biceps and triceps with flexion and extension.",
+      "minutes": 6,
+      "group": "foundations",
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e: Muscles of the upper limbs",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-5-muscles-of-the-pectoral-girdle-and-upper-limbs"
+        },
+        {
+          "title": "OpenStax Anatomy and Physiology 2e: Nervous system control of muscle tension (isotonic and eccentric contractions)",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/10-4-nervous-system-control-of-muscle-tension"
+        }
+      ],
+      "steps": [
+        {
+          "id": "anat-elbow-muscles-orientation",
+          "kind": "read",
+          "paragraphs": [
+            "Biceps brachii lies in the anterior arm. It helps flex the elbow and supinate the forearm. Triceps brachii lies mainly posteriorly and extends the elbow."
+          ]
+        },
+        {
+          "id": "anat-elbow-muscles-locate",
+          "kind": "check",
+          "prompt": "Which muscle is the main elbow extensor?",
+          "options": [
+            "Biceps brachii",
+            "Triceps brachii",
+            "Brachialis",
+            "Brachioradialis"
+          ],
+          "answer": 1,
+          "explanation": "Triceps acts across the elbow to straighten it. The other listed muscles contribute to elbow flexion."
+        },
+        {
+          "id": "anat-elbow-muscles-function",
+          "kind": "read",
+          "paragraphs": [
+            "An elbow flexor can contract while lengthening to lower a load slowly. Movement direction alone does not tell you which muscle is actively controlling the movement."
+          ]
+        },
+        {
+          "id": "anat-elbow-muscles-apply",
+          "kind": "check",
+          "prompt": "You slowly lower a weight from a bent elbow toward extension. What can the elbow flexors do?",
+          "options": [
+            "Lengthen while producing tension",
+            "Shorten while the elbow extends",
+            "Produce force only after the weight stops",
+            "Stay inactive throughout the lowering"
+          ],
+          "answer": 0,
+          "explanation": "Controlled lowering can involve eccentric flexor activity. Active tension does not require muscle shortening."
+        },
+        {
+          "id": "anat-elbow-muscles-explain",
+          "kind": "reflect",
+          "prompt": "Connect muscle location, action and control in one example.",
+          "model": "An anterior elbow flexor can help lift a load by shortening and lower it slowly by lengthening under tension. The action depends on the task and load."
+        }
+      ]
+    },
+    {
+      "id": "anat-breathing",
+      "title": "The diaphragm and quiet breathing",
+      "revision": 1,
+      "objective": "Relate diaphragm movement to thoracic volume and airflow.",
+      "minutes": 6,
+      "group": "foundations",
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e: The process of breathing",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-3-the-process-of-breathing"
+        }
+      ],
+      "steps": [
+        {
+          "id": "anat-breathing-orientation",
+          "kind": "read",
+          "paragraphs": [
+            "The diaphragm separates the thoracic and abdominal cavities. During quiet inspiration it contracts and moves downward, increasing thoracic volume."
+          ]
+        },
+        {
+          "id": "anat-breathing-locate",
+          "kind": "check",
+          "prompt": "During quiet inspiration, which diaphragm movement is expected?",
+          "options": [
+            "Upward as it contracts",
+            "Downward as it contracts",
+            "Upward as air enters through it",
+            "No movement during the breath"
+          ],
+          "answer": 1,
+          "explanation": "The diaphragm’s descent helps expand the chest. Air enters the lungs through airways, not through the diaphragm."
+        },
+        {
+          "id": "anat-breathing-function",
+          "kind": "read",
+          "paragraphs": [
+            "Lung expansion lowers alveolar pressure briefly below atmospheric pressure, so air flows inward. During quiet expiration, relaxation and elastic recoil usually allow air to leave without forced expiratory effort."
+          ]
+        },
+        {
+          "id": "anat-breathing-apply",
+          "kind": "check",
+          "prompt": "Air moves into the lungs when alveolar pressure is:",
+          "options": [
+            "Above atmospheric pressure",
+            "Equal to atmospheric pressure throughout inspiration",
+            "Below atmospheric pressure",
+            "Unrelated to atmospheric pressure"
+          ],
+          "answer": 2,
+          "explanation": "Air moves down a pressure gradient. Expansion creates the small pressure difference needed for inflow."
+        },
+        {
+          "id": "anat-breathing-explain",
+          "kind": "reflect",
+          "prompt": "Trace the connection from muscle contraction to airflow.",
+          "model": "Diaphragm contraction expands the thorax. The lungs expand with it, alveolar pressure falls below atmospheric pressure, and air flows inward."
+        }
+      ]
+    },
+    {
+      "id": "anat-heart-route",
+      "title": "Trace blood through the heart",
+      "revision": 1,
+      "objective": "Connect chambers and vessels in the adult pulmonary and systemic circuits.",
+      "minutes": 6,
+      "group": "foundations",
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e: Heart anatomy",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-1-heart-anatomy"
+        }
+      ],
+      "steps": [
+        {
+          "id": "anat-heart-route-orientation",
+          "kind": "read",
+          "paragraphs": [
+            "In the normal adult circulation, the right ventricle pumps toward the lungs and the left ventricle pumps toward the body. Anatomical right and left refer to the person’s sides."
+          ]
+        },
+        {
+          "id": "anat-heart-route-locate",
+          "kind": "check",
+          "prompt": "Which chamber sends blood into the pulmonary trunk?",
+          "options": [
+            "Left atrium",
+            "Right atrium",
+            "Left ventricle",
+            "Right ventricle"
+          ],
+          "answer": 3,
+          "explanation": "The pulmonary trunk leaves the right ventricle. The left ventricle sends blood into the aorta."
+        },
+        {
+          "id": "anat-heart-route-function",
+          "kind": "read",
+          "paragraphs": [
+            "Arteries carry blood away from the heart; veins carry it toward the heart. The terms describe direction rather than oxygen content."
+          ],
+          "sequence": [
+            "Body → venae cavae → right atrium",
+            "Right atrium → tricuspid valve → right ventricle",
+            "Right ventricle → pulmonary valve → pulmonary arteries → lungs",
+            "Lungs → pulmonary veins → left atrium",
+            "Left atrium → mitral valve → left ventricle",
+            "Left ventricle → aortic valve → aorta → body"
+          ]
+        },
+        {
+          "id": "anat-heart-route-apply",
+          "kind": "check",
+          "prompt": "Blood returning from the lungs normally reaches the heart through:",
+          "options": [
+            "Pulmonary veins into the left atrium",
+            "Pulmonary arteries into the left atrium",
+            "The aorta into the right ventricle",
+            "The venae cavae into the left ventricle"
+          ],
+          "answer": 0,
+          "explanation": "Pulmonary veins return oxygenated blood to the left atrium before it passes to the left ventricle."
+        },
+        {
+          "id": "anat-heart-route-explain",
+          "kind": "reflect",
+          "prompt": "Why is “all arteries carry oxygen-rich blood” an unreliable rule?",
+          "model": "Vessels are named by flow direction. Pulmonary arteries carry blood away from the heart toward the lungs, before gas exchange raises its oxygen content."
+        }
+      ]
+    },
+    {
+      "id": "anat-brain-relationships",
+      "title": "Brain regions and relationships",
+      "revision": 1,
+      "objective": "Locate two major brain regions without relying on diagram colors.",
+      "minutes": 6,
+      "group": "foundations",
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e: The central nervous system",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/13-2-the-central-nervous-system"
+        }
+      ],
+      "steps": [
+        {
+          "id": "anat-brain-relationships-orientation",
+          "kind": "read",
+          "paragraphs": [
+            "The occipital lobes lie at the posterior cerebrum and contain primary visual cortex. The cerebellum lies posterior to the brainstem and inferior to the posterior cerebrum."
+          ]
+        },
+        {
+          "id": "anat-brain-relationships-locate",
+          "kind": "check",
+          "prompt": "Which description best locates the cerebellum?",
+          "options": [
+            "Anterior to the brainstem",
+            "Superior to the frontal lobes",
+            "Posterior to the brainstem",
+            "Within the corpus callosum"
+          ],
+          "answer": 2,
+          "explanation": "Use its relationship to the brainstem, not a diagram’s color or screen position."
+        },
+        {
+          "id": "anat-brain-relationships-function",
+          "kind": "read",
+          "paragraphs": [
+            "The cerebellum contributes to coordination and correction of movement. Brain functions involve connected systems; a short region label does not capture every function or diagnose a lesion."
+          ]
+        },
+        {
+          "id": "anat-brain-relationships-apply",
+          "kind": "check",
+          "prompt": "Which pairing connects a region with an important function?",
+          "options": [
+            "Occipital cortex — primary auditory processing",
+            "Cerebellum — coordination of movement",
+            "Cerebellum — primary visual reception",
+            "Occipital cortex — primary motor commands"
+          ],
+          "answer": 1,
+          "explanation": "The cerebellum participates in movement coordination. Primary visual processing involves occipital cortex."
+        },
+        {
+          "id": "anat-brain-relationships-explain",
+          "kind": "reflect",
+          "prompt": "Describe the cerebellum in a way that works without seeing a figure.",
+          "model": "It is behind the brainstem and below the posterior cerebrum. Its connections help coordinate movement; its location alone is not a clinical diagnosis."
+        }
+      ]
+    },
+    {
+      "id": "anat-shoulder-cuff",
+      "title": "The shoulder: movement and support",
+      "objective": "Use anterior and posterior relationships to connect shoulder muscles with rotation and stability.",
+      "revision": 2,
+      "minutes": 9,
+      "group": "regions",
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e · Shoulder and upper-limb muscles",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-5-muscles-of-the-pectoral-girdle-and-upper-limbs"
+        },
+        {
+          "title": "OpenStax Anatomy and Physiology 2e · Shoulder and knee joints",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/9-6-anatomy-of-selected-synovial-joints"
+        }
+      ],
+      "steps": [
+        {
+          "kind": "read",
+          "paragraphs": [
+            "The glenohumeral joint connects the humeral head with the shallow glenoid cavity of the scapula. A large range of movement depends on support from the capsule, labrum and muscles crossing the joint.",
+            "Subscapularis lies on the anterior scapula and contributes to medial rotation of the humerus. Infraspinatus and teres minor lie posteriorly and contribute to lateral rotation. Supraspinatus is superior to the scapular spine and contributes to abduction. Together these four muscles form the rotator cuff."
+          ],
+          "views": [
+            {
+              "id": "anterior",
+              "title": "Anterior relationships",
+              "description": "Use the person’s anterior and posterior directions; these boxes are statements, not a front-view anatomical drawing.",
+              "rows": [
+                {
+                  "from": "Subscapularis",
+                  "relation": "arises from the",
+                  "to": "Anterior scapula"
+                },
+                {
+                  "from": "Subscapularis",
+                  "relation": "contributes to",
+                  "to": "Medial rotation"
+                },
+                {
+                  "from": "Humeral head",
+                  "relation": "articulates with",
+                  "to": "Glenoid cavity"
+                }
+              ]
+            },
+            {
+              "id": "posterior",
+              "title": "Posterior relationships",
+              "description": "The scapular spine helps distinguish the named posterior fossae.",
+              "rows": [
+                {
+                  "from": "Supraspinatus",
+                  "relation": "lies superior to the",
+                  "to": "Scapular spine"
+                },
+                {
+                  "from": "Infraspinatus",
+                  "relation": "lies inferior to the",
+                  "to": "Scapular spine"
+                },
+                {
+                  "from": "Infraspinatus and teres minor",
+                  "relation": "contribute to",
+                  "to": "Lateral rotation"
+                }
+              ]
+            }
+          ],
+          "id": "anat-shoulder-cuff-1"
+        },
+        {
+          "kind": "check",
+          "prompt": "A labeled structure lies on the anterior surface of the scapula and contributes to medial rotation. Which cuff muscle fits?",
+          "options": [
+            "Infraspinatus",
+            "Teres minor",
+            "Subscapularis",
+            "Supraspinatus"
+          ],
+          "answer": 2,
+          "explanation": "Subscapularis matches both the anterior location and medial-rotation function. Use both clues instead of identifying a muscle from the direction of a diagram alone.",
+          "id": "anat-shoulder-cuff-2"
+        },
+        {
+          "kind": "read",
+          "paragraphs": [
+            "The cuff also helps keep the humeral head positioned against the glenoid during movement. Movement and stabilization are not competing labels for a muscle; the same contraction can contribute to both.",
+            "The deltoid is a major abductor, but it is not one of the four cuff muscles. A rounded surface contour and a deep stabilizing group describe different anatomy."
+          ],
+          "id": "anat-shoulder-cuff-3"
+        },
+        {
+          "kind": "check",
+          "prompt": "Which statement best explains why naming an arm movement does not fully describe the cuff’s role?",
+          "options": [
+            "The cuff also helps stabilize the humeral head",
+            "Each cuff muscle performs exactly the same action",
+            "The cuff produces tension only after movement stops",
+            "Cuff function depends solely on the size of each muscle"
+          ],
+          "answer": 0,
+          "explanation": "The cuff crosses the joint and contributes dynamic support while the arm moves. The four muscles have different actions, they produce tension during movement rather than only after it stops, and their role is not determined by size alone.",
+          "id": "anat-shoulder-cuff-4"
+        },
+        {
+          "kind": "read",
+          "paragraphs": [
+            "A report of weak lateral rotation suggests a function worth examining. It does not, by itself, distinguish muscle injury, tendon injury, pain-limited effort or impaired nerve supply. This lesson maps anatomy; it does not diagnose a shoulder complaint."
+          ],
+          "id": "anat-shoulder-cuff-5"
+        },
+        {
+          "kind": "check",
+          "prompt": "In a supplied model, only infraspinatus and teres minor output is reduced. Which action is most directly affected?",
+          "options": [
+            "Shoulder medial rotation",
+            "Elbow extension",
+            "Shoulder flexion",
+            "Shoulder lateral rotation"
+          ],
+          "answer": 3,
+          "explanation": "The model selectively reduces two lateral rotators of the humerus. The other options belong to different movements and regions.",
+          "id": "anat-shoulder-cuff-6"
+        },
+        {
+          "kind": "reflect",
+          "prompt": "Explain how one shoulder muscle can contribute to both movement and joint support.",
+          "model": "A cuff muscle pulls across the joint and can create a rotational effect while helping center the humeral head against the glenoid. Describe the muscle’s location and line of action, then keep real clinical conclusions separate from this simplified model.",
+          "id": "anat-shoulder-cuff-7"
+        }
+      ]
+    },
+    {
+      "id": "anat-knee-extension",
+      "title": "The knee: trace force through the extensor mechanism",
+      "objective": "Trace the anterior extensor connection and distinguish force transmission from joint-surface support.",
+      "revision": 1,
+      "minutes": 9,
+      "group": "regions",
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e · Shoulder and knee joints",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/9-6-anatomy-of-selected-synovial-joints"
+        },
+        {
+          "title": "OpenStax Anatomy and Physiology 2e · Lower-limb bones",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/8-4-bones-of-the-lower-limb"
+        }
+      ],
+      "steps": [
+        {
+          "kind": "read",
+          "paragraphs": [
+            "Quadriceps force reaches the patella through the quadriceps tendon and continues through the patellar ligament to the tibial tuberosity. The patella lies anterior to the distal femur within the extensor mechanism.",
+            "The patella articulates with the femur. The menisci lie between the femoral and tibial surfaces; they are not the connection between the patella and tibial tuberosity."
+          ],
+          "views": [
+            {
+              "id": "force",
+              "title": "Force pathway",
+              "description": "Follow the connections involved in extending the knee.",
+              "rows": [
+                {
+                  "from": "Quadriceps",
+                  "relation": "pulls through",
+                  "to": "Quadriceps tendon"
+                },
+                {
+                  "from": "Quadriceps tendon",
+                  "relation": "contains the",
+                  "to": "Patella"
+                },
+                {
+                  "from": "Patella",
+                  "relation": "connects by patellar ligament to",
+                  "to": "Tibial tuberosity"
+                }
+              ]
+            },
+            {
+              "id": "surfaces",
+              "title": "Joint relationships",
+              "description": "Distinguish the anterior extensor connection from the tibiofemoral joint surfaces.",
+              "rows": [
+                {
+                  "from": "Patella",
+                  "relation": "articulates with the",
+                  "to": "Distal femur"
+                },
+                {
+                  "from": "Menisci",
+                  "relation": "lie between",
+                  "to": "Femur and tibia"
+                },
+                {
+                  "from": "Tibial tuberosity",
+                  "relation": "is an attachment on the",
+                  "to": "Anterior proximal tibia"
+                }
+              ]
+            }
+          ],
+          "id": "anat-knee-extension-1"
+        },
+        {
+          "kind": "check",
+          "prompt": "Which structure directly connects the patella to the tibial tuberosity?",
+          "options": [
+            "Anterior cruciate ligament",
+            "Patellar ligament",
+            "Medial meniscus",
+            "Quadriceps muscle belly"
+          ],
+          "answer": 1,
+          "explanation": "The patellar ligament continues the extensor connection below the patella. The meniscus and cruciate ligament have different locations and roles.",
+          "id": "anat-knee-extension-2"
+        },
+        {
+          "kind": "read",
+          "paragraphs": [
+            "Think of force transmission as a connected path. An intact contracting muscle cannot transmit its normal effect through a completely interrupted downstream connection.",
+            "This is a mechanical model. Clinical assessment also needs pain, nerve function, partial versus complete injury, and the remaining soft-tissue connections."
+          ],
+          "id": "anat-knee-extension-3"
+        },
+        {
+          "kind": "check",
+          "prompt": "Assume a model completely interrupts the patella-to-tibia connection while the quadriceps still contracts. What most directly fails?",
+          "options": [
+            "Resistance to posterior tibial translation",
+            "Sensory input from the skin over the knee",
+            "The modeled transmission of extensor force to the tibia",
+            "Every remaining ligament’s resistance to rotation"
+          ],
+          "answer": 2,
+          "explanation": "The interrupted connection is in the specified force pathway. The conclusion should stay within that model rather than claiming every knee function is absent.",
+          "id": "anat-knee-extension-4"
+        },
+        {
+          "kind": "read",
+          "paragraphs": [
+            "A diagram can emphasize either the extensor mechanism or the articular surfaces. Changing the view does not move the patella to the posterior knee or turn a meniscus into a tendon."
+          ],
+          "id": "anat-knee-extension-5"
+        },
+        {
+          "kind": "check",
+          "prompt": "A new diagram highlights the tissue between the femoral and tibial condyles. Which structure belongs there?",
+          "options": [
+            "A meniscus",
+            "The patellar ligament",
+            "The quadriceps tendon above the patella",
+            "The fibular collateral ligament"
+          ],
+          "answer": 0,
+          "explanation": "Menisci occupy the tibiofemoral joint. The fibular collateral ligament follows the lateral side of the knee, while the named extensor tendon and ligament follow the anterior extensor connection.",
+          "id": "anat-knee-extension-6"
+        },
+        {
+          "kind": "reflect",
+          "prompt": "Explain the difference between tracing a force pathway and identifying a joint surface.",
+          "model": "The extensor pathway connects quadriceps, tendon, patella, patellar ligament and tibia. A joint-surface view instead asks which bones articulate and where menisci lie. Both descriptions concern the knee, but they answer different questions.",
+          "id": "anat-knee-extension-7"
+        }
+      ]
+    },
+    {
+      "id": "anat-pleural-layers",
+      "title": "The thorax: layers around a lung",
+      "objective": "Distinguish pleural relationships from the airway route and explain their mechanical relevance.",
+      "revision": 1,
+      "minutes": 9,
+      "group": "regions",
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e · Lung and pleural anatomy",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-2-the-lungs"
+        },
+        {
+          "title": "OpenStax Anatomy and Physiology 2e · Pressure and breathing",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-3-the-process-of-breathing"
+        }
+      ],
+      "steps": [
+        {
+          "kind": "read",
+          "paragraphs": [
+            "Visceral pleura covers the lung surface. Parietal pleura lines the inner thoracic boundary, including the chest wall and diaphragm. A thin fluid-containing pleural space lies between these layers.",
+            "The pleural space is not the normal route for inspired air. Air reaches alveoli through the conducting airways. These are two different spaces with different roles."
+          ],
+          "views": [
+            {
+              "id": "layers",
+              "title": "Layer relationships",
+              "description": "Read from the thoracic wall toward the lung surface; the real pleural space is much thinner than these boxes imply.",
+              "rows": [
+                {
+                  "from": "Inner thoracic wall",
+                  "relation": "is lined by",
+                  "to": "Parietal pleura"
+                },
+                {
+                  "from": "Pleural space",
+                  "relation": "lies between",
+                  "to": "Parietal and visceral pleura"
+                },
+                {
+                  "from": "Lung surface",
+                  "relation": "is covered by",
+                  "to": "Visceral pleura"
+                }
+              ]
+            },
+            {
+              "id": "airway",
+              "title": "Airway and pleural spaces",
+              "description": "Compare routes without treating every thoracic space as an airway.",
+              "rows": [
+                {
+                  "from": "Inspired air",
+                  "relation": "travels through",
+                  "to": "Trachea and branching airways"
+                },
+                {
+                  "from": "Alveoli",
+                  "relation": "contain",
+                  "to": "Air for gas exchange"
+                },
+                {
+                  "from": "Normal pleural space",
+                  "relation": "contains a thin layer of",
+                  "to": "Pleural fluid"
+                }
+              ]
+            }
+          ],
+          "id": "anat-pleural-layers-1"
+        },
+        {
+          "kind": "check",
+          "prompt": "Which pleural layer remains directly associated with the lung surface?",
+          "options": [
+            "Parietal pleura",
+            "Visceral pericardium",
+            "Parietal peritoneum",
+            "Visceral pleura"
+          ],
+          "answer": 3,
+          "explanation": "Visceral pleura covers the lung. Parietal pleura follows the thoracic boundary; pericardium and peritoneum name different serous membranes.",
+          "id": "anat-pleural-layers-2"
+        },
+        {
+          "kind": "read",
+          "paragraphs": [
+            "The pressure difference across the lung surface helps oppose the lung’s inward elastic recoil. In a simplified model, raising pleural pressure toward alveolar pressure reduces that distending pressure.",
+            "An air collection in the pleural space therefore concerns mechanics outside the airways. Its clinical effects depend on amount, pressure, cause and the person’s condition; the relationship map alone is not a treatment guide."
+          ],
+          "id": "anat-pleural-layers-3"
+        },
+        {
+          "kind": "check",
+          "prompt": "In the supplied model, alveolar pressure is fixed while pleural pressure rises toward it. What happens to alveolar minus pleural pressure?",
+          "options": [
+            "It increases",
+            "It decreases",
+            "It must remain fixed",
+            "It equals the initial pleural pressure"
+          ],
+          "answer": 1,
+          "explanation": "Subtracting a larger pleural pressure from the same alveolar pressure gives a smaller distending pressure. This is an explicit two-pressure model.",
+          "id": "anat-pleural-layers-4"
+        },
+        {
+          "kind": "read",
+          "paragraphs": [
+            "To interpret a new view, identify the space first and then ask what is in it. Fluid between pleural layers, fluid inside alveoli and air in the pleural space are not interchangeable descriptions."
+          ],
+          "id": "anat-pleural-layers-5"
+        },
+        {
+          "kind": "check",
+          "prompt": "A fictional image description says fluid lies between the parietal and visceral pleura. Which location is described?",
+          "options": [
+            "The bronchial lumen",
+            "The pericardial cavity",
+            "The pleural space",
+            "The interior of an alveolus"
+          ],
+          "answer": 2,
+          "explanation": "The two named pleural layers bound the pleural space. The description does not place the fluid inside an airway or the heart’s surrounding sac.",
+          "id": "anat-pleural-layers-6"
+        },
+        {
+          "kind": "reflect",
+          "prompt": "Explain why air reaching the alveoli and air entering the pleural space have different implications.",
+          "model": "Alveolar air arrives through the normal airway route. Pleural air occupies a different compartment outside the lung surface and can change the pressure supporting lung expansion. Name the compartment before inferring a mechanism.",
+          "id": "anat-pleural-layers-7"
+        }
+      ]
+    },
+    {
+      "id": "anat-urinary-route",
+      "title": "Abdomen and pelvis: follow urine and locate the organs",
+      "objective": "Separate the urine pathway from the position of the kidneys and ureters relative to the peritoneum.",
+      "revision": 1,
+      "minutes": 9,
+      "group": "regions",
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e · Urine transport",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/25-2-gross-anatomy-of-urine-transport"
+        },
+        {
+          "title": "OpenStax Anatomy and Physiology 2e · Kidney relationships",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/25-3-gross-anatomy-of-the-kidney"
+        }
+      ],
+      "steps": [
+        {
+          "kind": "read",
+          "paragraphs": [
+            "The kidneys lie against the posterior abdominal region behind the parietal peritoneum. The ureters continue from the renal pelvis toward the bladder and are also retroperitoneal.",
+            "Urine drains from collecting spaces within a kidney into the renal pelvis, then passes through a ureter to the bladder. The urethra is the downstream route from the bladder to the exterior."
+          ],
+          "views": [
+            {
+              "id": "route",
+              "title": "Urine pathway",
+              "description": "Follow the connected spaces after urine reaches the kidney’s collecting system.",
+              "rows": [
+                {
+                  "from": "Calyces",
+                  "relation": "drain into the",
+                  "to": "Renal pelvis"
+                },
+                {
+                  "from": "Renal pelvis",
+                  "relation": "continues into a",
+                  "to": "Ureter"
+                },
+                {
+                  "from": "Ureter",
+                  "relation": "delivers urine to the",
+                  "to": "Bladder"
+                },
+                {
+                  "from": "Bladder",
+                  "relation": "empties through the",
+                  "to": "Urethra"
+                }
+              ]
+            },
+            {
+              "id": "position",
+              "title": "Position and relationship",
+              "description": "These are compartment descriptions, not a section image or a statement about the location of pain.",
+              "rows": [
+                {
+                  "from": "Kidneys",
+                  "relation": "lie posterior to",
+                  "to": "Parietal peritoneum"
+                },
+                {
+                  "from": "Ureters",
+                  "relation": "travel in the",
+                  "to": "Retroperitoneal region"
+                },
+                {
+                  "from": "Bladder",
+                  "relation": "receives urine from",
+                  "to": "Two ureters"
+                }
+              ]
+            }
+          ],
+          "id": "anat-urinary-route-1"
+        },
+        {
+          "kind": "check",
+          "prompt": "Which structure carries urine from a renal pelvis toward the bladder?",
+          "options": [
+            "A ureter",
+            "The urethra",
+            "A renal artery",
+            "The portal vein"
+          ],
+          "answer": 0,
+          "explanation": "A ureter connects a kidney’s renal pelvis with the bladder. The urethra begins downstream from the bladder; blood vessels are a separate route.",
+          "id": "anat-urinary-route-2"
+        },
+        {
+          "kind": "read",
+          "paragraphs": [
+            "Ureteric smooth muscle produces peristaltic contractions that help propel urine. Transport does not rely only on a person standing upright.",
+            "Flow direction and anatomical position answer separate questions. “Retroperitoneal” describes a relationship to the peritoneum; it does not mean that urine flows backward."
+          ],
+          "id": "anat-urinary-route-3"
+        },
+        {
+          "kind": "check",
+          "prompt": "A person lies flat. Which anatomical feature helps urine continue moving along a ureter?",
+          "options": [
+            "Backward bladder contractions provide the normal propulsion",
+            "Only the height difference between kidney and bladder matters",
+            "Ciliary beating replaces contractions along the ureter",
+            "Ureteric smooth muscle produces peristalsis"
+          ],
+          "answer": 3,
+          "explanation": "Ureteric smooth muscle can propel contents without relying solely on a vertical gravity gradient. The model does not depend on backward bladder contractions or cilia replacing peristalsis.",
+          "id": "anat-urinary-route-4"
+        },
+        {
+          "kind": "read",
+          "paragraphs": [
+            "In a supplied one-sided obstruction model, blocking a ureter lies upstream of the bladder and downstream of that kidney’s collecting spaces. An anatomic route can help predict which side is upstream, but it cannot establish a patient’s diagnosis from pain location alone."
+          ],
+          "id": "anat-urinary-route-5"
+        },
+        {
+          "kind": "check",
+          "prompt": "If a model blocks only the right ureter before its entry into the bladder, which collecting space is directly upstream of that blockage?",
+          "options": [
+            "The left renal pelvis",
+            "The right renal pelvis",
+            "The distal urethra",
+            "The inferior vena cava"
+          ],
+          "answer": 1,
+          "explanation": "Follow the specified right-sided route backward from the obstruction. The left collecting system and urethra are not the directly upstream segment.",
+          "id": "anat-urinary-route-6"
+        },
+        {
+          "kind": "reflect",
+          "prompt": "Explain the difference between “ureter,” “urethra” and “retroperitoneal.”",
+          "model": "Ureter and urethra name different parts of the urine route. Retroperitoneal describes where a structure lies relative to the peritoneum. Keep the pathway and compartment descriptions separate.",
+          "id": "anat-urinary-route-7"
+        }
+      ]
+    },
+    {
+      "id": "anat-spinal-roots",
+      "title": "Spinal roots: sensory entry and motor exit",
+      "objective": "Distinguish a sensory root, a motor root and a mixed spinal nerve in a supplied somatic pathway.",
+      "revision": 1,
+      "minutes": 9,
+      "group": "regions",
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e · Spinal nerves and ganglia",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/13-4-the-peripheral-nervous-system"
+        },
+        {
+          "title": "OpenStax Anatomy and Physiology 2e · Nervous-system organization",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-1-basic-structure-and-function-of-the-nervous-system"
+        }
+      ],
+      "steps": [
+        {
+          "kind": "read",
+          "paragraphs": [
+            "Sensory axons enter the spinal cord through a dorsal root. Many of their cell bodies lie in a dorsal root ganglion outside the cord. Somatic motor axons leave through a ventral root from motor neurons whose cell bodies lie in the ventral horn.",
+            "Dorsal and ventral roots join into a mixed spinal nerve. Root and ramus are different labels: the dorsal ramus is a branch of that mixed nerve and is not a sensory-only dorsal root. This diagram follows somatic signals; ventral roots also carry autonomic efferent fibers at relevant levels."
+          ],
+          "views": [
+            {
+              "id": "signals",
+              "title": "Signal direction",
+              "description": "The arrows describe sensory entry and somatic motor exit, not the direction every axon runs in an entire peripheral nerve.",
+              "rows": [
+                {
+                  "from": "Sensory axons",
+                  "relation": "enter through the",
+                  "to": "Dorsal root"
+                },
+                {
+                  "from": "Somatic motor axons",
+                  "relation": "leave through the",
+                  "to": "Ventral root"
+                },
+                {
+                  "from": "Dorsal and ventral roots",
+                  "relation": "join to form a",
+                  "to": "Mixed spinal nerve"
+                }
+              ]
+            },
+            {
+              "id": "bodies",
+              "title": "Cell-body locations",
+              "description": "Keep a peripheral ganglion distinct from gray matter inside the cord.",
+              "rows": [
+                {
+                  "from": "Dorsal root ganglion",
+                  "relation": "contains many",
+                  "to": "Sensory neuron cell bodies"
+                },
+                {
+                  "from": "Ventral horn",
+                  "relation": "contains",
+                  "to": "Somatic motor neuron cell bodies"
+                },
+                {
+                  "from": "Dorsal ramus",
+                  "relation": "branches from the",
+                  "to": "Mixed spinal nerve"
+                }
+              ]
+            }
+          ],
+          "id": "anat-spinal-roots-1"
+        },
+        {
+          "kind": "check",
+          "prompt": "Which structure contains the cell bodies of the primary sensory neurons described here?",
+          "options": [
+            "The ventral root",
+            "The ventral horn motor pool",
+            "The dorsal root ganglion",
+            "The dorsal horn inside the cord"
+          ],
+          "answer": 2,
+          "explanation": "The dorsal root ganglion is outside the cord and contains these sensory cell bodies. A root is an axon pathway; the ventral horn is the somatic motor-cell location in this model.",
+          "id": "anat-spinal-roots-2"
+        },
+        {
+          "kind": "read",
+          "paragraphs": [
+            "A selective interruption helps test the model. If only a dorsal root is interrupted, sensory entry through that root is affected while the adjacent ventral root is not directly cut. This differs from interrupting the mixed spinal nerve, which contains both categories of axon.",
+            "Real deficits can overlap across roots and peripheral nerves. These simplified contrasts are not a full neurologic examination or a diagnostic rule."
+          ],
+          "id": "anat-spinal-roots-3"
+        },
+        {
+          "kind": "check",
+          "prompt": "In the stated model, only one dorsal root is interrupted and its ventral root is intact. Which pathway is directly interrupted?",
+          "options": [
+            "Sensory entry through that dorsal root",
+            "Somatic motor exit through the intact ventral root",
+            "Every motor axon in the mixed spinal nerve",
+            "Motor neuron cell bodies inside the ventral horn"
+          ],
+          "answer": 0,
+          "explanation": "The conclusion follows the sensory root selectively interrupted. Do not broaden the modeled injury to an intact motor root or motor neuron cell bodies inside the cord.",
+          "id": "anat-spinal-roots-4"
+        },
+        {
+          "kind": "read",
+          "paragraphs": [
+            "In a second model the interruption occurs after the roots join but before the mixed spinal nerve branches. The affected bundle now contains both sensory and motor axons. Changing the site changes the expected categories of signal affected."
+          ],
+          "id": "anat-spinal-roots-5"
+        },
+        {
+          "kind": "check",
+          "prompt": "Which description best fits this second, mixed-spinal-nerve interruption?",
+          "options": [
+            "It can affect sensory axons only",
+            "It can affect motor axons only",
+            "It directly interrupts only cell bodies in the dorsal root ganglion",
+            "It can affect both sensory and motor axons"
+          ],
+          "answer": 3,
+          "explanation": "Both categories travel in the mixed nerve after the roots join. This is a pathway distinction, not a claim that every real clinical deficit will be complete.",
+          "id": "anat-spinal-roots-6"
+        },
+        {
+          "kind": "reflect",
+          "prompt": "Explain why “dorsal root” and “dorsal ramus” should not be used interchangeably.",
+          "model": "The dorsal root carries sensory axons toward the cord. The dorsal ramus is a branch formed after sensory and motor roots join into a mixed spinal nerve, so its fibers are not defined by the sensory-only root rule.",
+          "id": "anat-spinal-roots-7"
+        }
+      ]
+    },
+    {
+      "id": "anat-motor-crossing",
+      "title": "Motor pathways: locate the crossing before choosing a side",
+      "objective": "Use the major lateral corticospinal route to reason about a supplied selective interruption above or below its crossing.",
+      "revision": 1,
+      "minutes": 9,
+      "group": "regions",
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e · Descending motor pathways",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/14-3-motor-responses"
+        },
+        {
+          "title": "OpenStax Anatomy and Physiology 2e · Motor examination and localization",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/16-4-the-sensory-and-motor-exams"
+        }
+      ],
+      "steps": [
+        {
+          "kind": "read",
+          "paragraphs": [
+            "Most corticospinal fibers cross near the junction of the medulla and spinal cord, then descend on the opposite side in the lateral corticospinal tract. This lesson follows that major crossed route rather than every descending motor pathway.",
+            "For example, fibers from the left motor cortex in this route cross to the right lateral spinal cord. Connections to lower motor neurons then influence right-sided muscles. Name both the side and whether the location is before or after the crossing."
+          ],
+          "views": [
+            {
+              "id": "left-origin",
+              "title": "Left cortical origin",
+              "description": "Follow the major crossed pathway from cortex toward the spinal motor system.",
+              "rows": [
+                {
+                  "from": "Left motor cortex",
+                  "relation": "descends toward the",
+                  "to": "Medullary crossing"
+                },
+                {
+                  "from": "Fibers crossing from the left",
+                  "relation": "continue in the",
+                  "to": "Right lateral corticospinal tract"
+                },
+                {
+                  "from": "Right spinal motor connections",
+                  "relation": "influence",
+                  "to": "Right-sided muscles"
+                }
+              ]
+            },
+            {
+              "id": "right-origin",
+              "title": "Right cortical origin",
+              "description": "Reverse the cortical origin while keeping the same crossing rule.",
+              "rows": [
+                {
+                  "from": "Right motor cortex",
+                  "relation": "descends toward the",
+                  "to": "Medullary crossing"
+                },
+                {
+                  "from": "Fibers crossing from the right",
+                  "relation": "continue in the",
+                  "to": "Left lateral corticospinal tract"
+                },
+                {
+                  "from": "Left spinal motor connections",
+                  "relation": "influence",
+                  "to": "Left-sided muscles"
+                }
+              ]
+            }
+          ],
+          "id": "anat-motor-crossing-1"
+        },
+        {
+          "kind": "check",
+          "prompt": "In the major crossed route shown, left motor-cortical fibers descend in which lateral corticospinal tract after the medullary crossing?",
+          "options": [
+            "Left",
+            "Right",
+            "Both equally by definition",
+            "Neither; the tract ends in the medulla"
+          ],
+          "answer": 1,
+          "explanation": "The modeled fibers have crossed from left to right. Some corticospinal fibers follow other routes, which is why the scope is stated explicitly.",
+          "id": "anat-motor-crossing-2"
+        },
+        {
+          "kind": "read",
+          "paragraphs": [
+            "A selective interruption above this crossing is related to the opposite body side in the model. A selective interruption of a lateral corticospinal tract within the spinal cord is related to the same body side below that level.",
+            "This reasoning describes a pathway effect, not a complete lesion syndrome. Other motor systems, sensory tracts, lower motor neurons and examination findings matter in an actual patient."
+          ],
+          "id": "anat-motor-crossing-3"
+        },
+        {
+          "kind": "check",
+          "prompt": "Assume a selective interruption of the left lateral corticospinal tract in the spinal cord, below the crossing. Which side’s motor pathway below that level is directly affected?",
+          "options": [
+            "Right, after a second crossing at that spinal level",
+            "Both sides equally, because this tract is uncrossed",
+            "Left, because these fibers have already crossed",
+            "Right, because the crossing has not yet occurred"
+          ],
+          "answer": 2,
+          "explanation": "At this location the tract has already crossed. The left lateral tract serves the left-sided spinal motor pathway in this model; “motor means contralateral” is not a sufficient rule.",
+          "id": "anat-motor-crossing-4"
+        },
+        {
+          "kind": "read",
+          "paragraphs": [
+            "Now move the hypothetical interruption to the right cerebral corticospinal route before the medullary crossing. Trace where those fibers would have gone before choosing the expected side. Do not infer a specific disease or severity from this single tract model."
+          ],
+          "id": "anat-motor-crossing-5"
+        },
+        {
+          "kind": "check",
+          "prompt": "Which side’s major crossed motor route is downstream of that right cerebral interruption?",
+          "options": [
+            "Left",
+            "Right",
+            "Both sides equally in this model",
+            "Neither; cortical fibers do not enter a spinal pathway"
+          ],
+          "answer": 0,
+          "explanation": "The right cerebral fibers in the modeled route would cross to the left spinal side. The answer follows connectivity, not the viewer’s position.",
+          "id": "anat-motor-crossing-6"
+        },
+        {
+          "kind": "reflect",
+          "prompt": "Create a two-step rule that avoids confusing ipsilateral and contralateral effects.",
+          "model": "First locate the interruption relative to the crossing and name its anatomical side. Then trace the modeled fibers to their downstream spinal motor connections. Keep that tract-specific inference separate from a complete clinical diagnosis.",
+          "id": "anat-motor-crossing-7"
+        }
+      ]
+    }
+  ]
+}

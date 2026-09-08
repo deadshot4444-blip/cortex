@@ -1,6 +1,6 @@
 /* ============================================================
    Cortex — optional accounts + cross-device progress sync (Supabase)
-   Accounts are OPTIONAL. The app works fully offline with localStorage;
+   Accounts are OPTIONAL. Study progress is stored locally;
    each account has separate saved work. Guest work can be explicitly copied into
    an account. Conflicting device edits pause for a choice instead of overwriting.
 
@@ -30,12 +30,20 @@ let progress = null;
 let authFailure = false;
 
 function downloadProgress() {
-  const blob = new Blob([JSON.stringify(progress.recovery(), null, 2)], { type: 'application/json' });
+  let copies;
+  try { copies = progress?.recovery() || { recoveryError: 'Account storage is unavailable.' }; }
+  catch { copies = { recoveryError: 'Account copies could not be read. Keep this tab open.' }; }
+  if (typeof StudyStorage !== 'undefined') copies.studyDrafts = StudyStorage.recovery();
+  const blob = new Blob([JSON.stringify(copies, null, 2)], { type: 'application/json' });
   const url = URL.createObjectURL(blob), link = document.createElement('a');
   link.href = url; link.download = 'cortex-progress-recovery.json'; link.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
-function accountBlocked(message) {
+function accountBlocked(message, kind) {
+  if (kind === 'workspace' && typeof StudyStorage !== 'undefined') {
+    StudyStorage.workspaceChanged();
+    return;
+  }
   if (document.getElementById('account-work-paused')) return;
   const dialog = document.createElement('dialog');
   dialog.id = 'account-work-paused';
@@ -175,11 +183,18 @@ function openAuth() {
 function escapeHTML(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
 window.refreshAuthUI = refreshAuthUI;
 window.openAuth = openAuth;
+window.CortexAccount = Object.freeze({
+  get available() { return !!progress && !authFailure; },
+  get label() { return progress?.owner === 'guest' ? 'Guest workspace on this device' : currentUser?.email || 'Saved account workspace'; },
+  get state() { return progress?.state || 'unavailable'; },
+  snapshot() { if (!progress) throw Error('Saved-work storage is unavailable. Reload to retry.'); return progress.portableSnapshot(); },
+  prepareRestore(data) { if (!progress) throw Error('Saved-work storage is unavailable.'); return progress.prepareRestore(data); },
+  restore(preview) { return progress.restore(preview); },
+  downloadRecovery: downloadProgress,
+});
 
 /* ---------- init ---------- */
 function initAuth() {
-  if (!AUTH_ENABLED) { refreshAuthUI(); return; }
-  sb = window.__cortexSB || (window.__cortexSB = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY));
   try {
     const rawSet = Storage.prototype.setItem, rawRemove = Storage.prototype.removeItem, rawClear = Storage.prototype.clear;
     const raw = {
@@ -187,21 +202,25 @@ function initAuth() {
       getItem: k => localStorage.getItem(k),
       setItem: (k, v) => rawSet.call(localStorage, k, v), removeItem: k => rawRemove.call(localStorage, k)
     };
-    progress = CortexProgress.create({ storage: raw, client: sb, onState: setSyncState,
-      onReload: () => location.reload(), onBlocked: accountBlocked });
     // Patch the prototype: assigning methods on a Storage instance can create
     // named storage entries instead of observing writes in some browsers.
     Storage.prototype.setItem = function (key, value) {
       key = String(key);
-      if (this === localStorage) progress.beforeWrite(key);
+      if (this === localStorage && CortexProgress.syncKey(key)) {
+        if (!progress || authFailure) throw Error('Saved-work storage is unavailable');
+        progress.beforeWrite(key);
+      }
       rawSet.call(this, key, value);
-      if (this === localStorage) progress.afterWrite(key);
+      if (this === localStorage) progress?.afterWrite(key);
     };
     Storage.prototype.removeItem = function (key) {
       key = String(key); const existed = this.getItem(key) !== null;
-      if (this === localStorage) progress.beforeWrite(key);
+      if (this === localStorage && CortexProgress.syncKey(key)) {
+        if (!progress || authFailure) throw Error('Saved-work storage is unavailable');
+        progress.beforeWrite(key);
+      }
       rawRemove.call(this, key);
-      if (this === localStorage && existed) progress.afterWrite(key);
+      if (this === localStorage && existed) progress?.afterWrite(key);
     };
     Storage.prototype.clear = function () {
       if (this !== localStorage) return rawClear.call(this);
@@ -209,6 +228,9 @@ function initAuth() {
       const keys = Object.keys(progress.gather());
       for (const key of keys) this.removeItem(key);
     };
+    if (AUTH_ENABLED) sb = window.__cortexSB || (window.__cortexSB = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY));
+    progress = CortexProgress.create({ storage: raw, client: sb, onState: setSyncState,
+      onReload: () => location.reload(), onBlocked: accountBlocked });
     window.addEventListener('storage', e => {
       if (e.storageArea === localStorage && (e.key === null || e.key === CortexProgress.OWNER)) progress.checkOwner();
     });
@@ -216,6 +238,15 @@ function initAuth() {
     authFailure = true; syncState = 'error'; refreshAuthUI();
     accountBlocked('Browser storage could not be opened safely. Keep this tab open and free some browser storage before reloading.');
     return;
+  }
+  if (!AUTH_ENABLED) {
+    // Guest backups and transaction recovery do not require an account SDK.
+    // A missing SDK is not evidence that a saved account became a guest.
+    if (progress.owner !== 'guest') {
+      progress.stop();
+      accountBlocked('Sign-in support could not load. Your saved account workspace is retained. Reload with a connection before changing it.');
+    }
+    refreshAuthUI(); return;
   }
   // Keep SDK callbacks synchronous; start database requests after the auth event returns.
   sb.auth.onAuthStateChange((event, session) => {

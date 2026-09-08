@@ -1,12 +1,12 @@
 /* MCAT workspace: authored foundations and connected local learning records. */
 let courseData = null;
-let courseState = McatCourseCore.normalize(McatStorage.read('cs-mcat-course-v1', {}));
-const courseStore = McatStorage.watch('cs-mcat-course-v1',()=>courseState);
+let courseState = McatCourseCore.normalize(StudyStorage.read('cs-mcat-course-v1', {}));
+const courseStore = StudyStorage.watch('cs-mcat-course-v1',()=>courseState);
 let courseFilter = 'all';
 const COURSE_SECTIONS = {bioBiochem:'Biology & biochemistry',chemPhys:'Chemistry & physics',psychSoc:'Psychology & sociology',cars:'Critical analysis & reasoning'};
 async function loadMcatCourse() {
   if (courseData) return;
-  try { const r = await fetch('data/mcat-course.json?v=6'); if (r.ok) { const d = await r.json(); if (Array.isArray(d.units) && Array.isArray(d.categories)) courseData = d; if (courseData) { courseData.units.forEach(u=>McatCourseCore.refreshSchedule(courseState,u)); saveCourse(); } } } catch {}
+  try { const r = await fetch('data/mcat-course.json?v=11'); if (r.ok) { const d = await r.json(); if (Array.isArray(d.units) && Array.isArray(d.categories)) courseData = d; if (courseData) { courseData.units.forEach(u=>McatCourseCore.refreshSchedule(courseState,u)); saveCourse(); } } } catch {}
 }
 let courseSaveFailed = false;
 function saveCourse() {
@@ -18,20 +18,25 @@ function courseRecord(id) { return McatCourseCore.record(courseState,id); }
 function courseRec() { return courseData && McatCourseCore.recommendation(courseData,courseState,QLOG,nowTs()); }
 function courseRoute(view,unit) {
   const url = new URL(location.href); url.pathname = '/mcat'; url.searchParams.set('view',view);
+  if (view !== 'coverage') for (const key of ['category', 'q', 'gaps', 'section']) url.searchParams.delete(key);
   if (unit) url.searchParams.set('unit',unit); else url.searchParams.delete('unit');
   history.replaceState({},'',url.pathname+url.search+url.hash);
 }
 function coursePauseTools() {
+  // Navigation can change while the remaining MCAT scripts are still loading.
+  if (typeof MCAT === 'undefined') return;
   if(typeof v2PauseActivity==='function')v2PauseActivity();
   if (cars?.phase === 'attempt' && cars.timerId) studyPausePassage('cars',cars);
   if (plab?.phase === 'attempt' && plab.timerId) studyPausePassage('plab',plab);
-  if (sim && simTimerId) { clearInterval(simTimerId); simTimerId = null; saveResume('sim',sim); }
+  if (sim?.rehearsalVersion && window.McatRehearsal) window.McatRehearsal.pause();
+  else if (sim && simTimerId) { clearInterval(simTimerId); simTimerId = null; saveResume('sim',sim); }
 }
 function courseGo(view) {
   coursePauseTools(); courseRoute(view);
   if (view === 'today') renderGuide();
   else if (view === 'practice') renderMCAT();
   else if (view === 'progress') renderCourseProgress();
+  else if (view === 'coverage') McatCoverage.render();
   else renderCourseHome();
 }
 function mcatWorkspace(root,view) {
@@ -96,7 +101,7 @@ function renderCourseHome() {
   <div class="course-coverage"><span><b>${m.completed}/${m.available}</b> lessons completed</span><span><b>${m.categories}/34</b> outline areas introduced</span><span>3 fresh follow-up questions per lesson</span></div>
   <p class="course-caption">These lessons introduce selected topics; this is still a growing course. They do not cover every topic within an outline area. Original instructional content with linked sources and guided self-review.</p>
   <div class="course-filters" role="group" aria-label="Course section">${[['all','All sections'],...Object.entries(COURSE_SECTIONS).map(([k])=>[k,SEC_ABBR[k]])].map(([k,n])=>`<button class="btn" data-course-filter="${k}" aria-pressed="${courseFilter===k}">${n}</button>`).join('')}</div>
-  <div id="course-units"></div><details class="course-map"><summary>Explore the full content map <span>34 areas · availability shown</span></summary><div>${Object.entries(COURSE_SECTIONS).map(([s,title])=>`<h3>${esc(title)}</h3>${courseData.categories.filter(c=>c.section===s).map(c=>{const us=courseData.units.filter(u=>u.categories.includes(c.id));return `<div class="course-map-row"><span>${c.id}</span><strong>${esc(c.title)}</strong><span>${us.length?`${us.length} foundation ${us.length===1?'lesson':'lessons'}`:'Lessons planned'}</span>${us.map(u=>`<button class="ghostbtn" data-course-open="${u.id}">${esc(u.title)} →</button>`).join('')}</div>`;}).join('')}`).join('')}</div></details>
+  <div id="course-units"></div><section class="course-notice"><h2>See the objectives and the gaps.</h2><p>Check which topics have lessons, practice, and later checks before planning your next session.</p><button class="btn" id="course-coverage-map">Open coverage map</button></section>
   <p class="course-caption">Content map aligned to the <a href="${courseData.outlineSource}" target="_blank" rel="noopener">AAMC content outline</a>. Existing practice is available from the Practice tab. This course is not endorsed by the AAMC.</p></main>`);
   for (const chapter of courseData.chapters) {
     const units=courseData.units.filter(u=>u.chapter===chapter.id && (courseFilter==='all'||u.section===courseFilter));
@@ -106,6 +111,7 @@ function renderCourseHome() {
   }
   main.querySelector('#course-continue').onclick=()=>rec?renderCourseUnit(rec.unit.id,rec.kind==='review'?'learn':undefined):courseGo('practice');
   main.querySelector('#placement').onclick=renderCoursePlacement;
+  main.querySelector('#course-coverage-map').onclick=()=>McatCoverage.render();
   main.querySelectorAll('[data-course-filter]').forEach(b=>b.onclick=()=>{courseFilter=b.dataset.courseFilter;renderCourseHome();});
   courseView(main);
 }
@@ -124,7 +130,7 @@ function renderCourseUnit(id,requested) {
   const stage=r.stage;
   saveCourse();
   const tabs=[['learn','01 · Learn'],['explore','02 · Explore'],['check','03 · Apply'],['record','Learning record']];
-  const main=el(`<main class="course-page course-lesson"><button class="backbtn" id="course-back">← Save & leave lesson</button><header class="course-lesson-heading ${stage==='learn'?'':'course-lesson-heading-compact'}"><span class="course-eyebrow">${SEC_ABBR[u.section]} / ${u.categories.join(' · ')} / ~${u.minutes} MIN</span><h1>${esc(u.title)}</h1><p>${esc(u.subtitle)}</p></header><nav class="course-steps" aria-label="Lesson steps">${tabs.map(([s,n])=>`<button data-course-stage="${s}" ${s===stage?'aria-current="step"':''} ${s==='explore'&&!r.learnedAt || s==='check'&&!r.exploredAt?'disabled':''}>${n}</button>`).join('')}</nav><div class="course-lesson-grid"><section id="course-body"></section><aside class="course-notebook"><span class="label">Your notebook · Optional</span><label for="course-notes">Keep an idea or question for yourself.</label><textarea id="course-notes" rows="8" placeholder="A distinction, a question, or the step you want to remember…">${esc(r.notes)}</textarea><small id="course-note-status" role="status">Notes stay on this device.</small><div class="course-next-links"><span class="label">Builds on</span>${u.prerequisites.length?u.prerequisites.map(p=>`<button class="ghostbtn" data-course-open="${p}">${esc(courseUnit(p)?.title || p)} →</button>`).join(''):'<p>No earlier course unit required.</p>'}<span class="label">Source</span><a href="${u.source.url}" target="_blank" rel="noopener">${esc(u.source.title)} ↗</a>${(u.additionalSources||[]).map(source=>`<a href="${source.url}" target="_blank" rel="noopener">${esc(source.title)} ↗</a>`).join('')}<small>Original lessons and practice questions, with explanations to support your study.</small></div></aside></div></main>`);
+  const main=el(`<main class="course-page course-lesson"><button class="backbtn" id="course-back">← Save & leave lesson</button><header class="course-lesson-heading ${stage==='learn'?'':'course-lesson-heading-compact'}"><span class="course-eyebrow">${SEC_ABBR[u.section]} / ${u.categories.join(' · ')} / ~${u.minutes} MIN</span><h1>${esc(u.title)}</h1><p>${esc(u.subtitle)}</p></header><nav class="course-steps" aria-label="Lesson steps">${tabs.map(([s,n])=>`<button data-course-stage="${s}" ${s===stage?'aria-current="step"':''} ${s==='explore'&&!r.learnedAt || s==='check'&&!r.exploredAt?'disabled':''}>${n}</button>`).join('')}</nav><div class="course-lesson-grid"><section id="course-body"></section><aside class="course-notebook"><span class="label">Your notebook · Optional</span><label for="course-notes">Keep an idea or question for yourself.</label><textarea id="course-notes" rows="8" placeholder="A distinction, a question, or the step you want to remember…">${esc(r.notes)}</textarea><small id="course-note-status" role="status">Notes stay on this device.</small><div class="course-next-links"><span class="label">Builds on</span>${u.prerequisites.length?u.prerequisites.map(p=>`<button class="ghostbtn" data-course-open="${p}">${esc(courseUnit(p)?.title || p)} →</button>`).join(''):'<p>No earlier course unit required.</p>'}<span class="label">Source</span><a href="${u.source.url}" target="_blank" rel="noopener">${esc(u.source.title)} ↗</a>${(u.additionalSources||[]).map(source=>`<a href="${source.url}" target="_blank" rel="noopener">${esc(source.title)} ↗</a>`).join('')}<small>${esc(u.reviewStatus||'Original lessons and practice questions, with explanations to support your study.')}</small></div></aside></div></main>`);
   main.querySelector('#course-back').onclick=renderCourseHome;
   main.querySelectorAll('[data-course-stage]').forEach(b=>b.onclick=()=>renderCourseUnit(id,b.dataset.courseStage));
   main.querySelector('#course-notes').oninput=e=>{r.notes=e.target.value;const saved=saveCourse();main.querySelector('#course-note-status').textContent=saved?'Saved on this device.':'Storage is unavailable. Copy this note before leaving.';};
@@ -189,15 +195,39 @@ function courseAnswerFeedback(body,u,r,q,delayed) {
 }
 function courseQuestionHelp(body,u,r,q,delayed) {
   const original=r.attempts.find(a=>a.qId===q.id);
-  const authored=u.questions.find(item=>item.kind==='diagnostic');
-  r.help ||= {};
-  const help=r.help[q.id] ||= {questionSnapshot:McatCourseCore.snapshot(authored),chosen:null};
-  const check=McatCourseCore.questionForRecord(authored,help);
-  body.innerHTML=`<section class="course-check"><span class="label">HELP WITH THIS ANSWER</span><h2>${esc(q.stem)}</h2><div class="course-feedback"><p><b>You chose:</b> ${esc(q.options[original.chosen])}</p><p><b>The supported answer:</b> ${esc(q.options[q.answer])}</p><p>${esc(q.explanation)}</p></div><h3>Check the same idea</h3><p>${esc(check.stem)}</p>${v2Options(check.options,help.chosen,'course-help-answer')}<button class="btn" id="course-help-check" ${help.answeredAt||help.chosen===null?'disabled':''}>Check this distinction</button><div id="course-help-result" role="status">${help.answeredAt?`<div class="course-feedback"><strong>${help.chosen===check.answer?'Correct':'Compare the distinction'}</strong><p>${esc(check.options[check.answer])}</p><p>${esc(check.explanation)}</p></div>`:''}</div><p class="course-caption">This supported check is saved separately. Your original answer and lesson accuracy stay the same.</p><div class="course-actions"><button class="btn btn-solid" id="course-help-return">Return to my lesson answer →</button></div><details class="course-map"><summary>Explore broader skills (optional)</summary><div><p>Three general checks compare reading, data or math skills. They may go beyond this question.</p><button class="btn" data-v2-diagnose="${u.id}">Open broader skill checks</button></div></details></section>`;
-  body.querySelectorAll('[name="course-help-answer"]').forEach(input=>{input.disabled=!!help.answeredAt;input.onchange=()=>{help.chosen=Number(input.value);saveCourse();body.querySelector('#course-help-check').disabled=false;};});
-  body.querySelector('#course-help-check').onclick=()=>{if(help.answeredAt||help.chosen===null)return;help.answeredAt=nowTs();saveCourse();courseQuestionHelp(body,u,r,q,delayed);};
-  body.querySelector('#course-help-return').onclick=()=>{delete r.helpOpen;saveCourse();courseAnswerFeedback(body,u,r,q,delayed);};
-  saveCourse();courseFocusPrompt(help.answeredAt?body.querySelector('#course-help-result strong'):body.querySelector('h2'));
+  if(!original){body.innerHTML='<p>Save your lesson answer before opening its help.</p>';return;}
+  q=McatCourseCore.questionForRecord(q,original);
+  const help=McatCourseCore.openHelp(courseState,u,q.id,nowTs());
+  const retry=()=>{if(body.isConnected)courseQuestionHelp(body,u,r,q,delayed);};
+  const failed=()=>{window.addEventListener('study-storage-recovered',retry,{once:true});};
+  if(!help || help.guide && !McatCourseCore.validHelpGuide(help.guide,u.id,q.id)){
+    body.innerHTML='<p>The saved help could not be opened. Its original copy is available through recovery.</p>';StudyStorage.sessionFailed();return;
+  }
+  if(StudyStorage.paused || !saveCourse()){
+    body.innerHTML='<p>Your help is waiting for saved work to recover. Keep this tab open.</p>';failed();return;
+  }
+  const check=help.questionSnapshot||McatCourseCore.questionForRecord(u.questions.find(item=>item.kind==='diagnostic'),help);
+  const targeted=check.kind==='support';
+  // A detached or stale page cannot change the new account or a newer tab's work.
+  const ready=()=>body.isConnected&&!StudyStorage.paused&&saveCourse();
+  const persist=()=>{if(saveCourse())return true;failed();return false;};
+  body.innerHTML=`<section class="course-check"><span class="label">HELP WITH THIS ANSWER</span><h2>${esc(q.stem)}</h2><div class="course-feedback"><p><b>You chose:</b> ${esc(q.options[original.chosen])}</p><p><b>The supported answer:</b> ${esc(q.options[q.answer])}</p><p>${esc(q.explanation)}</p></div><div id="course-authored-help"></div><h3>${targeted?'Check this idea':'Related lesson check'}</h3>${targeted?'':'<p class="course-caption">This general lesson question may cover a different distinction from your saved answer.</p>'}<p>${esc(check.stem)}</p>${v2Options(check.options,help.chosen,'course-help-answer')}<button class="btn" id="course-help-check" ${help.answeredAt||help.chosen===null?'disabled':''}>Check this distinction</button><div id="course-help-result" role="status">${help.answeredAt?`<div class="course-feedback"><strong>${help.chosen===check.answer?'Correct':'Compare the distinction'}</strong><p>${esc(check.options[check.answer])}</p><p>${esc(check.explanation)}</p></div>`:''}</div><p class="course-caption">This supported check is saved separately. Your original answer and lesson accuracy stay the same.</p><div class="course-actions"><button class="btn btn-solid" id="course-help-return">Return to my lesson answer →</button></div><details class="course-map"><summary>Explore broader skills (optional)</summary><div><p>Three general checks compare reading, data or math skills. They may go beyond this question.</p><button class="btn" data-v2-diagnose="${u.id}">Open broader skill checks</button></div></details></section>`;
+  const guide=help.guide;
+  if(guide){
+    const host=body.querySelector('#course-authored-help'),count=guide.reveals.length;
+    host.innerHTML=`<section class="course-worked"><h3>Work through the idea</h3><p class="course-caption">Two authored hints from this lesson's topic. This is a short review, not an assessment of your reasoning. Independent content review is pending.</p>${count?`<p><b>Your note before hints:</b> ${esc(guide.firstNote.text||'No note entered.')}</p>`:`<label for="course-help-note">Before the hints, what distinction might you have missed? (optional)</label><textarea id="course-help-note" maxlength="6000" rows="3">${esc(guide.draft)}</textarea>`}<div id="course-help-stages" aria-live="polite">${guide.content.stages.slice(0,count).map((stage,i)=>`<article><h4>${i+1}. ${esc(stage.title)}</h4><p>${esc(stage.text)}</p><a href="${esc(guide.content.source.url)}" target="_blank" rel="noopener noreferrer">${esc(guide.content.source.title)} ↗</a></article>`).join('')}</div>${count<guide.content.stages.length?`<button class="btn" id="course-help-reveal">${count?'Reveal next hint':'Save note & reveal first hint'}</button>`:''}${count?`<label for="course-help-reflection">After the hints, what would you change? (optional)</label><textarea id="course-help-reflection" maxlength="6000" rows="3">${esc(guide.reflection)}</textarea>`:''}<p class="course-caption">Your note, opened hints and later reflection stay separate from the original answer. This work follows your active guest or account workspace.</p><p id="course-help-save" role="status">Help record saved.</p></section>`;
+    for(const [selector,key] of [['#course-help-note','draft'],['#course-help-reflection','reflection']])host.querySelector(selector)?.addEventListener('input',event=>{
+      if(!body.isConnected||StudyStorage.paused)return;guide[key]=event.target.value;host.querySelector('#course-help-save').textContent=persist()?'Help record saved.':'This note is held in this tab. Saving needs recovery.';
+    });
+    host.querySelector('#course-help-reveal')?.addEventListener('click',()=>{
+      if(!ready()||!McatCourseCore.revealHelp(guide,nowTs()))return;
+      if(persist()){courseQuestionHelp(body,u,r,q,delayed);courseFocusPrompt(body.querySelector('#course-help-stages article:last-child h4'));}
+    });
+  }
+  body.querySelectorAll('[name="course-help-answer"]').forEach(input=>{input.disabled=!!help.answeredAt;input.onchange=()=>{if(!body.isConnected||StudyStorage.paused||help.answeredAt)return;help.chosen=Number(input.value);if(persist())body.querySelector('#course-help-check').disabled=false;};});
+  body.querySelector('#course-help-check').onclick=()=>{if(!ready()||help.answeredAt||help.chosen===null)return;help.answeredAt=nowTs();if(persist())courseQuestionHelp(body,u,r,q,delayed);};
+  body.querySelector('#course-help-return').onclick=()=>{if(!ready())return;delete r.helpOpen;if(persist())courseAnswerFeedback(body,u,r,q,delayed);};
+  courseFocusPrompt(help.answeredAt?body.querySelector('#course-help-result strong'):body.querySelector('h2'));
 }
 function courseLearningRecord(body,u,r) {
   const mapped=QLOG.filter(x=>u.questionIds.includes(x.qId)),missed=mapped.filter(x=>!x.correct);
@@ -211,9 +241,10 @@ function courseLearningRecord(body,u,r) {
   body.innerHTML=`<section class="course-record"><span class="label">One connected learning record</span><h2>${courseStatus(u)}</h2><p>${r.completedAt?'You worked through the lesson and its two applications. Completion records the work; accuracy is shown separately.':'Finish the lesson and its applications to schedule a new question for later.'}</p>${r.dueAt?`<div class="course-notice"><strong>${due?'Your later check is ready.':'A new application returns later.'}</strong><p>${due?'Try a different question before rereading the lesson.':`Available ${new Date(r.dueAt).toLocaleString()}. The next fresh question is spaced from your previous work.`}</p>${due?'<button class="btn btn-solid" id="course-later">Take later check →</button>':''}</div>`:''}
   <div class="course-session-return"><div><strong>${sessionComplete?'Your session is complete.':remaining?`${remaining} planned ${remaining===1?'activity remains':'activities remain'}.`:'Your next step is in Today.'}</strong><p>${sessionComplete?'You can stop here. Today keeps your completed work and the next session.':'Return to your session to see what comes next and adjust your time.'}</p></div><button class="btn${due?'':' btn-solid'}" id="course-today">Return to Today</button></div>
   <div class="course-record-stats"><div><strong>${r.attempts.filter(a=>a.kind==='check'&&a.correct).length}/${r.attempts.filter(a=>a.kind==='check').length}</strong><span>First application answers</span></div><div><strong>${r.attempts.filter(a=>a.kind==='delayed'&&a.correct).length}/${r.attempts.filter(a=>a.kind==='delayed').length}</strong><span>Later answers · ${r.attempts.filter(a=>a.kind==='delayed').length}/3 reviewed</span></div></div>
-  ${r.attempts.length?`<details class="course-map"><summary>Review saved answers</summary>${r.attempts.map(a=>{const q=McatCourseCore.questionForRecord(u.questions.find(q=>q.id===a.qId),a);return q?`<article class="course-saved-answer"><span class="label">${a.kind==='delayed'?'Later application':'First application'} · ${a.correct?'Correct':'Missed'} · ${esc(CONF[a.confidence]||'Unsure')}</span><h3>${esc(q.stem)}</h3><p>You: ${esc(q.options[a.chosen])}</p><p>Answer: ${esc(q.options[q.answer])}</p><p>${esc(q.explanation)}</p></article>`:'';}).join('')}</details>`:''}
+  ${r.attempts.length?`<details class="course-map"><summary>Review saved answers</summary>${r.attempts.map(a=>{const q=McatCourseCore.questionForRecord(u.questions.find(q=>q.id===a.qId),a);return q?`<article class="course-saved-answer"><span class="label">${a.kind==='delayed'?'Later application':'First application'} · ${a.correct?'Correct':'Missed'} · ${esc(CONF[a.confidence]||'Unsure')}</span><h3>${esc(q.stem)}</h3><p>You: ${esc(q.options[a.chosen])}</p><p>Answer: ${esc(q.options[q.answer])}</p><p>${esc(q.explanation)}</p>${r.help?.[a.qId]?`<button class="btn" data-course-saved-help="${esc(a.qId)}">Review saved help</button>`:''}</article>`:'';}).join('')}</details>`:''}
   <h3>Apply this in practice</h3>${loadResume('flash') || loadResume(u.section==='cars'?'cars':'plab')?'<p>A saved card or passage session will resume first. Related practice stays available here.</p>':''}<p>${mapped.length} related practice answers saved, including ${missed.length} misses. Repeated attempts may be included.</p><div class="course-related-actions">${cards.length?`<button class="btn" id="course-cards">Review ${cards.length} related cards</button>`:''}${passages.map(p=>`<button class="btn" data-course-passage="${p.id}">${esc(p.title)} →</button>`).join('')}${u.repairs.map(id=>`<button class="btn" data-course-repair="${id}">Short concept repair →</button>`).join('')}</div>
   ${r.lab.prediction?`<details class="course-map"><summary>Your prediction & explanation</summary><div class="course-saved-answer"><h3>Prediction</h3><p>${esc(r.lab.prediction)}</p><h3>Explanation</h3><p>${esc(r.lab.reflection||'No explanation saved yet.')}</p></div></details>`:''}<div class="course-actions"><button class="btn" id="course-focus">Make this my focus</button></div></section>`;
+  body.querySelectorAll('[data-course-saved-help]').forEach(button=>button.onclick=()=>{if(StudyStorage.paused||!saveCourse())return;const a=r.attempts.find(a=>a.qId===button.dataset.courseSavedHelp);if(!a)return;r.feedback=a.qId;r.helpOpen=a.qId;if(saveCourse())renderCourseUnit(u.id,a.kind==='delayed'?'delayed':'check');});
   body.querySelector('#course-later')?.addEventListener('click',()=>{delete r.feedback;renderCourseUnit(u.id,'delayed');});
   body.querySelector('#course-today').onclick=()=>courseGo('today');
   body.querySelector('#course-focus').onclick=()=>{courseState.preferredUnit=u.id;saveCourse();renderCourseUnit(u.id,r.completedAt?'learn':r.stage);};
@@ -222,7 +253,7 @@ function courseLearningRecord(body,u,r) {
     guideClearActiveTask();flash={deck:u.section,queue:cards,idx:0,total:cards.length,again:0,done:0};renderFlashCard();
   });
   body.querySelectorAll('[data-course-passage]').forEach(b=>b.onclick=()=>{guideClearActiveTask();const p=passages.find(p=>p.id===b.dataset.coursePassage);u.section==='cars'?startCars(p,false):startPassage(p,false);});
-  body.querySelectorAll('[data-course-repair]').forEach(b=>b.onclick=()=>{const c=repairConcept(b.dataset.courseRepair);if(!repairState.active)McatRepairCore.begin(c,repairState,'repair',nowTs());saveMcatRepair();renderRepairSession();});
+  body.querySelectorAll('[data-course-repair]').forEach(b=>b.onclick=()=>{const c=repairConcept(b.dataset.courseRepair);if(!repairData||!repairState||!c)return renderRepairHub();if(!repairState.active)McatRepairCore.begin(c,repairState,'repair',nowTs());saveMcatRepair();renderRepairSession();});
 }
 function courseRelatedLinks(qId) {
   const units=courseData?.units.filter(u=>u.questionIds.includes(qId)||u.passages.some(id=>MCAT.sci.find(p=>p.id===id)?.questions.some(q=>q.id===qId))) || [];
@@ -282,25 +313,25 @@ function renderCoursePlacement() {
   }
   courseView(main,'course','starting-check');
 }
-function courseExamReports() { return McatStorage.read('cs-mcat-exam-reviews',[]); }
+function courseExamReports() { return StudyStorage.read('cs-mcat-exam-reviews',[]); }
 let courseExamSaveFailed=false;
 function courseArchiveExam(run) {
   if(run.archived)return;
   run.attemptId ||=studyAttemptId();run.finishedAt ||=nowTs();
   const reports=courseExamReports().filter(r=>r.attemptId!==run.attemptId);
-  const copy={attemptId:run.attemptId,finishedAt:run.finishedAt,archived:true,queue:run.queue.map(s=>({key:s.key})),results:run.results.map(r=>({...r,items:r.items.map(it=>({q:it.q,passageId:it.passageId}))}))};
+  const copy=run.rehearsalVersion && window.McatRehearsalCore ? window.McatRehearsalCore.pack(run) : JSON.parse(JSON.stringify(run));copy.archived=true;
   reports.unshift(copy);
-  courseExamSaveFailed=!McatStorage.write('cs-mcat-exam-reviews',reports.slice(0,8));return !courseExamSaveFailed;
+  courseExamSaveFailed=!StudyStorage.write('cs-mcat-exam-reviews',reports);return !courseExamSaveFailed;
 }
 function courseOpenExam(id) {
   const run=courseExamReports().find(r=>r.attemptId===id);if(!run)return renderCourseProgress();
-  coursePauseTools();sim=run;finishSim();
+  coursePauseTools();sim=run;if(run.rehearsalVersion && window.McatRehearsal)return window.McatRehearsal.resume(run);finishSim();
 }
 function courseExamReviewControls(main,run) {
   const section=el(`<section class="course-notice"><strong>${run.results.length}/${run.queue.length} sections completed</strong>${courseExamSaveFailed?'<p role="alert">This browser could not save the exam archive. Keep this tab open and copy important results before leaving.</p>':''}<p>Save a takeaway after reviewing the answers. This does not change your original score.</p><label for="exam-reflection">What will you change in the next session?</label><textarea id="exam-reflection" rows="3">${esc(courseState.examReviews[run.attemptId]?.note||'')}</textarea><button class="btn" id="exam-reviewed" ${courseState.examReviews[run.attemptId]?.note?.trim()?'':'disabled'}>${courseState.examReviews[run.attemptId]?.reviewedAt?'Review saved':'Mark review complete'}</button><small id="exam-review-status" role="status"></small></section>`);
   const input=section.querySelector('textarea'),button=section.querySelector('#exam-reviewed');
-  input.oninput=()=>{courseState.examReviews[run.attemptId] ||= {};courseState.examReviews[run.attemptId].note=input.value;saveCourse();button.disabled=!input.value.trim();};
-  button.onclick=()=>{courseState.examReviews[run.attemptId].reviewedAt ||=nowTs();saveCourse();const plan=guidePlan();if(plan?.active?.type==='examReview' && plan.active.examId===run.attemptId)guideCompleteActiveTask('examReview');button.textContent='Review saved';section.querySelector('#exam-review-status').textContent='Saved to Progress.';};
+  input.oninput=()=>{if(StudyStorage.paused)return;courseState.examReviews[run.attemptId] ||= {};courseState.examReviews[run.attemptId].note=input.value;if(saveCourse())button.disabled=!input.value.trim();};
+  button.onclick=()=>{if(StudyStorage.paused||!courseState.examReviews[run.attemptId]?.note?.trim())return;courseState.examReviews[run.attemptId].reviewedAt ||=nowTs();if(!saveCourse())return;const plan=guidePlan();if(plan?.active?.type==='examReview' && plan.active.examId===run.attemptId)guideCompleteActiveTask('examReview');button.textContent='Review saved';section.querySelector('#exam-review-status').textContent='Saved to Progress.';};
   main.querySelector('.drill-review')?.before(section);
 }
 function courseSavedWork(main) {
@@ -314,13 +345,13 @@ function courseSavedWork(main) {
     if(v2State.math.active&&!v2State.math.active.completedAt)add('Math · Calculation in progress',renderV2Math);
     if(v2State.diagnostics.active)add('Investigation · Checks in progress',renderV2Diagnostic);
   }
-  if(repairState.active)add('Concept repair · Session in progress',renderRepairSession);
+  if(repairState?.active)add('Concept repair · Session in progress',renderRepairSession);
   if(actions.children.length)main.querySelector('.course-metrics').before(section);
 }
 function renderCourseProgress() {
   coursePauseTools();if(!courseData)return renderCourseHome();
   const m=McatCourseCore.metrics(courseData,courseState),reports=courseExamReports(),ratio=x=>x.total?`${Math.round(100*x.correct/x.total)}%`:'—';
-  const main=el(`<main class="course-page"><header class="course-progress-heading"><span class="course-eyebrow">YOUR LEARNING RECORD</span><h1>See what is changing.</h1><p>Track the work, the answers, and the pace separately. Everything here comes from activity saved on this device.</p></header><div class="course-metrics"><article><span>Content work</span><strong>${m.completed}<small>/${m.available}</small></strong><p>Foundation lessons complete. ${m.categories}/34 outline areas introduced by available lessons.</p></article><article><span>First application accuracy</span><strong>${ratio(m.first)}</strong><p>${m.first.correct}/${m.first.total} first answers to lesson applications. Reopening feedback adds no attempts.</p></article><article><span>Delayed recall</span><strong>${ratio(m.delayed)}</strong><p>${m.delayed.correct}/${m.delayed.total} new application questions answered after at least 24 hours.</p></article><article><span>Timed pacing</span><strong>${reports.length?reports.length:'—'}<small>${reports.length?' runs':''}</small></strong><p>Active time and raw accuracy by section below. No scaled score prediction.</p></article></div>${courseModeMarkup()}<section class="course-progress-section"><h2>Learning by section</h2>${Object.entries(COURSE_SECTIONS).map(([s,n])=>{const us=courseData.units.filter(u=>u.section===s),complete=us.filter(u=>courseRecord(u.id).completedAt).length;return `<div class="course-section-progress"><div><strong>${n}</strong><span>${complete}/${us.length} lessons</span></div><progress value="${complete}" max="${us.length}" aria-label="${n} lessons completed"></progress><div>${us.map(u=>`<button class="ghostbtn" data-course-open="${u.id}">${esc(u.title)} · ${courseStatus(u)}</button>`).join('')}</div></div>`;}).join('')}</section><section class="course-progress-section"><h2>Timed runs & review</h2><p>Original practice sets keep each passage together. Set length and time vary with the available bank; they are not official full-length exams. The most recent eight runs are saved.</p><div id="course-exam-history">${reports.length?reports.map(run=>`<article class="course-exam-record"><div><h3>${new Date(run.finishedAt).toLocaleDateString()} · ${run.results.length}/${run.queue.length} sections</h3><span>${courseState.examReviews[run.attemptId]?.reviewedAt?'Review complete':'Review pending'}</span></div>${run.results.map(r=>`<p><b>${SEC_ABBR[r.key]}</b> · ${r.correct}/${r.total} correct · ${Number.isFinite(r.elapsedMs)?`${(r.elapsedMs/60000).toFixed(1)} active min · ${(r.elapsedMs/1000/r.total).toFixed(0)} sec / presented question`:'Timing unavailable for this older run'}</p>`).join('')}<button class="btn" data-course-exam="${run.attemptId}">Open answers & review →</button></article>`).join(''):'<div class="course-notice">Your first timed run will appear here with its answer review.</div>'}</div></section><section class="course-progress-section"><h2>Practice evidence</h2><p>${QLOG.length} retained practice answers · ${Object.keys(SRS).filter(id=>SRS[id]?.last).length} cards encountered. Practice history retains the latest 1,000 answers and can include repeats. It is separate from the lesson metrics above.</p><div id="course-repair-evidence"></div></section></main>`);
+  const main=el(`<main class="course-page"><header class="course-progress-heading"><span class="course-eyebrow">YOUR LEARNING RECORD</span><h1>See what is changing.</h1><p>Track the work, the answers, and the pace separately. Everything here comes from activity saved on this device.</p></header><div class="course-metrics"><article><span>Content work</span><strong>${m.completed}<small>/${m.available}</small></strong><p>Foundation lessons complete. ${m.categories}/34 outline areas introduced by available lessons.</p></article><article><span>First application accuracy</span><strong>${ratio(m.first)}</strong><p>${m.first.correct}/${m.first.total} first answers to lesson applications. Reopening feedback adds no attempts.</p></article><article><span>Delayed recall</span><strong>${ratio(m.delayed)}</strong><p>${m.delayed.correct}/${m.delayed.total} new application questions answered after at least 24 hours.</p></article><article><span>Timed pacing</span><strong>${reports.length?reports.length:'—'}<small>${reports.length?' runs':''}</small></strong><p>Active time and raw accuracy by section below. No scaled score prediction.</p></article></div>${courseModeMarkup()}<section class="course-progress-section"><h2>Learning by section</h2>${Object.entries(COURSE_SECTIONS).map(([s,n])=>{const us=courseData.units.filter(u=>u.section===s),complete=us.filter(u=>courseRecord(u.id).completedAt).length;return `<div class="course-section-progress"><div><strong>${n}</strong><span>${complete}/${us.length} lessons</span></div><progress value="${complete}" max="${us.length}" aria-label="${n} lessons completed"></progress><div>${us.map(u=>`<button class="ghostbtn" data-course-open="${u.id}">${esc(u.title)} · ${courseStatus(u)}</button>`).join('')}</div></div>`;}).join('')}</section><section class="course-progress-section"><h2>Timed runs & review</h2><p>Original practice sets keep each passage together. Set length and time vary with the available bank; they are not official full-length exams. Saved runs are retained. Older records may have limited passage and timing detail.</p><div id="course-exam-history">${reports.length?reports.map(run=>`<article class="course-exam-record"><div><h3>${new Date(run.finishedAt).toLocaleDateString()} · ${run.results.length}/${run.queue.length} sections</h3><span>${courseState.examReviews[run.attemptId]?.reviewedAt?'Review complete':'Review pending'}</span></div>${run.results.map(r=>`<p><b>${SEC_ABBR[r.key]}</b> · ${r.correct}/${r.total} correct · ${Number.isFinite(r.elapsedMs)?`${(r.elapsedMs/60000).toFixed(1)} ${run.rehearsalVersion?'section':'active'} min · ${(r.elapsedMs/1000/r.total).toFixed(0)} sec / ${run.rehearsalVersion?'assigned':'presented'} question`:'Timing unavailable for this older run'}</p>`).join('')}<button class="btn" data-course-exam="${run.attemptId}">Open answers & review →</button></article>`).join(''):'<div class="course-notice">Your first timed run will appear here with its answer review.</div>'}</div></section><section class="course-progress-section"><h2>Practice evidence</h2><p>${QLOG.length} retained practice answers · ${Object.keys(SRS).filter(id=>SRS[id]?.last).length} cards encountered. Practice history retains the latest 1,000 answers and can include repeats. It is separate from the lesson metrics above.</p><div id="course-repair-evidence"></div></section></main>`);
   courseSavedWork(main);
   const academy=el('<button class="ghostbtn" id="course-academy-activity">Other academy activity →</button>');academy.onclick=renderAcademyStats;main.appendChild(academy);
   wireCourseModes(main,renderCourseProgress);

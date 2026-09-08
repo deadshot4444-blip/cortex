@@ -3,15 +3,36 @@
    The last step is always a teach-back ("explain it in your own words"). */
 
 const SOC = { dialogues: [], loaded: false, byDisc: {} };
-const SOC_DONE = (typeof loadJSON === 'function') ? loadJSON('cs-socrates', {}) : {};
-function saveSocDone() { localStorage.setItem('cs-socrates', JSON.stringify(SOC_DONE)); }
+function ltlReadRecord(key) {
+  const value = StudyStorage.read(key, {});
+  if (value && typeof value === 'object' && !Array.isArray(value)) return value;
+  StudyStorage.sessionFailed();
+  return {};
+}
+const SOC_DONE = ltlReadRecord('cs-socrates');
+StudyStorage.watch('cs-socrates', () => SOC_DONE);
+function saveSocDone() { return StudyStorage.write('cs-socrates', SOC_DONE); }
 
 const LTL = { tracks: [], sources: [], loaded: false, byId: {}, sourceById: {} };
-const LTL_PROGRESS = (typeof loadJSON === 'function') ? loadJSON('cs-ltl-progress-v1', {}) : {};
-function saveLtlProgress() {
-  if (typeof safeSet === 'function') safeSet('cs-ltl-progress-v1', JSON.stringify(LTL_PROGRESS));
-  else localStorage.setItem('cs-ltl-progress-v1', JSON.stringify(LTL_PROGRESS));
+const LTL_PROGRESS = ltlReadRecord('cs-ltl-progress-v1');
+// Preserve malformed records for recovery instead of silently normalizing them away.
+for (const progress of Object.values(LTL_PROGRESS)) {
+  if (!progress || typeof progress !== 'object' || Array.isArray(progress) ||
+      (progress.completed !== undefined && !Array.isArray(progress.completed)) ||
+      (progress.lessons !== undefined && (!progress.lessons || typeof progress.lessons !== 'object' || Array.isArray(progress.lessons)))) {
+    StudyStorage.sessionFailed();
+    break;
+  }
+  for (const lesson of Object.values(progress.lessons || {})) {
+    if (!lesson || typeof lesson !== 'object' || !lesson.steps || typeof lesson.steps !== 'object' || Array.isArray(lesson.steps) ||
+        Object.values(lesson.steps).some(step => !step || typeof step !== 'object' || Array.isArray(step))) {
+      StudyStorage.sessionFailed();
+      break;
+    }
+  }
 }
+StudyStorage.watch('cs-ltl-progress-v1', () => LTL_PROGRESS);
+function saveLtlProgress() { return StudyStorage.write('cs-ltl-progress-v1', LTL_PROGRESS); }
 function ltlProgress(trackId) {
   const current = LTL_PROGRESS[trackId];
   if (!current || typeof current !== 'object' || Array.isArray(current)) {
@@ -19,6 +40,39 @@ function ltlProgress(trackId) {
   }
   if (!Array.isArray(LTL_PROGRESS[trackId].completed)) LTL_PROGRESS[trackId].completed = [];
   return LTL_PROGRESS[trackId];
+}
+function ltlLessonRecord(trackId, lesson) {
+  const progress = ltlProgress(trackId);
+  progress.lessons ||= {};
+  return progress.lessons[lesson.id] ||= { revision: lesson.revision, steps: {} };
+}
+function ltlStepRecord(trackId, lesson, step) {
+  return ltlLessonRecord(trackId, lesson).steps[step.id] ||= {};
+}
+function ltlStepReady(step, record) {
+  return step.type === 'check' ? Number.isInteger(record.selected) :
+    step.type === 'practice' ? !!record.revealedAt : true;
+}
+function ltlUrl(trackId, lessonId, stepIndex) {
+  const url = new URL(sectionUrl('socrates'), location.origin);
+  if (trackId) url.searchParams.set('track', trackId);
+  if (lessonId) {
+    url.searchParams.set('lesson', lessonId);
+    url.searchParams.set('step', String(stepIndex + 1));
+  }
+  if (url.pathname + url.search === location.pathname + location.search) return;
+  const current = new URLSearchParams(location.search);
+  const sameLesson = lessonId && current.get('lesson') === lessonId && current.get('track') === trackId;
+  history[sameLesson ? 'replaceState' : 'pushState']({ sec: 'socrates' }, '', url.pathname + url.search);
+}
+async function openLearnToLearn() {
+  await loadLearnCourses();
+  if (StudyStorage.paused) return;
+  const params = new URLSearchParams(location.search);
+  const track = params.get('track'), lesson = params.get('lesson');
+  if (track && lesson) return renderLtlLesson(track, lesson, Number(params.get('step') || 1) - 1);
+  if (track) return renderLearnTrack(track);
+  return renderSocrates();
 }
 function ltlCompleted(trackId, lessonId) {
   return ltlProgress(trackId).completed.includes(lessonId);
@@ -34,14 +88,18 @@ function ltlNextLesson(track) {
 
 async function loadLearnCourses() {
   if (LTL.loaded) return;
-  try {
-    const d = await fetch('data/learn-to-learn.json?v=3').then(r => r.ok ? r.json() : null);
-    LTL.tracks = d?.tracks || [];
-    LTL.sources = d?.sources || [];
-  } catch {
-    LTL.tracks = [];
-    LTL.sources = [];
+  const response = await fetch('data/learn-to-learn.json?v=4');
+  if (!response.ok) throw new Error('Learning courses unavailable');
+  const d = await response.json();
+  if (!Array.isArray(d.tracks) || !d.tracks.length || d.tracks.some(track =>
+      !track?.id || !Array.isArray(track.lessons) || !track.lessons.length ||
+      track.lessons.some(lesson => !lesson?.id || !Array.isArray(lesson.steps) || !lesson.steps.length ||
+        lesson.steps.some(step => !step?.id || !['teach', 'example', 'check', 'practice', 'summary'].includes(step.type) ||
+          (step.type === 'check' && (!Array.isArray(step.options) || !Number.isInteger(step.answer) || step.answer < 0 || step.answer >= step.options.length)))))) {
+    throw new Error('Learning course data is incomplete');
   }
+  LTL.tracks = d.tracks;
+  LTL.sources = d.sources || [];
   LTL.byId = Object.fromEntries(LTL.tracks.map(track => [track.id, track]));
   LTL.sourceById = Object.fromEntries(LTL.sources.map(source => [source.id, source]));
   LTL.loaded = true;
@@ -49,10 +107,11 @@ async function loadLearnCourses() {
 
 async function loadSocrates() {
   if (SOC.loaded) return;
-  try {
-    const d = await fetch('data/socrates.json').then(r => r.ok ? r.json() : []).catch(() => []);
-    SOC.dialogues = d || [];
-  } catch { SOC.dialogues = SOC.dialogues || []; }
+  const response = await fetch('data/socrates.json');
+  if (!response.ok) throw new Error('Reasoning dialogues unavailable');
+  const d = await response.json();
+  if (!Array.isArray(d) || d.some(dialogue => !dialogue?.id || !dialogue.discipline || !Array.isArray(dialogue.steps))) throw new Error('Reasoning dialogue data is incomplete');
+  SOC.dialogues = d;
   SOC.byDisc = {};
   for (const dlg of SOC.dialogues) (SOC.byDisc[dlg.discipline] = SOC.byDisc[dlg.discipline] || []).push(dlg);
   SOC.loaded = true;
@@ -63,12 +122,11 @@ function discName(key) { return (SOC.byDisc[key] && SOC.byDisc[key][0]?.discipli
 async function renderSocrates() {
   if (typeof stopTimer === 'function') stopTimer();
   if (typeof session !== 'undefined') session = null;
-  await Promise.all([loadLearnCourses(), loadSocrates()]);
+  await loadLearnCourses();
+  ltlUrl();
 
   const root = el('<div></div>');
   root.appendChild(topbar('socrates'));
-  const total = SOC.dialogues.length;
-  const done = SOC.dialogues.filter(d => SOC_DONE[d.id]).length;
   const main = el(`<main class="panel ltl-shell">
     <section class="ltl-hero">
       <div class="ltl-hero-top"><span class="label">Learn better</span><span class="ltl-count">${String(LTL.tracks.length).padStart(2, '0')} courses</span></div>
@@ -113,11 +171,21 @@ async function renderSocrates() {
 }
 
 /* ---------- course overview ---------- */
-async function renderLearnTrack(trackId) {
-  await Promise.all([loadLearnCourses(), loadSocrates()]);
+async function renderLearnTrack(trackId, requestedLessonId = null) {
+  await loadLearnCourses();
   const track = LTL.byId[trackId];
   if (!track) { renderSocrates(); return; }
+  // Keep a requested lesson in the URL so reload and Back preserve the destination.
+  if (!requestedLessonId) ltlUrl(trackId);
+  const requestedIndex = track.lessons.findIndex(lesson => lesson.id === requestedLessonId);
+  const requestedNotice = !requestedLessonId ? '' : requestedIndex < 0
+    ? 'That lesson is not in this course. Choose an available lesson below.'
+    : `${track.lessons[requestedIndex].title} opens after ${track.lessons[requestedIndex - 1].title}. This course opens lessons in order. Continue your course below to reach it.`;
   const isMedical = track.id === 'medical';
+  let dialogueError = false;
+  if (isMedical) {
+    try { await loadSocrates(); } catch { dialogueError = true; }
+  }
   const total = SOC.dialogues.length;
   const done = SOC.dialogues.filter(d => SOC_DONE[d.id]).length;
   const pct = total ? Math.round(100 * done / total) : 0;
@@ -137,6 +205,7 @@ async function renderLearnTrack(trackId) {
         <span class="ltl-route">Learn to Learn <i>/</i> ${track.number}</span>
         <span class="ltl-track-eyebrow">${esc(track.eyebrow)}</span>
         <h1>${esc(track.name)}.</h1>
+        ${requestedNotice ? `<p class="sub" role="status">${esc(requestedNotice)}</p>` : ''}
         <p class="sub">${esc(track.intro)}</p>
         <div class="ltl-track-tags">${track.topics.map(t => `<span>${esc(t)}</span>`).join('')}</div>
       </div>
@@ -171,7 +240,7 @@ async function renderLearnTrack(trackId) {
     ${isMedical ? `<section class="ltl-lab" aria-labelledby="ltl-lab-title">
       <div class="ltl-lab-head">
         <div><span class="label">Extra practice</span><h2 id="ltl-lab-title">Practice medical reasoning.</h2><p>Use these guided questions to explain how something works before you reveal the answer.</p></div>
-        <div class="ltl-lab-progress"><strong>${done}/${total}</strong><span>complete</span><i><b style="width:${pct}%"></b></i></div>
+        ${dialogueError ? '<span class="ltl-research-state">Download unavailable</span>' : `<div class="ltl-lab-progress"><strong>${done}/${total}</strong><span>complete</span><i><b style="width:${pct}%"></b></i></div>`}
       </div>
       <div class="mcat-mods ltl-disciplines"></div>
       <p class="anat-credit">Original guided questions for self-review. Write what you think before revealing the answer.</p>
@@ -197,7 +266,11 @@ async function renderLearnTrack(trackId) {
   if (isMedical) {
     const disciplines = main.querySelector('.ltl-disciplines');
     const keys = Object.keys(SOC.byDisc);
-    if (!keys.length) disciplines.appendChild(el('<div class="empty">Reasoning dialogues are loading&hellip;</div>'));
+    if (dialogueError) {
+      const retry = el('<div class="empty"><p>Extra reasoning practice could not load. Your course is available above.</p><button class="btn">Retry extra practice</button></div>');
+      retry.querySelector('button').addEventListener('click', () => renderLearnTrack(trackId));
+      disciplines.appendChild(retry);
+    } else if (!keys.length) disciplines.appendChild(el('<p class="empty">No extra reasoning practice is available yet.</p>'));
     keys.forEach(k => {
       const list = SOC.byDisc[k];
       const dn = list.filter(d => SOC_DONE[d.id]).length;
@@ -225,6 +298,13 @@ function ltlLessonSources(lesson) {
   </details>`;
 }
 
+function ltlApplication(trackId, lessonIndex) {
+  if (trackId === 'medical') return { section: 'practice', label: 'Apply it in Clinical Scenarios' };
+  if (trackId === 'business') return { section: 'pomodoro', label: 'Begin a focused work session' };
+  return lessonIndex === 5 ? { section: 'pomodoro', label: 'Begin a focused study session' } :
+    { section: 'mcat', label: 'Apply it in MCAT practice' };
+}
+
 function ltlStepBody(step) {
   if (step.type === 'teach') {
     return `<div class="ltlc-prose">${(step.body || []).map(p => `<p>${esc(p)}</p>`).join('')}</div>
@@ -242,8 +322,9 @@ function ltlStepBody(step) {
   }
   if (step.type === 'practice') {
     return `<p class="ltlc-prompt">${esc(step.prompt)}</p>
-      <textarea class="ltlc-response" rows="7" placeholder="${esc(step.starter || 'Write your response here...')}"></textarea>
-      <div class="ltlc-compare-action"><span>Your response stays on this device and is not graded.</span><button class="btn" data-compare disabled>Compare with sample answer</button></div>
+      <label class="label" for="ltlc-response">Your response</label>
+      <textarea id="ltlc-response" class="ltlc-response" rows="7" placeholder="${esc(step.starter || 'Write your response here...')}"></textarea>
+      <div class="ltlc-compare-action"><span>Your response is saved with your study progress. It is not graded.</span><button class="btn" data-compare disabled>Compare with sample answer</button></div>
       <div class="ltlc-model" hidden><span class="label">One strong answer</span><p>${esc(step.model)}</p><p class="ltlc-model-note">Do not copy the wording. Compare the ideas: what did this answer include that yours missed, and what did you notice that it did not?</p></div>`;
   }
   return `<div class="ltlc-summary-mark" aria-hidden="true">&#10003;</div>
@@ -255,13 +336,22 @@ async function renderLtlLesson(trackId, lessonId, stepIndex = 0) {
   await loadLearnCourses();
   const track = LTL.byId[trackId];
   const lessonIndex = track?.lessons.findIndex(item => item.id === lessonId) ?? -1;
-  if (!track || lessonIndex < 0 || !ltlLessonUnlocked(track, lessonIndex)) { renderLearnTrack(trackId); return; }
+  if (!track || lessonIndex < 0 || !ltlLessonUnlocked(track, lessonIndex)) return renderLearnTrack(trackId, lessonId);
   const lesson = track.lessons[lessonIndex];
-  const step = lesson.steps[Math.max(0, Math.min(Number(stepIndex) || 0, lesson.steps.length - 1))];
-  const currentStep = lesson.steps.indexOf(step);
+  const requestedStep = Math.max(0, Math.min(Math.floor(Number(stepIndex) || 0), lesson.steps.length - 1));
+  const record = ltlLessonRecord(track.id, lesson);
+  const firstRequired = lesson.steps.findIndex(item => !ltlStepReady(item, record.steps[item.id] || {}));
+  const currentStep = firstRequired >= 0 && !ltlCompleted(track.id, lesson.id) ? Math.min(requestedStep, firstRequired) : requestedStep;
+  const authoredStep = lesson.steps[currentStep];
+  const saved = ltlStepRecord(track.id, lesson, authoredStep);
+  saved.content ||= authoredStep;
+  const step = saved.content;
+  const correction = ltlStepReady(step, saved) && (step.type === 'check' || step.type === 'practice') &&
+    JSON.stringify(step) !== JSON.stringify(authoredStep) ? authoredStep.explain || authoredStep.model : '';
   const progress = ltlProgress(track.id);
   progress.lastLesson = lesson.id;
   progress.lastStep = currentStep;
+  ltlUrl(track.id, lesson.id, currentStep);
   saveLtlProgress();
 
   const root = el('<div class="ltlc-player-page"></div>');
@@ -276,6 +366,7 @@ async function renderLtlLesson(trackId, lessonId, stepIndex = 0) {
       <div class="ltlc-stage-head"><span class="label">${esc(step.eyebrow)}</span><span>${esc(lesson.duration)}</span></div>
       <h1>${esc(step.title)}</h1>
       <div class="ltlc-stage-content">${ltlStepBody(step)}</div>
+      ${correction ? `<aside class="ltlc-callout"><span class="label">Updated guidance</span><p>Your original response and its earlier prompt are preserved above. The current lesson gives this explanation:</p><p>${esc(correction)}</p></aside>` : ''}
       ${currentStep === lesson.steps.length - 1 ? ltlLessonSources(lesson) : ''}
       <div class="ltlc-nav">
         ${currentStep > 0 ? '<button class="btn" data-prev>&larr; Back</button>' : '<span></span>'}
@@ -290,6 +381,7 @@ async function renderLtlLesson(trackId, lessonId, stepIndex = 0) {
   root.querySelector('[data-prev]')?.addEventListener('click', () => renderLtlLesson(track.id, lesson.id, currentStep - 1));
   const nextButton = root.querySelector('[data-next]');
   nextButton.addEventListener('click', () => {
+    if (!ltlStepReady(step, saved) || !saveLtlProgress()) return;
     if (currentStep === lesson.steps.length - 1) finishLtlLesson(track.id, lesson.id);
     else renderLtlLesson(track.id, lesson.id, currentStep + 1);
   });
@@ -297,8 +389,8 @@ async function renderLtlLesson(trackId, lessonId, stepIndex = 0) {
   if (step.type === 'check') {
     const optionButtons = [...root.querySelectorAll('[data-option]')];
     const feedback = root.querySelector('.ltlc-feedback');
-    optionButtons.forEach(button => button.addEventListener('click', () => {
-      const selected = Number(button.dataset.option);
+    function showAnswer() {
+      const selected = saved.selected;
       optionButtons.forEach((option, index) => {
         option.disabled = true;
         if (index === step.answer) option.classList.add('is-correct');
@@ -307,22 +399,44 @@ async function renderLtlLesson(trackId, lessonId, stepIndex = 0) {
       const correct = selected === step.answer;
       feedback.innerHTML = `<div class="${correct ? 'is-correct' : 'is-repair'}"><span class="label">${correct ? 'Correct' : 'Review the idea'}</span><p>${esc(step.explain)}</p></div>`;
       nextButton.disabled = false;
+    }
+    optionButtons.forEach(button => button.addEventListener('click', () => {
+      if (Number.isInteger(saved.selected)) return;
+      saved.selected = Number(button.dataset.option);
+      saved.answeredAt = new Date().toISOString();
+      saveLtlProgress();
+      showAnswer();
     }));
+    if (Number.isInteger(saved.selected)) showAnswer();
   }
 
   if (step.type === 'practice') {
     const response = root.querySelector('.ltlc-response');
     const compare = root.querySelector('[data-compare]');
     const model = root.querySelector('.ltlc-model');
-    response.addEventListener('input', () => { compare.disabled = response.value.trim().length < 12; });
-    compare.addEventListener('click', () => {
+    response.value = saved.draft || '';
+    compare.disabled = !response.value.trim();
+    response.addEventListener('input', () => {
+      saved.draft = response.value;
+      saveLtlProgress();
+      compare.disabled = !response.value.trim();
+    });
+    function showModel() {
       model.hidden = false;
       compare.disabled = true;
       compare.textContent = 'Sample shown';
-      response.disabled = true;
+      response.readOnly = true;
       nextButton.disabled = false;
+    }
+    compare.addEventListener('click', () => {
+      if (!response.value.trim() || saved.revealedAt) return;
+      saved.draft = response.value;
+      saved.revealedAt = new Date().toISOString();
+      saveLtlProgress();
+      showModel();
       model.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     });
+    if (saved.revealedAt) showModel();
   }
 }
 
@@ -331,12 +445,17 @@ function finishLtlLesson(trackId, lessonId) {
   const lessonIndex = track.lessons.findIndex(lesson => lesson.id === lessonId);
   const lesson = track.lessons[lessonIndex];
   const progress = ltlProgress(track.id);
+  const record = ltlLessonRecord(track.id, lesson);
+  const unfinished = lesson.steps.findIndex(step => !ltlStepReady(step, record.steps[step.id] || {}));
+  if (unfinished >= 0) return renderLtlLesson(trackId, lessonId, unfinished);
+  record.completedAt ||= new Date().toISOString();
   if (!progress.completed.includes(lesson.id)) progress.completed.push(lesson.id);
   const next = track.lessons[lessonIndex + 1];
   progress.lastLesson = next?.id || lesson.id;
   progress.lastStep = 0;
-  saveLtlProgress();
+  if (!saveLtlProgress()) return;
   const finishedCourse = !next;
+  const application = ltlApplication(trackId, lessonIndex);
   const root = el('<div class="ltlc-player-page"></div>');
   root.appendChild(topbar('socrates'));
   const main = el(`<main class="ltlc-finish">
@@ -344,6 +463,8 @@ function finishLtlLesson(trackId, lessonId) {
     <span class="label">${finishedCourse ? `${esc(track.name)} course complete` : `Lesson ${String(lessonIndex + 1).padStart(2, '0')} complete`}</span>
     <h1>${finishedCourse ? 'You finished the course.' : esc(lesson.title)}</h1>
     <p>${finishedCourse ? 'Now use what you learned, check what you still remember later, and improve anything that does not hold up.' : `You finished the lesson. Next, ${next.title.toLowerCase()} builds directly on it.`}</p>
+    <p>Practice completed <time datetime="${esc(record.completedAt)}">${esc(new Date(record.completedAt).toLocaleString())}</time>.</p>
+    <aside class="ltlc-action"><span class="label">Use it in your next study session</span><p>${esc(lesson.steps[lesson.steps.length - 1].action)}</p><p>Try this method in another activity and check the result later. Completing this lesson records practice, not mastery of the method.</p><a class="btn" href="${sectionUrl(application.section)}">${esc(application.label)}</a> <a class="btn" href="${sectionUrl('academy')}">Choose another course</a></aside>
     <div class="ltlc-finish-actions">
       ${next ? '<button class="btn btn-solid" data-next-lesson>Start next lesson</button>' : '<button class="btn btn-solid" data-course-map>Return to course</button>'}
       <button class="btn" data-revisit>Review this lesson</button>

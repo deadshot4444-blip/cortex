@@ -78,14 +78,14 @@
   "bb1": {
     "hypothesis": "Does compound X change ALP kinetics in a manner consistent with competitive inhibition?",
     "independent": "Substrate concentration and absence or presence of 100 micromolar compound X.",
-    "dependent": "Initial product-formation velocity in micromol/min.",
+    "dependent": "Initial product-formation velocity in nmol/min.",
     "control": "Buffer-only reactions at each substrate concentration; enzyme amount, pH, temperature, and ionic strength are matched.",
     "conclusion": "X lowers measured velocity at each tested substrate concentration. The passage describes the same extrapolated Vmax and a higher apparent Km with X, consistent with competition.",
     "limitation": "The largest measured substrate concentration is not infinity. Table points alone do not prove equal asymptotes or directly demonstrate binding at the active site.",
     "graph": {
       "xColumn": 0,
       "xLabel": "Substrate (mM)",
-      "yLabel": "Velocity (micromol/min)",
+      "yLabel": "Velocity (nmol/min)",
       "series": [
         {
           "column": 1,
@@ -316,5 +316,79 @@
     "control": "Neighborhoods are compared within family-income strata. There is no randomized neighborhood assignment.",
     "conclusion": "Within every income tercile, completion decreases with neighborhood poverty; the middle-income row falls from 44% to 19%.",
     "limitation": "Selection into neighborhoods and unmeasured family characteristics prevent a simple causal claim. Statistical mediation does not by itself establish a causal mechanism."
+  },
+  "cp-transfer-decay": {
+    "hypothesis": "Does background-corrected sample count fall by a constant fraction over equal time intervals in this synthetic series?",
+    "independent": "Elapsed time, sampled at 0, 4, 8 and 12 hours. Time is observed rather than randomly assigned.",
+    "dependent": "Sample count rate in counts/min after subtracting the blank. Raw reference count rate is a separate instrument comparison.",
+    "control": "The blank estimates background; the stable reference helps check detector drift. Neither establishes that the sample container retained all material.",
+    "conclusion": "Corrected sample rates are 1000, 500, 250 and 125 counts/min. They halve every four hours in these idealized means. The stable reference is consistent with stable measurement response.",
+    "limitation": "Means without replicate variability do not support a confidence interval. The time series alone does not identify the isotope or exclude sample loss; containment and other assumptions must be checked.",
+    "graph": {
+      "xColumn": 0,
+      "xLabel": "Elapsed time (h)",
+      "yLabel": "Raw count rate (counts/min)",
+      "series": [
+        {
+          "column": 1,
+          "label": "Raw sample"
+        },
+        {
+          "column": 3,
+          "label": "Raw reference"
+        }
+      ],
+      "description": "Raw sample count rate falls from 1010 to 135 counts/min while the raw reference stays at 310 counts/min.",
+      "prompt": "Why must the blank be subtracted before checking for equal fractional decreases? Use the first and last pairs of measurements.",
+      "answer": "Subtracting the constant blank of 10 gives 1000 to 500 and 250 to 125 counts/min, both a factor of one half. Raw ratios include background and therefore are not exactly one half. The reference remains a separate comparison."
+    }
+  },
+  "cp-transfer-optics": {
+    "hypothesis": "Are paired object and image distances consistent with one focal length under the supplied thin-lens model?",
+    "independent": "Object distance, set to 30, 20 and 15 cm for the same converging lens.",
+    "dependent": "Distance to a focused real image, measured in cm: 15, 20 and 30 cm, respectively.",
+    "control": "The same lens, alignment, distance reference and illumination conditions are held fixed. There is no separate untreated group.",
+    "conclusion": "Each pair gives 1/dₒ + 1/dᵢ = 0.10 cm⁻¹, consistent with a focal length of 10 cm in the supplied model. Image distance increases as these tested object distances approach the focal length from above.",
+    "limitation": "Three idealized means do not quantify uncertainty or verify the thin-lens approximation for all positions. Extrapolation inside the focal length uses the model and predicts a virtual image; a screen cannot directly capture that image.",
+    "graph": {
+      "xColumn": 0,
+      "xLabel": "Object distance (cm)",
+      "yLabel": "Image distance (cm)",
+      "series": [
+        {
+          "column": 1,
+          "label": "Measured image distance"
+        }
+      ],
+      "description": "The measured image distances are 30, 20 and 15 cm at object distances of 15, 20 and 30 cm, respectively.",
+      "prompt": "Is this raw-distance graph the plot whose slope is −1? State the axes that would give that slope under the model.",
+      "answer": "No. Plot 1/dᵢ on the vertical axis against 1/dₒ on the horizontal axis to obtain 1/dᵢ = 1/f − 1/dₒ. That reciprocal-distance plot has slope −1 and intercept 0.10 cm⁻¹. The displayed raw distances do not follow that straight-line equation."
+    }
+  },
+  "cp-transfer-assay": {
+    "hypothesis": "How does temperature affect the blank-corrected mean product-formation rate over this 60-second observation?",
+    "independent": "Temperature, tested at 20, 30 and 40 °C.",
+    "dependent": "Change in sample absorbance minus the matched blank change, converted to concentration change using the supplied coefficient and path length, then divided by 60 s.",
+    "control": "A matched blank is measured at both endpoints for each temperature. Enzyme amount, substrate conditions, path length and observation interval are held fixed under the passage assumptions.",
+    "conclusion": "Corrected absorbance increases are 0.10, 0.22 and 0.04. The 30 °C condition has the largest mean rate among those tested: 0.22/(10000 × 1 × 60) mol/(L·s), about 0.367 µmol/(L·s).",
+    "limitation": "The tested temperatures do not establish the exact optimum or prove denaturation at 40 °C. Independent preparations and variability are needed to assess reproducibility; repeated readings of one preparation do not replace them.",
+    "graph": {
+      "xColumn": 0,
+      "xLabel": "Temperature (°C)",
+      "yLabel": "Absorbance at 60 s",
+      "series": [
+        {
+          "column": 2,
+          "label": "Sample endpoint"
+        },
+        {
+          "column": 4,
+          "label": "Matched blank endpoint"
+        }
+      ],
+      "description": "Sample absorbance at 60 seconds is 0.22, 0.34 and 0.16 at 20, 30 and 40 degrees Celsius. Blank endpoint absorbance is 0.12 throughout.",
+      "prompt": "The graph shows endpoints, not reaction rates. Which additional quantities and corrections are required to infer a rate?",
+      "answer": "Subtract each initial reading from its endpoint, then subtract the matched blank change from the sample change. Divide corrected ΔA by the supplied molar absorptivity, path length and elapsed 60 s. Initial absorbances, calibration assumptions and time are needed; the graph alone is not a rate axis."
+    }
   }
 }

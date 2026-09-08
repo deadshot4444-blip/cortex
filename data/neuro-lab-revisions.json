@@ -1,0 +1,1261 @@
+{
+  "date": "2026-09-07",
+  "scope": "Eight code exercises and three synthetic numerical simulations",
+  "independentReview": "pending",
+  "changes": [
+    {
+      "path": "neuroCodeLessons/code-variables-voltage",
+      "before": {
+        "id": "code-variables-voltage",
+        "title": "Variables: Membrane Voltage and Threshold",
+        "codingConcept": "Variables",
+        "neuroengineeringConcept": "Membrane voltage and firing threshold",
+        "explanation": "A variable is a named value you can reuse. In neuroengineering, variables let you label measurements such as membrane voltage, threshold, or spike count so the logic stays readable.",
+        "codeExample": "\n# Store two measurements in variables.\nmembrane_voltage_mv = -55\nfiring_threshold_mv = -50\n\nprint(\"Voltage:\", membrane_voltage_mv)\nprint(\"Threshold:\", firing_threshold_mv)\n",
+        "expectedOutput": "\nVoltage: -55\nThreshold: -50\n",
+        "challengePrompt": "Create a variable named resting_voltage_mv with a value of -70 and print it.",
+        "hint": "Use the pattern name = value, then pass the name to print().",
+        "solution": "\nresting_voltage_mv = -70\nprint(\"Resting voltage:\", resting_voltage_mv)\n",
+        "oneLineMaster": "Variables turn neural measurements into named values your program can reason about.",
+        "difficulty": "beginner",
+        "relatedSubjectId": "neural-signals"
+      },
+      "after": {
+        "id": "code-variables-voltage",
+        "title": "Variables: Calculate a Voltage Difference",
+        "codingConcept": "Named inputs and subtraction",
+        "neuroengineeringConcept": "Synthetic signal analysis",
+        "explanation": "A signed difference is the target value minus the reference value. These arbitrary millivolt values illustrate arithmetic; they are not a model that predicts whether a neuron will fire.",
+        "codeExample": "def voltage_difference(resting_mv, threshold_mv):\n    return 0  # Replace this line\n\nprint(voltage_difference(-70, -50))\n",
+        "expectedOutput": "20",
+        "challengePrompt": "Define voltage_difference(resting_mv, threshold_mv). Return threshold_mv minus resting_mv in millivolts. Keep the sign, including when the threshold value is lower. Do not change either input.",
+        "hint": "Subtraction order matters: subtract the resting value from the threshold value.",
+        "solution": "def voltage_difference(resting_mv, threshold_mv):\n    return threshold_mv - resting_mv\n\nprint(voltage_difference(-70, -50))\n",
+        "oneLineMaster": "A signed difference is the target value minus the reference value.",
+        "difficulty": "beginner",
+        "relatedSubjectId": "neural-signals",
+        "revision": 2,
+        "checks": {
+          "function": "voltage_difference",
+          "preserveArgs": true,
+          "cases": [
+            {
+              "args": [
+                -70,
+                -50
+              ],
+              "expected": 20
+            },
+            {
+              "args": [
+                -55,
+                -50
+              ],
+              "expected": 5
+            },
+            {
+              "args": [
+                -50,
+                -50
+              ],
+              "expected": 0
+            },
+            {
+              "args": [
+                -40,
+                -50
+              ],
+              "expected": -10
+            },
+            {
+              "args": [
+                -65.5,
+                -52
+              ],
+              "expected": 13.5
+            }
+          ]
+        },
+        "reviewStatus": "Author-revised synthetic exercise. Independent engineering review is pending.",
+        "sources": [
+          {
+            "title": "Python tutorial: functions and control flow",
+            "url": "https://docs.python.org/3/tutorial/controlflow.html"
+          }
+        ]
+      }
+    },
+    {
+      "path": "neuroCodeLessons/code-plotting-eeg-series",
+      "before": {
+        "id": "code-plotting-eeg-series",
+        "title": "Plotting Concept: EEG-Like Time Series",
+        "codingConcept": "Plotting",
+        "neuroengineeringConcept": "EEG-like time series",
+        "explanation": "Plots help you inspect signal shape, timing, and artifacts. The MVP does not run Python yet, but this shows the plotting pattern used in notebooks.",
+        "codeExample": "\ntime_seconds = [0, 1, 2, 3, 4]\neeg_uv = [2, 5, -1, -4, 1]\n\n# In a Python notebook:\n# plot(time_seconds, eeg_uv)\n\nprint(\"Plot x-axis:\", time_seconds)\nprint(\"Plot y-axis:\", eeg_uv)\n",
+        "expectedOutput": "\nPlot x-axis: [0, 1, 2, 3, 4]\nPlot y-axis: [2, 5, -1, -4, 1]\n",
+        "challengePrompt": "Describe what the x-axis and y-axis represent in this signal plot.",
+        "hint": "The x-axis is time. The y-axis is signal amplitude.",
+        "solution": "The x-axis is time in seconds, and the y-axis is EEG-like voltage in microvolts.",
+        "oneLineMaster": "Plotting turns arrays of neural samples into shapes your eyes can debug.",
+        "difficulty": "beginner",
+        "relatedSubjectId": "neuroimaging"
+      },
+      "after": {
+        "id": "code-plotting-eeg-series",
+        "title": "Time Axes: Place Each Sample",
+        "codingConcept": "Lists, sampling rate and plotting coordinates",
+        "neuroengineeringConcept": "Synthetic signal analysis",
+        "explanation": "For a uniformly sampled series starting at time zero, sample i occurs at i divided by the sampling rate. Five samples at 2 Hz span 2 seconds from the first sample to the last; five divided by 2 describes a different interval convention.",
+        "codeExample": "def time_axis(sample_count, rate_hz):\n    return []  # Add validation and calculate each time\n\nprint(time_axis(5, 2))\n",
+        "expectedOutput": "[0.0, 0.5, 1.0, 1.5, 2.0]",
+        "challengePrompt": "Define time_axis(sample_count, rate_hz). Return a list of sample times in seconds, beginning with zero. sample_count is an integer; return [] for zero samples. Raise ValueError for a negative count or rate_hz less than or equal to zero. The plot below uses the fixed example, not output from your editor.",
+        "hint": "Use range(sample_count) to produce indexes 0 through sample_count - 1, then divide each by rate_hz.",
+        "solution": "def time_axis(sample_count, rate_hz):\n    if sample_count < 0 or rate_hz <= 0:\n        raise ValueError(\"Count must be nonnegative and rate positive\")\n    return [i / rate_hz for i in range(sample_count)]\n\nprint(time_axis(5, 2))\n",
+        "oneLineMaster": "For a uniformly sampled series starting at time zero, sample i occurs at i divided by the sampling rate.",
+        "difficulty": "beginner",
+        "relatedSubjectId": "neuroimaging",
+        "revision": 2,
+        "checks": {
+          "function": "time_axis",
+          "preserveArgs": true,
+          "cases": [
+            {
+              "args": [
+                5,
+                2
+              ],
+              "expected": [
+                0,
+                0.5,
+                1,
+                1.5,
+                2
+              ]
+            },
+            {
+              "args": [
+                3,
+                1000
+              ],
+              "expected": [
+                0,
+                0.001,
+                0.002
+              ]
+            },
+            {
+              "args": [
+                0,
+                10
+              ],
+              "expected": []
+            },
+            {
+              "args": [
+                1,
+                0.5
+              ],
+              "expected": [
+                0
+              ]
+            },
+            {
+              "args": [
+                2,
+                0
+              ],
+              "raises": "ValueError"
+            },
+            {
+              "args": [
+                -1,
+                2
+              ],
+              "raises": "ValueError"
+            }
+          ]
+        },
+        "reviewStatus": "Author-revised synthetic exercise. Independent engineering review is pending.",
+        "sources": [
+          {
+            "title": "Python tutorial: functions and control flow",
+            "url": "https://docs.python.org/3/tutorial/controlflow.html"
+          }
+        ],
+        "series": {
+          "title": "Five synthetic samples",
+          "description": "Invented values for timing practice. Lines join samples as visual guides; no values between samples were measured.",
+          "values": [
+            1,
+            3,
+            -1,
+            2,
+            0
+          ],
+          "sampleRateHz": 2,
+          "unit": "µV"
+        }
+      }
+    },
+    {
+      "path": "neuroCodeLessons/code-feature-extraction",
+      "before": {
+        "id": "code-feature-extraction",
+        "title": "Feature Extraction: Building a Real Feature Vector",
+        "codingConcept": "Feature extraction",
+        "neuroengineeringConcept": "Population activity as a compact vector (count + energy)",
+        "explanation": "A real decoder never sees the raw voltage trace. It receives a small feature vector — typically spike count or multi-unit activity per channel (or sorted unit), RMS or band power, and sometimes LFP features. In high-channel arrays this vector can be hundreds of dimensions before dimensionality reduction. These compact numbers are what the linear (or lightly adaptive) decoder actually consumes.",
+        "codeExample": "\nsignal = [2, -1, 8, 3, -2, 9, 1, 4]   # toy 8-sample window (real systems use per-channel or per-unit windows)\n\nspike_count = 0\nfor v in signal:\n    if v > 5:\n        spike_count += 1\n\nrms = (sum(v*v for v in signal) / len(signal)) ** 0.5\n\nprint(\"spike_count:\", spike_count)\nprint(\"rms:\", round(rms, 2))\n",
+        "expectedOutput": "\nspike_count: 2\nrms: 4.74\n",
+        "challengePrompt": "Add a third feature called 'energy_above_mean' that counts how many samples are above the mean of the window. In real pipelines you would compute this per channel across an array.",
+        "hint": "First compute mean, then count how many values are strictly greater than it.",
+        "solution": "\nsignal = [2, -1, 8, 3, -2, 9, 1, 4]\nmean = sum(signal) / len(signal)\nenergy_above_mean = sum(1 for v in signal if v > mean)\nprint(\"energy_above_mean:\", energy_above_mean)\n",
+        "oneLineMaster": "A feature vector (often per-channel in high-density arrays) turns raw signal into the small list of numbers a decoder actually sees.",
+        "difficulty": "beginner",
+        "relatedSubjectId": "decoding-ai"
+      },
+      "after": {
+        "id": "code-feature-extraction",
+        "title": "Features: Mean, RMS and a Sample Count",
+        "codingConcept": "Summaries with distinct units",
+        "neuroengineeringConcept": "Synthetic signal analysis",
+        "explanation": "Mean and root mean square (RMS) summarize different properties. For N samples, RMS is the square root of the mean of their squares. Both have the input units. The number of samples strictly above the mean is a dimensionless count and is not signal energy.",
+        "codeExample": "def window_features(samples):\n    return [0, 0, 0]  # Calculate three distinct summaries\n\nprint(window_features([2, -1, 8, 3, -2, 9, 1, 4]))\n",
+        "expectedOutput": "[3.0, 4.743416490252569, 3]",
+        "challengePrompt": "Define window_features(samples). Return [mean, rms, count_above_mean]. The count uses strictly greater than, not greater than or equal to. Raise ValueError for an empty list. Retain the original input list. Inputs are finite numerical values.",
+        "hint": "Compute the mean once, square values before averaging for RMS, then count values greater than that mean.",
+        "solution": "def window_features(samples):\n    if not samples:\n        raise ValueError(\"At least one sample is required\")\n    mean = sum(samples) / len(samples)\n    rms = (sum(value * value for value in samples) / len(samples)) ** 0.5\n    count = sum(value > mean for value in samples)\n    return [mean, rms, count]\n\nprint(window_features([2, -1, 8, 3, -2, 9, 1, 4]))\n",
+        "oneLineMaster": "Mean and root mean square (RMS) summarize different properties.",
+        "difficulty": "beginner",
+        "relatedSubjectId": "decoding-ai",
+        "revision": 2,
+        "checks": {
+          "function": "window_features",
+          "preserveArgs": true,
+          "cases": [
+            {
+              "args": [
+                [
+                  2,
+                  -1,
+                  8,
+                  3,
+                  -2,
+                  9,
+                  1,
+                  4
+                ]
+              ],
+              "expected": [
+                3,
+                4.743416490252569,
+                3
+              ]
+            },
+            {
+              "args": [
+                [
+                  -3,
+                  -3
+                ]
+              ],
+              "expected": [
+                -3,
+                3,
+                0
+              ]
+            },
+            {
+              "args": [
+                [
+                  0,
+                  0
+                ]
+              ],
+              "expected": [
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "args": [
+                [
+                  -2,
+                  2
+                ]
+              ],
+              "expected": [
+                0,
+                2,
+                1
+              ]
+            },
+            {
+              "args": [
+                [
+                  4
+                ]
+              ],
+              "expected": [
+                4,
+                4,
+                0
+              ]
+            },
+            {
+              "args": [
+                []
+              ],
+              "raises": "ValueError"
+            }
+          ]
+        },
+        "reviewStatus": "Author-revised synthetic exercise. Independent engineering review is pending.",
+        "sources": [
+          {
+            "title": "Python tutorial: functions and control flow",
+            "url": "https://docs.python.org/3/tutorial/controlflow.html"
+          }
+        ],
+        "series": {
+          "title": "Synthetic feature window",
+          "description": "Eight invented samples used in the example. The count above the mean is a count, not energy or a count of distinct neural events.",
+          "values": [
+            2,
+            -1,
+            8,
+            3,
+            -2,
+            9,
+            1,
+            4
+          ],
+          "sampleRateHz": 1000,
+          "unit": "µV"
+        }
+      }
+    },
+    {
+      "path": "neuroCodeLessons/code-simple-bci-decoder",
+      "before": {
+        "id": "code-simple-bci-decoder",
+        "title": "Weighted Linear Decoder: Tuning a Real Readout",
+        "codingConcept": "Linear decoding with weights",
+        "neuroengineeringConcept": "Population vector to binary intent via learned weights",
+        "explanation": "A linear decoder computes score = w_left * feat_left + w_right * feat_right + bias. The weights are the 'votes' each feature gets. The learner can now change the weights and immediately see the effect on accuracy across several 'trials'.",
+        "codeExample": "\nfeat_left = 4.0\nfeat_right = 9.0\n\nw_left = 1.0\nw_right = 1.5\nbias = -3.0\n\nscore = w_left * feat_left + w_right * feat_right + bias\ncommand = \"right\" if score > 0 else \"left\"\n\nprint(\"score:\", round(score, 2))\nprint(\"command:\", command)\n",
+        "expectedOutput": "\nscore: 14.5\ncommand: right\n",
+        "challengePrompt": "Change only the weights (not the features) so the decoder now outputs 'left' on this trial. Then add a second trial with different features and report accuracy on both.",
+        "hint": "Make w_left much larger than w_right or make bias strongly negative.",
+        "solution": "\nfeat_left = 4.0\nfeat_right = 9.0\nw_left = 3.0\nw_right = 0.5\nbias = -12.0\n\nscore = w_left * feat_left + w_right * feat_right + bias\ncommand = \"right\" if score > 0 else \"left\"\nprint(\"score:\", round(score, 2))\nprint(\"command:\", command)\n",
+        "oneLineMaster": "A linear decoder is a weighted vote across features plus a bias. You can see and tune every vote.",
+        "difficulty": "beginner",
+        "relatedSubjectId": "decoding-ai"
+      },
+      "after": {
+        "id": "code-simple-bci-decoder",
+        "title": "Linear Readout: Calculate Before Labeling",
+        "codingConcept": "Dot product and an explicit tie rule",
+        "neuroengineeringConcept": "Synthetic signal analysis",
+        "explanation": "This toy readout multiplies two features by two fixed weights and adds a bias. A positive score maps to right; a zero or negative score maps to left. The invented labels are programming conventions, not decoded intentions.",
+        "codeExample": "def linear_command(features, weights, bias):\n    return [0, \"left\"]  # Compute and validate the readout\n\nprint(linear_command([4, 9], [3, 0.5], -12))\n",
+        "expectedOutput": "[4.5, 'right']",
+        "challengePrompt": "Define linear_command(features, weights, bias). Both lists must contain exactly two numbers; otherwise raise ValueError. Return [score, label] with label right only when score is greater than zero, and left otherwise. Do not change either list.",
+        "hint": "score = features[0] * weights[0] + features[1] * weights[1] + bias. Check the zero case.",
+        "solution": "def linear_command(features, weights, bias):\n    if len(features) != 2 or len(weights) != 2:\n        raise ValueError(\"Exactly two features and weights are required\")\n    score = features[0] * weights[0] + features[1] * weights[1] + bias\n    return [score, \"right\" if score > 0 else \"left\"]\n\nprint(linear_command([4, 9], [3, 0.5], -12))\n",
+        "oneLineMaster": "This toy readout multiplies two features by two fixed weights and adds a bias.",
+        "difficulty": "beginner",
+        "relatedSubjectId": "decoding-ai",
+        "revision": 2,
+        "checks": {
+          "function": "linear_command",
+          "preserveArgs": true,
+          "cases": [
+            {
+              "args": [
+                [
+                  4,
+                  9
+                ],
+                [
+                  3,
+                  0.5
+                ],
+                -12
+              ],
+              "expected": [
+                4.5,
+                "right"
+              ]
+            },
+            {
+              "args": [
+                [
+                  4,
+                  9
+                ],
+                [
+                  -1,
+                  1
+                ],
+                -6
+              ],
+              "expected": [
+                -1,
+                "left"
+              ]
+            },
+            {
+              "args": [
+                [
+                  2,
+                  2
+                ],
+                [
+                  -1,
+                  1
+                ],
+                0
+              ],
+              "expected": [
+                0,
+                "left"
+              ]
+            },
+            {
+              "args": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  1,
+                  1
+                ],
+                2
+              ],
+              "expected": [
+                2,
+                "right"
+              ]
+            },
+            {
+              "args": [
+                [
+                  1
+                ],
+                [
+                  1,
+                  2
+                ],
+                0
+              ],
+              "raises": "ValueError"
+            },
+            {
+              "args": [
+                [
+                  1,
+                  2
+                ],
+                [
+                  1
+                ],
+                0
+              ],
+              "raises": "ValueError"
+            }
+          ]
+        },
+        "reviewStatus": "Author-revised synthetic exercise. Independent engineering review is pending.",
+        "sources": [
+          {
+            "title": "Python tutorial: functions and control flow",
+            "url": "https://docs.python.org/3/tutorial/controlflow.html"
+          }
+        ]
+      }
+    },
+    {
+      "path": "neuroCodeLessons/code-weighted-linear-decoder",
+      "before": {
+        "id": "code-weighted-linear-decoder",
+        "title": "Weighted Linear Decoder with Held-Out Evaluation",
+        "codingConcept": "Linear model + train/test split",
+        "neuroengineeringConcept": "Seeing overfitting vs generalization on synthetic BCI trials",
+        "explanation": "You now have two sets of trials: training (used to choose weights) and held-out test (never seen during tuning). Good weights (often found with ridge/L2 regularization in practice) perform well on both. Overfit weights only look good on the training set. After training you should always inspect the actual weight values — they tell you which features the decoder is truly using.",
+        "codeExample": "\n# Training trials (you can change weights while looking at these)\ntrain = [(3, 8, \"right\"), (7, 2, \"left\"), (4, 9, \"right\")]\n\nw_left, w_right, bias = 1.0, 1.8, -4.0   # in real code you would add a small L2 penalty on the weights\n\ndef predict(fl, fr):\n    return \"right\" if w_left*fl + w_right*fr + bias > 0 else \"left\"\n\ncorrect_train = sum(1 for fl, fr, label in train if predict(fl, fr) == label)\nprint(\"train accuracy:\", correct_train, \"/\", len(train))\n",
+        "expectedOutput": "train accuracy: 3 / 3",
+        "challengePrompt": "Add a held-out test set with 4 trials. Tune the weights on the training set only (try a small L2-style penalty in your head), then report accuracy on the unseen test set. Can you get >75 % on test while keeping weights reasonable?",
+        "hint": "Do not look at the test labels while choosing w_left / w_right / bias.",
+        "solution": "\ntrain = [(3, 8, \"right\"), (7, 2, \"left\"), (4, 9, \"right\")]\ntest  = [(2, 5, \"right\"), (8, 3, \"left\"), (1, 10, \"right\"), (6, 1, \"left\")]\n\nw_left, w_right, bias = 1.2, 1.6, -5.5   # tuned only on train (in practice add L2 regularization)\n\ndef predict(fl, fr):\n    return \"right\" if w_left*fl + w_right*fr + bias > 0 else \"left\"\n\ncorrect_test = sum(1 for fl, fr, label in test if predict(fl, fr) == label)\nprint(\"test accuracy:\", correct_test, \"/\", len(test))\n",
+        "oneLineMaster": "A decoder is only as good as its performance on unseen data. Always inspect the weights after training or adaptation.",
+        "difficulty": "beginner",
+        "relatedSubjectId": "decoding-ai"
+      },
+      "after": {
+        "id": "code-weighted-linear-decoder",
+        "title": "Held-Out Evaluation: Keep the Rule Fixed",
+        "codingConcept": "Count correct predictions on a fixed test set",
+        "neuroengineeringConcept": "Synthetic signal analysis",
+        "explanation": "A test set is used after model choices have been fixed. Here the authored weights [-1, 1] and bias 0 were fixed before the four synthetic test trials were supplied. Their 4/4 result describes only these invented rows. Changing weights after viewing test results would use the test set for model selection.",
+        "codeExample": "def accuracy(trials, weights, bias):\n    return 0  # Evaluate each row using the fixed readout\n\ntest = [[3, 8, \"right\"], [9, 2, \"left\"], [4, 7, \"right\"], [8, 3, \"left\"]]\nprint(accuracy(test, [-1, 1], 0))\n",
+        "expectedOutput": "1.0",
+        "challengePrompt": "Define accuracy(trials, weights, bias). Each trial is [feature_0, feature_1, label]. Use the same positive-score right / otherwise left rule as the preceding exercise. Return correct predictions divided by number of trials, as a fraction from 0 to 1. Raise ValueError for no trials or weights not of length two. Do not tune the model on these test rows or change the inputs.",
+        "hint": "Count matches, then divide once by the number of trials. A zero score predicts left.",
+        "solution": "def accuracy(trials, weights, bias):\n    if not trials or len(weights) != 2:\n        raise ValueError(\"Trials and two weights are required\")\n    correct = 0\n    for a, b, label in trials:\n        score = a * weights[0] + b * weights[1] + bias\n        prediction = \"right\" if score > 0 else \"left\"\n        correct += prediction == label\n    return correct / len(trials)\n\ntest = [[3, 8, \"right\"], [9, 2, \"left\"], [4, 7, \"right\"], [8, 3, \"left\"]]\nprint(accuracy(test, [-1, 1], 0))\n",
+        "oneLineMaster": "A test set is used after model choices have been fixed.",
+        "difficulty": "beginner",
+        "relatedSubjectId": "decoding-ai",
+        "revision": 2,
+        "checks": {
+          "function": "accuracy",
+          "preserveArgs": true,
+          "cases": [
+            {
+              "args": [
+                [
+                  [
+                    3,
+                    8,
+                    "right"
+                  ],
+                  [
+                    9,
+                    2,
+                    "left"
+                  ],
+                  [
+                    4,
+                    7,
+                    "right"
+                  ],
+                  [
+                    8,
+                    3,
+                    "left"
+                  ]
+                ],
+                [
+                  -1,
+                  1
+                ],
+                0
+              ],
+              "expected": 1
+            },
+            {
+              "args": [
+                [
+                  [
+                    3,
+                    8,
+                    "right"
+                  ],
+                  [
+                    9,
+                    2,
+                    "left"
+                  ],
+                  [
+                    4,
+                    7,
+                    "right"
+                  ],
+                  [
+                    8,
+                    3,
+                    "left"
+                  ]
+                ],
+                [
+                  1,
+                  -1
+                ],
+                0
+              ],
+              "expected": 0
+            },
+            {
+              "args": [
+                [
+                  [
+                    2,
+                    2,
+                    "left"
+                  ],
+                  [
+                    2,
+                    2,
+                    "right"
+                  ]
+                ],
+                [
+                  -1,
+                  1
+                ],
+                0
+              ],
+              "expected": 0.5
+            },
+            {
+              "args": [
+                [
+                  [
+                    1,
+                    2,
+                    "right"
+                  ],
+                  [
+                    1,
+                    2,
+                    "left"
+                  ],
+                  [
+                    2,
+                    1,
+                    "left"
+                  ]
+                ],
+                [
+                  -1,
+                  1
+                ],
+                0
+              ],
+              "expected": 0.6666666666666666
+            },
+            {
+              "args": [
+                [],
+                [
+                  -1,
+                  1
+                ],
+                0
+              ],
+              "raises": "ValueError"
+            },
+            {
+              "args": [
+                [
+                  [
+                    3,
+                    8,
+                    "right"
+                  ],
+                  [
+                    9,
+                    2,
+                    "left"
+                  ],
+                  [
+                    4,
+                    7,
+                    "right"
+                  ],
+                  [
+                    8,
+                    3,
+                    "left"
+                  ]
+                ],
+                [
+                  1
+                ],
+                0
+              ],
+              "raises": "ValueError"
+            }
+          ]
+        },
+        "reviewStatus": "Author-revised synthetic exercise. Independent engineering review is pending.",
+        "sources": [
+          {
+            "title": "Python tutorial: functions and control flow",
+            "url": "https://docs.python.org/3/tutorial/controlflow.html"
+          },
+          {
+            "title": "scikit-learn: avoid data leakage",
+            "url": "https://scikit-learn.org/stable/common_pitfalls.html#data-leakage"
+          }
+        ]
+      }
+    },
+    {
+      "path": "neuroCodeLessons/code-closed-loop-rule",
+      "before": {
+        "id": "code-closed-loop-rule",
+        "title": "Closed-Loop Rule: Detect and Stimulate",
+        "codingConcept": "Closed-loop control rule",
+        "neuroengineeringConcept": "Abnormal activity detection and stimulation",
+        "explanation": "Closed-loop systems sense, decide, and act. A beginner rule can detect abnormal activity and trigger stimulation only when needed.",
+        "codeExample": "\nline_length = 18.5\nalarm_threshold = 15.0\nstimulation_on = False\n\nif line_length > alarm_threshold:\n    stimulation_on = True\n\nprint(\"Stimulate:\", stimulation_on)\n",
+        "expectedOutput": "Stimulate: True",
+        "challengePrompt": "Add a safety rule that stimulation turns on only if battery_percent is above 20.",
+        "hint": "Use an and condition with line_length and battery_percent.",
+        "solution": "\nline_length = 18.5\nalarm_threshold = 15.0\nbattery_percent = 80\nstimulation_on = False\n\nif line_length > alarm_threshold and battery_percent > 20:\n    stimulation_on = True\n\nprint(\"Stimulate:\", stimulation_on)\n",
+        "oneLineMaster": "Closed-loop code connects a signal feature to a cautious device action.",
+        "difficulty": "beginner",
+        "relatedSubjectId": "closed-loop"
+      },
+      "after": {
+        "id": "code-closed-loop-rule",
+        "title": "Logic Gates: Require Every Condition",
+        "codingConcept": "Boolean conjunction and boundaries",
+        "neuroengineeringConcept": "Synthetic signal analysis",
+        "explanation": "A toy output flag can illustrate a rule that requires multiple conditions. This exercise does not operate a device, diagnose abnormal activity, or establish a safe stimulation policy. The threshold and battery cutoff are arbitrary programming inputs.",
+        "codeExample": "def gate_output(feature, threshold, battery, armed):\n    return False  # Add all three required conditions\n\nprint(gate_output(18.5, 15, 80, True))\n",
+        "expectedOutput": "True",
+        "challengePrompt": "Define gate_output(feature, threshold, battery, armed). Return a Boolean that is True only when feature is strictly greater than threshold, battery is strictly greater than 20, and armed is True. Inputs use finite numbers and a Boolean armed value. Equality at either cutoff must return False.",
+        "hint": "Use and to require all three conditions at the same time.",
+        "solution": "def gate_output(feature, threshold, battery, armed):\n    return feature > threshold and battery > 20 and armed\n\nprint(gate_output(18.5, 15, 80, True))\n",
+        "oneLineMaster": "A toy output flag can illustrate a rule that requires multiple conditions.",
+        "difficulty": "beginner",
+        "relatedSubjectId": "closed-loop",
+        "revision": 2,
+        "checks": {
+          "function": "gate_output",
+          "preserveArgs": true,
+          "cases": [
+            {
+              "args": [
+                18.5,
+                15,
+                80,
+                true
+              ],
+              "expected": true
+            },
+            {
+              "args": [
+                15,
+                15,
+                80,
+                true
+              ],
+              "expected": false
+            },
+            {
+              "args": [
+                18.5,
+                15,
+                20,
+                true
+              ],
+              "expected": false
+            },
+            {
+              "args": [
+                18.5,
+                15,
+                80,
+                false
+              ],
+              "expected": false
+            },
+            {
+              "args": [
+                14,
+                15,
+                10,
+                true
+              ],
+              "expected": false
+            },
+            {
+              "args": [
+                15.1,
+                15,
+                20.1,
+                true
+              ],
+              "expected": true
+            }
+          ]
+        },
+        "reviewStatus": "Author-revised synthetic exercise. Independent engineering review is pending.",
+        "sources": [
+          {
+            "title": "Python tutorial: functions and control flow",
+            "url": "https://docs.python.org/3/tutorial/controlflow.html"
+          }
+        ]
+      }
+    },
+    {
+      "path": "neuroCodeLessons/code-decoder-drift",
+      "before": {
+        "id": "code-decoder-drift",
+        "title": "Decoder Drift: Recalibrate a Cursor Baseline",
+        "codingConcept": "Baseline correction",
+        "neuroengineeringConcept": "BCI decoder drift and recalibration",
+        "explanation": "A cursor decoder can drift when the resting neural feature changes across sessions (baseline offset, gain change, or slow tuning shifts). A simple baseline correction subtracts today's resting value. Real teams often combine this with a slow recursive update (e.g., exponential moving average on the weights or per-channel baseline) that continuously tracks gradual drift without requiring the user to stop and recalibrate.",
+        "codeExample": "\n# Yesterday's decoder expected rest near 2.0.\nold_rest_power = 2.0\n\n# Today's calibration says rest is higher.\ntoday_rest_power = 3.5\nobserved_power = 6.0\n\n# Correct the observed feature before decoding.\nbaseline_shift = today_rest_power - old_rest_power\ncorrected_power = observed_power - baseline_shift\n\nif corrected_power > 4.0:\n    command = \"move cursor right\"\nelse:\n    command = \"hold still\"\n\nprint(command)\n",
+        "expectedOutput": "move cursor right",
+        "challengePrompt": "Change observed_power so the corrected command becomes hold still. In a real system you would also maintain a slow EMA on the weights or baseline across days.",
+        "hint": "Make corrected_power less than or equal to 4.0 after subtracting baseline_shift.",
+        "solution": "\nold_rest_power = 2.0\ntoday_rest_power = 3.5\nobserved_power = 5.0\n\nbaseline_shift = today_rest_power - old_rest_power\ncorrected_power = observed_power - baseline_shift\n\nif corrected_power > 4.0:\n    command = \"move cursor right\"\nelse:\n    command = \"hold still\"\n\nprint(command)\n",
+        "oneLineMaster": "Recalibration (baseline correction + slow recursive updates) keeps decoder thresholds aligned with today's neural baseline and slow drift.",
+        "difficulty": "beginner",
+        "relatedSubjectId": "bci"
+      },
+      "after": {
+        "id": "code-decoder-drift",
+        "title": "Baseline Correction: State the Offset Assumption",
+        "codingConcept": "Signed offsets",
+        "neuroengineeringConcept": "Synthetic signal analysis",
+        "explanation": "Under a simple additive-offset model, subtract the change in baseline from the observed feature. This calculation only follows the assumed model. It does not identify the cause of drift or correct a change in gain, noise or the feature-to-label relationship.",
+        "codeExample": "def corrected_feature(observed, reference_baseline, current_baseline):\n    return observed  # Correct for the assumed additive shift\n\nprint(corrected_feature(6.0, 2.0, 3.5))\n",
+        "expectedOutput": "4.5",
+        "challengePrompt": "Define corrected_feature(observed, reference_baseline, current_baseline). Return observed minus (current_baseline minus reference_baseline). The values share the same arbitrary feature units. Keep the signs and do not clip negative results.",
+        "hint": "Calculate the current-minus-reference shift first, then subtract that shift from the observation.",
+        "solution": "def corrected_feature(observed, reference_baseline, current_baseline):\n    return observed - (current_baseline - reference_baseline)\n\nprint(corrected_feature(6.0, 2.0, 3.5))\n",
+        "oneLineMaster": "Under a simple additive-offset model, subtract the change in baseline from the observed feature.",
+        "difficulty": "beginner",
+        "relatedSubjectId": "bci",
+        "revision": 2,
+        "checks": {
+          "function": "corrected_feature",
+          "preserveArgs": true,
+          "cases": [
+            {
+              "args": [
+                6,
+                2,
+                3.5
+              ],
+              "expected": 4.5
+            },
+            {
+              "args": [
+                5,
+                2,
+                3.5
+              ],
+              "expected": 3.5
+            },
+            {
+              "args": [
+                4,
+                2,
+                2
+              ],
+              "expected": 4
+            },
+            {
+              "args": [
+                1,
+                3,
+                1
+              ],
+              "expected": 3
+            },
+            {
+              "args": [
+                0,
+                0,
+                2
+              ],
+              "expected": -2
+            }
+          ]
+        },
+        "reviewStatus": "Author-revised synthetic exercise. Independent engineering review is pending.",
+        "sources": [
+          {
+            "title": "Python tutorial: functions and control flow",
+            "url": "https://docs.python.org/3/tutorial/controlflow.html"
+          }
+        ]
+      }
+    },
+    {
+      "path": "neuroCodeLessons/code-data-minimization",
+      "before": {
+        "id": "code-data-minimization",
+        "title": "Data Minimization: Collect Only What You Need",
+        "codingConcept": "Data structures and filtering",
+        "neuroengineeringConcept": "Brain-data privacy and minimization",
+        "explanation": "BCI pipelines often collect far more than a decoder needs. Data minimization means storing and transmitting only the features required for the task — not raw waveforms, not unrelated channels, not identifiable metadata you will never use.",
+        "codeExample": "\n# Raw recording has 64 channels; decoder only needs motor cortex summary.\nraw_channels = list(range(64))\nmotor_channels = [12, 13, 14, 15]\n\nfeatures_to_store = []\nfor ch in motor_channels:\n    features_to_store.append({\"channel\": ch, \"spike_count\": 8, \"rms\": 2.1})\n\nprint(\"stored channels:\", len(features_to_store))\nprint(\"dropped channels:\", len(raw_channels) - len(motor_channels))\n",
+        "expectedOutput": "\nstored channels: 4\ndropped channels: 60\n",
+        "challengePrompt": "Add a variable consent_level set to 'features_only'. Only append to features_to_store when consent_level is not 'raw_waveforms'. Print how many feature records were stored.",
+        "hint": "Wrap the append in an if consent_level != 'raw_waveforms' guard.",
+        "solution": "\nraw_channels = list(range(64))\nmotor_channels = [12, 13, 14, 15]\nconsent_level = 'features_only'\n\nfeatures_to_store = []\nif consent_level != 'raw_waveforms':\n    for ch in motor_channels:\n        features_to_store.append({\"channel\": ch, \"spike_count\": 8, \"rms\": 2.1})\n\nprint(\"stored channels:\", len(features_to_store))\n",
+        "oneLineMaster": "Minimize neural data at collection time — fewer bytes, fewer privacy risks, same decoder.",
+        "difficulty": "beginner",
+        "relatedSubjectId": "ethics"
+      },
+      "after": {
+        "id": "code-data-minimization",
+        "title": "Data Selection: Use an Explicit Allowlist",
+        "codingConcept": "Build new records from permitted fields",
+        "neuroengineeringConcept": "Synthetic signal analysis",
+        "explanation": "This synthetic exercise has one explicit permission value: features_only. Unknown values allow no output. Selected rows contain only channel, spike_count and rms. Filtering fields is a small programming measure; it does not by itself establish consent, anonymity, legal compliance or safe governance of neural data.",
+        "codeExample": "def select_features(records, allowed_channels, permission):\n    return []  # Select only explicitly allowed rows and fields\n\nrecords = [{\"channel\": 12, \"spike_count\": 8, \"rms\": 2.1, \"raw_waveform\": [1, 2]}]\nprint(select_features(records, [12], \"features_only\"))\n",
+        "expectedOutput": "[{'channel': 12, 'spike_count': 8, 'rms': 2.1}]",
+        "challengePrompt": "Define select_features(records, allowed_channels, permission). Return [] unless permission equals features_only exactly. For rows whose channel is allowed, create a new dictionary with only channel, spike_count and rms, retaining row order. All rows contain those fields. Never copy raw_waveform or unrelated fields, and never mutate the source records.",
+        "hint": "Check permission with equality, then build each output dictionary by naming the three permitted fields.",
+        "solution": "def select_features(records, allowed_channels, permission):\n    if permission != \"features_only\":\n        return []\n    return [{\"channel\": row[\"channel\"], \"spike_count\": row[\"spike_count\"], \"rms\": row[\"rms\"]}\n            for row in records if row[\"channel\"] in allowed_channels]\n\nrecords = [{\"channel\": 12, \"spike_count\": 8, \"rms\": 2.1, \"raw_waveform\": [1, 2]}]\nprint(select_features(records, [12], \"features_only\"))\n",
+        "oneLineMaster": "This synthetic exercise has one explicit permission value: features_only.",
+        "difficulty": "beginner",
+        "relatedSubjectId": "ethics",
+        "revision": 2,
+        "checks": {
+          "function": "select_features",
+          "preserveArgs": true,
+          "cases": [
+            {
+              "args": [
+                [
+                  {
+                    "channel": 12,
+                    "spike_count": 8,
+                    "rms": 2.1,
+                    "raw_waveform": [
+                      1,
+                      2
+                    ],
+                    "person": "synthetic-A"
+                  },
+                  {
+                    "channel": 3,
+                    "spike_count": 4,
+                    "rms": 1.2,
+                    "raw_waveform": [
+                      3,
+                      4
+                    ]
+                  }
+                ],
+                [
+                  12
+                ],
+                "features_only"
+              ],
+              "expected": [
+                {
+                  "channel": 12,
+                  "spike_count": 8,
+                  "rms": 2.1
+                }
+              ]
+            },
+            {
+              "args": [
+                [
+                  {
+                    "channel": 12,
+                    "spike_count": 8,
+                    "rms": 2.1,
+                    "raw_waveform": [
+                      1,
+                      2
+                    ],
+                    "person": "synthetic-A"
+                  },
+                  {
+                    "channel": 3,
+                    "spike_count": 4,
+                    "rms": 1.2,
+                    "raw_waveform": [
+                      3,
+                      4
+                    ]
+                  }
+                ],
+                [
+                  12
+                ],
+                "unknown"
+              ],
+              "expected": []
+            },
+            {
+              "args": [
+                [
+                  {
+                    "channel": 12,
+                    "spike_count": 8,
+                    "rms": 2.1,
+                    "raw_waveform": [
+                      1,
+                      2
+                    ],
+                    "person": "synthetic-A"
+                  },
+                  {
+                    "channel": 3,
+                    "spike_count": 4,
+                    "rms": 1.2,
+                    "raw_waveform": [
+                      3,
+                      4
+                    ]
+                  }
+                ],
+                [
+                  12
+                ],
+                "raw_waveforms"
+              ],
+              "expected": []
+            },
+            {
+              "args": [
+                [
+                  {
+                    "channel": 12,
+                    "spike_count": 8,
+                    "rms": 2.1,
+                    "raw_waveform": [
+                      1,
+                      2
+                    ],
+                    "person": "synthetic-A"
+                  },
+                  {
+                    "channel": 3,
+                    "spike_count": 4,
+                    "rms": 1.2,
+                    "raw_waveform": [
+                      3,
+                      4
+                    ]
+                  }
+                ],
+                [],
+                "features_only"
+              ],
+              "expected": []
+            },
+            {
+              "args": [
+                [
+                  {
+                    "channel": 12,
+                    "spike_count": 8,
+                    "rms": 2.1,
+                    "raw_waveform": [
+                      1,
+                      2
+                    ],
+                    "person": "synthetic-A"
+                  },
+                  {
+                    "channel": 3,
+                    "spike_count": 4,
+                    "rms": 1.2,
+                    "raw_waveform": [
+                      3,
+                      4
+                    ]
+                  }
+                ],
+                [
+                  3,
+                  12
+                ],
+                "features_only"
+              ],
+              "expected": [
+                {
+                  "channel": 12,
+                  "spike_count": 8,
+                  "rms": 2.1
+                },
+                {
+                  "channel": 3,
+                  "spike_count": 4,
+                  "rms": 1.2
+                }
+              ]
+            },
+            {
+              "args": [
+                [],
+                [
+                  12
+                ],
+                "features_only"
+              ],
+              "expected": []
+            }
+          ]
+        },
+        "reviewStatus": "Author-revised synthetic exercise. Independent engineering review is pending.",
+        "sources": [
+          {
+            "title": "Python tutorial: functions and control flow",
+            "url": "https://docs.python.org/3/tutorial/controlflow.html"
+          }
+        ]
+      }
+    },
+    {
+      "path": "simulations/sim-sampling-time",
+      "before": null,
+      "after": {
+        "id": "sim-sampling-time",
+        "title": "Sampling: First to Last",
+        "subjectId": "neural-signals",
+        "relatedTopicId": "ns-lfp-vs-spikes",
+        "topicToReviewNext": "ns-lfp-vs-spikes",
+        "difficulty": "beginner",
+        "scenario": "Five synthetic samples are recorded uniformly at 2 Hz, with the first sample at time zero.",
+        "signalDescription": "Values [1, 3, -1, 2, 0] µV; indexes [0, 1, 2, 3, 4].",
+        "decisionQuestion": "How much time passes from the first sample to the last?",
+        "choices": [
+          {
+            "label": "2.5 seconds",
+            "rationale": "Five divided by two counts five intervals; five sample points have four intervals between the first and last."
+          },
+          {
+            "label": "2 seconds",
+            "rationale": "Four intervals divided by two samples per second gives two seconds."
+          },
+          {
+            "label": "0.5 seconds",
+            "rationale": "One interval lasts 0.5 seconds; there are four intervals between the first and last sample."
+          },
+          {
+            "label": "4 seconds",
+            "rationale": "Four is the number of intervals, not their total duration in seconds."
+          }
+        ],
+        "bestAnswerIndex": 1,
+        "oneLineMaster": "First-to-last duration is (N - 1) / sampling rate when the first sample is at time zero.",
+        "scoringCategories": [
+          "numericalReasoning"
+        ],
+        "revision": 1,
+        "reviewStatus": "Author-revised synthetic exercise. Independent engineering review is pending.",
+        "sources": [
+          {
+            "title": "Python tutorial: functions and control flow",
+            "url": "https://docs.python.org/3/tutorial/controlflow.html"
+          }
+        ],
+        "series": {
+          "title": "Five synthetic samples",
+          "description": "Invented values for timing practice. Lines join samples as visual guides; no values between samples were measured.",
+          "values": [
+            1,
+            3,
+            -1,
+            2,
+            0
+          ],
+          "sampleRateHz": 2,
+          "unit": "µV"
+        }
+      }
+    },
+    {
+      "path": "simulations/sim-feature-meaning",
+      "before": null,
+      "after": {
+        "id": "sim-feature-meaning",
+        "title": "Features: A Constant Negative Window",
+        "subjectId": "neural-signals",
+        "relatedTopicId": "ns-lfp-vs-spikes",
+        "topicToReviewNext": "ns-lfp-vs-spikes",
+        "difficulty": "beginner",
+        "scenario": "You summarize the synthetic window [-3, -3] µV using mean, RMS and the count strictly above the mean.",
+        "signalDescription": "Mean = sum/N; RMS = sqrt(sum of squares/N); compare samples using > mean.",
+        "decisionQuestion": "Which summary follows those definitions?",
+        "choices": [
+          {
+            "label": "Mean -3 µV, RMS -3 µV, count 0",
+            "rationale": "RMS is a nonnegative square root, even when every sample is negative."
+          },
+          {
+            "label": "Mean 3 µV, RMS 3 µV, count 2",
+            "rationale": "The signed mean remains negative; equal samples are not strictly above their mean."
+          },
+          {
+            "label": "Mean -3 µV, RMS 3 µV, count 2",
+            "rationale": "The mean and RMS are right, but equality does not satisfy the strict comparison."
+          },
+          {
+            "label": "Mean -3 µV, RMS 3 µV, count 0",
+            "rationale": "The mean is -3, squares average to 9 and their square root is 3, and neither sample exceeds -3."
+          }
+        ],
+        "bestAnswerIndex": 3,
+        "oneLineMaster": "RMS does not retain the sign of a constant signal; a strict count excludes equality.",
+        "scoringCategories": [
+          "numericalReasoning"
+        ],
+        "revision": 1,
+        "reviewStatus": "Author-revised synthetic exercise. Independent engineering review is pending.",
+        "sources": [
+          {
+            "title": "Python tutorial: functions and control flow",
+            "url": "https://docs.python.org/3/tutorial/controlflow.html"
+          }
+        ],
+        "series": {
+          "title": "Constant synthetic window",
+          "description": "Two invented samples for comparing signed mean with RMS.",
+          "values": [
+            -3,
+            -3
+          ],
+          "sampleRateHz": 2,
+          "unit": "µV"
+        }
+      }
+    },
+    {
+      "path": "simulations/sim-held-out-meaning",
+      "before": null,
+      "after": {
+        "id": "sim-held-out-meaning",
+        "title": "Evaluation: What Does 4/4 Mean?",
+        "subjectId": "decoding-ai",
+        "relatedTopicId": "dec-linear-decoder",
+        "topicToReviewNext": "dec-linear-decoder",
+        "difficulty": "beginner",
+        "scenario": "A fixed toy decoder correctly labels all four invented test rows. The weights were selected before those rows were shown.",
+        "signalDescription": "Test score: 4 correct / 4 synthetic rows. No people or independent real-world recordings were evaluated.",
+        "decisionQuestion": "Which conclusion is supported?",
+        "choices": [
+          {
+            "label": "The fixed rule matches all four supplied labels",
+            "rationale": "This accurately states the observed result and its denominator. Generalization requires suitable independent data and a defined evaluation design."
+          },
+          {
+            "label": "The rule will classify every new recording correctly",
+            "rationale": "Four invented rows cannot establish that population claim."
+          },
+          {
+            "label": "The test set can now be used to choose the best weights",
+            "rationale": "Changing model choices based on the test results makes the test set part of model selection."
+          },
+          {
+            "label": "The result establishes clinical usefulness",
+            "rationale": "No patient outcomes, clinical workflow or suitable validation were evaluated."
+          }
+        ],
+        "bestAnswerIndex": 0,
+        "oneLineMaster": "Report the observed denominator and keep model selection separate from final evaluation.",
+        "scoringCategories": [
+          "numericalReasoning"
+        ],
+        "revision": 1,
+        "reviewStatus": "Author-revised synthetic exercise. Independent engineering review is pending.",
+        "sources": [
+          {
+            "title": "scikit-learn: avoid data leakage",
+            "url": "https://scikit-learn.org/stable/common_pitfalls.html#data-leakage"
+          }
+        ]
+      }
+    }
+  ]
+}

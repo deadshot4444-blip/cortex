@@ -1,27 +1,50 @@
 /* Cortex — Neuroengineering course */
 
 const NEURO = { loaded: false, data: null, milestones: null, topicMap: {}, simMap: {}, codeMap: {} };
-const NEURO_PROG = (typeof loadJSON === 'function') ? loadJSON('cs-neuro', {
-  pathStarted: false, pathDone: [], topicQuiz: {}, topicAtlas: {}, sims: {}, code: {}, milestones: {},
-}) : { pathStarted: false, pathDone: [], topicQuiz: {}, topicAtlas: {}, sims: {}, code: {}, milestones: {} };
-
-function saveNeuroProg() { if (typeof safeSet === 'function') safeSet('cs-neuro', JSON.stringify(NEURO_PROG)); else localStorage.setItem('cs-neuro', JSON.stringify(NEURO_PROG)); }
+function neuroReadProgress() {
+  const empty = { pathStarted: false, pathDone: [], topicQuiz: {}, topicAtlas: {}, sims: {}, simWork: {}, code: {}, milestones: {}, projects: {}, units: {} };
+  const saved = StudyStorage.read('cs-neuro', empty);
+  const object = value => value && typeof value === 'object' && !Array.isArray(value);
+  if (!object(saved) || !Array.isArray(saved.pathDone) || !saved.pathDone.every(id => typeof id === 'string')
+    || ['topicQuiz', 'topicAtlas', 'sims', 'simWork', 'code', 'milestones', 'projects', 'units'].some(key => saved[key] != null && !object(saved[key]))
+    || Object.values(saved.units || {}).some(record => !neuroValidUnit(record))
+    || Object.values(saved.simWork || {}).some(record => !neuroValidSimWork(record))
+    || Object.values(saved.code || {}).some(item => item?.current && !neuroValidCodeWork(item.current))) {
+    StudyStorage.sessionFailed(); return empty;
+  }
+  try { if (Object.keys(saved.projects || {}).length) NeuroProjectCore.validateRecords(saved.projects); }
+  catch { StudyStorage.sessionFailed(); return empty; }
+  return Object.assign(empty, saved);
+}
+const NEURO_PROG = neuroReadProgress();
+StudyStorage.watch('cs-neuro', () => NEURO_PROG);
+function saveNeuroProg() { return StudyStorage.write('cs-neuro', NEURO_PROG); }
+let neuroLoading = null;
 
 async function loadNeuro() {
   if (NEURO.loaded) return;
-  try {
-    const [r, m] = await Promise.all([
-      fetch('data/neuro.json?v=3'),
-      fetch('data/neuro-milestones.json?v=2'),
-    ]);
-    NEURO.data = r.ok ? await r.json() : null;
-    NEURO.milestones = m.ok ? await m.json() : null;
-  } catch { NEURO.data = null; NEURO.milestones = null; }
-  if (!NEURO.data) return;
-  NEURO.topicMap = Object.fromEntries(NEURO.data.topics.map(t => [t.id, t]));
-  NEURO.simMap = Object.fromEntries(NEURO.data.simulations.map(s => [s.id, s]));
-  NEURO.codeMap = Object.fromEntries(NEURO.data.neuroCodeLessons.map(c => [c.id, c]));
-  NEURO.loaded = true;
+  if (neuroLoading) return neuroLoading;
+  neuroLoading = (async () => {
+    const results = await Promise.allSettled(['data/neuro.json?v=8', 'data/neuro-milestones.json?v=3'].map(async file => {
+      const response = await fetch(file);
+      if (!response.ok) throw new Error('Neuroengineering lessons did not download');
+      return response.json();
+    }));
+    if (results[0].status === 'rejected') throw results[0].reason;
+    const data = results[0].value;
+    if (!data || !['topics', 'simulations', 'neuroCodeLessons', 'subjects'].every(key => Array.isArray(data[key]))
+      || !Array.isArray(data.learningPaths?.[0]?.steps) || !data.learningPaths[0].steps.length
+      || !data.simulations.every(neuroValidSimContent)
+      || data.neuroCodeLessons.some(lesson => lesson.series != null && !neuroValidSeries(lesson.series)))
+      throw new Error('Neuroengineering lessons have an invalid structure');
+    NEURO.data = data;
+    NEURO.milestones = results[1].status === 'fulfilled' && Array.isArray(results[1].value?.milestones) ? results[1].value : null;
+    NEURO.topicMap = Object.fromEntries(data.topics.map(t => [t.id, t]));
+    NEURO.simMap = Object.fromEntries(data.simulations.map(s => [s.id, s]));
+    NEURO.codeMap = Object.fromEntries(data.neuroCodeLessons.map(c => [c.id, c]));
+    NEURO.loaded = true;
+  })();
+  try { return await neuroLoading; } finally { neuroLoading = null; }
 }
 
 function neuroPath() { return NEURO.data?.learningPaths?.[0] || null; }
@@ -34,7 +57,7 @@ function neuroUnitLesson(order) { return NEURO.data?.unitLessons?.[String(order)
 function pathProgress() {
   const path = neuroPath();
   if (!path) return { done: 0, total: 0, pct: 0, next: null };
-  const done = NEURO_PROG.pathDone.length;
+  const done = path.steps.filter(step => NEURO_PROG.pathDone.includes(step.id)).length;
   const total = path.steps.length;
   const next = path.steps.find(s => !NEURO_PROG.pathDone.includes(s.id)) || null;
   return { done, total, pct: total ? Math.round(100 * done / total) : 0, next };
@@ -50,12 +73,11 @@ function topicQuizBest(id) {
 }
 
 function neuroMilestoneUnlockedHub(ms, pg) {
-  if (ms.status === 'planned') return false;
-  return pg.done >= ms.unlockUnit;
+  return neuroMilestoneUnlocked(ms, pg);
 }
 
 function neuroMilestonesPassed() {
-  return Object.values(NEURO_PROG.milestones || {}).filter(m => m?.passed).length;
+  return Object.values(NEURO_PROG.projects || {}).filter(record => NeuroProjectCore.completed(record)).length;
 }
 
 /* ---------- hub ---------- */
@@ -65,46 +87,21 @@ function neuroMilestonesPassed() {
    into existing content (subjects, NeuroCode, The Track). */
 function renderNeuroPrimer() {
   if (typeof stopTimer === 'function') stopTimer();
-  const root = el('<div></div>');
-  root.appendChild(topbar('neuro'));
-  const main = el(`<main class="neuro-page neuro-inner">
-    <section class="neuro-body">
-      <button class="backbtn topback" id="neback">&larr; Back to Neuroengineering</button>
-      <span class="neuro-eyebrow">Foundations &middot; Start here</span>
-      <h1 class="neuro-h1">Why build brain&ndash;computer interfaces?</h1>
-      <p class="neuro-lede">Before the code and the electrodes, the question. Five minutes, no prerequisites.</p>
-
-      <div class="neuro-block">
-        <span class="label">The oldest problem, made practical</span>
-        <p>For most of history, "how does the mind relate to the body?" was a philosopher's question. Descartes thought mind and matter were two different substances that somehow met in the brain. Today the working assumption of neuroscience is simpler and stranger: the mind is what the brain <em>does</em> &mdash; electricity and chemistry, arranged just so. A brain&ndash;computer interface takes that assumption seriously enough to bet hardware on it. If thought is physical signal, then signal can be read, decoded, and acted on.</p>
-      </div>
-      <div class="neuro-block">
-        <span class="label">Why it matters</span>
-        <p>A person with locked-in syndrome has a mind that works and a body that won't answer it. Paralysis, ALS, brainstem stroke &mdash; in each case the commands are still being issued; they just never arrive. A BCI is a detour: read the intention at its source, skip the broken wiring, move the cursor, the wheelchair, the prosthetic hand. That is the moral core of this field &mdash; not mind-reading, but giving people their outputs back.</p>
-      </div>
-      <div class="neuro-block">
-        <span class="label">What a BCI actually is</span>
-        <p>Every BCI &mdash; from a lab EEG cap to an implanted electrode array &mdash; is the same five-stage pipeline: <b>sense</b> electrical activity, <b>clean</b> the noisy signal, <b>detect</b> the meaningful events, <b>decode</b> what they intend, and <b>act</b> on it fast enough to feel natural. The whole Track you're about to walk is that pipeline, built one stage at a time, by you.</p>
-      </div>
-      <details class="neuro-primer-ask">
-        <summary>Think first: if thought were <em>not</em> physical, could a BCI work at all?</summary>
-        <p>No &mdash; and that's the point. Every cursor a paralyzed patient moves by intention is a small experiment on the mind&ndash;body problem, and the result keeps coming back: the signal is there, in the tissue, readable. Engineering quietly answers what philosophy could only debate.</p>
-      </details>
-      <details class="neuro-primer-ask">
-        <summary>Think first: why does the field obsess over reading signals rather than writing them?</summary>
-        <p>Reading is the easier ethical ground &mdash; restoring lost outputs. Writing into the brain (stimulation) raises harder questions: who controls the input, what counts as consent, where "therapy" ends. You'll meet stimulation later in the course &mdash; with those questions attached.</p>
-      </details>
-
-      <div class="neuro-cta" style="margin-top:22px">
-        <button class="btn btn-solid neuro-btn" id="primer-next">Next: the science &rarr;</button>
-      </div>
-    </section>
-  </main>`);
-  main.querySelector('#neback').addEventListener('click', renderNeuroEngineering);
-  main.querySelector('#primer-next').addEventListener('click', () => renderNeuroSubject('neural-signals'));
-  root.appendChild(main);
-  if (typeof siteFooter === 'function') root.appendChild(siteFooter());
-  setView(root);
+  neuroRoute(null, null, null, 'primer');
+  const root = el('<div></div>'); root.appendChild(topbar('neuro'));
+  const main = el(`<main class="neuro-page neuro-inner"><section class="neuro-body">
+    <button class="backbtn topback" id="neback">&larr; Back to Neuroengineering</button>
+    <span class="neuro-eyebrow">Foundations · Start here</span><h1>What does a BCI connect?</h1>
+    <p>A brain–computer interface uses measured brain activity as an input to a device. This course begins with synthetic signals, simple calculations and the limits of what those calculations establish.</p>
+    <ol><li>Describe the measurement, units and timing.</li><li>Inspect possible contamination.</li><li>Extract a feature with an explicit rule.</li><li>Test how the rule behaves when inputs change.</li><li>Explain what the result supports and what remains uncertain.</li></ol>
+    <p>A threshold crossing is a numerical event. It does not, by itself, identify a neuron or reveal a thought. More complex applications depend on recording methods, training, evaluation and the people who will use the system.</p>
+    <p>The first five units introduce this workflow. They are author-revised practice with independent subject review pending.</p>
+    <button class="btn btn-solid" id="primer-next">Start the first foundation unit</button>
+    <p><a href="https://pubmed.ncbi.nlm.nih.gov/26133797/" target="_blank" rel="noopener">Source: threshold crossings, single units and field signals</a></p>
+  </section></main>`);
+  main.querySelector('#neback').onclick = () => renderNeuroEngineering();
+  main.querySelector('#primer-next').onclick = () => renderNeuroUnit(neuroPath().steps[0].id);
+  root.appendChild(main); setView(root);
 }
 
 /* The Track — the whole course as one visible linear spine (a guide, not a gate:
@@ -118,7 +115,7 @@ function neuroTrackRows(path, pg) {
     const current = pg.next && pg.next.id === step.id;
     // mirror neuroUnitStages(): 5 base stages + optional quiz/code/sim + debrief
     const stages = 6
-      + ((step.topicId && neuroTopic(step.topicId)?.quizQuestions?.length) ? 1 : 0)
+      + ((neuroUnitLesson(step.order)?.checks?.length || neuroTopic(step.topicId)?.quizQuestions?.length) ? 1 : 0)
       + (step.neuroCodeLessonId ? 1 : 0)
       + (step.simulationId ? 1 : 0);
     const subj = neuroSubject(step.subjectId);
@@ -126,7 +123,7 @@ function neuroTrackRows(path, pg) {
       <span class="neuro-tracknum mono">${done ? '&#10003;' : String(step.order).padStart(2, '0')}</span>
       <span class="neuro-trackcopy">
         <span class="neuro-tracktitle">${esc(step.title)}</span>
-        <span class="neuro-trackmeta">${esc(step.estimatedFocus || '')} &middot; ${stages} stages${subj ? ` &middot; ${esc(subj.name)}` : ''}</span>
+        <span class="neuro-trackmeta">${esc(step.estimatedFocus || '')} &middot; ${stages} stages · ${step.order <= 5 ? 'Revised foundation' : 'Draft unit'}${subj ? ` &middot; ${esc(subj.name)}` : ''}</span>
       </span>
       <span class="neuro-trackgo mono">${current ? `${neuroPathStarted() ? 'Continue' : 'Start'} &rarr;` : done ? 'Review' : 'Open'}</span>
     </button>`;
@@ -134,10 +131,10 @@ function neuroTrackRows(path, pg) {
     if (ms) {
       const unlocked = neuroMilestoneUnlockedHub(ms, pg);
       const live = ms.status === 'live';
-      const msDone = NEURO_PROG.milestones?.[ms.id]?.passed;
+      const msDone = neuroMilestonePassed(ms.id);
       const clickable = unlocked && live;
       const tag = clickable ? 'button' : 'div';
-      const sub = msDone ? 'Complete' : clickable ? 'Open lab &rarr;' : ms.status === 'planned' ? 'In development' : 'Unlocks here';
+      const sub = msDone ? 'Comparison completed' : NEURO_PROG.milestones?.[ms.id]?.passed ? 'Earlier output check kept' : clickable ? 'Open project &rarr;' : ms.status === 'planned' ? 'In development' : 'Complete prerequisites';
       html += `<${tag} class="neuro-trackms ${msDone ? 'done' : ''} ${clickable ? 'open' : ''}"${clickable ? ` type="button" data-ms="${ms.id}"` : ''}>
         <span class="neuro-trackms-tag mono">Practitioner</span>
         <span class="neuro-trackms-title">${esc(ms.title)}</span>
@@ -148,10 +145,26 @@ function neuroTrackRows(path, pg) {
   }).join('');
 }
 
-async function renderNeuroEngineering() {
+async function renderNeuroEngineering(options = {}) {
   if (typeof stopTimer === 'function') stopTimer();
   if (typeof session !== 'undefined') session = null;
-  await loadNeuro();
+  if (options.fromUrl && new URLSearchParams(location.search).has('project')) return renderNeuroMilestone(new URLSearchParams(location.search).get('project'));
+  try { await loadNeuro(); } catch {
+    const root = el('<div></div>'); root.appendChild(topbar('neuro'));
+    const main = el('<main class="neuro-page neuro-inner"><h1>Neuroengineering could not load.</h1><p>Your saved work has been kept. Retry when the connection is available.</p><button class="btn" id="neuro-retry">Retry lessons</button></main>');
+    main.querySelector('#neuro-retry').onclick = () => renderNeuroEngineering(options);
+    root.appendChild(main); setView(root); return;
+  }
+  if (options.fromUrl) {
+    const params = new URLSearchParams(location.search);
+    if (params.has('unit')) return renderNeuroUnit(params.get('unit'));
+    if (params.has('code')) return renderNeuroCode(params.get('code'));
+    if (params.has('sim')) return renderNeuroSim(params.get('sim'));
+    if (params.get('view') === 'code') return renderNeuroCodeLab();
+    if (params.get('view') === 'sims') return renderNeuroSimLibrary();
+    if (params.get('view') === 'primer') return renderNeuroPrimer();
+  }
+  neuroRoute();
 
   const root = el('<div></div>');
   root.appendChild(topbar('neuro'));
@@ -161,14 +174,15 @@ async function renderNeuroEngineering() {
 
   const main = el(`<main class="neuro-page neuro-hub">
     <section class="neuro-hero">
-      <video class="neuro-video" autoplay loop muted playsinline preload="auto">
+      <video class="neuro-video" loop muted playsinline preload="metadata" aria-hidden="true">
         <source src="assets/neuro-bg.mp4?v=2" type="video/mp4">
       </video>
       <div class="neuro-veil"></div>
       <div class="neuro-hero-inner">
         <span class="neuro-eyebrow">Neuroengineering</span>
         <h1>Where the mind meets the machine.</h1>
-        <p class="neuro-lede">One track &middot; ${pg.total || 20} units, start to finish &middot; ${topicN} topics &middot; NeuroCode &middot; NeuroSim</p>
+        <p class="neuro-lede">One track &middot; ${pg.total} units &middot; ${topicN} topics &middot; NeuroCode &middot; NeuroSim</p>
+        <p>Start with five revised foundation units. Later units and the wider topic library remain drafts. Independent subject review is pending.</p>
         <p class="neuro-membership">
           <span class="free-pill">MCAT free</span>
           <span class="free-pill free-pill--soft">Neuro free</span>
@@ -184,11 +198,12 @@ async function renderNeuroEngineering() {
       <div class="neuro-section neuro-foundations">
         <span class="neuro-section-label">Start here &middot; no prerequisites</span>
         <div class="neuro-lablinks neuro-foundations-row">
-          <button class="neuro-lablink" id="nf-why">1 &middot; Why BCIs? <span>philosophy</span></button>
+          <button class="neuro-lablink" id="nf-why">1 &middot; Why BCIs? <span>scope and evidence</span></button>
           <button class="neuro-lablink" id="nf-sci">2 &middot; The science <span>neurons &rarr; signals</span></button>
           <button class="neuro-lablink" id="nf-code">3 &middot; Never coded? <span>from zero</span></button>
           <button class="neuro-lablink" id="nf-track">4 &middot; The Track <span>build the BCI</span></button>
         </div>
+        ${NEURO.milestones ? '' : '<p>The optional project list could not load. Foundation lessons remain available.</p><button class="btn" id="neuro-project-retry">Retry project list</button>'}
       </div>
       ${path ? `<details class="neuro-track" id="ne-track">
         <summary class="neuro-track-summary">
@@ -216,8 +231,19 @@ async function renderNeuroEngineering() {
     });
   }
   main.querySelector('#nf-why')?.addEventListener('click', renderNeuroPrimer);
+  main.querySelector('#neuro-project-retry')?.addEventListener('click', async event => {
+    const button = event.currentTarget; button.disabled = true;
+    try {
+      const response = await fetch('data/neuro-milestones.json?v=3');
+      if (!response.ok) throw new Error('Unavailable');
+      const data = await response.json();
+      if (!Array.isArray(data?.milestones)) throw new Error('Invalid project list');
+      NEURO.milestones = data;
+      if (button.isConnected) renderNeuroEngineering();
+    } catch { button.textContent = 'Project list still unavailable. Retry'; button.disabled = false; }
+  });
   main.querySelector('#nf-sci')?.addEventListener('click', () => renderNeuroSubject('neural-signals'));
-  main.querySelector('#nf-code')?.addEventListener('click', () => renderNeuroCode('code-variables-voltage'));
+  main.querySelector('#nf-code')?.addEventListener('click', () => renderNeuroCode('code-lists-samples'));
   main.querySelector('#nf-track')?.addEventListener('click', () => {
     const track = main.querySelector('#ne-track');
     if (track) track.open = true;
@@ -235,10 +261,8 @@ async function renderNeuroEngineering() {
   const nv = root.querySelector('.neuro-video');
   if (nv) {
     nv.muted = true; nv.defaultMuted = true; nv.setAttribute('muted', '');
-    const tryPlay = () => { try { const p = nv.play(); if (p?.catch) p.catch(() => {}); } catch {} };
-    tryPlay();
-    const kick = () => { tryPlay(); ['touchstart', 'click', 'scroll'].forEach(ev => window.removeEventListener(ev, kick)); };
-    ['touchstart', 'click', 'scroll'].forEach(ev => window.addEventListener(ev, kick, { passive: true }));
+    // Decorative motion remains still for a reduced-motion preference.
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) nv.play()?.catch(() => {});
   }
 }
 
@@ -252,7 +276,7 @@ async function renderNeuroLibrary() {
   const simN = NEURO.data?.simulations?.length || 12;
   const m1 = NEURO.milestones?.milestones?.find(m => m.id === 'neural-signal-viewer');
   const m1Unlocked = m1 && neuroMilestoneUnlockedHub(m1, pg);
-  const m1Done = neuroMilestonePassed('neural-signal-viewer');
+  const projectsDone = neuroMilestonesPassed();
 
   const root = el('<div></div>');
   root.appendChild(topbar('neuro'));
@@ -271,26 +295,27 @@ async function renderNeuroLibrary() {
           <button class="neuro-lablink" id="ne-codelab">NeuroCode <span>${codeN}</span></button>
           <button class="neuro-lablink" id="ne-simlib">NeuroSim <span>${simN}</span></button>
           ${m1 ? `<button class="neuro-lablink neuro-lablink--practitioner ${m1Unlocked ? '' : 'neuro-lablink--locked'}" id="ne-practitioner" type="button" ${m1Unlocked ? '' : 'disabled'}>
-            Practitioner <span>${m1Done ? 'M1 done' : m1Unlocked ? 'M1 open' : `${pg.done}/7`}</span>
+            Practitioner <span>${projectsDone ? `${projectsDone}/${NEURO.milestones.milestones.length} completed` : m1Unlocked ? 'Start projects' : `${pg.done}/7 units`}</span>
           </button>` : ''}
         </div>
       </div>
       ${NEURO.milestones ? `<details class="neuro-practitioner-fold">
         <summary class="neuro-practitioner-sum">
           <span class="label">Practitioner Track</span>
-          <span class="neuro-pathstat">${pg.done >= 7 ? 'Unlocking' : `${pg.done}/7 to unlock`}</span>
+          <span class="neuro-pathstat">${neuroMilestonesPassed() ? `${neuroMilestonesPassed()}/${NEURO.milestones.milestones.length} projects completed` : m1Unlocked ? 'First project available' : 'Complete Units 1–7 to begin'}</span>
         </summary>
         <p class="neuro-pathsum">${esc(NEURO.milestones.tagline)}</p>
         <div class="neuro-milestones">${NEURO.milestones.milestones.map(ms => {
           const unlocked = neuroMilestoneUnlockedHub(ms, pg);
           const live = ms.status === 'live';
-          const done = NEURO_PROG.milestones?.[ms.id]?.passed;
+          const done = neuroMilestonePassed(ms.id);
           const clickable = unlocked && live;
           const tag = clickable ? 'button' : 'div';
-          const sub = done ? 'Complete'
-            : clickable ? 'Open lab'
+          const sub = done ? 'Comparison completed'
+            : NEURO_PROG.milestones?.[ms.id]?.passed ? 'Earlier output check kept'
+            : clickable ? 'Open project'
             : unlocked && !live ? 'Coming soon'
-            : `Unit ${ms.unlockUnit} &middot; locked`;
+            : esc(neuroMilestoneRequirement(ms));
           return `<${tag} class="neuro-ms ${unlocked ? 'unlocked' : 'locked'} ${clickable ? 'active' : ''} ${done ? 'done' : ''}" ${clickable ? `type="button" data-ms="${ms.id}"` : ''}>
             <span class="neuro-ms-title">${esc(ms.title)}</span>
             <span class="neuro-ms-sub">${sub}</span>
@@ -316,7 +341,12 @@ async function renderNeuroLibrary() {
     }
   }
   main.querySelector('#ne-practitioner')?.addEventListener('click', () => {
-    if (typeof renderNeuroMilestone === 'function') renderNeuroMilestone('neural-signal-viewer');
+    const projects = main.querySelector('.neuro-practitioner-fold');
+    if (projects) {
+      projects.open = true;
+      projects.querySelector('summary')?.focus();
+      projects.scrollIntoView({ block: 'start' });
+    }
   });
   main.querySelector('#ne-codelab')?.addEventListener('click', renderNeuroCodeLab);
   main.querySelector('#ne-simlib')?.addEventListener('click', renderNeuroSimLibrary);
@@ -657,293 +687,284 @@ function neuroQuizFinish() {
 
 /* ---------- NeuroSim ---------- */
 
-function renderNeuroSim(simId, opts = {}) {
+function neuroValidSeries(series, maxSamples = 128) {
+  return series && typeof series.title === 'string' && typeof series.description === 'string'
+    && typeof series.unit === 'string' && Number.isFinite(series.sampleRateHz) && series.sampleRateHz > 0
+    && Array.isArray(series.values) && series.values.length > 0 && series.values.length <= maxSamples && series.values.every(Number.isFinite);
+}
+function neuroSeriesMarkup(series, maxSamples = 128) {
+  if (!neuroValidSeries(series, maxSamples)) return '';
+  const values = series.values, lastTime = (values.length - 1) / series.sampleRateHz;
+  const low = Math.min(...values), high = Math.max(...values), padding = (high - low || 2) * .15;
+  const min = low - padding, max = high + padding;
+  const x = i => 110 + (values.length > 1 ? i / (values.length - 1) : 0) * 415;
+  const y = value => 190 - (value - min) / (max - min) * 150;
+  const number = value => String(Number(value.toPrecision(5)));
+  const markers = Array.isArray(series.markerIndices) ? series.markerIndices.filter(index => Number.isInteger(index) && index >= 0 && index < values.length) : [];
+  const thresholdVisible = Number.isFinite(series.threshold) && series.threshold >= min && series.threshold <= max;
+  return `<figure class="neuro-series"><figcaption><b>${esc(series.title)}</b> · synthetic data</figcaption>
+    <div class="neuro-series-plot" role="region" tabindex="0" aria-label="${esc(series.title)} chart. Scroll horizontally to inspect the full plot."><svg viewBox="0 0 580 245" role="img" aria-label="${esc(series.title)}: time in seconds and amplitude in ${esc(series.unit)}">
+      <title>${esc(series.title)}</title><desc>${esc(series.description)} Exact values follow in a table.</desc>
+      <path d="M110 30V190H535" fill="none" stroke="currentColor"/>
+      <g fill="currentColor" font-size="13"><text x="107" y="210">0</text><text x="525" y="210" text-anchor="end">${number(lastTime)}</text>
+        <text x="100" y="${y(low)+4}" text-anchor="end">${number(low)}</text>${high !== low ? `<text x="100" y="${y(high)+4}" text-anchor="end">${number(high)}</text>` : ''}
+        <text x="318" y="237" text-anchor="middle">Time (s)</text><text x="18" y="115" transform="rotate(-90 18 115)" text-anchor="middle">Amplitude (${esc(series.unit)})</text></g>
+      <polyline points="${values.map((value,i)=>`${x(i)},${y(value)}`).join(' ')}" fill="none" stroke="currentColor" stroke-width="2"/>
+      ${values.map((value,i)=>`<circle cx="${x(i)}" cy="${y(value)}" r="3" fill="currentColor"/>`).join('')}
+      ${thresholdVisible ? `<path class="neuro-series-threshold" d="M110 ${y(series.threshold)}H535" fill="none" stroke-width="2" stroke-dasharray="6 4"/>` : ''}
+      ${markers.map(index=>`<circle class="neuro-series-marker" cx="${x(index)}" cy="${y(values[index])}" r="7" fill="none" stroke-width="3"><title>Candidate event at sample ${index}</title></circle>`).join('')}</svg></div>
+    ${Number.isFinite(series.threshold) ? `<p>Threshold: ${number(series.threshold)} ${esc(series.unit)}${thresholdVisible ? ' · dashed amber line' : ' · outside the displayed range'}. ${markers.length} candidate events marked with outlined pink circles.</p>` : ''}
+    <p>${esc(series.description)} Sampling rate: ${series.sampleRateHz} Hz. ${values.length} samples.</p>
+    <details><summary>Exact sample values</summary><div style="overflow-x:auto"><table><thead><tr><th scope="col">Index</th><th scope="col">Time (s)</th><th scope="col">Amplitude (${esc(series.unit)})</th></tr></thead>
+      <tbody>${values.map((value,i)=>`<tr><th scope="row">${i}</th><td>${i/series.sampleRateHz}</td><td>${value}</td></tr>`).join('')}</tbody></table></div></details></figure>`;
+}
+function neuroValidSimContent(sim) {
+  return sim && ['id','title','scenario','signalDescription','decisionQuestion','oneLineMaster'].every(key => typeof sim[key] === 'string')
+    && Array.isArray(sim.choices) && sim.choices.length >= 2
+    && sim.choices.every(choice => typeof choice.label === 'string' && typeof choice.rationale === 'string')
+    && Number.isInteger(sim.bestAnswerIndex) && sim.bestAnswerIndex >= 0 && sim.bestAnswerIndex < sim.choices.length
+    && (sim.series == null || neuroValidSeries(sim.series));
+}
+function neuroValidSimWork(record) {
+  return record && neuroValidSimContent(record.content) && Number.isFinite(record.startedAt)
+    && typeof record.debrief === 'string' && neuroValidAnswers(record.answers, [{id:'simulation',choices:record.content.choices}])
+    && (record.completedAt == null || Number.isFinite(record.completedAt) && record.answers.simulation?.chosen != null && !!record.debrief.trim());
+}
+function neuroSimRecord(simId) {
+  if (NEURO_PROG.simWork[simId]) return NEURO_PROG.simWork[simId];
   const sim = neuroSim(simId);
-  if (!sim) { if (opts.onDone) opts.onDone(false); else renderNeuroEngineering(); return; }
-  let main, optsEl, afterMount;
-  if (opts.mount) {
-    const mount = typeof opts.mount === 'string' ? document.querySelector(opts.mount) : opts.mount;
-    if (!mount) { if (opts.onDone) opts.onDone(false); return; }
-    main = el(`<section class="neuro-stage">
-      <span class="neuro-eyebrow">NeuroSim &middot; ${esc(sim.difficulty || 'lab')}</span>
-      <h2 class="neuro-h2">${esc(sim.title)}</h2>
-      <div class="neuro-block"><span class="label">Scenario</span><p class="neuro-prose">${esc(sim.scenario)}</p></div>
-      <div class="neuro-block"><span class="label">Signal</span><p class="neuro-mono">${esc(sim.signalDescription)}</p></div>
-      <p class="q">${esc(sim.decisionQuestion)}</p>
-      <div class="opts" id="nesimopts"></div><div id="nesimafter"></div>
-    </section>`);
-    mount.appendChild(main);
-    optsEl = main.querySelector('#nesimopts');
-    afterMount = main.querySelector('#nesimafter');
-  } else {
-    const root = el('<div></div>');
-    root.appendChild(topbar('neuro'));
-    main = el(`<main class="neuro-page neuro-inner">
-      <section class="neuro-body">
-        <button class="backbtn topback" id="neback">&larr; Back to Neuroengineering</button>
-        <span class="neuro-eyebrow">NeuroSim &middot; ${esc(sim.difficulty || 'lab')}</span>
-        <h1 class="neuro-h1">${esc(sim.title)}</h1>
-        <div class="neuro-block"><span class="label">Scenario</span><p class="neuro-prose">${esc(sim.scenario)}</p></div>
-        <div class="neuro-block"><span class="label">Signal</span><p class="neuro-mono">${esc(sim.signalDescription)}</p></div>
-        <p class="q">${esc(sim.decisionQuestion)}</p>
-        <div class="opts" id="nesimopts"></div>
-        <div id="nesimafter"></div>
-      </section>
-    </main>`);
-    main.querySelector('#neback').addEventListener('click', renderNeuroEngineering);
-    root.appendChild(main);
-    setView(root);
-    optsEl = main.querySelector('#nesimopts');
-    afterMount = main.querySelector('#nesimafter');
-  }
-  sim.choices.forEach((ch, i) => {
-    const btn = el(`<button class="opt"><span class="key">${LETTERS[i]}</span><span>${esc(ch.label)}</span></button>`);
-    btn.addEventListener('click', () => {
-      optsEl.querySelectorAll('.opt').forEach(b => { b.disabled = true; b.classList.add('dimmed'); });
-      const ok = i === sim.bestAnswerIndex;
-      btn.classList.remove('dimmed');
-      btn.classList.add(ok ? 'correct' : 'wrong');
-      if (!ok) optsEl.querySelectorAll('.opt')[sim.bestAnswerIndex]?.classList.add('correct');
-      NEURO_PROG.sims[simId] = { ok, ts: Date.now() };
-      saveNeuroProg();
-      afterMount.replaceChildren(el(`<div class="neuro-sim-result">
-        <div class="explain ${ok ? 'good' : 'bad'}"><span class="verdict">${ok ? 'CORRECT' : 'INCORRECT'}</span><p>${esc(ch.rationale)}</p></div>
-        <div class="neuro-block"><span class="label">One-line master</span><p class="neuro-prose">${esc(sim.oneLineMaster)}</p></div>
-        <div class="continue-row"><button class="btn btn-solid neuro-btn" id="nesimdone">${opts.onDone && !ok ? 'Retry NeuroSim' : 'Continue'}</button></div>
-      </div>`));
-      afterMount.querySelector('#nesimdone')?.addEventListener('click', () => {
-        if (opts.onDone && !ok) {
-          main.remove();
-          renderNeuroSim(simId, opts);
-        } else if (opts.onDone) opts.onDone(true);
-        else renderNeuroEngineering();
-      });
-      afterMount.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-    optsEl.appendChild(btn);
+  if (!neuroValidSimContent(sim)) return null;
+  const record = {content:neuroClone(sim), answers:{}, debrief:'', startedAt:Date.now()};
+  NEURO_PROG.simWork[simId] = record;
+  saveNeuroProg(); return record;
+}
+function neuroCompleteSim(record) {
+  if (StudyStorage.paused || record.completedAt || record.answers.simulation?.chosen == null || !record.debrief.trim()) return false;
+  record.completedAt = Date.now(); return saveNeuroProg();
+}
+function renderNeuroSim(simId, opts = {}) {
+  const record = neuroSimRecord(simId);
+  if (!record) { if (opts.onDone) opts.onDone(false); else renderNeuroSimLibrary(); return; }
+  const sim = record.content, question = {id:'simulation', choices:sim.choices};
+  const answer = neuroAnswerRecord(record, question), chosen = answer.chosen;
+  if (!opts.mount) neuroRoute(null,null,null,null,simId);
+  const body = `<span class="neuro-eyebrow">NeuroSim · ${esc(sim.difficulty || 'lab')}</span><h1>${esc(sim.title)}</h1>
+    <p>${esc(sim.reviewStatus || 'Draft scenario. Independent subject review is pending.')}</p>
+    <p>First answers and writing are saved. Completing a comparison records practice, including an incorrect first answer.</p>
+    <div class="neuro-block"><span class="label">Scenario</span><p>${esc(sim.scenario)}</p></div>
+    <div class="neuro-block"><span class="label">Signal</span><p>${esc(sim.signalDescription)}</p></div>${neuroSeriesMarkup(sim.series)}
+    <p class="q">${esc(sim.decisionQuestion)}</p><div class="opts">${answer.order.map((index,i)=>`<button class="opt ${chosen === index ? (index === sim.bestAnswerIndex ? 'correct' : 'wrong') : ''}" data-sim-choice="${index}" ${chosen == null ? '' : 'disabled'}><span class="key">${LETTERS[i]}</span><span>${esc(sim.choices[index].label)}</span></button>`).join('')}</div>
+    ${chosen == null ? '' : `<div class="explain"><b>${chosen === sim.bestAnswerIndex ? 'Correct first answer' : 'First answer needs review'}</b>${chosen === sim.bestAnswerIndex ? '' : `<p>${esc(sim.choices[chosen].rationale)}</p>`}<p>Model answer: ${esc(sim.choices[sim.bestAnswerIndex].label)}</p><p>${esc(sim.choices[sim.bestAnswerIndex].rationale)}</p></div>
+      <p>${esc(sim.oneLineMaster)}</p><label for="sim-debrief">Explain the calculation or one limit of this conclusion.</label>
+      <textarea class="socinput neuro-input" id="sim-debrief" rows="4" maxlength="12000" ${record.completedAt ? 'readonly' : ''}>${esc(record.debrief)}</textarea>
+      ${record.completedAt ? '<p role="status">Comparison saved. Your first answer is retained.</p><button class="btn btn-solid" id="sim-back">Return to labs</button>' : `<button class="btn btn-solid" id="sim-complete" ${record.debrief.trim() ? '' : 'disabled'}>Save comparison and finish</button>`}`}
+    ${sim.sources?.length ? `<details><summary>Sources</summary><ul>${sim.sources.map(source=>`<li><a href="${esc(source.url)}" target="_blank" rel="noopener">${esc(source.title)}</a></li>`).join('')}</ul></details>` : ''}`;
+  const main = el(opts.mount ? `<section class="neuro-stage">${body}</section>` : `<main class="neuro-page neuro-inner"><section class="neuro-body"><button class="backbtn topback" id="neback">← Back to NeuroSim Lab</button>${body}</section></main>`);
+  main.querySelector('#neback')?.addEventListener('click', () => renderNeuroSimLibrary());
+  const redraw = () => { if (opts.mount) main.remove(); renderNeuroSim(simId,opts); };
+  main.querySelectorAll('[data-sim-choice]').forEach(button => button.onclick = () => {
+    if (neuroChoose(record,question,Number(button.dataset.simChoice))) redraw();
   });
+  const input=main.querySelector('#sim-debrief'), complete=main.querySelector('#sim-complete');
+  if (input && !record.completedAt) input.oninput = () => {
+    if (StudyStorage.paused) return;
+    record.debrief=input.value; saveNeuroProg(); complete.disabled=!record.debrief.trim();
+  };
+  if (complete) complete.onclick = () => {
+    if (neuroCompleteSim(record)) { if (opts.onDone) opts.onDone(true); else redraw(); }
+  };
+  const back=main.querySelector('#sim-back'); if (back) back.onclick=() => opts.onDone ? opts.onDone(true) : renderNeuroSimLibrary();
+  if (opts.mount) {
+    const mount=typeof opts.mount === 'string' ? document.querySelector(opts.mount) : opts.mount;
+    mount?.appendChild(main);
+  } else { const root=el('<div></div>'); root.appendChild(topbar('neuro')); root.appendChild(main); setView(root); }
 }
 
 /* ---------- NeuroCode Lab (guided sandbox) ---------- */
 
-function neuroCodePassed(codeId) {
-  const r = NEURO_PROG.code[codeId];
-  return r === true || (r && r.passed);
+function neuroCodeHasActivity(codeId) {
+  const saved = NEURO_PROG.code[codeId];
+  return saved === true || !!(saved?.legacyCompletion || saved?.passed || saved?.latest?.passed || neuroWorkComplete(saved?.current));
 }
-
+function neuroNewCodeWork(lesson) {
+  return { content: JSON.parse(JSON.stringify(lesson)), draft: lesson.codeExample.trim(), attempts: [], support: {}, startedAt: Date.now() };
+}
+function neuroCodeLastCheck(work) { return work?.attempts?.[work.attempts.length - 1]; }
+function neuroValidCodeWork(work) {
+  return work && typeof work === 'object' && !Array.isArray(work) && work.content
+    && typeof work.content.id === 'string' && typeof work.content.codeExample === 'string'
+    && typeof work.content.solution === 'string' && typeof work.draft === 'string'
+    && Array.isArray(work.attempts) && work.attempts.every(item => item && typeof item.draft === 'string' && Number.isFinite(item.at))
+    && work.support && typeof work.support === 'object' && !Array.isArray(work.support)
+    && (work.manualTrace == null || neuroValidTrace(work));
+}
+function neuroValidTrace(work) {
+  const trace = work.manualTrace, cases = work.content?.checks?.cases;
+  return trace && Array.isArray(cases) && cases.length > 0 && Array.isArray(trace.predictions)
+    && trace.predictions.length === Math.min(2, cases.length) && trace.predictions.every(value => typeof value === 'string')
+    && typeof trace.comparison === 'string' && Number.isFinite(trace.openedAt)
+    && (trace.revealedAt == null || Number.isFinite(trace.revealedAt) && trace.predictions.every(value => value.trim()))
+    && (trace.completedAt == null || Number.isFinite(trace.completedAt) && !!trace.revealedAt && !!trace.comparison.trim());
+}
+function neuroManualTraceComplete(work) { return !!(work?.manualTrace?.completedAt && neuroValidTrace(work)); }
+function neuroWorkComplete(work) {
+  const last = neuroCodeLastCheck(work);
+  return !!(work && (last?.passed && last.draft === work.draft || typeof work.selfReview?.draft === 'string' && work.selfReview.draft === work.draft || neuroManualTraceComplete(work)));
+}
+function neuroCodeEvidenceLabel(work) {
+  const last = neuroCodeLastCheck(work);
+  if (last?.passed && last.draft === work.draft) return last.message;
+  if (neuroManualTraceComplete(work)) return 'Manual trace completed. The current editor draft has not passed Python checks.';
+  if (typeof work?.selfReview?.draft === 'string' && work.selfReview.draft === work.draft) return 'Written self-review completed; no automatic grade assigned.';
+  return last?.message || 'No Python check recorded.';
+}
+function neuroCodeEntry(codeId) {
+  const old = NEURO_PROG.code[codeId];
+  if (!old || typeof old !== 'object') NEURO_PROG.code[codeId] = { legacyCompletion: old === true };
+  return NEURO_PROG.code[codeId];
+}
 function mountNeuroCodeSandbox(lesson, codeId, opts, shell) {
-  if (typeof neuroCodeEvaluateOJT !== 'function') return;
-  const guidance = neuroCodeGuidance(lesson);
-  let codePassed = neuroCodePassed(codeId);
-  const starterCode = (lesson.codeExample || '').trim();
-
-  const sandbox = el(`<div class="neuro-sandbox">
-    <div class="neuro-sandbox-head">
-      <span class="label">OJT code lab &middot; Python 3</span>
-      <span class="neuro-sandbox-badge" data-pass-badge ${codePassed ? '' : 'hidden'}>Complete</span>
-    </div>
-    <p class="neuro-sandbox-note">On-the-job style practice: edit the script, <strong>Run</strong> to execute real Python in-browser, <strong>Check</strong> to validate stdout against the reference solution.</p>
-    <details class="neuro-code-help" ${neuroCodePassed(codeId) ? '' : 'open'}>
-      <summary>Never coded before? Read this first (60 seconds)</summary>
-      <ol class="neuro-code-help-list">
-        <li>The dark box below is a <b>script</b> — a list of instructions the computer follows top to bottom. You can click into it and type, like a text message.</li>
-        <li>Press <b>Run</b> and the computer follows your instructions. Anything the script <code>print(&hellip;)</code>s shows up in the black <b>terminal</b> underneath — that's the computer talking back. You never type into the terminal, only into the script.</li>
-        <li>Red text in the terminal is an <b>error</b> — the computer telling you which line confused it. Errors are normal; read the last line, fix, Run again.</li>
-        <li>You cannot break anything. <b>Reset</b> restores the original script; <b>Hint</b> and <b>Load solution</b> are there when you're stuck.</li>
-        <li>When your output looks right, press <b>Check</b> — it compares what your script printed against the expected answer.</li>
-      </ol>
-    </details>
-    <div class="neuro-sandbox-goals">
-      <span class="neuro-mono">${esc(guidance.exerciseType)}</span>
-      <span>Coding: ${esc(guidance.codingGoal)}</span>
-      <span>Neuro: ${esc(guidance.neuroengineeringGoal)}</span>
-    </div>
-    <div class="neuro-ojt-brief">
-      <span class="label">Ticket</span>
-      <p class="neuro-prose">${esc(lesson.challengePrompt)}</p>
-    </div>
-    <textarea class="neuro-code-draft" rows="14" spellcheck="false" aria-label="Python editor">${esc(starterCode)}</textarea>
-    <div class="neuro-terminal neuro-ojt-terminal">
-      <div class="neuro-terminal-bar">
-        <span class="neuro-terminal-dot"></span>
-        <span class="neuro-terminal-title">bci-lab@cortex &mdash; task.py</span>
-        <span class="neuro-terminal-status" data-py-status>Python idle</span>
-      </div>
-      <div class="neuro-terminal-log" data-term-log>
-        <div class="neuro-term-line muted"># OJT lab ready. Run executes Python 3 in-browser. Check compares stdout to the reference.</div>
-      </div>
-      <p class="neuro-terminal-msg" data-term-msg>Load the runtime on first Run.</p>
-      <p class="neuro-terminal-hint" data-term-hint>Tip: solve the ticket, run it, then Check before loading the solution.</p>
-    </div>
-    <div class="neuro-sandbox-actions">
-      <button class="btn btn-solid neuro-btn" data-run-code>Run</button>
-      <button class="btn neuro-btn" data-check-code>Check</button>
-      <details class="neuro-sandbox-more">
-        <summary class="btn neuro-btn">More</summary>
-        <div class="neuro-sandbox-more-inner">
-          <button class="btn neuro-btn" type="button" data-reset-code>Reset</button>
-          <button class="btn neuro-btn" type="button" data-predict-out>Predict output</button>
-          <button class="btn neuro-btn" type="button" data-copy-code>Copy</button>
-          <button class="btn neuro-btn" type="button" data-load-sol>Load solution</button>
-          <button class="btn neuro-btn" type="button" data-show-hint>Hint</button>
-          <button class="btn neuro-btn" type="button" data-show-sol>Reveal</button>
-        </div>
-      </details>
-    </div>
-    <div class="neuro-sandbox-extra" data-extra></div>
-    ${opts.requirePass ? '<p class="neuro-sandbox-gate" data-gate>Pass Check to continue this unit.</p>' : ''}
-    <div class="continue-row" data-continue-row ${opts.requirePass && !codePassed ? 'hidden' : ''}>
-      <button class="btn btn-solid neuro-btn" data-code-done>Continue</button>
-    </div>
-  </div>`);
-
-  const draft = sandbox.querySelector('.neuro-code-draft');
-  const termLog = sandbox.querySelector('[data-term-log]');
-  const termMsg = sandbox.querySelector('[data-term-msg]');
-  const termHint = sandbox.querySelector('[data-term-hint]');
-  const pyStatus = sandbox.querySelector('[data-py-status]');
-  const extra = sandbox.querySelector('[data-extra]');
-  const passBadge = sandbox.querySelector('[data-pass-badge]');
+  const entry = neuroCodeEntry(codeId);
+  const work = opts.work || (entry.current ||= neuroNewCodeWork(lesson));
+  lesson = work.content;
+  const guidance = neuroCodeGuidance(lesson), last = neuroCodeLastCheck(work);
+  const reflection = !lesson.checks && !neuroCodeIsRunnablePython(lesson.solution);
+  saveNeuroProg();
+  const sandbox = el(`<div class="neuro-sandbox"><span class="label">${reflection ? 'Written practice' : 'Python practice'}</span>
+    <p>${lesson.checks ? 'Check runs your function on several input cases. The example printout alone cannot pass.' : reflection ? 'Compare your response with the model; written explanations are not automatically graded.' : 'This draft exercise compares only the example output. It has no tests of other inputs yet.'}</p>
+    <p class="neuro-prose">${esc(lesson.challengePrompt)}</p>
+    <label for="neuro-code-editor">${reflection ? 'Your explanation' : 'Python editor'}</label><textarea id="neuro-code-editor" class="neuro-code-draft" rows="14" maxlength="40000" spellcheck="false">${esc(work.draft)}</textarea>
+    <div class="neuro-sandbox-actions">${reflection ? '' : '<button class="btn btn-solid" data-run-code>Run</button><button class="btn" data-stop-code hidden>Stop Python</button>'}<button class="btn" data-check-code>${reflection ? 'Save and compare' : 'Check'}</button>
+      <details class="neuro-sandbox-more"><summary class="btn">More</summary><div class="neuro-sandbox-more-inner">
+        <button class="btn" data-reset-code>Reset editor</button><button class="btn" data-show-hint>Hint</button><button class="btn" data-show-sol>Reveal solution</button><button class="btn" data-load-sol>Load solution</button>
+      </div></details></div>
+    <p data-py-status role="status">${esc(last?.message || 'Draft saved in this browser.')}</p>
+    <pre class="neuro-code" data-term-log>${esc(last?.stdout || '')}${last?.stderr ? '\n' + esc(last.stderr) : ''}</pre>
+    <div data-check-results></div><div data-extra></div>
+    ${lesson.checks ? '<div class="neuro-sandbox-actions"><button class="btn" data-trace-code>Trace without Python</button><button class="btn" data-export-code>Download current code</button></div><div data-manual-trace></div>' : ''}
+    <p data-gate>${opts.requirePass ? 'Finish this exercise to continue. Results and help used remain in your saved work.' : 'Checks describe only this exercise.'}</p>
+    <div class="continue-row" data-continue-row ${opts.requirePass && !neuroWorkComplete(work) ? 'hidden' : ''}><button class="btn btn-solid" data-code-done>Continue</button></div></div>`);
+  const draft = sandbox.querySelector('#neuro-code-editor'), status = sandbox.querySelector('[data-py-status]');
+  const log = sandbox.querySelector('[data-term-log]'), extra = sandbox.querySelector('[data-extra]');
   const continueRow = sandbox.querySelector('[data-continue-row]');
-  const gate = sandbox.querySelector('[data-gate]');
-  const runBtn = sandbox.querySelector('[data-run-code]');
-  const checkBtn = sandbox.querySelector('[data-check-code]');
-  let busy = false;
-
-  const setBusy = (on, label) => {
-    busy = on;
-    runBtn.disabled = on;
-    checkBtn.disabled = on;
-    if (label) pyStatus.textContent = label;
-  };
-
-  const appendTerm = (cls, text) => {
-    const line = el(`<div class="neuro-term-line ${cls}"></div>`);
-    line.textContent = text;
-    termLog.appendChild(line);
-    termLog.scrollTop = termLog.scrollHeight;
-  };
-
-  const showRunResult = (result, label) => {
-    appendTerm('cmd', `$ ${label}`);
-    if (result.stdout) appendTerm('out', result.stdout.trimEnd());
-    if (result.stderr) appendTerm('err', result.stderr.trimEnd());
-    if (!result.stdout && !result.stderr) appendTerm('muted', '(no output)');
-  };
-
-  const markPassed = () => {
-    codePassed = true;
-    NEURO_PROG.code[codeId] = { passed: true, ts: Date.now() };
-    saveNeuroProg();
-    passBadge.hidden = false;
-    if (opts.requirePass) {
-      continueRow.hidden = false;
-      gate?.remove();
+  let busy = false, continued = false, controller;
+  const stop = sandbox.querySelector('[data-stop-code]');
+  if (stop) stop.onclick = () => controller?.abort();
+  const refreshGate = () => { continueRow.hidden = !!opts.requirePass && !neuroWorkComplete(work); };
+  const saveDraft = () => { if (StudyStorage.paused || busy) return; work.draft = draft.value; saveNeuroProg(); refreshGate(); };
+  draft.oninput = saveDraft;
+  function showFeedback(feedback) {
+    if (!feedback) return;
+    status.textContent = feedback.message;
+    log.textContent = [feedback.stdout, feedback.stderr].filter(Boolean).join('\n');
+    sandbox.querySelector('[data-check-results]').innerHTML = `${feedback.explanation ? `<p>${esc(feedback.explanation)}</p>` : ''}${feedback.cases ? `<ol>${feedback.cases.map((item, i) => `<li>Case ${i + 1}: ${item.passed ? 'passed' : 'needs work'} · expected ${esc(item.expected)}, received ${esc(item.actual)}${item.argsPreserved === false ? ' · input was changed' : ''}</li>`).join('')}</ol>` : ''}`;
+  }
+  function showSupport() {
+    extra.innerHTML = `${work.support.hintAt ? `<p class="sochint">${esc(lesson.hint)}</p>` : ''}${work.support.solutionAt ? `<details open><summary>Authored solution · consulted</summary><pre class="neuro-code">${esc(lesson.solution)}</pre><p>Loading or reading the model is recorded as support used.</p></details>` : ''}`;
+    if (work.comparedDraft != null && reflection) {
+      const button = el('<button class="btn" type="button">I compared my explanation with the model</button>');
+      button.onclick = () => {
+        if (StudyStorage.paused || busy || work.draft !== work.comparedDraft) return;
+        work.selfReview ||= { draft: work.draft, at: Date.now() };
+        if (work.selfReview.draft !== work.draft) work.selfReview = { draft: work.draft, at: Date.now() };
+        if (saveNeuroProg()) { status.textContent = 'Self-review recorded. No automatic grade was assigned.'; refreshGate(); }
+      };
+      extra.appendChild(button);
     }
-  };
-
-  const runCode = async () => {
-    if (busy) return;
-    setBusy(true, 'Running…');
-    termMsg.textContent = 'Executing Python 3…';
-    try {
-      const result = await runPythonCode(draft.value, {
-        onStatus: (s) => { pyStatus.textContent = s; },
+  }
+  function showTrace() {
+    const trace = work.manualTrace, host = sandbox.querySelector('[data-manual-trace]');
+    if (!trace || !host) return;
+    const cases = lesson.checks.cases.slice(0, 2), revealed = !!trace.revealedAt, done = !!trace.completedAt;
+    host.innerHTML = `<section class="neuro-block"><h3>Manual trace of the authored exercise</h3>
+      <p>Predict the intended function result for each input, then compare with the reference cases. This activity works without Python. It records a manual comparison; it does not execute or pass your editor code.</p>
+      ${cases.map((item, i) => `<label for="trace-prediction-${i}">Input ${i + 1}: <code>${esc(JSON.stringify(item.args))}</code></label><textarea class="neuro-code-draft" id="trace-prediction-${i}" data-trace-prediction="${i}" rows="2" maxlength="4000" ${revealed ? 'readonly' : ''}>${esc(trace.predictions[i])}</textarea>
+        ${revealed ? `<p>Authored result: <code>${esc(item.raises ? item.raises : JSON.stringify(item.expected))}</code></p>` : ''}`).join('')}
+      ${revealed ? `<label for="trace-comparison">Explain one intermediate step or a difference between your prediction and the model.</label><textarea class="neuro-code-draft" id="trace-comparison" rows="4" maxlength="12000" ${done ? 'readonly' : ''}>${esc(trace.comparison)}</textarea>
+        ${done ? '<p role="status">Manual comparison saved. Python pass remains separate.</p>' : '<button class="btn" id="trace-complete">Save manual comparison</button>'}` : '<button class="btn" id="trace-reveal">Save predictions and compare</button>'}</section>`;
+    const reveal = host.querySelector('#trace-reveal');
+    if (reveal) {
+      reveal.disabled = !trace.predictions.every(value => value.trim());
+      host.querySelectorAll('[data-trace-prediction]').forEach(input => input.oninput = () => {
+        if (StudyStorage.paused || busy) return;
+        trace.predictions[Number(input.dataset.tracePrediction)] = input.value; saveNeuroProg();
+        reveal.disabled = !trace.predictions.every(value => value.trim());
       });
-      showRunResult(result, 'python task.py');
-      termMsg.textContent = result.ok ? 'Run complete.' : 'Run failed — read stderr above.';
-      termMsg.classList.toggle('ok', result.ok);
-      termMsg.classList.toggle('bad', !result.ok);
-      pyStatus.textContent = result.ok ? 'Python ready' : 'Python error';
-    } catch (e) {
-      appendTerm('err', e?.message || String(e));
-      termMsg.textContent = 'Could not load Python runtime.';
-      termMsg.classList.add('bad');
-      pyStatus.textContent = 'Runtime error';
-    } finally {
-      setBusy(false);
+      reveal.onclick = () => {
+        if (StudyStorage.paused || busy || trace.revealedAt || !trace.predictions.every(value => value.trim())) return;
+        trace.revealedAt = Date.now(); if (saveNeuroProg()) showTrace();
+      };
     }
-  };
-
-  const checkCode = async () => {
-    if (busy) return;
-    setBusy(true, 'Checking…');
-    termMsg.textContent = 'Running Check against reference solution…';
+    const comparison = host.querySelector('#trace-comparison'), complete = host.querySelector('#trace-complete');
+    if (complete) {
+      complete.disabled = !trace.comparison.trim();
+      comparison.oninput = () => { if (StudyStorage.paused || busy) return; trace.comparison = comparison.value; saveNeuroProg(); complete.disabled = !trace.comparison.trim(); };
+      complete.onclick = () => {
+        if (StudyStorage.paused || busy || !trace.revealedAt || !trace.comparison.trim()) return;
+        trace.completedAt ||= Date.now();
+        if (saveNeuroProg()) { showTrace(); refreshGate(); status.textContent = neuroCodeEvidenceLabel(work); }
+      };
+    }
+  }
+  async function execute(check) {
+    if (busy || StudyStorage.paused) return;
+    busy = true; draft.readOnly = true; controller = new AbortController();
+    sandbox.querySelectorAll('button').forEach(button => button.disabled = true);
+    sandbox.querySelectorAll('[data-manual-trace] textarea').forEach(input => input.disabled = true);
+    if (stop) { stop.hidden = false; stop.disabled = false; }
+    const submitted = work.draft; status.textContent = check ? 'Checking…' : 'Running Python…';
+    const runtimeOptions = { signal: controller.signal, onOutput: output => { log.textContent = [output.stdout, output.stderr].filter(Boolean).join('\n'); } };
     try {
-      const feedback = await neuroCodeEvaluateOJT(draft.value, lesson, (s) => {
-        pyStatus.textContent = s;
-      });
-      if (feedback.stdout || feedback.stderr) {
-        showRunResult({
-          ok: !feedback.stderr || feedback.passed,
-          stdout: feedback.stdout,
-          stderr: feedback.stderr,
-        }, 'python task.py  # check');
+      if (check) {
+        const feedback = await neuroCodeEvaluateOJT(submitted, lesson, text => status.textContent = text, runtimeOptions);
+        if (StudyStorage.paused) return;
+        work.attempts.push({ ...feedback, draft: submitted, at: Date.now(), support: { ...work.support } });
+        if (feedback.needsSelfReview) { work.comparedDraft = submitted; work.support.solutionAt ||= Date.now(); }
+        if (feedback.passed) { work.completedAt ||= Date.now(); entry.latest = { passed: true, revision: lesson.revision || 1, mode: feedback.mode, at: work.completedAt }; }
+        saveNeuroProg(); showFeedback(feedback); showSupport();
+      } else {
+        const result = await runPythonCode(submitted, { ...runtimeOptions, onStatus: text => status.textContent = text });
+        if (StudyStorage.paused) return;
+        work.lastRun = { ...result, draft: submitted, at: Date.now() }; saveNeuroProg();
+        status.textContent = result.ok ? 'Run complete. Use Check to test the exercise.' : result.reason === 'stopped' ? 'Python stopped. Your draft is retained.' : 'Python could not complete this run.';
+        log.textContent = [result.stdout, result.stderr].filter(Boolean).join('\n');
       }
-      if (feedback.targetOutput && !feedback.passed) {
-        appendTerm('muted', `# reference stdout:\n${feedback.targetOutput.trim()}`);
-      }
-      termMsg.textContent = feedback.message;
-      termHint.textContent = feedback.explanation;
-      termMsg.classList.toggle('ok', feedback.passed);
-      termMsg.classList.toggle('bad', !feedback.passed);
-      pyStatus.textContent = feedback.passed ? 'Check passed' : 'Check failed';
-      if (feedback.passed) markPassed();
-    } catch (e) {
-      appendTerm('err', e?.message || String(e));
-      termMsg.textContent = 'Check failed — runtime unavailable.';
-      termMsg.classList.add('bad');
-    } finally {
-      setBusy(false);
-    }
+    } catch (error) { status.textContent = 'Python could not finish. Your draft is retained; retry when available.'; log.textContent = error.message || String(error); }
+    finally { busy = false; controller = null; draft.readOnly = false; sandbox.querySelectorAll('button').forEach(button => button.disabled = false); if (stop) stop.hidden = true; showTrace(); refreshGate(); }
+  }
+  const run = sandbox.querySelector('[data-run-code]'); if (run) run.onclick = () => execute(false);
+  const traceButton = sandbox.querySelector('[data-trace-code]'); if (traceButton) traceButton.onclick = () => {
+    if (StudyStorage.paused || busy) return;
+    work.manualTrace ||= { predictions: lesson.checks.cases.slice(0, 2).map(() => ''), comparison: '', openedAt: Date.now() };
+    work.support.traceAt ||= Date.now(); if (saveNeuroProg()) showTrace();
   };
-
-  runBtn.addEventListener('click', runCode);
-  checkBtn.addEventListener('click', checkCode);
-  sandbox.querySelector('[data-reset-code]').addEventListener('click', () => {
-    draft.value = starterCode;
-    appendTerm('muted', '# reset to starter code');
-  });
-  sandbox.querySelector('[data-predict-out]').addEventListener('click', e => {
-    const on = e.target.textContent.includes('Hide');
-    e.target.textContent = on ? 'Predict output' : 'Hide expected output';
-    extra.querySelector('[data-predict]')?.remove();
-    if (!on) {
-      extra.appendChild(el(`<div class="neuro-block" data-predict><span class="label">Expected output</span><pre class="neuro-code">${esc(lesson.expectedOutput)}</pre></div>`));
-    }
-  });
-  sandbox.querySelector('[data-copy-code]').addEventListener('click', async () => {
-    try { await navigator.clipboard.writeText(draft.value); } catch {}
-  });
-  sandbox.querySelector('[data-load-sol]').addEventListener('click', () => {
-    draft.value = (lesson.solution || '').trim();
-    appendTerm('muted', '# solution loaded into editor');
-    termMsg.textContent = 'Solution loaded. Run, then Check when ready.';
-    termHint.textContent = guidance.successExplanation;
-  });
-  sandbox.querySelector('[data-show-hint]').addEventListener('click', e => {
-    e.target.disabled = true;
-    extra.appendChild(el(`<div class="sochint"><span class="label">Hint</span><p>${esc(lesson.hint)}</p></div>`));
-  });
-  sandbox.querySelector('[data-show-sol]').addEventListener('click', e => {
-    e.target.disabled = true;
-    extra.appendChild(el(`<div class="neuro-block"><span class="label">Solution</span><pre class="neuro-code">${esc(lesson.solution)}</pre></div>`));
-  });
-  sandbox.querySelector('[data-code-done]')?.addEventListener('click', () => {
-    if (opts.requirePass && !codePassed) return;
-    if (opts.onDone) opts.onDone(codePassed);
-    else if (!opts.mount) renderNeuroCodeLab();
-  });
-
-  shell.appendChild(sandbox);
+  const exportCode = sandbox.querySelector('[data-export-code]'); if (exportCode) exportCode.onclick = () => {
+    const url = URL.createObjectURL(new Blob([`# ${lesson.title}\n# Synthetic Cortex exercise; no clinical device control.\n\n${work.draft}\n`], { type: 'text/x-python' }));
+    const link = document.createElement('a'); link.href = url; link.download = lesson.id + '.py'; link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+  };
+  sandbox.querySelector('[data-check-code]').onclick = () => execute(true);
+  sandbox.querySelector('[data-reset-code]').onclick = () => { if (StudyStorage.paused || busy) return; work.previousDraft = work.draft; draft.value = lesson.codeExample.trim(); saveDraft(); status.textContent = 'Starter restored. The preceding draft is retained in recovery data.'; };
+  sandbox.querySelector('[data-show-hint]').onclick = () => { if (StudyStorage.paused || busy) return; work.support.hintAt ||= Date.now(); saveNeuroProg(); showSupport(); };
+  sandbox.querySelector('[data-show-sol]').onclick = () => { if (StudyStorage.paused || busy) return; work.support.solutionAt ||= Date.now(); saveNeuroProg(); showSupport(); };
+  sandbox.querySelector('[data-load-sol]').onclick = () => { if (StudyStorage.paused || busy) return; work.previousDraft = work.draft; work.support.solutionAt ||= Date.now(); draft.value = lesson.solution.trim(); saveDraft(); showSupport(); };
+  sandbox.querySelector('[data-code-done]').onclick = () => {
+    if (continued || busy || StudyStorage.paused || opts.requirePass && !neuroWorkComplete(work)) return;
+    continued = true;
+    if (opts.onDone) opts.onDone(neuroWorkComplete(work)); else if (!opts.mount) renderNeuroCodeLab();
+  };
+  showFeedback(last); showSupport(); showTrace(); shell.appendChild(sandbox);
 }
 
 function renderNeuroCode(codeId, opts = {}) {
-  const lesson = neuroCode(codeId);
+  const lesson = opts.lesson || NEURO_PROG.code[codeId]?.current?.content || neuroCode(codeId);
+  if (!opts.mount) neuroRoute(null, null, codeId);
   if (!lesson) { if (opts.onDone) opts.onDone(false); else renderNeuroEngineering(); return; }
 
   const conceptBlock = `<div class="neuro-block"><span class="label">Concept</span><p class="neuro-prose">${esc(lesson.explanation)}</p>
-    <p class="neuro-mono">${esc(lesson.codingConcept)} &middot; ${esc(lesson.neuroengineeringConcept)}</p></div>
+    <p class="neuro-mono">${esc(lesson.codingConcept)} &middot; ${esc(lesson.neuroengineeringConcept)}</p></div>${neuroSeriesMarkup(lesson.series)}
+    <p>${esc(lesson.reviewStatus || 'Draft exercise. Independent subject review is pending.')}</p>
+    ${lesson.checks ? '<details><summary>New to Python functions?</summary><p>A function starts with def, followed by its name and inputs in parentheses. Indented lines form its body. return sends a result back to the caller; print only displays a value. A list stores values in order, and its first index is 0. Replace the marked starter lines, run an example, then use Check to call your function with several inputs.</p></details>' : ''}
+    ${lesson.sources?.length ? `<details><summary>Sources</summary><ul>${lesson.sources.map(source => `<li><a href="${esc(source.url)}" target="_blank" rel="noopener">${esc(source.title)}</a></li>`).join('')}</ul></details>` : ''}
     <div class="neuro-block"><span class="label">Code example</span><pre class="neuro-code">${esc(lesson.codeExample)}</pre></div>
     <div class="neuro-block"><span class="label">Challenge</span><p class="neuro-prose">${esc(lesson.challengePrompt)}</p></div>`;
 
@@ -978,6 +999,7 @@ function renderNeuroCode(codeId, opts = {}) {
 }
 
 function renderNeuroCodeLab() {
+  neuroRoute(null, null, null, 'code');
   const lessons = NEURO.data?.neuroCodeLessons || [];
   const root = el('<div></div>');
   root.appendChild(topbar('neuro'));
@@ -986,18 +1008,18 @@ function renderNeuroCodeLab() {
       <button class="backbtn topback" id="neback">&larr; Back to Neuroengineering</button>
       <span class="neuro-eyebrow">NeuroCode Lab</span>
       <h1 class="neuro-h1">Guided code practice.</h1>
-      <p class="neuro-lede">OJT Python tickets wired to neuroengineering workflows. Real Python 3 in-browser &mdash; run code, read stdout, pass Check against the reference.</p>
+      <p class="neuro-lede">Thirteen synthetic Python exercises test functions on several inputs. Run, stop and retry your code, or complete a manual trace when Python is unavailable. Manual comparisons remain separate from executed checks. Independent engineering review is pending.</p>
       <div class="neuro-rows" id="necodelab"></div>
     </section>
   </main>`);
   main.querySelector('#neback').addEventListener('click', renderNeuroEngineering);
   const rows = main.querySelector('#necodelab');
   for (const lesson of lessons) {
-    const done = neuroCodePassed(lesson.id);
+    const done = neuroCodeHasActivity(lesson.id);
     const row = el(`<button class="neuro-row">
       <span class="neuro-row-main"><span class="neuro-row-title">${esc(lesson.title)}</span>
       <span class="neuro-row-sub">${esc(lesson.codingConcept)} &middot; ${esc(lesson.difficulty || 'beginner')}</span></span>
-      <span class="neuro-row-right">${done ? '<span class="pill ok">passed</span>' : ''}</span>
+      <span class="neuro-row-right">${done ? '<span class="pill">saved activity</span>' : ''}</span>
     </button>`);
     row.addEventListener('click', () => renderNeuroCode(lesson.id));
     rows.appendChild(row);
@@ -1007,6 +1029,7 @@ function renderNeuroCodeLab() {
 }
 
 function renderNeuroSimLibrary() {
+  neuroRoute(null, null, null, 'sims');
   const sims = NEURO.data?.simulations || [];
   const root = el('<div></div>');
   root.appendChild(topbar('neuro'));
@@ -1015,18 +1038,18 @@ function renderNeuroSimLibrary() {
       <button class="backbtn topback" id="neback">&larr; Back to Neuroengineering</button>
       <span class="neuro-eyebrow">NeuroSim Lab</span>
       <h1 class="neuro-h1">Decision labs.</h1>
-      <p class="neuro-lede">Twelve short NeuroSim scenarios &mdash; signal interpretation, decoder drift, DBS side effects, ethics, and more.</p>
+      <p class="neuro-lede">${sims.length} short decision labs, including three numerical demonstrations with fixed synthetic data. Your first answer and written comparison are retained. Wider scenarios remain drafts; independent subject review is pending.</p>
       <div class="neuro-rows" id="nesimlib"></div>
     </section>
   </main>`);
   main.querySelector('#neback').addEventListener('click', renderNeuroEngineering);
   const rows = main.querySelector('#nesimlib');
   for (const sim of sims) {
-    const prev = NEURO_PROG.sims[sim.id];
+    const prev = NEURO_PROG.simWork[sim.id];
     const row = el(`<button class="neuro-row">
       <span class="neuro-row-main"><span class="neuro-row-title">${esc(sim.title)}</span>
-      <span class="neuro-row-sub">${esc(sim.difficulty || 'lab')} &middot; ${esc((sim.scoringCategories || []).join(', ') || 'decision')}</span></span>
-      <span class="neuro-row-right">${prev ? `<span class="pill ${prev.ok ? 'ok' : 'no'}">${prev.ok ? 'ok' : 'retry'}</span>` : ''}</span>
+      <span class="neuro-row-sub">${esc(sim.difficulty || 'lab')} &middot; ${esc((sim.scoringCategories || []).map(label => String(label).replace(/([a-z])([A-Z])/g, '$1 $2').toLowerCase()).join(', ') || 'decision')}</span></span>
+      <span class="neuro-row-right">${prev ? `<span class="pill">${prev.completedAt ? 'comparison saved' : 'resume'}</span>` : NEURO_PROG.sims[sim.id] ? '<span class="pill">older activity</span>' : ''}</span>
     </button>`);
     row.addEventListener('click', () => renderNeuroSim(sim.id));
     rows.appendChild(row);
@@ -1035,217 +1058,180 @@ function renderNeuroSimLibrary() {
   setView(root);
 }
 
-/* ---------- BCI Builder unit (guided path) ---------- */
-
+/* ---------- BCI Builder: saved, authored unit work ---------- */
 let neUnit = null;
-const UNIT_STAGE_ORDER = ['orientation', 'lesson', 'mental', 'worked', 'recall', 'quiz', 'code', 'sim', 'debrief'];
-const UNIT_STAGE_LABELS = {
-  orientation: 'Orientation', lesson: 'Short lesson', mental: 'Mental model',
-  worked: 'Worked example', recall: 'Active recall', quiz: 'Quick check',
-  code: 'NeuroCode', sim: 'NeuroSim', debrief: 'Debrief',
-};
+const UNIT_STAGE_LABELS = { orientation: 'Orientation', lesson: 'Short lesson', mental: 'Mental model', worked: 'Worked example', recall: 'Active recall', quiz: 'Quick check', code: 'NeuroCode', sim: 'NeuroSim', debrief: 'Debrief' };
+const neuroClone = value => JSON.parse(JSON.stringify(value));
 
-function renderNeuroUnit(stepId) {
-  const path = neuroPath();
-  const step = path?.steps?.find(s => s.id === stepId);
-  if (!step) { renderNeuroEngineering(); return; }
-  if (!neuroPathStarted()) {
-    NEURO_PROG.pathStarted = true;
-    saveNeuroProg();
-  }
-  const topic = neuroTopic(step.topicId);
-  const unit = neuroUnitLesson(step.order);
-  neUnit = { step, topic, unit, stageIdx: 0, recallIdx: 0 };
-  const root = el('<div></div>');
-  root.appendChild(topbar('neuro'));
-  const main = el(`<main class="neuro-page neuro-inner">
-    <section class="neuro-body">
-      <button class="backbtn topback" id="neback">&larr; Back to Neuroengineering</button>
-      <span class="neuro-eyebrow">BCI Builder &middot; Unit ${step.order} / ${path.steps.length}</span>
-      <h1 class="neuro-h1">${esc(step.title)}</h1>
-      <div class="neuro-runbar cornerframe"><div class="cs-runbar-meta"><span class="label">Unit progress</span><span id="neunitlab">Starting</span></div><span class="bar"><i id="neunitfill" style="width:0%"></i></span></div>
-      <div id="neunitstages"></div>
-    </section>
-  </main>`);
-  main.querySelector('#neback').addEventListener('click', renderNeuroEngineering);
-  root.appendChild(main);
-  setView(root);
-  neuroUnitStages();
-  neuroUnitAppend();
+function neuroRoute(unit, stage, code, view, sim) {
+  const url = new URL(sectionUrl('neuro'), location.origin);
+  if (unit) { url.searchParams.set('unit', unit); url.searchParams.set('stage', stage); }
+  if (code) url.searchParams.set('code', code);
+  if (sim) url.searchParams.set('sim', sim);
+  if (view) url.searchParams.set('view', view);
+  if (location.pathname + location.search === url.pathname + url.search) return;
+  const previous = new URLSearchParams(location.search);
+  const same = ['unit', 'code', 'sim', 'view'].every(key => previous.get(key) === url.searchParams.get(key));
+  history[same ? 'replaceState' : 'pushState']({}, '', url.pathname + url.search);
 }
-
-function neuroUnitStages() {
-  if (!neUnit) return [];
-  const { step, unit } = neUnit;
-  const stages = ['orientation', 'lesson', 'mental', 'worked', 'recall'];
-  if (step.topicId && neuroTopic(step.topicId)?.quizQuestions?.length) stages.push('quiz');
-  if (step.neuroCodeLessonId) stages.push('code');
-  if (step.simulationId) stages.push('sim');
-  stages.push('debrief');
-  neUnit.stages = stages;
-  return stages;
+function neuroStageKeys(content) {
+  return ['orientation', ...(content.unit ? ['lesson', 'mental', 'worked', 'recall'] : []),
+    ...(content.checks.length ? ['quiz'] : []), ...(content.code ? ['code'] : []), ...(content.sim ? ['sim'] : []), 'debrief'];
 }
-
-function neuroUnitProgress() {
-  if (!neUnit) return;
-  const total = neUnit.stages.length;
-  const pct = Math.round(100 * neUnit.stageIdx / total);
-  const fill = document.getElementById('neunitfill');
-  const lab = document.getElementById('neunitlab');
-  if (fill) fill.style.width = `${pct}%`;
-  if (lab) {
-    if (neUnit.stageIdx >= total) lab.textContent = 'Complete';
-    else lab.textContent = `Stage ${neUnit.stageIdx + 1} / ${total} · ${UNIT_STAGE_LABELS[neUnit.stages[neUnit.stageIdx]] || 'Lesson'}`;
-  }
+function neuroValidUnit(record) {
+  const object = value => value && typeof value === 'object' && !Array.isArray(value);
+  if (!object(record) || !object(record.content) || !object(record.content.step)
+    || !Array.isArray(record.content.checks) || !Array.isArray(record.recall) || !object(record.answers)
+    || !Number.isInteger(record.stageIdx) || record.stageIdx < 0 || record.stageIdx > neuroStageKeys(record.content).length
+    || !Number.isInteger(record.recallIdx) || record.recallIdx < 0 || record.recallIdx > (record.content.unit?.activeRecallPrompts?.length || 0) || !Number.isFinite(record.startedAt)
+    || record.codeWork != null && !neuroValidCodeWork(record.codeWork)
+    || record.debrief != null && typeof record.debrief !== 'string'
+    || record.completedAt != null && (!Number.isFinite(record.completedAt) || record.stageIdx !== neuroStageKeys(record.content).length)) return false;
+  if (record.recall.some(item => !object(item) || item.draft != null && typeof item.draft !== 'string')) return false;
+  const choices = [...record.content.checks, ...(record.content.sim ? [{ id: 'simulation', choices: record.content.sim.choices }] : [])];
+  return neuroValidAnswers(record.answers, choices);
 }
-
-function neuroUnitAppend() {
-  neuroUnitStages();
-  neuroUnitProgress();
-  if (!neUnit || neUnit.stageIdx >= neUnit.stages.length) return neuroUnitFinish();
-  const stage = neUnit.stages[neUnit.stageIdx];
-  const { step, topic, unit } = neUnit;
-  const container = document.getElementById('neunitstages');
-  let node;
-
-  if (stage === 'orientation') {
-    node = el(`<section class="neuro-stage"><span class="label">Orientation</span>
-      <p class="neuro-prose">${esc(step.explanation)}</p>
-      <div class="neuro-kv"><span>Objective</span><span>${esc(step.stepObjective)}</span></div>
-      <div class="neuro-kv"><span>Focus</span><span>${esc(step.estimatedFocus)}</span></div>
-      <p class="neuro-mono">${esc(step.oneLineMaster)}</p>
-      <div class="continue-row"><button class="btn btn-solid neuro-btn" data-cont>Continue</button></div></section>`);
-  } else if (stage === 'lesson' && unit) {
-    node = el(`<section class="neuro-stage"><span class="label">Short lesson</span>
-      <div class="neuro-block"><span class="label">Why it matters</span><p class="neuro-prose">${esc(unit.whyItMatters)}</p></div>
-      <p class="neuro-prose">${esc(unit.shortLesson)}</p>
-      ${unit.keyTerms?.length ? `<div class="neuro-tags">${unit.keyTerms.map(t => `<span class="cs-chip">${esc(t)}</span>`).join('')}</div>` : ''}
-      <div class="continue-row"><button class="btn btn-solid neuro-btn" data-cont>Continue</button></div></section>`);
-  } else if (stage === 'mental' && unit) {
-    node = el(`<section class="neuro-stage"><span class="label">Mental model</span><p class="neuro-prose">${esc(unit.mentalModel)}</p>
-      <div class="continue-row"><button class="btn btn-solid neuro-btn" data-cont>Continue</button></div></section>`);
-  } else if (stage === 'worked' && unit) {
-    node = el(`<section class="neuro-stage"><span class="label">Worked example</span><p class="neuro-mono">${esc(unit.workedExample)}</p>
-      <div class="neuro-block"><span class="label">Common mistake</span><p class="neuro-prose">${esc(unit.commonMistake)}</p></div>
-      <div class="continue-row"><button class="btn btn-solid neuro-btn" data-cont>Continue</button></div></section>`);
-  } else if (stage === 'recall' && unit) {
-    const prompts = unit.activeRecallPrompts || [];
-    if (neUnit.recallIdx >= prompts.length) { neUnit.stageIdx++; neUnit.recallIdx = 0; neuroUnitAppend(); return; }
-    const p = prompts[neUnit.recallIdx];
-    const isLast = neUnit.recallIdx === prompts.length - 1;
-    node = el(`<section class="neuro-stage"><span class="label">Active recall ${neUnit.recallIdx + 1}</span>
-      <p class="q">${esc(p.prompt)}</p>
-      <textarea class="socinput neuro-input" rows="2" placeholder="Answer first&hellip;"></textarea>
-      <div class="socactions"><button class="btn neuro-btn" data-hint>Hint</button><button class="btn btn-solid neuro-btn" data-submit-answer>Submit answer</button></div>
-      <div class="socafter"></div></section>`);
-    const after = node.querySelector('.socafter');
-    node.querySelector('[data-hint]').addEventListener('click', e => { e.target.disabled = true; after.appendChild(el(`<div class="sochint"><span class="label">Hint</span><p>${esc(p.hint)}</p></div>`)); });
-    node.querySelector('[data-submit-answer]').addEventListener('click', () => {
-      node.querySelector('.socactions')?.remove();
-      after.appendChild(el(`<div class="socans"><div class="socblock"><span class="label">Answer</span><p>${esc(p.answer)}</p></div></div>`));
-      const row = el(`<div class="continue-row"><button class="btn btn-solid neuro-btn" data-cont>${isLast ? 'Continue' : 'Next'}</button></div>`);
-      row.querySelector('[data-cont]').addEventListener('click', () => { row.remove(); neUnit.recallIdx++; neuroUnitAppend(); });
-      after.appendChild(row);
-      row.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    });
-    container.appendChild(node);
-    node.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    return;
-  } else if (stage === 'quiz') {
-    const topicName = topic ? topic.title : 'this topic';
-    const checkQuestionCount = Math.min(2, topic?.quizQuestions?.length || 0);
-    const gate = el(`<section class="neuro-stage neuro-quiz-gate"><span class="label">Quick check</span>
-      <p class="neuro-prose">This stage checks the supporting topic <b>${esc(topicName)}</b>. Pass ${checkQuestionCount}/${checkQuestionCount} to unlock the next stage.</p>
-      ${topic ? `<details class="neuro-topic-review">
-        <summary><span>Review ${esc(topicName)}</span><span class="neuro-topic-review-state">Opens here &darr;</span></summary>
-        <div class="neuro-topic-review-body">
-          <p class="neuro-prose">${esc(topic.explanation)}</p>
-          <div class="neuro-block"><span class="label">Clinical relevance</span><p class="neuro-prose">${esc(topic.clinicalRelevance)}</p></div>
-          ${topic.vocabulary?.length ? `<div class="neuro-block"><span class="label">Key vocabulary</span><div class="neuro-vocab">${topic.vocabulary.map(v => `<div class="neuro-vterm"><span class="k">${esc(v.term)}</span><span>${esc(v.definition)}</span></div>`).join('')}</div></div>` : ''}
-        </div>
-      </details>` : ''}
-      <div class="neuro-quiz-mount" data-neuro-quiz-mount></div>
-    </section>`);
-    container.appendChild(gate);
-    renderNeuroQuiz(step.topicId, {
-      limit: checkQuestionCount,
-      mount: gate.querySelector('[data-neuro-quiz-mount]'),
-      onDone: (ok) => {
-        if (!ok) return;
-        neUnit.stageIdx++; neuroUnitProgress(); neuroUnitAppend();
-      },
-    });
-    return;
-  } else if (stage === 'code') {
-    renderNeuroCode(step.neuroCodeLessonId, {
-      mount: container,
-      requirePass: true,
-      onDone: (ok) => {
-        if (!ok) return;
-        neUnit.stageIdx++; neuroUnitProgress(); neuroUnitAppend();
-      },
-    });
-    return;
-  } else if (stage === 'sim') {
-    renderNeuroSim(step.simulationId, {
-      mount: container,
-      onDone: (ok) => {
-        if (!ok) return;
-        neUnit.stageIdx++; neuroUnitProgress(); neuroUnitAppend();
-      },
-    });
-    return;
-  } else if (stage === 'debrief') {
-    node = el(`<section class="neuro-stage"><span class="label">Debrief</span>
-      ${step.reflectionQuestion ? `<p class="q">${esc(step.reflectionQuestion)}</p><textarea class="socinput neuro-input" rows="3" placeholder="Reflect&hellip;"></textarea>` : ''}
-      ${step.checkpointPrompt ? `<div class="neuro-block"><span class="label">Checkpoint</span><p class="neuro-prose">${esc(step.checkpointPrompt)}</p></div>` : ''}
-      ${unit ? `<p class="neuro-mono">Mastery: ${esc(unit.masteryCriteria)}</p>` : ''}
-      <div class="continue-row"><button class="btn btn-solid neuro-btn" data-cont>Complete unit</button></div></section>`);
-  } else {
-    neUnit.stageIdx++;
-    neuroUnitAppend();
-    return;
-  }
-
-  const contBtn = node.querySelector('[data-cont]');
-  // retire the button once used — stages accumulate as a transcript, and a stale
-  // Continue left clickable would advance stageIdx again (skipping stages)
-  contBtn?.addEventListener('click', () => { contBtn.closest('.continue-row')?.remove(); neUnit.stageIdx++; neuroUnitAppend(); });
-  container.appendChild(node);
-  // Opening a unit should begin at the page header. Once the learner advances,
-  // keep bringing each new stage into view as the transcript grows.
-  if (neUnit.stageIdx > 0) node.scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
-function neuroUnitFinish() {
-  const { step } = neUnit;
-  const wasNew = !NEURO_PROG.pathDone.includes(step.id);
-  if (wasNew) NEURO_PROG.pathDone.push(step.id);
-  saveNeuroProg();
-  const path = neuroPath();
-  const next = path?.steps?.find(s => s.order === step.order + 1);
-  const m1Unlock = wasNew && step.order === 7 && !neuroMilestonePassed('neural-signal-viewer');
-  const node = el(`<section class="neuro-stage">
-    <span class="label">Unit ${step.order} complete</span>
-    <div class="neuro-score">&#10003;</div>
-    <p class="neuro-prose">${esc(step.oneLineMaster)}</p>
-    ${m1Unlock ? `<div class="neuro-unlock-banner">
-      <span class="label">Practitioner Track unlocked</span>
-      <p class="neuro-prose">Milestone 1 — <strong>Neural Signal Viewer</strong> is open. Load a recording, threshold spikes, submit for grading.</p>
-      <button class="btn btn-solid neuro-btn" id="nem1open">Open Milestone 1</button>
-    </div>` : ''}
-    <div class="endbtns">
-      ${next ? '<button class="btn btn-solid neuro-btn" id="nenu">Next unit</button>' : ''}
-      <button class="btn neuro-btn" id="nehub">Course hub</button>
-    </div>
-  </section>`);
-  if (next) node.querySelector('#nenu').addEventListener('click', () => renderNeuroUnit(next.id));
-  node.querySelector('#nem1open')?.addEventListener('click', () => {
-    if (typeof renderNeuroMilestone === 'function') renderNeuroMilestone('neural-signal-viewer');
+function neuroValidAnswers(answers, choices) {
+  if (!answers || typeof answers !== 'object' || Array.isArray(answers)) return false;
+  return Object.entries(answers).every(([id, answer]) => {
+    const question = choices.find(item => item.id === id);
+    return question && answer && typeof answer === 'object' && !Array.isArray(answer) && Array.isArray(answer.order) && answer.order.length === question.choices.length
+      && new Set(answer.order).size === answer.order.length
+      && answer.order.every(i => Number.isInteger(i) && i >= 0 && i < question.choices.length)
+      && (answer.chosen == null || Number.isInteger(answer.chosen) && answer.order.includes(answer.chosen));
   });
-  node.querySelector('#nehub').addEventListener('click', renderNeuroEngineering);
-  document.getElementById('neunitstages').appendChild(node);
-  neuroUnitProgress();
-  document.getElementById('neunitfill').style.width = '100%';
-  node.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
+function neuroUnitRecord(step) {
+  if (NEURO_PROG.units[step.id]) return NEURO_PROG.units[step.id];
+  const topic = neuroTopic(step.topicId), unit = neuroUnitLesson(step.order);
+  const content = neuroClone({ step, unit: unit || null, topic: topic || null,
+    checks: unit?.checks || topic?.quizQuestions?.slice(0, 2) || [],
+    code: neuroCode(step.neuroCodeLessonId) || null, sim: unit?.simulation || neuroSim(step.simulationId) || null });
+  const record = { content, stageIdx: 0, recallIdx: 0, recall: [], answers: {}, debrief: '', startedAt: Date.now() };
+  NEURO_PROG.units[step.id] = record;
+  NEURO_PROG.pathStarted = true;
+  saveNeuroProg();
+  return record;
+}
+function neuroAnswerRecord(record, question) {
+  if (!record.answers[question.id]) {
+    const order = question.choices.map((_, i) => i);
+    for (let i = order.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [order[i], order[j]] = [order[j], order[i]]; }
+    record.answers[question.id] = { order }; saveNeuroProg();
+  }
+  return record.answers[question.id];
+}
+function neuroChoose(record, question, choice) {
+  if (StudyStorage.paused || record.completedAt) return false;
+  const answer = neuroAnswerRecord(record, question);
+  if (answer.chosen != null || !answer.order.includes(choice)) return false;
+  answer.chosen = choice; answer.answeredAt = Date.now(); return saveNeuroProg();
+}
+function neuroUnitReady(record) {
+  const stage = neuroStageKeys(record.content)[record.stageIdx];
+  if (stage === 'recall') return (record.content.unit?.activeRecallPrompts || []).every((_, i) => record.recall[i]?.revealedAt);
+  if (stage === 'quiz') return record.content.checks.every(q => record.answers[q.id]?.chosen != null);
+  if (stage === 'sim') return record.answers.simulation?.chosen != null;
+  if (stage === 'code') return neuroWorkComplete(record.codeWork);
+  return true;
+}
+function neuroUnitAdvance(record, expectedStage) {
+  if (StudyStorage.paused || record.completedAt || neuroStageKeys(record.content)[record.stageIdx] !== expectedStage || !neuroUnitReady(record)) return false;
+  record.stageIdx++;
+  if (record.stageIdx === neuroStageKeys(record.content).length) {
+    record.completedAt ||= Date.now();
+    if (!NEURO_PROG.pathDone.includes(record.content.step.id)) NEURO_PROG.pathDone.push(record.content.step.id);
+  }
+  return saveNeuroProg();
+}
+function neuroUnitStages() { return neUnit ? neuroStageKeys(neUnit.record.content) : []; }
+function renderNeuroUnit(stepId) {
+  const step = neuroPath()?.steps.find(item => item.id === stepId);
+  if (!step) return renderNeuroEngineering();
+  const record = neuroUnitRecord(step);
+  neUnit = { record, step: record.content.step };
+  const stage = neuroStageKeys(record.content)[record.stageIdx] || 'complete';
+  neuroRoute(step.id, stage);
+  const root = el('<div></div>'); root.appendChild(topbar('neuro'));
+  const main = el(`<main class="neuro-page neuro-inner"><section class="neuro-body">
+    <button class="backbtn topback" id="neback">&larr; Back to Neuroengineering</button>
+    <span class="neuro-eyebrow">BCI Builder &middot; Unit ${step.order} / ${neuroPath().steps.length}</span>
+    <h1 class="neuro-h1">${esc(record.content.step.title)}</h1>
+    <p>${esc(record.content.unit?.reviewStatus || 'Draft lesson. Independent subject review is pending.')}</p>
+    <div class="neuro-runbar cornerframe"><div class="cs-runbar-meta"><span class="label">Unit progress</span><span id="neunitlab"></span></div><span class="bar"><i id="neunitfill"></i></span></div>
+    <div id="neunitstages"></div></section></main>`);
+  main.querySelector('#neback').onclick = () => renderNeuroEngineering();
+  root.appendChild(main); setView(root); neuroUnitAppend();
+}
+function neuroUnitProgress() {
+  const record = neUnit.record, stages = neuroUnitStages();
+  document.getElementById('neunitfill').style.width = `${Math.round(100 * record.stageIdx / stages.length)}%`;
+  document.getElementById('neunitlab').textContent = record.completedAt ? 'Complete' : `Stage ${record.stageIdx + 1} / ${stages.length} · ${UNIT_STAGE_LABELS[stages[record.stageIdx]]}`;
+}
+function neuroUnitAppend() {
+  const record = neUnit.record, { step, unit, checks, code, sim } = record.content;
+  const stage = neuroStageKeys(record.content)[record.stageIdx];
+  neuroRoute(step.id, stage || 'complete'); neuroUnitProgress();
+  const container = document.getElementById('neunitstages'); container.replaceChildren();
+  if (record.completedAt) return neuroUnitFinish();
+  const advance = () => { if (neuroUnitAdvance(record, stage)) neuroUnitAppend(); };
+  if (stage === 'code') {
+    record.codeWork ||= neuroNewCodeWork(code); saveNeuroProg();
+    renderNeuroCode(code.id, { lesson: code, work: record.codeWork, mount: container, requirePass: true, onDone: advance }); return;
+  }
+  if (stage === 'quiz' || stage === 'sim') {
+    const questions = stage === 'quiz' ? checks : [{ id: 'simulation', prompt: sim.decisionQuestion, choices: sim.choices.map(c => c.label), correctIndex: sim.bestAnswerIndex }];
+    const intro = stage === 'sim' ? `<h2>${esc(sim.title)}</h2><p>${esc(sim.scenario)}</p><p>${esc(sim.signalDescription)}</p>${neuroSeriesMarkup(sim.series)}` : '<p>First answers are saved. Review the explanation before continuing; this is practice, not a mastery score.</p>';
+    const node = el(`<section class="neuro-stage"><span class="label">${UNIT_STAGE_LABELS[stage]}</span>${intro}<div id="neuro-unit-questions"></div><button class="btn btn-solid" id="neuro-unit-next" ${neuroUnitReady(record) ? '' : 'disabled'}>Continue after review</button></section>`);
+    for (const question of questions) {
+      const answer = neuroAnswerRecord(record, question), chosen = answer.chosen;
+      const explanation = stage === 'sim' && chosen != null ? sim.choices[chosen].rationale : question.explanation;
+      const item = el(`<div class="neuro-block"><p class="q">${esc(question.prompt)}</p><div class="opts">${answer.order.map((index, i) => `<button class="opt ${chosen === index ? (index === question.correctIndex ? 'correct' : 'wrong') : ''}" data-choice="${index}" ${chosen == null ? '' : 'disabled'}><span class="key">${LETTERS[i]}</span><span>${esc(question.choices[index])}</span></button>`).join('')}</div>${chosen == null ? '' : `<div class="explain"><b>${chosen === question.correctIndex ? 'Correct first answer' : 'First answer needs review'}</b><p>Model answer: ${esc(question.choices[question.correctIndex])}</p><p>${esc(explanation)}</p></div>`}</div>`);
+      item.querySelectorAll('[data-choice]').forEach(button => button.onclick = () => { if (neuroChoose(record, question, Number(button.dataset.choice))) neuroUnitAppend(); });
+      node.querySelector('#neuro-unit-questions').appendChild(item);
+    }
+    node.querySelector('#neuro-unit-next').onclick = advance; container.appendChild(node); return;
+  }
+  if (stage === 'recall') {
+    const prompts = unit.activeRecallPrompts || [];
+    if (record.recallIdx >= prompts.length) { advance(); return; }
+    const index = record.recallIdx, prompt = prompts[index], saved = record.recall[index] ||= { draft: '' };
+    const node = el(`<section class="neuro-stage"><span class="label">Active recall ${index + 1}/${prompts.length}</span><p class="q">${esc(prompt.prompt)}</p>
+      <label for="neuro-recall">Your explanation (optional)</label><textarea class="socinput neuro-input" id="neuro-recall" rows="4" maxlength="12000" ${saved.revealedAt ? 'readonly' : ''}>${esc(saved.draft)}</textarea>
+      ${saved.revealedAt ? `<div class="explain"><b>Compare with the model</b><p>${esc(prompt.answer)}</p><p>Your writing is saved without automatic grading.</p></div><button class="btn btn-solid" id="neuro-recall-next">${index + 1 === prompts.length ? 'Continue' : 'Next prompt'}</button>` : `<button class="btn" id="neuro-recall-hint">Hint</button><button class="btn btn-solid" id="neuro-recall-reveal">Save and compare</button>`}
+      ${saved.hintAt ? `<p class="sochint">${esc(prompt.hint)}</p>` : ''}</section>`);
+    node.querySelector('#neuro-recall').oninput = event => { if (saved.revealedAt || StudyStorage.paused) return; saved.draft = event.target.value; saveNeuroProg(); };
+    const hint = node.querySelector('#neuro-recall-hint'); if (hint) hint.onclick = () => { if (StudyStorage.paused) return; saved.hintAt ||= Date.now(); if (saveNeuroProg()) neuroUnitAppend(); };
+    const reveal = node.querySelector('#neuro-recall-reveal'); if (reveal) reveal.onclick = () => { if (StudyStorage.paused) return; saved.revealedAt ||= Date.now(); if (saveNeuroProg()) neuroUnitAppend(); };
+    const next = node.querySelector('#neuro-recall-next'); if (next) next.onclick = () => { if (StudyStorage.paused || record.recallIdx !== index) return; record.recallIdx++; if (saveNeuroProg()) neuroUnitAppend(); };
+    container.appendChild(node); return;
+  }
+  const body = stage === 'orientation' ? `<p>${esc(step.explanation)}</p><div class="neuro-kv"><span>Objective</span><span>${esc(step.stepObjective)}</span></div>`
+    : stage === 'lesson' ? `<h2>Why it matters</h2><p>${esc(unit.whyItMatters)}</p><p>${esc(unit.shortLesson)}</p>`
+    : stage === 'mental' ? `<p>${esc(unit.mentalModel)}</p>`
+    : stage === 'worked' ? `<p class="neuro-prose">${esc(unit.workedExample)}</p>`
+    : `<p>${esc(step.reflectionQuestion || 'What changed in your understanding?')}</p><label for="neuro-debrief">Your debrief (optional)</label><textarea class="socinput neuro-input" rows="4" id="neuro-debrief" maxlength="12000">${esc(record.debrief)}</textarea><p>Completion records this practice sequence. It does not certify competence.</p>`;
+  const sources = stage === 'lesson' && unit.sources?.length ? `<details><summary>Sources and scope</summary><ul>${unit.sources.map(source => `<li><a href="${esc(source.url)}" target="_blank" rel="noopener">${esc(source.title)}</a></li>`).join('')}</ul></details>` : '';
+  const node = el(`<section class="neuro-stage"><span class="label">${UNIT_STAGE_LABELS[stage]}</span>${body}${sources}<button class="btn btn-solid" id="neuro-unit-next">${stage === 'debrief' ? 'Complete unit' : 'Continue'}</button></section>`);
+  const input = node.querySelector('#neuro-debrief'); if (input) input.oninput = event => { if (StudyStorage.paused) return; record.debrief = event.target.value; saveNeuroProg(); };
+  node.querySelector('#neuro-unit-next').onclick = advance; container.appendChild(node);
+}
+function neuroUnitFinish() {
+  const record = neUnit.record, { step, unit, checks, sim } = record.content;
+  if (!record.completedAt) return;
+  const correct = checks.filter(q => record.answers[q.id]?.chosen === q.correctIndex).length;
+  const next = neuroPath()?.steps.find(item => item.order === step.order + 1);
+  const node = el(`<section class="neuro-stage"><h2>Unit ${step.order} complete</h2><p>${correct}/${checks.length} quick checks correct on the first attempt. Your original responses remain saved.</p>
+    <p>${esc(step.oneLineMaster)}</p><details><summary>Review saved writing and checks</summary>
+    ${(unit?.activeRecallPrompts || []).map((prompt, i) => `<div class="neuro-block"><p><b>${esc(prompt.prompt)}</b></p><p>Your answer: ${esc(record.recall[i]?.draft || '(No written answer)')}</p><p>Model: ${esc(prompt.answer)}</p>${record.recall[i]?.hintAt ? '<p>Hint used</p>' : ''}</div>`).join('')}
+    ${checks.map(q => `<div class="neuro-block"><p><b>${esc(q.prompt)}</b></p><p>First answer: ${esc(q.choices[record.answers[q.id]?.chosen] || '(No answer)')}</p><p>${esc(q.explanation)}</p></div>`).join('')}
+    ${sim ? `<div class="neuro-block"><h3>${esc(sim.title)}</h3><p>${esc(sim.scenario)}</p><p>${esc(sim.signalDescription)}</p>${neuroSeriesMarkup(sim.series)}<p><b>${esc(sim.decisionQuestion)}</b></p><p>First answer: ${esc(sim.choices[record.answers.simulation?.chosen]?.label || '(No answer)')}</p><p>Model answer: ${esc(sim.choices[sim.bestAnswerIndex]?.label || '')}</p><p>${esc(sim.choices[record.answers.simulation?.chosen]?.rationale || '')}</p></div>` : ''}
+    <p><b>Debrief:</b> ${esc(record.debrief || '(No written debrief)')}</p><p>Coding evidence: ${esc(record.codeWork ? neuroCodeEvidenceLabel(record.codeWork) : 'No code exercise in this unit')}${record.codeWork?.support?.solutionAt ? ' · solution consulted' : ''}</p></details>
+    <div class="endbtns">${next ? '<button class="btn btn-solid" id="neuro-next-unit">Next unit</button>' : ''}<button class="btn" id="neuro-unit-hub">Course hub</button></div></section>`);
+  const nextButton = node.querySelector('#neuro-next-unit'); if (nextButton) nextButton.onclick = () => renderNeuroUnit(next.id);
+  node.querySelector('#neuro-unit-hub').onclick = () => renderNeuroEngineering();
+  document.getElementById('neunitstages').appendChild(node);
+}
+window.addEventListener('study-storage-recovered', () => {
+  if (location.pathname === new URL(sectionUrl('neuro'), location.origin).pathname) renderNeuroEngineering({ fromUrl: true });
+});

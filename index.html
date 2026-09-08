@@ -26,7 +26,7 @@
   <meta property="og:image:alt" content="Cortex Medical Academy — Master the human machine. Free MCAT prep, clinical scenarios, and neuroengineering.">
   <link rel="image_src" href="https://cortexmedical.academy/og-v4.jpg">
   <title>Free MCAT Prep — Practice Questions, Flashcards & CARS | Cortex Medical Academy</title>
-  <meta name="description" content="Free, evidence-based MCAT prep: 260+ practice questions with answer breakdowns, 500+ spaced-repetition flashcards, original CARS & science passages, and full-length exam simulation. No account, no paywall — free forever.">
+  <meta name="description" content="Free, evidence-based MCAT prep: 260+ practice questions with answer breakdowns, 500+ spaced-repetition flashcards, original CARS & science passages, and timed practice with saved review. No account, no paywall — free forever.">
   <meta name="keywords" content="free MCAT prep, MCAT practice questions, MCAT flashcards, CARS practice, MCAT science passages, MCAT exam simulator, free MCAT study, MCAT spaced repetition">
   <link rel="canonical" href="https://cortexmedical.academy/">
   <meta name="theme-color" content="#111113">
@@ -34,12 +34,13 @@
 
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23111113'/%3E%3Cpath d='M14 8h4v6h6v4h-6v6h-4v-6H8v-4h6z' fill='%23ffffff'/%3E%3C/svg%3E">
   <link rel="sitemap" type="application/xml" href="/sitemap.xml">
-  <link rel="stylesheet" href="styles.css?v=158">
-  <link rel="stylesheet" href="clinical-shift.css?v=2">
+  <link rel="stylesheet" href="styles.css?v=168">
+  <link rel="stylesheet" href="academy.css?v=24">
+  <link rel="stylesheet" href="clinical-shift.css?v=6">
   <link rel="stylesheet" href="mcat-workflows.css?v=5">
   <link rel="stylesheet" href="mcat-course.css?v=6">
-  <link rel="stylesheet" href="mcat-v2.css?v=4">
-  <link rel="stylesheet" href="mcat-repair.css?v=2">
+  <link rel="stylesheet" href="mcat-v2.css?v=5">
+  <link rel="stylesheet" href="mcat-repair.css?v=3">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -65,7 +66,7 @@
       {
         "@type": "Course",
         "name": "Free MCAT Prep",
-        "description": "A complete, free MCAT preparation system: practice questions with distractor analysis, spaced-repetition flashcards, CARS and AAMC-style science passages, full-length exam simulation, and personalized study plans.",
+        "description": "A free MCAT study system: practice questions with distractor analysis, spaced-repetition flashcards, CARS and AAMC-style science passages, timed practice with saved review, and personalized study plans.",
         "provider": { "@id": "https://cortexmedical.academy/#org" },
         "isAccessibleForFree": true,
         "url": "https://cortexmedical.academy/"
@@ -81,7 +82,7 @@
           {
             "@type": "Question",
             "name": "What does Cortex's MCAT prep include?",
-            "acceptedAnswer": { "@type": "Answer", "text": "260+ discrete practice questions with full distractor breakdowns, 500+ spaced-repetition flashcards, original CARS passages, AAMC-style science passages, a full-length exam simulator, personalized study plans, and a blueprint coverage map." }
+            "acceptedAnswer": { "@type": "Answer", "text": "260+ discrete practice questions with full distractor breakdowns, 500+ spaced-repetition flashcards, original CARS passages, AAMC-style science passages, a timed practice and review, personalized study plans, and a blueprint coverage map." }
           },
           {
             "@type": "Question",
@@ -111,7 +112,7 @@
         <li><strong>500+ flashcards</strong> on spaced-repetition (SM-2) scheduling</li>
         <li><strong>Original CARS passages</strong> with a blind-review workflow</li>
         <li><strong>AAMC-style science passages</strong> with data tables</li>
-        <li><strong>Full-length exam simulator</strong>, study plans, and a blueprint coverage map</li>
+        <li><strong>Timed practice and review</strong>, study plans, and a blueprint coverage map</li>
       </ul>
       <p>Plus interactive clinical case scenarios for medical students and residents.</p>
       <p>This app is interactive and requires JavaScript. Please enable JavaScript, then visit <a href="https://cortexmedical.academy/">cortexmedical.academy</a>.</p>
@@ -124,9 +125,14 @@
     <input type="text" name="bot-field">
   </form>
   <script src="assets/supabase.js?v=1"></script>
-  <script src="auth-progress.js?v=1"></script>
-  <script src="auth.js?v=10"></script>
-  <script src="app.js?v=238"></script>
-  <script src="pomodoro.js?v=5"></script>
+  <script src="auth-progress.js?v=5"></script>
+  <script src="auth.js?v=12"></script>
+  <script src="offline-core.js?v=1"></script>
+  <script src="offline.js?v=2"></script>
+  <script src="academy.js?v=18"></script>
+  <script src="academy-curriculum.js?v=3"></script>
+  <script src="academy-connect.js?v=9"></script>
+  <script src="app.js?v=322"></script>
+  <script src="pomodoro.js?v=6"></script>
 </body>
 </html>

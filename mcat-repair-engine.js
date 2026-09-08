@@ -84,13 +84,16 @@
     a.result = result; a.phase = 'feedback'; a.confidence = result.confidence;
     return result;
   }
-  function afterLesson(concept,state) {
+  function afterLesson(concept,state,now) {
     const a = state.active;
     if (!a || a.phase !== 'lesson') return;
     if (a.kind === 'later') { a.phase = 'done'; return; }
     // Practice mode uses a previously seen item; scheduled unseen items stay reserved.
+    // A repair visit before a scheduled check is due also practices a seen item, so the reserved question stays fresh.
     const seen = new Set((state.records[concept.id]?.attempts || []).map(x => x.questionId));
-    const q = a.kind === 'practice' ? concept.checks.find(q => seen.has(q.id)) || concept.diagnostic : unseenChecks(concept,state)[0] || concept.checks[0];
+    const due = state.records[concept.id]?.dueAt || 0;
+    const early = due && (Number.isFinite(now) ? now : a.startedAt) < due;
+    const q = a.kind === 'practice' || early ? concept.checks.find(q => seen.has(q.id)) || concept.diagnostic : unseenChecks(concept,state)[0] || concept.checks[0];
     a.questionId=q.id; a.phase='question'; a.result=null; a.confidence='unsure';
   }
   function stats(concepts,state) {

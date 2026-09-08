@@ -13,7 +13,7 @@
 # available for a future reorganization without leaving dead course screens.
 /genetics  /  302
 /ccma  /  302
-/cogpsych  /  302
+/cogpsych  /academy  302
 
 # SPA fallback: serve the app for section deep-links (e.g. /medicine, /mcat).
 # Must stay last — Netlify serves real static files first, then falls back here.

@@ -35,41 +35,67 @@ function cogValidLesson(l, seen) {
     && Number.isInteger(l.chapter) && topic && topic.ch === l.chapter && COG_CH[l.chapter]
     && typeof l.title === 'string' && l.title && typeof l.blurb === 'string' && l.blurb
     && Array.isArray(l.steps) && l.steps.length >= 4
-    && l.steps.every(s => s && kinds.has(s.kind));
+    && new Set(l.steps.map(s => s?.id)).size === l.steps.length
+    && l.steps.every(s => {
+      if (!s || typeof s.id !== 'string' || !s.id || !kinds.has(s.kind)) return false;
+      if (s.kind === 'teach') return typeof s.body === 'string' && !!s.body;
+      if (s.kind === 'interactive') return typeof s.widget === 'string' && typeof s.instructions === 'string';
+      const options = s.options || s.choices;
+      if (s.kind === 'checkpoint' && (typeof s.q !== 'string' || typeof s.explain !== 'string' || !options)) return false;
+      if (s.kind === 'ask' && (typeof s.prompt !== 'string' || typeof s.reveal !== 'string')) return false;
+      return !options || Array.isArray(options) && options.length >= 2 && options.every(o => typeof o === 'string' && !!o) && Number.isInteger(s.answer) && s.answer >= 0 && s.answer < options.length;
+    });
 }
 async function cogLoadLessons() {
   if (cogLearnReady) return;
-  try {
-    const r = await fetch('data/cogpsych-learn.json?v=3');
-    if (!r.ok) throw new Error('http '+r.status);
-    const data = await r.json();
-    if (Array.isArray(data)) {
-      const seen = new Set();
-      COG_LESSONS = data.filter(l => { if (!cogValidLesson(l, seen)) return false; seen.add(l.id); return true; });
-    }
-  } catch (e) {}
-  cogLearnReady = true;
+  const response = await fetch('data/cogpsych-learn.json?v=5');
+  if (!response.ok) throw new Error('Psychology lessons did not download');
+  const data = await response.json(), seen = new Set();
+  if (!Array.isArray(data) || !data.length) throw new Error('Psychology lessons are unavailable');
+  for (const lesson of data) {
+    if (!cogValidLesson(lesson, seen)) throw new Error('Psychology lesson structure is invalid');
+    seen.add(lesson.id);
+  }
+  if (Object.entries(COG.lessons).some(([id, record]) => record.content &&
+      (record.content.id !== id || !cogValidLesson(record.content, new Set())))) {
+    StudyStorage.sessionFailed(); throw new Error('Saved psychology lesson needs recovery');
+  }
+  COG_LESSONS = data; cogLearnReady = true;
 }
 
-
-/* ---------------------------------------------------------------------------
-   PROGRESS
-   --------------------------------------------------------------------------- */
-function cogglDone(id) { return !!(COG.learned && COG.learned[id]); }
-function cogglMark(id) { if (!COG.learned) COG.learned = {}; COG.learned[id] = 1; cogSave(); }
+function cogglDone(id) { return !!COG.learned[id]; }
+function cogLessonRecord(lesson) {
+  const record = COG.lessons[lesson.id] ||= { revision: lesson.revision || 1, index: 0, steps: {}, startedAt: Date.now() };
+  // Retain earlier exposed step wording when adding a whole-lesson snapshot.
+  record.content ||= JSON.parse(JSON.stringify({ ...lesson, steps: lesson.steps.map(step => record.steps[step.id]?.content || step) }));
+  return record;
+}
+function cogStepReady(step, record = {}) {
+  if (step.kind === 'checkpoint' || (step.kind === 'ask' && step.choices)) return Number.isInteger(record.selected);
+  if (step.kind === 'ask') return !!record.revealedAt;
+  return !!record.seenAt;
+}
+function cogRoute(view, lesson, step, chapter) {
+  const url = new URL(location.href), previous = new URL(location.href);
+  url.pathname = '/cogpsych';
+  for (const key of ['view', 'lesson', 'step', 'chapter', 'demo', 'run']) url.searchParams.delete(key);
+  if (view !== 'home') url.searchParams.set('view', view);
+  if (lesson) url.searchParams.set('lesson', lesson);
+  if (step !== undefined) url.searchParams.set('step', String(step));
+  if (chapter) url.searchParams.set('chapter', String(chapter));
+  if (url.href === previous.href) return;
+  const sameLesson = lesson && previous.searchParams.get('lesson') === lesson;
+  const method = sameLesson ? 'replaceState' : 'pushState';
+  history[method]({}, '', url.pathname + url.search);
+}
 
 /* ---------------------------------------------------------------------------
    LEARN HOME
    --------------------------------------------------------------------------- */
 function renderCogLearnHome(focusChapter) {
   cogClearTimer();
-  if (!cogLearnReady) {
-    cogLoadLessons().then(() => renderCogLearnHome(focusChapter));
-    const root = el('<div></div>'); root.appendChild(topbar('cogpsych'));
-    root.appendChild(el('<main class="panel gen-lock" id="main"><div class="gen-lock-box cornerframe"><span class="label">Learn</span><p class="gen-lock-sub">Loading lessons…</p></div></main>'));
-    root.appendChild(siteFooter()); setView(root);
-    return;
-  }
+  if (!cogLearnReady) return renderCogPsych();
+  cogRoute('lessons', undefined, undefined, focusChapter);
   cogTrack('learn_home', {});
   const byCh = {};
   COG_LESSONS.filter(l => typeof COG_CH !== 'undefined' && COG_CH[l.chapter]).forEach(l => { (byCh[l.chapter] = byCh[l.chapter] || []).push(l); });
@@ -99,7 +125,7 @@ function renderCogLearnHome(focusChapter) {
   const main = el(`<main class="panel gen-learn-home cog-curriculum-page" id="main" tabindex="-1">
     <button class="ghostbtn cog-curriculum-back" id="gen-back">← Course home</button>
     <header class="cog-curriculum-hero">
-      <div><span class="label">Course curriculum · 13 chapters</span><h1>Cognitive Psychology</h1><p>Learn the subject in order, one guided lesson at a time. Every lesson explains the idea, asks you to reason with it, and closes with a checkpoint.</p></div>
+      <div><span class="label">Draft library · 13 chapters</span><h1>Cognitive Psychology</h1><p>Browse the existing library or begin the seven-lesson foundations path on the course home. Independent review remains pending; saved completion records are preserved.</p></div>
       <aside><strong class="mono">${pct}%</strong><span>${completed} of ${COG_LESSONS.length} lessons complete</span><span class="cog-course-bar"><i style="width:${pct}%"></i></span>${nextLesson ? `<button class="btn btn-solid" id="cog-continue-course">${completed ? 'Continue' : 'Start'} course →</button>` : ''}</aside>
     </header>
     ${hasLessons ? Object.keys(byCh).sort((a, b) => a - b).map(chBlock).join('') : `<div class="gen-learn-empty cornerframe"><span class="label">Load error</span><h2>Lessons did not load</h2><p>Reload the page, or use <b>Smart Review</b> while the lesson file reconnects.</p><button class="btn btn-solid" id="gen-learn-smart">Start Smart Review →</button></div>`}
@@ -116,149 +142,111 @@ function renderCogLearnHome(focusChapter) {
    LESSON PLAYER  (ready for authored lessons; unused while COG_LESSONS is empty)
    --------------------------------------------------------------------------- */
 function renderCogLesson(id) {
+  if (StudyStorage.paused) return;
   cogClearTimer();
-  const lesson = COG_LESSONS.find(l => l.id === id);
-  if (!lesson) { renderCogLearnHome(); return; }
+  const currentLesson = COG_LESSONS.find(item => item.id === id);
+  if (!currentLesson) return renderCogLearnHome();
+  const record = cogLessonRecord(currentLesson), lesson = record.content, params = new URLSearchParams(location.search);
+  if (!cogSave()) return;
+  const requested = params.get('lesson') === id ? params.get('step') : null;
+  const firstUnfinished = lesson.steps.findIndex(step => !cogStepReady(step, record.steps[step.id]));
+  let idx = Math.max(0, Math.min(Number.isInteger(Number(requested)) && Number(requested) > 0 ? Number(requested)-1 : Number.isInteger(record.index) ? record.index : 0,
+    firstUnfinished < 0 ? lesson.steps.length-1 : firstUnfinished));
+  if (requested === 'done' && record.completedAt) return finish();
   cogTrack('learn_start', { lesson: id });
-  let idx = 0;
 
-  function frame(inner, opts) {
-    opts = opts || {};
-    const root = el('<div></div>');
-    root.appendChild(topbar('cogpsych'));
-    const pct = Math.round((idx) / lesson.steps.length * 100);
+  function save() { return cogSave(); }
+  function snapshot(step, saved) { saved.content ||= JSON.parse(JSON.stringify(step)); }
+  function frame(inner, ready) {
+    record.index = idx; cogRoute('lesson', id, idx+1);
+    const root = el('<div></div>'); root.appendChild(topbar('cogpsych'));
     const main = el(`<main class="panel gen-lesson" id="main" tabindex="-1">
-      <div class="gen-lesson-top">
-        <button class="ghostbtn" id="gen-exit">← Lessons</button>
-        <span class="gen-lesson-title">${esc(lesson.title)}</span>
-        <span class="mono gen-lesson-count">${Math.min(idx + 1, lesson.steps.length)}/${lesson.steps.length}</span>
-      </div>
-      <div class="gen-lesson-bar"><span style="width:${pct}%"></span></div>
+      <div class="gen-lesson-top"><button class="ghostbtn" id="gen-exit">← Save & leave</button><h1 class="gen-lesson-title">${esc(lesson.title)}</h1><span class="mono gen-lesson-count">${idx+1}/${lesson.steps.length}</span></div>
+      <div class="gen-lesson-bar"><span style="width:${idx/lesson.steps.length*100}%"></span></div>
       <div class="gen-lesson-body" id="lesson-body"></div>
-      <div class="gen-lesson-nav">
-        <button class="btn" id="lesson-back" ${idx === 0 ? 'disabled' : ''}>Back</button>
-        <button class="btn btn-solid" id="lesson-next" ${opts.gate ? 'disabled' : ''}>${opts.nextLabel || 'Next'}</button>
-      </div>
+      <div class="gen-lesson-nav"><button class="btn" id="lesson-back" ${idx ? '' : 'disabled'}>Back</button><button class="btn btn-solid" id="lesson-next" ${ready ? '' : 'disabled'}>${idx === lesson.steps.length-1 ? 'Save lesson completion' : 'Next →'}</button></div>
+      <aside class="cog-lesson-source"><span class="label">${lesson.foundationOrder ? 'Foundation lesson' : lesson.researchOrder ? 'Research reasoning lesson' : 'Draft library lesson'} · ${esc(lesson.reviewStatus || 'Independent subject review pending.')}</span>
+      ${(lesson.sources || []).map(source => `<a href="${esc(source.url)}" target="_blank" rel="noopener">${esc(source.title)} ↗</a>`).join('')}
+      <p>Original Cortex teaching and examples. Responses are saved in this browser with your course progress. Lesson completion records participation; first answers are shown separately.</p></aside>
     </main>`);
-    main.querySelector('#lesson-body').appendChild(inner);
-    main.querySelector('#gen-exit').addEventListener('click', () => renderCogLearnHome());
-    main.querySelector('#lesson-back').addEventListener('click', () => { if (idx > 0) { idx--; show(); } });
-    const nextBtn = main.querySelector('#lesson-next');
-    nextBtn.addEventListener('click', () => {
-      if (idx < lesson.steps.length - 1) { idx++; show(); }
-      else { cogglMark(lesson.id); cogTrack('learn_done', { lesson: lesson.id }); finish(); }
-    });
-    root.appendChild(main); root.appendChild(siteFooter()); setView(root);
-    return { ungate: () => { nextBtn.disabled = false; } };
+    main.querySelector('#lesson-body').append(inner);
+    main.querySelector('#gen-exit').onclick = () => { if (save()) renderCogLearnHome(lesson.chapter); };
+    main.querySelector('#lesson-back').onclick = () => { if (!StudyStorage.paused && idx > 0) { idx--; show(); } };
+    main.querySelector('#lesson-next').onclick = () => {
+      if (StudyStorage.paused) return;
+      const step = lesson.steps[idx], saved = record.steps[step.id] ||= {};
+      if (step.kind === 'teach' || step.kind === 'interactive') { snapshot(step, saved); saved.seenAt ||= Date.now(); }
+      if (!cogStepReady(step, saved)) return;
+      if (idx < lesson.steps.length-1) { record.index = idx+1; if (save()) { idx++; show(); } }
+      else if (lesson.steps.every(item => cogStepReady(item, record.steps[item.id]))) {
+        record.completedAt ||= Date.now(); COG.learned[id] ||= record.completedAt;
+        if (save()) { cogTrack('learn_done', { lesson: id }); finish(); }
+      }
+    };
+    root.append(main); setView(root);
   }
 
   function show() {
-    const step = lesson.steps[idx];
-    const last = idx === lesson.steps.length - 1;
-    const nextLabel = last ? 'Finish ✓' : 'Next →';
-
+    const current = lesson.steps[idx], saved = record.steps[current.id] ||= {};
+    const step = saved.content || current;
     if (step.kind === 'teach') {
-      frame(el(`<div class="gen-step gen-step-teach"><p>${step.body}</p></div>`), { nextLabel });
-
-    } else if (step.kind === 'ask') {
-      const box = el(`<div class="gen-step gen-step-ask">
-        <span class="gen-step-kind">Think it through</span>
-        <p class="gen-ask-prompt">${step.prompt}</p>
-        <div class="gen-ask-body"></div>
-      </div>`);
-      const body = box.querySelector('.gen-ask-body');
-      const handle = frame(box, { gate: true, nextLabel });
-      if (Array.isArray(step.choices)) {
-        const opts = el('<div class="gen-ask-choices"></div>');
-        step.choices.forEach((c, i) => opts.appendChild(el(`<button type="button" class="gen-ask-choice" data-i="${i}">${esc(c)}</button>`)));
-        body.appendChild(opts);
-        const reveal = el(`<div class="gen-ask-reveal" hidden><p>${step.reveal}</p></div>`);
-        body.appendChild(reveal);
-        opts.querySelectorAll('.gen-ask-choice').forEach(btn => btn.addEventListener('click', () => {
-          if (opts.dataset.locked) return; opts.dataset.locked = '1';
-          const pick = +btn.dataset.i;
-          opts.querySelectorAll('.gen-ask-choice').forEach((b, i) => { b.disabled = true; if (i === step.answer) b.classList.add('correct'); else if (i === pick) b.classList.add('wrong'); });
-          const right = pick === step.answer;
-          reveal.classList.add(right ? 'right' : 'wrong');
-          reveal.insertAdjacentHTML('afterbegin', `<p class="gen-ask-verdict"><b>${right ? 'Correct.' : 'Not quite.'}</b></p>`);
-          reveal.hidden = false;
-          handle.ungate();
-        }));
-      } else {
-        const btn = el('<button type="button" class="btn gen-ask-show">Show me ▾</button>');
-        const reveal = el(`<div class="gen-ask-reveal" hidden><p>${step.reveal}</p></div>`);
-        body.append(btn, reveal);
-        btn.addEventListener('click', () => { reveal.hidden = false; btn.hidden = true; handle.ungate(); });
-      }
-
+      frame(el(`<article class="gen-step gen-step-teach">${step.body}</article>`), true);
     } else if (step.kind === 'interactive') {
-      const box = el(`<div class="gen-step gen-step-interactive">
-        <p class="gen-inter-instr">${esc(step.instructions)}</p>
-        <div class="gen-inter-host"></div>
-        <p class="gen-inter-done" hidden>✓ nice work</p>
-      </div>`);
-      frame(box, { nextLabel });
-      const host = box.querySelector('.gen-inter-host');
-      const doneMsg = box.querySelector('.gen-inter-done');
-      const widget = COGLW[step.widget]
-        || (window.COG_FIGS && window.COG_FIGS[step.widget]
-            ? (h) => { try { window.COG_FIGS[step.widget](h); } catch (e) { h.textContent = ''; } }
-            : null);
-      if (widget) widget(host, () => { doneMsg.hidden = false; });
-      else host.appendChild(el('<p class="gen-inter-instr">[missing widget]</p>'));
-
-    } else if (step.kind === 'checkpoint') {
-      const box = el(`<div class="gen-step gen-step-check">
-        <span class="gen-step-kind">Quick check</span>
-        <p class="gen-check-q">${esc(step.q)}</p>
-        <div class="gen-check-opts"></div>
-        <div class="gen-check-fb" hidden></div>
-      </div>`);
-      const handle = frame(box, { gate: true, nextLabel });
-      const opts = box.querySelector('.gen-check-opts');
-      const fb = box.querySelector('.gen-check-fb');
-      step.options.forEach((o, i) => opts.appendChild(el(`<button type="button" class="gen-check-opt" data-i="${i}">${esc(o)}</button>`)));
-      opts.querySelectorAll('.gen-check-opt').forEach(btn => btn.addEventListener('click', () => {
-        if (opts.dataset.locked) return; opts.dataset.locked = '1';
-        const pick = +btn.dataset.i;
-        const right = pick === step.answer;
-        if (right) {
-          opts.querySelectorAll('.gen-check-opt').forEach((b, i) => { b.disabled = true; if (i === step.answer) b.classList.add('correct'); });
-          fb.hidden = false; fb.className = 'gen-check-fb right';
-          fb.innerHTML = `<b>Correct.</b> ${esc(step.explain)}`;
-          handle.ungate();
-        } else {
-          opts.dataset.locked = '';
-          btn.disabled = true; btn.classList.add('wrong');
-          fb.hidden = false; fb.className = 'gen-check-fb wrong';
-          fb.innerHTML = '<b>Not quite.</b> Use the feedback, then try another answer.';
-        }
-      }));
+      const box = el(`<article class="gen-step"><p>${esc(step.instructions)}</p><div class="gen-inter-host"></div><p>Review the figure and its explanation before continuing. This is a teaching illustration, not a measured experiment.</p></article>`);
+      frame(box, true);
+      const host = box.querySelector('.gen-inter-host'), widget = COGLW[step.widget] || window.COG_FIGS?.[step.widget];
+      if (widget) { try { widget(host, () => {}); } catch { host.textContent = 'The illustration could not open. The written explanation above remains available.'; } }
+      else host.textContent = 'This illustration is unavailable. Use the written explanation above.';
+    } else if (step.kind === 'checkpoint' || step.choices) {
+      const options = step.options || step.choices, answered = Number.isInteger(saved.selected);
+      const box = el(`<article class="gen-step gen-step-check"><span class="gen-step-kind">${step.kind === 'checkpoint' ? 'Application check' : 'Think it through'}</span><h2 class="gen-check-q">${step.kind === 'checkpoint' ? esc(step.q) : step.prompt}</h2>
+        <div class="gen-check-opts">${options.map((option,i) => `<button type="button" class="gen-check-opt${answered && i === step.answer ? ' correct' : answered && i === saved.selected ? ' wrong' : ''}" data-pick="${i}" ${answered ? 'disabled' : ''}>${esc(option)}</button>`).join('')}</div>
+        ${answered ? `<div class="gen-check-fb ${saved.selected === step.answer ? 'right' : 'wrong'}" role="status"><b>${saved.selected === step.answer ? 'Correct.' : 'Revisit this idea.'}</b><p>Your first answer: ${esc(options[saved.selected])}</p><p>Answer: ${esc(options[step.answer])}</p><p>${step.kind === 'checkpoint' ? esc(step.explain) : step.reveal}</p></div>` : ''}</article>`);
+      frame(box, answered);
+      box.querySelectorAll('[data-pick]').forEach(button => button.onclick = () => {
+        if (StudyStorage.paused || Number.isInteger(saved.selected)) return;
+        snapshot(current, saved); saved.selected = Number(button.dataset.pick); saved.answeredAt = Date.now();
+        if (save()) show();
+      });
+    } else {
+      const revealed = !!saved.revealedAt;
+      const box = el(`<article class="gen-step gen-step-ask"><span class="gen-step-kind">Explain it in your own words</span><h2 class="gen-ask-prompt">${step.prompt}</h2>
+        <label for="cog-response">Your response</label><textarea id="cog-response" rows="4" ${revealed ? 'readonly' : ''}>${esc(saved.draft || '')}</textarea>
+        ${revealed ? `<div class="gen-ask-reveal" role="status"><b>Authored comparison</b><p>${step.reveal}</p></div>` : '<button type="button" class="btn" id="cog-reveal">Compare with an example</button>'}</article>`);
+      frame(box, revealed);
+      const input = box.querySelector('textarea'), reveal = box.querySelector('#cog-reveal');
+      if (!revealed) {
+        reveal.disabled = !input.value.trim();
+        input.oninput = () => { snapshot(current, saved); saved.draft = input.value; save(); reveal.disabled = !input.value.trim(); };
+        reveal.onclick = () => { if (StudyStorage.paused || saved.revealedAt || !input.value.trim()) return; snapshot(current, saved); saved.revealedAt = Date.now(); if (save()) show(); };
+      }
+    }
+    if (saved.content && JSON.stringify(saved.content) !== JSON.stringify(current)) {
+      document.querySelector('#lesson-body').append(el('<p class="course-notice">This saved response belongs to an earlier wording of the lesson. Your original prompt and answer are preserved.</p>'));
     }
   }
 
   function finish() {
-    cogClearTimer();
-    if (COG_LESSONS.length && COG_LESSONS.every(l => cogglDone(l.id)) && typeof cogGrant === 'function') cogGrant('scholar');
-    const root = el('<div></div>');
-    root.appendChild(topbar('cogpsych'));
-    const main = el(`<main class="panel gen-result" id="main" tabindex="-1">
-      <div class="gen-res-box cornerframe">
-        <span class="label">Lesson complete</span>
-        <h1 class="gen-res-sub">${esc(lesson.title)}</h1>
-        <p class="gen-empty-msg">You’ve got the concept — now lock it in with a few drills on this topic.</p>
-        <div class="gen-res-btns">
-          <button class="btn btn-solid" id="l-drill">Drill this topic →</button>
-          <button class="btn" id="l-more">More lessons</button>
-          <button class="btn" id="l-home">Home</button>
-        </div>
-      </div>
-    </main>`);
-    main.querySelector('#l-drill').addEventListener('click', () => { if (typeof startCogTopic === 'function') startCogTopic(lesson.topic); else renderCogHome(); });
-    main.querySelector('#l-more').addEventListener('click', () => renderCogLearnHome());
-    main.querySelector('#l-home').addEventListener('click', renderCogHome);
-    root.appendChild(main); root.appendChild(siteFooter()); setView(root);
+    cogRoute('lesson', id, 'done');
+    const foundation = COG_LESSONS.filter(item => item.foundationOrder).sort((a,b) => a.foundationOrder-b.foundationOrder);
+    const research = COG_LESSONS.filter(item => item.researchOrder).sort((a,b) => a.researchOrder-b.researchOrder);
+    const sequence = lesson.foundationOrder || lesson.researchOrder ? [...foundation, ...research] : COG_LESSONS;
+    const next = sequence[sequence.findIndex(item => item.id === id)+1];
+    const answers = Object.values(record.steps).filter(step => Number.isInteger(step.selected));
+    const correct = answers.filter(step => step.selected === step.content?.answer).length;
+    const root = el('<div></div>'); root.appendChild(topbar('cogpsych'));
+    const main = el(`<main class="panel gen-result" id="main" tabindex="-1"><div class="gen-res-box cornerframe"><span class="label">Lesson complete</span><h1 class="gen-res-sub">${esc(lesson.title)}</h1>
+      <p>Completed <time datetime="${new Date(record.completedAt).toISOString()}">${new Date(record.completedAt).toLocaleString()}</time>.</p><p>${correct}/${answers.length} first answers correct. Completion and accuracy are separate.</p>
+      <p>Your explanations and first answers are saved. Use Review my work to revisit them, then apply one idea to another study task.</p>
+      <div class="gen-res-btns">${next ? `<button class="btn btn-solid" id="cog-next-lesson">Next: ${esc(next.title)} →</button>` : `<a class="btn btn-solid" href="${sectionUrl('socrates')}">Apply a strategy in Learn to Learn →</a>`}<button class="btn" id="cog-review">Review my work</button><button class="btn" id="cog-home">Course home</button></div>
+      ${lesson.researchOrder ? `<div class="gen-res-btns"><button class="btn" id="cog-research-lab">Apply the methods in the research lab →</button>${(lesson.mcatLinks || []).map(link => { const url = new URL(sectionUrl('mcat'), location.origin); url.searchParams.set('view', 'course'); url.searchParams.set('unit', link.unitId); return `<a class="btn" href="${esc(url.pathname + url.search)}">MCAT: ${esc(link.title)}</a>`; }).join('')}</div>` : ''}
+      <details class="cog-saved-responses"><summary>Saved responses</summary>${lesson.steps.map(step => record.steps[step.id]).filter(saved => saved?.draft).map(saved => `<p>${esc(saved.draft)}</p>`).join('') || '<p>No written response recorded.</p>'}</details>
+    </div></main>`);
+    const nextButton = main.querySelector('#cog-next-lesson'); if (nextButton) nextButton.onclick = () => renderCogLesson(next.id);
+    main.querySelector('#cog-review').onclick = () => { idx = 0; show(); };
+    main.querySelector('#cog-home').onclick = renderCogHome;
+    const lab = main.querySelector('#cog-research-lab'); if (lab) lab.onclick = () => { cogRoute('research'); openCogResearch(); };
+    root.append(main); setView(root);
   }
-
   show();
 }

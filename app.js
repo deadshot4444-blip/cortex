@@ -30,21 +30,19 @@ const SPECIALTIES = [
 ];
 const NAME_BY_KEY = Object.fromEntries(SPECIALTIES.map(s => [s.key, s.name]));
 
-// Sections gated from public use. Construction sections stay visible, but their
-// full course experiences remain closed until Kevin finishes evaluating them.
-// The gates lift on localhost ONLY, so in-progress sections can be evaluated in preview;
-// any deployed host keeps them closed, so this is inert in production.
-// `?gates=prod` forces production gating on localhost so the release-gate smoke suite — which
-// asserts the Under construction screens — can still test real deployed behaviour locally.
+// Availability follows the Academy catalog. Public courses retain beta and
+// draft review labels; localhost can also preview future unavailable tracks.
 const IS_LOCAL_PREVIEW = typeof location !== 'undefined'
   && /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname)
   && !/[?&]gates=prod\b/.test(location.search);
-const UNDER_CONSTRUCTION = new Set(IS_LOCAL_PREVIEW ? [] : ['reference', 'neuro']);
-const COMING_SOON = new Set(['anatomy', ...(IS_LOCAL_PREVIEW ? [] : ['socrates']), ...UNDER_CONSTRUCTION]);
+const UNDER_CONSTRUCTION = new Set(IS_LOCAL_PREVIEW ? [] : CortexAcademy.tracks.filter(track => !track.available).map(track => track.id));
+const COMING_SOON = new Set(UNDER_CONSTRUCTION);
 function sectionMenuTag(key) {
   if (UNDER_CONSTRUCTION.has(key)) return '<span class="mi-soon">Under construction</span>';
   if (COMING_SOON.has(key)) return '<span class="mi-soon">Soon</span>';
-  if (key === 'reference') return '<span class="mi-tag">New</span>';
+  if (IS_LOCAL_PREVIEW && CortexAcademy.tracks.some(track => track.id === key && !track.available)) {
+    return '<span class="mi-soon">Local preview</span>';
+  }
   return '';
 }
 const SECTION_LABELS = { anatomy: 'Anatomy', reference: 'Medicine', socrates: 'Learn to Learn' };
@@ -78,9 +76,8 @@ const SECTION_INFO = {
     desc: 'A free, open course on the science of the mind — 13 chapters from how cognition is studied and the brain, through perception, attention, and memory, to knowledge, imagery, language, problem solving, and decision making. Guided lessons first; adaptive review to make it stick.',
   },
 };
-// Local build pace: every completed update or fix advances one patch version.
-// This number can move locally; nothing ships until Kevin explicitly says ship.
-const APP_VERSION = '2.0.0-beta.2';
+// Public beta version; independent subject acceptance remains separate.
+const APP_VERSION = '2.30.0-beta.1';
 function cortexFreeNote(sectionPill, sectionName) {
   return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free</span><span class="free-note-txt">${sectionName} is free to use — no account, no paywall, no catch.</span></p>`;
 }
@@ -112,6 +109,12 @@ function rankFor(xp) {
 
 const $app = document.getElementById('app');
 
+// Raw copies of the shared clinical records exactly as this tab loaded them.
+// study-storage.js adopts them when it loads, so a change made by another tab
+// before the first save here is reported as a conflict instead of being overwritten.
+const STUDY_CORE_KEYS = ['cs-progress', 'cs-cases', 'cs-history', 'cs-streak'];
+const studyBootCopies = {};
+
 const store = {
   manifest: {},
   index: null,                 // [{id,key,name,title,difficulty,diagnosis}]
@@ -130,7 +133,9 @@ let session = null;
 
 function loadJSON(key, fallback) {
   try {
-    const v = JSON.parse(localStorage.getItem(key));
+    const raw = localStorage.getItem(key);
+    if (STUDY_CORE_KEYS.includes(key)) studyBootCopies[key] = raw;
+    const v = JSON.parse(raw);
     if (v == null) return fallback;
     // shape guard: a corrupted/legacy value of the wrong type would crash callers
     if (Array.isArray(fallback) !== Array.isArray(v)) return fallback;
@@ -140,20 +145,23 @@ function loadJSON(key, fallback) {
 }
 // guarded write — storage can throw (quota full, Safari Private, disabled by policy);
 // a failure should degrade to "not saved", never freeze the flow mid-action.
-function safeSet(key, value) { try { localStorage.setItem(key, value); } catch {} }
+function safeSet(key, value) {
+  if (typeof StudyStorage !== 'undefined' && STUDY_CORE_KEYS.includes(key)) return StudyStorage.writeRaw(key, value);
+  try { localStorage.setItem(key, value); return true; } catch { return false; }
+}
 function saveProgress() { safeSet('cs-progress', JSON.stringify(store.progress)); }
 function saveCases() { safeSet('cs-cases', JSON.stringify(store.cases)); }
 function saveHistory() { safeSet('cs-history', JSON.stringify(store.history.slice(0, 400))); }
 function saveStreak() { safeSet('cs-streak', JSON.stringify(store.streak)); }
 
 const SECTION_SCRIPTS = {
-  practice: ['clinical-shift.js?v=6'],
-  mcat: ['mcat-storage.js?v=2', 'mcat-repair-engine.js?v=2', 'mcat-repair.js?v=6', 'mcat-workflows.js?v=13', 'mcat-course-engine.js?v=4', 'mcat-course.js?v=13', 'mcat-v2-engine.js?v=6', 'mcat-v2.js?v=10', 'mcat.js?v=76'],
-  anatomy: ['anatomy.js?v=36'],
-  reference: ['reference.js?v=52', 'performance-drugs.js?v=25', 'ekg.js?v=36'],
-  socrates: ['socrates.js?v=46'],
-  neuro: ['python-runtime.js?v=4', 'code-evaluator.js?v=2', 'neuro-practitioner.js?v=4', 'neuro.js?v=27'],
-  cogpsych: ['cogpsych.js?v=8', 'cogpsych-learn.js?v=7', 'cogpsych-figs.js?v=1'],
+  academy: ['study-storage.js?v=4', 'academy-today.js?v=7', 'study-backup.js?v=10', 'academy-storage.js?v=4', 'academy-portfolio-core.js?v=2', 'academy-portfolio.js?v=3'],
+  practice: ['study-storage.js?v=4', 'clinical-longitudinal-engine.js?v=2', 'clinical-longitudinal.js?v=3', 'clinical-shift.js?v=17'],
+  mcat: ['study-storage.js?v=4', 'mcat-item-quality-core.js?v=1', 'mcat-item-quality.js?v=1', 'mcat-rehearsal-engine.js?v=2', 'mcat-rehearsal.js?v=8', 'mcat-repair-engine.js?v=3', 'mcat-repair.js?v=9', 'mcat-workflows.js?v=18', 'mcat-course-engine.js?v=7', 'mcat-course.js?v=22', 'mcat-coverage.js?v=2', 'mcat-v2-engine.js?v=10', 'mcat-v2.js?v=18', 'mcat.js?v=88'],
+  anatomy: ['study-storage.js?v=4', 'academy-lessons.js?v=6', 'anatomy.js?v=42'],
+  reference: ['study-storage.js?v=4', 'ecg-engine.js?v=2', 'academy-lessons.js?v=6', 'reference.js?v=58', 'performance-drugs.js?v=25', 'ekg.js?v=40'],
+  socrates: ['study-storage.js?v=4', 'socrates.js?v=48'],
+  neuro: ['study-storage.js?v=4', 'python-runtime.js?v=5', 'code-evaluator.js?v=7', 'neuro-project-engine.js?v=2', 'neuro-practitioner.js?v=11', 'neuro.js?v=38'],
 };
 const _scriptLoads = {};
 function loadScript(src) {
@@ -162,7 +170,7 @@ function loadScript(src) {
     const s = document.createElement('script');
     s.src = src;
     s.onload = () => resolve();
-    s.onerror = () => { delete _scriptLoads[src]; reject(new Error('load ' + src)); };
+    s.onerror = () => { s.remove(); delete _scriptLoads[src]; reject(new Error('load ' + src)); };
     document.head.appendChild(s);
   });
   return _scriptLoads[src];
@@ -174,68 +182,61 @@ async function ensureSection(key) {
 }
 // MCAT is lazy-loaded like every other section. Its entry is the saved daily
 // plan (or plan setup on first use), with the complete tool library one level back.
-function gotoMCAT() {
-  ensureSection('mcat').then(() => {
-    if (typeof window.renderMCATEntry === 'function') window.renderMCATEntry();
-    else if (typeof window.renderMCAT === 'function') window.renderMCAT();
-  }).catch(err => console.error('MCAT load failed', err));
-}
+function gotoMCAT() { return navigateSection('mcat'); }
 
-function clearClinicalProgress() {
-  store.progress = {}; store.cases = {}; store.history = [];
-  store.streak = { current: 0, longest: 0, lastDate: null };
-  saveProgress(); saveCases(); saveHistory(); saveStreak();
-  if (typeof window.resetClinicalShiftState === 'function') window.resetClinicalShiftState();
-  else { try { localStorage.removeItem('cs-clinical-shift-v1'); } catch {} }
-}
-function clearMcatProgress() {
-  if (typeof window.resetMcatState === 'function') window.resetMcatState();
-  else {
-    const keys = [];
-    for (let i = 0; i < localStorage.length; i++) {
-      const k = localStorage.key(i);
-      if (k && k.startsWith('cs-mcat')) keys.push(k);
-    }
-    keys.forEach(k => { try { localStorage.removeItem(k); } catch {} });
+function studyResetData(data,scope) {
+  if(!['clinical','medicine','mcat','all'].includes(scope))throw Error('Choose a supported reset scope.');
+  const next={...data},preferences=new Set(['cs-mode','cs-diff','cs-seen-ver','cs-anon-id']);
+  const clinical=new Set(['cs-cases','cs-history','cs-streak','cs-clinical-shift-v1','cs-clinical-longitudinal-v1']);
+  const medicine=new Set(['cs-pharm','cs-ped','cs-micro','cs-labs','cs-ekg','cs-medicine','cs-academy-reference-v1']);
+  for(const key of Object.keys(next))if(scope==='all'&&!preferences.has(key)||scope==='mcat'&&key.startsWith('cs-mcat')||scope==='clinical'&&clinical.has(key)||scope==='medicine'&&medicine.has(key))delete next[key];
+  if(['clinical','medicine'].includes(scope)&&next['cs-progress']){
+    let progress=null;try{progress=JSON.parse(next['cs-progress']);}catch{}
+    if(!progress||typeof progress!=='object'||Array.isArray(progress))throw Error('Shared progress could not be read. Keep a recovery copy before resetting.');
+    const keys=scope==='medicine'?['medicine']:SPECIALTIES.map(s=>s.key);
+    let changed=false;for(const key of keys)if(Object.hasOwn(progress,key)){delete progress[key];changed=true;}
+    if(changed)next['cs-progress']=JSON.stringify(progress);
   }
+  return next;
 }
-function clearPomoProgress() {
-  if (typeof window.resetPomoState === 'function') window.resetPomoState();
-  else safeSet('cs-pomo', JSON.stringify({ mode: 'focus', running: false, deadline: 0, remainMs: 1500000, focusMin: 25, breakMin: 5, rounds: 0, totalFocusMs: 0, totalBreakMs: 0, startedTs: 0 }));
-}
-function clearMedicineProgress() {
-  ['cs-pharm', 'cs-ped', 'cs-micro', 'cs-labs', 'cs-ekg', 'cs-medicine'].forEach(k => {
-    try { localStorage.removeItem(k); } catch {}
-  });
-  if (store.progress && store.progress.medicine) { delete store.progress.medicine; saveProgress(); } // Medicine MCQ XP/answered/correct lives here too
-  if (typeof window._resetMedicineMemory === 'function') window._resetMedicineMemory();
-  if (typeof window._resetPedMemory === 'function') window._resetPedMemory();
-  if (typeof window._resetEkgMemory === 'function') window._resetEkgMemory();
-}
-
-function openResetProgress(onDone) {
-  const m = el(`<div class="modal" id="rst"><div class="modal-box">
+function openResetProgress() {
+  const labels={clinical:'Clinical scenarios',medicine:'Medicine',mcat:'MCAT prep',all:'All study records'};
+  const descriptions={clinical:'Clinical cases, timelines, answers and clinical counters, including the day streak that MCAT practice also builds.',medicine:'Medicine lessons, pharmacology, labs, ECGs and Medicine counters.',mcat:'MCAT lessons, plans, practice, reviews, help notes and item concerns.',all:'All seven courses, Academy plans, retrieval practice, private portfolio, notes, concerns and focus history.'};
+  const m=el(`<div class="modal" id="rst"><div class="modal-box">
     <div class="modal-head"><span class="label">Reset progress</span></div>
-    <p class="cfx-msg">Choose what to clear from your active study progress. If signed in, the reset syncs when your account reconnects and any save conflict is resolved. Recovery downloads and stored recovery copies are kept.</p>
-    <div class="endbtns cfx-btns rst-btns">
-      <button class="btn" id="rst-clinical">Clinical scenarios</button>
-      <button class="btn" id="rst-medicine">Medicine</button>
-      <button class="btn" id="rst-mcat">MCAT prep</button>
-      <button class="btn btn-solid" id="rst-all">Everything</button>
-      <button class="btn" id="rst-cancel">Cancel</button>
-    </div>
-  </div></div>`);
-  const close = () => { m.remove(); document.removeEventListener('keydown', onKey); };
-  const onKey = e => { if (e.key === 'Escape') close(); };
-  m.addEventListener('click', e => { if (e.target.id === 'rst') close(); });
-  m.querySelector('#rst-cancel').addEventListener('click', close);
-  m.querySelector('#rst-clinical').addEventListener('click', () => { clearClinicalProgress(); close(); onDone(); });
-  m.querySelector('#rst-medicine').addEventListener('click', () => { clearMedicineProgress(); close(); onDone(); });
-  m.querySelector('#rst-mcat').addEventListener('click', () => { clearMcatProgress(); close(); onDone(); });
-  m.querySelector('#rst-all').addEventListener('click', () => { clearClinicalProgress(); clearMedicineProgress(); clearMcatProgress(); clearPomoProgress(); close(); onDone(); });
-  document.addEventListener('keydown', onKey);
-  document.body.appendChild(m);
-  trapModal(m);
+    <p class="cfx-msg">Choose the work to reset in your active workspace. You will review the scope before anything changes. Signed-in changes sync after any cloud conflict is resolved.</p>
+    <div class="endbtns cfx-btns rst-btns">${Object.entries(labels).map(([id,label])=>`<button class="btn" id="rst-${id}" data-reset-scope="${id}">${label}</button>`).join('')}<button class="btn" id="rst-cancel">Cancel</button></div>
+    <div id="rst-preview"></div><p id="rst-status" role="status"></p>
+    <button class="ghostbtn" id="rst-recovery">Download recovery copies</button>
+    </div></div>`);
+  let selection=0;
+  const close=()=>{selection++;m.remove();document.removeEventListener('keydown',onKey);};
+  const onKey=e=>{if(e.key==='Escape')close();};
+  const status=text=>{if(m.isConnected)m.querySelector('#rst-status').textContent=text;};
+  const requireSaved=()=>{
+    if(!window.CortexAccount?.available)throw Error('Account storage is unavailable. Reload before resetting.');
+    if(typeof StudyStorage!=='undefined'&&StudyStorage.paused)throw Error('Saving is paused. Download recovery copies and resolve the save problem first.');
+    return CortexAccount.snapshot();
+  };
+  m.addEventListener('click',e=>{if(e.target.id==='rst')close();});
+  m.querySelector('#rst-cancel').onclick=close;
+  m.querySelector('#rst-recovery').onclick=()=>{if(!m.isConnected)return;try{CortexAccount.downloadRecovery();status('Recovery download prepared. Check that the file reached your Downloads folder.');}catch{status('The recovery download failed. Keep this tab open and copy important work.');}};
+  m.querySelectorAll('[data-reset-scope]').forEach(button=>button.onclick=()=>{
+    if(!m.isConnected)return;const current=++selection,scope=button.dataset.resetScope,host=m.querySelector('#rst-preview');host.replaceChildren();
+    try{
+      const snapshot=requireSaved(),preview=CortexAccount.prepareRestore(studyResetData(snapshot.data,scope)),changed=preview.changes.filter(c=>c.action!=='keep').length;
+      if(!changed){status('There is no saved work to reset in this scope.');return;}
+      host.innerHTML=`<h2>Reset ${esc(labels[scope])}?</h2><p>${esc(descriptions[scope])}</p><p>${changed} saved ${changed===1?'record changes':'records change'}. ${scope==='all'?'Study preferences are kept.':'Other courses, shared Academy plans and saved portfolio copies are kept.'} Sign-in details, downloaded courses and recovery copies are kept.</p><p>The previous workspace will be retained in this browser's recovery copy before the reset.</p><button class="btn btn-solid" id="rst-confirm">Reset ${esc(labels[scope])}</button><button class="btn" id="rst-back">Keep my work</button>`;
+      host.querySelector('#rst-back').onclick=()=>{selection++;host.replaceChildren();status('Reset canceled. Your saved work is unchanged.');};
+      host.querySelector('#rst-confirm').onclick=event=>{
+        if(!m.isConnected||current!==selection)return;event.currentTarget.disabled=true;
+        try{requireSaved();CortexAccount.restore(preview);status('Reset saved. Reloading the workspace…');}
+        catch(error){selection++;host.replaceChildren();status(error.message+' Review a fresh reset preview after resolving the problem.');}
+      };
+      status('Nothing has been reset. Review the scope, or keep your work.');
+    }catch(error){status(error.message);}
+  });
+  document.addEventListener('keydown',onKey);document.body.appendChild(m);trapModal(m);
 }
 
 function prog(key) {
@@ -250,6 +251,7 @@ function caseRec(id, key) {
 }
 
 function recordClinicalShiftCompletion({ id, key, difficulty, correct, total, ts }) {
+  if (store.history.some(record => record.shift && record.id === id && record.ts === ts)) return;
   const safeTotal = Math.max(1, Number(total) || 1);
   const safeCorrect = Math.max(0, Math.min(safeTotal, Number(correct) || 0));
   const completedAt = Number(ts) || Date.now();
@@ -419,39 +421,102 @@ async function boot() {
    The app is a single page; this lets an inbound URL open the right section and keeps
    the address bar in sync as you navigate, so any section link is copy-able. Needs the
    `/* /index.html 200` SPA fallback in _redirects so Netlify serves the app for these paths. */
-const SEC_PATHS = { practice: 'practice', mcat: 'mcat', stats: 'stats', utsa: 'utsa', neuro: 'neuro', reference: 'medicine', socrates: 'learn' };
-const PATH_SEC = Object.fromEntries(Object.entries(SEC_PATHS).map(([k, v]) => [v, k]));
-const RETIRED_PATHS = new Set(['genetics', 'ccma', 'cogpsych']);
+const SEC_PATHS = Object.freeze({
+  ...Object.fromEntries(CortexAcademy.tracks.map(track => [track.id, track.path])),
+  academy: 'academy', stats: 'stats', utsa: 'utsa', pomodoro: 'focus', updates: 'updates',
+});
+const PATH_SEC = Object.fromEntries(Object.entries(SEC_PATHS).map(([key, path]) => [path, key]));
+const RETIRED_PATHS = new Set(['genetics', 'ccma']);
+let _sectionRequest = 0;
+
+function sectionUrl(key) {
+  const path = SEC_PATHS[key] ? '/' + SEC_PATHS[key] : '/';
+  const current = new URLSearchParams(location.search), params = new URLSearchParams();
+  for (const key of ['gates', 'offline']) if (current.get(key)) params.set(key, current.get(key));
+  const returnTo = window.AcademyCurriculum?.safeReturn(current.get('returnTo'));
+  if (returnTo) params.set('returnTo', returnTo);
+  return path + (params.size ? '?' + params : '');
+}
+function navigateSection(key) {
+  if (key === 'cogpsych') key = 'academy';
+  if (!SEC_PATHS[key]) return Promise.resolve(false);
+  const url = sectionUrl(key);
+  if (location.pathname + location.search !== url) history.pushState({ sec: key }, '', url);
+  return openSection(key);
+}
+
+function renderSectionError(key) {
+  const name = CortexAcademy.tracks.find(track => track.id === key)?.name || 'This section';
+  const root = el('<div></div>');
+  root.appendChild(topbar(key));
+  const main = el(`<main class="panel section-load-error">
+    <span class="label">Connection interrupted</span>
+    <h1>${esc(name)} could not load.</h1>
+    <p>Your saved work has not been cleared. Check your connection, then try again.</p>
+    <div class="endbtns"><button class="btn btn-solid" id="section-retry">Try again</button><button class="btn" id="section-catalog">Browse the Academy</button></div>
+  </main>`);
+  main.querySelector('#section-retry').addEventListener('click', () => openSection(key));
+  main.querySelector('#section-catalog').addEventListener('click', () => navigateSection('academy'));
+  root.appendChild(main);
+  setView(root);
+}
 
 async function openSection(key) {
+  if (key === 'cogpsych') return navigateSection('academy');
+  const request = ++_sectionRequest;
   if (key !== 'mcat') window.pauseMcatTools?.();
-  switch (key) {
-    case 'practice': renderHome(); return true;
-    case 'mcat': gotoMCAT(); return true;
-    case 'stats': renderStats(); return true;
-    case 'utsa': renderUTSA(); return true;
-    case 'neuro': renderNeuro(); return true;
-    case 'reference':
-      if (COMING_SOON.has('reference')) { renderComingSoon('reference'); return true; }
-      try { await ensureSection('reference'); if (typeof renderReference === 'function') await renderReference(); }
-      catch (err) { console.error('Medicine load failed', err); }
+  if (key !== 'cogpsych' && typeof cogClearTimer === 'function') cogClearTimer();
+  if (COMING_SOON.has(key)) { renderComingSoon(key); return true; }
+  try {
+    if (window.CortexOffline?.selected() && !await CortexOffline.canOpen(new URL(sectionUrl(key), location.origin).pathname)) {
+      if (request === _sectionRequest) CortexOffline.unavailable();
       return true;
-    case 'socrates':
-      if (COMING_SOON.has('socrates')) { renderComingSoon('socrates'); return true; }
-      await ensureSection('socrates');
-      if (typeof renderSocrates === 'function') await renderSocrates();
-      return true;
-    default: return false;
+    }
+    if (SECTION_SCRIPTS[key]) await ensureSection(key);
+    if (request !== _sectionRequest) return true;
+    switch (key) {
+      case 'academy':
+        if (new URLSearchParams(location.search).get('view') === 'today') AcademyToday.render();
+        else if (new URLSearchParams(location.search).get('view') === 'storage') AcademyStorage.render();
+        else if (new URLSearchParams(location.search).get('view') === 'portfolio') AcademyPortfolio.render();
+        else if (['curriculum', 'queue'].includes(new URLSearchParams(location.search).get('view'))) await AcademyConnect.render();
+        else CortexAcademy.renderCatalog();
+        break;
+      case 'practice': renderHome(); break;
+      case 'mcat':
+        if (typeof window.renderMCATEntry === 'function') await window.renderMCATEntry();
+        else await window.renderMCAT();
+        break;
+      case 'stats': await renderStats(); break;
+      case 'utsa': renderUTSA(); break;
+      case 'neuro': await renderNeuro(); break;
+      case 'reference': await renderReference(); break;
+      case 'socrates': await openLearnToLearn(); break;
+      case 'anatomy': await renderAnatomy(); break;
+      case 'pomodoro': renderPomodoro(); break;
+      case 'updates': renderUpdates(); break;
+      default: return false;
+    }
+  } catch (error) {
+    console.error('Section load failed', key, error);
+    if (request === _sectionRequest) renderSectionError(key);
   }
+  return true;
 }
 
 function sectionFromPath() {
-  const seg = decodeURIComponent((location.pathname || '').replace(/^\/+|\/+$/g, '').split('/')[0] || '').toLowerCase();
-  if (RETIRED_PATHS.has(seg)) {
+  let segment;
+  try { segment = decodeURIComponent(location.pathname.replace(/^\/+|\/+$/g, '').split('/')[0] || '').toLowerCase(); }
+  catch { return undefined; }
+  if (segment === 'cogpsych') {
+    history.replaceState({ sec: 'academy' }, '', '/academy');
+    return 'academy';
+  }
+  if (RETIRED_PATHS.has(segment)) {
     history.replaceState({ sec: 'mission' }, '', '/');
     return undefined;
   }
-  return PATH_SEC[seg];
+  return PATH_SEC[segment];
 }
 async function routeFromUrl() {
   const key = sectionFromPath();
@@ -460,23 +525,16 @@ async function routeFromUrl() {
 
 let _routerReady = false;
 function initRouter() {
-  if (_routerReady) return; _routerReady = true;
-  // reflect top-nav navigation in the URL so the current section is always a shareable link
-  document.addEventListener('click', (e) => {
-    const btn = e.target.closest('[data-go]');
-    if (!btn) return;
-    const key = btn.getAttribute('data-go');
-    if (!(key in SEC_PATHS)) return;
-    const path = '/' + SEC_PATHS[key];
-    if (location.pathname !== path) history.pushState({ sec: key }, '', path);
+  if (_routerReady) return;
+  _routerReady = true;
+  window.addEventListener('popstate', async () => {
+    if (!(await routeFromUrl())) renderMission();
   });
-  // back/forward buttons re-open the section for that URL
-  window.addEventListener('popstate', async () => { if (!(await routeFromUrl())) renderMission(); });
 }
 
 async function loadSpecialty(key) {
   if (store.cache[key]) return store.cache[key];
-  const r = await fetch(`data/${key}.json`);
+  const r = await fetch(`data/${key}.json${['cardiology','emergency-medicine','neurology'].includes(key)?'?v=4':''}`);
   if (!r.ok) throw new Error(`no data for ${key}`);
   const data = await r.json();
   store.cache[key] = data;
@@ -487,7 +545,7 @@ async function loadSpecialty(key) {
 // landing page. Load it lazily off the critical path and memoize.
 async function ensureIndex() {
   if (store.index) return store.index;
-  try { store.index = await fetch('data/index.json').then(r => r.ok ? r.json() : null); }
+  try { store.index = await fetch('data/index.json?v=2').then(r => r.ok ? r.json() : null); }
   catch { store.index = null; }
   return store.index;
 }
@@ -523,7 +581,7 @@ function topbar(active) {
       <button class="navlink ${active === 'practice' ? 'active' : ''}" data-go="practice" aria-label="Clinical Scenarios"><span class="clinical-nav-full" aria-hidden="true">Clinical Scenarios</span><span class="clinical-nav-short" aria-hidden="true">Clinical</span></button>
       <button class="navlink ${active === 'socrates' ? 'active' : ''}" data-go="socrates" aria-label="Learn to Learn" aria-description="${COMING_SOON.has('socrates') ? 'Coming soon' : 'Learning course'}"><span class="learn-nav-full" aria-hidden="true">Learn to Learn</span><span class="learn-nav-short" aria-hidden="true">Learn</span>${COMING_SOON.has('socrates') ? '<span class="nav-availability">Coming soon</span>' : ''}</button>
       <div class="navmenu">
-        <button class="navlink menubtn ${['anatomy', 'reference', 'utsa', 'pomodoro'].includes(active) ? 'active' : ''}" data-menu="explore" data-nav-menu aria-label="Explore" aria-expanded="false" aria-controls="explore-panel">Explore<span class="caret">&#9662;</span></button>
+        <button class="navlink menubtn ${['academy', 'anatomy', 'reference', 'utsa', 'pomodoro'].includes(active) ? 'active' : ''}" data-menu="explore" data-nav-menu aria-label="Explore" aria-expanded="false" aria-controls="explore-panel">Explore<span class="caret">&#9662;</span></button>
         <div class="menupanel" id="explore-panel" aria-label="Explore Cortex" hidden>
           <div class="menu-intro">
             <span class="menu-title">Explore Cortex</span>
@@ -532,6 +590,9 @@ function topbar(active) {
           <div class="menu-grid">
             <section class="menu-group" aria-labelledby="menu-study-title">
               <span class="menu-head" id="menu-study-title">Learning paths</span>
+              <button class="menuitem${menuActive('academy')}" data-go="academy"${menuCurrent('academy')}>
+                <span class="mi-copy"><span class="mi-name">All courses</span><span class="mi-desc">Find your path through the Academy</span></span>
+              </button>
               <button class="menuitem${menuActive('anatomy')}" data-go="anatomy"${menuCurrent('anatomy')}>
                 <span class="mi-copy"><span class="mi-name">Anatomy</span><span class="mi-desc">Visual recall lab</span></span>
                 ${sectionMenuTag('anatomy')}
@@ -543,6 +604,8 @@ function topbar(active) {
             </section>
           </div>
           <div class="menu-quick" aria-label="Tools and access">
+            <button class="menuquick" data-academy-view="today">Academy Today</button>
+            <button class="menuquick" data-academy-view="portfolio">My private portfolio</button>
             <button class="menuquick${menuActive('pomodoro')}" data-go="pomodoro"${menuCurrent('pomodoro')}>Focus timer</button>
             <button class="menuquick${menuActive('utsa')}" data-go="utsa"${menuCurrent('utsa')}>UTSA &amp; UT Health</button>
           </div>
@@ -554,31 +617,19 @@ function topbar(active) {
       ${stat ? `<span class="topstat">${stat}</span>` : ''}<a class="xlink" href="${X_URL}" target="_blank" rel="noopener" title="Constant Cortex updates on X · @${X_HANDLE}" aria-label="Constant Cortex updates on X · @${X_HANDLE}">${X_SVG}</a><button class="acctbtn" data-acct hidden>Sign in</button><button class="ver${hasUnseenUpdate() ? ' ver-hasnew' : ''}" data-go="updates" title="What’s new">v${APP_VERSION}</button>
     </div>
   </header>`);
+  root.dataset.section = active;
   root.querySelector('.wordmark').addEventListener('click', e => { e.preventDefault(); renderMission(); });
-  root.querySelector('[data-go="practice"]').addEventListener('click', renderHome);
-  root.querySelector('[data-go="anatomy"]').addEventListener('click', async () => {
-    if (COMING_SOON.has('anatomy')) { renderComingSoon('anatomy'); return; }
-    await ensureSection('anatomy');
-    renderAnatomy();
+  root.querySelectorAll('[data-go]').forEach(button => {
+    button.addEventListener('click', () => navigateSection(button.dataset.go));
   });
-  root.querySelector('[data-go="reference"]').addEventListener('click', async () => {
-    if (COMING_SOON.has('reference')) { renderComingSoon('reference'); return; }
-    try {
-      await ensureSection('reference');
-      if (typeof renderReference === 'function') await renderReference();
-    } catch (err) { console.error('Medicine load failed', err); }
+  root.querySelectorAll('[data-academy-view]').forEach(button => {
+    button.addEventListener('click', () => {
+      const url = new URL(sectionUrl('academy'), location.origin);
+      url.searchParams.set('view', button.dataset.academyView);
+      history.pushState({ sec: 'academy' }, '', url.pathname + url.search);
+      openSection('academy');
+    });
   });
-  root.querySelector('[data-go="socrates"]').addEventListener('click', async () => {
-    if (COMING_SOON.has('socrates')) { renderComingSoon('socrates'); return; }
-    await ensureSection('socrates');
-    renderSocrates();
-  });
-  root.querySelector('[data-go="mcat"]').addEventListener('click', gotoMCAT);
-  root.querySelector('[data-go="stats"]').addEventListener('click', renderStats);
-  root.querySelector('[data-go="utsa"]').addEventListener('click', renderUTSA);
-  root.querySelector('[data-go="pomodoro"]').addEventListener('click', () => { if (typeof renderPomodoro === 'function') renderPomodoro(); });
-  root.querySelector('[data-go="neuro"]').addEventListener('click', () => renderNeuro());
-  root.querySelector('[data-go="updates"]').addEventListener('click', renderUpdates);
   const navmenus = [...root.querySelectorAll('.navmenu')];
   navmenus.forEach(navmenu => {
     const mbtn = navmenu.querySelector('[data-nav-menu]');
@@ -653,17 +704,24 @@ function showUpdateModal() {
 }
 
 function setView(node) {
+  if (typeof stopPythonCode === 'function') stopPythonCode();
+  window.AcademyConnect?.attach(node);
   // Every full view gets the site footer; skip if the view already appended one.
   if (typeof siteFooter === 'function' && !node.querySelector('.sitefoot')) node.appendChild(siteFooter());
   $app.replaceChildren(node);
   window.scrollTo(0, 0);
   const mainEl = node.querySelector('main');
   if (mainEl && !mainEl.id) mainEl.id = 'main';
+  const section = node.querySelector('header')?.dataset.section;
+  const title = CortexAcademy.tracks.find(track => track.id === section)?.name
+    || node.querySelector('h1')?.textContent.trim() || 'Study';
+  document.title = title + ' | Cortex Medical Academy';
   const ft = node.querySelector('h1') || mainEl || node;
   if (ft && ft.focus) { ft.setAttribute('tabindex', '-1'); ft.focus({ preventScroll: true }); }
   announceView(node);
   setupCountUps(node); revealOnScroll(node);
-  if (window.refreshAuthUI) window.refreshAuthUI(); if (window.pomoSync) window.pomoSync(); updateVerBadges();
+  if (window.refreshAuthUI) window.refreshAuthUI(); if (window.pomoSync) window.pomoSync(document.title); updateVerBadges();
+  window.McatRehearsal?.recordDisplay(node);
 }
 function announceView(node) {
   let live = document.getElementById('cs-live');
@@ -763,7 +821,7 @@ async function renderNeuro() {
   if (COMING_SOON.has('neuro')) { renderComingSoon('neuro'); return; }
   stopTimer(); session = null;
   await ensureSection('neuro');
-  if (typeof renderNeuroEngineering === 'function') renderNeuroEngineering();
+  if (typeof renderNeuroEngineering === 'function') return renderNeuroEngineering({ fromUrl: true });
 }
 
 /* ---------- site footer (brand) ---------- */
@@ -874,6 +932,67 @@ const PRINCIPLES = [
 /* ---------- what's new / changelog (newest first) ---------- */
 const CHANGELOG = [
   {
+    version: '2.30.0-beta.1',
+    tag: 'BETA',
+    date: 'September 8, 2026',
+    title: 'A connected Academy, with your work preserved',
+    items: [
+      'MCAT now connects 45 lessons, passage coaching, quantitative practice, planning, concept repair and rehearsal.',
+      'Anatomy, Medicine and Neuroengineering add guided work, while Clinical Scenarios adds patient timelines.',
+      'Academy Today, lesson discovery, optional retrieval and a private portfolio connect your separate course records.',
+      'Study backups, downloaded courses and recovery controls preserve original answers, writing and saved versions.',
+      'This is an Academy beta. Independent subject review and learner pilots remain pending; course labels describe the available scope. Generative tutoring and group sharing are not enabled.',
+    ],
+  },
+  {
+    version: '2.4.0-local.1',
+    tag: 'LOCAL',
+    date: 'September 7, 2026',
+    title: 'Psychology foundations keep your reasoning',
+    items: [
+      'Seven connected foundations introduce cognition, research, models, attention, and memory with written practice.',
+      'Lessons restore drafts, first answers, exact steps, and original completion times after navigation or reload.',
+      'Download retries and shared save recovery protect the course without resetting earlier progress.',
+      'The broader library remains draft material; review scheduling is no longer described as measured retention.',
+    ],
+  },
+  {
+    version: '2.3.0-local.1',
+    tag: 'LOCAL',
+    date: 'September 7, 2026',
+    title: 'Find the MCAT material and the gaps',
+    items: [
+      'The coverage map links learning objectives to lessons, standalone questions, complete passages, and cards.',
+      'The current AAMC category structure replaces inconsistent legacy tags while preserving original saved answers.',
+      'Three new biology lessons introduce microbial information exchange, cell-cycle checkpoints, and hormonal feedback.',
+      'Available practice, completed work, later checks, and missing topic introductions remain separate.',
+    ],
+  },
+  {
+    version: '2.2.0-local.1',
+    tag: 'LOCAL',
+    date: 'September 7, 2026',
+    title: 'Learn to Learn keeps your work',
+    items: [
+      'Lesson links restore the exact step, submitted answer, written response, and revealed sample.',
+      'A shared save-recovery system protects MCAT and learning-course work from failed storage and conflicting tabs.',
+      'Course downloads can be retried, and optional medical practice no longer blocks the main course.',
+      'Completed lessons keep their original completion time and lead into an Academy study activity.',
+    ],
+  },
+  {
+    version: '2.1.0-local.1',
+    date: 'September 7, 2026',
+    tag: 'LOCAL',
+    title: 'An Academy you can navigate',
+    items: [
+      'A course catalog explains who each learning path is for, what it contains, and its current availability.',
+      'Anatomy and Cognitive Psychology now have working local routes, with consistent reload and browser history.',
+      'Interrupted section downloads offer a retry without clearing saved work.',
+      'Course navigation, preview status, and browser-tab titles follow the section you actually opened.',
+    ],
+  },
+  {
     date: 'September 7, 2026', version: '2.0.0-beta.2', tag: 'BETA',
     title: 'MCAT 2.0: a smoother study day',
     items: [
@@ -962,7 +1081,7 @@ const CHANGELOG = [
     items: [
       'The Neuroengineering division is live. The whole course is now one visible track: 20 BCI Builder units in a straight line from raw neural signals to a working brain–computer interface pipeline, with a Continue button that always knows your next step.',
       'Practitioner milestones sit right on the track where they unlock — clear Unit 7 and the first build lab, the Neural Signal Viewer, opens with a real in-browser Python workspace.',
-      'Below the track, everything is free to explore: 12 subjects of Socratic study and quizzes, 13 NeuroCode Python lessons that run in your browser, and 12 NeuroSim decision labs.',
+      'Below the track, explore 12 subjects of Socratic study and quizzes, 13 NeuroCode function exercises with a manual trace option, and 15 NeuroSim decision labs. Independent subject review is pending.',
     ],
   },
   {
@@ -1422,8 +1541,9 @@ const CHANGELOG = [
     ],
   },
 ];
-const RETIRED_CHANGELOG_SUBJECT = /\bgenetics\b/i;
+const RETIRED_CHANGELOG_SUBJECT = /\bgenetics\b|\bcognitive psychology\b|\/cogpsych\b/i;
 const PUBLIC_CHANGELOG = CHANGELOG.reduce((entries, release) => {
+  if (release.tag === 'LOCAL') return entries;
   // The retired UTSA Genetics course is separate from genetics taught inside MCAT.
   const mcatRelease = /^MCAT\b/i.test(release.title);
   if (!mcatRelease && RETIRED_CHANGELOG_SUBJECT.test(release.title)) return entries;
@@ -1493,6 +1613,7 @@ function renderUpdates() {
 }
 
 function renderMission() {
+  ++_sectionRequest;
   stopTimer(); session = null;
   const gates = new URLSearchParams(location.search).get('gates') === 'prod';
   const homePath = '/' + (gates ? '?gates=prod' : '');
@@ -1518,7 +1639,7 @@ function renderMission() {
           <h2 id="academy-workspace-title">Your MCAT workspace.</h2>
           <p>From your first lesson to your next practice session.</p>
           <div class="academy-workspace-links">
-            <a href="/mcat?view=course${previewQuery}"><span><strong>Build your foundation</strong><small>36 lessons across 12 chapters</small></span><span aria-hidden="true">↗</span></a>
+            <a href="/mcat?view=course${previewQuery}"><span><strong>Build your foundation</strong><small>45 lessons across 15 chapters</small></span><span aria-hidden="true">↗</span></a>
             <a href="/mcat?view=practice${previewQuery}"><span><strong>Practice your reasoning</strong><small>Science, CARS, and quantitative skills</small></span><span aria-hidden="true">↗</span></a>
             <a href="/mcat?view=weekly${previewQuery}"><span><strong>Make time for progress</strong><small>A weekly plan around your availability</small></span><span aria-hidden="true">↗</span></a>
           </div>
@@ -1678,7 +1799,7 @@ function renderClinicalCaseBank() {
   main.querySelectorAll('[data-scn]').forEach(b => b.addEventListener('click', () => b.dataset.scn === 'review' ? renderReview() : null));
   main.querySelector('#suggest').addEventListener('click', openFeedback);
   main.querySelector('#mixed').addEventListener('click', startMixedCase);
-  main.querySelector('#reset').addEventListener('click', () => openResetProgress(renderHome));
+  main.querySelector('#reset').addEventListener('click', () => openResetProgress());
 
   root.appendChild(main);
   setView(root);
@@ -1811,6 +1932,7 @@ function renderCase() {
             `<span class="vital"><span class="k">${esc(k)}</span><span class="v">${esc(v)}</span></span>`).join('')}</div>
         </div>
         <div class="block"><span class="label">Examination</span><p class="prose">${esc(c.exam)}</p></div>
+        ${c.sources?.length?`<details class="block"><summary>Sources and review status</summary><p class="prose">Authored version ${esc(c.revision||1)}. Independent clinician review is pending. Prior case totals can include earlier wording.</p><ul>${c.sources.filter(source=>/^https:\/\//.test(source.url)).map(source=>`<li><a href="${esc(source.url)}" target="_blank" rel="noopener noreferrer">${esc(source.title)}</a></li>`).join('')}</ul></details>`:''}
       </div>
       <div id="stages"></div>
     </main>
@@ -2027,7 +2149,7 @@ function caseRow(entry) {
     </span>
     <span class="row-right">${entry.rightHtml || ''}<span class="mod-go" aria-hidden="true">&rarr;</span></span>
   </button>`);
-  row.addEventListener('click', () => startCaseById(entry.id, entry.key));
+  row.addEventListener('click', entry.onOpen || (() => startCaseById(entry.id, entry.key)));
   return row;
 }
 function scorePill(c, t) {
@@ -2046,7 +2168,7 @@ async function renderReview(tab = 'history') {
     <section class="cs-hero mcat-hero">
       <span class="mcat-eyebrow">Clinical Scenarios &middot; Review hub</span>
       <h1>Revisit your cases.</h1>
-      <p class="mcat-lede">History, misses, bookmarks, and full-bank search &mdash; every case you&rsquo;ve touched, one telemetry console.</p>
+      <p class="mcat-lede">Open a saved Clinical Shift or practice a case again. Search by symptom, diagnosis, or specialty.</p>
     </section>
     <div class="mcat-statband cs-statband cs-statband--compact cornerframe">${stats.map(s => `<div class="mcat-stat"><span class="ms-num" data-countup="${s[0]}">${s[0]}</span><span class="ms-lab">${s[1]}</span></div>`).join('')}</div>
     <div class="tabs scn-tabs">
@@ -2059,7 +2181,7 @@ async function renderReview(tab = 'history') {
         ${['history', 'missed', 'bookmarks', 'search'].map(x => `<button class="tab ${x === tab ? 'active' : ''}" data-tab="${x}">${x[0].toUpperCase() + x.slice(1)}</button>`).join('')}
       </div>
     </div>
-    <div class="searchbox cs-searchbox" style="display:none"><input type="text" id="q" placeholder="Search by symptom, diagnosis, or specialty&hellip;" autocomplete="off"></div>
+    <div class="searchbox cs-searchbox" style="display:none"><input type="text" id="q" aria-label="Search clinical cases" placeholder="Search by symptom, diagnosis, or specialty&hellip;" autocomplete="off"></div>
     <div class="rows cs-rows cornerframe" id="rows"></div>
   </main>`);
 
@@ -2072,7 +2194,8 @@ async function renderReview(tab = 'history') {
     if (!store.history.length) rows.appendChild(emptyMsg('No cases yet — start a Clinical Scenario.'));
     else store.history.slice(0, 100).forEach(h => rows.appendChild(caseRow({
       id: h.id, key: h.key, title: titleFor(h.id), difficulty: '',
-      rightHtml: `${scorePill(h.c, h.t)}<span class="row-when">${relTime(h.ts)}</span>`,
+      rightHtml: `${scorePill(h.c, h.t)}<span class="row-when">${relTime(h.ts)} · ${h.shift ? 'Saved shift' : 'Practice again'}</span>`,
+      onOpen: h.shift && typeof window.openClinicalShiftHistory === 'function' ? () => window.openClinicalShiftHistory({ caseId: h.id, ts: h.ts }) : undefined,
     })));
   } else if (tab === 'missed') {
     const missed = Object.entries(store.cases).filter(([, r]) => r.attempts > 0 && r.lastC != null && r.lastC < r.lastT);
@@ -2220,14 +2343,16 @@ function neuroStatsSnapshot() {
   const prog = loadJSON('cs-neuro', { pathDone: [], topicQuiz: {}, sims: {}, code: {}, milestones: {} });
   const pathDone = prog.pathDone?.length || 0;
   const pathTotal = 20;
-  const msPassed = Object.values(prog.milestones || {}).filter(m => m?.passed).length;
+  const knownProjects = ['neural-signal-viewer', 'spike-detector', 'noise-smoother', 'leftright-decoder', 'cursor-simulator', 'closed-loop-capstone'];
+  const msPassed = knownProjects.filter(id => { const item = prog.projects?.[id]; return [...(Array.isArray(item?.history) ? item.history : []), item?.current].some(work => Number.isFinite(work?.completedAt)); }).length;
+  const msLegacy = knownProjects.filter(id => prog.milestones?.[id]?.passed).length;
   const codeDone = Object.values(prog.code || {}).filter(v => v === true || v?.passed).length;
-  const simDone = Object.values(prog.sims || {}).filter(s => s?.ok).length;
+  const simDone = new Set([...Object.keys(prog.sims || {}).filter(id => prog.sims[id]?.ok), ...Object.keys(prog.simWork || {}).filter(id => prog.simWork[id]?.completedAt)]).size;
   const quizDone = Object.keys(prog.topicQuiz || {}).length;
-  const has = pathDone > 0 || quizDone > 0 || codeDone > 0 || simDone > 0 || msPassed > 0;
+  const has = pathDone > 0 || quizDone > 0 || codeDone > 0 || simDone > 0 || msPassed > 0 || msLegacy > 0;
   return {
     pathDone, pathTotal, pathPct: pathTotal ? Math.round(100 * pathDone / pathTotal) : 0,
-    msPassed, msTotal: 6, codeDone, codeTotal: 13, simDone, simTotal: 12, quizDone, has,
+    msPassed, msLegacy, msTotal: 6, codeDone, codeTotal: 13, simDone, simTotal: 15, quizDone, has,
   };
 }
 
@@ -2338,7 +2463,7 @@ function renderAcademyStats() {
       <span class="label">Neuroengineering</span>
       <div class="metrics">
         <div class="metric"><span class="m-num" data-countup="${ns.pathPct}%">${ns.pathDone ? ns.pathPct + '%' : '&mdash;'}</span><span class="m-lab">BCI path</span><span class="m-sub">${ns.pathDone}/${ns.pathTotal} units</span></div>
-        <div class="metric"><span class="m-num" data-countup="${ns.msPassed}">${ns.msPassed || '&mdash;'}</span><span class="m-lab">Milestones</span><span class="m-sub">of ${ns.msTotal} practitioner</span></div>
+        <div class="metric"><span class="m-num" data-countup="${ns.msPassed}">${ns.msPassed || '&mdash;'}</span><span class="m-lab">Project comparisons</span><span class="m-sub">of ${ns.msTotal} · ${ns.msLegacy} earlier output checks kept</span></div>
         <div class="metric"><span class="m-num" data-countup="${ns.codeDone}">${ns.codeDone || '&mdash;'}</span><span class="m-lab">NeuroCode</span><span class="m-sub">of ${ns.codeTotal} passed</span></div>
         <div class="metric"><span class="m-num" data-countup="${ns.simDone}">${ns.simDone || '&mdash;'}</span><span class="m-lab">NeuroSim</span><span class="m-sub">of ${ns.simTotal} correct</span></div>
       </div>
@@ -2439,7 +2564,7 @@ document.addEventListener('keydown', (e) => {
   if (e.metaKey || e.ctrlKey || e.altKey) return;
   const typing = e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA');
   if (typing) return;
-  if (document.querySelector('.modal, .fbmodal-back')) return;   // don't drive the screen behind an open overlay
+  if (document.querySelector('.modal, .fbmodal-back, dialog[open]')) return;   // don't drive the screen behind an open overlay
 
   // Enter advances explicit continue/next affordances, even on session-less screens (drills, Medicine, Learn-to-Learn).
   // Scoped to opt-in [data-continue]/[data-next] only — NOT a bare #next, which the timed Exam Simulator uses.

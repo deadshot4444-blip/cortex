@@ -144,7 +144,8 @@ function pomoTick() {
   if (pomoRemainMs() <= 0) { pomoComplete(true); return; }
   pomoSync();
 }
-function pomoSync() {
+function pomoSync(pageTitle) {
+  if (typeof pageTitle === 'string') pomoBaseTitle = pageTitle;
   // tab title
   if (pomoBaseTitle === null) pomoBaseTitle = document.title;
   document.title = pomo.running ? `${fmtClock(pomoRemainMs())} · ${pomo.mode === 'focus' ? 'Focus' : 'Break'} — Cortex` : pomoBaseTitle;

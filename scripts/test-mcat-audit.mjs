@@ -11,8 +11,8 @@ await test('An older tab cannot erase a math answer saved in a second tab',async
   assert.equal(await writer.evaluate(()=>JSON.parse(localStorage.getItem('cs-mcat-v2')).math.history.length),1);
   await older.evaluate(()=>v2Go('weekly'));
   assert.equal(await older.evaluate(()=>JSON.parse(localStorage.getItem('cs-mcat-v2')).math.history.length),1);
-  assert.equal(await older.locator('#mcat-save-conflict').count(),1);
-  await older.click('#mcat-conflict-reload');await older.waitForLoadState('networkidle');
+  assert.equal(await older.locator('#study-save-conflict').count(),1);
+  await older.click('#study-conflict-reload');await older.waitForLoadState('networkidle');
   assert.equal(await older.evaluate(()=>v2State.math.history.length),1);
 });
 await test('An older course tab preserves the newer notebook and can export its own work',async ctx=>{
@@ -20,11 +20,11 @@ await test('An older course tab preserves the newer notebook and can export its 
   await writer.evaluate(()=>renderCourseUnit('protein-structure','learn'));await writer.fill('#course-notes','Newer notebook, preserved.');
   await older.evaluate(()=>{courseRecord('protein-structure').notes='Unsaved local draft';saveCourse();});
   assert.equal(await older.evaluate(()=>JSON.parse(localStorage.getItem('cs-mcat-course-v1')).units['protein-structure'].notes),'Newer notebook, preserved.');
-  const downloadEvent=older.waitForEvent('download');await older.click('#mcat-conflict-export');const download=await downloadEvent;
+  const downloadEvent=older.waitForEvent('download');await older.click('#study-conflict-export');const download=await downloadEvent;
   let content='';for await(const chunk of await download.createReadStream())content+=chunk.toString();const backup=JSON.parse(content);
   assert.equal(backup.records['cs-mcat-course-v1'].thisTab.units['protein-structure'].notes,'Unsaved local draft');
   assert.equal(backup.records['cs-mcat-course-v1'].saved.units['protein-structure'].notes,'Newer notebook, preserved.');
-  assert.ok(await older.evaluate(()=>document.querySelector('#mcat-save-conflict').getBoundingClientRect().width<=innerWidth));
+  assert.ok(await older.evaluate(()=>document.querySelector('#study-save-conflict').getBoundingClientRect().width<=innerWidth));
 });
 await test('An unfinished ordinary passage counts as prior exposure in Passage Coach',async ctx=>{
   const p=await open(ctx,'practice');await p.evaluate(()=>{startCars(MCAT.cars.find(p=>p.id==='h2'),false);coursePauseTools();v2Go('coach');});
@@ -46,8 +46,8 @@ await test('A same-tab external update is checked before saving, with recovery a
   const p=await open(ctx,'weekly');await p.setViewportSize({width:320,height:844});
   await p.evaluate(()=>{const newer=JSON.parse(localStorage.getItem('cs-mcat-v2'));newer.weekly.targetDate='2027-06-01';localStorage.setItem('cs-mcat-v2',JSON.stringify(newer));v2State.weekly.targetDate='2027-01-01';v2Save();});
   assert.equal(await p.evaluate(()=>JSON.parse(localStorage.getItem('cs-mcat-v2')).weekly.targetDate),'2027-06-01');
-  assert.equal(await p.locator('#mcat-save-conflict').isVisible(),true);await p.keyboard.press('Escape');assert.equal(await p.locator('#mcat-save-conflict').isVisible(),true);
-  assert.ok(await p.evaluate(()=>document.querySelector('#mcat-save-conflict').getBoundingClientRect().width<=innerWidth));
+  assert.equal(await p.locator('#study-save-conflict').isVisible(),true);await p.keyboard.press('Escape');assert.equal(await p.locator('#study-save-conflict').isVisible(),true);
+  assert.ok(await p.evaluate(()=>document.querySelector('#study-save-conflict').getBoundingClientRect().width<=innerWidth));
   await p.screenshot({path:'output/playwright/mcat-audit-conflict-320.png'});
 });
 await test('Saving an exam review keeps the completed reservation after reload',async ctx=>{

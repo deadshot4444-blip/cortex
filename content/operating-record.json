@@ -1,0 +1,21 @@
+{
+  "format": "cortex-operating-record-template",
+  "version": 1,
+  "status": "Unpopulated template; no operating results or approved experiments recorded.",
+  "periodStart": null,
+  "periodEnd": null,
+  "currency": null,
+  "accountableOwner": null,
+  "approvedMonthlySpendingCap": null,
+  "approvedSupportHours": null,
+  "costs": [],
+  "editorialWork": [],
+  "supportWork": [],
+  "experiments": [],
+  "metricDefinitions": "See OPERATING-EXPERIMENTS.md. Cohort dates, denominators, missingness and test exclusions are required.",
+  "actualRecurringCost": null,
+  "activatedReturningLearners": null,
+  "costPerActivatedReturningLearner": null,
+  "commercialApprovals": [],
+  "publicationAuthorized": false
+}
