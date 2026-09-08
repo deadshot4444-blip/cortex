@@ -1,0 +1,5 @@
+# Whole-repository formatting commits. `git blame` skips these automatically when
+# configured with: git config blame.ignoreRevsFile .git-blame-ignore-revs
+
+# Format JavaScript with Prettier (2026-09-08)
+b68463f79cc857a7816129dea5e3908101a839ae
