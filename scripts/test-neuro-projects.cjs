@@ -29,7 +29,7 @@ test('plausible wrong algorithms fail beyond the original example', async () => 
     'import json\ndef analyze_signal(samples, threshold, sample_rate_hz):\n    return json.loads(' + JSON.stringify(JSON.stringify(projects[0].checks.cases[0].expected)) + ')',
     projects[1].solution.replaceAll('i - start', '1'),
     projects[2].solution.replace('samples[max(0, i - window + 1):i + 1]', 'samples[i:min(len(samples), i + window)]'),
-    projects[3].solution.replace(/    bias = -0\.5[^\n]+/, '    bias = 0.0'),
+    projects[3].solution.replace(/ {4}bias = -0\.5[^\n]+/, '    bias = 0.0'),
     projects[4].solution.replace('positions[max(0, t - delay_steps)]', 'positions[t]'),
     projects[5].solution.replace("remove_baseline(channel, data['window'])['residual']", 'channel'),
   ];

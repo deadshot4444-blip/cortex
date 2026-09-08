@@ -150,13 +150,13 @@ function saveHistory() { safeSet('cs-history', JSON.stringify(store.history.slic
 function saveStreak() { safeSet('cs-streak', JSON.stringify(store.streak)); }
 
 const SECTION_SCRIPTS = {
-  academy: ['study-storage.js?v=4', 'academy-today.js?v=8', 'study-backup.js?v=10', 'academy-storage.js?v=4', 'academy-portfolio-core.js?v=2', 'academy-portfolio.js?v=3'],
-  practice: ['study-storage.js?v=4', 'clinical-longitudinal-engine.js?v=2', 'clinical-longitudinal.js?v=3', 'clinical-shift.js?v=19'],
+  academy: ['study-storage.js?v=4', 'academy-today.js?v=8', 'study-backup.js?v=11', 'academy-storage.js?v=4', 'academy-portfolio-core.js?v=2', 'academy-portfolio.js?v=3'],
+  practice: ['study-storage.js?v=4', 'clinical-longitudinal-engine.js?v=2', 'clinical-longitudinal.js?v=3', 'clinical-shift.js?v=20'],
   mcat: ['study-storage.js?v=4', 'mcat-item-quality-core.js?v=1', 'mcat-item-quality.js?v=1', 'mcat-rehearsal-engine.js?v=2', 'mcat-rehearsal.js?v=8', 'mcat-repair-engine.js?v=3', 'mcat-repair.js?v=9', 'mcat-workflows.js?v=18', 'mcat-course-engine.js?v=7', 'mcat-course.js?v=22', 'mcat-coverage.js?v=2', 'mcat-v2-engine.js?v=10', 'mcat-v2.js?v=18', 'mcat.js?v=89'],
   anatomy: ['study-storage.js?v=4', 'academy-lessons.js?v=6', 'anatomy.js?v=43'],
-  reference: ['study-storage.js?v=4', 'ecg-engine.js?v=2', 'academy-lessons.js?v=6', 'reference.js?v=59', 'performance-drugs.js?v=26', 'ekg.js?v=41'],
+  reference: ['study-storage.js?v=4', 'ecg-engine.js?v=2', 'academy-lessons.js?v=6', 'reference.js?v=59', 'performance-drugs.js?v=27', 'ekg.js?v=41'],
   socrates: ['study-storage.js?v=4', 'socrates.js?v=49'],
-  neuro: ['study-storage.js?v=4', 'python-runtime.js?v=5', 'code-evaluator.js?v=7', 'neuro-project-engine.js?v=2', 'neuro-practitioner.js?v=11', 'neuro.js?v=39'],
+  neuro: ['study-storage.js?v=4', 'python-runtime.js?v=5', 'code-evaluator.js?v=8', 'neuro-project-engine.js?v=2', 'neuro-practitioner.js?v=11', 'neuro.js?v=39'],
 };
 const _scriptLoads = {};
 function loadScript(src) {

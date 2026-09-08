@@ -154,7 +154,7 @@ function harness(saved = new Map(), data = original) {
   const existing = reload.internal.courses.get(section).progress.lessons[original.lessons[0].id];
   assert.equal(existing.content.steps[1].answer, original.lessons[0].steps[1].answer);
   // Revision changes must never reinterpret, discard, or silently rescore an earlier attempt.
-  const first = original.lessons[0], stepIds = first.steps.map(step => step.id);
+  const first = original.lessons[0];
   const bump = (base, revision, edit) => { const copy = structuredClone(base); const lesson = copy.lessons[0]; lesson.revision = revision; edit(lesson); return copy; };
   const partial = harness(); await partial.api.load(section, 'test'); partial.api.open(section, first.id, 0); partial.nodes.get('#academy-next').onclick();
   partial.nodes.get('answer-' + (first.steps[1].answer + 1) % first.steps[1].options.length).onclick();

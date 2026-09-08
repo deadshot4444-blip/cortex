@@ -835,9 +835,7 @@ function startPathwayLesson(pathway, mod) {
 
   function updateBar() {
     if (!barMount) return;
-    let pct = 0;
-    let label = 'Orientation';
-    let stat = '';
+    let pct, label, stat = '';
     if (phase === 'orient') { pct = 5; label = 'Orientation'; }
     else if (phase === 'build') {
       pct = 10 + Math.round(55 * stepIdx / Math.max(steps.length, 1));

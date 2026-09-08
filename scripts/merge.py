@@ -85,11 +85,21 @@ def validate(case):
 
 
 def main():
+    if not glob.glob(os.path.join(RAW, "*-b*.json")):
+        sys.exit(f"No batch files in {RAW}; nothing to merge (the committed data/*.json files were left untouched).")
     manifest = {}
     report = []
     grand = 0
     for key, name, prefix in SPECIALTIES:
         files = sorted(glob.glob(os.path.join(RAW, f"{key}-b*.json")))
+        if not files:
+            # Keep the committed bank for specialties without new batches instead of emptying them.
+            existing = os.path.join(OUT, f"{key}.json")
+            with open(existing) as fh:
+                manifest[key] = len(json.load(fh).get("cases", []))
+            grand += manifest[key]
+            report.append(f"--  {key:<22} {manifest[key]:>3} cases   (no new batches; unchanged)")
+            continue
         cases, bad, seen_sig = [], [], set()
         for path in files:
             try:

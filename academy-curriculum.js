@@ -13,11 +13,13 @@
   const clone = value => JSON.parse(JSON.stringify(value));
   const queryKeys = new Set('gates offline view unit step stage lesson track chapter demo run case project code sim tool mode focus record category q gaps section context level scope objective card queue page'.split(' '));
   function safeReturn(value) {
+    // eslint-disable-next-line no-control-regex -- control characters are rejected by design
     if (typeof value !== 'string' || value.length > 3000 || !value.startsWith('/') || value.startsWith('//') || /[\\<>"'`\u0000-\u0020]/.test(value)) return null;
     try {
       const url = new URL(value, 'https://cortex.invalid');
       if (url.origin !== 'https://cortex.invalid' || !Object.values(paths).includes(url.pathname) || value.split(/[?#]/)[0] !== url.pathname) return null;
       url.searchParams.delete('returnTo');
+      // eslint-disable-next-line no-control-regex -- control characters are rejected by design
       if ([...url.searchParams.keys()].some(key => !queryKeys.has(key)) || [...url.searchParams.values()].some(v => v.length > 600 || /[<>"'`\u0000-\u001f]/.test(v))) return null;
       if (url.hash && !/^#(?:case-)?[\w.-]{1,180}$/.test(url.hash)) return null;
       return url.pathname + url.search + url.hash;

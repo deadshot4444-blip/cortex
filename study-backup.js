@@ -30,6 +30,8 @@
       if (typeof value === 'string') {
         if (/(?:^id$|Id$|^key$)/.test(field) && value && !/^[\w:.|/@+ -]{1,250}$/.test(value)) throw Error('The backup contains an invalid content identifier.');
         if (/(?:url|href)$/i.test(field) && value) {
+          // Control characters are rejected on purpose: links are re-rendered as HTML.
+          // eslint-disable-next-line no-control-regex
           if (/[<>"'`\u0000-\u0020]/.test(value)) throw Error('The backup contains an invalid source link.');
           let url; try { url = new URL(value, 'https://cortexmedical.academy/'); } catch { throw Error('The backup contains an invalid source link.'); }
           if (!['https:', 'http:'].includes(url.protocol)) throw Error('The backup contains an unsupported source link.');

@@ -8,9 +8,9 @@
    1. Create a free project at supabase.com
    2. Settings -> API: copy the Project URL + the "anon public" key into the two
       constants below.
-   3. SQL editor: run the snippet in SUPABASE_SCHEMA.sql (provided separately).
+   3. SQL editor: run supabase/schema.sql (see supabase/README.md).
    4. Authentication -> URL Configuration: set Site URL to https://cortexmedical.academy
-      (add http://localhost:4173 to "Redirect URLs" for local testing).
+      (add http://127.0.0.1:8765 to "Redirect URLs" for local testing).
    Until the two constants are filled in, the account button stays hidden and the
    app behaves exactly as before.
    ============================================================ */

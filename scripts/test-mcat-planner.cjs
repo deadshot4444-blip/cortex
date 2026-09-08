@@ -101,7 +101,7 @@ function node(html='') {
     querySelector(selector){return this.querySelectorAll(selector)[0]||elements.get(selector)||elements.set(selector,node()).get(selector);},
     querySelectorAll(selector){
       const out=[];for(const match of content.matchAll(/<([a-z]+)\b([^>]*)>/g)){
-        const [full,tag,attrs]=match,id=attrs.match(/\bid="([^"]*)"/)?.[1];
+        const [,tag,attrs]=match,id=attrs.match(/\bid="([^"]*)"/)?.[1];
         const attribute=selector.match(/^\[([^=\]]+)(?:="([^"]*)")?\]$/);
         const selected=selector==='#'+id||selector===tag||attribute&&(attribute[2]!=null?attrs.includes(attribute[1]+'="'+attribute[2]+'"'):new RegExp('\\b'+attribute[1]+'(?:=|\\s|$)').test(attrs));
         if(!selected)continue;const key=id?'#'+id:String(match.index);

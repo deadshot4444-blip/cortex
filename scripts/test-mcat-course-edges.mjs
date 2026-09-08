@@ -18,7 +18,7 @@ try{
  await page.evaluate(()=>{const p=guidePlan();p.sessions={};p.completed={};saveGuidePlan(p);const r=courseRecord('protein-structure');r.completedAt=Date.now()-86400001;r.dueAt=Date.now()-1;saveCourse();renderGuide();});
  session=await page.evaluate(()=>studyDailySession(guidePlan()));assert.ok(session.tasks.some(t=>t.type==='course'&&t.unitId==='protein-structure'));
  // A mapped passage miss recommends its underlying lesson even though old tags vary.
- const rec=await page.evaluate(()=>{const state=McatCourseCore.normalize({});const unit=courseUnit('buffer-balance'),p=MCAT.sci.find(p=>p.id==='cp2');return McatCourseCore.recommendation(courseData,state,[{qId:p.questions[0].id,correct:false,ts:Date.now()}],Date.now()).unit.id;});assert.equal(rec,'buffer-balance');
+ const rec=await page.evaluate(()=>{const state=McatCourseCore.normalize({});const p=MCAT.sci.find(p=>p.id==='cp2');return McatCourseCore.recommendation(courseData,state,[{qId:p.questions[0].id,correct:false,ts:Date.now()}],Date.now()).unit.id;});assert.equal(rec,'buffer-balance');
  // Navigation repeatedly visits Course without consuming a paused passage timer.
  await page.evaluate(()=>{guideClearActiveTask();startCars(MCAT.cars[0],true);});await page.click('#crumbmcat');
  const remain=await page.evaluate(()=>loadResume('cars')._remain);

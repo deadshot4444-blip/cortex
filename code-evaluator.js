@@ -11,7 +11,7 @@ function neuroCodeGuidance(lesson) {
   };
 }
 function neuroCodeIsRunnablePython(code) {
-  return /print\s*\(|def\s+\w|for\s+\w|if\s+.+:|=\s*[\[\-0-9"']|import\s+\w/.test(String(code || '').trim());
+  return /print\s*\(|def\s+\w|for\s+\w|if\s+.+:|=\s*[[\-0-9"']|import\s+\w/.test(String(code || '').trim());
 }
 function neuroCodeNormalizeOutput(text) {
   return String(text || '').replace(/\r\n/g, '\n').trim().split('\n').map(line => line.trim()).filter(Boolean).join('\n');

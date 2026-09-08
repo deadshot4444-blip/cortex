@@ -1,6 +1,6 @@
 import {chromium} from 'playwright';
 import assert from 'node:assert/strict';
-import {readFileSync,mkdirSync} from 'node:fs';
+import {mkdirSync} from 'node:fs';
 const base=process.env.CORTEX_URL||'http://127.0.0.1:8805/';
 const browser=await chromium.launch({headless:true});mkdirSync('output/playwright',{recursive:true});
 try{

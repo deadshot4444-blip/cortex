@@ -30,7 +30,7 @@ const options = { crypto, now: '2026-09-07T12:00:00.000Z' };
     assert.equal({}.pwned, undefined);
   });
   await test('Unsafe source protocols, injected IDs, nonfinite values and excessive nesting are rejected', async () => {
-    for (const value of ['{"url":"javascript:alert(1)"}', '{"href":"data:text/html,test"}', '{"url":"https://example.org/\\\" onclick=bad"}', '{"id":"x\\\" onfocus=bad"}', '{"x":1e999}']) await assert.rejects(Backup.create({ 'cs-neuro': value }, 'test', options));
+    for (const value of ['{"url":"javascript:alert(1)"}', '{"href":"data:text/html,test"}', '{"url":"https://example.org/\\" onclick=bad"}', '{"id":"x\\" onfocus=bad"}', '{"x":1e999}']) await assert.rejects(Backup.create({ 'cs-neuro': value }, 'test', options));
     let deep = {}; for (let i = 0; i < 70; i++) deep = { child: deep }; await assert.rejects(Backup.create({ 'cs-neuro': JSON.stringify(deep) }, 'test', options), /complex/);
     await Backup.create({ 'cs-neuro': '{"url":"https://example.org/paper","draft":"return x < 2"}' }, 'test', options);
   });

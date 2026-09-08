@@ -57,7 +57,6 @@ function harness(seed = new Map(), start = START, path = '/mcat?view=rehearsal')
     }, close() { dom.window.close(); }
   };
 }
-const plain = value => JSON.parse(JSON.stringify(value));
 
 test('home is read-only until a learner starts/reserves; recorded exposure needs explicit repeated-practice choice', async () => {
   const seed = new Map([['cs-mcat-q', JSON.stringify({ [manifest.forms[0].discretes[0]]: { n: 1 } })]]), h = harness(seed);

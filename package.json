@@ -1,0 +1,31 @@
+{
+  "name": "cortex-medical-academy",
+  "private": true,
+  "description": "Cortex Medical Academy: a static, no-build study site (MCAT, clinical scenarios, anatomy, medicine, neuroengineering).",
+  "homepage": "https://cortexmedical.academy",
+  "repository": "github:deadshot4444-blip/cortex",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "serve": "python3 scripts/serve.py",
+    "test": "node --test --test-concurrency=4 scripts/test-*.cjs",
+    "test:browser": "node scripts/run-browser-tests.mjs",
+    "check": "python3 scripts/build-academy-curriculum.py --check && python3 scripts/build-neuro-projects.py --check && python3 scripts/build-offline-manifest.py --check && node scripts/check-clinical-longitudinal.cjs > /dev/null && node scripts/check-clinical-rotations.cjs > /dev/null && node scripts/check-mcat-item-history.cjs > /dev/null && node scripts/check-mcat-rehearsals.cjs > /dev/null",
+    "check:content": "for f in scripts/check-*.cjs; do node \"$f\" > /dev/null || echo \"FAIL $f\"; done",
+    "lint": "eslint .",
+    "format": "prettier --write \"*.js\" \"scripts/**/*.{js,cjs,mjs}\" \"netlify/**/*.js\"",
+    "format:check": "prettier --check \"*.js\" \"scripts/**/*.{js,cjs,mjs}\" \"netlify/**/*.js\"",
+    "verify": "npm run lint && npm run format:check && npm test && npm run check"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "acorn": "^8.18.0",
+    "eslint": "^10.10.0",
+    "globals": "^17.12.0",
+    "jsdom": "30.0.1",
+    "playwright": "1.61.0",
+    "prettier": "^3.9.6"
+  }
+}

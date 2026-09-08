@@ -1,0 +1,17 @@
+# Third-party and generated files
+assets/
+data/
+node_modules/
+offline-manifest.json
+package-lock.json
+
+# Private / local
+context/
+output/
+.playwright-cli/
+
+# Hand-formatted: compact one-rule-per-line CSS and content documents
+*.css
+*.html
+*.md
+content/

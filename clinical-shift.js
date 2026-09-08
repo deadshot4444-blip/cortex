@@ -475,7 +475,7 @@
     const { caseData, active } = shiftSession;
     active.phase = 'handoff'; saveShiftState();
     const root = shiftFrame(`<section class="cshift-handoff">
-      <div class="cshift-handoff-main"><span class="label">New patient handoff</span><h1>A patient is waiting.</h1><p>This simulation separates practice tasks. In urgent clinical care, assessment and stabilization proceed together.</p><p class="cshift-patient-line">${esc(caseData.patient)} · ${esc(caseData.setting)}</p><div class="cshift-complaint"><span>Chief complaint</span><blockquote>${esc(caseData.chiefComplaint.replace(/^[“\"]|[”\"]$/g, ""))}</blockquote></div><button class="btn btn-solid" id="cshift-open-chart">Open patient chart →</button></div>
+      <div class="cshift-handoff-main"><span class="label">New patient handoff</span><h1>A patient is waiting.</h1><p>This simulation separates practice tasks. In urgent clinical care, assessment and stabilization proceed together.</p><p class="cshift-patient-line">${esc(caseData.patient)} · ${esc(caseData.setting)}</p><div class="cshift-complaint"><span>Chief complaint</span><blockquote>${esc(caseData.chiefComplaint.replace(/^[“"]|[”"]$/g, ""))}</blockquote></div><button class="btn btn-solid" id="cshift-open-chart">Open patient chart →</button></div>
       <aside class="cshift-vitals"><span class="label">Initial vitals</span>${vitalsMarkup(caseData)}</aside>
     </section>`, 'handoff');
     root.querySelector('#cshift-open-chart').addEventListener('click', () => { active.phase = 'investigate'; saveShiftState(); renderShiftInvestigation(); });

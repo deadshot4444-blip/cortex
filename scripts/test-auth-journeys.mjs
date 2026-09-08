@@ -16,7 +16,7 @@ async function setup({user=null,storage={},rows={}}={}){
   if(offline)error={message:'offline'};
   else if(q.op==='read')data=old||null;
   else if(q.op==='insert'&&old)error={code:'23505'};
-  else if(q.op==='update'&&old?.updated_at!==q.revision){}
+  else if(q.op==='update'&&old?.updated_at!==q.revision){ /* stale revision: the conditional update matches no row */ }
   else {rows[q.uid]={data:q.value.data,updated_at:q.value.updated_at};data={updated_at:q.value.updated_at};}
   await r.fulfill({contentType:'application/json',body:JSON.stringify({data,error})});
  });

@@ -4,7 +4,6 @@ const fs = require('node:fs'), vm = require('node:vm'), { JSDOM } = require('jsd
 const crypto = require('node:crypto').webcrypto, Core = require('../clinical-longitudinal-engine.js');
 const cases = JSON.parse(fs.readFileSync('data/clinical-longitudinal.json')).cases, KEY = 'cs-clinical-longitudinal-v1';
 const pause = () => new Promise(resolve => setImmediate(resolve));
-const plain = value => JSON.parse(JSON.stringify(value));
 function harness(seed = new Map(), path = '/practice?view=longitudinal') {
   const dom = new JSDOM('<!doctype html><body><div id="app"></div></body>', { url: 'http://localhost' + path, runScripts: 'outside-only', pretendToBeVisual: true });
   const w = dom.window, ctx = dom.getInternalVMContext(), errors = [], fetched = [];
