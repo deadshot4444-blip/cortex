@@ -9,7 +9,8 @@
     fallback, which Netlify only applies when no real file matches),
   * answers proxied external rules (the visitor counter) with 404 so the app degrades
     the same way it does offline,
-  * sends Cache-Control: no-store so ?v= bumps are never masked while developing.
+  * sends Cache-Control: no-cache so browsers revalidate every file while developing
+    (no-store would stop headless Chromium from finishing unread error bodies).
 
     python3 scripts/serve.py            # http://127.0.0.1:8765
     python3 scripts/serve.py --port 8805
@@ -59,7 +60,7 @@ class Handler(SimpleHTTPRequestHandler):
         super().__init__(*args, directory=str(ROOT), **kwargs)
 
     def end_headers(self):
-        self.send_header('Cache-Control', 'no-store')
+        self.send_header('Cache-Control', 'no-cache')
         super().end_headers()
 
     def log_message(self, fmt, *args):  # quieter than the default, still shows each request

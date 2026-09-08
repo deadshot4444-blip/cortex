@@ -5,14 +5,14 @@
 
 const OG = {
   title: 'Clinical Scenarios — Cortex Medical Academy',
-  description: "Start your shift: interview the patient, examine, order tests, decide — then chart your note and compare it against the clinician's. 2,599+ cases across 26 specialties, free.",
+  description:
+    "Start your shift: interview the patient, examine, order tests, decide — then chart your note and compare it against the clinician's. 2,599+ cases across 26 specialties, free.",
   image: 'https://cortexmedical.academy/og-clinical.jpg',
   imageAlt: 'Clinical Scenarios — start your shift: interview, examine, decide, and chart. Free, no sign-up.',
   url: 'https://cortexmedical.academy/practice',
 };
 
-const metaContent = (attr, name) =>
-  new RegExp(`(<meta ${attr}="${name}" content=")[^"]*(")`);
+const metaContent = (attr, name) => new RegExp(`(<meta ${attr}="${name}" content=")[^"]*(")`);
 
 const RULES = [
   [/<title>[^<]*<\/title>/, `<title>${OG.title}</title>`],

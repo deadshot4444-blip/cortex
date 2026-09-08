@@ -29,14 +29,26 @@ if (!suites.length) {
   process.exit(2);
 }
 
-const server = spawn('python3', ['scripts/serve.py', '--port', String(PORT)], { cwd: ROOT, stdio: ['ignore', 'ignore', 'inherit'] });
-const stop = () => { if (!server.killed) server.kill(); };
+const server = spawn('python3', ['scripts/serve.py', '--port', String(PORT)], {
+  cwd: ROOT,
+  stdio: ['ignore', 'ignore', 'inherit'],
+});
+const stop = () => {
+  if (!server.killed) server.kill();
+};
 process.on('exit', stop);
-process.on('SIGINT', () => { stop(); process.exit(130); });
+process.on('SIGINT', () => {
+  stop();
+  process.exit(130);
+});
 
 async function waitForServer() {
   for (let attempt = 0; attempt < 50; attempt++) {
-    try { if ((await fetch(BASE + 'index.html')).ok) return; } catch { /* not up yet */ }
+    try {
+      if ((await fetch(BASE + 'index.html')).ok) return;
+    } catch {
+      /* not up yet */
+    }
     await new Promise(resolve => setTimeout(resolve, 200));
   }
   throw new Error(`Local server did not start on ${BASE}`);
@@ -46,11 +58,17 @@ function run(suite) {
   return new Promise(resolve => {
     const started = Date.now();
     const child = spawn(process.execPath, [`scripts/${suite}.mjs`], {
-      cwd: ROOT, env: { ...process.env, CORTEX_URL: BASE }, stdio: ['ignore', 'pipe', 'pipe'],
+      cwd: ROOT,
+      env: { ...process.env, CORTEX_URL: BASE },
+      stdio: ['ignore', 'pipe', 'pipe'],
     });
     let output = '';
-    child.stdout.on('data', chunk => { output += chunk; });
-    child.stderr.on('data', chunk => { output += chunk; });
+    child.stdout.on('data', chunk => {
+      output += chunk;
+    });
+    child.stderr.on('data', chunk => {
+      output += chunk;
+    });
     child.on('close', code => resolve({ suite, code, output, seconds: ((Date.now() - started) / 1000).toFixed(1) }));
   });
 }
@@ -62,7 +80,15 @@ for (const suite of suites) {
   const status = result.code === 0 ? 'PASS' : 'FAIL';
   if (result.code !== 0) failed++;
   console.log(`${status}  ${suite}  (${result.seconds}s)`);
-  if (result.code !== 0) console.log(result.output.trim().split('\n').slice(-12).map(line => '      ' + line).join('\n'));
+  if (result.code !== 0)
+    console.log(
+      result.output
+        .trim()
+        .split('\n')
+        .slice(-12)
+        .map(line => '      ' + line)
+        .join('\n')
+    );
 }
 console.log(`\n${suites.length - failed}/${suites.length} browser suites passed`);
 stop();

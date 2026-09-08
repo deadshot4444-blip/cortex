@@ -1,11 +1,76 @@
-import {chromium} from 'playwright';import assert from 'node:assert/strict';
-const browser=await chromium.launch({headless:true}),base=process.env.CORTEX_URL||'http://127.0.0.1:8805/';
-try{for(const width of [1280,390,320]){
- const ctx=await browser.newContext({viewport:{width,height:900},reducedMotion:'reduce'}),page=await ctx.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));await page.route('**/api/**',r=>r.fulfill({status:200,contentType:'application/json',body:'{"value":0}'}));await page.goto(base+'mcat?gates=prod&view=today',{waitUntil:'networkidle'});await page.click('#guide-reference-options > summary');await page.click('#begin');const oldPlan=await page.evaluate(()=>guidePlan());await page.evaluate(()=>{v2State.weekly.configured=true;v2State.weekly.availability=[30,30,30,30,30,30,30];v2State.weekly.targetDate='2027-01-20';v2Save();renderGuide();});assert.equal(await page.locator('.v2-today-plan').count(),1);assert.equal(await page.locator('.study-session').count(),0);assert.ok((await page.locator('main').innerText()).includes('2027-01-20'));assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth)<=1);await page.screenshot({path:`output/playwright/mcat-v2-today-configured-${width}.png`,fullPage:true});
- // Launch the first lesson in Today and complete it through the UI.
- const first=await page.evaluate(()=>v2WeekDays()[0].tasks.find(t=>t.type==='course'));assert.ok(first);await page.click(`[data-today-task="${first.id}"]`);const u=await page.evaluate(()=>courseUnit(v2State.weekly.active.key));await page.click('#course-learned');await page.fill('#course-prediction','I expect the proposed condition to change the structure or behavior.');await page.click('#course-reveal');await page.fill('#course-reflection','The effect follows from the distinction in the worked example.');await page.click('#course-explored');for(const q of u.questions.filter(q=>q.kind==='check')){await page.check(`[name="course-answer"][value="${q.answer}"]`);await page.click('#course-submit');await page.click('#course-check-next');}await page.click('#course-today');assert.ok(await page.locator('.v2-task-done').count());assert.equal(await page.evaluate(()=>guidePlan().targetDate),oldPlan.targetDate);assert.equal(await page.evaluate(()=>guidePlan().startDate),oldPlan.startDate);
- // A rest day suppresses new daily assignments while preserving already completed work.
- await page.evaluate(()=>{v2State.weekly.availability=[0,0,0,0,0,0,0];v2Save();renderGuide();});assert.equal(await page.locator('[data-today-task]').count(),0);assert.ok((await page.locator('main').innerText()).includes('rest day'));await page.locator('.course-map summary').click();await page.click('#v2-original-plan');assert.equal(await page.locator('.study-session').count(),1);assert.equal(await page.evaluate(()=>guidePlan().targetDate),oldPlan.targetDate);
- // Clearing the optional weekly target stays cleared despite an old reference target.
- await page.evaluate(()=>v2Go('weekly'));await page.locator('.v2-week-settings summary').click();await page.fill('#week-target','');await page.locator('#week-settings button').click();await page.locator('.v2-week-settings summary').click();assert.equal(await page.inputValue('#week-target'),'');assert.deepEqual(errors,[]);console.log(`${width}: weekly Today, lesson completion, rest day, preserved reference plan and target clearing passed`);await ctx.close();
-}}finally{await browser.close();}
+import { chromium } from 'playwright';
+import assert from 'node:assert/strict';
+const browser = await chromium.launch({ headless: true }),
+  base = process.env.CORTEX_URL || 'http://127.0.0.1:8805/';
+try {
+  for (const width of [1280, 390, 320]) {
+    const ctx = await browser.newContext({ viewport: { width, height: 900 }, reducedMotion: 'reduce' }),
+      page = await ctx.newPage(),
+      errors = [];
+    page.on('pageerror', e => errors.push(e.message));
+    await page.route('**/api/**', r =>
+      r.fulfill({ status: 200, contentType: 'application/json', body: '{"value":0}' })
+    );
+    await page.goto(base + 'mcat?gates=prod&view=today', { waitUntil: 'networkidle' });
+    await page.click('#guide-reference-options > summary');
+    await page.click('#begin');
+    const oldPlan = await page.evaluate(() => guidePlan());
+    await page.evaluate(() => {
+      v2State.weekly.configured = true;
+      v2State.weekly.availability = [30, 30, 30, 30, 30, 30, 30];
+      v2State.weekly.targetDate = '2027-01-20';
+      v2Save();
+      renderGuide();
+    });
+    assert.equal(await page.locator('.v2-today-plan').count(), 1);
+    assert.equal(await page.locator('.study-session').count(), 0);
+    assert.ok((await page.locator('main').innerText()).includes('2027-01-20'));
+    assert.ok((await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)) <= 1);
+    await page.screenshot({ path: `output/playwright/mcat-v2-today-configured-${width}.png`, fullPage: true });
+    // Launch the first lesson in Today and complete it through the UI.
+    const first = await page.evaluate(() => v2WeekDays()[0].tasks.find(t => t.type === 'course'));
+    assert.ok(first);
+    await page.click(`[data-today-task="${first.id}"]`);
+    const u = await page.evaluate(() => courseUnit(v2State.weekly.active.key));
+    await page.click('#course-learned');
+    await page.fill('#course-prediction', 'I expect the proposed condition to change the structure or behavior.');
+    await page.click('#course-reveal');
+    await page.fill('#course-reflection', 'The effect follows from the distinction in the worked example.');
+    await page.click('#course-explored');
+    for (const q of u.questions.filter(q => q.kind === 'check')) {
+      await page.check(`[name="course-answer"][value="${q.answer}"]`);
+      await page.click('#course-submit');
+      await page.click('#course-check-next');
+    }
+    await page.click('#course-today');
+    assert.ok(await page.locator('.v2-task-done').count());
+    assert.equal(await page.evaluate(() => guidePlan().targetDate), oldPlan.targetDate);
+    assert.equal(await page.evaluate(() => guidePlan().startDate), oldPlan.startDate);
+    // A rest day suppresses new daily assignments while preserving already completed work.
+    await page.evaluate(() => {
+      v2State.weekly.availability = [0, 0, 0, 0, 0, 0, 0];
+      v2Save();
+      renderGuide();
+    });
+    assert.equal(await page.locator('[data-today-task]').count(), 0);
+    assert.ok((await page.locator('main').innerText()).includes('rest day'));
+    await page.locator('.course-map summary').click();
+    await page.click('#v2-original-plan');
+    assert.equal(await page.locator('.study-session').count(), 1);
+    assert.equal(await page.evaluate(() => guidePlan().targetDate), oldPlan.targetDate);
+    // Clearing the optional weekly target stays cleared despite an old reference target.
+    await page.evaluate(() => v2Go('weekly'));
+    await page.locator('.v2-week-settings summary').click();
+    await page.fill('#week-target', '');
+    await page.locator('#week-settings button').click();
+    await page.locator('.v2-week-settings summary').click();
+    assert.equal(await page.inputValue('#week-target'), '');
+    assert.deepEqual(errors, []);
+    console.log(
+      `${width}: weekly Today, lesson completion, rest day, preserved reference plan and target clearing passed`
+    );
+    await ctx.close();
+  }
+} finally {
+  await browser.close();
+}

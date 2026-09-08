@@ -65,7 +65,9 @@ const CHANGELOG = [
     ],
   },
   {
-    date: 'September 7, 2026', version: '2.0.0-beta.2', tag: 'BETA',
+    date: 'September 7, 2026',
+    version: '2.0.0-beta.2',
+    tag: 'BETA',
     title: 'MCAT 2.0: a smoother study day',
     items: [
       'A clearer homepage leads into a flexible 15-, 30-, or 60-minute session, with completed work carried into your weekly plan.',
@@ -79,7 +81,9 @@ const CHANGELOG = [
     ],
   },
   {
-    date: 'September 6, 2026', version: '2.0.0-beta.1', tag: 'BETA',
+    date: 'September 6, 2026',
+    version: '2.0.0-beta.1',
+    tag: 'BETA',
     title: 'MCAT 2.0: learn, reason, and plan your week',
     items: [
       'Today, Course, Practice, and Progress connect 36 lessons across 12 chapters, including metabolism, genetics, organ systems, organic chemistry, fluids, perception, and sociology.',
@@ -93,7 +97,9 @@ const CHANGELOG = [
     ],
   },
   {
-    date: 'August 28, 2026', version: '1.25.25', tag: 'NEW',
+    date: 'August 28, 2026',
+    version: '1.25.25',
+    tag: 'NEW',
     title: 'Clinical Shift and a saved-game MCAT hub',
     // Only ship-visible features here — the PED course items are held back until
     // Medicine un-gates (their text is preserved in context/STATE.md's ship entry).
@@ -102,11 +108,13 @@ const CHANGELOG = [
       'You decide what to ask and what to examine — each choice adds real findings to the patient chart and counts toward your evidence score.',
       'Charting is write-first: draft your own Assessment and Plan, then reveal a clinically preferred reference note beside your frozen draft for self-review — nothing is auto-graded.',
       'A shift debrief reviews your differential, decisions, and documentation, and the classic case bank stays one click away.',
-      'MCAT Prep now opens like a saved game: first-time learners choose a plan, while returning learners land directly on today\'s assignments, progress, and resumable work.',
+      "MCAT Prep now opens like a saved game: first-time learners choose a plan, while returning learners land directly on today's assignments, progress, and resumable work.",
     ],
   },
   {
-    date: 'August 8, 2026', version: '1.25.23', tag: 'NEW',
+    date: 'August 8, 2026',
+    version: '1.25.23',
+    tag: 'NEW',
     title: 'A clearer course experience and a real MCAT study plan',
     items: [
       'MCAT Prep now opens with a calmer home focused on five core study tools instead of competing cards, statistics, and explanations.',
@@ -114,7 +122,9 @@ const CHANGELOG = [
     ],
   },
   {
-    date: 'August 8, 2026', version: '1.25.18', tag: 'POLISH',
+    date: 'August 8, 2026',
+    version: '1.25.18',
+    tag: 'POLISH',
     title: 'Navigation, flagship paths, and Neuroengineering: clearer structure',
     items: [
       'Learn to Learn now holds a flagship place in the primary navigation, with its Under construction gate preserved while the course is evaluated.',
@@ -126,7 +136,9 @@ const CHANGELOG = [
     ],
   },
   {
-    date: 'August 7, 2026', version: '1.25.13', tag: 'UPDATE',
+    date: 'August 7, 2026',
+    version: '1.25.13',
+    tag: 'UPDATE',
     title: 'Neuroengineering: a clearer path from Start to completion',
     items: [
       'The main Neuroengineering page is now focused on Foundations and the primary Track. Units sit inside a clear Show units dropdown, while subjects, NeuroCode, NeuroSim, and Practitioner work have their own Lessons & Labs page.',
@@ -138,7 +150,9 @@ const CHANGELOG = [
     ],
   },
   {
-    date: 'August 7, 2026', version: '1.25.1', tag: 'NEW',
+    date: 'August 7, 2026',
+    version: '1.25.1',
+    tag: 'NEW',
     title: 'Neuro: Foundations on-ramp + Milestone 2',
     items: [
       'A new "Start here" row opens the course with zero prerequisites: why brain–computer interfaces exist (the philosophy), the core science of neural signals, and a from-absolute-zero coding on-ramp — then the Track.',
@@ -147,7 +161,9 @@ const CHANGELOG = [
     ],
   },
   {
-    date: 'August 7, 2026', version: '1.25.0', tag: 'NEW',
+    date: 'August 7, 2026',
+    version: '1.25.0',
+    tag: 'NEW',
     title: 'Neuroengineering is open — one track, start to finish',
     items: [
       'The Neuroengineering division is live. The whole course is now one visible track: 20 BCI Builder units in a straight line from raw neural signals to a working brain–computer interface pipeline, with a Continue button that always knows your next step.',
@@ -156,7 +172,9 @@ const CHANGELOG = [
     ],
   },
   {
-    date: 'July 24, 2026', version: '1.23.0', tag: 'NEW',
+    date: 'July 24, 2026',
+    version: '1.23.0',
+    tag: 'NEW',
     title: 'A calmer Explore, a sharper Cortex',
     items: [
       'Explore is now a focused map of Cortex: learning paths sit in one clear list, while the Focus Timer, Learn to Learn, and UTSA & UT Health access stay in a quiet utility row.',
@@ -165,7 +183,9 @@ const CHANGELOG = [
     ],
   },
   {
-    date: 'July 5, 2026', version: '1.19.0', tag: 'NEW',
+    date: 'July 5, 2026',
+    version: '1.19.0',
+    tag: 'NEW',
     title: 'Study list in the Focus Timer',
     items: [
       'The Focus Timer now has a study list — add the subjects you need to get through, and cross each one off as you finish a round. The top unfinished subject is highlighted as “studying now,” and when a focus round ends you get a nudge to cross it off and switch it up, so you keep rotating instead of getting stuck on one thing.',
@@ -173,14 +193,18 @@ const CHANGELOG = [
     ],
   },
   {
-    date: 'July 3, 2026', version: '1.18.0', tag: 'NEW',
+    date: 'July 3, 2026',
+    version: '1.18.0',
+    tag: 'NEW',
     title: 'Link straight to any section',
     items: [
       'You can now share a direct link to a section instead of the homepage — e.g. cortexmedical.academy/medicine opens Medicine, /mcat opens MCAT, /stats opens your stats. The address bar updates as you move around, so whatever you’re looking at is always a copy-able link.',
     ],
   },
   {
-    date: 'June 29, 2026', version: '1.16.5', tag: 'FIX',
+    date: 'June 29, 2026',
+    version: '1.16.5',
+    tag: 'FIX',
     title: 'Polish pass + reliability fixes',
     items: [
       'Site-wide polish: a consistent footer on every page, the Medicine study-path labels now render in the intended muted grey (they were showing too dark), smoother card hovers, consistent button arrows, and small copy/label fixes across sections.',
@@ -188,7 +212,9 @@ const CHANGELOG = [
     ],
   },
   {
-    date: 'June 22, 2026', version: '1.14.0', tag: 'NEW',
+    date: 'June 22, 2026',
+    version: '1.14.0',
+    tag: 'NEW',
     title: 'Medicine - open access & guided practice',
     items: [
       'Every Medicine area - pharmacology, microbiology, lab values, and ECG - is unlocked to browse, drill, or learn anytime.',
@@ -198,7 +224,9 @@ const CHANGELOG = [
     ],
   },
   {
-    date: 'June 20, 2026', version: '1.13.3', tag: 'FIX',
+    date: 'June 20, 2026',
+    version: '1.13.3',
+    tag: 'FIX',
     title: 'Clinical fixes, accessibility & speed',
     items: [
       'Fixed answer highlighting after the shuffle update - the correct choice now lights up green every time, and explanations point to the right option.',
@@ -209,7 +237,9 @@ const CHANGELOG = [
     ],
   },
   {
-    date: 'June 20, 2026', version: '1.13.2', tag: 'FIX',
+    date: 'June 20, 2026',
+    version: '1.13.2',
+    tag: 'FIX',
     title: 'Clinical scenarios \u2014 fairer MCQs',
     items: [
       'Answer choices shuffle every time a question loads \u2014 no more \u201calways pick B\u201d position bias.',
@@ -218,7 +248,9 @@ const CHANGELOG = [
     ],
   },
   {
-    date: 'June 20, 2026', version: '1.13.1', tag: 'NEW',
+    date: 'June 20, 2026',
+    version: '1.13.1',
+    tag: 'NEW',
     title: 'Medicine \u2014 unified study path',
     items: [
       'One 81-step path with a single progress bar: pharm classes \u2192 PED course \u2192 micro \u2192 labs \u2192 ECG rhythms.',
@@ -228,14 +260,18 @@ const CHANGELOG = [
     ],
   },
   {
-    date: 'June 20, 2026', version: '1.13.0', tag: 'FIX',
+    date: 'June 20, 2026',
+    version: '1.13.0',
+    tag: 'FIX',
     title: 'Medicine tab \u2014 script load fix',
     items: [
       'Fixed Medicine tab not opening: duplicate PHARM_UNIQUE_TOTAL declaration blocked reference.js from loading.',
     ],
   },
   {
-    date: 'June 19, 2026', version: '1.13.0', tag: 'FIX',
+    date: 'June 19, 2026',
+    version: '1.13.0',
+    tag: 'FIX',
     title: 'Medicine tab \u2014 load fix',
     items: [
       'Fixed Medicine hub crash when local progress data was corrupted (safe migration on cs-pharm / cs-micro / cs-labs / cs-ekg).',
@@ -243,7 +279,9 @@ const CHANGELOG = [
     ],
   },
   {
-    date: 'June 19, 2026', version: '1.13.0', tag: 'NEW',
+    date: 'June 19, 2026',
+    version: '1.13.0',
+    tag: 'NEW',
     title: 'Medicine tab \u2014 unified progress & guided study',
     items: [
       'Medicine hub: overall progress bar, Continue CTA, recommended path, live stats on every card.',
@@ -254,7 +292,9 @@ const CHANGELOG = [
     ],
   },
   {
-    date: 'June 19, 2026', version: '1.12.0', tag: 'NEW',
+    date: 'June 19, 2026',
+    version: '1.12.0',
+    tag: 'NEW',
     title: 'Performance drugs \u2014 course polish',
     items: [
       'Hub split into 3 parts (hormones → pathways → clinical) with current-module highlight and per-row progress.',
@@ -264,7 +304,9 @@ const CHANGELOG = [
     ],
   },
   {
-    date: 'June 19, 2026', version: '1.11.0', tag: 'NEW',
+    date: 'June 19, 2026',
+    version: '1.11.0',
+    tag: 'NEW',
     title: 'Performance drugs \u2014 structured study path',
     items: [
       'PED rebuilt as 11-module guided course with progress bar and locked sequential unlock.',
@@ -274,7 +316,9 @@ const CHANGELOG = [
     ],
   },
   {
-    date: 'June 19, 2026', version: '1.10.0', tag: 'NEW',
+    date: 'June 19, 2026',
+    version: '1.10.0',
+    tag: 'NEW',
     title: 'Neuroengineering \u2014 Practitioner Track',
     items: [
       'Practitioner Milestone 1: Neural Signal Viewer \u2014 graded OJT lab with waveform preview, Python grading, and project summary export.',
@@ -284,7 +328,9 @@ const CHANGELOG = [
     ],
   },
   {
-    date: 'June 18, 2026', version: '1.9.4', tag: 'FIX',
+    date: 'June 18, 2026',
+    version: '1.9.4',
+    tag: 'FIX',
     title: 'Neuroengineering \u2014 hub polish',
     items: [
       'Minimal neuro hub: leaner hero, slim BCI progress, collapsed Practitioner Track, clean subject cards.',
@@ -293,7 +339,9 @@ const CHANGELOG = [
     ],
   },
   {
-    date: 'June 18, 2026', version: '1.9.3', tag: 'NEW',
+    date: 'June 18, 2026',
+    version: '1.9.3',
+    tag: 'NEW',
     title: 'A clearer free note',
     items: [
       'Clinical Scenarios and Neuroengineering now show the same note: they are free to use.',
@@ -301,7 +349,9 @@ const CHANGELOG = [
     ],
   },
   {
-    date: 'June 18, 2026', version: '1.9.2', tag: 'FIX',
+    date: 'June 18, 2026',
+    version: '1.9.2',
+    tag: 'FIX',
     title: 'Neuroengineering \u2014 mobile polish',
     items: [
       'Full mobile pass on the neuro hub, BCI path, quizzes, NeuroSim, and NeuroCode OJT sandbox.',
@@ -309,7 +359,9 @@ const CHANGELOG = [
     ],
   },
   {
-    date: 'June 18, 2026', version: '1.9.1', tag: 'NEW',
+    date: 'June 18, 2026',
+    version: '1.9.1',
+    tag: 'NEW',
     title: 'Neuroengineering \u2014 Foundations live',
     items: [
       'Cortex Neuroengineering: 12 subjects, 24 topics, 120 quiz questions, 12 NeuroSim labs, 12 NeuroCode tickets.',
@@ -319,21 +371,25 @@ const CHANGELOG = [
     ],
   },
   {
-    date: 'June 18, 2026', version: '1.9.0', tag: 'NEW',
+    date: 'June 18, 2026',
+    version: '1.9.0',
+    tag: 'NEW',
     title: 'Neuroengineering \u2014 Foundations live',
-    items: [
-      'Neuroengineering course launched on Cortex Medical Academy.',
-    ],
+    items: ['Neuroengineering course launched on Cortex Medical Academy.'],
   },
   {
-    date: 'June 18, 2026', version: '1.8.4', tag: 'FIX',
+    date: 'June 18, 2026',
+    version: '1.8.4',
+    tag: 'FIX',
     title: 'Verification deploy',
     items: [
       'Re-opens the what\u2019s new popup so you can verify the mobile X updates link \u2014 no other changes from v1.8.3.',
     ],
   },
   {
-    date: 'June 18, 2026', version: '1.8.3', tag: 'NEW',
+    date: 'June 18, 2026',
+    version: '1.8.3',
+    tag: 'NEW',
     title: 'Clinical Scenarios \u2014 full polish pass',
     items: [
       'Practice landing rebuilt to match the MCAT console aesthetic \u2014 telemetry stat band, engineering hero, corner-frame panels.',
@@ -344,7 +400,9 @@ const CHANGELOG = [
     ],
   },
   {
-    date: 'June 17, 2026', version: '1.8.2', tag: 'NEW',
+    date: 'June 17, 2026',
+    version: '1.8.2',
+    tag: 'NEW',
     title: 'What\u2019s new popup',
     items: [
       'New releases now greet you with a one-time what\u2019s new window \u2014 dismiss it and it stays gone until the next version ships.',
@@ -353,7 +411,9 @@ const CHANGELOG = [
     ],
   },
   {
-    date: 'June 17, 2026', version: '1.8.1', tag: 'NEW',
+    date: 'June 17, 2026',
+    version: '1.8.1',
+    tag: 'NEW',
     title: 'Smarter onboarding & clearer progress',
     items: [
       'MCAT "Enter the system" now resumes where you left off, sends new users to the Guide Engine, then drills.',
@@ -365,7 +425,9 @@ const CHANGELOG = [
     ],
   },
   {
-    date: 'June 17, 2026', version: '1.8.0', tag: 'NEW',
+    date: 'June 17, 2026',
+    version: '1.8.0',
+    tag: 'NEW',
     title: 'Focus Timer (Pomodoro)',
     items: [
       'New Pomodoro focus timer under Explore — preset focus/break lengths (25/35/50 and 5/10/15) plus fully custom times.',
@@ -374,7 +436,9 @@ const CHANGELOG = [
     ],
   },
   {
-    date: 'June 17, 2026', version: '1.7.1', tag: 'FIX',
+    date: 'June 17, 2026',
+    version: '1.7.1',
+    tag: 'FIX',
     title: 'Reliability & polish pass',
     items: [
       'Hardened progress saving so a full or private-mode browser can never freeze a question mid-answer.',
@@ -384,15 +448,16 @@ const CHANGELOG = [
     ],
   },
   {
-    date: 'June 16, 2026', version: '1.6.4', tag: 'NEW',
+    date: 'June 16, 2026',
+    version: '1.6.4',
+    tag: 'NEW',
     title: 'Clinical Scenarios — free while we build',
-    items: [
-      'Every clinical case is completely free.',
-      'MCAT prep stays free forever, no matter what.',
-    ],
+    items: ['Every clinical case is completely free.', 'MCAT prep stays free forever, no matter what.'],
   },
   {
-    date: 'June 16, 2026', version: '1.6.3', tag: 'FIX',
+    date: 'June 16, 2026',
+    version: '1.6.3',
+    tag: 'FIX',
     title: 'No more privacy warning',
     items: [
       'The page no longer makes any third-party request on load, so mobile browsers stop showing the "reduce privacy protections" banner.',
@@ -400,7 +465,9 @@ const CHANGELOG = [
     ],
   },
   {
-    date: 'June 16, 2026', version: '1.6.2', tag: 'FIX',
+    date: 'June 16, 2026',
+    version: '1.6.2',
+    tag: 'FIX',
     title: 'Mobile polish',
     items: [
       'Fixed the Explore menu running off-screen on phones.',
@@ -409,7 +476,9 @@ const CHANGELOG = [
     ],
   },
   {
-    date: 'June 16, 2026', version: '1.6.1', tag: 'NEW',
+    date: 'June 16, 2026',
+    version: '1.6.1',
+    tag: 'NEW',
     title: 'MCAT — easier to navigate',
     items: [
       'Every MCAT task now shows a breadcrumb of where you are, with one-tap back to the hub — and asks before you quit.',
@@ -418,7 +487,9 @@ const CHANGELOG = [
     ],
   },
   {
-    date: 'June 15, 2026', version: '1.6', tag: 'NEW',
+    date: 'June 15, 2026',
+    version: '1.6',
+    tag: 'NEW',
     title: 'New sections & cleaner navigation',
     items: [
       'A reorganized top navigation that scales as the Academy grows.',
@@ -428,7 +499,9 @@ const CHANGELOG = [
     ],
   },
   {
-    date: 'June 15, 2026', version: '1.5', tag: 'NEW',
+    date: 'June 15, 2026',
+    version: '1.5',
+    tag: 'NEW',
     title: 'Optional accounts & sync',
     items: [
       'Save your progress to your email and sync it across all your devices — completely optional.',
@@ -437,14 +510,18 @@ const CHANGELOG = [
     ],
   },
   {
-    date: 'June 15, 2026', version: '1.4', tag: 'NEW',
+    date: 'June 15, 2026',
+    version: '1.4',
+    tag: 'NEW',
     title: 'A note from the founder',
     items: [
       'Cortex is now openly founder-led — a short note on the mission behind the Academy, and a founder credit throughout.',
     ],
   },
   {
-    date: 'June 15, 2026', version: '1.3', tag: 'NEW',
+    date: 'June 15, 2026',
+    version: '1.3',
+    tag: 'NEW',
     title: 'Brand & identity',
     items: [
       'A refined logo mark in the header and a proper site footer across the Academy.',
@@ -453,7 +530,9 @@ const CHANGELOG = [
     ],
   },
   {
-    date: 'June 15, 2026', version: '1.2', tag: 'NEW',
+    date: 'June 15, 2026',
+    version: '1.2',
+    tag: 'NEW',
     title: 'Interface polish',
     items: [
       'Stats and counters now count up as the page loads, with crisp non-jittering numbers.',
@@ -462,7 +541,9 @@ const CHANGELOG = [
     ],
   },
   {
-    date: 'June 15, 2026', version: '1.1', tag: 'NEW',
+    date: 'June 15, 2026',
+    version: '1.1',
+    tag: 'NEW',
     title: 'A "What’s New" page',
     items: [
       'Added this updates feed so you can see exactly what’s changing — Cortex is actively built and maintained.',
@@ -470,7 +551,9 @@ const CHANGELOG = [
     ],
   },
   {
-    date: 'June 15, 2026', version: '1.0', tag: 'NEW',
+    date: 'June 15, 2026',
+    version: '1.0',
+    tag: 'NEW',
     title: 'The Academy, officially v1.0',
     items: [
       'A new mission home page that lays out what Cortex is and why it stays free.',
@@ -479,7 +562,9 @@ const CHANGELOG = [
     ],
   },
   {
-    date: 'June 14, 2026', version: '0.9', tag: 'NEW',
+    date: 'June 14, 2026',
+    version: '0.9',
+    tag: 'NEW',
     title: 'MCAT prep suite — free forever',
     items: [
       '504 high-yield flashcards with built-in spaced repetition.',
@@ -488,7 +573,9 @@ const CHANGELOG = [
     ],
   },
   {
-    date: 'June 14, 2026', version: '0.9', tag: 'NEW',
+    date: 'June 14, 2026',
+    version: '0.9',
+    tag: 'NEW',
     title: '2,599 clinical cases across 26 specialties',
     items: [
       'Interactive, step-by-step case scenarios from emergency medicine to neurosurgery.',
@@ -496,7 +583,9 @@ const CHANGELOG = [
     ],
   },
   {
-    date: 'June 14, 2026', version: '0.9', tag: 'NEW',
+    date: 'June 14, 2026',
+    version: '0.9',
+    tag: 'NEW',
     title: 'Live at cortexmedical.academy',
     items: [
       'The site went public — no account needed, and it works offline.',
@@ -504,7 +593,9 @@ const CHANGELOG = [
     ],
   },
   {
-    date: 'Coming soon', version: '', tag: 'SOON',
+    date: 'Coming soon',
+    version: '',
+    tag: 'SOON',
     title: 'In the works',
     items: [
       'Anatomy — interactive, clickable diagrams.',

@@ -2,7 +2,8 @@ import { chromium } from 'playwright';
 import { readFileSync } from 'node:fs';
 
 // Track the live app version so the "what's new" modal never blocks navigation as versions bump.
-const APP_VERSION = (readFileSync(new URL('../app.js', import.meta.url), 'utf8').match(/APP_VERSION\s*=\s*'([^']+)'/) || [])[1] || '';
+const APP_VERSION =
+  (readFileSync(new URL('../app.js', import.meta.url), 'utf8').match(/APP_VERSION\s*=\s*'([^']+)'/) || [])[1] || '';
 
 const browser = await chromium.launch({ headless: true });
 const page = await browser.newPage();
@@ -24,31 +25,41 @@ await page.waitForSelector('[data-run-code]', { timeout: 10000 });
 
 await page.click('[data-run-code]');
 await page.waitForFunction(
-  () => document.querySelector('[data-py-status]')?.textContent?.includes('ready') ||
-        document.querySelector('[data-py-status]')?.textContent?.includes('error') ||
-        document.querySelector('.neuro-term-line.out')?.textContent?.includes('Spikes'),
-  { timeout: 120000 },
+  () =>
+    document.querySelector('[data-py-status]')?.textContent?.includes('ready') ||
+    document.querySelector('[data-py-status]')?.textContent?.includes('error') ||
+    document.querySelector('.neuro-term-line.out')?.textContent?.includes('Spikes'),
+  { timeout: 120000 }
 );
 
 const runOut = await page.locator('.neuro-term-line.out').last().textContent();
 const starterOk = runOut?.includes('Spikes: 3');
 
 // The solution/check controls live inside a collapsed <details> fold — open it first.
-await page.evaluate(() => document.querySelectorAll('details.neuro-sandbox-more').forEach(d => { d.open = true; }));
+await page.evaluate(() =>
+  document.querySelectorAll('details.neuro-sandbox-more').forEach(d => {
+    d.open = true;
+  })
+);
 await page.click('[data-load-sol]');
 await page.click('[data-check-code]');
-await page.waitForFunction(
-  () => document.querySelector('[data-term-msg]')?.textContent?.includes('Check passed'),
-  { timeout: 120000 },
-);
+await page.waitForFunction(() => document.querySelector('[data-term-msg]')?.textContent?.includes('Check passed'), {
+  timeout: 120000,
+});
 const checkMsg = await page.textContent('[data-term-msg]');
 
-console.log(JSON.stringify({
-  starterOk,
-  runOut: runOut?.trim(),
-  checkMsg: checkMsg?.trim(),
-  errors,
-}, null, 2));
+console.log(
+  JSON.stringify(
+    {
+      starterOk,
+      runOut: runOut?.trim(),
+      checkMsg: checkMsg?.trim(),
+      errors,
+    },
+    null,
+    2
+  )
+);
 await browser.close();
 const ok = !errors.length && starterOk && checkMsg?.includes('Check passed');
 process.exit(ok ? 0 : 1);

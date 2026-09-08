@@ -22,10 +22,16 @@ function shuffle(a) {
 
 function compressOption(text) {
   let t = text.trim();
-  t = t.replace(/\s*\([^)]*\)\s*/g, ' ').replace(/\s+/g, ' ').trim();
+  t = t
+    .replace(/\s*\([^)]*\)\s*/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
   const parts = t.split(/\s*[—;]\s*/);
   if (parts[0].length >= 18) t = parts[0].trim();
-  t = t.replace(/\s+as needed$/i, '').replace(/\s+with close follow-up$/i, '').trim();
+  t = t
+    .replace(/\s+as needed$/i, '')
+    .replace(/\s+with close follow-up$/i, '')
+    .trim();
   t = t.replace(/\s+in this (patient|presentation|clinical context)$/i, '').trim();
   return t;
 }
@@ -33,11 +39,11 @@ function compressOption(text) {
 const EXPAND_BY_LABEL = {
   'INITIAL APPROACH': [' as the first step today', ' before invasive testing', ' in the outpatient setting'],
   'DIAGNOSTIC TEST': [' as the initial study', ' before confirmatory imaging', ' in a stable patient'],
-  'DIAGNOSIS': [' as the primary diagnosis', ' given the available data', ' in this clinical picture'],
-  'MANAGEMENT': [' as initial therapy', ' before specialist referral', ' as monotherapy'],
-  'DISPOSITION': [' with appropriate follow-up', ' after initial stabilization', ' based on current risk'],
+  DIAGNOSIS: [' as the primary diagnosis', ' given the available data', ' in this clinical picture'],
+  MANAGEMENT: [' as initial therapy', ' before specialist referral', ' as monotherapy'],
+  DISPOSITION: [' with appropriate follow-up', ' after initial stabilization', ' based on current risk'],
   'NEXT STEP': [' as the immediate next step', ' before discharge planning', ' in this setting'],
-  'COMPLICATION': [' as the leading concern', ' requiring urgent evaluation', ' in this presentation'],
+  COMPLICATION: [' as the leading concern', ' requiring urgent evaluation', ' in this presentation'],
 };
 
 function expandOption(text, targetLen, label) {
@@ -80,7 +86,11 @@ function balanceStage(stage) {
   if (stage.type !== 'question' || stage.answer == null || !stage.options?.length) return false;
 
   const correctIdx = stage.answer;
-  const opts = balanceLengths(stage.options.map(o => String(o).trim()), correctIdx, stage.label);
+  const opts = balanceLengths(
+    stage.options.map(o => String(o).trim()),
+    correctIdx,
+    stage.label
+  );
 
   const pairs = opts.map((text, origIdx) => ({ text, origIdx }));
   const shuffled = shuffle(pairs);

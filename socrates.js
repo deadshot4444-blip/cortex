@@ -11,28 +11,43 @@ function ltlReadRecord(key) {
 }
 const SOC_DONE = ltlReadRecord('cs-socrates');
 StudyStorage.watch('cs-socrates', () => SOC_DONE);
-function saveSocDone() { return StudyStorage.write('cs-socrates', SOC_DONE); }
+function saveSocDone() {
+  return StudyStorage.write('cs-socrates', SOC_DONE);
+}
 
 const LTL = { tracks: [], sources: [], loaded: false, byId: {}, sourceById: {} };
 const LTL_PROGRESS = ltlReadRecord('cs-ltl-progress-v1');
 // Preserve malformed records for recovery instead of silently normalizing them away.
 for (const progress of Object.values(LTL_PROGRESS)) {
-  if (!progress || typeof progress !== 'object' || Array.isArray(progress) ||
-      (progress.completed !== undefined && !Array.isArray(progress.completed)) ||
-      (progress.lessons !== undefined && (!progress.lessons || typeof progress.lessons !== 'object' || Array.isArray(progress.lessons)))) {
+  if (
+    !progress ||
+    typeof progress !== 'object' ||
+    Array.isArray(progress) ||
+    (progress.completed !== undefined && !Array.isArray(progress.completed)) ||
+    (progress.lessons !== undefined &&
+      (!progress.lessons || typeof progress.lessons !== 'object' || Array.isArray(progress.lessons)))
+  ) {
     StudyStorage.sessionFailed();
     break;
   }
   for (const lesson of Object.values(progress.lessons || {})) {
-    if (!lesson || typeof lesson !== 'object' || !lesson.steps || typeof lesson.steps !== 'object' || Array.isArray(lesson.steps) ||
-        Object.values(lesson.steps).some(step => !step || typeof step !== 'object' || Array.isArray(step))) {
+    if (
+      !lesson ||
+      typeof lesson !== 'object' ||
+      !lesson.steps ||
+      typeof lesson.steps !== 'object' ||
+      Array.isArray(lesson.steps) ||
+      Object.values(lesson.steps).some(step => !step || typeof step !== 'object' || Array.isArray(step))
+    ) {
       StudyStorage.sessionFailed();
       break;
     }
   }
 }
 StudyStorage.watch('cs-ltl-progress-v1', () => LTL_PROGRESS);
-function saveLtlProgress() { return StudyStorage.write('cs-ltl-progress-v1', LTL_PROGRESS); }
+function saveLtlProgress() {
+  return StudyStorage.write('cs-ltl-progress-v1', LTL_PROGRESS);
+}
 function ltlProgress(trackId) {
   const current = LTL_PROGRESS[trackId];
   if (!current || typeof current !== 'object' || Array.isArray(current)) {
@@ -44,14 +59,17 @@ function ltlProgress(trackId) {
 function ltlLessonRecord(trackId, lesson) {
   const progress = ltlProgress(trackId);
   progress.lessons ||= {};
-  return progress.lessons[lesson.id] ||= { revision: lesson.revision, steps: {} };
+  return (progress.lessons[lesson.id] ||= { revision: lesson.revision, steps: {} });
 }
 function ltlStepRecord(trackId, lesson, step) {
-  return ltlLessonRecord(trackId, lesson).steps[step.id] ||= {};
+  return (ltlLessonRecord(trackId, lesson).steps[step.id] ||= {});
 }
 function ltlStepReady(step, record) {
-  return step.type === 'check' ? Number.isInteger(record.selected) :
-    step.type === 'practice' ? !!record.revealedAt : true;
+  return step.type === 'check'
+    ? Number.isInteger(record.selected)
+    : step.type === 'practice'
+      ? !!record.revealedAt
+      : true;
 }
 function ltlUrl(trackId, lessonId, stepIndex) {
   const url = new URL(sectionUrl('socrates'), location.origin);
@@ -69,7 +87,8 @@ async function openLearnToLearn() {
   await loadLearnCourses();
   if (StudyStorage.paused) return;
   const params = new URLSearchParams(location.search);
-  const track = params.get('track'), lesson = params.get('lesson');
+  const track = params.get('track'),
+    lesson = params.get('lesson');
   if (track && lesson) return renderLtlLesson(track, lesson, Number(params.get('step') || 1) - 1);
   if (track) return renderLearnTrack(track);
   return renderSocrates();
@@ -91,11 +110,32 @@ async function loadLearnCourses() {
   const response = await fetch('data/learn-to-learn.json?v=4');
   if (!response.ok) throw new Error('Learning courses unavailable');
   const d = await response.json();
-  if (!Array.isArray(d.tracks) || !d.tracks.length || d.tracks.some(track =>
-      !track?.id || !Array.isArray(track.lessons) || !track.lessons.length ||
-      track.lessons.some(lesson => !lesson?.id || !Array.isArray(lesson.steps) || !lesson.steps.length ||
-        lesson.steps.some(step => !step?.id || !['teach', 'example', 'check', 'practice', 'summary'].includes(step.type) ||
-          (step.type === 'check' && (!Array.isArray(step.options) || !Number.isInteger(step.answer) || step.answer < 0 || step.answer >= step.options.length)))))) {
+  if (
+    !Array.isArray(d.tracks) ||
+    !d.tracks.length ||
+    d.tracks.some(
+      track =>
+        !track?.id ||
+        !Array.isArray(track.lessons) ||
+        !track.lessons.length ||
+        track.lessons.some(
+          lesson =>
+            !lesson?.id ||
+            !Array.isArray(lesson.steps) ||
+            !lesson.steps.length ||
+            lesson.steps.some(
+              step =>
+                !step?.id ||
+                !['teach', 'example', 'check', 'practice', 'summary'].includes(step.type) ||
+                (step.type === 'check' &&
+                  (!Array.isArray(step.options) ||
+                    !Number.isInteger(step.answer) ||
+                    step.answer < 0 ||
+                    step.answer >= step.options.length))
+            )
+        )
+    )
+  ) {
     throw new Error('Learning course data is incomplete');
   }
   LTL.tracks = d.tracks;
@@ -110,13 +150,16 @@ async function loadSocrates() {
   const response = await fetch('data/socrates.json');
   if (!response.ok) throw new Error('Reasoning dialogues unavailable');
   const d = await response.json();
-  if (!Array.isArray(d) || d.some(dialogue => !dialogue?.id || !dialogue.discipline || !Array.isArray(dialogue.steps))) throw new Error('Reasoning dialogue data is incomplete');
+  if (!Array.isArray(d) || d.some(dialogue => !dialogue?.id || !dialogue.discipline || !Array.isArray(dialogue.steps)))
+    throw new Error('Reasoning dialogue data is incomplete');
   SOC.dialogues = d;
   SOC.byDisc = {};
   for (const dlg of SOC.dialogues) (SOC.byDisc[dlg.discipline] = SOC.byDisc[dlg.discipline] || []).push(dlg);
   SOC.loaded = true;
 }
-function discName(key) { return (SOC.byDisc[key] && SOC.byDisc[key][0]?.disciplineName) || key; }
+function discName(key) {
+  return (SOC.byDisc[key] && SOC.byDisc[key][0]?.disciplineName) || key;
+}
 
 /* ---------- hub ---------- */
 async function renderSocrates() {
@@ -148,11 +191,14 @@ async function renderSocrates() {
   </main>`);
 
   const tracks = main.querySelector('.ltl-tracks');
-  if (!LTL.tracks.length) tracks.appendChild(el('<div class="empty">The courses could not load. Refresh to try again.</div>'));
+  if (!LTL.tracks.length)
+    tracks.appendChild(el('<div class="empty">The courses could not load. Refresh to try again.</div>'));
   LTL.tracks.forEach(track => {
     const courseDone = track.lessons.filter(lesson => ltlCompleted(track.id, lesson.id)).length;
-    const courseStatus = courseDone === track.lessons.length ? 'Course complete' : `${courseDone}/${track.lessons.length} lessons`;
-    const card = el(`<button class="ltl-track-card ltl-track-${track.id}" data-track="${track.id}" aria-label="Open Learn to Learn ${esc(track.name)}">
+    const courseStatus =
+      courseDone === track.lessons.length ? 'Course complete' : `${courseDone}/${track.lessons.length} lessons`;
+    const card =
+      el(`<button class="ltl-track-card ltl-track-${track.id}" data-track="${track.id}" aria-label="Open Learn to Learn ${esc(track.name)}">
       <span class="ltl-track-top"><span class="ltl-track-no">${track.number}</span><span class="ltl-track-status">${courseStatus}</span></span>
       <span class="ltl-track-copy">
         <span class="ltl-track-eyebrow">${esc(track.eyebrow)}</span>
@@ -174,24 +220,33 @@ async function renderSocrates() {
 async function renderLearnTrack(trackId, requestedLessonId = null) {
   await loadLearnCourses();
   const track = LTL.byId[trackId];
-  if (!track) { renderSocrates(); return; }
+  if (!track) {
+    renderSocrates();
+    return;
+  }
   // Keep a requested lesson in the URL so reload and Back preserve the destination.
   if (!requestedLessonId) ltlUrl(trackId);
   const requestedIndex = track.lessons.findIndex(lesson => lesson.id === requestedLessonId);
-  const requestedNotice = !requestedLessonId ? '' : requestedIndex < 0
-    ? 'That lesson is not in this course. Choose an available lesson below.'
-    : `${track.lessons[requestedIndex].title} opens after ${track.lessons[requestedIndex - 1].title}. This course opens lessons in order. Continue your course below to reach it.`;
+  const requestedNotice = !requestedLessonId
+    ? ''
+    : requestedIndex < 0
+      ? 'That lesson is not in this course. Choose an available lesson below.'
+      : `${track.lessons[requestedIndex].title} opens after ${track.lessons[requestedIndex - 1].title}. This course opens lessons in order. Continue your course below to reach it.`;
   const isMedical = track.id === 'medical';
   let dialogueError = false;
   if (isMedical) {
-    try { await loadSocrates(); } catch { dialogueError = true; }
+    try {
+      await loadSocrates();
+    } catch {
+      dialogueError = true;
+    }
   }
   const total = SOC.dialogues.length;
   const done = SOC.dialogues.filter(d => SOC_DONE[d.id]).length;
-  const pct = total ? Math.round(100 * done / total) : 0;
+  const pct = total ? Math.round((100 * done) / total) : 0;
   const progress = ltlProgress(track.id);
   const completedCount = track.lessons.filter(lesson => ltlCompleted(track.id, lesson.id)).length;
-  const coursePct = Math.round(100 * completedCount / track.lessons.length);
+  const coursePct = Math.round((100 * completedCount) / track.lessons.length);
   const nextLesson = ltlNextLesson(track);
   const resumeStep = nextLesson.id === progress.lastLesson ? Math.max(0, Number(progress.lastStep) || 0) : 0;
   const isComplete = completedCount === track.lessons.length;
@@ -236,24 +291,31 @@ async function renderLearnTrack(trackId, requestedLessonId = null) {
       </div>
       <div class="ltlc-syllabus"></div>
     </section>
-    ${isMedical ? `<section class="ltl-lab" aria-labelledby="ltl-lab-title">
+    ${
+      isMedical
+        ? `<section class="ltl-lab" aria-labelledby="ltl-lab-title">
       <div class="ltl-lab-head">
         <div><span class="label">Extra practice</span><h2 id="ltl-lab-title">Practice medical reasoning.</h2><p>Use these guided questions to explain how something works before you reveal the answer.</p></div>
         ${dialogueError ? '<span class="ltl-research-state">Download unavailable</span>' : `<div class="ltl-lab-progress"><strong>${done}/${total}</strong><span>complete</span><i><b style="width:${pct}%"></b></i></div>`}
       </div>
       <div class="mcat-mods ltl-disciplines"></div>
       <p class="anat-credit">Original guided questions for self-review. Write what you think before revealing the answer.</p>
-    </section>` : ''}
+    </section>`
+        : ''
+    }
   </main>`);
   main.querySelector('#ltlback').addEventListener('click', renderSocrates);
-  main.querySelector('#ltlcstart').addEventListener('click', () => renderLtlLesson(track.id, nextLesson.id, isComplete ? 0 : resumeStep));
+  main
+    .querySelector('#ltlcstart')
+    .addEventListener('click', () => renderLtlLesson(track.id, nextLesson.id, isComplete ? 0 : resumeStep));
 
   const syllabus = main.querySelector('.ltlc-syllabus');
   track.lessons.forEach((lesson, index) => {
     const complete = ltlCompleted(track.id, lesson.id);
     const unlocked = ltlLessonUnlocked(track, index);
     const state = complete ? 'Complete' : unlocked ? (lesson.id === nextLesson.id ? 'Up next' : 'Available') : 'Locked';
-    const row = el(`<button class="ltlc-lesson ${complete ? 'is-complete' : ''} ${unlocked ? '' : 'is-locked'}" ${unlocked ? '' : 'disabled'} aria-label="${unlocked ? `Open lesson ${index + 1}: ${esc(lesson.title)}` : `Lesson ${index + 1} locked`}">
+    const row =
+      el(`<button class="ltlc-lesson ${complete ? 'is-complete' : ''} ${unlocked ? '' : 'is-locked'}" ${unlocked ? '' : 'disabled'} aria-label="${unlocked ? `Open lesson ${index + 1}: ${esc(lesson.title)}` : `Lesson ${index + 1} locked`}">
       <span class="ltlc-lesson-no">${complete ? '&#10003;' : String(index + 1).padStart(2, '0')}</span>
       <span class="ltlc-lesson-copy"><span class="ltlc-lesson-title">${esc(lesson.title)}</span><span class="ltlc-lesson-question">${esc(lesson.question)}</span></span>
       <span class="ltlc-lesson-meta"><span>${esc(lesson.duration)}</span><b>${state}</b></span>
@@ -266,10 +328,13 @@ async function renderLearnTrack(trackId, requestedLessonId = null) {
     const disciplines = main.querySelector('.ltl-disciplines');
     const keys = Object.keys(SOC.byDisc);
     if (dialogueError) {
-      const retry = el('<div class="empty"><p>Extra reasoning practice could not load. Your course is available above.</p><button class="btn">Retry extra practice</button></div>');
+      const retry = el(
+        '<div class="empty"><p>Extra reasoning practice could not load. Your course is available above.</p><button class="btn">Retry extra practice</button></div>'
+      );
       retry.querySelector('button').addEventListener('click', () => renderLearnTrack(trackId));
       disciplines.appendChild(retry);
-    } else if (!keys.length) disciplines.appendChild(el('<p class="empty">No extra reasoning practice is available yet.</p>'));
+    } else if (!keys.length)
+      disciplines.appendChild(el('<p class="empty">No extra reasoning practice is available yet.</p>'));
     keys.forEach(k => {
       const list = SOC.byDisc[k];
       const dn = list.filter(d => SOC_DONE[d.id]).length;
@@ -300,8 +365,9 @@ function ltlLessonSources(lesson) {
 function ltlApplication(trackId, lessonIndex) {
   if (trackId === 'medical') return { section: 'practice', label: 'Apply it in Clinical Scenarios' };
   if (trackId === 'business') return { section: 'pomodoro', label: 'Begin a focused work session' };
-  return lessonIndex === 5 ? { section: 'pomodoro', label: 'Begin a focused study session' } :
-    { section: 'mcat', label: 'Apply it in MCAT practice' };
+  return lessonIndex === 5
+    ? { section: 'pomodoro', label: 'Begin a focused study session' }
+    : { section: 'mcat', label: 'Apply it in MCAT practice' };
 }
 
 function ltlStepBody(step) {
@@ -340,13 +406,18 @@ async function renderLtlLesson(trackId, lessonId, stepIndex = 0) {
   const requestedStep = Math.max(0, Math.min(Math.floor(Number(stepIndex) || 0), lesson.steps.length - 1));
   const record = ltlLessonRecord(track.id, lesson);
   const firstRequired = lesson.steps.findIndex(item => !ltlStepReady(item, record.steps[item.id] || {}));
-  const currentStep = firstRequired >= 0 && !ltlCompleted(track.id, lesson.id) ? Math.min(requestedStep, firstRequired) : requestedStep;
+  const currentStep =
+    firstRequired >= 0 && !ltlCompleted(track.id, lesson.id) ? Math.min(requestedStep, firstRequired) : requestedStep;
   const authoredStep = lesson.steps[currentStep];
   const saved = ltlStepRecord(track.id, lesson, authoredStep);
   saved.content ||= authoredStep;
   const step = saved.content;
-  const correction = ltlStepReady(step, saved) && (step.type === 'check' || step.type === 'practice') &&
-    JSON.stringify(step) !== JSON.stringify(authoredStep) ? authoredStep.explain || authoredStep.model : '';
+  const correction =
+    ltlStepReady(step, saved) &&
+    (step.type === 'check' || step.type === 'practice') &&
+    JSON.stringify(step) !== JSON.stringify(authoredStep)
+      ? authoredStep.explain || authoredStep.model
+      : '';
   const progress = ltlProgress(track.id);
   progress.lastLesson = lesson.id;
   progress.lastStep = currentStep;
@@ -354,11 +425,13 @@ async function renderLtlLesson(trackId, lessonId, stepIndex = 0) {
   saveLtlProgress();
 
   const root = el('<div class="ltlc-player-page"></div>');
-  root.appendChild(el(`<header class="topbar ltlc-player-topbar">
+  root.appendChild(
+    el(`<header class="topbar ltlc-player-topbar">
     <div class="side"><button class="backbtn" id="ltlcexit">&larr; ${esc(track.name).toUpperCase()} COURSE</button></div>
     <div class="center"><span class="topstat">LESSON ${String(lessonIndex + 1).padStart(2, '0')} &middot; ${esc(lesson.title).toUpperCase()}</span></div>
     <div class="side right"><span class="topstat">${currentStep + 1}/${lesson.steps.length}</span></div>
-  </header>`));
+  </header>`)
+  );
   const main = el(`<main class="ltlc-player">
     <div class="ltlc-step-progress" aria-label="Lesson progress">${lesson.steps.map((_, index) => `<i class="${index < currentStep ? 'past' : index === currentStep ? 'now' : ''}"></i>`).join('')}</div>
     <section class="ltlc-stage">
@@ -377,7 +450,9 @@ async function renderLtlLesson(trackId, lessonId, stepIndex = 0) {
   setView(root);
 
   root.querySelector('#ltlcexit').addEventListener('click', () => renderLearnTrack(track.id));
-  root.querySelector('[data-prev]')?.addEventListener('click', () => renderLtlLesson(track.id, lesson.id, currentStep - 1));
+  root
+    .querySelector('[data-prev]')
+    ?.addEventListener('click', () => renderLtlLesson(track.id, lesson.id, currentStep - 1));
   const nextButton = root.querySelector('[data-next]');
   nextButton.addEventListener('click', () => {
     if (!ltlStepReady(step, saved) || !saveLtlProgress()) return;
@@ -399,13 +474,15 @@ async function renderLtlLesson(trackId, lessonId, stepIndex = 0) {
       feedback.innerHTML = `<div class="${correct ? 'is-correct' : 'is-repair'}"><span class="label">${correct ? 'Correct' : 'Review the idea'}</span><p>${esc(step.explain)}</p></div>`;
       nextButton.disabled = false;
     }
-    optionButtons.forEach(button => button.addEventListener('click', () => {
-      if (Number.isInteger(saved.selected)) return;
-      saved.selected = Number(button.dataset.option);
-      saved.answeredAt = new Date().toISOString();
-      saveLtlProgress();
-      showAnswer();
-    }));
+    optionButtons.forEach(button =>
+      button.addEventListener('click', () => {
+        if (Number.isInteger(saved.selected)) return;
+        saved.selected = Number(button.dataset.option);
+        saved.answeredAt = new Date().toISOString();
+        saveLtlProgress();
+        showAnswer();
+      })
+    );
     if (Number.isInteger(saved.selected)) showAnswer();
   }
 
@@ -473,7 +550,9 @@ function finishLtlLesson(trackId, lessonId) {
   root.appendChild(main);
   setView(root);
   main.querySelector('[data-next-lesson]')?.addEventListener('click', () => renderLtlLesson(track.id, next.id, 0));
-  main.querySelectorAll('[data-course-map]').forEach(button => button.addEventListener('click', () => renderLearnTrack(track.id)));
+  main
+    .querySelectorAll('[data-course-map]')
+    .forEach(button => button.addEventListener('click', () => renderLearnTrack(track.id)));
   main.querySelector('[data-revisit]').addEventListener('click', () => renderLtlLesson(track.id, lesson.id, 0));
 }
 
@@ -509,14 +588,19 @@ function renderSocDiscipline(key) {
 let soc = null;
 function renderSocPlayer(key, id) {
   const dlg = (SOC.byDisc[key] || []).find(d => d.id === id);
-  if (!dlg) { renderSocDiscipline(key); return; }
+  if (!dlg) {
+    renderSocDiscipline(key);
+    return;
+  }
   soc = { key, dlg, idx: 0 };
   const root = el('<div></div>');
-  root.appendChild(el(`<header class="topbar">
+  root.appendChild(
+    el(`<header class="topbar">
     <div class="side"><button class="backbtn" id="socexit">&larr; ${esc(discName(key)).toUpperCase()}</button></div>
     <div class="center"><span class="topstat">${esc(discName(key)).toUpperCase()}</span></div>
     <div class="side right"><span class="topstat" id="socprog"></span></div>
-  </header>`));
+  </header>`)
+  );
   root.querySelector('#socexit').addEventListener('click', () => renderSocDiscipline(key));
   const main = el(`<main class="case socplay">
     <div class="case-meta"><span>Guided questions</span><span class="sep">/</span><span>${esc(discName(key))}</span></div>
@@ -534,7 +618,9 @@ function renderSocDots() {
   const dots = document.getElementById('socdots');
   if (!dots) return;
   dots.replaceChildren();
-  soc.dlg.steps.forEach((_, i) => dots.appendChild(el(`<span class="socdot ${i < soc.idx ? 'past' : i === soc.idx ? 'now' : ''}"></span>`)));
+  soc.dlg.steps.forEach((_, i) =>
+    dots.appendChild(el(`<span class="socdot ${i < soc.idx ? 'past' : i === soc.idx ? 'now' : ''}"></span>`))
+  );
   const p = document.getElementById('socprog');
   if (p) p.textContent = `Step ${Math.min(soc.idx + 1, soc.dlg.steps.length)}/${soc.dlg.steps.length}`;
 }
@@ -558,18 +644,27 @@ function appendSocStep() {
   </section>`);
   const after = node.querySelector('.socafter');
   const hintBtn = node.querySelector('[data-hint]');
-  if (hintBtn) hintBtn.addEventListener('click', () => {
-    hintBtn.disabled = true;
-    after.appendChild(el(`<div class="sochint"><span class="label">Hint</span><p>${esc(s.hint)}</p></div>`));
-  });
+  if (hintBtn)
+    hintBtn.addEventListener('click', () => {
+      hintBtn.disabled = true;
+      after.appendChild(el(`<div class="sochint"><span class="label">Hint</span><p>${esc(s.hint)}</p></div>`));
+    });
   node.querySelector('[data-reveal]').addEventListener('click', () => {
     node.querySelector('.socactions').remove();
-    after.appendChild(el(`<div class="socans">
+    after.appendChild(
+      el(`<div class="socans">
       <div class="socblock"><span class="label">Answer</span><p>${esc(s.answer)}</p></div>
       ${s.why ? `<div class="socblock why"><span class="label">Why it matters</span><p>${esc(s.why)}</p></div>` : ''}
-    </div>`));
-    const row = el(`<div class="continue-row"><span class="hint">ENTER &rarr;</span><button class="btn btn-solid" data-continue>${isLast ? 'Finish' : 'Next question'}</button></div>`);
-    row.querySelector('[data-continue]').addEventListener('click', () => { soc.idx++; renderSocDots(); appendSocStep(); });
+    </div>`)
+    );
+    const row = el(
+      `<div class="continue-row"><span class="hint">ENTER &rarr;</span><button class="btn btn-solid" data-continue>${isLast ? 'Finish' : 'Next question'}</button></div>`
+    );
+    row.querySelector('[data-continue]').addEventListener('click', () => {
+      soc.idx++;
+      renderSocDots();
+      appendSocStep();
+    });
     after.appendChild(row);
     row.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   });

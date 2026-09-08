@@ -7,10 +7,13 @@ const Course = require('../mcat-course-engine.js');
 function setup() {
   const events = [];
   const context = vm.createContext({
-    console, URLSearchParams, location: { search: '' },
+    console,
+    URLSearchParams,
+    location: { search: '' },
     McatCourseCore: Course,
     StudyStorage: { read: (_, fallback) => fallback, watch: () => ({ save: () => true }) },
-    document: { addEventListener() {} }, addEventListener() {},
+    document: { addEventListener() {} },
+    addEventListener() {},
     CortexAcademy: { renderCatalog: () => events.push('catalog') },
     v2PauseActivity: () => events.push('activity paused'),
     studyPausePassage: key => events.push(key + ' paused'),

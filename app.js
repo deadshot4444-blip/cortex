@@ -32,10 +32,13 @@ const NAME_BY_KEY = Object.fromEntries(SPECIALTIES.map(s => [s.key, s.name]));
 
 // Availability follows the Academy catalog. Public courses retain beta and
 // draft review labels; localhost can also preview future unavailable tracks.
-const IS_LOCAL_PREVIEW = typeof location !== 'undefined'
-  && /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname)
-  && !/[?&]gates=prod\b/.test(location.search);
-const UNDER_CONSTRUCTION = new Set(IS_LOCAL_PREVIEW ? [] : CortexAcademy.tracks.filter(track => !track.available).map(track => track.id));
+const IS_LOCAL_PREVIEW =
+  typeof location !== 'undefined' &&
+  /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname) &&
+  !/[?&]gates=prod\b/.test(location.search);
+const UNDER_CONSTRUCTION = new Set(
+  IS_LOCAL_PREVIEW ? [] : CortexAcademy.tracks.filter(track => !track.available).map(track => track.id)
+);
 const COMING_SOON = new Set(UNDER_CONSTRUCTION);
 function sectionMenuTag(key) {
   if (UNDER_CONSTRUCTION.has(key)) return '<span class="mi-soon">Under construction</span>';
@@ -79,9 +82,11 @@ function cortexFreeNote(sectionPill, sectionName) {
 const X_HANDLE = 'kevin__vigil';
 const X_URL = 'https://x.com/kevin__vigil';
 const X_UPDATES_COPY = `Constant Cortex updates on X &middot; <strong>@${X_HANDLE}</strong>`;
-const X_SVG = '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>';
+const X_SVG =
+  '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>';
 // Logo mark — matches the favicon (dark square + white cross) so the brand reads as one system.
-const MARK_SVG = '<svg class="wm-glyph" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" fill="currentColor"/><path d="M14 8h4v6h6v4h-6v6h-4v-6H8v-4h6z" fill="#fff"/></svg>';
+const MARK_SVG =
+  '<svg class="wm-glyph" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" fill="currentColor"/><path d="M14 8h4v6h6v4h-6v6h-4v-6H8v-4h6z" fill="#fff"/></svg>';
 
 const SECONDS_PER_QUESTION = 90;
 const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F'];
@@ -92,14 +97,16 @@ const XP_PERFECT = 25;
 const XP_CASE_BONUS = { easy: 10, medium: 20, hard: 30 };
 const TIMED_MULTIPLIER = 1.5;
 const MAX_RANK = 100;
-function xpToRank(r) { return 30 * (r - 1) + (r - 1) * (r - 1); }
+function xpToRank(r) {
+  return 30 * (r - 1) + (r - 1) * (r - 1);
+}
 
 function rankFor(xp) {
   let r = 1;
   while (r < MAX_RANK && xp >= xpToRank(r + 1)) r++;
   const floor = xpToRank(r);
   const nextAt = r < MAX_RANK ? xpToRank(r + 1) : null;
-  return { rank: r, floor, nextAt, pct: nextAt ? Math.round(100 * (xp - floor) / (nextAt - floor)) : 100 };
+  return { rank: r, floor, nextAt, pct: nextAt ? Math.round((100 * (xp - floor)) / (nextAt - floor)) : 100 };
 }
 
 const $app = document.getElementById('app');
@@ -112,13 +119,13 @@ const studyBootCopies = {};
 
 const store = {
   manifest: {},
-  index: null,                 // [{id,key,name,title,difficulty,diagnosis}]
-  cache: {},                   // specialty key -> case data
+  index: null, // [{id,key,name,title,difficulty,diagnosis}]
+  cache: {}, // specialty key -> case data
   mode: localStorage.getItem('cs-mode') || 'untimed',
   diff: localStorage.getItem('cs-diff') || 'all',
-  progress: loadJSON('cs-progress', {}),   // key -> {seen,answered,correct,xp}
-  cases: loadJSON('cs-cases', {}),         // caseId -> {key,attempts,lastC,lastT,bestC,bookmarked,lastTs}
-  history: loadJSON('cs-history', []),     // [{id,key,c,t,timed,ts}] newest first
+  progress: loadJSON('cs-progress', {}), // key -> {seen,answered,correct,xp}
+  cases: loadJSON('cs-cases', {}), // caseId -> {key,attempts,lastC,lastT,bestC,bookmarked,lastTs}
+  history: loadJSON('cs-history', []), // [{id,key,c,t,timed,ts}] newest first
   streak: loadJSON('cs-streak', { current: 0, longest: 0, lastDate: null }),
 };
 
@@ -134,29 +141,85 @@ function loadJSON(key, fallback) {
     if (v == null) return fallback;
     // shape guard: a corrupted/legacy value of the wrong type would crash callers
     if (Array.isArray(fallback) !== Array.isArray(v)) return fallback;
-    if (fallback && typeof fallback === 'object' && (typeof v !== 'object')) return fallback;
+    if (fallback && typeof fallback === 'object' && typeof v !== 'object') return fallback;
     return v;
-  } catch { return fallback; }
+  } catch {
+    return fallback;
+  }
 }
 // guarded write — storage can throw (quota full, Safari Private, disabled by policy);
 // a failure should degrade to "not saved", never freeze the flow mid-action.
 function safeSet(key, value) {
   if (typeof StudyStorage !== 'undefined' && STUDY_CORE_KEYS.includes(key)) return StudyStorage.writeRaw(key, value);
-  try { localStorage.setItem(key, value); return true; } catch { return false; }
+  try {
+    localStorage.setItem(key, value);
+    return true;
+  } catch {
+    return false;
+  }
 }
-function saveProgress() { safeSet('cs-progress', JSON.stringify(store.progress)); }
-function saveCases() { safeSet('cs-cases', JSON.stringify(store.cases)); }
-function saveHistory() { safeSet('cs-history', JSON.stringify(store.history.slice(0, 400))); }
-function saveStreak() { safeSet('cs-streak', JSON.stringify(store.streak)); }
+function saveProgress() {
+  safeSet('cs-progress', JSON.stringify(store.progress));
+}
+function saveCases() {
+  safeSet('cs-cases', JSON.stringify(store.cases));
+}
+function saveHistory() {
+  safeSet('cs-history', JSON.stringify(store.history.slice(0, 400)));
+}
+function saveStreak() {
+  safeSet('cs-streak', JSON.stringify(store.streak));
+}
 
 const SECTION_SCRIPTS = {
-  academy: ['study-storage.js?v=4', 'academy-today.js?v=8', 'study-backup.js?v=11', 'academy-storage.js?v=4', 'academy-portfolio-core.js?v=2', 'academy-portfolio.js?v=3'],
-  practice: ['study-storage.js?v=4', 'clinical-longitudinal-engine.js?v=2', 'clinical-longitudinal.js?v=3', 'clinical-shift.js?v=20'],
-  mcat: ['study-storage.js?v=4', 'mcat-item-quality-core.js?v=1', 'mcat-item-quality.js?v=1', 'mcat-rehearsal-engine.js?v=2', 'mcat-rehearsal.js?v=8', 'mcat-repair-engine.js?v=3', 'mcat-repair.js?v=9', 'mcat-workflows.js?v=18', 'mcat-course-engine.js?v=7', 'mcat-course.js?v=22', 'mcat-coverage.js?v=2', 'mcat-v2-engine.js?v=10', 'mcat-v2.js?v=18', 'mcat.js?v=89'],
-  anatomy: ['study-storage.js?v=4', 'academy-lessons.js?v=6', 'anatomy.js?v=43'],
-  reference: ['study-storage.js?v=4', 'ecg-engine.js?v=2', 'academy-lessons.js?v=6', 'reference.js?v=59', 'performance-drugs.js?v=27', 'ekg.js?v=41'],
-  socrates: ['study-storage.js?v=4', 'socrates.js?v=49'],
-  neuro: ['study-storage.js?v=4', 'python-runtime.js?v=5', 'code-evaluator.js?v=8', 'neuro-project-engine.js?v=2', 'neuro-practitioner.js?v=11', 'neuro.js?v=39'],
+  academy: [
+    'study-storage.js?v=5',
+    'academy-today.js?v=9',
+    'study-backup.js?v=12',
+    'academy-storage.js?v=5',
+    'academy-portfolio-core.js?v=3',
+    'academy-portfolio.js?v=4',
+  ],
+  practice: [
+    'study-storage.js?v=5',
+    'clinical-longitudinal-engine.js?v=3',
+    'clinical-longitudinal.js?v=4',
+    'clinical-shift.js?v=21',
+  ],
+  mcat: [
+    'study-storage.js?v=5',
+    'mcat-item-quality-core.js?v=2',
+    'mcat-item-quality.js?v=2',
+    'mcat-rehearsal-engine.js?v=3',
+    'mcat-rehearsal.js?v=9',
+    'mcat-repair-engine.js?v=4',
+    'mcat-repair.js?v=10',
+    'mcat-workflows.js?v=19',
+    'mcat-course-engine.js?v=8',
+    'mcat-course.js?v=23',
+    'mcat-coverage.js?v=3',
+    'mcat-v2-engine.js?v=11',
+    'mcat-v2.js?v=19',
+    'mcat.js?v=90',
+  ],
+  anatomy: ['study-storage.js?v=5', 'academy-lessons.js?v=7', 'anatomy.js?v=44'],
+  reference: [
+    'study-storage.js?v=5',
+    'ecg-engine.js?v=3',
+    'academy-lessons.js?v=7',
+    'reference.js?v=60',
+    'performance-drugs.js?v=28',
+    'ekg.js?v=42',
+  ],
+  socrates: ['study-storage.js?v=5', 'socrates.js?v=50'],
+  neuro: [
+    'study-storage.js?v=5',
+    'python-runtime.js?v=6',
+    'code-evaluator.js?v=9',
+    'neuro-project-engine.js?v=3',
+    'neuro-practitioner.js?v=12',
+    'neuro.js?v=40',
+  ],
 };
 const _scriptLoads = {};
 function loadScript(src) {
@@ -165,7 +228,11 @@ function loadScript(src) {
     const s = document.createElement('script');
     s.src = src;
     s.onload = () => resolve();
-    s.onerror = () => { s.remove(); delete _scriptLoads[src]; reject(new Error('load ' + src)); };
+    s.onerror = () => {
+      s.remove();
+      delete _scriptLoads[src];
+      reject(new Error('load ' + src));
+    };
     document.head.appendChild(s);
   });
   return _scriptLoads[src];
@@ -177,61 +244,149 @@ async function ensureSection(key) {
 }
 // MCAT is lazy-loaded like every other section. Its entry is the saved daily
 // plan (or plan setup on first use), with the complete tool library one level back.
-function gotoMCAT() { return navigateSection('mcat'); }
+function gotoMCAT() {
+  return navigateSection('mcat');
+}
 
-function studyResetData(data,scope) {
-  if(!['clinical','medicine','mcat','all'].includes(scope))throw Error('Choose a supported reset scope.');
-  const next={...data},preferences=new Set(['cs-mode','cs-diff','cs-seen-ver','cs-anon-id']);
-  const clinical=new Set(['cs-cases','cs-history','cs-streak','cs-clinical-shift-v1','cs-clinical-longitudinal-v1']);
-  const medicine=new Set(['cs-pharm','cs-ped','cs-micro','cs-labs','cs-ekg','cs-medicine','cs-academy-reference-v1']);
-  for(const key of Object.keys(next))if(scope==='all'&&!preferences.has(key)||scope==='mcat'&&key.startsWith('cs-mcat')||scope==='clinical'&&clinical.has(key)||scope==='medicine'&&medicine.has(key))delete next[key];
-  if(['clinical','medicine'].includes(scope)&&next['cs-progress']){
-    let progress=null;try{progress=JSON.parse(next['cs-progress']);}catch{}
-    if(!progress||typeof progress!=='object'||Array.isArray(progress))throw Error('Shared progress could not be read. Keep a recovery copy before resetting.');
-    const keys=scope==='medicine'?['medicine']:SPECIALTIES.map(s=>s.key);
-    let changed=false;for(const key of keys)if(Object.hasOwn(progress,key)){delete progress[key];changed=true;}
-    if(changed)next['cs-progress']=JSON.stringify(progress);
+function studyResetData(data, scope) {
+  if (!['clinical', 'medicine', 'mcat', 'all'].includes(scope)) throw Error('Choose a supported reset scope.');
+  const next = { ...data },
+    preferences = new Set(['cs-mode', 'cs-diff', 'cs-seen-ver', 'cs-anon-id']);
+  const clinical = new Set([
+    'cs-cases',
+    'cs-history',
+    'cs-streak',
+    'cs-clinical-shift-v1',
+    'cs-clinical-longitudinal-v1',
+  ]);
+  const medicine = new Set([
+    'cs-pharm',
+    'cs-ped',
+    'cs-micro',
+    'cs-labs',
+    'cs-ekg',
+    'cs-medicine',
+    'cs-academy-reference-v1',
+  ]);
+  for (const key of Object.keys(next))
+    if (
+      (scope === 'all' && !preferences.has(key)) ||
+      (scope === 'mcat' && key.startsWith('cs-mcat')) ||
+      (scope === 'clinical' && clinical.has(key)) ||
+      (scope === 'medicine' && medicine.has(key))
+    )
+      delete next[key];
+  if (['clinical', 'medicine'].includes(scope) && next['cs-progress']) {
+    let progress = null;
+    try {
+      progress = JSON.parse(next['cs-progress']);
+    } catch {}
+    if (!progress || typeof progress !== 'object' || Array.isArray(progress))
+      throw Error('Shared progress could not be read. Keep a recovery copy before resetting.');
+    const keys = scope === 'medicine' ? ['medicine'] : SPECIALTIES.map(s => s.key);
+    let changed = false;
+    for (const key of keys)
+      if (Object.hasOwn(progress, key)) {
+        delete progress[key];
+        changed = true;
+      }
+    if (changed) next['cs-progress'] = JSON.stringify(progress);
   }
   return next;
 }
 function openResetProgress() {
-  const labels={clinical:'Clinical scenarios',medicine:'Medicine',mcat:'MCAT prep',all:'All study records'};
-  const descriptions={clinical:'Clinical cases, timelines, answers and clinical counters, including the day streak that MCAT practice also builds.',medicine:'Medicine lessons, pharmacology, labs, ECGs and Medicine counters.',mcat:'MCAT lessons, plans, practice, reviews, help notes and item concerns.',all:'All seven courses, Academy plans, retrieval practice, private portfolio, notes, concerns and focus history.'};
-  const m=el(`<div class="modal" id="rst"><div class="modal-box">
+  const labels = { clinical: 'Clinical scenarios', medicine: 'Medicine', mcat: 'MCAT prep', all: 'All study records' };
+  const descriptions = {
+    clinical:
+      'Clinical cases, timelines, answers and clinical counters, including the day streak that MCAT practice also builds.',
+    medicine: 'Medicine lessons, pharmacology, labs, ECGs and Medicine counters.',
+    mcat: 'MCAT lessons, plans, practice, reviews, help notes and item concerns.',
+    all: 'All seven courses, Academy plans, retrieval practice, private portfolio, notes, concerns and focus history.',
+  };
+  const m = el(`<div class="modal" id="rst"><div class="modal-box">
     <div class="modal-head"><span class="label">Reset progress</span></div>
     <p class="cfx-msg">Choose the work to reset in your active workspace. You will review the scope before anything changes. Signed-in changes sync after any cloud conflict is resolved.</p>
-    <div class="endbtns cfx-btns rst-btns">${Object.entries(labels).map(([id,label])=>`<button class="btn" id="rst-${id}" data-reset-scope="${id}">${label}</button>`).join('')}<button class="btn" id="rst-cancel">Cancel</button></div>
+    <div class="endbtns cfx-btns rst-btns">${Object.entries(labels)
+      .map(([id, label]) => `<button class="btn" id="rst-${id}" data-reset-scope="${id}">${label}</button>`)
+      .join('')}<button class="btn" id="rst-cancel">Cancel</button></div>
     <div id="rst-preview"></div><p id="rst-status" role="status"></p>
     <button class="ghostbtn" id="rst-recovery">Download recovery copies</button>
     </div></div>`);
-  let selection=0;
-  const close=()=>{selection++;m.remove();document.removeEventListener('keydown',onKey);};
-  const onKey=e=>{if(e.key==='Escape')close();};
-  const status=text=>{if(m.isConnected)m.querySelector('#rst-status').textContent=text;};
-  const requireSaved=()=>{
-    if(!window.CortexAccount?.available)throw Error('Account storage is unavailable. Reload before resetting.');
-    if(typeof StudyStorage!=='undefined'&&StudyStorage.paused)throw Error('Saving is paused. Download recovery copies and resolve the save problem first.');
+  let selection = 0;
+  const close = () => {
+    selection++;
+    m.remove();
+    document.removeEventListener('keydown', onKey);
+  };
+  const onKey = e => {
+    if (e.key === 'Escape') close();
+  };
+  const status = text => {
+    if (m.isConnected) m.querySelector('#rst-status').textContent = text;
+  };
+  const requireSaved = () => {
+    if (!window.CortexAccount?.available) throw Error('Account storage is unavailable. Reload before resetting.');
+    if (typeof StudyStorage !== 'undefined' && StudyStorage.paused)
+      throw Error('Saving is paused. Download recovery copies and resolve the save problem first.');
     return CortexAccount.snapshot();
   };
-  m.addEventListener('click',e=>{if(e.target.id==='rst')close();});
-  m.querySelector('#rst-cancel').onclick=close;
-  m.querySelector('#rst-recovery').onclick=()=>{if(!m.isConnected)return;try{CortexAccount.downloadRecovery();status('Recovery download prepared. Check that the file reached your Downloads folder.');}catch{status('The recovery download failed. Keep this tab open and copy important work.');}};
-  m.querySelectorAll('[data-reset-scope]').forEach(button=>button.onclick=()=>{
-    if(!m.isConnected)return;const current=++selection,scope=button.dataset.resetScope,host=m.querySelector('#rst-preview');host.replaceChildren();
-    try{
-      const snapshot=requireSaved(),preview=CortexAccount.prepareRestore(studyResetData(snapshot.data,scope)),changed=preview.changes.filter(c=>c.action!=='keep').length;
-      if(!changed){status('There is no saved work to reset in this scope.');return;}
-      host.innerHTML=`<h2>Reset ${esc(labels[scope])}?</h2><p>${esc(descriptions[scope])}</p><p>${changed} saved ${changed===1?'record changes':'records change'}. ${scope==='all'?'Study preferences are kept.':'Other courses, shared Academy plans and saved portfolio copies are kept.'} Sign-in details, downloaded courses and recovery copies are kept.</p><p>The previous workspace will be retained in this browser's recovery copy before the reset.</p><button class="btn btn-solid" id="rst-confirm">Reset ${esc(labels[scope])}</button><button class="btn" id="rst-back">Keep my work</button>`;
-      host.querySelector('#rst-back').onclick=()=>{selection++;host.replaceChildren();status('Reset canceled. Your saved work is unchanged.');};
-      host.querySelector('#rst-confirm').onclick=event=>{
-        if(!m.isConnected||current!==selection)return;event.currentTarget.disabled=true;
-        try{requireSaved();CortexAccount.restore(preview);status('Reset saved. Reloading the workspace…');}
-        catch(error){selection++;host.replaceChildren();status(error.message+' Review a fresh reset preview after resolving the problem.');}
-      };
-      status('Nothing has been reset. Review the scope, or keep your work.');
-    }catch(error){status(error.message);}
+  m.addEventListener('click', e => {
+    if (e.target.id === 'rst') close();
   });
-  document.addEventListener('keydown',onKey);document.body.appendChild(m);trapModal(m);
+  m.querySelector('#rst-cancel').onclick = close;
+  m.querySelector('#rst-recovery').onclick = () => {
+    if (!m.isConnected) return;
+    try {
+      CortexAccount.downloadRecovery();
+      status('Recovery download prepared. Check that the file reached your Downloads folder.');
+    } catch {
+      status('The recovery download failed. Keep this tab open and copy important work.');
+    }
+  };
+  m.querySelectorAll('[data-reset-scope]').forEach(
+    button =>
+      (button.onclick = () => {
+        if (!m.isConnected) return;
+        const current = ++selection,
+          scope = button.dataset.resetScope,
+          host = m.querySelector('#rst-preview');
+        host.replaceChildren();
+        try {
+          const snapshot = requireSaved(),
+            preview = CortexAccount.prepareRestore(studyResetData(snapshot.data, scope)),
+            changed = preview.changes.filter(c => c.action !== 'keep').length;
+          if (!changed) {
+            status('There is no saved work to reset in this scope.');
+            return;
+          }
+          host.innerHTML = `<h2>Reset ${esc(labels[scope])}?</h2><p>${esc(descriptions[scope])}</p><p>${changed} saved ${changed === 1 ? 'record changes' : 'records change'}. ${scope === 'all' ? 'Study preferences are kept.' : 'Other courses, shared Academy plans and saved portfolio copies are kept.'} Sign-in details, downloaded courses and recovery copies are kept.</p><p>The previous workspace will be retained in this browser's recovery copy before the reset.</p><button class="btn btn-solid" id="rst-confirm">Reset ${esc(labels[scope])}</button><button class="btn" id="rst-back">Keep my work</button>`;
+          host.querySelector('#rst-back').onclick = () => {
+            selection++;
+            host.replaceChildren();
+            status('Reset canceled. Your saved work is unchanged.');
+          };
+          host.querySelector('#rst-confirm').onclick = event => {
+            if (!m.isConnected || current !== selection) return;
+            event.currentTarget.disabled = true;
+            try {
+              requireSaved();
+              CortexAccount.restore(preview);
+              status('Reset saved. Reloading the workspace…');
+            } catch (error) {
+              selection++;
+              host.replaceChildren();
+              status(error.message + ' Review a fresh reset preview after resolving the problem.');
+            }
+          };
+          status('Nothing has been reset. Review the scope, or keep your work.');
+        } catch (error) {
+          status(error.message);
+        }
+      })
+  );
+  document.addEventListener('keydown', onKey);
+  document.body.appendChild(m);
+  trapModal(m);
 }
 
 function prog(key) {
@@ -241,7 +396,8 @@ function prog(key) {
   return p;
 }
 function caseRec(id, key) {
-  if (!store.cases[id]) store.cases[id] = { key, attempts: 0, lastC: null, lastT: null, bestC: 0, bookmarked: false, lastTs: null };
+  if (!store.cases[id])
+    store.cases[id] = { key, attempts: 0, lastC: null, lastT: null, bestC: 0, bookmarked: false, lastTs: null };
   return store.cases[id];
 }
 
@@ -269,9 +425,14 @@ function recordClinicalShiftCompletion({ id, key, difficulty, correct, total, ts
     p.xp += XP_CASE_BONUS[difficulty] ?? 15;
     if (safeCorrect === safeTotal) p.xp += XP_PERFECT;
   }
-  saveProgress(); saveCases(); saveHistory(); bumpStreak();
+  saveProgress();
+  saveCases();
+  saveHistory();
+  bumpStreak();
 }
-function isBookmarked(id) { return !!store.cases[id]?.bookmarked; }
+function isBookmarked(id) {
+  return !!store.cases[id]?.bookmarked;
+}
 function bookmarkHtml(on, label = 'Save') {
   const txt = on ? 'Saved' : label;
   const ico = on ? '&#9733;' : '&#9734;';
@@ -286,15 +447,22 @@ function toggleBookmark(id, key) {
 
 /* ---------- dates / streak ---------- */
 
-function dayStr(d) { return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; }
-function todayStr() { return dayStr(new Date()); }
-function activeDays() { return new Set(store.history.map(h => dayStr(new Date(h.ts)))); }
+function dayStr(d) {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+function todayStr() {
+  return dayStr(new Date());
+}
+function activeDays() {
+  return new Set(store.history.map(h => dayStr(new Date(h.ts))));
+}
 
 function bumpStreak() {
   const today = todayStr();
   const s = store.streak;
   if (s.lastDate === today) return;
-  const y = new Date(); y.setDate(y.getDate() - 1);
+  const y = new Date();
+  y.setDate(y.getDate() - 1);
   s.current = s.lastDate === dayStr(y) ? s.current + 1 : 1;
   s.lastDate = today;
   if (s.current > s.longest) s.longest = s.current;
@@ -309,7 +477,10 @@ function el(html) {
   return t.content.firstElementChild;
 }
 function esc(s) {
-  return String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  return String(s ?? '').replace(
+    /[&<>"']/g,
+    c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]
+  );
 }
 function fmtTime(s) {
   s = Math.max(0, Math.ceil(s));
@@ -327,34 +498,60 @@ function relTime(ts) {
 }
 /* count-up number animation (reduced-motion aware) */
 function animateCount(elm, target, opts = {}) {
-  const prefix = opts.prefix || '', suffix = opts.suffix || '';
+  const prefix = opts.prefix || '',
+    suffix = opts.suffix || '';
   const fmt = n => prefix + Math.round(n).toLocaleString() + suffix;
   const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduce || !(target > 0)) { elm.textContent = fmt(target); return; }
-  const dur = opts.dur || 950, t0 = performance.now();
+  if (reduce || !(target > 0)) {
+    elm.textContent = fmt(target);
+    return;
+  }
+  const dur = opts.dur || 950,
+    t0 = performance.now();
   (function step(now) {
     const t = Math.min(1, (now - t0) / dur);
-    const e = 1 - Math.pow(1 - t, 3);            // easeOutCubic
+    const e = 1 - Math.pow(1 - t, 3); // easeOutCubic
     elm.textContent = fmt(target * e);
-    if (t < 1) requestAnimationFrame(step); else elm.textContent = fmt(target);
+    if (t < 1) requestAnimationFrame(step);
+    else elm.textContent = fmt(target);
   })(performance.now());
 }
 // Any [data-countup] element ticks up when it scrolls into view. Armed synchronously so the final value never flashes first.
 function setupCountUps(scope) {
   const els = [...(scope || document).querySelectorAll('[data-countup]')];
   if (!els.length) return;
-  const parsed = els.map(elm => {
-    const m = String(elm.getAttribute('data-countup')).match(/^([^\d]*)([\d,]+)(.*)$/);
-    if (!m) return null;                          // no number → leave the text as-is
-    const prefix = m[1], suffix = m[3], num = parseInt(m[2].replace(/,/g, ''), 10);
-    elm.textContent = prefix + '0' + suffix;
-    return { elm, prefix, suffix, num };
-  }).filter(Boolean);
+  const parsed = els
+    .map(elm => {
+      const m = String(elm.getAttribute('data-countup')).match(/^([^\d]*)([\d,]+)(.*)$/);
+      if (!m) return null; // no number → leave the text as-is
+      const prefix = m[1],
+        suffix = m[3],
+        num = parseInt(m[2].replace(/,/g, ''), 10);
+      elm.textContent = prefix + '0' + suffix;
+      return { elm, prefix, suffix, num };
+    })
+    .filter(Boolean);
   if (!parsed.length) return;
-  const run = p => { if (p.elm.dataset.counted) return; p.elm.dataset.counted = '1'; animateCount(p.elm, p.num, { prefix: p.prefix, suffix: p.suffix }); };
-  if (!('IntersectionObserver' in window)) { parsed.forEach(run); return; }
+  const run = p => {
+    if (p.elm.dataset.counted) return;
+    p.elm.dataset.counted = '1';
+    animateCount(p.elm, p.num, { prefix: p.prefix, suffix: p.suffix });
+  };
+  if (!('IntersectionObserver' in window)) {
+    parsed.forEach(run);
+    return;
+  }
   const map = new Map(parsed.map(p => [p.elm, p]));
-  const io = new IntersectionObserver(ents => ents.forEach(en => { if (en.isIntersecting) { run(map.get(en.target)); io.unobserve(en.target); } }), { threshold: .3 });
+  const io = new IntersectionObserver(
+    ents =>
+      ents.forEach(en => {
+        if (en.isIntersecting) {
+          run(map.get(en.target));
+          io.unobserve(en.target);
+        }
+      }),
+    { threshold: 0.3 }
+  );
   parsed.forEach(p => io.observe(p.elm));
 }
 
@@ -363,13 +560,27 @@ function revealOnScroll(scope) {
   const els = [...(scope || document).querySelectorAll('[data-reveal],[data-reveal-stagger]')];
   if (!els.length) return;
   const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduce || !('IntersectionObserver' in window)) { els.forEach(e => e.classList.add('in')); return; }
-  const io = new IntersectionObserver(ents => ents.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }), { threshold: .12, rootMargin: '0px 0px -8% 0px' });
+  if (reduce || !('IntersectionObserver' in window)) {
+    els.forEach(e => e.classList.add('in'));
+    return;
+  }
+  const io = new IntersectionObserver(
+    ents =>
+      ents.forEach(en => {
+        if (en.isIntersecting) {
+          en.target.classList.add('in');
+          io.unobserve(en.target);
+        }
+      }),
+    { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
+  );
   els.forEach(e => io.observe(e));
 }
 
 function totals() {
-  let answered = 0, correct = 0, xp = 0;
+  let answered = 0,
+    correct = 0,
+    xp = 0;
   for (const k in store.progress) {
     answered += store.progress[k].answered || 0;
     correct += store.progress[k].correct || 0;
@@ -377,7 +588,7 @@ function totals() {
   }
   let casesDone = 0;
   for (const id in store.cases) if (store.cases[id].attempts > 0) casesDone++;
-  return { answered, correct, xp, casesDone, acc: answered ? Math.round(100 * correct / answered) : null };
+  return { answered, correct, xp, casesDone, acc: answered ? Math.round((100 * correct) / answered) : null };
 }
 function clinicalBankTotal() {
   return Object.values(store.manifest).reduce((a, b) => a + b, 0);
@@ -402,9 +613,11 @@ async function boot() {
   initRouter();
   fetchVisits();
   try {
-    store.manifest = await fetch('data/manifest.json').then(r => r.ok ? r.json() : {});
-  } catch { /* case data unavailable; the mission page still renders, sections handle it */ }
-  const routed = await routeFromUrl();   // deep-link straight into a section (e.g. /medicine)
+    store.manifest = await fetch('data/manifest.json').then(r => (r.ok ? r.json() : {}));
+  } catch {
+    /* case data unavailable; the mission page still renders, sections handle it */
+  }
+  const routed = await routeFromUrl(); // deep-link straight into a section (e.g. /medicine)
   if (!routed) renderMission();
   // First visits begin with learning; only returning visitors see release announcements.
   const priorVersion = seenVersion();
@@ -418,7 +631,11 @@ async function boot() {
    `/* /index.html 200` SPA fallback in _redirects so Netlify serves the app for these paths. */
 const SEC_PATHS = Object.freeze({
   ...Object.fromEntries(CortexAcademy.tracks.map(track => [track.id, track.path])),
-  academy: 'academy', stats: 'stats', utsa: 'utsa', pomodoro: 'focus', updates: 'updates',
+  academy: 'academy',
+  stats: 'stats',
+  utsa: 'utsa',
+  pomodoro: 'focus',
+  updates: 'updates',
 });
 const PATH_SEC = Object.fromEntries(Object.entries(SEC_PATHS).map(([key, path]) => [path, key]));
 const RETIRED_PATHS = new Set(['genetics', 'ccma']);
@@ -426,7 +643,8 @@ let _sectionRequest = 0;
 
 function sectionUrl(key) {
   const path = SEC_PATHS[key] ? '/' + SEC_PATHS[key] : '/';
-  const current = new URLSearchParams(location.search), params = new URLSearchParams();
+  const current = new URLSearchParams(location.search),
+    params = new URLSearchParams();
   for (const key of ['gates', 'offline']) if (current.get(key)) params.set(key, current.get(key));
   const returnTo = window.AcademyCurriculum?.safeReturn(current.get('returnTo'));
   if (returnTo) params.set('returnTo', returnTo);
@@ -460,9 +678,15 @@ async function openSection(key) {
   if (key === 'cogpsych') return navigateSection('academy');
   const request = ++_sectionRequest;
   if (key !== 'mcat') window.pauseMcatTools?.();
-  if (COMING_SOON.has(key)) { renderComingSoon(key); return true; }
+  if (COMING_SOON.has(key)) {
+    renderComingSoon(key);
+    return true;
+  }
   try {
-    if (window.CortexOffline?.selected() && !await CortexOffline.canOpen(new URL(sectionUrl(key), location.origin).pathname)) {
+    if (
+      window.CortexOffline?.selected() &&
+      !(await CortexOffline.canOpen(new URL(sectionUrl(key), location.origin).pathname))
+    ) {
       if (request === _sectionRequest) CortexOffline.unavailable();
       return true;
     }
@@ -473,23 +697,43 @@ async function openSection(key) {
         if (new URLSearchParams(location.search).get('view') === 'today') AcademyToday.render();
         else if (new URLSearchParams(location.search).get('view') === 'storage') AcademyStorage.render();
         else if (new URLSearchParams(location.search).get('view') === 'portfolio') AcademyPortfolio.render();
-        else if (['curriculum', 'queue'].includes(new URLSearchParams(location.search).get('view'))) await AcademyConnect.render();
+        else if (['curriculum', 'queue'].includes(new URLSearchParams(location.search).get('view')))
+          await AcademyConnect.render();
         else CortexAcademy.renderCatalog();
         break;
-      case 'practice': renderHome(); break;
+      case 'practice':
+        renderHome();
+        break;
       case 'mcat':
         if (typeof window.renderMCATEntry === 'function') await window.renderMCATEntry();
         else await window.renderMCAT();
         break;
-      case 'stats': await renderStats(); break;
-      case 'utsa': renderUTSA(); break;
-      case 'neuro': await renderNeuro(); break;
-      case 'reference': await renderReference(); break;
-      case 'socrates': await openLearnToLearn(); break;
-      case 'anatomy': await renderAnatomy(); break;
-      case 'pomodoro': renderPomodoro(); break;
-      case 'updates': renderUpdates(); break;
-      default: return false;
+      case 'stats':
+        await renderStats();
+        break;
+      case 'utsa':
+        renderUTSA();
+        break;
+      case 'neuro':
+        await renderNeuro();
+        break;
+      case 'reference':
+        await renderReference();
+        break;
+      case 'socrates':
+        await openLearnToLearn();
+        break;
+      case 'anatomy':
+        await renderAnatomy();
+        break;
+      case 'pomodoro':
+        renderPomodoro();
+        break;
+      case 'updates':
+        renderUpdates();
+        break;
+      default:
+        return false;
     }
   } catch (error) {
     console.error('Section load failed', key, error);
@@ -500,8 +744,11 @@ async function openSection(key) {
 
 function sectionFromPath() {
   let segment;
-  try { segment = decodeURIComponent(location.pathname.replace(/^\/+|\/+$/g, '').split('/')[0] || '').toLowerCase(); }
-  catch { return undefined; }
+  try {
+    segment = decodeURIComponent(location.pathname.replace(/^\/+|\/+$/g, '').split('/')[0] || '').toLowerCase();
+  } catch {
+    return undefined;
+  }
   if (segment === 'cogpsych') {
     history.replaceState({ sec: 'academy' }, '', '/academy');
     return 'academy';
@@ -528,7 +775,9 @@ function initRouter() {
 
 async function loadSpecialty(key) {
   if (store.cache[key]) return store.cache[key];
-  const r = await fetch(`data/${key}.json${['cardiology','emergency-medicine','neurology'].includes(key)?'?v=4':''}`);
+  const r = await fetch(
+    `data/${key}.json${['cardiology', 'emergency-medicine', 'neurology'].includes(key) ? '?v=4' : ''}`
+  );
   if (!r.ok) throw new Error(`no data for ${key}`);
   const data = await r.json();
   store.cache[key] = data;
@@ -539,8 +788,11 @@ async function loadSpecialty(key) {
 // landing page. Load it lazily off the critical path and memoize.
 async function ensureIndex() {
   if (store.index) return store.index;
-  try { store.index = await fetch('data/index.json?v=2').then(r => r.ok ? r.json() : null); }
-  catch { store.index = null; }
+  try {
+    store.index = await fetch('data/index.json?v=2').then(r => (r.ok ? r.json() : null));
+  } catch {
+    store.index = null;
+  }
   return store.index;
 }
 
@@ -550,8 +802,8 @@ function topbar(active) {
   const t = totals();
   const streak = store.streak.current > 0 ? `${store.streak.current}&#128293; &middot; ` : '';
   const stat = t.answered ? `${streak}${t.xp.toLocaleString()} XP` : '';
-  const menuActive = key => active === key ? ' active' : '';
-  const menuCurrent = key => active === key ? ' aria-current="page"' : '';
+  const menuActive = key => (active === key ? ' active' : '');
+  const menuCurrent = key => (active === key ? ' aria-current="page"' : '');
   const root = el(`<header class="topbar mainbar">
     <a class="skip-link" href="#main">Skip to content</a>
     <a class="wordmark" href="#">${MARK_SVG}<span class="wm-name">Cortex <span class="wm-sub">Medical Academy</span></span></a>
@@ -612,7 +864,10 @@ function topbar(active) {
     </div>
   </header>`);
   root.dataset.section = active;
-  root.querySelector('.wordmark').addEventListener('click', e => { e.preventDefault(); renderMission(); });
+  root.querySelector('.wordmark').addEventListener('click', e => {
+    e.preventDefault();
+    renderMission();
+  });
   root.querySelectorAll('[data-go]').forEach(button => {
     button.addEventListener('click', () => navigateSection(button.dataset.go));
   });
@@ -628,21 +883,35 @@ function topbar(active) {
   navmenus.forEach(navmenu => {
     const mbtn = navmenu.querySelector('[data-nav-menu]');
     const panel = navmenu.querySelector('.menupanel');
-    const close = () => { panel.hidden = true; mbtn.classList.remove('open'); mbtn.setAttribute('aria-expanded', 'false'); document.removeEventListener('click', onDoc); document.removeEventListener('keydown', onEsc); };
-    const onDoc = (e) => { if (!navmenu.contains(e.target)) close(); };
-    const onEsc = (e) => { if (e.key === 'Escape') { close(); mbtn.focus(); } };
+    const close = () => {
+      panel.hidden = true;
+      mbtn.classList.remove('open');
+      mbtn.setAttribute('aria-expanded', 'false');
+      document.removeEventListener('click', onDoc);
+      document.removeEventListener('keydown', onEsc);
+    };
+    const onDoc = e => {
+      if (!navmenu.contains(e.target)) close();
+    };
+    const onEsc = e => {
+      if (e.key === 'Escape') {
+        close();
+        mbtn.focus();
+      }
+    };
     navmenu.closeMenu = close;
-    mbtn.addEventListener('click', (e) => {
+    mbtn.addEventListener('click', e => {
       e.stopPropagation();
       if (panel.hidden) {
-        navmenus.forEach(other => { if (other !== navmenu) other.closeMenu?.(); });
+        navmenus.forEach(other => {
+          if (other !== navmenu) other.closeMenu?.();
+        });
         panel.hidden = false;
         mbtn.classList.add('open');
         mbtn.setAttribute('aria-expanded', 'true');
         document.addEventListener('click', onDoc);
         document.addEventListener('keydown', onEsc);
-      }
-      else close();
+      } else close();
     });
     panel.querySelectorAll('.menuitem, .menuquick').forEach(mi => mi.addEventListener('click', close));
   });
@@ -650,18 +919,31 @@ function topbar(active) {
   return root;
 }
 
-function seenVersion() { try { return localStorage.getItem('cs-seen-ver') || ''; } catch { return ''; } }
-function markSeenVersion() { safeSet('cs-seen-ver', APP_VERSION); updateVerBadges(); }
-function hasUnseenUpdate() { return seenVersion() !== APP_VERSION; }
+function seenVersion() {
+  try {
+    return localStorage.getItem('cs-seen-ver') || '';
+  } catch {
+    return '';
+  }
+}
+function markSeenVersion() {
+  safeSet('cs-seen-ver', APP_VERSION);
+  updateVerBadges();
+}
+function hasUnseenUpdate() {
+  return seenVersion() !== APP_VERSION;
+}
 function latestRelease() {
-  return PUBLIC_CHANGELOG.find(c => c.version === APP_VERSION)
-    || PUBLIC_CHANGELOG.find(c => c.version && c.tag !== 'SOON')
-    || null;
+  return (
+    PUBLIC_CHANGELOG.find(c => c.version === APP_VERSION) ||
+    PUBLIC_CHANGELOG.find(c => c.version && c.tag !== 'SOON') ||
+    null
+  );
 }
 function updateVerBadges() {
   document.querySelectorAll('button.ver').forEach(btn => {
     btn.classList.toggle('ver-hasnew', hasUnseenUpdate());
-    btn.title = "What’s new";
+    btn.title = 'What’s new';
   });
 }
 function showUpdateModal() {
@@ -681,17 +963,24 @@ function showUpdateModal() {
       </div>
     </div>
   </div>`);
-  const dismiss = (seen) => {
+  const dismiss = seen => {
     back.remove();
     document.removeEventListener('keydown', onKey);
     if (seen) markSeenVersion();
   };
-  const onKey = e => { if (e.key === 'Escape') dismiss(true); };
+  const onKey = e => {
+    if (e.key === 'Escape') dismiss(true);
+  };
   back.querySelector('.upd-modal-x').addEventListener('click', () => dismiss(true));
   back.querySelector('#upd-got').addEventListener('click', () => dismiss(true));
-  back.addEventListener('click', e => { if (e.target === back) dismiss(true); });
+  back.addEventListener('click', e => {
+    if (e.target === back) dismiss(true);
+  });
   back.querySelector('.upd-modal').addEventListener('click', e => e.stopPropagation());
-  back.querySelector('#upd-log').addEventListener('click', () => { dismiss(true); renderUpdates(); });
+  back.querySelector('#upd-log').addEventListener('click', () => {
+    dismiss(true);
+    renderUpdates();
+  });
   document.addEventListener('keydown', onKey);
   document.body.appendChild(back);
   trapModal(back);
@@ -707,14 +996,22 @@ function setView(node) {
   const mainEl = node.querySelector('main');
   if (mainEl && !mainEl.id) mainEl.id = 'main';
   const section = node.querySelector('header')?.dataset.section;
-  const title = CortexAcademy.tracks.find(track => track.id === section)?.name
-    || node.querySelector('h1')?.textContent.trim() || 'Study';
+  const title =
+    CortexAcademy.tracks.find(track => track.id === section)?.name ||
+    node.querySelector('h1')?.textContent.trim() ||
+    'Study';
   document.title = title + ' | Cortex Medical Academy';
   const ft = node.querySelector('h1') || mainEl || node;
-  if (ft && ft.focus) { ft.setAttribute('tabindex', '-1'); ft.focus({ preventScroll: true }); }
+  if (ft && ft.focus) {
+    ft.setAttribute('tabindex', '-1');
+    ft.focus({ preventScroll: true });
+  }
   announceView(node);
-  setupCountUps(node); revealOnScroll(node);
-  if (window.refreshAuthUI) window.refreshAuthUI(); if (window.pomoSync) window.pomoSync(document.title); updateVerBadges();
+  setupCountUps(node);
+  revealOnScroll(node);
+  if (window.refreshAuthUI) window.refreshAuthUI();
+  if (window.pomoSync) window.pomoSync(document.title);
+  updateVerBadges();
   window.McatRehearsal?.recordDisplay(node);
 }
 function announceView(node) {
@@ -724,7 +1021,8 @@ function announceView(node) {
     live.id = 'cs-live';
     live.setAttribute('aria-live', 'polite');
     live.setAttribute('aria-atomic', 'true');
-    live.style.cssText = 'position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;';
+    live.style.cssText =
+      'position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;';
     document.body.appendChild(live);
   }
   const h = node.querySelector('h1');
@@ -738,22 +1036,44 @@ function trapModal(back) {
   const focusable = () => [...back.querySelectorAll(SEL)].filter(e => e.offsetParent !== null);
   back.addEventListener('keydown', e => {
     if (e.key !== 'Tab') return;
-    const f = focusable(); if (!f.length) return;
-    const first = f[0], last = f[f.length - 1];
-    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    const f = focusable();
+    if (!f.length) return;
+    const first = f[0],
+      last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
   });
-  setTimeout(() => { if (!back.contains(document.activeElement)) { const f = focusable(); if (f.length) f[0].focus(); } }, 0);
+  setTimeout(() => {
+    if (!back.contains(document.activeElement)) {
+      const f = focusable();
+      if (f.length) f[0].focus();
+    }
+  }, 0);
   const obs = new MutationObserver(() => {
-    if (!document.body.contains(back)) { obs.disconnect(); try { prev && prev.focus && prev.focus(); } catch (e) {} }
+    if (!document.body.contains(back)) {
+      obs.disconnect();
+      try {
+        prev && prev.focus && prev.focus();
+      } catch (e) {}
+    }
   });
   obs.observe(document.body, { childList: true, subtree: true });
 }
 window.trapModal = trapModal;
 
 function renderComingSoon(key) {
-  stopTimer(); session = null;
-  const info = SECTION_INFO[key] || { label: SECTION_LABELS[key] || key, headline: 'Coming soon.', desc: 'This part of Cortex is in the works.' };
+  stopTimer();
+  session = null;
+  const info = SECTION_INFO[key] || {
+    label: SECTION_LABELS[key] || key,
+    headline: 'Coming soon.',
+    desc: 'This part of Cortex is in the works.',
+  };
   const root = el('<div></div>');
   root.appendChild(topbar(key));
   const main = el(`<main class="panel comingsoon">
@@ -776,11 +1096,21 @@ function renderComingSoon(key) {
 
 /* ---------- UTSA & UT Health San Antonio access ---------- */
 function renderUTSA() {
-  stopTimer(); session = null;
+  stopTimer();
+  session = null;
   const cards = [
-    ['Everything, unlocked', 'Every part of Cortex is open to students and trainees at UTSA and UT Health San Antonio in full, at no cost, for as long as they are there. The Academy is free for everyone right now; this is a standing promise that it stays that way for the two schools closest to home.'],
-    ['How it will work', 'Verify a school email (@my.utsa.edu or @livemail.uthscsa.edu) once. Your account unlocks every part of the Academy automatically — no codes, no renewals, no catch.'],
-    ['Why these two', 'These are home: the university that trains me and the medical school I am working toward. A mission to widen access to medicine should start where the founder is from.'],
+    [
+      'Everything, unlocked',
+      'Every part of Cortex is open to students and trainees at UTSA and UT Health San Antonio in full, at no cost, for as long as they are there. The Academy is free for everyone right now; this is a standing promise that it stays that way for the two schools closest to home.',
+    ],
+    [
+      'How it will work',
+      'Verify a school email (@my.utsa.edu or @livemail.uthscsa.edu) once. Your account unlocks every part of the Academy automatically — no codes, no renewals, no catch.',
+    ],
+    [
+      'Why these two',
+      'These are home: the university that trains me and the medical school I am working toward. A mission to widen access to medicine should start where the founder is from.',
+    ],
   ];
   const root = el('<div></div>');
   root.appendChild(topbar('utsa'));
@@ -812,8 +1142,12 @@ function renderUTSA() {
 
 /* ---------- Neuroengineering (special division) ---------- */
 async function renderNeuro() {
-  if (COMING_SOON.has('neuro')) { renderComingSoon('neuro'); return; }
-  stopTimer(); session = null;
+  if (COMING_SOON.has('neuro')) {
+    renderComingSoon('neuro');
+    return;
+  }
+  stopTimer();
+  session = null;
   await ensureSection('neuro');
   if (typeof renderNeuroEngineering === 'function') return renderNeuroEngineering({ fromUrl: true });
 }
@@ -836,7 +1170,10 @@ function siteFooter() {
     <p class="sf-founder">Founded by Kevin Vigil</p>
     <p class="sf-legal">&copy; ${yr} Cortex Medical Academy &middot; v${APP_VERSION} &middot; Last updated ${PUBLIC_CHANGELOG[0].date} &middot; Original study content with guided self-review. Not a substitute for official AAMC materials or clinical judgment.</p>
   </footer>`);
-  f.querySelector('.sf-brand').addEventListener('click', e => { e.preventDefault(); renderMission(); });
+  f.querySelector('.sf-brand').addEventListener('click', e => {
+    e.preventDefault();
+    renderMission();
+  });
   f.querySelector('[data-go="updates"]').addEventListener('click', renderUpdates);
   f.querySelector('.sf-suggest').addEventListener('click', openFeedback);
   f.querySelector('.sf-utsa').addEventListener('click', renderUTSA);
@@ -860,25 +1197,45 @@ function openFeedback() {
       <p class="fbmodal-mail">Or email us: <a href="mailto:cortexmedical.academy.support@gmail.com">cortexmedical.academy.support@gmail.com</a></p>
     </div>
   </div>`);
-  const close = () => { back.remove(); document.removeEventListener('keydown', onKey); };
-  const onKey = (e) => { if (e.key === 'Escape') close(); };
-  back.addEventListener('click', e => { if (e.target === back) close(); });
+  const close = () => {
+    back.remove();
+    document.removeEventListener('keydown', onKey);
+  };
+  const onKey = e => {
+    if (e.key === 'Escape') close();
+  };
+  back.addEventListener('click', e => {
+    if (e.target === back) close();
+  });
   back.querySelector('#fb-cancel').addEventListener('click', close);
   back.querySelector('#fb-send').addEventListener('click', async () => {
     const msg = back.querySelector('#fb-msg').value.trim();
     const email = back.querySelector('#fb-email').value.trim();
     const status = back.querySelector('#fb-status');
     const sendBtn = back.querySelector('#fb-send');
-    if (msg.length < 3) { status.textContent = 'Add a little more detail first.'; status.className = 'fbmodal-status err'; return; }
-    sendBtn.disabled = true; status.textContent = 'Sending…'; status.className = 'fbmodal-status';
+    if (msg.length < 3) {
+      status.textContent = 'Add a little more detail first.';
+      status.className = 'fbmodal-status err';
+      return;
+    }
+    sendBtn.disabled = true;
+    status.textContent = 'Sending…';
+    status.className = 'fbmodal-status';
     try {
       const body = new URLSearchParams({ 'form-name': 'suggestions', message: msg, email, 'bot-field': '' }).toString();
-      const r = await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body });
+      const r = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body,
+      });
       if (!r.ok) throw new Error('status ' + r.status);
-      status.textContent = 'Thanks — got it! 🙏'; status.className = 'fbmodal-status ok';
+      status.textContent = 'Thanks — got it! 🙏';
+      status.className = 'fbmodal-status ok';
       setTimeout(close, 1500);
     } catch {
-      status.textContent = 'Couldn’t send right now — try again in a moment.'; status.className = 'fbmodal-status err'; sendBtn.disabled = false;
+      status.textContent = 'Couldn’t send right now — try again in a moment.';
+      status.className = 'fbmodal-status err';
+      sendBtn.disabled = false;
     }
   });
   document.addEventListener('keydown', onKey);
@@ -900,21 +1257,26 @@ async function fetchVisits() {
       const j = await r.json();
       if (typeof j.value === 'number') {
         visitCount = j.value;
-        if (!counted) { try { localStorage.setItem('cs-counted', '1'); } catch {} }
+        if (!counted) {
+          try {
+            localStorage.setItem('cs-counted', '1');
+          } catch {}
+        }
         updateVisitUI();
       }
     }
-  } catch { /* counter is best-effort; page works without it */ }
+  } catch {
+    /* counter is best-effort; page works without it */
+  }
 }
 function updateVisitUI() {
   if (visitCount == null) return;
-  document.querySelectorAll('[data-visit-summary]').forEach(e => e.hidden = false);
+  document.querySelectorAll('[data-visit-summary]').forEach(e => (e.hidden = false));
   document.querySelectorAll('.js-visits').forEach(e => {
-    if (e.dataset.cnt === String(visitCount)) return;   // don't re-animate the same value
+    if (e.dataset.cnt === String(visitCount)) return; // don't re-animate the same value
     e.dataset.cnt = String(visitCount);
     animateCount(e, visitCount);
   });
-
 }
 
 const PRINCIPLES = [
@@ -942,13 +1304,15 @@ function changelogEntry(c, featured) {
 }
 
 function renderUpdates() {
-  stopTimer(); session = null;
+  stopTimer();
+  session = null;
   const root = el('<div></div>');
   root.appendChild(topbar('updates'));
   const latest = PUBLIC_CHANGELOG[0];
   const showFeatured = latest && latest.version && latest.tag !== 'SOON';
   const history = showFeatured ? PUBLIC_CHANGELOG.slice(1) : PUBLIC_CHANGELOG;
-  const featured = showFeatured ? `
+  const featured = showFeatured
+    ? `
     <section class="upd-featured cornerframe" id="whats-new">
       <div class="upd-featured-top">
         <span class="label">What&rsquo;s new</span>
@@ -958,12 +1322,15 @@ function renderUpdates() {
       <p class="upd-featured-date">${esc(latest.date)}</p>
       <ul class="upd-featured-list">${latest.items.map(i => `<li>${esc(i)}</li>`).join('')}</ul>
       <a class="upd-xlink" href="${X_URL}" target="_blank" rel="noopener">${X_SVG}<span class="upd-xlink-txt">${X_UPDATES_COPY}</span></a>
-    </section>` : '';
-  const historyBlock = history.length ? `
+    </section>`
+    : '';
+  const historyBlock = history.length
+    ? `
     <div class="updates-history">
       <span class="label">${showFeatured ? 'Earlier updates' : 'All updates'}</span>
       <div class="updates-list updates-list--instant">${history.map(c => changelogEntry(c, false)).join('')}</div>
-    </div>` : '';
+    </div>`
+    : '';
   const main = el(`<main class="panel updates">
     <div class="updates-head">
       <span class="label">Changelog</span>
@@ -989,10 +1356,11 @@ function renderUpdates() {
 
 function renderMission() {
   ++_sectionRequest;
-  stopTimer(); session = null;
+  stopTimer();
+  session = null;
   const gates = new URLSearchParams(location.search).get('gates') === 'prod';
   const homePath = '/' + (gates ? '?gates=prod' : '');
-  if (location.pathname !== '/') history.pushState({ sec:'mission' }, '', homePath);
+  if (location.pathname !== '/') history.pushState({ sec: 'mission' }, '', homePath);
   const previewQuery = gates ? '&gates=prod' : '';
   const root = el('<div></div>');
   root.appendChild(topbar('mission'));
@@ -1038,7 +1406,7 @@ function renderMission() {
 
     <section class="academy-method" aria-labelledby="academy-method-title">
       <div class="academy-section-heading"><span class="label">How learning works here</span><h2 id="academy-method-title">Build understanding.<br> Then build on it.</h2></div>
-      <div class="academy-principles">${PRINCIPLES.map((p,i) => `<article><span class="label">0${i+1}</span><h3>${p[0]}</h3><p>${p[1]}</p></article>`).join('')}</div>
+      <div class="academy-principles">${PRINCIPLES.map((p, i) => `<article><span class="label">0${i + 1}</span><h3>${p[0]}</h3><p>${p[1]}</p></article>`).join('')}</div>
     </section>
 
     <section class="academy-mission" aria-labelledby="academy-mission-title">
@@ -1054,9 +1422,15 @@ function renderMission() {
 
   main.querySelector('#m-quick').addEventListener('click', async () => {
     const button = main.querySelector('#m-quick');
-    button.disabled = true; button.textContent = 'Opening session…';
-    try { await ensureSection('mcat'); await startMcatQuickSession(); }
-    catch { button.disabled = false; button.textContent = 'Retry 5-minute session'; }
+    button.disabled = true;
+    button.textContent = 'Opening session…';
+    try {
+      await ensureSection('mcat');
+      await startMcatQuickSession();
+    } catch {
+      button.disabled = false;
+      button.textContent = 'Retry 5-minute session';
+    }
   });
   main.querySelector('#m-mcat').addEventListener('click', gotoMCAT);
   main.querySelector('#m-cases').addEventListener('click', renderHome);
@@ -1073,13 +1447,15 @@ function renderMission() {
 function renderHome() {
   stopTimer();
   session = null;
-  ensureSection('practice').then(() => {
-    if (typeof window.renderClinicalShift === 'function') window.renderClinicalShift();
-    else renderClinicalCaseBank();
-  }).catch(error => {
-    console.error('Clinical Shift load failed', error);
-    renderClinicalCaseBank();
-  });
+  ensureSection('practice')
+    .then(() => {
+      if (typeof window.renderClinicalShift === 'function') window.renderClinicalShift();
+      else renderClinicalCaseBank();
+    })
+    .catch(error => {
+      console.error('Clinical Shift load failed', error);
+      renderClinicalCaseBank();
+    });
 }
 
 function renderClinicalCaseBank() {
@@ -1141,10 +1517,14 @@ function renderClinicalCaseBank() {
     const count = store.manifest[sp.key] || 0;
     const p = store.progress[sp.key];
     const done = p ? Math.min((p.seen || []).length, count) : 0;
-    const acc = p && p.answered ? Math.round(100 * p.correct / p.answered) : null;
+    const acc = p && p.answered ? Math.round((100 * p.correct) / p.answered) : null;
     const xp = p?.xp || 0;
     const rank = rankFor(xp);
-    const stat = !count ? 'Generating&hellip;' : xp > 0 ? `Rank ${rank.rank} &middot; ${xp.toLocaleString()} XP` : `${count} cases`;
+    const stat = !count
+      ? 'Generating&hellip;'
+      : xp > 0
+        ? `Rank ${rank.rank} &middot; ${xp.toLocaleString()} XP`
+        : `${count} cases`;
     const foot = done ? `${done}/${count}${acc !== null ? ` &middot; ${acc}%` : ''}` : count ? `${count} cases` : '';
     const card = el(`<button class="card cs-card" ${count ? '' : 'disabled'}>
       <span class="cs-card-top">
@@ -1154,24 +1534,30 @@ function renderClinicalCaseBank() {
       <span class="mod-stat">${stat}</span>
       <span class="cs-card-foot">
         <span class="done">${foot}</span>
-        <span class="bar"><i style="width:${xp > 0 ? rank.pct : (done && count ? Math.round(100 * done / count) : 0)}%"></i></span>
+        <span class="bar"><i style="width:${xp > 0 ? rank.pct : done && count ? Math.round((100 * done) / count) : 0}%"></i></span>
       </span>
     </button>`);
     if (count) card.addEventListener('click', () => startRandomCase(sp));
     grid.appendChild(card);
   }
 
-  main.querySelectorAll('.mode[data-diff]').forEach(b => b.addEventListener('click', () => {
-    store.diff = b.dataset.diff;
-    localStorage.setItem('cs-diff', store.diff);
-    main.querySelectorAll('.mode[data-diff]').forEach(x => x.classList.toggle('active', x === b));
-  }));
-  main.querySelectorAll('.mode[data-mode]').forEach(b => b.addEventListener('click', () => {
-    store.mode = b.dataset.mode;
-    localStorage.setItem('cs-mode', store.mode);
-    main.querySelectorAll('.mode[data-mode]').forEach(x => x.classList.toggle('active', x === b));
-  }));
-  main.querySelectorAll('[data-scn]').forEach(b => b.addEventListener('click', () => b.dataset.scn === 'review' ? renderReview() : null));
+  main.querySelectorAll('.mode[data-diff]').forEach(b =>
+    b.addEventListener('click', () => {
+      store.diff = b.dataset.diff;
+      localStorage.setItem('cs-diff', store.diff);
+      main.querySelectorAll('.mode[data-diff]').forEach(x => x.classList.toggle('active', x === b));
+    })
+  );
+  main.querySelectorAll('.mode[data-mode]').forEach(b =>
+    b.addEventListener('click', () => {
+      store.mode = b.dataset.mode;
+      localStorage.setItem('cs-mode', store.mode);
+      main.querySelectorAll('.mode[data-mode]').forEach(x => x.classList.toggle('active', x === b));
+    })
+  );
+  main
+    .querySelectorAll('[data-scn]')
+    .forEach(b => b.addEventListener('click', () => (b.dataset.scn === 'review' ? renderReview() : null)));
   main.querySelector('#suggest').addEventListener('click', openFeedback);
   main.querySelector('#mixed').addEventListener('click', startMixedCase);
   main.querySelector('#reset').addEventListener('click', () => openResetProgress());
@@ -1182,16 +1568,22 @@ function renderClinicalCaseBank() {
 
 /* ---------- case selection ---------- */
 
-function diffMatch(c) { return store.diff === 'all' || c.difficulty === store.diff; }
+function diffMatch(c) {
+  return store.diff === 'all' || c.difficulty === store.diff;
+}
 
 async function startRandomCase(sp) {
   let data;
-  try { data = await loadSpecialty(sp.key); } catch { return; }
+  try {
+    data = await loadSpecialty(sp.key);
+  } catch {
+    return;
+  }
   const p = prog(sp.key);
   const eligible = data.cases.filter(diffMatch);
   if (!eligible.length) return;
   let pool = eligible.filter(c => !p.seen.includes(c.id));
-  if (!pool.length) pool = eligible;          // all seen at this difficulty → allow repeats
+  if (!pool.length) pool = eligible; // all seen at this difficulty → allow repeats
   const c = pool[Math.floor(Math.random() * pool.length)];
   startCase(sp, c);
 }
@@ -1212,7 +1604,12 @@ async function startMixedCase() {
 async function startCaseById(id, key) {
   const sp = { key, name: NAME_BY_KEY[key] || key };
   let data;
-  try { data = await loadSpecialty(key); } catch { alert('Couldn’t load this case — check your connection and try again.'); return; }
+  try {
+    data = await loadSpecialty(key);
+  } catch {
+    alert('Couldn’t load this case — check your connection and try again.');
+    return;
+  }
   const c = data.cases.find(x => x.id === id);
   if (c) startCase(sp, c);
   else alert('This case is no longer available.');
@@ -1221,8 +1618,17 @@ async function startCaseById(id, key) {
 function startCase(sp, c) {
   const qTotal = c.stages.filter(s => s.type === 'question').length;
   session = {
-    sp, c, qTotal, idx: 0, results: [], correct: 0,
-    timed: store.mode === 'timed', deadline: null, timerId: null, expired: false, finished: false,
+    sp,
+    c,
+    qTotal,
+    idx: 0,
+    results: [],
+    correct: 0,
+    timed: store.mode === 'timed',
+    deadline: null,
+    timerId: null,
+    expired: false,
+    finished: false,
   };
   renderCase();
 }
@@ -1245,13 +1651,15 @@ function shuffleClinicalOpts(options) {
 function remapOptionLetters(text, shuffled) {
   if (!text || !shuffled) return text;
   const pos = [];
-  shuffled.forEach((o, i) => { pos[o.origIdx] = i; });
+  shuffled.forEach((o, i) => {
+    pos[o.origIdx] = i;
+  });
   const n = shuffled.length;
   return text.replace(/\boption\s+([A-Fa-f])\b/gi, (m, L) => {
     const origIdx = L.toUpperCase().charCodeAt(0) - 65;
     if (origIdx < 0 || origIdx >= n || pos[origIdx] == null) return m;
     const mapped = LETTERS[pos[origIdx]];
-    const newL = (L === L.toLowerCase()) ? mapped.toLowerCase() : mapped;
+    const newL = L === L.toLowerCase() ? mapped.toLowerCase() : mapped;
     return m.slice(0, m.length - 1) + newL;
   });
 }
@@ -1260,7 +1668,7 @@ function updateCaseRunbar() {
   if (!session) return;
   const total = session.c.stages.length;
   const idx = Math.min(session.idx, total);
-  const pct = total ? Math.round(100 * idx / total) : 0;
+  const pct = total ? Math.round((100 * idx) / total) : 0;
   const fill = document.getElementById('cs-runfill');
   const lab = document.getElementById('cs-runlab');
   if (fill) fill.style.width = `${pct}%`;
@@ -1303,11 +1711,24 @@ function renderCase() {
         <div class="block"><span class="label">Chief complaint</span><p class="prose">${esc(c.chiefComplaint)}</p></div>
         <div class="block"><span class="label">History</span><p class="prose">${esc(c.history)}</p></div>
         <div class="block"><span class="label">Vitals</span>
-          <div class="vitals cs-vitals">${Object.entries(c.vitals).map(([k, v]) =>
-            `<span class="vital"><span class="k">${esc(k)}</span><span class="v">${esc(v)}</span></span>`).join('')}</div>
+          <div class="vitals cs-vitals">${Object.entries(c.vitals)
+            .map(
+              ([k, v]) => `<span class="vital"><span class="k">${esc(k)}</span><span class="v">${esc(v)}</span></span>`
+            )
+            .join('')}</div>
         </div>
         <div class="block"><span class="label">Examination</span><p class="prose">${esc(c.exam)}</p></div>
-        ${c.sources?.length?`<details class="block"><summary>Sources and review status</summary><p class="prose">Authored version ${esc(c.revision||1)}. Independent clinician review is pending. Prior case totals can include earlier wording.</p><ul>${c.sources.filter(source=>/^https:\/\//.test(source.url)).map(source=>`<li><a href="${esc(source.url)}" target="_blank" rel="noopener noreferrer">${esc(source.title)}</a></li>`).join('')}</ul></details>`:''}
+        ${
+          c.sources?.length
+            ? `<details class="block"><summary>Sources and review status</summary><p class="prose">Authored version ${esc(c.revision || 1)}. Independent clinician review is pending. Prior case totals can include earlier wording.</p><ul>${c.sources
+                .filter(source => /^https:\/\//.test(source.url))
+                .map(
+                  source =>
+                    `<li><a href="${esc(source.url)}" target="_blank" rel="noopener noreferrer">${esc(source.title)}</a></li>`
+                )
+                .join('')}</ul></details>`
+            : ''
+        }
       </div>
       <div id="stages"></div>
     </main>
@@ -1341,9 +1762,17 @@ function updateTimer() {
     elT.classList.toggle('warn', left <= 60 && left > 20);
     elT.classList.toggle('crit', left <= 20);
   }
-  if (left <= 0) { session.expired = true; finishCase(); }
+  if (left <= 0) {
+    session.expired = true;
+    finishCase();
+  }
 }
-function stopTimer() { if (session?.timerId) { clearInterval(session.timerId); session.timerId = null; } }
+function stopTimer() {
+  if (session?.timerId) {
+    clearInterval(session.timerId);
+    session.timerId = null;
+  }
+}
 
 function qNumber(stageIdx) {
   let n = 0;
@@ -1353,7 +1782,10 @@ function qNumber(stageIdx) {
 
 function appendStage() {
   const { c } = session;
-  if (session.idx >= c.stages.length) { finishCase(); return; }
+  if (session.idx >= c.stages.length) {
+    finishCase();
+    return;
+  }
   const s = c.stages[session.idx];
   const container = document.getElementById('stages');
   const isLast = session.idx === c.stages.length - 1;
@@ -1366,7 +1798,10 @@ function appendStage() {
       <div class="continue-row"><span class="hint">ENTER &rarr;</span><button class="btn" data-continue>${isLast ? 'View summary' : 'Continue'}</button></div>
     </section>`);
     const row = node.querySelector('.continue-row');
-    row.querySelector('[data-continue]').addEventListener('click', () => { row.remove(); advance(); });
+    row.querySelector('[data-continue]').addEventListener('click', () => {
+      row.remove();
+      advance();
+    });
     container.appendChild(node);
     if (autoScroll) node.scrollIntoView({ behavior: 'smooth', block: 'start' });
     return;
@@ -1380,7 +1815,11 @@ function appendStage() {
     <div class="opts">${shuffled.map((o, i) => `<button class="opt" data-i="${i}" data-orig="${o.origIdx}"><span class="key">${LETTERS[i]}</span><span>${esc(o.text)}</span></button>`).join('')}</div>
     <div class="after"></div>
   </section>`);
-  node.querySelectorAll('.opt').forEach(btn => btn.addEventListener('click', () => answer(node, s, shuffled[Number(btn.dataset.i)].origIdx, isLast, shuffled)));
+  node
+    .querySelectorAll('.opt')
+    .forEach(btn =>
+      btn.addEventListener('click', () => answer(node, s, shuffled[Number(btn.dataset.i)].origIdx, isLast, shuffled))
+    );
   container.appendChild(node);
   if (autoScroll) node.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
@@ -1399,27 +1838,44 @@ function answer(node, s, choice, isLast, shuffled) {
   session.results.push({ label: s.label, correct });
   if (correct) session.correct++;
   const p = prog(session.sp.key);
-  p.answered++; if (correct) p.correct++;
+  p.answered++;
+  if (correct) p.correct++;
   saveProgress();
 
   const qp = document.getElementById('qprog');
   if (qp) qp.textContent = `Q ${session.results.length}/${session.qTotal}`;
 
   const after = node.querySelector('.after');
-  after.appendChild(el(`<div class="explain ${correct ? 'good' : 'bad'}"><span class="verdict">${correct ? 'CORRECT' : 'INCORRECT'}</span><p>${esc(remapOptionLetters(s.explanation, shuffled))}</p></div>`));
-  const row = el(`<div class="continue-row"><span class="hint">ENTER &rarr;</span><button class="btn" data-continue>${isLast ? 'View summary' : 'Continue'}</button></div>`);
-  row.querySelector('[data-continue]').addEventListener('click', () => { row.remove(); advance(); });
+  after.appendChild(
+    el(
+      `<div class="explain ${correct ? 'good' : 'bad'}"><span class="verdict">${correct ? 'CORRECT' : 'INCORRECT'}</span><p>${esc(remapOptionLetters(s.explanation, shuffled))}</p></div>`
+    )
+  );
+  const row = el(
+    `<div class="continue-row"><span class="hint">ENTER &rarr;</span><button class="btn" data-continue>${isLast ? 'View summary' : 'Continue'}</button></div>`
+  );
+  row.querySelector('[data-continue]').addEventListener('click', () => {
+    row.remove();
+    advance();
+  });
   after.appendChild(row);
   row.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
-function advance() { session.idx++; updateCaseRunbar(); appendStage(); }
+function advance() {
+  session.idx++;
+  updateCaseRunbar();
+  appendStage();
+}
 
 function finishCase() {
   if (session.finished) return;
   session.finished = true;
   stopTimer();
-  document.querySelectorAll('.opt:not(:disabled)').forEach(b => { b.disabled = true; b.classList.add('dimmed'); });
+  document.querySelectorAll('.opt:not(:disabled)').forEach(b => {
+    b.disabled = true;
+    b.classList.add('dimmed');
+  });
   document.querySelectorAll('.continue-row').forEach(r => r.remove());
 
   const { sp, c } = session;
@@ -1432,15 +1888,30 @@ function finishCase() {
   // record per-case + history + streak
   const rec = caseRec(c.id, sp.key);
   const isFirst = rec.attempts === 0;
-  rec.attempts++; rec.lastC = session.correct; rec.lastT = session.qTotal;
-  rec.bestC = Math.max(rec.bestC || 0, session.correct); rec.lastTs = Date.now();
+  rec.attempts++;
+  rec.lastC = session.correct;
+  rec.lastT = session.qTotal;
+  rec.bestC = Math.max(rec.bestC || 0, session.correct);
+  rec.lastTs = Date.now();
   saveCases();
-  store.history.unshift({ id: c.id, key: sp.key, c: session.correct, t: session.qTotal, timed: session.timed, ts: rec.lastTs });
+  store.history.unshift({
+    id: c.id,
+    key: sp.key,
+    c: session.correct,
+    t: session.qTotal,
+    timed: session.timed,
+    ts: rec.lastTs,
+  });
   saveHistory();
   bumpStreak();
 
   // XP (only first completion of a case awards XP, prevents farming replays)
-  let gained = 0, correctXp = 0, caseBonus = 0, perfectXp = 0, timedBonus = 0, promoted = false;
+  let gained = 0,
+    correctXp = 0,
+    caseBonus = 0,
+    perfectXp = 0,
+    timedBonus = 0,
+    promoted = false;
   const rankBefore = rankFor(p.xp);
   if (isFirst) {
     correctXp = session.correct * XP_PER_CORRECT;
@@ -1455,13 +1926,19 @@ function finishCase() {
   saveProgress();
   const rank = rankFor(p.xp);
 
-  const xpRows = isFirst ? [
-    `<div class="xprow"><span>Correct answers &middot; ${session.correct} &times; ${XP_PER_CORRECT}</span><span>+${correctXp}</span></div>`,
-    caseBonus ? `<div class="xprow"><span>Case complete &middot; ${esc(c.difficulty)}</span><span>+${caseBonus}</span></div>` : '',
-    perfectXp ? `<div class="xprow"><span>Perfect case</span><span>+${perfectXp}</span></div>` : '',
-    timedBonus ? `<div class="xprow"><span>Timed &times;${TIMED_MULTIPLIER}</span><span>+${timedBonus}</span></div>` : '',
-    `<div class="xprow total"><span>Total</span><span class="gain">+${gained} XP</span></div>`,
-  ].join('') : `<div class="xprow total"><span>Replay &middot; attempt ${rec.attempts}</span><span>No XP</span></div>`;
+  const xpRows = isFirst
+    ? [
+        `<div class="xprow"><span>Correct answers &middot; ${session.correct} &times; ${XP_PER_CORRECT}</span><span>+${correctXp}</span></div>`,
+        caseBonus
+          ? `<div class="xprow"><span>Case complete &middot; ${esc(c.difficulty)}</span><span>+${caseBonus}</span></div>`
+          : '',
+        perfectXp ? `<div class="xprow"><span>Perfect case</span><span>+${perfectXp}</span></div>` : '',
+        timedBonus
+          ? `<div class="xprow"><span>Timed &times;${TIMED_MULTIPLIER}</span><span>+${timedBonus}</span></div>`
+          : '',
+        `<div class="xprow total"><span>Total</span><span class="gain">+${gained} XP</span></div>`,
+      ].join('')
+    : `<div class="xprow total"><span>Replay &middot; attempt ${rec.attempts}</span><span>No XP</span></div>`;
 
   const ticks = [];
   for (let i = 0; i < session.qTotal; i++) {
@@ -1502,11 +1979,14 @@ function finishCase() {
 
   node.querySelector('#next').addEventListener('click', () => startRandomCase(sp));
   node.querySelector('#home').addEventListener('click', renderHome);
-  node.querySelector('#bm2').addEventListener('click', (e) => {
+  node.querySelector('#bm2').addEventListener('click', e => {
     const on = toggleBookmark(c.id, sp.key);
     e.currentTarget.innerHTML = bookmarkHtml(on, 'Save case');
     const top = document.getElementById('bm');
-    if (top) { top.classList.toggle('on', on); top.innerHTML = bookmarkHtml(on); }
+    if (top) {
+      top.classList.toggle('on', on);
+      top.innerHTML = bookmarkHtml(on);
+    }
   });
 
   document.getElementById('stages').appendChild(node);
@@ -1535,7 +2015,8 @@ function scorePill(c, t) {
 
 async function renderReview(tab = 'history') {
   await ensureIndex();
-  stopTimer(); session = null;
+  stopTimer();
+  session = null;
   const stats = clinicalStatBand().slice(2);
   const root = el(`<div></div>`);
   root.appendChild(topbar('practice'));
@@ -1561,47 +2042,98 @@ async function renderReview(tab = 'history') {
   </main>`);
 
   main.querySelectorAll('.tab[data-tab]').forEach(b => b.addEventListener('click', () => renderReview(b.dataset.tab)));
-  main.querySelectorAll('[data-scn]').forEach(b => b.addEventListener('click', () => b.dataset.scn === 'practice' ? renderHome() : null));
+  main
+    .querySelectorAll('[data-scn]')
+    .forEach(b => b.addEventListener('click', () => (b.dataset.scn === 'practice' ? renderHome() : null)));
   const rows = main.querySelector('#rows');
   const sb = main.querySelector('.searchbox');
 
   if (tab === 'history') {
     if (!store.history.length) rows.appendChild(emptyMsg('No cases yet — start a Clinical Scenario.'));
-    else store.history.slice(0, 100).forEach(h => rows.appendChild(caseRow({
-      id: h.id, key: h.key, title: titleFor(h.id), difficulty: '',
-      rightHtml: `${scorePill(h.c, h.t)}<span class="row-when">${relTime(h.ts)} · ${h.shift ? 'Saved shift' : 'Practice again'}</span>`,
-      onOpen: h.shift && typeof window.openClinicalShiftHistory === 'function' ? () => window.openClinicalShiftHistory({ caseId: h.id, ts: h.ts }) : undefined,
-    })));
+    else
+      store.history.slice(0, 100).forEach(h =>
+        rows.appendChild(
+          caseRow({
+            id: h.id,
+            key: h.key,
+            title: titleFor(h.id),
+            difficulty: '',
+            rightHtml: `${scorePill(h.c, h.t)}<span class="row-when">${relTime(h.ts)} · ${h.shift ? 'Saved shift' : 'Practice again'}</span>`,
+            onOpen:
+              h.shift && typeof window.openClinicalShiftHistory === 'function'
+                ? () => window.openClinicalShiftHistory({ caseId: h.id, ts: h.ts })
+                : undefined,
+          })
+        )
+      );
   } else if (tab === 'missed') {
-    const missed = Object.entries(store.cases).filter(([, r]) => r.attempts > 0 && r.lastC != null && r.lastC < r.lastT);
+    const missed = Object.entries(store.cases).filter(
+      ([, r]) => r.attempts > 0 && r.lastC != null && r.lastC < r.lastT
+    );
     missed.sort((a, b) => (b[1].lastTs || 0) - (a[1].lastTs || 0));
     if (!missed.length) rows.appendChild(emptyMsg('No missed cases — either spotless or just getting started.'));
-    else missed.forEach(([id, r]) => rows.appendChild(caseRow({
-      id, key: r.key, title: titleFor(id), rightHtml: `${scorePill(r.lastC, r.lastT)}<span class="row-when">retry &rarr;</span>`,
-    })));
+    else
+      missed.forEach(([id, r]) =>
+        rows.appendChild(
+          caseRow({
+            id,
+            key: r.key,
+            title: titleFor(id),
+            rightHtml: `${scorePill(r.lastC, r.lastT)}<span class="row-when">retry &rarr;</span>`,
+          })
+        )
+      );
   } else if (tab === 'bookmarks') {
     const bm = Object.entries(store.cases).filter(([, r]) => r.bookmarked);
     bm.sort((a, b) => (b[1].lastTs || 0) - (a[1].lastTs || 0));
     if (!bm.length) rows.appendChild(emptyMsg('No bookmarks yet — tap ☆ Save in any case.'));
-    else bm.forEach(([id, r]) => rows.appendChild(caseRow({
-      id, key: r.key, title: titleFor(id), rightHtml: r.lastC != null ? scorePill(r.lastC, r.lastT) : '<span class="row-when">open &rarr;</span>',
-    })));
+    else
+      bm.forEach(([id, r]) =>
+        rows.appendChild(
+          caseRow({
+            id,
+            key: r.key,
+            title: titleFor(id),
+            rightHtml: r.lastC != null ? scorePill(r.lastC, r.lastT) : '<span class="row-when">open &rarr;</span>',
+          })
+        )
+      );
   } else if (tab === 'search') {
     sb.style.display = '';
     const input = sb.querySelector('#q');
     const run = () => {
       const q = input.value.trim().toLowerCase();
       rows.replaceChildren();
-      if (!store.index) { rows.appendChild(emptyMsg('Search index not loaded.')); return; }
-      if (q.length < 2) { rows.appendChild(emptyMsg('Type at least 2 characters.')); return; }
-      const hits = store.index.filter(e =>
-        e.title.toLowerCase().includes(q) || e.diagnosis.toLowerCase().includes(q) || e.name.toLowerCase().includes(q)
-      ).slice(0, 60);
-      if (!hits.length) { rows.appendChild(emptyMsg('No matches.')); return; }
-      hits.forEach(e => rows.appendChild(caseRow({
-        id: e.id, key: e.key, title: e.title,
-        rightHtml: `<span class="pill tag">${esc(e.difficulty)}</span>`,
-      })));
+      if (!store.index) {
+        rows.appendChild(emptyMsg('Search index not loaded.'));
+        return;
+      }
+      if (q.length < 2) {
+        rows.appendChild(emptyMsg('Type at least 2 characters.'));
+        return;
+      }
+      const hits = store.index
+        .filter(
+          e =>
+            e.title.toLowerCase().includes(q) ||
+            e.diagnosis.toLowerCase().includes(q) ||
+            e.name.toLowerCase().includes(q)
+        )
+        .slice(0, 60);
+      if (!hits.length) {
+        rows.appendChild(emptyMsg('No matches.'));
+        return;
+      }
+      hits.forEach(e =>
+        rows.appendChild(
+          caseRow({
+            id: e.id,
+            key: e.key,
+            title: e.title,
+            rightHtml: `<span class="pill tag">${esc(e.difficulty)}</span>`,
+          })
+        )
+      );
     };
     input.addEventListener('input', run);
     setTimeout(() => input.focus(), 30);
@@ -1612,9 +2144,14 @@ async function renderReview(tab = 'history') {
   setView(root);
 }
 
-function emptyMsg(t) { return el(`<div class="empty">${esc(t)}</div>`); }
+function emptyMsg(t) {
+  return el(`<div class="empty">${esc(t)}</div>`);
+}
 function titleFor(id) {
-  if (store.index) { const e = store.index.find(x => x.id === id); if (e) return e.title; }
+  if (store.index) {
+    const e = store.index.find(x => x.id === id);
+    if (e) return e.title;
+  }
   return id;
 }
 
@@ -1638,30 +2175,42 @@ const PHARM_UNIQUE_TOTAL = 355;
 function pharmStatsSnapshot() {
   const prog = loadJSON('cs-pharm', { drill: { correct: 0, total: 0 }, byCat: {}, learned: {} });
   const drilled = prog.drill?.total || 0;
-  const acc = drilled ? Math.round(100 * prog.drill.correct / drilled) : null;
+  const acc = drilled ? Math.round((100 * prog.drill.correct) / drilled) : null;
   const names = new Set();
-  Object.values(prog.learned || {}).forEach(v => { if (v?.name) names.add(v.name); });
+  Object.values(prog.learned || {}).forEach(v => {
+    if (v?.name) names.add(v.name);
+  });
   const learned = names.size || Object.keys(prog.learned || {}).length;
   const has = drilled > 0 || learned > 0;
   return { drilled, acc, learned, learnedTotal: PHARM_UNIQUE_TOTAL, has };
 }
 
 function microStatsSnapshot() {
-  const prog = loadJSON('cs-micro', { drill: { correct: 0, total: 0 }, byCat: {}, guidedSection: 0, guidedDone: false });
+  const prog = loadJSON('cs-micro', {
+    drill: { correct: 0, total: 0 },
+    byCat: {},
+    guidedSection: 0,
+    guidedDone: false,
+  });
   const drilled = prog.drill?.total || 0;
-  const acc = drilled ? Math.round(100 * prog.drill.correct / drilled) : null;
+  const acc = drilled ? Math.round((100 * prog.drill.correct) / drilled) : null;
   const guidedTotal = 12;
-  const guided = prog.guidedDone ? guidedTotal : (prog.guidedSection || 0);
+  const guided = prog.guidedDone ? guidedTotal : prog.guidedSection || 0;
   const has = drilled > 0 || guided > 0 || prog.guidedDone;
   return { drilled, acc, guided, guidedTotal, has };
 }
 
 function labsStatsSnapshot() {
-  const prog = loadJSON('cs-labs', { drill: { correct: 0, total: 0 }, byPanel: {}, guidedSection: 0, guidedDone: false });
+  const prog = loadJSON('cs-labs', {
+    drill: { correct: 0, total: 0 },
+    byPanel: {},
+    guidedSection: 0,
+    guidedDone: false,
+  });
   const drilled = prog.drill?.total || 0;
-  const acc = drilled ? Math.round(100 * prog.drill.correct / drilled) : null;
+  const acc = drilled ? Math.round((100 * prog.drill.correct) / drilled) : null;
   const guidedTotal = 10;
-  const guided = prog.guidedDone ? guidedTotal : (prog.guidedSection || 0);
+  const guided = prog.guidedDone ? guidedTotal : prog.guidedSection || 0;
   const has = drilled > 0 || guided > 0 || prog.guidedDone;
   return { drilled, acc, guided, guidedTotal, has };
 }
@@ -1671,7 +2220,7 @@ function ekgStatsSnapshot() {
   const reviewed = (prog.reviewed || []).length;
   const total = 20;
   const drilled = prog.drill?.total || 0;
-  const acc = drilled ? Math.round(100 * prog.drill.correct / drilled) : null;
+  const acc = drilled ? Math.round((100 * prog.drill.correct) / drilled) : null;
   const has = reviewed > 0 || drilled > 0;
   return { reviewed, total, drilled, acc, has };
 }
@@ -1695,7 +2244,7 @@ function pedStatsFromStorage() {
   if (raw?.catalogDone) complete++;
   if (raw?.clinicalDone) complete++;
   const total = 11;
-  const pct = Math.round(100 * complete / total);
+  const pct = Math.round((100 * complete) / total);
   return { complete, total, pct, agents, pathways, has: complete > 0 || agents > 0 || pathways > 0 };
 }
 
@@ -1703,28 +2252,55 @@ function neuroStatsSnapshot() {
   const prog = loadJSON('cs-neuro', { pathDone: [], topicQuiz: {}, sims: {}, code: {}, milestones: {} });
   const pathDone = prog.pathDone?.length || 0;
   const pathTotal = 20;
-  const knownProjects = ['neural-signal-viewer', 'spike-detector', 'noise-smoother', 'leftright-decoder', 'cursor-simulator', 'closed-loop-capstone'];
-  const msPassed = knownProjects.filter(id => { const item = prog.projects?.[id]; return [...(Array.isArray(item?.history) ? item.history : []), item?.current].some(work => Number.isFinite(work?.completedAt)); }).length;
+  const knownProjects = [
+    'neural-signal-viewer',
+    'spike-detector',
+    'noise-smoother',
+    'leftright-decoder',
+    'cursor-simulator',
+    'closed-loop-capstone',
+  ];
+  const msPassed = knownProjects.filter(id => {
+    const item = prog.projects?.[id];
+    return [...(Array.isArray(item?.history) ? item.history : []), item?.current].some(work =>
+      Number.isFinite(work?.completedAt)
+    );
+  }).length;
   const msLegacy = knownProjects.filter(id => prog.milestones?.[id]?.passed).length;
   const codeDone = Object.values(prog.code || {}).filter(v => v === true || v?.passed).length;
-  const simDone = new Set([...Object.keys(prog.sims || {}).filter(id => prog.sims[id]?.ok), ...Object.keys(prog.simWork || {}).filter(id => prog.simWork[id]?.completedAt)]).size;
+  const simDone = new Set([
+    ...Object.keys(prog.sims || {}).filter(id => prog.sims[id]?.ok),
+    ...Object.keys(prog.simWork || {}).filter(id => prog.simWork[id]?.completedAt),
+  ]).size;
   const quizDone = Object.keys(prog.topicQuiz || {}).length;
   const has = pathDone > 0 || quizDone > 0 || codeDone > 0 || simDone > 0 || msPassed > 0 || msLegacy > 0;
   return {
-    pathDone, pathTotal, pathPct: pathTotal ? Math.round(100 * pathDone / pathTotal) : 0,
-    msPassed, msLegacy, msTotal: 6, codeDone, codeTotal: 13, simDone, simTotal: 15, quizDone, has,
+    pathDone,
+    pathTotal,
+    pathPct: pathTotal ? Math.round((100 * pathDone) / pathTotal) : 0,
+    msPassed,
+    msLegacy,
+    msTotal: 6,
+    codeDone,
+    codeTotal: 13,
+    simDone,
+    simTotal: 15,
+    quizDone,
+    has,
   };
 }
 
 async function renderStats() {
-  stopTimer(); session = null;
+  stopTimer();
+  session = null;
   await ensureSection('mcat');
   await loadMCAT();
   courseGo('progress');
 }
 
 function renderAcademyStats() {
-  stopTimer(); session = null;
+  stopTimer();
+  session = null;
   const t = totals();
   const ps = pomoStatsSnapshot();
   const ns = neuroStatsSnapshot();
@@ -1739,20 +2315,24 @@ function renderAcademyStats() {
   // 21-day activity strip from history
   const active = activeDays();
   const days = [];
-  for (let i = 20; i >= 0; i--) { const d = new Date(); d.setDate(d.getDate() - i); days.push(active.has(dayStr(d))); }
+  for (let i = 20; i >= 0; i--) {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    days.push(active.has(dayStr(d)));
+  }
 
   // per-specialty rows
   const specRows = SPECIALTIES.map(sp => {
     const p = store.progress[sp.key];
     const count = store.manifest[sp.key] || 0;
     const done = p ? Math.min((p.seen || []).length, count) : 0;
-    const acc = p && p.answered ? Math.round(100 * p.correct / p.answered) : null;
+    const acc = p && p.answered ? Math.round((100 * p.correct) / p.answered) : null;
     const xp = p?.xp || 0;
     return { sp, count, done, acc, xp, rank: rankFor(xp).rank, answered: p?.answered || 0 };
   });
   const ranked = specRows.filter(r => r.answered >= 5 && r.acc != null);
-  const best = ranked.length ? ranked.reduce((a, b) => b.acc > a.acc ? b : a) : null;
-  const worst = ranked.length ? ranked.reduce((a, b) => b.acc < a.acc ? b : a) : null;
+  const best = ranked.length ? ranked.reduce((a, b) => (b.acc > a.acc ? b : a)) : null;
+  const worst = ranked.length ? ranked.reduce((a, b) => (b.acc < a.acc ? b : a)) : null;
 
   const root = el(`<div></div>`);
   root.appendChild(topbar('stats'));
@@ -1854,10 +2434,14 @@ function renderAcademyStats() {
       <div class="daystrip">${days.map(a => `<span class="day ${a ? 'on' : ''}"></span>`).join('')}</div>
     </div>
 
-    ${best && worst && best.sp.key !== worst.sp.key ? `<div class="statblock callouts">
+    ${
+      best && worst && best.sp.key !== worst.sp.key
+        ? `<div class="statblock callouts">
       <div class="callout"><span class="label">Strongest</span><div class="co-name">${esc(best.sp.name)}</div><div class="co-val ok">${best.acc}%</div></div>
       <div class="callout"><span class="label">Needs work</span><div class="co-name">${esc(worst.sp.name)}</div><div class="co-val no">${worst.acc}%</div></div>
-    </div>` : ''}
+    </div>`
+        : ''
+    }
 
     <div class="statblock">
       <span class="label">By specialty</span>
@@ -1872,7 +2456,7 @@ function renderAcademyStats() {
       <span class="sr-rank">${r.xp > 0 ? 'R' + r.rank : '&mdash;'}</span>
       <span class="sr-done">${r.done}/${r.count}</span>
       <span class="sr-acc">${r.acc != null ? r.acc + '%' : '&mdash;'}</span>
-      <span class="sr-bar"><i style="width:${r.count ? Math.round(100 * r.done / r.count) : 0}%"></i></span>
+      <span class="sr-bar"><i style="width:${r.count ? Math.round((100 * r.done) / r.count) : 0}%"></i></span>
     </button>`);
     row.addEventListener('click', () => startRandomCase(r.sp));
     tbl.appendChild(row);
@@ -1881,38 +2465,65 @@ function renderAcademyStats() {
   const mcatBtn = main.querySelector('#stats-mcat');
   if (mcatBtn) mcatBtn.addEventListener('click', renderStats);
   const pomoBtn = main.querySelector('#stats-pomo');
-  if (pomoBtn) pomoBtn.addEventListener('click', () => { if (typeof renderPomodoro === 'function') renderPomodoro(); });
+  if (pomoBtn)
+    pomoBtn.addEventListener('click', () => {
+      if (typeof renderPomodoro === 'function') renderPomodoro();
+    });
   const neuroBtn = main.querySelector('#stats-neuro');
-  if (neuroBtn) neuroBtn.addEventListener('click', () => { if (typeof renderNeuro === 'function') renderNeuro(); });
-  const openMedicineTool = async (open) => {
-    if (COMING_SOON.has('reference')) { renderComingSoon('reference'); return; }
+  if (neuroBtn)
+    neuroBtn.addEventListener('click', () => {
+      if (typeof renderNeuro === 'function') renderNeuro();
+    });
+  const openMedicineTool = async open => {
+    if (COMING_SOON.has('reference')) {
+      renderComingSoon('reference');
+      return;
+    }
     await ensureSection('reference');
     await open();
   };
   const medPathBtn = main.querySelector('#stats-medpath');
-  if (medPathBtn) medPathBtn.addEventListener('click', () => openMedicineTool(async () => {
-    if (typeof renderReference === 'function') await renderReference();
-  }));
+  if (medPathBtn)
+    medPathBtn.addEventListener('click', () =>
+      openMedicineTool(async () => {
+        if (typeof renderReference === 'function') await renderReference();
+      })
+    );
   const pharmBtn = main.querySelector('#stats-pharm');
-  if (pharmBtn) pharmBtn.addEventListener('click', () => openMedicineTool(() => {
-    renderRefSet('pharm', 'classes');
-  }));
+  if (pharmBtn)
+    pharmBtn.addEventListener('click', () =>
+      openMedicineTool(() => {
+        renderRefSet('pharm', 'classes');
+      })
+    );
   const pedBtn = main.querySelector('#stats-ped');
-  if (pedBtn) pedBtn.addEventListener('click', () => openMedicineTool(() => {
-    renderPerformanceDrugs('hub');
-  }));
+  if (pedBtn)
+    pedBtn.addEventListener('click', () =>
+      openMedicineTool(() => {
+        renderPerformanceDrugs('hub');
+      })
+    );
   const microBtn = main.querySelector('#stats-micro');
-  if (microBtn) microBtn.addEventListener('click', () => openMedicineTool(() => {
-    renderRefSet('micro', 'learn');
-  }));
+  if (microBtn)
+    microBtn.addEventListener('click', () =>
+      openMedicineTool(() => {
+        renderRefSet('micro', 'learn');
+      })
+    );
   const labsBtn = main.querySelector('#stats-labs');
-  if (labsBtn) labsBtn.addEventListener('click', () => openMedicineTool(() => {
-    renderRefSet('labs', 'learn');
-  }));
+  if (labsBtn)
+    labsBtn.addEventListener('click', () =>
+      openMedicineTool(() => {
+        renderRefSet('labs', 'learn');
+      })
+    );
   const ekgBtn = main.querySelector('#stats-ekg');
-  if (ekgBtn) ekgBtn.addEventListener('click', () => openMedicineTool(() => {
-    renderEKG('library');
-  }));
+  if (ekgBtn)
+    ekgBtn.addEventListener('click', () =>
+      openMedicineTool(() => {
+        renderEKG('library');
+      })
+    );
 
   root.appendChild(main);
   setView(root);
@@ -1920,17 +2531,21 @@ function renderAcademyStats() {
 
 /* ---------- keyboard ---------- */
 
-document.addEventListener('keydown', (e) => {
+document.addEventListener('keydown', e => {
   if (e.metaKey || e.ctrlKey || e.altKey) return;
   const typing = e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA');
   if (typing) return;
-  if (document.querySelector('.modal, .fbmodal-back, dialog[open]')) return;   // don't drive the screen behind an open overlay
+  if (document.querySelector('.modal, .fbmodal-back, dialog[open]')) return; // don't drive the screen behind an open overlay
 
   // Enter advances explicit continue/next affordances, even on session-less screens (drills, Medicine, Learn-to-Learn).
   // Scoped to opt-in [data-continue]/[data-next] only — NOT a bare #next, which the timed Exam Simulator uses.
   if (e.key === 'Enter') {
     const btn = document.querySelector('[data-continue]') || document.querySelector('[data-next]');
-    if (btn) { e.preventDefault(); btn.click(); return; }
+    if (btn) {
+      e.preventDefault();
+      btn.click();
+      return;
+    }
   }
 
   if (!session) {
@@ -1941,20 +2556,35 @@ document.addEventListener('keydown', (e) => {
         let i = -1;
         if (/^[a-eA-E]$/.test(e.key)) i = e.key.toLowerCase().charCodeAt(0) - 97;
         if (/^[1-5]$/.test(e.key)) i = Number(e.key) - 1;
-        if (i >= 0 && i < btns.length) { e.preventDefault(); btns[i].click(); return; }
+        if (i >= 0 && i < btns.length) {
+          e.preventDefault();
+          btns[i].click();
+          return;
+        }
       }
     }
     return;
   }
 
-  if (e.key === 'Escape') { renderHome(); return; }
-  if (e.key === 'Enter') {   // in an active case, Enter also advances the summary's "Next case"
+  if (e.key === 'Escape') {
+    renderHome();
+    return;
+  }
+  if (e.key === 'Enter') {
+    // in an active case, Enter also advances the summary's "Next case"
     const nb = document.getElementById('next');
-    if (nb) { e.preventDefault(); nb.click(); }
+    if (nb) {
+      e.preventDefault();
+      nb.click();
+    }
     return;
   }
   if (e.key.toLowerCase() === 'b' && !session.finished) {
-    const btn = document.getElementById('bm'); if (btn) { refreshBookmarkBtn(btn); return; }
+    const btn = document.getElementById('bm');
+    if (btn) {
+      refreshBookmarkBtn(btn);
+      return;
+    }
   }
   const stages = document.querySelectorAll('[data-question]');
   const current = stages[stages.length - 1];

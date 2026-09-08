@@ -3,12 +3,27 @@
 const REF = { pharm: null, micro: null, labs: null, loaded: false };
 const MED_PATH = { nodes: null, loaded: false };
 let MED_VIEW = 0;
-const MED_PHASE_LABEL = { pharm: 'Pharmacology', ped: 'Performance drugs', micro: 'Microbiology', labs: 'Lab values', ekg: 'ECG' };
+const MED_PHASE_LABEL = {
+  pharm: 'Pharmacology',
+  ped: 'Performance drugs',
+  micro: 'Microbiology',
+  labs: 'Lab values',
+  ekg: 'ECG',
+};
 /* PHARM_UNIQUE_TOTAL lives in app.js (stats + hub share it) */
 function safeProg(raw, defaults) {
-  if (!raw || typeof raw !== 'object' || Array.isArray(raw)
-    || Object.keys(defaults).some(key => defaults[key] && typeof defaults[key] === 'object' && raw[key] !== undefined
-      && (!raw[key] || typeof raw[key] !== 'object' || Array.isArray(raw[key])))) {
+  if (
+    !raw ||
+    typeof raw !== 'object' ||
+    Array.isArray(raw) ||
+    Object.keys(defaults).some(
+      key =>
+        defaults[key] &&
+        typeof defaults[key] === 'object' &&
+        raw[key] !== undefined &&
+        (!raw[key] || typeof raw[key] !== 'object' || Array.isArray(raw[key]))
+    )
+  ) {
     StudyStorage.sessionFailed();
     return { ...defaults };
   }
@@ -24,7 +39,9 @@ function defaultMicroProg() {
 function defaultLabsProg() {
   return { drill: { correct: 0, total: 0 }, byPanel: {}, guidedSection: 0, guidedDone: false };
 }
-function defaultMedMeta() { return { last: null }; }
+function defaultMedMeta() {
+  return { last: null };
+}
 
 let PHARM_PROG = safeProg(StudyStorage.read('cs-pharm', {}), defaultPharmProg());
 let MICRO_PROG = safeProg(StudyStorage.read('cs-micro', {}), defaultMicroProg());
@@ -58,17 +75,26 @@ async function loadMedPath() {
   const r = await fetch('data/medicine-path.json');
   if (!r.ok) throw new Error('Medicine reference path did not download');
   const j = await r.json();
-  if (!Array.isArray(j.nodes) || !j.nodes.length || j.nodes.length !== j.total
-    || new Set(j.nodes.map(node => node.id)).size !== j.nodes.length
-    || j.nodes.some(node => !node.id || !node.key || !MED_PHASE_LABEL[node.phase])) throw new Error('Medicine reference path is invalid');
+  if (
+    !Array.isArray(j.nodes) ||
+    !j.nodes.length ||
+    j.nodes.length !== j.total ||
+    new Set(j.nodes.map(node => node.id)).size !== j.nodes.length ||
+    j.nodes.some(node => !node.id || !node.key || !MED_PHASE_LABEL[node.phase])
+  )
+    throw new Error('Medicine reference path is invalid');
   MED_PATH.nodes = j.nodes;
   MED_PATH.loaded = true;
 }
 
-function medicinePathNodes() { return MED_PATH.nodes || []; }
+function medicinePathNodes() {
+  return MED_PATH.nodes || [];
+}
 
 function medicinePathKeys(phase) {
-  return medicinePathNodes().filter(n => n.phase === phase).map(n => n.key);
+  return medicinePathNodes()
+    .filter(n => n.phase === phase)
+    .map(n => n.key);
 }
 
 function pharmClassComplete(cat, data) {
@@ -99,25 +125,38 @@ function ekgRhythmDone(id) {
   try {
     const raw = typeof loadJSON === 'function' ? loadJSON('cs-ekg', {}) : {};
     return (raw.reviewed || []).includes(id);
-  } catch { return false; }
+  } catch {
+    return false;
+  }
 }
 
 function medicinePathNodeDone(node) {
   if (!node) return false;
   switch (node.kind) {
-    case 'pharm': return pharmClassComplete(node.key, REF.pharm);
+    case 'pharm':
+      return pharmClassComplete(node.key, REF.pharm);
     case 'ped':
       return typeof window.pedModuleCompleteById === 'function' && window.pedModuleCompleteById(node.key);
-    case 'micro': return microGroupComplete(node.key);
-    case 'labs': return labsPanelComplete(node.key);
-    case 'ekg': return ekgRhythmDone(node.key);
-    default: return false;
+    case 'micro':
+      return microGroupComplete(node.key);
+    case 'labs':
+      return labsPanelComplete(node.key);
+    case 'ekg':
+      return ekgRhythmDone(node.key);
+    default:
+      return false;
   }
 }
 
 function medicinePathProgress() {
   const nodes = medicinePathNodes();
-  const phases = { pharm: { done: 0, total: 0 }, ped: { done: 0, total: 0 }, micro: { done: 0, total: 0 }, labs: { done: 0, total: 0 }, ekg: { done: 0, total: 0 } };
+  const phases = {
+    pharm: { done: 0, total: 0 },
+    ped: { done: 0, total: 0 },
+    micro: { done: 0, total: 0 },
+    labs: { done: 0, total: 0 },
+    ekg: { done: 0, total: 0 },
+  };
   if (!nodes.length) {
     return { done: 0, total: 81, pct: 0, next: null, phases, complete: false, lockIndex: 0 };
   }
@@ -132,8 +171,13 @@ function medicinePathProgress() {
   });
   const total = nodes.length;
   return {
-    done, total, pct: Math.round(100 * done / total), next, phases,
-    complete: !next, lockIndex: next ? next.index : total,
+    done,
+    total,
+    pct: Math.round((100 * done) / total),
+    next,
+    phases,
+    complete: !next,
+    lockIndex: next ? next.index : total,
   };
 }
 
@@ -150,8 +194,13 @@ function medicineShowPathLock() {
     <div class="endbtns cfx-btns"><button class="btn" id="medlock-cancel">OK</button><button class="btn btn-solid" id="medlock-go">Continue path</button></div>
   </div></div>`);
   const close = () => m.remove();
-  m.addEventListener('click', e => { if (e.target.id === 'medlock' || e.target.id === 'medlock-cancel') close(); });
-  m.querySelector('#medlock-go').addEventListener('click', () => { close(); medicineContinue(); });
+  m.addEventListener('click', e => {
+    if (e.target.id === 'medlock' || e.target.id === 'medlock-cancel') close();
+  });
+  m.querySelector('#medlock-go').addEventListener('click', () => {
+    close();
+    medicineContinue();
+  });
   document.body.appendChild(m);
 }
 
@@ -196,36 +245,57 @@ function pharmClassLearnedCount(cat, data) {
   return data.filter(d => d.cat === cat && PHARM_PROG.learned[d.id || d.name]).length;
 }
 function recordRefDrill(prog, save, catField, cat, correct) {
-  prog.drill.total++; if (correct) prog.drill.correct++;
+  prog.drill.total++;
+  if (correct) prog.drill.correct++;
   const bucket = catField === 'panel' ? 'byPanel' : 'byCat';
   if (!prog[bucket][cat]) prog[bucket][cat] = { correct: 0, total: 0 };
-  prog[bucket][cat].total++; if (correct) prog[bucket][cat].correct++;
+  prog[bucket][cat].total++;
+  if (correct) prog[bucket][cat].correct++;
   save();
 }
 function pharmCatStats(cat) {
   const b = PHARM_PROG.byCat[cat] || { correct: 0, total: 0 };
-  return b.total ? Math.round(100 * b.correct / b.total) : null;
+  return b.total ? Math.round((100 * b.correct) / b.total) : null;
 }
 function recordPharmDrill(cat, correct) {
-  PHARM_PROG.drill.total++; if (correct) PHARM_PROG.drill.correct++;
+  PHARM_PROG.drill.total++;
+  if (correct) PHARM_PROG.drill.correct++;
   if (!PHARM_PROG.byCat[cat]) PHARM_PROG.byCat[cat] = { correct: 0, total: 0 };
-  PHARM_PROG.byCat[cat].total++; if (correct) PHARM_PROG.byCat[cat].correct++;
+  PHARM_PROG.byCat[cat].total++;
+  if (correct) PHARM_PROG.byCat[cat].correct++;
   savePharmProg();
 }
 
 /* short, human category labels (keys match the `cat`/`panel` fields in the data) */
 const PHARM_CATS = {
-  'cholinergics': 'Cholinergics', 'anticholinergics': 'Anticholinergics',
-  'adrenergic-agonists': 'Adrenergic agonists', 'adrenergic-antagonists': 'Adrenergic antagonists',
-  'diuretics': 'Diuretics', 'ace-arb': 'ACE inhibitors & ARBs', 'beta-blockers': 'Beta blockers',
-  'ccb': 'Ca-channel blockers', 'antiarrhythmics': 'Antiarrhythmics', 'antianginal': 'Antianginal & HF',
-  'lipid': 'Lipid-lowering', 'anticoagulants': 'Anticoag & antiplatelet', 'penicillins': 'Penicillins',
-  'cephalosporins': 'Cephalosporins & cell-wall', 'protein-synth': 'Protein-synthesis inhibitors',
-  'quinolones-sulfa': 'Quinolones & sulfa', 'antifungal-antiviral': 'Antifungal & antiviral',
-  'antitubercular': 'Anti-TB', 'antidepressants': 'Antidepressants', 'antipsychotics': 'Antipsychotics & mood',
-  'sedatives': 'Sedative-hypnotics', 'antiepileptics': 'Antiepileptics', 'opioids': 'Opioids & analgesics',
-  'nsaids': 'NSAIDs, gout & DMARDs', 'diabetes': 'Diabetes drugs', 'endocrine': 'Thyroid & steroids',
-  'gi': 'GI drugs', 'respiratory': 'Respiratory drugs',
+  cholinergics: 'Cholinergics',
+  anticholinergics: 'Anticholinergics',
+  'adrenergic-agonists': 'Adrenergic agonists',
+  'adrenergic-antagonists': 'Adrenergic antagonists',
+  diuretics: 'Diuretics',
+  'ace-arb': 'ACE inhibitors & ARBs',
+  'beta-blockers': 'Beta blockers',
+  ccb: 'Ca-channel blockers',
+  antiarrhythmics: 'Antiarrhythmics',
+  antianginal: 'Antianginal & HF',
+  lipid: 'Lipid-lowering',
+  anticoagulants: 'Anticoag & antiplatelet',
+  penicillins: 'Penicillins',
+  cephalosporins: 'Cephalosporins & cell-wall',
+  'protein-synth': 'Protein-synthesis inhibitors',
+  'quinolones-sulfa': 'Quinolones & sulfa',
+  'antifungal-antiviral': 'Antifungal & antiviral',
+  antitubercular: 'Anti-TB',
+  antidepressants: 'Antidepressants',
+  antipsychotics: 'Antipsychotics & mood',
+  sedatives: 'Sedative-hypnotics',
+  antiepileptics: 'Antiepileptics',
+  opioids: 'Opioids & analgesics',
+  nsaids: 'NSAIDs, gout & DMARDs',
+  diabetes: 'Diabetes drugs',
+  endocrine: 'Thyroid & steroids',
+  gi: 'GI drugs',
+  respiratory: 'Respiratory drugs',
 };
 const PHARM_CLASS_GROUPS = [
   {
@@ -244,7 +314,14 @@ const PHARM_CLASS_GROUPS = [
     id: 'infectious',
     name: 'Infectious disease',
     desc: 'Antibacterial, antifungal, antiviral, and antimycobacterial therapy.',
-    cats: ['penicillins', 'cephalosporins', 'protein-synth', 'quinolones-sulfa', 'antifungal-antiviral', 'antitubercular'],
+    cats: [
+      'penicillins',
+      'cephalosporins',
+      'protein-synth',
+      'quinolones-sulfa',
+      'antifungal-antiviral',
+      'antitubercular',
+    ],
   },
   {
     id: 'neuro',
@@ -260,58 +337,116 @@ const PHARM_CLASS_GROUPS = [
   },
 ];
 const MICRO_CATS = {
-  'gram-pos-cocci': 'Gram + cocci', 'gram-pos-rods': 'Gram + rods', 'gram-neg-cocci': 'Gram − cocci',
-  'enterics': 'Enteric rods', 'curved-gn': 'Curved gram −', 'zoonotic-gn': 'Zoonotic gram −',
-  'atypicals': 'Atypicals', 'mycobacteria-spiro': 'Mycobacteria & spirochetes',
-  'dna-viruses': 'DNA viruses', 'rna-viruses': 'RNA viruses', 'fungi': 'Fungi', 'parasites': 'Parasites',
+  'gram-pos-cocci': 'Gram + cocci',
+  'gram-pos-rods': 'Gram + rods',
+  'gram-neg-cocci': 'Gram − cocci',
+  enterics: 'Enteric rods',
+  'curved-gn': 'Curved gram −',
+  'zoonotic-gn': 'Zoonotic gram −',
+  atypicals: 'Atypicals',
+  'mycobacteria-spiro': 'Mycobacteria & spirochetes',
+  'dna-viruses': 'DNA viruses',
+  'rna-viruses': 'RNA viruses',
+  fungi: 'Fungi',
+  parasites: 'Parasites',
 };
 const LAB_PANELS = {
-  'cbc': 'CBC & differential', 'bmp': 'Metabolic panel', 'lft': 'Liver & pancreas',
-  'lipids-cardiac': 'Lipids & cardiac', 'coags': 'Coagulation', 'abg': 'Blood gas / acid-base',
-  'endocrine': 'Endocrine', 'urinalysis': 'Urinalysis', 'csf': 'CSF', 'iron-misc': 'Iron & inflammation',
+  cbc: 'CBC & differential',
+  bmp: 'Metabolic panel',
+  lft: 'Liver & pancreas',
+  'lipids-cardiac': 'Lipids & cardiac',
+  coags: 'Coagulation',
+  abg: 'Blood gas / acid-base',
+  endocrine: 'Endocrine',
+  urinalysis: 'Urinalysis',
+  csf: 'CSF',
+  'iron-misc': 'Iron & inflammation',
 };
 
 /* per-dataset config: how to title, group, search, and quiz each card */
 const REF_SETS = {
   pharm: {
-    name: 'Pharmacology', noun: 'drugs', store: 'pharm', catMap: PHARM_CATS, catField: 'cat',
-    title: d => d.name, sub: d => d.drug_class,
-    fields: [['Mechanism', 'moa'], ['Indications', 'indications'], ['Adverse effects', 'side_effects'], ['Pearl', 'pearl']],
+    name: 'Pharmacology',
+    noun: 'drugs',
+    store: 'pharm',
+    catMap: PHARM_CATS,
+    catField: 'cat',
+    title: d => d.name,
+    sub: d => d.drug_class,
+    fields: [
+      ['Mechanism', 'moa'],
+      ['Indications', 'indications'],
+      ['Adverse effects', 'side_effects'],
+      ['Pearl', 'pearl'],
+    ],
     search: d => `${d.name} ${d.drug_class} ${d.moa} ${d.indications}`.toLowerCase(),
-    quizClue: d => `Mechanism: ${d.moa}\nUses: ${d.indications}`, quizAsk: 'Which drug fits?',
+    quizClue: d => `Mechanism: ${d.moa}\nUses: ${d.indications}`,
+    quizAsk: 'Which drug fits?',
   },
   micro: {
-    name: 'Microbiology', noun: 'organisms', store: 'micro', catMap: MICRO_CATS, catField: 'cat',
-    title: d => d.name, sub: d => d.type,
-    fields: [['Lab / morphology', 'morphology'], ['Diseases', 'diseases'], ['Treatment', 'treatment'], ['Pearl', 'pearl']],
+    name: 'Microbiology',
+    noun: 'organisms',
+    store: 'micro',
+    catMap: MICRO_CATS,
+    catField: 'cat',
+    title: d => d.name,
+    sub: d => d.type,
+    fields: [
+      ['Lab / morphology', 'morphology'],
+      ['Diseases', 'diseases'],
+      ['Treatment', 'treatment'],
+      ['Pearl', 'pearl'],
+    ],
     search: d => `${d.name} ${d.type} ${d.morphology} ${d.diseases}`.toLowerCase(),
-    quizClue: d => `${d.morphology}\nCauses: ${d.diseases}`, quizAsk: 'Which organism?',
+    quizClue: d => `${d.morphology}\nCauses: ${d.diseases}`,
+    quizAsk: 'Which organism?',
   },
   labs: {
-    name: 'Lab values', noun: 'labs', store: 'labs', catMap: LAB_PANELS, catField: 'panel',
-    title: d => d.test, sub: d => `${d.range}${d.units ? ' ' + d.units : ''}`,
-    fields: [['Illustrative range or decision limit', d => `${d.range}${d.units ? ' ' + d.units : ''}`], ['Context for this value', 'rangeContext'], ['Possible high-result associations', 'high_means'], ['Possible low-result associations', 'low_means'], ['Interpretation note', 'pearl']],
+    name: 'Lab values',
+    noun: 'labs',
+    store: 'labs',
+    catMap: LAB_PANELS,
+    catField: 'panel',
+    title: d => d.test,
+    sub: d => `${d.range}${d.units ? ' ' + d.units : ''}`,
+    fields: [
+      ['Illustrative range or decision limit', d => `${d.range}${d.units ? ' ' + d.units : ''}`],
+      ['Context for this value', 'rangeContext'],
+      ['Possible high-result associations', 'high_means'],
+      ['Possible low-result associations', 'low_means'],
+      ['Interpretation note', 'pearl'],
+    ],
     search: d => `${d.test} ${d.high_means} ${d.low_means}`.toLowerCase(),
-    quizClue: d => `High → ${d.high_means}\nLow → ${d.low_means}`, quizAsk: 'Which lab test?',
+    quizClue: d => `High → ${d.high_means}\nLow → ${d.low_means}`,
+    quizAsk: 'Which lab test?',
   },
 };
 
 async function loadRef() {
   if (REF.loaded) return;
-  const results = await Promise.allSettled(['pharm', 'micro', 'labs'].filter(key => !REF[key]).map(async key => {
-    const response = await fetch(`data/${key}.json${key === 'labs' ? '?v=3' : ''}`);
-    if (!response.ok) throw new Error(`${key} reference did not download`);
-    const data = await response.json();
-    if (!Array.isArray(data) || !data.length || data.some(item => !item || typeof item !== 'object' || Array.isArray(item))) throw new Error(`${key} reference is invalid`);
-    REF[key] = data;
-  }));
+  const results = await Promise.allSettled(
+    ['pharm', 'micro', 'labs']
+      .filter(key => !REF[key])
+      .map(async key => {
+        const response = await fetch(`data/${key}.json${key === 'labs' ? '?v=3' : ''}`);
+        if (!response.ok) throw new Error(`${key} reference did not download`);
+        const data = await response.json();
+        if (
+          !Array.isArray(data) ||
+          !data.length ||
+          data.some(item => !item || typeof item !== 'object' || Array.isArray(item))
+        )
+          throw new Error(`${key} reference is invalid`);
+        REF[key] = data;
+      })
+  );
   const failure = results.find(result => result.status === 'rejected');
   if (failure) throw failure.reason;
   REF.loaded = true;
 }
 
 function drillAcc(prog) {
-  return prog?.drill?.total ? Math.round(100 * prog.drill.correct / prog.drill.total) : null;
+  return prog?.drill?.total ? Math.round((100 * prog.drill.correct) / prog.drill.total) : null;
 }
 
 function medicineHubSnapshot() {
@@ -323,8 +458,15 @@ function medicineHubSnapshot() {
       ? `Continue · ${path.next.node.title}`
       : 'Start the Medicine path';
   return {
-    pathDone: path.done, pathTotal: path.total, pathPct: path.pct, pathPhases: path.phases,
-    pathComplete: path.complete, continueLabel, next: path.next, pharmN, pharmDrillAcc: drillAcc(PHARM_PROG),
+    pathDone: path.done,
+    pathTotal: path.total,
+    pathPct: path.pct,
+    pathPhases: path.phases,
+    pathComplete: path.complete,
+    continueLabel,
+    next: path.next,
+    pharmN,
+    pharmDrillAcc: drillAcc(PHARM_PROG),
     has: path.done > 0 || pharmN > 0 || PHARM_PROG.drill.total > 0,
   };
 }
@@ -348,39 +490,55 @@ async function renderReference() {
   if (typeof session !== 'undefined') session = null;
   const requestedUrl = location.pathname + location.search;
   await AcademyLessons.load('reference', 'data/medicine-foundations.json?v=5');
-  if (StudyStorage.paused || MED_VIEW !== requestedView || location.pathname !== '/medicine' || location.pathname + location.search !== requestedUrl) return;
+  if (
+    StudyStorage.paused ||
+    MED_VIEW !== requestedView ||
+    location.pathname !== '/medicine' ||
+    location.pathname + location.search !== requestedUrl
+  )
+    return;
   if (AcademyLessons.fromUrl('reference', renderReference)) return;
   const toolParams = new URLSearchParams(location.search);
-  if (toolParams.get('tool') === 'ecg') return renderEKG(toolParams.get('mode'), { record: toolParams.get('record'), focus: toolParams.get('focus') });
+  if (toolParams.get('tool') === 'ecg')
+    return renderEKG(toolParams.get('mode'), { record: toolParams.get('record'), focus: toolParams.get('focus') });
   try {
-  await loadRef();
-  await loadMedPath();
-  if (MED_VIEW !== requestedView || location.pathname !== '/medicine' || location.pathname + location.search !== requestedUrl) return;
-  if (toolParams.get('tool') === 'labs') return renderRefSet('labs', ['learn', 'quiz'].includes(toolParams.get('mode')) ? toolParams.get('mode') : 'browse');
+    await loadRef();
+    await loadMedPath();
+    if (
+      MED_VIEW !== requestedView ||
+      location.pathname !== '/medicine' ||
+      location.pathname + location.search !== requestedUrl
+    )
+      return;
+    if (toolParams.get('tool') === 'labs')
+      return renderRefSet(
+        'labs',
+        ['learn', 'quiz'].includes(toolParams.get('mode')) ? toolParams.get('mode') : 'browse'
+      );
 
-  const root = el('<div></div>');
-  root.appendChild(topbar('reference'));
-  const hub = medicineHubSnapshot();
-  const freeNote = typeof cortexFreeNote === 'function'
-    ? cortexFreeNote('Medicine', 'Medicine reference')
-    : '';
-  const phaseKeys = Object.keys(MED_PHASE_LABEL);
-  const activePhase = hub.next?.node?.phase || null;
-  const phaseStrip = phaseKeys.map((ph, index) => {
-    const st = hub.pathPhases[ph] || { done: 0, total: 0 };
-    const pct = st.total ? Math.round(100 * st.done / st.total) : 0;
-    const complete = st.total > 0 && st.done === st.total;
-    return `<li class="medx-phase ${complete ? 'is-complete' : ''} ${activePhase === ph ? 'is-current' : ''}">
+    const root = el('<div></div>');
+    root.appendChild(topbar('reference'));
+    const hub = medicineHubSnapshot();
+    const freeNote = typeof cortexFreeNote === 'function' ? cortexFreeNote('Medicine', 'Medicine reference') : '';
+    const phaseKeys = Object.keys(MED_PHASE_LABEL);
+    const activePhase = hub.next?.node?.phase || null;
+    const phaseStrip = phaseKeys
+      .map((ph, index) => {
+        const st = hub.pathPhases[ph] || { done: 0, total: 0 };
+        const pct = st.total ? Math.round((100 * st.done) / st.total) : 0;
+        const complete = st.total > 0 && st.done === st.total;
+        return `<li class="medx-phase ${complete ? 'is-complete' : ''} ${activePhase === ph ? 'is-current' : ''}">
       <span class="medx-phase-no">${complete ? '&#10003;' : String(index + 1).padStart(2, '0')}</span>
       <span class="medx-phase-copy"><strong>${esc(MED_PHASE_LABEL[ph])}</strong><small>${st.done}/${st.total} steps complete</small></span>
       <span class="medx-phase-bar" role="progressbar" aria-label="${esc(MED_PHASE_LABEL[ph])} progress" aria-valuemin="0" aria-valuemax="${st.total}" aria-valuenow="${st.done}"><i style="width:${pct}%"></i></span>
     </li>`;
-  }).join('');
-  const nextTitle = hub.pathComplete ? 'Path complete' : hub.next?.node?.title || 'Cholinergics';
-  const nextMeta = hub.pathComplete
-    ? `All ${hub.pathTotal} steps complete`
-    : `${MED_PHASE_LABEL[hub.next?.node?.phase] || 'Medicine'} · Step ${(hub.next?.index || 0) + 1} of ${hub.pathTotal}`;
-  const main = el(`<main class="panel med-hub medx-hub">
+      })
+      .join('');
+    const nextTitle = hub.pathComplete ? 'Path complete' : hub.next?.node?.title || 'Cholinergics';
+    const nextMeta = hub.pathComplete
+      ? `All ${hub.pathTotal} steps complete`
+      : `${MED_PHASE_LABEL[hub.next?.node?.phase] || 'Medicine'} · Step ${(hub.next?.index || 0) + 1} of ${hub.pathTotal}`;
+    const main = el(`<main class="panel med-hub medx-hub">
     <section class="medx-hero">
       <div class="medx-hero-top"><span class="label">Preclinical foundations</span><span class="medx-count">Mechanisms · ECG · Laboratory reasoning</span></div>
       <h1>Medicine.</h1>
@@ -418,97 +576,133 @@ async function renderReference() {
     </section>
     <p class="anat-credit">Original study content. For study, not a substitute for prescribing references or your clinical judgment.</p>
   </main>`);
-  main.querySelector('#medcontinue').addEventListener('click', () => {
-    if (hub.pathComplete) renderRefSet('pharm', 'classes');
-    else medicineContinue();
-  });
+    main.querySelector('#medcontinue').addEventListener('click', () => {
+      if (hub.pathComplete) renderRefSet('pharm', 'classes');
+      else medicineContinue();
+    });
 
-  const library = main.querySelector('.medx-library-list');
-  const uniquePharm = pharmUniqueLearnedCount(REF.pharm);
-  const pharmDrill = PHARM_PROG.drill.total ? `${PHARM_PROG.drill.correct}/${PHARM_PROG.drill.total} drilled` : null;
-  const pharmStat = uniquePharm
-    ? `${uniquePharm}/${PHARM_UNIQUE_TOTAL} names${pharmDrill ? ` · ${pharmDrill}` : ''}`
-    : `${(REF.pharm || []).length} drugs`;
-  const microCats = Object.keys(MICRO_CATS).filter(c => (REF.micro || []).some(d => d.cat === c));
-  const labsPanels = Object.keys(LAB_PANELS).filter(c => (REF.labs || []).some(d => d.panel === c));
-  const microStat = MICRO_PROG.guidedDone ? 'Learn complete'
-    : MICRO_PROG.guidedSection ? `${MICRO_PROG.guidedSection}/${microCats.length} groups`
-    : MICRO_PROG.drill.total ? `${drillAcc(MICRO_PROG)}% drill` : `${(REF.micro || []).length} organisms`;
-  const labsStat = LABS_PROG.guidedDone ? 'Learn complete'
-    : LABS_PROG.guidedSection ? `${LABS_PROG.guidedSection}/${labsPanels.length} panels`
-    : LABS_PROG.drill.total ? `${drillAcc(LABS_PROG)}% drill` : `${(REF.labs || []).length} labs`;
+    const library = main.querySelector('.medx-library-list');
+    const uniquePharm = pharmUniqueLearnedCount(REF.pharm);
+    const pharmDrill = PHARM_PROG.drill.total ? `${PHARM_PROG.drill.correct}/${PHARM_PROG.drill.total} drilled` : null;
+    const pharmStat = uniquePharm
+      ? `${uniquePharm}/${PHARM_UNIQUE_TOTAL} names${pharmDrill ? ` · ${pharmDrill}` : ''}`
+      : `${(REF.pharm || []).length} drugs`;
+    const microCats = Object.keys(MICRO_CATS).filter(c => (REF.micro || []).some(d => d.cat === c));
+    const labsPanels = Object.keys(LAB_PANELS).filter(c => (REF.labs || []).some(d => d.panel === c));
+    const microStat = MICRO_PROG.guidedDone
+      ? 'Learn complete'
+      : MICRO_PROG.guidedSection
+        ? `${MICRO_PROG.guidedSection}/${microCats.length} groups`
+        : MICRO_PROG.drill.total
+          ? `${drillAcc(MICRO_PROG)}% drill`
+          : `${(REF.micro || []).length} organisms`;
+    const labsStat = LABS_PROG.guidedDone
+      ? 'Learn complete'
+      : LABS_PROG.guidedSection
+        ? `${LABS_PROG.guidedSection}/${labsPanels.length} panels`
+        : LABS_PROG.drill.total
+          ? `${drillAcc(LABS_PROG)}% drill`
+          : `${(REF.labs || []).length} labs`;
 
-  const addLibraryRow = ({ id, number, name, kicker, desc, stat, onClick, disabled = false }) => {
-    const card = el(`<button class="medx-library-row medx-library-${id}" ${disabled ? 'disabled' : ''}>
+    const addLibraryRow = ({ id, number, name, kicker, desc, stat, onClick, disabled = false }) => {
+      const card = el(`<button class="medx-library-row medx-library-${id}" ${disabled ? 'disabled' : ''}>
       <span class="medx-library-no">${number}</span>
       <span class="medx-library-copy"><small>${esc(kicker)}</small><strong>${esc(name)}</strong><span>${esc(desc)}</span></span>
       <span class="medx-library-stat">${disabled ? 'Loading&hellip;' : esc(stat)}</span>
       <span class="medx-library-go" aria-hidden="true">&rarr;</span>
     </button>`);
-    if (!disabled) card.addEventListener('click', onClick);
-    library.appendChild(card);
-  };
+      if (!disabled) card.addEventListener('click', onClick);
+      library.appendChild(card);
+    };
 
-  const openRefArea = (key) => {
-    touchMedicine(key, key === 'pharm' ? 'classes' : 'learn');
-    if (key === 'pharm') renderRefSet('pharm', 'classes');
-    else {
-      const p = medicinePathProgress();
-      const node = p.next?.node?.phase === key ? p.next.node : null;
-      renderRefSet(key, 'learn', node ? { section: node.key } : {});
+    const openRefArea = key => {
+      touchMedicine(key, key === 'pharm' ? 'classes' : 'learn');
+      if (key === 'pharm') renderRefSet('pharm', 'classes');
+      else {
+        const p = medicinePathProgress();
+        const node = p.next?.node?.phase === key ? p.next.node : null;
+        renderRefSet(key, 'learn', node ? { section: node.key } : {});
+      }
+    };
+
+    addLibraryRow({
+      id: 'pharm',
+      number: '01',
+      name: 'Pharmacology',
+      kicker: 'Drug knowledge',
+      desc: 'Mechanisms, indications, adverse effects, and clinical pearls.',
+      stat: pharmStat,
+      disabled: !(REF.pharm || []).length,
+      onClick: () => openRefArea('pharm'),
+    });
+    if (typeof renderPerformanceDrugs === 'function') {
+      const pd = typeof pedStatsSnapshot === 'function' ? pedStatsSnapshot() : null;
+      const pedStat = pd?.has ? `${pd.complete}/${pd.total} modules · ${pd.pct}%` : '11-module course';
+      addLibraryRow({
+        id: 'ped',
+        number: '02',
+        name: 'Performance drugs',
+        kicker: 'Hormones & physiology',
+        desc: 'Hormone classes, axis flowcharts, agents, risks, and clinical detection.',
+        stat: pedStat,
+        onClick: () => {
+          touchMedicine('ped', 'hub');
+          renderPerformanceDrugs('hub');
+        },
+      });
     }
-  };
-
-  addLibraryRow({
-    id: 'pharm', number: '01', name: 'Pharmacology', kicker: 'Drug knowledge',
-    desc: 'Mechanisms, indications, adverse effects, and clinical pearls.',
-    stat: pharmStat, disabled: !(REF.pharm || []).length, onClick: () => openRefArea('pharm'),
-  });
-  if (typeof renderPerformanceDrugs === 'function') {
-    const pd = typeof pedStatsSnapshot === 'function' ? pedStatsSnapshot() : null;
-    const pedStat = pd?.has ? `${pd.complete}/${pd.total} modules · ${pd.pct}%` : '11-module course';
     addLibraryRow({
-      id: 'ped', number: '02', name: 'Performance drugs', kicker: 'Hormones & physiology',
-      desc: 'Hormone classes, axis flowcharts, agents, risks, and clinical detection.',
-      stat: pedStat, onClick: () => {
-      touchMedicine('ped', 'hub');
-      renderPerformanceDrugs('hub');
-      },
+      id: 'micro',
+      number: '03',
+      name: 'Microbiology',
+      kicker: 'Organism recognition',
+      desc: 'Morphology, diseases, treatments, and pattern-based identification.',
+      stat: microStat,
+      disabled: !(REF.micro || []).length,
+      onClick: () => openRefArea('micro'),
     });
-  }
-  addLibraryRow({
-    id: 'micro', number: '03', name: 'Microbiology', kicker: 'Organism recognition',
-    desc: 'Morphology, diseases, treatments, and pattern-based identification.',
-    stat: microStat, disabled: !(REF.micro || []).length, onClick: () => openRefArea('micro'),
-  });
-  addLibraryRow({
-    id: 'labs', number: '04', name: 'Lab values', kicker: 'Clinical patterns',
-    desc: 'Reference ranges, high and low patterns, panels, and interpretation.',
-    stat: labsStat, disabled: !(REF.labs || []).length, onClick: () => openRefArea('labs'),
-  });
-  if (typeof renderEKG === 'function') {
-    const ek = typeof ekgHubStats === 'function' ? ekgHubStats() : null;
-    const ekTotal = ek?.total || (typeof ekgHubStats === 'function' ? ekgHubStats().total : 20) || 20;
-    const ekStat = ek?.has
-      ? `${ek.reviewed}/${ekTotal} reviewed${ek.drillAcc != null ? ` · ${ek.drillAcc}% drill` : ''}`
-      : `${ekTotal} rhythms`;
     addLibraryRow({
-      id: 'ekg', number: '05', name: 'ECG rhythms', kicker: 'Pattern recognition',
-      desc: 'Calibrated synthetic traces, saved explanations, pattern features and interpretation limits.',
-      stat: ekStat, onClick: () => {
-      touchMedicine('ekg', 'library');
-      const p = medicinePathProgress();
-      const node = p.next?.node?.phase === 'ekg' ? p.next.node : null;
-      renderEKG('library', node ? { focus: node.key } : {});
-      },
+      id: 'labs',
+      number: '04',
+      name: 'Lab values',
+      kicker: 'Clinical patterns',
+      desc: 'Reference ranges, high and low patterns, panels, and interpretation.',
+      stat: labsStat,
+      disabled: !(REF.labs || []).length,
+      onClick: () => openRefArea('labs'),
     });
-  }
+    if (typeof renderEKG === 'function') {
+      const ek = typeof ekgHubStats === 'function' ? ekgHubStats() : null;
+      const ekTotal = ek?.total || (typeof ekgHubStats === 'function' ? ekgHubStats().total : 20) || 20;
+      const ekStat = ek?.has
+        ? `${ek.reviewed}/${ekTotal} reviewed${ek.drillAcc != null ? ` · ${ek.drillAcc}% drill` : ''}`
+        : `${ekTotal} rhythms`;
+      addLibraryRow({
+        id: 'ekg',
+        number: '05',
+        name: 'ECG rhythms',
+        kicker: 'Pattern recognition',
+        desc: 'Calibrated synthetic traces, saved explanations, pattern features and interpretation limits.',
+        stat: ekStat,
+        onClick: () => {
+          touchMedicine('ekg', 'library');
+          const p = medicinePathProgress();
+          const node = p.next?.node?.phase === 'ekg' ? p.next.node : null;
+          renderEKG('library', node ? { focus: node.key } : {});
+        },
+      });
+    }
 
-  AcademyLessons.bind(main, 'reference', renderReference);
-  root.appendChild(main);
-  setView(root);
+    AcademyLessons.bind(main, 'reference', renderReference);
+    root.appendChild(main);
+    setView(root);
   } catch (err) {
-    if (MED_VIEW !== requestedView || location.pathname !== '/medicine' || location.pathname + location.search !== requestedUrl) return;
+    if (
+      MED_VIEW !== requestedView ||
+      location.pathname !== '/medicine' ||
+      location.pathname + location.search !== requestedUrl
+    )
+      return;
     console.error('Medicine hub failed', err);
     const root = el('<div></div>');
     root.appendChild(topbar('reference'));
@@ -531,9 +725,12 @@ function renderRefSet(key, tab = 'browse', opts = {}) {
   const isPharm = key === 'pharm';
   const isMicro = key === 'micro';
   const isLabs = key === 'labs';
-  const labsLessonUrl = new URL(sectionUrl('reference'), location.origin); labsLessonUrl.searchParams.set('lesson', 'med-lab-intervals');
+  const labsLessonUrl = new URL(sectionUrl('reference'), location.origin);
+  labsLessonUrl.searchParams.set('lesson', 'med-lab-intervals');
   if (isLabs) {
-    const url = new URL(sectionUrl('reference'), location.origin); url.searchParams.set('tool', 'labs'); url.searchParams.set('mode', tab);
+    const url = new URL(sectionUrl('reference'), location.origin);
+    url.searchParams.set('tool', 'labs');
+    url.searchParams.set('mode', tab);
     history.replaceState({}, '', url.pathname + url.search);
   }
   if (tab === 'learn' && isPharm && opts.cat && isMedicinePathNodeLocked(`pharm:${opts.cat}`)) {
@@ -550,7 +747,16 @@ function renderRefSet(key, tab = 'browse', opts = {}) {
   }
   const pharmDrillAcc = drillAcc(PHARM_PROG);
   const uniquePharm = pharmUniqueLearnedCount(data);
-  touchMedicine(key, tab === 'quiz' ? 'drill' : (tab === 'learn' && opts.cat ? `learn:${opts.cat}` : (tab === 'learn' && opts.section ? `learn:${opts.section}` : tab)));
+  touchMedicine(
+    key,
+    tab === 'quiz'
+      ? 'drill'
+      : tab === 'learn' && opts.cat
+        ? `learn:${opts.cat}`
+        : tab === 'learn' && opts.section
+          ? `learn:${opts.section}`
+          : tab
+  );
   const root = el('<div></div>');
   root.appendChild(topbar('reference'));
   const sub = isPharm
@@ -583,22 +789,37 @@ function renderRefSet(key, tab = 'browse', opts = {}) {
       <p>${esc(workspaceDesc)}</p>
       <span class="med-workspace-stat">${esc(sub)}</span>
     </section>
-    ${isLabs ? `<aside class="lab-scope"><h2>Read the reporting lab’s units and interval first</h2>
+    ${
+      isLabs
+        ? `<aside class="lab-scope"><h2>Read the reporting lab’s units and interval first</h2>
       <p>This draft library uses illustrative adult values. A reference interval, a diagnostic decision limit and a treatment target answer different questions. Age, pregnancy, sampling conditions, assay and reporting laboratory can change the interpretation. Values within an interval do not rule out disease; values outside it do not establish a diagnosis.</p>
       <p>Independent clinical and laboratory review is pending. <a href="${esc(labsLessonUrl.pathname + labsLessonUrl.search)}">Start the laboratory interpretation lessons</a>.</p>
-      <p><a href="https://medlineplus.gov/lab-tests/how-to-understand-your-lab-results/" target="_blank" rel="noopener">MedlinePlus: understanding laboratory results</a></p></aside>` : ''}
+      <p><a href="https://medlineplus.gov/lab-tests/how-to-understand-your-lab-results/" target="_blank" rel="noopener">MedlinePlus: understanding laboratory results</a></p></aside>`
+        : ''
+    }
     <div class="tabs med-workspace-tabs" role="tablist" aria-label="${esc(cfg.name)} study modes">${tabs}</div>
     <div id="refbody"></div>
   </main>`);
   main.querySelector('#refback').addEventListener('click', medicineHome);
-  main.querySelectorAll('.tab').forEach(b => b.addEventListener('click', () => {
-    const t = b.dataset.tab;
-    renderRefSet(key, t, (t === 'learn' || t === 'quiz') ? opts : {});
-  }));
+  main.querySelectorAll('.tab').forEach(b =>
+    b.addEventListener('click', () => {
+      const t = b.dataset.tab;
+      renderRefSet(key, t, t === 'learn' || t === 'quiz' ? opts : {});
+    })
+  );
   const body = main.querySelector('#refbody');
   if (tab === 'classes' && isPharm) buildPharmClasses(body, cfg, data);
   else if (tab === 'learn' && isPharm) buildPharmLearn(body, cfg, data, opts.cat || null);
-  else if (tab === 'learn' && (isMicro || isLabs)) buildGuidedLearn(body, cfg, data, isMicro ? MICRO_PROG : LABS_PROG, isMicro ? saveMicroProg : saveLabsProg, key, opts);
+  else if (tab === 'learn' && (isMicro || isLabs))
+    buildGuidedLearn(
+      body,
+      cfg,
+      data,
+      isMicro ? MICRO_PROG : LABS_PROG,
+      isMicro ? saveMicroProg : saveLabsProg,
+      key,
+      opts
+    );
   else if (tab === 'browse') buildBrowse(body, cfg, data);
   else buildQuiz(body, cfg, data, { ...opts, key });
   root.appendChild(main);
@@ -616,18 +837,28 @@ function renderRefSet(key, tab = 'browse', opts = {}) {
 function buildPharmClasses(body, cfg, data, skipLede) {
   let cats = medicinePathKeys('pharm').filter(c => data.some(d => d[cfg.catField] === c));
   if (!cats.length) cats = Object.keys(cfg.catMap).filter(c => data.some(d => d[cfg.catField] === c));
-  if (!skipLede) body.appendChild(el(`<section class="pharm-map-intro">
+  if (!skipLede)
+    body.appendChild(
+      el(`<section class="pharm-map-intro">
     <span class="label">28 classes &middot; 5 clinical systems</span>
     <h2>Find the system before the drug.</h2>
     <p>Open one system at a time. Each class leads into guided mechanism-first learning, then recall practice.</p>
-  </section>`));
+  </section>`)
+    );
 
   const assigned = new Set(PHARM_CLASS_GROUPS.flatMap(group => group.cats));
   const extraCats = cats.filter(cat => !assigned.has(cat));
-  const groups = PHARM_CLASS_GROUPS
-    .map(group => ({ ...group, cats: group.cats.filter(cat => cats.includes(cat)) }))
-    .filter(group => group.cats.length);
-  if (extraCats.length) groups.push({ id: 'other', name: 'Additional classes', desc: 'Remaining pharmacology categories.', cats: extraCats });
+  const groups = PHARM_CLASS_GROUPS.map(group => ({
+    ...group,
+    cats: group.cats.filter(cat => cats.includes(cat)),
+  })).filter(group => group.cats.length);
+  if (extraCats.length)
+    groups.push({
+      id: 'other',
+      name: 'Additional classes',
+      desc: 'Remaining pharmacology categories.',
+      cats: extraCats,
+    });
 
   const nextPathNode = medicinePathProgress().next?.node;
   const nextCat = nextPathNode?.phase === 'pharm' ? nextPathNode.key : null;
@@ -654,13 +885,17 @@ function buildPharmClasses(body, cfg, data, skipLede) {
       const acc = pharmCatStats(cat);
       const locked = isMedicinePathNodeLocked(`pharm:${cat}`);
       const done = pharmClassComplete(cat, data);
-      const card = el(`<button class="pharm-classcard ${locked ? 'pharm-classcard--locked' : ''} ${done ? 'pharm-classcard--done' : ''}" type="button">
+      const card =
+        el(`<button class="pharm-classcard ${locked ? 'pharm-classcard--locked' : ''} ${done ? 'pharm-classcard--done' : ''}" type="button">
         <span class="pharm-classname">${esc(cfg.catMap[cat])}${locked ? ' <span class="mod-lock">locked</span>' : ''}${done ? ' <span class="pill ok">done</span>' : ''}</span>
         <span class="pharm-classmeta">${learned ? `${learned}/${n} studied` : `${n} drugs`}${acc != null ? ` · ${acc}% drilled` : ''}</span>
-        ${learned && learned < n ? `<span class="ped-modbar"><i style="width:${Math.round(100 * learned / n)}%"></i></span>` : ''}
+        ${learned && learned < n ? `<span class="ped-modbar"><i style="width:${Math.round((100 * learned) / n)}%"></i></span>` : ''}
       </button>`);
       card.addEventListener('click', () => {
-        if (locked) { medicineShowPathLock(); return; }
+        if (locked) {
+          medicineShowPathLock();
+          return;
+        }
         touchMedicine('pharm', `learn:${cat}`);
         renderRefSet('pharm', 'learn', { cat });
       });
@@ -671,14 +906,26 @@ function buildPharmClasses(body, cfg, data, skipLede) {
 }
 
 /* ---------- guided MCQ helpers — answering Medicine questions earns XP into the global pool ---------- */
-function medShuffle(a) { const x = a.slice(); for (let i = x.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1));[x[i], x[j]] = [x[j], x[i]]; } return x; }
+function medShuffle(a) {
+  const x = a.slice();
+  for (let i = x.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [x[i], x[j]] = [x[j], x[i]];
+  }
+  return x;
+}
 function medAwardXP(correct) {
   if (typeof prog !== 'function') return;
   const p = prog('medicine');
   p.answered = (p.answered || 0) + 1;
-  if (correct) { p.correct = (p.correct || 0) + 1; p.xp = (p.xp || 0) + (typeof XP_PER_CORRECT === 'number' ? XP_PER_CORRECT : 10); }
+  if (correct) {
+    p.correct = (p.correct || 0) + 1;
+    p.xp = (p.xp || 0) + (typeof XP_PER_CORRECT === 'number' ? XP_PER_CORRECT : 10);
+  }
   if (typeof saveProgress === 'function') saveProgress();
-  if (typeof updateVerBadges === 'function') { /* no-op guard */ }
+  if (typeof updateVerBadges === 'function') {
+    /* no-op guard */
+  }
 }
 function medDistractors(item, pool, cfg) {
   let same = pool.filter(d => d[cfg.catField] === item[cfg.catField] && cfg.title(d) !== cfg.title(item));
@@ -696,15 +943,32 @@ function medMCQCard(item, pool, cfg, label, ask, clue, onAnswered) {
     <div class="after"></div>
   </section>`);
   const after = node.querySelector('.after');
-  node.querySelectorAll('.opt').forEach(btn => btn.addEventListener('click', () => {
-    const pick = options[Number(btn.dataset.i)];
-    const correct = cfg.title(pick) === cfg.title(item);
-    medAwardXP(correct);
-    node.querySelectorAll('.opt').forEach(b2 => { const o = options[Number(b2.dataset.i)]; b2.disabled = true; if (cfg.title(o) === cfg.title(item)) b2.classList.add('correct'); else if (b2 === btn) b2.classList.add('wrong'); else b2.classList.add('dimmed'); });
-    const xp = typeof XP_PER_CORRECT === 'number' ? XP_PER_CORRECT : 10;
-    after.appendChild(el(`<div class="explain ${correct ? 'good' : 'bad'}"><span class="verdict">${correct ? `CORRECT &middot; +${xp} XP` : 'INCORRECT'} &middot; ${esc(cfg.title(item))}</span>${cfg.fields.map(([lab, src]) => { const v = fieldVal(item, src); return v && v !== '—' ? `<p><b>${esc(lab)}:</b> ${esc(v)}</p>` : ''; }).join('')}${refSources(item)}</div>`));
-    onAnswered(after, correct);
-  }));
+  node.querySelectorAll('.opt').forEach(btn =>
+    btn.addEventListener('click', () => {
+      const pick = options[Number(btn.dataset.i)];
+      const correct = cfg.title(pick) === cfg.title(item);
+      medAwardXP(correct);
+      node.querySelectorAll('.opt').forEach(b2 => {
+        const o = options[Number(b2.dataset.i)];
+        b2.disabled = true;
+        if (cfg.title(o) === cfg.title(item)) b2.classList.add('correct');
+        else if (b2 === btn) b2.classList.add('wrong');
+        else b2.classList.add('dimmed');
+      });
+      const xp = typeof XP_PER_CORRECT === 'number' ? XP_PER_CORRECT : 10;
+      after.appendChild(
+        el(
+          `<div class="explain ${correct ? 'good' : 'bad'}"><span class="verdict">${correct ? `CORRECT &middot; +${xp} XP` : 'INCORRECT'} &middot; ${esc(cfg.title(item))}</span>${cfg.fields
+            .map(([lab, src]) => {
+              const v = fieldVal(item, src);
+              return v && v !== '—' ? `<p><b>${esc(lab)}:</b> ${esc(v)}</p>` : '';
+            })
+            .join('')}${refSources(item)}</div>`
+        )
+      );
+      onAnswered(after, correct);
+    })
+  );
   return node;
 }
 
@@ -726,7 +990,8 @@ function buildPharmLearn(body, cfg, data, cat) {
     const doneN = pool.length - remaining.length;
     if (!remaining.length) {
       const next = medicinePathProgress().next;
-      wrap.replaceChildren(el(`<section class="stage">
+      wrap.replaceChildren(
+        el(`<section class="stage">
         <span class="label">${esc(cfg.catMap[cat])} complete</span>
         <div class="neuro-score">&#10003;</div>
         <p class="sub">You answered every drug in this class.</p>
@@ -735,23 +1000,37 @@ function buildPharmLearn(body, cfg, data, cat) {
           <button class="btn" data-drill>Drill this class</button>
           <button class="btn" data-classes>All classes</button>
         </div>
-      </section>`));
-      const cb = wrap.querySelector('[data-continue]'); if (cb) cb.addEventListener('click', medicineContinue);
-      wrap.querySelector('[data-drill]').addEventListener('click', () => renderRefSet('pharm', 'quiz', { cat, mode: 'moa' }));
+      </section>`)
+      );
+      const cb = wrap.querySelector('[data-continue]');
+      if (cb) cb.addEventListener('click', medicineContinue);
+      wrap
+        .querySelector('[data-drill]')
+        .addEventListener('click', () => renderRefSet('pharm', 'quiz', { cat, mode: 'moa' }));
       wrap.querySelector('[data-classes]').addEventListener('click', () => renderRefSet('pharm', 'classes'));
       return;
     }
     const drug = remaining[0];
     const last = remaining.length === 1;
-    const card = medMCQCard(drug, distractorPool, cfg, `${cfg.catMap[cat]} · ${doneN + 1}/${pool.length}`, 'Which drug works by this mechanism?', drug.moa, (after, correct) => {
-      PHARM_PROG.learned[drug.id || drug.name] = { ts: Date.now(), cat, name: drug.name };
-      recordPharmDrill(cat, correct);
-      savePharmProg();
-      const row = el(`<div class="continue-row"><button class="btn btn-solid" data-next>${last ? 'Finish class' : 'Next drug'}</button></div>`);
-      row.querySelector('[data-next]').addEventListener('click', render);
-      after.appendChild(row);
-      row.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    });
+    const card = medMCQCard(
+      drug,
+      distractorPool,
+      cfg,
+      `${cfg.catMap[cat]} · ${doneN + 1}/${pool.length}`,
+      'Which drug works by this mechanism?',
+      drug.moa,
+      (after, correct) => {
+        PHARM_PROG.learned[drug.id || drug.name] = { ts: Date.now(), cat, name: drug.name };
+        recordPharmDrill(cat, correct);
+        savePharmProg();
+        const row = el(
+          `<div class="continue-row"><button class="btn btn-solid" data-next>${last ? 'Finish class' : 'Next drug'}</button></div>`
+        );
+        row.querySelector('[data-next]').addEventListener('click', render);
+        after.appendChild(row);
+        row.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    );
     wrap.replaceChildren(card);
     card.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
@@ -763,14 +1042,18 @@ function buildGuidedLearn(body, cfg, data, refProg, saveProg, key, opts = {}) {
   let cats = medicinePathKeys(phase).filter(c => data.some(d => d[cfg.catField] === c));
   if (!cats.length) cats = Object.keys(cfg.catMap).filter(c => data.some(d => d[cfg.catField] === c));
   let gidx = Math.min(refProg.guidedSection || 0, Math.max(0, cats.length - 1));
-  if (opts.section) { const w = cats.indexOf(opts.section); if (w >= 0) gidx = w; }
+  if (opts.section) {
+    const w = cats.indexOf(opts.section);
+    if (w >= 0) gidx = w;
+  }
   if (refProg.guidedDone) gidx = cats.length - 1;
   const unit = key === 'labs' ? 'panel' : 'group';
 
   function paint() {
     body.replaceChildren();
     if (refProg.guidedDone) {
-      body.appendChild(el(`<section class="stage">
+      body.appendChild(
+        el(`<section class="stage">
         <span class="label">Learn complete</span>
         <div class="neuro-score">&#10003;</div>
         <p class="sub">All ${cats.length} ${unit}s answered. Hit Drill to keep testing recall.</p>
@@ -778,7 +1061,8 @@ function buildGuidedLearn(body, cfg, data, refProg, saveProg, key, opts = {}) {
           <button class="btn btn-solid" data-drill>Drill</button>
           <button class="btn" data-hub>Medicine</button>
         </div>
-      </section>`));
+      </section>`)
+      );
       body.querySelector('[data-drill]').addEventListener('click', () => renderRefSet(key, 'quiz'));
       body.querySelector('[data-hub]').addEventListener('click', medicineHome);
       return;
@@ -787,29 +1071,52 @@ function buildGuidedLearn(body, cfg, data, refProg, saveProg, key, opts = {}) {
     const pool = data.filter(d => d[cfg.catField] === cat);
     const distractorPool = pool.length >= 4 ? pool : data;
     const order = medShuffle(pool);
-    const pct = Math.round(100 * gidx / cats.length);
-    body.appendChild(el(`<div class="ped-pathband ped-pathband--slim">
+    const pct = Math.round((100 * gidx) / cats.length);
+    body.appendChild(
+      el(`<div class="ped-pathband ped-pathband--slim">
       <div class="ped-pathband-head"><span class="label">${unit} ${gidx + 1} of ${cats.length}</span><span class="ped-pathstat">${esc(cfg.catMap[cat])}</span></div>
       <span class="bar"><i style="width:${pct}%"></i></span>
-    </div>`));
+    </div>`)
+    );
     const wrap = el(`<div class="pharm-learn"></div>`);
     body.appendChild(wrap);
     let i = 0;
     function q() {
       if (i >= order.length) {
-        if (gidx < cats.length - 1) { gidx++; refProg.guidedSection = gidx; saveProg(); paint(); }
-        else { refProg.guidedDone = true; refProg.guidedSection = cats.length; saveProg(); paint(); }
+        if (gidx < cats.length - 1) {
+          gidx++;
+          refProg.guidedSection = gidx;
+          saveProg();
+          paint();
+        } else {
+          refProg.guidedDone = true;
+          refProg.guidedSection = cats.length;
+          saveProg();
+          paint();
+        }
         return;
       }
       const item = order[i];
-      const card = medMCQCard(item, distractorPool, cfg, `${cfg.catMap[cat]} · ${i + 1}/${order.length}`, cfg.quizAsk, cfg.quizClue(item), (after, correct) => {
-        recordRefDrill(refProg, saveProg, cfg.catField, cat, correct);
-        const label = i < order.length - 1 ? 'Next' : (gidx < cats.length - 1 ? 'Next ' + unit + ' →' : 'Complete learn');
-        const row = el(`<div class="continue-row"><button class="btn btn-solid" data-next>${label}</button></div>`);
-        row.querySelector('[data-next]').addEventListener('click', () => { i++; q(); });
-        after.appendChild(row);
-        row.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      });
+      const card = medMCQCard(
+        item,
+        distractorPool,
+        cfg,
+        `${cfg.catMap[cat]} · ${i + 1}/${order.length}`,
+        cfg.quizAsk,
+        cfg.quizClue(item),
+        (after, correct) => {
+          recordRefDrill(refProg, saveProg, cfg.catField, cat, correct);
+          const label =
+            i < order.length - 1 ? 'Next' : gidx < cats.length - 1 ? 'Next ' + unit + ' →' : 'Complete learn';
+          const row = el(`<div class="continue-row"><button class="btn btn-solid" data-next>${label}</button></div>`);
+          row.querySelector('[data-next]').addEventListener('click', () => {
+            i++;
+            q();
+          });
+          after.appendChild(row);
+          row.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      );
       wrap.replaceChildren(card);
       card.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
@@ -819,13 +1126,22 @@ function buildGuidedLearn(body, cfg, data, refProg, saveProg, key, opts = {}) {
 }
 
 function buildBrowse(body, cfg, data) {
-  let activeCat = 'all', query = '';
+  let activeCat = 'all',
+    query = '';
   const cats = Object.keys(cfg.catMap).filter(c => data.some(d => d[cfg.catField] === c));
-  body.appendChild(el(`<div class="searchbox"><input type="text" id="rq" placeholder="Search ${cfg.noun}&hellip;" autocomplete="off"></div>`));
+  body.appendChild(
+    el(
+      `<div class="searchbox"><input type="text" id="rq" placeholder="Search ${cfg.noun}&hellip;" autocomplete="off"></div>`
+    )
+  );
   const chips = el(`<div class="refchips"></div>`);
   const mkChip = (c, label) => {
     const b = el(`<button class="refchip ${c === activeCat ? 'active' : ''}" data-c="${c}">${esc(label)}</button>`);
-    b.addEventListener('click', () => { activeCat = c; chips.querySelectorAll('.refchip').forEach(x => x.classList.toggle('active', x === b)); render(); });
+    b.addEventListener('click', () => {
+      activeCat = c;
+      chips.querySelectorAll('.refchip').forEach(x => x.classList.toggle('active', x === b));
+      render();
+    });
     return b;
   };
   chips.appendChild(mkChip('all', `All (${data.length})`));
@@ -839,18 +1155,29 @@ function buildBrowse(body, cfg, data) {
     list.replaceChildren();
     let pool = activeCat === 'all' ? data : data.filter(d => d[cfg.catField] === activeCat);
     if (query.length >= 2) pool = pool.filter(d => cfg.search(d).includes(query));
-    if (!pool.length) { list.appendChild(el(`<div class="empty">No matches.</div>`)); return; }
+    if (!pool.length) {
+      list.appendChild(el(`<div class="empty">No matches.</div>`));
+      return;
+    }
     pool.forEach(d => list.appendChild(refCard(cfg, d)));
   }
-  body.querySelector('#rq').addEventListener('input', e => { query = e.target.value.trim().toLowerCase(); render(); });
+  body.querySelector('#rq').addEventListener('input', e => {
+    query = e.target.value.trim().toLowerCase();
+    render();
+  });
   render();
 }
 
-function fieldVal(d, src) { return typeof src === 'function' ? src(d) : d[src]; }
+function fieldVal(d, src) {
+  return typeof src === 'function' ? src(d) : d[src];
+}
 
 function refSources(item) {
   if (!Array.isArray(item.sources)) return '';
-  return `<div class="academy-source-note"><p>Independent clinical and laboratory review: pending. ${item.sourceCheckedOn ? 'Selected interpretation sources checked ' + esc(item.sourceCheckedOn) + '.' : 'Detailed source validation remains pending; the link below explains general interpretation limits.'}</p>${item.sources.filter(source => /^https:\/\//.test(source.url)).map(source => `<p><a href="${esc(source.url)}" target="_blank" rel="noopener">${esc(source.title)}</a></p>`).join('')}</div>`;
+  return `<div class="academy-source-note"><p>Independent clinical and laboratory review: pending. ${item.sourceCheckedOn ? 'Selected interpretation sources checked ' + esc(item.sourceCheckedOn) + '.' : 'Detailed source validation remains pending; the link below explains general interpretation limits.'}</p>${item.sources
+    .filter(source => /^https:\/\//.test(source.url))
+    .map(source => `<p><a href="${esc(source.url)}" target="_blank" rel="noopener">${esc(source.title)}</a></p>`)
+    .join('')}</div>`;
 }
 
 function refCard(cfg, d) {
@@ -860,12 +1187,20 @@ function refCard(cfg, d) {
       <span class="refsub">${esc(cfg.sub(d))}</span>
     </button>
     <div class="refdetail" hidden>
-      ${cfg.fields.map(([lab, src]) => { const v = fieldVal(d, src); return v && v !== '—' ? `<div class="refrow"><span class="label">${esc(lab)}</span><p>${esc(v)}</p></div>` : ''; }).join('')}${refSources(d)}
+      ${cfg.fields
+        .map(([lab, src]) => {
+          const v = fieldVal(d, src);
+          return v && v !== '—'
+            ? `<div class="refrow"><span class="label">${esc(lab)}</span><p>${esc(v)}</p></div>`
+            : '';
+        })
+        .join('')}${refSources(d)}
     </div>
   </div>`);
   const detail = card.querySelector('.refdetail');
   card.querySelector('.refhead').addEventListener('click', () => {
-    const open = detail.hidden; detail.hidden = !open;
+    const open = detail.hidden;
+    detail.hidden = !open;
     card.classList.toggle('open', open);
   });
   return card;
@@ -880,7 +1215,8 @@ function buildQuiz(body, cfg, data, opts = {}) {
   const saveRefProg = isMicro ? saveMicroProg : isLabs ? saveLabsProg : null;
   let activeCat = opts.cat || 'all';
   let mode = opts.mode || 'moa';
-  const cats = (isPharm || isMicro || isLabs) ? Object.keys(cfg.catMap).filter(c => data.some(d => d[cfg.catField] === c)) : [];
+  const cats =
+    isPharm || isMicro || isLabs ? Object.keys(cfg.catMap).filter(c => data.some(d => d[cfg.catField] === c)) : [];
 
   if (isPharm) {
     const controls = el(`<div class="pharm-drill-controls"></div>`);
@@ -888,9 +1224,11 @@ function buildQuiz(body, cfg, data, opts = {}) {
       <button class="refchip ${mode === 'moa' ? 'active' : ''}" data-mode="moa">MOA &rarr; drug</button>
       <button class="refchip ${mode === 'pearl' ? 'active' : ''}" data-mode="pearl">Pearl &rarr; drug</button>
     </div>`);
-    modeRow.querySelectorAll('[data-mode]').forEach(b => b.addEventListener('click', () => {
-      renderRefSet('pharm', 'quiz', { cat: activeCat, mode: b.dataset.mode });
-    }));
+    modeRow.querySelectorAll('[data-mode]').forEach(b =>
+      b.addEventListener('click', () => {
+        renderRefSet('pharm', 'quiz', { cat: activeCat, mode: b.dataset.mode });
+      })
+    );
     controls.appendChild(modeRow);
     const chips = el(`<div class="refchips"></div>`);
     const mkChip = (c, label) => {
@@ -921,7 +1259,7 @@ function buildQuiz(body, cfg, data, opts = {}) {
     cats.forEach(c => {
       const n = data.filter(d => d[cfg.catField] === c).length;
       const b = refProg[bucket][c];
-      const acc = b?.total ? Math.round(100 * b.correct / b.total) : null;
+      const acc = b?.total ? Math.round((100 * b.correct) / b.total) : null;
       chips.appendChild(mkChip(c, `${cfg.catMap[c]} (${n}${acc != null ? ` · ${acc}%` : ''})`));
     });
     controls.appendChild(chips);
@@ -930,15 +1268,22 @@ function buildQuiz(body, cfg, data, opts = {}) {
 
   const wrap = el(`<div class="quizwrap"></div>`);
   body.appendChild(wrap);
-  let scoreN = isPharm ? (PHARM_PROG.drill.correct || 0) : (refProg?.drill?.correct || 0);
-  let scoreT = isPharm ? (PHARM_PROG.drill.total || 0) : (refProg?.drill?.total || 0);
+  let scoreN = isPharm ? PHARM_PROG.drill.correct || 0 : refProg?.drill?.correct || 0;
+  let scoreT = isPharm ? PHARM_PROG.drill.total || 0 : refProg?.drill?.total || 0;
 
   function pool() {
     let p = activeCat === 'all' ? data : data.filter(d => d[cfg.catField] === activeCat);
     return p.length ? p : data;
   }
 
-  function shuffle(a) { const x = a.slice(); for (let i = x.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1));[x[i], x[j]] = [x[j], x[i]]; } return x; }
+  function shuffle(a) {
+    const x = a.slice();
+    for (let i = x.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [x[i], x[j]] = [x[j], x[i]];
+    }
+    return x;
+  }
 
   function quizClue(item) {
     if (isPharm && mode === 'pearl') return `Pearl: ${item.pearl}`;
@@ -957,32 +1302,45 @@ function buildQuiz(body, cfg, data, opts = {}) {
     wrap.replaceChildren();
     const card = el(`<section class="stage">
       <div class="stage-head"><span class="label">${esc(ask)}</span><span class="rule"></span>
-        <span class="topstat quizscore">${scoreT ? `${scoreN}/${scoreT} &middot; ${Math.round(100 * scoreN / scoreT)}%` : ''}</span></div>
+        <span class="topstat quizscore">${scoreT ? `${scoreN}/${scoreT} &middot; ${Math.round((100 * scoreN) / scoreT)}%` : ''}</span></div>
       <p class="q quizclue">${esc(quizClue(item)).replace(/\n/g, '<br>')}</p>
       <div class="opts">${optsList.map((o, i) => `<button class="opt" data-i="${i}"><span class="key">${LETTERS[i]}</span><span>${esc(cfg.title(o))}</span></button>`).join('')}</div>
       <div class="after"></div>
     </section>`);
     const after = card.querySelector('.after');
-    card.querySelectorAll('.opt').forEach(btn => btn.addEventListener('click', () => {
-      const pick = optsList[Number(btn.dataset.i)];
-      const correct = cfg.title(pick) === cfg.title(item);
-      scoreT++; if (correct) scoreN++;
-      if (isPharm) recordPharmDrill(item[cfg.catField], correct);
-      else if (refProg && saveRefProg) recordRefDrill(refProg, saveRefProg, cfg.catField, item[cfg.catField], correct);
-      card.querySelectorAll('.opt').forEach(b2 => {
-        const o = optsList[Number(b2.dataset.i)]; b2.disabled = true;
-        if (cfg.title(o) === cfg.title(item)) b2.classList.add('correct');
-        else if (b2 === btn) b2.classList.add('wrong'); else b2.classList.add('dimmed');
-      });
-      after.appendChild(el(`<div class="explain ${correct ? 'good' : 'bad'}">
+    card.querySelectorAll('.opt').forEach(btn =>
+      btn.addEventListener('click', () => {
+        const pick = optsList[Number(btn.dataset.i)];
+        const correct = cfg.title(pick) === cfg.title(item);
+        scoreT++;
+        if (correct) scoreN++;
+        if (isPharm) recordPharmDrill(item[cfg.catField], correct);
+        else if (refProg && saveRefProg)
+          recordRefDrill(refProg, saveRefProg, cfg.catField, item[cfg.catField], correct);
+        card.querySelectorAll('.opt').forEach(b2 => {
+          const o = optsList[Number(b2.dataset.i)];
+          b2.disabled = true;
+          if (cfg.title(o) === cfg.title(item)) b2.classList.add('correct');
+          else if (b2 === btn) b2.classList.add('wrong');
+          else b2.classList.add('dimmed');
+        });
+        after.appendChild(
+          el(`<div class="explain ${correct ? 'good' : 'bad'}">
         <span class="verdict">${correct ? 'CORRECT' : 'INCORRECT'} &middot; ${esc(cfg.title(item))}</span>
-        ${cfg.fields.map(([lab, src]) => { const v = fieldVal(item, src); return v && v !== '—' ? `<p><b>${esc(lab)}:</b> ${esc(v)}</p>` : ''; }).join('')}${refSources(item)}
-      </div>`));
-      const row = el(`<div class="continue-row"><button class="btn btn-solid" data-continue>Next</button></div>`);
-      row.querySelector('[data-continue]').addEventListener('click', nextQ);
-      after.appendChild(row);
-      row.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }));
+        ${cfg.fields
+          .map(([lab, src]) => {
+            const v = fieldVal(item, src);
+            return v && v !== '—' ? `<p><b>${esc(lab)}:</b> ${esc(v)}</p>` : '';
+          })
+          .join('')}${refSources(item)}
+      </div>`)
+        );
+        const row = el(`<div class="continue-row"><button class="btn btn-solid" data-continue>Next</button></div>`);
+        row.querySelector('[data-continue]').addEventListener('click', nextQ);
+        after.appendChild(row);
+        row.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      })
+    );
     wrap.appendChild(card);
   }
   nextQ();

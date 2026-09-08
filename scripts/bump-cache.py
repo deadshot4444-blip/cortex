@@ -21,7 +21,8 @@ REFERENCE_FILES = [ROOT / 'index.html', *sorted(ROOT.glob('*.js'))]
 
 
 def bump(asset: str) -> int:
-    pattern = re.compile(r'(?<![\w/-])(' + re.escape(asset) + r')\?v=(\d+)')
+    # Match the bare name or a path ending in it, but not a longer name that merely ends the same way.
+    pattern = re.compile(r'(?<![\w.-])(' + re.escape(asset) + r')\?v=(\d+)')
     total = 0
     for path in REFERENCE_FILES:
         text = path.read_text()

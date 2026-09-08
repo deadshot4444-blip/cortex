@@ -34,7 +34,12 @@ test('lesson text uses US spelling for -kalemia / hemolysis (source titles and U
 });
 
 test('OpenStax citation titles name the section their URL points to', () => {
-  const words = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim().split(' ');
+  const words = s =>
+    s
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, ' ')
+      .trim()
+      .split(' ');
   for (const lesson of data.lessons) {
     for (const source of lesson.sources || []) {
       const m = /openstax\.org\/books\/microbiology\/pages\/(\d+)-(\d+)-(.+)$/.exec(source.url || '');
@@ -43,7 +48,7 @@ test('OpenStax citation titles name the section their URL points to', () => {
       assert.ok(source.title.includes(section), lesson.id + ': ' + source.title);
       const slug = words(m[3]);
       const title = words(source.title.split(':').slice(1).join(':'));
-      const overlap = slug.filter((w) => w.length > 3 && title.includes(w));
+      const overlap = slug.filter(w => w.length > 3 && title.includes(w));
       assert.ok(overlap.length >= 1, lesson.id + ': "' + source.title + '" does not describe ' + source.url);
     }
   }
