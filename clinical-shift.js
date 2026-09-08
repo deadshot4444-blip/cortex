@@ -200,7 +200,7 @@
         <span class="label">Clinical Scenarios</span>
         <h1>Start your shift.</h1>
         <p>Choose a specialty. Cortex assigns the patient. Review the chart, lock your decisions, rank a differential, write your note, and compare it with a model before the clinical debrief.</p>
-        <p class="cshift-content-status">Local preview for advanced students with basic clinical knowledge. ${shiftManifest.rotations.reduce((sum, rotation) => sum + rotation.caseIds.length, 0)} fictional encounters, about 15–25 minutes each. Sources checked September 7, 2026; independent clinician review remains pending. Practice decisions and note comparison do not establish clinical competence.</p>
+        <p class="cshift-content-status">Beta for advanced students with basic clinical knowledge. ${shiftManifest.rotations.reduce((sum, rotation) => sum + rotation.caseIds.length, 0)} fictional encounters, about 15–25 minutes each. Sources checked September 7, 2026; independent clinician review remains pending. Practice decisions and note comparison do not establish clinical competence.</p>
       </header>
       ${active ? `<section class="cshift-resume">
         <div><span class="label">Shift in progress</span><strong>${esc(activeRotationName())}</strong><p>Your patient and every locked decision are saved on this device.</p></div>

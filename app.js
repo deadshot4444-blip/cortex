@@ -156,7 +156,7 @@ function saveStreak() { safeSet('cs-streak', JSON.stringify(store.streak)); }
 
 const SECTION_SCRIPTS = {
   academy: ['study-storage.js?v=4', 'academy-today.js?v=7', 'study-backup.js?v=10', 'academy-storage.js?v=4', 'academy-portfolio-core.js?v=2', 'academy-portfolio.js?v=3'],
-  practice: ['study-storage.js?v=4', 'clinical-longitudinal-engine.js?v=2', 'clinical-longitudinal.js?v=3', 'clinical-shift.js?v=17'],
+  practice: ['study-storage.js?v=4', 'clinical-longitudinal-engine.js?v=2', 'clinical-longitudinal.js?v=3', 'clinical-shift.js?v=18'],
   mcat: ['study-storage.js?v=4', 'mcat-item-quality-core.js?v=1', 'mcat-item-quality.js?v=1', 'mcat-rehearsal-engine.js?v=2', 'mcat-rehearsal.js?v=8', 'mcat-repair-engine.js?v=3', 'mcat-repair.js?v=9', 'mcat-workflows.js?v=18', 'mcat-course-engine.js?v=7', 'mcat-course.js?v=22', 'mcat-coverage.js?v=2', 'mcat-v2-engine.js?v=10', 'mcat-v2.js?v=18', 'mcat.js?v=88'],
   anatomy: ['study-storage.js?v=4', 'academy-lessons.js?v=6', 'anatomy.js?v=42'],
   reference: ['study-storage.js?v=4', 'ecg-engine.js?v=2', 'academy-lessons.js?v=6', 'reference.js?v=58', 'performance-drugs.js?v=25', 'ekg.js?v=40'],
