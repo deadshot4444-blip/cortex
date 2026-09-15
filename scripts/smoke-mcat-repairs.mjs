@@ -23,10 +23,7 @@ try {
       );
     await page.goto(`${base}?gates=prod`, { waitUntil: 'networkidle' });
     assert.equal(await page.locator('.upd-modal').count(), 0);
-    assert.equal(
-      (await page.locator('[data-go="socrates"] .nav-availability').innerText()).toLowerCase(),
-      'coming soon'
-    );
+    assert.equal((await page.locator('[data-go="socrates"] .nav-availability').innerText()).toLowerCase(), 'in review');
     assert.equal((await page.locator('[data-go="neuro"] .nav-availability').innerText()).toLowerCase(), 'in review');
     await overflow('homepage');
     await page.click('#m-quick');

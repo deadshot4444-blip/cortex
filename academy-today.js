@@ -274,7 +274,7 @@
           const track = tracks.find(track => track.id === id),
             selected = state.priority.includes(id),
             paused = state.paused.includes(id);
-          return `<div class="academy-priority"><label><input type="checkbox" data-track="${id}" ${selected ? 'checked' : ''} ${!IS_LOCAL_PREVIEW && !track.available ? 'disabled' : ''}>${esc(track.name)}${!IS_LOCAL_PREVIEW && !track.available ? ' · In development' : ''}</label>${selected ? `<button class="btn" data-pause="${id}" aria-label="${paused ? 'Resume' : 'Pause'} planning for ${esc(track.name)}">${paused ? 'Resume planning' : 'Pause planning'}</button><button class="btn" data-priority="${id}" aria-label="Make ${esc(track.name)} first priority" ${state.priority[0] === id ? 'disabled' : ''}>Make first priority</button>` : ''}</div>`;
+          return `<div class="academy-priority"><label><input type="checkbox" data-track="${id}" ${selected ? 'checked' : ''} ${!IS_LOCAL_PREVIEW && !track.available && !selected ? 'disabled' : ''}>${esc(track.name)}${!IS_LOCAL_PREVIEW && !track.available ? ' · Under construction' : ''}</label>${selected ? `<button class="btn" data-pause="${id}" aria-label="${paused ? 'Resume' : 'Pause'} planning for ${esc(track.name)}">${paused ? 'Resume planning' : 'Pause planning'}</button><button class="btn" data-priority="${id}" aria-label="Make ${esc(track.name)} first priority" ${state.priority[0] === id ? 'disabled' : ''}>Make first priority</button>` : ''}</div>`;
         })
         .join('')}</div></section>
       <section><h2>Planned study blocks</h2>${
@@ -290,7 +290,7 @@
       }
       ${day.deferred.length ? `<p>Outside today’s remaining budget: ${day.deferred.map(id => esc(tracks.find(track => track.id === id)?.name || 'Archived course')).join(', ')}. These courses stay available without adding more planned time.</p>` : ''}</section>
       <section><h2 id="academy-recorded">Recorded study time</h2>${day.complete.length ? `<ul>${day.complete.map(([id, block]) => `<li>${esc(tracks.find(track => track.id === id)?.name || 'Archived course')} · ${block.minutes} minutes · recorded once</li>`).join('')}</ul>` : '<p>No time recorded yet.</p>'}</section>
-      <details><summary>All saved course records</summary><ul>${tracks.map(track => `<li><a href="${esc(progress[track.id].url)}" data-resume="${track.id}">${esc(track.name)}: ${esc(progress[track.id].label)}</a> · ${progress[track.id].completed} ${esc(progress[track.id].unit)}</li>`).join('')}</ul><p>These are separate course records, not an Academy-wide mastery score. Only explicit due dates in saved MCAT lessons are shown; no review schedule is invented for other courses.</p></details>
+      <details><summary>All saved course records</summary><ul>${tracks.map(track => `<li>${!IS_LOCAL_PREVIEW && !track.available ? `${esc(track.name)}: under construction, saved work kept` : `<a href="${esc(progress[track.id].url)}" data-resume="${track.id}">${esc(track.name)}: ${esc(progress[track.id].label)}</a>`} · ${progress[track.id].completed} ${esc(progress[track.id].unit)}</li>`).join('')}</ul><p>These are separate course records, not an Academy-wide mastery score. Only explicit due dates in saved MCAT lessons are shown; no review schedule is invented for other courses.</p></details>
       <details><summary>Earlier unfinished time blocks</summary>${
         Object.entries(state.days)
           .filter(([date]) => date !== day.date)

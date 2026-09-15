@@ -52,8 +52,9 @@ const SECTION_LABELS = { anatomy: 'Anatomy', reference: 'Medicine', socrates: 'L
 const SECTION_INFO = {
   anatomy: {
     label: 'Anatomy',
-    headline: 'Master the body, visually.',
-    desc: 'Evidence-based, interactive anatomy. Click into every bone, muscle, and organ system and study it the way the science says you’ll actually retain it — active recall and spaced repetition over passive review.',
+    badge: 'Under construction',
+    headline: 'Anatomy is under construction.',
+    desc: 'This section is temporarily closed while its lessons and atlas explorers are reviewed.',
   },
   reference: {
     label: 'Medicine',
@@ -63,19 +64,19 @@ const SECTION_INFO = {
   },
   socrates: {
     label: 'Learn to Learn',
-    badge: 'Coming soon',
-    headline: 'Learn to Learn is coming soon.',
-    desc: 'A course on how to actually study — memory, retrieval, and spacing — is being built. It will open once its curriculum is ready.',
+    badge: 'Under construction',
+    headline: 'Learn to Learn is under construction.',
+    desc: 'This course is temporarily closed while its lessons and learning flow are reviewed.',
   },
   neuro: {
     label: 'Neuroengineering',
     badge: 'Under construction',
     headline: 'Neuroengineering is under construction.',
-    desc: 'The BCI Builder track is temporarily closed while its units and learning flow are reviewed and polished. It will reopen soon.',
+    desc: 'This course is temporarily closed while its units and learning flow are reviewed.',
   },
 };
 // Public beta version; independent subject acceptance remains separate.
-const APP_VERSION = '2.30.0-beta.1';
+const APP_VERSION = '2.30.1-local.1';
 function cortexFreeNote(sectionPill, sectionName) {
   return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free</span><span class="free-note-txt">${sectionName} is free to use — no account, no paywall, no catch.</span></p>`;
 }
@@ -174,7 +175,7 @@ function saveStreak() {
 const SECTION_SCRIPTS = {
   academy: [
     'study-storage.js?v=5',
-    'academy-today.js?v=9',
+    'academy-today.js?v=10',
     'study-backup.js?v=12',
     'academy-storage.js?v=5',
     'academy-portfolio-core.js?v=3',
@@ -184,7 +185,7 @@ const SECTION_SCRIPTS = {
     'study-storage.js?v=5',
     'clinical-longitudinal-engine.js?v=3',
     'clinical-longitudinal.js?v=4',
-    'clinical-shift.js?v=21',
+    'clinical-shift.js?v=22',
   ],
   mcat: [
     'study-storage.js?v=5',
@@ -825,7 +826,7 @@ function topbar(active) {
         </div>
       </div>
       <button class="navlink ${active === 'practice' ? 'active' : ''}" data-go="practice" aria-label="Clinical Scenarios"><span class="clinical-nav-full" aria-hidden="true">Clinical Scenarios</span><span class="clinical-nav-short" aria-hidden="true">Clinical</span></button>
-      <button class="navlink ${active === 'socrates' ? 'active' : ''}" data-go="socrates" aria-label="Learn to Learn" aria-description="${COMING_SOON.has('socrates') ? 'Coming soon' : 'Learning course'}"><span class="learn-nav-full" aria-hidden="true">Learn to Learn</span><span class="learn-nav-short" aria-hidden="true">Learn</span>${COMING_SOON.has('socrates') ? '<span class="nav-availability">Coming soon</span>' : ''}</button>
+      <button class="navlink ${active === 'socrates' ? 'active' : ''}" data-go="socrates" aria-label="Learn to Learn" aria-description="${COMING_SOON.has('socrates') ? 'Under construction' : 'Learning course'}"><span class="learn-nav-full" aria-hidden="true">Learn to Learn</span><span class="learn-nav-short" aria-hidden="true">Learn</span>${COMING_SOON.has('socrates') ? '<span class="nav-availability">In review</span>' : ''}</button>
       <div class="navmenu">
         <button class="navlink menubtn ${['academy', 'anatomy', 'reference', 'utsa', 'pomodoro'].includes(active) ? 'active' : ''}" data-menu="explore" data-nav-menu aria-label="Explore" aria-expanded="false" aria-controls="explore-panel">Explore<span class="caret">&#9662;</span></button>
         <div class="menupanel" id="explore-panel" aria-label="Explore Cortex" hidden>

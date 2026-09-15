@@ -5,6 +5,12 @@ window.CortexOffline = (() => {
     renderRequest = 0;
   const selected = () => new URLSearchParams(location.search).get('offline');
   const bytes = n => (n / 1024 / 1024).toFixed(1) + ' MB';
+  // Courses closed in the Academy catalog (`available: false`) are not offered for a new
+  // download on the public site; localhost keeps them for development previews. Courses that
+  // were downloaded earlier stay listed below so saved work remains reachable.
+  const closedCourse = id =>
+    !(typeof IS_LOCAL_PREVIEW !== 'undefined' && IS_LOCAL_PREVIEW) &&
+    !!window.CortexAcademy?.tracks?.some(track => track.id === id && !track.available);
   const available = () =>
     window.isSecureContext && 'serviceWorker' in navigator && 'caches' in window && !!window.crypto?.subtle;
   async function register() {
@@ -126,6 +132,7 @@ window.CortexOffline = (() => {
       stop.onclick = () => job?.abort();
       catalog.appendChild(stop);
       for (const pack of manifest?.packs || []) {
+        if (closedCourse(pack.id)) continue;
         const card = document.createElement('article');
         card.className = 'offline-course';
         const title = document.createElement('h3');

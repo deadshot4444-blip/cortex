@@ -29,9 +29,23 @@ if (!suites.length) {
   process.exit(2);
 }
 
+// Another process already answering on the port (a leftover preview server, often serving a
+// different worktree) would silently receive every suite; refuse instead of testing the wrong tree.
+try {
+  await fetch(BASE + 'index.html');
+  console.error(`Port ${PORT} is already in use; stop that server or set CORTEX_TEST_PORT to a free port.`);
+  process.exit(2);
+} catch {
+  /* nothing is listening, which is what we want */
+}
 const server = spawn('python3', ['scripts/serve.py', '--port', String(PORT)], {
   cwd: ROOT,
   stdio: ['ignore', 'ignore', 'inherit'],
+});
+let serverExited = false;
+server.on('exit', code => {
+  serverExited = true;
+  if (code) console.error(`Local server exited early with code ${code}`);
 });
 const stop = () => {
   if (!server.killed) server.kill();
@@ -44,6 +58,7 @@ process.on('SIGINT', () => {
 
 async function waitForServer() {
   for (let attempt = 0; attempt < 50; attempt++) {
+    if (serverExited) throw new Error(`Local server failed to start on ${BASE}`);
     try {
       if ((await fetch(BASE + 'index.html')).ok) return;
     } catch {

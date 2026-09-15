@@ -467,6 +467,9 @@
           <p>${esc(review?.alternativesAndLimits || 'Scope review is pending.')}</p>
           ${(review?.learningLinks || [])
             .map(link => {
+              // Medicine can be closed to the public (Academy catalog); do not link into its gate.
+              if (typeof COMING_SOON !== 'undefined' && COMING_SOON.has('reference'))
+                return `<p>Related lesson (Medicine is under construction): ${esc(link.title)}</p>`;
               const url = new URL(sectionUrl('reference'), location.origin);
               url.searchParams.set('lesson', link.lesson);
               const back = window.AcademyCurriculum?.safeReturn(

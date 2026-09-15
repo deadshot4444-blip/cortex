@@ -21,7 +21,7 @@
       id: 'socrates',
       path: 'learn',
       name: 'Learn to Learn',
-      available: true,
+      available: false,
       description: 'Turn memory, explanation, practice, and feedback into a useful learning routine.',
       audience: 'Learners studying independently, at work, or in healthcare.',
       prerequisites: 'No prior course required.',
@@ -47,7 +47,7 @@
       id: 'anatomy',
       path: 'anatomy',
       name: 'Anatomy',
-      available: true,
+      available: false,
       description: 'Connect the location of a structure with its function and important relationships.',
       audience: 'Students beginning human anatomy.',
       prerequisites: 'No earlier Cortex course required.',
@@ -61,7 +61,7 @@
       id: 'reference',
       path: 'medicine',
       name: 'Medicine',
-      available: true,
+      available: false,
       description: 'Connect mechanisms with pharmacology, microbiology, laboratory findings, and ECG patterns.',
       audience: 'Healthcare learners building foundational clinical knowledge.',
       prerequisites: 'Introductory biology, chemistry, and physiology.',
@@ -75,7 +75,7 @@
       id: 'neuro',
       path: 'neuro',
       name: 'Neuroengineering',
-      available: true,
+      available: false,
       description: 'Move from neurons and signals to code, simulations, and reproducible analysis.',
       audience: 'Learners exploring neuroscience and engineering.',
       prerequisites: 'Foundations introduce the science and coding; later projects build on those units.',
@@ -90,7 +90,7 @@
   function status(track) {
     if (!track) return 'Archived';
     if (track.available) return 'Beta';
-    return IS_LOCAL_PREVIEW ? 'Local preview' : 'In development';
+    return IS_LOCAL_PREVIEW ? 'Local preview' : 'Under construction';
   }
 
   function renderCatalog() {

@@ -5,6 +5,17 @@
 
 const CHANGELOG = [
   {
+    version: '2.30.1-local.1',
+    tag: 'LOCAL',
+    date: 'September 15, 2026',
+    title: 'MCAT and Clinical Scenarios stay open while four courses close for review',
+    items: [
+      'Learn to Learn, Anatomy, Medicine and Neuroengineering are closed on the public site while their material is reviewed. Work you saved stays on this device.',
+      'MCAT preparation and Clinical Scenarios remain open and free.',
+      'The Academy catalog, Academy Today and lesson discovery label the closed courses, and new offline downloads skip them.',
+    ],
+  },
+  {
     version: '2.30.0-beta.1',
     tag: 'BETA',
     date: 'September 8, 2026',

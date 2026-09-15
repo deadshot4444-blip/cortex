@@ -20,6 +20,12 @@ for official AAMC materials or clinical judgment.
 | Medicine | `/medicine` | 22 mechanism and interpretation lessons, 20 synthetic ECG patterns, a draft reference pathway |
 | Neuroengineering | `/neuro` | Five revised foundations, 13 coding exercises, 15 simulations, six synthetic projects |
 
+Only MCAT and Clinical Scenarios are open on the public site right now. Learn to Learn, Anatomy,
+Medicine and Neuroengineering are closed for review (`available: false` in `academy.js`): their
+routes show an Under construction page in production and open only on localhost for development.
+Course copies downloaded for offline study before a course closed keep working; the public download
+list simply stops offering closed courses.
+
 The Academy catalog at `/academy` describes audiences, prerequisites and review status,
 and connects the tracks through Academy Today, lesson discovery and a private portfolio.
 Retired class-specific courses (UTSA Genetics, CCMA, Cognitive Psychology) redirect to the

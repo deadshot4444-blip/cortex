@@ -390,7 +390,9 @@
         )
       );
     }
-    if (context) {
+    // A closed course's Under construction page (main.comingsoon) keeps the return link but
+    // must not offer related-lesson discovery for material the public cannot open.
+    if (context && !main.classList.contains('comingsoon')) {
       const url = new URL(academyUrl('curriculum', { context }), location.origin);
       const destination = returnTo || Core.safeReturn(current());
       if (destination) url.searchParams.set('returnTo', destination);

@@ -224,7 +224,7 @@ assert.match(timelineToday.api.evidence().practice.url, /view=shift&run=new-shif
 console.log('Academy Today longitudinal continuation and distinct-completion checks passed.');
 /* Real DOM: each Today control re-renders the view, so focus and the viewport must come back to the control. */
 const { JSDOM } = require('jsdom');
-function domHarness(seed = {}) {
+function domHarness(seed = {}, { local = true, closed = [] } = {}) {
   const dom = new JSDOM('<!doctype html><body><div id="app"></div></body>', {
     url: 'http://localhost/academy?view=today',
     runScripts: 'outside-only',
@@ -233,10 +233,10 @@ function domHarness(seed = {}) {
     ctx = dom.getInternalVMContext(),
     saved = new Map(Object.entries(seed).map(([k, v]) => [k, JSON.stringify(v)]));
   Object.assign(w, {
-    IS_LOCAL_PREVIEW: true,
+    IS_LOCAL_PREVIEW: local,
     openSection() {},
     sectionUrl: id => '/' + (id === 'socrates' ? 'learn' : id === 'reference' ? 'medicine' : id),
-    CortexAcademy: { tracks: ids.map(id => ({ id, name: id, available: true })) },
+    CortexAcademy: { tracks: ids.map(id => ({ id, name: id, available: !closed.includes(id) })) },
     StudyStorage: {
       paused: false,
       read: (key, fallback) => (saved.has(key) ? JSON.parse(saved.get(key)) : fallback),
@@ -344,4 +344,32 @@ function domHarness(seed = {}) {
   assert.equal(started.w.scrollY, 500);
   started.close();
   console.log('Academy Today controls keep focus and scroll position across re-renders.');
+}
+/* Production with closed courses: a closed course already in the plan can still be unchecked, an
+   unselected closed course cannot be added, and the record list never links into a closed course. */
+{
+  const today = new Date(),
+    date = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+  const closed = domHarness(
+    {
+      'cs-academy-today-v1': { version: 1, budget: 30, priority: ['anatomy', 'mcat'], paused: [], days: {} },
+      'cs-academy-anatomy-v1': { lessons: { arm: { index: 1, startedAt: 5, content: { title: 'Arm lesson' } } } },
+    },
+    { local: false, closed: ['socrates', 'anatomy', 'reference', 'neuro'] }
+  );
+  closed.api.render();
+  assert.equal(closed.find('[data-track="anatomy"]').checked, true);
+  assert.equal(closed.find('[data-track="anatomy"]').disabled, false, 'A closed course already chosen can be removed');
+  assert.equal(closed.find('[data-track="neuro"]').disabled, true, 'A closed course cannot be added to the plan');
+  assert.match(closed.find('[data-track="neuro"]').parentElement.textContent, /Under construction/);
+  assert.equal(closed.find('a[data-resume="anatomy"]'), null, 'No resume link into a closed course');
+  assert.ok(closed.find('a[data-resume="mcat"]'), 'Open courses keep their resume link');
+  assert.match(closed.w.document.body.textContent, /anatomy: under construction, saved work kept/);
+  assert.equal(
+    closed.api.plan(date).items.some(item => item.id === 'anatomy'),
+    false,
+    'Closed courses get no planned time'
+  );
+  closed.close();
+  console.log('Academy Today keeps closed courses informational on the public site.');
 }
