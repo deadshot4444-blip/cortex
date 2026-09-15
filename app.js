@@ -1087,7 +1087,7 @@ function renderComingSoon(key) {
       </div>
     </div>
   </main>`);
-  main.querySelector('#cs-prac').addEventListener('click', renderHome);
+  main.querySelector('#cs-prac').addEventListener('click', () => navigateSection('practice'));
   main.querySelector('#cs-mcat').addEventListener('click', gotoMCAT);
   root.appendChild(main);
   root.appendChild(siteFooter());
@@ -1346,7 +1346,7 @@ function renderUpdates() {
     </div>
   </main>`);
   main.querySelector('#up-mcat').addEventListener('click', gotoMCAT);
-  main.querySelector('#up-cases').addEventListener('click', renderHome);
+  main.querySelector('#up-cases').addEventListener('click', () => navigateSection('practice'));
   main.querySelector('#up-suggest').addEventListener('click', openFeedback);
   root.appendChild(main);
   root.appendChild(siteFooter());
@@ -1433,7 +1433,7 @@ function renderMission() {
     }
   });
   main.querySelector('#m-mcat').addEventListener('click', gotoMCAT);
-  main.querySelector('#m-cases').addEventListener('click', renderHome);
+  main.querySelector('#m-cases').addEventListener('click', () => navigateSection('practice'));
   main.querySelector('#m-enter').addEventListener('click', gotoMCAT);
   main.querySelector('#m-updates').addEventListener('click', renderUpdates);
   root.appendChild(main);
