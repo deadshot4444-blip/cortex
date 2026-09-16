@@ -166,6 +166,27 @@ const options = { crypto, now: '2026-09-07T12:00:00.000Z' };
     );
     assert.deepEqual((await Backup.parse(await Backup.create(data, 'test', options), options)).data, data);
   });
+  await test('Every DAT record key round-trips with a minimal value before any writer exists', async () => {
+    const data = {
+      'cs-dat-log':
+        '[{"qId":"bio-cell-1","section":"bio","category":"BIO-1","correct":true,"conf":"sure","ms":41000,"ts":1}]',
+      'cs-dat-exam-reviews': '[]',
+      'cs-dat-course-v1': '{"version":1,"units":{"protists-fungi":{"notes":"Chitin<cellulose here"}}}',
+      'cs-dat-q': '{"bio-cell-1":{"n":1,"lastCorrect":true}}',
+      'cs-dat-srs': '{"bio-cell-1":{"ease":2.5,"interval":1,"reps":1,"lapses":0,"due":2,"last":1}}',
+      'cs-dat-plan': '{"version":1,"testDate":"2026-12-05","days":{}}',
+      'cs-dat-rehearsal-v1': '{"version":1,"seen":{}}',
+      'cs-dat-repairs-v1': '{"version":1,"concepts":{}}',
+      'cs-dat-passage-reviews': '{"rc:1":{"draft":{"rationale":"x<y"}}}',
+      'cs-dat-item-reports-v1': '{"reports":[{"text":"Option B < option C in length"}]}',
+      ...Object.fromEntries(
+        ['drill', 'pat', 'qr', 'rc', 'sim'].map(k => ['cs-dat-r-' + k, '{"idx":1,"results":[],"_saved":1}'])
+      ),
+    };
+    assert.deepEqual((await Backup.parse(await Backup.create(data, 'test', options), options)).data, data);
+    await assert.rejects(Backup.create({ 'cs-dat-r-flash': '{}' }, 'test', options), /cannot restore/);
+    await assert.rejects(Backup.create({ 'cs-dat-log': '{}' }, 'test', options), /unsupported shape/);
+  });
   await test('Current authored full-content snapshots fit portable structural checks', async () => {
     for (const name of ['mcat-course', 'neuro', 'anatomy-foundations', 'medicine-foundations']) {
       const data = { 'cs-neuro': JSON.stringify({ snapshot: JSON.parse(fs.readFileSync('data/' + name + '.json')) }) };

@@ -8,7 +8,7 @@ const vm = require('node:vm');
 const { JSDOM } = require('jsdom');
 
 const OPEN = ['mcat', 'practice'];
-const CLOSED = ['socrates', 'anatomy', 'reference', 'neuro'];
+const CLOSED = ['dat', 'socrates', 'anatomy', 'reference', 'neuro'];
 
 function harness(local) {
   const dom = new JSDOM('<!doctype html><div id="app"></div>', {
@@ -38,7 +38,7 @@ test('only MCAT and Clinical Scenarios are open to the public', () => {
   const { w, dom } = harness(false);
   // Array.from re-creates the list in this realm; jsdom's arrays fail deepEqual on prototype.
   const tracks = Array.from(w.CortexAcademy.tracks);
-  assert.equal(tracks.length, 6);
+  assert.equal(tracks.length, 7);
   assert.deepEqual(
     tracks.filter(t => t.available).map(t => t.id),
     OPEN
@@ -59,6 +59,7 @@ test('the public catalog labels closed courses and points them at the course sta
   assert.deepEqual(statuses, [
     'Beta',
     'Under construction',
+    'Under construction',
     'Beta',
     'Under construction',
     'Under construction',
@@ -69,6 +70,7 @@ test('the public catalog labels closed courses and points them at the course sta
   );
   assert.deepEqual(actions, [
     'Open MCAT',
+    'View course status',
     'View course status',
     'Explore clinical cases',
     'View course status',

@@ -19,6 +19,8 @@ clinical = list(json.loads((root / 'data/manifest.json').read_text()))
 specs = [
     ('mcat', 'MCAT preparation', '/mcat', '45 foundation lessons, available practice banks, CARS coaching, math, investigations and planning.',
      [str(p.relative_to(root)) for p in (root / 'data').glob('mcat-*.json')], []),
+    ('dat', 'DAT preparation', '/dat', 'Timed science drills, perceptual-ability generators, quantitative and reading practice, lessons, rehearsals and a date-driven schedule. Localhost preview; independent review pending.',
+     [str(p.relative_to(root)) for p in (root / 'data').glob('dat-*.json')], []),
     ('socrates', 'Learn to Learn', '/learn', 'General, Business and Medical lessons, with the current review status preserved.',
      ['data/learn-to-learn.json', 'data/socrates.json'], []),
     ('practice', 'Clinical Scenarios', '/practice', '18 Clinical Shift cases, 3 longitudinal patient timelines and the separate classic case bank. Professional review remains pending.',

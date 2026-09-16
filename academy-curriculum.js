@@ -12,6 +12,7 @@
   const UNSAFE_QUERY_VALUE = /[<>"'`\u0000-\u001f]/;
   const paths = {
     mcat: '/mcat',
+    dat: '/dat',
     socrates: '/learn',
     cogpsych: '/cogpsych',
     practice: '/practice',
@@ -26,7 +27,7 @@
   const object = value => !!value && typeof value === 'object' && !Array.isArray(value);
   const clone = value => JSON.parse(JSON.stringify(value));
   const queryKeys = new Set(
-    'gates offline view unit step stage lesson track chapter demo run case project code sim tool mode focus record category q gaps section context level scope objective card queue page'.split(
+    'gates offline view unit step stage lesson track chapter demo run case project code sim tool mode focus record category q gaps section context level scope objective card queue page subtest set n topic review d'.split(
       ' '
     )
   );
@@ -191,6 +192,7 @@
       return 'practice-timeline:' + p.get('case');
     if (url.pathname === '/neuro' && p.get('project') && !p.get('run')) return 'neuro-project:' + p.get('project');
     if (url.pathname === '/mcat' && p.get('view') === 'course' && p.get('unit')) return 'mcat:' + p.get('unit');
+    if (url.pathname === '/dat' && p.get('view') === 'course' && p.get('unit')) return 'dat:' + p.get('unit');
     if (url.pathname === '/learn' && p.get('track') && p.get('lesson'))
       return 'socrates:' + p.get('track') + ':' + p.get('lesson');
     if (url.pathname === '/cogpsych' && p.get('view') === 'lesson' && p.get('lesson'))

@@ -18,6 +18,21 @@
       kind: 'Exam preparation',
     },
     {
+      id: 'dat',
+      path: 'dat',
+      name: 'DAT preparation',
+      available: false,
+      description:
+        'Drill the sciences on the clock, train perceptual ability with generated sets, and follow a schedule built around your test date.',
+      audience: 'Students preparing for the U.S. Dental Admission Test.',
+      prerequisites: 'One year of biology, general chemistry and organic chemistry.',
+      scope:
+        'Timed science drills, six perceptual-ability generators, quantitative and reading practice, lessons keyed to the ADA outline, a date-driven schedule and 200–600 estimates. Local preview.',
+      time: 'Start with a 15-minute drill',
+      action: 'Open DAT',
+      kind: 'Exam preparation',
+    },
+    {
       id: 'socrates',
       path: 'learn',
       name: 'Learn to Learn',
@@ -95,6 +110,7 @@
 
   function renderCatalog() {
     window.pauseMcatTools?.();
+    window.pauseDatTools?.();
     if (typeof stopTimer === 'function') stopTimer();
     const root = el('<div></div>');
     root.appendChild(topbar('academy'));

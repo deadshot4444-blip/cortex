@@ -15,14 +15,16 @@ const viewports = [
   { name: 'desktop', width: 1280, height: 900 },
   { name: 'mobile', width: 390, height: 844 },
 ];
+// `label` is the gate-chip half and must be byte-identical to SECTION_INFO[key].label in app.js.
 const CLOSED = {
+  dat: { path: 'dat', label: 'DAT', deep: 'view=pat&subtest=angles' },
   socrates: { path: 'learn', label: 'Learn to Learn', deep: 'track=general&lesson=remember' },
   anatomy: { path: 'anatomy', label: 'Anatomy', deep: 'lesson=arm' },
   reference: { path: 'medicine', label: 'Medicine', deep: 'lesson=med-flow-resistance&step=4' },
   neuro: { path: 'neuro', label: 'Neuroengineering', deep: 'unit=1' },
 };
 const CLOSED_ASSETS =
-  /\/(socrates|anatomy|reference|ekg|ecg-engine|performance-drugs|neuro|neuro-practitioner|neuro-project-engine|python-runtime|code-evaluator)\.js(?:\?|$)|\/data\/(learn-to-learn|neuro-projects)\.json/;
+  /\/(dat(?:-[a-z-]+)?|socrates|anatomy|reference|ekg|ecg-engine|performance-drugs|neuro|neuro-practitioner|neuro-project-engine|python-runtime|code-evaluator)\.js(?:\?|$)|\/data\/(dat-[a-z0-9-]+|learn-to-learn|neuro-projects)\.json/;
 // Every file that only a closed course's offline pack ships (data banks, figures, workers) is a
 // leak too; derive the list from the manifest so new content is covered automatically.
 const manifest = JSON.parse(readFileSync(new URL('../offline-manifest.json', import.meta.url), 'utf8'));
@@ -133,12 +135,13 @@ for (const viewport of viewports) {
       JSON.stringify([
         'Beta',
         'Under construction',
+        'Under construction',
         'Beta',
         'Under construction',
         'Under construction',
         'Under construction',
       ]) ||
-    record.catalogActions.filter(t => t === 'View course status').length !== 4
+    record.catalogActions.filter(t => t === 'View course status').length !== 5
   )
     fail('Academy catalog', { statuses: record.catalogStatuses, actions: record.catalogActions });
   await noOverflow('Academy catalog');

@@ -1,0 +1,518 @@
+{
+  "source": "ADA Dental Admission Test 2026 Candidate Guide (updated 08/04/2026); DAT NEW Organic Chemistry Examination Specifications (08/13/2025); DAT User's Manual (March 2026)",
+  "sourceUrl": "https://www.ada.org/education/testing/exams/dental-admission-test-dat",
+  "alignmentCheckedOn": "2026-09-15",
+  "authoredOn": "2026-09-16",
+  "author": "coding agent (Claude), original paraphrase",
+  "reviewStatus": "Local authoring check only; independent subject review pending.",
+  "sourceCheckedOn": "2026-09-15",
+  "sources": [
+    { "title": "ADA Dental Admission Test 2026 Candidate Guide", "url": "https://www.ada.org/education/testing/exams/dental-admission-test-dat" }
+  ],
+  "scope": "United States DAT only. Topic groups are paraphrased under 37 categories keyed to the ADA outline; the ADA publishes no per-topic weights and the Candidate Guide governs.",
+  "contentNote": "Outline paraphrase for navigation only; not ADA text and not a claim of complete coverage.",
+  "sections": {
+    "bio": { "abbr": "BIO", "name": "Biology", "block": "sns", "questions": 40, "minutes": null },
+    "gchem": { "abbr": "GC", "name": "General Chemistry", "block": "sns", "questions": 30, "minutes": null },
+    "ochem": { "abbr": "OC", "name": "Organic Chemistry", "block": "sns", "questions": 30, "minutes": null },
+    "pat": { "abbr": "PAT", "name": "Perceptual Ability", "block": "pat", "questions": 90, "minutes": 60 },
+    "rc": { "abbr": "RC", "name": "Reading Comprehension", "block": "rc", "questions": 50, "minutes": 60, "passages": 3 },
+    "qr": { "abbr": "QR", "name": "Quantitative Reasoning", "block": "qr", "questions": 40, "minutes": 45 }
+  },
+  "blocks": [
+    { "id": "sns", "name": "Survey of the Natural Sciences", "questions": 100, "minutes": 90, "sections": ["bio", "gchem", "ochem"] },
+    { "id": "pat", "name": "Perceptual Ability Test", "questions": 90, "minutes": 60 },
+    { "id": "break", "name": "Scheduled break (optional)", "minutes": 30 },
+    { "id": "rc", "name": "Reading Comprehension", "questions": 50, "minutes": 60 },
+    { "id": "qr", "name": "Quantitative Reasoning", "questions": 40, "minutes": 45 }
+  ],
+  "tools": {
+    "periodicTable": {
+      "sections": ["bio", "gchem", "ochem"],
+      "status": "official for General Chemistry; scope inside the single SNS block unverified (research §2.5). Default: accessible throughout SNS, never hard-disabled on OC items."
+    },
+    "calculator": { "sections": ["qr"], "status": "official; mouse-only per corroborated reports (research §2.3)" }
+  },
+  "pacingSeconds": { "bio": 54, "gchem": 54, "ochem": 54, "pat": 40, "rc": 72, "qr": 67 },
+  "extendedTime": {
+    "multipliers": [1, 1.5, 2],
+    "note": "Approximations of commonly reported ADA accommodations, not ADA specifications (research §2.6)."
+  },
+  "optionPolicy": {
+    "sns": {
+      "options": 5,
+      "status": "unverified",
+      "evidence": "2007 ADA booklet shows 5 (A-E); one 2026 prep source says 4; no current ADA page states the count (research §2.2, §10.2 item 1). Authored at 5 with one distractor tagged weakest so a trim to 4 is a data edit."
+    },
+    "rc": {
+      "options": 5,
+      "status": "unverified",
+      "evidence": "2007 ADA booklet shows 5 (A-E) on every RC item; current count unverified (research §2.2)."
+    },
+    "qr": {
+      "options": 5,
+      "status": "unverified",
+      "evidence": "2007 booklet and Bohr Prep show 5; two secondary sources imply 4 (research §2.2)."
+    },
+    "qc": {
+      "options": 4,
+      "status": "corroborated",
+      "canonical": [
+        "Quantity A is greater",
+        "Quantity B is greater",
+        "The two quantities are equal",
+        "The relationship cannot be determined from the information given"
+      ]
+    },
+    "ds": {
+      "options": 5,
+      "status": "single-secondary",
+      "canonical": [
+        "Statement 1 alone is sufficient, but statement 2 alone is not",
+        "Statement 2 alone is sufficient, but statement 1 alone is not",
+        "Both statements together are sufficient, but neither alone is",
+        "Each statement alone is sufficient",
+        "Statements 1 and 2 together are not sufficient"
+      ]
+    },
+    "course": {
+      "options": 4,
+      "status": "convention",
+      "evidence": "Cortex lesson-question convention shared with the MCAT course (test-mcat-course.cjs:22); the engine's help check accepts 2-6 (mcat-course-engine.js:86-92). Rendered through LETTERS, so the count could change by data."
+    }
+  },
+  "optionPolicyNote": "Keys are sns/rc/qr/qc/ds/course; item.section is bio/gchem/ochem/qr/rc. Resolve with policyKey(outline, item) = (item.format === 'qc' || item.format === 'ds') ? item.format : outline.sections[item.section].block === 'sns' ? 'sns' : item.section — so every bio/gchem/ochem item is governed by optionPolicy.sns. One resolver, exported beside minimumFor(); DECISIONS-NUMERIC.md N3.",
+  "scienceSkills": [
+    { "id": "skill-1", "title": "Recall and recognition", "summary": "Retrieve a definition, structure, value or classification under time pressure." },
+    { "id": "skill-2", "title": "Application and prediction", "summary": "Apply a rule, mechanism or relationship to a short scenario." },
+    { "id": "skill-3", "title": "Experimental and data reasoning", "summary": "Read a brief setup, table or graph and draw the supported conclusion." }
+  ],
+  "readingSkills": [
+    { "id": "rc-1", "title": "Locate and verify", "summary": "Stated fact, number, sequence; EXCEPT and NOT items." },
+    { "id": "rc-2", "title": "Structure and purpose", "summary": "Main idea, paragraph function, best title, author tone." },
+    { "id": "rc-3", "title": "Reason beyond the text", "summary": "Inference, strengthen or weaken, application to a new case." }
+  ],
+  "patSubtests": [
+    { "id": "keyholes", "category": "PAT-KEY", "adaName": "Apertures", "alias": "Keyholes", "questions": 15, "options": 5, "seconds": 45 },
+    { "id": "tfe", "category": "PAT-TFE", "adaName": "View Recognition", "alias": "Top-front-end", "questions": 15, "options": 4, "seconds": 45 },
+    { "id": "angles", "category": "PAT-ANG", "adaName": "Angle Discrimination", "alias": "Angle ranking", "questions": 15, "options": 4, "seconds": 22 },
+    { "id": "holes", "category": "PAT-HOLE", "adaName": "Paper Folding", "alias": "Hole punching", "questions": 15, "options": 5, "seconds": 25 },
+    { "id": "cubes", "category": "PAT-CUBE", "adaName": "Cube Counting", "alias": "Cube counting", "questions": 15, "options": 5, "seconds": 40 },
+    { "id": "patterns", "category": "PAT-FOLD", "adaName": "3D Form Development", "alias": "Pattern folding", "questions": 15, "options": 4, "seconds": 60 }
+  ],
+  "patSubtestsNote": "Option counts are official (ADA PAT instructions). 15 items per subtest and the fixed subtest order are prep-community consensus, not ADA-published (research §4); change the numbers here, not in code.",
+  "concepts": [
+    {
+      "id": "bio",
+      "section": "bio",
+      "title": "Biology",
+      "summary": "First-year depth across cells, diversity, systems, genetics, evolution and ecology.",
+      "topicsSource": "ADA-derived paraphrase of the Candidate Guide's lettered sub-headings.",
+      "categories": [
+        {
+          "id": "BIO-1",
+          "title": "Cell and Molecular Biology",
+          "slug": "cell",
+          "topics": [
+            "Cell metabolism (including photosynthesis, enzymology)",
+            "Cellular processes (including membrane transport, signal transduction)",
+            "Thermodynamics",
+            "Mitosis/meiosis",
+            "Cell structure and function",
+            "Experimental cell biology",
+            "Biomolecules",
+            "Integrated relationships"
+          ]
+        },
+        {
+          "id": "BIO-2",
+          "title": "Diversity of Life",
+          "slug": "diversity",
+          "topics": ["Viruses", "Archaebacteria", "Eubacteria", "Fungi", "Protista", "Plantae", "Animalia", "Integrated relationships"]
+        },
+        {
+          "id": "BIO-3",
+          "title": "Structure and Function of Systems",
+          "slug": "systems",
+          "topics": [
+            "Integumentary",
+            "Skeletal",
+            "Muscular",
+            "Circulatory",
+            "Lymphatic/immune",
+            "Digestive",
+            "Respiratory",
+            "Urinary",
+            "Nervous/sensory",
+            "Endocrine",
+            "Reproductive",
+            "Integrated relationships"
+          ]
+        },
+        {
+          "id": "BIO-4",
+          "title": "Genetics",
+          "slug": "genetics",
+          "topics": [
+            "Molecular genetics",
+            "Human genetics",
+            "Classical genetics",
+            "Chromosomal genetics",
+            "Genetic technology",
+            "Developmental mechanisms",
+            "Genomics",
+            "Gene expression",
+            "Epigenetics",
+            "Integrated relationships"
+          ]
+        },
+        {
+          "id": "BIO-5",
+          "title": "Evolution and Ecology",
+          "slug": "evolution",
+          "topics": [
+            "Natural selection",
+            "Population genetics/speciation",
+            "Animal behavior",
+            "Ecology (population, community, and ecosystem ecology)",
+            "Integrated relationships"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gchem",
+      "section": "gchem",
+      "title": "General Chemistry",
+      "summary": "Conceptual-first general chemistry solvable with the on-screen periodic table and no calculator.",
+      "topicsSource": "ADA-derived paraphrase of the Candidate Guide's lettered sub-headings.",
+      "categories": [
+        {
+          "id": "GC-1",
+          "title": "Stoichiometry and General Concepts",
+          "slug": "stoich",
+          "topics": [
+            "Percent composition",
+            "Empirical formulae",
+            "Balancing equations",
+            "Moles and molecular formulas",
+            "Molar mass",
+            "Density",
+            "Calculations from balanced equations"
+          ]
+        },
+        { "id": "GC-2", "title": "Gases", "slug": "gases", "topics": ["Kinetic molecular theory of gases", "Dalton's", "Boyle's", "Charles's", "Ideal gas law"] },
+        { "id": "GC-3", "title": "Liquids and Solids", "slug": "phases", "topics": ["Intermolecular forces", "Phase changes", "Vapor pressure", "Structures", "Polarity", "Properties"] },
+        { "id": "GC-4", "title": "Solutions", "slug": "solutions", "topics": ["Polarity", "Properties: colligative", "Properties: non-colligative", "Forces", "Concentration calculations"] },
+        { "id": "GC-5", "title": "Acids and Bases", "slug": "acidbase", "topics": ["pH", "Strength", "Bronsted-Lowry reactions", "Calculations"] },
+        { "id": "GC-6", "title": "Chemical Equilibria", "slug": "equilibria", "topics": ["Molecular", "Acid/base", "Precipitation", "Calculations", "Le Chatelier's principle"] },
+        { "id": "GC-7", "title": "Thermodynamics and Thermochemistry", "slug": "thermo", "topics": ["Laws of thermodynamics", "Hess's law", "Spontaneity", "Enthalpies and entropies", "Heat transfer"] },
+        { "id": "GC-8", "title": "Chemical Kinetics", "slug": "kinetics", "topics": ["Rate laws", "Activation energy", "Half-life"] },
+        {
+          "id": "GC-9",
+          "title": "Oxidation-Reduction Reactions",
+          "slug": "redox",
+          "topics": ["Balancing equations", "Determination of oxidation numbers", "Electrochemical calculations", "Electrochemical concepts and terminology"]
+        },
+        {
+          "id": "GC-10",
+          "title": "Atomic and Molecular Structure",
+          "slug": "atomic",
+          "topics": [
+            "Electron configuration",
+            "Orbital types",
+            "Lewis-Dot diagrams",
+            "Atomic theory",
+            "Quantum theory",
+            "Molecular geometry",
+            "Bond types",
+            "Sub-atomic particles"
+          ]
+        },
+        { "id": "GC-11", "title": "Periodic Properties", "slug": "periodic", "topics": ["Representative elements", "Transition elements", "Periodic trends", "Descriptive chemistry"] },
+        { "id": "GC-12", "title": "Nuclear Reactions", "slug": "nuclear", "topics": ["Balancing equations", "Binding energy", "Decay processes", "Particles", "Terminology"] },
+        { "id": "GC-13", "title": "Laboratory", "slug": "lab", "topics": ["Basic techniques", "Equipment", "Error analysis", "Safety", "Data analysis"] }
+      ]
+    },
+    {
+      "id": "ochem",
+      "section": "ochem",
+      "title": "Organic Chemistry",
+      "summary": "Sophomore-depth organic chemistry built to the ADA's new five-category specification: mechanisms, synthesis, acid-base, properties and structure.",
+      "topicsSource": "ADA-derived paraphrase of the new-specification sub-items; the 'Curved arrows: ', 'One-step: ' and 'Structure: ' prefixes are Cortex flattening.",
+      "categories": [
+        {
+          "id": "OC-1",
+          "title": "Mechanisms",
+          "slug": "mech",
+          "topics": [
+            "Curved arrows: resonance",
+            "Curved arrows: free radical",
+            "Curved arrows: proton transfer",
+            "Curved arrows: addition",
+            "Curved arrows: elimination",
+            "Curved arrows: substitution",
+            "Curved arrows: rearrangements",
+            "Curved arrows: other (e.g., Diels-Alder)",
+            "Curved arrows: combined mechanisms",
+            "Reaction coordinate diagrams",
+            "General"
+          ]
+        },
+        {
+          "id": "OC-2",
+          "title": "Chemical Synthesis",
+          "slug": "synth",
+          "topics": [
+            "One-step: substitution (SN1, SN2)",
+            "One-step: elimination (E1, E2)",
+            "One-step: reactions of alkenes/alkynes",
+            "One-step: reactions of alcohols",
+            "One-step: reactions of ethers (including epoxides)",
+            "One-step: radical reactions",
+            "One-step: reactions of aromatics",
+            "One-step: reactions of carboxylic acids/derivatives",
+            "One-step: reactions of ketones and aldehydes",
+            "One-step: reactions of alpha-carbonyl compounds",
+            "One-step: other reactions",
+            "Two-step",
+            "Multi-step",
+            "Reactivity across multiple functional groups",
+            "General"
+          ]
+        },
+        {
+          "id": "OC-3",
+          "title": "Acid-Base Chemistry",
+          "slug": "acid",
+          "topics": [
+            "Ranking acidity/basicity across functional groups",
+            "Structure analysis within functional groups: charge",
+            "Structure analysis within functional groups: size",
+            "Structure analysis within functional groups: electronegativity",
+            "Structure analysis within functional groups: resonance",
+            "Structure analysis within functional groups: inductive effect",
+            "Structure analysis within functional groups: hybridization",
+            "Structure analysis within functional groups: sterics",
+            "Prediction of products & equilibria",
+            "General"
+          ]
+        },
+        {
+          "id": "OC-4",
+          "title": "Chemical & Physical Properties of Molecules",
+          "slug": "prop",
+          "topics": [
+            "Structure: polarity",
+            "Structure: intermolecular forces",
+            "Structure: solubility",
+            "Structure: melting/boiling point",
+            "Structure: general",
+            "Laboratory theory & techniques: chromatography",
+            "Laboratory theory & techniques: extractions",
+            "Laboratory theory & techniques: recrystallization",
+            "Laboratory theory & techniques: distillation",
+            "Laboratory theory & techniques: general",
+            "Spectroscopy: 1H NMR",
+            "Spectroscopy: 13C NMR",
+            "Spectroscopy: infrared",
+            "Spectroscopy: multi-spectra",
+            "Spectroscopy: general"
+          ]
+        },
+        {
+          "id": "OC-5",
+          "title": "Structural Evaluation",
+          "slug": "struct",
+          "topics": [
+            "Nomenclature: functional groups",
+            "Nomenclature: IUPAC rules",
+            "Stereochemistry: conformations",
+            "Stereochemistry: isomer relationships",
+            "Stereochemistry: chirality",
+            "Structure & bonding: aromaticity",
+            "Structure & bonding: hybridization",
+            "Structure & bonding: resonance",
+            "Structure & bonding: atomic/molecular orbitals",
+            "Structure & bonding: bond angles/lengths",
+            "Structure & bonding: relative stability/reactivity",
+            "General"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "qr",
+      "section": "qr",
+      "title": "Quantitative Reasoning",
+      "summary": "Algebra, data, comparison, probability and applied problems with a basic click-only calculator; no trigonometry and no standalone geometry.",
+      "topicsSource": "QR-1 is an ADA-derived paraphrase of outline I.A; QR-2 to QR-5 topics are Cortex groupings under the ADA headings.",
+      "categories": [
+        {
+          "id": "QR-1",
+          "title": "Algebra",
+          "slug": "alg",
+          "topics": ["Equations and expressions", "Inequalities", "Exponential notation", "Absolute value", "Ratios and proportions", "Graphical analysis"]
+        },
+        {
+          "id": "QR-2",
+          "title": "Data Analysis, Interpretation, and Sufficiency",
+          "slug": "data",
+          "topics": ["Tables and charts", "Reading a graph", "Percent change from data", "Rates from data", "Data sufficiency", "Sufficiency of a single statement"]
+        },
+        {
+          "id": "QR-3",
+          "title": "Quantitative Comparison",
+          "slug": "qc",
+          "topics": ["Two-quantity comparison", "Comparison under a shared condition", "Comparison with unknown sign or range"]
+        },
+        {
+          "id": "QR-4",
+          "title": "Probability and Statistics",
+          "slug": "stat",
+          "topics": ["Mean, median and mode", "Range and standard deviation", "Counting and combinations", "Simple probability", "Compound and conditional probability", "Normal distribution"]
+        },
+        {
+          "id": "QR-5",
+          "title": "Applied Mathematics (Word) Problems",
+          "slug": "applied",
+          "topics": [
+            "Rates and work",
+            "Mixtures and concentration",
+            "Percent, interest and discount",
+            "Distance and travel",
+            "Proportional scaling",
+            "Formula-level geometry in context (area, volume, Pythagorean)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rc",
+      "section": "rc",
+      "title": "Reading Comprehension",
+      "summary": "Three science passages read in a split-screen layout; three Cortex skill groups aggregate the question types.",
+      "topicsSource": "Cortex convention; the ADA publishes no RC skill taxonomy.",
+      "categories": [
+        { "id": "RC-1", "title": "Locate and verify", "slug": "locate", "topics": ["Stated detail", "Detail EXCEPT or NOT", "Numerical detail", "Sequence and order"] },
+        { "id": "RC-2", "title": "Structure and purpose", "slug": "structure", "topics": ["Main idea", "Paragraph function", "Best title", "Author tone"] },
+        { "id": "RC-3", "title": "Reason beyond the text", "slug": "beyond", "topics": ["Inference", "Strengthen or weaken", "Application to a new case"] }
+      ]
+    },
+    {
+      "id": "pat",
+      "section": "pat",
+      "title": "Perceptual Ability",
+      "summary": "Six generated subtests; these categories carry no authored items and exist for coverage, the mistake log, strategy lessons and the score layer.",
+      "topicsSource": "Cortex labels used by the strategy lessons and review copy.",
+      "categories": [
+        { "id": "PAT-KEY", "title": "Apertures", "slug": "keyholes", "topics": ["Silhouette derivation", "Scale and proportion", "Mirror-image discrimination", "Feature placement"] },
+        { "id": "PAT-TFE", "title": "View Recognition", "slug": "tfe", "topics": ["Orthographic alignment", "Hidden versus visible edges", "Solid-over-dashed rule", "Depth direction"] },
+        { "id": "PAT-ANG", "title": "Angle Discrimination", "slug": "angles", "topics": ["Pairwise comparison", "Reference to 90 and 180 degrees", "Arm-length distraction", "Rapid scanning"] },
+        { "id": "PAT-HOLE", "title": "Paper Folding", "slug": "holes", "topics": ["Reverse unfolding", "Reflection across a fold", "Layer counting", "Diagonal folds"] },
+        { "id": "PAT-CUBE", "title": "Cube Counting", "slug": "cubes", "topics": ["Hidden support cubes", "Painted-face tally", "Unpainted bottom", "Symmetric rows"] },
+        { "id": "PAT-FOLD", "title": "3D Form Development", "slug": "patterns", "topics": ["Face-shape elimination", "Shading adjacency", "Fold direction", "Orientation after folding"] }
+      ]
+    }
+  ],
+  "ochemPriorSpec": {
+    "note": "Prior seven-area specification kept for cross-reference only (research §3.4); no item keys to it.",
+    "areas": [
+      "Mechanisms: Energetics and Structure",
+      "Chemical and Physical Properties of Molecules",
+      "Stereochemistry",
+      "Nomenclature",
+      "Individual Reactions and Combinations",
+      "Acid-Base Chemistry",
+      "Aromatics and Bonding"
+    ]
+  },
+  "ochemGoLive": "Built to the ADA's new five-category specification announced for April 2026; go-live was unconfirmed on 2026-09-15. Confirm your test date's specification in the Candidate Guide.",
+  "files": {
+    "course": [
+      "dat-course-bio-cell",
+      "dat-course-bio-diversity",
+      "dat-course-bio-systems",
+      "dat-course-bio-genetics",
+      "dat-course-gc-matter",
+      "dat-course-gc-reactions",
+      "dat-course-gc-structure",
+      "dat-course-oc-structure",
+      "dat-course-oc-acidbase",
+      "dat-course-oc-mechanisms",
+      "dat-course-oc-synthesis",
+      "dat-course-qr-math",
+      "dat-course-qr-applied",
+      "dat-course-rc",
+      "dat-course-pat-2d",
+      "dat-course-pat-3d"
+    ],
+    "cards": [
+      "dat-cards-bio-cell",
+      "dat-cards-bio-diversity",
+      "dat-cards-bio-systems",
+      "dat-cards-bio-genetics",
+      "dat-cards-gc-matter",
+      "dat-cards-gc-reactions",
+      "dat-cards-gc-structure",
+      "dat-cards-oc-structure",
+      "dat-cards-oc-acidbase",
+      "dat-cards-oc-mechanisms",
+      "dat-cards-oc-synthesis",
+      "dat-cards-qr-math",
+      "dat-cards-qr-applied",
+      "dat-cards-rc",
+      "dat-cards-pat-2d",
+      "dat-cards-pat-3d"
+    ],
+    "questions": [
+      "dat-questions-bio-1",
+      "dat-questions-bio-2",
+      "dat-questions-bio-3",
+      "dat-questions-gchem-1",
+      "dat-questions-gchem-2",
+      "dat-questions-gchem-3",
+      "dat-questions-ochem-1",
+      "dat-questions-ochem-2",
+      "dat-questions-ochem-3",
+      "dat-questions-qr-1",
+      "dat-questions-qr-2",
+      "dat-questions-qr-3"
+    ]
+  },
+  "targets": {
+    "questions": {
+      "BIO-1": 35,
+      "BIO-2": 30,
+      "BIO-3": 40,
+      "BIO-4": 35,
+      "BIO-5": 20,
+      "GC-1": 12,
+      "GC-2": 8,
+      "GC-3": 10,
+      "GC-4": 10,
+      "GC-5": 12,
+      "GC-6": 12,
+      "GC-7": 10,
+      "GC-8": 10,
+      "GC-9": 10,
+      "GC-10": 12,
+      "GC-11": 8,
+      "GC-12": 6,
+      "GC-13": 10,
+      "OC-1": 35,
+      "OC-2": 35,
+      "OC-3": 20,
+      "OC-4": 20,
+      "OC-5": 20,
+      "QR-1": 30,
+      "QR-2": 20,
+      "QR-3": 30,
+      "QR-4": 20,
+      "QR-5": 30
+    },
+    "layers": { "1": 0.4, "2": 0.75, "3": 1.0 },
+    "cards": { "bio": 120, "gchem": 100, "ochem": 100, "qr": 20, "rc": 10, "pat": 20 },
+    "rc": { "passages": 6, "questionsPerPassage": [16, 17], "questionsPerSet": 50, "questionsTotal": 100 }
+  }
+}

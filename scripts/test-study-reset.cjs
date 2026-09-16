@@ -12,6 +12,9 @@ const code =
 const seed = {
   'cs-mcat-course-v1': '{"units":{"u1":{"notes":"MCAT note"}}}',
   'cs-mcat-v2': '{}',
+  'cs-dat-course-v1': '{"units":{"d1":{"notes":"DAT note"}}}',
+  'cs-dat-log': '[]',
+  'cs-dat-r-drill': '{"idx":1}',
   'cs-neuro': '{"projects":{"one":{"code":"return 1"}}}',
   'cs-cogpsych': '{}',
   'cs-cogpsych-research-v1': '{}',
@@ -159,8 +162,33 @@ test('Medicine and MCAT resets remove their full current scope while retaining o
   h.click('#rst-confirm');
   assert.equal(h.storage.getItem('cs-mcat-course-v1'), null);
   assert.equal(h.storage.getItem('cs-mcat-v2'), null);
-  for (const k of ['cs-neuro', 'cs-academy-reference-v1', 'cs-academy-portfolio-v1', 'cs-academy-today-v1'])
+  for (const k of [
+    'cs-neuro',
+    'cs-academy-reference-v1',
+    'cs-academy-portfolio-v1',
+    'cs-academy-today-v1',
+    'cs-dat-course-v1',
+    'cs-dat-log',
+  ])
     assert.equal(h.storage.getItem(k), seed[k]);
+  h.close();
+});
+test('the DAT reset removes only cs-dat-* records and leaves MCAT and the other courses alone', () => {
+  const h = harness();
+  assert.match(h.find('#rst-dat').textContent, /DAT prep/);
+  h.click('#rst-dat');
+  assert.match(h.find('#rst-preview').textContent, /DAT drills, PAT sets/);
+  h.click('#rst-confirm');
+  for (const k of ['cs-dat-course-v1', 'cs-dat-log', 'cs-dat-r-drill']) assert.equal(h.storage.getItem(k), null, k);
+  for (const k of [
+    'cs-mcat-course-v1',
+    'cs-mcat-v2',
+    'cs-neuro',
+    'cs-academy-portfolio-v1',
+    'cs-streak',
+    'cs-progress',
+  ])
+    assert.equal(h.storage.getItem(k), seed[k], k);
   h.close();
 });
 test('canceling, closing or choosing a different scope invalidates a previously prepared reset', () => {

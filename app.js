@@ -74,9 +74,16 @@ const SECTION_INFO = {
     headline: 'Neuroengineering is under construction.',
     desc: 'This course is temporarily closed while its units and learning flow are reviewed.',
   },
+  // `label` must stay byte-identical to CLOSED.dat.label in scripts/smoke-public-gates.mjs.
+  dat: {
+    label: 'DAT',
+    badge: 'Under construction',
+    headline: 'DAT preparation is under construction.',
+    desc: 'This track is being built and reviewed. It opens only on localhost for now.',
+  },
 };
 // Public beta version; independent subject acceptance remains separate.
-const APP_VERSION = '2.30.1-local.1';
+const APP_VERSION = '2.31.0-local.1';
 function cortexFreeNote(sectionPill, sectionName) {
   return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free</span><span class="free-note-txt">${sectionName} is free to use — no account, no paywall, no catch.</span></p>`;
 }
@@ -175,10 +182,10 @@ function saveStreak() {
 const SECTION_SCRIPTS = {
   academy: [
     'study-storage.js?v=5',
-    'academy-today.js?v=10',
-    'study-backup.js?v=12',
+    'academy-today.js?v=11',
+    'study-backup.js?v=13',
     'academy-storage.js?v=5',
-    'academy-portfolio-core.js?v=3',
+    'academy-portfolio-core.js?v=4',
     'academy-portfolio.js?v=4',
   ],
   practice: [
@@ -203,6 +210,9 @@ const SECTION_SCRIPTS = {
     'mcat-v2.js?v=19',
     'mcat.js?v=90',
   ],
+  // dat.js loads second on purpose: it declares window.DAT so later DAT modules can
+  // register their pausers at load time. Each milestone appends its own lines here.
+  dat: ['study-storage.js?v=5', 'dat.js?v=1'],
   anatomy: ['study-storage.js?v=5', 'academy-lessons.js?v=7', 'anatomy.js?v=44'],
   reference: [
     'study-storage.js?v=5',
@@ -250,7 +260,7 @@ function gotoMCAT() {
 }
 
 function studyResetData(data, scope) {
-  if (!['clinical', 'medicine', 'mcat', 'all'].includes(scope)) throw Error('Choose a supported reset scope.');
+  if (!['clinical', 'medicine', 'mcat', 'dat', 'all'].includes(scope)) throw Error('Choose a supported reset scope.');
   const next = { ...data },
     preferences = new Set(['cs-mode', 'cs-diff', 'cs-seen-ver', 'cs-anon-id']);
   const clinical = new Set([
@@ -273,6 +283,7 @@ function studyResetData(data, scope) {
     if (
       (scope === 'all' && !preferences.has(key)) ||
       (scope === 'mcat' && key.startsWith('cs-mcat')) ||
+      (scope === 'dat' && key.startsWith('cs-dat')) ||
       (scope === 'clinical' && clinical.has(key)) ||
       (scope === 'medicine' && medicine.has(key))
     )
@@ -296,12 +307,19 @@ function studyResetData(data, scope) {
   return next;
 }
 function openResetProgress() {
-  const labels = { clinical: 'Clinical scenarios', medicine: 'Medicine', mcat: 'MCAT prep', all: 'All study records' };
+  const labels = {
+    clinical: 'Clinical scenarios',
+    medicine: 'Medicine',
+    mcat: 'MCAT prep',
+    dat: 'DAT prep',
+    all: 'All study records',
+  };
   const descriptions = {
     clinical:
       'Clinical cases, timelines, answers and clinical counters, including the day streak that MCAT practice also builds.',
     medicine: 'Medicine lessons, pharmacology, labs, ECGs and Medicine counters.',
     mcat: 'MCAT lessons, plans, practice, reviews, help notes and item concerns.',
+    dat: 'DAT drills, PAT sets, schedule, mistake log, lessons, rehearsals and item concerns.',
     all: 'All seven courses, Academy plans, retrieval practice, private portfolio, notes, concerns and focus history.',
   };
   const m = el(`<div class="modal" id="rst"><div class="modal-box">
@@ -679,6 +697,7 @@ async function openSection(key) {
   if (key === 'cogpsych') return navigateSection('academy');
   const request = ++_sectionRequest;
   if (key !== 'mcat') window.pauseMcatTools?.();
+  if (key !== 'dat') window.pauseDatTools?.();
   if (COMING_SOON.has(key)) {
     renderComingSoon(key);
     return true;
@@ -708,6 +727,9 @@ async function openSection(key) {
       case 'mcat':
         if (typeof window.renderMCATEntry === 'function') await window.renderMCATEntry();
         else await window.renderMCAT();
+        break;
+      case 'dat':
+        await window.renderDATEntry();
         break;
       case 'stats':
         await renderStats();
@@ -810,7 +832,7 @@ function topbar(active) {
     <a class="wordmark" href="#">${MARK_SVG}<span class="wm-name">Cortex <span class="wm-sub">Medical Academy</span></span></a>
     <nav class="nav">
       <div class="navmenu">
-        <button class="navlink menubtn ${['mcat', 'stats'].includes(active) ? 'active' : ''}" data-menu="mcat" data-nav-menu aria-label="MCAT" aria-expanded="false" aria-controls="mcat-panel">MCAT<span class="caret">&#9662;</span></button>
+        <button class="navlink menubtn ${['mcat', 'stats', 'dat'].includes(active) ? 'active' : ''}" data-menu="mcat" data-nav-menu aria-label="MCAT" aria-expanded="false" aria-controls="mcat-panel">MCAT<span class="caret">&#9662;</span></button>
         <div class="menupanel mcat-menupanel" id="mcat-panel" aria-label="MCAT navigation" hidden>
           <div class="menu-grid">
             <section class="menu-group" aria-labelledby="mcat-menu-title">
@@ -820,6 +842,9 @@ function topbar(active) {
               </button>
               <button class="menuitem${menuActive('stats')}" data-go="stats"${menuCurrent('stats')}>
                 <span class="mi-copy"><span class="mi-name">Progress</span><span class="mi-desc">Lessons, practice &amp; saved work</span></span>
+              </button>
+              <button class="menuitem${menuActive('dat')}" data-go="dat"${menuCurrent('dat')}>
+                <span class="mi-copy"><span class="mi-name">DAT Prep</span><span class="mi-desc">Timed drills, PAT generators, schedule</span></span>${sectionMenuTag('dat')}
               </button>
             </section>
           </div>

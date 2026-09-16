@@ -294,9 +294,9 @@ function worker(f) {
     assert.equal((await w.remove(name)).ok, true);
     assert.deepEqual(await f.caches.keys(), []);
   });
-  await test('The current six-course inventory has matching files and includes its app dependencies', async () => {
+  await test('The current seven-course inventory has matching files and includes its app dependencies', async () => {
     const manifest = Core.validate(JSON.parse(fs.readFileSync('offline-manifest.json')));
-    assert.equal(manifest.packs.length, 6);
+    assert.equal(manifest.packs.length, 7);
     for (const pack of manifest.packs) {
       for (const file of pack.files) {
         const body = fs.readFileSync(file.url.slice(1));

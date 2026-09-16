@@ -43,6 +43,26 @@ function fixture() {
         },
       },
     },
+    'cs-dat-course-v1': {
+      units: {
+        dat1: {
+          completedAt: 300,
+          notes: 'My current DAT note',
+          attempts: [
+            {
+              qId: 'dat-first',
+              kind: 'check',
+              chosen: 2,
+              correct: true,
+              ts: 250,
+              confidence: 'sure',
+              questionSnapshot: { stem: 'Original DAT wording', options: ['one', 'two', 'three', 'four'] },
+            },
+          ],
+          privateExtra: 'DAT_PRIVATE_EXTRA',
+        },
+      },
+    },
     'cs-ltl-progress-v1': {
       general: {
         lessons: {
@@ -120,18 +140,21 @@ function fixture() {
   };
   return Object.fromEntries(Object.entries(data).map(([k, v]) => [k, JSON.stringify(v)]));
 }
-test('seven tracks produce selected evidence without importing unrelated records or current catalog wording', () => {
+test('eight tracks produce selected evidence without importing unrelated records or current catalog wording', () => {
   const data = fixture(),
     before = clone(data),
     result = Core.candidates(data);
   assert.equal(result.unavailable.length, 0);
-  assert.equal(new Set(result.items.map(a => a.track)).size, 7);
-  assert.equal(result.items.length, 7);
+  assert.equal(new Set(result.items.map(a => a.track)).size, 8);
+  assert.equal(result.items.length, 8);
   assert.deepEqual(data, before);
   const text = JSON.stringify(result);
   for (const secret of ['SECRET_AUTH', 'UNRELATED_RECORD', 'OTHER_OWNER', 'PRIVATE_EXTRA'])
     assert.ok(!text.includes(secret));
   assert.ok(text.includes('Original MCAT wording'));
+  const dat = result.items.find(a => a.track === 'dat');
+  assert.equal(dat.kind, 'DAT lesson record');
+  assert.ok(dat.evidence.some(e => e.text === 'Original DAT wording'));
   assert.ok(text.includes('Independent content review not established'));
   const mcat = result.items.find(a => a.track === 'mcat');
   assert.ok(mcat.evidence.some(e => e.label.startsWith('Delayed application')));

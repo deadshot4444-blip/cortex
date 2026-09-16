@@ -8,6 +8,7 @@
   const KEY = 'cs-academy-portfolio-v1';
   const SOURCES = [
     'cs-mcat-course-v1',
+    'cs-dat-course-v1',
     'cs-ltl-progress-v1',
     'cs-cogpsych',
     'cs-academy-anatomy-v1',
@@ -16,7 +17,7 @@
     'cs-clinical-longitudinal-v1',
     'cs-neuro',
   ];
-  const TRACKS = ['mcat', 'socrates', 'cogpsych', 'anatomy', 'reference', 'practice', 'neuro'];
+  const TRACKS = ['mcat', 'dat', 'socrates', 'cogpsych', 'anatomy', 'reference', 'practice', 'neuro'];
   const ROLES = ['context', 'original', 'draft', 'revision', 'assistance', 'result'];
   const clone = value => JSON.parse(JSON.stringify(value));
   const object = value => !!value && typeof value === 'object' && !Array.isArray(value);
@@ -121,7 +122,9 @@
           unavailable.push(key + '/' + id + ': a portfolio summary could not be prepared; original copy retained.');
         }
       };
-      if (key === 'cs-mcat-course-v1')
+      if (key === 'cs-mcat-course-v1' || key === 'cs-dat-course-v1') {
+        // Both course records share the McatCourseCore state shape; only the track label differs.
+        const track = key === 'cs-dat-course-v1' ? 'dat' : 'mcat';
         for (const [id, r] of pairs(saved.units))
           attempt(id, () => {
             const evidence = [];
@@ -167,9 +170,20 @@
               }
             }
             fields(evidence, 'Current lesson note', 'draft', r.notes);
-            add(item(key, 'mcat', id, null, 'MCAT lesson record', r, null, evidence));
+            add(
+              item(
+                key,
+                track,
+                id,
+                null,
+                track === 'dat' ? 'DAT lesson record' : 'MCAT lesson record',
+                r,
+                null,
+                evidence
+              )
+            );
           });
-      else if (key === 'cs-ltl-progress-v1')
+      } else if (key === 'cs-ltl-progress-v1')
         for (const [track, progress] of pairs(saved))
           for (const [id, r] of pairs(progress?.lessons))
             attempt(id, () =>

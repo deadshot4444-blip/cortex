@@ -58,7 +58,7 @@ for (const viewport of viewports) {
       `Primary navigation hierarchy is wrong: ${JSON.stringify({ primaryOrder, learnPrimaryCount, learnExploreCount, topLevelStatsCount, learnVisibleText, expectedLearnText })}`
     );
   }
-  const clinicalNav = page.locator('[data-go="practice"]');
+  const clinicalNav = page.locator('.topbar.mainbar .nav > [data-go="practice"]');
   const clinicalNavLabel = await clinicalNav.getAttribute('aria-label');
   const clinicalNavVisibleText = await clinicalNav.evaluate(button =>
     [...button.children].find(child => getComputedStyle(child).display !== 'none')?.textContent?.trim()
@@ -94,9 +94,13 @@ for (const viewport of viewports) {
     label.trim()
   );
   if (
-    JSON.stringify(mcatMenuItems) !== JSON.stringify(['MCAT Prep', 'Progress']) ||
+    JSON.stringify(mcatMenuItems) !== JSON.stringify(['MCAT Prep', 'Progress', 'DAT Prep']) ||
     JSON.stringify(mcatMenuDescriptions) !==
-      JSON.stringify(['Forever-free study suite', 'Lessons, practice & saved work'])
+      JSON.stringify([
+        'Forever-free study suite',
+        'Lessons, practice & saved work',
+        'Timed drills, PAT generators, schedule',
+      ])
   ) {
     throw new Error(`MCAT menu organization is wrong: ${JSON.stringify({ mcatMenuItems, mcatMenuDescriptions })}`);
   }

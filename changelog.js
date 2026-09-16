@@ -5,6 +5,17 @@
 
 const CHANGELOG = [
   {
+    version: '2.31.0-local.1',
+    tag: 'LOCAL',
+    date: 'September 16, 2026',
+    title: 'DAT preparation track (localhost preview)',
+    items: [
+      'A seventh track, DAT preparation, is registered in the Academy catalog, the MCAT menu, Academy Today, study backups and the reset dialog. It opens only on localhost while it is built.',
+      'The track lands with its ADA-aligned content outline (six sections, 37 categories) and a landing page with the test-day format; drills, perceptual-ability generators, lessons and the schedule follow.',
+      'On the public site the DAT entry shows as Under construction and none of its files are downloaded.',
+    ],
+  },
+  {
     version: '2.30.1-local.1',
     tag: 'LOCAL',
     date: 'September 15, 2026',

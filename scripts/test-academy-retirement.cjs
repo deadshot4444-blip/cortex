@@ -57,8 +57,8 @@ test('retiring a course preserves historical plans without scheduling or adverti
   for (const file of ['academy.js', 'academy-today.js']) vm.runInContext(fs.readFileSync(file, 'utf8'), context);
   w.AcademyToday.render();
   assert.equal(w.StudyStorage.paused, false);
-  assert.equal(w.CortexAcademy.tracks.length, 6);
-  assert.equal(w.document.querySelectorAll('[data-track]').length, 6);
+  assert.equal(w.CortexAcademy.tracks.length, 7);
+  assert.equal(w.document.querySelectorAll('[data-track]').length, 7);
   assert.equal(
     w.document.querySelector('[data-track="cogpsych"], [data-start="cogpsych"], [data-finish="cogpsych"]'),
     null

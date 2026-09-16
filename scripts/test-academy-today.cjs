@@ -7,7 +7,7 @@ const source = fs
     'window.AcademyToday = Object.freeze({ render });',
     'window.AcademyToday = { render, state, validState, plan, start, finish, evidence, dateKey };'
   );
-const ids = ['mcat', 'socrates', 'practice', 'anatomy', 'reference', 'neuro'];
+const ids = ['mcat', 'dat', 'socrates', 'practice', 'anatomy', 'reference', 'neuro'];
 function harness(saved = new Map(), local = true) {
   let invalid = 0,
     fail = false;
@@ -355,7 +355,7 @@ function domHarness(seed = {}, { local = true, closed = [] } = {}) {
       'cs-academy-today-v1': { version: 1, budget: 30, priority: ['anatomy', 'mcat'], paused: [], days: {} },
       'cs-academy-anatomy-v1': { lessons: { arm: { index: 1, startedAt: 5, content: { title: 'Arm lesson' } } } },
     },
-    { local: false, closed: ['socrates', 'anatomy', 'reference', 'neuro'] }
+    { local: false, closed: ['dat', 'socrates', 'anatomy', 'reference', 'neuro'] }
   );
   closed.api.render();
   assert.equal(closed.find('[data-track="anatomy"]').checked, true);

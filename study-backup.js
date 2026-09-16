@@ -8,7 +8,9 @@
     VERSION = 1,
     MAX_BYTES = 16 * 1024 * 1024;
   const plainKeys = new Set(['cs-mode', 'cs-diff', 'cs-seen-ver', 'cs-anon-id']);
-  const arrayKeys = new Set(['cs-history', 'cs-mcat-log', 'cs-mcat-exam-reviews']);
+  const arrayKeys = new Set(['cs-history', 'cs-mcat-log', 'cs-mcat-exam-reviews', 'cs-dat-log', 'cs-dat-exam-reviews']);
+  // Every DAT key is registered before any writer exists: parse() rejects unknown cs- keys,
+  // which would make a later backup unrestorable.
   const keys = new Set([
     ...plainKeys,
     ...arrayKeys,
@@ -25,6 +27,14 @@
     'cs-clinical-longitudinal-v1',
     'cs-cogpsych',
     'cs-cogpsych-research-v1',
+    'cs-dat-course-v1',
+    'cs-dat-item-reports-v1',
+    'cs-dat-passage-reviews',
+    'cs-dat-plan',
+    'cs-dat-q',
+    'cs-dat-rehearsal-v1',
+    'cs-dat-repairs-v1',
+    'cs-dat-srs',
     'cs-ekg',
     'cs-genetics',
     'cs-labs',
@@ -130,7 +140,7 @@
       }
     }
     for (const [key, raw] of Object.entries(data)) {
-      if (!keys.has(key) && !/^cs-mcat-r-(?:flash|drill|cars|plab|sim)$/.test(key))
+      if (!keys.has(key) && !/^cs-(?:mcat-r-(?:flash|drill|cars|plab|sim)|dat-r-(?:drill|pat|qr|rc|sim))$/.test(key))
         throw Error('This app cannot restore the study record: ' + key);
       if (typeof raw !== 'string') throw Error('A saved study record is not serialized text.');
       if (plainKeys.has(key)) {
@@ -145,7 +155,13 @@
       }
       if (arrayKeys.has(key) ? !Array.isArray(value) : !object(value))
         throw Error('The saved record ' + key + ' has an unsupported shape.');
-      walk(value, 0, '', ['cs-academy-portfolio-v1', 'cs-mcat-item-reports-v1'].includes(key), key);
+      walk(
+        value,
+        0,
+        '',
+        ['cs-academy-portfolio-v1', 'cs-mcat-item-reports-v1', 'cs-dat-item-reports-v1'].includes(key),
+        key
+      );
     }
     return Object.fromEntries(Object.entries(data).sort(([a], [b]) => a.localeCompare(b)));
   }

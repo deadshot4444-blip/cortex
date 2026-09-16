@@ -253,6 +253,18 @@
         url: courseUrl('mcat', { view: 'math', run: v2.math.active.id }),
         label: 'Resume saved calculation',
       });
+    const datCourse = read('cs-dat-course-v1');
+    result.dat.completed = Object.values(datCourse.units || {}).filter(item => item?.completedAt).length;
+    result.dat.due = Object.values(datCourse.units || {}).filter(
+      item => item?.dueAt && Number.isFinite(item.dueAt) && item.dueAt <= now
+    ).length;
+    result.dat.url = courseUrl('dat', { view: 'today' });
+    result.dat.label = 'Open DAT Today';
+    if (datCourse.activeUnit)
+      Object.assign(result.dat, {
+        url: courseUrl('dat', { view: 'course', unit: datCourse.activeUnit }),
+        label: 'Resume saved DAT lesson',
+      });
     return result;
   }
   function render() {
