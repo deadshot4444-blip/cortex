@@ -15,21 +15,10 @@
 /ccma  /  302
 /cogpsych  /academy  302
 
-# Trailing slashes make relative script/CSS hrefs resolve under the section
-# (/mcat/app.js). The SPA fallback then serves HTML as JavaScript and the page
-# stays blank. Canonicalize these before the catch-all. Query strings are kept.
-/mcat/      /mcat       301
-/dat/       /dat        301
-/learn/     /learn      301
-/practice/  /practice   301
-/anatomy/   /anatomy    301
-/medicine/  /medicine   301
-/neuro/     /neuro      301
-/academy/   /academy    301
-/stats/     /stats      301
-/utsa/      /utsa       301
-/focus/     /focus      301
-/updates/   /updates    301
+# Do not 301 /mcat/ → /mcat. Netlify matches those paths as the same rule, so
+# /mcat 301s to itself and the browser dies. The blank-page bug was relative
+# app.js resolving as /mcat/app.js; index.html and loadScript now load from /.
+# The catch-all below serves both /mcat and /mcat/ as the app.
 
 # SPA fallback: serve the app for section deep-links (e.g. /medicine, /mcat).
 # Must stay last — Netlify serves real static files first, then falls back here.

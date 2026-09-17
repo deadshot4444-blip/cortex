@@ -1,6 +1,7 @@
 // Trailing-slash section URLs used to boot a blank page: relative script/CSS
 // hrefs resolved under /mcat/, Netlify's SPA fallback served HTML as JavaScript,
-// and #app never mounted. These pins keep the assets rooted and the 301s in place.
+// and #app never mounted. Root-relative assets fix that. A /mcat/ → /mcat 301
+// cannot live here: Netlify treats those paths as one rule and /mcat 301s to itself.
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -31,19 +32,19 @@ test('index.html loads every stylesheet and boot script from the site root', () 
   }
 });
 
-test('_redirects canonicalizes every section trailing slash before the SPA fallback', () => {
+test('_redirects does not 301 a section onto itself (Netlify slash-collapses the match)', () => {
   const text = fs.readFileSync('_redirects', 'utf8');
   const lines = text
     .split('\n')
     .map(l => l.split('#', 1)[0].trim())
     .filter(Boolean);
-  const fallback = lines.findIndex(l => l.startsWith('/*'));
-  assert.ok(fallback > 0, 'SPA fallback exists');
+  assert.ok(
+    lines.some(l => l.startsWith('/*')),
+    'SPA fallback exists'
+  );
   for (const name of SECTIONS) {
-    const rule = lines.find(l => l.startsWith(`/${name}/`));
-    assert.ok(rule, `/${name}/ has a redirect`);
-    assert.match(rule, new RegExp(`^/${name}/\\s+/${name}\\s+301$`));
-    assert.ok(lines.indexOf(rule) < fallback, `/${name}/ is rewritten before the catch-all`);
+    const loop = lines.find(l => new RegExp(`^/${name}/?\\s+/${name}/?\\s+301$`).test(l));
+    assert.equal(loop, undefined, `/${name}/ must not 301 to /${name}`);
   }
 });
 
