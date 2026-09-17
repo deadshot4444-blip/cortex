@@ -1,6 +1,6 @@
 // Public gate smoke: with production gating forced (`?gates=prod`), the closed courses
 // (Learn to Learn, Anatomy, Medicine, Neuroengineering) show their Under construction page from
-// the navigation, the Academy catalog and direct deep links; MCAT and Clinical Scenarios stay
+// the navigation, the Academy catalog and direct deep links; MCAT, DAT and Clinical Scenarios stay
 // open; none of the closed courses' modules are downloaded; Academy Today and the offline
 // download list reflect the same catalog. Runs at desktop and phone widths.
 //
@@ -22,6 +22,8 @@ const CLOSED = {
   reference: { path: 'medicine', label: 'Medicine', deep: 'lesson=med-flow-resistance&step=4' },
   neuro: { path: 'neuro', label: 'Neuroengineering', deep: 'unit=1' },
 };
+// The tracks that are open to the public; everything else renders the Under construction page.
+const OPEN = ['mcat', 'dat', 'practice'];
 const CLOSED_ASSETS =
   /\/(dat(?:-[a-z-]+)?|socrates|anatomy|reference|ekg|ecg-engine|performance-drugs|neuro|neuro-practitioner|neuro-project-engine|python-runtime|code-evaluator)\.js(?:\?|$)|\/data\/(dat-[a-z0-9-]+|learn-to-learn|neuro-projects)\.json/;
 // Every file that only a closed course's offline pack ships (data banks, figures, workers) is a
@@ -133,14 +135,14 @@ for (const viewport of viewports) {
     JSON.stringify(record.catalogStatuses) !==
       JSON.stringify([
         'Beta',
-        'Under construction',
+        'Beta',
         'Under construction',
         'Beta',
         'Under construction',
         'Under construction',
         'Under construction',
       ]) ||
-    record.catalogActions.filter(t => t === 'View course status').length !== 5
+    record.catalogActions.filter(t => t === 'View course status').length !== 4
   )
     fail('Academy catalog', { statuses: record.catalogStatuses, actions: record.catalogActions });
   await noOverflow('Academy catalog');
@@ -157,12 +159,12 @@ for (const viewport of viewports) {
     .evaluateAll(nodes => nodes.map(n => n.dataset.track));
   if (
     JSON.stringify([...record.todayDisabled].sort()) !== JSON.stringify(Object.keys(CLOSED).sort()) ||
-    JSON.stringify([...record.todayEnabled].sort()) !== JSON.stringify(['mcat', 'practice'])
+    JSON.stringify([...record.todayEnabled].sort()) !== JSON.stringify([...OPEN].sort())
   )
     fail('Academy Today priorities', { disabled: record.todayDisabled, enabled: record.todayEnabled });
   record.todayClosedResumeLinks = await page
     .locator('#academy-recorded ~ details a[data-resume]')
-    .evaluateAll(nodes => nodes.map(n => n.dataset.resume).filter(id => !['mcat', 'practice'].includes(id)));
+    .evaluateAll(nodes => nodes.map(n => n.dataset.resume).filter(id => !OPEN.includes(id)));
   if (record.todayClosedResumeLinks.length)
     fail('Academy Today resume links into closed courses', record.todayClosedResumeLinks);
   await noOverflow('Academy Today');
@@ -177,7 +179,9 @@ for (const viewport of viewports) {
   await page.goto(prod('/academy?view=storage'), { waitUntil: 'networkidle' });
   await page.waitForSelector('#offline-catalog .offline-course h3, #offline-catalog p', { timeout: 15000 });
   record.downloads = (await page.locator('#offline-catalog .offline-course h3').allTextContents()).map(t => t.trim());
-  if (JSON.stringify(record.downloads) !== JSON.stringify(['MCAT preparation', 'Clinical Scenarios']))
+  if (
+    JSON.stringify(record.downloads) !== JSON.stringify(['MCAT preparation', 'DAT preparation', 'Clinical Scenarios'])
+  )
     fail('offline download catalog', record.downloads);
   await noOverflow('Study backups & offline downloads');
 
