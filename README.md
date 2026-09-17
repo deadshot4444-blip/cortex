@@ -1,7 +1,7 @@
 # Cortex Medical Academy
 
 Free, browser-based study tracks for pre-meds, medical students and people learning
-neuroengineering. Live at **https://cortexmedical.academy** (currently 2.30.0-beta.1).
+neuroengineering. Live at **https://cortexmedical.academy** (currently 2.31.0-beta.1).
 
 MCAT preparation is free with no account. Progress is saved in the browser; an optional
 account (emailed magic link) syncs it across devices. Beta availability is not an
@@ -14,13 +14,14 @@ for official AAMC materials or clinical judgment.
 | Path | Route | Scope |
 | --- | --- | --- |
 | MCAT | `/mcat` | 45 lessons across 15 chapters, coverage mapping, passage coaching, quantitative practice, weekly planning, concept repair, a 230-question rehearsal |
+| DAT | `/dat` | Timed science drills (216 items), six perceptual-ability generators, three reading-comprehension passages (50 questions), quantitative reasoning with the exam calculator |
 | Learn to Learn | `/learn` | General, Business and Medical learning-method courses |
 | Clinical Scenarios | `/practice` | 18 Clinical Shift cases across three rotations, three longitudinal patient timelines, and a separately labeled classic bank of 2,600 cases in 26 specialties |
 | Anatomy | `/anatomy` | 12 foundation and regional lessons plus draft atlas explorers |
 | Medicine | `/medicine` | 22 mechanism and interpretation lessons, 20 synthetic ECG patterns, a draft reference pathway |
 | Neuroengineering | `/neuro` | Five revised foundations, 13 coding exercises, 15 simulations, six synthetic projects |
 
-Only MCAT and Clinical Scenarios are open on the public site right now. Learn to Learn, Anatomy,
+MCAT, DAT and Clinical Scenarios are open on the public site right now. Learn to Learn, Anatomy,
 Medicine and Neuroengineering are closed for review (`available: false` in `academy.js`): their
 routes show an Under construction page in production and open only on localhost for development.
 Course copies downloaded for offline study before a course closed keep working; the public download

@@ -12,8 +12,14 @@ section_text = app.split('const SECTION_SCRIPTS = {', 1)[1].split('\n};', 1)[0]
 sections = {key: re.findall(r"'([^'?]+)(?:\?[^']*)?'", value)
             for key, value in re.findall(r'\s+(\w+): \[([^\]]+)\]', section_text)}
 base = {'index.html', 'offline-worker.js', 'data/manifest.json', 'data/index.json', 'data/academy-curriculum.json'}
-base.update(re.findall(r'(?:src|href)="([^"?]+)(?:\?[^\"]*)?"', index))
-base = {p for p in base if not p.startswith(('https:', 'data:', '/'))}
+# index.html uses root-relative /app.js so trailing-slash routes do not resolve
+# assets under /mcat/. Pack entries store the same paths without that prefix.
+for href in re.findall(r'(?:src|href)="([^"?]+)(?:\?[^\"]*)?"', index):
+    if href.startswith(('https:', 'data:')):
+        continue
+    rel = href.lstrip('/')
+    if rel.endswith(('.js', '.css')) and (root / rel).is_file():
+        base.add(rel)
 base.update(sections['academy'])
 clinical = list(json.loads((root / 'data/manifest.json').read_text()))
 specs = [

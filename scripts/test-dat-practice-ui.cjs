@@ -347,6 +347,24 @@ test('the pace bar is built from the outline pacing, not from a literal 54', asy
   qr.close();
 });
 
+test('a drill URL with section=qr hands off to the QR runner when it is loaded', async () => {
+  const h = harness();
+  let called = 0;
+  h.w.DatQr = {
+    render() {
+      called += 1;
+      h.w.setView(h.w.el('<main class="panel dat-qr-setup"><h1>Quantitative Reasoning.</h1></main>'));
+    },
+  };
+  await h.go('view=drill&section=qr&n=10&mode=paced');
+  assert.equal(called, 1, 'the QR runner owns the page');
+  assert.match(h.w.location.search, /view=qr/);
+  assert.doesNotMatch(h.w.location.search, /view=drill/);
+  assert.equal(h.find('.dat-drill-main, .dat-drill-setup'), null);
+  assert.match(h.text('h1'), /Quantitative Reasoning/);
+  h.close();
+});
+
 test('the exam clock is one section clock of n x the outline pace', async () => {
   const h = harness();
   await h.go('view=drill&section=bio&n=2&mode=exam');

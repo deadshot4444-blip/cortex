@@ -212,12 +212,10 @@
       .map((q, i) => [q, store.hist[q.id]?.n || 0, i])
       .sort((a, b) => a[1] - b[1] || a[2] - b[2])
       .map(([q]) => q);
-    // DAT-06/DAT-13: the pool is cut to n BEFORE set-mates are grouped, so a multi-item data-table
-    // set that straddles position n is split and the tail items lose their shared table. Harmless
-    // today — the only setId groups in the banks are QR, and SECTION_CHOICES never reaches them —
-    // so this stays as it is until the QR runner lands, which must draw n + the largest set size,
-    // group, then cut to n. (The previous Math.max(n, ...) expression here was a no-op: both
-    // branches of its ternary were n.)
+    // The pool is cut to n BEFORE set-mates are grouped, so a multi-item data-table set that
+    // straddles position n is split. render() sends qr/pat/rc to their own runners when those
+    // modules are loaded, so this path stays SNS-only on the public page. Tests may still deal
+    // QR items here to prove the generic option renderer.
     items = Core.groupSets(items.slice(0, n));
     if (!items.length) return false;
     const orders = {};
@@ -787,6 +785,28 @@
   /* ---------- entry points ---------- */
   function render() {
     const p = params();
+    if (p.section === 'qr' && window.DatQr?.render) {
+      history.replaceState(
+        { sec: 'dat' },
+        '',
+        datUrl({
+          view: 'qr',
+          n: p.n,
+          mode: p.mode === 'sheet' ? undefined : p.mode,
+          category: p.category,
+          topic: p.topic,
+        })
+      );
+      return window.DatQr.render();
+    }
+    if (p.section === 'pat' && window.DatPat?.render) {
+      history.replaceState({ sec: 'dat' }, '', datUrl({ view: 'pat' }));
+      return window.DatPat.render();
+    }
+    if (p.section === 'rc' && window.DatRc?.render) {
+      history.replaceState({ sec: 'dat' }, '', datUrl({ view: 'rc' }));
+      return window.DatRc.render();
+    }
     if (!p.section) return renderSetup();
     if (p.review) return mistakes();
     if (p.mode === 'sheet') return renderSheet(p.section);

@@ -142,8 +142,13 @@ test('the landing renders from the outline with the availability tag, format tab
     new RegExp(h.run('DAT.questions.length') + '\\s*practice items'),
     'the landing counts the merged bank, not a fixed seed total'
   );
-  assert.match(h.text('.course-hero-index'), /6 lessons/);
-  assert.match(h.text('.dat-tools'), /Lessons.*Schedule.*Mistake log.*Progress.*Coverage map.*Full-length rehearsal/s);
+  assert.match(h.text('.course-hero-index'), /6 lesson units drafted/);
+  assert.match(h.text('.dat-tools'), /Mistake log/);
+  assert.match(
+    h.text('.dat-tools'),
+    /Lessons\s+Soon.*Schedule\s+Soon.*Progress\s+Soon.*Coverage map\s+Soon.*Full-length rehearsal\s+Soon/s
+  );
+  assert.equal(h.find('.dat-tools a[href*="view=course"]'), null, 'unbuilt tools are not links');
   assert.equal(h.find('#dat-data-retry'), null);
   // A second render uses the cached data.
   const fetched = h.fetches.length;
@@ -402,7 +407,7 @@ test('the shared shell registers the track everywhere DAT-01 promises', () => {
     );
   assert.match(portfolio, /'cs-dat-course-v1'/, 'portfolio source');
   assert.match(portfolio, /'DAT lesson record'/, 'portfolio label');
-  assert.match(index, /<link rel="stylesheet" href="dat\.css\?v=\d+">/, 'stylesheet');
+  assert.match(index, /<link rel="stylesheet" href="\/dat\.css\?v=\d+">/, 'stylesheet');
 });
 
 test('the app.js keydown guard bails out for the DAT periodic-table overlay', () => {

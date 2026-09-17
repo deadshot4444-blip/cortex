@@ -96,11 +96,7 @@ for (const viewport of viewports) {
   if (
     JSON.stringify(mcatMenuItems) !== JSON.stringify(['MCAT Prep', 'Progress', 'DAT Prep']) ||
     JSON.stringify(mcatMenuDescriptions) !==
-      JSON.stringify([
-        'Forever-free study suite',
-        'Lessons, practice & saved work',
-        'Timed drills, PAT generators, schedule',
-      ])
+      JSON.stringify(['Forever-free study suite', 'Lessons, practice & saved work', 'Drills, PAT, reading & QR'])
   ) {
     throw new Error(`MCAT menu organization is wrong: ${JSON.stringify({ mcatMenuItems, mcatMenuDescriptions })}`);
   }

@@ -20,6 +20,8 @@
 .dat-section-card h3 a:hover { text-decoration:underline; }
 .dat-tools { display:flex; flex-wrap:wrap; align-items:center; gap:8px 18px; padding:18px 0; border-top:1px solid var(--course-line, #e3e7ef); border-bottom:1px solid var(--course-line, #e3e7ef); margin:8px 0 24px; font-size:14px; }
 .dat-tools a { color:#284cc2; text-underline-offset:3px; }
+.dat-tools .dat-tool-soon { color:var(--faint, #777e87); }
+.dat-tools .dat-tool-soon small { margin-left:4px; font-size:10px; letter-spacing:.08em; text-transform:uppercase; }
 .dat-notice { max-width:720px; margin:48px auto; padding:32px 24px; }
 .dat-notice h1 { font-size:clamp(26px,3.4vw,40px); letter-spacing:-.03em; margin:14px 0 12px; }
 .dat-notice code { font-size:.95em; padding:1px 6px; border:1px solid var(--course-line, #e3e7ef); border-radius:6px; }
@@ -538,4 +540,125 @@
   .dat-qr-calc-display { font-size: 22px; }
   .dat-qr-calc-key { min-height: 42px; font-size: 13px; }
   .dat-qr-cat-table th, .dat-qr-cat-table td { padding: 8px 6px; }
+}
+
+/* ---------- Readability: what a student actually reads ----------
+   Stems, passages, options and data tables. Chrome (crumbs, labels) stays
+   small. Reading text stays near-black and does not shrink on phones. */
+.dat-item .dat-stem,
+.q.dat-stem,
+.dat-qr-stem,
+.dat-pat-stem,
+.dat-rc-stem {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--text);
+  letter-spacing: 0.01em;
+}
+.dat-drill-main .opt,
+.dat-opt,
+.dat-qr-opt,
+.dat-rc-opt {
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--text);
+}
+.dat-drill-main .opt .key,
+.dat-opt .key,
+.dat-qr-opt .key,
+.dat-rc-opt .key {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--dim);
+}
+.dat-mistake-stem {
+  font-size: 15px;
+  color: var(--text);
+}
+.dat-qc-common,
+.dat-qc-col p,
+.dat-ds p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text);
+}
+.dat-data-table {
+  font-size: 14px;
+}
+.dat-qr-explain,
+.dat-pat-explanation,
+.dat-rc-rationale,
+.dat-rc-evidence-par {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text);
+}
+
+.dat-rc-passage {
+  background: var(--bg);
+  padding: 22px 26px 28px;
+}
+.dat-rc-text > li {
+  margin-top: 18px;
+  font-size: 16px;
+  line-height: 1.85;
+  color: var(--text);
+  letter-spacing: 0.01em;
+}
+.dat-rc-text > li::marker {
+  font-size: 12px;
+  color: var(--dim);
+}
+.dat-landing .course-hero-index > div {
+  font-size: 14px;
+  color: var(--text);
+}
+.dat-section-card p,
+.dat-rc-card p,
+.dat-pat-card p {
+  color: var(--text);
+}
+
+/* Periodic table: 7px labels were unreadable. Keep the grid, grow the type. */
+.dat-pt-z,
+.dat-pt-mass {
+  font-size: 9px;
+}
+.dat-pt-sym {
+  font-size: 12px;
+}
+.dat-ptable {
+  grid-auto-rows: minmax(38px, auto);
+}
+
+@media (min-width: 900px) {
+  /* Give the passage the wider column so 16px type still wraps around 45ch. */
+  .dat-rc-stage {
+    grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.85fr);
+  }
+}
+@media (max-width: 899px) {
+  /* Stacked / phone: the passage is the only column — use the larger size. */
+  .dat-rc-text > li {
+    font-size: 17px;
+    line-height: 1.85;
+    color: var(--text);
+  }
+}
+@media (max-width: 420px) {
+  .dat-item .dat-stem,
+  .q.dat-stem,
+  .dat-qr-stem,
+  .dat-pat-stem,
+  .dat-rc-stem {
+    font-size: 17px;
+  }
+  .dat-rc-text > li {
+    font-size: 16px;
+    line-height: 1.85;
+    color: var(--text);
+  }
+  .dat-rc-passage {
+    padding: 16px 14px 20px;
+  }
 }

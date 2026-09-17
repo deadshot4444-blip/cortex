@@ -214,9 +214,9 @@ const SECTION_SCRIPTS = {
   // register their pausers at load time. Each milestone appends its own lines here.
   dat: [
     'study-storage.js?v=5',
-    'dat.js?v=7',
+    'dat.js?v=8',
     'dat-drill-engine.js?v=1',
-    'dat-practice.js?v=3',
+    'dat-practice.js?v=4',
     'dat-pat-engine.js?v=6',
     'dat-pat.js?v=6',
     'dat-rc.js?v=3',
@@ -247,7 +247,7 @@ function loadScript(src) {
   if (_scriptLoads[src]) return _scriptLoads[src];
   _scriptLoads[src] = new Promise((resolve, reject) => {
     const s = document.createElement('script');
-    s.src = src;
+    s.src = /^https?:\/\//.test(src) || src.startsWith('/') ? src : '/' + src;
     s.onload = () => resolve();
     s.onerror = () => {
       s.remove();
@@ -854,7 +854,7 @@ function topbar(active) {
                 <span class="mi-copy"><span class="mi-name">Progress</span><span class="mi-desc">Lessons, practice &amp; saved work</span></span>
               </button>
               <button class="menuitem${menuActive('dat')}" data-go="dat"${menuCurrent('dat')}>
-                <span class="mi-copy"><span class="mi-name">DAT Prep</span><span class="mi-desc">Timed drills, PAT generators, schedule</span></span>${sectionMenuTag('dat')}
+                <span class="mi-copy"><span class="mi-name">DAT Prep</span><span class="mi-desc">Drills, PAT, reading &amp; QR</span></span>${sectionMenuTag('dat')}
               </button>
             </section>
           </div>

@@ -15,6 +15,22 @@
 /ccma  /  302
 /cogpsych  /academy  302
 
+# Trailing slashes make relative script/CSS hrefs resolve under the section
+# (/mcat/app.js). The SPA fallback then serves HTML as JavaScript and the page
+# stays blank. Canonicalize these before the catch-all. Query strings are kept.
+/mcat/      /mcat       301
+/dat/       /dat        301
+/learn/     /learn      301
+/practice/  /practice   301
+/anatomy/   /anatomy    301
+/medicine/  /medicine   301
+/neuro/     /neuro      301
+/academy/   /academy    301
+/stats/     /stats      301
+/utsa/      /utsa       301
+/focus/     /focus      301
+/updates/   /updates    301
+
 # SPA fallback: serve the app for section deep-links (e.g. /medicine, /mcat).
 # Must stay last — Netlify serves real static files first, then falls back here.
 /*  /index.html  200

@@ -67,7 +67,8 @@ class Handler(SimpleHTTPRequestHandler):
         print(f'{self.address_string()} {fmt % args}')
 
     def do_GET(self):
-        path = urlsplit(self.path).path
+        parsed = urlsplit(self.path)
+        path = parsed.path
         if self.file_exists(path):
             return super().do_GET()
         for source, target, status in RULES:
@@ -78,6 +79,8 @@ class Handler(SimpleHTTPRequestHandler):
                 return self.send_error(404, 'External proxy rules are not available locally')
             target = target.replace(':splat', splat)
             if status in (301, 302, 307, 308):
+                if parsed.query:
+                    target = f'{target}{"&" if "?" in target else "?"}{parsed.query}'
                 self.send_response(status)
                 self.send_header('Location', target)
                 self.end_headers()

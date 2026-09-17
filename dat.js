@@ -297,10 +297,10 @@ const DAT_SECTION_TARGETS = {
   rc: { view: 'rc' },
   qr: { view: 'qr' },
 };
-const DAT_TOOL_LINKS = [
+const DAT_TOOL_LINKS = [['mistakes', 'Mistake log']];
+const DAT_TOOL_SOON = [
   ['course', 'Lessons'],
   ['plan', 'Schedule'],
-  ['mistakes', 'Mistake log'],
   ['progress', 'Progress'],
   ['coverage', 'Coverage map'],
   ['rehearsal', 'Full-length rehearsal'],
@@ -321,7 +321,7 @@ function datRenderLanding() {
       <p>${esc(track.description)}</p>
       <div class="course-actions"><a class="btn btn-solid" id="dat-start" data-dat-go href="${esc(datUrl({ view: 'drill', section: 'mixed', n: 15 }))}">Start a 15-minute drill →</a></div>
     </div>
-    <div class="course-hero-index"><span>THE DAT TRACK</span><strong>${items}<span>practice items</span></strong><div>${lessons} lessons · ${outline ? Object.keys(outline.sections).length : 0} sections<br>${rcQuestions ? `${rcQuestions} reading-comprehension questions<br>` : ''}${window.DatPatCore ? window.DatPatCore.BUILT.length : 0} perceptual-ability generators<br>${outline ? outline.concepts.reduce((n, c) => n + c.categories.length, 0) : 0} outline categories</div></div></header>
+      <div class="course-hero-index"><span>THE DAT TRACK</span><strong>${items}<span>practice items</span></strong><div>${lessons ? `${lessons} lesson units drafted · ` : ''}${outline ? Object.keys(outline.sections).length : 0} sections<br>${rcQuestions ? `${rcQuestions} reading-comprehension questions<br>` : ''}${window.DatPatCore ? window.DatPatCore.BUILT.length : 0} perceptual-ability generators<br>${outline ? outline.concepts.reduce((n, c) => n + c.categories.length, 0) : 0} outline categories</div></div></header>
     ${
       outline
         ? `<section class="dat-format" aria-labelledby="dat-format-title"><h2 id="dat-format-title">Test-day format</h2>
@@ -341,7 +341,7 @@ function datRenderLanding() {
       })
       .join('')}</div>
       <p class="course-caption">${esc(outline.ochemGoLive)}</p></section>
-    <nav class="dat-tools" aria-label="DAT tools"><span class="course-eyebrow">TOOLS</span>${DAT_TOOL_LINKS.map(([view, label]) => `<a data-dat-go href="${esc(datUrl({ view }))}">${esc(label)}</a>`).join('')}</nav>`
+    <nav class="dat-tools" aria-label="DAT tools"><span class="course-eyebrow">TOOLS</span>${DAT_TOOL_LINKS.map(([view, label]) => `<a data-dat-go href="${esc(datUrl({ view }))}">${esc(label)}</a>`).join('')}${DAT_TOOL_SOON.map(([, label]) => `<span class="dat-tool-soon">${esc(label)} <small>Soon</small></span>`).join('')}</nav>`
         : ''
     }
     <p class="course-caption">Original Cortex material keyed to a paraphrase of the ADA DAT outline. Not affiliated with or endorsed by the American Dental Association. Independent subject review is pending.</p>
