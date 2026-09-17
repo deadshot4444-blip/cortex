@@ -1,0 +1,26 @@
+{
+  "format": "dat-course",
+  "version": 1,
+  "chapter": {
+    "id": "pat-3d",
+    "title": "Solid-object subtests",
+    "section": "pat",
+    "description": "Match silhouettes to apertures, read orthographic views, count hidden cubes and fold nets into solids.",
+    "prerequisites": [
+      "pat-2d"
+    ]
+  },
+  "authoredOn": "2026-09-16",
+  "author": "coding agent (Claude), original text",
+  "status": "Empty fragment: chapter metadata only; units arrive with content session C7.",
+  "reviewStatus": "Local authored-content check only; independent subject review pending.",
+  "sourceCheckedOn": "2026-09-16",
+  "contentNote": "Original Cortex lesson text and questions. The ADA DAT outline is the alignment target only; no ADA, prep-company or forum material is reproduced.",
+  "sources": [
+    {
+      "title": "OpenStax Prealgebra 2e",
+      "url": "https://openstax.org/books/prealgebra-2e"
+    }
+  ],
+  "units": []
+}

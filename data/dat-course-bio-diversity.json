@@ -1,0 +1,169 @@
+{
+  "format": "dat-course",
+  "version": 1,
+  "chapter": {
+    "id": "bio-diversity",
+    "title": "Diversity of life",
+    "section": "bio",
+    "description": "Classify by cell type, nutrition, wall chemistry and life cycle, then reason from those traits.",
+    "prerequisites": [
+      "bio-cell"
+    ]
+  },
+  "authoredOn": "2026-09-16",
+  "author": "coding agent (Claude), original text",
+  "status": "Seed fragment: chapter metadata plus one complete seed unit (protists-fungi); the remaining units arrive with content session C1.",
+  "reviewStatus": "Local authored-content check only; independent subject review pending.",
+  "sourceCheckedOn": "2026-09-16",
+  "contentNote": "Original Cortex lesson text and questions. The ADA DAT outline is the alignment target only; no ADA, prep-company or forum material is reproduced.",
+  "sources": [
+    {
+      "title": "OpenStax Biology 2e",
+      "url": "https://openstax.org/books/biology-2e"
+    },
+    {
+      "title": "OpenStax Biology 2e · Characteristics of Fungi",
+      "url": "https://openstax.org/books/biology-2e/pages/24-1-characteristics-of-fungi"
+    }
+  ],
+  "units": [
+    {
+      "id": "protists-fungi",
+      "section": "bio",
+      "chapter": "bio-diversity",
+      "categories": [
+        "BIO-2"
+      ],
+      "title": "Protists and fungi",
+      "subtitle": "Two groups defined by what they are not, and by how they feed.",
+      "minutes": 15,
+      "prerequisites": [],
+      "blocks": [
+        {
+          "title": "Protists: eukaryotes by exclusion",
+          "text": "Protista is not a natural group. It is the name given to every eukaryote that is not a plant, an animal or a fungus, so the members share a nucleus and membrane-bound organelles and little else. Most are unicellular, though kelps are large and multicellular. Sort them by how they get carbon: photoautotrophs such as diatoms, green algae and euglenoids carry chloroplasts; heterotrophs such as amoebas engulf food by phagocytosis, ciliates sweep it into an oral groove, and apicomplexans such as the malaria parasite live inside host cells. Sort them again by how they move: flagella, cilia or pseudopodia. When a question describes a single-celled eukaryote that does not fit a plant, animal or fungus, protist is the answer."
+        },
+        {
+          "title": "Fungi: absorptive heterotrophs with chitin walls",
+          "text": "Fungi are eukaryotic heterotrophs that digest food outside the body. They secrete enzymes onto a substrate, break it into small molecules and absorb those molecules across the wall. That wall is made of chitin, the same nitrogen-containing polysaccharide found in insect exoskeletons; it is not cellulose and not peptidoglycan. The body is usually a mat of thread-like hyphae called a mycelium, which gives an enormous surface for absorption. Yeasts are the unicellular exception. Fungi store carbohydrate as glycogen, as animals do. They are the main decomposers of wood and leaf litter, they partner with plant roots as mycorrhizae, and combined with an alga or cyanobacterium they form lichens. Bread molds, sac fungi such as yeasts and the club fungi that form mushrooms are the groups worth naming."
+        },
+        {
+          "title": "Life cycles you will be asked to place",
+          "text": "In most fungi the haploid state dominates. Sexual reproduction begins with plasmogamy, the fusion of two cytoplasms without fusion of their nuclei. The resulting hypha carries two genetically different nuclei side by side, a heterokaryotic or dikaryotic stage that can persist for a long time. Karyogamy, the fusion of the nuclei, then produces a diploid zygote that is often a single cell. Meiosis follows quickly and returns the fungus to haploid spores, which disperse and germinate into new hyphae. Asexual spores are produced far more often than sexual ones. Protists vary widely: some algae alternate between multicellular haploid and diploid generations, and the malaria parasite completes its sexual stage only inside a mosquito."
+        }
+      ],
+      "example": {
+        "prompt": "A single-celled organism has a nucleus and a chitin wall, and it feeds by releasing enzymes onto sugar-rich fruit and absorbing the products. Where does it belong?",
+        "reasoning": "The nucleus excludes bacteria. Chitin plus external digestion and absorption is the fungal signature, and a single-celled fungus is a yeast. A protist would lack the chitin wall or feed by engulfing."
+      },
+      "prediction": "Predict where a single-celled, flagellated, wall-less organism with chloroplasts belongs, and which trait rules out each of the other kingdoms.",
+      "lab": null,
+      "questions": [
+        {
+          "id": "protists-fungi-0",
+          "kind": "diagnostic",
+          "stem": "Which feature is found in all fungi but in no plant?",
+          "options": [
+            "A cell wall around each cell",
+            "Nutrition obtained only by external digestion and absorption",
+            "A multicellular body",
+            "A haploid stage in the life cycle"
+          ],
+          "answer": 1,
+          "explanation": "Plants also have walls, multicellular bodies and haploid stages, so none of those separates the kingdoms. Every fungus feeds only by releasing digestive enzymes onto its food and absorbing the products. A sundew or a pitcher plant does secrete enzymes too, which is why the word only matters: those plants supplement a diet they still make for themselves by photosynthesis. The wall is the trap: both kingdoms have one, but plant walls are cellulose and fungal walls are chitin."
+        },
+        {
+          "id": "protists-fungi-1",
+          "kind": "check",
+          "stem": "A fungal hypha contains nuclei from two genetically different parents sharing one cytoplasm, and the nuclei have not fused. What is this stage called?",
+          "options": [
+            "Diploid zygote",
+            "Haploid spore",
+            "Meiotic tetrad",
+            "Heterokaryotic (dikaryotic) stage"
+          ],
+          "answer": 3,
+          "explanation": "Plasmogamy fuses cytoplasm but not nuclei, leaving two unfused haploid nuclei in one cell; that is the heterokaryotic, or dikaryotic, stage. A diploid zygote exists only after karyogamy fuses the nuclei, which is the step this hypha has not yet reached."
+        },
+        {
+          "id": "protists-fungi-2",
+          "kind": "check",
+          "stem": "A unicellular eukaryote moves by pseudopodia and engulfs bacteria by phagocytosis. How does it obtain carbon?",
+          "options": [
+            "Heterotrophically, by ingesting food",
+            "Photoautotrophically, in chloroplasts",
+            "By absorbing dissolved nutrients through a chitin wall",
+            "By chemosynthesis at the plasma membrane"
+          ],
+          "answer": 0,
+          "explanation": "Phagocytosis is ingestion, so the organism is a heterotrophic protist such as an amoeba. Absorption through a chitin wall is the fungal mode and would be impossible for a cell that changes shape to engulf prey; a walled cell cannot form pseudopodia."
+        },
+        {
+          "id": "protists-fungi-later-1",
+          "kind": "delayed",
+          "stem": "The main structural polymer in the cell wall of a fungus is:",
+          "options": [
+            "Cellulose",
+            "Peptidoglycan",
+            "Chitin",
+            "Silica"
+          ],
+          "answer": 2,
+          "explanation": "Fungal walls are built from chitin, a nitrogen-containing polysaccharide. Cellulose is the plant wall polymer and peptidoglycan the bacterial one; silica forms the glassy shells of diatoms, which are protists, not fungi."
+        },
+        {
+          "id": "protists-fungi-later-2",
+          "kind": "delayed",
+          "stem": "Which pairing correctly matches a fungal partnership to its partner?",
+          "options": [
+            "Mycorrhiza: a bacterium living in root nodules",
+            "Lichen: a fungus with a photosynthetic alga or cyanobacterium",
+            "Mycorrhiza: a fungus digesting dead wood on its own",
+            "Lichen: a fungus parasitizing an insect"
+          ],
+          "answer": 1,
+          "explanation": "A lichen is a mutualism between a fungus, which provides structure and water retention, and a photosynthetic partner that supplies sugar. Mycorrhizae are fungus-plant-root partnerships, not bacterial nodules, and a fungus decomposing wood alone is a saprobe, not a partnership."
+        },
+        {
+          "id": "protists-fungi-later-3",
+          "kind": "delayed",
+          "stem": "In the typical fungal sexual cycle, which event comes immediately before meiosis?",
+          "options": [
+            "Spore germination",
+            "Plasmogamy",
+            "Hyphal branching",
+            "Karyogamy"
+          ],
+          "answer": 3,
+          "explanation": "The order is plasmogamy, a heterokaryotic stage, karyogamy and then meiosis; karyogamy makes the diploid nucleus that meiosis divides. Plasmogamy is the trap because it also involves fusion, but it fuses cytoplasm and can precede karyogamy by a long time."
+        }
+      ],
+      "cards": [
+        "div-fungi-1",
+        "div-fungi-2"
+      ],
+      "questionIds": [],
+      "passages": [],
+      "repairs": [],
+      "source": {
+        "title": "OpenStax Biology 2e · Characteristics of Fungi",
+        "url": "https://openstax.org/books/biology-2e/pages/24-1-characteristics-of-fungi"
+      },
+      "placementEligible": true,
+      "skills": [
+        "skill-1",
+        "skill-2"
+      ],
+      "topics": [
+        "Protista",
+        "Fungi"
+      ],
+      "provenance": {
+        "origin": "new",
+        "mcatUnit": null,
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    }
+  ]
+}

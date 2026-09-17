@@ -1,0 +1,2953 @@
+{
+  "format": "dat-bank",
+  "version": 1,
+  "section": "qr",
+  "layer": 1,
+  "authoredOn": "2026-09-16",
+  "author": "coding agent (Claude), original text",
+  "reviewStatus": "Local authored-content check only; independent subject review pending.",
+  "sourceCheckedOn": "2026-09-16",
+  "contentNote": "Original Cortex discrete items written to first-year depth. The ADA DAT outline is the alignment target only; no ADA, prep-company or forum material is reproduced.",
+  "sources": [
+    {
+      "title": "OpenStax College Algebra 2e",
+      "url": "https://openstax.org/books/college-algebra-2e"
+    },
+    {
+      "title": "OpenStax Introductory Statistics 2e",
+      "url": "https://openstax.org/books/introductory-statistics-2e"
+    }
+  ],
+  "lexicalExceptions": [],
+  "items": [
+    {
+      "id": "qr-alg-1",
+      "section": "qr",
+      "category": "QR-1",
+      "topic": "Ratios and proportions",
+      "skill": "skill-2",
+      "difficulty": "easy",
+      "format": "standard",
+      "stem": "A car uses 6 litres of fuel for every 100 km travelled. At the same rate, how much fuel does it use on a 250 km journey?",
+      "options": [
+        "2.5 L",
+        "6 L",
+        "9 L",
+        "12 L",
+        "15 L"
+      ],
+      "answer": 4,
+      "explanation": "Set up the proportion 6/100 = x/250, so x = 6 × 2.5 = 15 L. The trap is stopping at 2.5, which is the number of 100 km blocks in the journey, not a quantity of fuel.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "2.5 is the scale factor 250/100, not the litres of fuel."
+        },
+        {
+          "i": 1,
+          "why": "This keeps the fuel for 100 km unchanged and ignores the longer distance.",
+          "weakest": true
+        },
+        {
+          "i": 2,
+          "why": "6 × 1.5 = 9 uses 150 km instead of 250 km."
+        },
+        {
+          "i": 3,
+          "why": "6 × 2 = 12 rounds the journey down to 200 km and drops the final 50 km."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Prealgebra 2e · Solve Proportions and their Applications",
+          "url": "https://openstax.org/books/prealgebra-2e/pages/6-5-solve-proportions-and-their-applications"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-ds-1",
+      "section": "qr",
+      "category": "QR-2",
+      "topic": "Data sufficiency",
+      "skill": "skill-2",
+      "difficulty": "hard",
+      "format": "ds",
+      "stem": "A rectangle has a perimeter of 28 cm. What is its area?",
+      "statements": [
+        "The length of the rectangle is 2 cm greater than its width.",
+        "The diagonal of the rectangle is 10 cm long."
+      ],
+      "options": [
+        "Statement 1 alone is sufficient, but statement 2 alone is not",
+        "Statement 2 alone is sufficient, but statement 1 alone is not",
+        "Both statements together are sufficient, but neither alone is",
+        "Each statement alone is sufficient",
+        "Statements 1 and 2 together are not sufficient"
+      ],
+      "answer": 3,
+      "explanation": "The perimeter gives length plus width equal to 14. Statement 1 adds length minus width equal to 2, so the sides are 8 and 6 and the area is 48. Statement 2 gives length squared plus width squared equal to 100, and (l + w)² − (l² + w²) = 2lw = 196 − 100 = 96, so the area is again 48 without solving for either side. The trap is assuming the diagonal alone leaves the sides, and therefore the area, undetermined.",
+      "worked": {
+        "values": {
+          "halfPerimeter": 14,
+          "lengthMinusWidth": 2,
+          "length": 8,
+          "width": 6,
+          "diagonalSquared": 100,
+          "area": 48
+        },
+        "workedCheckedOn": "2026-09-16"
+      },
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Statement 2 also fixes the area, because 2lw = (l + w)² − d² is known."
+        },
+        {
+          "i": 1,
+          "why": "Statement 1 also fixes the area, since l + w = 14 and l − w = 2 give both sides."
+        },
+        {
+          "i": 2,
+          "why": "Neither statement needs the other; each one settles the area on its own."
+        },
+        {
+          "i": 4,
+          "why": "Each statement is sufficient on its own, so together they are certainly sufficient."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax College Algebra 2e · Models and Applications",
+          "url": "https://openstax.org/books/college-algebra-2e/pages/2-3-models-and-applications"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-qc-1",
+      "section": "qr",
+      "category": "QR-3",
+      "topic": "Two-quantity comparison",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "qc",
+      "common": "x is a positive number and x ≠ 1.",
+      "quantityA": "x + 1/x",
+      "quantityB": "2",
+      "stem": "Compare Quantity A and Quantity B.",
+      "options": [
+        "Quantity A is greater",
+        "Quantity B is greater",
+        "The two quantities are equal",
+        "The relationship cannot be determined from the information given"
+      ],
+      "answer": 0,
+      "explanation": "x + 1/x − 2 = (x − 1)²/x, and for a positive x other than 1 the numerator is positive and the denominator is positive, so Quantity A always exceeds 2. The trap is testing x = 2 and x = 1/2, seeing 2.5 both times, and then suspecting some other fraction might dip below 2; the identity shows it never does.",
+      "worked": {
+        "values": {
+          "x": [
+            0.5,
+            2,
+            3
+          ],
+          "quantityA": [
+            2.5,
+            2.5,
+            3.333
+          ],
+          "quantityB": 2
+        },
+        "workedCheckedOn": "2026-09-16"
+      },
+      "distractors": [
+        {
+          "i": 1,
+          "why": "No positive x makes x + 1/x smaller than 2; the minimum of the expression is exactly 2."
+        },
+        {
+          "i": 2,
+          "why": "Equality requires x = 1, which the condition excludes."
+        },
+        {
+          "i": 3,
+          "why": "The comparison comes out the same way for every allowed x, so it is determined."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax College Algebra 2e · Linear Inequalities and Absolute Value Inequalities",
+          "url": "https://openstax.org/books/college-algebra-2e/pages/2-7-linear-inequalities-and-absolute-value-inequalities"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-stat-1",
+      "section": "qr",
+      "category": "QR-4",
+      "topic": "Simple probability",
+      "skill": "skill-3",
+      "difficulty": "easy",
+      "format": "data",
+      "setId": "qr-stat-set-1",
+      "table": {
+        "caption": "Blood type recorded for 200 volunteers",
+        "headers": [
+          "Blood type",
+          "Number of volunteers"
+        ],
+        "rows": [
+          [
+            "O",
+            "90"
+          ],
+          [
+            "A",
+            "70"
+          ],
+          [
+            "B",
+            "30"
+          ],
+          [
+            "AB",
+            "10"
+          ]
+        ]
+      },
+      "stem": "One volunteer is selected at random from the 200 in the table. What is the probability that the volunteer has type B or type AB blood?",
+      "options": [
+        "1/20",
+        "3/20",
+        "1/5",
+        "7/20",
+        "9/20"
+      ],
+      "answer": 2,
+      "explanation": "The two outcomes cannot both happen, so add the counts: 30 + 10 = 40 volunteers, and 40/200 = 1/5. The trap is reporting only one of the two rows, 3/20 for B alone or 1/20 for AB alone.",
+      "worked": {
+        "values": {
+          "total": 200,
+          "typeB": 30,
+          "typeAB": 10,
+          "favorable": 40,
+          "probability": 0.2
+        },
+        "workedCheckedOn": "2026-09-16"
+      },
+      "distractors": [
+        {
+          "i": 0,
+          "why": "10/200 = 1/20 is the probability of type AB alone."
+        },
+        {
+          "i": 1,
+          "why": "30/200 = 3/20 is the probability of type B alone."
+        },
+        {
+          "i": 3,
+          "why": "70/200 = 7/20 is the share with type A, a misread row."
+        },
+        {
+          "i": 4,
+          "why": "90/200 = 9/20 is the share with type O, the largest row rather than the two asked for.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Introductory Statistics 2e · Terminology",
+          "url": "https://openstax.org/books/introductory-statistics-2e/pages/3-1-terminology"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-applied-1",
+      "section": "qr",
+      "category": "QR-5",
+      "topic": "Rates and work",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "One pump can fill an empty tank in 6 hours and a second pump can fill the same tank in 3 hours. If both pumps run together from the start, how long does it take to fill the tank?",
+      "options": [
+        "1.5 hours",
+        "2 hours",
+        "3 hours",
+        "4.5 hours",
+        "9 hours"
+      ],
+      "answer": 1,
+      "explanation": "Add the rates, not the times: 1/6 + 1/3 = 1/2 of the tank per hour, so the tank fills in 2 hours. The trap is averaging the two times to get 4.5 hours, which is slower than the faster pump working alone and so cannot be right.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Halving the faster pump’s time assumes two pumps always halve the time, which is true only when their rates are equal."
+        },
+        {
+          "i": 2,
+          "why": "This is the faster pump working alone; the slower pump still adds to the rate."
+        },
+        {
+          "i": 3,
+          "why": "Averaging the times gives a result slower than the faster pump alone, which is impossible."
+        },
+        {
+          "i": 4,
+          "why": "Adding the times treats the pumps as working one after the other rather than together.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax College Algebra 2e · Models and Applications",
+          "url": "https://openstax.org/books/college-algebra-2e/pages/2-3-models-and-applications"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-alg-2",
+      "section": "qr",
+      "category": "QR-1",
+      "topic": "Equations and expressions",
+      "skill": "skill-2",
+      "difficulty": "easy",
+      "format": "standard",
+      "stem": "Solve for x: 3(x − 4) = 2x + 5.",
+      "options": [
+        "−7",
+        "7",
+        "9",
+        "17",
+        "21"
+      ],
+      "answer": 3,
+      "explanation": "Distribute first: 3x − 12 = 2x + 5, so subtracting 2x and adding 12 gives x = 17. The trap is skipping the distribution and solving 3x − 4 = 2x + 5, which gives 9.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Moving the −12 to the left instead of the right gives 3x + 12 = 2x + 5 and a negative solution.",
+          "weakest": true
+        },
+        {
+          "i": 1,
+          "why": "This reads the right side as 2x − 5 rather than 2x + 5."
+        },
+        {
+          "i": 2,
+          "why": "Multiplying only the x by 3 leaves 3x − 4 = 2x + 5."
+        },
+        {
+          "i": 4,
+          "why": "This adds the 4 back at the end, but x was never shifted by the parenthesis."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax College Algebra 2e · Linear Equations in One Variable",
+          "url": "https://openstax.org/books/college-algebra-2e/pages/2-2-linear-equations-in-one-variable"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-alg-3",
+      "section": "qr",
+      "category": "QR-1",
+      "topic": "Inequalities",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "Which values of x satisfy −2x + 7 < 1?",
+      "options": [
+        "x < −4",
+        "x < 3",
+        "x > −4",
+        "x > −3",
+        "x > 3"
+      ],
+      "answer": 4,
+      "explanation": "Subtract 7 from both sides to get −2x < −6, then divide by −2 and reverse the inequality: x > 3. The trap is dividing by a negative number without reversing the sign, which gives x < 3.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Adding 7 instead of subtracting it gives −2x < 8, and dividing by −2 without reversing leaves x < −4."
+        },
+        {
+          "i": 1,
+          "why": "The inequality sign must reverse when both sides are divided by −2.",
+          "weakest": true
+        },
+        {
+          "i": 2,
+          "why": "This adds 7 to the right side instead of subtracting it, though it does reverse the sign."
+        },
+        {
+          "i": 3,
+          "why": "Dividing −6 by 2 rather than by −2 leaves the boundary at −3."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax College Algebra 2e · Linear Inequalities and Absolute Value Inequalities",
+          "url": "https://openstax.org/books/college-algebra-2e/pages/2-7-linear-inequalities-and-absolute-value-inequalities"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-alg-4",
+      "section": "qr",
+      "category": "QR-1",
+      "topic": "Exponential notation",
+      "skill": "skill-2",
+      "difficulty": "easy",
+      "format": "standard",
+      "stem": "If 2^(x + 3) = 32, what is the value of x?",
+      "options": [
+        "−2",
+        "1",
+        "2",
+        "5",
+        "8"
+      ],
+      "answer": 2,
+      "explanation": "Write 32 as 2^5. Equal bases mean equal exponents, so x + 3 = 5 and x = 2. The trap is reading the exponent 5 as the answer and ignoring the + 3 in the exponent.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "This subtracts in the wrong order, 3 − 5 instead of 5 − 3.",
+          "weakest": true
+        },
+        {
+          "i": 1,
+          "why": "This treats 32 as 2^4, one power of two too low."
+        },
+        {
+          "i": 3,
+          "why": "5 is the exponent 32 requires, not the value of x."
+        },
+        {
+          "i": 4,
+          "why": "This adds 3 to 5 instead of subtracting it."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax College Algebra 2e · Exponents and Scientific Notation",
+          "url": "https://openstax.org/books/college-algebra-2e/pages/1-2-exponents-and-scientific-notation"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-alg-5",
+      "section": "qr",
+      "category": "QR-1",
+      "topic": "Exponential notation",
+      "skill": "skill-2",
+      "difficulty": "hard",
+      "format": "standard",
+      "stem": "If 9^x = 27^(x − 1), what is the value of x?",
+      "options": [
+        "−3",
+        "1",
+        "1.5",
+        "3",
+        "9"
+      ],
+      "answer": 3,
+      "explanation": "Rewrite both sides in base 3: 3^(2x) = 3^(3x − 3), so 2x = 3x − 3 and x = 3. The trap is failing to distribute the exponent 3 over the −1, which gives 2x = 3x − 1 and x = 1.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Collecting 2x − 3x = −3 as −x = 3 flips the sign of the solution."
+        },
+        {
+          "i": 1,
+          "why": "This uses 3x − 1 on the right, so the exponent 3 was not distributed over the −1."
+        },
+        {
+          "i": 2,
+          "why": "Treating the bases as coefficients gives 9x = 27(x − 1)."
+        },
+        {
+          "i": 4,
+          "why": "9 is a base in the equation, not a solution for x.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax College Algebra 2e · Exponents and Scientific Notation",
+          "url": "https://openstax.org/books/college-algebra-2e/pages/1-2-exponents-and-scientific-notation"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-alg-6",
+      "section": "qr",
+      "category": "QR-1",
+      "topic": "Absolute value",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "What is the sum of the two solutions of |2x − 5| = 9?",
+      "options": [
+        "−2",
+        "5",
+        "7",
+        "9",
+        "14"
+      ],
+      "answer": 1,
+      "explanation": "The two branches are 2x − 5 = 9 and 2x − 5 = −9, giving x = 7 and x = −2, so the sum is 5. The trap is solving only the positive branch and reporting 7.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "−2 is the solution from the negative branch on its own."
+        },
+        {
+          "i": 2,
+          "why": "7 is the solution from the positive branch on its own."
+        },
+        {
+          "i": 3,
+          "why": "9 is the value the absolute value equals, not a solution.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "Doubling the positive solution assumes the two solutions are symmetric about zero."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax College Algebra 2e · Linear Inequalities and Absolute Value Inequalities",
+          "url": "https://openstax.org/books/college-algebra-2e/pages/2-7-linear-inequalities-and-absolute-value-inequalities"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-alg-7",
+      "section": "qr",
+      "category": "QR-1",
+      "topic": "Absolute value",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "Which set contains exactly the values of x with |x − 3| ≤ 5?",
+      "options": [
+        "−8 ≤ x ≤ 2",
+        "−5 ≤ x ≤ 5",
+        "2 ≤ x ≤ 8",
+        "x ≤ −2 or x ≥ 8",
+        "−2 ≤ x ≤ 8"
+      ],
+      "answer": 4,
+      "explanation": "The inequality unpacks to −5 ≤ x − 3 ≤ 5, and adding 3 throughout gives −2 ≤ x ≤ 8. The trap is dropping the shift by 3 and reporting the interval centred on zero.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "This subtracts 3 from each endpoint instead of adding it."
+        },
+        {
+          "i": 1,
+          "why": "This ignores the shift by 3 and centres the interval on zero."
+        },
+        {
+          "i": 2,
+          "why": "The left endpoint here comes from 5 − 3 rather than 3 − 5.",
+          "weakest": true
+        },
+        {
+          "i": 3,
+          "why": "A union of two rays solves |x − 3| ≥ 5, not the ≤ version."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax College Algebra 2e · Linear Inequalities and Absolute Value Inequalities",
+          "url": "https://openstax.org/books/college-algebra-2e/pages/2-7-linear-inequalities-and-absolute-value-inequalities"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-alg-8",
+      "section": "qr",
+      "category": "QR-1",
+      "topic": "Ratios and proportions",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "A dental office mixes alginate powder and water in a 2 : 5 ratio by mass. How many grams of powder are in 140 g of the mixture?",
+      "options": [
+        "40 g",
+        "56 g",
+        "70 g",
+        "100 g",
+        "350 g"
+      ],
+      "answer": 0,
+      "explanation": "The mixture is 2 + 5 = 7 parts, so one part is 140 ÷ 7 = 20 g and the powder is 2 × 20 = 40 g. The trap is treating 2 : 5 as a part-of-whole fraction and taking two fifths of 140.",
+      "distractors": [
+        {
+          "i": 1,
+          "why": "56 g is two fifths of 140, but the ratio compares powder with water, not with the whole mixture."
+        },
+        {
+          "i": 2,
+          "why": "70 g is half the mixture, which would require a 1 : 1 ratio."
+        },
+        {
+          "i": 3,
+          "why": "100 g is the mass of the water, the other part of the mixture."
+        },
+        {
+          "i": 4,
+          "why": "350 g multiplies 140 by 5/2 and exceeds the whole mixture.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Prealgebra 2e · Solve Proportions and their Applications",
+          "url": "https://openstax.org/books/prealgebra-2e/pages/6-5-solve-proportions-and-their-applications"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-alg-9",
+      "section": "qr",
+      "category": "QR-1",
+      "topic": "Graphical analysis",
+      "skill": "skill-2",
+      "difficulty": "easy",
+      "format": "standard",
+      "stem": "A line passes through the points (2, 1) and (6, 9). What is its slope?",
+      "options": [
+        "2",
+        "4",
+        "5",
+        "8",
+        "10"
+      ],
+      "answer": 0,
+      "explanation": "Slope is the change in y divided by the change in x: (9 − 1) ÷ (6 − 2) = 8 ÷ 4 = 2. The trap is reporting the rise of 8 on its own.",
+      "distractors": [
+        {
+          "i": 1,
+          "why": "4 is the run, 6 − 2, without dividing the rise by it."
+        },
+        {
+          "i": 2,
+          "why": "5 averages the two y-values instead of comparing them.",
+          "weakest": true
+        },
+        {
+          "i": 3,
+          "why": "8 is the rise, 9 − 1, without dividing by the run."
+        },
+        {
+          "i": 4,
+          "why": "10 adds the two y-values rather than subtracting them."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax College Algebra 2e · Linear Functions",
+          "url": "https://openstax.org/books/college-algebra-2e/pages/4-1-linear-functions"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-alg-10",
+      "section": "qr",
+      "category": "QR-1",
+      "topic": "Graphical analysis",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "At which point does the line y = −3x + 12 cross the x-axis?",
+      "options": [
+        "(−4, 0)",
+        "(4, 0)",
+        "(0, 4)",
+        "(0, 12)",
+        "(12, 0)"
+      ],
+      "answer": 1,
+      "explanation": "The x-axis is where y = 0, so 0 = −3x + 12 gives 3x = 12 and x = 4, the point (4, 0). The trap is dividing 12 by −3 instead of moving the term across first, which gives −4.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Dividing 12 by −3 without moving the term across leaves the sign negative."
+        },
+        {
+          "i": 2,
+          "why": "The coordinates are reversed here; 4 is the x-value, not the y-value."
+        },
+        {
+          "i": 3,
+          "why": "(0, 12) is the y-intercept, found by setting x to zero."
+        },
+        {
+          "i": 4,
+          "why": "12 is the constant term of the equation, not the x-intercept.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax College Algebra 2e · Linear Functions",
+          "url": "https://openstax.org/books/college-algebra-2e/pages/4-1-linear-functions"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-alg-11",
+      "section": "qr",
+      "category": "QR-1",
+      "topic": "Equations and expressions",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "If 2x + 3y = 26 and x = y + 3, what is the value of y?",
+      "options": [
+        "4",
+        "7",
+        "10",
+        "13",
+        "26"
+      ],
+      "answer": 0,
+      "explanation": "Substituting x = y + 3 gives 2(y + 3) + 3y = 26, so 5y + 6 = 26 and y = 4. The trap is finishing the substitution, finding x = 7, and reporting that instead of y.",
+      "distractors": [
+        {
+          "i": 1,
+          "why": "7 is the value of x; the question asks for y."
+        },
+        {
+          "i": 2,
+          "why": "10 shifts x = 7 by 3 in the wrong direction."
+        },
+        {
+          "i": 3,
+          "why": "13 is 26 ÷ 2 and ignores the 3y term entirely."
+        },
+        {
+          "i": 4,
+          "why": "26 is the constant on the right side, not a value of y.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax College Algebra 2e · Models and Applications",
+          "url": "https://openstax.org/books/college-algebra-2e/pages/2-3-models-and-applications"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-alg-12",
+      "section": "qr",
+      "category": "QR-1",
+      "topic": "Inequalities",
+      "skill": "skill-2",
+      "difficulty": "hard",
+      "format": "standard",
+      "stem": "How many integers x satisfy both 3x − 4 < 11 and x + 6 > 2?",
+      "options": [
+        "4",
+        "7",
+        "8",
+        "9",
+        "10"
+      ],
+      "answer": 2,
+      "explanation": "The first inequality gives x < 5 and the second gives x > −4, so x runs over the integers −3 through 4, which is 8 values. The trap is treating one strict inequality as inclusive and counting 9.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "This counts only 1, 2, 3 and 4, dropping zero and the negative integers.",
+          "weakest": true
+        },
+        {
+          "i": 1,
+          "why": "This misses one end of the run from −3 to 4."
+        },
+        {
+          "i": 3,
+          "why": "Treating x < 5 as x ≤ 5 adds an integer that fails the first inequality."
+        },
+        {
+          "i": 4,
+          "why": "Treating both inequalities as inclusive adds both −4 and 5."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax College Algebra 2e · Linear Inequalities and Absolute Value Inequalities",
+          "url": "https://openstax.org/books/college-algebra-2e/pages/2-7-linear-inequalities-and-absolute-value-inequalities"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-ds-2",
+      "section": "qr",
+      "category": "QR-2",
+      "topic": "Data sufficiency",
+      "skill": "skill-3",
+      "difficulty": "medium",
+      "format": "ds",
+      "stem": "A jar contains only red beads and blue beads. What fraction of the beads in the jar are red?",
+      "statements": [
+        "There are 3 red beads for every 5 blue beads.",
+        "There are 40 beads in the jar."
+      ],
+      "options": [
+        "Statement 1 alone is sufficient, but statement 2 alone is not",
+        "Statement 2 alone is sufficient, but statement 1 alone is not",
+        "Both statements together are sufficient, but neither alone is",
+        "Each statement alone is sufficient",
+        "Statements 1 and 2 together are not sufficient"
+      ],
+      "answer": 0,
+      "explanation": "Statement 1 fixes the split at 3 parts red to 5 parts blue, so red beads are 3 of 8 parts whatever the total is — sufficient. Statement 2 gives only the total, and 40 beads could be 20 red and 20 blue or 15 red and 25 blue, so the fraction is not fixed — not sufficient. Verification: a 3 : 5 split of 40, 80 or 200 beads always leaves the same fraction 3/8, while the total alone never constrains the colours.",
+      "worked": {
+        "values": {
+          "redParts": 3,
+          "blueParts": 5,
+          "totalParts": 8,
+          "redFraction": 0.375,
+          "jarTotal": 40
+        },
+        "workedCheckedOn": "2026-09-16"
+      },
+      "distractors": [
+        {
+          "i": 1,
+          "why": "The total number of beads says nothing about how the two colours split."
+        },
+        {
+          "i": 2,
+          "why": "Statement 1 settles the fraction on its own, so the pair is not needed."
+        },
+        {
+          "i": 3,
+          "why": "Statement 2 alone leaves the colour split undetermined."
+        },
+        {
+          "i": 4,
+          "why": "Statement 1 already determines the fraction, so the two together are certainly sufficient."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Prealgebra 2e · Solve Proportions and their Applications",
+          "url": "https://openstax.org/books/prealgebra-2e/pages/6-5-solve-proportions-and-their-applications"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-ds-3",
+      "section": "qr",
+      "category": "QR-2",
+      "topic": "Sufficiency of a single statement",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "ds",
+      "stem": "Is the integer n even?",
+      "statements": [
+        "n + 1 is a multiple of 3.",
+        "n² is even."
+      ],
+      "options": [
+        "Statement 1 alone is sufficient, but statement 2 alone is not",
+        "Statement 2 alone is sufficient, but statement 1 alone is not",
+        "Both statements together are sufficient, but neither alone is",
+        "Each statement alone is sufficient",
+        "Statements 1 and 2 together are not sufficient"
+      ],
+      "answer": 1,
+      "explanation": "Statement 1 allows n = 2, n = 5 and n = 8, which are not all of one parity, so it cannot answer the question. Statement 2 is sufficient because an odd integer always squares to an odd integer, so an even square forces an even n. Verification: 2, 5 and 8 all satisfy statement 1 and differ in parity; 3² = 9 is odd and 4² = 16 is even, so n² even happens only for even n.",
+      "worked": {
+        "values": {
+          "s1Cases": [
+            2,
+            5,
+            8
+          ],
+          "oddSquare": 9,
+          "evenSquare": 16
+        },
+        "workedCheckedOn": "2026-09-16"
+      },
+      "distractors": [
+        {
+          "i": 0,
+          "why": "n + 1 divisible by 3 allows n = 2 and n = 5, which differ in parity."
+        },
+        {
+          "i": 2,
+          "why": "Statement 2 answers the question by itself, so the pair is not needed."
+        },
+        {
+          "i": 3,
+          "why": "Statement 1 alone leaves both parities possible."
+        },
+        {
+          "i": 4,
+          "why": "Statement 2 alone answers the question, so the two together are sufficient as well."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Prealgebra 2e · Introduction to the Language of Algebra",
+          "url": "https://openstax.org/books/prealgebra-2e/pages/2-1-use-the-language-of-algebra"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-ds-4",
+      "section": "qr",
+      "category": "QR-2",
+      "topic": "Data sufficiency",
+      "skill": "skill-3",
+      "difficulty": "hard",
+      "format": "ds",
+      "stem": "A clinic charges one fixed price for a cleaning and another fixed price for a fluoride treatment. What does one cleaning cost?",
+      "statements": [
+        "Two cleanings and one fluoride treatment cost $230.",
+        "One cleaning and one fluoride treatment cost $140."
+      ],
+      "options": [
+        "Statement 1 alone is sufficient, but statement 2 alone is not",
+        "Statement 2 alone is sufficient, but statement 1 alone is not",
+        "Both statements together are sufficient, but neither alone is",
+        "Each statement alone is sufficient",
+        "Statements 1 and 2 together are not sufficient"
+      ],
+      "answer": 2,
+      "explanation": "Each statement is a single equation in two unknowns, so neither alone fixes the cleaning price. Subtracting the second from the first cancels the fluoride price and leaves one cleaning at $90, with the treatment at $50. Verification: 2 × 90 + 50 = 230 and 90 + 50 = 140, and statement 2 alone also allows $100 and $40, so it is genuinely insufficient by itself.",
+      "worked": {
+        "values": {
+          "cleaning": 90,
+          "fluoride": 50,
+          "statement1Total": 230,
+          "statement2Total": 140
+        },
+        "workedCheckedOn": "2026-09-16"
+      },
+      "distractors": [
+        {
+          "i": 0,
+          "why": "One equation in two unknowns cannot fix either price on its own."
+        },
+        {
+          "i": 1,
+          "why": "Statement 2 alone allows any pair of prices summing to $140."
+        },
+        {
+          "i": 3,
+          "why": "Neither statement alone is enough, so they are not each sufficient."
+        },
+        {
+          "i": 4,
+          "why": "Subtracting one equation from the other isolates the cleaning price, so the pair is sufficient."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax College Algebra 2e · Systems of Linear Equations: Two Variables",
+          "url": "https://openstax.org/books/college-algebra-2e/pages/9-1-systems-of-linear-equations-two-variables"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-ds-5",
+      "section": "qr",
+      "category": "QR-2",
+      "topic": "Rates from data",
+      "skill": "skill-3",
+      "difficulty": "medium",
+      "format": "ds",
+      "stem": "A van travels 150 km at a constant speed. How long does the trip take?",
+      "statements": [
+        "The van's constant speed is 75 km per hour.",
+        "The van covers the first 50 km in 40 minutes."
+      ],
+      "options": [
+        "Statement 1 alone is sufficient, but statement 2 alone is not",
+        "Statement 2 alone is sufficient, but statement 1 alone is not",
+        "Both statements together are sufficient, but neither alone is",
+        "Each statement alone is sufficient",
+        "Statements 1 and 2 together are not sufficient"
+      ],
+      "answer": 3,
+      "explanation": "Statement 1 gives 150 ÷ 75 = 2 hours. Statement 2 gives 50 km in 40 minutes, which is 50 ÷ (2/3) = 75 km per hour, and because the stem says the speed is constant that rate applies to the whole trip, again 2 hours. Verification: both routes produce the same 2 hours, so each statement alone is sufficient.",
+      "worked": {
+        "values": {
+          "distance": 150,
+          "speed": 75,
+          "hours": 2,
+          "firstLegKm": 50,
+          "firstLegHours": 0.6667
+        },
+        "workedCheckedOn": "2026-09-16"
+      },
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Statement 2 also fixes the speed, because the stem states the speed is constant."
+        },
+        {
+          "i": 1,
+          "why": "Statement 1 gives the speed directly, so it is sufficient as well."
+        },
+        {
+          "i": 2,
+          "why": "Neither statement needs the other to produce the time."
+        },
+        {
+          "i": 4,
+          "why": "Both statements determine the time, so they cannot be jointly insufficient."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Prealgebra 2e · Solve Uniform Motion Applications",
+          "url": "https://openstax.org/books/prealgebra-2e/pages/3-5-solve-uniform-motion-applications"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-ds-6",
+      "section": "qr",
+      "category": "QR-2",
+      "topic": "Data sufficiency",
+      "skill": "skill-3",
+      "difficulty": "hard",
+      "format": "ds",
+      "stem": "What is the mean age of the five people in a waiting room?",
+      "statements": [
+        "The youngest person is 12 and the oldest is 64.",
+        "The median age is 30."
+      ],
+      "options": [
+        "Statement 1 alone is sufficient, but statement 2 alone is not",
+        "Statement 2 alone is sufficient, but statement 1 alone is not",
+        "Both statements together are sufficient, but neither alone is",
+        "Each statement alone is sufficient",
+        "Statements 1 and 2 together are not sufficient"
+      ],
+      "answer": 4,
+      "explanation": "Both statements together still leave the second and fourth ages free. The ages 12, 13, 30, 31, 64 satisfy both statements and average 30, while 12, 29, 30, 63, 64 also satisfy both and average 39.6. Verification: each set has youngest 12, oldest 64 and middle value 30, yet the totals are 150 and 198, so the mean is not determined.",
+      "worked": {
+        "values": {
+          "youngest": 12,
+          "oldest": 64,
+          "median": 30,
+          "caseATotal": 150,
+          "caseAMean": 30,
+          "caseBTotal": 198,
+          "caseBMean": 39.6
+        },
+        "workedCheckedOn": "2026-09-16"
+      },
+      "distractors": [
+        {
+          "i": 0,
+          "why": "The two extremes leave the three middle ages, and so the mean, free."
+        },
+        {
+          "i": 1,
+          "why": "The median fixes only the third age of the five."
+        },
+        {
+          "i": 2,
+          "why": "Two different age sets meet both statements yet have different means."
+        },
+        {
+          "i": 3,
+          "why": "Neither statement alone comes close to fixing the mean."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Introductory Statistics 2e · Measures of the Center of the Data",
+          "url": "https://openstax.org/books/introductory-statistics-2e/pages/2-5-measures-of-the-center-of-the-data"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-ds-7",
+      "section": "qr",
+      "category": "QR-2",
+      "topic": "Data sufficiency",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "ds",
+      "stem": "Is the real number x greater than 3?",
+      "statements": [
+        "x² > 9",
+        "x > 0"
+      ],
+      "options": [
+        "Statement 1 alone is sufficient, but statement 2 alone is not",
+        "Statement 2 alone is sufficient, but statement 1 alone is not",
+        "Both statements together are sufficient, but neither alone is",
+        "Each statement alone is sufficient",
+        "Statements 1 and 2 together are not sufficient"
+      ],
+      "answer": 2,
+      "explanation": "Statement 1 allows x = 5 and x = −4, so it cannot answer the question. Statement 2 allows x = 1 and x = 5, so it cannot either. Together they force x > 3, since a positive number whose square exceeds 9 must itself exceed 3. Verification: −4 satisfies only statement 1, 1 satisfies only statement 2, and every value satisfying both is above 3.",
+      "worked": {
+        "values": {
+          "negativeCase": -4,
+          "smallPositiveCase": 1,
+          "largeCase": 5,
+          "threshold": 3
+        },
+        "workedCheckedOn": "2026-09-16"
+      },
+      "distractors": [
+        {
+          "i": 0,
+          "why": "x = −4 satisfies x² > 9 and is not greater than 3."
+        },
+        {
+          "i": 1,
+          "why": "x = 1 is positive but not greater than 3."
+        },
+        {
+          "i": 3,
+          "why": "Neither statement settles the question on its own."
+        },
+        {
+          "i": 4,
+          "why": "Together the statements force x > 3, so the pair is sufficient."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax College Algebra 2e · Linear Inequalities and Absolute Value Inequalities",
+          "url": "https://openstax.org/books/college-algebra-2e/pages/2-7-linear-inequalities-and-absolute-value-inequalities"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-ds-8",
+      "section": "qr",
+      "category": "QR-2",
+      "topic": "Sufficiency of a single statement",
+      "skill": "skill-2",
+      "difficulty": "easy",
+      "format": "ds",
+      "stem": "What is the area of a circle?",
+      "statements": [
+        "The circle's circumference is 12π cm.",
+        "The circle's diameter is 12 cm."
+      ],
+      "options": [
+        "Statement 1 alone is sufficient, but statement 2 alone is not",
+        "Statement 2 alone is sufficient, but statement 1 alone is not",
+        "Both statements together are sufficient, but neither alone is",
+        "Each statement alone is sufficient",
+        "Statements 1 and 2 together are not sufficient"
+      ],
+      "answer": 3,
+      "explanation": "Statement 1 gives 2πr = 12π, so r = 6 and the area is 36π cm². Statement 2 gives r = 6 directly, so the area is again 36π cm². Verification: both statements land on the same radius of 6 cm, and the radius alone determines the area, so each statement is sufficient by itself.",
+      "worked": {
+        "values": {
+          "circumferenceOverPi": 12,
+          "diameter": 12,
+          "radius": 6,
+          "areaOverPi": 36
+        },
+        "workedCheckedOn": "2026-09-16"
+      },
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Statement 2 gives the radius just as directly as statement 1 does."
+        },
+        {
+          "i": 1,
+          "why": "Statement 1 gives the radius through 2πr = 12π."
+        },
+        {
+          "i": 2,
+          "why": "Either statement alone fixes the radius, so they are not needed together."
+        },
+        {
+          "i": 4,
+          "why": "Each statement determines the area, so the pair certainly does."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Prealgebra 2e · Solve Geometry Applications: Circles and Irregular Figures",
+          "url": "https://openstax.org/books/prealgebra-2e/pages/9-5-solve-geometry-applications-circles-and-irregular-figures"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-qc-2",
+      "section": "qr",
+      "category": "QR-3",
+      "topic": "Two-quantity comparison",
+      "skill": "skill-2",
+      "difficulty": "easy",
+      "format": "qc",
+      "common": "3x + 2 = 17",
+      "quantityA": "x",
+      "quantityB": "4",
+      "stem": "Compare the two quantities using the condition given.",
+      "options": [
+        "Quantity A is greater",
+        "Quantity B is greater",
+        "The two quantities are equal",
+        "The relationship cannot be determined from the information given"
+      ],
+      "answer": 0,
+      "explanation": "Solving the equation gives 3x = 15 and x = 5, which is greater than 4, so Quantity A is greater. The trap is dividing before subtracting: 17 ÷ 3 is about 5.7, and taking 2 off that gives about 3.7, which would make Quantity B look greater.",
+      "worked": {
+        "values": {
+          "x": 5
+        },
+        "workedCheckedOn": "2026-09-16"
+      },
+      "distractors": [
+        {
+          "i": 1,
+          "why": "The equation forces x = 5, which is larger than 4, not smaller."
+        },
+        {
+          "i": 2,
+          "why": "Equality would need x = 4, but 3(4) + 2 is 14, not 17."
+        },
+        {
+          "i": 3,
+          "why": "A linear equation with one solution fixes x exactly, so the comparison is determined."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax College Algebra 2e · Linear Equations in One Variable",
+          "url": "https://openstax.org/books/college-algebra-2e/pages/2-2-linear-equations-in-one-variable"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-qc-3",
+      "section": "qr",
+      "category": "QR-3",
+      "topic": "Two-quantity comparison",
+      "skill": "skill-2",
+      "difficulty": "easy",
+      "format": "qc",
+      "quantityA": "0.2 × 45",
+      "quantityB": "45 ÷ 4",
+      "stem": "Compare the two arithmetic quantities.",
+      "options": [
+        "Quantity A is greater",
+        "Quantity B is greater",
+        "The two quantities are equal",
+        "The relationship cannot be determined from the information given"
+      ],
+      "answer": 1,
+      "explanation": "One fifth of 45 is 9, while a quarter of 45 is 11.25, so Quantity B is greater. The trap is reading 0.2 as a quarter rather than a fifth, which would make the two quantities equal.",
+      "worked": {
+        "values": {
+          "fifthOf45": 9,
+          "quarterOf45": 11.25
+        },
+        "workedCheckedOn": "2026-09-16"
+      },
+      "distractors": [
+        {
+          "i": 0,
+          "why": "A fifth of 45 is 9, which is less than a quarter of 45."
+        },
+        {
+          "i": 2,
+          "why": "A fifth and a quarter of the same nonzero number are never equal."
+        },
+        {
+          "i": 3,
+          "why": "Both quantities are fixed numbers, so the comparison cannot depend on anything."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Prealgebra 2e · Decimals and Fractions",
+          "url": "https://openstax.org/books/prealgebra-2e/pages/5-4-decimals-and-fractions"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-qc-4",
+      "section": "qr",
+      "category": "QR-3",
+      "topic": "Comparison under a shared condition",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "qc",
+      "common": "x is a positive number and x ≠ 1.",
+      "quantityA": "x²",
+      "quantityB": "x³",
+      "stem": "Which quantity is greater, if either?",
+      "options": [
+        "Quantity A is greater",
+        "Quantity B is greater",
+        "The two quantities are equal",
+        "The relationship cannot be determined from the information given"
+      ],
+      "answer": 3,
+      "explanation": "At x = 2 the cube 8 beats the square 4, but at x = 0.5 the square 0.25 beats the cube 0.125, so the answer depends on whether x is above or below 1. The trap is testing only whole numbers and concluding the cube always wins.",
+      "worked": {
+        "values": {
+          "x": [
+            0.5,
+            2
+          ]
+        },
+        "workedCheckedOn": "2026-09-16"
+      },
+      "distractors": [
+        {
+          "i": 0,
+          "why": "At x = 2 the cube is larger, so the square is not always greater."
+        },
+        {
+          "i": 1,
+          "why": "At x = 0.5 the square is larger, so the cube is not always greater."
+        },
+        {
+          "i": 2,
+          "why": "Equality needs x = 1, which the condition excludes."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax College Algebra 2e · Exponents and Scientific Notation",
+          "url": "https://openstax.org/books/college-algebra-2e/pages/1-2-exponents-and-scientific-notation"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-qc-5",
+      "section": "qr",
+      "category": "QR-3",
+      "topic": "Comparison with unknown sign or range",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "qc",
+      "common": "a < b",
+      "quantityA": "a²",
+      "quantityB": "b²",
+      "stem": "Compare Quantity A with Quantity B for every pair allowed by the condition.",
+      "options": [
+        "Quantity A is greater",
+        "Quantity B is greater",
+        "The two quantities are equal",
+        "The relationship cannot be determined from the information given"
+      ],
+      "answer": 3,
+      "explanation": "With a = 1 and b = 2 the squares are 1 and 4, but with a = −3 and b = 1 they are 9 and 1, so ordering two numbers does not order their squares. The trap is assuming squaring preserves an inequality, which it does only when both numbers are non-negative.",
+      "worked": {
+        "values": {
+          "a": [
+            -3,
+            1
+          ],
+          "b": [
+            1,
+            2
+          ]
+        },
+        "workedCheckedOn": "2026-09-16"
+      },
+      "distractors": [
+        {
+          "i": 0,
+          "why": "a = 1 and b = 2 give 1 against 4, so Quantity A is not always greater."
+        },
+        {
+          "i": 1,
+          "why": "a = −3 and b = 1 give 9 against 1, so Quantity B is not always greater."
+        },
+        {
+          "i": 2,
+          "why": "The squares match only when a = −b, which the condition does not force."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax College Algebra 2e · Linear Inequalities and Absolute Value Inequalities",
+          "url": "https://openstax.org/books/college-algebra-2e/pages/2-7-linear-inequalities-and-absolute-value-inequalities"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-qc-6",
+      "section": "qr",
+      "category": "QR-3",
+      "topic": "Comparison under a shared condition",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "qc",
+      "common": "n = 6",
+      "quantityA": "n² + n",
+      "quantityB": "7 × n",
+      "stem": "Decide whether one quantity is greater or the two are equal.",
+      "options": [
+        "Quantity A is greater",
+        "Quantity B is greater",
+        "The two quantities are equal",
+        "The relationship cannot be determined from the information given"
+      ],
+      "answer": 2,
+      "explanation": "Quantity A is 36 + 6 = 42 and Quantity B is 7 × 6 = 42, so the two are equal. The trap is comparing n² with 7n, seeing 36 against 42, and stopping before the extra n is added.",
+      "worked": {
+        "values": {
+          "n": 6
+        },
+        "workedCheckedOn": "2026-09-16"
+      },
+      "distractors": [
+        {
+          "i": 0,
+          "why": "n² + n is 42, which matches rather than exceeds the other quantity."
+        },
+        {
+          "i": 1,
+          "why": "7n is 42, and the missing step is adding the extra n to 36."
+        },
+        {
+          "i": 3,
+          "why": "n is given a single value, so both quantities are fixed numbers."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax College Algebra 2e · Exponents and Scientific Notation",
+          "url": "https://openstax.org/books/college-algebra-2e/pages/1-2-exponents-and-scientific-notation"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-qc-7",
+      "section": "qr",
+      "category": "QR-3",
+      "topic": "Comparison under a shared condition",
+      "skill": "skill-2",
+      "difficulty": "hard",
+      "format": "qc",
+      "common": "p and q are positive numbers with p + q = 10.",
+      "quantityA": "p × q",
+      "quantityB": "26",
+      "stem": "Compare the two quantities given the stated constraint.",
+      "options": [
+        "Quantity A is greater",
+        "Quantity B is greater",
+        "The two quantities are equal",
+        "The relationship cannot be determined from the information given"
+      ],
+      "answer": 1,
+      "explanation": "For a fixed sum the product is largest when the two numbers are equal, so p × q is at most 5 × 5 = 25, which is still below 26 and Quantity B is greater. The trap is testing 1 and 9, seeing 9, and assuming some other split might climb past 26.",
+      "worked": {
+        "values": {
+          "p": 5,
+          "q": 5,
+          "maximumProduct": 25
+        },
+        "workedCheckedOn": "2026-09-16"
+      },
+      "distractors": [
+        {
+          "i": 0,
+          "why": "The product peaks at 25 when p = q = 5, which is below 26."
+        },
+        {
+          "i": 2,
+          "why": "Reaching 26 would need a product larger than the maximum the sum of 10 allows."
+        },
+        {
+          "i": 3,
+          "why": "The maximum product is fixed by the sum, so every allowed pair gives the same comparison."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax College Algebra 2e · Quadratic Equations",
+          "url": "https://openstax.org/books/college-algebra-2e/pages/2-5-quadratic-equations"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-qc-8",
+      "section": "qr",
+      "category": "QR-3",
+      "topic": "Comparison with unknown sign or range",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "qc",
+      "common": "x > 1",
+      "quantityA": "x²",
+      "quantityB": "x",
+      "stem": "For the values described, compare Quantity A and Quantity B.",
+      "options": [
+        "Quantity A is greater",
+        "Quantity B is greater",
+        "The two quantities are equal",
+        "The relationship cannot be determined from the information given"
+      ],
+      "answer": 0,
+      "explanation": "Multiplying both sides of x > 1 by the positive number x gives x² > x, so Quantity A is greater for every allowed value. The trap is recalling that squaring shrinks a fraction and forgetting that the condition rules fractions out.",
+      "worked": {
+        "values": {
+          "x": [
+            1.5,
+            2,
+            10
+          ]
+        },
+        "workedCheckedOn": "2026-09-16"
+      },
+      "distractors": [
+        {
+          "i": 1,
+          "why": "Squaring makes a number smaller only between 0 and 1, and x is above 1."
+        },
+        {
+          "i": 2,
+          "why": "The two are equal only at x = 0 and x = 1, both excluded by the condition."
+        },
+        {
+          "i": 3,
+          "why": "The condition x > 1 fixes the direction for every allowed value."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax College Algebra 2e · Linear Inequalities and Absolute Value Inequalities",
+          "url": "https://openstax.org/books/college-algebra-2e/pages/2-7-linear-inequalities-and-absolute-value-inequalities"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-qc-9",
+      "section": "qr",
+      "category": "QR-3",
+      "topic": "Two-quantity comparison",
+      "skill": "skill-3",
+      "difficulty": "medium",
+      "format": "qc",
+      "common": "The average of 4, 9 and x is 8.",
+      "quantityA": "9",
+      "quantityB": "x",
+      "stem": "Compare the two quantities defined above.",
+      "options": [
+        "Quantity A is greater",
+        "Quantity B is greater",
+        "The two quantities are equal",
+        "The relationship cannot be determined from the information given"
+      ],
+      "answer": 1,
+      "explanation": "An average of 8 over three numbers means they total 24, so x = 24 − 4 − 9 = 11 and Quantity B is greater. The trap is assuming the average must sit between the two listed numbers and guessing x near 8.",
+      "worked": {
+        "values": {
+          "x": 11
+        },
+        "workedCheckedOn": "2026-09-16"
+      },
+      "distractors": [
+        {
+          "i": 0,
+          "why": "x works out to 11, which is larger than 9."
+        },
+        {
+          "i": 2,
+          "why": "x = 9 would give an average of 22/3, not 8."
+        },
+        {
+          "i": 3,
+          "why": "The average condition pins x to a single value."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Introductory Statistics 2e · Measures of the Center of the Data",
+          "url": "https://openstax.org/books/introductory-statistics-2e/pages/2-5-measures-of-the-center-of-the-data"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-qc-10",
+      "section": "qr",
+      "category": "QR-3",
+      "topic": "Comparison under a shared condition",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "qc",
+      "common": "a and b are real numbers.",
+      "quantityA": "(a + b)²",
+      "quantityB": "a² + 2 × a × b + b²",
+      "stem": "Decide how the two quantities compare for all real numbers a and b.",
+      "options": [
+        "Quantity A is greater",
+        "Quantity B is greater",
+        "The two quantities are equal",
+        "The relationship cannot be determined from the information given"
+      ],
+      "answer": 2,
+      "explanation": "Expanding the square gives exactly a² + 2ab + b², so the two expressions are the same number for every a and b and the quantities are equal. The trap is expanding the square as a² + b² and then reading the middle term as something extra in Quantity B.",
+      "worked": {
+        "values": {
+          "a": [
+            -1,
+            2
+          ],
+          "b": [
+            3,
+            0.5
+          ]
+        },
+        "workedCheckedOn": "2026-09-16"
+      },
+      "distractors": [
+        {
+          "i": 0,
+          "why": "The expansion of the square already contains the 2ab term, so nothing is missing from Quantity B."
+        },
+        {
+          "i": 1,
+          "why": "Quantity B is the expansion of Quantity A, not a larger expression."
+        },
+        {
+          "i": 3,
+          "why": "The identity holds for every real a and b, so the comparison never changes."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax College Algebra 2e · Polynomials",
+          "url": "https://openstax.org/books/college-algebra-2e/pages/1-4-polynomials"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-qc-11",
+      "section": "qr",
+      "category": "QR-3",
+      "topic": "Comparison with unknown sign or range",
+      "skill": "skill-2",
+      "difficulty": "hard",
+      "format": "qc",
+      "common": "z is a real number and z ≠ 0.",
+      "quantityA": "z + 1",
+      "quantityB": "1 ÷ z",
+      "stem": "Compare the two quantities for every nonzero value of z.",
+      "options": [
+        "Quantity A is greater",
+        "Quantity B is greater",
+        "The two quantities are equal",
+        "The relationship cannot be determined from the information given"
+      ],
+      "answer": 3,
+      "explanation": "At z = 1 the quantities are 2 and 1, so Quantity A leads, but at z = 0.5 they are 1.5 and 2, so Quantity B leads; the comparison therefore depends on z. The trap is testing only positive integers, where the reciprocal is always small.",
+      "worked": {
+        "values": {
+          "z": [
+            0.5,
+            1
+          ]
+        },
+        "workedCheckedOn": "2026-09-16"
+      },
+      "distractors": [
+        {
+          "i": 0,
+          "why": "At z = 0.5 the quantities are 1.5 and 2, so Quantity A is not always greater."
+        },
+        {
+          "i": 1,
+          "why": "At z = 1 the quantities are 2 and 1, so Quantity B is not always greater."
+        },
+        {
+          "i": 2,
+          "why": "Equality needs z² + z = 1, which holds for only two particular values of z."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax College Algebra 2e · Rational Expressions",
+          "url": "https://openstax.org/books/college-algebra-2e/pages/1-6-rational-expressions"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-qc-12",
+      "section": "qr",
+      "category": "QR-3",
+      "topic": "Two-quantity comparison",
+      "skill": "skill-2",
+      "difficulty": "hard",
+      "format": "qc",
+      "common": "A circle and a square each have a perimeter of 24 cm.",
+      "quantityA": "the area of the circle",
+      "quantityB": "the area of the square",
+      "stem": "Compare the area of the circle with the area of the square.",
+      "options": [
+        "Quantity A is greater",
+        "Quantity B is greater",
+        "The two quantities are equal",
+        "The relationship cannot be determined from the information given"
+      ],
+      "answer": 0,
+      "explanation": "The square has a side of 6 cm and an area of 36 cm². The circle has a radius of 24 ÷ (2π) ≈ 3.82 cm and an area of π × 3.82² ≈ 45.8 cm², so the circle encloses more. The trap is assuming equal perimeters must enclose equal areas.",
+      "worked": {
+        "values": {
+          "perimeter": 24,
+          "squareSide": 6,
+          "squareArea": 36,
+          "circleRadius": 3.82,
+          "circleArea": 45.8
+        },
+        "workedCheckedOn": "2026-09-16"
+      },
+      "distractors": [
+        {
+          "i": 1,
+          "why": "The square's 36 cm² falls short of the circle's roughly 45.8 cm²."
+        },
+        {
+          "i": 2,
+          "why": "Equal perimeters do not give equal areas; for a fixed perimeter the circle always encloses the most."
+        },
+        {
+          "i": 3,
+          "why": "Both perimeters are given, so both areas are fixed numbers."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Prealgebra 2e · Solve Geometry Applications: Circles and Irregular Figures",
+          "url": "https://openstax.org/books/prealgebra-2e/pages/9-5-solve-geometry-applications-circles-and-irregular-figures"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-stat-2",
+      "section": "qr",
+      "category": "QR-4",
+      "topic": "Compound and conditional probability",
+      "skill": "skill-3",
+      "difficulty": "medium",
+      "format": "data",
+      "setId": "qr-stat-set-1",
+      "table": {
+        "caption": "Blood type recorded for 200 volunteers",
+        "headers": [
+          "Blood type",
+          "Number of volunteers"
+        ],
+        "rows": [
+          [
+            "O",
+            "90"
+          ],
+          [
+            "A",
+            "70"
+          ],
+          [
+            "B",
+            "30"
+          ],
+          [
+            "AB",
+            "10"
+          ]
+        ]
+      },
+      "stem": "A volunteer is chosen at random from the volunteers in the table who do not have type O blood. What is the probability that this volunteer has type A blood?",
+      "options": [
+        "7/20",
+        "9/20",
+        "11/20",
+        "7/11",
+        "7/10"
+      ],
+      "answer": 3,
+      "explanation": "Conditioning on not-O removes 90 volunteers and leaves 110, of whom 70 have type A, so the probability is 70/110 = 7/11. The trap is keeping all 200 volunteers in the denominator and reporting 70/200.",
+      "worked": {
+        "values": {
+          "total": 200,
+          "typeO": 90,
+          "notTypeO": 110,
+          "typeA": 70,
+          "probability": 0.6364
+        },
+        "workedCheckedOn": "2026-09-16"
+      },
+      "distractors": [
+        {
+          "i": 0,
+          "why": "7/20 is 70/200, the share of type A among all volunteers rather than among the not-O group."
+        },
+        {
+          "i": 1,
+          "why": "9/20 is the share with type O, the group the condition removes.",
+          "weakest": true
+        },
+        {
+          "i": 2,
+          "why": "11/20 is the share of volunteers who are not type O, not the share of those who have type A."
+        },
+        {
+          "i": 4,
+          "why": "7/10 drops the type AB volunteers from the denominator as well, leaving 70 out of 100."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Introductory Statistics 2e · Independent and Mutually Exclusive Events",
+          "url": "https://openstax.org/books/introductory-statistics-2e/pages/3-2-independent-and-mutually-exclusive-events"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-stat-3",
+      "section": "qr",
+      "category": "QR-4",
+      "topic": "Mean, median and mode",
+      "skill": "skill-3",
+      "difficulty": "easy",
+      "format": "data",
+      "setId": "qr-stat-set-2",
+      "table": {
+        "caption": "Patients seen each day at a clinic during one week",
+        "headers": [
+          "Day",
+          "Patients seen"
+        ],
+        "rows": [
+          [
+            "Monday",
+            "14"
+          ],
+          [
+            "Tuesday",
+            "11"
+          ],
+          [
+            "Wednesday",
+            "20"
+          ],
+          [
+            "Thursday",
+            "11"
+          ],
+          [
+            "Friday",
+            "19"
+          ]
+        ]
+      },
+      "stem": "What is the mean number of patients seen per day for the week shown in the table?",
+      "options": [
+        "14",
+        "15",
+        "18.75",
+        "20",
+        "25"
+      ],
+      "answer": 1,
+      "explanation": "The five days total 14 + 11 + 20 + 11 + 19 = 75 patients, and 75 ÷ 5 = 15. The trap is reading the middle value of the sorted counts, 14, which is the median rather than the mean.",
+      "worked": {
+        "values": {
+          "total": 75,
+          "days": 5,
+          "mean": 15
+        },
+        "workedCheckedOn": "2026-09-16"
+      },
+      "distractors": [
+        {
+          "i": 0,
+          "why": "14 is the median of the five daily counts, not their mean."
+        },
+        {
+          "i": 2,
+          "why": "This divides the total by four days instead of the five in the table."
+        },
+        {
+          "i": 3,
+          "why": "20 is the busiest single day, not the average day."
+        },
+        {
+          "i": 4,
+          "why": "This divides the total by three rather than by the five days shown.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Introductory Statistics 2e · Measures of the Center of the Data",
+          "url": "https://openstax.org/books/introductory-statistics-2e/pages/2-5-measures-of-the-center-of-the-data"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-stat-4",
+      "section": "qr",
+      "category": "QR-4",
+      "topic": "Range and standard deviation",
+      "skill": "skill-3",
+      "difficulty": "easy",
+      "format": "data",
+      "setId": "qr-stat-set-2",
+      "table": {
+        "caption": "Patients seen each day at a clinic during one week",
+        "headers": [
+          "Day",
+          "Patients seen"
+        ],
+        "rows": [
+          [
+            "Monday",
+            "14"
+          ],
+          [
+            "Tuesday",
+            "11"
+          ],
+          [
+            "Wednesday",
+            "20"
+          ],
+          [
+            "Thursday",
+            "11"
+          ],
+          [
+            "Friday",
+            "19"
+          ]
+        ]
+      },
+      "stem": "What is the range of the daily patient counts in the table?",
+      "options": [
+        "9",
+        "11",
+        "14",
+        "15",
+        "20"
+      ],
+      "answer": 0,
+      "explanation": "The range is the largest count minus the smallest: 20 − 11 = 9. The trap is reporting one of the two extreme counts instead of the distance between them.",
+      "worked": {
+        "values": {
+          "maximum": 20,
+          "minimum": 11,
+          "range": 9
+        },
+        "workedCheckedOn": "2026-09-16"
+      },
+      "distractors": [
+        {
+          "i": 1,
+          "why": "11 is the smallest daily count, not the spread of the counts."
+        },
+        {
+          "i": 2,
+          "why": "14 is the median of the counts."
+        },
+        {
+          "i": 3,
+          "why": "15 is the mean of the counts.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "20 is the largest daily count, not the spread of the counts."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Introductory Statistics 2e · Measures of the Spread of the Data",
+          "url": "https://openstax.org/books/introductory-statistics-2e/pages/2-7-measures-of-the-spread-of-the-data"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-stat-5",
+      "section": "qr",
+      "category": "QR-4",
+      "topic": "Simple probability",
+      "skill": "skill-3",
+      "difficulty": "medium",
+      "format": "data",
+      "setId": "qr-stat-set-2",
+      "table": {
+        "caption": "Patients seen each day at a clinic during one week",
+        "headers": [
+          "Day",
+          "Patients seen"
+        ],
+        "rows": [
+          [
+            "Monday",
+            "14"
+          ],
+          [
+            "Tuesday",
+            "11"
+          ],
+          [
+            "Wednesday",
+            "20"
+          ],
+          [
+            "Thursday",
+            "11"
+          ],
+          [
+            "Friday",
+            "19"
+          ]
+        ]
+      },
+      "stem": "One of the 75 patient visits in the table is chosen at random. What is the probability that it fell on a day when more than 15 patients were seen?",
+      "options": [
+        "11/75",
+        "19/75",
+        "4/15",
+        "2/5",
+        "13/25"
+      ],
+      "answer": 4,
+      "explanation": "Wednesday and Friday are the days above 15 patients, and they hold 20 + 19 = 39 of the 75 visits, so the probability is 39/75 = 13/25. The trap is counting days instead of visits and reporting 2 out of 5 days.",
+      "worked": {
+        "values": {
+          "total": 75,
+          "wednesday": 20,
+          "friday": 19,
+          "favourable": 39,
+          "probability": 0.52
+        },
+        "workedCheckedOn": "2026-09-16"
+      },
+      "distractors": [
+        {
+          "i": 0,
+          "why": "11/75 is the share of visits on one of the two quietest days.",
+          "weakest": true
+        },
+        {
+          "i": 1,
+          "why": "19/75 counts Friday's visits only."
+        },
+        {
+          "i": 2,
+          "why": "4/15 is 20/75, which counts Wednesday's visits only."
+        },
+        {
+          "i": 3,
+          "why": "2/5 counts two days out of five rather than visits out of 75."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Introductory Statistics 2e · Terminology",
+          "url": "https://openstax.org/books/introductory-statistics-2e/pages/3-1-terminology"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-stat-6",
+      "section": "qr",
+      "category": "QR-4",
+      "topic": "Normal distribution",
+      "skill": "skill-3",
+      "difficulty": "medium",
+      "format": "data",
+      "setId": "qr-stat-set-3",
+      "table": {
+        "caption": "Scores of 50 students on a 20-point quiz",
+        "headers": [
+          "Score",
+          "Number of students"
+        ],
+        "rows": [
+          [
+            "12",
+            "5"
+          ],
+          [
+            "14",
+            "10"
+          ],
+          [
+            "16",
+            "20"
+          ],
+          [
+            "18",
+            "10"
+          ],
+          [
+            "20",
+            "5"
+          ]
+        ]
+      },
+      "stem": "The scores in the table have a mean of 16 points and a standard deviation of about 2.2 points. What percent of the 50 students scored within one standard deviation of the mean?",
+      "options": [
+        "40 %",
+        "68 %",
+        "80 %",
+        "90 %",
+        "95 %"
+      ],
+      "answer": 2,
+      "explanation": "One standard deviation either side of the mean runs from 13.8 to 18.2, so the scores lying inside it are 14, 16 and 18, covering 10 + 20 + 10 = 40 of the 50 students, or 80 %. The trap is quoting the 68 % figure for a normal curve instead of counting the students this table actually lists.",
+      "worked": {
+        "values": {
+          "within": 40,
+          "total": 50,
+          "percent": 80
+        },
+        "workedCheckedOn": "2026-09-16"
+      },
+      "distractors": [
+        {
+          "i": 0,
+          "why": "This counts only the 20 students who scored exactly at the mean."
+        },
+        {
+          "i": 1,
+          "why": "68 % is the normal-curve figure for one standard deviation, not the count in this table."
+        },
+        {
+          "i": 3,
+          "why": "This adds one of the tail rows to the 14, 16 and 18 group."
+        },
+        {
+          "i": 4,
+          "why": "95 % is the normal-curve figure for two standard deviations.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Introductory Statistics 2e · The Standard Normal Distribution",
+          "url": "https://openstax.org/books/introductory-statistics-2e/pages/6-1-the-standard-normal-distribution"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-stat-7",
+      "section": "qr",
+      "category": "QR-4",
+      "topic": "Mean, median and mode",
+      "skill": "skill-3",
+      "difficulty": "medium",
+      "format": "data",
+      "setId": "qr-stat-set-3",
+      "table": {
+        "caption": "Scores of 50 students on a 20-point quiz",
+        "headers": [
+          "Score",
+          "Number of students"
+        ],
+        "rows": [
+          [
+            "12",
+            "5"
+          ],
+          [
+            "14",
+            "10"
+          ],
+          [
+            "16",
+            "20"
+          ],
+          [
+            "18",
+            "10"
+          ],
+          [
+            "20",
+            "5"
+          ]
+        ]
+      },
+      "stem": "What is the median score for the 50 students in the table?",
+      "options": [
+        "16",
+        "17",
+        "18",
+        "19",
+        "20"
+      ],
+      "answer": 0,
+      "explanation": "With 50 students the median is the average of the 25th and 26th scores, and the running totals 5, 15 and 35 put both of those inside the row for a score of 16, so the median is 16. The trap is averaging the score labels 16 and 18 as if every row held the same number of students.",
+      "worked": {
+        "values": {
+          "students": 50,
+          "throughScore12": 5,
+          "throughScore14": 15,
+          "throughScore16": 35,
+          "median": 16
+        },
+        "workedCheckedOn": "2026-09-16"
+      },
+      "distractors": [
+        {
+          "i": 1,
+          "why": "17 averages the score labels 16 and 18 as if the rows were equally sized."
+        },
+        {
+          "i": 2,
+          "why": "18 is the fourth of the five rows rather than the middle one, and row position does not locate the median when the rows hold different numbers of students."
+        },
+        {
+          "i": 3,
+          "why": "19 averages the two highest score labels.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "20 is the highest score, not the middle one."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Introductory Statistics 2e · Measures of the Center of the Data",
+          "url": "https://openstax.org/books/introductory-statistics-2e/pages/2-5-measures-of-the-center-of-the-data"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-stat-8",
+      "section": "qr",
+      "category": "QR-4",
+      "topic": "Counting and combinations",
+      "skill": "skill-3",
+      "difficulty": "medium",
+      "format": "data",
+      "setId": "qr-stat-set-3",
+      "table": {
+        "caption": "Scores of 50 students on a 20-point quiz",
+        "headers": [
+          "Score",
+          "Number of students"
+        ],
+        "rows": [
+          [
+            "12",
+            "5"
+          ],
+          [
+            "14",
+            "10"
+          ],
+          [
+            "16",
+            "20"
+          ],
+          [
+            "18",
+            "10"
+          ],
+          [
+            "20",
+            "5"
+          ]
+        ]
+      },
+      "stem": "The five score groups listed in the table are to be printed one under another in a summary. In how many different orders can the five groups be listed?",
+      "options": [
+        "10",
+        "20",
+        "25",
+        "60",
+        "120"
+      ],
+      "answer": 4,
+      "explanation": "Ordering five distinct groups uses all five positions: 5 × 4 × 3 × 2 × 1 = 120. The trap is counting unordered pairs of groups, which gives 10, or filling only the first two positions, which gives 20.",
+      "worked": {
+        "values": {
+          "groups": 5,
+          "orderings": 120
+        },
+        "workedCheckedOn": "2026-09-16"
+      },
+      "distractors": [
+        {
+          "i": 0,
+          "why": "10 is the number of unordered pairs of groups, not orderings of all five.",
+          "weakest": true
+        },
+        {
+          "i": 1,
+          "why": "20 counts the ways to fill only the first two positions."
+        },
+        {
+          "i": 2,
+          "why": "25 is 5 × 5, which would let a group appear twice."
+        },
+        {
+          "i": 3,
+          "why": "60 halves the 120 orderings, but no two of the five groups are interchangeable."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax College Algebra 2e · Counting Principles",
+          "url": "https://openstax.org/books/college-algebra-2e/pages/9-5-counting-principles"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-applied-2",
+      "section": "qr",
+      "category": "QR-5",
+      "topic": "Percent, interest and discount",
+      "skill": "skill-2",
+      "difficulty": "easy",
+      "format": "standard",
+      "stem": "A textbook priced at $80 is discounted 25 %, and an 8 % sales tax is then added to the discounted price. What is the final price?",
+      "options": [
+        "$55.20",
+        "$60.00",
+        "$64.80",
+        "$66.40",
+        "$86.40"
+      ],
+      "answer": 2,
+      "explanation": "The discount gives 80 × 0.75 = $60, and the tax gives 60 × 1.08 = $64.80. The trap is taking the 8 % tax on the original $80 instead of on the discounted price, which adds $6.40 rather than $4.80.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "This subtracts the 8 % from $60 instead of adding it."
+        },
+        {
+          "i": 1,
+          "why": "$60.00 is the discounted price before any tax is added."
+        },
+        {
+          "i": 3,
+          "why": "This adds 8 % of the original $80, which is $6.40, to the discounted price."
+        },
+        {
+          "i": 4,
+          "why": "$86.40 taxes the original price and never applies the discount.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Prealgebra 2e · Solve Sales Tax, Commission, and Discount Applications",
+          "url": "https://openstax.org/books/prealgebra-2e/pages/6-3-solve-sales-tax-commission-and-discount-applications"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-applied-3",
+      "section": "qr",
+      "category": "QR-5",
+      "topic": "Mixtures and concentration",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "How much water must be added to 40 mL of a 15 % saline solution to dilute it to 10 % saline?",
+      "options": [
+        "6 mL",
+        "20 mL",
+        "40 mL",
+        "60 mL",
+        "80 mL"
+      ],
+      "answer": 1,
+      "explanation": "The salt is fixed at 0.15 × 40 = 6 mL, and 6 mL is 10 % of 60 mL, so the final volume must be 60 mL and 20 mL of water is added. The trap is reporting the 60 mL final volume rather than the water added.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "6 mL is the salt already in the solution, not the water to add."
+        },
+        {
+          "i": 2,
+          "why": "Adding 40 mL doubles the volume and halves the concentration to 7.5 %."
+        },
+        {
+          "i": 3,
+          "why": "60 mL is the final volume of the diluted solution, not the volume added."
+        },
+        {
+          "i": 4,
+          "why": "Adding 80 mL triples the volume and drops the concentration to 5 %.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax College Algebra 2e · Models and Applications",
+          "url": "https://openstax.org/books/college-algebra-2e/pages/2-3-models-and-applications"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-applied-4",
+      "section": "qr",
+      "category": "QR-5",
+      "topic": "Distance and travel",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "A driver covers 60 km at 60 km/h and then a further 60 km at 30 km/h. What is the average speed for the whole trip?",
+      "options": [
+        "30 km/h",
+        "40 km/h",
+        "45 km/h",
+        "50 km/h",
+        "60 km/h"
+      ],
+      "answer": 1,
+      "explanation": "The legs take 1 hour and 2 hours, so 120 km takes 3 hours and the average speed is 40 km/h. The trap is averaging the two speeds to 45 km/h, which ignores the extra time spent on the slow leg.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "30 km/h is the speed of the slower leg alone."
+        },
+        {
+          "i": 2,
+          "why": "Averaging the two speeds ignores that the slow leg takes twice as long."
+        },
+        {
+          "i": 3,
+          "why": "This weights the fast speed twice, as if two of the three hours were driven at 60 km/h."
+        },
+        {
+          "i": 4,
+          "why": "60 km/h is the speed of the faster leg alone.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax College Algebra 2e · Models and Applications",
+          "url": "https://openstax.org/books/college-algebra-2e/pages/2-3-models-and-applications"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-applied-5",
+      "section": "qr",
+      "category": "QR-5",
+      "topic": "Rates and work",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "One hygienist prepares 12 instrument trays per hour and another prepares 8 trays per hour. Working together from the start, how long do they take to prepare 30 trays?",
+      "options": [
+        "1.5 hours",
+        "1.875 hours",
+        "2.5 hours",
+        "3.125 hours",
+        "3.75 hours"
+      ],
+      "answer": 0,
+      "explanation": "Rates add: 12 + 8 = 20 trays per hour, and 30 ÷ 20 = 1.5 hours. The trap is averaging the two rates to 16 trays per hour, which treats the pair as a single average worker.",
+      "distractors": [
+        {
+          "i": 1,
+          "why": "This uses the average rate of 16 trays per hour instead of the combined 20."
+        },
+        {
+          "i": 2,
+          "why": "2.5 hours is the faster hygienist working alone."
+        },
+        {
+          "i": 3,
+          "why": "This averages the two solo times of 2.5 and 3.75 hours."
+        },
+        {
+          "i": 4,
+          "why": "3.75 hours is the slower hygienist working alone.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax College Algebra 2e · Models and Applications",
+          "url": "https://openstax.org/books/college-algebra-2e/pages/2-3-models-and-applications"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-applied-6",
+      "section": "qr",
+      "category": "QR-5",
+      "topic": "Proportional scaling",
+      "skill": "skill-2",
+      "difficulty": "easy",
+      "format": "standard",
+      "stem": "A rinse recipe calls for 3 g of sodium fluoride per 500 mL of water. How many grams are needed for 1.75 L of water?",
+      "options": [
+        "1.05 g",
+        "5.25 g",
+        "6 g",
+        "10.5 g",
+        "12 g"
+      ],
+      "answer": 3,
+      "explanation": "1.75 L is 1750 mL, which is 3.5 portions of 500 mL, so the mass is 3 × 3.5 = 10.5 g. The trap is multiplying 3 by 1.75 as though the recipe were stated per litre.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "This misplaces a decimal point by a factor of ten.",
+          "weakest": true
+        },
+        {
+          "i": 1,
+          "why": "This multiplies by 1.75 as though the recipe were 3 g per litre."
+        },
+        {
+          "i": 2,
+          "why": "This rounds 1.75 L down to 1 L, giving only two 500 mL portions."
+        },
+        {
+          "i": 4,
+          "why": "This rounds 1.75 L up to 2 L, giving four 500 mL portions."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Prealgebra 2e · Solve Proportions and their Applications",
+          "url": "https://openstax.org/books/prealgebra-2e/pages/6-5-solve-proportions-and-their-applications"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-applied-7",
+      "section": "qr",
+      "category": "QR-5",
+      "topic": "Formula-level geometry in context (area, volume, Pythagorean)",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "A cylindrical sterilizer chamber has a radius of 10 cm and a length of 30 cm. Using 3.14 for π, what is its volume?",
+      "options": [
+        "942 cm³",
+        "1884 cm³",
+        "2355 cm³",
+        "9420 cm³",
+        "18840 cm³"
+      ],
+      "answer": 3,
+      "explanation": "Volume is π r² h = 3.14 × 10² × 30 = 3.14 × 3000 = 9420 cm³. The trap is leaving the radius unsquared and computing π r h, which gives 942 and is an area rather than a volume.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "This computes π r h and leaves the radius unsquared."
+        },
+        {
+          "i": 1,
+          "why": "This is the curved surface area 2π r h, not a volume."
+        },
+        {
+          "i": 2,
+          "why": "This treats the 10 cm as a diameter and uses a radius of 5 cm."
+        },
+        {
+          "i": 4,
+          "why": "This doubles the volume, as if the formula carried a factor of 2.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Prealgebra 2e · Solve Geometry Applications: Volume and Surface Area",
+          "url": "https://openstax.org/books/prealgebra-2e/pages/9-6-solve-geometry-applications-volume-and-surface-area"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-applied-8",
+      "section": "qr",
+      "category": "QR-5",
+      "topic": "Percent, interest and discount",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "A practice's monthly revenue rose from $40,000 to $46,000. By what percent did the revenue increase?",
+      "options": [
+        "6 %",
+        "13 %",
+        "15 %",
+        "46 %",
+        "115 %"
+      ],
+      "answer": 2,
+      "explanation": "Percent increase is the rise over the original amount: 6,000 ÷ 40,000 = 0.15, or 15 %. The trap is dividing the rise by the new revenue instead of the old one, which gives about 13 %.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "6 reads the $6,000 rise as a percentage rather than dividing it by the original revenue."
+        },
+        {
+          "i": 1,
+          "why": "This divides the rise by the new revenue of $46,000 instead of the original $40,000."
+        },
+        {
+          "i": 3,
+          "why": "46 restates the new revenue in thousands, not a percent change.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "115 % is the new revenue as a percent of the old, which includes the original 100 %."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Prealgebra 2e · Solve General Applications of Percent",
+          "url": "https://openstax.org/books/prealgebra-2e/pages/6-2-solve-general-applications-of-percent"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-applied-9",
+      "section": "qr",
+      "category": "QR-5",
+      "topic": "Rates and work",
+      "skill": "skill-2",
+      "difficulty": "hard",
+      "format": "standard",
+      "stem": "A pump fills an empty tank in 4 hours while an open drain empties the full tank in 6 hours. With the tank empty and both running, how long does the tank take to fill?",
+      "options": [
+        "2.4 hours",
+        "5 hours",
+        "6 hours",
+        "10 hours",
+        "12 hours"
+      ],
+      "answer": 4,
+      "explanation": "The net rate is 1/4 − 1/6 = 1/12 of the tank per hour, so filling takes 12 hours. The trap is adding the rates instead of subtracting them, which gives 5/12 per hour and 2.4 hours.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Adding the rates treats the drain as a second filling pump."
+        },
+        {
+          "i": 1,
+          "why": "This averages the two times rather than combining the rates."
+        },
+        {
+          "i": 2,
+          "why": "6 hours is the drain's time on its own.",
+          "weakest": true
+        },
+        {
+          "i": 3,
+          "why": "Adding the two times treats the pump and drain as acting one after the other."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax College Algebra 2e · Models and Applications",
+          "url": "https://openstax.org/books/college-algebra-2e/pages/2-3-models-and-applications"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-applied-10",
+      "section": "qr",
+      "category": "QR-5",
+      "topic": "Distance and travel",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "Two clinics are 210 km apart. A courier leaves one clinic at 60 km/h and a second courier leaves the other at 80 km/h at the same moment, each driving toward the other. After how long do they meet?",
+      "options": [
+        "1.5 hours",
+        "2.625 hours",
+        "3 hours",
+        "3.5 hours",
+        "10.5 hours"
+      ],
+      "answer": 0,
+      "explanation": "Approaching each other, the gap closes at 60 + 80 = 140 km/h, so 210 ÷ 140 = 1.5 hours. The trap is averaging the two speeds to 70 km/h, which is the rate of one imaginary courier rather than the closing rate.",
+      "distractors": [
+        {
+          "i": 1,
+          "why": "This uses only the faster courier's speed, 210 ÷ 80."
+        },
+        {
+          "i": 2,
+          "why": "This uses the average speed of 70 km/h instead of the closing speed of 140 km/h."
+        },
+        {
+          "i": 3,
+          "why": "This uses only the slower courier's speed, 210 ÷ 60."
+        },
+        {
+          "i": 4,
+          "why": "This subtracts the speeds, which is the closing rate only if they travelled the same way.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax College Algebra 2e · Models and Applications",
+          "url": "https://openstax.org/books/college-algebra-2e/pages/2-3-models-and-applications"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-applied-11",
+      "section": "qr",
+      "category": "QR-5",
+      "topic": "Mixtures and concentration",
+      "skill": "skill-2",
+      "difficulty": "hard",
+      "format": "standard",
+      "stem": "A 50 g alloy is 20 % silver by mass. How many grams of pure silver must be added so that the alloy becomes 50 % silver?",
+      "options": [
+        "15 g",
+        "30 g",
+        "37.5 g",
+        "50 g",
+        "75 g"
+      ],
+      "answer": 1,
+      "explanation": "The alloy holds 10 g of silver, and adding x g gives 10 + x = 0.5(50 + x), so 0.5x = 15 and x = 30 g. The trap is forgetting that the added silver also raises the total mass, which would give 10 + x = 25 and x = 15.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "This solves 10 + x = 25, ignoring that the added silver also increases the total mass."
+        },
+        {
+          "i": 2,
+          "why": "This scales 50 g by 0.75 rather than solving the mixing equation."
+        },
+        {
+          "i": 3,
+          "why": "Adding 50 g of silver gives 60 g of silver in 100 g, which is 60 %."
+        },
+        {
+          "i": 4,
+          "why": "Adding 75 g gives 85 g of silver in 125 g, which is 68 %.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax College Algebra 2e · Models and Applications",
+          "url": "https://openstax.org/books/college-algebra-2e/pages/2-3-models-and-applications"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "qr-applied-12",
+      "section": "qr",
+      "category": "QR-5",
+      "topic": "Formula-level geometry in context (area, volume, Pythagorean)",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "A square sterilization tray is replaced by a square tray whose side is 25 % longer. By what percent does the tray's area increase?",
+      "options": [
+        "12.5 %",
+        "25 %",
+        "31.25 %",
+        "50 %",
+        "56.25 %"
+      ],
+      "answer": 4,
+      "explanation": "Scaling a side by 1.25 scales the area by 1.25² = 1.5625, an increase of 56.25 %. The trap is assuming the area grows by the same 25 % as the side.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "This halves the 25 %, as though area grew more slowly than length.",
+          "weakest": true
+        },
+        {
+          "i": 1,
+          "why": "Area scales with the square of the side, so it grows faster than 25 %."
+        },
+        {
+          "i": 2,
+          "why": "This multiplies 25 % by 1.25 instead of squaring the whole scale factor."
+        },
+        {
+          "i": 3,
+          "why": "This doubles the 25 % for two dimensions rather than squaring 1.25."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Prealgebra 2e · Use Properties of Rectangles, Triangles, and Trapezoids",
+          "url": "https://openstax.org/books/prealgebra-2e/pages/9-4-use-properties-of-rectangles-triangles-and-trapezoids"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    }
+  ]
+}

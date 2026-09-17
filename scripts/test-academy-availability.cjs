@@ -7,8 +7,8 @@ const fs = require('node:fs');
 const vm = require('node:vm');
 const { JSDOM } = require('jsdom');
 
-const OPEN = ['mcat', 'practice'];
-const CLOSED = ['dat', 'socrates', 'anatomy', 'reference', 'neuro'];
+const OPEN = ['mcat', 'dat', 'practice'];
+const CLOSED = ['socrates', 'anatomy', 'reference', 'neuro'];
 
 function harness(local) {
   const dom = new JSDOM('<!doctype html><div id="app"></div>', {
@@ -58,7 +58,7 @@ test('the public catalog labels closed courses and points them at the course sta
   const statuses = [...w.document.querySelectorAll('.academy-status')].map(node => node.textContent);
   assert.deepEqual(statuses, [
     'Beta',
-    'Under construction',
+    'Beta',
     'Under construction',
     'Beta',
     'Under construction',
@@ -70,7 +70,7 @@ test('the public catalog labels closed courses and points them at the course sta
   );
   assert.deepEqual(actions, [
     'Open MCAT',
-    'View course status',
+    'Open DAT',
     'View course status',
     'Explore clinical cases',
     'View course status',

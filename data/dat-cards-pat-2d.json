@@ -1,0 +1,35 @@
+{
+  "format": "dat-cards",
+  "version": 1,
+  "chapter": "pat-2d",
+  "authoredOn": "2026-09-16",
+  "author": "coding agent (Claude), original text",
+  "reviewStatus": "Local authored-content check only; independent subject review pending.",
+  "sourceCheckedOn": "2026-09-16",
+  "contentNote": "Original Cortex flashcard text. The ADA DAT outline is the alignment target only; no ADA, prep-company or forum material is reproduced.",
+  "sources": [
+    {
+      "title": "OpenStax Prealgebra 2e",
+      "url": "https://openstax.org/books/prealgebra-2e"
+    }
+  ],
+  "cards": [
+    {
+      "id": "p2d-ang-1",
+      "front": "Arm length and angle size",
+      "back": "An angle is its opening, not its arms. Unequal arm lengths distort the comparison. Picture both arms trimmed to the same length from the vertex and compare the gap between the tips.",
+      "section": "pat",
+      "category": "PAT-ANG",
+      "topic": "Arm-length distraction",
+      "tag": "cheat-sheet"
+    },
+    {
+      "id": "p2d-ang-2",
+      "front": "Ranking four angles fast",
+      "back": "Find the clearly smallest and clearly largest first and eliminate options that disagree. Compare the remaining middle pair against 90 or 180 degrees as an anchor, then commit.",
+      "section": "pat",
+      "category": "PAT-ANG",
+      "topic": "Pairwise comparison"
+    }
+  ]
+}

@@ -21,13 +21,13 @@
       id: 'dat',
       path: 'dat',
       name: 'DAT preparation',
-      available: false,
+      available: true,
       description:
-        'Drill the sciences on the clock, train perceptual ability with generated sets, and follow a schedule built around your test date.',
+        'Drill the sciences on the clock, train perceptual ability against generated figures, and work timed reading and quantitative sets.',
       audience: 'Students preparing for the U.S. Dental Admission Test.',
       prerequisites: 'One year of biology, general chemistry and organic chemistry.',
       scope:
-        'Timed science drills, six perceptual-ability generators, quantitative and reading practice, lessons keyed to the ADA outline, a date-driven schedule and 200–600 estimates. Local preview.',
+        '216 original questions across biology, both chemistries and quantitative reasoning; six perceptual-ability generators that draw unlimited new figures; three reading-comprehension passages with 50 questions; the exam\u2019s on-screen calculator. Lessons, scheduling, score estimates and full-length tests are still being built.',
       time: 'Start with a 15-minute drill',
       action: 'Open DAT',
       kind: 'Exam preparation',

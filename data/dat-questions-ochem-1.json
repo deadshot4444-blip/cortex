@@ -1,0 +1,2477 @@
+{
+  "format": "dat-bank",
+  "version": 1,
+  "section": "ochem",
+  "layer": 1,
+  "authoredOn": "2026-09-16",
+  "author": "coding agent (Claude), original text",
+  "reviewStatus": "Local authored-content check only; independent subject review pending.",
+  "sourceCheckedOn": "2026-09-16",
+  "contentNote": "Original Cortex discrete items written to first-year depth. The ADA DAT outline is the alignment target only; no ADA, prep-company or forum material is reproduced.",
+  "sources": [
+    {
+      "title": "OpenStax Organic Chemistry",
+      "url": "https://openstax.org/books/organic-chemistry"
+    }
+  ],
+  "lexicalExceptions": [],
+  "items": [
+    {
+      "id": "oc-mech-1",
+      "section": "ochem",
+      "category": "OC-1",
+      "topic": "Curved arrows: substitution",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "Hydroxide reacts with bromomethane, CH3Br, in a single concerted step to give methanol and bromide. Which set of curved arrows correctly describes the step?",
+      "options": [
+        "One arrow from an oxygen lone pair of hydroxide to carbon, and one from the C–Br bond onto bromine",
+        "One arrow from carbon to the oxygen of hydroxide, and one from bromine into the C–Br bond",
+        "One arrow from the C–Br bond onto bromine alone, with hydroxide bonding to the resulting carbocation afterward",
+        "One arrow from an oxygen lone pair of hydroxide to bromine, and one from the C–Br bond onto carbon",
+        "One fishhook arrow from hydroxide to carbon and one fishhook arrow from the C–Br bond onto bromine"
+      ],
+      "answer": 0,
+      "explanation": "Electrons flow from the nucleophile to the electrophilic carbon, and as that bond forms the C–Br electrons leave with bromine, so two full-headed arrows drawn in one step describe the concerted substitution. The reversed-arrow trap has electrons flowing from carbon to oxygen, which would make carbon the nucleophile.",
+      "distractors": [
+        {
+          "i": 1,
+          "why": "Arrows start at the electron source; carbon and bromine are not the electron-rich partners in this step."
+        },
+        {
+          "i": 2,
+          "why": "Breaking the C–Br bond first would form a methyl cation, which is far too unstable, and it is not a single concerted step."
+        },
+        {
+          "i": 3,
+          "why": "Hydroxide bonds to carbon, not to bromine, and the C–Br electrons end up on bromine, not on carbon.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "Fishhook arrows describe single-electron radical steps; this is a two-electron polar step."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · The SN2 Reaction",
+          "url": "https://openstax.org/books/organic-chemistry/pages/11-2-the-sn2-reaction"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-synth-1",
+      "section": "ochem",
+      "category": "OC-2",
+      "topic": "One-step: elimination (E1, E2)",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "2-Bromo-2-methylbutane is heated with sodium ethoxide in ethanol. Which alkene is the major product?",
+      "options": [
+        "2-Methyl-1-butene",
+        "3-Methyl-1-butene",
+        "2-Methyl-1,3-butadiene",
+        "2-Methyl-2-butene",
+        "Ethyl tert-pentyl ether"
+      ],
+      "answer": 3,
+      "explanation": "A strong base and a tertiary halide give E2, and a small base removes the proton that produces the more substituted alkene, so the Zaitsev product 2-methyl-2-butene dominates. The trap is 2-methyl-1-butene, the less substituted Hofmann product, which needs a bulky base such as tert-butoxide to become major.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "The less substituted alkene is the Hofmann product and is favoured only with a bulky base."
+        },
+        {
+          "i": 1,
+          "why": "This alkene would place the double bond away from the carbon that bore the bromine, which elimination cannot do in one step."
+        },
+        {
+          "i": 2,
+          "why": "A diene would need two eliminations and a second leaving group; the substrate has only one.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "Substitution at a tertiary carbon by a strong base is blocked by steric hindrance, so elimination wins."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · Elimination Reactions: Zaitsev’s Rule",
+          "url": "https://openstax.org/books/organic-chemistry/pages/11-7-elimination-reactions-zaitsevs-rule"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-acid-1",
+      "section": "ochem",
+      "category": "OC-3",
+      "topic": "Ranking acidity/basicity across functional groups",
+      "skill": "skill-1",
+      "difficulty": "hard",
+      "format": "standard",
+      "stem": "Which ordering lists ethanol, acetic acid, phenol and ethyne (acetylene) from most acidic to least acidic?",
+      "options": [
+        "Phenol > acetic acid > ethanol > ethyne",
+        "Acetic acid > ethanol > phenol > ethyne",
+        "Ethyne > ethanol > phenol > acetic acid",
+        "Acetic acid > phenol > ethyne > ethanol",
+        "Acetic acid > phenol > ethanol > ethyne"
+      ],
+      "answer": 4,
+      "explanation": "Acidity follows conjugate-base stability: the carboxylate spreads its charge over two oxygens (pKa about 5), the phenoxide spreads it into the ring (about 10), the ethoxide has no resonance (about 16) and the acetylide puts the charge on carbon (about 25). The trap is placing phenol above acetic acid because both are resonance-stabilized; only the carboxylate keeps the charge on two electronegative atoms.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Phenoxide resonance places charge on ring carbons; the carboxylate keeps it on two oxygens, so acetic acid is stronger."
+        },
+        {
+          "i": 1,
+          "why": "Phenol is far more acidic than ethanol because the phenoxide is resonance-stabilized and the ethoxide is not."
+        },
+        {
+          "i": 2,
+          "why": "This is the reverse order; ethyne, with its negative charge on carbon, is the weakest acid of the four.",
+          "weakest": true
+        },
+        {
+          "i": 3,
+          "why": "An sp carbanion is still less stable than an alkoxide with its charge on oxygen, so ethanol is more acidic than ethyne."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · Organic Acids and Organic Bases",
+          "url": "https://openstax.org/books/organic-chemistry/pages/2-10-organic-acids-and-organic-bases"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-prop-1",
+      "section": "ochem",
+      "category": "OC-4",
+      "topic": "Spectroscopy: infrared",
+      "skill": "skill-3",
+      "difficulty": "easy",
+      "format": "standard",
+      "stem": "The infrared spectrum of an unknown compound shows a strong, sharp absorption near 1715 cm⁻¹ and no significant absorption between 3200 and 3600 cm⁻¹. Which compound is consistent with these data?",
+      "options": [
+        "Cyclohexanol",
+        "Hexanoic acid",
+        "3-Hexanone",
+        "1-Hexanol",
+        "Hexane"
+      ],
+      "answer": 2,
+      "explanation": "A strong band near 1715 cm⁻¹ is a carbonyl stretch, and the empty 3200–3600 region rules out an O–H group, so a ketone fits. Hexanoic acid is the trap: it has the carbonyl, but a carboxylic acid also shows a very broad O–H absorption spanning roughly 2500 to 3300 cm⁻¹.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "An alcohol shows a broad O–H band near 3300 cm⁻¹ and has no carbonyl."
+        },
+        {
+          "i": 1,
+          "why": "A carboxylic acid has the carbonyl but also a very broad O–H stretch that would be visible."
+        },
+        {
+          "i": 3,
+          "why": "A primary alcohol shows the O–H stretch near 3300 cm⁻¹ and no carbonyl band."
+        },
+        {
+          "i": 4,
+          "why": "An alkane shows only C–H stretches near 2850–2960 cm⁻¹ and nothing near 1715.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · Infrared Spectra of Some Common Functional Groups",
+          "url": "https://openstax.org/books/organic-chemistry/pages/12-8-infrared-spectra-of-some-common-functional-groups"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-struct-1",
+      "section": "ochem",
+      "category": "OC-5",
+      "topic": "Stereochemistry: chirality",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "Which of the following molecules is chiral?",
+      "options": [
+        "2-Propanol",
+        "2-Bromobutane",
+        "2-Bromo-2-methylpropane",
+        "1-Bromobutane",
+        "Cyclohexanol"
+      ],
+      "answer": 1,
+      "explanation": "In 2-bromobutane the carbon bearing bromine also carries hydrogen, a methyl group and an ethyl group, four different substituents, so the molecule has no internal mirror plane and is chiral. 2-Bromo-2-methylpropane is the trap: bromine sits on a branched carbon, but that carbon carries three identical methyl groups.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "The carbon bearing the OH group carries two identical methyl groups, so a mirror plane exists."
+        },
+        {
+          "i": 2,
+          "why": "The carbon bearing bromine carries three identical methyl groups and cannot be a stereocentre."
+        },
+        {
+          "i": 3,
+          "why": "The bromine is on a terminal CH2 carbon that carries two hydrogens.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "The ring carbon bearing OH sees two identical ring paths, so the molecule has a mirror plane."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · The Reason for Handedness in Molecules: Chirality",
+          "url": "https://openstax.org/books/organic-chemistry/pages/5-2-the-reason-for-handedness-in-molecules-chirality"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-mech-2",
+      "section": "ochem",
+      "category": "OC-1",
+      "topic": "Curved arrows: resonance",
+      "skill": "skill-2",
+      "difficulty": "easy",
+      "format": "standard",
+      "mechanismShape": "predict-product",
+      "stem": "In the acetate ion, CH3CO2⁻, one full-headed curved arrow is drawn from a lone pair on the negatively charged oxygen toward the carbon–oxygen single bond, and a second from the C=O pi bond onto the carbonyl oxygen. Which structure do these arrows produce?",
+      "options": [
+        "A form with a positive charge on carbon and a negative charge on each oxygen",
+        "A form in which the carbon carries five bonds and no formal charge",
+        "The equivalent resonance form with the negative charge on the other oxygen",
+        "Neutral acetic acid, CH3CO2H",
+        "An enolate with the negative charge on the methyl carbon"
+      ],
+      "answer": 2,
+      "explanation": "Resonance arrows move electrons only: the lone pair becomes a new C=O pi bond while the old pi bond collapses onto the other oxygen, so the charge simply swaps oxygens and no atom moves. The trap is treating the second arrow alone as the whole step, which would leave carbon electron-poor and positively charged.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Moving the pi electrons onto oxygen without forming a new pi bond would leave carbon positive; the first arrow supplies the new C=O bond."
+        },
+        {
+          "i": 1,
+          "why": "Carbon cannot exceed four bonds; the second arrow removes the original pi bond as the first one forms a new one."
+        },
+        {
+          "i": 3,
+          "why": "No proton is involved; curved arrows in a resonance step move only electrons, never atoms.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "Neither arrow touches a C–H bond of the methyl group, so no charge can appear there."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · Resonance",
+          "url": "https://openstax.org/books/organic-chemistry/pages/2-4-resonance"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-mech-3",
+      "section": "ochem",
+      "category": "OC-1",
+      "topic": "Curved arrows: resonance",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "mechanismShape": "predict-arrows",
+      "stem": "The allyl cation, CH2=CH–CH2⁺, is represented by two equivalent resonance forms. Which single curved arrow converts one form into the other?",
+      "options": [
+        "A full-headed arrow from the positively charged carbon into the C=C pi bond",
+        "A fishhook arrow from the C=C pi bond to the positively charged carbon",
+        "A full-headed arrow from a C–H bond on the central carbon to the positively charged carbon",
+        "Two full-headed arrows, one from each terminal carbon toward the central carbon",
+        "A full-headed arrow from the C=C pi bond toward the positively charged carbon"
+      ],
+      "answer": 4,
+      "explanation": "The pi electrons are the only movable pair; drawing them toward the cationic carbon forms a new pi bond there and leaves the former sp2 carbon at the other end positive, which is the second resonance form. The trap is starting the arrow at the positive carbon, but arrows always begin where the electrons are.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Arrows begin at electrons; the cationic carbon has an empty orbital and nothing to donate."
+        },
+        {
+          "i": 1,
+          "why": "A fishhook moves one electron and would create radical character; resonance in a cation moves an electron pair."
+        },
+        {
+          "i": 2,
+          "why": "Moving a bonding pair out of a C–H bond describes a hydride shift, a real rearrangement, not a resonance form."
+        },
+        {
+          "i": 3,
+          "why": "The terminal CH2⁺ carbon has no electron pair to donate, and the central carbon would exceed four bonds.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · Rules for Resonance Forms",
+          "url": "https://openstax.org/books/organic-chemistry/pages/2-5-rules-for-resonance-forms"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-mech-4",
+      "section": "ochem",
+      "category": "OC-1",
+      "topic": "Curved arrows: free radical",
+      "skill": "skill-2",
+      "difficulty": "hard",
+      "format": "standard",
+      "mechanismShape": "predict-product",
+      "stem": "During the chlorination of methane, a chlorine atom collides with CH4. Three fishhook arrows are drawn: one from the C–H bond toward hydrogen, one from the unpaired electron on chlorine toward hydrogen, and one from the C–H bond toward carbon. Which two species result?",
+      "options": [
+        "Chloromethane and a hydrogen atom",
+        "Hydrogen chloride and a methyl radical",
+        "A methyl cation and a chloride ion",
+        "A methyl anion and a proton",
+        "Chloromethane and a chlorine atom"
+      ],
+      "answer": 1,
+      "explanation": "Fishhook arrows move single electrons: one electron of the C–H bond pairs with chlorine’s electron to make H–Cl, and the other stays on carbon, giving •CH3 with no charged species. The trap is reading the step as chlorine bonding to carbon; chlorine’s electron is directed at hydrogen, so the new bond is H–Cl and chloromethane forms only in the next propagation step.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "That product pair would need chlorine to bond to carbon, but the arrows send both new-bond electrons to hydrogen."
+        },
+        {
+          "i": 2,
+          "why": "Fishhook arrows move single electrons; ions would need full-headed arrows moving pairs."
+        },
+        {
+          "i": 3,
+          "why": "The C–H bond splits one electron to each side, so carbon keeps only one electron and stays neutral.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "That is the second propagation step, in which a methyl radical attacks Cl2; no Cl2 takes part in this step."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · Preparing Alkyl Halides from Alkanes: Radical Halogenation",
+          "url": "https://openstax.org/books/organic-chemistry/pages/10-2-preparing-alkyl-halides-from-alkanes-radical-halogenation"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-mech-5",
+      "section": "ochem",
+      "category": "OC-1",
+      "topic": "Curved arrows: free radical",
+      "skill": "skill-2",
+      "difficulty": "easy",
+      "format": "standard",
+      "mechanismShape": "predict-arrows",
+      "stem": "Under ultraviolet light, Cl2 splits into two chlorine atoms in the initiation step of a radical chain. Which arrow drawing describes this step?",
+      "options": [
+        "One full-headed arrow from the Cl–Cl bond onto one chlorine",
+        "One fishhook arrow from the Cl–Cl bond onto one chlorine",
+        "One full-headed arrow from a lone pair on one chlorine toward the other chlorine",
+        "Two fishhook arrows from the Cl–Cl bond, one to each chlorine",
+        "Two full-headed arrows from the Cl–Cl bond, one to each chlorine"
+      ],
+      "answer": 3,
+      "explanation": "Homolysis divides the bonding pair evenly, so each electron is shown with its own fishhook arrow leaving the bond for a different chlorine, giving two neutral atoms. The trap is a single full-headed arrow, which describes heterolysis into a cation and an anion.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "A full-headed arrow moves both bonding electrons to one atom and gives Cl⁺ and Cl⁻, not two atoms."
+        },
+        {
+          "i": 1,
+          "why": "A single fishhook accounts for only one of the two bonding electrons; the other must also be shown."
+        },
+        {
+          "i": 2,
+          "why": "Donating a lone pair would make a new bond, not break the existing one.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "Two full-headed arrows would move four electrons, but the bond holds only two."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · Radical Reactions",
+          "url": "https://openstax.org/books/organic-chemistry/pages/6-3-radical-reactions"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-mech-6",
+      "section": "ochem",
+      "category": "OC-1",
+      "topic": "Curved arrows: proton transfer",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "mechanismShape": "predict-product",
+      "stem": "Sodium methoxide is added to phenol. One curved arrow runs from a lone pair on the methoxide oxygen to the phenolic hydrogen, and a second runs from the O–H bond onto the phenol oxygen. Which pair of species results?",
+      "options": [
+        "Methanol and phenoxide ion",
+        "Methanol and a phenyl cation",
+        "Dimethyl ether and hydroxide ion",
+        "Methoxybenzene and hydroxide ion",
+        "Methoxide and phenol, unchanged, because methoxide is too weak a base"
+      ],
+      "answer": 0,
+      "explanation": "The arrows describe a Brønsted proton transfer: methoxide takes the hydrogen and the O–H electrons stay with the phenol oxygen, giving methanol and phenoxide, an equilibrium that lies far to the right because phenol is the stronger acid. The trap is doubting that methoxide is basic enough, but its conjugate acid is about five pKa units weaker than phenol.",
+      "distractors": [
+        {
+          "i": 1,
+          "why": "The O–H electrons are drawn onto oxygen, so oxygen becomes negative; no C–O bond breaks and no carbocation forms."
+        },
+        {
+          "i": 2,
+          "why": "Nothing attacks a carbon here; the first arrow delivers electrons to hydrogen, not to a methyl carbon."
+        },
+        {
+          "i": 3,
+          "why": "Forming an aryl ether would require substitution at a ring carbon, which these arrows do not describe.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "Methanol’s pKa is about 15.5 and phenol’s about 10, so methoxide is easily strong enough to remove the phenolic proton."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · Predicting Acid–Base Reactions from pKa Values",
+          "url": "https://openstax.org/books/organic-chemistry/pages/2-9-predicting-acid-base-reactions-from-pka-values"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-mech-7",
+      "section": "ochem",
+      "category": "OC-1",
+      "topic": "Curved arrows: proton transfer",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "mechanismShape": "predict-arrows",
+      "stem": "Acetic acid transfers a proton to ammonia, producing acetate and ammonium ions. Which set of curved arrows correctly describes the step?",
+      "options": [
+        "One arrow from the acidic hydrogen to the nitrogen lone pair, and one from the O–H bond onto the hydroxyl oxygen",
+        "One arrow from the nitrogen lone pair to the carbonyl carbon, and one from the C=O pi bond onto the carbonyl oxygen",
+        "One arrow from the nitrogen lone pair to the acidic hydrogen, with no second arrow",
+        "One arrow from the nitrogen lone pair to the acidic hydrogen, and one from the O–H bond onto oxygen",
+        "One fishhook arrow from nitrogen to hydrogen, and one fishhook arrow from the O–H bond onto oxygen"
+      ],
+      "answer": 3,
+      "explanation": "A proton transfer always needs two full-headed arrows: the base’s lone pair reaches for the hydrogen, and the bond that hydrogen is leaving collapses back onto the more electronegative atom, here the hydroxyl oxygen, which becomes the carboxylate. The trap is aiming the base at the carbonyl carbon, which describes addition rather than deprotonation.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "A hydrogen bonded to oxygen owns no spare electrons; the arrow must begin at the nitrogen lone pair."
+        },
+        {
+          "i": 1,
+          "why": "That is nucleophilic addition to the carbonyl, which does not form ammonium or acetate."
+        },
+        {
+          "i": 2,
+          "why": "Without the second arrow, hydrogen would keep its O–H bond and gain another, exceeding two electrons.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "Proton transfer moves electron pairs; fishhook arrows would produce radicals rather than ions."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · Using Curved Arrows in Polar Reaction Mechanisms",
+          "url": "https://openstax.org/books/organic-chemistry/pages/6-6-using-curved-arrows-in-polar-reaction-mechanisms"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-mech-8",
+      "section": "ochem",
+      "category": "OC-1",
+      "topic": "Curved arrows: addition",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "mechanismShape": "predict-product",
+      "stem": "Propene, CH3CH=CH2, reacts with HBr in two steps. In the first, a curved arrow from the C=C pi bond delivers electrons to the hydrogen of HBr while a second arrow moves the H–Br bond electrons onto bromine; the new C–H bond forms at the terminal CH2 carbon. After bromide bonds to the resulting cation, which product is obtained?",
+      "options": [
+        "2-Bromopropane",
+        "1-Bromopropane",
+        "1,2-Dibromopropane",
+        "Propane",
+        "2-Propanol"
+      ],
+      "answer": 0,
+      "explanation": "Protonation at the terminal carbon places the cation on the secondary, more substituted carbon, and bromide then bonds there to give 2-bromopropane, the Markovnikov product. The trap is placing bromine on the carbon that received the proton; the two new bonds form at different carbons.",
+      "distractors": [
+        {
+          "i": 1,
+          "why": "Protonating the terminal carbon leaves the positive charge on the central carbon, so bromide bonds there, not at the end."
+        },
+        {
+          "i": 2,
+          "why": "Only one equivalent of HBr is present and no Br2; a dibromide would need a second bromine source."
+        },
+        {
+          "i": 3,
+          "why": "Bromide, not hydride, is what bonds to the cation in the second step."
+        },
+        {
+          "i": 4,
+          "why": "No water is present; the nucleophile that traps the cation is bromide.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · Orientation of Electrophilic Additions: Markovnikov’s Rule",
+          "url": "https://openstax.org/books/organic-chemistry/pages/7-8-orientation-of-electrophilic-additions-markovnikovs-rule"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-mech-9",
+      "section": "ochem",
+      "category": "OC-1",
+      "topic": "Curved arrows: addition",
+      "skill": "skill-2",
+      "difficulty": "hard",
+      "format": "standard",
+      "mechanismShape": "predict-arrows",
+      "stem": "Cyclohexene reacts with Br2 in dichloromethane to give exclusively trans-1,2-dibromocyclohexane. Which arrow description for the first step accounts for this stereochemical outcome?",
+      "options": [
+        "An arrow from the pi bond to one bromine and an arrow from the Br–Br bond onto the other bromine, giving an open secondary carbocation that the released bromide then attacks from whichever face is more accessible",
+        "Two fishhook arrows from the Br–Br bond, one to each bromine, followed by stepwise radical addition of the two bromine atoms to the alkene",
+        "An arrow from the pi bond to one bromine, an arrow from the Br–Br bond onto the departing bromide, and an arrow from a lone pair of the bonding bromine back to the other alkene carbon, forming a bromonium ion",
+        "An arrow from a bromine lone pair to the pi bond, making the alkene the electrophile and bromine the nucleophile in the first step",
+        "Three arrows drawn so that both bromine atoms bond to the two alkene carbons from the same face in a single concerted step"
+      ],
+      "answer": 2,
+      "explanation": "The pi bond attacks one bromine while the Br–Br bond breaks, and a lone pair on that bromine immediately closes a three-membered bromonium ring; bromide can then open the ring only from the face opposite the bromonium, so the two bromines end up anti and trans. The trap is an open carbocation, which would let bromide approach from either face and give both diastereomers.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "An open carbocation would be attacked from both faces and give a mixture of cis and trans products, not the trans product alone."
+        },
+        {
+          "i": 1,
+          "why": "Radical addition of bromine is not the pathway in the dark in a non-polar solvent, and radicals would not enforce anti addition.",
+          "weakest": true
+        },
+        {
+          "i": 3,
+          "why": "The electron-rich pi bond is the nucleophile; the arrow must begin at the pi bond, not at bromine."
+        },
+        {
+          "i": 4,
+          "why": "Concerted delivery of both bromines to the same face would give syn addition and the cis dibromide."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · Halogenation of Alkenes: Addition of X2",
+          "url": "https://openstax.org/books/organic-chemistry/pages/8-2-halogenation-of-alkenes-addition-of-x2"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-mech-10",
+      "section": "ochem",
+      "category": "OC-1",
+      "topic": "Curved arrows: elimination",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "mechanismShape": "predict-product",
+      "stem": "2-Bromobutane is treated with potassium tert-butoxide. Three curved arrows are drawn in one step: from an oxygen lone pair of tert-butoxide to a hydrogen on C1, from that C1–H bond into the space between C1 and C2, and from the C2–Br bond onto bromine. Which alkene is formed?",
+      "options": [
+        "(E)-2-Butene",
+        "(Z)-2-Butene",
+        "2-Methylpropene",
+        "1,3-Butadiene",
+        "1-Butene"
+      ],
+      "answer": 4,
+      "explanation": "The pi bond forms between the carbon that loses the proton and the carbon that loses bromine, so removing a C1 hydrogen while the C2–Br bond breaks creates the C1=C2 double bond of 1-butene, the Hofmann product favoured by a bulky base. The trap is assuming the more substituted Zaitsev alkene, which would require the arrow to begin at a C3–H bond.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "A 2-butene would need the proton removed from C3; the arrow is drawn from a C1–H bond."
+        },
+        {
+          "i": 1,
+          "why": "Forming the internal alkene requires breaking a C3–H bond, which is not among the arrows described."
+        },
+        {
+          "i": 2,
+          "why": "Elimination cannot move a carbon; the four-carbon chain of 2-bromobutane stays unbranched.",
+          "weakest": true
+        },
+        {
+          "i": 3,
+          "why": "A diene would need a second elimination and a second leaving group; only one C–Br bond is present."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · The E2 Reaction and the Deuterium Isotope Effect",
+          "url": "https://openstax.org/books/organic-chemistry/pages/11-8-the-e2-reaction-and-the-deuterium-isotope-effect"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-mech-11",
+      "section": "ochem",
+      "category": "OC-1",
+      "topic": "Curved arrows: elimination",
+      "skill": "skill-2",
+      "difficulty": "hard",
+      "format": "standard",
+      "mechanismShape": "predict-arrows",
+      "stem": "2-Chloro-2-methylpropane is warmed in aqueous ethanol without added base, and 2-methylpropene forms among the products. Which arrow sequence describes how the alkene arises under these conditions?",
+      "options": [
+        "In a single concerted step, arrows from a water lone pair to a methyl hydrogen, from that C–H bond toward the carbon bearing chlorine, and from the C–Cl bond onto chlorine, with no intermediate formed",
+        "First an arrow from the C–Cl bond onto chlorine, giving a tertiary carbocation; then an arrow from a solvent lone pair to a methyl hydrogen and one from that C–H bond toward the cationic carbon",
+        "First an arrow from a methyl C–H bond onto carbon, forming a carbanion; then an arrow from that carbanion toward the neighbouring carbon, pushing out chloride as the pi bond forms",
+        "An arrow from a water lone pair to the carbon bearing chlorine and an arrow from the C–Cl bond onto chlorine, in one step",
+        "Two fishhook arrows from the C–Cl bond, one to carbon and one to chlorine, followed by loss of a hydrogen atom from a methyl group"
+      ],
+      "answer": 1,
+      "explanation": "With no strong base and a tertiary halide, the C–Cl bond ionizes first to a stable tertiary cation, and the weakly basic solvent then removes a neighbouring proton so the C–H electrons form the pi bond, which is E1. The trap is drawing all three arrows in one concerted step, which is the E2 pattern and needs a strong base.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "A concerted elimination needs a strong base; water is too weak to trigger E2, and the tertiary substrate ionizes readily instead."
+        },
+        {
+          "i": 2,
+          "why": "Alkyl carbanions are far too unstable to form in neutral solvent; ionization begins at the weak C–Cl bond."
+        },
+        {
+          "i": 3,
+          "why": "That describes concerted substitution, which is blocked at a tertiary carbon and would give an alcohol, not an alkene.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "Warm solvent does not homolyze C–Cl bonds; this is a polar, two-electron pathway."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · The E1 and E1cB Reactions",
+          "url": "https://openstax.org/books/organic-chemistry/pages/11-10-the-e1-and-e1cb-reactions"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-mech-12",
+      "section": "ochem",
+      "category": "OC-1",
+      "topic": "Curved arrows: substitution",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "mechanismShape": "predict-product",
+      "stem": "(S)-2-Chlorobutane is treated with sodium iodide in acetone. A curved arrow is drawn from an iodide lone pair to C2 and, in the same step, a second arrow from the C2–Cl bond onto chlorine. Which product forms?",
+      "options": [
+        "(S)-2-Iodobutane",
+        "(R)-2-Iodobutane",
+        "Racemic 2-iodobutane",
+        "A mixture of 1-butene and 2-butenes",
+        "2-Butanol"
+      ],
+      "answer": 1,
+      "explanation": "One step with simultaneous bond formation and bond breaking is a backside attack that inverts the tetrahedral carbon, and because iodine occupies the same top priority that chlorine held, inversion of geometry turns (S) into (R). The trap is assuming a racemate, which is the outcome of a carbocation pathway that these concerted arrows exclude.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Backside attack in a single step inverts the geometry at carbon, and the descriptor flips because iodine takes the same priority rank that chlorine held."
+        },
+        {
+          "i": 2,
+          "why": "Racemization would require a planar carbocation, but the arrows show bond making and bond breaking in one step."
+        },
+        {
+          "i": 3,
+          "why": "No arrow begins at a C–H bond, so no pi bond forms; iodide is acting as a nucleophile here, not a base."
+        },
+        {
+          "i": 4,
+          "why": "Acetone is a dry aprotic solvent and no water or hydroxide is present to supply oxygen.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · Characteristics of the SN2 Reaction",
+          "url": "https://openstax.org/books/organic-chemistry/pages/11-3-characteristics-of-the-sn2-reaction"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-mech-13",
+      "section": "ochem",
+      "category": "OC-1",
+      "topic": "Curved arrows: rearrangements",
+      "skill": "skill-2",
+      "difficulty": "hard",
+      "format": "standard",
+      "mechanismShape": "predict-product",
+      "stem": "3-Methyl-1-butene is treated with HBr. Protonation of the terminal carbon gives a secondary carbocation at C2, and a curved arrow is then drawn from the C3–H bond toward C2 before bromide bonds to the cation. Which product results?",
+      "options": [
+        "2-Bromo-3-methylbutane",
+        "1-Bromo-3-methylbutane",
+        "1-Bromo-2-methylbutane",
+        "2-Bromo-2-methylbutane",
+        "2-Methyl-2-butene"
+      ],
+      "answer": 3,
+      "explanation": "The arrow from the C3–H bond to C2 is a 1,2-hydride shift that converts the secondary cation into the tertiary cation at C3, and bromide then bonds to that tertiary carbon, which becomes C2 of 2-bromo-2-methylbutane. The trap is stopping at the secondary cation and placing bromine there, which ignores the rearrangement the arrow describes.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "This is the product of direct capture at C2 with no shift; the arrow from the C3–H bond moves the positive charge before bromide arrives."
+        },
+        {
+          "i": 1,
+          "why": "Bromine at C1 would be the anti-Markovnikov outcome, which needs a radical pathway with peroxides, not the cationic one described."
+        },
+        {
+          "i": 2,
+          "why": "A primary bromide would require the positive charge to sit on a terminal carbon, which the hydride shift moves away from.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "Loss of a proton would give an alkene, but the stem states that bromide bonds to the cation instead."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · Evidence for the Mechanism of Electrophilic Additions: Carbocation Rearrangements",
+          "url": "https://openstax.org/books/organic-chemistry/pages/7-11-evidence-for-the-mechanism-of-electrophilic-additions-carbocation-rearrangements"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-mech-14",
+      "section": "ochem",
+      "category": "OC-1",
+      "topic": "Curved arrows: other (e.g., Diels-Alder)",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "mechanismShape": "predict-product",
+      "stem": "1,3-Butadiene is heated with methyl acrylate, CH2=CHCO2CH3. Three full-headed arrows are drawn in one step: from the diene’s C1=C2 pi bond toward a carbon of the dienophile, from the dienophile’s C=C pi bond toward the diene’s C4, and from the diene’s C3=C4 pi bond into the C2–C3 bond. Which product forms?",
+      "options": [
+        "Methyl cyclohex-3-ene-1-carboxylate",
+        "Methyl cyclohex-2-ene-1-carboxylate",
+        "Methyl cyclohexanecarboxylate",
+        "Methyl 2-ethenylcyclobutane-1-carboxylate",
+        "Methyl cyclohexa-1,3-diene-1-carboxylate"
+      ],
+      "answer": 0,
+      "explanation": "A Diels–Alder cycloaddition converts three pi bonds into two new sigma bonds and one new pi bond, giving a cyclohexene whose double bond sits between the former C2 and C3 of the diene, so the ester lands on a saturated ring carbon two positions from the alkene. The trap is placing the alkene next to the ester carbon, which misreads where the third arrow puts the new pi bond.",
+      "distractors": [
+        {
+          "i": 1,
+          "why": "The new pi bond forms between the diene’s central carbons, which end up two bonds away from the ester-bearing carbon, not adjacent to it."
+        },
+        {
+          "i": 2,
+          "why": "A fully saturated ring would need an extra reduction; the third arrow creates a new C=C bond that remains in the product."
+        },
+        {
+          "i": 3,
+          "why": "A four-membered ring would come from a [2+2] cycloaddition, which uses only two pi bonds and is not thermally allowed.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "Both dienophile pi electrons and one diene pi bond become sigma bonds, so only one alkene remains in the ring."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · The Diels–Alder Cycloaddition Reaction",
+          "url": "https://openstax.org/books/organic-chemistry/pages/14-4-the-diels-alder-cycloaddition-reaction"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-synth-2",
+      "section": "ochem",
+      "category": "OC-2",
+      "topic": "One-step: substitution (SN1, SN2)",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "1-Bromobutane is stirred with sodium cyanide in dimethyl sulfoxide. What is the major organic product?",
+      "options": [
+        "Butanenitrile",
+        "1-Butene",
+        "Pentanenitrile",
+        "Butyl isocyanide",
+        "1-Butanol"
+      ],
+      "answer": 2,
+      "explanation": "A primary bromide with a strong, unhindered nucleophile in a polar aprotic solvent undergoes clean backside substitution, and because cyanide attaches through its carbon, the chain grows to five carbons, giving pentanenitrile. The trap is naming the product with four carbons, forgetting that the nitrile carbon counts in the parent chain.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "The nitrile carbon adds to the chain, so the product has five carbons, not four."
+        },
+        {
+          "i": 1,
+          "why": "Cyanide is a good nucleophile but a poor base, and a primary substrate favours substitution over elimination."
+        },
+        {
+          "i": 3,
+          "why": "Cyanide bonds through carbon, the more nucleophilic end, so a C–C bond forms rather than a C–N bond."
+        },
+        {
+          "i": 4,
+          "why": "No water or hydroxide is present; dimethyl sulfoxide is an aprotic solvent that does not supply oxygen.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · Characteristics of the SN2 Reaction",
+          "url": "https://openstax.org/books/organic-chemistry/pages/11-3-characteristics-of-the-sn2-reaction"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-synth-3",
+      "section": "ochem",
+      "category": "OC-2",
+      "topic": "One-step: reactions of alkenes/alkynes",
+      "skill": "skill-2",
+      "difficulty": "hard",
+      "format": "standard",
+      "stem": "1-Methylcyclohexene is treated with BH3 in THF and then with H2O2 and aqueous NaOH. What is the major product?",
+      "options": [
+        "1-Methylcyclohexanol",
+        "cis-2-Methylcyclohexanol",
+        "2-Methylcyclohexanone",
+        "Methylcyclohexane",
+        "trans-2-Methylcyclohexanol"
+      ],
+      "answer": 4,
+      "explanation": "Hydroboration adds hydrogen and boron syn across the alkene with boron on the less hindered carbon; oxidation then swaps boron for OH with retention, so OH is on C2 and the hydrogen on C1 sits on the same face as OH, placing methyl and hydroxyl trans. The trap is the cis alcohol, which forgets that the hydrogen added syn to boron pushes the methyl to the opposite face.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "That is the Markovnikov alcohol from acid-catalysed hydration; hydroboration places boron, and later oxygen, on the less substituted carbon."
+        },
+        {
+          "i": 1,
+          "why": "Hydrogen and boron add to the same face, so the hydroxyl ends up on the face opposite the methyl group, not the same face."
+        },
+        {
+          "i": 2,
+          "why": "The oxidation step replaces boron with a hydroxyl group; it does not oxidize the alcohol further to a ketone."
+        },
+        {
+          "i": 3,
+          "why": "Hydroboration delivers hydrogen to only one carbon; the other carbon carries boron, which becomes OH.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · Hydration of Alkenes: Addition of H2O by Hydroboration",
+          "url": "https://openstax.org/books/organic-chemistry/pages/8-5-hydration-of-alkenes-addition-of-h2o-by-hydroboration"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-synth-4",
+      "section": "ochem",
+      "category": "OC-2",
+      "topic": "One-step: reactions of alcohols",
+      "skill": "skill-2",
+      "difficulty": "easy",
+      "format": "standard",
+      "stem": "1-Propanol is treated with pyridinium chlorochromate (PCC) in dichloromethane. What is the product?",
+      "options": [
+        "Propanoic acid",
+        "Acetone",
+        "1-Chloropropane",
+        "Propene",
+        "Propanal"
+      ],
+      "answer": 4,
+      "explanation": "PCC is a mild anhydrous oxidant that takes a primary alcohol only to the aldehyde, so 1-propanol becomes propanal. The trap is over-oxidizing to propanoic acid, which requires water to form the aldehyde hydrate that stronger chromium reagents oxidize further.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "PCC in a dry solvent stops at the aldehyde; the acid needs an aqueous oxidant such as chromic acid."
+        },
+        {
+          "i": 1,
+          "why": "Oxidizing a primary alcohol gives an aldehyde; a ketone comes from a secondary alcohol."
+        },
+        {
+          "i": 2,
+          "why": "PCC is an oxidant, not a chlorinating agent; its chloride is a counterion.",
+          "weakest": true
+        },
+        {
+          "i": 3,
+          "why": "Dehydration requires acid and heat; PCC oxidizes without removing water."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · Oxidation of Alcohols",
+          "url": "https://openstax.org/books/organic-chemistry/pages/17-7-oxidation-of-alcohols"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-synth-5",
+      "section": "ochem",
+      "category": "OC-2",
+      "topic": "One-step: reactions of alcohols",
+      "skill": "skill-2",
+      "difficulty": "hard",
+      "format": "standard",
+      "stem": "(R)-2-Butanol reacts with thionyl chloride, SOCl2, in the presence of pyridine. Which product is obtained?",
+      "options": [
+        "(R)-2-Chlorobutane",
+        "Racemic 2-chlorobutane",
+        "(S)-2-Chlorobutane",
+        "1-Butene",
+        "2-Butanone"
+      ],
+      "answer": 2,
+      "explanation": "The alcohol first forms a chlorosulfite ester, and chloride then displaces it by backside attack, inverting the stereocentre; since chlorine takes the same priority that oxygen held, the descriptor changes from (R) to (S). The trap is expecting retention, which occurs only when no base is present and chloride is delivered from the ion pair on the same face.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Retention would require the C–O bond to stay intact; chloride instead attacks carbon from the back side and inverts it."
+        },
+        {
+          "i": 1,
+          "why": "Racemization would need a carbocation; a secondary substrate with pyridine present follows a concerted pathway."
+        },
+        {
+          "i": 3,
+          "why": "Pyridine is too weak a base and the conditions too mild to drive elimination; the chlorosulfite is displaced instead.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "Thionyl chloride is not an oxidant; carbon keeps its four single bonds."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · Reactions of Alcohols",
+          "url": "https://openstax.org/books/organic-chemistry/pages/17-6-reactions-of-alcohols"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-synth-6",
+      "section": "ochem",
+      "category": "OC-2",
+      "topic": "One-step: reactions of ethers (including epoxides)",
+      "skill": "skill-2",
+      "difficulty": "hard",
+      "format": "standard",
+      "stem": "2,2-Dimethyloxirane (1,2-epoxy-2-methylpropane) is dissolved in methanol containing a catalytic amount of sulfuric acid. What is the major product?",
+      "options": [
+        "1-Methoxy-2-methyl-2-propanol",
+        "2-Methyl-1,2-propanediol",
+        "2-Methylpropanal",
+        "2-Methoxy-2-methyl-1-propanol",
+        "tert-Butyl methyl ether"
+      ],
+      "answer": 3,
+      "explanation": "Protonation of the epoxide oxygen makes a leaving group, and the weak nucleophile methanol attacks the more substituted carbon, which bears most of the developing positive charge, so the methoxy group ends up on the tertiary carbon and the hydroxyl on the CH2. The trap is the regiochemistry of basic ring opening, where methoxide attacks the less hindered CH2 instead.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Attack at the less substituted carbon is the outcome with basic methoxide; under acid the nucleophile goes to the more substituted carbon."
+        },
+        {
+          "i": 1,
+          "why": "Methanol, not water, is the solvent and nucleophile, so a methyl ether forms rather than a diol."
+        },
+        {
+          "i": 2,
+          "why": "No oxidation or rearrangement to a carbonyl occurs; the ring simply opens to an alcohol and an ether.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "The epoxide oxygen is retained as a hydroxyl group; it is not lost from the molecule."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · Reactions of Epoxides: Ring-Opening",
+          "url": "https://openstax.org/books/organic-chemistry/pages/18-5-reactions-of-epoxides-ring-opening"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-synth-7",
+      "section": "ochem",
+      "category": "OC-2",
+      "topic": "One-step: radical reactions",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "2-Methylpropane is treated with Br2 under irradiation with light. Which monobrominated product predominates?",
+      "options": [
+        "2-Bromo-2-methylpropane",
+        "1-Bromo-2-methylpropane",
+        "1,2-Dibromo-2-methylpropane",
+        "2-Methylpropene",
+        "2-Bromopropane"
+      ],
+      "answer": 0,
+      "explanation": "Bromine radicals are selective, abstracting the weakest C–H bond, and the lone tertiary hydrogen gives the most stable radical, so the tertiary bromide dominates despite there being nine primary hydrogens. The trap is weighting by hydrogen count as one would for chlorination, which is far less selective.",
+      "distractors": [
+        {
+          "i": 1,
+          "why": "Nine primary hydrogens are available, but bromine is selective enough that the single tertiary hydrogen still wins."
+        },
+        {
+          "i": 2,
+          "why": "A dibromide would need a second substitution or addition to an alkene, and only monobromination is asked."
+        },
+        {
+          "i": 3,
+          "why": "Radical halogenation substitutes hydrogen; it does not eliminate to form an alkene.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "The carbon skeleton is unchanged; the product must still contain four carbons with a branch."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · Preparing Alkyl Halides from Alkanes: Radical Halogenation",
+          "url": "https://openstax.org/books/organic-chemistry/pages/10-2-preparing-alkyl-halides-from-alkanes-radical-halogenation"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-synth-8",
+      "section": "ochem",
+      "category": "OC-2",
+      "topic": "One-step: reactions of aromatics",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "Nitrobenzene is treated with Br2 and FeBr3. Which product forms in greatest yield?",
+      "options": [
+        "1-Bromo-4-nitrobenzene",
+        "1-Bromo-3-nitrobenzene",
+        "1-Bromo-2-nitrobenzene",
+        "Bromobenzene",
+        "1,3,5-Tribromonitrobenzene"
+      ],
+      "answer": 1,
+      "explanation": "The nitro group withdraws electrons by resonance and places positive charge on the ortho and para carbons of the cationic intermediate, so bromine enters at the meta position where that destabilization is avoided. The trap is para substitution, which is the pattern for electron-donating substituents.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Para substitution is what an activating, electron-donating group directs; the nitro group deactivates that position most."
+        },
+        {
+          "i": 2,
+          "why": "The ortho position, like para, bears positive charge in the intermediate that the nitro group destabilizes."
+        },
+        {
+          "i": 3,
+          "why": "Electrophilic aromatic substitution replaces a ring hydrogen, not the nitro group.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "A strongly deactivated ring reacts slowly and stops after one substitution under these conditions."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · Substituent Effects in Electrophilic Substitutions",
+          "url": "https://openstax.org/books/organic-chemistry/pages/16-4-substituent-effects-in-electrophilic-substitutions"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-synth-9",
+      "section": "ochem",
+      "category": "OC-2",
+      "topic": "One-step: reactions of carboxylic acids/derivatives",
+      "skill": "skill-2",
+      "difficulty": "easy",
+      "format": "standard",
+      "stem": "Acetyl chloride is added to ethanol in the presence of pyridine. What is the major organic product?",
+      "options": [
+        "Ethyl acetate",
+        "Methyl propanoate",
+        "Acetic anhydride",
+        "2-Butanone",
+        "Acetic acid"
+      ],
+      "answer": 0,
+      "explanation": "An acid chloride undergoes nucleophilic acyl substitution: the alcohol oxygen adds to the carbonyl and chloride leaves, so the acetyl group is transferred to ethanol’s oxygen, giving ethyl acetate, while pyridine neutralizes the HCl. The trap is swapping the halves to name methyl propanoate, which has the same formula but comes from propanoyl chloride and methanol.",
+      "distractors": [
+        {
+          "i": 1,
+          "why": "This ester has the same formula but the wrong arrangement; the acyl group is acetyl and the alkoxy group comes from ethanol."
+        },
+        {
+          "i": 2,
+          "why": "An anhydride would form from acetyl chloride and a carboxylate, not from an alcohol."
+        },
+        {
+          "i": 3,
+          "why": "Alcohols are oxygen nucleophiles; a ketone would need a carbon nucleophile such as an organometallic.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "Hydrolysis needs water; ethanol delivers an ethoxy group in place of chloride."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · Chemistry of Acid Halides",
+          "url": "https://openstax.org/books/organic-chemistry/pages/21-4-chemistry-of-acid-halides"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-synth-10",
+      "section": "ochem",
+      "category": "OC-2",
+      "topic": "One-step: reactions of ketones and aldehydes",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "Propanal is treated with methylmagnesium bromide in dry ether, followed by aqueous acid. What is the product?",
+      "options": [
+        "1-Butanol",
+        "2-Butanol",
+        "2-Methyl-2-propanol",
+        "2-Butanone",
+        "Butanal"
+      ],
+      "answer": 1,
+      "explanation": "The Grignard carbon adds to the electrophilic carbonyl carbon and the alkoxide is protonated in the workup, so a methyl group joins the aldehyde carbon of propanal to give the secondary alcohol 2-butanol. The trap is 1-butanol, which would require the new carbon to attach at the far end of the chain.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "The new carbon bonds to the carbonyl carbon, which is C1 of propanal, so the hydroxyl ends up on an interior carbon."
+        },
+        {
+          "i": 2,
+          "why": "A tertiary alcohol would come from a ketone, not from an aldehyde, which has a hydrogen on the carbonyl carbon."
+        },
+        {
+          "i": 3,
+          "why": "Grignard addition converts the carbonyl to an alcohol; a ketone would need a subsequent oxidation.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "Grignard addition gives an alcohol; it does not lengthen the chain while keeping a carbonyl."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · Nucleophilic Addition of Hydride and Grignard Reagents: Alcohol Formation",
+          "url": "https://openstax.org/books/organic-chemistry/pages/19-7-nucleophilic-addition-of-hydride-and-grignard-reagents-alcohol-formation"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-synth-11",
+      "section": "ochem",
+      "category": "OC-2",
+      "topic": "One-step: reactions of alpha-carbonyl compounds",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "Cyclohexanone is treated with lithium diisopropylamide (LDA) at −78 °C in THF, and then with iodomethane. What is the major product?",
+      "options": [
+        "1-Methylcyclohexanol",
+        "1-Methoxycyclohexene",
+        "3-Methylcyclohexanone",
+        "1-Methylcyclohexene",
+        "2-Methylcyclohexanone"
+      ],
+      "answer": 4,
+      "explanation": "LDA is a strong, bulky base that quantitatively removes an alpha hydrogen to form the enolate, and the nucleophilic alpha carbon then attacks iodomethane, placing the methyl on C2. The trap is 3-methylcyclohexanone, which misplaces the nucleophilic carbon one position away from the carbonyl.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "A carbon nucleophile adding to the carbonyl gives this alcohol, but LDA removes an alpha proton rather than attacking the carbonyl."
+        },
+        {
+          "i": 1,
+          "why": "Alkylation of the enolate occurs at carbon, not oxygen, under these conditions."
+        },
+        {
+          "i": 2,
+          "why": "The enolate carbon is the alpha carbon adjacent to the carbonyl; the beta position is not nucleophilic.",
+          "weakest": true
+        },
+        {
+          "i": 3,
+          "why": "The carbonyl oxygen remains in the product; no reduction or elimination occurs."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · Alkylation of Enolate Ions",
+          "url": "https://openstax.org/books/organic-chemistry/pages/22-7-alkylation-of-enolate-ions"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-synth-12",
+      "section": "ochem",
+      "category": "OC-2",
+      "topic": "Two-step",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "2-Methyl-2-butanol is heated with concentrated H2SO4, and the product is then treated with H2 over a palladium catalyst. What is the final product?",
+      "options": [
+        "2-Methyl-2-butene",
+        "Pentane",
+        "2-Methylbutane",
+        "2-Methyl-1-butene",
+        "2-Methyl-2-butanol"
+      ],
+      "answer": 2,
+      "explanation": "Concentrated acid dehydrates the tertiary alcohol to alkenes, mainly 2-methyl-2-butene, and catalytic hydrogenation then adds H2 across whichever alkene formed, so both regiochemical outcomes converge on the alkane 2-methylbutane. The trap is stopping at the alkene and forgetting the second reagent.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "This is the intermediate alkene after the dehydration; the second step saturates it."
+        },
+        {
+          "i": 1,
+          "why": "Neither step changes the carbon skeleton; the methyl branch is retained."
+        },
+        {
+          "i": 3,
+          "why": "This is the minor alkene from the first step, and it too is hydrogenated to the alkane in the second.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "Acid and heat remove water from a tertiary alcohol; the starting material does not survive the first step."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · Reduction of Alkenes: Hydrogenation",
+          "url": "https://openstax.org/books/organic-chemistry/pages/8-6-reduction-of-alkenes-hydrogenation"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-synth-13",
+      "section": "ochem",
+      "category": "OC-2",
+      "topic": "Multi-step",
+      "skill": "skill-2",
+      "difficulty": "hard",
+      "format": "standard",
+      "stem": "1-Propanol is converted by a three-step sequence: (1) PBr3; (2) Mg in dry ether; (3) formaldehyde, followed by aqueous acid. What is the final product?",
+      "options": [
+        "2-Butanol",
+        "1-Propanol",
+        "Butanal",
+        "1-Butanol",
+        "2-Methyl-1-propanol"
+      ],
+      "answer": 3,
+      "explanation": "PBr3 converts the alcohol to 1-bromopropane, magnesium turns it into propylmagnesium bromide, and the Grignard adds to formaldehyde to give, after protonation, a primary alcohol one carbon longer: 1-butanol. The trap is 2-butanol, which would require acetaldehyde rather than formaldehyde as the electrophile.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "A secondary alcohol would result from adding the Grignard to an aldehyde larger than formaldehyde, such as acetaldehyde."
+        },
+        {
+          "i": 1,
+          "why": "The sequence adds one carbon; the product is not simply the starting alcohol regenerated.",
+          "weakest": true
+        },
+        {
+          "i": 2,
+          "why": "Grignard addition to formaldehyde gives an alkoxide that protonation turns into an alcohol, not an aldehyde."
+        },
+        {
+          "i": 4,
+          "why": "The propyl chain is unbranched throughout; the new carbon is added to its end rather than as a branch."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · Alcohols from Carbonyl Compounds: Grignard Reaction",
+          "url": "https://openstax.org/books/organic-chemistry/pages/17-5-alcohols-from-carbonyl-compounds-grignard-reaction"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-synth-14",
+      "section": "ochem",
+      "category": "OC-2",
+      "topic": "Reactivity across multiple functional groups",
+      "skill": "skill-2",
+      "difficulty": "hard",
+      "format": "standard",
+      "stem": "Methyl 4-oxopentanoate, CH3C(=O)CH2CH2CO2CH3, is treated with one equivalent of NaBH4 in methanol at 0 °C and then with dilute aqueous acid. What is the major product?",
+      "options": [
+        "1,4-Pentanediol",
+        "4-Oxopentanoic acid",
+        "Methyl 4-hydroxypentanoate",
+        "5-Hydroxy-2-pentanone",
+        "Methyl pentanoate"
+      ],
+      "answer": 2,
+      "explanation": "Sodium borohydride is a mild hydride donor that reduces aldehydes and ketones but leaves esters untouched, so only the ketone becomes a secondary alcohol and the methyl ester survives. The trap is the diol, which would need lithium aluminium hydride to reduce the ester as well.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Reducing the ester to an alcohol requires a stronger hydride source such as LiAlH4."
+        },
+        {
+          "i": 1,
+          "why": "NaBH4 does not hydrolyse esters, and the ketone is reduced under these conditions.",
+          "weakest": true
+        },
+        {
+          "i": 3,
+          "why": "This would require reducing the ester while leaving the ketone intact, the reverse of hydride selectivity."
+        },
+        {
+          "i": 4,
+          "why": "Hydride reduces a carbonyl to an alcohol; it does not remove the oxygen entirely."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · Alcohols from Carbonyl Compounds: Reduction",
+          "url": "https://openstax.org/books/organic-chemistry/pages/17-4-alcohols-from-carbonyl-compounds-reduction"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-acid-2",
+      "section": "ochem",
+      "category": "OC-3",
+      "topic": "Structure analysis within functional groups: charge",
+      "skill": "skill-1",
+      "difficulty": "easy",
+      "format": "standard",
+      "stem": "Which of the following oxygen- or nitrogen-containing species is the strongest acid?",
+      "options": [
+        "CH3OH2⁺ (protonated methanol)",
+        "CH3NH3⁺ (methylammonium ion)",
+        "CH3OH (methanol)",
+        "CH3NH2 (methylamine)",
+        "CH3O⁻ (methoxide ion)"
+      ],
+      "answer": 0,
+      "explanation": "A positive charge on an electronegative atom makes its attached proton very acidic, and oxygen tolerates that charge less well than nitrogen, so protonated methanol, pKa near −2, is more acidic than methylammonium. The trap is picking the ammonium ion because it is charged, without comparing which atom is more reluctant to hold the charge.",
+      "distractors": [
+        {
+          "i": 1,
+          "why": "A positive charge does make this acidic, but nitrogen holds the extra proton more comfortably than oxygen, so its pKa is near 10.6."
+        },
+        {
+          "i": 2,
+          "why": "Neutral methanol has a pKa near 15.5; the positively charged oxonium ion gives up a proton far more readily."
+        },
+        {
+          "i": 3,
+          "why": "A neutral amine is a very weak acid with a pKa near 35; it is far better known as a base."
+        },
+        {
+          "i": 4,
+          "why": "An anion that has already lost a proton has no acidic hydrogen on oxygen and is a strong base, not an acid.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · Acid and Base Strength",
+          "url": "https://openstax.org/books/organic-chemistry/pages/2-8-acid-and-base-strength"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-acid-3",
+      "section": "ochem",
+      "category": "OC-3",
+      "topic": "Structure analysis within functional groups: size",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "Ethanol and ethanethiol, CH3CH2SH, have the same carbon skeleton. Which statement about their relative acidity is correct?",
+      "options": [
+        "Ethanol is more acidic because oxygen is more electronegative than sulfur and holds a negative charge better",
+        "The two are equally acidic because both lose a proton from a group 16 atom",
+        "Ethanol is more acidic because the O–H bond is longer and therefore weaker than the S–H bond",
+        "Ethanethiol is more acidic because the thiolate spreads its negative charge over a larger atom",
+        "Ethanethiol is more acidic because sulfur forms stronger hydrogen bonds than oxygen does"
+      ],
+      "answer": 3,
+      "explanation": "Moving down a group, the larger atom holds a negative charge in a more diffuse orbital and the H–X bond is weaker, so thiolates are more stable than alkoxides and thiols, pKa near 10.5, are more acidic than alcohols, pKa near 16. The trap is applying the electronegativity rule that ranks acidity across a row, which reverses the answer here.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Electronegativity dominates only within a row; down a group, the larger atom’s ability to spread the charge wins."
+        },
+        {
+          "i": 1,
+          "why": "Their pKa values differ by about five units; the conjugate bases are not equally stable."
+        },
+        {
+          "i": 2,
+          "why": "The S–H bond is the longer and weaker one, which is one reason the thiol proton is easier to lose.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "Sulfur is a poor hydrogen-bond partner; hydrogen bonding is not what stabilizes the thiolate."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · Thiols and Sulfides",
+          "url": "https://openstax.org/books/organic-chemistry/pages/18-7-thiols-and-sulfides"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-acid-4",
+      "section": "ochem",
+      "category": "OC-3",
+      "topic": "Structure analysis within functional groups: electronegativity",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "Methanol, methylamine and ethane each have a hydrogen bonded to a second-row atom. Which ordering lists them from most acidic to least acidic?",
+      "options": [
+        "Methylamine > methanol > ethane",
+        "Methanol > methylamine > ethane",
+        "Ethane > methylamine > methanol",
+        "Methanol > ethane > methylamine",
+        "Methylamine > ethane > methanol"
+      ],
+      "answer": 1,
+      "explanation": "Across a row, the more electronegative atom stabilizes a negative charge better, so the alkoxide is more stable than the amide anion, which is more stable than the carbanion, and acidity follows: methanol (pKa about 15.5) > methylamine (about 35) > ethane (about 50). The trap is ranking by the basicity of the neutral compounds, which puts the amine first.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Nitrogen is less electronegative than oxygen, so the amide anion is less stable than the alkoxide and the amine is the weaker acid."
+        },
+        {
+          "i": 2,
+          "why": "This is the reverse order; a carbanion is the least stable of the three conjugate bases.",
+          "weakest": true
+        },
+        {
+          "i": 3,
+          "why": "Carbon is the least electronegative atom of the three, so ethane, not methylamine, is the weakest acid."
+        },
+        {
+          "i": 4,
+          "why": "Methanol is the most acidic of the three because oxygen stabilizes the negative charge best."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · Organic Acids and Organic Bases",
+          "url": "https://openstax.org/books/organic-chemistry/pages/2-10-organic-acids-and-organic-bases"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-acid-5",
+      "section": "ochem",
+      "category": "OC-3",
+      "topic": "Structure analysis within functional groups: resonance",
+      "skill": "skill-1",
+      "difficulty": "hard",
+      "format": "standard",
+      "stem": "Which compound has the most acidic carbon–hydrogen bond?",
+      "options": [
+        "Acetone",
+        "Ethyl acetate",
+        "Acetonitrile",
+        "Propane",
+        "2,4-Pentanedione"
+      ],
+      "answer": 4,
+      "explanation": "The hydrogens on the carbon between two carbonyl groups are unusually acidic, pKa about 9, because the resulting anion delocalizes its charge onto both oxygens through resonance. The trap is acetone, whose enolate is stabilized by only one carbonyl and is about ten pKa units less acidic.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "One carbonyl stabilizes the enolate, pKa about 19, but a second carbonyl on the same carbon does far more."
+        },
+        {
+          "i": 1,
+          "why": "The ester carbonyl shares its electrons with the alkoxy oxygen, making its alpha hydrogens less acidic than those of a ketone, pKa about 25."
+        },
+        {
+          "i": 2,
+          "why": "A nitrile stabilizes the adjacent anion by resonance, but only to a pKa near 25."
+        },
+        {
+          "i": 3,
+          "why": "An alkane has no adjacent pi system to delocalize a negative charge; its pKa is near 50.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · Acidity of Alpha Hydrogen Atoms: Enolate Ion Formation",
+          "url": "https://openstax.org/books/organic-chemistry/pages/22-5-acidity-of-alpha-hydrogen-atoms-enolate-ion-formation"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-acid-6",
+      "section": "ochem",
+      "category": "OC-3",
+      "topic": "Structure analysis within functional groups: inductive effect",
+      "skill": "skill-1",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "Which carboxylic acid has the lowest pKa?",
+      "options": [
+        "Butanoic acid",
+        "4-Chlorobutanoic acid",
+        "2-Methylbutanoic acid",
+        "2-Chlorobutanoic acid",
+        "3-Chlorobutanoic acid"
+      ],
+      "answer": 3,
+      "explanation": "An electronegative substituent withdraws electron density through the sigma bonds and stabilizes the carboxylate, and the effect is strongest when the substituent is closest to the carboxyl group, so the alpha-chloro acid has the lowest pKa, near 2.8. The trap is the beta-chloro acid, which is still stronger than butanoic acid but weaker than the alpha isomer because the inductive effect fades with each intervening bond.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Without an electron-withdrawing substituent this is the reference compound, pKa about 4.8."
+        },
+        {
+          "i": 1,
+          "why": "Chlorine is three carbons from the carboxyl group, so its inductive pull is weak by the time it reaches the carboxylate."
+        },
+        {
+          "i": 2,
+          "why": "An alkyl group is weakly electron-donating and slightly destabilizes the carboxylate, raising the pKa.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "Chlorine on the beta carbon helps, but the inductive effect falls off with distance, so the alpha isomer is stronger."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · Substituent Effects on Acidity",
+          "url": "https://openstax.org/books/organic-chemistry/pages/20-4-substituent-effects-on-acidity"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-acid-7",
+      "section": "ochem",
+      "category": "OC-3",
+      "topic": "Structure analysis within functional groups: hybridization",
+      "skill": "skill-1",
+      "difficulty": "easy",
+      "format": "standard",
+      "stem": "Which hydrocarbon has the most acidic hydrogen?",
+      "options": [
+        "Ethane",
+        "Ethene",
+        "Cyclohexane",
+        "Propene",
+        "Ethyne"
+      ],
+      "answer": 4,
+      "explanation": "The acetylide anion holds its negative charge in an sp orbital, which has 50 percent s character and keeps the electrons closest to the nucleus, so ethyne, pKa about 25, is by far the most acidic hydrocarbon listed. The trap is propene, whose allylic anion is resonance-stabilized but still reaches only a pKa near 43.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "An sp3 carbanion places its charge in an orbital with the least s character, so ethane’s pKa is near 50."
+        },
+        {
+          "i": 1,
+          "why": "An sp2 carbanion is more stable than an sp3 one, pKa near 44, but less stable than an sp carbanion."
+        },
+        {
+          "i": 2,
+          "why": "The ring hydrogens are all on sp3 carbons and are no more acidic than those of an open-chain alkane.",
+          "weakest": true
+        },
+        {
+          "i": 3,
+          "why": "The allylic hydrogen benefits from resonance in the anion, pKa near 43, but that still trails the sp carbanion of an alkyne."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · Alkyne Acidity: Formation of Acetylide Anions",
+          "url": "https://openstax.org/books/organic-chemistry/pages/9-7-alkyne-acidity-formation-of-acetylide-anions"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-acid-8",
+      "section": "ochem",
+      "category": "OC-3",
+      "topic": "Prediction of products & equilibria",
+      "skill": "skill-2",
+      "difficulty": "hard",
+      "format": "standard",
+      "stem": "Sodium acetate is dissolved in a solution of phenol. Acetic acid has a pKa of about 4.8 and phenol a pKa of about 10. Which statement best describes the resulting equilibrium?",
+      "options": [
+        "Phenol is converted almost completely to phenoxide, with an equilibrium constant near 10⁵",
+        "Very little phenoxide forms, with an equilibrium constant near 10⁻⁵",
+        "About half of the phenol is deprotonated, because both acids contain an O–H group",
+        "Acetate removes a ring hydrogen from phenol to give an aryl carbanion",
+        "Phenol protonates acetate, and the acetic acid formed then protonates the aromatic ring"
+      ],
+      "answer": 1,
+      "explanation": "A base can deprotonate an acid appreciably only when that acid is stronger than the base’s conjugate acid; here acetic acid, pKa 4.8, is stronger than phenol, pKa 10, so the equilibrium constant is about 10^(4.8 − 10), roughly 10⁻⁵, and phenol stays mostly protonated. The trap is inverting the exponent and concluding that phenoxide forms quantitatively.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "That constant would apply if acetate were the stronger base; the ratio of pKa values points the other way."
+        },
+        {
+          "i": 2,
+          "why": "An equal mixture would require nearly equal pKa values; a difference of five units gives a ratio of about 100,000 to 1."
+        },
+        {
+          "i": 3,
+          "why": "Ring C–H bonds have pKa values above 40; the phenolic O–H is the only proton acetate could plausibly touch.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "Neither acetic acid nor phenol is strong enough to protonate an aromatic ring under these conditions."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · Predicting Acid–Base Reactions from pKa Values",
+          "url": "https://openstax.org/books/organic-chemistry/pages/2-9-predicting-acid-base-reactions-from-pka-values"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-prop-2",
+      "section": "ochem",
+      "category": "OC-4",
+      "topic": "Structure: melting/boiling point",
+      "skill": "skill-1",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "Which compound has the highest boiling point?",
+      "options": [
+        "1-Pentanol",
+        "2-Methyl-2-butanol",
+        "Pentanal",
+        "2-Pentanone",
+        "Hexane"
+      ],
+      "answer": 0,
+      "explanation": "Among molecules of similar mass, hydrogen bonding raises the boiling point most, and an unbranched chain maximizes surface contact, so 1-pentanol boils near 138 °C. The trap is the branched tertiary alcohol, which also hydrogen-bonds but is more compact and boils about 35 °C lower.",
+      "distractors": [
+        {
+          "i": 1,
+          "why": "This alcohol also hydrogen-bonds, but its compact, branched shape reduces surface contact and lowers the boiling point to about 102 °C."
+        },
+        {
+          "i": 2,
+          "why": "The aldehyde is polar but has no O–H group, so it cannot hydrogen-bond to itself and boils near 103 °C."
+        },
+        {
+          "i": 3,
+          "why": "Dipole–dipole forces in the ketone are weaker than the hydrogen bonds an alcohol forms; it boils near 102 °C."
+        },
+        {
+          "i": 4,
+          "why": "Only dispersion forces act between hexane molecules, so it boils lowest, near 69 °C, despite having one more carbon.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · Properties of Alcohols and Phenols",
+          "url": "https://openstax.org/books/organic-chemistry/pages/17-2-properties-of-alcohols-and-phenols"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-prop-3",
+      "section": "ochem",
+      "category": "OC-4",
+      "topic": "Structure: solubility",
+      "skill": "skill-1",
+      "difficulty": "easy",
+      "format": "standard",
+      "stem": "Which compound is the most soluble in water at room temperature?",
+      "options": [
+        "1-Hexanol",
+        "Hexane",
+        "Ethanol",
+        "1-Octanol",
+        "1-Butanol"
+      ],
+      "answer": 2,
+      "explanation": "Water solubility depends on the ratio of hydrogen-bonding groups to hydrocarbon; ethanol has two carbons per hydroxyl and is miscible with water in all proportions. The trap is 1-butanol, which still dissolves appreciably but is far from miscible because its chain is twice as long.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "The six-carbon chain outweighs the single hydroxyl group, so solubility drops to about 0.6 g per 100 mL."
+        },
+        {
+          "i": 1,
+          "why": "A nonpolar alkane cannot hydrogen-bond with water and is essentially insoluble.",
+          "weakest": true
+        },
+        {
+          "i": 3,
+          "why": "An eight-carbon chain makes the molecule largely hydrophobic despite its hydroxyl group."
+        },
+        {
+          "i": 4,
+          "why": "Four carbons per hydroxyl is near the limit for good solubility, about 8 g per 100 mL, well below the complete miscibility of ethanol."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · Properties of Alcohols and Phenols",
+          "url": "https://openstax.org/books/organic-chemistry/pages/17-2-properties-of-alcohols-and-phenols"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-prop-4",
+      "section": "ochem",
+      "category": "OC-4",
+      "topic": "Laboratory theory & techniques: extractions",
+      "skill": "skill-3",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "A diethyl ether solution containing benzoic acid and naphthalene is shaken with aqueous sodium bicarbonate in a separatory funnel and the layers are separated. Where does each compound end up?",
+      "options": [
+        "Both compounds stay in the ether layer, because neither is soluble in water without a strong base present",
+        "Benzoic acid moves into the aqueous layer as sodium benzoate, while naphthalene stays in the ether layer",
+        "Naphthalene moves into the aqueous layer, while benzoic acid remains in the ether layer as the neutral acid",
+        "Both compounds move into the aqueous layer, because bicarbonate deprotonates any aromatic compound",
+        "Both compounds distribute equally between the two layers, because the two solvents are partially miscible"
+      ],
+      "answer": 1,
+      "explanation": "Aqueous bicarbonate converts the carboxylic acid to its ionic sodium salt, which prefers water, while the nonpolar hydrocarbon stays in the organic layer, so a single wash separates them. The trap is assuming a weak base cannot pull an acid into water; bicarbonate’s conjugate acid, carbonic acid, is weaker than benzoic acid, so the transfer is favourable.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Bicarbonate, though a weak base, is strong enough to deprotonate a carboxylic acid, pKa about 4.2, into its water-soluble salt."
+        },
+        {
+          "i": 2,
+          "why": "Naphthalene has no acidic hydrogen and no polar group, so it cannot be drawn into water.",
+          "weakest": true
+        },
+        {
+          "i": 3,
+          "why": "Bicarbonate is far too weak to remove a proton from an aromatic ring; only the carboxylic acid reacts."
+        },
+        {
+          "i": 4,
+          "why": "Ether and water form two distinct layers, and each solute strongly prefers one of them."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · Structure and Properties of Carboxylic Acids",
+          "url": "https://openstax.org/books/organic-chemistry/pages/20-2-structure-and-properties-of-carboxylic-acids"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-prop-5",
+      "section": "ochem",
+      "category": "OC-4",
+      "topic": "Laboratory theory & techniques: recrystallization",
+      "skill": "skill-1",
+      "difficulty": "easy",
+      "format": "standard",
+      "stem": "A crude solid is to be purified by recrystallization. Which property makes a solvent well suited to the task?",
+      "options": [
+        "The solid dissolves readily in the solvent at every temperature",
+        "The solid is insoluble in the solvent at every temperature",
+        "The solid dissolves well in the hot solvent but poorly in the cold solvent",
+        "The solvent boils above the melting point of the solid",
+        "The solvent reacts with the solid to form a more crystalline derivative"
+      ],
+      "answer": 2,
+      "explanation": "Recrystallization relies on a steep solubility–temperature curve: the compound dissolves completely in a minimum of hot solvent and then crystallizes as the solution cools, leaving soluble impurities behind in the cold mother liquor. The trap is choosing a solvent in which the compound is highly soluble at all temperatures, which dissolves it but gives no crystals back.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "If the compound stays dissolved on cooling, almost nothing crystallizes and the yield is negligible."
+        },
+        {
+          "i": 1,
+          "why": "A solvent that never dissolves the compound cannot separate it from impurities trapped in the crystals.",
+          "weakest": true
+        },
+        {
+          "i": 3,
+          "why": "A solvent that boils above the melting point makes the compound melt into an oil rather than form crystals."
+        },
+        {
+          "i": 4,
+          "why": "Recrystallization is a physical purification; a solvent that reacts with the compound changes its identity."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · Noncovalent Interactions between Molecules",
+          "url": "https://openstax.org/books/organic-chemistry/pages/2-12-noncovalent-interactions-between-molecules"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-prop-6",
+      "section": "ochem",
+      "category": "OC-4",
+      "topic": "Spectroscopy: 1H NMR",
+      "skill": "skill-3",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "The 1H NMR spectrum of a compound shows only two signals: a triplet and a quartet in a 3:2 integration ratio. Which compound fits?",
+      "options": [
+        "Diethyl ether",
+        "Ethanol",
+        "Ethyl acetate",
+        "Dimethyl ether",
+        "2-Propanol"
+      ],
+      "answer": 0,
+      "explanation": "A triplet–quartet pair in a 3:2 ratio is the signature of an ethyl group whose CH2 is attached to an atom bearing no hydrogens, and in diethyl ether both ethyl groups are equivalent, so those two signals are the whole spectrum. The trap is ethanol, which has the same ethyl pattern but also shows the hydroxyl proton as a separate signal.",
+      "distractors": [
+        {
+          "i": 1,
+          "why": "Ethanol adds a third signal for the hydroxyl proton, so three signals appear."
+        },
+        {
+          "i": 2,
+          "why": "The acetyl methyl group gives an additional singlet, making three signals."
+        },
+        {
+          "i": 3,
+          "why": "Both methyl groups are equivalent and have no neighbouring hydrogens, giving a single singlet.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "The isopropyl group gives a doublet and a septet, plus a hydroxyl signal, not a triplet and a quartet."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · Spin–Spin Splitting in 1H NMR Spectra",
+          "url": "https://openstax.org/books/organic-chemistry/pages/13-6-spin-spin-splitting-in-1h-nmr-spectra"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-prop-7",
+      "section": "ochem",
+      "category": "OC-4",
+      "topic": "Spectroscopy: 13C NMR",
+      "skill": "skill-3",
+      "difficulty": "hard",
+      "format": "standard",
+      "stem": "Which compound shows exactly three signals in its 13C NMR spectrum?",
+      "options": [
+        "Toluene",
+        "1,2-Dimethylbenzene",
+        "1,3-Dimethylbenzene",
+        "Benzene",
+        "1,4-Dimethylbenzene"
+      ],
+      "answer": 4,
+      "explanation": "Symmetry decides the count: in the para isomer the two methyl carbons are equivalent, the two substituted ring carbons are equivalent, and the four remaining ring carbons are all equivalent, giving three signals. The trap is the ortho isomer, which looks nearly as symmetric but has two distinct pairs of unsubstituted ring carbons and therefore four signals.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Toluene has five distinct carbon environments: the methyl, the substituted ring carbon, and three sets of ring carbons."
+        },
+        {
+          "i": 1,
+          "why": "The ortho isomer has four environments: the methyls, the two substituted carbons, and two pairs of unsubstituted ring carbons."
+        },
+        {
+          "i": 2,
+          "why": "The meta isomer has five environments, because the carbon between the methyls and the one opposite differ from the remaining pair."
+        },
+        {
+          "i": 3,
+          "why": "All six carbons are equivalent, so benzene shows a single signal.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · Characteristics of 13C NMR Spectroscopy",
+          "url": "https://openstax.org/books/organic-chemistry/pages/13-11-characteristics-of-13c-nmr-spectroscopy"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-prop-8",
+      "section": "ochem",
+      "category": "OC-4",
+      "topic": "Spectroscopy: multi-spectra",
+      "skill": "skill-3",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "A compound has the molecular formula C3H6O. Its infrared spectrum shows a strong absorption at 1715 cm⁻¹ and nothing above 3100 cm⁻¹, and its 1H NMR spectrum is a single peak at 2.1 ppm. Which compound is it?",
+      "options": [
+        "Propanal",
+        "2-Propen-1-ol",
+        "Methyl vinyl ether",
+        "Acetone",
+        "Oxetane"
+      ],
+      "answer": 3,
+      "explanation": "The strong 1715 cm⁻¹ band is a ketone carbonyl, the absence of O–H or aldehyde signals rules out the other C3H6O isomers, and a single NMR peak at 2.1 ppm means all six hydrogens are equivalent methyl hydrogens next to a carbonyl, which fits acetone. The trap is propanal, which shares the carbonyl but would show three signals including the aldehyde proton.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "An aldehyde would show a distinctive 1H signal near 9.8 ppm and more than one signal overall."
+        },
+        {
+          "i": 1,
+          "why": "An alcohol shows a broad O–H stretch near 3300 cm⁻¹, and an alkene gives several NMR signals.",
+          "weakest": true
+        },
+        {
+          "i": 2,
+          "why": "An ether has no carbonyl absorption near 1715 cm⁻¹, and its vinyl protons give multiple NMR signals."
+        },
+        {
+          "i": 4,
+          "why": "A cyclic ether lacks a carbonyl band and shows two distinct sets of ring protons."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · Uses of 1H NMR Spectroscopy",
+          "url": "https://openstax.org/books/organic-chemistry/pages/13-9-uses-of-1h-nmr-spectroscopy"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-struct-2",
+      "section": "ochem",
+      "category": "OC-5",
+      "topic": "Nomenclature: IUPAC rules",
+      "skill": "skill-1",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "What is the IUPAC name of the compound (CH3)2CHCH2CH(OH)CH3?",
+      "options": [
+        "2-Methylpentan-4-ol",
+        "1,3-Dimethylbutan-1-ol",
+        "4-Methylpentan-2-one",
+        "2-Methyl-4-hydroxypentane",
+        "4-Methylpentan-2-ol"
+      ],
+      "answer": 4,
+      "explanation": "The longest chain containing the hydroxyl carbon has five carbons, and numbering from the end nearer the OH group gives the alcohol locant 2 and the methyl locant 4. The trap is numbering from the branched end, which gives the methyl the lower number but breaks the rule that the principal functional group takes priority.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "The chain must be numbered to give the hydroxyl group, the principal functional group, the lowest possible number."
+        },
+        {
+          "i": 1,
+          "why": "The longest chain including the carbon bearing OH has five carbons, so the parent is pentane, not butane."
+        },
+        {
+          "i": 2,
+          "why": "The compound contains a hydroxyl group, not a carbonyl, so the suffix must be -ol.",
+          "weakest": true
+        },
+        {
+          "i": 3,
+          "why": "Hydroxyl is the principal group and is expressed as the suffix -ol, not as a prefix."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · Naming Alcohols and Phenols",
+          "url": "https://openstax.org/books/organic-chemistry/pages/17-1-naming-alcohols-and-phenols"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-struct-3",
+      "section": "ochem",
+      "category": "OC-5",
+      "topic": "Nomenclature: functional groups",
+      "skill": "skill-1",
+      "difficulty": "easy",
+      "format": "standard",
+      "stem": "Which functional group is present in N-methylacetamide, CH3C(=O)NHCH3?",
+      "options": [
+        "Amine",
+        "Ester",
+        "Imine",
+        "Amide",
+        "Nitrile"
+      ],
+      "answer": 3,
+      "explanation": "A carbonyl carbon bonded to a nitrogen defines an amide, and the methyl on nitrogen makes this a secondary (N-substituted) amide. The trap is calling it an amine because a nitrogen bears a methyl group, but the adjacent carbonyl changes the group’s chemistry entirely.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "The nitrogen is attached directly to a carbonyl carbon, which makes it an amide nitrogen, not an amine."
+        },
+        {
+          "i": 1,
+          "why": "An ester has an oxygen, not a nitrogen, between the carbonyl carbon and the alkyl group."
+        },
+        {
+          "i": 2,
+          "why": "An imine contains a carbon–nitrogen double bond; here the carbon–nitrogen bond is single.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "A nitrile has a carbon–nitrogen triple bond and no carbonyl."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · Functional Groups",
+          "url": "https://openstax.org/books/organic-chemistry/pages/3-1-functional-groups"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-struct-4",
+      "section": "ochem",
+      "category": "OC-5",
+      "topic": "Stereochemistry: conformations",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "In the most stable chair conformation of trans-1,4-dimethylcyclohexane, how are the two methyl groups oriented?",
+      "options": [
+        "One methyl is axial and the other equatorial",
+        "Both methyls are axial",
+        "Both methyls are equatorial",
+        "Both methyls lie in the plane of a flattened ring",
+        "The ring adopts a twist-boat so that both methyls can point outward"
+      ],
+      "answer": 2,
+      "explanation": "At the 1,4-positions a trans relationship means both substituents are either axial or both equatorial, and the diequatorial chair avoids the 1,3-diaxial interactions that each axial methyl would create. The trap is the axial–equatorial arrangement, which is the cis isomer at the 1,4-positions.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "One axial and one equatorial substituent at the 1,4-positions corresponds to the cis isomer."
+        },
+        {
+          "i": 1,
+          "why": "The diaxial chair is a valid trans conformer, but each axial methyl suffers 1,3-diaxial strain, so it is the minor form."
+        },
+        {
+          "i": 3,
+          "why": "A planar cyclohexane would have severe angle and torsional strain and is never the preferred conformation.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "A twist-boat is several kilocalories per mole less stable than a chair and is not adopted when a diequatorial chair is available."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · Conformations of Disubstituted Cyclohexanes",
+          "url": "https://openstax.org/books/organic-chemistry/pages/4-8-conformations-of-disubstituted-cyclohexanes"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-struct-5",
+      "section": "ochem",
+      "category": "OC-5",
+      "topic": "Stereochemistry: isomer relationships",
+      "skill": "skill-2",
+      "difficulty": "hard",
+      "format": "standard",
+      "stem": "What is the relationship between (2R,3S)-2,3-dibromobutane and (2S,3R)-2,3-dibromobutane?",
+      "options": [
+        "Enantiomers",
+        "They are the same compound",
+        "Diastereomers",
+        "Constitutional isomers",
+        "Conformational isomers"
+      ],
+      "answer": 1,
+      "explanation": "2,3-Dibromobutane has two identical stereocentres, so the (R,S) form possesses an internal mirror plane and is meso; its supposed mirror image (S,R) is superimposable on it, so both names describe one achiral compound. The trap is applying the usual rule that inverting every centre gives the enantiomer, which fails for meso compounds.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Inverting both centres of a molecule with an internal mirror plane regenerates the same compound, not its mirror-image isomer."
+        },
+        {
+          "i": 2,
+          "why": "Diastereomers of this compound would be the (2R,3R) or (2S,3S) forms, in which only one centre differs."
+        },
+        {
+          "i": 3,
+          "why": "Both names describe identical connectivity; they differ only in the stated configuration.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "Conformers interconvert by bond rotation; stereodescriptors describe configuration, which rotation cannot change."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · Meso Compounds",
+          "url": "https://openstax.org/books/organic-chemistry/pages/5-7-meso-compounds"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-struct-6",
+      "section": "ochem",
+      "category": "OC-5",
+      "topic": "Structure & bonding: aromaticity",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "Which of the following species is aromatic?",
+      "options": [
+        "Cyclopentadienyl anion",
+        "Cyclopentadienyl cation",
+        "Cyclooctatetraene",
+        "Cyclobutadiene",
+        "1,3,5-Hexatriene"
+      ],
+      "answer": 0,
+      "explanation": "Aromaticity requires a planar, fully conjugated ring with 4n + 2 pi electrons; the cyclopentadienyl anion contributes six pi electrons over five sp2 carbons and satisfies all three conditions. The trap is hexatriene, which has six pi electrons but is not a ring.",
+      "distractors": [
+        {
+          "i": 1,
+          "why": "The cation has only four pi electrons, a 4n count, and is antiaromatic."
+        },
+        {
+          "i": 2,
+          "why": "Eight pi electrons is a 4n count, and the molecule adopts a tub shape to avoid planarity rather than being aromatic."
+        },
+        {
+          "i": 3,
+          "why": "A planar ring with four pi electrons is antiaromatic and extremely unstable."
+        },
+        {
+          "i": 4,
+          "why": "Six pi electrons alone are not enough; the system must also be cyclic to be aromatic.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · Aromatic Ions",
+          "url": "https://openstax.org/books/organic-chemistry/pages/15-4-aromatic-ions"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-struct-7",
+      "section": "ochem",
+      "category": "OC-5",
+      "topic": "Structure & bonding: hybridization",
+      "skill": "skill-1",
+      "difficulty": "easy",
+      "format": "standard",
+      "stem": "In acetonitrile, CH3C≡N, what are the hybridization of the nitrile carbon and the C–C–N bond angle?",
+      "options": [
+        "sp, 180°",
+        "sp2, 120°",
+        "sp3, 109.5°",
+        "sp, 120°",
+        "sp2, 180°"
+      ],
+      "answer": 0,
+      "explanation": "The nitrile carbon forms two sigma bonds (to the methyl carbon and to nitrogen) and two pi bonds to nitrogen, so it is sp-hybridized and linear, exactly like the carbons of an alkyne. The trap is assigning sp2 because the carbon is multiply bonded, without counting that the triple bond leaves only two sigma partners.",
+      "distractors": [
+        {
+          "i": 1,
+          "why": "sp2 hybridization applies to a carbon with three sigma bonds and one pi bond, such as a carbonyl or alkene carbon."
+        },
+        {
+          "i": 2,
+          "why": "The methyl carbon is sp3; the nitrile carbon has only two sigma bonds and two pi bonds."
+        },
+        {
+          "i": 3,
+          "why": "sp hybridization gives two orbitals 180° apart, so the geometry is linear, not trigonal.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "A linear angle results from sp, not sp2, hybridization."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · sp Hybrid Orbitals and the Structure of Acetylene",
+          "url": "https://openstax.org/books/organic-chemistry/pages/1-9-sp-hybrid-orbitals-and-the-structure-of-acetylene"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "oc-struct-8",
+      "section": "ochem",
+      "category": "OC-5",
+      "topic": "Structure & bonding: relative stability/reactivity",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "Which alkene is the most thermodynamically stable?",
+      "options": [
+        "1-Butene",
+        "2,3-Dimethyl-2-butene",
+        "(E)-2-Butene",
+        "(Z)-2-Butene",
+        "2-Methyl-2-butene"
+      ],
+      "answer": 1,
+      "explanation": "Alkene stability rises with the number of alkyl groups on the double-bond carbons because of hyperconjugation and the stronger sp2–sp3 bonds, so the tetrasubstituted alkene is the most stable. The trap is the trisubstituted alkene, which is stable but still one alkyl group short of the maximum.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "A monosubstituted alkene has the fewest alkyl groups on its double bond and is the least stable of the set."
+        },
+        {
+          "i": 2,
+          "why": "A disubstituted trans alkene is more stable than its cis isomer, but two alkyl groups still give less stabilization than four."
+        },
+        {
+          "i": 3,
+          "why": "The cis arrangement forces the methyl groups into steric contact, making it less stable than the trans isomer.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "Three alkyl groups on the double bond is very stabilizing, but a fourth substituent does more."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Organic Chemistry · Stability of Alkenes",
+          "url": "https://openstax.org/books/organic-chemistry/pages/7-6-stability-of-alkenes"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    }
+  ]
+}

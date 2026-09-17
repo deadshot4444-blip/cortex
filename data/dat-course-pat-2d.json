@@ -1,0 +1,181 @@
+{
+  "format": "dat-course",
+  "version": 1,
+  "chapter": {
+    "id": "pat-2d",
+    "title": "Flat-figure subtests and PAT triage",
+    "section": "pat",
+    "description": "Rank angles, unfold punched paper and pace the whole perceptual section without measuring anything.",
+    "prerequisites": []
+  },
+  "authoredOn": "2026-09-16",
+  "author": "coding agent (Claude), original text",
+  "status": "Seed fragment: chapter metadata plus one complete seed unit (angle-ranking-method); the remaining units arrive with content session C7.",
+  "reviewStatus": "Local authored-content check only; independent subject review pending.",
+  "sourceCheckedOn": "2026-09-16",
+  "contentNote": "Original Cortex lesson text and questions. The ADA DAT outline is the alignment target only; no ADA, prep-company or forum material is reproduced.",
+  "sources": [
+    {
+      "title": "OpenStax Prealgebra 2e",
+      "url": "https://openstax.org/books/prealgebra-2e"
+    },
+    {
+      "title": "OpenStax Prealgebra 2e · Use Properties of Angles, Triangles, and the Pythagorean Theorem",
+      "url": "https://openstax.org/books/prealgebra-2e/pages/9-3-use-properties-of-angles-triangles-and-the-pythagorean-theorem"
+    }
+  ],
+  "units": [
+    {
+      "id": "angle-ranking-method",
+      "section": "pat",
+      "chapter": "pat-2d",
+      "categories": [
+        "PAT-ANG"
+      ],
+      "title": "Ranking four angles fast",
+      "subtitle": "Find the extremes, decide the middle pair, ignore the arms.",
+      "minutes": 15,
+      "prerequisites": [],
+      "blocks": [
+        {
+          "title": "Compare pairs, not the whole set",
+          "text": "An angle-ranking item shows four angles numbered 1 to 4 and asks for their order from smallest to largest; the answer options are orderings such as 2-1-4-3. Do not try to rank all four at once. Scan for the angle that is clearly the smallest and the one that is clearly the largest, because those two are usually obvious and they eliminate most of the options immediately. What remains is almost always a decision between two middle angles that are close in size, and the surviving options typically share the same first and last entries and differ only in the middle. That is the comparison the item is really testing, so spend your remaining seconds there and nowhere else."
+        },
+        {
+          "title": "Anchor to 90 and 180 degrees",
+          "text": "Your eye judges an angle far better against a reference than in isolation. For each angle ask whether it is smaller than a right angle, close to one, or wider, and for very wide angles ask how far it falls short of a straight line. Two angles that sit on opposite sides of 90 degrees are already ranked. When two angles are on the same side, imagine both rotated so that one arm is horizontal and compare the height the other arm reaches at the same distance from the vertex; a small gap in height means a small gap in angle. Very small angles are easier to compare by the gap between the arms at their tips than by the arms themselves."
+        },
+        {
+          "title": "Arm length and orientation are distractions",
+          "text": "An angle is an opening, not a pair of lines. Unequal arm lengths distort the comparison even though the measure has not changed, so compare only the region where both arms exist. An angle that opens downward or to the left also reads differently from one that opens upward, and item writers rotate angles for exactly that reason. The fix is mechanical: picture both arms trimmed to the same short length from the vertex, then compare the gap between the tips. Budget about twenty to twenty-five seconds for each item, never try to measure, and once the middle pair is decided, commit and move on; revisiting angles costs time that the later subtests need more."
+        }
+      ],
+      "example": {
+        "prompt": "Four angles are shown. Angle 3 is clearly the widest and angle 2 clearly the narrowest, and two options begin with 2 and end with 3: 2-1-4-3 and 2-4-1-3. How do you decide?",
+        "reasoning": "The extremes have done their work by eliminating the other options, so the only question left is whether angle 1 or angle 4 is smaller. Picture both with equal arm lengths and compare each to a right angle; the one that falls further short is smaller and goes second."
+      },
+      "prediction": "Predict which of two angles of equal measure will look larger when one is drawn with arms twice as long, and what happens to that impression when you imagine the long arms trimmed.",
+      "lab": null,
+      "figures": [
+        {
+          "id": "angle-arm-length",
+          "svg": "<svg viewBox=\"0 0 320 130\" role=\"img\" aria-label=\"Two angles drawn side by side, one with short arms and one with long arms\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"2\" stroke-linecap=\"round\"><path d=\"M40 110 L110 110 M40 110 L93.6 65\"/><path d=\"M70 110 A30 30 0 0 0 63 90.7\" stroke-dasharray=\"3 3\" stroke-width=\"1.5\"/><path d=\"M170 110 L290 110 M170 110 L261.9 32.9\"/><path d=\"M200 110 A30 30 0 0 0 193 90.7\" stroke-dasharray=\"3 3\" stroke-width=\"1.5\"/><text x=\"40\" y=\"126\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">short arms</text><text x=\"170\" y=\"126\" font-size=\"11\" fill=\"currentColor\" stroke=\"none\">long arms</text></svg>",
+          "caption": "Two angles of identical measure. The dashed arcs, drawn at the same distance from each vertex, show the openings are the same."
+        },
+        {
+          "id": "angle-four-orientations",
+          "svg": "<svg viewBox=\"0 0 320 130\" role=\"img\" aria-label=\"Four labelled angles of similar size drawn at different orientations\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"2\" stroke-linecap=\"round\"><path d=\"M40 75 L82.3 59.6 M40 75 L32.2 30.7\"/><path d=\"M120 75 L91.1 40.5 M120 75 L88.2 106.8\"/><path d=\"M200 75 L222.5 114 M200 75 L244.3 67.2\"/><path d=\"M280 75 L302.5 36 M280 75 L237.7 59.6\"/><g font-size=\"12\" fill=\"currentColor\" stroke=\"none\" text-anchor=\"middle\"><text x=\"40\" y=\"18\">1</text><text x=\"120\" y=\"18\">2</text><text x=\"200\" y=\"18\">3</text><text x=\"280\" y=\"18\">4</text></g></svg>",
+          "caption": "Four angles near a right angle at different orientations. Compare each to 90 degrees first: two fall short and two exceed it, so only the pair inside each group needs a close look."
+        }
+      ],
+      "questions": [
+        {
+          "id": "angle-ranking-method-0",
+          "kind": "diagnostic",
+          "stem": "Two angles have the same measure, but one is drawn with arms twice as long. Compared with the short-armed angle, the long-armed angle:",
+          "options": [
+            "Is larger, because its arms enclose more area",
+            "Has the same measure; arm length does not change an angle",
+            "Is smaller, because its arms diverge more slowly",
+            "Cannot be compared until the arms are redrawn equal"
+          ],
+          "answer": 1,
+          "explanation": "An angle is the opening between two rays, and extending the rays changes nothing about that opening. The enclosed-area argument is the trap: the region between longer arms is bigger, but area is not what an angle measures."
+        },
+        {
+          "id": "angle-ranking-method-1",
+          "kind": "check",
+          "stem": "Four angles must be ranked from smallest to largest. Which first step saves the most time?",
+          "options": [
+            "Estimate each angle in degrees to the nearest five",
+            "Compare angles 1 and 2, then 2 and 3, then 3 and 4 in order",
+            "Rotate the page so that every angle opens upward",
+            "Identify the clearly smallest and clearly largest, then decide the middle pair"
+          ],
+          "answer": 3,
+          "explanation": "The extremes are usually obvious and eliminate most options at once, leaving one pairwise decision. Estimating degrees is the trap: it feels rigorous but costs far more than the item’s time budget and is no more accurate than a direct comparison."
+        },
+        {
+          "id": "angle-ranking-method-2",
+          "kind": "check",
+          "stem": "An angle opens slightly wider than the corner of a square. Its measure is best described as:",
+          "options": [
+            "Slightly more than 90 degrees",
+            "Slightly less than 90 degrees",
+            "Close to 180 degrees",
+            "Close to 45 degrees"
+          ],
+          "answer": 0,
+          "explanation": "The corner of a square is a right angle, so an opening just wider than it is just over 90 degrees. Anchoring to the square is exactly the reference habit the method relies on; the slightly-less option is the reversal trap."
+        },
+        {
+          "id": "angle-ranking-method-later-1",
+          "kind": "delayed",
+          "stem": "After you eliminate the others, the two remaining ranking options share the same first and last angles and differ only in the middle two. What does this tell you?",
+          "options": [
+            "One of the two options is a misprint",
+            "The extremes are wrong and should be re-checked",
+            "The middle pair is the decision the item is really testing",
+            "The two middle angles are equal in measure"
+          ],
+          "answer": 2,
+          "explanation": "Once only these two remain, the extremes no longer separate them, so the middle pair is the one comparison still open and deserves all the remaining attention. Re-checking the extremes is the trap: it re-does work that cannot change which of the two survivors you pick."
+        },
+        {
+          "id": "angle-ranking-method-later-2",
+          "kind": "delayed",
+          "stem": "Two angles, one opening to the upper left and one opening downward, look different in size. What is the reliable way to compare them?",
+          "options": [
+            "Compare the lengths of their arms",
+            "Picture both rotated so that one arm is horizontal, then compare the openings",
+            "Assume the downward one is larger, because it looks heavier",
+            "Count how much empty space surrounds each one"
+          ],
+          "answer": 1,
+          "explanation": "Orientation changes how an angle reads, not what it measures, so mentally rotating both to a common orientation removes the distraction. Comparing arm lengths is the trap: arm length is the other distraction the item writer controls, and it says nothing about the angle."
+        },
+        {
+          "id": "angle-ranking-method-later-3",
+          "kind": "delayed",
+          "stem": "An angle appears to measure about 170 degrees. Which reference is most useful for confirming its size?",
+          "options": [
+            "A 45-degree angle",
+            "A right angle",
+            "A 60-degree angle",
+            "A straight line of 180 degrees"
+          ],
+          "answer": 3,
+          "explanation": "A very wide angle is judged by how far it falls short of a straight line, so 180 degrees is the natural anchor. A right angle is the trap because it is the usual reference, but 170 degrees is so far past 90 that the comparison gives no useful resolution."
+        }
+      ],
+      "cards": [
+        "p2d-ang-1",
+        "p2d-ang-2"
+      ],
+      "questionIds": [],
+      "passages": [],
+      "repairs": [],
+      "source": {
+        "title": "OpenStax Prealgebra 2e · Use Properties of Angles, Triangles, and the Pythagorean Theorem",
+        "url": "https://openstax.org/books/prealgebra-2e/pages/9-3-use-properties-of-angles-triangles-and-the-pythagorean-theorem"
+      },
+      "placementEligible": true,
+      "skills": [
+        "skill-1",
+        "skill-2"
+      ],
+      "topics": [
+        "Pairwise comparison",
+        "Reference to 90 and 180 degrees",
+        "Arm-length distraction",
+        "Rapid scanning"
+      ],
+      "provenance": {
+        "origin": "new",
+        "mcatUnit": null,
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    }
+  ]
+}

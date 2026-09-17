@@ -1,0 +1,172 @@
+{
+  "format": "dat-course",
+  "version": 1,
+  "chapter": {
+    "id": "qr-math",
+    "title": "Mathematical problems",
+    "section": "qr",
+    "description": "Solve algebra, data, comparison and statistics problems quickly with scratch paper and a basic calculator.",
+    "prerequisites": []
+  },
+  "authoredOn": "2026-09-16",
+  "author": "coding agent (Claude), original text",
+  "status": "Seed fragment: chapter metadata plus one complete seed unit (quantitative-comparison-method); the remaining units arrive with content session C6.",
+  "reviewStatus": "Local authored-content check only; independent subject review pending.",
+  "sourceCheckedOn": "2026-09-16",
+  "contentNote": "Original Cortex lesson text and questions. The ADA DAT outline is the alignment target only; no ADA, prep-company or forum material is reproduced.",
+  "sources": [
+    {
+      "title": "OpenStax College Algebra 2e",
+      "url": "https://openstax.org/books/college-algebra-2e"
+    },
+    {
+      "title": "OpenStax Introductory Statistics 2e",
+      "url": "https://openstax.org/books/introductory-statistics-2e"
+    },
+    {
+      "title": "OpenStax College Algebra 2e · Linear Inequalities and Absolute Value Inequalities",
+      "url": "https://openstax.org/books/college-algebra-2e/pages/2-7-linear-inequalities-and-absolute-value-inequalities"
+    }
+  ],
+  "units": [
+    {
+      "id": "quantitative-comparison-method",
+      "section": "qr",
+      "chapter": "qr-math",
+      "categories": [
+        "QR-3"
+      ],
+      "title": "The four-option comparison and when it cannot be determined",
+      "subtitle": "Simplify both sides the same way, then hunt for a value that flips the result.",
+      "minutes": 15,
+      "prerequisites": [],
+      "blocks": [
+        {
+          "title": "The four fixed answers",
+          "text": "Every comparison item asks one thing: given a condition, is Quantity A greater, is Quantity B greater, are they equal, or can the relationship not be determined? The four answers never change, so you can spend your attention on the mathematics. The fourth answer has a precise meaning. It does not mean the arithmetic is hard or that you personally cannot finish it; it means that among the values the condition allows, the comparison comes out differently for different values. That has one immediate consequence: when both quantities are specific numbers with no variable anywhere, the fourth answer is wrong before you start, because two fixed numbers always stand in one definite relationship."
+        },
+        {
+          "title": "Simplify both sides the same way",
+          "text": "Treat the two quantities as the two sides of an inequality whose direction you do not yet know. You may add or subtract the same expression on both sides, and you may multiply or divide both sides by the same positive number, because none of those moves changes which side is larger. You may not multiply or divide by a variable unless the condition tells you its sign, and you may not square both sides unless both are known to be non-negative. Aim to reduce the comparison to something small: an expression against 0, or a single variable against 1. Bring the shared condition in early; a restriction such as x > 1 often turns an undecidable comparison into a definite one."
+        },
+        {
+          "title": "Test values to hunt for cannot be determined",
+          "text": "When variables remain, substitute deliberately rather than randomly. Try 0, 1 and a negative number if the condition allows them, then a fraction between 0 and 1 and a large number. Each of these behaves differently under squaring, reciprocals and multiplication, so if the comparison is going to flip, one of them will usually flip it. If it flips, the answer is that the relationship cannot be determined and you are finished. If it never flips, look for the algebraic reason: a perfect square that is never negative, a sum that is always at least a fixed amount. The trap is assuming the variable is a positive integer when the condition says only that it is a number. Read the condition once more before you commit."
+        }
+      ],
+      "example": {
+        "prompt": "x > 0. Quantity A: x². Quantity B: x. Which is greater?",
+        "reasoning": "Divide both quantities by x, which is positive, so the direction is preserved: compare x with 1. If x = 2, Quantity A is greater; if x = 1/2, Quantity B is greater. The result depends on the value, so the relationship cannot be determined."
+      },
+      "prediction": "Predict how the same comparison changes if the condition becomes x > 1, and which single sentence of algebra justifies the new answer.",
+      "lab": null,
+      "questions": [
+        {
+          "id": "quantitative-comparison-method-0",
+          "kind": "diagnostic",
+          "stem": "Quantity A: 3/7. Quantity B: 0.4. Compare the two quantities.",
+          "options": [
+            "Quantity A is greater",
+            "Quantity B is greater",
+            "The two quantities are equal",
+            "The relationship cannot be determined from the information given"
+          ],
+          "answer": 0,
+          "explanation": "Write 0.4 as 2/5 and cross-multiply: 3 × 5 = 15 against 2 × 7 = 14, so 3/7 is the larger fraction. Two fixed numbers always have a definite relationship, so the fourth answer is never correct here even though the decimals look close."
+        },
+        {
+          "id": "quantitative-comparison-method-1",
+          "kind": "check",
+          "stem": "n is a positive integer. Quantity A: (n + 1)² − (n − 1)². Quantity B: 4n.",
+          "options": [
+            "Quantity A is greater",
+            "Quantity B is greater",
+            "The two quantities are equal",
+            "The relationship cannot be determined from the information given"
+          ],
+          "answer": 2,
+          "explanation": "Expanding, (n² + 2n + 1) − (n² − 2n + 1) = 4n, so the quantities are identical for every n. The trap is testing one value, seeing 4 = 4 at n = 1, and then suspecting a larger n might differ; the algebra shows it cannot."
+        },
+        {
+          "id": "quantitative-comparison-method-2",
+          "kind": "check",
+          "stem": "x is a number and x² = 16. Quantity A: x. Quantity B: 4.",
+          "options": [
+            "Quantity A is greater",
+            "Quantity B is greater",
+            "The two quantities are equal",
+            "The relationship cannot be determined from the information given"
+          ],
+          "answer": 3,
+          "explanation": "x² = 16 has two solutions, 4 and −4. When x = 4 the quantities are equal and when x = −4 Quantity B is greater, so the relationship changes with the allowed value. The trap is reading only the positive root, which would give equality."
+        },
+        {
+          "id": "quantitative-comparison-method-later-1",
+          "kind": "delayed",
+          "stem": "A comparison has the shared condition y < 0. Which move is unsafe when simplifying the two quantities?",
+          "options": [
+            "Adding the same constant to both quantities",
+            "Multiplying both quantities by y without reversing the comparison",
+            "Dividing both quantities by 2",
+            "Subtracting y from both quantities"
+          ],
+          "answer": 1,
+          "explanation": "Multiplying or dividing both sides by a negative number reverses which side is larger, so multiplying by y, which is negative, flips the comparison. Adding, subtracting or dividing by a positive constant leaves the direction unchanged, and subtracting y is just adding a positive amount."
+        },
+        {
+          "id": "quantitative-comparison-method-later-2",
+          "kind": "delayed",
+          "stem": "In which situation is the answer that the relationship cannot be determined guaranteed to be wrong?",
+          "options": [
+            "Both quantities are specific numbers containing no variable",
+            "The condition restricts the variable to positive values",
+            "Both quantities are algebraic expressions in the same variable",
+            "The condition states that the variable is an integer"
+          ],
+          "answer": 0,
+          "explanation": "Two fixed numbers stand in exactly one relationship, so the comparison is always determined. Restricting a variable to positive values or to integers narrows the possibilities but can still leave cases that flip, as x² against x with x > 0 shows."
+        },
+        {
+          "id": "quantitative-comparison-method-later-3",
+          "kind": "delayed",
+          "stem": "0 < x < 1. Quantity A: x². Quantity B: x.",
+          "options": [
+            "Quantity A is greater",
+            "Quantity B is greater",
+            "The two quantities are equal",
+            "The relationship cannot be determined from the information given"
+          ],
+          "answer": 1,
+          "explanation": "Dividing both quantities by the positive number x gives x against 1, and the condition says x is less than 1, so Quantity B is greater for every allowed value. The trap is carrying over the habit that squaring makes numbers bigger; between 0 and 1 it makes them smaller."
+        }
+      ],
+      "cards": [
+        "qrm-qc-1",
+        "qrm-qc-2"
+      ],
+      "questionIds": [],
+      "passages": [],
+      "repairs": [],
+      "source": {
+        "title": "OpenStax College Algebra 2e · Linear Inequalities and Absolute Value Inequalities",
+        "url": "https://openstax.org/books/college-algebra-2e/pages/2-7-linear-inequalities-and-absolute-value-inequalities"
+      },
+      "placementEligible": true,
+      "skills": [
+        "skill-1",
+        "skill-2"
+      ],
+      "topics": [
+        "Two-quantity comparison",
+        "Comparison under a shared condition",
+        "Comparison with unknown sign or range"
+      ],
+      "provenance": {
+        "origin": "new",
+        "mcatUnit": null,
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    }
+  ]
+}

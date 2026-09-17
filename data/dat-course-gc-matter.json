@@ -1,0 +1,172 @@
+{
+  "format": "dat-course",
+  "version": 1,
+  "chapter": {
+    "id": "gc-matter",
+    "title": "Matter, moles and mixtures",
+    "section": "gchem",
+    "description": "Count atoms in moles, describe how gases, liquids and solids behave, and calculate what a solution contains.",
+    "prerequisites": []
+  },
+  "authoredOn": "2026-09-16",
+  "author": "coding agent (Claude), original text",
+  "status": "Seed fragment: chapter metadata plus one complete seed unit (stoichiometry-and-moles); the remaining units arrive with content session C3.",
+  "reviewStatus": "Local authored-content check only; independent subject review pending.",
+  "sourceCheckedOn": "2026-09-16",
+  "contentNote": "Original Cortex lesson text and questions. The ADA DAT outline is the alignment target only; no ADA, prep-company or forum material is reproduced.",
+  "sources": [
+    {
+      "title": "OpenStax Chemistry 2e",
+      "url": "https://openstax.org/books/chemistry-2e"
+    },
+    {
+      "title": "OpenStax Chemistry 2e · Reaction Stoichiometry",
+      "url": "https://openstax.org/books/chemistry-2e/pages/4-3-reaction-stoichiometry"
+    }
+  ],
+  "units": [
+    {
+      "id": "stoichiometry-and-moles",
+      "section": "gchem",
+      "chapter": "gc-matter",
+      "categories": [
+        "GC-1"
+      ],
+      "title": "Moles, formulas and balanced equations",
+      "subtitle": "Count particles by mass, then let coefficients do the arithmetic.",
+      "minutes": 15,
+      "prerequisites": [],
+      "blocks": [
+        {
+          "title": "The mole is a counting unit",
+          "text": "A mole is 6.02 × 10^23 particles, chosen so that the mass of one mole in grams equals the formula mass read from the periodic table. To go from grams to moles, divide by the molar mass; to go from moles to particles, multiply by Avogadro’s number. Rounded atomic masses are enough for scratch paper: H 1, C 12, N 14, O 16, Na 23, S 32, Cl 35.5, Ca 40. Density links volume to mass before you go anywhere near moles: mass equals density times volume, so 50 mL of a liquid at 0.80 g/mL is 40 g. Percent composition is the mass of one element in a mole of compound divided by the molar mass, times 100. Water is 2/18, or about 11 %, hydrogen by mass."
+        },
+        {
+          "title": "Formulas from percent composition",
+          "text": "To find an empirical formula from percentages, assume a 100 g sample so each percentage becomes grams. Convert each element to moles, divide every value by the smallest, and multiply through if a ratio such as 1.5 appears, so it becomes a whole number. A compound that is 40 % carbon, 6.7 % hydrogen and 53.3 % oxygen gives 3.33 mol C, 6.7 mol H and 3.33 mol O, a 1 : 2 : 1 ratio and the empirical formula CH2O. The empirical formula only fixes the ratio. If the molar mass is known, divide it by the empirical formula mass to get the multiplier: 180 divided by 30 is 6, so the molecular formula is C6H12O6. A whole-number result confirms the arithmetic."
+        },
+        {
+          "title": "Balanced equations and the limiting reactant",
+          "text": "Balance an equation by changing coefficients only; changing a subscript changes the substance. Balance the element that appears in the fewest formulas first and leave hydrogen and oxygen for last. Coefficients are mole ratios, so every calculation passes through moles: grams to moles, apply the ratio, moles back to grams. When two reactant amounts are given, one runs out first. Divide each reactant’s moles by its coefficient; the smallest quotient marks the limiting reactant, and only that reactant sets the theoretical yield. Percent yield is the actual mass divided by the theoretical mass, times 100. The most common error is comparing grams of reactants directly, which ignores both molar mass and the coefficients."
+        }
+      ],
+      "example": {
+        "prompt": "How many grams of water form when 4.0 g of hydrogen burns in excess oxygen? 2H2 + O2 → 2H2O.",
+        "reasoning": "Convert to moles first: 4.0 g divided by 2.0 g/mol is 2.0 mol H2. The coefficient ratio of H2 to H2O is 2 : 2, so 2.0 mol of water forms. Multiply by 18 g/mol to get 36 g. Excess oxygen means hydrogen limits, so no comparison is needed."
+      },
+      "prediction": "Predict which reactant limits when 1.0 mol of nitrogen and 2.0 mol of hydrogen react to form ammonia, before converting anything to grams.",
+      "lab": null,
+      "questions": [
+        {
+          "id": "stoichiometry-and-moles-0",
+          "kind": "diagnostic",
+          "stem": "Using Ca = 40, C = 12 and O = 16 g/mol, what is the molar mass of calcium carbonate, CaCO3?",
+          "options": [
+            "68 g/mol",
+            "84 g/mol",
+            "100 g/mol",
+            "116 g/mol"
+          ],
+          "answer": 2,
+          "explanation": "Add every atom in the formula: 40 + 12 + 3(16) = 100 g/mol. The subscript 3 belongs to oxygen only, so counting one oxygen (68) or two (84) undercounts, while 116 adds a fourth oxygen that is not there."
+        },
+        {
+          "id": "stoichiometry-and-moles-1",
+          "kind": "check",
+          "stem": "A compound is 75 % carbon and 25 % hydrogen by mass. What is its empirical formula?",
+          "options": [
+            "CH4",
+            "CH3",
+            "C2H5",
+            "C3H"
+          ],
+          "answer": 0,
+          "explanation": "In 100 g there are 75/12 = 6.25 mol of carbon and 25/1 = 25 mol of hydrogen; dividing by 6.25 gives a 1 : 4 ratio, so CH4. The trap is reading the percentages as an atom ratio of 3 : 1, which reverses the answer because hydrogen atoms are twelve times lighter than carbon atoms."
+        },
+        {
+          "id": "stoichiometry-and-moles-2",
+          "kind": "check",
+          "stem": "In the reaction N2 + 3H2 → 2NH3, 2.0 mol of nitrogen reacts completely with excess hydrogen. How many moles of ammonia form?",
+          "options": [
+            "1.0 mol",
+            "2.0 mol",
+            "3.0 mol",
+            "4.0 mol"
+          ],
+          "answer": 3,
+          "explanation": "The coefficient ratio of N2 to NH3 is 1 : 2, so 2.0 mol of nitrogen gives 4.0 mol of ammonia. Reading a 1 : 1 ratio gives 2.0 mol, and the 3.0 mol answer comes from mixing in the hydrogen coefficient, which does not apply to a nitrogen-based calculation."
+        },
+        {
+          "id": "stoichiometry-and-moles-later-1",
+          "kind": "delayed",
+          "stem": "Which change is allowed when balancing a chemical equation?",
+          "options": [
+            "Changing a subscript inside a formula",
+            "Changing a coefficient in front of a formula",
+            "Adding a product that the reaction does not form",
+            "Removing an element that appears on only one side"
+          ],
+          "answer": 1,
+          "explanation": "Coefficients state how many of each substance react, so they are the only quantities an equation balancer may adjust. Changing a subscript turns H2O into H2O2, a different compound, which is the classic trap when oxygen will not balance."
+        },
+        {
+          "id": "stoichiometry-and-moles-later-2",
+          "kind": "delayed",
+          "stem": "A liquid has a density of 0.80 g/mL. What is the mass of 50 mL of it?",
+          "options": [
+            "16 g",
+            "32 g",
+            "40 g",
+            "62.5 g"
+          ],
+          "answer": 2,
+          "explanation": "Mass equals density times volume: 0.80 g/mL × 50 mL = 40 g. Dividing instead of multiplying gives 62.5 g, which is the volume that 50 g would occupy, not the mass of 50 mL."
+        },
+        {
+          "id": "stoichiometry-and-moles-later-3",
+          "kind": "delayed",
+          "stem": "In 2H2 + O2 → 2H2O, 4.0 mol of hydrogen is mixed with 1.0 mol of oxygen. Which statement is correct?",
+          "options": [
+            "Oxygen is limiting and 2.0 mol of water forms",
+            "Hydrogen is limiting and 4.0 mol of water forms",
+            "Both are used up completely and 4.0 mol of water forms",
+            "Oxygen is limiting and 4.0 mol of water forms"
+          ],
+          "answer": 0,
+          "explanation": "Divide each amount by its coefficient: hydrogen 4.0/2 = 2.0, oxygen 1.0/1 = 1.0, so oxygen runs out first and 1.0 mol of oxygen makes 2.0 mol of water. The trap is counting hydrogen as limiting because its coefficient is larger, when in fact four moles is twice what one mole of oxygen needs."
+        }
+      ],
+      "cards": [
+        "mat-moles-1",
+        "mat-moles-2"
+      ],
+      "questionIds": [],
+      "passages": [],
+      "repairs": [],
+      "source": {
+        "title": "OpenStax Chemistry 2e · Reaction Stoichiometry",
+        "url": "https://openstax.org/books/chemistry-2e/pages/4-3-reaction-stoichiometry"
+      },
+      "placementEligible": true,
+      "skills": [
+        "skill-1",
+        "skill-2"
+      ],
+      "topics": [
+        "Percent composition",
+        "Empirical formulae",
+        "Balancing equations",
+        "Moles and molecular formulas",
+        "Molar mass",
+        "Density",
+        "Calculations from balanced equations"
+      ],
+      "provenance": {
+        "origin": "new",
+        "mcatUnit": null,
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    }
+  ]
+}

@@ -20,9 +20,18 @@ const VIEWS = {
   rehearsal: ['DatRehearsal', 'entry'],
   quality: ['DatItemQuality', 'render'],
 };
-const OUTLINE = fs.readFileSync('data/dat-outline.json', 'utf8');
+const DATA_FILES = [...fs.readFileSync('dat.js', 'utf8').matchAll(/'(dat-[a-z0-9-]+\.json)\?v=\d+'/g)].map(m => m[1]);
+const PENDING = new Set(
+  (fs.readFileSync('dat.js', 'utf8').match(/DAT_DATA_PENDING = new Set\(\[([^\]]*)\]\)/) || ['', ''])[1]
+    .split(',')
+    .map(s => s.trim().replace(/^'|'$/g, ''))
+    .filter(Boolean)
+);
+const onDisk = name => fs.existsSync('data/' + name);
 
-function harness({ url = 'http://localhost/dat', fault = null } = {}) {
+// `modules` loads further track scripts into the same realm after dat.js, so a test can drive a
+// view through the real router instead of a second hand-built page harness.
+function harness({ url = 'http://localhost/dat', fault = null, modules = [] } = {}) {
   const dom = new JSDOM('<!doctype html><div id="app"></div>', { url, runScripts: 'outside-only' });
   const w = dom.window,
     context = dom.getInternalVMContext();
@@ -59,22 +68,30 @@ function harness({ url = 'http://localhost/dat', fault = null } = {}) {
         w.localStorage.removeItem(key);
       },
     },
+    // Serves the real data/ files; faults apply to the outline only (the other files load).
     fetch: async file => {
       fetches.push(file);
-      if (fetchFault === 'network') throw Error('Offline');
-      if (fetchFault === '503') return { ok: false };
+      const name = file.replace(/^data\//, '').split('?')[0],
+        faulted = fetchFault && name === 'dat-outline.json';
+      if (faulted && fetchFault === 'network') throw Error('Offline');
+      if ((faulted && fetchFault === '503') || !onDisk(name)) return { ok: false };
       return {
         ok: true,
         json: async () => {
-          if (fetchFault === 'json') throw Error('Invalid JSON');
-          if (fetchFault === 'shape') return { concepts: [] };
-          return JSON.parse(OUTLINE);
+          if (faulted && fetchFault === 'json') throw Error('Invalid JSON');
+          if (faulted && fetchFault === 'shape') return { concepts: [] };
+          return JSON.parse(fs.readFileSync('data/' + name, 'utf8'));
         },
       };
     },
   });
   vm.runInContext(fs.readFileSync('academy.js', 'utf8'), context);
   vm.runInContext(fs.readFileSync('dat.js', 'utf8'), context);
+  if (modules.length) {
+    // dat-pat.js enrols a missed item through the shared scheduler; the shell never loads it.
+    w.DatDrillCore = { enroll: (store, item) => (store[item.id] = store[item.id] || { id: item.id }) };
+    for (const file of modules) vm.runInContext(fs.readFileSync(file, 'utf8'), context);
+  }
   const run = code => vm.runInContext(code, context);
   return {
     w,
@@ -98,24 +115,40 @@ function harness({ url = 'http://localhost/dat', fault = null } = {}) {
 test('the landing renders from the outline with the availability tag, format table, six cards and one CTA', async () => {
   const h = harness();
   await h.go('');
-  assert.equal(h.fetches.length, 1);
-  assert.match(h.fetches[0], /^data\/dat-outline\.json\?v=\d+$/);
+  // One fetch per registered data file, the outline included; nothing outside data/dat-*.
+  assert.equal(h.fetches.length, DATA_FILES.length);
+  assert.ok(h.fetches.every(f => /^data\/dat-[a-z0-9-]+\.json\?v=\d+$/.test(f)));
+  assert.ok(h.fetches.some(f => f.startsWith('data/dat-outline.json?v=')));
+  const absent = DATA_FILES.filter(f => !onDisk(f)).map(f => f.replace(/\.json$/, ''));
+  assert.deepEqual(
+    absent.filter(k => !PENDING.has(k)),
+    [],
+    'every registered non-pending data file exists on disk'
+  );
   assert.equal(h.run('DAT.loaded'), true);
+  assert.equal(h.run('DAT.course.units.length'), 6, 'six seed units merged');
+  assert.ok(h.run('DAT.questions.length') >= 20, 'at least the twenty seed items merged');
+  assert.equal(h.run('DAT.course.chapters.length'), 16);
+  assert.ok(h.run('DAT.cards.length') >= 12, 'at least the seed cards merged');
   assert.equal(h.find('header').dataset.active, 'dat');
   assert.match(h.text('main.dat-landing h1'), /^DAT preparation/);
-  assert.equal(h.text('main h1 .academy-status'), 'Local preview');
+  assert.equal(h.text('main h1 .academy-status'), 'Beta');
   assert.equal(h.w.document.querySelectorAll('.dat-format-table tbody tr').length, 5);
   assert.match(h.text('.dat-format-table'), /Survey of the Natural Sciences.*100.*90/s);
   const cards = [...h.w.document.querySelectorAll('.dat-section-card')].map(c => c.dataset.datSection);
   assert.deepEqual(cards, ['bio', 'gchem', 'ochem', 'pat', 'rc', 'qr']);
-  assert.equal(h.w.document.querySelectorAll('.course-actions .btn').length, 1);
-  assert.equal(h.find('#dat-start').getAttribute('href'), '/dat?view=drill&section=mixed&n=15');
-  assert.match(h.text('.course-hero-index'), /0\s*practice items/);
+  assert.match(
+    h.text('.course-hero-index'),
+    new RegExp(h.run('DAT.questions.length') + '\\s*practice items'),
+    'the landing counts the merged bank, not a fixed seed total'
+  );
+  assert.match(h.text('.course-hero-index'), /6 lessons/);
   assert.match(h.text('.dat-tools'), /Lessons.*Schedule.*Mistake log.*Progress.*Coverage map.*Full-length rehearsal/s);
   assert.equal(h.find('#dat-data-retry'), null);
-  // A second render uses the cached outline.
+  // A second render uses the cached data.
+  const fetched = h.fetches.length;
   await h.go('');
-  assert.equal(h.fetches.length, 1);
+  assert.equal(h.fetches.length, fetched);
   // Only DAT-prefixed names: no MCAT delegate targets leak into the shell.
   assert.equal(h.find('#opts, #conf, [data-course-view], [data-v2-go], .flash-stage'), null);
   h.close();
@@ -129,7 +162,7 @@ test('the CTA and section cards navigate inside the track and unbuilt views show
   assert.equal(h.w.location.pathname + h.w.location.search, '/dat?view=drill&section=mixed&n=15');
   assert.match(h.text('main.dat-notice h1'), /not built yet/);
   assert.match(h.text('main.dat-notice'), /drill/);
-  assert.equal(h.text('main.dat-notice .label'), 'DAT · Local preview');
+  assert.equal(h.text('main.dat-notice .label'), 'DAT · Beta');
   h.find('#dat-back').click();
   await new Promise(r => setTimeout(r, 0));
   assert.equal(h.w.location.pathname + h.w.location.search, '/dat');
@@ -226,9 +259,10 @@ test('resetDatState pauses, forgets loaded data and clears only the cs-dat-r-* r
   assert.deepEqual(h.removed.sort(), ['cs-dat-r-drill', 'cs-dat-r-sim']);
   assert.equal(h.w.localStorage.getItem('cs-dat-log'), '[]');
   assert.equal(h.w.localStorage.getItem('cs-mcat-r-drill'), '{}');
-  // The next render fetches again.
+  // The next render fetches everything again.
+  const fetched = h.fetches.length;
   await h.go('');
-  assert.equal(h.fetches.length, 2);
+  assert.equal(h.fetches.length, fetched * 2);
   assert.equal(h.run('DAT.loaded'), true);
   h.close();
 });
@@ -330,7 +364,8 @@ test('the shared shell registers the track everywhere DAT-01 promises', () => {
     curriculum = fs.readFileSync('academy-curriculum.js', 'utf8'),
     portfolio = fs.readFileSync('academy-portfolio-core.js', 'utf8'),
     index = fs.readFileSync('index.html', 'utf8');
-  assert.match(app, /dat: \['study-storage\.js\?v=\d+', 'dat\.js\?v=\d+'\]/, 'SECTION_SCRIPTS.dat');
+  // Later milestones append their own modules; DAT-01 only fixes the first two and their order.
+  assert.match(app, /dat: \[\s*'study-storage\.js\?v=\d+',\s*'dat\.js\?v=\d+',?[\s\]]/, 'SECTION_SCRIPTS.dat');
   assert.match(app, /case 'dat':\s*await window\.renderDATEntry\(\);/, 'openSection case');
   assert.match(app, /if \(key !== 'dat'\) window\.pauseDatTools\?\.\(\);/, 'navigation pauser');
   assert.match(academy, /window\.pauseDatTools\?\.\(\);/, 'catalog pauser');
@@ -342,7 +377,7 @@ test('the shared shell registers the track everywhere DAT-01 promises', () => {
   assert.equal(info[1], 'DAT');
   assert.equal(info[2], 'Under construction');
   const gates = fs.readFileSync('scripts/smoke-public-gates.mjs', 'utf8');
-  assert.match(gates, /dat: \{ path: 'dat', label: 'DAT'/, 'smoke CLOSED.dat label equals SECTION_INFO.dat.label');
+  assert.doesNotMatch(gates, /dat: \{ path: 'dat'/, 'the DAT is open, so the gate smoke must not treat it as closed');
   for (const key of [
     'cs-dat-log',
     'cs-dat-exam-reviews',
@@ -368,4 +403,200 @@ test('the shared shell registers the track everywhere DAT-01 promises', () => {
   assert.match(portfolio, /'cs-dat-course-v1'/, 'portfolio source');
   assert.match(portfolio, /'DAT lesson record'/, 'portfolio label');
   assert.match(index, /<link rel="stylesheet" href="dat\.css\?v=\d+">/, 'stylesheet');
+});
+
+test('the app.js keydown guard bails out for the DAT periodic-table overlay', () => {
+  const app = fs.readFileSync('app.js', 'utf8');
+  const guard = app.match(/if \(document\.querySelector\('([^']+)'\)\) return;[^\n]*open overlay/);
+  assert.ok(guard, 'app.js global keydown overlay guard');
+  const selectors = guard[1].split(',').map(s => s.trim());
+  // dat-practice.js opens the periodic table as its own overlay class, not .modal or <dialog>,
+  // so Enter would otherwise reach the [data-next] button behind it.
+  const markup = fs.readFileSync('dat-practice.js', 'utf8').match(/<div class="([^"]+)" id="dat-periodic-modal"/);
+  assert.ok(markup, 'dat-practice.js periodic-table overlay markup');
+  assert.ok(
+    markup[1].split(/\s+/).some(cls => selectors.includes('.' + cls)),
+    'the shell keydown guard covers the periodic-table overlay class (' + markup[1] + ')'
+  );
+});
+
+test('dat.css re-shows the landing count block at the width mcat-course.css hides it', () => {
+  // The bank counts are DAT-01 acceptance criteria, so they have to survive on phones even
+  // though the shared .course-hero-index rule hides itself there for the MCAT course hero.
+  const hide = fs
+    .readFileSync('mcat-course.css', 'utf8')
+    .match(/@media\s*\(max-width:\s*(\d+)px\)\s*\{[^@]*?\.course-hero-index\s*\{\s*display:\s*none/);
+  assert.ok(hide, 'mcat-course.css phone rule hiding .course-hero-index');
+  const blocks = [
+    ...fs.readFileSync('dat.css', 'utf8').matchAll(/@media\s*\(max-width:\s*(\d+)px\)\s*\{([\s\S]*?)\n\}/g),
+  ];
+  assert.ok(
+    blocks.some(
+      b => Number(b[1]) >= Number(hide[1]) && /\.dat-landing\s+\.course-hero-index\s*\{[^}]*display:\s*block/.test(b[2])
+    ),
+    'dat.css shows .dat-landing .course-hero-index at or below ' + hide[1] + 'px'
+  );
+});
+
+test('resetDatState drops the in-flight run of every runner on the page, Reading Comprehension included', async () => {
+  // resetDatState only resets state: it does not replace the view, so a runner it forgets to
+  // call keeps its still-mounted screen wired to the workspace that has just been thrown away
+  // and writes that run's report into the next one.
+  const h = harness();
+  await h.go('');
+  const log = [];
+  h.w.log = log;
+  h.w.DatRehearsal = { reset: () => log.push('rehearsal') };
+  h.w.DatPractice = { reset: () => log.push('practice') };
+  h.w.DatPat = { reset: () => log.push('pat') };
+  h.w.DatRc = { reset: () => log.push('rc') };
+  h.w.resetDatState();
+  assert.deepEqual(log, ['rehearsal', 'practice', 'pat', 'rc'], 'every runner module is reset');
+  // The hooks run while the caches they clear are still there to clear.
+  assert.equal(h.run('DAT.attemptStores'), null);
+  assert.equal(h.run('DAT.rc'), null);
+  // A module that has not shipped yet is skipped, not thrown over.
+  h.w.DatRc = {};
+  h.w.DatPat = undefined;
+  assert.doesNotThrow(() => h.w.resetDatState());
+  h.close();
+});
+
+test('the landing counts the reading questions on their own line, from the passages it loaded', async () => {
+  const h = harness();
+  await h.go('');
+  const index = h.text('.course-hero-index');
+  const rc = h.run('DAT.rc.passages.reduce((n, p) => n + (p.questions ? p.questions.length : 0), 0)');
+  assert.ok(rc > 0, 'the passages carry questions');
+  // Not folded into the headline number: "practice items" stays merged bank items only (N1).
+  assert.match(index, new RegExp(h.run('DAT.questions.length') + '\\s*practice items'));
+  assert.match(index, new RegExp(rc + ' reading-comprehension questions'));
+  assert.doesNotMatch(index, new RegExp(h.run('DAT.questions.length') + ' \\+ ' + rc), 'no merged total');
+  // Driven by the data: with the passages unavailable the line is absent rather than wrong.
+  h.run('DAT.rc = null');
+  h.run('renderDATEntry()');
+  await new Promise(r => setTimeout(r, 0));
+  assert.doesNotMatch(h.text('.course-hero-index'), /reading-comprehension questions/);
+  h.close();
+});
+
+// Reads dat.css as rules: [{ media, selector, body }]. The file has no nested rules outside
+// @media, which is all this needs to understand.
+function cssRules(css) {
+  const out = [];
+  const scan = (text, media) => {
+    let i = 0;
+    while (i < text.length) {
+      const open = text.indexOf('{', i);
+      if (open < 0) return;
+      const head = text.slice(i, open).trim();
+      if (head.startsWith('@media')) {
+        let depth = 1,
+          j = open + 1;
+        while (j < text.length && depth) {
+          if (text[j] === '{') depth++;
+          else if (text[j] === '}') depth--;
+          j++;
+        }
+        scan(text.slice(open + 1, j - 1), head.replace(/^@media\s*/, ''));
+        i = j;
+      } else {
+        const close = text.indexOf('}', open);
+        out.push({ media, selector: head, body: text.slice(open + 1, close).trim() });
+        i = close + 1;
+      }
+    }
+  };
+  scan(css.replace(/\/\*[\s\S]*?\*\//g, ''), null);
+  return out;
+}
+const decl = (rule, name) => (new RegExp('(?:^|;)\\s*' + name + '\\s*:([^;]+)').exec(rule.body) || [])[1]?.trim();
+const numbers = value => [...String(value).matchAll(/-?[\d.]+/g)].map(m => Number(m[0]));
+
+test('dat.css draws a keyhole opening at the scale of the object figure, not at a cap of its own', () => {
+  // Apertures is the one subtest whose stem promises both are drawn to one scale, and a
+  // wrong-size opening is a keyed distractor, so the openings have to be measured from the width
+  // the object figure actually gets rather than from a second constant that only agrees with it
+  // at full size.
+  const Core = require('../dat-pat-engine.js');
+  const rendered = Core.render(Core.generate('keyholes', 7, 2));
+  const canvas = svg => Number(/viewBox="0 0 ([\d.]+)/.exec(svg)[1]);
+  const objectUnits = canvas(rendered.figure),
+    openingUnits = canvas(rendered.options[0]);
+  const rules = cssRules(fs.readFileSync('dat.css', 'utf8'));
+  const frameInset = media => {
+    const frame = rules.filter(r => r.selector === '.dat-pat-figure' && (media ? r.media === media : !r.media));
+    const padding = frame
+      .map(r => decl(r, 'padding'))
+      .filter(Boolean)
+      .pop();
+    const border = rules
+      .filter(r => r.selector === '.dat-pat-figure' && !r.media)
+      .map(r => decl(r, 'border'))
+      .filter(Boolean)
+      .pop();
+    return 2 * numbers(padding)[1] + 2 * numbers(border)[0];
+  };
+  const figure = rules.find(r => !r.media && /\.dat-pat-opts-svg:has\(\.dat-pat-aperture\)$/.test(r.selector));
+  assert.ok(figure, 'dat.css sizes the keyhole openings from their own rule');
+  assert.deepEqual(
+    numbers(decl(figure, '--dat-key-fig')),
+    [objectUnits, 100, frameInset(null)],
+    'the object width the openings are measured from is the figure canvas inside its frame'
+  );
+  assert.deepEqual(
+    numbers(decl(figure, '--dat-key-open')),
+    [openingUnits, objectUnits],
+    'an opening is its own canvas as a fraction of the object canvas'
+  );
+  // cqw only resolves against a query container, so the runner has to be one.
+  const container = rules.find(r => !r.media && r.selector === '.dat-pat-run');
+  assert.equal(decl(container, 'container-type'), 'inline-size');
+  // No independent pixel cap may survive on an aperture, or the two scales part again.
+  const option = rules.find(r => !r.media && /:has\(\.dat-pat-aperture\)[^,]*svg$/.test(r.selector));
+  assert.equal(decl(option, 'width'), 'var(--dat-key-open)');
+  assert.equal(decl(option, 'max-width'), '100%');
+  // A grid column can squeeze an option below its width; the track is at least one opening wide.
+  assert.match(decl(figure, 'grid-template-columns'), /var\(--dat-key-open\)/);
+  // The frame loses padding on phones, so the width the openings are measured from follows it.
+  const phone = rules.filter(r => r.media && /\.dat-pat-opts-svg:has\(\.dat-pat-aperture\)$/.test(r.selector));
+  assert.equal(phone.length, 1, 'one phone override');
+  assert.deepEqual(numbers(decl(phone[0], '--dat-key-fig')), [objectUnits, 100, frameInset(phone[0].media)]);
+});
+
+test('dat.css gives View Recognition candidates room to show a dashed line on a phone', () => {
+  // The dashed-versus-solid interior lines are the whole discrimination in that subtest, and four
+  // candidates sharing a 320 px row cannot draw them.
+  const rules = cssRules(fs.readFileSync('dat.css', 'utf8'));
+  const base = rules.find(r => !r.media && r.selector === '.dat-pat-opt-svg svg');
+  const cap = numbers(decl(base, 'max-width'))[0];
+  const grid = rules.find(r => r.media && /\.dat-pat-opts-svg:has\(\.dat-pat-view\)$/.test(r.selector));
+  assert.ok(grid, 'a phone rule for the candidate grid');
+  assert.match(decl(grid, 'grid-template-columns'), /repeat\(2,/, 'two columns, not four squeezed ones');
+  const option = rules.find(r => r.media && /:has\(\.dat-pat-view\)[^,]*svg$/.test(r.selector));
+  assert.ok(numbers(decl(option, 'max-width'))[0] >= 1.5 * cap, 'and half again the desktop cap to fill them');
+});
+
+test('the mixed form calls every subtest by one name, from the first item to the results table', async () => {
+  const h = harness({ modules: ['dat-pat-engine.js', 'dat-pat.js'] });
+  await h.go('view=pat&set=full&level=2');
+  assert.equal(h.text('.dat-pat-count'), 'Item 1 of 90');
+  const seen = [];
+  for (let i = 0; i < 90; i++) {
+    const name = h.text('.dat-pat-eyebrow').split('·')[0].trim();
+    if (!seen.includes(name)) seen.push(name);
+    const option = h.find('#dat-pat-opt-0');
+    assert.ok(option && !option.disabled, 'item ' + (i + 1) + ' is answerable');
+    option.click();
+  }
+  const rows = [...h.w.document.querySelectorAll('.dat-pat-form-table tbody th')].map(th => th.textContent.trim());
+  assert.equal(rows.length, 6, 'a result row per subtest');
+  // The name a learner answered under is the name they look up afterwards.
+  assert.deepEqual(seen, rows, 'the runner and the results table use one vocabulary');
+  assert.deepEqual(
+    seen,
+    JSON.parse(h.run('JSON.stringify(DAT.outline.patSubtests.map(s => s.alias))')),
+    'and it is the outline vocabulary, not a third one invented in the page'
+  );
+  h.close();
 });

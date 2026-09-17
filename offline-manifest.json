@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "build": "6d2878b38f1b9c35138d",
+  "build": "2f59df5bfb7eca04c68d",
   "packs": [
     {
       "id": "mcat",
@@ -51,13 +51,13 @@
         },
         {
           "url": "/academy.js",
-          "bytes": 8691,
-          "sha256": "9e0598e00f71363335bf1b02ef78ea6295bd5c92ee076248df4ce38baac893af"
+          "bytes": 8829,
+          "sha256": "3b563dba55a74a051a785036a105c3c15dfce572294bc561e6108bbb04ab263a"
         },
         {
           "url": "/app.js",
-          "bytes": 110820,
-          "sha256": "db996f308cfe45f5fb384a514d355bc1f83569db1bb60f74823dd56698b8e9a1"
+          "bytes": 111025,
+          "sha256": "9d9dfe89c6789476c474795eb73fb4c7a02d86424f59a35c1e5711d1e7c2e4cd"
         },
         {
           "url": "/assets/supabase.js",
@@ -76,8 +76,8 @@
         },
         {
           "url": "/changelog.js",
-          "bytes": 31157,
-          "sha256": "0381a8b9e04b2fab017d0666c41a720c83ff57bcf62d0f9fd6b0cd18a7038c7e"
+          "bytes": 31557,
+          "sha256": "165db79c67ba1e000bbca6e82c4ed3ec91a2fc397b6090feb5f6aa8fe1f9fe74"
         },
         {
           "url": "/clinical-shift.css",
@@ -86,13 +86,13 @@
         },
         {
           "url": "/dat.css",
-          "bytes": 2446,
-          "sha256": "86dc372c06d7bf8eb74d5c07a016ab672db54e563233067181c45de6b845d97a"
+          "bytes": 41956,
+          "sha256": "3684e8cdc988cbf1ad5ec30dd581077000284d95617ffd2ea74b7f1f79bc4ed5"
         },
         {
           "url": "/data/academy-curriculum.json",
-          "bytes": 166544,
-          "sha256": "3df7230b50aa64a60f4590ca1a571485d0ee1ab75fe158ebb0d47293822ca107"
+          "bytes": 169668,
+          "sha256": "32fde7166d9ecc01bf340ff16a15b919063bd9f7ac1e406484356d8c83085977"
         },
         {
           "url": "/data/index.json",
@@ -177,7 +177,7 @@
         {
           "url": "/index.html",
           "bytes": 8169,
-          "sha256": "3124671ae2fc89b3af825bc7404d70d8df1092d21b9575d03d682ed5b7dbd1ad"
+          "sha256": "fa04b10b7978b89176956f638cbb68b150301f63e1802d796ea808433cfe743c"
         },
         {
           "url": "/mcat-course-engine.js",
@@ -350,13 +350,13 @@
         },
         {
           "url": "/academy.js",
-          "bytes": 8691,
-          "sha256": "9e0598e00f71363335bf1b02ef78ea6295bd5c92ee076248df4ce38baac893af"
+          "bytes": 8829,
+          "sha256": "3b563dba55a74a051a785036a105c3c15dfce572294bc561e6108bbb04ab263a"
         },
         {
           "url": "/app.js",
-          "bytes": 110820,
-          "sha256": "db996f308cfe45f5fb384a514d355bc1f83569db1bb60f74823dd56698b8e9a1"
+          "bytes": 111025,
+          "sha256": "9d9dfe89c6789476c474795eb73fb4c7a02d86424f59a35c1e5711d1e7c2e4cd"
         },
         {
           "url": "/assets/supabase.js",
@@ -375,8 +375,8 @@
         },
         {
           "url": "/changelog.js",
-          "bytes": 31157,
-          "sha256": "0381a8b9e04b2fab017d0666c41a720c83ff57bcf62d0f9fd6b0cd18a7038c7e"
+          "bytes": 31557,
+          "sha256": "165db79c67ba1e000bbca6e82c4ed3ec91a2fc397b6090feb5f6aa8fe1f9fe74"
         },
         {
           "url": "/clinical-shift.css",
@@ -384,24 +384,299 @@
           "sha256": "290c0f7c15e2703c51f1d9ee3dfedc05b6c46a2aa42110629fca33c14a55e133"
         },
         {
+          "url": "/dat-calc-engine.js",
+          "bytes": 12436,
+          "sha256": "72ab531c040d2d437202d1ebdad7b8e1f2715739e5f35788d2cf091b4f84ec1b"
+        },
+        {
+          "url": "/dat-drill-engine.js",
+          "bytes": 8212,
+          "sha256": "a23c00a0da5fa77d51843ac6b59e950b22412367c44b64941035801fe7142087"
+        },
+        {
+          "url": "/dat-pat-engine.js",
+          "bytes": 150443,
+          "sha256": "15b00fcfeecf7e280cf0abcf502b8aeebd3c9ca6309284cd7fd44a8898ee6342"
+        },
+        {
+          "url": "/dat-pat.js",
+          "bytes": 36581,
+          "sha256": "deb06502fcf56a136849402df04270ed0f8c6f711cd9be5d260dafe9b90c6c63"
+        },
+        {
+          "url": "/dat-practice.js",
+          "bytes": 42251,
+          "sha256": "20539240e276b1721a55e85aa91e2cd95d62243648ae745ee36bc01f9a65dab5"
+        },
+        {
+          "url": "/dat-qr.js",
+          "bytes": 38623,
+          "sha256": "b45ada868357cd14f689eaae7421d4bee3cf41adb72879edcfd8a4accc80fc80"
+        },
+        {
+          "url": "/dat-rc.js",
+          "bytes": 48630,
+          "sha256": "f989c2594c256c3222278fed9316c9e03b7acffab0c90780f813444711ea9868"
+        },
+        {
           "url": "/dat.css",
-          "bytes": 2446,
-          "sha256": "86dc372c06d7bf8eb74d5c07a016ab672db54e563233067181c45de6b845d97a"
+          "bytes": 41956,
+          "sha256": "3684e8cdc988cbf1ad5ec30dd581077000284d95617ffd2ea74b7f1f79bc4ed5"
         },
         {
           "url": "/dat.js",
-          "bytes": 12680,
-          "sha256": "0046f995ad76fcdd0bd6e32b6650261537a7b427e7f3cb26708fb9e84fec1599"
+          "bytes": 18765,
+          "sha256": "f82b6717a8a3641b223b973495759b8d8fdacdbfef6f9c08e539b4e3f3ecd779"
         },
         {
           "url": "/data/academy-curriculum.json",
-          "bytes": 166544,
-          "sha256": "3df7230b50aa64a60f4590ca1a571485d0ee1ab75fe158ebb0d47293822ca107"
+          "bytes": 169668,
+          "sha256": "32fde7166d9ecc01bf340ff16a15b919063bd9f7ac1e406484356d8c83085977"
+        },
+        {
+          "url": "/data/dat-cards-bio-cell.json",
+          "bytes": 572,
+          "sha256": "cd9448c7ff9901ee87635308a794dff7e6c7bfa637cd05db5ef32fb60818959e"
+        },
+        {
+          "url": "/data/dat-cards-bio-diversity.json",
+          "bytes": 1330,
+          "sha256": "5d714a1bdf8045e7aab4268d963c30892c409bb2d075a00982ef477e553f2cb1"
+        },
+        {
+          "url": "/data/dat-cards-bio-genetics.json",
+          "bytes": 576,
+          "sha256": "7686586f76f1104e1d9f2d6f24b44ed2e5b323149b7214556b68c0100702eb88"
+        },
+        {
+          "url": "/data/dat-cards-bio-systems.json",
+          "bytes": 575,
+          "sha256": "e90857789093bdfe3324cf0c070bad0bd20ee324b141da9b2df633f5281f62b4"
+        },
+        {
+          "url": "/data/dat-cards-gc-matter.json",
+          "bytes": 1369,
+          "sha256": "174270e11ae1e6e790ef73559b9148c7e07ab789e42f84daa516024a8903cf17"
+        },
+        {
+          "url": "/data/dat-cards-gc-reactions.json",
+          "bytes": 580,
+          "sha256": "e0577817b65db556296fbeb938e2e93a2276aca418682ad73b44a8544c44305f"
+        },
+        {
+          "url": "/data/dat-cards-gc-structure.json",
+          "bytes": 580,
+          "sha256": "0f32d9091d16d62c98e1a035d4f81ada3990204f2657c19a5125f41ceb6fc84a"
+        },
+        {
+          "url": "/data/dat-cards-oc-acidbase.json",
+          "bytes": 589,
+          "sha256": "6cd0177826a95c3160ca71ea17795b70c8941f817794aed33af8631de026b9e9"
+        },
+        {
+          "url": "/data/dat-cards-oc-mechanisms.json",
+          "bytes": 1634,
+          "sha256": "4de356e0980a5d2d7bd4fcce58b76f118968cb862eee6709b1929c8bab99362d"
+        },
+        {
+          "url": "/data/dat-cards-oc-structure.json",
+          "bytes": 590,
+          "sha256": "123f563bebc4aaff7e49eba2fe03bf481b3ad86d06c0154fcb4bc46d9f3f19b6"
+        },
+        {
+          "url": "/data/dat-cards-oc-synthesis.json",
+          "bytes": 590,
+          "sha256": "5a683e6625afb26661b45d1f92f1d271fb62c1b8b4f8f347965887849c97c183"
+        },
+        {
+          "url": "/data/dat-cards-pat-2d.json",
+          "bytes": 1344,
+          "sha256": "43f2ac3e97138878727fecbec1bd48eea9d000707106e68b11c37072daadec93"
+        },
+        {
+          "url": "/data/dat-cards-pat-3d.json",
+          "bytes": 576,
+          "sha256": "ddb1ec65a3dfd6e0803a556de7d514285304549e11a85c9d2ed641633627d383"
+        },
+        {
+          "url": "/data/dat-cards-qr-applied.json",
+          "bytes": 590,
+          "sha256": "689f251cc223235ab7b3b098363bb24c91426eee3199feda4af1940b4838075d"
+        },
+        {
+          "url": "/data/dat-cards-qr-math.json",
+          "bytes": 1454,
+          "sha256": "828beb7924e308785c78885b5c73d50954b1ca8eb0f1ab40b8f795b97bb1807d"
+        },
+        {
+          "url": "/data/dat-cards-rc.json",
+          "bytes": 1379,
+          "sha256": "93e19a1ed4793ec1ac7892b126fd9f6a1c86b8ae21b941570d9213dce344725f"
+        },
+        {
+          "url": "/data/dat-course-bio-cell.json",
+          "bytes": 889,
+          "sha256": "cc1e58fadf9bdd1bd1d2350f8a1a19481045e9803e5ff7cd12333a8a12a2f0d1"
+        },
+        {
+          "url": "/data/dat-course-bio-diversity.json",
+          "bytes": 9845,
+          "sha256": "0fdfbd958864187a5d28f36200c045d1087d845014414b07362a91c31d86b7be"
+        },
+        {
+          "url": "/data/dat-course-bio-genetics.json",
+          "bytes": 951,
+          "sha256": "aeb2e1f67f100e7eff8d49900db9ad4e8b91c30ac73eb94d6490d04519e74a43"
+        },
+        {
+          "url": "/data/dat-course-bio-systems.json",
+          "bytes": 943,
+          "sha256": "4a553842cc7edba5fb4f3bfa5f3064b09aad85aa46ebe88c41e8d0ab93072c74"
+        },
+        {
+          "url": "/data/dat-course-gc-matter.json",
+          "bytes": 9344,
+          "sha256": "3a66f3f18ff1f9d2209a33a6247e6d9225c16c684890f37d3deaff8cc4ce7cb3"
+        },
+        {
+          "url": "/data/dat-course-gc-reactions.json",
+          "bytes": 942,
+          "sha256": "7c47a5c3a2548717b8ecc340c72efbcac4fe7d037d5429e4c20f1289b5ccd0d1"
+        },
+        {
+          "url": "/data/dat-course-gc-structure.json",
+          "bytes": 962,
+          "sha256": "ceea607c96ecfeb6ac33ff95db1d6aae796ff82dff0bd592a033115c01caa3eb"
+        },
+        {
+          "url": "/data/dat-course-oc-acidbase.json",
+          "bytes": 959,
+          "sha256": "dd60f7fe08d52edf3ae17f23a7f8bfd4c197ae88db0d5f5ac665c675d375e905"
+        },
+        {
+          "url": "/data/dat-course-oc-mechanisms.json",
+          "bytes": 10639,
+          "sha256": "4ea6e0ce0ac3bc52659c2df02a0b1dcee3c6e0af4651f784422074d0161349ca"
+        },
+        {
+          "url": "/data/dat-course-oc-structure.json",
+          "bytes": 920,
+          "sha256": "aa34ebbb1a91329dba49ce238e981e688f455f920b4ad5fb4c0b384ced8a65ac"
+        },
+        {
+          "url": "/data/dat-course-oc-synthesis.json",
+          "bytes": 946,
+          "sha256": "814fcdfc5144b350fcb4539f36fc25fb65efe6d6f10e26b7f8d7a22ebf4a7e5b"
+        },
+        {
+          "url": "/data/dat-course-pat-2d.json",
+          "bytes": 12108,
+          "sha256": "1f8c594505bb2a47fd906c163578753717c09dd5776c3b568dd621e1965cc39d"
+        },
+        {
+          "url": "/data/dat-course-pat-3d.json",
+          "bytes": 926,
+          "sha256": "6683352c57bb3b0b926494f37b18496e1072b705df67e5636368b5f99a905479"
+        },
+        {
+          "url": "/data/dat-course-qr-applied.json",
+          "bytes": 934,
+          "sha256": "2c22afe9de68bb0e5cd3856314712f8a99180e68a7f4db954e2fc95f8b5b9265"
+        },
+        {
+          "url": "/data/dat-course-qr-math.json",
+          "bytes": 10075,
+          "sha256": "12e4b8083a33146665b81fa826f51b69af041bd44d6b769f7cde6ef0a4d7dbfe"
+        },
+        {
+          "url": "/data/dat-course-rc.json",
+          "bytes": 10061,
+          "sha256": "b505585aea5a6939cb38a7c0b0a7fce90063019594eea09800fa86c8e7b1c09a"
         },
         {
           "url": "/data/dat-outline.json",
           "bytes": 23921,
           "sha256": "0448434fe6815430616ffb2532d8731767687d906a4b4defc4b60a48215ccd82"
+        },
+        {
+          "url": "/data/dat-pat.json",
+          "bytes": 22565,
+          "sha256": "d8ae74115f12d09bc977c3d4a8f375664b3523d02ce5dfa0d9c6e977b80c9614"
+        },
+        {
+          "url": "/data/dat-questions-bio-1.json",
+          "bytes": 124653,
+          "sha256": "d9540a0c33a098fbae492c60d50238956dbe39c4a06d8b001f7987ce3235f783"
+        },
+        {
+          "url": "/data/dat-questions-bio-2.json",
+          "bytes": 635,
+          "sha256": "f2a7f46eb873c1acbd06291655959f73ce315099e0a12085f3aaec6f68c0b471"
+        },
+        {
+          "url": "/data/dat-questions-bio-3.json",
+          "bytes": 635,
+          "sha256": "aa64c951b37acf37c60dc62a1a866d3426f61e7decfdef456ae66b5609e1dcd9"
+        },
+        {
+          "url": "/data/dat-questions-gchem-1.json",
+          "bytes": 89834,
+          "sha256": "669cae4e71f7507bf6dc797b1ee59f3c03be54c6cc887e96355eaff523deba24"
+        },
+        {
+          "url": "/data/dat-questions-gchem-2.json",
+          "bytes": 641,
+          "sha256": "8af4f8a6f1ca27a0d6371da0eb36b1b93946672f2715b5178b9d87ffdc77a29c"
+        },
+        {
+          "url": "/data/dat-questions-gchem-3.json",
+          "bytes": 641,
+          "sha256": "e7e964cbe5ad7d1b0fcf9f99d2070393fc700a7e6aca7cc28c503c8f4d0c97aa"
+        },
+        {
+          "url": "/data/dat-questions-ochem-1.json",
+          "bytes": 109781,
+          "sha256": "9e45de64b1059e91a390eed4227e44856c56f4028c97b9757341b28194ffb557"
+        },
+        {
+          "url": "/data/dat-questions-ochem-2.json",
+          "bytes": 651,
+          "sha256": "b78271e6eba17d93688b032f15d3cf0811abc0682779a1a5b3d68ba123e020f6"
+        },
+        {
+          "url": "/data/dat-questions-ochem-3.json",
+          "bytes": 651,
+          "sha256": "738c9e098e0acd2b29720b42df769bee86c08db6221d141ae4a3ba204a261336"
+        },
+        {
+          "url": "/data/dat-questions-qr-1.json",
+          "bytes": 97920,
+          "sha256": "d00ad6516143ec36fbbf7b45c879a46918d6bfaac55c729464a360533fe384f8"
+        },
+        {
+          "url": "/data/dat-questions-qr-2.json",
+          "bytes": 786,
+          "sha256": "7d248e7913b1f2958be0c18a83d45a79871bdfba30253b3789a6a489c3450d36"
+        },
+        {
+          "url": "/data/dat-questions-qr-3.json",
+          "bytes": 786,
+          "sha256": "b0b458c6ad05d7c70fd90cb60b10633040cf1c9534e8db0acacdfb1ab0e54b80"
+        },
+        {
+          "url": "/data/dat-rc.json",
+          "bytes": 122729,
+          "sha256": "3351d1092dbd3ce9510372592fa4af81920cbd8a60ce271937656d940dca1f2d"
+        },
+        {
+          "url": "/data/dat-rehearsals.json",
+          "bytes": 1069,
+          "sha256": "f753c51f09a7d0cea7437307da17a4cf60075df8672ce7409de4441167c8f430"
+        },
+        {
+          "url": "/data/dat-repairs.json",
+          "bytes": 902,
+          "sha256": "c40857dd650832a5636ec832925465707be3a31c2272a52469a51b9cd1e88366"
         },
         {
           "url": "/data/index.json",
@@ -416,7 +691,7 @@
         {
           "url": "/index.html",
           "bytes": 8169,
-          "sha256": "3124671ae2fc89b3af825bc7404d70d8df1092d21b9575d03d682ed5b7dbd1ad"
+          "sha256": "fa04b10b7978b89176956f638cbb68b150301f63e1802d796ea808433cfe743c"
         },
         {
           "url": "/mcat-course.css",
@@ -524,13 +799,13 @@
         },
         {
           "url": "/academy.js",
-          "bytes": 8691,
-          "sha256": "9e0598e00f71363335bf1b02ef78ea6295bd5c92ee076248df4ce38baac893af"
+          "bytes": 8829,
+          "sha256": "3b563dba55a74a051a785036a105c3c15dfce572294bc561e6108bbb04ab263a"
         },
         {
           "url": "/app.js",
-          "bytes": 110820,
-          "sha256": "db996f308cfe45f5fb384a514d355bc1f83569db1bb60f74823dd56698b8e9a1"
+          "bytes": 111025,
+          "sha256": "9d9dfe89c6789476c474795eb73fb4c7a02d86424f59a35c1e5711d1e7c2e4cd"
         },
         {
           "url": "/assets/supabase.js",
@@ -549,8 +824,8 @@
         },
         {
           "url": "/changelog.js",
-          "bytes": 31157,
-          "sha256": "0381a8b9e04b2fab017d0666c41a720c83ff57bcf62d0f9fd6b0cd18a7038c7e"
+          "bytes": 31557,
+          "sha256": "165db79c67ba1e000bbca6e82c4ed3ec91a2fc397b6090feb5f6aa8fe1f9fe74"
         },
         {
           "url": "/clinical-shift.css",
@@ -559,13 +834,13 @@
         },
         {
           "url": "/dat.css",
-          "bytes": 2446,
-          "sha256": "86dc372c06d7bf8eb74d5c07a016ab672db54e563233067181c45de6b845d97a"
+          "bytes": 41956,
+          "sha256": "3684e8cdc988cbf1ad5ec30dd581077000284d95617ffd2ea74b7f1f79bc4ed5"
         },
         {
           "url": "/data/academy-curriculum.json",
-          "bytes": 166544,
-          "sha256": "3df7230b50aa64a60f4590ca1a571485d0ee1ab75fe158ebb0d47293822ca107"
+          "bytes": 169668,
+          "sha256": "32fde7166d9ecc01bf340ff16a15b919063bd9f7ac1e406484356d8c83085977"
         },
         {
           "url": "/data/index.json",
@@ -590,7 +865,7 @@
         {
           "url": "/index.html",
           "bytes": 8169,
-          "sha256": "3124671ae2fc89b3af825bc7404d70d8df1092d21b9575d03d682ed5b7dbd1ad"
+          "sha256": "fa04b10b7978b89176956f638cbb68b150301f63e1802d796ea808433cfe743c"
         },
         {
           "url": "/mcat-course.css",
@@ -703,13 +978,13 @@
         },
         {
           "url": "/academy.js",
-          "bytes": 8691,
-          "sha256": "9e0598e00f71363335bf1b02ef78ea6295bd5c92ee076248df4ce38baac893af"
+          "bytes": 8829,
+          "sha256": "3b563dba55a74a051a785036a105c3c15dfce572294bc561e6108bbb04ab263a"
         },
         {
           "url": "/app.js",
-          "bytes": 110820,
-          "sha256": "db996f308cfe45f5fb384a514d355bc1f83569db1bb60f74823dd56698b8e9a1"
+          "bytes": 111025,
+          "sha256": "9d9dfe89c6789476c474795eb73fb4c7a02d86424f59a35c1e5711d1e7c2e4cd"
         },
         {
           "url": "/assets/supabase.js",
@@ -728,8 +1003,8 @@
         },
         {
           "url": "/changelog.js",
-          "bytes": 31157,
-          "sha256": "0381a8b9e04b2fab017d0666c41a720c83ff57bcf62d0f9fd6b0cd18a7038c7e"
+          "bytes": 31557,
+          "sha256": "165db79c67ba1e000bbca6e82c4ed3ec91a2fc397b6090feb5f6aa8fe1f9fe74"
         },
         {
           "url": "/clinical-longitudinal-engine.js",
@@ -753,13 +1028,13 @@
         },
         {
           "url": "/dat.css",
-          "bytes": 2446,
-          "sha256": "86dc372c06d7bf8eb74d5c07a016ab672db54e563233067181c45de6b845d97a"
+          "bytes": 41956,
+          "sha256": "3684e8cdc988cbf1ad5ec30dd581077000284d95617ffd2ea74b7f1f79bc4ed5"
         },
         {
           "url": "/data/academy-curriculum.json",
-          "bytes": 166544,
-          "sha256": "3df7230b50aa64a60f4590ca1a571485d0ee1ab75fe158ebb0d47293822ca107"
+          "bytes": 169668,
+          "sha256": "32fde7166d9ecc01bf340ff16a15b919063bd9f7ac1e406484356d8c83085977"
         },
         {
           "url": "/data/cardiology.json",
@@ -919,7 +1194,7 @@
         {
           "url": "/index.html",
           "bytes": 8169,
-          "sha256": "3124671ae2fc89b3af825bc7404d70d8df1092d21b9575d03d682ed5b7dbd1ad"
+          "sha256": "fa04b10b7978b89176956f638cbb68b150301f63e1802d796ea808433cfe743c"
         },
         {
           "url": "/mcat-course.css",
@@ -1032,8 +1307,8 @@
         },
         {
           "url": "/academy.js",
-          "bytes": 8691,
-          "sha256": "9e0598e00f71363335bf1b02ef78ea6295bd5c92ee076248df4ce38baac893af"
+          "bytes": 8829,
+          "sha256": "3b563dba55a74a051a785036a105c3c15dfce572294bc561e6108bbb04ab263a"
         },
         {
           "url": "/anatomy.js",
@@ -1042,8 +1317,8 @@
         },
         {
           "url": "/app.js",
-          "bytes": 110820,
-          "sha256": "db996f308cfe45f5fb384a514d355bc1f83569db1bb60f74823dd56698b8e9a1"
+          "bytes": 111025,
+          "sha256": "9d9dfe89c6789476c474795eb73fb4c7a02d86424f59a35c1e5711d1e7c2e4cd"
         },
         {
           "url": "/assets/skeleton.svg",
@@ -1067,8 +1342,8 @@
         },
         {
           "url": "/changelog.js",
-          "bytes": 31157,
-          "sha256": "0381a8b9e04b2fab017d0666c41a720c83ff57bcf62d0f9fd6b0cd18a7038c7e"
+          "bytes": 31557,
+          "sha256": "165db79c67ba1e000bbca6e82c4ed3ec91a2fc397b6090feb5f6aa8fe1f9fe74"
         },
         {
           "url": "/clinical-shift.css",
@@ -1077,13 +1352,13 @@
         },
         {
           "url": "/dat.css",
-          "bytes": 2446,
-          "sha256": "86dc372c06d7bf8eb74d5c07a016ab672db54e563233067181c45de6b845d97a"
+          "bytes": 41956,
+          "sha256": "3684e8cdc988cbf1ad5ec30dd581077000284d95617ffd2ea74b7f1f79bc4ed5"
         },
         {
           "url": "/data/academy-curriculum.json",
-          "bytes": 166544,
-          "sha256": "3df7230b50aa64a60f4590ca1a571485d0ee1ab75fe158ebb0d47293822ca107"
+          "bytes": 169668,
+          "sha256": "32fde7166d9ecc01bf340ff16a15b919063bd9f7ac1e406484356d8c83085977"
         },
         {
           "url": "/data/anatomy-foundations.json",
@@ -1118,7 +1393,7 @@
         {
           "url": "/index.html",
           "bytes": 8169,
-          "sha256": "3124671ae2fc89b3af825bc7404d70d8df1092d21b9575d03d682ed5b7dbd1ad"
+          "sha256": "fa04b10b7978b89176956f638cbb68b150301f63e1802d796ea808433cfe743c"
         },
         {
           "url": "/mcat-course.css",
@@ -1231,13 +1506,13 @@
         },
         {
           "url": "/academy.js",
-          "bytes": 8691,
-          "sha256": "9e0598e00f71363335bf1b02ef78ea6295bd5c92ee076248df4ce38baac893af"
+          "bytes": 8829,
+          "sha256": "3b563dba55a74a051a785036a105c3c15dfce572294bc561e6108bbb04ab263a"
         },
         {
           "url": "/app.js",
-          "bytes": 110820,
-          "sha256": "db996f308cfe45f5fb384a514d355bc1f83569db1bb60f74823dd56698b8e9a1"
+          "bytes": 111025,
+          "sha256": "9d9dfe89c6789476c474795eb73fb4c7a02d86424f59a35c1e5711d1e7c2e4cd"
         },
         {
           "url": "/assets/supabase.js",
@@ -1256,8 +1531,8 @@
         },
         {
           "url": "/changelog.js",
-          "bytes": 31157,
-          "sha256": "0381a8b9e04b2fab017d0666c41a720c83ff57bcf62d0f9fd6b0cd18a7038c7e"
+          "bytes": 31557,
+          "sha256": "165db79c67ba1e000bbca6e82c4ed3ec91a2fc397b6090feb5f6aa8fe1f9fe74"
         },
         {
           "url": "/clinical-shift.css",
@@ -1266,13 +1541,13 @@
         },
         {
           "url": "/dat.css",
-          "bytes": 2446,
-          "sha256": "86dc372c06d7bf8eb74d5c07a016ab672db54e563233067181c45de6b845d97a"
+          "bytes": 41956,
+          "sha256": "3684e8cdc988cbf1ad5ec30dd581077000284d95617ffd2ea74b7f1f79bc4ed5"
         },
         {
           "url": "/data/academy-curriculum.json",
-          "bytes": 166544,
-          "sha256": "3df7230b50aa64a60f4590ca1a571485d0ee1ab75fe158ebb0d47293822ca107"
+          "bytes": 169668,
+          "sha256": "32fde7166d9ecc01bf340ff16a15b919063bd9f7ac1e406484356d8c83085977"
         },
         {
           "url": "/data/ecg-patterns.json",
@@ -1332,7 +1607,7 @@
         {
           "url": "/index.html",
           "bytes": 8169,
-          "sha256": "3124671ae2fc89b3af825bc7404d70d8df1092d21b9575d03d682ed5b7dbd1ad"
+          "sha256": "fa04b10b7978b89176956f638cbb68b150301f63e1802d796ea808433cfe743c"
         },
         {
           "url": "/mcat-course.css",
@@ -1450,13 +1725,13 @@
         },
         {
           "url": "/academy.js",
-          "bytes": 8691,
-          "sha256": "9e0598e00f71363335bf1b02ef78ea6295bd5c92ee076248df4ce38baac893af"
+          "bytes": 8829,
+          "sha256": "3b563dba55a74a051a785036a105c3c15dfce572294bc561e6108bbb04ab263a"
         },
         {
           "url": "/app.js",
-          "bytes": 110820,
-          "sha256": "db996f308cfe45f5fb384a514d355bc1f83569db1bb60f74823dd56698b8e9a1"
+          "bytes": 111025,
+          "sha256": "9d9dfe89c6789476c474795eb73fb4c7a02d86424f59a35c1e5711d1e7c2e4cd"
         },
         {
           "url": "/assets/supabase.js",
@@ -1475,8 +1750,8 @@
         },
         {
           "url": "/changelog.js",
-          "bytes": 31157,
-          "sha256": "0381a8b9e04b2fab017d0666c41a720c83ff57bcf62d0f9fd6b0cd18a7038c7e"
+          "bytes": 31557,
+          "sha256": "165db79c67ba1e000bbca6e82c4ed3ec91a2fc397b6090feb5f6aa8fe1f9fe74"
         },
         {
           "url": "/clinical-shift.css",
@@ -1490,13 +1765,13 @@
         },
         {
           "url": "/dat.css",
-          "bytes": 2446,
-          "sha256": "86dc372c06d7bf8eb74d5c07a016ab672db54e563233067181c45de6b845d97a"
+          "bytes": 41956,
+          "sha256": "3684e8cdc988cbf1ad5ec30dd581077000284d95617ffd2ea74b7f1f79bc4ed5"
         },
         {
           "url": "/data/academy-curriculum.json",
-          "bytes": 166544,
-          "sha256": "3df7230b50aa64a60f4590ca1a571485d0ee1ab75fe158ebb0d47293822ca107"
+          "bytes": 169668,
+          "sha256": "32fde7166d9ecc01bf340ff16a15b919063bd9f7ac1e406484356d8c83085977"
         },
         {
           "url": "/data/index.json",
@@ -1536,7 +1811,7 @@
         {
           "url": "/index.html",
           "bytes": 8169,
-          "sha256": "3124671ae2fc89b3af825bc7404d70d8df1092d21b9575d03d682ed5b7dbd1ad"
+          "sha256": "fa04b10b7978b89176956f638cbb68b150301f63e1802d796ea808433cfe743c"
         },
         {
           "url": "/mcat-course.css",

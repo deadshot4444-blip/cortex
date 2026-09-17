@@ -83,7 +83,7 @@ const SECTION_INFO = {
   },
 };
 // Public beta version; independent subject acceptance remains separate.
-const APP_VERSION = '2.31.0-local.1';
+const APP_VERSION = '2.31.0-beta.1';
 function cortexFreeNote(sectionPill, sectionName) {
   return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free</span><span class="free-note-txt">${sectionName} is free to use — no account, no paywall, no catch.</span></p>`;
 }
@@ -212,7 +212,17 @@ const SECTION_SCRIPTS = {
   ],
   // dat.js loads second on purpose: it declares window.DAT so later DAT modules can
   // register their pausers at load time. Each milestone appends its own lines here.
-  dat: ['study-storage.js?v=5', 'dat.js?v=1'],
+  dat: [
+    'study-storage.js?v=5',
+    'dat.js?v=7',
+    'dat-drill-engine.js?v=1',
+    'dat-practice.js?v=3',
+    'dat-pat-engine.js?v=6',
+    'dat-pat.js?v=6',
+    'dat-rc.js?v=3',
+    'dat-calc-engine.js?v=2',
+    'dat-qr.js?v=2',
+  ],
   anatomy: ['study-storage.js?v=5', 'academy-lessons.js?v=7', 'anatomy.js?v=44'],
   reference: [
     'study-storage.js?v=5',
@@ -2561,7 +2571,7 @@ document.addEventListener('keydown', e => {
   if (e.metaKey || e.ctrlKey || e.altKey) return;
   const typing = e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA');
   if (typing) return;
-  if (document.querySelector('.modal, .fbmodal-back, dialog[open]')) return; // don't drive the screen behind an open overlay
+  if (document.querySelector('.modal, .fbmodal-back, .dat-modal, dialog[open]')) return; // don't drive the screen behind an open overlay
 
   // Enter advances explicit continue/next affordances, even on session-less screens (drills, Medicine, Learn-to-Learn).
   // Scoped to opt-in [data-continue]/[data-next] only — NOT a bare #next, which the timed Exam Simulator uses.

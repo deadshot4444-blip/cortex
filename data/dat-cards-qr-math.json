@@ -1,0 +1,35 @@
+{
+  "format": "dat-cards",
+  "version": 1,
+  "chapter": "qr-math",
+  "authoredOn": "2026-09-16",
+  "author": "coding agent (Claude), original text",
+  "reviewStatus": "Local authored-content check only; independent subject review pending.",
+  "sourceCheckedOn": "2026-09-16",
+  "contentNote": "Original Cortex flashcard text. The ADA DAT outline is the alignment target only; no ADA, prep-company or forum material is reproduced.",
+  "sources": [
+    {
+      "title": "OpenStax College Algebra 2e",
+      "url": "https://openstax.org/books/college-algebra-2e"
+    }
+  ],
+  "cards": [
+    {
+      "id": "qrm-qc-1",
+      "front": "When is \"cannot be determined\" the answer to a comparison?",
+      "back": "Only when different allowed values give different results. If both quantities are fixed numbers it is never the answer. Test 0, 1, −1, a fraction between 0 and 1, and a large number.",
+      "section": "qr",
+      "category": "QR-3",
+      "topic": "Comparison with unknown sign or range",
+      "tag": "cheat-sheet"
+    },
+    {
+      "id": "qrm-qc-2",
+      "front": "Safe moves on a two-quantity comparison",
+      "back": "Add or subtract the same expression on both sides; multiply or divide both by the same positive number. Never multiply or divide by a variable of unknown sign, and never square unless both sides are non-negative.",
+      "section": "qr",
+      "category": "QR-3",
+      "topic": "Two-quantity comparison"
+    }
+  ]
+}

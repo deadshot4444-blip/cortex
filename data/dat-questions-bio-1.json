@@ -1,0 +1,3028 @@
+{
+  "format": "dat-bank",
+  "version": 1,
+  "section": "bio",
+  "layer": 1,
+  "authoredOn": "2026-09-16",
+  "author": "coding agent (Claude), original text",
+  "reviewStatus": "Local authored-content check only; independent subject review pending.",
+  "sourceCheckedOn": "2026-09-16",
+  "contentNote": "Original Cortex discrete items written to first-year depth. The ADA DAT outline is the alignment target only; no ADA, prep-company or forum material is reproduced.",
+  "sources": [
+    {
+      "title": "OpenStax Biology 2e",
+      "url": "https://openstax.org/books/biology-2e"
+    }
+  ],
+  "lexicalExceptions": [],
+  "items": [
+    {
+      "id": "bio-cell-1",
+      "section": "bio",
+      "category": "BIO-1",
+      "topic": "Cell structure and function",
+      "skill": "skill-1",
+      "difficulty": "easy",
+      "format": "standard",
+      "stem": "Which organelle contains hydrolytic enzymes that break down worn-out organelles and material taken into the cell by endocytosis?",
+      "options": [
+        "Ribosome",
+        "Golgi apparatus",
+        "Lysosome",
+        "Mitochondrion",
+        "Peroxisome"
+      ],
+      "answer": 2,
+      "explanation": "Lysosomes hold acid hydrolases that digest engulfed material and recycle old organelles by autophagy. The peroxisome is the usual trap: it also breaks molecules down, but with oxidases that make and then destroy hydrogen peroxide, and it does not receive endocytosed material.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Ribosomes assemble proteins; they contain no digestive enzymes and enclose nothing."
+        },
+        {
+          "i": 1,
+          "why": "The Golgi packages and ships enzymes, including those bound for lysosomes, but the digestion happens elsewhere."
+        },
+        {
+          "i": 3,
+          "why": "Mitochondria oxidize fuels to make ATP; they do not digest engulfed material.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "Peroxisomes use oxidases and catalase rather than acid hydrolases and are not part of the endocytic pathway."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · The Endomembrane System and Proteins",
+          "url": "https://openstax.org/books/biology-2e/pages/4-4-the-endomembrane-system-and-proteins"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-diversity-1",
+      "section": "bio",
+      "category": "BIO-2",
+      "topic": "Fungi",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "A multicellular organism grows as a network of thin filaments, has cell walls made of chitin, and feeds by secreting enzymes onto decaying leaves and absorbing the products. In which kingdom does it belong?",
+      "options": [
+        "Plantae",
+        "Animalia",
+        "Eubacteria",
+        "Protista",
+        "Fungi"
+      ],
+      "answer": 4,
+      "explanation": "Chitin walls, a body of hyphae and absorptive heterotrophy are the three defining fungal traits, and together they place the organism in Fungi. Protista is the tempting alternative because some protists are heterotrophic filaments, but a chitin wall with external digestion is the fungal signature.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Plants have cellulose walls and make their own sugar by photosynthesis rather than absorbing digested leaf litter."
+        },
+        {
+          "i": 1,
+          "why": "Animals have no cell walls at all and ingest food before digesting it internally."
+        },
+        {
+          "i": 2,
+          "why": "Bacteria are prokaryotes with peptidoglycan walls and are not built from multicellular hyphae.",
+          "weakest": true
+        },
+        {
+          "i": 3,
+          "why": "A few protists digest externally, but the chitin-walled filamentous body is fungal, not protist."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Characteristics of Fungi",
+          "url": "https://openstax.org/books/biology-2e/pages/24-1-characteristics-of-fungi"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-systems-1",
+      "section": "bio",
+      "category": "BIO-3",
+      "topic": "Urinary",
+      "skill": "skill-2",
+      "difficulty": "hard",
+      "format": "standard",
+      "stem": "A healthy adult drinks a large volume of water over a short period. Which change in the kidney is expected as plasma osmolarity is brought back to normal?",
+      "options": [
+        "Increased release of antidiuretic hormone from the posterior pituitary",
+        "Increased sodium reabsorption in the distal tubule driven by aldosterone",
+        "Decreased filtration rate at the glomerulus",
+        "Decreased water permeability of the collecting duct",
+        "Increased glucose excretion in the urine"
+      ],
+      "answer": 3,
+      "explanation": "Dilute plasma suppresses antidiuretic hormone, so fewer aquaporin channels are inserted in the collecting duct, less water is reabsorbed and a large volume of dilute urine is produced. The trap is the reversal: a water load lowers antidiuretic hormone rather than raising it.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Antidiuretic hormone falls when plasma becomes dilute; a rise would retain even more water."
+        },
+        {
+          "i": 1,
+          "why": "Aldosterone answers low blood volume or low sodium and acts on sodium, not on free water excretion."
+        },
+        {
+          "i": 2,
+          "why": "Glomerular filtration stays roughly constant; the adjustment is made downstream in the collecting duct."
+        },
+        {
+          "i": 4,
+          "why": "Glucose is normally reabsorbed completely, and drinking water does not change that.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Hormonal Control of Osmoregulatory Functions",
+          "url": "https://openstax.org/books/biology-2e/pages/41-5-hormonal-control-of-osmoregulatory-functions"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-genetics-1",
+      "section": "bio",
+      "category": "BIO-4",
+      "topic": "Classical genetics",
+      "skill": "skill-2",
+      "difficulty": "easy",
+      "format": "standard",
+      "stem": "In pea plants, yellow seed colour (Y) is dominant to green (y). Two plants heterozygous for seed colour are crossed. What fraction of the offspring is expected to have green seeds?",
+      "options": [
+        "0",
+        "1/4",
+        "1/2",
+        "3/4",
+        "1"
+      ],
+      "answer": 1,
+      "explanation": "A Yy × Yy cross gives genotypes YY : Yy : yy in a 1 : 2 : 1 ratio, and only the yy quarter shows the recessive green phenotype. The common slip is reporting the three quarters that are yellow instead of the one quarter that is green.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "A recessive trait reappears whenever two carriers are crossed; it is hidden, not lost.",
+          "weakest": true
+        },
+        {
+          "i": 2,
+          "why": "One half is the fraction of heterozygous carriers, which show the dominant yellow colour."
+        },
+        {
+          "i": 3,
+          "why": "Three quarters is the yellow fraction, the complement of the green fraction."
+        },
+        {
+          "i": 4,
+          "why": "All-green offspring would require both parents to be homozygous recessive."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Characteristics and Traits",
+          "url": "https://openstax.org/books/biology-2e/pages/12-2-characteristics-and-traits"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-evolution-1",
+      "section": "bio",
+      "category": "BIO-5",
+      "topic": "Natural selection",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "A population of crop insects is sprayed each year with the same insecticide, and over several generations the proportion of resistant individuals rises. Which statement best explains the change?",
+      "options": [
+        "Insects that were already resistant survived and left more offspring",
+        "Individual insects developed resistance during their lifetimes and passed it on",
+        "The insecticide caused mutations that made each exposed insect resistant",
+        "The insects recognized the need for resistance and adjusted their genes",
+        "The population’s mutation rate increased in response to the exposure"
+      ],
+      "answer": 0,
+      "explanation": "Natural selection acts on variation that already exists: resistant alleles were present before spraying, and their carriers left more offspring each generation, so the allele frequency rose. The trap is the idea that exposure creates or aims the useful mutation; selection only changes the frequency of variants that arose by chance.",
+      "distractors": [
+        {
+          "i": 1,
+          "why": "Traits acquired during a lifetime are not inherited; resistance must already be genetic to increase across generations."
+        },
+        {
+          "i": 2,
+          "why": "The insecticide selects among existing variants; it does not direct mutations toward resistance."
+        },
+        {
+          "i": 3,
+          "why": "Organisms cannot sense a need and rewrite their own genes in response.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "Mutation rates are not raised on demand, and it is selection, not new mutation, that shifts frequencies this quickly."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Understanding Evolution",
+          "url": "https://openstax.org/books/biology-2e/pages/18-1-understanding-evolution"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-cell-2",
+      "section": "bio",
+      "category": "BIO-1",
+      "topic": "Cell metabolism (including photosynthesis, enzymology)",
+      "skill": "skill-1",
+      "difficulty": "easy",
+      "format": "standard",
+      "stem": "In the light-dependent reactions of photosynthesis, electrons travel from photosystem II through photosystem I. Which molecule is the final electron acceptor at the end of this pathway?",
+      "options": [
+        "Water",
+        "Oxygen",
+        "NADP+",
+        "Carbon dioxide",
+        "ATP"
+      ],
+      "answer": 2,
+      "explanation": "The light-driven electron chain ends when NADP+ reductase passes the electrons to NADP+, forming the NADPH that the Calvin cycle spends. The usual confusion is with respiration, where oxygen is the final acceptor; in photosynthesis oxygen is a by-product of splitting water, not an acceptor.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Water is the electron donor that photosystem II splits, not the acceptor at the end of the chain."
+        },
+        {
+          "i": 1,
+          "why": "Oxygen is the terminal acceptor in mitochondrial respiration; in chloroplasts it is released from water."
+        },
+        {
+          "i": 3,
+          "why": "Carbon dioxide is fixed in the Calvin cycle and never receives electrons from the transport chain directly."
+        },
+        {
+          "i": 4,
+          "why": "ATP is made by chemiosmosis alongside the chain, but it carries phosphate energy, not electrons.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · The Light-Dependent Reactions of Photosynthesis",
+          "url": "https://openstax.org/books/biology-2e/pages/8-2-the-light-dependent-reactions-of-photosynthesis"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-cell-3",
+      "section": "bio",
+      "category": "BIO-1",
+      "topic": "Cell metabolism (including photosynthesis, enzymology)",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "An enzyme's activity falls when a compound that closely resembles its normal substrate is added. Raising the substrate concentration restores most of the lost activity. Which type of inhibition best fits these observations?",
+      "options": [
+        "Competitive inhibition at the active site",
+        "Noncompetitive inhibition at an allosteric site",
+        "Irreversible inhibition by covalent modification",
+        "Feedback inhibition by the pathway's end product",
+        "Denaturation of the enzyme by heat"
+      ],
+      "answer": 0,
+      "explanation": "A substrate look-alike that can be outcompeted by more substrate is binding the same active site, which is the definition of a competitive inhibitor. The trap is noncompetitive inhibition: an allosteric inhibitor does not resemble the substrate and extra substrate cannot displace it.",
+      "distractors": [
+        {
+          "i": 1,
+          "why": "A noncompetitive inhibitor binds away from the active site, so adding substrate does not relieve it."
+        },
+        {
+          "i": 2,
+          "why": "An irreversible inhibitor stays covalently attached; activity would not return when substrate is raised."
+        },
+        {
+          "i": 3,
+          "why": "Feedback inhibitors are pathway products acting at regulatory sites, not substrate look-alikes at the active site."
+        },
+        {
+          "i": 4,
+          "why": "Heat denaturation unfolds the enzyme and is not reversed by adding more substrate.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Enzymes",
+          "url": "https://openstax.org/books/biology-2e/pages/6-5-enzymes"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-cell-4",
+      "section": "bio",
+      "category": "BIO-1",
+      "topic": "Cellular processes (including membrane transport, signal transduction)",
+      "skill": "skill-1",
+      "difficulty": "easy",
+      "format": "standard",
+      "stem": "A red blood cell placed in a solution swells until it bursts. Relative to the cell's cytoplasm, how is the solution best described?",
+      "options": [
+        "Hypertonic",
+        "Isotonic",
+        "Saturated",
+        "Buffered",
+        "Hypotonic"
+      ],
+      "answer": 4,
+      "explanation": "Water moves by osmosis toward the side with more dissolved solute, so a cell that swells is gaining water from a solution with a lower solute concentration than its cytoplasm, which is a hypotonic solution. The trap is the reversed label: hypertonic surroundings pull water out and shrink the cell.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "A hypertonic solution has more solute than the cell, so water leaves and the cell shrivels."
+        },
+        {
+          "i": 1,
+          "why": "An isotonic solution matches the cell, so there is no net water movement and no volume change."
+        },
+        {
+          "i": 2,
+          "why": "Saturation describes how much solute a solvent can hold, not the comparison with the cell interior.",
+          "weakest": true
+        },
+        {
+          "i": 3,
+          "why": "Buffering refers to resisting pH change and says nothing about relative solute concentration."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Passive Transport",
+          "url": "https://openstax.org/books/biology-2e/pages/5-2-passive-transport"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-cell-5",
+      "section": "bio",
+      "category": "BIO-1",
+      "topic": "Cellular processes (including membrane transport, signal transduction)",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "A hormone binds a receptor on the outer surface of a target cell. Within seconds, cyclic AMP levels inside the cell rise and protein kinase A becomes active. Which class of receptor most likely bound the hormone?",
+      "options": [
+        "Ligand-gated ion channel",
+        "Intracellular steroid receptor",
+        "G protein-coupled receptor",
+        "Receptor tyrosine kinase",
+        "Voltage-gated calcium channel"
+      ],
+      "answer": 2,
+      "explanation": "A surface receptor whose activation raises cyclic AMP is working through a G protein that switches on adenylyl cyclase; cyclic AMP then activates protein kinase A. The trap is the receptor tyrosine kinase, which is also a surface receptor but signals by phosphorylating tyrosines rather than by making a second messenger like cyclic AMP.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "A ligand-gated channel changes ion flow directly and does not generate cyclic AMP."
+        },
+        {
+          "i": 1,
+          "why": "Steroid receptors sit inside the cell and act by regulating transcription over hours, not seconds."
+        },
+        {
+          "i": 3,
+          "why": "Receptor tyrosine kinases dimerize and phosphorylate tyrosines; they do not activate adenylyl cyclase."
+        },
+        {
+          "i": 4,
+          "why": "Voltage-gated channels open in response to membrane potential, not to hormone binding.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Propagation of the Signal",
+          "url": "https://openstax.org/books/biology-2e/pages/9-2-propagation-of-the-signal"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-cell-6",
+      "section": "bio",
+      "category": "BIO-1",
+      "topic": "Thermodynamics",
+      "skill": "skill-1",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "Which statement describes the change in free energy (ΔG) for a reaction that proceeds spontaneously under cellular conditions?",
+      "options": [
+        "ΔG is negative and energy is released",
+        "ΔG is negative and energy must be supplied",
+        "ΔG is zero and the system is at equilibrium",
+        "ΔG is positive and energy is released",
+        "ΔG is positive and energy must be supplied"
+      ],
+      "answer": 0,
+      "explanation": "A spontaneous (exergonic) reaction has a negative ΔG: the products hold less free energy than the reactants, so energy is released. The trap is pairing a negative ΔG with an energy input; energy must be supplied only for endergonic reactions with a positive ΔG.",
+      "distractors": [
+        {
+          "i": 1,
+          "why": "A negative ΔG means energy is given off, not required."
+        },
+        {
+          "i": 2,
+          "why": "At equilibrium ΔG is zero and there is no net direction, so the reaction is not proceeding spontaneously."
+        },
+        {
+          "i": 3,
+          "why": "A positive ΔG reaction absorbs energy; it does not release it.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "A positive ΔG with energy supplied describes an endergonic, non-spontaneous reaction."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Potential, Kinetic, Free, and Activation Energy",
+          "url": "https://openstax.org/books/biology-2e/pages/6-2-potential-kinetic-free-and-activation-energy"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-cell-7",
+      "section": "bio",
+      "category": "BIO-1",
+      "topic": "Thermodynamics",
+      "skill": "skill-2",
+      "difficulty": "hard",
+      "format": "standard",
+      "stem": "Adding a phosphate group to glucose to make glucose 6-phosphate has a positive ΔG on its own, yet the reaction proceeds readily in cells. Which explanation accounts for this?",
+      "options": [
+        "The reaction is coupled to ATP hydrolysis, so the overall ΔG is negative",
+        "The cell raises its temperature to make the reaction favorable",
+        "Hexokinase lowers the ΔG of the reaction",
+        "The reaction violates the second law of thermodynamics inside living cells",
+        "Glucose 6-phosphate is removed so quickly that no energy is needed"
+      ],
+      "answer": 0,
+      "explanation": "Cells drive endergonic steps by energy coupling: the phosphate comes from ATP, and the large negative ΔG of ATP hydrolysis outweighs the positive ΔG of phosphorylating glucose, so the combined reaction is exergonic. The trap is crediting the enzyme; hexokinase lowers the activation energy and speeds the reaction but leaves ΔG unchanged.",
+      "distractors": [
+        {
+          "i": 1,
+          "why": "Cells keep a nearly constant temperature and do not heat themselves to shift reaction favorability."
+        },
+        {
+          "i": 2,
+          "why": "Enzymes lower activation energy and change rate; they never change the ΔG of a reaction."
+        },
+        {
+          "i": 3,
+          "why": "No living process violates the second law; coupling to ATP keeps the total energy bookkeeping legal.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "Removing product can nudge equilibrium, but it cannot supply the energy the phosphate transfer requires."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · ATP: Adenosine Triphosphate",
+          "url": "https://openstax.org/books/biology-2e/pages/6-4-atp-adenosine-triphosphate"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-cell-8",
+      "section": "bio",
+      "category": "BIO-1",
+      "topic": "Mitosis/meiosis",
+      "skill": "skill-1",
+      "difficulty": "easy",
+      "format": "standard",
+      "stem": "During which stage of mitosis do sister chromatids separate and move toward opposite poles of the cell?",
+      "options": [
+        "Prophase",
+        "Metaphase",
+        "Anaphase",
+        "Telophase",
+        "Cytokinesis"
+      ],
+      "answer": 2,
+      "explanation": "Anaphase begins when the cohesin holding sister chromatids together is cleaved and the spindle pulls the separated chromatids toward opposite poles. The trap is metaphase, when chromosomes are lined up at the plate but still joined; separation has not yet happened.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "In prophase chromosomes condense and the spindle forms, but chromatids remain attached."
+        },
+        {
+          "i": 1,
+          "why": "In metaphase chromosomes align at the cell equator with sister chromatids still held together."
+        },
+        {
+          "i": 3,
+          "why": "Telophase follows separation; chromatids have already arrived at the poles and nuclear envelopes re-form."
+        },
+        {
+          "i": 4,
+          "why": "Cytokinesis divides the cytoplasm, not the chromatids, and is not a stage of mitosis proper.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · The Cell Cycle",
+          "url": "https://openstax.org/books/biology-2e/pages/10-2-the-cell-cycle"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-cell-9",
+      "section": "bio",
+      "category": "BIO-1",
+      "topic": "Mitosis/meiosis",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "A diploid cell with 2n = 8 chromosomes completes meiosis I. How many chromosomes, each still made of two sister chromatids, does each resulting cell contain?",
+      "options": [
+        "2",
+        "4",
+        "8",
+        "16",
+        "32"
+      ],
+      "answer": 1,
+      "explanation": "Meiosis I is the reductional division: homologous pairs separate, so each daughter cell receives one chromosome from each of the four pairs, giving four chromosomes that are still doubled into sister chromatids. The trap is halving twice, which gives the two chromosomes that would only appear if sister chromatids had also been separated.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Two would require separating sister chromatids as well, which does not happen until meiosis II."
+        },
+        {
+          "i": 2,
+          "why": "Eight is the diploid number; meiosis I halves it by separating homologs."
+        },
+        {
+          "i": 3,
+          "why": "Sixteen counts chromatids in the parent before division, not chromosomes in a daughter cell."
+        },
+        {
+          "i": 4,
+          "why": "Thirty-two doubles the chromatid count and corresponds to no stage of meiosis.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · The Process of Meiosis",
+          "url": "https://openstax.org/books/biology-2e/pages/11-1-the-process-of-meiosis"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-cell-10",
+      "section": "bio",
+      "category": "BIO-1",
+      "topic": "Cell structure and function",
+      "skill": "skill-1",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "Which feature is present in both prokaryotic and eukaryotic cells?",
+      "options": [
+        "A membrane-bound nucleus",
+        "Ribosomes that build proteins",
+        "Mitochondria for aerobic respiration",
+        "A nuclear envelope with pores",
+        "Membrane-enclosed lysosomes"
+      ],
+      "answer": 1,
+      "explanation": "Every cell must translate mRNA into protein, so ribosomes are universal, even though prokaryotic ribosomes are smaller than eukaryotic ones. The trap is the mitochondrion: many prokaryotes respire aerobically, but they do so at the plasma membrane rather than in a membrane-bound organelle.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "A true nucleus defines eukaryotes; prokaryotic DNA lies in a nucleoid region with no membrane."
+        },
+        {
+          "i": 2,
+          "why": "Mitochondria are eukaryotic organelles; aerobic prokaryotes respire using their plasma membrane."
+        },
+        {
+          "i": 3,
+          "why": "A nuclear envelope belongs to eukaryotes only, because prokaryotes have no nucleus to enclose.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "Lysosomes are membrane-bound organelles and are absent from prokaryotic cells."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Prokaryotic Cells",
+          "url": "https://openstax.org/books/biology-2e/pages/4-2-prokaryotic-cells"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-cell-11",
+      "section": "bio",
+      "category": "BIO-1",
+      "topic": "Experimental cell biology",
+      "skill": "skill-3",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "Cells are broken open and the extract is spun in a centrifuge at increasing speeds. Nuclei pellet first, then mitochondria, then small vesicles, and ribosomes pellet last. Which property of the components does this separation depend on most directly?",
+      "options": [
+        "Their electric charge",
+        "Their enzyme content",
+        "Their membrane lipid composition",
+        "Their DNA content",
+        "Their size and density"
+      ],
+      "answer": 4,
+      "explanation": "Differential centrifugation sorts components by how fast they sediment, which is set by their size and density: large, dense nuclei fall at low speed and tiny ribosomes need the highest speeds. The trap is DNA content, which happens to be high in the nuclei that pellet first but plays no role in how fast a ribosome sediments.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Charge is what gel electrophoresis exploits; a spinning tube separates by mass and density instead."
+        },
+        {
+          "i": 1,
+          "why": "Enzyme content is used afterward to identify a fraction, not to separate it."
+        },
+        {
+          "i": 2,
+          "why": "Lipid composition does not set sedimentation speed, and ribosomes have no membrane at all.",
+          "weakest": true
+        },
+        {
+          "i": 3,
+          "why": "Nuclei happen to hold most of the DNA, but the pellet order reflects size and density, not nucleic acid content."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Studying Cells",
+          "url": "https://openstax.org/books/biology-2e/pages/4-1-studying-cells"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-cell-12",
+      "section": "bio",
+      "category": "BIO-1",
+      "topic": "Experimental cell biology",
+      "skill": "skill-3",
+      "difficulty": "hard",
+      "format": "standard",
+      "stem": "Isolated mitochondria are supplied with succinate and oxygen, and their oxygen consumption is recorded. When a compound that lets protons leak freely across the inner membrane is added, oxygen consumption rises sharply while ATP synthesis stops. Which conclusion is supported?",
+      "options": [
+        "The proton gradient normally links electron transport to ATP synthesis",
+        "Electron transport requires ATP synthase activity to proceed",
+        "Succinate cannot donate electrons without a proton gradient",
+        "Oxygen is consumed by ATP synthase rather than by the electron transport chain",
+        "The compound inhibits the electron transport chain directly"
+      ],
+      "answer": 0,
+      "explanation": "Dissipating the proton gradient uncouples the two halves of oxidative phosphorylation: the electron transport chain runs faster because nothing backs it up, yet ATP synthase has no gradient to use, so ATP output falls to zero. The trap is reading the loss of ATP as a block on electron transport; the rise in oxygen consumption shows the chain was accelerated, not inhibited.",
+      "distractors": [
+        {
+          "i": 1,
+          "why": "If the chain needed ATP synthase, oxygen consumption would fall when ATP synthesis stopped, not rise."
+        },
+        {
+          "i": 2,
+          "why": "Succinate still fed electrons into the chain; the increase in oxygen use proves electron flow continued."
+        },
+        {
+          "i": 3,
+          "why": "Oxygen is reduced to water at the end of the electron transport chain, not by ATP synthase.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "A direct inhibitor of the chain would lower oxygen consumption; here it increased."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Oxidative Phosphorylation",
+          "url": "https://openstax.org/books/biology-2e/pages/7-4-oxidative-phosphorylation"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-cell-13",
+      "section": "bio",
+      "category": "BIO-1",
+      "topic": "Biomolecules",
+      "skill": "skill-1",
+      "difficulty": "easy",
+      "format": "standard",
+      "stem": "Which polysaccharide is the main structural component of plant cell walls?",
+      "options": [
+        "Starch",
+        "Glycogen",
+        "Chitin",
+        "Cellulose",
+        "Peptidoglycan"
+      ],
+      "answer": 3,
+      "explanation": "Cellulose is a linear polymer of glucose joined by beta linkages that pack into rigid fibers, which is what gives plant walls their strength. The trap is starch, also a glucose polymer made by plants, but its alpha linkages make a coiled storage molecule rather than a structural fiber.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Starch is the storage polysaccharide of plants and is kept in granules, not built into the wall."
+        },
+        {
+          "i": 1,
+          "why": "Glycogen is the animal storage polysaccharide and does not occur in plant walls."
+        },
+        {
+          "i": 2,
+          "why": "Chitin strengthens fungal walls and arthropod exoskeletons, not plant walls."
+        },
+        {
+          "i": 4,
+          "why": "Peptidoglycan is the wall polymer of bacteria, not of plants.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Carbohydrates",
+          "url": "https://openstax.org/books/biology-2e/pages/3-2-carbohydrates"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-cell-14",
+      "section": "bio",
+      "category": "BIO-1",
+      "topic": "Biomolecules",
+      "skill": "skill-1",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "A protein loses its function after being heated, even though its sequence of amino acids is unchanged. Which statement about the heated protein is correct?",
+      "options": [
+        "Its primary structure has been altered",
+        "Its peptide bonds have been hydrolyzed",
+        "New amino acids have been added to the chain",
+        "Its polarity has reversed",
+        "Its three-dimensional folding has been lost"
+      ],
+      "answer": 4,
+      "explanation": "Heat breaks the weak hydrogen bonds, ionic attractions and hydrophobic interactions that hold a protein in its folded shape, so it denatures and loses function while the covalent backbone stays intact. The trap is assuming loss of function must mean the sequence changed; the stem states the primary structure is unchanged, so it is the higher-order shape that has been lost.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "The primary structure is the amino acid sequence, which the stem says is unchanged."
+        },
+        {
+          "i": 1,
+          "why": "Hydrolyzing peptide bonds would shorten the chain and change the sequence; heat alone does not do this."
+        },
+        {
+          "i": 2,
+          "why": "Amino acids are added only during translation, not by heating a finished protein.",
+          "weakest": true
+        },
+        {
+          "i": 3,
+          "why": "Side-chain polarity is a fixed chemical property and cannot flip when a protein is warmed."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Proteins",
+          "url": "https://openstax.org/books/biology-2e/pages/3-4-proteins"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-diversity-2",
+      "section": "bio",
+      "category": "BIO-2",
+      "topic": "Viruses",
+      "skill": "skill-1",
+      "difficulty": "easy",
+      "format": "standard",
+      "stem": "Which feature distinguishes a retrovirus from most other RNA viruses?",
+      "options": [
+        "It copies its RNA genome into DNA with reverse transcriptase",
+        "It carries a double-stranded DNA genome inside a lipid envelope",
+        "It completes replication outside a host cell",
+        "It has no protein capsid around its genome",
+        "It infects only bacterial cells"
+      ],
+      "answer": 0,
+      "explanation": "Retroviruses carry reverse transcriptase, which makes a DNA copy of the RNA genome that is then integrated into the host chromosome; other RNA viruses replicate RNA directly. The trap is the DNA genome: the retroviral genome is RNA, and DNA appears only after the enzyme has acted inside the host.",
+      "distractors": [
+        {
+          "i": 1,
+          "why": "A retrovirus packages RNA, not DNA; the DNA form exists only after reverse transcription in the host."
+        },
+        {
+          "i": 2,
+          "why": "No virus replicates outside a host cell; all depend on host machinery."
+        },
+        {
+          "i": 3,
+          "why": "Retroviruses have a protein capsid like other viruses, surrounded by an envelope.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "Retroviruses infect animals; viruses that infect bacteria are bacteriophages."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Virus Infections and Hosts",
+          "url": "https://openstax.org/books/biology-2e/pages/21-2-virus-infections-and-hosts"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-diversity-3",
+      "section": "bio",
+      "category": "BIO-2",
+      "topic": "Viruses",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "A bacteriophage injects its DNA into a bacterium. The viral DNA integrates into the host chromosome and is copied along with it for many generations without producing new virus particles. Which term describes this stage?",
+      "options": [
+        "Lytic cycle",
+        "Latent budding",
+        "Reverse transcription",
+        "Transduction",
+        "Lysogenic cycle"
+      ],
+      "answer": 4,
+      "explanation": "When phage DNA integrates as a prophage and is replicated passively with the host chromosome, the virus is in the lysogenic cycle; it may later excise and enter the lytic cycle. The trap is transduction, which is the transfer of bacterial genes between cells by a phage, not the dormant integrated state itself.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "The lytic cycle produces and releases new phage particles, destroying the host."
+        },
+        {
+          "i": 1,
+          "why": "Budding is how enveloped animal viruses exit a cell; phages do not bud, and this stage releases nothing.",
+          "weakest": true
+        },
+        {
+          "i": 2,
+          "why": "Reverse transcription converts RNA to DNA in retroviruses; the phage here already has DNA."
+        },
+        {
+          "i": 3,
+          "why": "Transduction is the movement of host DNA from one bacterium to another inside a phage particle."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Virus Infections and Hosts",
+          "url": "https://openstax.org/books/biology-2e/pages/21-2-virus-infections-and-hosts"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-diversity-4",
+      "section": "bio",
+      "category": "BIO-2",
+      "topic": "Archaebacteria",
+      "skill": "skill-1",
+      "difficulty": "hard",
+      "format": "standard",
+      "stem": "Which characteristic is found in archaea but not in bacteria?",
+      "options": [
+        "A single circular chromosome",
+        "A cell wall strengthened by cross-linked peptidoglycan",
+        "Membrane lipids joined to glycerol by ether bonds",
+        "Ribosomes free in the cytoplasm",
+        "Reproduction by binary fission"
+      ],
+      "answer": 2,
+      "explanation": "Archaeal membranes are built from isoprenoid chains attached to glycerol through ether linkages, whereas bacterial and eukaryotic membranes use ester-linked fatty acids; this is one of the chemical signatures that separates the two prokaryotic domains. The trap is peptidoglycan, which is a bacterial wall polymer that archaea lack.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Both domains usually carry one circular chromosome in a nucleoid region."
+        },
+        {
+          "i": 1,
+          "why": "Peptidoglycan is the hallmark of bacterial walls; archaeal walls use other polymers such as pseudopeptidoglycan."
+        },
+        {
+          "i": 3,
+          "why": "Free cytoplasmic ribosomes are found in bacteria and archaea alike.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "Binary fission is the common mode of reproduction in both prokaryotic domains."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Structure of Prokaryotes: Bacteria and Archaea",
+          "url": "https://openstax.org/books/biology-2e/pages/22-2-structure-of-prokaryotes-bacteria-and-archaea"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-diversity-5",
+      "section": "bio",
+      "category": "BIO-2",
+      "topic": "Eubacteria",
+      "skill": "skill-1",
+      "difficulty": "easy",
+      "format": "standard",
+      "stem": "A bacterium retains the crystal violet stain and appears purple after the Gram procedure. Which structural feature accounts for this result?",
+      "options": [
+        "A thick peptidoglycan layer with no outer membrane",
+        "A thin peptidoglycan layer beneath an outer membrane",
+        "An outer membrane rich in lipopolysaccharide",
+        "A capsule made of polysaccharide",
+        "A cell wall containing chitin"
+      ],
+      "answer": 0,
+      "explanation": "Gram-positive cells hold the crystal violet-iodine complex inside a thick, multilayered peptidoglycan wall, so they stay purple after the alcohol wash. The trap is the gram-negative architecture: a thin wall under an outer membrane lets the stain wash out, and the cell picks up the pink counterstain instead.",
+      "distractors": [
+        {
+          "i": 1,
+          "why": "A thin wall under an outer membrane is the gram-negative design, which loses the violet stain and appears pink."
+        },
+        {
+          "i": 2,
+          "why": "Lipopolysaccharide marks the gram-negative outer membrane and does not retain crystal violet."
+        },
+        {
+          "i": 3,
+          "why": "A capsule lies outside the wall and does not determine the Gram reaction."
+        },
+        {
+          "i": 4,
+          "why": "Chitin is a fungal wall polymer; bacterial walls are made of peptidoglycan.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Structure of Prokaryotes: Bacteria and Archaea",
+          "url": "https://openstax.org/books/biology-2e/pages/22-2-structure-of-prokaryotes-bacteria-and-archaea"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-diversity-6",
+      "section": "bio",
+      "category": "BIO-2",
+      "topic": "Eubacteria",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "A bacterium takes up a fragment of naked DNA released by a dead cell nearby and incorporates it into its own chromosome. Which process has occurred?",
+      "options": [
+        "Binary fission",
+        "Conjugation",
+        "Transduction",
+        "Transformation",
+        "Transcription"
+      ],
+      "answer": 3,
+      "explanation": "Transformation is the uptake of free DNA from the environment and its recombination into the recipient chromosome; no cell contact and no virus are involved. The trap is conjugation, which also moves DNA between bacteria but requires a living donor connected by a pilus.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Binary fission is cell division and copies the existing chromosome; it brings in no outside DNA."
+        },
+        {
+          "i": 1,
+          "why": "Conjugation transfers DNA through direct contact with a living donor, not from free DNA in the medium."
+        },
+        {
+          "i": 2,
+          "why": "Transduction delivers bacterial DNA inside a bacteriophage particle; no phage is described here."
+        },
+        {
+          "i": 4,
+          "why": "Transcription copies DNA into RNA within a cell and is not a mode of gene transfer.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Structure of Prokaryotes: Bacteria and Archaea",
+          "url": "https://openstax.org/books/biology-2e/pages/22-2-structure-of-prokaryotes-bacteria-and-archaea"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-diversity-7",
+      "section": "bio",
+      "category": "BIO-2",
+      "topic": "Fungi",
+      "skill": "skill-1",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "In the sexual life cycle of many fungi, two compatible hyphae fuse but their nuclei remain separate for a time, so the cells contain two genetically distinct haploid nuclei. Which term describes this condition?",
+      "options": [
+        "Diploid",
+        "Heterokaryotic",
+        "Homokaryotic haploid",
+        "Zygotic",
+        "Polyploid"
+      ],
+      "answer": 1,
+      "explanation": "When plasmogamy joins the cytoplasm of two hyphae without karyogamy, the resulting cells carry two different haploid nuclei and are heterokaryotic (or dikaryotic when paired). The trap is calling the cell diploid: ploidy refers to chromosome sets within one nucleus, and these nuclei have not fused.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "A diploid nucleus holds two chromosome sets in one nucleus; here the two nuclei are still separate."
+        },
+        {
+          "i": 2,
+          "why": "Homokaryotic describes a mycelium whose nuclei are all genetically identical, not two distinct types."
+        },
+        {
+          "i": 3,
+          "why": "A zygote forms only after karyogamy fuses the nuclei, which has not yet happened."
+        },
+        {
+          "i": 4,
+          "why": "Polyploidy means more than two chromosome sets in a single nucleus and is unrelated to paired haploid nuclei.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Characteristics of Fungi",
+          "url": "https://openstax.org/books/biology-2e/pages/24-1-characteristics-of-fungi"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-diversity-8",
+      "section": "bio",
+      "category": "BIO-2",
+      "topic": "Protista",
+      "skill": "skill-1",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "A single-celled eukaryote moves using rows of cilia, engulfs food particles into food vacuoles, and expels excess water through a contractile vacuole. Which group best describes this organism?",
+      "options": [
+        "A photosynthetic alga",
+        "A fungal yeast",
+        "A gram-negative bacterium",
+        "A colonial cnidarian",
+        "A ciliate protist"
+      ],
+      "answer": 4,
+      "explanation": "A eukaryotic cell that swims with cilia, feeds by phagocytosis and uses a contractile vacuole for water balance is a ciliate, a heterotrophic protist such as a paramecium. The trap is the yeast: it is also a single-celled eukaryote, but yeasts have chitin walls, absorb nutrients rather than engulfing particles, and have no cilia.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Photosynthetic algae make their own sugar and would not engulf food particles for nutrition."
+        },
+        {
+          "i": 1,
+          "why": "Yeasts are walled, non-motile and absorb dissolved nutrients rather than phagocytosing particles."
+        },
+        {
+          "i": 2,
+          "why": "Bacteria are prokaryotes with no vacuoles or cilia and cannot perform phagocytosis."
+        },
+        {
+          "i": 3,
+          "why": "Cnidarians are multicellular animals with tissues, not single cells.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Groups of Protists",
+          "url": "https://openstax.org/books/biology-2e/pages/23-3-groups-of-protists"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-diversity-9",
+      "section": "bio",
+      "category": "BIO-2",
+      "topic": "Plantae",
+      "skill": "skill-1",
+      "difficulty": "easy",
+      "format": "standard",
+      "stem": "Which group of land plants lacks true vascular tissue and depends on a film of water for sperm to swim to the egg?",
+      "options": [
+        "Mosses",
+        "Ferns",
+        "Conifers",
+        "Flowering plants",
+        "Horsetails"
+      ],
+      "answer": 0,
+      "explanation": "Mosses and other bryophytes have no xylem or phloem, stay small and close to the ground, and release flagellated sperm that must swim through surface water. The trap is the fern: ferns also need water for their swimming sperm, but they possess true vascular tissue.",
+      "distractors": [
+        {
+          "i": 1,
+          "why": "Ferns need water for fertilization but are seedless vascular plants with xylem and phloem."
+        },
+        {
+          "i": 2,
+          "why": "Conifers have vascular tissue and deliver sperm by pollen, with no need for surface water."
+        },
+        {
+          "i": 3,
+          "why": "Flowering plants are vascular and use pollen tubes, not swimming sperm.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "Horsetails are seedless vascular plants, so they do have conducting tissue."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Bryophytes",
+          "url": "https://openstax.org/books/biology-2e/pages/25-3-bryophytes"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-diversity-10",
+      "section": "bio",
+      "category": "BIO-2",
+      "topic": "Plantae",
+      "skill": "skill-2",
+      "difficulty": "hard",
+      "format": "standard",
+      "stem": "In a flowering plant, a diploid megaspore mother cell undergoes meiosis and one surviving megaspore develops into the female gametophyte. What are the ploidy of that female gametophyte and of the endosperm formed after double fertilization?",
+      "options": [
+        "Diploid gametophyte; diploid endosperm",
+        "Haploid gametophyte; diploid endosperm",
+        "Triploid gametophyte; triploid endosperm",
+        "Haploid gametophyte; triploid endosperm",
+        "Diploid gametophyte; triploid endosperm"
+      ],
+      "answer": 3,
+      "explanation": "Meiosis makes haploid megaspores, so the female gametophyte that grows from one by mitosis is haploid; at double fertilization one sperm joins the egg to make the diploid zygote and the second sperm joins the two polar nuclei to make triploid endosperm. The trap is giving the endosperm the same ploidy as the embryo; endosperm receives three nuclei, not two.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "The gametophyte grows from a meiotic product and is haploid, and the endosperm has three sets, not two."
+        },
+        {
+          "i": 1,
+          "why": "The gametophyte is haploid, but endosperm forms from one sperm plus two polar nuclei, giving three sets."
+        },
+        {
+          "i": 2,
+          "why": "A triploid gametophyte cannot arise from a haploid megaspore dividing by mitosis.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "The endosperm ploidy is right, but a gametophyte produced by meiosis followed by mitosis is haploid."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Reproductive Development and Structure",
+          "url": "https://openstax.org/books/biology-2e/pages/32-1-reproductive-development-and-structure"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-diversity-11",
+      "section": "bio",
+      "category": "BIO-2",
+      "topic": "Animalia",
+      "skill": "skill-1",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "Which feature is present in every member of the phylum Chordata at some stage of its development?",
+      "options": [
+        "A bony vertebral column",
+        "A ventral heart with four chambers",
+        "Paired jointed limbs",
+        "An exoskeleton of chitin",
+        "A dorsal hollow nerve cord"
+      ],
+      "answer": 4,
+      "explanation": "The four chordate hallmarks are a notochord, a dorsal hollow nerve cord, pharyngeal slits and a post-anal tail, each present at least in the embryo. The trap is the vertebral column: it defines the vertebrates, a subgroup, and is absent from chordates such as lancelets and tunicates.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "A vertebral column marks vertebrates only; invertebrate chordates never form one."
+        },
+        {
+          "i": 1,
+          "why": "Four-chambered hearts occur in birds and mammals, not in fish or invertebrate chordates."
+        },
+        {
+          "i": 2,
+          "why": "Jointed limbs are absent from fish and from all invertebrate chordates."
+        },
+        {
+          "i": 3,
+          "why": "A chitinous exoskeleton is an arthropod feature, not a chordate one.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Chordates",
+          "url": "https://openstax.org/books/biology-2e/pages/29-1-chordates"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-diversity-12",
+      "section": "bio",
+      "category": "BIO-2",
+      "topic": "Animalia",
+      "skill": "skill-2",
+      "difficulty": "hard",
+      "format": "standard",
+      "stem": "An animal is bilaterally symmetrical as a larva, has a true coelom, and its embryo shows radial cleavage with the anus forming from the blastopore. To which group does it most likely belong?",
+      "options": [
+        "Gastropod molluscs",
+        "Annelid worms",
+        "Arthropods",
+        "Nematodes",
+        "Echinoderms"
+      ],
+      "answer": 4,
+      "explanation": "Radial cleavage and a blastopore that becomes the anus are the deuterostome pattern, and among the listed groups only echinoderms are deuterostomes; their larvae are bilateral even though adults show radial symmetry. The trap is the arthropod, a coelomate with bilateral symmetry but a protostome whose blastopore becomes the mouth.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Molluscs are protostomes with spiral cleavage and a blastopore that becomes the mouth."
+        },
+        {
+          "i": 1,
+          "why": "Annelids are protostomes with spiral cleavage, despite having a true coelom."
+        },
+        {
+          "i": 2,
+          "why": "Arthropods are protostomes; the anus does not form from the blastopore."
+        },
+        {
+          "i": 3,
+          "why": "Nematodes are pseudocoelomates and protostomes, failing two of the three clues.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Features Used to Classify Animals",
+          "url": "https://openstax.org/books/biology-2e/pages/27-2-features-used-to-classify-animals"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-systems-2",
+      "section": "bio",
+      "category": "BIO-3",
+      "topic": "Integumentary",
+      "skill": "skill-1",
+      "difficulty": "easy",
+      "format": "standard",
+      "stem": "Which layer of human skin contains blood vessels, sweat glands, hair follicles and most sensory receptors?",
+      "options": [
+        "Stratum corneum",
+        "Epidermis",
+        "Dermis",
+        "Hypodermis",
+        "Stratum basale"
+      ],
+      "answer": 2,
+      "explanation": "The dermis is the connective-tissue layer beneath the epidermis, and it houses the vasculature, glands, follicles and nerve endings that the avascular epidermis lacks. The trap is the hypodermis, which lies deeper still and is mostly fat and loose connective tissue that anchors the skin rather than a layer of skin itself.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "The stratum corneum is the dead, keratinized surface of the epidermis and has no vessels or glands."
+        },
+        {
+          "i": 1,
+          "why": "The epidermis is avascular epithelium; vessels and glands lie beneath it."
+        },
+        {
+          "i": 3,
+          "why": "The hypodermis is subcutaneous fat that anchors the skin and is not counted as a skin layer."
+        },
+        {
+          "i": 4,
+          "why": "The stratum basale is the dividing bottom layer of the epidermis, not a vascular connective tissue.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Anatomy and Physiology 2e · Layers of the Skin",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/5-1-layers-of-the-skin"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-systems-3",
+      "section": "bio",
+      "category": "BIO-3",
+      "topic": "Skeletal",
+      "skill": "skill-1",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "Which type of bone cell secretes new bone matrix during growth and repair?",
+      "options": [
+        "Osteoclast",
+        "Osteocyte",
+        "Chondrocyte",
+        "Osteoblast",
+        "Fibroblast"
+      ],
+      "answer": 3,
+      "explanation": "Osteoblasts lay down the collagen and mineral of new bone and, once trapped in the matrix they made, mature into osteocytes. The trap is the osteoclast, whose similar name hides the opposite job of dissolving bone during remodeling.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Osteoclasts break down bone matrix; they resorb rather than build."
+        },
+        {
+          "i": 1,
+          "why": "Osteocytes are mature cells embedded in the matrix that maintain it, not the cells actively depositing it."
+        },
+        {
+          "i": 2,
+          "why": "Chondrocytes make cartilage matrix, not bone."
+        },
+        {
+          "i": 4,
+          "why": "Fibroblasts produce the fibers of ordinary connective tissue and do not mineralize bone.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Bone",
+          "url": "https://openstax.org/books/biology-2e/pages/38-2-bone"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-systems-4",
+      "section": "bio",
+      "category": "BIO-3",
+      "topic": "Muscular",
+      "skill": "skill-1",
+      "difficulty": "easy",
+      "format": "standard",
+      "stem": "During skeletal muscle contraction, which event directly exposes the myosin-binding sites on actin?",
+      "options": [
+        "ATP binding to the myosin head",
+        "Acetylcholine binding to the motor end plate",
+        "Sodium entry through voltage-gated channels in the sarcolemma",
+        "Phosphate release from the myosin head",
+        "Calcium binding to troponin, which moves tropomyosin"
+      ],
+      "answer": 4,
+      "explanation": "Calcium released from the sarcoplasmic reticulum binds troponin, and the resulting shift drags tropomyosin off the binding sites on actin so cross-bridges can form. The trap is the acetylcholine step: it starts the chain of events but is several steps removed from the actual uncovering of actin.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "ATP binding detaches myosin from actin; it does not uncover the binding sites."
+        },
+        {
+          "i": 1,
+          "why": "Acetylcholine triggers the muscle action potential but acts at the membrane, far from the thin filament."
+        },
+        {
+          "i": 2,
+          "why": "Sodium entry produces the action potential that leads to calcium release, but does not itself move tropomyosin."
+        },
+        {
+          "i": 3,
+          "why": "Phosphate release powers the power stroke after binding has already occurred.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Muscle Contraction and Locomotion",
+          "url": "https://openstax.org/books/biology-2e/pages/38-4-muscle-contraction-and-locomotion"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-systems-5",
+      "section": "bio",
+      "category": "BIO-3",
+      "topic": "Muscular",
+      "skill": "skill-2",
+      "difficulty": "hard",
+      "format": "standard",
+      "stem": "Soon after death, skeletal muscles become rigid and cannot relax for many hours. Which requirement of the contraction cycle explains this rigidity?",
+      "options": [
+        "Calcium is needed to bind troponin",
+        "Acetylcholine is needed to trigger an action potential",
+        "ATP is needed to detach myosin heads from actin",
+        "Oxygen is needed to form cross-bridges",
+        "Sodium is needed to depolarize the sarcolemma"
+      ],
+      "answer": 2,
+      "explanation": "Myosin releases actin only when a fresh ATP binds the head; once ATP is exhausted after death, the cross-bridges stay locked and the muscle stiffens. The trap is treating ATP as the fuel for contraction only; its equally essential role is to break the actin-myosin bond so relaxation can occur.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Calcium is needed to start contraction, but after death calcium leaks in freely and is not what prevents relaxation."
+        },
+        {
+          "i": 1,
+          "why": "No action potential is needed for rigidity; the cross-bridges are stuck regardless of neural input."
+        },
+        {
+          "i": 3,
+          "why": "Cross-bridge formation does not consume oxygen directly; oxygen matters only for regenerating ATP."
+        },
+        {
+          "i": 4,
+          "why": "Sodium depolarizes the fiber to begin contraction; its absence would prevent contraction, not relaxation.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Muscle Contraction and Locomotion",
+          "url": "https://openstax.org/books/biology-2e/pages/38-4-muscle-contraction-and-locomotion"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-systems-6",
+      "section": "bio",
+      "category": "BIO-3",
+      "topic": "Circulatory",
+      "skill": "skill-1",
+      "difficulty": "easy",
+      "format": "standard",
+      "stem": "Which part of the human heart pumps oxygen-poor blood into the pulmonary trunk toward the lungs?",
+      "options": [
+        "Left atrium",
+        "Left ventricle",
+        "Right atrium",
+        "Right ventricle",
+        "Superior vena cava"
+      ],
+      "answer": 3,
+      "explanation": "Deoxygenated blood returns to the right atrium, passes into the right ventricle, and is pumped out through the pulmonary trunk to the lungs. The trap is the left ventricle, which is the stronger pump but sends oxygen-rich blood into the aorta for the body.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "The left atrium receives oxygenated blood from the lungs; it does not pump to them."
+        },
+        {
+          "i": 1,
+          "why": "The left ventricle pumps oxygen-rich blood into the aorta and the systemic circuit."
+        },
+        {
+          "i": 2,
+          "why": "The right atrium collects venous blood but passes it to the ventricle rather than pumping it to the lungs."
+        },
+        {
+          "i": 4,
+          "why": "The superior vena cava is a vein delivering blood to the heart, not a pumping chamber.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Mammalian Heart and Blood Vessels",
+          "url": "https://openstax.org/books/biology-2e/pages/40-3-mammalian-heart-and-blood-vessels"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-systems-7",
+      "section": "bio",
+      "category": "BIO-3",
+      "topic": "Circulatory",
+      "skill": "skill-2",
+      "difficulty": "hard",
+      "format": "standard",
+      "stem": "Blood pressure is highest in the arteries and lowest in the veins, while the total cross-sectional area of the vessels is greatest in the capillaries. Which statement about blood velocity is correct?",
+      "options": [
+        "Velocity is lowest in the capillaries because their total cross-sectional area is largest",
+        "Velocity is highest in the capillaries because they are the narrowest vessels",
+        "Velocity stays the same throughout the circuit because the same volume of blood passes every point",
+        "Velocity is lowest in the veins because pressure is lowest there",
+        "Velocity is highest in the veins because they hold the most blood"
+      ],
+      "answer": 0,
+      "explanation": "The same volume of blood per minute must pass every level of the circuit, so velocity is inversely related to total cross-sectional area; the enormous combined area of the capillary beds makes flow there slowest, which allows time for exchange. The trap is reasoning from individual vessel diameter: a single capillary is narrow, but millions in parallel add up to the widest channel.",
+      "distractors": [
+        {
+          "i": 1,
+          "why": "A single capillary is narrow, but the combined area of all capillaries is the largest, so flow is slowest there."
+        },
+        {
+          "i": 2,
+          "why": "Volume flow is constant, but velocity equals flow divided by area, so it changes wherever total area changes."
+        },
+        {
+          "i": 3,
+          "why": "Pressure is lowest in veins, yet their total area is smaller than the capillaries, so velocity rises again."
+        },
+        {
+          "i": 4,
+          "why": "Veins hold the most blood at rest, but blood volume stored does not set velocity.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Blood Flow and Blood Pressure Regulation",
+          "url": "https://openstax.org/books/biology-2e/pages/40-4-blood-flow-and-blood-pressure-regulation"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-systems-8",
+      "section": "bio",
+      "category": "BIO-3",
+      "topic": "Lymphatic/immune",
+      "skill": "skill-1",
+      "difficulty": "easy",
+      "format": "standard",
+      "stem": "Which cell type secretes antibodies after activation by an antigen?",
+      "options": [
+        "Cytotoxic T cell",
+        "Natural killer cell",
+        "Antigen-presenting dendritic cell",
+        "Plasma cell",
+        "Neutrophil"
+      ],
+      "answer": 3,
+      "explanation": "An activated B cell proliferates and differentiates into plasma cells, the antibody factories of the humoral response. The trap is the cytotoxic T cell, which is also antigen-specific but kills infected cells directly and never secretes antibody.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Cytotoxic T cells destroy infected cells by contact; they make no antibodies."
+        },
+        {
+          "i": 1,
+          "why": "Natural killer cells are innate lymphocytes that kill abnormal cells without producing antibodies."
+        },
+        {
+          "i": 2,
+          "why": "Dendritic cells display antigen to lymphocytes; they do not secrete antibody themselves."
+        },
+        {
+          "i": 4,
+          "why": "Neutrophils are phagocytes of the innate response and do not make antibodies.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Adaptive Immune Response",
+          "url": "https://openstax.org/books/biology-2e/pages/42-2-adaptive-immune-response"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-systems-9",
+      "section": "bio",
+      "category": "BIO-3",
+      "topic": "Lymphatic/immune",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "A person meets a pathogen for the second time, years after recovering from the first infection. Which feature of the adaptive immune system explains the faster and stronger response this time?",
+      "options": [
+        "A permanently raised concentration of complement proteins in plasma",
+        "Long-lived memory B and T cells specific to the antigen",
+        "A larger number of circulating neutrophils",
+        "A higher fever set point in the hypothalamus",
+        "Thicker skin at the original site of entry"
+      ],
+      "answer": 1,
+      "explanation": "The primary response leaves behind memory lymphocytes that recognize the same antigen and expand rapidly on re-exposure, producing the quicker, higher secondary response that vaccines exploit. The trap is the innate components: complement and neutrophils respond just as fast every time and carry no memory of a particular pathogen.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Complement is an innate defense with no memory; its level is not raised long-term by a past infection."
+        },
+        {
+          "i": 2,
+          "why": "Neutrophil numbers rise during any infection and return to baseline; they do not remember antigens."
+        },
+        {
+          "i": 3,
+          "why": "Fever is a general innate response and is not tuned to a specific past pathogen.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "Skin thickness does not change in response to a prior infection at that site."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Adaptive Immune Response",
+          "url": "https://openstax.org/books/biology-2e/pages/42-2-adaptive-immune-response"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-systems-10",
+      "section": "bio",
+      "category": "BIO-3",
+      "topic": "Digestive",
+      "skill": "skill-1",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "Which organ produces bile, the secretion that emulsifies fats in the small intestine?",
+      "options": [
+        "Pancreas",
+        "Gallbladder",
+        "Liver",
+        "Stomach",
+        "Duodenum"
+      ],
+      "answer": 2,
+      "explanation": "Hepatocytes in the liver synthesize bile salts and secrete bile continuously into ducts that lead toward the intestine. The trap is the gallbladder, which stores and concentrates bile between meals but does not make it.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "The pancreas secretes digestive enzymes and bicarbonate, including lipase, but no bile."
+        },
+        {
+          "i": 1,
+          "why": "The gallbladder stores and concentrates bile delivered from the liver; it does not produce it."
+        },
+        {
+          "i": 3,
+          "why": "The stomach secretes acid and pepsinogen and plays no part in making bile.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "The duodenum receives bile through the bile duct but does not manufacture it."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Digestive Systems",
+          "url": "https://openstax.org/books/biology-2e/pages/34-1-digestive-systems"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-systems-11",
+      "section": "bio",
+      "category": "BIO-3",
+      "topic": "Respiratory",
+      "skill": "skill-2",
+      "difficulty": "hard",
+      "format": "standard",
+      "stem": "A resting person deliberately breathes very rapidly and deeply for one minute. Which change in arterial blood is expected immediately afterward?",
+      "options": [
+        "Higher carbon dioxide and lower pH",
+        "Higher carbon dioxide and higher pH",
+        "Lower carbon dioxide and lower pH",
+        "Lower carbon dioxide and higher pH",
+        "Unchanged carbon dioxide and lower pH"
+      ],
+      "answer": 3,
+      "explanation": "Hyperventilation blows off carbon dioxide faster than tissues make it, and because dissolved carbon dioxide forms carbonic acid, losing it shifts the bicarbonate equilibrium and raises blood pH. The trap is linking fast breathing with acid build-up; it is slow or shallow breathing that lets carbon dioxide and acid accumulate.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Rising carbon dioxide with falling pH is the picture of hypoventilation, the opposite of this scenario."
+        },
+        {
+          "i": 1,
+          "why": "Carbon dioxide cannot rise when it is being exhaled faster than it is produced, and more carbon dioxide would lower pH.",
+          "weakest": true
+        },
+        {
+          "i": 2,
+          "why": "Carbon dioxide does fall, but less carbon dioxide means less carbonic acid, so pH rises rather than falls."
+        },
+        {
+          "i": 4,
+          "why": "Ventilation directly sets the arterial carbon dioxide level, so it cannot remain unchanged after a minute of overbreathing."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Transport of Gases in Human Bodily Fluids",
+          "url": "https://openstax.org/books/biology-2e/pages/39-4-transport-of-gases-in-human-bodily-fluids"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-systems-12",
+      "section": "bio",
+      "category": "BIO-3",
+      "topic": "Urinary",
+      "skill": "skill-1",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "In a nephron, where is the bulk of the filtered water, glucose and amino acids reabsorbed?",
+      "options": [
+        "Glomerulus",
+        "Proximal convoluted tubule",
+        "Descending limb of the loop of Henle",
+        "Distal convoluted tubule",
+        "Collecting duct"
+      ],
+      "answer": 1,
+      "explanation": "The proximal convoluted tubule reclaims roughly two thirds of filtered water and salt and essentially all filtered glucose and amino acids through its brush-border transporters. The trap is the collecting duct, which fine-tunes the final water content under hormonal control but handles a much smaller volume.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "The glomerulus is where filtration happens; nothing is reabsorbed there."
+        },
+        {
+          "i": 2,
+          "why": "The descending limb reabsorbs water but no solutes, and far less than the proximal tubule."
+        },
+        {
+          "i": 3,
+          "why": "The distal tubule makes fine adjustments to salt and pH after most reabsorption is done."
+        },
+        {
+          "i": 4,
+          "why": "The collecting duct adjusts final water and salt content under hormonal control but is not the bulk site.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · The Kidneys and Osmoregulatory Organs",
+          "url": "https://openstax.org/books/biology-2e/pages/41-2-the-kidneys-and-osmoregulatory-organs"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-systems-13",
+      "section": "bio",
+      "category": "BIO-3",
+      "topic": "Nervous/sensory",
+      "skill": "skill-1",
+      "difficulty": "easy",
+      "format": "standard",
+      "stem": "Which ion's rapid inflow through voltage-gated channels produces the rising phase of a neuron's action potential?",
+      "options": [
+        "Sodium",
+        "Potassium",
+        "Chloride",
+        "Calcium",
+        "Magnesium"
+      ],
+      "answer": 0,
+      "explanation": "At threshold, voltage-gated sodium channels open and sodium rushes down its gradient into the axon, driving the membrane potential toward positive values. The trap is potassium, which also moves through voltage-gated channels during the action potential, but it leaves the cell and produces the falling phase.",
+      "distractors": [
+        {
+          "i": 1,
+          "why": "Potassium flows out, not in, and its efflux repolarizes the membrane after the peak."
+        },
+        {
+          "i": 2,
+          "why": "Chloride entry would make the inside more negative and oppose depolarization."
+        },
+        {
+          "i": 3,
+          "why": "Calcium inflow matters at the axon terminal for neurotransmitter release, not for the axonal spike."
+        },
+        {
+          "i": 4,
+          "why": "Magnesium does not carry the current of the action potential.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · How Neurons Communicate",
+          "url": "https://openstax.org/books/biology-2e/pages/35-2-how-neurons-communicate"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-systems-14",
+      "section": "bio",
+      "category": "BIO-3",
+      "topic": "Nervous/sensory",
+      "skill": "skill-2",
+      "difficulty": "hard",
+      "format": "standard",
+      "stem": "A drug selectively blocks voltage-gated potassium channels in a neuron. Which effect on the action potential is expected?",
+      "options": [
+        "The rising phase of the action potential is abolished",
+        "The threshold for firing becomes more negative",
+        "Repolarization is slowed and the action potential is prolonged",
+        "The resting membrane potential shifts to a positive value between spikes",
+        "The refractory period disappears entirely"
+      ],
+      "answer": 2,
+      "explanation": "Voltage-gated potassium channels carry the outward current that returns the membrane to rest, so blocking them leaves the sodium-driven depolarization intact but drags out the falling phase, widening the spike. The trap is confusing the two channel types; abolishing the rising phase is what a sodium channel blocker would do.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "The upstroke is carried by sodium channels, which the drug does not touch."
+        },
+        {
+          "i": 1,
+          "why": "Threshold depends on sodium channel activation and is not shifted by blocking potassium channels."
+        },
+        {
+          "i": 3,
+          "why": "Resting potential is set mainly by leak potassium channels, which are a different population from the voltage-gated ones."
+        },
+        {
+          "i": 4,
+          "why": "The refractory period is due to sodium channel inactivation and would if anything lengthen, not vanish.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · How Neurons Communicate",
+          "url": "https://openstax.org/books/biology-2e/pages/35-2-how-neurons-communicate"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-systems-15",
+      "section": "bio",
+      "category": "BIO-3",
+      "topic": "Endocrine",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "Blood glucose rises after a meal. Which hormone is released in response, and what is its main effect?",
+      "options": [
+        "Glucagon; stimulates glycogen breakdown and glucose release by the liver",
+        "Cortisol; raises blood glucose by gluconeogenesis",
+        "Epinephrine; releases glucose from liver stores",
+        "Thyroxine; increases the basal metabolic rate",
+        "Insulin; promotes glucose uptake by muscle and fat cells"
+      ],
+      "answer": 4,
+      "explanation": "Pancreatic beta cells respond to high glucose by secreting insulin, which drives glucose into muscle and adipose cells and promotes glycogen storage, bringing the level back down. The trap is glucagon, the partner hormone from alpha cells, which is released when glucose is low and does the opposite job.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Glucagon is released when glucose is low and raises it; it is suppressed after a meal."
+        },
+        {
+          "i": 1,
+          "why": "Cortisol raises glucose during stress and is not the fed-state response."
+        },
+        {
+          "i": 2,
+          "why": "Epinephrine mobilizes glucose during fight-or-flight, not after eating."
+        },
+        {
+          "i": 3,
+          "why": "Thyroxine sets long-term metabolic rate and is not released in response to a meal.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Regulation of Body Processes",
+          "url": "https://openstax.org/books/biology-2e/pages/37-3-regulation-of-body-processes"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-systems-16",
+      "section": "bio",
+      "category": "BIO-3",
+      "topic": "Reproductive",
+      "skill": "skill-1",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "Which hormone surge in the middle of the human menstrual cycle triggers ovulation?",
+      "options": [
+        "Estrogen",
+        "Progesterone",
+        "Follicle-stimulating hormone",
+        "Luteinizing hormone",
+        "Inhibin"
+      ],
+      "answer": 3,
+      "explanation": "Rising estrogen from the mature follicle switches to positive feedback on the pituitary, producing a sharp surge of luteinizing hormone that ruptures the follicle and releases the egg. The trap is estrogen itself: it peaks just before ovulation and causes the surge, but the direct trigger is the luteinizing hormone spike.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Estrogen rises before ovulation and provokes the surge, but it does not itself rupture the follicle."
+        },
+        {
+          "i": 1,
+          "why": "Progesterone rises after ovulation, from the corpus luteum, and prepares the uterine lining."
+        },
+        {
+          "i": 2,
+          "why": "Follicle-stimulating hormone drives follicle growth early in the cycle; its mid-cycle rise is smaller and secondary."
+        },
+        {
+          "i": 4,
+          "why": "Inhibin suppresses follicle-stimulating hormone and does not trigger ovulation.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Hormonal Control of Human Reproduction",
+          "url": "https://openstax.org/books/biology-2e/pages/43-4-hormonal-control-of-human-reproduction"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-genetics-2",
+      "section": "bio",
+      "category": "BIO-4",
+      "topic": "Molecular genetics",
+      "skill": "skill-1",
+      "difficulty": "easy",
+      "format": "standard",
+      "stem": "During DNA replication, which enzyme joins the Okazaki fragments of the lagging strand into one continuous strand?",
+      "options": [
+        "Helicase",
+        "Primase",
+        "DNA polymerase III",
+        "DNA ligase",
+        "Topoisomerase"
+      ],
+      "answer": 3,
+      "explanation": "DNA ligase seals the nick between adjacent fragments by forming the missing phosphodiester bond once the RNA primer has been replaced with DNA. The trap is DNA polymerase: it extends each fragment and fills the primer gap, but it cannot join the final backbone break.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Helicase unwinds the double helix at the fork; it forms no bonds."
+        },
+        {
+          "i": 1,
+          "why": "Primase lays down the short RNA primers that begin each fragment rather than joining them."
+        },
+        {
+          "i": 2,
+          "why": "DNA polymerase III synthesizes the fragments but leaves a nick it cannot seal.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "Topoisomerase relieves supercoiling ahead of the fork and does not link fragments."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · DNA Replication in Prokaryotes",
+          "url": "https://openstax.org/books/biology-2e/pages/14-4-dna-replication-in-prokaryotes"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-genetics-3",
+      "section": "bio",
+      "category": "BIO-4",
+      "topic": "Molecular genetics",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "A DNA template strand reads 3'-TAC GGA-5'. Which mRNA sequence is transcribed from it?",
+      "options": [
+        "5'-ATG CCT-3'",
+        "5'-UAC GGA-3'",
+        "3'-AUG CCU-5'",
+        "5'-TAC GGA-3'",
+        "5'-AUG CCU-3'"
+      ],
+      "answer": 4,
+      "explanation": "RNA polymerase reads the template 3' to 5' and builds the complementary, antiparallel transcript 5' to 3' using uracil in place of thymine, so TAC GGA becomes AUG CCU. The trap is writing the correct complement with the ends labeled backwards or with thymine left in, both of which describe DNA rather than the RNA product.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "This is the complementary DNA strand; RNA uses uracil, not thymine."
+        },
+        {
+          "i": 1,
+          "why": "This copies the template rather than complementing it, and RNA never has the same sequence as its template."
+        },
+        {
+          "i": 2,
+          "why": "The bases are right but the ends are reversed; mRNA is written and synthesized 5' to 3'.",
+          "weakest": true
+        },
+        {
+          "i": 3,
+          "why": "This is the template itself written with the ends swapped, not a transcript."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Prokaryotic Transcription",
+          "url": "https://openstax.org/books/biology-2e/pages/15-2-prokaryotic-transcription"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-genetics-4",
+      "section": "bio",
+      "category": "BIO-4",
+      "topic": "Human genetics",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "A woman who carries one copy of an X-linked recessive allele has children with a man who does not carry it. What fraction of their sons is expected to show the recessive trait?",
+      "options": [
+        "0",
+        "1/4",
+        "1/2",
+        "3/4",
+        "1"
+      ],
+      "answer": 2,
+      "explanation": "A son receives his only X chromosome from his mother, and half of her X chromosomes carry the recessive allele, so half of the sons are affected regardless of the father. The trap is dividing by all children rather than by sons only; one quarter is the fraction of all offspring that are affected sons.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "A carrier mother passes the allele to half her sons, so affected sons are expected."
+        },
+        {
+          "i": 1,
+          "why": "One quarter is the share of all children who are affected sons, not the share of sons who are affected."
+        },
+        {
+          "i": 3,
+          "why": "Three quarters would require the mother to carry the allele on both X chromosomes, which a carrier does not.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "All sons would be affected only if the mother were homozygous for the allele."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Characteristics and Traits",
+          "url": "https://openstax.org/books/biology-2e/pages/12-2-characteristics-and-traits"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-genetics-5",
+      "section": "bio",
+      "category": "BIO-4",
+      "topic": "Human genetics",
+      "skill": "skill-2",
+      "difficulty": "hard",
+      "format": "standard",
+      "stem": "Two unaffected parents have a child with an autosomal recessive disorder. What is the probability that their next child is an unaffected carrier of the allele?",
+      "options": [
+        "1/4",
+        "1/3",
+        "1/2",
+        "2/3",
+        "3/4"
+      ],
+      "answer": 2,
+      "explanation": "An affected child proves both parents are heterozygous, so each pregnancy is a monohybrid cross giving one quarter homozygous normal, one half heterozygous carriers and one quarter affected; the carrier probability is one half. The trap is two thirds, which is the carrier probability only after you already know the child is unaffected, a condition the question does not impose.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "One quarter is the chance of an affected child or of a homozygous normal child, not of a carrier."
+        },
+        {
+          "i": 1,
+          "why": "One third does not arise from a cross between two carriers.",
+          "weakest": true
+        },
+        {
+          "i": 3,
+          "why": "Two thirds is the carrier chance among unaffected children only; here the next child could also be affected."
+        },
+        {
+          "i": 4,
+          "why": "Three quarters is the chance the next child is unaffected at all, carriers and non-carriers combined."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Characteristics and Traits",
+          "url": "https://openstax.org/books/biology-2e/pages/12-2-characteristics-and-traits"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-genetics-6",
+      "section": "bio",
+      "category": "BIO-4",
+      "topic": "Classical genetics",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "Two plants heterozygous for two independently assorting genes are crossed. What fraction of the offspring shows the dominant phenotype for both traits?",
+      "options": [
+        "1/16",
+        "3/16",
+        "1/4",
+        "9/16",
+        "3/4"
+      ],
+      "answer": 3,
+      "explanation": "With independent assortment each trait behaves as its own monohybrid cross, so the chance of the dominant phenotype is three quarters for each and three quarters times three quarters gives nine sixteenths for both. The trap is stopping at three quarters, which is the probability for one trait alone.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "One sixteenth is the fraction recessive for both traits, the smallest class of the 9:3:3:1 ratio."
+        },
+        {
+          "i": 1,
+          "why": "Three sixteenths is the fraction dominant for one trait and recessive for the other."
+        },
+        {
+          "i": 2,
+          "why": "One quarter is the fraction of any one specific two-gene genotype class, not a phenotype class here.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "Three quarters is the dominant fraction for a single trait; both traits together requires multiplying."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Laws of Inheritance",
+          "url": "https://openstax.org/books/biology-2e/pages/12-3-laws-of-inheritance"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-genetics-7",
+      "section": "bio",
+      "category": "BIO-4",
+      "topic": "Chromosomal genetics",
+      "skill": "skill-1",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "Which event during meiosis produces a gamete carrying an extra copy of one chromosome, so that fertilization results in trisomy?",
+      "options": [
+        "Crossing over between homologs",
+        "Nondisjunction",
+        "Independent assortment",
+        "Random fertilization",
+        "Translocation"
+      ],
+      "answer": 1,
+      "explanation": "Nondisjunction is the failure of homologs or sister chromatids to separate, sending both copies into one gamete and none into its partner; a gamete with the extra copy yields trisomy at fertilization. The trap is translocation, which is also a chromosomal error but moves a segment between chromosomes without changing the total chromosome number.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Crossing over swaps segments between homologs and does not change how many chromosomes a gamete receives."
+        },
+        {
+          "i": 2,
+          "why": "Independent assortment shuffles which homolog goes to which pole but delivers exactly one of each pair."
+        },
+        {
+          "i": 3,
+          "why": "Random fertilization combines normal gametes; it cannot by itself add a chromosome.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "A translocation relocates a chromosome segment but leaves the chromosome count unchanged."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Chromosomal Basis of Inherited Disorders",
+          "url": "https://openstax.org/books/biology-2e/pages/13-2-chromosomal-basis-of-inherited-disorders"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-genetics-8",
+      "section": "bio",
+      "category": "BIO-4",
+      "topic": "Chromosomal genetics",
+      "skill": "skill-2",
+      "difficulty": "hard",
+      "format": "standard",
+      "stem": "Two genes lie on the same chromosome. A test cross yields 45% and 45% of the two parental gamete types and 5% and 5% of the two recombinant types. What is the approximate distance between the genes?",
+      "options": [
+        "5 map units",
+        "10 map units",
+        "45 map units",
+        "50 map units",
+        "90 map units"
+      ],
+      "answer": 1,
+      "explanation": "Map distance equals the recombination frequency, which is the total percentage of recombinant offspring: 5% plus 5% gives 10%, or 10 map units. The trap is counting only one of the two recombinant classes, which halves the true distance.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Five percent is one recombinant class; both recombinant classes must be added together."
+        },
+        {
+          "i": 2,
+          "why": "Forty-five percent is one parental class, not a measure of recombination."
+        },
+        {
+          "i": 3,
+          "why": "Fifty map units is the recombination frequency of unlinked or very distant genes, not genes this tightly linked."
+        },
+        {
+          "i": 4,
+          "why": "Ninety percent is the total parental fraction, the complement of the recombination frequency.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Chromosomal Theory and Genetic Linkage",
+          "url": "https://openstax.org/books/biology-2e/pages/13-1-chromosomal-theory-and-genetic-linkage"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-genetics-9",
+      "section": "bio",
+      "category": "BIO-4",
+      "topic": "Genetic technology",
+      "skill": "skill-1",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "Which technique produces millions of copies of a specific DNA segment using repeated cycles of heating, primer annealing and extension by a heat-stable polymerase?",
+      "options": [
+        "Agarose gel electrophoresis",
+        "Southern blotting",
+        "Polymerase chain reaction",
+        "Restriction enzyme digestion",
+        "DNA ligation"
+      ],
+      "answer": 2,
+      "explanation": "The polymerase chain reaction amplifies a target defined by two primers through cycles of denaturation, annealing and extension, doubling the copy number each round. The trap is electrophoresis, which is often run afterward to see the product but separates DNA by size rather than copying it.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Gel electrophoresis separates existing fragments by size; it makes no new copies."
+        },
+        {
+          "i": 1,
+          "why": "Southern blotting detects a specific sequence on a membrane with a probe but does not amplify it."
+        },
+        {
+          "i": 3,
+          "why": "Restriction digestion cuts DNA at specific sites and reduces, rather than multiplies, fragment number."
+        },
+        {
+          "i": 4,
+          "why": "Ligation joins DNA ends together and does not copy sequences.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Biotechnology",
+          "url": "https://openstax.org/books/biology-2e/pages/17-1-biotechnology"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-genetics-10",
+      "section": "bio",
+      "category": "BIO-4",
+      "topic": "Developmental mechanisms",
+      "skill": "skill-1",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "During gastrulation in a vertebrate embryo, three germ layers form. Which layer gives rise to the nervous system and the epidermis of the skin?",
+      "options": [
+        "Endoderm",
+        "Mesoderm",
+        "Ectoderm",
+        "Blastocoel",
+        "Notochord"
+      ],
+      "answer": 2,
+      "explanation": "The ectoderm is the outer germ layer; part of it thickens into the neural plate and rolls into the neural tube while the rest becomes epidermis. The trap is the mesoderm, which forms muscle, bone, blood and the notochord that induces the overlying ectoderm to become neural tissue.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Endoderm lines the gut and forms its associated organs such as the liver and lungs."
+        },
+        {
+          "i": 1,
+          "why": "Mesoderm forms muscle, skeleton, kidney and the circulatory system, not the nervous system."
+        },
+        {
+          "i": 3,
+          "why": "The blastocoel is a fluid-filled cavity, not a germ layer, and gives rise to no tissue.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "The notochord is a mesodermal rod that signals to the ectoderm but does not itself become nerve or skin."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Organogenesis and Vertebrate Formation",
+          "url": "https://openstax.org/books/biology-2e/pages/43-7-organogenesis-and-vertebrate-formation"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-genetics-11",
+      "section": "bio",
+      "category": "BIO-4",
+      "topic": "Genomics",
+      "skill": "skill-1",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "Which statement best describes what a genome-wide association study looks for?",
+      "options": [
+        "The complete amino acid sequence of every protein produced by a single cell type",
+        "DNA variants found more often in people with a trait than in those without it",
+        "The order of genes along a single chromosome in one individual",
+        "The set of all RNA transcripts present in a tissue",
+        "The number of chromosomes in a species"
+      ],
+      "answer": 1,
+      "explanation": "A genome-wide association study scans markers across the genomes of many people and asks which variants are statistically over-represented in those who have a trait or disease, pointing to regions that influence it. The trap is the single-individual gene map: association studies compare populations, not one genome.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Cataloguing proteins is proteomics, not a genome-wide association study."
+        },
+        {
+          "i": 2,
+          "why": "Ordering genes on one chromosome is genetic or physical mapping of a single genome."
+        },
+        {
+          "i": 3,
+          "why": "Cataloguing transcripts is transcriptomics and does not compare people with and without a trait."
+        },
+        {
+          "i": 4,
+          "why": "Chromosome number is determined by a karyotype, not by an association study.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Applying Genomics",
+          "url": "https://openstax.org/books/biology-2e/pages/17-4-applying-genomics"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-genetics-12",
+      "section": "bio",
+      "category": "BIO-4",
+      "topic": "Gene expression",
+      "skill": "skill-1",
+      "difficulty": "easy",
+      "format": "standard",
+      "stem": "In the lac operon of Escherichia coli, what happens when lactose is absent from the medium?",
+      "options": [
+        "The repressor binds the operator and blocks transcription",
+        "The repressor is inactivated and transcription proceeds",
+        "RNA polymerase binds the operator and starts transcription",
+        "cAMP levels fall and the activator protein leaves the promoter",
+        "Lactose binds the promoter and recruits RNA polymerase"
+      ],
+      "answer": 0,
+      "explanation": "The lac operon is inducible: without lactose the lac repressor stays bound to the operator, physically preventing RNA polymerase from transcribing genes the cell does not need. The trap is the cAMP story, which is the separate glucose-sensing control that adjusts how strongly the operon is expressed once lactose has lifted the repressor.",
+      "distractors": [
+        {
+          "i": 1,
+          "why": "The repressor is inactivated only when allolactose, a lactose derivative, binds it."
+        },
+        {
+          "i": 2,
+          "why": "RNA polymerase binds the promoter, not the operator, and it is blocked when the repressor sits there."
+        },
+        {
+          "i": 3,
+          "why": "The cAMP-activator system responds to glucose levels, not to the absence of lactose."
+        },
+        {
+          "i": 4,
+          "why": "Lactose never binds DNA; it acts on the repressor protein.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Prokaryotic Gene Regulation",
+          "url": "https://openstax.org/books/biology-2e/pages/16-2-prokaryotic-gene-regulation"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-genetics-13",
+      "section": "bio",
+      "category": "BIO-4",
+      "topic": "Gene expression",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "A single eukaryotic gene produces two different proteins from one primary transcript. Which mechanism most directly explains this?",
+      "options": [
+        "Alternative splicing of the pre-mRNA",
+        "Addition of a 5' cap",
+        "Polyadenylation of the 3' end",
+        "Binding of a repressor to the promoter",
+        "Methylation of cytosines in the promoter"
+      ],
+      "answer": 0,
+      "explanation": "Alternative splicing keeps different combinations of exons in the mature mRNA, so one gene can encode several related proteins. The trap is the other processing steps: capping and poly-A addition protect and export the transcript but do not change which coding segments it contains.",
+      "distractors": [
+        {
+          "i": 1,
+          "why": "The cap protects the transcript and aids translation but is identical on every mRNA from the gene."
+        },
+        {
+          "i": 2,
+          "why": "The poly-A tail stabilizes the message; it does not alter the coding sequence."
+        },
+        {
+          "i": 3,
+          "why": "A promoter-bound repressor lowers the amount of transcript but cannot create two different proteins."
+        },
+        {
+          "i": 4,
+          "why": "Promoter methylation silences transcription and changes quantity, not protein identity.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · RNA Processing in Eukaryotes",
+          "url": "https://openstax.org/books/biology-2e/pages/15-4-rna-processing-in-eukaryotes"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-genetics-14",
+      "section": "bio",
+      "category": "BIO-4",
+      "topic": "Epigenetics",
+      "skill": "skill-1",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "Which chemical modification generally makes a region of eukaryotic DNA less accessible for transcription without changing its base sequence?",
+      "options": [
+        "Acetylation of lysine residues on histone tails",
+        "Methylation of cytosine bases in the DNA",
+        "Addition of a poly-A tail to the mRNA",
+        "Removal of introns from the pre-mRNA",
+        "Phosphorylation of RNA polymerase"
+      ],
+      "answer": 1,
+      "explanation": "Methyl groups added to cytosines, especially in promoter regions, recruit proteins that compact chromatin and keep transcription factors out, silencing the gene while the sequence stays the same. The trap is histone acetylation, which is also epigenetic but loosens chromatin and generally turns genes on.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Acetylating histones neutralizes their positive charge, opens chromatin and increases accessibility."
+        },
+        {
+          "i": 2,
+          "why": "The poly-A tail is added to the RNA after transcription and does not affect DNA accessibility."
+        },
+        {
+          "i": 3,
+          "why": "Intron removal happens on the transcript and has nothing to do with chromatin state.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "Phosphorylating RNA polymerase regulates its activity, not how tightly the DNA is packed."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Eukaryotic Epigenetic Gene Regulation",
+          "url": "https://openstax.org/books/biology-2e/pages/16-3-eukaryotic-epigenetic-gene-regulation"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-evolution-2",
+      "section": "bio",
+      "category": "BIO-5",
+      "topic": "Natural selection",
+      "skill": "skill-1",
+      "difficulty": "easy",
+      "format": "standard",
+      "stem": "Sharks and dolphins are distantly related, yet both evolved streamlined bodies and dorsal fins suited to fast swimming. Which term describes this pattern?",
+      "options": [
+        "Divergent evolution",
+        "Convergent evolution",
+        "Genetic drift",
+        "Adaptive radiation",
+        "Sympatric speciation"
+      ],
+      "answer": 1,
+      "explanation": "Convergent evolution occurs when unrelated lineages face similar selective pressures and independently arrive at similar solutions, producing analogous rather than homologous structures. The trap is divergent evolution, which runs the other way: related lineages become less alike as they adapt to different environments.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Divergence describes related species growing apart, not unrelated species growing alike."
+        },
+        {
+          "i": 2,
+          "why": "Genetic drift is random change in allele frequency and would not produce matched adaptations.",
+          "weakest": true
+        },
+        {
+          "i": 3,
+          "why": "Adaptive radiation is one ancestral group diversifying into many niches."
+        },
+        {
+          "i": 4,
+          "why": "Sympatric speciation concerns new species forming in one area, not resemblance between distant lineages."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Understanding Evolution",
+          "url": "https://openstax.org/books/biology-2e/pages/18-1-understanding-evolution"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-evolution-3",
+      "section": "bio",
+      "category": "BIO-5",
+      "topic": "Population genetics/speciation",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "In a large, randomly mating population at Hardy-Weinberg equilibrium, 16% of individuals show a recessive phenotype. What is the frequency of the recessive allele?",
+      "options": [
+        "0.04",
+        "0.16",
+        "0.32",
+        "0.40",
+        "0.60"
+      ],
+      "answer": 3,
+      "explanation": "The recessive phenotype frequency equals q squared, so q is the square root of 0.16, which is 0.40. The trap is reading the phenotype frequency itself as the allele frequency; 0.16 is the frequency of homozygous recessive individuals, not of the allele.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Squaring 0.16 goes the wrong direction; the allele frequency is the square root of the phenotype frequency."
+        },
+        {
+          "i": 1,
+          "why": "0.16 is the homozygous recessive genotype frequency, which is q squared, not q."
+        },
+        {
+          "i": 2,
+          "why": "0.32 is 2 × 0.16, doubling the homozygous-recessive frequency instead of taking its square root.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "0.60 is p, the frequency of the dominant allele."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Population Genetics",
+          "url": "https://openstax.org/books/biology-2e/pages/19-2-population-genetics"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-evolution-4",
+      "section": "bio",
+      "category": "BIO-5",
+      "topic": "Population genetics/speciation",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "Two frog populations live in the same pond, but one breeds in early spring and the other in late summer, so they never interbreed. Which type of reproductive isolation keeps them separate?",
+      "options": [
+        "Geographic isolation",
+        "Behavioral isolation",
+        "Mechanical isolation",
+        "Hybrid sterility",
+        "Temporal isolation"
+      ],
+      "answer": 4,
+      "explanation": "Breeding at different times of year is temporal isolation, a prezygotic barrier that prevents mating even though the populations share a habitat. The trap is behavioral isolation, which involves incompatible courtship signals; here the frogs never meet in breeding condition at all.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "The populations share one pond, so geography does not separate them."
+        },
+        {
+          "i": 1,
+          "why": "Behavioral isolation depends on mismatched courtship displays, not on breeding seasons."
+        },
+        {
+          "i": 2,
+          "why": "Mechanical isolation refers to incompatible reproductive structures."
+        },
+        {
+          "i": 3,
+          "why": "Hybrid sterility is a postzygotic barrier that acts after mating has produced offspring.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Formation of New Species",
+          "url": "https://openstax.org/books/biology-2e/pages/18-2-formation-of-new-species"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-evolution-5",
+      "section": "bio",
+      "category": "BIO-5",
+      "topic": "Animal behavior",
+      "skill": "skill-1",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "Newly hatched geese follow the first large moving object they see during a short window after hatching and keep following it afterward. Which type of learning does this illustrate?",
+      "options": [
+        "Habituation",
+        "Operant conditioning",
+        "Classical conditioning",
+        "Imprinting",
+        "Cognitive learning"
+      ],
+      "answer": 3,
+      "explanation": "Imprinting is learning restricted to a sensitive period early in life that forms a lasting attachment, classically to a parent. The trap is classical conditioning, which also involves learning an association, but it can occur at any age and requires repeated pairing rather than a single early exposure.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Habituation is a decline in response to a repeated harmless stimulus, not the formation of an attachment."
+        },
+        {
+          "i": 1,
+          "why": "Operant conditioning shapes behavior by reward or punishment over many trials."
+        },
+        {
+          "i": 2,
+          "why": "Classical conditioning pairs a neutral stimulus with a reflex and is not confined to a critical period."
+        },
+        {
+          "i": 4,
+          "why": "Cognitive learning involves problem solving and insight, not a fixed early-life attachment.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Behavioral Biology: Proximate and Ultimate Causes of Behavior",
+          "url": "https://openstax.org/books/biology-2e/pages/45-7-behavioral-biology-proximate-and-ultimate-causes-of-behavior"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-evolution-6",
+      "section": "bio",
+      "category": "BIO-5",
+      "topic": "Animal behavior",
+      "skill": "skill-2",
+      "difficulty": "hard",
+      "format": "standard",
+      "stem": "A ground squirrel gives an alarm call when a predator approaches, drawing attention to itself while its nearby relatives escape. Which concept best explains how natural selection can maintain such a costly behavior?",
+      "options": [
+        "Kin selection through inclusive fitness",
+        "Sexual selection through mate choice",
+        "Reciprocal altruism between unrelated individuals",
+        "Habituation to repeated predator exposure",
+        "Operant conditioning by predator attacks"
+      ],
+      "answer": 0,
+      "explanation": "Relatives share the caller’s alleles, so a behavior that saves several kin can spread even when it lowers the caller’s own survival; this is kin selection, and the total effect on shared alleles is the caller’s inclusive fitness. The trap is reciprocal altruism, which explains helping between non-relatives who take turns, whereas the clue here is that the beneficiaries are relatives.",
+      "distractors": [
+        {
+          "i": 1,
+          "why": "Sexual selection concerns traits that win mates, not warning relatives about predators."
+        },
+        {
+          "i": 2,
+          "why": "Reciprocity explains cooperation among unrelated individuals who repay favors; the stem emphasizes kin."
+        },
+        {
+          "i": 3,
+          "why": "Habituation would make the squirrel respond less to predators, not sacrifice itself for others.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "Conditioning explains how an individual learns, not how a self-costly trait persists across generations."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Behavioral Biology: Proximate and Ultimate Causes of Behavior",
+          "url": "https://openstax.org/books/biology-2e/pages/45-7-behavioral-biology-proximate-and-ultimate-causes-of-behavior"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-evolution-7",
+      "section": "bio",
+      "category": "BIO-5",
+      "topic": "Ecology (population, community, and ecosystem ecology)",
+      "skill": "skill-1",
+      "difficulty": "easy",
+      "format": "standard",
+      "stem": "In a typical food chain, roughly what fraction of the energy stored in one trophic level is passed on to the next?",
+      "options": [
+        "1%",
+        "10%",
+        "25%",
+        "50%",
+        "90%"
+      ],
+      "answer": 1,
+      "explanation": "On average only about a tenth of the energy in one trophic level is incorporated into the biomass of the next; the rest is lost as heat, respiration and unconsumed or undigested material. The trap is the ninety percent, which is the fraction lost, not transferred, and is why food chains rarely exceed four or five links.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "One percent is far too little; transfer of about ten percent is the usual approximation."
+        },
+        {
+          "i": 2,
+          "why": "Twenty-five percent would allow much longer food chains than are observed."
+        },
+        {
+          "i": 3,
+          "why": "Half the energy transferring would contradict the steep pyramid of energy seen in ecosystems.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "Ninety percent is roughly the fraction lost between levels, the complement of what is transferred."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Energy Flow through Ecosystems",
+          "url": "https://openstax.org/books/biology-2e/pages/46-2-energy-flow-through-ecosystems"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "bio-evolution-8",
+      "section": "bio",
+      "category": "BIO-5",
+      "topic": "Ecology (population, community, and ecosystem ecology)",
+      "skill": "skill-3",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "A population's size is plotted against time. It rises slowly, then steeply, and then levels off at a roughly constant value. Which factor most directly explains the leveling off?",
+      "options": [
+        "An increase in the intrinsic rate of growth",
+        "The population reaching the carrying capacity of its environment",
+        "A steady fall in the death rate as the population becomes more crowded",
+        "Emigration of every individual from the habitat",
+        "Immigration of individuals from neighboring habitats"
+      ],
+      "answer": 1,
+      "explanation": "An S-shaped curve is logistic growth: as numbers approach the carrying capacity, limited resources raise death rates and lower birth rates until the two balance and growth stops. The trap is attributing the plateau to a falling death rate; crowding raises mortality, and it is that density-dependent pressure that halts growth.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "A higher intrinsic growth rate would make the curve steeper, not flatten it."
+        },
+        {
+          "i": 2,
+          "why": "Crowding raises the death rate; a falling death rate would keep the population growing."
+        },
+        {
+          "i": 3,
+          "why": "Total emigration would drop the population toward zero, not hold it steady.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "Immigration adds individuals and would push the curve upward rather than level it."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Biology 2e · Environmental Limits to Population Growth",
+          "url": "https://openstax.org/books/biology-2e/pages/45-3-environmental-limits-to-population-growth"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    }
+  ]
+}

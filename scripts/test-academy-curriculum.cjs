@@ -9,12 +9,16 @@ const data = JSON.parse(fs.readFileSync('data/academy-curriculum.json'));
 const clone = value => JSON.parse(JSON.stringify(value));
 const KEY = 'cs-academy-connections-v1';
 
+// DAT units are counted from the fragment registry so content sessions never edit this test.
+const DAT_UNITS = require('./dat-data.cjs').course.units.length;
+
 test('index resolves all current lesson IDs and keeps drafts distinct from revised material', () => {
   assert.equal(Core.validate(data), data);
-  assert.equal(data.entries.length, 200);
+  assert.equal(data.entries.length, 200 + DAT_UNITS);
+  assert.equal(data.entries.filter(e => e.track === 'dat').length, DAT_UNITS);
   assert.equal(data.cards.length, 12);
   assert.equal(data.connections.length, 23);
-  assert.equal(new Set(data.entries.map(e => e.track)).size, 6);
+  assert.equal(new Set(data.entries.map(e => e.track)).size, DAT_UNITS ? 7 : 6);
   assert.equal(data.entries.filter(e => e.status === 'draft').length, 27);
   assert.equal(data.entries.filter(e => e.track === 'reference' && e.kind === 'Lesson').length, 22);
   assert.ok(data.entries.every(e => /pending/.test(e.reviewStatus)));
@@ -42,8 +46,8 @@ test('missing prerequisites, cycles, invalid destinations and broken connections
   }
 });
 test('search honors intersecting track, preparation, text and shared-objective filters', () => {
-  assert.equal(Core.search(data).length, 173);
-  assert.equal(Core.search(data, { drafts: true }).length, 200);
+  assert.equal(Core.search(data).length, 173 + DAT_UNITS);
+  assert.equal(Core.search(data, { drafts: true }).length, 200 + DAT_UNITS);
   const result = Core.search(data, {
     track: 'reference',
     level: 'applied',

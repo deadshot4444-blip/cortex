@@ -1,0 +1,35 @@
+{
+  "format": "dat-cards",
+  "version": 1,
+  "chapter": "bio-diversity",
+  "authoredOn": "2026-09-16",
+  "author": "coding agent (Claude), original text",
+  "reviewStatus": "Local authored-content check only; independent subject review pending.",
+  "sourceCheckedOn": "2026-09-16",
+  "contentNote": "Original Cortex flashcard text. The ADA DAT outline is the alignment target only; no ADA, prep-company or forum material is reproduced.",
+  "sources": [
+    {
+      "title": "OpenStax Biology 2e",
+      "url": "https://openstax.org/books/biology-2e"
+    }
+  ],
+  "cards": [
+    {
+      "id": "div-fungi-1",
+      "front": "Fungal cell wall polymer and mode of nutrition",
+      "back": "Chitin walls. Absorptive heterotrophs: enzymes are secreted onto the substrate and the small products are absorbed. Carbohydrate is stored as glycogen, as in animals.",
+      "section": "bio",
+      "category": "BIO-2",
+      "topic": "Fungi",
+      "tag": "cheat-sheet"
+    },
+    {
+      "id": "div-fungi-2",
+      "front": "Order of events in the fungal sexual cycle",
+      "back": "Plasmogamy (cytoplasms fuse, heterokaryotic stage) → karyogamy (nuclei fuse, brief diploid zygote) → meiosis → haploid spores. Most of the life cycle is haploid.",
+      "section": "bio",
+      "category": "BIO-2",
+      "topic": "Fungi"
+    }
+  ]
+}

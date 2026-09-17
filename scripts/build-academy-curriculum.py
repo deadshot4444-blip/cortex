@@ -34,6 +34,16 @@ for unit in read('mcat-course.json')['units']:
     add('mcat:' + unit['id'], 'mcat', unit['title'], unit['subtitle'], '/mcat',
         dict(view='course', unit=unit['id']), prerequisites=['mcat:' + p for p in unit['prerequisites']])
 
+# DAT lessons live in the course fragments named by the outline's registry (context/dat/AUTHORING.md §3.1).
+# A registered-but-absent fragment raises FileNotFoundError on purpose: the registry and the files move together.
+outline = read('dat-outline.json')
+for name in outline['files']['course']:
+    for unit in read(name + '.json')['units']:
+        add('dat:' + unit['id'], 'dat', unit['title'], unit['subtitle'], '/dat',
+            dict(view='course', unit=unit['id']),
+            prerequisites=['dat:' + p for p in unit['prerequisites']],
+            sources=[unit['source']] if isinstance(unit.get('source'), dict) else ())
+
 learning = read('learn-to-learn.json')
 learning_sources = {s['id']: s for s in learning['sources']}
 for track in learning['tracks']:

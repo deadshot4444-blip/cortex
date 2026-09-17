@@ -1,0 +1,2276 @@
+{
+  "format": "dat-bank",
+  "version": 1,
+  "section": "gchem",
+  "layer": 1,
+  "authoredOn": "2026-09-16",
+  "author": "coding agent (Claude), original text",
+  "reviewStatus": "Local authored-content check only; independent subject review pending.",
+  "sourceCheckedOn": "2026-09-16",
+  "contentNote": "Original Cortex discrete items written to first-year depth. The ADA DAT outline is the alignment target only; no ADA, prep-company or forum material is reproduced.",
+  "sources": [
+    {
+      "title": "OpenStax Chemistry 2e",
+      "url": "https://openstax.org/books/chemistry-2e"
+    }
+  ],
+  "lexicalExceptions": [],
+  "items": [
+    {
+      "id": "gc-stoich-1",
+      "section": "gchem",
+      "category": "GC-1",
+      "topic": "Calculations from balanced equations",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "Propane burns according to C3H8 + 5O2 → 3CO2 + 4H2O. How many moles of oxygen are required to burn 0.40 mol of propane completely?",
+      "options": [
+        "0.080 mol",
+        "0.40 mol",
+        "1.2 mol",
+        "1.6 mol",
+        "2.0 mol"
+      ],
+      "answer": 4,
+      "explanation": "The coefficients give the mole ratio: 5 mol of oxygen for every 1 mol of propane, so 0.40 × 5 = 2.0 mol of oxygen. The 1.2 and 1.6 mol values come from using a product coefficient instead of the oxygen coefficient.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Dividing by 5 inverts the ratio; oxygen is needed in the larger amount."
+        },
+        {
+          "i": 1,
+          "why": "A 1 : 1 ratio ignores the coefficient of 5 in front of oxygen.",
+          "weakest": true
+        },
+        {
+          "i": 2,
+          "why": "3 × 0.40 is the moles of carbon dioxide formed, not the oxygen consumed."
+        },
+        {
+          "i": 3,
+          "why": "4 × 0.40 is the moles of water formed, not the oxygen consumed."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Chemistry 2e · Reaction Stoichiometry",
+          "url": "https://openstax.org/books/chemistry-2e/pages/4-3-reaction-stoichiometry"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "gc-gases-1",
+      "section": "gchem",
+      "category": "GC-2",
+      "topic": "Ideal gas law",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "format": "standard",
+      "stem": "A sealed rigid container holds a gas at 27 °C and 2.0 atm. The container is heated to 177 °C. What is the new pressure?",
+      "options": [
+        "0.30 atm",
+        "1.3 atm",
+        "2.0 atm",
+        "3.0 atm",
+        "13 atm"
+      ],
+      "answer": 3,
+      "explanation": "At fixed volume and amount, P/T is constant with T in kelvin: 27 °C is 300 K and 177 °C is 450 K, so P = 2.0 × 450/300 = 3.0 atm. The 13 atm trap uses the Celsius ratio 177/27; gas-law temperatures must always be converted to kelvin first.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "This uses the Celsius temperatures and also inverts the ratio; pressure rises when a sealed gas is heated.",
+          "weakest": true
+        },
+        {
+          "i": 1,
+          "why": "This uses kelvin but inverts the ratio, 300/450, so the pressure appears to fall on heating."
+        },
+        {
+          "i": 2,
+          "why": "Rigid means the volume is fixed, not the pressure; heating raises the pressure."
+        },
+        {
+          "i": 4,
+          "why": "This uses the Celsius ratio 177/27, which is not proportional to the absolute temperature."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Chemistry 2e · Relating Pressure, Volume, Amount, and Temperature: The Ideal Gas Law",
+          "url": "https://openstax.org/books/chemistry-2e/pages/9-2-relating-pressure-volume-amount-and-temperature-the-ideal-gas-law"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "gc-phases-1",
+      "section": "gchem",
+      "category": "GC-3",
+      "topic": "Intermolecular forces",
+      "skill": "skill-1",
+      "difficulty": "easy",
+      "format": "standard",
+      "stem": "Water boils at 100 °C while hydrogen sulfide, H2S, boils at about −60 °C. Which intermolecular force is chiefly responsible for the difference?",
+      "options": [
+        "Hydrogen bonding between water molecules",
+        "Ionic bonding between hydrogen ions and hydroxide ions",
+        "London dispersion forces, which are stronger in water",
+        "Covalent O–H bonds within each water molecule",
+        "Ion–dipole attraction in liquid water"
+      ],
+      "answer": 0,
+      "explanation": "Oxygen is small and highly electronegative, so each water molecule forms strong hydrogen bonds with its neighbours, while sulfur is too large and too weakly electronegative for H2S to do the same. The trap is the covalent bond: boiling separates molecules from one another and leaves the bonds inside each molecule intact.",
+      "distractors": [
+        {
+          "i": 1,
+          "why": "Liquid water is molecular; only a tiny fraction is present as ions, far too few to hold the liquid together."
+        },
+        {
+          "i": 2,
+          "why": "Dispersion forces grow with size and electron count, so they are larger in H2S, which would predict the opposite order."
+        },
+        {
+          "i": 3,
+          "why": "Covalent bonds hold each molecule together and are not broken when a liquid boils."
+        },
+        {
+          "i": 4,
+          "why": "Pure water contains no dissolved ions in significant amounts, so ion–dipole forces are not present.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Chemistry 2e · Intermolecular Forces",
+          "url": "https://openstax.org/books/chemistry-2e/pages/10-1-intermolecular-forces"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "gc-solutions-1",
+      "section": "gchem",
+      "category": "GC-4",
+      "topic": "Concentration calculations",
+      "skill": "skill-2",
+      "difficulty": "easy",
+      "format": "standard",
+      "stem": "How many grams of sodium hydroxide, NaOH (molar mass 40 g/mol), are needed to prepare 250 mL of a 0.20 M solution?",
+      "options": [
+        "0.050 g",
+        "2.0 g",
+        "8.0 g",
+        "20 g",
+        "50 g"
+      ],
+      "answer": 1,
+      "explanation": "Moles equal molarity times volume in litres: 0.20 mol/L × 0.250 L = 0.050 mol, and 0.050 mol × 40 g/mol = 2.0 g. The trap is stopping at 0.050 and reporting the mole count as if it were grams.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "0.050 is the number of moles of NaOH, not its mass in grams."
+        },
+        {
+          "i": 2,
+          "why": "0.20 × 40 = 8.0 assumes a full litre of solution rather than 250 mL."
+        },
+        {
+          "i": 3,
+          "why": "This treats 250 mL as 2.5 L, misplacing the decimal in the volume conversion.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "0.20 × 250 = 50 multiplies molarity by millilitres without converting to litres."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Chemistry 2e · Molarity",
+          "url": "https://openstax.org/books/chemistry-2e/pages/3-3-molarity"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "gc-acidbase-1",
+      "section": "gchem",
+      "category": "GC-5",
+      "topic": "Strength",
+      "skill": "skill-1",
+      "difficulty": "hard",
+      "format": "standard",
+      "stem": "Aqueous solutions of hydrofluoric acid, HF, and hydrochloric acid, HCl, are prepared at equal concentrations. Which statement correctly compares the two solutions?",
+      "options": [
+        "The HF solution has the lower pH because fluorine is more electronegative than chlorine",
+        "Both solutions have the same pH because each acid donates one proton per molecule",
+        "The HCl solution has the lower pH because HCl ionizes completely and HF only partly",
+        "The HF solution has the lower pH because the H–F bond is longer than the H–Cl bond",
+        "Neither solution is acidic because both compounds are binary molecular hydrides"
+      ],
+      "answer": 2,
+      "explanation": "HCl is a strong acid, so its hydronium concentration equals the acid concentration; HF is weak, so only a small fraction ionizes and its pH is higher. The trap is reasoning from electronegativity: the short, very strong H–F bond is what keeps the proton attached, so HF is the weaker acid despite fluorine’s electronegativity.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Electronegativity of the halogen does not decide strength here; the strong H–F bond keeps HF weak."
+        },
+        {
+          "i": 1,
+          "why": "Both are monoprotic, but the fraction that ionizes differs enormously, so the pH values differ."
+        },
+        {
+          "i": 3,
+          "why": "The H–F bond is the shortest and strongest of the hydrogen halide bonds, which is exactly why HF is weak."
+        },
+        {
+          "i": 4,
+          "why": "Both compounds are acids in water; the hydrogen halides are classic Bronsted acids.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Chemistry 2e · Relative Strengths of Acids and Bases",
+          "url": "https://openstax.org/books/chemistry-2e/pages/14-3-relative-strengths-of-acids-and-bases"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "section": "gchem",
+      "format": "standard",
+      "id": "gc-stoich-2",
+      "category": "GC-1",
+      "topic": "Empirical formulae",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "stem": "A compound is found to be 40.0 % carbon, 6.7 % hydrogen and 53.3 % oxygen by mass. What is its empirical formula?",
+      "options": [
+        "CHO",
+        "CH2O",
+        "CH3O",
+        "C2H4O2",
+        "C2H6O"
+      ],
+      "answer": 1,
+      "explanation": "Treat the percentages as grams and divide by the molar masses: 40.0/12 = 3.33 mol C, 6.7/1 = 6.7 mol H, 53.3/16 = 3.33 mol O, a ratio of 1 : 2 : 1. The trap is stopping before the ratio is reduced, since a formula with twice those subscripts has the same composition but is not the empirical formula.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "A 1 : 1 : 1 ratio ignores that the hydrogen mole count comes out twice the carbon mole count."
+        },
+        {
+          "i": 2,
+          "why": "Three hydrogens per carbon would require about 10 % hydrogen by mass, not 6.7 %."
+        },
+        {
+          "i": 3,
+          "why": "This has the right ratio but is not reduced to the smallest whole numbers, so it is a molecular formula rather than an empirical one."
+        },
+        {
+          "i": 4,
+          "why": "Ethanol is about 52 % carbon and 13 % hydrogen, which does not match the composition given.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Chemistry 2e · Determining Empirical and Molecular Formulas",
+          "url": "https://openstax.org/books/chemistry-2e/pages/3-2-determining-empirical-and-molecular-formulas"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "section": "gchem",
+      "format": "standard",
+      "id": "gc-stoich-3",
+      "category": "GC-1",
+      "topic": "Balancing equations",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "stem": "Ethane burns in oxygen: C2H6 + O2 → CO2 + H2O. When the equation is balanced with the smallest whole-number coefficients, what is the coefficient of O2?",
+      "options": [
+        "3",
+        "5",
+        "6",
+        "7",
+        "9"
+      ],
+      "answer": 3,
+      "explanation": "Balancing carbon and hydrogen first gives 2 C2H6 → 4 CO2 + 6 H2O, which needs 8 + 6 = 14 oxygen atoms, so 7 O2. The trap is balancing a single C2H6, which needs 3.5 O2 and forces the whole equation to be doubled before the coefficients are whole numbers.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Rounding the 3.5 O2 needed by one ethane molecule down to 3 leaves one oxygen atom unaccounted for."
+        },
+        {
+          "i": 1,
+          "why": "Five is the oxygen coefficient for propane, which has one more carbon and one more CH2 unit."
+        },
+        {
+          "i": 2,
+          "why": "Six matches the water coefficient, not the oxygen needed for both products."
+        },
+        {
+          "i": 4,
+          "why": "Nine oxygen molecules supply 18 oxygen atoms, four more than the products contain.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Chemistry 2e · Writing and Balancing Chemical Equations",
+          "url": "https://openstax.org/books/chemistry-2e/pages/4-1-writing-and-balancing-chemical-equations"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "section": "gchem",
+      "format": "standard",
+      "id": "gc-stoich-4",
+      "category": "GC-1",
+      "topic": "Percent composition",
+      "skill": "skill-2",
+      "difficulty": "easy",
+      "stem": "What is the mass percent of nitrogen in ammonium nitrate, NH4NO3 (molar mass 80 g/mol)?",
+      "options": [
+        "5.0 %",
+        "17.5 %",
+        "35 %",
+        "60 %",
+        "70 %"
+      ],
+      "answer": 2,
+      "explanation": "The formula contains two nitrogen atoms, a total of 2 × 14 = 28 g per mole of compound, and 28/80 = 0.35. The usual slip is counting only the nitrogen in the ammonium ion and reporting half the true value.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "That is the hydrogen fraction: four hydrogens contribute 4 of the 80 g.",
+          "weakest": true
+        },
+        {
+          "i": 1,
+          "why": "This counts only one of the two nitrogen atoms in the formula."
+        },
+        {
+          "i": 3,
+          "why": "That is the oxygen fraction: three oxygens contribute 48 of the 80 g."
+        },
+        {
+          "i": 4,
+          "why": "This uses 28 for each nitrogen atom instead of 14, doubling the true value."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Chemistry 2e · Formula Mass and the Mole Concept",
+          "url": "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "section": "gchem",
+      "format": "standard",
+      "id": "gc-gases-2",
+      "category": "GC-2",
+      "topic": "Dalton's",
+      "skill": "skill-2",
+      "difficulty": "easy",
+      "stem": "A rigid vessel holds 0.20 mol of helium and 0.30 mol of neon, and the total pressure is 1.0 atm. What is the partial pressure of helium?",
+      "options": [
+        "0.20 atm",
+        "0.40 atm",
+        "0.50 atm",
+        "0.60 atm",
+        "1.0 atm"
+      ],
+      "answer": 1,
+      "explanation": "A partial pressure is the mole fraction times the total pressure: 0.20/(0.20 + 0.30) = 0.40, so 0.40 × 1.0 atm = 0.40 atm. The trap is reading the mole count itself as a pressure, which only happens to look plausible because the total is 1.0 atm.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "This reports the mole count as though it were a pressure; the mole fraction is 0.40, not 0.20."
+        },
+        {
+          "i": 2,
+          "why": "An even split would need equal moles of the two gases, but neon is present in greater amount."
+        },
+        {
+          "i": 3,
+          "why": "That is the partial pressure of neon, the more abundant gas."
+        },
+        {
+          "i": 4,
+          "why": "That is the total pressure of the mixture, which both gases share.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Chemistry 2e · Stoichiometry of Gaseous Substances, Mixtures, and Reactions",
+          "url": "https://openstax.org/books/chemistry-2e/pages/9-3-stoichiometry-of-gaseous-substances-mixtures-and-reactions"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "section": "gchem",
+      "format": "standard",
+      "id": "gc-gases-3",
+      "category": "GC-2",
+      "topic": "Kinetic molecular theory of gases",
+      "skill": "skill-1",
+      "difficulty": "hard",
+      "stem": "Equal numbers of moles of helium and oxygen gas are held at the same temperature. Which comparison is correct?",
+      "options": [
+        "The oxygen molecules have the greater average kinetic energy because they are heavier",
+        "The helium atoms have the greater average speed because the two gases share the same average kinetic energy",
+        "The two gases have the same average speed because temperature fixes molecular speed directly",
+        "The oxygen molecules have the greater average speed because they carry more electrons",
+        "The helium atoms deliver the greater force per collision because they move faster"
+      ],
+      "answer": 1,
+      "explanation": "Average translational kinetic energy depends only on temperature, so at equal temperature the two gases match on energy; since energy goes as mass times speed squared, the lighter helium atoms must move faster on average. The trap is treating temperature as a measure of speed rather than of kinetic energy.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Average kinetic energy is set by temperature alone, so equal temperatures mean equal energies."
+        },
+        {
+          "i": 2,
+          "why": "Temperature fixes average kinetic energy; speed then depends on the mass of the particle."
+        },
+        {
+          "i": 3,
+          "why": "Electron count plays no part in the kinetic molecular model, which treats particles as point masses.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "Force per collision depends on momentum, and the light helium atom carries less of it despite its speed."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Chemistry 2e · The Kinetic-Molecular Theory",
+          "url": "https://openstax.org/books/chemistry-2e/pages/9-5-the-kinetic-molecular-theory"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "section": "gchem",
+      "format": "standard",
+      "id": "gc-phases-2",
+      "category": "GC-3",
+      "topic": "Vapor pressure",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "stem": "Water boils at 100 °C where the atmospheric pressure is 1.00 atm. On a mountain the atmospheric pressure is 0.80 atm. Which statement about the boiling of water there is correct?",
+      "options": [
+        "Below 100 °C, because the vapour pressure need only rise to 0.80 atm",
+        "At 100 °C, because the boiling point is a fixed property of the substance",
+        "Above 100 °C, because more energy is needed to push back the atmosphere",
+        "Below 100 °C, because hydrogen bonds are weaker at high elevation",
+        "It does not boil at all, because 0.80 atm is above the vapour pressure of water at every temperature"
+      ],
+      "answer": 0,
+      "explanation": "Boiling begins when the vapour pressure of the liquid equals the pressure pressing on its surface, and vapour pressure rises with temperature, so a smaller external pressure is matched at a lower temperature. The trap is calling the boiling point a fixed property: only the normal boiling point, measured at 1 atm, is fixed.",
+      "distractors": [
+        {
+          "i": 1,
+          "why": "Only the normal boiling point is fixed; the boiling temperature tracks the external pressure."
+        },
+        {
+          "i": 2,
+          "why": "Less atmospheric pressure means less to push back, so boiling comes sooner, not later."
+        },
+        {
+          "i": 3,
+          "why": "The temperature is right but the reason is not: hydrogen bonding is a molecular property that elevation does not change."
+        },
+        {
+          "i": 4,
+          "why": "The vapour pressure of water passes 0.80 atm well before 100 °C, so boiling certainly occurs.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Chemistry 2e · Phase Transitions",
+          "url": "https://openstax.org/books/chemistry-2e/pages/10-3-phase-transitions"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "section": "gchem",
+      "format": "standard",
+      "id": "gc-phases-3",
+      "category": "GC-3",
+      "topic": "Phase changes",
+      "skill": "skill-1",
+      "difficulty": "medium",
+      "stem": "A pure solid is heated at a constant rate and its temperature is plotted against time. Along the flat portion of the curve, where the solid is melting, the added energy is used to",
+      "options": [
+        "raise the average kinetic energy of the particles",
+        "strengthen the bonds inside each molecule",
+        "compress the sample as it becomes denser",
+        "overcome the attractions holding the particles in the solid lattice",
+        "convert part of the solid directly to vapour"
+      ],
+      "answer": 3,
+      "explanation": "During a phase change the added energy becomes potential energy as particles are pulled apart from one another, so the average kinetic energy, and therefore the temperature, does not change until the melting is complete. The trap is assuming that heat always raises temperature.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Average kinetic energy is what temperature measures, and the temperature is not rising here."
+        },
+        {
+          "i": 1,
+          "why": "Melting separates whole particles from each other; the bonds within each molecule are untouched."
+        },
+        {
+          "i": 2,
+          "why": "Most substances expand slightly on melting, and compression is not where the energy goes.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "Sublimation is a separate transition; on this curve the flat step is the solid becoming liquid."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Chemistry 2e · Phase Transitions",
+          "url": "https://openstax.org/books/chemistry-2e/pages/10-3-phase-transitions"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "section": "gchem",
+      "format": "standard",
+      "id": "gc-phases-4",
+      "category": "GC-3",
+      "topic": "Structures",
+      "skill": "skill-1",
+      "difficulty": "medium",
+      "stem": "Which solid is expected to have the highest melting point?",
+      "options": [
+        "Argon",
+        "Iodine",
+        "Copper",
+        "Sodium chloride",
+        "Silicon dioxide"
+      ],
+      "answer": 4,
+      "explanation": "Silicon dioxide is a covalent network solid, so melting it means breaking a continuous lattice of strong covalent bonds rather than separating discrete particles, and it melts near 1700 °C. The closest competitor is copper: metallic bonding is strong and copper melts near 1085 °C, still hundreds of degrees below a covalent network.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Argon atoms are held only by weak dispersion forces, so it melts far below room temperature.",
+          "weakest": true
+        },
+        {
+          "i": 1,
+          "why": "Iodine is a molecular solid; only dispersion forces between I2 molecules must be overcome."
+        },
+        {
+          "i": 2,
+          "why": "Metallic bonding is strong, but copper still melts several hundred degrees below silicon dioxide."
+        },
+        {
+          "i": 3,
+          "why": "The ionic lattice melts near 800 °C, high but well short of a covalent network solid."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Chemistry 2e · The Solid State of Matter",
+          "url": "https://openstax.org/books/chemistry-2e/pages/10-5-the-solid-state-of-matter"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "section": "gchem",
+      "format": "standard",
+      "id": "gc-solutions-2",
+      "category": "GC-4",
+      "topic": "Properties: colligative",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "stem": "Which aqueous solution has the lowest freezing point?",
+      "options": [
+        "0.10 m calcium chloride",
+        "0.10 m ethanol",
+        "0.10 m glucose",
+        "0.10 m potassium chloride",
+        "0.10 m sodium chloride"
+      ],
+      "answer": 0,
+      "explanation": "Freezing-point depression depends on the total concentration of dissolved particles, and calcium chloride releases three ions per formula unit against two for the other salts and one for each molecular solute. The trap is comparing the labelled molalities, which are identical, instead of the particle counts they produce.",
+      "distractors": [
+        {
+          "i": 1,
+          "why": "Ethanol is molecular and does not ionize, so it gives the smallest particle count of all.",
+          "weakest": true
+        },
+        {
+          "i": 2,
+          "why": "Glucose is also a nonelectrolyte, giving one particle per formula unit."
+        },
+        {
+          "i": 3,
+          "why": "Potassium chloride gives two ions per formula unit, fewer than calcium chloride gives."
+        },
+        {
+          "i": 4,
+          "why": "Sodium chloride also gives two ions per formula unit, so its depression is smaller."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Chemistry 2e · Colligative Properties",
+          "url": "https://openstax.org/books/chemistry-2e/pages/11-4-colligative-properties"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "section": "gchem",
+      "format": "standard",
+      "id": "gc-solutions-3",
+      "category": "GC-4",
+      "topic": "Polarity",
+      "skill": "skill-1",
+      "difficulty": "easy",
+      "stem": "Which solute is expected to be most soluble in hexane, a nonpolar solvent?",
+      "options": [
+        "Sodium chloride",
+        "Potassium nitrate",
+        "Glucose",
+        "Ammonia",
+        "Iodine"
+      ],
+      "answer": 4,
+      "explanation": "Solubility is greatest when solute and solvent are held together by the same kind of force, and nonpolar I2 interacts with hexane through dispersion forces just as hexane molecules interact with each other. The trap is picking a small molecule such as ammonia, which is small but strongly polar and hydrogen bonds instead.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "An ionic lattice needs a polar solvent able to surround and stabilize separated ions.",
+          "weakest": true
+        },
+        {
+          "i": 1,
+          "why": "Potassium nitrate is also ionic, and hexane cannot solvate its ions."
+        },
+        {
+          "i": 2,
+          "why": "Glucose carries several hydroxyl groups and dissolves through hydrogen bonding, not dispersion."
+        },
+        {
+          "i": 3,
+          "why": "Ammonia is small but distinctly polar and hydrogen bonds, so it prefers polar solvents."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Chemistry 2e · The Dissolution Process",
+          "url": "https://openstax.org/books/chemistry-2e/pages/11-1-the-dissolution-process"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "section": "gchem",
+      "format": "standard",
+      "id": "gc-solutions-4",
+      "category": "GC-4",
+      "topic": "Properties: non-colligative",
+      "skill": "skill-1",
+      "difficulty": "hard",
+      "stem": "A student compares 0.10 m aqueous glucose with 0.10 m aqueous copper(II) sulfate. Which observed difference reflects a property that is not colligative?",
+      "options": [
+        "The lower freezing point of the copper(II) sulfate solution",
+        "The higher boiling point of the copper(II) sulfate solution",
+        "The blue colour of the copper(II) sulfate solution",
+        "The lower vapour pressure of the copper(II) sulfate solution",
+        "The greater osmotic pressure of the copper(II) sulfate solution"
+      ],
+      "answer": 2,
+      "explanation": "A colligative property depends only on how many solute particles are present, not on what they are; colour comes from the specific electronic structure of the hydrated copper(II) ion, so it is non-colligative. The other four differences all follow from copper(II) sulfate giving more dissolved particles than glucose does.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Freezing-point depression is the textbook colligative property, set by particle count alone.",
+          "weakest": true
+        },
+        {
+          "i": 1,
+          "why": "Boiling-point elevation likewise tracks particle count, whatever the particles happen to be."
+        },
+        {
+          "i": 3,
+          "why": "Vapour-pressure lowering is colligative; any solute that gives more particles lowers it further."
+        },
+        {
+          "i": 4,
+          "why": "Osmotic pressure is proportional to total particle concentration, so it too is colligative."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Chemistry 2e · Colligative Properties",
+          "url": "https://openstax.org/books/chemistry-2e/pages/11-4-colligative-properties"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "section": "gchem",
+      "format": "standard",
+      "id": "gc-acidbase-2",
+      "category": "GC-5",
+      "topic": "pH",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "stem": "A 0.0010 M solution of hydrochloric acid is diluted with water to ten times its original volume. What is the pH of the diluted solution?",
+      "options": [
+        "2",
+        "3",
+        "4",
+        "5",
+        "7"
+      ],
+      "answer": 2,
+      "explanation": "Hydrochloric acid ionizes completely, so the starting hydronium concentration is 1.0 × 10⁻³ M and the starting pH is 3; diluting tenfold gives 1.0 × 10⁻⁴ M, and pH = 4. The trap is thinking dilution drives a solution to neutrality, when a tenfold dilution moves the pH by exactly one unit.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "This multiplies the hydronium concentration by ten; adding water lowers it instead."
+        },
+        {
+          "i": 1,
+          "why": "That is the pH before the dilution."
+        },
+        {
+          "i": 3,
+          "why": "A hundredfold dilution would shift the pH by two units; this one is tenfold."
+        },
+        {
+          "i": 4,
+          "why": "Dilution moves an acid toward neutral only in the limit; a tenfold dilution cannot reach pH 7.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Chemistry 2e · pH and pOH",
+          "url": "https://openstax.org/books/chemistry-2e/pages/14-2-ph-and-poh"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "section": "gchem",
+      "format": "standard",
+      "id": "gc-acidbase-3",
+      "category": "GC-5",
+      "topic": "Bronsted-Lowry reactions",
+      "skill": "skill-1",
+      "difficulty": "easy",
+      "stem": "For the reaction NH3 + H2O ⇌ NH4+ + OH−, which two species form a conjugate acid-base pair?",
+      "options": [
+        "NH3 and NH4+",
+        "NH3 and OH−",
+        "NH3 and H2O",
+        "H2O and NH4+",
+        "NH4+ and OH−"
+      ],
+      "answer": 0,
+      "explanation": "A conjugate pair differs by exactly one proton, and NH4+ is NH3 with a proton added. The trap is pairing the two reactants or the two products, which differ by a proton only when one is taken from the other side of the arrow.",
+      "distractors": [
+        {
+          "i": 1,
+          "why": "These differ by far more than one proton and sit on opposite sides of the equation."
+        },
+        {
+          "i": 2,
+          "why": "These are the two reactants, a base and the acid that protonates it, not a conjugate pair."
+        },
+        {
+          "i": 3,
+          "why": "Water and ammonium differ by a whole nitrogen atom, so no proton transfer relates them.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "These are the two products; the ammonium came from ammonia and the hydroxide from water."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Chemistry 2e · Brønsted-Lowry Acids and Bases",
+          "url": "https://openstax.org/books/chemistry-2e/pages/14-1-bronsted-lowry-acids-and-bases"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "section": "gchem",
+      "format": "standard",
+      "id": "gc-acidbase-4",
+      "category": "GC-5",
+      "topic": "Calculations",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "stem": "A buffer is prepared containing equal molar amounts of acetic acid (Ka = 1.8 × 10⁻⁵) and sodium acetate. What is the approximate pH of this buffer?",
+      "options": [
+        "1.8",
+        "3.7",
+        "4.7",
+        "5.7",
+        "9.3"
+      ],
+      "answer": 2,
+      "explanation": "With equal amounts of the weak acid and its conjugate base the ratio term vanishes and the pH equals the pKa, which is −log(1.8 × 10⁻⁵) ≈ 4.7. The trap is reading the coefficient 1.8 out of the Ka as though it were already a pH.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "That is the coefficient of the Ka, not a logarithm; the pKa is between 4 and 5.",
+          "weakest": true
+        },
+        {
+          "i": 1,
+          "why": "Subtracting one unit from the pKa would require ten times as much acid as conjugate base."
+        },
+        {
+          "i": 3,
+          "why": "Adding one unit to the pKa would require ten times as much conjugate base as acid."
+        },
+        {
+          "i": 4,
+          "why": "That is the pOH of the buffer, obtained by subtracting the pH from 14."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Chemistry 2e · Buffers",
+          "url": "https://openstax.org/books/chemistry-2e/pages/14-6-buffers"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "section": "gchem",
+      "format": "standard",
+      "id": "gc-equil-1",
+      "category": "GC-6",
+      "topic": "Le Chatelier's principle",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "stem": "For N2(g) + 3 H2(g) ⇌ 2 NH3(g), ΔH is negative. The temperature of an equilibrium mixture is raised at constant volume. Which statement correctly describes the change and its cause?",
+      "options": [
+        "The amount of ammonia rises, because heating always favours the forward reaction",
+        "The amount of ammonia falls, because heat behaves as a product and the system shifts to consume it",
+        "The amounts stay the same, because heating speeds the forward and reverse reactions equally",
+        "The amount of ammonia falls, because the pressure in the vessel drops as the gas is heated",
+        "The amount of ammonia rises, because the equilibrium constant does not depend on temperature"
+      ],
+      "answer": 1,
+      "explanation": "For an exothermic reaction heat can be written on the product side, so adding heat is a stress the system relieves by running in reverse, and the equilibrium constant falls. The trap is assuming that raising the temperature must increase yield because it increases rate; it increases both rates, and the reverse one more.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Heating speeds both directions; which one gains depends on the sign of the enthalpy change."
+        },
+        {
+          "i": 2,
+          "why": "The two rates do not change by the same factor, which is why the equilibrium position moves."
+        },
+        {
+          "i": 3,
+          "why": "Heating a rigid vessel raises the pressure rather than lowering it, so the stated reason fails."
+        },
+        {
+          "i": 4,
+          "why": "The equilibrium constant is temperature dependent; that dependence is exactly what shifts the position.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Chemistry 2e · Shifting Equilibria: Le Châtelier's Principle",
+          "url": "https://openstax.org/books/chemistry-2e/pages/13-3-shifting-equilibria-le-chateliers-principle"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "section": "gchem",
+      "format": "standard",
+      "id": "gc-equil-2",
+      "category": "GC-6",
+      "topic": "Molecular",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "stem": "The volume available to an equilibrium mixture of 2 SO2(g) + O2(g) ⇌ 2 SO3(g) is halved at constant temperature. Which change occurs as equilibrium is re-established?",
+      "options": [
+        "The amount of SO3 increases",
+        "The amount of SO3 decreases",
+        "The amount of O2 increases",
+        "The equilibrium constant increases",
+        "Nothing changes, because compression acts on all three gases alike"
+      ],
+      "answer": 0,
+      "explanation": "Compression raises the pressure, and the system relieves it by shifting toward the side with fewer gas molecules: three moles of reactant gas become two moles of product. The trap is expecting no shift because every partial pressure rises; what matters is the difference in the number of gas molecules on the two sides.",
+      "distractors": [
+        {
+          "i": 1,
+          "why": "Shifting toward SO2 and O2 would produce more gas molecules and raise the pressure further."
+        },
+        {
+          "i": 2,
+          "why": "Oxygen is consumed, not produced, when the system moves toward the side with fewer molecules."
+        },
+        {
+          "i": 3,
+          "why": "The equilibrium constant changes only with temperature, which is held fixed here."
+        },
+        {
+          "i": 4,
+          "why": "All partial pressures do rise, but unequal mole counts on the two sides still force a shift.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Chemistry 2e · Shifting Equilibria: Le Châtelier's Principle",
+          "url": "https://openstax.org/books/chemistry-2e/pages/13-3-shifting-equilibria-le-chateliers-principle"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "section": "gchem",
+      "format": "standard",
+      "id": "gc-equil-3",
+      "category": "GC-6",
+      "topic": "Precipitation",
+      "skill": "skill-2",
+      "difficulty": "hard",
+      "stem": "Solid silver chloride sits in equilibrium with its saturated aqueous solution. A spoonful of solid sodium chloride is stirred in and dissolves. What is the effect on the silver chloride?",
+      "options": [
+        "Its solubility increases, because the solution now holds more ions",
+        "Its solubility increases, because sodium ions tie up the chloride already present",
+        "Its Ksp decreases, because the ion product has risen above it",
+        "Nothing changes, because Ksp fixes how much dissolves whatever else is present",
+        "Its solubility decreases, because the added chloride drives the dissolution equilibrium back toward the solid"
+      ],
+      "answer": 4,
+      "explanation": "Adding a common ion raises the ion product above Ksp, so silver chloride precipitates until the product falls back to Ksp, and less of it is dissolved than before. The trap is treating Ksp as a fixed solubility rather than as a fixed product of two concentrations that can trade off against each other.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "More chloride ions in solution push the equilibrium toward the solid, not away from it."
+        },
+        {
+          "i": 1,
+          "why": "Sodium ions are spectators here; they form no complex or precipitate with chloride.",
+          "weakest": true
+        },
+        {
+          "i": 2,
+          "why": "Ksp is a constant at a given temperature; it is the dissolved amount that adjusts."
+        },
+        {
+          "i": 3,
+          "why": "Ksp fixes the product of the ion concentrations, so raising one must lower the other."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Chemistry 2e · Precipitation and Dissolution",
+          "url": "https://openstax.org/books/chemistry-2e/pages/15-1-precipitation-and-dissolution"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "section": "gchem",
+      "format": "standard",
+      "id": "gc-equil-4",
+      "category": "GC-6",
+      "topic": "Calculations",
+      "skill": "skill-2",
+      "difficulty": "hard",
+      "stem": "A 1.0 L vessel at equilibrium contains 0.20 mol H2, 0.20 mol I2 and 0.80 mol HI for the reaction H2(g) + I2(g) ⇌ 2 HI(g). What is Kc?",
+      "options": [
+        "0.0625",
+        "1.6",
+        "3.2",
+        "16",
+        "20"
+      ],
+      "answer": 3,
+      "explanation": "Kc is products over reactants with each concentration raised to its coefficient: (0.80)² / [(0.20)(0.20)] = 0.64/0.040 = 16. The most attractive trap is leaving the exponent off the product term, which gives 0.80/0.040 = 20.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "This is the reciprocal, the constant for the reverse reaction as written.",
+          "weakest": true
+        },
+        {
+          "i": 1,
+          "why": "Adding the two reactant concentrations instead of multiplying them gives 0.64/0.40."
+        },
+        {
+          "i": 2,
+          "why": "Dividing by only one reactant concentration gives 0.64/0.20."
+        },
+        {
+          "i": 4,
+          "why": "This omits the exponent 2 on the hydrogen iodide concentration."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Chemistry 2e · Equilibrium Constants",
+          "url": "https://openstax.org/books/chemistry-2e/pages/13-2-equilibrium-constants"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "section": "gchem",
+      "format": "standard",
+      "id": "gc-thermo-1",
+      "category": "GC-7",
+      "topic": "Spontaneity",
+      "skill": "skill-1",
+      "difficulty": "medium",
+      "stem": "A reaction has a positive enthalpy change and a positive entropy change. Under what conditions is it spontaneous?",
+      "options": [
+        "At all temperatures",
+        "At no temperature",
+        "Only at low temperature",
+        "Only at standard temperature",
+        "Only at high temperature"
+      ],
+      "answer": 4,
+      "explanation": "Spontaneity requires ΔG = ΔH − TΔS to be negative; with both terms positive the entropy term only wins once T is large enough. The trap is the mirror case, ΔH negative with ΔS negative, which is the one that works at low temperature.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Both terms would have to favour the reaction, which requires a negative enthalpy change."
+        },
+        {
+          "i": 1,
+          "why": "A large enough temperature always makes the entropy term outweigh a fixed positive enthalpy."
+        },
+        {
+          "i": 2,
+          "why": "At low temperature the entropy term is small, so the positive enthalpy dominates and blocks the reaction."
+        },
+        {
+          "i": 3,
+          "why": "Standard conditions fix a reference state; they do not by themselves decide spontaneity.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Chemistry 2e · Free Energy",
+          "url": "https://openstax.org/books/chemistry-2e/pages/16-4-free-energy"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "section": "gchem",
+      "format": "standard",
+      "id": "gc-thermo-2",
+      "category": "GC-7",
+      "topic": "Hess's law",
+      "skill": "skill-2",
+      "difficulty": "hard",
+      "stem": "Given C(s) + O2(g) → CO2(g), ΔH = −394 kJ, and CO(g) + ½ O2(g) → CO2(g), ΔH = −283 kJ, what is ΔH for C(s) + ½ O2(g) → CO(g)?",
+      "options": [
+        "−677 kJ",
+        "−394 kJ",
+        "−111 kJ",
+        "+111 kJ",
+        "+677 kJ"
+      ],
+      "answer": 2,
+      "explanation": "Reverse the second equation, which flips its sign to +283 kJ, and add it to the first: −394 + 283 = −111 kJ, with carbon dioxide cancelling. The trap is adding the two enthalpies as given, which double-counts the combustion of carbon monoxide instead of subtracting it.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Adding the two values as written treats both combustions as happening, rather than cancelling one."
+        },
+        {
+          "i": 1,
+          "why": "That is the first reaction alone, which ends at carbon dioxide rather than carbon monoxide."
+        },
+        {
+          "i": 3,
+          "why": "The sign is reversed: forming carbon monoxide from its elements releases energy."
+        },
+        {
+          "i": 4,
+          "why": "This both adds the values and flips the sign, so neither step is handled correctly.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Chemistry 2e · Enthalpy",
+          "url": "https://openstax.org/books/chemistry-2e/pages/5-3-enthalpy"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "section": "gchem",
+      "format": "standard",
+      "id": "gc-thermo-3",
+      "category": "GC-7",
+      "topic": "Heat transfer",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "stem": "How much heat is required to warm 50.0 g of liquid water (specific heat 4.18 J g⁻¹ °C⁻¹) from 20.0 °C to 30.0 °C?",
+      "options": [
+        "41.8 J",
+        "209 J",
+        "2090 J",
+        "4180 J",
+        "6270 J"
+      ],
+      "answer": 2,
+      "explanation": "Use q = mcΔT with ΔT = 10.0 °C: 50.0 × 4.18 × 10.0 = 2090 J. The most common error is substituting a temperature rather than a temperature change, since only the difference between the two readings matters.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "This leaves the mass out, multiplying only the specific heat by the temperature change.",
+          "weakest": true
+        },
+        {
+          "i": 1,
+          "why": "This leaves the temperature change out, multiplying only mass by specific heat."
+        },
+        {
+          "i": 3,
+          "why": "This uses the initial temperature, 20.0 °C, in place of the 10.0 °C change."
+        },
+        {
+          "i": 4,
+          "why": "This uses the final temperature, 30.0 °C, in place of the 10.0 °C change."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Chemistry 2e · Energy Basics",
+          "url": "https://openstax.org/books/chemistry-2e/pages/5-1-energy-basics"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "section": "gchem",
+      "format": "standard",
+      "id": "gc-thermo-4",
+      "category": "GC-7",
+      "topic": "Enthalpies and entropies",
+      "skill": "skill-1",
+      "difficulty": "medium",
+      "stem": "For which process is the entropy change of the system negative?",
+      "options": [
+        "Ice melting at 25 °C",
+        "Dry ice subliming",
+        "Solid ammonium nitrate dissolving in water",
+        "A gas expanding into an evacuated flask",
+        "Water vapour condensing on a cold window"
+      ],
+      "answer": 4,
+      "explanation": "Entropy falls when the particles of a system become more ordered or more confined, and condensation takes a widely dispersed gas into a compact liquid. The trap is the melting of ice, which feels like a cooling process but actually disperses the particles and raises entropy.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Melting frees particles from a fixed lattice, so the entropy of the system rises."
+        },
+        {
+          "i": 1,
+          "why": "Sublimation produces a gas from a solid, the largest entropy increase of the set.",
+          "weakest": true
+        },
+        {
+          "i": 2,
+          "why": "Dissolving breaks up an ordered lattice and disperses ions through the solvent, raising entropy."
+        },
+        {
+          "i": 3,
+          "why": "Expansion gives the gas particles more positions to occupy, which raises entropy."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Chemistry 2e · Entropy",
+          "url": "https://openstax.org/books/chemistry-2e/pages/16-2-entropy"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "section": "gchem",
+      "format": "standard",
+      "id": "gc-kinetics-1",
+      "category": "GC-8",
+      "topic": "Rate laws",
+      "skill": "skill-2",
+      "difficulty": "easy",
+      "stem": "A reaction follows the rate law rate = k[A][B]². What happens to the rate when the concentration of B is doubled while the concentration of A is held constant?",
+      "options": [
+        "It is halved",
+        "It is unchanged",
+        "It doubles",
+        "It quadruples",
+        "It increases eightfold"
+      ],
+      "answer": 3,
+      "explanation": "A concentration raised to the power two contributes a factor of 2² = 4 when that concentration is doubled, and A contributes nothing because it is unchanged. The trap is reading the exponent as a multiplier, which would predict a mere doubling.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Adding more of a reactant that appears in the rate law speeds the reaction up, never down.",
+          "weakest": true
+        },
+        {
+          "i": 1,
+          "why": "B appears in the rate law, so its concentration does affect the rate."
+        },
+        {
+          "i": 2,
+          "why": "A simple doubling would be right only if B were first order."
+        },
+        {
+          "i": 4,
+          "why": "An eightfold change needs a third-order dependence, or a doubling of both reactants at once."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Chemistry 2e · Rate Laws",
+          "url": "https://openstax.org/books/chemistry-2e/pages/12-3-rate-laws"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "section": "gchem",
+      "format": "standard",
+      "id": "gc-kinetics-2",
+      "category": "GC-8",
+      "topic": "Rate laws",
+      "skill": "skill-3",
+      "difficulty": "medium",
+      "stem": "In a series of trials on the reaction of A with B, doubling the concentration of A doubles the initial rate, while doubling the concentration of B leaves the initial rate unchanged. What is the rate law?",
+      "options": [
+        "rate = k[A]",
+        "rate = k[B]",
+        "rate = k[A][B]",
+        "rate = k[A]²",
+        "rate = k[A][B]²"
+      ],
+      "answer": 0,
+      "explanation": "Each reactant order is read from how the rate responds to that reactant alone: a proportional response is first order, and no response at all is zero order, which leaves the species out of the rate law entirely. The trap is assuming every reactant in the balanced equation must appear in the rate law.",
+      "distractors": [
+        {
+          "i": 1,
+          "why": "The rate does not respond to B at all, so B cannot be the species that sets it.",
+          "weakest": true
+        },
+        {
+          "i": 2,
+          "why": "Including B first order predicts that doubling B would double the rate, which the trials rule out."
+        },
+        {
+          "i": 3,
+          "why": "Second order in A predicts that doubling A quadruples the rate, but it only doubled."
+        },
+        {
+          "i": 4,
+          "why": "This makes the rate depend strongly on B, which the trials show has no effect."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Chemistry 2e · Rate Laws",
+          "url": "https://openstax.org/books/chemistry-2e/pages/12-3-rate-laws"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "section": "gchem",
+      "format": "standard",
+      "id": "gc-kinetics-3",
+      "category": "GC-8",
+      "topic": "Activation energy",
+      "skill": "skill-1",
+      "difficulty": "medium",
+      "stem": "A catalyst speeds a reaction up chiefly because it",
+      "options": [
+        "raises the average kinetic energy of the reactant molecules",
+        "opens an alternative pathway with a lower activation energy",
+        "increases the equilibrium constant so that more product forms",
+        "lowers the enthalpy change of the reaction",
+        "is consumed as the reaction runs, producing extra collisions"
+      ],
+      "answer": 1,
+      "explanation": "A catalyst provides a different route from reactants to products whose highest energy barrier is lower, so a larger fraction of collisions carries enough energy to react. The trap is thinking the catalyst raises yield: it lowers the barrier in both directions equally, so the equilibrium position is untouched.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Average kinetic energy is fixed by temperature, which a catalyst does not change."
+        },
+        {
+          "i": 2,
+          "why": "A catalyst speeds both directions equally, so the equilibrium constant is unchanged."
+        },
+        {
+          "i": 3,
+          "why": "The enthalpy change depends only on the reactants and products, not on the route between them."
+        },
+        {
+          "i": 4,
+          "why": "A catalyst is regenerated rather than consumed, which is what lets a small amount keep working.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Chemistry 2e · Catalysis",
+          "url": "https://openstax.org/books/chemistry-2e/pages/12-7-catalysis"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "section": "gchem",
+      "format": "standard",
+      "id": "gc-kinetics-4",
+      "category": "GC-8",
+      "topic": "Half-life",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "stem": "A substance decomposes by first-order kinetics with a half-life of 20 minutes. What fraction of the original sample remains after 60 minutes?",
+      "options": [
+        "1/16",
+        "1/8",
+        "1/4",
+        "1/3",
+        "1/2"
+      ],
+      "answer": 1,
+      "explanation": "Sixty minutes is three half-lives, and each one halves what is left: 1 → 1/2 → 1/4 → 1/8. The trap is dividing by the number of half-lives instead of halving repeatedly, which turns three half-lives into a third rather than an eighth.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "That is four half-lives, or 80 minutes."
+        },
+        {
+          "i": 2,
+          "why": "That is two half-lives, or 40 minutes."
+        },
+        {
+          "i": 3,
+          "why": "This divides by the number of half-lives; decay is repeated halving, not division.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "That is one half-life, or 20 minutes."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Chemistry 2e · Integrated Rate Laws",
+          "url": "https://openstax.org/books/chemistry-2e/pages/12-4-integrated-rate-laws"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "section": "gchem",
+      "format": "standard",
+      "id": "gc-redox-1",
+      "category": "GC-9",
+      "topic": "Determination of oxidation numbers",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "stem": "What is the oxidation number of chromium in the dichromate ion, Cr2O7²⁻?",
+      "options": [
+        "+2",
+        "+3",
+        "+6",
+        "+7",
+        "+12"
+      ],
+      "answer": 2,
+      "explanation": "Oxygen is assigned −2 each, giving −14 for the seven oxygens, and the oxidation numbers must sum to the ionic charge of −2, so 2x − 14 = −2 and x = +6. The trap is forgetting the ion carries a charge and setting the sum to zero, which gives +7.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "The overall charge on the ion is −2; that is not the oxidation number of one chromium atom.",
+          "weakest": true
+        },
+        {
+          "i": 1,
+          "why": "+3 is chromium’s common state in simple salts, but the oxygen count here forces a higher value."
+        },
+        {
+          "i": 3,
+          "why": "This sets the sum of oxidation numbers to zero, as for a neutral compound, ignoring the −2 charge."
+        },
+        {
+          "i": 4,
+          "why": "That is the total for both chromium atoms together; the question asks about one atom."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Chemistry 2e · Classifying Chemical Reactions",
+          "url": "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "section": "gchem",
+      "format": "standard",
+      "id": "gc-redox-2",
+      "category": "GC-9",
+      "topic": "Electrochemical concepts and terminology",
+      "skill": "skill-1",
+      "difficulty": "medium",
+      "stem": "Which statement about a galvanic cell is correct?",
+      "options": [
+        "Oxidation occurs at the cathode, which carries a negative charge",
+        "Reduction occurs at the anode, and electrons move toward it through the wire",
+        "Electrons travel through the salt bridge from one half-cell to the other",
+        "Both electrodes gain mass while the cell operates",
+        "Oxidation occurs at the anode, and electrons leave it through the wire toward the cathode"
+      ],
+      "answer": 4,
+      "explanation": "Oxidation is always the anode reaction, and the electrons it releases travel through the external wire to the cathode, where reduction consumes them. The trap is the salt bridge: it completes the circuit with migrating ions, not with electrons.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "The cathode is where reduction happens; oxidation belongs to the anode."
+        },
+        {
+          "i": 1,
+          "why": "This swaps the two electrodes; reduction is the cathode reaction."
+        },
+        {
+          "i": 2,
+          "why": "The salt bridge carries ions to balance charge; electrons move only through the external circuit.",
+          "weakest": true
+        },
+        {
+          "i": 3,
+          "why": "The anode is usually eaten away as it is oxidized, so it loses mass while the cathode gains it."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Chemistry 2e · Galvanic Cells",
+          "url": "https://openstax.org/books/chemistry-2e/pages/17-2-galvanic-cells"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "section": "gchem",
+      "format": "standard",
+      "id": "gc-redox-3",
+      "category": "GC-9",
+      "topic": "Balancing equations",
+      "skill": "skill-2",
+      "difficulty": "hard",
+      "stem": "Permanganate ion, MnO4⁻, is reduced to Mn²⁺ in acidic solution. How many electrons appear in the balanced half-reaction?",
+      "options": [
+        "2",
+        "3",
+        "4",
+        "5",
+        "8"
+      ],
+      "answer": 3,
+      "explanation": "Manganese goes from +7 in permanganate to +2 in the product, a drop of five units, so five electrons are gained. The attractive trap is 8, the number of hydrogen ions needed to take the four oxygens away as water, which is balanced separately from the electron count.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Two electrons would carry manganese only from +7 to +5."
+        },
+        {
+          "i": 1,
+          "why": "Three electrons describe the reduction to manganese dioxide, which happens in neutral or basic solution."
+        },
+        {
+          "i": 2,
+          "why": "Four is the number of oxygen atoms in permanganate, not the change in oxidation number."
+        },
+        {
+          "i": 4,
+          "why": "Eight is the number of hydrogen ions required to form four waters, a separate part of the balance.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Chemistry 2e · Review of Redox Chemistry",
+          "url": "https://openstax.org/books/chemistry-2e/pages/17-1-review-of-redox-chemistry"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "section": "gchem",
+      "format": "standard",
+      "id": "gc-redox-4",
+      "category": "GC-9",
+      "topic": "Electrochemical calculations",
+      "skill": "skill-2",
+      "difficulty": "hard",
+      "stem": "Standard reduction potentials are Zn²⁺ + 2 e⁻ → Zn, E° = −0.76 V and Cu²⁺ + 2 e⁻ → Cu, E° = +0.34 V. What is the standard cell potential of the spontaneous cell built from these half-cells?",
+      "options": [
+        "−1.10 V",
+        "−0.42 V",
+        "+0.42 V",
+        "+1.10 V",
+        "+2.20 V"
+      ],
+      "answer": 3,
+      "explanation": "Subtract the anode reduction potential from the cathode one: copper is reduced and zinc oxidized, so E° = 0.34 − (−0.76) = +1.10 V, positive as a spontaneous cell must be. The trap is doubling the result because two electrons are transferred; potential is an intensive property and is never multiplied by the electron count.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "This runs the cell backwards, oxidizing copper; a spontaneous cell has a positive potential."
+        },
+        {
+          "i": 1,
+          "why": "This adds the two tabulated values instead of subtracting the anode from the cathode."
+        },
+        {
+          "i": 2,
+          "why": "This adds the values and then flips the sign to force a positive answer."
+        },
+        {
+          "i": 4,
+          "why": "Cell potential does not scale with the number of electrons transferred.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Chemistry 2e · Electrode and Cell Potentials",
+          "url": "https://openstax.org/books/chemistry-2e/pages/17-3-electrode-and-cell-potentials"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "section": "gchem",
+      "format": "standard",
+      "id": "gc-atomic-1",
+      "category": "GC-10",
+      "topic": "Molecular geometry",
+      "skill": "skill-1",
+      "difficulty": "easy",
+      "stem": "What is the molecular geometry of ammonia, NH3?",
+      "options": [
+        "Trigonal pyramidal",
+        "Trigonal planar",
+        "Tetrahedral",
+        "Bent",
+        "T-shaped"
+      ],
+      "answer": 0,
+      "explanation": "Nitrogen carries four electron domains, three bonding pairs and one lone pair, so the electron-domain arrangement is tetrahedral while the atoms themselves describe a pyramid. The trap is naming the electron-domain geometry, tetrahedral, when the question asks where the atoms are.",
+      "distractors": [
+        {
+          "i": 1,
+          "why": "Trigonal planar needs three domains and no lone pair, as in boron trifluoride."
+        },
+        {
+          "i": 2,
+          "why": "That is the electron-domain geometry; molecular geometry counts only the positions of atoms."
+        },
+        {
+          "i": 3,
+          "why": "A bent shape comes from two bonding pairs plus lone pairs, as in water."
+        },
+        {
+          "i": 4,
+          "why": "A T-shape requires five electron domains with two lone pairs, which nitrogen cannot hold.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Chemistry 2e · Molecular Structure and Polarity",
+          "url": "https://openstax.org/books/chemistry-2e/pages/7-6-molecular-structure-and-polarity"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "section": "gchem",
+      "format": "standard",
+      "id": "gc-atomic-2",
+      "category": "GC-10",
+      "topic": "Electron configuration",
+      "skill": "skill-1",
+      "difficulty": "medium",
+      "stem": "Which is the ground-state electron configuration of a neutral sulfur atom (Z = 16)?",
+      "options": [
+        "1s2 2s2 2p6 3s2 3p4",
+        "1s2 2s2 2p6 3s2 3p6",
+        "1s2 2s2 2p6 3s2 3p3",
+        "1s2 2s2 2p6 3s1 3p5",
+        "1s2 2s2 2p6 3s2 3p4 4s2"
+      ],
+      "answer": 0,
+      "explanation": "Sixteen electrons fill 1s, 2s and 2p (ten electrons), then 3s (twelve) and leave four for 3p. The trap is the configuration ending 3p6, which belongs to the sulfide ion or to argon and holds eighteen electrons rather than sixteen.",
+      "distractors": [
+        {
+          "i": 1,
+          "why": "That is eighteen electrons: argon, or the sulfide ion after it gains two electrons."
+        },
+        {
+          "i": 2,
+          "why": "That is fifteen electrons, the configuration of phosphorus."
+        },
+        {
+          "i": 3,
+          "why": "Promoting a 3s electron gives an excited state, not the ground-state arrangement."
+        },
+        {
+          "i": 4,
+          "why": "This places two extra electrons in 4s, giving eighteen electrons in all.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Chemistry 2e · Electronic Structure of Atoms (Electron Configurations)",
+          "url": "https://openstax.org/books/chemistry-2e/pages/6-4-electronic-structure-of-atoms-electron-configurations"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "section": "gchem",
+      "format": "standard",
+      "id": "gc-atomic-3",
+      "category": "GC-10",
+      "topic": "Bond types",
+      "skill": "skill-1",
+      "difficulty": "medium",
+      "stem": "Which compound contains both ionic and covalent bonding?",
+      "options": [
+        "NaCl",
+        "CO2",
+        "CH4",
+        "NaNO3",
+        "MgO"
+      ],
+      "answer": 3,
+      "explanation": "Sodium nitrate pairs a metal cation with a polyatomic anion: the sodium-to-nitrate attraction is ionic, while the nitrogen-to-oxygen bonds inside the nitrate ion are covalent. The tell is a polyatomic ion in the formula, since holding several atoms together as one charged unit requires covalent bonds.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "A metal and a single nonmetal atom give ionic bonding only, with no polyatomic unit."
+        },
+        {
+          "i": 1,
+          "why": "Two nonmetals share electrons, so carbon dioxide has polar covalent bonds only."
+        },
+        {
+          "i": 2,
+          "why": "Methane is nonmetal-nonmetal throughout, so every bond in it is covalent.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "Magnesium oxide is a metal with a single nonmetal, so its bonding is ionic only."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Chemistry 2e · Ionic Bonding",
+          "url": "https://openstax.org/books/chemistry-2e/pages/7-1-ionic-bonding"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "section": "gchem",
+      "format": "standard",
+      "id": "gc-atomic-4",
+      "category": "GC-10",
+      "topic": "Orbital types",
+      "skill": "skill-1",
+      "difficulty": "hard",
+      "stem": "How many orbitals are contained in the shell with principal quantum number n = 3?",
+      "options": [
+        "3",
+        "5",
+        "9",
+        "10",
+        "18"
+      ],
+      "answer": 2,
+      "explanation": "The shell holds the 3s, 3p and 3d subshells, containing 1, 3 and 5 orbitals, so nine in all, which is n². The trap is 18, the electron capacity 2n², which counts electrons rather than the orbitals that hold two apiece.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Three is the number of subshells in this shell; only the s subshell has a single orbital."
+        },
+        {
+          "i": 1,
+          "why": "Five counts the d subshell alone and leaves out the s and p orbitals."
+        },
+        {
+          "i": 3,
+          "why": "Ten is how many electrons the 3d subshell holds, not a count of orbitals.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "That is 2n², the electron capacity of the shell; each orbital holds two electrons."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Chemistry 2e · Development of Quantum Theory",
+          "url": "https://openstax.org/books/chemistry-2e/pages/6-3-development-of-quantum-theory"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "section": "gchem",
+      "format": "standard",
+      "id": "gc-periodic-1",
+      "category": "GC-11",
+      "topic": "Periodic trends",
+      "skill": "skill-1",
+      "difficulty": "easy",
+      "stem": "Which of these atoms has the largest atomic radius?",
+      "options": [
+        "Beryllium",
+        "Boron",
+        "Lithium",
+        "Magnesium",
+        "Sodium"
+      ],
+      "answer": 4,
+      "explanation": "Radius grows down a group as a new shell is added and shrinks across a period as the growing nuclear charge pulls the same shell inward, so the largest atom is the one furthest left in the lowest period. The trap is lithium, the largest of the period-2 atoms but still smaller than anything in period 3.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Beryllium sits one column right of lithium in period 2, so it is smaller still."
+        },
+        {
+          "i": 1,
+          "why": "Boron is further right again in period 2, making it the smallest of these atoms.",
+          "weakest": true
+        },
+        {
+          "i": 2,
+          "why": "Lithium is the largest period-2 atom here, but period-3 atoms have an extra shell."
+        },
+        {
+          "i": 3,
+          "why": "Magnesium shares sodium’s period but has a larger nuclear charge, so it is smaller."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Chemistry 2e · Periodic Variations in Element Properties",
+          "url": "https://openstax.org/books/chemistry-2e/pages/6-5-periodic-variations-in-element-properties"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "section": "gchem",
+      "format": "standard",
+      "id": "gc-periodic-2",
+      "category": "GC-11",
+      "topic": "Periodic trends",
+      "skill": "skill-3",
+      "difficulty": "hard",
+      "stem": "The first four ionization energies of a main-group element are 578, 1817, 2745 and 11 578 kJ/mol. To which group does the element most likely belong?",
+      "options": [
+        "Group 1",
+        "Group 2",
+        "Group 13",
+        "Group 14",
+        "Group 15"
+      ],
+      "answer": 2,
+      "explanation": "The large jump comes when the next electron must be taken from a filled inner shell, so the number of electrons removed easily equals the number of valence electrons: three here, before the fourth ionization jumps by a factor of four. The trap is counting the jump itself as a valence electron rather than as the first core one.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "A group 1 element would show its jump immediately after the first ionization."
+        },
+        {
+          "i": 1,
+          "why": "A group 2 element would show the jump after the second ionization."
+        },
+        {
+          "i": 3,
+          "why": "A group 14 element would remove four electrons smoothly before jumping."
+        },
+        {
+          "i": 4,
+          "why": "A group 15 element would show five moderate ionizations before the core is reached.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Chemistry 2e · Periodic Variations in Element Properties",
+          "url": "https://openstax.org/books/chemistry-2e/pages/6-5-periodic-variations-in-element-properties"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "section": "gchem",
+      "format": "standard",
+      "id": "gc-periodic-3",
+      "category": "GC-11",
+      "topic": "Representative elements",
+      "skill": "skill-1",
+      "difficulty": "easy",
+      "stem": "Which pair of elements is expected to have the most similar chemical behaviour?",
+      "options": [
+        "Sodium and magnesium",
+        "Sodium and potassium",
+        "Oxygen and fluorine",
+        "Chlorine and argon",
+        "Calcium and bromine"
+      ],
+      "answer": 1,
+      "explanation": "Chemical behaviour is set by the number of valence electrons, which is shared down a group, so two alkali metals behave alike even though they sit in different periods. The trap is picking neighbours in the same period, which differ by a valence electron and therefore react quite differently.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "These are period-3 neighbours with one and two valence electrons, so their reactivity differs."
+        },
+        {
+          "i": 2,
+          "why": "Oxygen and fluorine are adjacent in period 2 and differ by one valence electron."
+        },
+        {
+          "i": 3,
+          "why": "A halogen and a noble gas are the least alike neighbours on the table.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "A group 2 metal and a group 17 nonmetal sit at opposite ends of the table."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Chemistry 2e · The Periodic Table",
+          "url": "https://openstax.org/books/chemistry-2e/pages/2-5-the-periodic-table"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "section": "gchem",
+      "format": "standard",
+      "id": "gc-nuclear-1",
+      "category": "GC-12",
+      "topic": "Decay processes",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "stem": "Uranium-238 (Z = 92) undergoes alpha decay. Which nuclide is produced?",
+      "options": [
+        "Th-234 (Z = 90)",
+        "Pa-234 (Z = 91)",
+        "U-234 (Z = 92)",
+        "Th-238 (Z = 90)",
+        "Np-238 (Z = 93)"
+      ],
+      "answer": 0,
+      "explanation": "An alpha particle is a helium-4 nucleus, so it removes two protons and two neutrons: the mass number drops by four and the atomic number by two, giving thorium-234. The trap is changing one of the two numbers and leaving the other alone, which is not what alpha emission does.",
+      "distractors": [
+        {
+          "i": 1,
+          "why": "This lowers the mass by four but drops the charge by only one, while an alpha particle carries away two protons."
+        },
+        {
+          "i": 2,
+          "why": "The mass number falls correctly, but an alpha particle also carries away two protons."
+        },
+        {
+          "i": 3,
+          "why": "The charge falls correctly, but the mass number never moves, and an alpha particle carries away four nucleons in all."
+        },
+        {
+          "i": 4,
+          "why": "This raises the atomic number, which describes beta emission, and keeps the mass unchanged.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Chemistry 2e · Nuclear Equations",
+          "url": "https://openstax.org/books/chemistry-2e/pages/21-2-nuclear-equations"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "section": "gchem",
+      "format": "standard",
+      "id": "gc-nuclear-2",
+      "category": "GC-12",
+      "topic": "Particles",
+      "skill": "skill-1",
+      "difficulty": "medium",
+      "stem": "A nucleus emits a beta particle. How do its atomic number and mass number change?",
+      "options": [
+        "The atomic number falls by one and the mass number is unchanged",
+        "The atomic number rises by one and the mass number is unchanged",
+        "The atomic number falls by two and the mass number falls by four",
+        "The atomic number is unchanged and the mass number falls by one",
+        "Neither number changes"
+      ],
+      "answer": 1,
+      "explanation": "Beta emission converts a neutron into a proton plus the emitted electron, so the nucleus keeps the same number of nucleons while gaining one unit of positive charge. The trap is expecting the charge to fall because a negative particle leaves; the electron comes from the neutron that became a proton.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "A falling atomic number with fixed mass describes positron emission or electron capture."
+        },
+        {
+          "i": 2,
+          "why": "That is alpha emission, which carries away two protons and two neutrons."
+        },
+        {
+          "i": 3,
+          "why": "A beta particle is an electron, whose mass is far too small to change the mass number.",
+          "weakest": true
+        },
+        {
+          "i": 4,
+          "why": "That describes gamma emission, which releases energy but neither charge nor nucleons."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Chemistry 2e · Radioactive Decay",
+          "url": "https://openstax.org/books/chemistry-2e/pages/21-3-radioactive-decay"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "section": "gchem",
+      "format": "standard",
+      "id": "gc-lab-1",
+      "category": "GC-13",
+      "topic": "Equipment",
+      "skill": "skill-1",
+      "difficulty": "easy",
+      "stem": "Which piece of glassware is designed to deliver a precisely measured but variable volume of titrant during a titration?",
+      "options": [
+        "A beaker",
+        "A graduated cylinder",
+        "An Erlenmeyer flask",
+        "A volumetric flask",
+        "A burette"
+      ],
+      "answer": 4,
+      "explanation": "A burette is a long graduated tube with a stopcock, so the volume delivered is read as the difference between two marks and can be stopped at any point. The closest competitor is the volumetric flask, which is highly accurate but only for the one volume its single mark defines, and it is for preparing rather than delivering.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Beaker graduations are rough approximations meant for holding and mixing, not measuring.",
+          "weakest": true
+        },
+        {
+          "i": 1,
+          "why": "A graduated cylinder measures better than a beaker but cannot be dispensed dropwise to an endpoint."
+        },
+        {
+          "i": 2,
+          "why": "The conical flask receives the sample and is swirled; its markings are approximate."
+        },
+        {
+          "i": 3,
+          "why": "A volumetric flask is calibrated to one fixed volume and is used to prepare a solution."
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Chemistry 2e · Quantitative Chemical Analysis",
+          "url": "https://openstax.org/books/chemistry-2e/pages/4-5-quantitative-chemical-analysis"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "section": "gchem",
+      "format": "standard",
+      "id": "gc-lab-2",
+      "category": "GC-13",
+      "topic": "Error analysis",
+      "skill": "skill-3",
+      "difficulty": "easy",
+      "stem": "A sample whose true mass is 5.00 g is weighed four times, giving 4.50, 4.51, 4.49 and 4.50 g. How are these results best described?",
+      "options": [
+        "Accurate and precise",
+        "Accurate but not precise",
+        "Neither accurate nor precise",
+        "Precise but not accurate",
+        "Accurate, because the individual readings agree closely"
+      ],
+      "answer": 3,
+      "explanation": "Precision is the agreement of repeated measurements with one another, and these span only 0.02 g; accuracy is agreement with the true value, and every reading is about 0.50 g low. A consistent offset like this points to a systematic error such as a miscalibrated balance.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Accuracy would require the readings to cluster around 5.00 g, not around 4.50 g."
+        },
+        {
+          "i": 1,
+          "why": "This reverses the two terms: the readings agree with each other but not with the true value."
+        },
+        {
+          "i": 2,
+          "why": "The readings agree with one another to within 0.02 g, which is good precision."
+        },
+        {
+          "i": 4,
+          "why": "Close agreement among readings is precision; accuracy is measured against the true value.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Chemistry 2e · Measurement Uncertainty, Accuracy, and Precision",
+          "url": "https://openstax.org/books/chemistry-2e/pages/1-5-measurement-uncertainty-accuracy-and-precision"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "section": "gchem",
+      "format": "standard",
+      "id": "gc-lab-3",
+      "category": "GC-13",
+      "topic": "Basic techniques",
+      "skill": "skill-2",
+      "difficulty": "medium",
+      "stem": "A student dissolves a weighed solid in a 500 mL volumetric flask but adds water a few millilitres past the calibration mark. What is the effect on the concentration of the solution?",
+      "options": [
+        "It is lower than intended, because the same amount of solute now occupies a larger volume",
+        "It is higher than intended, because the extra water dissolves more of the solid",
+        "It is unchanged, because the number of moles of solute is unchanged",
+        "It is unchanged, because a volumetric flask is calibrated to deliver rather than to contain",
+        "It is exactly half the intended value, because the extra water doubles the volume"
+      ],
+      "answer": 0,
+      "explanation": "Molarity is moles of solute per litre of solution, so overshooting the mark leaves the numerator fixed while raising the denominator, and the concentration comes out low. The trap is reasoning from the unchanged moles of solute, which is true but is only half of the ratio.",
+      "distractors": [
+        {
+          "i": 1,
+          "why": "No more solute was added, so extra water can only dilute what is already dissolved."
+        },
+        {
+          "i": 2,
+          "why": "The moles really are unchanged, but molarity divides them by the volume, which has grown."
+        },
+        {
+          "i": 3,
+          "why": "A volumetric flask is calibrated to contain the stated volume when filled to the mark."
+        },
+        {
+          "i": 4,
+          "why": "A few millilitres over 500 mL is a fraction of a percent, nowhere near a doubling.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Chemistry 2e · Molarity",
+          "url": "https://openstax.org/books/chemistry-2e/pages/3-3-molarity"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "section": "gchem",
+      "format": "standard",
+      "id": "gc-lab-4",
+      "category": "GC-13",
+      "topic": "Safety",
+      "skill": "skill-1",
+      "difficulty": "medium",
+      "stem": "A dilute aqueous solution is to be prepared from concentrated sulfuric acid. Which procedure is correct?",
+      "options": [
+        "Pour water slowly onto the concentrated acid while stirring",
+        "Pour the concentrated acid slowly into the water while stirring",
+        "Mix equal volumes quickly so that the heat released is spread evenly",
+        "Chill the acid to 0 °C first, then pour the water onto it",
+        "Pour the acid and the water together into a third container at the same time"
+      ],
+      "answer": 1,
+      "explanation": "Diluting sulfuric acid releases a great deal of heat, and adding acid to the larger body of water lets that heat spread through a big thermal mass. Adding water to concentrated acid instead heats a thin surface layer, which can boil and spatter acid out of the container.",
+      "distractors": [
+        {
+          "i": 0,
+          "why": "Water landing on concentrated acid boils at the surface and throws acid out of the vessel."
+        },
+        {
+          "i": 2,
+          "why": "Speed makes the heating worse; the protection comes from the order of addition, not the pace."
+        },
+        {
+          "i": 3,
+          "why": "Cooling does not remove the heat still to be released, and the order of addition is still wrong."
+        },
+        {
+          "i": 4,
+          "why": "Simultaneous pouring gives no control over which liquid is in excess as the heat is released.",
+          "weakest": true
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "source": {
+          "title": "OpenStax Chemistry 2e · The Dissolution Process",
+          "url": "https://openstax.org/books/chemistry-2e/pages/11-1-the-dissolution-process"
+        },
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    }
+  ]
+}

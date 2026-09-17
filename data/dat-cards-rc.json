@@ -1,0 +1,35 @@
+{
+  "format": "dat-cards",
+  "version": 1,
+  "chapter": "rc",
+  "authoredOn": "2026-09-16",
+  "author": "coding agent (Claude), original text",
+  "reviewStatus": "Local authored-content check only; independent subject review pending.",
+  "sourceCheckedOn": "2026-09-16",
+  "contentNote": "Original Cortex flashcard text. The ADA DAT outline is the alignment target only; no ADA, prep-company or forum material is reproduced.",
+  "sources": [
+    {
+      "title": "OpenStax College Success",
+      "url": "https://openstax.org/books/college-success"
+    }
+  ],
+  "cards": [
+    {
+      "id": "rcs-types-1",
+      "front": "Attacking an EXCEPT or NOT question",
+      "back": "All but one option is in the passage. Locate and tick each option in turn. The one you cannot verify, or that the passage contradicts, is the answer. Verify the relationship, not the vocabulary.",
+      "section": "rc",
+      "category": "RC-1",
+      "topic": "Detail EXCEPT or NOT",
+      "tag": "cheat-sheet"
+    },
+    {
+      "id": "rcs-types-2",
+      "front": "Inference versus application",
+      "back": "Inference: what must be true from the text; prefer the modest option and distrust always, never and all. Application: write the passage’s rule in one sentence, then pick the new case that obeys it.",
+      "section": "rc",
+      "category": "RC-3",
+      "topic": "Inference"
+    }
+  ]
+}

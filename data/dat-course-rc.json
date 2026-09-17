@@ -1,0 +1,170 @@
+{
+  "format": "dat-course",
+  "version": 1,
+  "chapter": {
+    "id": "rc",
+    "title": "Reading three science passages",
+    "section": "rc",
+    "description": "Read a long science passage on a split screen, map its paragraphs and answer each question type by its own method.",
+    "prerequisites": []
+  },
+  "authoredOn": "2026-09-16",
+  "author": "coding agent (Claude), original text",
+  "status": "Seed fragment: chapter metadata plus one complete seed unit (rc-question-types); the remaining units arrive with content session C6.",
+  "reviewStatus": "Local authored-content check only; independent subject review pending.",
+  "sourceCheckedOn": "2026-09-16",
+  "contentNote": "Original Cortex lesson text and questions. The ADA DAT outline is the alignment target only; no ADA, prep-company or forum material is reproduced.",
+  "sources": [
+    {
+      "title": "OpenStax College Success",
+      "url": "https://openstax.org/books/college-success"
+    },
+    {
+      "title": "OpenStax College Success · Effective Reading Strategies",
+      "url": "https://openstax.org/books/college-success/pages/5-2-effective-reading-strategies"
+    }
+  ],
+  "units": [
+    {
+      "id": "rc-question-types",
+      "section": "rc",
+      "chapter": "rc",
+      "categories": [
+        "RC-1",
+        "RC-3"
+      ],
+      "title": "The nine question types and their traps",
+      "subtitle": "Name the type before you read the options; it tells you where the answer lives.",
+      "minutes": 15,
+      "prerequisites": [],
+      "blocks": [
+        {
+          "title": "Nine types, three families",
+          "text": "Reading questions come in nine recognisable types that fall into three families. Locate-and-verify has two: the detail question, which asks for something the passage states outright (a fact, a number or an order of events), and its reversal, the one option the passage does not support (EXCEPT or NOT). Structure-and-purpose has four: the main idea, the job a paragraph does, the best title, and the author’s tone. Reason-beyond-the-text has three: what can be inferred, what would strengthen or weaken a claim, and how a principle applies to a new case. Naming the family first tells you what a correct answer looks like: a sentence you can point to, a summary you can check against every paragraph, or a conclusion you must build without going further than the text allows."
+        },
+        {
+          "title": "EXCEPT and NOT: verify the rest, eliminate one",
+          "text": "An EXCEPT question reverses the usual task. All but one of the options are stated in the passage; the remaining one is absent or contradicted, so the correct answer is the one you cannot verify. Work it as a series of small look-ups: take each option, find the paragraph it comes from and tick it off. The option left unticked is the answer. Do not rely on memory of what the passage said; the items are written so that a familiar-sounding option can still be wrong. The classic trap is an option that reuses the passage’s exact words in a different relationship, such as swapping a cause and an effect. Because the wording feels right, an unhurried reader ticks it. Verify the relationship, not the vocabulary."
+        },
+        {
+          "title": "Inference and application: stay one step from the text",
+          "text": "An inference is what must be true given the passage, not what is probably true in the world. The safest answer is usually the most modest one, and options built on absolute words such as always, never or all are usually too strong. An application question states a principle in the passage and asks which new case it fits; extract the rule in one sentence, then test each case against that sentence and nothing else. Three trap families recur across every type. Decoys are true statements from the passage that answer a different question. Reversals swap cause and effect or a comparison’s direction. Half-right options join a true clause to a false one, and the true half is what you notice first."
+        }
+      ],
+      "example": {
+        "prompt": "A question reads: \"Each of the following is described as a cause of enamel loss EXCEPT.\" What is the efficient way to attack it?",
+        "reasoning": "Treat it as a verification task on every option: locate each in the passage and tick it when you find the same relationship stated. The one you cannot find, or that the passage contradicts, is the answer. Never choose the option that merely sounds least familiar."
+      },
+      "prediction": "Predict which trap family an inference question is using when an option repeats a passage fact word for word but answers a question that was not asked.",
+      "lab": null,
+      "questions": [
+        {
+          "id": "rc-question-types-0",
+          "kind": "diagnostic",
+          "stem": "For an EXCEPT question, the correct answer is the option that:",
+          "options": [
+            "Restates the main idea of the passage",
+            "Appears earliest in the passage",
+            "Is not supported by the passage or contradicts it",
+            "Contains the most technical vocabulary"
+          ],
+          "answer": 2,
+          "explanation": "An EXCEPT stem makes every supported option wrong and the one unsupported or contradicted option right, so the task is to verify the rest and eliminate one. Technical vocabulary is the trap: unfamiliar words make an option feel unverified when it is simply stated in a paragraph you have not re-read."
+        },
+        {
+          "id": "rc-question-types-1",
+          "kind": "check",
+          "stem": "An inference question is best answered by the option that:",
+          "options": [
+            "Must be true given what the passage states",
+            "Is most likely true in the real world",
+            "Is stated word for word in the passage",
+            "Extends the author’s view as far as it can go"
+          ],
+          "answer": 0,
+          "explanation": "An inference follows necessarily from the text and goes one step past it, no further. Choosing what is likely true in the world imports outside knowledge, and an option stated word for word is a detail answer, not an inference; both are common decoys."
+        },
+        {
+          "id": "rc-question-types-2",
+          "kind": "check",
+          "stem": "A passage states that a preservation method works only when a sample is kept below 4 °C. An application question describes four new cases. Which case does the method apply to?",
+          "options": [
+            "A sample stored at room temperature",
+            "A sample kept in an ice bath at 2 °C",
+            "A sample warmed to 37 °C before testing",
+            "A sample whose temperature is not recorded"
+          ],
+          "answer": 1,
+          "explanation": "The rule is a single condition, below 4 °C, and only the ice-bath sample satisfies it. The unrecorded-temperature case is the trap: it might be cold, but an application answer must be supported by the stated facts, not by what might be so."
+        },
+        {
+          "id": "rc-question-types-later-1",
+          "kind": "delayed",
+          "stem": "Which option pattern most often marks a wrong answer to an inference question?",
+          "options": [
+            "A modest claim that stays close to the text",
+            "A claim that names the passage’s main subject",
+            "A claim that uses a number from the passage",
+            "A claim that uses absolute words such as always or never"
+          ],
+          "answer": 3,
+          "explanation": "Absolute language claims more than a passage can usually support, so options with always, never or all are typically too strong to be inferred. The modest claim is the pattern of the right answer, and naming the subject or reusing a number is neutral on its own."
+        },
+        {
+          "id": "rc-question-types-later-2",
+          "kind": "delayed",
+          "stem": "A \"half-right, half-wrong\" option is one that:",
+          "options": [
+            "Answers a different question correctly",
+            "Repeats the passage with a single word changed",
+            "Joins a true statement to a false one in a single option",
+            "Reverses a cause and its effect"
+          ],
+          "answer": 2,
+          "explanation": "The half-right trap pairs a clause you can verify with one you cannot, counting on the true half to carry the whole option. Answering a different question is a decoy and swapping cause and effect is a reversal; each is a separate trap family with its own check."
+        },
+        {
+          "id": "rc-question-types-later-3",
+          "kind": "delayed",
+          "stem": "Which question type is a locate-and-verify task rather than a reasoning task?",
+          "options": [
+            "Numerical detail",
+            "Strengthen or weaken",
+            "Author tone",
+            "Application to a new case"
+          ],
+          "answer": 0,
+          "explanation": "A numerical detail is stated in the passage and can be pointed to, so it belongs to the locate-and-verify family. Strengthen-or-weaken and application questions require reasoning beyond the text, and tone is a structure-and-purpose judgement about the whole passage."
+        }
+      ],
+      "cards": [
+        "rcs-types-1",
+        "rcs-types-2"
+      ],
+      "questionIds": [],
+      "passages": [],
+      "repairs": [],
+      "source": {
+        "title": "OpenStax College Success · Effective Reading Strategies",
+        "url": "https://openstax.org/books/college-success/pages/5-2-effective-reading-strategies"
+      },
+      "placementEligible": true,
+      "skills": [
+        "skill-1",
+        "skill-2",
+        "skill-3"
+      ],
+      "topics": [
+        "Detail EXCEPT or NOT",
+        "Inference",
+        "Application to a new case"
+      ],
+      "provenance": {
+        "origin": "new",
+        "mcatUnit": null,
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    }
+  ]
+}

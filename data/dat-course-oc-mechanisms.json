@@ -1,0 +1,170 @@
+{
+  "format": "dat-course",
+  "version": 1,
+  "chapter": {
+    "id": "oc-mechanisms",
+    "title": "Mechanisms and curved arrows",
+    "section": "ochem",
+    "description": "Read curved arrows as electron flow, recognise the mechanism families and interpret reaction energy diagrams.",
+    "prerequisites": [
+      "oc-structure"
+    ]
+  },
+  "authoredOn": "2026-09-16",
+  "author": "coding agent (Claude), original text",
+  "status": "Seed fragment: chapter metadata plus one complete seed unit (curved-arrow-conventions); the remaining units arrive with content session C5.",
+  "reviewStatus": "Local authored-content check only; independent subject review pending.",
+  "sourceCheckedOn": "2026-09-16",
+  "contentNote": "Original Cortex lesson text and questions. The ADA DAT outline is the alignment target only; no ADA, prep-company or forum material is reproduced.",
+  "sources": [
+    {
+      "title": "OpenStax Organic Chemistry",
+      "url": "https://openstax.org/books/organic-chemistry"
+    },
+    {
+      "title": "OpenStax Organic Chemistry · Using Curved Arrows in Polar Reaction Mechanisms",
+      "url": "https://openstax.org/books/organic-chemistry/pages/6-5-using-curved-arrows-in-polar-reaction-mechanisms"
+    }
+  ],
+  "units": [
+    {
+      "id": "curved-arrow-conventions",
+      "section": "ochem",
+      "chapter": "oc-mechanisms",
+      "categories": [
+        "OC-1"
+      ],
+      "title": "Reading and drawing curved arrows",
+      "subtitle": "Arrows move electrons, never atoms; the head count tells you how many.",
+      "minutes": 15,
+      "prerequisites": [],
+      "blocks": [
+        {
+          "title": "What an arrow means",
+          "text": "A curved arrow describes where electrons go in one step of a mechanism. The tail starts at the electron source, which is always a lone pair, a pi bond or a sigma bond; it never starts at an atom with no electrons to give. The head points to where those electrons end up: onto an atom, making it a lone pair, or between two atoms, making a new bond. A full-headed arrow moves a pair of electrons and is used for every polar step and every resonance structure. A half-headed arrow, sometimes called a fishhook, moves one electron and appears only in radical steps such as homolysis or a chain propagation. In a polar step the first arrow always leaves the nucleophile and points at the electrophile, so if you cannot say which partner is electron-rich, you cannot yet draw the arrow."
+        },
+        {
+          "title": "Proton transfers and formal-charge bookkeeping",
+          "text": "The simplest polar step is a proton transfer and it needs exactly two arrows. The first runs from a lone pair on the base to the acidic hydrogen; the second runs from the H–A bond onto A, so that A keeps the electron pair and becomes the conjugate base. Check the charges after every arrow: the atom an arrow head lands on becomes one unit more negative, and the atom a tail leaves becomes one unit more positive. Then check octets. When a head lands on a second-period atom that already has a full octet, such as a carbonyl carbon, or on a hydrogen that already has its two electrons, a second arrow must leave that atom in the same step; a third-period atom such as sulfur or phosphorus can expand its valence shell instead. Carbon never carries five bonds, hydrogen never carries two. These two checks catch almost every wrong arrow."
+        },
+        {
+          "title": "Resonance arrows move electrons, not atoms",
+          "text": "Resonance structures are drawings of the same molecule that differ only in where pi electrons and lone pairs sit. Nuclei do not move, no sigma bond breaks and hybridization is unchanged. Three patterns cover most cases: a lone pair next to a pi bond pushes that pi bond one atom further along; a pi bond next to a positive charge moves the charge two atoms over; and a pi bond to an electronegative atom such as oxygen can collapse onto it, leaving a positive carbon and a negative oxygen. The real molecule is a weighted blend of the contributors, and structures with full octets and negative charge on the more electronegative atom weigh most. If a proposed structure has a hydrogen on a different carbon, it is a tautomer or an isomer and a curved arrow between the two would be wrong."
+        }
+      ],
+      "example": {
+        "prompt": "Hydroxide removes the acidic proton from acetic acid, CH3COOH. Which two arrows describe the step?",
+        "reasoning": "The first arrow starts on a lone pair of the hydroxide oxygen and points to the acidic hydrogen. The second starts on the O–H bond of the acid and lands on that oxygen, which becomes negatively charged. The products are water and acetate; hydroxide gained a bond and lost its charge, so the bookkeeping balances."
+      },
+      "prediction": "Predict what changes when a single full-headed arrow that breaks a bond is redrawn as two fishhook arrows leaving the same bond: which products form and what kind of step it now describes.",
+      "lab": null,
+      "questions": [
+        {
+          "id": "curved-arrow-conventions-0",
+          "kind": "diagnostic",
+          "stem": "What does a half-headed (fishhook) curved arrow represent?",
+          "options": [
+            "Movement of an electron pair",
+            "Movement of an atom between two molecules",
+            "A reversible equilibrium step",
+            "Movement of a single electron"
+          ],
+          "answer": 3,
+          "explanation": "A fishhook moves one electron, so a pair of fishhooks leaving one bond describes homolysis and the steps of a radical chain. The pair-of-electrons meaning belongs to the full-headed arrow, and no curved arrow of either kind ever moves an atom."
+        },
+        {
+          "id": "curved-arrow-conventions-1",
+          "kind": "check",
+          "stem": "In a proton transfer between a base B: and an acid H–A, where does the first curved arrow start?",
+          "options": [
+            "At the hydrogen atom of H–A",
+            "At the lone pair on the base",
+            "At the atom A",
+            "At the H–A bond, pointing toward hydrogen"
+          ],
+          "answer": 1,
+          "explanation": "Arrows start at electrons, and in a proton transfer the electrons that form the new bond come from the base’s lone pair, so the first arrow runs from B: to H. Starting at the hydrogen is the trap: a proton has no electrons to give, and the H–A bond’s electrons move onto A, not onto H."
+        },
+        {
+          "id": "curved-arrow-conventions-2",
+          "kind": "check",
+          "stem": "Two drawings are proposed as resonance structures of the same molecule. Which difference between them shows that they are actually different compounds?",
+          "options": [
+            "A lone pair on oxygen has become a C=O pi bond",
+            "A negative charge has moved from one oxygen to another",
+            "A hydrogen atom sits on a different carbon",
+            "A pi bond has shifted one position along a conjugated chain"
+          ],
+          "answer": 2,
+          "explanation": "Resonance moves only electrons; relocating a hydrogen moves a nucleus and breaks a sigma bond, which makes the second drawing a tautomer or isomer rather than a resonance form. Shifting pi bonds, lone pairs and charges between atoms is exactly what legitimate resonance arrows do."
+        },
+        {
+          "id": "curved-arrow-conventions-later-1",
+          "kind": "delayed",
+          "stem": "An arrow is drawn from a nitrogen lone pair to a carbonyl carbon that already has four bonds. What else must be drawn for the step to be valid?",
+          "options": [
+            "A second arrow from the C=O pi bond onto the oxygen",
+            "A second arrow from the nitrogen onto the oxygen",
+            "A fishhook arrow leaving the carbonyl carbon",
+            "Nothing; carbon can hold five bonds briefly"
+          ],
+          "answer": 0,
+          "explanation": "Carbon cannot exceed an octet, so when the nitrogen forms a new bond to it the C=O pi electrons must leave in the same step and land on oxygen as a lone pair. The nitrogen-to-oxygen arrow is the trap: it would form an N–O bond that the product does not contain."
+        },
+        {
+          "id": "curved-arrow-conventions-later-2",
+          "kind": "delayed",
+          "stem": "A curved arrow’s head lands on an atom and forms a new bond to it. What happens to that atom’s formal charge?",
+          "options": [
+            "It becomes more positive by one",
+            "It is unchanged, because a bond is shared",
+            "It becomes more positive by two",
+            "It becomes more negative by one"
+          ],
+          "answer": 3,
+          "explanation": "Electrons arrive where the head lands, so the receiving atom gains electron density and its formal charge drops by one; the atom the tail left rises by one. Thinking the bond is shared and therefore neutral is the trap: formal charge counts half of each bond, and the receiving atom now has one more bond than before."
+        },
+        {
+          "id": "curved-arrow-conventions-later-3",
+          "kind": "delayed",
+          "stem": "In a polar reaction step, the first curved arrow always starts at the:",
+          "options": [
+            "Electrophile",
+            "Nucleophile",
+            "Solvent molecule",
+            "Leaving group"
+          ],
+          "answer": 1,
+          "explanation": "The nucleophile is the electron-rich partner, and arrows start where electrons are, so every polar step begins with an arrow from the nucleophile toward the electrophile. The leaving group is the trap because its bond does break, but the arrow describing that break points onto the leaving group, not away from it."
+        }
+      ],
+      "cards": [
+        "ocm-arrows-1",
+        "ocm-arrows-2"
+      ],
+      "questionIds": [],
+      "passages": [],
+      "repairs": [],
+      "source": {
+        "title": "OpenStax Organic Chemistry · Using Curved Arrows in Polar Reaction Mechanisms",
+        "url": "https://openstax.org/books/organic-chemistry/pages/6-5-using-curved-arrows-in-polar-reaction-mechanisms"
+      },
+      "placementEligible": true,
+      "skills": [
+        "skill-1",
+        "skill-2"
+      ],
+      "topics": [
+        "Curved arrows: resonance",
+        "Curved arrows: proton transfer",
+        "General"
+      ],
+      "provenance": {
+        "origin": "new",
+        "mcatUnit": null,
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    }
+  ]
+}

@@ -20,21 +20,143 @@ window.DAT = {
   repairs: null,
   rehearsals: null,
   scoreTables: null,
+  // One cache of cs-dat-log / cs-dat-q / cs-dat-srs for every module in this document. Built
+  // lazily by dat-practice.js or dat-pat.js, whichever reads first, so the two cannot overwrite
+  // each other's rows; dropped again by resetDatState through their reset() hooks.
+  attemptStores: null,
 };
 const DAT = window.DAT;
 
 /* ---------- data ---------- */
-// DAT-01 loads the outline only. DAT-02 completes this list with every fragment in
-// outline.files plus the singletons and adds the merge; a content session then bumps
-// only its own line with `python3 scripts/bump-cache.py <file>.json`.
-const DAT_DATA_VERSIONS = ['dat-outline.json?v=1'];
-const DAT_DATA_LABELS = { 'dat-outline': 'content outline' };
+// Every DAT data file, one line each: the outline, the 44 registered fragments and the five
+// other singletons. A content session bumps only its own line with
+// `python3 scripts/bump-cache.py <file>.json`; nothing else in this file changes after DAT-02.
+// Fragment ROOTs are merged into the shapes the shared engines read (DESIGN §3a "Loader");
+// scripts/dat-data.cjs is the Node twin of this merge. A file that fails to load is skipped,
+// listed by datDataNotice, and retried on the next loadDAT() call.
+const DAT_DATA_VERSIONS = [
+  'dat-outline.json?v=1',
+  'dat-course-bio-cell.json?v=1',
+  'dat-course-bio-diversity.json?v=1',
+  'dat-course-bio-systems.json?v=1',
+  'dat-course-bio-genetics.json?v=1',
+  'dat-course-gc-matter.json?v=1',
+  'dat-course-gc-reactions.json?v=1',
+  'dat-course-gc-structure.json?v=1',
+  'dat-course-oc-structure.json?v=1',
+  'dat-course-oc-acidbase.json?v=1',
+  'dat-course-oc-mechanisms.json?v=2',
+  'dat-course-oc-synthesis.json?v=1',
+  'dat-course-qr-math.json?v=1',
+  'dat-course-qr-applied.json?v=1',
+  'dat-course-rc.json?v=2',
+  'dat-course-pat-2d.json?v=2',
+  'dat-course-pat-3d.json?v=1',
+  'dat-cards-bio-cell.json?v=1',
+  'dat-cards-bio-diversity.json?v=1',
+  'dat-cards-bio-systems.json?v=1',
+  'dat-cards-bio-genetics.json?v=1',
+  'dat-cards-gc-matter.json?v=1',
+  'dat-cards-gc-reactions.json?v=1',
+  'dat-cards-gc-structure.json?v=1',
+  'dat-cards-oc-structure.json?v=1',
+  'dat-cards-oc-acidbase.json?v=1',
+  'dat-cards-oc-mechanisms.json?v=2',
+  'dat-cards-oc-synthesis.json?v=1',
+  'dat-cards-qr-math.json?v=1',
+  'dat-cards-qr-applied.json?v=1',
+  'dat-cards-rc.json?v=2',
+  'dat-cards-pat-2d.json?v=2',
+  'dat-cards-pat-3d.json?v=1',
+  'dat-questions-bio-1.json?v=2',
+  'dat-questions-bio-2.json?v=1',
+  'dat-questions-bio-3.json?v=1',
+  'dat-questions-gchem-1.json?v=3',
+  'dat-questions-gchem-2.json?v=1',
+  'dat-questions-gchem-3.json?v=1',
+  'dat-questions-ochem-1.json?v=1',
+  'dat-questions-ochem-2.json?v=1',
+  'dat-questions-ochem-3.json?v=1',
+  'dat-questions-qr-1.json?v=3',
+  'dat-questions-qr-2.json?v=1',
+  'dat-questions-qr-3.json?v=1',
+  'dat-rc.json?v=3',
+  'dat-pat.json?v=4',
+  'dat-repairs.json?v=1',
+  'dat-rehearsals.json?v=1',
+  'dat-score-tables.json?v=1',
+];
+// Singletons a later milestone creates: absent by design until then, so they neither block
+// DAT.loaded nor appear in the notice. Each milestone removes its own name when its file lands.
+const DAT_DATA_PENDING = new Set(['dat-score-tables']);
+const DAT_DATA_LABELS = {
+  'dat-outline': 'content outline',
+  'dat-rc': 'reading passages',
+  'dat-pat': 'perceptual-ability rules',
+  'dat-repairs': 'concept sessions',
+  'dat-rehearsals': 'rehearsal forms',
+  'dat-score-tables': 'score tables',
+};
+const datFragments = { course: {}, cards: {}, questions: {} };
 function datDataKey(file) {
   return file.split('?')[0].replace(/\.json$/, '');
 }
+function datDataKind(key) {
+  const m = /^dat-(course|cards|questions)-/.exec(key);
+  return m ? m[1] : key;
+}
+function datDataLabel(key) {
+  return DAT_DATA_LABELS[key] || key.replace(/^dat-/, '').replace(/-/g, ' ');
+}
 function datDataPresent(key) {
+  const kind = datDataKind(key);
+  if (kind === 'course' || kind === 'cards' || kind === 'questions') return !!datFragments[kind][key];
   if (key === 'dat-outline') return Array.isArray(DAT.outline?.concepts) && DAT.outline.concepts.length > 0;
+  if (key === 'dat-rc') return Array.isArray(DAT.rc?.passages);
+  if (key === 'dat-pat') return Array.isArray(DAT.pat?.subtests);
+  if (key === 'dat-repairs') return Array.isArray(DAT.repairs?.concepts);
+  if (key === 'dat-rehearsals') return Array.isArray(DAT.rehearsals?.forms);
+  if (key === 'dat-score-tables') return !!DAT.scoreTables?.concordance;
   return true;
+}
+function datDataAccept(key, data) {
+  const kind = datDataKind(key);
+  if (kind === 'course' && data?.format === 'dat-course' && Array.isArray(data.units) && data.chapter?.id)
+    datFragments.course[key] = data;
+  else if (kind === 'cards' && data?.format === 'dat-cards' && Array.isArray(data.cards))
+    datFragments.cards[key] = data;
+  else if (kind === 'questions' && data?.format === 'dat-bank' && Array.isArray(data.items))
+    datFragments.questions[key] = data;
+  else if (key === 'dat-outline' && Array.isArray(data?.concepts) && data.concepts.length > 0) DAT.outline = data;
+  else if (key === 'dat-rc' && Array.isArray(data?.passages)) DAT.rc = data;
+  else if (key === 'dat-pat' && Array.isArray(data?.subtests)) DAT.pat = data;
+  else if (key === 'dat-repairs' && Array.isArray(data?.concepts)) DAT.repairs = data;
+  else if (key === 'dat-rehearsals' && Array.isArray(data?.forms)) DAT.rehearsals = data;
+  else if (key === 'dat-score-tables' && data?.concordance) DAT.scoreTables = data;
+}
+// Fragments merge in registry order (outline.files), so chapter order follows AUTHORING §2.2.
+function datMerge() {
+  const outline = DAT.outline;
+  if (!outline) return;
+  const ordered = (kind, list) => list.map(name => datFragments[kind][name]).filter(Boolean);
+  const course = ordered('course', outline.files.course),
+    units = course.flatMap(f => f.units);
+  DAT.course = {
+    version: 1,
+    authoredOn: outline.authoredOn,
+    status: 'DAT course merged from fragments; independent subject review pending.',
+    outlineSource: outline.sourceUrl,
+    categories: outline.concepts.flatMap(c =>
+      c.categories.map(cat => ({ id: cat.id, title: cat.title, section: c.section }))
+    ),
+    chapters: course.map(f => ({
+      ...f.chapter,
+      units: units.filter(u => u.chapter === f.chapter.id).map(u => u.id),
+    })),
+    units,
+  };
+  DAT.questions = ordered('questions', outline.files.questions).flatMap(f => f.items);
+  DAT.cards = ordered('cards', outline.files.cards).flatMap(f => f.cards);
 }
 async function loadDAT() {
   if (DAT.loaded) return;
@@ -45,19 +167,19 @@ async function loadDAT() {
       try {
         const response = await fetch('data/' + file);
         if (!response.ok) return;
-        const data = await response.json();
-        if (key === 'dat-outline' && Array.isArray(data?.concepts) && data.concepts.length > 0) DAT.outline = data;
+        datDataAccept(key, await response.json());
       } catch {
         /* The workspace offers retry without replacing saved work. */
       }
     })
   );
-  DAT.loaded = DAT_DATA_VERSIONS.every(file => datDataPresent(datDataKey(file)));
+  datMerge();
+  DAT.loaded = DAT_DATA_VERSIONS.map(datDataKey).every(key => DAT_DATA_PENDING.has(key) || datDataPresent(key));
 }
 function datDataNotice(main) {
   const missing = DAT_DATA_VERSIONS.map(datDataKey)
-    .filter(key => !datDataPresent(key))
-    .map(key => DAT_DATA_LABELS[key] || key);
+    .filter(key => !DAT_DATA_PENDING.has(key) && !datDataPresent(key))
+    .map(datDataLabel);
   if (!missing.length) return;
   const notice = el(
     `<aside class="course-notice" role="status"><strong>Some study material could not load.</strong><p>Unavailable: ${esc(missing.join(', '))}. Your saved progress is unchanged. Loaded activities remain available.</p><button class="btn" id="dat-data-retry">Retry loading study material</button></aside>`
@@ -123,7 +245,13 @@ function resetDatState() {
   window.DatRehearsal?.reset?.();
   window.resetDatCourseState?.();
   window.resetDatRepairState?.();
+  window.DatPractice?.reset?.();
+  window.DatPat?.reset?.();
+  window.DatRc?.reset?.();
+  window.DatQr?.reset?.();
+  DAT.attemptStores = null;
   DAT.loaded = false;
+  for (const kind of Object.keys(datFragments)) datFragments[kind] = {};
   DAT.outline = null;
   DAT.course = null;
   DAT.questions = [];
@@ -182,6 +310,10 @@ function datRenderLanding() {
     outline = DAT.outline;
   const lessons = DAT.course?.units?.length || 0,
     items = DAT.questions.length;
+  // The headline number is merged bank items and only those (N1). Reading Comprehension ships
+  // answerable questions that are not bank items, so they are counted from the loaded passages
+  // and named on their own line rather than folded into that total.
+  const rcQuestions = (DAT.rc?.passages || []).reduce((n, p) => n + (p.questions?.length || 0), 0);
   const main = el(`<main class="course-page dat-landing">
     <header class="course-hero"><div>
       <span class="course-eyebrow">CORTEX / DAT</span>
@@ -189,7 +321,7 @@ function datRenderLanding() {
       <p>${esc(track.description)}</p>
       <div class="course-actions"><a class="btn btn-solid" id="dat-start" data-dat-go href="${esc(datUrl({ view: 'drill', section: 'mixed', n: 15 }))}">Start a 15-minute drill →</a></div>
     </div>
-    <div class="course-hero-index"><span>THE DAT TRACK</span><strong>${items}<span>practice items</span></strong><div>${lessons} lessons · ${outline ? Object.keys(outline.sections).length : 0} sections<br>${outline ? outline.patSubtests.length : 0} perceptual-ability generators<br>${outline ? outline.concepts.reduce((n, c) => n + c.categories.length, 0) : 0} outline categories</div></div></header>
+    <div class="course-hero-index"><span>THE DAT TRACK</span><strong>${items}<span>practice items</span></strong><div>${lessons} lessons · ${outline ? Object.keys(outline.sections).length : 0} sections<br>${rcQuestions ? `${rcQuestions} reading-comprehension questions<br>` : ''}${window.DatPatCore ? window.DatPatCore.BUILT.length : 0} perceptual-ability generators<br>${outline ? outline.concepts.reduce((n, c) => n + c.categories.length, 0) : 0} outline categories</div></div></header>
     ${
       outline
         ? `<section class="dat-format" aria-labelledby="dat-format-title"><h2 id="dat-format-title">Test-day format</h2>

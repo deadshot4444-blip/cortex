@@ -5,14 +5,15 @@
 
 const CHANGELOG = [
   {
-    version: '2.31.0-local.1',
-    tag: 'LOCAL',
-    date: 'September 16, 2026',
-    title: 'DAT preparation track (localhost preview)',
+    version: '2.31.0-beta.1',
+    tag: 'BETA',
+    date: 'September 17, 2026',
+    title: 'DAT preparation opens in beta; four courses close for review',
     items: [
-      'A seventh track, DAT preparation, is registered in the Academy catalog, the MCAT menu, Academy Today, study backups and the reset dialog. It opens only on localhost while it is built.',
-      'The track lands with its ADA-aligned content outline (six sections, 37 categories) and a landing page with the test-day format; drills, perceptual-ability generators, lessons and the schedule follow.',
-      'On the public site the DAT entry shows as Under construction and none of its files are downloaded.',
+      'A new DAT preparation track covers all four scored sections of the Dental Admission Test: timed science drills over 216 original questions, six perceptual-ability generators that draw unlimited new figures, three reading-comprehension passages with 50 questions, and quantitative reasoning with the exam\u2019s own on-screen calculator.',
+      'Every question, passage and figure is original, written against the ADA\u2019s published content outline. Independent subject review is pending, and the track is early: lessons, scheduling, score estimates and full-length tests are still being built.',
+      'Learn to Learn, Anatomy, Medicine and Neuroengineering are closed while their material is reviewed. Work you saved in them stays on this device, and courses downloaded for offline study keep working.',
+      'MCAT preparation and Clinical Scenarios are unchanged and stay open.',
     ],
   },
   {

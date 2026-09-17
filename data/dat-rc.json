@@ -1,0 +1,2027 @@
+{
+  "format": "dat-rc",
+  "version": 1,
+  "authoredOn": "2026-09-16",
+  "author": "coding agent (Claude), original passages",
+  "reviewStatus": "Original science passages, author-checked only; independent subject review pending.",
+  "sourceCheckedOn": "2026-09-16",
+  "contentNote": "Synthetic expository passages written for this track from established science; the published DAT outline is the alignment target only and no published passage, article or item is reproduced or paraphrased.",
+  "sources": [
+    {
+      "title": "OpenStax Anatomy and Physiology 2e",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e"
+    },
+    {
+      "title": "OpenStax Biology 2e",
+      "url": "https://openstax.org/books/biology-2e"
+    },
+    {
+      "title": "OpenStax Chemistry 2e",
+      "url": "https://openstax.org/books/chemistry-2e"
+    },
+    {
+      "title": "OpenStax University Physics Volume 1",
+      "url": "https://openstax.org/books/university-physics-volume-1"
+    }
+  ],
+  "sets": [
+    {
+      "id": "rc-set-1",
+      "title": "Set 1",
+      "passages": [
+        "rc-1",
+        "rc-2",
+        "rc-3"
+      ]
+    }
+  ],
+  "passages": [
+    {
+      "id": "rc-1",
+      "section": "rc",
+      "discipline": "science",
+      "domain": "dental",
+      "title": "Enamel, saliva and the daily balance of mineral",
+      "words": 1379,
+      "text": "Enamel is the hardest tissue in the vertebrate body and, by weight, the least alive. A mature enamel cap is roughly ninety-six percent mineral, and the small remainder is divided between water and a sparse organic matrix. The cells that built it, the ameloblasts, finish their work before the tooth enters the mouth and are lost as the crown erupts. From that moment the tissue holds no resident cell, no blood supply and no nerve of its own. Whatever happens to enamel afterward happens by chemistry alone. That a structure with no capacity for cellular repair can survive fifty or sixty years of daily acid exposure is the puzzle this passage takes up.\n\nThe mineral itself belongs to the apatite family and is close in composition to hydroxyapatite, whose unit formula is written Ca10(PO4)6(OH)2. Millions of tiny crystallites are bundled into rods that run from the junction with the underlying dentin out to the surface. Chemically, the architecture matters less than a single fact: a crystal in contact with a watery fluid is never simply solid. Ions leave its surface and return to it continuously, and whether the crystal grows, holds steady or dissolves depends on how the concentrations of calcium, phosphate and hydroxide in the surrounding fluid compare with the concentrations the crystal would maintain at equilibrium. Enamel is best understood not as a wall but as a reservoir in exchange with the fluid that bathes it.\n\nAcid tips that exchange. When hydrogen ions accumulate in the fluid at the enamel surface, they bind hydroxide and protonate phosphate, converting PO4 three-minus first to HPO4 two-minus and then to H2PO4 one-minus. Both reactions strip from solution the species the crystal needs to stay in balance. The fluid becomes undersaturated with respect to the mineral, and calcium and phosphate leave the crystal faster than they return. The pH at which the surrounding fluid crosses from supersaturated to undersaturated is called the critical pH. For hydroxyapatite bathed in ordinary plaque fluid it falls near 5.5, though that figure is not a constant of the mineral: it rises when the fluid is poor in calcium and phosphate and falls when the fluid is rich in them.\n\nThe acid does not arrive from outside. It is made on site, inside the soft bacterial film that colonises any tooth surface within hours of cleaning. Several species in that film ferment dietary sugars and release organic acids as waste, lactic acid chief among them. Because the film is a dense gel, the acid it produces is not immediately diluted by the far larger volume of saliva flowing past; instead it accumulates in the narrow space between the film and the enamel. Two teeth in one mouth, one recently cleaned and one covered by a mature film, therefore experience very different chemistry during the same meal.\n\nThe resulting pattern is a cycle rather than a steady state. Within two to five minutes of a sugar exposure the pH inside the film falls steeply. It reaches its minimum somewhere between five and twenty minutes after the exposure, then climbs back toward its resting value near neutrality over the following half hour to hour as acids diffuse away, are buffered, and are consumed. What decides the fate of the enamel underneath is not the depth of the trough alone but the total time the fluid spends below the critical pH. This is why the frequency of carbohydrate intake predicts mineral loss better than the quantity does: six small sweetened drinks spaced across a working day hold the surface below its critical pH far longer than one dessert containing the same total sugar.\n\nSaliva is the counterweight. It is supersaturated with calcium and phosphate with respect to enamel mineral, so at rest it pushes ions toward the crystal rather than away from it. It clears sugars from the mouth mechanically, it dilutes and neutralises acid, and it buffers, chiefly through bicarbonate when flow is stimulated and through phosphate when flow is slow. Flow rate therefore governs how quickly the trough is climbed out of. Someone whose salivary output has been reduced, whether by a medication, by disease of the glands or by radiation delivered to the head and neck, spends far longer below the critical pH after each exposure than someone with normal flow, even on an identical diet.\n\nSupersaturation raises an obvious difficulty: why does calcium phosphate not precipitate spontaneously throughout the mouth? The answer is a set of salivary proteins, among them statherin and the proline-rich proteins, that adsorb to mineral surfaces and inhibit uncontrolled crystal growth while leaving the ions themselves available. The same proteins deposit on a cleaned tooth within minutes as a thin film called the acquired pellicle, which slows the movement of acid toward the enamel and of dissolved mineral away from it. Saliva thus holds a mineral load in reserve rather than shedding it wherever the chemistry would otherwise allow.\n\nEarly attack does not look like erosion. Acid diffuses through the pores between crystallites and dissolves mineral in the body of the tissue, while the outermost layer, continually rebathed in supersaturated saliva, loses less and stays comparatively intact. The result is a subsurface lesion: a zone of mineral loss beneath a relatively sound surface. Clinically it appears as a chalky white patch, visible because the widened pores scatter light differently than sound enamel does. That surviving surface is what makes an early lesion interesting. It remains porous enough to admit ions from outside, so mineral can be driven back into the body of the lesion from the mouth.\n\nReturn, though, is not regeneration. Redeposited mineral grows on the surfaces of crystallites that survived the attack, using them as templates; nothing in the mouth can lay down new rods or restore the original architecture. So long as a scaffold of partly dissolved crystallites remains, repeated swings back toward supersaturation can rebuild a substantial fraction of the lost mineral, and the rebuilt tissue is often more resistant to the next episode than what it replaced. Once the crystallites in a region have dissolved completely and the surface collapses into a cavity, no chemistry can bridge the gap, and the defect has to be filled by a dentist.\n\nFluoride acts on both halves of the cycle. A fluoride ion is close in size to hydroxide and can substitute for it in the apatite lattice, producing fluorapatite, a mineral whose critical pH lies nearer 4.5 than 5.5 and which therefore tolerates acid episodes that would dissolve hydroxyapatite. Yet that lattice substitution is the smaller part of the benefit, because only a thin outer zone is ever converted. The larger effect is exerted from the fluid phase: fluoride present in saliva and plaque during an acid episode adsorbs to dissolving crystal surfaces, slows their dissolution, and speeds redeposition once the pH recovers. Frequent small exposures, such as a fluoride toothpaste used twice a day, therefore serve the tissue better than one large dose does, which is the reverse of the pattern that governs sugar.\n\nThe contrast with bone sharpens the point. Bone is a living composite that is continuously remodelled: cells resorb packets of mineralised matrix and other cells deposit new matrix in their place, so a fracture can be bridged and an unloaded region thinned and later rebuilt. Enamel has no such machinery. Its only repair is physicochemical, it can operate only where fluid reaches, and it depends entirely on the composition of that fluid rather than on any signal from the body. Enamel does not heal; the mouth around it either favours deposition or favours loss.\n\nSeen this way, the familiar preventive measures are less a treatment than a way of tilting a balance. Spacing carbohydrate exposures shortens the total time spent below the critical pH; chewing after a meal, or sipping water, raises flow and speeds clearance; fluoride keeps a redepositing agent in place for the hour when the pH is recovering; removing the film removes the factory that makes the acid. None of this repairs a cavity, and none of it makes enamel alive. What it does is move a daily equilibrium in the direction of gain, and for a tissue that cannot repair itself, that modest shift, repeated three times a day for decades, is very nearly the whole of its defence.",
+      "questions": [
+        {
+          "id": "rc-1-1",
+          "skill": "rc-1",
+          "type": "detail",
+          "evidenceParagraphs": [
+            1
+          ],
+          "stem": "According to the passage, a mature enamel cap is approximately what percentage mineral by weight?",
+          "options": [
+            "About 60 percent",
+            "About 75 percent",
+            "About 85 percent",
+            "About 96 percent",
+            "About 99 percent"
+          ],
+          "answer": 3,
+          "explanation": "The opening paragraph gives the figure directly: a mature cap is roughly ninety-six percent mineral, with the small remainder split between water and a sparse organic matrix. The tempting near-miss is ninety-nine percent, which leaves no room for the water and matrix the same sentence reserves.",
+          "distractors": [
+            {
+              "i": 0,
+              "why": "Sixty percent is the kind of figure a cell-rich tissue would have; the first paragraph puts enamel far higher.",
+              "weakest": true
+            },
+            {
+              "i": 1,
+              "why": "Seventy-five percent sounds right for a hard tissue in general, but it is not the number this paragraph states."
+            },
+            {
+              "i": 2,
+              "why": "Eighty-five percent is close enough to feel safe if you remember only that enamel is \"mostly mineral\" and do not check the sentence."
+            },
+            {
+              "i": 4,
+              "why": "Ninety-nine percent overshoots: the same sentence reserves a small remainder for water and an organic matrix."
+            }
+          ]
+        },
+        {
+          "id": "rc-1-2",
+          "skill": "rc-1",
+          "type": "detail",
+          "evidenceParagraphs": [
+            4
+          ],
+          "stem": "The passage names which acid as the chief product of the bacterial film's fermentation of dietary sugars?",
+          "options": [
+            "Lactic acid",
+            "Carbonic acid",
+            "Hydrochloric acid",
+            "Phosphoric acid",
+            "Sulfuric acid"
+          ],
+          "answer": 0,
+          "explanation": "The paragraph on the film says the species in it ferment dietary sugars and release organic acids as waste, lactic acid chief among them. Phosphoric acid is the decoy, because phosphate appears all through the passage as a mineral ion rather than as a bacterial product.",
+          "distractors": [
+            {
+              "i": 1,
+              "why": "Carbonic acid belongs to the bicarbonate buffering the passage credits to saliva, not to the bacteria in the film."
+            },
+            {
+              "i": 2,
+              "why": "Hydrochloric acid is a stomach acid; the passage is explicit that the acid is made on site inside the film."
+            },
+            {
+              "i": 3,
+              "why": "Phosphate is everywhere in this passage as a mineral ion, and it is easy to slide from phosphate to phosphoric acid, but a different acid is named as the chief waste product."
+            },
+            {
+              "i": 4,
+              "why": "Sulfuric acid appears nowhere in the passage, and no sulfur chemistry is described anywhere in it.",
+              "weakest": true
+            }
+          ]
+        },
+        {
+          "id": "rc-1-3",
+          "skill": "rc-1",
+          "type": "detail",
+          "evidenceParagraphs": [
+            3
+          ],
+          "stem": "According to the passage, the critical pH for hydroxyapatite in ordinary plaque fluid falls near which value?",
+          "options": [
+            "About 3.5",
+            "About 4.5",
+            "About 5.5",
+            "About 6.5",
+            "About 7.4"
+          ],
+          "answer": 2,
+          "explanation": "The paragraph that defines the critical pH gives 5.5 for hydroxyapatite in ordinary plaque fluid. The value 4.5 is in the passage too, but it belongs to fluorapatite in the fluoride paragraph, which is what makes it the strongest decoy.",
+          "distractors": [
+            {
+              "i": 0,
+              "why": "No figure this low appears anywhere in the passage.",
+              "weakest": true
+            },
+            {
+              "i": 1,
+              "why": "This is the value the passage gives for fluorapatite, not for hydroxyapatite: a true number lifted from a different sentence."
+            },
+            {
+              "i": 3,
+              "why": "A critical pH of 6.5 would put enamel on the edge of dissolving at rest, which contradicts the resting state the passage describes."
+            },
+            {
+              "i": 4,
+              "why": "Near-neutral is where the passage says the cycle returns to, not the point at which the fluid turns undersaturated."
+            }
+          ]
+        },
+        {
+          "id": "rc-1-4",
+          "skill": "rc-1",
+          "type": "except",
+          "evidenceParagraphs": [
+            6
+          ],
+          "stem": "The passage mentions all of the following as ways saliva opposes mineral loss EXCEPT:",
+          "options": [
+            "It clears sugars from the mouth mechanically and dilutes and neutralises acid.",
+            "It buffers acid through bicarbonate when flow is stimulated.",
+            "It buffers acid through phosphate when flow is slow.",
+            "It supplies calcium and phosphate in a supersaturated state.",
+            "It supplies antibodies that kill the bacteria that make the acid."
+          ],
+          "answer": 4,
+          "explanation": "The paragraph on saliva lists mechanical clearance, dilution and neutralisation, buffering by bicarbonate at stimulated flow and by phosphate at slow flow, and supersaturation with calcium and phosphate. An immune contribution is never mentioned, so that is the option the passage does not support.",
+          "distractors": [
+            {
+              "i": 0,
+              "why": "Both halves sit in one sentence of the saliva paragraph, which says outright that saliva clears sugars mechanically and that it dilutes and neutralises acid, so this cannot be the exception.",
+              "weakest": true
+            },
+            {
+              "i": 1,
+              "why": "Bicarbonate buffering at stimulated flow is named in the same sentence as phosphate buffering."
+            },
+            {
+              "i": 2,
+              "why": "Phosphate buffering at slow flow is named explicitly; picking it usually means the two buffers were read as one."
+            },
+            {
+              "i": 3,
+              "why": "Supersaturation with calcium and phosphate opens the saliva paragraph and is the reason saliva pushes ions toward the crystal."
+            }
+          ]
+        },
+        {
+          "id": "rc-1-5",
+          "skill": "rc-1",
+          "type": "detail",
+          "evidenceParagraphs": [
+            7
+          ],
+          "stem": "According to the passage, what do statherin and the proline-rich proteins do?",
+          "options": [
+            "Neutralise the acid in the film by buffering it",
+            "Inhibit uncontrolled crystal growth while leaving the ions available",
+            "Substitute for hydroxide ions inside the crystal lattice of the mineral",
+            "Raise the critical pH of the enamel mineral",
+            "Break down the bacterial film that produces the acid"
+          ],
+          "answer": 1,
+          "explanation": "The paragraph answering why calcium phosphate does not precipitate everywhere says these proteins adsorb to mineral surfaces and inhibit uncontrolled crystal growth while leaving the ions themselves available. Buffering is credited to bicarbonate and phosphate a paragraph earlier, which is the decoy most readers take.",
+          "distractors": [
+            {
+              "i": 0,
+              "why": "Buffering is real in this passage, but it is the work of bicarbonate and phosphate in the previous paragraph, not of these proteins."
+            },
+            {
+              "i": 2,
+              "why": "Substituting for hydroxide in the lattice is what the passage says a fluoride ion does, three paragraphs later."
+            },
+            {
+              "i": 3,
+              "why": "The passage does say the critical pH rises when the fluid is poor in calcium and phosphate, but it never credits that shift to these proteins."
+            },
+            {
+              "i": 4,
+              "why": "Nothing in the passage gives these proteins any effect on the bacterial film.",
+              "weakest": true
+            }
+          ]
+        },
+        {
+          "id": "rc-1-6",
+          "skill": "rc-1",
+          "type": "sequence",
+          "evidenceParagraphs": [
+            5
+          ],
+          "stem": "Which sequence best describes what the passage says happens to the pH inside the film after a sugar exposure?",
+          "options": [
+            "A gradual fall over about an hour, then a sudden return to neutrality once the sugar is cleared away.",
+            "A steep fall within two to five minutes, a minimum about an hour later, then a recovery over the following day.",
+            "A steep rise within two to five minutes, a maximum five to twenty minutes later, then a fall back toward neutrality over the next hour.",
+            "A steep fall within two to five minutes, a minimum five to twenty minutes later, then a climb back toward neutrality.",
+            "No change until the sugar has been cleared, then a fall that lasts until the next exposure begins."
+          ],
+          "answer": 3,
+          "explanation": "The cycle paragraph gives three landmarks in order: a steep fall within two to five minutes, a minimum five to twenty minutes after the exposure, then a climb back toward the resting value over the next half hour to hour. The reversal option keeps those timings but turns the fall into a rise.",
+          "distractors": [
+            {
+              "i": 0,
+              "why": "The passage describes the fall as steep and quick, not gradual, and the recovery as slow rather than sudden."
+            },
+            {
+              "i": 1,
+              "why": "The timings are stretched: the minimum comes five to twenty minutes after the exposure, and recovery takes under an hour."
+            },
+            {
+              "i": 2,
+              "why": "This is the reversal trap: correct timings, wrong direction. Acid production lowers the pH inside the film rather than raising it."
+            },
+            {
+              "i": 4,
+              "why": "The passage puts the steep fall within minutes of the exposure, long before the sugar has been cleared.",
+              "weakest": true
+            }
+          ]
+        },
+        {
+          "id": "rc-1-7",
+          "skill": "rc-1",
+          "type": "detail",
+          "evidenceParagraphs": [
+            8
+          ],
+          "stem": "The passage attributes the chalky white appearance of an early lesion to which cause?",
+          "options": [
+            "Bacterial pigment left on the surface of the enamel",
+            "Widened pores that scatter light differently than sound enamel",
+            "A collapsed surface that exposes the dentin underneath",
+            "A thickened layer of acquired pellicle over the area",
+            "Fluorapatite formed in the outer zone of the enamel"
+          ],
+          "answer": 1,
+          "explanation": "The subsurface-lesion paragraph says the patch is visible because the widened pores scatter light differently than sound enamel does. A collapsed surface belongs to the cavitated lesion of the next paragraph, which is a different stage entirely.",
+          "distractors": [
+            {
+              "i": 0,
+              "why": "No pigment of any kind is mentioned in the passage.",
+              "weakest": true
+            },
+            {
+              "i": 2,
+              "why": "Collapse into a cavity is the later, irreversible stage described in the following paragraph, not the early white patch."
+            },
+            {
+              "i": 3,
+              "why": "The pellicle is described as a thin film that slows diffusion; the passage never makes it visible."
+            },
+            {
+              "i": 4,
+              "why": "Fluorapatite does form in a thin outer zone, but the passage offers it as acid resistance, not as the reason a lesion looks white."
+            }
+          ]
+        },
+        {
+          "id": "rc-1-8",
+          "skill": "rc-1",
+          "type": "detail",
+          "evidenceParagraphs": [
+            11
+          ],
+          "stem": "According to the passage, which statement describes how bone differs from enamel?",
+          "options": [
+            "Bone contains no organic matrix at all, whereas enamel retains a sparse one.",
+            "Bone begins to dissolve at a lower pH than enamel mineral does.",
+            "Bone depends on the composition of saliva for its supply of mineral.",
+            "Bone can be rebuilt only in the places an external fluid reaches.",
+            "Bone is remodelled by cells that resorb and deposit mineralised matrix."
+          ],
+          "answer": 4,
+          "explanation": "The comparison paragraph defines bone as a living composite that is continuously remodelled, with cells resorbing packets of mineralised matrix and other cells depositing new matrix. The option about rebuilding only where fluid reaches is a reversal: that limit is stated of enamel, not of bone.",
+          "distractors": [
+            {
+              "i": 0,
+              "why": "Contradicted rather than unsupported: the comparison paragraph has cells resorbing packets of mineralised matrix and other cells depositing new matrix, so bone plainly has one. The trap is carrying enamel's sparse organic matrix across from the first paragraph and reading it as a contrast."
+            },
+            {
+              "i": 1,
+              "why": "No critical pH is given for bone anywhere in the passage.",
+              "weakest": true
+            },
+            {
+              "i": 2,
+              "why": "Dependence on the surrounding fluid is exactly what the passage says distinguishes enamel from bone."
+            },
+            {
+              "i": 3,
+              "why": "This is the reversal: reaching only where fluid reaches is the limit the passage places on enamel repair."
+            }
+          ]
+        },
+        {
+          "id": "rc-1-9",
+          "skill": "rc-2",
+          "type": "main-idea",
+          "evidenceParagraphs": [
+            1,
+            2,
+            12
+          ],
+          "stem": "Which of the following best states the main idea of the passage?",
+          "options": [
+            "A tissue that cannot repair itself is maintained by a daily chemical balance of loss and return.",
+            "Fluoride is the single most important factor in preventing damage to the teeth.",
+            "Bacteria living in the film on the tooth are the cause of nearly all damage to enamel.",
+            "Enamel is built by specialised cells whose work before eruption decides how long a tooth will last.",
+            "Saliva performs a wider range of protective functions than most accounts of the mouth allow."
+          ],
+          "answer": 0,
+          "explanation": "The first paragraph poses the problem - a tissue with no cells that nevertheless lasts decades - and the last answers it by describing preventive measures as a way of tilting a daily balance. Every other option names a real element of the passage and promotes it to the whole.",
+          "distractors": [
+            {
+              "i": 1,
+              "why": "Fluoride gets one paragraph, and the passage is careful to call the lattice substitution the smaller part of its benefit."
+            },
+            {
+              "i": 2,
+              "why": "The film supplies the acid, but the passage devotes as much space to the saliva and mineral chemistry that oppose it."
+            },
+            {
+              "i": 3,
+              "why": "The ameloblasts appear once, and only to establish that they are gone before the story of the passage begins.",
+              "weakest": true
+            },
+            {
+              "i": 4,
+              "why": "Saliva is one half of the balance the passage describes, which makes this a true statement about a part rather than the whole."
+            }
+          ]
+        },
+        {
+          "id": "rc-1-10",
+          "skill": "rc-2",
+          "type": "function",
+          "evidenceParagraphs": [
+            3,
+            4
+          ],
+          "stem": "Paragraph 4 opens by saying that the acid does not arrive from outside. That sentence serves mainly to:",
+          "options": [
+            "concede that what a person eats matters less to mineral loss than the passage has claimed",
+            "explain why the critical pH is not a fixed constant of the enamel mineral itself",
+            "give the acid of the previous paragraph a source: a film that makes it on the tooth",
+            "argue that a tooth cleaned this morning and one left uncleaned meet the same chemistry",
+            "announce saliva as the counterweight that the paragraph immediately after will describe"
+          ],
+          "answer": 2,
+          "explanation": "Paragraph 3 describes what acid does to the crystal but never says where the acid comes from. The opening sentence of paragraph 4 is the hinge that supplies it, and the rest of the paragraph delivers the answer: a bacterial film on the tooth that ferments dietary sugars and traps its own waste acid against the enamel. The strongest decoy reverses the paragraph's closing sentence.",
+          "distractors": [
+            {
+              "i": 0,
+              "why": "Nothing is conceded about diet; the paragraph after this one makes the frequency of carbohydrate intake the best predictor of mineral loss the passage offers.",
+              "weakest": true
+            },
+            {
+              "i": 1,
+              "why": "That explanation is already finished in paragraph 3, which says the critical pH rises in a fluid poor in calcium and phosphate and falls in one rich in them."
+            },
+            {
+              "i": 3,
+              "why": "The reversal trap: the paragraph closes on two teeth in one mouth, one recently cleaned and one covered by a mature film, experiencing very different chemistry."
+            },
+            {
+              "i": 4,
+              "why": "Saliva is two paragraphs away, and the paragraph immediately after this one is the pH cycle rather than the counterweight."
+            }
+          ]
+        },
+        {
+          "id": "rc-1-11",
+          "skill": "rc-2",
+          "type": "function",
+          "evidenceParagraphs": [
+            6,
+            7
+          ],
+          "stem": "What purpose does the question that opens paragraph 7 serve?",
+          "options": [
+            "It casts doubt on the claim that saliva is supersaturated at rest.",
+            "It signals that the author is leaving the chemistry of enamel behind.",
+            "It restates the main idea of the passage in the form of a question.",
+            "It raises the objection that fluoride would be unnecessary in a mouth with healthy saliva.",
+            "It sets up the salivary proteins that hold mineral in solution until it is needed."
+          ],
+          "answer": 4,
+          "explanation": "The question asks why supersaturated saliva does not precipitate everywhere, and the sentence immediately after it answers with statherin and the proline-rich proteins. It is a setup for the paragraph's own content, not a challenge to what came before.",
+          "distractors": [
+            {
+              "i": 0,
+              "why": "Supersaturation is not doubted: the paragraph takes it as given and explains how it is kept under control."
+            },
+            {
+              "i": 1,
+              "why": "The paragraph stays inside the same chemistry, explaining how the mineral load is held in reserve."
+            },
+            {
+              "i": 2,
+              "why": "The main idea is the balance between loss and return; this question is narrower than that."
+            },
+            {
+              "i": 3,
+              "why": "Fluoride is not mentioned until several paragraphs later and is never called unnecessary.",
+              "weakest": true
+            }
+          ]
+        },
+        {
+          "id": "rc-1-12",
+          "skill": "rc-2",
+          "type": "title",
+          "evidenceParagraphs": [
+            1,
+            12
+          ],
+          "stem": "Which of the following would be the most appropriate title for the passage?",
+          "options": [
+            "The Bacteria Behind Tooth Decay",
+            "Enamel Under Acid: A Balance of Loss and Return",
+            "How Fluoride Reshaped Preventive Dentistry",
+            "Building the Crown: What the Ameloblasts Leave Behind",
+            "Saliva: The Body's Most Underrated Fluid"
+          ],
+          "answer": 1,
+          "explanation": "A title has to cover the whole passage, and the whole passage is about mineral leaving and returning to a tissue that cannot repair itself. The other titles each name a supporting player - the film, fluoride, the ameloblasts, saliva - and would leave most of the text unaccounted for.",
+          "distractors": [
+            {
+              "i": 0,
+              "why": "The film is the source of the acid, but it occupies one paragraph of twelve."
+            },
+            {
+              "i": 2,
+              "why": "Fluoride is treated as one contributor to the balance, and no history of dentistry is offered."
+            },
+            {
+              "i": 3,
+              "why": "The ameloblasts are mentioned only to say they are gone before the tooth erupts.",
+              "weakest": true
+            },
+            {
+              "i": 4,
+              "why": "Saliva is half the story at most, and the passage never compares it with other fluids of the body."
+            }
+          ]
+        },
+        {
+          "id": "rc-1-13",
+          "skill": "rc-2",
+          "type": "tone",
+          "evidenceParagraphs": [
+            9,
+            12
+          ],
+          "stem": "The author's attitude toward the preventive measures described in the final paragraph is best described as:",
+          "options": [
+            "Enthusiastic and promotional",
+            "Openly alarmed by the risk",
+            "Dismissive of their value",
+            "Measured, with qualified optimism",
+            "Resigned and pessimistic about prevention"
+          ],
+          "answer": 3,
+          "explanation": "The last paragraph endorses the measures and in the same breath limits them: none repairs a cavity, none makes enamel alive, and what they achieve is a modest shift in a daily equilibrium. Endorsement plus stated limits is measured optimism rather than enthusiasm.",
+          "distractors": [
+            {
+              "i": 0,
+              "why": "An enthusiast would not spend the closing sentences on what the measures cannot do."
+            },
+            {
+              "i": 1,
+              "why": "The tone stays analytic throughout; no language of alarm appears."
+            },
+            {
+              "i": 2,
+              "why": "Dismissal is ruled out by the claim that this modest shift is very nearly the whole of the defence.",
+              "weakest": true
+            },
+            {
+              "i": 4,
+              "why": "Pessimism is ruled out by the same claim, and by the earlier statement that rebuilt tissue is often more resistant."
+            }
+          ]
+        },
+        {
+          "id": "rc-1-14",
+          "skill": "rc-3",
+          "type": "inference",
+          "evidenceParagraphs": [
+            5
+          ],
+          "stem": "Which of the following must be true according to the passage?",
+          "options": [
+            "Splitting the same quantity of sugar into more exposures can increase mineral loss.",
+            "Any exposure to sugar will eventually produce a cavity somewhere in the enamel.",
+            "Enamel that has lost mineral can never regain any part of it.",
+            "Saliva by itself is enough to prevent all loss of mineral in a mouth that is healthy.",
+            "A person who avoids sugar entirely has no need of fluoride."
+          ],
+          "answer": 0,
+          "explanation": "The cycle paragraph says outright that what matters is the total time below the critical pH, and that six spaced drinks keep the surface below it longer than one dessert of the same total sugar. That makes the effect of splitting a fixed quantity something the passage forces, not merely permits.",
+          "distractors": [
+            {
+              "i": 1,
+              "why": "The passage never says every exposure ends in a cavity; it describes a balance that usually recovers."
+            },
+            {
+              "i": 2,
+              "why": "Flatly contradicted: mineral can be driven back into a lesion while crystallite templates survive."
+            },
+            {
+              "i": 3,
+              "why": "Too strong. Saliva opposes loss, but the passage gives a whole cycle in which loss still happens.",
+              "weakest": true
+            },
+            {
+              "i": 4,
+              "why": "The passage gives fluoride a role in redeposition that does not depend on the diet being sugary."
+            }
+          ]
+        },
+        {
+          "id": "rc-1-15",
+          "skill": "rc-3",
+          "type": "inference",
+          "evidenceParagraphs": [
+            8,
+            9
+          ],
+          "stem": "The passage most strongly supports which conclusion about a lesion that has collapsed into a cavity?",
+          "options": [
+            "It will go on losing mineral faster than an intact enamel surface does.",
+            "It can still be reversed if fluoride is supplied often enough.",
+            "It cannot be rebuilt, because the crystallite templates are gone.",
+            "It shows that the patient's saliva was never supersaturated with mineral.",
+            "It scatters light in the way an early white patch on enamel does."
+          ],
+          "answer": 2,
+          "explanation": "Redeposition is described as growth on surviving crystallites used as templates, and the passage states that once the crystallites of a region have dissolved completely no chemistry can bridge the gap. The fluoride option is the trap for a reader who remembers that fluoride speeds redeposition but not what redeposition requires.",
+          "distractors": [
+            {
+              "i": 0,
+              "why": "The passage stops at the defect having to be filled by a dentist and never compares rates of loss between a cavity and an intact surface; the pull is the intuition that a cavity is a wound that keeps getting worse, which the passage neither states nor needs."
+            },
+            {
+              "i": 1,
+              "why": "Fluoride speeds redeposition onto surviving crystallites; where none survive, the passage says the defect must be filled."
+            },
+            {
+              "i": 3,
+              "why": "Supersaturation is described as the normal resting state of saliva, and no link is drawn to an individual failing.",
+              "weakest": true
+            },
+            {
+              "i": 4,
+              "why": "Light scattering is offered for the early white patch, which the passage distinguishes from a collapsed surface."
+            }
+          ]
+        },
+        {
+          "id": "rc-1-16",
+          "skill": "rc-3",
+          "type": "application",
+          "evidenceParagraphs": [
+            5,
+            6
+          ],
+          "stem": "Based on the passage, which person is at greatest risk of losing enamel mineral?",
+          "options": [
+            "A patient on a medication that reduces salivary flow who sips a sweetened drink all afternoon",
+            "A patient with normal salivary flow who eats one large dessert after dinner each evening",
+            "A patient with normal salivary flow who drinks water between meals and brushes twice a day",
+            "A patient with unusually high salivary flow who eats one sweetened snack at breakfast",
+            "A patient whose teeth were cleaned this morning and who eats no carbohydrate all day"
+          ],
+          "answer": 0,
+          "explanation": "Two factors in the passage both point the same way: many spaced exposures keep the surface below the critical pH longer than one large one, and reduced salivary flow lengthens every recovery. The patient who combines them spends the most time on the losing side of the balance.",
+          "distractors": [
+            {
+              "i": 1,
+              "why": "One large exposure with normal flow is the passage's own example of the lower-risk pattern."
+            },
+            {
+              "i": 2,
+              "why": "Water between meals aids clearance, and nothing here prolongs the time below the critical pH."
+            },
+            {
+              "i": 3,
+              "why": "High flow shortens each recovery, and a single snack gives only one trough to climb out of."
+            },
+            {
+              "i": 4,
+              "why": "With no carbohydrate there is nothing for the film to ferment, so no acid episode begins.",
+              "weakest": true
+            }
+          ]
+        },
+        {
+          "id": "rc-1-17",
+          "skill": "rc-3",
+          "type": "strengthen-weaken",
+          "evidenceParagraphs": [
+            5
+          ],
+          "stem": "Which finding, if true, would most weaken the passage's claim that the frequency of carbohydrate intake matters more than the quantity?",
+          "options": [
+            "Plaque films differ in thickness from one tooth to the next within a single mouth.",
+            "Six small sugar portions and one large portion produced equal time below the critical pH.",
+            "People who took sugar six times a day lost more mineral than people who took it once.",
+            "Sweetened drinks lower the pH in the film faster than solid sweets of the same sugar content.",
+            "Salivary flow rate varies more between individuals than plaque acid production does."
+          ],
+          "answer": 1,
+          "explanation": "The claim rests on a mechanism: splitting the same sugar into more exposures lengthens the total time below the critical pH. A result in which spacing leaves that total unchanged removes the mechanism and with it the claim.",
+          "distractors": [
+            {
+              "i": 0,
+              "why": "Variation between teeth says nothing about how spacing a fixed quantity of sugar changes the time below the critical pH."
+            },
+            {
+              "i": 2,
+              "why": "This is the reversal trap: it is the result the claim predicts, so it strengthens the claim rather than weakening it."
+            },
+            {
+              "i": 3,
+              "why": "A difference in how fast the pH falls compares forms of sugar, not the frequency of exposure against the quantity."
+            },
+            {
+              "i": 4,
+              "why": "How flow rate varies between people leaves the frequency-versus-quantity comparison untouched.",
+              "weakest": true
+            }
+          ]
+        }
+      ],
+      "contentNote": "Original expository passage written for this track from established dental and physiological science; no published passage, article or item is reproduced or paraphrased.",
+      "sources": [
+        {
+          "title": "OpenStax Anatomy and Physiology 2e - The Mouth, Pharynx, and Esophagus",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-3-the-mouth-pharynx-and-esophagus"
+        },
+        {
+          "title": "OpenStax Chemistry 2e - Precipitation and Dissolution",
+          "url": "https://openstax.org/books/chemistry-2e/pages/15-1-precipitation-and-dissolution"
+        },
+        {
+          "title": "OpenStax Anatomy and Physiology 2e - Bone Formation and Development",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/6-4-bone-formation-and-development"
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "rc-2",
+      "section": "rc",
+      "discipline": "science",
+      "domain": "physics",
+      "title": "Why brittle solids break far below their bonds",
+      "words": 1350,
+      "text": "A chemist who knows the strength of a silicon-oxygen bond can estimate how strong a pane of glass ought to be. Stretch a flawless solid until its planes of atoms separate, and the stress required comes out at roughly one tenth of the material's Young's modulus, the constant relating stress to elastic stretch. For ordinary window glass the modulus is about seventy gigapascals, so the bonds predict a breaking stress near seven gigapascals. A sheet of window glass, pulled apart in a laboratory, breaks closer to fifty megapascals. The prediction misses by more than a factor of a hundred. A discrepancy that large and that consistent is not an arithmetic error; the bond calculation is answering a different question than the engineer's.\n\nThe resolution begins with a geometric observation about loaded bodies that contain holes. For an elliptical hole in a large plate, with the long axis of the ellipse lying across the direction of pull, the stress at the sharp end exceeds the average stress in the plate by a factor of one plus twice the ratio of the two semi-axes. A round hole, whose axes are equal, therefore triples the local stress. A narrow slit whose length is a hundred times its width multiplies it by two hundred and one. A scratch a tenth of a millimetre long and a micrometre wide is, arithmetically, exactly such a slit.\n\nStress concentration explains why flaws are dangerous, but taken alone it explains too much. Push the ratio of the axes toward a perfectly sharp crack and the predicted local stress grows without limit, which would mean that no cracked body could carry any load whatever. The stress at a crack tip therefore cannot by itself be the criterion for failure. Something else must decide whether a crack already present will begin to run.\n\nThe criterion that works is an energy balance rather than a stress comparison. A loaded plate stores elastic energy; when a crack extends, the material just above and below the new crack faces unloads and gives that energy back, while the extension creates fresh surface, and surface costs energy to make. The crack grows if, and only if, the energy released by unloading exceeds the energy the new surface demands. The two terms scale differently: the energy released per unit of crack extension rises with the square of the applied stress and in proportion to the length the crack has already reached, while the surface cost per unit of extension is a constant of the material.\n\nWorking that balance through yields the relation that governs brittle solids. The stress at which an existing crack begins to run is proportional to the square root of the material's modulus multiplied by its surface energy, and inversely proportional to the square root of the crack's length. Strength therefore falls off as the square root of flaw size, so a flaw four times longer halves the stress a part can carry. The relation is unforgiving in one direction and generous in the other: shrinking the worst flaw by a factor of a hundred multiplies the strength by ten. It also accounts for the missing factor of a hundred in the first paragraph.\n\nThree consequences follow. The first is that the strength of a brittle part is a property of its worst flaw rather than of its average condition. Two panes off the same line can differ in strength by a factor of several if one carries a deeper scratch. A glass fibre drawn fresh from a melt and never touched can reach several gigapascals, close to what the bond calculation predicts, because it has no surface damage at all. Draw that same fibre once across a wooden bench and its strength falls by an order of magnitude. Nothing about the glass changed; its worst flaw did.\n\nThe second consequence is statistical. Flaws are scattered over a surface with some distribution of sizes, and a larger specimen samples that distribution more times, so the expected size of its worst flaw is larger. Brittle materials therefore appear to grow weaker as the piece grows bigger. A long glass rod breaks at a lower stress than a short one cut from the same stock, an effect owing nothing to the material and everything to sampling. Engineers accordingly describe a brittle material with a distribution of strengths rather than a single number, designing against the stress at which perhaps one part in ten thousand fails.\n\nThe third consequence is that strength is the wrong constant to tabulate. Rearranged, the relation says that failure occurs when the applied stress multiplied by the square root of the crack length reaches a value fixed by the material. That product is the fracture toughness, and unlike strength it belongs to the material rather than to the specimen. Quoted in megapascals times the square root of a metre, it ranges widely: about 0.7 for soda-lime glass, about 3.5 for alumina, near 30 for a common aluminium alloy, near 50 for structural steel.\n\nToughness matters in design because it fixes the crack size a part can tolerate. Invert the relation and the critical crack length at a given service stress comes out proportional to the square of the toughness. Two parts carrying the same stress, one steel and one glass, therefore tolerate crack lengths in the ratio of the squares of their toughness values, roughly five thousand to one. The steel part can be scratched, dented and left with a flaw a millimetre long and still carry its load; the glass part is endangered by a flaw too small to see. That ratio, not any difference in bond strength, is what an engineer means by calling steel tough and glass brittle.\n\nThe mechanism behind the gap is plastic flow at the crack tip. In a metal, the concentrated stress ahead of a crack exceeds the yield stress, so a small zone of material deforms permanently instead of separating. The deformation blunts the tip, which lowers the concentration, and it dissipates energy: the work absorbed per unit of new crack area runs to hundreds or thousands of times the energy of the two fresh surfaces alone. A brittle ceramic at room temperature has no comparable outlet. Its crack tip stays sharp and its energy budget stays close to the bare surface term.\n\nThree engineering responses follow, each attacking a different term. The first is to control the flaws: polish, etch, coat, inspect and handle carefully; the strength recovered goes only as the square root of the reduction achieved, so halving the worst flaw buys about forty per cent more strength, not double. The second is to change the stress the flaw actually feels. Tempered glass is cooled so that its surfaces end in compression, typically around a hundred megapascals; an applied tension must cancel that compression before any surface flaw sees a positive stress at all. Chemically strengthened glass reaches the same end by exchanging small ions in the surface layer for larger ones. The third is to test before service: a proof test loads every part above its working stress, and a part that survives cannot contain a crack longer than the critical size for that stress.\n\nNone of this makes a brittle part safe in the way a ductile one is. A steel beam loaded past its limit sags and gives warning; a glass panel gives none, because the same balance that sets its strength also guarantees that once a crack passes the critical length the released energy exceeds the surface cost by a widening margin, and the crack accelerates to a large fraction of the speed of sound. The design philosophy that follows is procedural rather than heroic. Choose for toughness rather than for headline strength, keep the service stress low enough that the critical crack is long enough to find by inspection, and set the inspection interval by how fast a crack is expected to grow. An engineer who answers a fracture by specifying a stronger grade of steel, without asking what flaw the failure started from, is answering the bond chemist's question instead of the engineering one.",
+      "questions": [
+        {
+          "id": "rc-2-1",
+          "skill": "rc-1",
+          "type": "detail",
+          "stem": "According to the passage, the breaking stress that a bond-based calculation predicts for ordinary window glass is about",
+          "options": [
+            "50 megapascals",
+            "70 megapascals",
+            "7 gigapascals",
+            "70 gigapascals",
+            "100 megapascals"
+          ],
+          "answer": 2,
+          "explanation": "Paragraph 1 puts the modulus of window glass near seventy gigapascals and the bond-based strength at roughly one tenth of it, which is seven gigapascals. The fifty megapascals in the same paragraph is the trap: it is what a real sheet does, not what the bonds predict.",
+          "distractors": [
+            {
+              "i": 0,
+              "why": "Decoy: fifty megapascals is in the paragraph, but it is the measured breaking stress, which is the other half of the comparison."
+            },
+            {
+              "i": 1,
+              "why": "Half-right: it borrows the number seventy from the modulus and the unit from the measured strength, so neither half belongs to the prediction.",
+              "weakest": true
+            },
+            {
+              "i": 3,
+              "why": "Decoy: seventy gigapascals is the modulus itself; the predicted strength is one tenth of that value."
+            },
+            {
+              "i": 4,
+              "why": "Decoy: a hundred megapascals appears later as the surface compression in tempered glass, which answers a different question."
+            }
+          ],
+          "evidenceParagraphs": [
+            1
+          ]
+        },
+        {
+          "id": "rc-2-2",
+          "skill": "rc-1",
+          "type": "detail",
+          "stem": "The passage states that a round hole in a large loaded plate raises the stress at the edge of the hole to",
+          "options": [
+            "Three times the average stress in the plate",
+            "Twice the average stress in the plate",
+            "The same value as the average stress in the plate",
+            "Two hundred and one times the average stress in the plate",
+            "Ten times the average stress in the plate"
+          ],
+          "answer": 0,
+          "explanation": "Paragraph 2 gives the factor as one plus twice the ratio of the semi-axes. A round hole has equal axes, so the ratio is one and the factor is three. The usual trap is to keep the doubling and forget the added one.",
+          "distractors": [
+            {
+              "i": 1,
+              "why": "Half-right: it uses the 'twice the ratio' half of the rule and drops the 'one plus' that the same sentence supplies."
+            },
+            {
+              "i": 2,
+              "why": "Reversal: the paragraph exists to say that stress crowds at a hole rather than staying at its average value."
+            },
+            {
+              "i": 3,
+              "why": "Decoy: two hundred and one is the factor the same paragraph gives for a slit a hundred times longer than it is wide."
+            },
+            {
+              "i": 4,
+              "why": "This figure appears nowhere in the passage; it is a guess at a round number rather than a reading of the rule.",
+              "weakest": true
+            }
+          ],
+          "evidenceParagraphs": [
+            2
+          ]
+        },
+        {
+          "id": "rc-2-3",
+          "skill": "rc-1",
+          "type": "detail",
+          "stem": "The fracture toughness the passage reports for soda-lime glass, in megapascals times the square root of a metre, is about",
+          "options": [
+            "0.35",
+            "0.7",
+            "3.5",
+            "30",
+            "50"
+          ],
+          "answer": 1,
+          "explanation": "Paragraph 8 lists four toughness values and puts soda-lime glass at about 0.7. The other three values in the list belong to alumina, an aluminium alloy and structural steel.",
+          "distractors": [
+            {
+              "i": 0,
+              "why": "This number is not in the list; it is half the glass value, and nothing in the paragraph asks for a halving.",
+              "weakest": true
+            },
+            {
+              "i": 2,
+              "why": "Decoy: 3.5 is the value the same sentence gives for alumina, which is a ceramic but not the one asked about."
+            },
+            {
+              "i": 3,
+              "why": "Decoy: 30 is the value given for a common aluminium alloy."
+            },
+            {
+              "i": 4,
+              "why": "Decoy: 50 is the value given for structural steel, the material the later paragraphs contrast with glass."
+            }
+          ],
+          "evidenceParagraphs": [
+            8
+          ]
+        },
+        {
+          "id": "rc-2-4",
+          "skill": "rc-1",
+          "type": "detail",
+          "stem": "According to the passage, chemically strengthened glass puts its surface into compression by",
+          "options": [
+            "Cooling the surfaces so that they end in compression",
+            "Coating the surface with a thin polymer film",
+            "Etching the surface to remove the deepest flaws",
+            "Exchanging small ions in the surface layer for larger ones",
+            "Loading every part above its working stress before service"
+          ],
+          "answer": 3,
+          "explanation": "Paragraph 11 distinguishes two ways of putting a surface into compression: thermal tempering, which cools the surfaces, and chemical strengthening, which swaps small surface ions for larger ones. The cooling option is the trap because it is the neighbouring sentence.",
+          "distractors": [
+            {
+              "i": 0,
+              "why": "Decoy: cooling is true of the passage, but it is how tempered glass is made, not how chemically strengthened glass is made."
+            },
+            {
+              "i": 1,
+              "why": "A polymer coating appears nowhere in the passage; coating is mentioned only in the list of ways to limit flaw size.",
+              "weakest": true
+            },
+            {
+              "i": 2,
+              "why": "Decoy: etching is in the same paragraph, but under controlling flaws rather than under putting the surface in compression."
+            },
+            {
+              "i": 4,
+              "why": "Decoy: loading above the working stress is the proof test, the third response in the same paragraph."
+            }
+          ],
+          "evidenceParagraphs": [
+            11
+          ]
+        },
+        {
+          "id": "rc-2-5",
+          "skill": "rc-1",
+          "type": "detail",
+          "stem": "The passage puts the ratio of the crack lengths that steel and glass can tolerate at the same service stress at roughly",
+          "options": [
+            "Seventy to one",
+            "Seven hundred to one",
+            "Five thousand to one",
+            "One hundred to one",
+            "Fifty to one"
+          ],
+          "answer": 2,
+          "explanation": "Paragraph 9 says the tolerable crack length goes as the square of the toughness, and gives the steel-to-glass ratio as roughly five thousand to one. Dividing the two toughness values without squaring them is what produces the near-seventy figure.",
+          "distractors": [
+            {
+              "i": 0,
+              "why": "Half-right: seventy is the ratio of the two toughness values, but the paragraph says the crack length follows the square of the toughness."
+            },
+            {
+              "i": 1,
+              "why": "This is neither the ratio of the toughness values nor its square; it sits between the two and matches nothing in the paragraph."
+            },
+            {
+              "i": 3,
+              "why": "Decoy: a factor of a hundred is the gap between the predicted and measured strength of glass in the opening paragraphs."
+            },
+            {
+              "i": 4,
+              "why": "Decoy: fifty is the toughness quoted for structural steel, not a ratio of crack lengths.",
+              "weakest": true
+            }
+          ],
+          "evidenceParagraphs": [
+            9
+          ]
+        },
+        {
+          "id": "rc-2-6",
+          "skill": "rc-1",
+          "type": "except",
+          "stem": "The passage names all of the following as ways engineers respond to the risk of brittle fracture EXCEPT",
+          "options": [
+            "Polishing and inspecting surfaces to limit flaw size",
+            "Cooling a glass surface so that it ends in compression",
+            "Loading every part above its working stress before service",
+            "Alloying a material to raise its Young's modulus",
+            "Keeping the service stress low enough that a critical crack can be found"
+          ],
+          "answer": 3,
+          "explanation": "Paragraph 11 lists flaw control, surface compression and proof testing, and paragraph 12 adds keeping the service stress low enough for inspection to work. Raising the modulus by alloying is never proposed; the modulus enters the relation, but the passage treats flaw size and toughness as the levers.",
+          "distractors": [
+            {
+              "i": 0,
+              "why": "Decoy: polishing and inspecting open the list of flaw-control measures, so this is verifiable and therefore not the answer.",
+              "weakest": true
+            },
+            {
+              "i": 1,
+              "why": "Decoy: this is thermal tempering, stated in the same paragraph as a way to change the stress a flaw feels."
+            },
+            {
+              "i": 2,
+              "why": "Decoy: this is the proof test, the third response named in that paragraph."
+            },
+            {
+              "i": 4,
+              "why": "Decoy: the closing paragraph recommends exactly this, so it is in the passage and cannot be the exception."
+            }
+          ],
+          "evidenceParagraphs": [
+            11,
+            12
+          ]
+        },
+        {
+          "id": "rc-2-7",
+          "skill": "rc-1",
+          "type": "sequence",
+          "stem": "According to the passage, which sequence describes what happens in a brittle panel once a crack passes the critical length?",
+          "options": [
+            "The tip blunts, a plastic zone forms, and the crack stops",
+            "The energy released outruns the surface cost, and the crack accelerates",
+            "The surface cost outruns the energy released, and the crack arrests",
+            "The applied stress falls to the bond-based strength, and the crack stops",
+            "Surface compression cancels the applied tension, and the crack closes"
+          ],
+          "answer": 1,
+          "explanation": "The closing paragraph says that past the critical length the released energy exceeds the surface cost by a widening margin and the crack accelerates to a large fraction of the speed of sound, which is the order the energy balance of paragraph 4 predicts.",
+          "distractors": [
+            {
+              "i": 0,
+              "why": "Decoy: blunting by a plastic zone is described, but for metals, and it is what keeps a crack from reaching this stage."
+            },
+            {
+              "i": 2,
+              "why": "Reversal: the two terms are swapped, which describes a crack below the critical length rather than past it."
+            },
+            {
+              "i": 3,
+              "why": "The applied stress does not fall as the crack runs, and the bond-based strength plays no part after the opening paragraph.",
+              "weakest": true
+            },
+            {
+              "i": 4,
+              "why": "Decoy: surface compression belongs to tempered glass in the engineering-responses paragraph, not to a crack already running."
+            }
+          ],
+          "evidenceParagraphs": [
+            4,
+            12
+          ]
+        },
+        {
+          "id": "rc-2-8",
+          "skill": "rc-2",
+          "type": "main-idea",
+          "stem": "Which statement best expresses the main idea of the passage?",
+          "options": [
+            "Brittle solids fail far below their bond-based strength because the largest flaw present, not the bonding, fixes when a crack runs",
+            "Glass is weaker than steel because silicon-oxygen bonds are weaker than the bonds in metals",
+            "The stress concentrated at a sharp hole is the criterion that decides whether a loaded part fails",
+            "Because the strength of a brittle part cannot be predicted at all, engineers have no choice but to test every single part that they intend to put into service",
+            "Thermal tempering and ion exchange are the most effective ways of making glass usable in engineering structures"
+          ],
+          "answer": 0,
+          "explanation": "The passage opens with the gap between predicted and measured strength, resolves it with an energy balance in which strength falls as the square root of flaw size, and then draws the design consequences. Flaw size, not bond strength, is the thread.",
+          "distractors": [
+            {
+              "i": 1,
+              "why": "Reversal of the passage's own conclusion: it states explicitly that the steel-glass contrast is not a difference in bond strength."
+            },
+            {
+              "i": 2,
+              "why": "Half-right: stress concentration is introduced as the explanation, then rejected because it would predict that no cracked body carries any load."
+            },
+            {
+              "i": 3,
+              "why": "Too strong: proof testing is one of three responses, and the passage predicts strength well enough to design against a one-in-ten-thousand failure stress."
+            },
+            {
+              "i": 4,
+              "why": "Decoy: surface compression is a true detail of one paragraph, not the claim the whole passage builds.",
+              "weakest": true
+            }
+          ],
+          "evidenceParagraphs": [
+            1,
+            5,
+            6,
+            9
+          ]
+        },
+        {
+          "id": "rc-2-9",
+          "skill": "rc-2",
+          "type": "main-idea",
+          "stem": "The last five paragraphs of the passage are chiefly concerned with",
+          "options": [
+            "Explaining why the bonds in glass are weaker than the bonds in steel",
+            "Describing the apparatus used in a laboratory to measure fracture toughness",
+            "Arguing that brittle materials ought to be withdrawn from every load-bearing application in engineering",
+            "Comparing the surface energies measured for various ceramics and metals",
+            "Turning the flaw-size relation into rules for choosing, treating and inspecting parts"
+          ],
+          "answer": 4,
+          "explanation": "Paragraphs 8 to 12 move from the toughness constant to tolerable crack size, then to why metals are tough, then to the three engineering responses and the design philosophy. That is the relation being converted into practice.",
+          "distractors": [
+            {
+              "i": 0,
+              "why": "Reversal: the passage denies that bond strength explains the contrast, so this cannot be what those paragraphs argue."
+            },
+            {
+              "i": 1,
+              "why": "No apparatus is described anywhere; toughness is given as a tabulated constant, not as a measurement procedure.",
+              "weakest": true
+            },
+            {
+              "i": 2,
+              "why": "Too strong: the closing paragraph gives rules for using brittle parts safely rather than for abandoning them."
+            },
+            {
+              "i": 3,
+              "why": "Half-right: surface energy appears in the relation and in the discussion of plastic flow, but no comparison of measured surface energies is offered."
+            }
+          ],
+          "evidenceParagraphs": [
+            8,
+            9,
+            10,
+            11,
+            12
+          ]
+        },
+        {
+          "id": "rc-2-10",
+          "skill": "rc-2",
+          "type": "function",
+          "stem": "The description of the elliptical hole in the second paragraph functions mainly to",
+          "options": [
+            "Supply a formula readers can use to calculate the strength of a cracked part",
+            "Recommend that holes in engineering parts be made round wherever possible",
+            "Establish that a small flaw can multiply the local stress enormously",
+            "Show that the bond calculation of the first paragraph was arithmetically wrong",
+            "Introduce the fracture toughness that later paragraphs tabulate for four different materials"
+          ],
+          "answer": 2,
+          "explanation": "The elliptical-hole factor is what makes a scratch dangerous, and the paragraph ends by pointing out that an ordinary scratch is arithmetically such a slit. The next paragraph then withdraws it as a failure criterion, so it is a step in the argument rather than the answer.",
+          "distractors": [
+            {
+              "i": 0,
+              "why": "Half-right: a formula is given, but the following paragraph says it cannot fix a failure stress, since a sharp crack would make the predicted stress unbounded."
+            },
+            {
+              "i": 1,
+              "why": "No such recommendation appears; the round hole is an illustration of the factor, not advice about design.",
+              "weakest": true
+            },
+            {
+              "i": 3,
+              "why": "Reversal: the first paragraph says the discrepancy is not an arithmetic error but a sign that the calculation answers another question."
+            },
+            {
+              "i": 4,
+              "why": "Decoy: fracture toughness is real and tabulated, but it arrives six paragraphs later and by way of the energy balance."
+            }
+          ],
+          "evidenceParagraphs": [
+            2,
+            3
+          ]
+        },
+        {
+          "id": "rc-2-11",
+          "skill": "rc-2",
+          "type": "title",
+          "stem": "Which of the following is the best title for the passage?",
+          "options": [
+            "The Worst Flaw: Why Brittle Solids Break Far Below Their Bonds",
+            "Young's Modulus and the Elastic Behaviour of Ceramic Materials",
+            "Tempered Glass: Surface Compression and Its Uses",
+            "Plastic Flow and the Toughness of Structural Metals",
+            "Why Engineers Should Never Specify a Brittle Material for a Load-Bearing Part"
+          ],
+          "answer": 0,
+          "explanation": "A title has to cover the opening puzzle, the flaw-size relation and the design consequences. Only the worst-flaw title does; the rest name a single paragraph or overstate the conclusion.",
+          "distractors": [
+            {
+              "i": 1,
+              "why": "The modulus is one term in one relation and elastic behaviour is never the subject; this titles a different article.",
+              "weakest": true
+            },
+            {
+              "i": 2,
+              "why": "Decoy: tempering is one sentence of the engineering-responses paragraph, not the passage's subject."
+            },
+            {
+              "i": 3,
+              "why": "Decoy: plastic flow occupies one paragraph and is there to explain why metals differ from ceramics."
+            },
+            {
+              "i": 4,
+              "why": "Too strong: the passage sets out how to use brittle materials safely rather than telling engineers to avoid them."
+            }
+          ],
+          "evidenceParagraphs": [
+            1,
+            5,
+            9
+          ]
+        },
+        {
+          "id": "rc-2-12",
+          "skill": "rc-2",
+          "type": "tone",
+          "stem": "The author's attitude toward an engineer who answers a fracture failure by specifying a stronger grade of steel is best described as",
+          "options": [
+            "Openly enthusiastic",
+            "Pointedly critical",
+            "Carefully neutral",
+            "Alarmed and urgent",
+            "Mildly approving"
+          ],
+          "answer": 1,
+          "explanation": "The final sentence says such an engineer is answering the bond chemist's question instead of the engineering one, which is a pointed criticism made in the passage's otherwise measured voice.",
+          "distractors": [
+            {
+              "i": 0,
+              "why": "The closing sentence is a rebuke; nothing in it endorses the practice, let alone with enthusiasm.",
+              "weakest": true
+            },
+            {
+              "i": 2,
+              "why": "Half-right: the passage is measured throughout, but this last sentence takes a clear position rather than withholding one."
+            },
+            {
+              "i": 3,
+              "why": "Overstated: the paragraph recommends inspection intervals and low service stresses in a calm procedural voice, not an alarm."
+            },
+            {
+              "i": 4,
+              "why": "Reversal: approval is the opposite of what the sentence expresses."
+            }
+          ],
+          "evidenceParagraphs": [
+            12
+          ]
+        },
+        {
+          "id": "rc-2-13",
+          "skill": "rc-3",
+          "type": "inference",
+          "stem": "The passage most strongly implies that a glass fibre dragged once across a wooden bench loses strength because",
+          "options": [
+            "Friction heats the fibre and weakens its bonds",
+            "Abrasion reduces the fibre's cross-section and so raises the stress it carries",
+            "Contact with any solid surface always lowers a material's Young's modulus",
+            "Every flaw in a brittle solid grows steadily once the material has been handled at all, whatever stress it is under",
+            "The handling leaves surface flaws larger than any it previously contained"
+          ],
+          "answer": 4,
+          "explanation": "The paragraph says the fresh fibre is strong because it has no surface damage, and that after the drag nothing about the glass changed except its worst flaw. Combined with the square-root relation, a larger worst flaw is the only account the passage supports.",
+          "distractors": [
+            {
+              "i": 0,
+              "why": "Heating and bond weakening are nowhere in the passage, which says explicitly that nothing about the glass itself changed."
+            },
+            {
+              "i": 1,
+              "why": "Half-right: abrasion is real, but a cross-section small enough to matter is never claimed, and the passage attributes the loss to the worst flaw."
+            },
+            {
+              "i": 2,
+              "why": "Too strong and unsupported: the modulus is treated as a fixed property of the material throughout.",
+              "weakest": true
+            },
+            {
+              "i": 3,
+              "why": "Too strong: an absolute claim about steady growth under any stress, where the passage says a crack runs only once the energy balance turns."
+            }
+          ],
+          "evidenceParagraphs": [
+            5,
+            6
+          ]
+        },
+        {
+          "id": "rc-2-14",
+          "skill": "rc-3",
+          "type": "inference",
+          "stem": "Two plates of the same glass are alike except that the worst flaw in the second is nine times as long as the worst flaw in the first. The passage implies that the second plate will fail at about",
+          "options": [
+            "One ninth the stress of the first",
+            "One half the stress of the first",
+            "One third the stress of the first",
+            "Three times the stress of the first",
+            "The same stress as the first, since the material is unchanged"
+          ],
+          "answer": 2,
+          "explanation": "Strength falls as the square root of flaw size, so nine times the flaw length divides the strength by the square root of nine, which is three. The passage's own example, a fourfold flaw halving the strength, is the same rule at a different number.",
+          "distractors": [
+            {
+              "i": 0,
+              "why": "It treats strength as inversely proportional to flaw length; the relation given is inverse to the square root of that length."
+            },
+            {
+              "i": 1,
+              "why": "Decoy: halving is what the passage's worked example gives for a flaw four times longer, not nine times longer."
+            },
+            {
+              "i": 3,
+              "why": "Reversal: a longer flaw makes a part weaker, so the ratio runs the other way."
+            },
+            {
+              "i": 4,
+              "why": "Contradicted: the whole point of the paragraph is that two plates of one material differ in strength when their worst flaws differ.",
+              "weakest": true
+            }
+          ],
+          "evidenceParagraphs": [
+            5
+          ]
+        },
+        {
+          "id": "rc-2-15",
+          "skill": "rc-3",
+          "type": "strengthen-weaken",
+          "stem": "Which finding, if true, would most weaken the passage's explanation of why larger brittle specimens are weaker?",
+          "options": [
+            "Freshly drawn glass fibres are found to be stronger than any pane of the same glass",
+            "Larger panes are found, on inspection, to carry more and deeper surface scratches than smaller panes of the same glass",
+            "Fracture toughness is found to be the same whatever the size of the specimen tested",
+            "Specimens of very different size, each carrying one identical artificial flaw and no others, still fail at very different stresses",
+            "Tempered panes are found to be stronger than untempered panes of the same size"
+          ],
+          "answer": 3,
+          "explanation": "The passage explains the size effect purely by sampling: a bigger specimen is likelier to contain a bigger worst flaw. Holding the flaw population identical and still seeing a size effect leaves that explanation with nothing to do.",
+          "distractors": [
+            {
+              "i": 0,
+              "why": "Consistent with the passage rather than against it, since the fibre's strength is credited to its undamaged surface."
+            },
+            {
+              "i": 1,
+              "why": "Reversal of the task: more and deeper scratches in larger panes is exactly the sampling account, so this supports the explanation."
+            },
+            {
+              "i": 2,
+              "why": "The passage already treats toughness as a property of the material rather than of the specimen, so this changes nothing."
+            },
+            {
+              "i": 4,
+              "why": "Decoy: a true-sounding result about surface compression that says nothing about specimen size.",
+              "weakest": true
+            }
+          ],
+          "evidenceParagraphs": [
+            7
+          ]
+        },
+        {
+          "id": "rc-2-16",
+          "skill": "rc-3",
+          "type": "application",
+          "stem": "A designer must choose between two materials for a panel that will be handled in service and must carry a fixed stress. Based on the passage, which question should weigh most heavily?",
+          "options": [
+            "Which material has the higher Young's modulus",
+            "Which material has the higher bond-based theoretical strength",
+            "Which material has the lower surface energy",
+            "Which material can be produced in a larger single piece",
+            "Which material tolerates the longer crack at that stress"
+          ],
+          "answer": 4,
+          "explanation": "Handling puts flaws in, and the passage's rule for that case is to choose for toughness rather than headline strength, because toughness fixes the crack length a part can carry at a given stress.",
+          "distractors": [
+            {
+              "i": 0,
+              "why": "Half-right: the modulus is one term in the relation, but the rule the passage gives for a part that will be handled is toughness, which is what fixes the tolerable crack length at a given stress."
+            },
+            {
+              "i": 1,
+              "why": "Contradicted: the opening and closing paragraphs both treat the bond-based figure as the wrong question for a real part."
+            },
+            {
+              "i": 2,
+              "why": "Reversal: a lower surface energy means the crack costs less to extend, which lowers the stress the part can carry."
+            },
+            {
+              "i": 3,
+              "why": "Reversal: the passage says larger pieces of a brittle material are weaker, so this points the wrong way.",
+              "weakest": true
+            }
+          ],
+          "evidenceParagraphs": [
+            9,
+            11,
+            12
+          ]
+        }
+      ],
+      "contentNote": "Original expository passage written for this track from established materials-science results; no published passage, item or figure is reproduced, and the science is presented so that every question is answerable from the text alone.",
+      "sources": [
+        {
+          "title": "OpenStax University Physics Volume 1 · Stress, Strain, and Elastic Modulus",
+          "url": "https://openstax.org/books/university-physics-volume-1/pages/12-3-stress-strain-and-elastic-modulus"
+        },
+        {
+          "title": "OpenStax Chemistry 2e · Lattice Structures in Crystalline Solids",
+          "url": "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids"
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    },
+    {
+      "id": "rc-3",
+      "section": "rc",
+      "discipline": "science",
+      "domain": "chemistry",
+      "title": "How chemists settled on a reference for atomic weights",
+      "words": 1376,
+      "text": "A unit of measurement is a promise. It promises that a quantity reported in one laboratory means the same thing in another, and that a number written down this year will mean the same a century from now. Keeping that promise is hard, because a unit must be anchored to something, and everything in nature turns out to be more complicated than it looks. The history of the atomic weight scale, the ladder of relative masses on which chemistry's bookkeeping rests, is worth following for that reason. It shows a scientific community arguing itself, slowly and with some embarrassment, toward a standard nobody would have chosen for its elegance and everybody could live with.\n\nAn atomic weight is not a mass in grams. It is a ratio: a statement that an atom of one element is so many times heavier than an atom of some other element chosen as the reference. Early chemists could not weigh a single atom, but they could weigh the quantities of two elements that combined, and from those combining weights they could work out relative masses. Ratios, however, need a denominator. Before anyone could say that carbon is twelve times something, the community had to agree on what the something was. That agreement was a convention rather than a discovery, and a century of use did not make it less of one.\n\nThe first convention was the obvious one. Hydrogen is the lightest element, and the earliest table of relative weights, drawn up in the opening years of the nineteenth century, gave it the value one so that every other element would come out greater than one. Elegance and practice parted company almost at once. Hydrogen combines with only a modest range of elements, and the compounds it does form are often gases that were awkward to trap and weigh with the equipment of the period. A chemist fixing the relative weight of a metal through hydrogen usually had to work through two or three intermediate compounds, and every extra step added error.\n\nOxygen was the practical alternative. It combines with nearly every element, often in compounds that are stable solids, easily purified and easily weighed, so most relative weights could be fixed against oxygen in a single step. A Swedish chemist of the same period built his tables on oxygen at one hundred. That figure did not survive. By the end of the century the community had settled on sixteen instead, for the unsentimental reason that sixteen left hydrogen at very nearly one and so preserved the familiar look of the tables already in print. The reference had changed; the numbers chemists had memorized had not. A standard succeeds partly by not disturbing the work already done.\n\nFor some thirty years the arrangement gave no trouble, and it is worth being precise about why. Oxygen at sixteen worked because everyone tacitly assumed that a chemical element is a single kind of atom, so that every oxygen atom weighs what every other oxygen atom weighs and a sample from one source is interchangeable with any other. The assumption was never stated as a premise, because nobody saw that it was one. Standards tend to hide their assumptions in this way. An assumption stays invisible for as long as it happens to be true, and becomes visible only when an instrument arrives sensitive enough to violate it.\n\nThe instrument arrived as precise spectroscopic analysis of ordinary air, and in 1929 the assumption failed. Oxygen, it emerged, is not one kind of atom but three. Atoms of the same element always carry the same number of protons, which is what makes them that element and fixes their chemistry, but they may carry different numbers of neutrons, which changes their mass. Variants of this sort are called isotopes. Ordinary oxygen is overwhelmingly the lightest of its three isotopes, but a small and, crucially, not perfectly constant fraction of any sample consists of the two heavier ones. The reference substance of chemistry was a mixture whose recipe depended on where it had been collected.\n\nThe response split the sciences. Physicists, who could by then separate the isotopes, did the clean thing and redefined the scale on a single isotope: the lightest oxygen atom, taken as exactly sixteen. Chemists, whose analyses deal with bulk samples in which the isotopes are never separated, kept the older reference, the natural mixture, also taken as exactly sixteen. Two scales now existed under one name. They were not far apart, the physical values running higher than the chemical ones by roughly two hundred and seventy-five parts per million, a discrepancy of about three hundredths of a percent, but they were not the same, and a value copied from one literature into the other was quietly wrong.\n\nIt is tempting to wave away a disagreement of that size, and for most bench work it did not matter; a chemist weighing out reagents would never have noticed. The serious objection was of another kind. Because the isotopic composition of natural oxygen varies slightly with its source, oxygen from the atmosphere being not quite oxygen from seawater and neither quite oxygen from a mineral, the chemists' reference was not a fixed quantity at all. Its value drifted according to which bottle you happened to open. A standard that cannot be reproduced exactly is not a standard; it is a habit. That, and not the size of the gap, is what forced a decision.\n\nTwo remedies were tried first, and both were evasions. The simpler was to publish conversion factors, so that a physicist's value could be turned into a chemist's. This works, in the sense that arithmetic always works, but a conversion factor between two versions of the same quantity is a confession rather than a solution, and it guarantees that somebody will eventually forget to apply it. The second remedy was for each discipline to argue that the other should give way. The physicists pointed out, correctly, that only a single isotope can serve as an exact reference. The chemists pointed out, also correctly, that a scale nobody will use is worth nothing.\n\nThe proposal that broke the deadlock, made in the late nineteen-fifties, satisfied both objections by abandoning oxygen altogether. Let the reference be carbon, and specifically the common carbon isotope with twelve particles in its nucleus, assigned the value twelve exactly. It is a single isotope, so it is exactly reproducible and the physicists' principle is honoured. It was already the working reference inside mass spectrometry, where carbon-bearing fragments make convenient markers. And, decisive for the chemists, the shift it demanded was tiny: moving from the old chemical scale to the carbon scale altered published atomic weights by about forty parts per million, far below the precision of most tabulated values, so the tables could stand.\n\nThe international union of physicists adopted the carbon standard in 1960 and the union of chemists in 1961, and the two scales became one. What deserves attention is the shape of the winning argument. It was not the most principled proposal, nor the one urged by the more powerful discipline. It was the proposal that asked each side for a small and bearable loss. The physicists gave up oxygen, on which their exact scale had been built; the chemists accepted a revision of every atomic weight in print, which they could afford only because the revision was too small to matter. A proposal that makes one community bear the whole cost of agreement does not get adopted, however sound it is.\n\nThe direction of travel since then has been consistent. Where an early standard was a substance, a bottle of gas or a bar of metal in a vault, a modern one is increasingly a number fixed by agreement, rebuilt by anyone with adequate apparatus. The unit chemists use to count particles followed in 2019, when it stopped being defined by a stated mass of carbon and was defined instead by fixing the number of entities it contains. Carbon at twelve remains the anchor of the atomic weight scale, but counting no longer depends on possessing any carbon. The purpose of a standard, the oxygen episode taught, is not to be natural or beautiful but to be rebuildable, by strangers, from written instructions alone.",
+      "questions": [
+        {
+          "id": "rc-3-1",
+          "skill": "rc-1",
+          "type": "detail",
+          "stem": "According to the passage, chemists eventually replaced oxygen's assigned value of one hundred with sixteen because sixteen:",
+          "options": [
+            "matched the value that physicists later gave to the lightest oxygen isotope",
+            "left hydrogen at very nearly one, so printed tables kept their values",
+            "reflected the number of protons that make an atom an oxygen atom",
+            "made oxygen combine with a wider range of elements than hydrogen did",
+            "was the value the Swedish chemist had proposed for oxygen in the first place"
+          ],
+          "answer": 1,
+          "explanation": "Paragraph 4 gives the reason outright: sixteen was adopted for the unsentimental reason that it left hydrogen at very nearly one and preserved the look of the tables already in print. The tempting trap is the wide-combining property of oxygen, which the same paragraph does state, but as the reason for choosing oxygen at all, not for choosing the number sixteen.",
+          "evidenceParagraphs": [
+            4
+          ],
+          "distractors": [
+            {
+              "i": 0,
+              "why": "This borrows the single-isotope scale from paragraph 7, which was defined thirty years later; it cannot explain a nineteenth-century choice."
+            },
+            {
+              "i": 2,
+              "why": "Paragraph 6 does say protons fix an element's identity, but the passage never ties oxygen's assigned value to a proton count."
+            },
+            {
+              "i": 3,
+              "why": "A true statement from the same paragraph, but it answers a different question: it explains why oxygen rather than hydrogen, not why sixteen rather than one hundred."
+            },
+            {
+              "i": 4,
+              "why": "Paragraph 4 says he proposed one hundred, so this reverses what the passage states.",
+              "weakest": true
+            }
+          ]
+        },
+        {
+          "id": "rc-3-2",
+          "skill": "rc-1",
+          "type": "detail",
+          "stem": "The passage reports that the physical and chemical scales differed by approximately:",
+          "options": [
+            "16 parts per million",
+            "40 parts per million",
+            "275 parts per million",
+            "1,000 parts per million",
+            "30,000 parts per million"
+          ],
+          "answer": 2,
+          "explanation": "Paragraph 7 states the gap as roughly 275 parts per million, about three hundredths of a percent. The 40 figure is the decoy: paragraph 10 uses it for a different quantity, the shift caused by moving to the carbon scale.",
+          "evidenceParagraphs": [
+            7,
+            10
+          ],
+          "distractors": [
+            {
+              "i": 0,
+              "why": "Sixteen is the value assigned to oxygen on both scales; it is not a measure of the gap between them."
+            },
+            {
+              "i": 1,
+              "why": "Paragraph 10 gives 40 parts per million as the size of the later change to carbon, not the gap between the two oxygen scales."
+            },
+            {
+              "i": 3,
+              "why": "This is nearly four times the gap the passage states."
+            },
+            {
+              "i": 4,
+              "why": "This is three percent, and it misplaces the decimal by two orders of magnitude: the passage says three hundredths of a percent.",
+              "weakest": true
+            }
+          ]
+        },
+        {
+          "id": "rc-3-3",
+          "skill": "rc-1",
+          "type": "detail",
+          "stem": "According to the passage, the practical difficulty with hydrogen as the reference was that:",
+          "options": [
+            "hydrogen atoms vary in mass from one sample to another",
+            "chemists of the period could not weigh a single atom of any element",
+            "hydrogen's assigned value of one had to be revised once the isotopes were discovered",
+            "hydrogen combines with few elements, and its compounds were awkward to weigh",
+            "hydrogen is not in fact the lightest element"
+          ],
+          "answer": 3,
+          "explanation": "Paragraph 3 names both halves of the difficulty: a modest range of partner elements, and compounds that were often gases hard to trap and weigh, so a determination took several error-adding steps. The inability to weigh a single atom is the attractive wrong answer because paragraph 2 does state it, but it was true of every element and so explains nothing about hydrogen in particular.",
+          "evidenceParagraphs": [
+            2,
+            3
+          ],
+          "distractors": [
+            {
+              "i": 0,
+              "why": "Variation between samples is the oxygen problem of paragraphs 6 and 8; the passage never attributes it to hydrogen."
+            },
+            {
+              "i": 1,
+              "why": "True, and stated in paragraph 2, but it applied equally to every element and is not the reason hydrogen was abandoned."
+            },
+            {
+              "i": 2,
+              "why": "The passage never says hydrogen's value was revised for isotopes; the revision it describes came from changing the reference substance.",
+              "weakest": true
+            },
+            {
+              "i": 4,
+              "why": "Paragraph 3 says plainly that hydrogen is the lightest element, so this contradicts the text."
+            }
+          ]
+        },
+        {
+          "id": "rc-3-4",
+          "skill": "rc-1",
+          "type": "detail",
+          "stem": "The passage indicates that the carbon standard was acceptable to chemists mainly because:",
+          "options": [
+            "the change it forced on published atomic weights was too small to matter",
+            "carbon was already the working reference inside mass spectrometry",
+            "carbon's common isotope is a single isotope and therefore exactly reproducible",
+            "carbon is more abundant than oxygen in ordinary laboratory samples",
+            "the two international unions had already voted to adopt it"
+          ],
+          "answer": 0,
+          "explanation": "Paragraph 10 marks this reason as the decisive one for chemists: a shift of about forty parts per million left the printed tables standing. The other two virtues listed in that paragraph are real, but the passage assigns them to the physicists' principle and to laboratory practice, not to the chemists' objection.",
+          "evidenceParagraphs": [
+            10,
+            11
+          ],
+          "distractors": [
+            {
+              "i": 1,
+              "why": "Stated in paragraph 10, but as a convenience of instrument practice, not as the reason chemists could accept the change."
+            },
+            {
+              "i": 2,
+              "why": "Also stated in paragraph 10, and expressly credited there to the physicists' principle rather than to the chemists' concern."
+            },
+            {
+              "i": 3,
+              "why": "The passage never compares the abundance of carbon and oxygen in laboratory samples.",
+              "weakest": true
+            },
+            {
+              "i": 4,
+              "why": "Paragraph 11 places the votes in 1960 and 1961, after the proposal had won its argument, so this reverses the order of events."
+            }
+          ]
+        },
+        {
+          "id": "rc-3-5",
+          "skill": "rc-1",
+          "type": "except",
+          "stem": "The passage credits the carbon standard with all of the following features EXCEPT:",
+          "options": [
+            "It rests on a single isotope and can therefore be reproduced exactly.",
+            "It was already serving as a reference inside mass spectrometry.",
+            "It required only a very small revision of published atomic weights.",
+            "It assigns the reference isotope the value twelve exactly.",
+            "It replaced hydrogen as the reference substance of the scale."
+          ],
+          "answer": 4,
+          "explanation": "Paragraph 10 supplies the first four features directly. The fifth reverses the story: the substance carbon replaced was oxygen, which had itself displaced hydrogen a century earlier, as paragraphs 3 and 4 describe.",
+          "evidenceParagraphs": [
+            3,
+            4,
+            10
+          ],
+          "distractors": [
+            {
+              "i": 0,
+              "why": "Paragraph 10 gives this as the feature that honours the physicists' principle."
+            },
+            {
+              "i": 1,
+              "why": "Paragraph 10 states that carbon-bearing fragments were already convenient markers in mass spectrometry."
+            },
+            {
+              "i": 2,
+              "why": "Paragraph 10 puts the revision at about forty parts per million, below the precision of most tables."
+            },
+            {
+              "i": 3,
+              "why": "Paragraph 10 assigns the common carbon isotope the value twelve exactly; this is the easiest of the four to tick off.",
+              "weakest": true
+            }
+          ]
+        },
+        {
+          "id": "rc-3-6",
+          "skill": "rc-1",
+          "type": "except",
+          "stem": "The passage presents all of the following as reasons the oxygen reference had to be abandoned EXCEPT:",
+          "options": [
+            "The composition of natural oxygen varies slightly with its source.",
+            "Two scales were in use under a single name.",
+            "Published conversion factors invited mistakes.",
+            "Oxygen compounds had become too difficult to purify and weigh.",
+            "Oxygen is not one kind of atom but three."
+          ],
+          "answer": 3,
+          "explanation": "Paragraphs 6 to 9 supply the other four difficulties. The keyed option contradicts paragraph 4, which praises oxygen compounds as stable solids that are easily purified and easily weighed; that convenience was never in dispute.",
+          "evidenceParagraphs": [
+            4,
+            6,
+            7,
+            8,
+            9
+          ],
+          "distractors": [
+            {
+              "i": 0,
+              "why": "Paragraph 8 gives this as the serious objection, and says it was what forced a decision."
+            },
+            {
+              "i": 1,
+              "why": "Paragraph 7 describes exactly this: two scales existing under one name."
+            },
+            {
+              "i": 2,
+              "why": "Paragraph 9 says a conversion factor guarantees that somebody will eventually forget to apply it."
+            },
+            {
+              "i": 4,
+              "why": "Paragraph 6 states it outright, which makes this the easiest option to verify and discard.",
+              "weakest": true
+            }
+          ]
+        },
+        {
+          "id": "rc-3-7",
+          "skill": "rc-2",
+          "type": "main-idea",
+          "stem": "Which of the following best states the main idea of the passage?",
+          "options": [
+            "The discovery of isotopes made exact atomic weights impossible to assign.",
+            "A measurement standard is a convention, judged by whether it can be reproduced.",
+            "Physicists and chemists use incompatible methods and therefore reach incompatible results.",
+            "Carbon is the best conceivable reference for the atomic weight scale.",
+            "The discovery of isotopes was the central event of twentieth-century chemistry."
+          ],
+          "answer": 1,
+          "explanation": "Paragraph 1 announces the theme and paragraph 12 restates it: the point of a standard is to be rebuildable by strangers from written instructions, not to be natural or beautiful, and paragraph 8 makes reproducibility rather than size of error the decisive test. The strongest decoy claims carbon is the best possible reference, which the passage never argues; paragraph 11 says explicitly that the winning proposal was not the most principled one.",
+          "evidenceParagraphs": [
+            1,
+            8,
+            11,
+            12
+          ],
+          "distractors": [
+            {
+              "i": 0,
+              "why": "The passage describes the scale being repaired, not abandoned, and carbon at twelve is still exact."
+            },
+            {
+              "i": 2,
+              "why": "The two disciplines did split, but paragraph 11 shows them agreeing; the split is an episode in the argument, not its conclusion."
+            },
+            {
+              "i": 3,
+              "why": "Paragraph 11 denies this directly: the carbon proposal won because it was cheap for both sides, not because it was best in principle."
+            },
+            {
+              "i": 4,
+              "why": "The passage treats the discovery as the event that exposed a hidden assumption, and makes no claim about its rank among chemical discoveries.",
+              "weakest": true
+            }
+          ]
+        },
+        {
+          "id": "rc-3-8",
+          "skill": "rc-1",
+          "type": "sequence",
+          "stem": "Which sequence puts the references and scales in the order the passage gives them?",
+          "options": [
+            "Hydrogen at one; oxygen at one hundred; oxygen at sixteen; two scales under one name; carbon at twelve",
+            "Oxygen at one hundred; hydrogen at one; oxygen at sixteen; two scales under one name; carbon at twelve",
+            "Hydrogen at one; oxygen at sixteen; oxygen at one hundred; two scales under one name; carbon at twelve exactly",
+            "Hydrogen at one; oxygen at one hundred; oxygen at sixteen; carbon at twelve; two scales under one name",
+            "Two scales under one name; hydrogen at one; oxygen at one hundred; oxygen at sixteen; carbon at twelve"
+          ],
+          "answer": 0,
+          "explanation": "The passage lays the references out in order: hydrogen at one in paragraph 3, a Swedish chemist's oxygen at one hundred and then the community's oxygen at sixteen in paragraph 4, the split into two scales under one name in paragraph 7, and carbon at twelve in paragraph 10. The two oxygen values are the pair hardest to keep straight, because both sit in one paragraph and the passage marks the change only with the sentence that one hundred did not survive.",
+          "evidenceParagraphs": [
+            3,
+            4,
+            7,
+            10
+          ],
+          "distractors": [
+            {
+              "i": 1,
+              "why": "Paragraph 3 calls hydrogen at one the first convention, so the Swedish chemist's oxygen at one hundred cannot come before it."
+            },
+            {
+              "i": 2,
+              "why": "The two oxygen values are reversed: paragraph 4 gives one hundred first, says that figure did not survive, and only then puts the community on sixteen."
+            },
+            {
+              "i": 3,
+              "why": "Carbon arrives to end the split, not before it; paragraph 10 introduces it as the proposal that broke the deadlock the two scales had created."
+            },
+            {
+              "i": 4,
+              "why": "There was no scale to divide until one existed: paragraph 7 places the split after oxygen at sixteen had been in use for decades.",
+              "weakest": true
+            }
+          ]
+        },
+        {
+          "id": "rc-3-9",
+          "skill": "rc-2",
+          "type": "title",
+          "stem": "Which title best captures the content and emphasis of the passage?",
+          "options": [
+            "Isotopes: Why Atoms of One Element Are Not Alike",
+            "A Standard Anyone Can Rebuild: Fixing the Atomic Weight Scale",
+            "Oxygen Against Carbon: How Two Disciplines Fell Out Over a Number",
+            "The Limits of Precision in Modern Measurement",
+            "Nineteenth-Century Chemistry and Its Mistakes"
+          ],
+          "answer": 1,
+          "explanation": "A good title has to carry both halves of the passage, the narrative of how the reference was chosen and the argument of paragraphs 1 and 12 that a standard exists to be rebuilt by anyone. The quarrel title is the half-right trap: it names paragraphs 7 to 9 accurately and leaves out the thesis the passage opens and closes with.",
+          "evidenceParagraphs": [
+            1,
+            7,
+            12
+          ],
+          "distractors": [
+            {
+              "i": 0,
+              "why": "Isotopes occupy one paragraph and serve the argument; a title built on them misses the subject."
+            },
+            {
+              "i": 2,
+              "why": "Accurate for the middle of the passage only, and the passage ends in agreement rather than quarrel."
+            },
+            {
+              "i": 3,
+              "why": "The passage is about reproducibility and convention, not about how precise measurement can become.",
+              "weakest": true
+            },
+            {
+              "i": 4,
+              "why": "The passage defends the nineteenth-century choice as practical, so this title misstates its attitude."
+            }
+          ]
+        },
+        {
+          "id": "rc-3-10",
+          "skill": "rc-2",
+          "type": "function",
+          "stem": "The discussion of the unstated assumption in paragraph 5 serves primarily to:",
+          "options": [
+            "argue that the chemists of the period were careless",
+            "introduce the definition of an isotope",
+            "identify the assumption the oxygen standard rested on, and why it stayed hidden",
+            "establish that oxygen combines with nearly every element",
+            "show that hydrogen would have made a better reference than oxygen after all"
+          ],
+          "answer": 2,
+          "explanation": "Paragraph 5 names the premise the standard rested on, that an element is a single kind of atom, and says it stayed invisible because nobody saw it was a premise. That prepares the reversal in paragraph 6 and explains why the reversal was a surprise. The carelessness reading is the trap: the paragraph states that nobody saw the assumption was a premise, which excuses the chemists rather than blaming them.",
+          "evidenceParagraphs": [
+            5,
+            6
+          ],
+          "distractors": [
+            {
+              "i": 0,
+              "why": "The paragraph says nobody saw the assumption was a premise, which is an explanation rather than an accusation."
+            },
+            {
+              "i": 1,
+              "why": "The definition arrives in paragraph 6; paragraph 5 prepares the ground for it without naming isotopes."
+            },
+            {
+              "i": 3,
+              "why": "That point belongs to paragraph 4 and is not what paragraph 5 is doing."
+            },
+            {
+              "i": 4,
+              "why": "The passage never revives hydrogen; paragraph 3 explains why it was abandoned.",
+              "weakest": true
+            }
+          ]
+        },
+        {
+          "id": "rc-3-11",
+          "skill": "rc-2",
+          "type": "function",
+          "stem": "Paragraph 9 contributes to the passage mainly by:",
+          "options": [
+            "showing that the conversion factors between the scales were arithmetically incorrect",
+            "describing how a mass spectrometer separates isotopes",
+            "explaining why the composition of natural oxygen varies with its source",
+            "setting out the remedies tried before carbon, and why each one fell short",
+            "identifying which of the two disciplines was ultimately proved right"
+          ],
+          "answer": 3,
+          "explanation": "Paragraph 9 names two responses, conversion factors and mutual persuasion, and dismisses both as evasions, which is what makes the carbon proposal in paragraph 10 look necessary rather than arbitrary. The arithmetic reading inverts the text: the paragraph concedes that the conversion works and objects that it is a confession, not that it is wrong.",
+          "evidenceParagraphs": [
+            9,
+            10
+          ],
+          "distractors": [
+            {
+              "i": 0,
+              "why": "The paragraph grants that arithmetic always works; its objection is to what the factor admits, not to its accuracy."
+            },
+            {
+              "i": 1,
+              "why": "No such description appears anywhere in the passage.",
+              "weakest": true
+            },
+            {
+              "i": 2,
+              "why": "That explanation belongs to paragraph 8."
+            },
+            {
+              "i": 4,
+              "why": "The paragraph calls both disciplines correct, so it settles nothing between them."
+            }
+          ]
+        },
+        {
+          "id": "rc-3-12",
+          "skill": "rc-2",
+          "type": "tone",
+          "stem": "The author's attitude toward the practice of publishing conversion factors between the two scales is best described as:",
+          "options": [
+            "admiring of their ingenuity",
+            "indifferent to their consequences",
+            "hostile to the point of open contempt",
+            "undecided about their merits",
+            "critical, but granting that they work"
+          ],
+          "answer": 4,
+          "explanation": "Paragraph 9 calls the practice an evasion and a confession rather than a solution, yet allows in the same breath that arithmetic always works. That combination of a clear objection with an explicit concession is criticism, not contempt and not indifference. Readers who register only the word evasion reach for the harshest option.",
+          "evidenceParagraphs": [
+            9
+          ],
+          "distractors": [
+            {
+              "i": 0,
+              "why": "The paragraph offers no praise for the method at all."
+            },
+            {
+              "i": 1,
+              "why": "The author's complaint is precisely about a consequence, that somebody will forget to apply the factor.",
+              "weakest": true
+            },
+            {
+              "i": 2,
+              "why": "Too strong for a paragraph that concedes the method works and treats it as a reasonable first try."
+            },
+            {
+              "i": 3,
+              "why": "The author is not undecided; the verdict of evasion is delivered in the paragraph's first sentence."
+            }
+          ]
+        },
+        {
+          "id": "rc-3-13",
+          "skill": "rc-2",
+          "type": "tone",
+          "stem": "The author's attitude toward the nineteenth-century chemists who built the scale on oxygen is best described as:",
+          "options": [
+            "respectful of their practical reasoning",
+            "impatient with their lack of rigour",
+            "indifferent to their contribution",
+            "gently mocking of their conclusions",
+            "admiring of their foresight about isotopes"
+          ],
+          "answer": 0,
+          "explanation": "Paragraph 4 calls their choice unsentimental and draws a favourable lesson from it, and paragraph 5 says the assumption they relied on was invisible because nobody saw it was a premise. The passage credits their practicality while noting what they could not have known. The foresight option is half right: the approval is genuine, but the passage says the isotopes took them completely by surprise.",
+          "evidenceParagraphs": [
+            4,
+            5
+          ],
+          "distractors": [
+            {
+              "i": 1,
+              "why": "The passage excuses rather than scolds them, saying the assumption could not be seen while it held."
+            },
+            {
+              "i": 2,
+              "why": "Two full paragraphs are given to explaining and justifying their reasoning.",
+              "weakest": true
+            },
+            {
+              "i": 3,
+              "why": "Nothing in the passage ridicules them; the word applied to their reasoning is unsentimental, which is praise here."
+            },
+            {
+              "i": 4,
+              "why": "Paragraph 6 shows the isotopes arriving as a surprise, so foresight is exactly what they lacked."
+            }
+          ]
+        },
+        {
+          "id": "rc-3-14",
+          "skill": "rc-3",
+          "type": "inference",
+          "stem": "If the isotopic composition of natural oxygen had been identical everywhere, it follows from the passage that:",
+          "options": [
+            "physicists and chemists would never have found themselves working on two separate scales",
+            "oxygen would have turned out to have only one isotope",
+            "no revision of published atomic weights would ever have been needed",
+            "the two scales would still differ, but the chemists' reference would be reproducible",
+            "the carbon standard would have been unnecessary for the physicists as well"
+          ],
+          "answer": 3,
+          "explanation": "Paragraph 7 traces the gap between the scales to the difference between a single isotope and a mixture, and paragraph 8 traces the reproducibility complaint to variation between sources. Remove the variation and the second complaint goes, while the first, which does not depend on it, remains. The tempting answer erases the split entirely, but a uniform mixture is still a mixture and still weighs more than its lightest component.",
+          "evidenceParagraphs": [
+            7,
+            8
+          ],
+          "distractors": [
+            {
+              "i": 0,
+              "why": "The split came from the mixture weighing more than the single isotope, which a uniform composition would not change."
+            },
+            {
+              "i": 1,
+              "why": "Uniform proportions of three isotopes are still three isotopes, so this does not follow."
+            },
+            {
+              "i": 2,
+              "why": "The move to carbon still altered every published weight, by about forty parts per million."
+            },
+            {
+              "i": 4,
+              "why": "The physicists' objection was to using a mixture at all, and paragraph 9 presents it as independent of where the sample came from.",
+              "weakest": true
+            }
+          ]
+        },
+        {
+          "id": "rc-3-15",
+          "skill": "rc-3",
+          "type": "inference",
+          "stem": "The passage most strongly implies that the numerical value given to a reference substance:",
+          "options": [
+            "is determined by the element's number of protons",
+            "is chosen partly to avoid disturbing values already in use",
+            "must always be a whole number",
+            "cannot be revised once tables have been published",
+            "is fixed by whichever instrument is most precise at the time"
+          ],
+          "answer": 1,
+          "explanation": "Two separate episodes point the same way: sixteen was chosen in paragraph 4 because it kept hydrogen near one and the printed tables intact, and carbon was accepted in paragraph 10 because the resulting change was too small to disturb the tables. Continuity with existing numbers is a criterion in both. The absolute options are the classic trap; the passage shows values being revised, so no rule forbidding revision can be inferred.",
+          "evidenceParagraphs": [
+            4,
+            10
+          ],
+          "distractors": [
+            {
+              "i": 0,
+              "why": "Paragraph 6 ties protons to an element's identity, never to the number assigned to a reference."
+            },
+            {
+              "i": 2,
+              "why": "One hundred, sixteen and twelve are all whole numbers, but the passage gives no reason why a reference value must be one.",
+              "weakest": true
+            },
+            {
+              "i": 3,
+              "why": "Paragraph 10 describes exactly such a revision being made and accepted."
+            },
+            {
+              "i": 4,
+              "why": "Instruments exposed the problem; the passage shows the value being settled by agreement, not by an instrument."
+            }
+          ]
+        },
+        {
+          "id": "rc-3-16",
+          "skill": "rc-3",
+          "type": "strengthen-weaken",
+          "stem": "Which finding, if established, would most weaken the objection raised in paragraph 8?",
+          "options": [
+            "Most chemists at the bench never noticed any difference between the two scales.",
+            "The gap between the two scales was smaller than two hundred and seventy-five parts per million.",
+            "Oxygen from air, seawater and minerals proves to have identical isotopic composition.",
+            "Carbon's isotopic composition also varies between natural sources.",
+            "Mass spectrometers became cheap enough for ordinary chemistry laboratories to buy."
+          ],
+          "answer": 2,
+          "explanation": "Paragraph 8 objects that the chemists' reference drifted with its source and so could not be reproduced exactly. A demonstration that every source gives the same composition removes the drift and with it the objection. The two size-based options are decoys: the paragraph concedes that the gap was negligible for bench work and insists that the size of the gap is not the point.",
+          "evidenceParagraphs": [
+            8
+          ],
+          "distractors": [
+            {
+              "i": 0,
+              "why": "Paragraph 8 concedes this in its first sentence and argues that it is beside the point."
+            },
+            {
+              "i": 1,
+              "why": "The objection is about reproducibility, not magnitude, so shrinking the gap leaves it untouched."
+            },
+            {
+              "i": 3,
+              "why": "This would bear on the later choice of carbon, not on whether the oxygen reference drifted."
+            },
+            {
+              "i": 4,
+              "why": "Cheaper instruments would let chemists see the drift more easily, which does nothing to remove it.",
+              "weakest": true
+            }
+          ]
+        },
+        {
+          "id": "rc-3-17",
+          "skill": "rc-3",
+          "type": "application",
+          "stem": "A committee must choose a reference substance for a new measurement scale. Based on the passage, the author would most likely favour:",
+          "options": [
+            "a naturally occurring mixture that any laboratory can obtain in bulk",
+            "whichever candidate the largest research community already prefers",
+            "a single artefact kept in a secure vault and consulted whenever disputes arise",
+            "a candidate chosen so that not one published value anywhere has to change",
+            "a pure substance anyone can reproduce, even if adoption forces small revisions"
+          ],
+          "answer": 4,
+          "explanation": "The two criteria the passage endorses are reproducibility, argued in paragraphs 8 and 12, and a cost small enough for the people who must use the standard to bear, argued in paragraphs 10 and 11. Only one option carries both. Demanding that nothing change at all is the near miss: the passage accepts a revision of every published weight precisely because it was small.",
+          "evidenceParagraphs": [
+            8,
+            10,
+            11,
+            12
+          ],
+          "distractors": [
+            {
+              "i": 0,
+              "why": "This is the oxygen mistake of paragraphs 6 and 8, where a natural mixture drifted with its source."
+            },
+            {
+              "i": 1,
+              "why": "Paragraph 11 states that the winning proposal was not the one urged by the more powerful discipline."
+            },
+            {
+              "i": 2,
+              "why": "Paragraph 12 treats the vault artefact as the model modern standards have moved away from.",
+              "weakest": true
+            },
+            {
+              "i": 3,
+              "why": "Paragraph 10 shows a change of about forty parts per million being accepted; a demand for zero change is stricter than the passage."
+            }
+          ]
+        }
+      ],
+      "contentNote": "Original expository passage written for this track from established, uncontested history of chemical measurement; no published passage, article or prep-company text is reproduced or paraphrased.",
+      "sources": [
+        {
+          "title": "OpenStax Chemistry 2e · Atomic Structure and Symbolism",
+          "url": "https://openstax.org/books/chemistry-2e/pages/2-3-atomic-structure-and-symbolism"
+        },
+        {
+          "title": "OpenStax Chemistry 2e · Formula Mass and the Mole Concept",
+          "url": "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept"
+        },
+        {
+          "title": "OpenStax Chemistry 2e · Measurement Uncertainty, Accuracy, and Precision",
+          "url": "https://openstax.org/books/chemistry-2e/pages/1-5-measurement-uncertainty-accuracy-and-precision"
+        }
+      ],
+      "provenance": {
+        "origin": "new",
+        "reviewStatus": "author-checked",
+        "sourceCheckedOn": "2026-09-16"
+      }
+    }
+  ]
+}

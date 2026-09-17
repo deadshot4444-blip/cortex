@@ -17,7 +17,6 @@ const viewports = [
 ];
 // `label` is the gate-chip half and must be byte-identical to SECTION_INFO[key].label in app.js.
 const CLOSED = {
-  dat: { path: 'dat', label: 'DAT', deep: 'view=pat&subtest=angles' },
   socrates: { path: 'learn', label: 'Learn to Learn', deep: 'track=general&lesson=remember' },
   anatomy: { path: 'anatomy', label: 'Anatomy', deep: 'lesson=arm' },
   reference: { path: 'medicine', label: 'Medicine', deep: 'lesson=med-flow-resistance&step=4' },

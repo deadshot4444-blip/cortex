@@ -1,0 +1,35 @@
+{
+  "format": "dat-cards",
+  "version": 1,
+  "chapter": "oc-mechanisms",
+  "authoredOn": "2026-09-16",
+  "author": "coding agent (Claude), original text",
+  "reviewStatus": "Local authored-content check only; independent subject review pending.",
+  "sourceCheckedOn": "2026-09-16",
+  "contentNote": "Original Cortex flashcard text. The ADA DAT outline is the alignment target only; no ADA, prep-company or forum material is reproduced.",
+  "sources": [
+    {
+      "title": "OpenStax Organic Chemistry",
+      "url": "https://openstax.org/books/organic-chemistry"
+    }
+  ],
+  "cards": [
+    {
+      "id": "ocm-arrows-1",
+      "front": "Full-headed vs half-headed curved arrows",
+      "back": "Full head: an electron pair moves (polar steps, resonance). Half head (fishhook): a single electron moves (radical steps). Arrows show electrons, never atoms, and always start at a lone pair, a pi bond or a sigma bond.",
+      "section": "ochem",
+      "category": "OC-1",
+      "topic": "General",
+      "tag": "cheat-sheet"
+    },
+    {
+      "id": "ocm-arrows-2",
+      "front": "Formal-charge rule for arrow heads and tails",
+      "back": "Where a head lands on an atom, that atom becomes one unit more negative; where a tail leaves one, that atom becomes one unit more positive. Heads and tails may also sit on bonds, which moves charge between the two atoms they join. If a head lands on a second-period atom that already has an octet, another arrow must leave it in the same step; a third-period atom can expand its valence shell instead.",
+      "section": "ochem",
+      "category": "OC-1",
+      "topic": "General"
+    }
+  ]
+}

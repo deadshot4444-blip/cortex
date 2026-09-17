@@ -28,4 +28,514 @@
 @media (max-width:560px) {
   .dat-format-table th, .dat-format-table td { padding:10px 6px; font-size:13px; }
   .dat-format-table thead th:last-child, .dat-format-table td:last-child { text-align:right; }
+  /* mcat-course.css hides .course-hero-index below 560px, but the DAT landing's bank counts are
+     part of DAT-01's acceptance criteria and have to survive on phones. Scoped to .dat-landing
+     (only dat.js renders that class), so the MCAT course hero keeps hiding its own index. */
+  .dat-landing .course-hero-index { display:block; border-left:0; border-top:1px solid var(--course-line, #e3e7ef); padding:20px 0 0; }
+  .dat-landing .course-hero-index>strong { font-size:56px; line-height:1.15; letter-spacing:-.05em; }
+  .dat-landing .course-hero-index strong span { margin-left:10px; }
+  .dat-landing .course-hero-index>div { line-height:1.85; }
+}
+
+/* ---------- DAT-03: timed SNS drills (setup, runner, pace bar, review, periodic table) ---------- */
+/* Reuses .panel/.hero/.ctl/.modes/.opts/.opt/.key/.explain/.autopsy/.summary/.ticks/.rev from
+   styles.css; only the .dat-* additions live here. The periodic-table modal is .dat-modal, not
+   .modal, so it carries none of styles.css's modal chrome; app.js's keydown delegate lists
+   .dat-modal in its overlay guard so Enter cannot drive the drill behind it. */
+
+/* setup */
+.dat-drill-setup .ctl, .dat-qr-setup .ctl { margin-top: 22px; }
+.dat-drill-setup .modes, .dat-qr-setup .modes { flex-wrap: wrap; }
+.dat-drill-setup .dat-mode-hint, .dat-qr-setup .dat-mode-hint { margin-top: 10px; font-size: 13px; color: var(--dim); max-width: 60ch; }
+.dat-drill-notice, .dat-qr-notice { margin-bottom: 24px; }
+.dat-resume-row { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; margin:0 0 8px; padding:14px 16px; border:1px solid var(--line-bright); background:var(--surface); font-size:14px; }
+.dat-resume-row .btn { text-decoration:none; white-space:nowrap; }
+.dat-filters { display:flex; flex-wrap:wrap; gap:18px; margin-top:22px; }
+.dat-filters .ctl { flex:1 1 260px; min-width:0; margin-top:0; }
+.dat-filters select { width:100%; min-height:44px; padding:10px 12px; font:inherit; color:var(--text); background:var(--bg); border:1px solid var(--line-bright); border-radius:0; }
+.dat-filters select:disabled { color:var(--faint); background:var(--surface-2); }
+.dat-pool-note { margin-top:16px; font-family:var(--mono); font-size:12px; color:var(--dim); }
+.dat-pool-note.dat-pool-short { color:var(--amber); }
+.dat-sheet-links { margin-top:48px; border-top:1px solid var(--line); padding-top:24px; }
+.dat-sheet-links h2 { font-size:18px; font-weight:450; letter-spacing:-.01em; }
+.dat-sheet-links nav { display:flex; flex-wrap:wrap; gap:8px 18px; margin-top:12px; font-size:14px; }
+
+/* runner shell */
+.dat-drill-bar, .dat-qr-bar { position:sticky; top:0; z-index:5; display:flex; align-items:center; gap:12px; padding:10px 20px; background:var(--bg); border-bottom:1px solid var(--line); }
+.dat-drill-exit, .dat-qr-exit { flex:0 0 auto; font-size:13px; color:var(--dim); text-decoration:none; }
+.dat-drill-exit, .dat-qr-exit:hover { color:var(--text); }
+.dat-drill-crumb, .dat-qr-crumb { display:flex; flex-wrap:wrap; gap:6px; min-width:0; flex:1 1 auto; font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--faint); }
+.dat-drill-crumb span + span::before, .dat-qr-crumb span + span::before { content:"/"; margin-right:6px; color:var(--line-bright); }
+.dat-drill-crumb span:last-child, .dat-qr-crumb span:last-child { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.dat-drill-right, .dat-qr-right { display:flex; align-items:center; gap:14px; flex:0 0 auto; }
+.dat-drill-count, .dat-qr-count { font-family:var(--mono); font-size:12px; color:var(--dim); white-space:nowrap; }
+.dat-drill-main, .dat-qr-main { padding-top:32px; }
+.dat-drill-tools, .dat-qr-tools { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:14px; }
+.dat-drill-tools .btn, .dat-qr-tools .btn { font-size:13px; }
+.dat-drill-topic, .dat-qr-topic { font-size:12px; color:var(--dim); text-align:right; }
+.dat-drill-topic, .dat-qr-topic:only-child { margin-left:auto; }
+.dat-item .dat-stem { margin-top:4px; }
+.dat-save-status:empty { display:none; }
+.dat-save-status { margin-top:18px; font-size:13px; color:var(--amber); }
+
+/* pace bar and exam clock */
+.dat-pace { display:flex; align-items:center; gap:10px; }
+.dat-pace-track { width:104px; height:6px; background:var(--surface-2); border:1px solid var(--line); overflow:hidden; }
+.dat-pace-fill { display:block; height:100%; width:0; background:var(--green); transition:width .25s linear, background .25s linear; }
+.dat-pace-label { font-family:var(--mono); font-size:11px; color:var(--dim); white-space:nowrap; font-variant-numeric:tabular-nums; }
+.dat-pace.dat-over .dat-pace-fill { background:var(--amber); }
+.dat-pace.dat-over .dat-pace-label { color:var(--amber); }
+.dat-exam-clock { font-family:var(--mono); font-size:15px; letter-spacing:.06em; color:var(--text); font-variant-numeric:tabular-nums; }
+.dat-exam-clock.dat-over { color:var(--red); }
+
+/* confidence */
+.dat-conf-row { display:flex; align-items:center; flex-wrap:wrap; gap:10px 14px; margin-top:24px; }
+.dat-conf-row .label { margin:0; }
+.dat-conf-row .modes { flex-wrap:wrap; }
+.dat-conf:disabled { opacity:.65; cursor:default; }
+
+/* item bodies: quantitative comparison, data sufficiency, data tables, figures */
+.dat-qc-common { font-size:14px; color:var(--body); margin-bottom:14px; }
+.dat-qc { display:flex; gap:14px; margin-bottom:18px; }
+.dat-qc-col { flex:1 1 0; min-width:0; border:1px solid var(--line); padding:12px 14px; background:var(--surface); }
+.dat-qc-col .label { display:block; margin-bottom:6px; }
+.dat-qc-col p { font-size:15px; color:var(--text); overflow-wrap:break-word; }
+.dat-ds { margin-top:16px; padding-left:0; list-style:none; }
+.dat-ds li { border-left:2px solid var(--line-bright); padding:2px 0 2px 14px; margin-top:12px; }
+.dat-ds .label { display:block; margin-bottom:4px; }
+.dat-ds p { font-size:14px; color:var(--body); }
+.dat-data, .dat-data-again { overflow-x:auto; margin-bottom:18px; }
+.dat-data-again summary { cursor:pointer; font-size:13px; color:var(--dim); }
+.dat-data-table { border-collapse:collapse; font-size:13px; min-width:320px; }
+.dat-data-table caption { text-align:left; font-size:12px; color:var(--dim); padding-bottom:8px; }
+.dat-data-table th, .dat-data-table td { border:1px solid var(--line); padding:8px 12px; text-align:left; white-space:nowrap; }
+.dat-data-table thead th { background:var(--surface); font-weight:600; }
+.dat-data-table td { font-variant-numeric:tabular-nums; }
+.dat-figure { margin-top:18px; overflow-x:auto; }
+.dat-figure svg { max-width:100%; height:auto; }
+
+/* per-item feedback */
+.dat-explain .verdict { display:block; }
+.dat-autopsy .dat-chosen { color:var(--text); }
+.dat-autopsy .dat-chosen em { font-style:normal; color:var(--faint); }
+
+/* review */
+.dat-review-stats { display:flex; flex-wrap:wrap; gap:14px 32px; margin-top:20px; }
+.dat-review-stats div { min-width:0; }
+.dat-review-stats dt { font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--faint); }
+.dat-review-stats dd { margin-top:4px; font-size:18px; color:var(--text); font-variant-numeric:tabular-nums; }
+.dat-review-stats dd small { font-size:12px; color:var(--dim); font-variant-numeric:normal; }
+.dat-review-topics { margin-top:40px; overflow-x:auto; }
+.dat-review-topics h2 { font-size:18px; font-weight:450; letter-spacing:-.01em; margin-bottom:12px; }
+.dat-topic-table { width:100%; border-collapse:collapse; font-size:13px; min-width:420px; }
+.dat-topic-table th, .dat-topic-table td { text-align:left; padding:10px 12px; border-bottom:1px solid var(--line); vertical-align:top; }
+.dat-topic-table thead th { font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--faint); font-weight:600; }
+.dat-topic-table td:nth-child(3), .dat-topic-table td:nth-child(4) { font-variant-numeric:tabular-nums; white-space:nowrap; }
+.dat-review .ticks { flex-wrap:wrap; gap:8px 16px; }
+.dat-rev-topic { font-family:var(--mono); font-size:11px; color:var(--dim); margin-bottom:8px; }
+
+/* cheat sheets */
+.dat-sheet-group { margin-top:32px; }
+.dat-sheet-group h2 { font-size:16px; font-weight:450; letter-spacing:-.01em; padding-bottom:8px; border-bottom:1px solid var(--line); }
+.dat-sheet-card { padding:14px 0; border-bottom:1px solid var(--line); }
+.dat-sheet-card dt { font-size:15px; color:var(--text); }
+.dat-sheet-card dd { margin-top:6px; font-size:14px; color:var(--body); }
+.dat-sheet-card dd small { display:block; margin-top:6px; font-size:11px; color:var(--faint); }
+
+/* mistake log */
+.dat-mistake-group { margin-top:28px; }
+.dat-mistake-group h2 { font-size:16px; font-weight:450; letter-spacing:-.01em; }
+.dat-mistake-group h2 small { margin-left:10px; font-family:var(--mono); font-size:11px; color:var(--dim); }
+.dat-mistake-group ul { margin-top:12px; list-style:none; padding:0; }
+.dat-mistake-group li { border:1px solid var(--line); padding:12px 14px; margin-top:8px; }
+.dat-mistake-topic { display:block; font-family:var(--mono); font-size:11px; color:var(--dim); }
+.dat-mistake-stem { display:block; margin-top:6px; font-size:14px; color:var(--body); overflow-wrap:break-word; }
+.dat-mistake-group li small { display:block; margin-top:6px; font-size:11px; color:var(--faint); }
+
+/* periodic-table modal (drawn from element data, never an image) */
+.dat-modal { position:fixed; inset:0; z-index:100; display:flex; align-items:center; justify-content:center; padding:16px; background:rgba(0,0,0,.5); }
+.dat-modal-box { display:flex; flex-direction:column; gap:12px; width:min(1040px,100%); max-height:92vh; overflow:auto; padding:16px; background:var(--bg); border:1px solid var(--line-bright); }
+.dat-modal-head { display:flex; align-items:center; justify-content:space-between; gap:16px; }
+.dat-modal-head h2 { font-size:18px; font-weight:450; letter-spacing:-.01em; }
+.dat-modal-head .btn { min-height:44px; }
+.dat-ptable { display:grid; grid-template-columns:repeat(18,minmax(30px,1fr)); grid-auto-rows:minmax(34px,auto); gap:2px; min-width:600px; }
+.dat-pt-cell { display:flex; flex-direction:column; justify-content:center; padding:2px; border:1px solid var(--line); background:var(--surface); font-family:var(--mono); line-height:1.15; text-align:center; overflow:hidden; }
+.dat-pt-z { font-size:7px; color:var(--faint); }
+.dat-pt-sym { font-size:11px; color:var(--text); }
+.dat-pt-mass { font-size:7px; color:var(--dim); }
+.dat-pt-marker { background:var(--surface-2); }
+.dat-pt-marker .dat-pt-sym { font-size:8px; color:var(--dim); }
+
+@media (max-width: 720px) {
+  .dat-drill-bar, .dat-qr-bar { padding:10px 14px; gap:10px; }
+  .dat-drill-crumb span:not(:last-child), .dat-qr-crumb span:not(:last-child) { display:none; }
+  .dat-drill-crumb span:last-child::before, .dat-qr-crumb span:last-child::before { content:none; }
+  .dat-drill-main, .dat-qr-main { padding-left:18px; padding-right:18px; padding-top:24px; }
+  .dat-qc { flex-direction:column; gap:10px; }
+  .dat-review-stats { gap:14px 24px; }
+}
+@media (max-width: 420px) {
+  .dat-drill-bar, .dat-qr-bar { flex-wrap:wrap; }
+  .dat-drill-right, .dat-qr-right { width:100%; justify-content:space-between; gap:10px; }
+  .dat-pace-track { flex:1 1 auto; width:auto; min-width:60px; }
+  .dat-drill-main, .dat-qr-main { padding-left:14px; padding-right:14px; }
+  .dat-resume-row { flex-direction:column; align-items:stretch; }
+  .dat-resume-row .btn { text-align:center; }
+  .dat-review-stats { gap:12px 18px; }
+  .dat-review-stats dd { font-size:16px; }
+  .dat-modal { padding:8px; }
+  .dat-modal-box { padding:12px; max-height:96vh; }
+  .dat-ptable { min-width:520px; }
+  .dat-sheet-links nav { flex-direction:column; gap:8px; }
+}
+
+/* ---------- DAT-04: perceptual-ability sets (picker, runner, figures, review) ---------- */
+.dat-pat { max-width: 900px; }
+.dat-pat > h1 { font-size: clamp(26px, 3.4vw, 40px); letter-spacing: -.03em; margin: 0 0 12px; }
+.dat-pat > .sub { color: var(--body, #3f3f46); max-width: 62ch; line-height: 1.7; }
+
+.dat-pat-dial { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; margin: 30px 0 6px; }
+.dat-pat-dial .modes { flex-wrap: wrap; }
+.dat-pat-dial .mode { text-decoration: none; }
+.dat-pat-dial .hint { flex-basis: 100%; margin: 0; align-self: flex-start; text-transform: none; letter-spacing: .04em; line-height: 1.7; }
+
+.dat-pat-grid-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin: 26px 0 8px; }
+.dat-pat-card { display: flex; flex-direction: column; gap: 10px; border: 1px solid var(--line, #e4e4e7); padding: 20px; min-width: 0; }
+.dat-pat-card-top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--faint, #6b6b72); }
+.dat-pat-card h3 { font-size: 19px; letter-spacing: -.02em; margin: 0; }
+.dat-pat-card h3 a { color: inherit; text-decoration: none; }
+.dat-pat-card h3 a:hover { text-decoration: underline; }
+.dat-pat-card p { margin: 0; font-size: 14px; line-height: 1.6; color: var(--body, #3f3f46); }
+.dat-pat-card-bottom { margin-top: auto; padding-top: 6px; }
+.dat-pat-card-bottom .btn { display: inline-block; text-decoration: none; }
+.dat-pat-card-bottom .hint { margin: 0; }
+.dat-pat-card-soon { opacity: .58; }
+
+.dat-pat-head { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-bottom: 18px; }
+.dat-pat-eyebrow, .dat-pat-count { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--faint, #6b6b72); }
+.dat-pat-pace { display: flex; align-items: center; gap: 10px; flex: 1 1 170px; min-width: 140px; }
+.dat-pat-pace-track { flex: 1; height: 3px; background: var(--line, #e4e4e7); }
+.dat-pat-pace-fill { height: 100%; width: 0; background: var(--text, #111113); transition: width .25s linear; }
+.dat-pat-pace-label { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; color: var(--faint, #6b6b72); white-space: nowrap; }
+.dat-pat-pace.dat-pat-over .dat-pat-pace-fill { background: var(--amber, #9a6700); }
+.dat-pat-pace.dat-pat-over .dat-pat-pace-label { color: var(--amber, #9a6700); }
+
+.dat-pat-stem { margin: 0 0 16px; font-size: 16px; line-height: 1.55; }
+/* The figure frame is the horizontal-overflow guard: the SVG is width:100% with an
+   aspect-preserving viewBox, so it shrinks to the frame at 390 px and at 320 px. */
+.dat-pat-figure { margin: 0 0 18px; padding: 14px 10px; border: 1px solid var(--line, #e4e4e7); background: var(--bg, #fff); overflow: hidden; }
+.dat-pat-figure svg { display: block; width: 100%; max-width: 520px; height: auto; margin: 0 auto; color: var(--text, #111113); }
+.dat-pat-figure svg text { font-family: var(--mono); }
+/* Cube figures are roughly square; the wide cap is for the angle row and the fold strip. */
+.dat-pat-figure svg.dat-pat-cubes { max-width: 320px; }
+.dat-pat-figure-step { margin: 12px 0 0; padding: 10px 8px; }
+.dat-pat-figure-step svg { max-width: 190px; }
+
+.dat-pat-opts { margin-top: 14px; }
+.dat-pat-opts-svg { display: grid; grid-template-columns: repeat(auto-fit, minmax(104px, 1fr)); gap: 8px; }
+.dat-pat-opt { align-items: center; min-width: 0; }
+.dat-pat-opt-body { min-width: 0; }
+.dat-pat-opt-svg { flex-direction: column; gap: 8px; margin-top: 0; padding: 12px 8px; text-align: center; }
+.dat-pat-opt-svg .key { padding-top: 0; }
+.dat-pat-opt-svg .dat-pat-opt-body { width: 100%; }
+.dat-pat-opt-svg svg { display: block; width: 100%; max-width: 92px; height: auto; margin: 0 auto; color: currentColor; }
+
+.dat-pat-after { margin-top: 4px; }
+.dat-pat-explanation { margin-top: 14px; padding: 14px 16px; border: 1px solid var(--line, #e4e4e7); border-left: 2px solid var(--text, #111113); background: var(--surface, #f7f7f8); font-size: 14px; line-height: 1.65; color: var(--body, #3f3f46); }
+
+.dat-pat-pitfalls { margin: 26px 0; padding: 18px 20px; border: 1px solid var(--line, #e4e4e7); background: var(--surface, #f7f7f8); }
+.dat-pat-pitfalls h2 { margin: 0 0 10px; font-size: 15px; letter-spacing: -.01em; }
+.dat-pat-pitfalls ul { margin: 0; padding-left: 20px; }
+.dat-pat-pitfalls li { font-size: 14px; line-height: 1.65; color: var(--body, #3f3f46); }
+
+.dat-pat-review-list { display: flex; flex-direction: column; gap: 18px; margin: 26px 0; }
+.dat-pat-review-card { padding: 20px; border: 1px solid var(--line, #e4e4e7); border-left: 2px solid var(--green, #1a7f37); }
+.dat-pat-review-card.is-wrong { border-left-color: var(--red, #cf222e); }
+.dat-pat-review-card header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 14px; margin-bottom: 12px; }
+.dat-pat-review-card header .hint { margin: 0; text-align: right; }
+.dat-pat-steps { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line, #e4e4e7); }
+.dat-pat-steps summary { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--faint, #6b6b72); cursor: pointer; }
+.dat-pat-steps ol { display: flex; flex-direction: column; gap: 16px; margin: 14px 0 0; padding-left: 20px; }
+.dat-pat-steps li { font-size: 14px; line-height: 1.65; color: var(--body, #3f3f46); }
+.dat-pat-steps strong { color: var(--text, #111113); }
+.dat-pat-steps p { margin: 6px 0 0; }
+.dat-pat-review-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin-top: 16px; }
+.dat-pat-review-actions .btn { text-decoration: none; }
+.dat-pat-seed { margin: 0; }
+
+@media (max-width: 520px) {
+  .dat-pat-figure { padding: 10px 6px; }
+  .dat-pat-figure-step svg { max-width: 150px; }
+  .dat-pat-pace { flex-basis: 100%; }
+  .dat-pat-opts-svg { grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); gap: 6px; }
+  .dat-pat-opt-svg { padding: 10px 4px; }
+  .dat-pat-review-card header .hint { text-align: left; }
+  .dat-pat-grid-cards { grid-template-columns: 1fr; }
+}
+
+/* ---------- DAT-10: pattern folding, the ninety-item mixed form, the level-ramp hint ---------- */
+.dat-pat-raise { display: block; margin: 8px 0 0; font-size: 12px; line-height: 1.5; color: var(--body, #3f3f46); text-decoration: none; border-bottom: 1px solid var(--line, #e4e4e7); }
+.dat-pat-raise:hover { color: var(--text, #111113); border-bottom-color: currentColor; }
+.dat-pat-form-card { margin: 26px 0 8px; padding: 20px; border: 1px solid var(--line, #e4e4e7); background: var(--surface, #f7f7f8); }
+.dat-pat-form-card h2 { margin: 0 0 8px; font-size: 17px; letter-spacing: -.01em; }
+.dat-pat-form-card p { margin: 0 0 14px; max-width: 62ch; font-size: 14px; line-height: 1.65; color: var(--body, #3f3f46); }
+.dat-pat-form-card .btn { display: inline-block; text-decoration: none; }
+.dat-pat-form-results { margin: 26px 0; overflow-x: auto; }
+.dat-pat-form-results h2 { margin: 0 0 12px; font-size: 15px; letter-spacing: -.01em; }
+.dat-pat-form-results .hint { margin: 12px 0 0; max-width: 62ch; text-transform: none; letter-spacing: .04em; line-height: 1.7; }
+.dat-pat-form-table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 340px; }
+.dat-pat-form-table th, .dat-pat-form-table td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line, #e4e4e7); }
+.dat-pat-form-table thead th { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--faint, #6b6b72); font-weight: 600; }
+.dat-pat-form-table tbody th { font-weight: 450; color: var(--text, #111113); white-space: nowrap; }
+.dat-pat-form-table td { color: var(--body, #3f3f46); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.dat-pat-estimate { margin: 14px 0 0; font-size: 16px; color: var(--text, #111113); font-variant-numeric: tabular-nums; }
+.dat-pat-figure svg.dat-pat-pattern-net { max-width: 380px; }
+.dat-pat-figure-step svg.dat-pat-pattern-net { max-width: 320px; }
+
+/* ---------- DAT-11: Reading Comprehension (picker, split-screen runner, blind review, result) ---------- */
+/* Reuses .panel/.hero/.ctl/.modes/.opts/.opt/.key/.summary/.rev/.drill-review from styles.css and
+   .dat-save-status/.dat-resume-row from the DAT-03 block above; only the .dat-rc-* additions live
+   here. Layout contract: the question section comes first in the DOM and the passage second, so a
+   phone stacks questions above a scrollable passage (R §2.5) and a wide screen turns the same
+   markup into two columns with the passage on the left. */
+
+/* picker */
+.dat-rc-picker .sub { max-width: 68ch; }
+.dat-rc-notice { margin-bottom: 24px; }
+.dat-rc-sets, .dat-rc-list, .dat-rc-reports { margin-top: 40px; }
+.dat-rc-sets h2, .dat-rc-list h2, .dat-rc-reports h2 { font-size:18px; font-weight:450; letter-spacing:-.01em; margin-bottom:14px; }
+.dat-rc-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px; }
+.dat-rc-card { display:flex; flex-direction:column; gap:10px; border:1px solid var(--line); padding:20px; min-width:0; }
+.dat-rc-card-top { display:flex; flex-wrap:wrap; justify-content:space-between; gap:4px 12px; font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--faint); }
+.dat-rc-card h3 { font-size:19px; letter-spacing:-.02em; margin:0; }
+.dat-rc-card h3 a { color:inherit; text-decoration:none; }
+.dat-rc-card h3 a:hover { text-decoration:underline; }
+.dat-rc-card p { margin:0; font-size:14px; line-height:1.6; color:var(--body); }
+.dat-rc-card-bottom { display:flex; flex-wrap:wrap; align-items:center; gap:10px 14px; margin-top:auto; padding-top:6px; }
+.dat-rc-card-bottom .btn { text-decoration:none; }
+.dat-rc-card-bottom .hint { margin:0; font-family:var(--mono); font-size:11px; color:var(--faint); }
+.dat-rc-list { overflow-x:auto; }
+.dat-rc-table { width:100%; border-collapse:collapse; font-size:13px; min-width:420px; }
+.dat-rc-table th, .dat-rc-table td { text-align:left; padding:10px 12px; border-bottom:1px solid var(--line); vertical-align:top; }
+.dat-rc-table thead th { font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--faint); font-weight:600; }
+.dat-rc-table tbody th { font-weight:450; }
+.dat-rc-table tbody th a { color:var(--text); text-underline-offset:3px; }
+.dat-rc-table td:nth-child(3), .dat-rc-table td:nth-child(4) { font-variant-numeric:tabular-nums; white-space:nowrap; }
+.dat-rc-reports ul { list-style:none; padding:0; margin:0; }
+.dat-rc-reports li { border:1px solid var(--line); padding:12px 14px; margin-top:8px; font-size:14px; color:var(--body); }
+.dat-rc-reports li span { font-family:var(--mono); font-size:11px; color:var(--dim); margin-right:10px; }
+.dat-rc-reports li small { display:block; margin-top:6px; font-size:11px; color:var(--faint); }
+.dat-rc-empty h1 { font-size:clamp(24px,3vw,34px); }
+
+/* runner shell and the two clocks */
+.dat-rc-bar { position:sticky; top:0; z-index:5; display:flex; align-items:center; gap:12px; padding:10px 20px; background:var(--bg); border-bottom:1px solid var(--line); }
+.dat-rc-exit { flex:0 0 auto; font-size:13px; color:var(--dim); text-decoration:none; }
+.dat-rc-exit:hover { color:var(--text); }
+.dat-rc-crumb { display:flex; flex-wrap:wrap; gap:6px; min-width:0; flex:1 1 auto; font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--faint); }
+.dat-rc-crumb span + span::before { content:"/"; margin-right:6px; color:var(--line-bright); }
+.dat-rc-clocks { display:flex; align-items:center; gap:14px; flex:0 0 auto; }
+.dat-rc-clock { font-family:var(--mono); font-size:15px; letter-spacing:.06em; color:var(--text); font-variant-numeric:tabular-nums; white-space:nowrap; }
+.dat-rc-passage-clock { font-size:13px; color:var(--dim); }
+.dat-rc-passage-clock::before { content:"P"; margin-right:5px; font-size:9px; letter-spacing:.12em; color:var(--faint); }
+.dat-rc-clock.dat-rc-over { color:var(--red); }
+.dat-rc-passage-clock.dat-rc-over { color:var(--amber); }
+.dat-rc-count { font-family:var(--mono); font-size:12px; color:var(--dim); white-space:nowrap; }
+
+/* split screen: questions first in the DOM, passage second */
+.dat-rc-stage { display:grid; grid-template-columns:minmax(0,1fr); gap:22px; padding:26px 20px 56px; }
+.dat-rc-q, .dat-rc-passage { min-width:0; }
+.dat-rc-qmeta { font-family:var(--mono); font-size:11px; letter-spacing:.06em; color:var(--dim); margin-bottom:10px; }
+.dat-rc-stem { margin:0 0 4px; font-size:16px; line-height:1.55; overflow-wrap:break-word; }
+.dat-rc-conf-row { display:flex; align-items:center; flex-wrap:wrap; gap:10px 14px; margin-top:20px; }
+.dat-rc-conf-row .label { margin:0; }
+.dat-rc-conf-row .modes { flex-wrap:wrap; }
+.dat-rc-opts { margin-top:16px; }
+.dat-rc-opt { text-align:left; }
+.dat-rc-opt.picked { border-color:var(--text); background:var(--surface); }
+.dat-rc-nav { display:flex; flex-wrap:wrap; gap:8px 10px; margin-top:22px; }
+.dat-rc-nav .btn { min-height:44px; }
+.dat-rc-nav .btn:last-child { margin-left:auto; }
+.dat-rc-flag.active { border-color:var(--amber); color:var(--amber); }
+.dat-rc-blind-title { font-size:clamp(20px,2.4vw,26px); letter-spacing:-.02em; margin:8px 0 12px; }
+.dat-rc-field { display:block; margin-top:20px; font-size:13px; color:var(--dim); }
+.dat-rc-field textarea { display:block; width:100%; margin-top:8px; padding:12px; font:inherit; font-size:14px; color:var(--text); background:var(--bg); border:1px solid var(--line-bright); border-radius:0; resize:vertical; }
+.dat-rc-evidence-count { margin-top:10px; font-family:var(--mono); font-size:11px; color:var(--dim); }
+.dat-rc-fine { margin-top:12px; font-size:12px; line-height:1.7; color:var(--faint); }
+
+/* the passage: numbered paragraphs, highlighting, evidence selection */
+.dat-rc-passage { border:1px solid var(--line); background:var(--surface); padding:16px 18px; max-height:56vh; overflow-y:auto; overscroll-behavior:contain; }
+.dat-rc-passage-head { display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:4px 14px; }
+.dat-rc-words { font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--faint); }
+.dat-rc-instruction { margin:10px 0 0; font-size:12px; color:var(--dim); }
+.dat-rc-text { margin:14px 0 0; padding-left:2.4em; }
+.dat-rc-text > li { margin-top:14px; padding-left:6px; font-size:15px; line-height:1.75; color:var(--body); overflow-wrap:break-word; }
+.dat-rc-text > li::marker { font-family:var(--mono); font-size:11px; color:var(--faint); }
+.dat-rc-mark { background:rgba(154,103,0,.18); box-shadow:inset 0 -1px 0 var(--amber); color:inherit; cursor:pointer; padding:0 1px; }
+.dat-rc-hl { position:sticky; bottom:16px; left:0; z-index:6; margin:0 20px; min-height:44px; background:var(--bg); }
+/* styles.css gives .btn a display, which beats the UA rule for [hidden]; the popup stays hidden
+   until a drag inside one paragraph offers something to highlight. */
+.dat-rc-hl[hidden] { display:none; }
+.dat-rc-evidence { display:block; width:100%; text-align:left; font:inherit; color:inherit; background:none; border:0; border-left:2px solid transparent; padding:0 0 0 10px; margin-left:-12px; cursor:pointer; }
+.dat-rc-evidence:hover { border-left-color:var(--line-bright); }
+.dat-rc-evidence.selected { border-left-color:var(--text); background:var(--bg); }
+
+/* result */
+.dat-rc-score-pair { display:flex; flex-wrap:wrap; gap:14px 36px; margin-top:16px; }
+.dat-rc-score-pair strong { display:block; font-size:22px; font-variant-numeric:tabular-nums; color:var(--text); }
+.dat-rc-score-pair span { font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--faint); }
+.dat-rc-review-stats { display:flex; flex-wrap:wrap; gap:14px 32px; margin-top:20px; }
+.dat-rc-review-stats dt { font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--faint); }
+.dat-rc-review-stats dd { margin-top:4px; font-size:18px; color:var(--text); font-variant-numeric:tabular-nums; }
+.dat-rc-review-stats dd small { font-size:12px; color:var(--dim); font-variant-numeric:normal; }
+.dat-rc-skills { margin-top:40px; overflow-x:auto; }
+.dat-rc-skills h2 { font-size:18px; font-weight:450; letter-spacing:-.01em; margin-bottom:12px; }
+.dat-rc-skill-table { width:100%; border-collapse:collapse; font-size:13px; min-width:420px; }
+.dat-rc-skill-table th, .dat-rc-skill-table td { text-align:left; padding:10px 12px; border-bottom:1px solid var(--line); vertical-align:top; }
+.dat-rc-skill-table thead th { font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--faint); font-weight:600; }
+.dat-rc-skill-table td:nth-child(2), .dat-rc-skill-table td:nth-child(3), .dat-rc-skill-table td:nth-child(4) { font-variant-numeric:tabular-nums; white-space:nowrap; }
+.dat-rc-items { margin-top:40px; }
+.dat-rc-rev .rev-ans { font-family:var(--mono); font-size:12px; color:var(--dim); }
+.dat-rc-evidence-block { margin-top:14px; padding:12px 14px; border-left:2px solid var(--text); background:var(--surface); }
+.dat-rc-evidence-block .label { display:block; margin-bottom:8px; }
+.dat-rc-evidence-par { font-size:14px; line-height:1.7; color:var(--body); }
+.dat-rc-evidence-par + .dat-rc-evidence-par { margin-top:10px; }
+.dat-rc-rationale { margin:14px 0 0; padding-left:14px; border-left:2px solid var(--line-bright); font-size:14px; line-height:1.7; color:var(--body); }
+
+/* review screen (the exam's Marked / Incomplete list) */
+.dat-rc-nav-screen .sub .dat-rc-clock { font-size:inherit; }
+.dat-rc-nav-wrap { margin-top:22px; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+.dat-rc-nav-table { width:100%; border-collapse:collapse; font-size:13px; }
+.dat-rc-nav-wrap > .dat-rc-nav-table { margin-top:0; }
+.dat-rc-nav-table th, .dat-rc-nav-table td { text-align:left; padding:10px 12px; border-bottom:1px solid var(--line); }
+.dat-rc-nav-table thead th { font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--faint); font-weight:600; }
+.dat-rc-nav-table tbody th { font-family:var(--mono); font-weight:450; color:var(--dim); width:3em; }
+.dat-rc-nav-table td:last-child { text-align:right; }
+.dat-rc-nav-table .btn { min-height:36px; padding:6px 14px; }
+
+@media (min-width: 900px) {
+  /* Side by side: the passage takes the left column, the questions the right, and each scrolls
+     against the sticky bar instead of the page. */
+  .dat-rc-stage { grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); gap:28px; align-items:start; padding:32px 24px 64px; }
+  .dat-rc-passage { order:1; position:sticky; top:62px; max-height:calc(100vh - 92px); }
+  .dat-rc-q { order:2; }
+}
+@media (max-width: 720px) {
+  .dat-rc-bar { padding:10px 14px; gap:10px; }
+  .dat-rc-crumb span:not(:last-child) { display:none; }
+  .dat-rc-crumb span:last-child::before { content:none; }
+  .dat-rc-stage { padding:22px 18px 48px; }
+  .dat-rc-passage { max-height:50vh; }
+  .dat-rc-review-stats { gap:14px 24px; }
+}
+@media (max-width: 420px) {
+  .dat-rc-bar { flex-wrap:wrap; }
+  .dat-rc-clocks { width:100%; justify-content:space-between; gap:10px; }
+  .dat-rc-stage { padding:18px 14px 44px; gap:18px; }
+  .dat-rc-passage { padding:12px 12px; max-height:46vh; }
+  .dat-rc-text { padding-left:1.9em; }
+  .dat-rc-text > li { font-size:14px; line-height:1.7; }
+  .dat-rc-nav { flex-direction:column; align-items:stretch; }
+  .dat-rc-nav .btn { margin-left:0; text-align:center; }
+  .dat-rc-hl { margin:0 14px; }
+  .dat-rc-grid { grid-template-columns:1fr; }
+  .dat-rc-card-bottom { flex-direction:column; align-items:stretch; }
+  .dat-rc-card-bottom .btn { text-align:center; }
+  .dat-rc-review-stats { gap:12px 18px; }
+  .dat-rc-review-stats dd { font-size:16px; }
+  .dat-rc-score-pair { gap:12px 22px; }
+}
+
+/* ---------- Fix: one scale for the keyhole object and its openings; readable View Recognition ---------- */
+/* Apertures is the only subtest whose stem promises "Object and openings are drawn to the same
+   scale", and a wrong-size opening is one of its keyed distractors, so the two drawings have to
+   shrink by the same factor at every width. The engine draws the object on a 520-unit canvas and
+   each opening on a 92-unit one, which agree only while the figure frame has a full 520 px; below
+   that the figure shrinks with its frame while the openings re-flow in the grid and barely shrink.
+   So the openings are sized from the width the figure actually gets instead of from a second cap:
+   .dat-pat-run is the query container, --dat-key-fig is the object's rendered width and
+   --dat-key-open is 92/520 of it. The option track is never narrower than one opening plus its
+   button chrome (2 x 8px padding + 2 x 1px border), so a column cannot squeeze an opening below
+   that width and split the scale again. Engine constants are untouched. */
+/* Container queries (Chrome 105+, Safari 16+, Firefox 110+) are the support floor for this
+   block; without them --dat-key-open never computes and an opening loses its bound. */
+.dat-pat-run { container-type: inline-size; }
+.dat-pat-opts-svg:has(.dat-pat-aperture) {
+  /* 100cqw is .dat-pat-run's content box; the frame costs 2 x 10px padding + 2 x 1px border. */
+  --dat-key-fig: min(520px, calc(100cqw - 22px));
+  --dat-key-open: calc(var(--dat-key-fig) * 92 / 520);
+  grid-template-columns: repeat(auto-fit, minmax(calc(var(--dat-key-open) + 18px), 1fr));
+}
+.dat-pat-opts-svg:has(.dat-pat-aperture) .dat-pat-opt-svg svg { width: var(--dat-key-open); max-width: 100%; }
+
+@media (max-width: 520px) {
+  /* the frame's padding drops to 6px a side in the DAT-04 block above */
+  .dat-pat-opts-svg:has(.dat-pat-aperture) { --dat-key-fig: min(520px, calc(100cqw - 14px)); }
+  /* View Recognition: dashed-versus-solid interior lines are the whole discrimination, and four
+     candidates at ~73px cannot show them. Two columns give each view about twice the width. */
+  .dat-pat-opts-svg:has(.dat-pat-view) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .dat-pat-opts-svg:has(.dat-pat-view) .dat-pat-opt-svg svg { max-width: 150px; }
+}
+
+/* ---------- DAT-06: Quantitative Reasoning ----------
+   The item bodies (.dat-qc, .dat-ds, .dat-data-table, .dat-conf-row) are the shared shapes the
+   drill already uses; the shell chrome is aliased onto the .dat-drill-* rules above. What is left
+   is QR's own: the pace bar, the review tables, worked steps, and the calculator — a basic
+   four-function keypad the exam gives only in this section, mouse-only by design. */
+.dat-qr-setup .ctl, .dat-qr-setup select { min-width: 0; max-width: 100%; }
+.dat-qr-run { padding-bottom: 40px; }
+.dat-qr-stem { font-size: 16px; line-height: 1.6; margin: 0 0 18px; }
+.dat-qr-opts { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+.dat-qr-opt { display: flex; gap: 12px; align-items: flex-start; width: 100%; padding: 12px 14px; text-align: left; font-size: 14px; line-height: 1.5; background: var(--surface); border: 1px solid var(--line); cursor: pointer; }
+.dat-qr-opt:hover { border-color: var(--line-bright); }
+.dat-qr-opt.picked { border-color: var(--text); background: var(--surface-2); }
+.dat-qr-opt .dat-qr-i { flex: 0 0 auto; font-family: var(--mono); font-size: 12px; color: var(--faint); }
+.dat-qr-opt.dat-qr-chosen { border-color: var(--text); }
+
+.dat-qr-pace { display: flex; align-items: center; gap: 10px; }
+.dat-qr-pace-track { width: 104px; height: 6px; background: var(--surface-2); border: 1px solid var(--line); overflow: hidden; }
+.dat-qr-pace-fill { display: block; height: 100%; width: 0; background: var(--green); transition: width .25s linear, background .25s linear; }
+.dat-qr-pace-label { font-family: var(--mono); font-size: 11px; color: var(--dim); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.dat-qr-pace.dat-qr-over .dat-qr-pace-fill { background: var(--amber); }
+.dat-qr-pace.dat-qr-over .dat-qr-pace-label { color: var(--amber); }
+.dat-qr-clock { font-family: var(--mono); font-size: 15px; letter-spacing: .06em; color: var(--text); font-variant-numeric: tabular-nums; }
+
+.dat-qr-worked { margin-top: 18px; padding: 14px; background: var(--surface); border: 1px solid var(--line); }
+.dat-qr-worked-head { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); margin-bottom: 8px; }
+.dat-qr-explain { margin-top: 16px; font-size: 14px; line-height: 1.65; color: var(--body); }
+.dat-qr-hint { margin-top: 10px; font-size: 13px; color: var(--dim); }
+.dat-qr-autopsy { margin-top: 14px; padding-left: 16px; border-left: 2px solid var(--line-bright); font-size: 13px; color: var(--dim); }
+
+.dat-qr-review { padding-bottom: 48px; }
+.dat-qr-summary { display: flex; flex-wrap: wrap; gap: 18px 32px; margin: 22px 0 26px; }
+.dat-qr-filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+.dat-qr-items { display: flex; flex-direction: column; gap: 12px; }
+.dat-qr-rev { padding: 14px; background: var(--surface); border: 1px solid var(--line); }
+.dat-qr-rev-topic { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); }
+.dat-qr-categories { margin-top: 30px; }
+.dat-qr-cat-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.dat-qr-cat-table th, .dat-qr-cat-table td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line); }
+.dat-qr-cat-table thead th { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); font-weight: 600; }
+.dat-qr-cat-table td:last-child, .dat-qr-cat-table th:last-child { text-align: right; font-variant-numeric: tabular-nums; }
+
+/* the calculator: a keypad, not a text field — the exam's takes no keyboard entry */
+.dat-qr-calc-box { width: min(360px, 100%); }
+.dat-qr-calc-screen { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; padding: 12px 14px; background: var(--surface-2); border: 1px solid var(--line); }
+.dat-qr-calc-flag { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; color: var(--faint); min-height: 13px; }
+.dat-qr-calc-expr { font-family: var(--mono); font-size: 12px; color: var(--dim); min-height: 16px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 100%; }
+.dat-qr-calc-display { font-family: var(--mono); font-size: 26px; line-height: 1.2; color: var(--text); font-variant-numeric: tabular-nums; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 100%; }
+.dat-qr-calc-pad { display: flex; flex-direction: column; gap: 6px; margin-top: 12px; }
+.dat-qr-calc-row { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; }
+.dat-qr-calc-key { min-height: 44px; padding: 0 4px; font-family: var(--mono); font-size: 14px; color: var(--text); background: var(--surface); border: 1px solid var(--line); cursor: pointer; }
+.dat-qr-calc-key:hover { border-color: var(--line-bright); background: var(--surface-2); }
+.dat-qr-calc-key:active { background: var(--line); }
+.dat-qr-calc-mem, .dat-qr-calc-fn { color: var(--dim); font-size: 12px; }
+.dat-qr-calc-op { font-size: 16px; }
+
+@media (max-width: 420px) {
+  .dat-qr-stem { font-size: 15px; }
+  .dat-qr-summary { gap: 14px 20px; }
+  .dat-qr-calc-box { width: 100%; }
+  .dat-qr-calc-display { font-size: 22px; }
+  .dat-qr-calc-key { min-height: 42px; font-size: 13px; }
+  .dat-qr-cat-table th, .dat-qr-cat-table td { padding: 8px 6px; }
 }

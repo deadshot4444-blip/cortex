@@ -1,0 +1,375 @@
+{
+  "format": "dat-pat",
+  "version": 1,
+  "authoredOn": "2026-09-16",
+  "author": "coding agent (Claude), original paraphrase",
+  "reviewStatus": "Local authoring check only; independent subject review pending.",
+  "sourceCheckedOn": "2026-09-16",
+  "contentNote": "Original Cortex material. Every rule below is a paraphrase of the published ADA Perceptual Ability Test section instructions, written from scratch as an alignment target; no ADA, prep-company or forum item, figure or wording is reproduced. Every practice figure is generated at run time by dat-pat-engine.js from the seed printed beside it, so nothing here ships as authored artwork.",
+  "sources": [
+    {
+      "title": "ADA Dental Admission Test 2026 Candidate Guide",
+      "url": "https://www.ada.org/education/testing/exams/dental-admission-test-dat"
+    },
+    {
+      "title": "ADA Perceptual Ability Test section instructions (linked from the DAT exam page)",
+      "url": "https://www.ada.org/education/testing/exams/dental-admission-test-dat"
+    }
+  ],
+  "source": {
+    "title": "ADA Perceptual Ability Test Section Instructions (2025)",
+    "url": "https://www.ada.org/education/testing/exams/dental-admission-test-dat"
+  },
+  "scope": "Six subtests, ninety items, sixty minutes. All six are generated: apertures, view recognition, angle ranking, paper folding, cube counting and pattern folding. A mixed form runs fifteen of each in the order the exam uses them, under one sixty-minute clock.",
+  "levelsNote": "Level 2 is the target: it matches the difficulty range test-takers describe on the live exam. Level 1 is a warm-up and is easier than the test. Level 3 is deliberately harder than the test and is labelled that way so a bad set never reads as a score prediction.",
+  "subtests": [
+    {
+      "id": "keyholes",
+      "category": "PAT-KEY",
+      "adaName": "Apertures",
+      "alias": "Keyholes",
+      "summary": "A solid object is drawn above five outlines. Exactly one of the outlines is an opening the object can be pushed straight through, if you first turn it so the right side goes in.",
+      "rules": [
+        "Before it starts through, the object may be turned any way at all, and it may go in on a side the drawing does not show.",
+        "Once it has started through it may not be turned or twisted again, and it must pass all the way through. The opening is therefore the exact outline of one whole face-on view of the object.",
+        "The object and the openings are drawn to the same scale, so an opening can be the right shape and still be too small to take the object. The differences are always large enough to see.",
+        "No part you cannot see hides a surprise. If the part you can see has a symmetric notch, the part you cannot see has the matching one.",
+        "Exactly one of the five openings works. If two look possible, one of them differs somewhere you have not checked yet."
+      ],
+      "strategy": [
+        "Flatten the object three ways in your head — from above, from the front, from one end — and sketch or picture those three outlines before looking at the answers. Everything else is elimination.",
+        "Remember that turning the object turns the outline: any of the three may arrive rotated a quarter, a half or three quarters of a turn, or flipped over. A flipped outline is still the same opening, not a trap.",
+        "Scan all five outlines first and group them by which of your three they resemble. That usually leaves two candidates and a fast decision.",
+        "Compare size as deliberately as shape. Hold the outline against the object: count how many cube widths across it should be and check the opening really is that wide.",
+        "Check one feature at a time — this step, that notch, that corner — rather than staring at the whole shape. Two near-identical outlines always differ in one place."
+      ],
+      "pitfalls": [
+        "Treating a mirror image as automatically wrong. Turning the object over presents the mirror of the same outline, so a true mirror is still correct; what is wrong is a near-mirror with one square added or taken away.",
+        "Ignoring scale, which is the one difference that costs nothing to see and is missed most often.",
+        "Deciding between the last two choices by feel. Find the feature that separates them and read only that.",
+        "Assuming the side facing you must be the side that goes in first. It usually is not."
+      ],
+      "levels": {
+        "1": {
+          "label": "Warm-up",
+          "note": "Small objects, at most two storeys, and the wrong-size opening is drawn at seven tenths of true size. Easier than the live exam."
+        },
+        "2": {
+          "label": "Test-like",
+          "note": "Three and four column footprints up to three storeys; the wrong-size opening is at eight tenths, which is the smallest difference the ADA describes as easy to see."
+        },
+        "3": {
+          "label": "Harder than test",
+          "note": "Four storeys and more broken outlines, and the wrong-size opening is at eighty-five hundredths — a tighter size call than the exam asks for."
+        }
+      },
+      "demoSeeds": {
+        "1": [
+          1201,
+          1202,
+          1203
+        ],
+        "2": [
+          2201,
+          2202,
+          2203
+        ],
+        "3": [
+          3201,
+          3202,
+          3203
+        ]
+      }
+    },
+    {
+      "id": "tfe",
+      "category": "PAT-TFE",
+      "adaName": "View Recognition",
+      "alias": "Top-front-end",
+      "summary": "Two flat views of a solid object are given — top, front or end — and four candidates offer the third. The object itself is never drawn.",
+      "rules": [
+        "The views are drawn flat, with no perspective: parallel edges of the object stay parallel on the page, and nothing shrinks with distance.",
+        "The top view sits above the front view and the end view beside it. The end view looks at the object from its right-hand end.",
+        "An edge you could not see from that side is drawn with a dashed line. Where a solid edge and a hidden edge land on the same line, the solid one is drawn.",
+        "The three views share their measurements: width runs across the top and front views, height down the front and end views, and depth is shared by the top and end views with the top view turned a quarter turn.",
+        "The missing view is not always the end view, and exactly one of the four candidates is correct."
+      ],
+      "strategy": [
+        "Take the outline first. The two views you are given fix how wide and how tall the missing one must be before you consider a single interior line.",
+        "Pick one feature — a step, a pocket, a wall — and follow that feature alone through all four candidates. Eliminate, then pick the next feature. Do not keep switching views.",
+        "Ask of every interior line whether the edge it stands for faces you or sits behind material. That answer, and only that answer, decides solid against dashed.",
+        "Settle the depth direction early: which half of the object is at the front. The top view's bottom row and the end view's left column are the same front face.",
+        "Count nothing. Two candidates here always carry the same number of lines, so a tally can only mislead you."
+      ],
+      "pitfalls": [
+        "Choosing by solid against dashed without asking what is in front of the edge. That single line is the whole item more often than not.",
+        "Reading a pocket as a bump. A hole drilled down into the top face shows its walls dashed from the front; a block standing on the top face shows them solid.",
+        "Losing track of which side is the front, so a stepped object comes out back to front.",
+        "Falling back on counting lines. It was a workable shortcut once and is not one now."
+      ],
+      "levels": {
+        "1": {
+          "label": "Warm-up",
+          "note": "Stacked rectangular blocks only, with no holes. Hidden edges appear where one block stands behind another. Easier than the live exam."
+        },
+        "2": {
+          "label": "Test-like",
+          "note": "Every object carries a blind pocket, one or two cubes deep, so hidden edges are part of every item."
+        },
+        "3": {
+          "label": "Harder than test",
+          "note": "Taller objects, up to two pockets that can meet in a step, and sometimes a straight tunnel bored right through."
+        }
+      },
+      "demoSeeds": {
+        "1": [
+          1301,
+          1302,
+          1303
+        ],
+        "2": [
+          2301,
+          2302,
+          2303
+        ],
+        "3": [
+          3301,
+          3302,
+          3303
+        ]
+      }
+    },
+    {
+      "id": "angles",
+      "category": "PAT-ANG",
+      "adaName": "Angle Discrimination",
+      "alias": "Angle ranking",
+      "summary": "Four interior angles sit in separate boxes labelled 1 to 4. Rank them from smallest to largest and pick the matching order.",
+      "rules": [
+        "The four angles are always different from one another, and the correct order is a single permutation of the four box numbers.",
+        "Arm lengths differ inside a single angle and the whole figure is rotated at random, so neither the length of a line nor its direction carries information.",
+        "The ADA does not publish a minimum difference. Test-takers consistently report about three degrees as the tightest gap they see and five to six degrees on the easier items, so Cortex never generates a gap below three degrees at any level.",
+        "Every generated set contains at least one angle that is near a right angle or obtuse, so ninety degrees is always usable as a reference."
+      ],
+      "strategy": [
+        "Read the four answer orders first. They usually agree about the extremes, so finding the clearly smallest or clearly largest angle eliminates two of them at once.",
+        "Compare two angles at a time, never all four. Mentally slide one on top of the other so the vertices meet and one arm lines up.",
+        "Use a reference: is this angle steeper or shallower than a right angle? Is it more or less than half of one?",
+        "Ignore arm length. Compare only the wedge near the vertex, where both angles have lines.",
+        "Scan quickly and commit. Staring makes near-equal angles look identical because your eye adapts; this is the subtest to spend the least time on."
+      ],
+      "pitfalls": [
+        "Ranking largest to smallest by mistake. The order asked for is always smallest first.",
+        "Letting a long arm read as a wide angle.",
+        "Re-checking the pair you already decided instead of moving on; the time saved here is what pays for pattern folding at the end."
+      ],
+      "levels": {
+        "1": {
+          "label": "Warm-up",
+          "note": "Minimum gap eight degrees. Easier than the live exam; use it to build the comparison habit, not to judge your score."
+        },
+        "2": {
+          "label": "Test-like",
+          "note": "Minimum gap four degrees, the middle of the range test-takers describe."
+        },
+        "3": {
+          "label": "Harder than test",
+          "note": "Minimum gap three degrees, the tightest gap anyone reports on the live exam. Cortex will not go below three."
+        }
+      },
+      "demoSeeds": {
+        "1": [
+          1041,
+          1042,
+          1043
+        ],
+        "2": [
+          2071,
+          2072,
+          2073
+        ],
+        "3": [
+          3011,
+          3012,
+          3013
+        ]
+      }
+    },
+    {
+      "id": "holes",
+      "category": "PAT-HOLE",
+      "adaName": "Paper Folding",
+      "alias": "Hole punching",
+      "summary": "A square sheet is folded two or more times, then punched. Choose the pattern of holes that appears when the sheet is opened flat again, shown on a four-by-four grid of sixteen positions.",
+      "rules": [
+        "The paper is never turned over and never twisted, and the folded stack always stays inside the edges of the original square.",
+        "Every item has more than one fold, and exactly one of the five patterns is correct.",
+        "The number of holes equals the number of paper thicknesses the punch passes through: punch two layers and two holes appear, punch four and four appear.",
+        "Broken lines in the panels mark where the sheet started; the solid outline is the paper as it now lies. The open circle is the punch.",
+        "A crease runs along a grid line, halfway between two grid lines, or corner to corner at 45 degrees. A diagonal crease always runs through the corners of the grid squares, never through the middle of one, so a hole never lands on half a square.",
+        "Holes always land on one of the sixteen grid positions."
+      ],
+      "strategy": [
+        "Draw the empty four-by-four grid first, then unfold backwards: undo the last fold first and reflect every hole across that fold line.",
+        "Count the layers under the punch before you look at the options. That count is the number of filled circles you need, and it eliminates most choices immediately.",
+        "Check the symmetry the folds force. A fold across the vertical centre line means the answer must be left-right symmetric about it.",
+        "Watch folds that sweep over empty paper: they move the sheet without adding a layer under the punch.",
+        "On a diagonal fold, reflect each hole across the crease the way you would across a mirror held at 45 degrees: a hole that sits two squares above the crease comes back two squares to the side of it. Count squares along the crease, not across the page."
+      ],
+      "pitfalls": [
+        "Unfolding in the order the folds were made instead of reversing them.",
+        "Reflecting across the wrong line, which is the single most common wrong answer.",
+        "Forgetting a fold entirely, which gives a pattern with too few holes.",
+        "Counting a punch on a folded edge as two holes; it opens into one."
+      ],
+      "levels": {
+        "1": {
+          "label": "Warm-up",
+          "note": "Two folds on grid lines, one punch. Easier than the live exam."
+        },
+        "2": {
+          "label": "Test-like",
+          "note": "Three folds, one punch. Half-cell folds and 45-degree diagonal folds both appear, so a crease can run corner to corner of the grid."
+        },
+        "3": {
+          "label": "Harder than test",
+          "note": "Three or four folds, diagonals included, and sometimes two punches. The ADA text mentions a single punch; multi-punch items are reported by test-takers but unconfirmed, so they are level 3 only."
+        }
+      },
+      "demoSeeds": {
+        "1": [
+          4101,
+          4102,
+          4103
+        ],
+        "2": [
+          5201,
+          5202,
+          5203
+        ],
+        "3": [
+          6301,
+          6302,
+          6303
+        ]
+      }
+    },
+    {
+      "id": "cubes",
+      "category": "PAT-CUBE",
+      "adaName": "Cube Counting",
+      "alias": "Cube counting",
+      "summary": "A figure is built by cementing same-size cubes together and then painted on every side except the bottom it rests on. Each figure carries two to four questions asking how many cubes have exactly one, two, three, four or five painted faces.",
+      "rules": [
+        "The only cubes you cannot see are the ones needed to hold up cubes you can see. Nothing floats and nothing is hidden for its own sake.",
+        "The face a cube rests on at the bottom of the figure is never painted, and any face glued to a neighbour is not painted either.",
+        "Answers run from one cube to five cubes. Zero is never the correct answer, and no question asks about a count above five.",
+        "Several questions are asked about the same figure, so the work of counting it pays off more than once."
+      ],
+      "strategy": [
+        "Build the whole tally before answering anything: how many cubes have one painted face, two, three, four, five.",
+        "Add the rows up and compare the total with the number of cubes in the figure, hidden supports included. If they disagree, you have missed a cube.",
+        "Scan in a fixed order, column by column, so you never count a cube twice.",
+        "Five painted faces only happen on a cube standing alone on top of a tower. Four happen on a cube with exactly one neighbour.",
+        "Look underneath every raised cube and ask what is holding it up. That cube exists even though you cannot see it."
+      ],
+      "pitfalls": [
+        "Missing the hidden support cubes, which is the usual reason a tally does not add up.",
+        "Painting the bottom of the figure, which adds a face to every ground-level cube.",
+        "Imagining cubes that are not there to make the shape look regular.",
+        "Losing the tally between questions on the same figure and rebuilding it under time pressure."
+      ],
+      "levels": {
+        "1": {
+          "label": "Warm-up",
+          "note": "Five to twelve cubes, never more than two storeys tall, and nothing hidden. Easier than the live exam."
+        },
+        "2": {
+          "label": "Test-like",
+          "note": "Eight to fourteen cubes with one or two hidden supports."
+        },
+        "3": {
+          "label": "Harder than test",
+          "note": "Twelve to twenty cubes with two to four hidden supports. Floating cubes are disputed and stay switched off."
+        }
+      },
+      "demoSeeds": {
+        "1": [
+          808,
+          809,
+          816
+        ],
+        "2": [
+          1608,
+          1609,
+          1616
+        ],
+        "3": [
+          2408,
+          2409,
+          2416
+        ]
+      }
+    },
+    {
+      "id": "patterns",
+      "category": "PAT-FOLD",
+      "adaName": "3D Form Development",
+      "alias": "Pattern folding",
+      "summary": "A flat pattern is shown beside four solids drawn in three dimensions. Fold the pattern up and exactly one of the four is what you get.",
+      "rules": [
+        "Every solid line inside the pattern is a fold. Each region the lines enclose becomes one whole face of the finished solid, so counting the regions tells you how many faces to expect.",
+        "The side of the pattern you are looking at ends up on the outside of the solid. The pattern folds away from you; folding it toward you would build the mirror image instead, and the mirror image is a wrong answer.",
+        "Shading, dots and marks keep the way they face. A mark sitting in one corner of a region sits in the same corner of that face after the fold.",
+        "Regions that share a fold line in the pattern share an edge on the solid, and regions that only touch at a point meet at a corner. Everything the item asks about follows from those two facts.",
+        "Exactly one of the four drawings is right, and each drawing shows only the three or four faces turned toward you. The faces you cannot see never decide the answer."
+      ],
+      "strategy": [
+        "Count the regions first and name the solid. A pattern of six four-sided regions is a box; five regions with a square and four triangles is a pyramid; eight regions with two six-sided ones is a hexagonal prism. Any drawing that is not that solid is gone before you look at the shading.",
+        "Pick one shaded region and find what touches it in the pattern. Those neighbours are the faces that will share an edge with it, and adjacency is what most of these items turn on.",
+        "Work with the faces you can see. Three faces meet at the corner nearest you in every drawing, so decide the item on those three rather than trying to hold the whole solid in your head.",
+        "Two shaded regions that touch in the pattern must touch on the solid. Two that do not touch must not share an edge. That one test kills most of the wrong drawings on its own.",
+        "The pattern is often upside down or sideways relative to the drawings. Turn the pattern in your head, not the solid; the pattern is flat and much easier to turn."
+      ],
+      "pitfalls": [
+        "Folding the pattern toward yourself. It builds the mirror image of the right solid, and the mirror image is offered as an answer often enough that it is the single most expensive habit here.",
+        "Checking that the right number of faces are shaded and stopping there. Two wrong drawings usually shade the right number of faces in the wrong places.",
+        "Forgetting that a mark keeps its orientation. A corner mark that has slid to a different corner of the same face is a wrong drawing, not a turned one.",
+        "Ignoring the shapes of the faces. When one drawing has a face the pattern does not contain, no amount of shading reasoning is needed.",
+        "Spending too long. This is the last subtest and the slowest one; leave time for it by moving briskly through angle ranking and paper folding."
+      ],
+      "levels": {
+        "1": {
+          "label": "Warm-up",
+          "note": "Boxes only, with two shaded regions. Six four-sided regions, so the shape is never in doubt and the item is purely about where the shading lands. Easier than the live exam."
+        },
+        "2": {
+          "label": "Test-like",
+          "note": "Boxes, triangular prisms, truncated prisms and square pyramids, still two shaded regions. Faces of different shapes now carry the shading, which is the range the live exam works in."
+        },
+        "3": {
+          "label": "Harder than test",
+          "note": "Adds the hexagonal prism, a third shaded region, and a mark in one corner of a shaded region whose orientation has to survive the fold. Deliberately harder than the test."
+        }
+      },
+      "demoSeeds": {
+        "1": [
+          1601,
+          1602,
+          1603
+        ],
+        "2": [
+          2601,
+          2602,
+          2603
+        ],
+        "3": [
+          3601,
+          3602,
+          3603
+        ]
+      }
+    }
+  ],
+  "scaleNote": "Apertures depend on the object and the openings being drawn to one scale. Both are built from the same unit — one cube edge of the object is one square of an opening — and the five openings always share one canvas, so they are exactly comparable with each other. At a desktop width the object reaches the screen at that same scale as well; on a narrow phone the figure is squeezed to fit while the openings are not, so the object reads a little small there. The review puts the opening that fits beside the one that is the right shape but too small inside a single drawing, where the comparison is exact at any screen width."
+}
