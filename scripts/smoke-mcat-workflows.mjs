@@ -92,6 +92,7 @@ try {
     await page.fill('#cars-rationale', 'The author supports this interpretation with the selected evidence.');
     await page.locator('[data-sentence]').first().click();
     await page.reload({ waitUntil: 'networkidle' });
+    await page.click('#back');
     await page.click('.course-nav [data-course-view="today"]');
     await page.click('#study-next');
     await page.waitForSelector('#cars-rationale');

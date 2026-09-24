@@ -34,10 +34,22 @@
       const log = StudyStorage.read(LOG_KEY, []),
         hist = StudyStorage.read(HIST_KEY, {}),
         srs = StudyStorage.read(SRS_KEY, {});
+      const valid = {
+        log: window.DatDrillCore.validAttemptStore(log, 'log'),
+        hist: window.DatDrillCore.validAttemptStore(hist, 'hist'),
+        srs: window.DatDrillCore.validAttemptStore(srs, 'srs'),
+      };
+      // Keep the saved copy for recovery; never overwrite an invalid store with empty progress.
+      if (!Object.values(valid).every(Boolean))
+        StudyStorage.sessionFailed(
+          Object.keys(valid)
+            .filter(key => !valid[key])
+            .map(key => ({ log: LOG_KEY, hist: HIST_KEY, srs: SRS_KEY })[key])
+        );
       DAT.attemptStores = {
-        log: Array.isArray(log) ? log : [],
-        hist: hist && typeof hist === 'object' ? hist : {},
-        srs: srs && typeof srs === 'object' ? srs : {},
+        log: valid.log ? log : [],
+        hist: valid.hist ? hist : {},
+        srs: valid.srs ? srs : {},
       };
       // The callbacks read back through stores(), so a reset between writes hands StudyStorage the
       // rebuilt cache rather than the dropped one.
@@ -94,7 +106,8 @@
     h.conf = row.conf;
     h.ts = ts;
     store.hist[row.qId] = h;
-    const ok = StudyStorage.write(LOG_KEY, store.log) && StudyStorage.write(HIST_KEY, store.hist);
+    const logOK = StudyStorage.write(LOG_KEY, store.log);
+    const ok = StudyStorage.write(HIST_KEY, store.hist) && logOK;
     saveStatus(ok);
     return ok;
   }
@@ -143,7 +156,38 @@
   }
   function loadResume() {
     const blob = StudyStorage.read(RESUME_KEY, null);
-    if (!blob || !Array.isArray(blob.ids) || !blob.ids.length) return null;
+    if (blob === null) return null;
+    const valid =
+      blob &&
+      Array.isArray(blob.ids) &&
+      blob.ids.length > 0 &&
+      blob.ids.every(id => typeof id === 'string') &&
+      new Set(blob.ids).size === blob.ids.length &&
+      Array.isArray(blob.results) &&
+      blob.results.length <= blob.ids.length &&
+      blob.results.every(
+        r =>
+          r === null ||
+          (r &&
+            typeof r === 'object' &&
+            !Array.isArray(r) &&
+            typeof r.correct === 'boolean' &&
+            (r.picked === null || (Number.isInteger(r.picked) && r.picked >= 0)) &&
+            Number.isFinite(r.ms) &&
+            r.ms >= 0)
+      ) &&
+      Number.isInteger(blob.idx) &&
+      blob.idx >= 0 &&
+      blob.idx < blob.ids.length &&
+      Number.isFinite(blob._remain) &&
+      blob._remain >= 0 &&
+      typeof blob.attemptId === 'string' &&
+      blob.attemptId &&
+      Number.isFinite(blob.startedAt);
+    if (!valid) {
+      StudyStorage.sessionFailed([RESUME_KEY]);
+      return null;
+    }
     if (!Core) return null;
     if (!blob.form && !Core.isBuilt(blob.subtest)) return null;
     return blob;
@@ -897,6 +941,15 @@
     }
     const saved = loadResume();
     if (saved && saved.subtest === p.subtest && saved.level === p.level && resumeRun(saved)) return renderRun();
+    if (
+      saved &&
+      !window.confirm(
+        'Replace your unfinished Perceptual Ability set with this new set? Cancel keeps the saved set so you can resume it.'
+      )
+    ) {
+      history.replaceState({ sec: 'dat' }, '', datUrl({ view: 'pat' }));
+      return renderPicker();
+    }
     if (!startRun(p.subtest, p.level, p.n)) return renderPicker('No items could be generated for that subtest.');
     saveResume();
     return renderRun();
@@ -908,6 +961,15 @@
     }
     const saved = loadResume();
     if (saved && saved.form && saved.level === p.level && resumeRun(saved)) return renderRun();
+    if (
+      saved &&
+      !window.confirm(
+        'Replace your unfinished Perceptual Ability set with a new 90-item form? Cancel keeps the saved set so you can resume it.'
+      )
+    ) {
+      history.replaceState({ sec: 'dat' }, '', datUrl({ view: 'pat' }));
+      return renderPicker();
+    }
     if (!startForm(p.level)) return renderPicker('The mixed form could not be built.');
     saveResume();
     return renderRun();

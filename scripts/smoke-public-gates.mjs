@@ -169,12 +169,28 @@ for (const viewport of viewports) {
     fail('Academy Today resume links into closed courses', record.todayClosedResumeLinks);
   await noOverflow('Academy Today');
 
+  // Lesson discovery lists only open courses: a closed course is neither a result, a link nor a filter.
+  await page.goto(prod('/academy?view=curriculum&scope=drafts'), { waitUntil: 'networkidle' });
+  await page.waitForSelector('#connect-track');
+  record.discoveryCourses = await page
+    .locator('[data-connect-course]')
+    .evaluateAll(nodes => [...new Set(nodes.map(n => n.dataset.connectCourse))].sort());
+  record.discoveryFilters = await page
+    .locator('#connect-track option[value]:not([value=""])')
+    .evaluateAll(nodes => nodes.map(n => n.value).sort());
+  if (
+    !record.discoveryCourses.length ||
+    record.discoveryCourses.some(id => !OPEN.includes(id)) ||
+    JSON.stringify(record.discoveryFilters) !== JSON.stringify([...OPEN].sort())
+  )
+    fail('lesson discovery lists closed courses', {
+      courses: record.discoveryCourses,
+      filters: record.discoveryFilters,
+    });
   await page.goto(prod('/academy?view=curriculum&track=anatomy&scope=drafts'), { waitUntil: 'networkidle' });
-  await page.waitForSelector('.connect-meta');
-  record.discoveryMeta = (await page.locator('.connect-meta').first().textContent())?.trim();
-  if (!record.discoveryMeta?.includes('Under construction')) fail('lesson discovery status', record.discoveryMeta);
-  await page.locator('.academy-course h3 a').first().click();
-  record.anatomyFromDiscovery = await gateLabel('Anatomy');
+  await page.waitForSelector('#connect-track');
+  record.discoveryClosedDirect = await page.locator('.academy-course').count();
+  if (record.discoveryClosedDirect !== 0) fail('lesson discovery by closed course', record.discoveryClosedDirect);
 
   await page.goto(prod('/academy?view=storage'), { waitUntil: 'networkidle' });
   await page.waitForSelector('#offline-catalog .offline-course h3, #offline-catalog p', { timeout: 15000 });

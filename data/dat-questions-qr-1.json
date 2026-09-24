@@ -1570,6 +1570,17 @@
     },
     {
       "id": "qr-qc-8",
+      "revision": 2,
+      "previousVersion": {
+        "stem": "For the values described, compare Quantity A and Quantity B.",
+        "options": [
+          "Quantity A is greater",
+          "Quantity B is greater",
+          "The two quantities are equal",
+          "The relationship cannot be determined from the information given"
+        ],
+        "explanation": "Multiplying both sides of x > 1 by the positive number x gives x² > x, so Quantity A is greater for every allowed value. The trap is recalling that squaring shrinks a fraction and forgetting that the condition rules fractions out."
+      },
       "section": "qr",
       "category": "QR-3",
       "topic": "Comparison with unknown sign or range",
@@ -1587,7 +1598,7 @@
         "The relationship cannot be determined from the information given"
       ],
       "answer": 0,
-      "explanation": "Multiplying both sides of x > 1 by the positive number x gives x² > x, so Quantity A is greater for every allowed value. The trap is recalling that squaring shrinks a fraction and forgetting that the condition rules fractions out.",
+      "explanation": "Multiplying both sides of x > 1 by the positive number x gives x² > x, so Quantity A is greater for every allowed value. The trap is recalling that squaring a number between 0 and 1 makes it smaller and forgetting that the condition excludes that interval. Fractions greater than 1 are still allowed.",
       "worked": {
         "values": {
           "x": [
@@ -2575,6 +2586,18 @@
     },
     {
       "id": "qr-applied-5",
+      "revision": 2,
+      "previousVersion": {
+        "stem": "One hygienist prepares 12 instrument trays per hour and another prepares 8 trays per hour. Working together from the start, how long do they take to prepare 30 trays?",
+        "options": [
+          "1.5 hours",
+          "1.875 hours",
+          "2.5 hours",
+          "3.125 hours",
+          "3.75 hours"
+        ],
+        "explanation": "Rates add: 12 + 8 = 20 trays per hour, and 30 ÷ 20 = 1.5 hours. The trap is averaging the two rates to 16 trays per hour, which treats the pair as a single average worker."
+      },
       "section": "qr",
       "category": "QR-5",
       "topic": "Rates and work",
@@ -2584,17 +2607,17 @@
       "stem": "One hygienist prepares 12 instrument trays per hour and another prepares 8 trays per hour. Working together from the start, how long do they take to prepare 30 trays?",
       "options": [
         "1.5 hours",
-        "1.875 hours",
+        "3 hours",
         "2.5 hours",
         "3.125 hours",
         "3.75 hours"
       ],
       "answer": 0,
-      "explanation": "Rates add: 12 + 8 = 20 trays per hour, and 30 ÷ 20 = 1.5 hours. The trap is averaging the two rates to 16 trays per hour, which treats the pair as a single average worker.",
+      "explanation": "Rates add: 12 + 8 = 20 trays per hour, and 30 ÷ 20 = 1.5 hours. The trap is averaging the rates: (12 + 8) ÷ 2 = 10 trays per hour, which treats the pair as a single average worker and incorrectly gives 30 ÷ 10 = 3 hours.",
       "distractors": [
         {
           "i": 1,
-          "why": "This uses the average rate of 16 trays per hour instead of the combined 20."
+          "why": "This uses (12 + 8) ÷ 2 = 10 trays per hour instead of the combined rate, giving 30 ÷ 10 = 3 hours."
         },
         {
           "i": 2,

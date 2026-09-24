@@ -489,7 +489,7 @@ async function renderReference() {
   if (typeof stopTimer === 'function') stopTimer();
   if (typeof session !== 'undefined') session = null;
   const requestedUrl = location.pathname + location.search;
-  await AcademyLessons.load('reference', 'data/medicine-foundations.json?v=5');
+  await AcademyLessons.load('reference', 'data/medicine-foundations.json?v=6');
   if (
     StudyStorage.paused ||
     MED_VIEW !== requestedView ||

@@ -78,6 +78,14 @@ test('the calculator is mouse-only and lives only in Quantitative Reasoning', ()
     assert.equal(declared.has(absent), false, 'no ' + absent + ' key');
 });
 
+test('the calculator dialog hands Tab and Escape to the shell trap, never to the calculator', () => {
+  const source = fs.readFileSync('dat-qr.js', 'utf8');
+  const open = source.match(/function openCalculator\(root\) \{[\s\S]*?\n {2}\}\n/);
+  assert.ok(open, 'openCalculator');
+  assert.match(open[0], /window\.trapModal\?\.\(modal, close\)/, 'aria-modal is backed by the shell focus trap');
+  assert.match(fs.readFileSync('app.js', 'utf8'), /function trapModal\(back, onEscape\)/, 'the trap closes on Escape');
+});
+
 test('the runner keeps the conventions a DAT module has to keep', () => {
   const source = read('dat-qr.js');
   assert.match(source, /DAT\.attemptStores/, 'uses the one shared attempt cache, not a private copy');

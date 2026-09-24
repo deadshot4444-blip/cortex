@@ -180,7 +180,7 @@ const options = { crypto, now: '2026-09-07T12:00:00.000Z' };
       'cs-dat-passage-reviews': '{"rc:1":{"draft":{"rationale":"x<y"}}}',
       'cs-dat-item-reports-v1': '{"reports":[{"text":"Option B < option C in length"}]}',
       ...Object.fromEntries(
-        ['drill', 'pat', 'qr', 'rc', 'sim'].map(k => ['cs-dat-r-' + k, '{"idx":1,"results":[],"_saved":1}'])
+        ['drill', 'review', 'pat', 'qr', 'rc', 'sim'].map(k => ['cs-dat-r-' + k, '{"idx":1,"results":[],"_saved":1}'])
       ),
     };
     assert.deepEqual((await Backup.parse(await Backup.create(data, 'test', options), options)).data, data);

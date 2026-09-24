@@ -23,14 +23,14 @@ try {
         `${width} ${label} overflow`
       );
     await open('course');
-    assert.equal(await page.locator('.course-unit').count(), 36);
+    assert.equal(await page.locator('.course-unit').count(), data.units.length);
     await overflow('course');
     await page.evaluate(() => window.scrollTo(0, 0));
     await page.screenshot({ path: `output/playwright/mcat-course-${width}.png`, fullPage: true });
     await page.locator('[data-course-filter="chemPhys"]').click();
-    assert.equal(await page.locator('.course-unit').count(), 10);
-    await page.locator('.course-map').first().locator('summary').click();
-    assert.equal(await page.locator('.course-map-row').count(), 34);
+    assert.equal(await page.locator('.course-unit').count(), data.units.filter(u => u.section === 'chemPhys').length);
+    await page.click('#course-coverage-map');
+    assert.equal(await page.locator('.coverage-area').count(), data.categories.length);
     await overflow('map');
     // Every unit can complete; persistence and feedback are checked on the first interactive lesson.
     const units = width === 1280 ? data.units : [data.units.find(u => u.id === 'enzyme-rates')];
@@ -148,6 +148,8 @@ try {
   await page.route('**/api/**', r => r.fulfill({ status: 200, contentType: 'application/json', body: '{"value":0}' }));
   await page.goto(base + 'mcat?gates=prod&view=practice', { waitUntil: 'networkidle' });
   await page.click('[data-mcat-tool="4"]');
+  await page.getByText('Shorter practice and format information', { exact: true }).click();
+  await page.click('#rehearsal-short');
   await page.locator('#secs .bp-cat').first().click();
   const initial = await page.evaluate(() => JSON.parse(localStorage.getItem('cs-mcat-r-sim'))),
     items = initial.queue[0].items,
@@ -162,8 +164,7 @@ try {
   }
   await page.locator('.opt').first().click();
   await page.reload({ waitUntil: 'networkidle' });
-  await page.click('[data-mcat-tool="4"]');
-  await page.click('#resume');
+  await page.click('#rehearsal-resume');
   assert.equal(await page.locator('.opt.picked').count(), 1);
   await page.click('#crumbmcat');
   await page.evaluate(() => {
@@ -172,8 +173,7 @@ try {
     localStorage.setItem('cs-mcat-r-sim', JSON.stringify(r));
   });
   await page.reload({ waitUntil: 'networkidle' });
-  await page.click('[data-mcat-tool="4"]');
-  await page.click('#resume');
+  await page.click('#rehearsal-resume');
   await page.waitForSelector('#exam-reflection');
   await page.fill('#exam-reflection', 'I will check the passage context before selecting an option.');
   await page.click('#exam-reviewed');

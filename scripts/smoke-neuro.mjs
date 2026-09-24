@@ -137,162 +137,80 @@ const continueEntryScrollY = await page.evaluate(() => window.scrollY);
 if (continueEntryScrollY > 1)
   throw new Error(`Continue should open the unit at the top, got scrollY: ${continueEntryScrollY}`);
 
+// Current foundation units keep the first answers and review them without retrying to a perfect score.
+for (let i = 0; i < 4; i++) await page.click('#neuro-unit-next');
 let recallSubmitSeen = false;
 let recallContinueSeen = false;
-for (let i = 0; i < 4; i++) {
-  await page.locator('#neunitstages [data-cont]:not([disabled])').last().click();
-  await page.waitForTimeout(120);
-}
 for (let i = 0; i < 2; i++) {
-  const submit = page.locator('#neunitstages [data-submit-answer]').last();
-  if (!(await submit.isVisible())) throw new Error('Active recall Submit answer button is not visible');
-  const submitText = (await submit.textContent())?.trim();
-  if (submitText !== 'Submit answer')
-    throw new Error(`Active recall action should say Submit answer, got: ${submitText}`);
-  await page
-    .locator('#neunitstages textarea.socinput')
-    .last()
-    .fill('Ordered samples preserve how the signal changes over time.');
-  recallSubmitSeen = true;
-  await submit.click();
-  const next = page.locator('#neunitstages [data-cont]:not([disabled])').last();
-  recallContinueSeen = (await next.count()) > 0 && (await next.isVisible());
-  await next.click();
-  await page.waitForTimeout(120);
+  await page.fill('#neuro-recall', 'Ordered samples preserve how the signal changes over time.');
+  await page.click('#neuro-recall-reveal');
+  recallSubmitSeen = (await page.locator('#neunitstages').innerText()).includes('Compare with the model');
+  recallContinueSeen = await page.locator('#neuro-recall-next').isVisible();
+  if (!recallSubmitSeen || !recallContinueSeen)
+    throw new Error('Recall must save and reveal the model before continuing');
+  await page.click('#neuro-recall-next');
 }
-
-await page.waitForSelector('.neuro-quiz-gate', { timeout: 10000 });
-const quickCheckStartLabel = (await page.locator('#neunitlab').textContent())?.trim();
-if (quickCheckStartLabel !== 'Stage 6 / 9 · Quick check')
-  throw new Error(`Quick Check progress needs context, got: ${quickCheckStartLabel}`);
-const topicReviewInline =
-  (await page.locator('.neuro-quiz-gate .neuro-topic-review').count()) === 1 &&
-  (await page.locator('.neuro-quiz-gate [data-topic-first]').count()) === 0;
-if (!topicReviewInline) throw new Error('Quick Check topic review should stay inside the unit');
+const quickCheckStartLabel = (await page.locator('#neunitlab').textContent()).trim();
+if (quickCheckStartLabel !== 'Stage 6 / 9 · Quick check') throw new Error(quickCheckStartLabel);
+if (!(await page.locator('#neuro-unit-next').isDisabled()))
+  throw new Error('Unanswered quick checks must block progression');
+const checks = await page.evaluate(() => neUnit.record.content.checks);
+for (const [i, question] of checks.entries()) {
+  const choice = i === 0 ? (question.correctIndex + 1) % question.choices.length : question.correctIndex;
+  await page.locator('#neuro-unit-questions .neuro-block').nth(i).locator(`[data-choice="${choice}"]`).click();
+  if (!(await page.locator('#neuro-unit-questions .neuro-block').nth(i).innerText()).includes('Model answer:'))
+    throw new Error('A saved answer must reveal its model and explanation');
+}
+const firstAnswers = await page.evaluate(() => JSON.stringify(neUnit.record.answers));
+await page.reload({ waitUntil: 'networkidle' });
+if ((await page.evaluate(() => JSON.stringify(neUnit.record.answers))) !== firstAnswers)
+  throw new Error('Quick-check first answers changed after reload');
+if (await page.locator('#neuro-unit-questions [data-choice]:not([disabled])').count())
+  throw new Error('Reviewed first answers must remain locked');
 await assertNoHorizontalOverflow('Quick Check');
-
-async function answerEmbeddedQuiz(choiceIndexes) {
-  for (const choiceIndex of choiceIndexes) {
-    await page.locator(`.neuro-quiz-gate .opt[data-i="${choiceIndex}"]`).click();
-    const questionCount = await page.locator('.neuro-embed [data-neuro-quiz-stages] > .neuro-stage').count();
-    if (questionCount !== 1) throw new Error(`Quick Check should show one active question, found: ${questionCount}`);
-    await page.locator('.neuro-quiz-gate [data-cont]:not([disabled])').click();
-    await page.waitForTimeout(120);
-  }
-}
-
-await answerEmbeddedQuiz([1, 0]);
-await page.waitForSelector('[data-quiz-retry]', { timeout: 10000 });
-const failedQuickCheckLabel = (await page.locator('#neunitlab').textContent())?.trim();
-const failedQuickCheckScore = (await page.locator('.neuro-quiz-result.retry .neuro-score').textContent())?.replace(
-  /\s/g,
-  ''
-);
-if (failedQuickCheckLabel !== 'Stage 6 / 9 · Quick check' || failedQuickCheckScore !== '01/02') {
-  throw new Error(
-    `Failed Quick Check should explain why progress remains at stage 6, got: ${JSON.stringify({ failedQuickCheckLabel, failedQuickCheckScore })}`
-  );
-}
-await page.click('[data-quiz-review]');
-const reviewStayedInUnit =
-  (await page.locator('.neuro-quiz-result .neuro-topic-review').evaluate(el => el.open)) &&
-  page.url().endsWith('/neuro');
-if (!reviewStayedInUnit) throw new Error('Reviewing the supporting topic should not leave the unit');
-await page.click('[data-quiz-retry]');
-await answerEmbeddedQuiz([0, 0]);
-await page.waitForSelector('[data-quiz-continue]', { timeout: 10000 });
-const passedQuickCheckScore = (await page.locator('.neuro-quiz-result.passed .neuro-score').textContent())?.replace(
-  /\s/g,
-  ''
-);
-if (passedQuickCheckScore !== '02/02')
-  throw new Error(`Passed Quick Check should show 02/02, got: ${passedQuickCheckScore}`);
-await page.click('[data-quiz-continue]');
-await page.waitForFunction(() =>
-  document.querySelector('#neunitlab')?.textContent?.includes('Stage 7 / 9 · NeuroCode')
-);
-const stageAfterQuickCheck = (await page.locator('#neunitlab').textContent())?.trim();
-
-const codeMore = page.locator('#neunitstages details.neuro-sandbox-more').last();
-await codeMore.evaluate(el => {
-  el.open = true;
-});
-await page.locator('#neunitstages [data-predict-out]').last().click();
-const visibleExpectedOutput = (await page.locator('#neunitstages [data-predict]').last().textContent())
-  ?.replace(/\s+/g, ' ')
-  .trim();
+await page.click('#neuro-unit-next');
+const stageAfterQuickCheck = (await page.locator('#neunitlab').textContent()).trim();
+if (stageAfterQuickCheck !== 'Stage 7 / 9 · NeuroCode') throw new Error(stageAfterQuickCheck);
+if (await page.locator('[data-code-done]').isVisible()) throw new Error('Untested code must not pass the unit gate');
+const codeCases = await page.evaluate(() => neUnit.record.content.code.checks.cases.length);
+await page.locator('details.neuro-sandbox-more > summary').click();
+await page.click('[data-load-sol]');
+await page.click('[data-check-code]');
+await page.waitForSelector('[data-code-done]:visible', { timeout: 60000 });
+const codeResult = await page.locator('[data-py-status]').innerText();
+if (codeResult !== `${codeCases}/${codeCases} input cases passed.`) throw new Error(codeResult);
+if ((await page.locator('[data-check-results] li').count()) !== codeCases)
+  throw new Error('Each Python input case needs an inspectable result');
+await assertNoHorizontalOverflow('NeuroCode result');
+await page.click('[data-code-done]');
+const stageAfterCode = (await page.locator('#neunitlab').textContent()).trim();
+if (stageAfterCode !== 'Stage 8 / 9 · NeuroSim') throw new Error(stageAfterCode);
+const sim = await page.evaluate(() => neUnit.record.content.sim);
+const simWrongIndex = (sim.bestAnswerIndex + 1) % sim.choices.length;
+if (!(await page.locator('#neuro-unit-next').isDisabled()))
+  throw new Error('Unanswered simulation must block progression');
+await page.locator(`#neuro-unit-questions [data-choice="${simWrongIndex}"]`).click();
+if (!(await page.locator('#neunitstages').innerText()).includes('First answer needs review'))
+  throw new Error('The simulation must honestly preserve its wrong first answer');
+await page.reload({ waitUntil: 'networkidle' });
+if ((await page.evaluate(() => neUnit.record.answers.simulation.chosen)) !== simWrongIndex)
+  throw new Error('The saved simulation answer changed');
+await page.click('#neuro-unit-next');
+await page.fill('#neuro-debrief', 'A recording preserves a sequence, units and timing rather than one voltage.');
+await page.click('#neuro-unit-next');
+await page.waitForSelector('#neuro-next-unit');
+const unitLab = (await page.locator('#neunitlab').textContent()).trim();
+const unitCompleted = await page.locator('#neuro-next-unit').isVisible();
+if (!unitCompleted || unitLab !== 'Complete') throw new Error('Unit did not complete');
+const saved = await page.evaluate(() => neUnit.record);
+if (!saved.completedAt || !saved.codeWork.support.solutionAt || !saved.recall.every(r => r.draft && r.revealedAt))
+  throw new Error('Completion must retain recall, code support and timestamp evidence');
 if (
-  !visibleExpectedOutput?.includes('Number of samples: 7') ||
-  visibleExpectedOutput.includes('Number of samples: 6')
-) {
-  throw new Error(`Lists exercise should display the 7-sample challenge target, got: ${visibleExpectedOutput}`);
-}
-await page.locator('#neunitstages [data-load-sol]').last().click();
-await page.locator('#neunitstages [data-check-code]').last().click();
-await page.waitForSelector('#neunitstages [data-code-done]:visible', { timeout: 30000 });
-const terminalResultInset = await page
-  .locator('#neunitstages .neuro-ojt-terminal')
-  .last()
-  .evaluate(terminal => {
-    const message = terminal.querySelector('.neuro-terminal-msg');
-    const hint = terminal.querySelector('.neuro-terminal-hint');
-    return {
-      messageLeft: Number.parseFloat(getComputedStyle(message).paddingLeft),
-      hintLeft: Number.parseFloat(getComputedStyle(hint).paddingLeft),
-      hintBottom: Number.parseFloat(getComputedStyle(hint).paddingBottom),
-    };
-  });
-if (terminalResultInset.messageLeft < 12 || terminalResultInset.hintLeft < 12 || terminalResultInset.hintBottom < 12) {
-  throw new Error(
-    `NeuroCode result text should be inset from the terminal frame, got: ${JSON.stringify(terminalResultInset)}`
-  );
-}
-await page.locator('#neunitstages [data-code-done]').last().click();
-await page.waitForTimeout(500);
-const stageAfterCode = (await page.locator('#neunitlab').textContent())?.trim();
-if (stageAfterCode !== 'Stage 8 / 9 · NeuroSim') {
-  const codeState = await page.evaluate(() => ({
-    stageIdx: neUnit?.stageIdx,
-    stages: neUnit?.stages,
-    codeDoneVisible: Boolean(document.querySelector('[data-code-done]')?.offsetParent),
-    simCount: document.querySelectorAll('#nesimopts').length,
-  }));
-  throw new Error(`NeuroCode should advance to Stage 8, got: ${JSON.stringify({ stageAfterCode, codeState })}`);
-}
-
-const simBestIndex = await page.evaluate(() => neuroSim(neUnit.step.simulationId).bestAnswerIndex);
-const simChoiceCount = await page.locator('#neunitstages #nesimopts .opt').count();
-const simWrongIndex = (simBestIndex + 1) % simChoiceCount;
-await page.locator('#neunitstages #nesimopts .opt').nth(simWrongIndex).click();
-await page.waitForTimeout(200);
-const simRetryText = (await page.locator('#nesimdone').count())
-  ? (await page.locator('#nesimdone').last().textContent())?.trim()
-  : null;
-if (!simRetryText) {
-  const simState = await page.evaluate(() => ({
-    stageIdx: neUnit?.stageIdx,
-    simOpts: document.querySelectorAll('#nesimopts .opt').length,
-    disabledOpts: document.querySelectorAll('#nesimopts .opt:disabled').length,
-    afterText: document.querySelector('#nesimafter')?.textContent?.trim(),
-  }));
-  throw new Error(`NeuroSim answer should render an action, got: ${JSON.stringify(simState)}`);
-}
-if (simRetryText !== 'Retry NeuroSim') throw new Error(`Incorrect NeuroSim needs a retry action, got: ${simRetryText}`);
-await page.click('#nesimdone');
-await page.locator('#neunitstages #nesimopts .opt').nth(simBestIndex).click();
-await page.click('#nesimdone');
-await page.waitForFunction(() => document.querySelector('#neunitlab')?.textContent?.includes('Stage 9 / 9 · Debrief'));
-await page.locator('#neunitstages [data-cont]:not([disabled])').last().click();
-await page.waitForSelector('#nenu', { timeout: 10000 });
-
-const stages = await page.locator('#neunitstages .neuro-stage').count();
-const hasQuiz = (await page.locator('#neunitstages .neuro-embed').count()) > 0;
-const unitLab = (await page.locator('#neunitlab').textContent())?.trim();
-const unitCompleted = await page.locator('#nenu').isVisible();
-if (!recallSubmitSeen || !recallContinueSeen)
-  throw new Error('Active recall should provide Submit answer followed by Next/Continue');
-if (!unitCompleted || unitLab !== 'Complete')
-  throw new Error(`Unit 1 should complete end to end, got: ${JSON.stringify({ unitCompleted, unitLab })}`);
+  !(await page.locator('#neunitstages').innerText()).includes(
+    `${checks.length - 1}/${checks.length} quick checks correct`
+  )
+)
+  throw new Error('Completion must count the preserved first answers accurately');
 await assertNoHorizontalOverflow('Unit complete');
 
 console.log(
@@ -324,18 +242,11 @@ console.log(
       recallSubmitSeen,
       recallContinueSeen,
       quickCheckStartLabel,
-      topicReviewInline,
-      failedQuickCheckLabel,
-      failedQuickCheckScore,
-      reviewStayedInUnit,
-      passedQuickCheckScore,
+      firstAnswers,
       stageAfterQuickCheck,
-      visibleExpectedOutput,
-      terminalResultInset,
+      codeResult,
       stageAfterCode,
-      simRetryText,
-      stages,
-      hasQuiz,
+      simWrongIndex,
       unitLab,
       unitCompleted,
       errors,

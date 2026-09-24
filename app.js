@@ -83,7 +83,7 @@ const SECTION_INFO = {
   },
 };
 // Public beta version; independent subject acceptance remains separate.
-const APP_VERSION = '2.31.0-beta.1';
+const APP_VERSION = '2.33.0-beta.1';
 function cortexFreeNote(sectionPill, sectionName) {
   return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free</span><span class="free-note-txt">${sectionName} is free to use — no account, no paywall, no catch.</span></p>`;
 }
@@ -181,21 +181,21 @@ function saveStreak() {
 
 const SECTION_SCRIPTS = {
   academy: [
-    'study-storage.js?v=5',
+    'study-storage.js?v=6',
     'academy-today.js?v=11',
-    'study-backup.js?v=13',
+    'study-backup.js?v=14',
     'academy-storage.js?v=5',
     'academy-portfolio-core.js?v=4',
     'academy-portfolio.js?v=4',
   ],
   practice: [
-    'study-storage.js?v=5',
+    'study-storage.js?v=6',
     'clinical-longitudinal-engine.js?v=3',
     'clinical-longitudinal.js?v=4',
     'clinical-shift.js?v=22',
   ],
   mcat: [
-    'study-storage.js?v=5',
+    'study-storage.js?v=6',
     'mcat-item-quality-core.js?v=2',
     'mcat-item-quality.js?v=2',
     'mcat-rehearsal-engine.js?v=3',
@@ -213,33 +213,35 @@ const SECTION_SCRIPTS = {
   // dat.js loads second on purpose: it declares window.DAT so later DAT modules can
   // register their pausers at load time. Each milestone appends its own lines here.
   dat: [
-    'study-storage.js?v=5',
-    'dat.js?v=8',
-    'dat-drill-engine.js?v=1',
-    'dat-practice.js?v=4',
+    'study-storage.js?v=6',
+    'dat.js?v=12',
+    'dat-drill-engine.js?v=2',
+    'dat-practice.js?v=7',
     'dat-pat-engine.js?v=6',
-    'dat-pat.js?v=6',
-    'dat-rc.js?v=3',
+    'dat-pat.js?v=8',
+    'dat-rc.js?v=5',
     'dat-calc-engine.js?v=2',
-    'dat-qr.js?v=2',
+    'dat-qr.js?v=5',
+    'dat-plan-engine.js?v=3',
+    'dat-plan.js?v=3',
   ],
-  anatomy: ['study-storage.js?v=5', 'academy-lessons.js?v=7', 'anatomy.js?v=44'],
+  anatomy: ['study-storage.js?v=6', 'academy-lessons.js?v=7', 'anatomy.js?v=45'],
   reference: [
-    'study-storage.js?v=5',
+    'study-storage.js?v=6',
     'ecg-engine.js?v=3',
     'academy-lessons.js?v=7',
-    'reference.js?v=60',
+    'reference.js?v=61',
     'performance-drugs.js?v=28',
     'ekg.js?v=42',
   ],
-  socrates: ['study-storage.js?v=5', 'socrates.js?v=50'],
+  socrates: ['study-storage.js?v=6', 'socrates.js?v=50'],
   neuro: [
-    'study-storage.js?v=5',
+    'study-storage.js?v=6',
     'python-runtime.js?v=6',
     'code-evaluator.js?v=9',
     'neuro-project-engine.js?v=3',
     'neuro-practitioner.js?v=12',
-    'neuro.js?v=40',
+    'neuro.js?v=41',
   ],
 };
 const _scriptLoads = {};
@@ -1066,11 +1068,19 @@ function announceView(node) {
 }
 
 // Focus-trap a modal: cycle Tab within it, move focus in on open, restore to the opener on close.
-function trapModal(back) {
+// Keeps Tab inside an open overlay and returns focus to the opener when it leaves the page.
+// `onEscape`, when given, closes the overlay on Escape without letting the key reach the screen behind.
+function trapModal(back, onEscape) {
   const prev = document.activeElement;
   const SEL = 'a[href],button:not([disabled]),input:not([disabled]),select,textarea,[tabindex]:not([tabindex="-1"])';
   const focusable = () => [...back.querySelectorAll(SEL)].filter(e => e.offsetParent !== null);
   back.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && onEscape) {
+      e.preventDefault();
+      e.stopPropagation();
+      onEscape();
+      return;
+    }
     if (e.key !== 'Tab') return;
     const f = focusable();
     if (!f.length) return;
@@ -1134,14 +1144,18 @@ function renderComingSoon(key) {
 function renderUTSA() {
   stopTimer();
   session = null;
+  const open = CortexAcademy.tracks.filter(track => track.available);
+  const openNames = open.map(track => track.name);
+  const openList =
+    openNames.length > 1 ? `${openNames.slice(0, -1).join(', ')} and ${openNames.at(-1)}` : openNames[0] || '';
   const cards = [
     [
-      'Everything, unlocked',
-      'Every part of Cortex is open to students and trainees at UTSA and UT Health San Antonio in full, at no cost, for as long as they are there. The Academy is free for everyone right now; this is a standing promise that it stays that way for the two schools closest to home.',
+      'Everything published, unlocked',
+      'Every course Cortex publishes is open to students and trainees at UTSA and UT Health San Antonio in full, at no cost, for as long as they are there. Courses still under construction join as they open. The Academy is free for everyone right now; this is a standing promise that it stays that way for the two schools closest to home.',
     ],
     [
       'How it will work',
-      'Verify a school email (@my.utsa.edu or @livemail.uthscsa.edu) once. Your account unlocks every part of the Academy automatically — no codes, no renewals, no catch.',
+      'Verify a school email (@my.utsa.edu or @livemail.uthscsa.edu) once. Your account unlocks every published course automatically — no codes, no renewals, no catch.',
     ],
     [
       'Why these two',
@@ -1165,12 +1179,20 @@ function renderUTSA() {
     </div>
     <section class="mcat-closing" data-reveal>
       <h2>Opportunity should start at home.</h2>
-      <p>This is a commitment in progress. Until verification is live, the entire MCAT suite is already free for every UTSA and UT Health student — same as it is for everyone.</p>
-      <button class="btn btn-solid" id="utsa-mcat">Open MCAT prep</button>
+      <p>This is a commitment in progress. Until verification is live, ${esc(openList)} are already free for every UTSA and UT Health student — same as they are for everyone.</p>
+      <div class="utsa-actions">${open
+        .filter(track => track.kind === 'Exam preparation')
+        .map(
+          (track, i) =>
+            `<button class="btn${i ? '' : ' btn-solid'}" data-utsa-go="${esc(track.id)}">${esc(track.action)}</button>`
+        )
+        .join('')}</div>
     </section>
     <p class="utsa-note">Cortex Medical Academy is an independent project and is not affiliated with, endorsed by, or sponsored by The University of Texas at San Antonio or UT Health San Antonio. All trademarks and campus imagery are the property of their respective owners.</p>
   </main>`);
-  main.querySelector('#utsa-mcat').addEventListener('click', gotoMCAT);
+  main
+    .querySelectorAll('[data-utsa-go]')
+    .forEach(b => b.addEventListener('click', () => navigateSection(b.dataset.utsaGo)));
   root.appendChild(main);
   root.appendChild(siteFooter());
   setView(root);
@@ -1406,12 +1428,12 @@ function renderMission() {
         <div class="mission-hero-copy">
           <span class="mcat-eyebrow">Cortex Medical Academy</span>
           <h1>Master the<br> human machine.</h1>
-          <p class="mission-lede">Understand the science. Put it into practice. Free MCAT preparation and clinical case learning for the work ahead.</p>
+          <p class="mission-lede">Understand the science. Put it into practice. Free MCAT and DAT preparation and clinical case learning for the work ahead.</p>
           <div class="mcat-cta">
             <button class="btn btn-solid" id="m-mcat">Open MCAT prep →</button>
             <button class="btn" id="m-quick">Try a 5-minute session</button>
           </div>
-          <p class="academy-promise">MCAT is free forever. Start without an account.</p>
+          <p class="academy-promise">MCAT and DAT prep are free forever. Start without an account.</p>
         </div>
         <aside class="academy-workspace" aria-labelledby="academy-workspace-title">
           <div class="academy-workspace-head"><span class="label">Inside MCAT 2.0</span><span class="academy-edition">BETA</span></div>
@@ -1424,6 +1446,20 @@ function renderMission() {
           </div>
         </aside>
       </div>
+    </section>
+
+    <section class="academy-clinical academy-dat" aria-labelledby="academy-dat-title">
+      <div class="academy-clinical-copy">
+        <span class="label">DAT preparation &middot; Beta</span>
+        <h2 id="academy-dat-title">Train for the DAT,<br> section by section.</h2>
+        <p>Science drills on the clock, perceptual-ability figures drawn new every round, and timed reading and quantitative sets with the exam’s own calculator.</p>
+        <button class="btn" id="m-dat">Open DAT prep →</button>
+      </div>
+      <ol class="academy-case-steps" aria-label="Inside DAT preparation">
+        <li><span class="academy-step-index" aria-hidden="true">01</span><div><h3>Survey of the Natural Sciences</h3><p>Biology, general and organic chemistry in timed drills.</p></div></li>
+        <li><span class="academy-step-index" aria-hidden="true">02</span><div><h3>Perceptual Ability</h3><p>All six subtests, with unlimited generated figures.</p></div></li>
+        <li><span class="academy-step-index" aria-hidden="true">03</span><div><h3>Reading and Quantitative Reasoning</h3><p>Timed passages, and the exam’s on-screen calculator.</p></div></li>
+      </ol>
     </section>
 
     <section class="academy-clinical" aria-labelledby="academy-clinical-title">
@@ -1469,6 +1505,7 @@ function renderMission() {
     }
   });
   main.querySelector('#m-mcat').addEventListener('click', gotoMCAT);
+  main.querySelector('#m-dat').addEventListener('click', () => navigateSection('dat'));
   main.querySelector('#m-cases').addEventListener('click', () => navigateSection('practice'));
   main.querySelector('#m-enter').addEventListener('click', gotoMCAT);
   main.querySelector('#m-updates').addEventListener('click', renderUpdates);

@@ -1,6 +1,7 @@
 /* Verify source/index/history alignment; this does not validate clinical judgment. */
 const fs = require('node:fs'),
-  assert = require('node:assert/strict');
+  assert = require('node:assert/strict'),
+  { createHash } = require('node:crypto');
 const read = path => JSON.parse(fs.readFileSync(path, 'utf8'));
 const history = read('content/clinical-corrections-m29.json'),
   manifest = read('data/manifest.json'),
@@ -20,12 +21,30 @@ for (const row of index) {
   for (const field of ['title', 'difficulty', 'diagnosis'])
     assert.equal(row[field], entry.case[field], row.id + ' ' + field);
 }
-const later = read('data/clinical-shift-revisions.json').changes.filter(r => r.caseId === history.case.id),
+const reconciliation = read('content/clinical-corrections-reconciliation-2026-09-23.json');
+assert.equal(reconciliation.format, 'cortex-clinical-history-reconciliation');
+assert.equal(reconciliation.kind, 'reconstructed-authoring-history');
+assert.equal(reconciliation.caseId, history.case.id);
+assert.equal(reconciliation.actualChangeDate, null);
+assert.match(reconciliation.recordedOn, /^\d{4}-\d{2}-\d{2}$/);
+assert.equal(reconciliation.sourceEvidence.preservedHistoryPath, 'content/clinical-corrections-m29.json');
+assert.equal(
+  createHash('sha256').update(fs.readFileSync(reconciliation.sourceEvidence.preservedHistoryPath)).digest('hex'),
+  reconciliation.sourceEvidence.preservedHistorySha256,
+  'The original correction record must remain intact'
+);
+const later = [
+    ...read('data/clinical-shift-revisions.json').changes.filter(r => r.caseId === history.case.id),
+    ...reconciliation.changes,
+  ],
   expected = JSON.parse(JSON.stringify(history.case.after));
 for (const r of later) {
+  assert.equal(r.caseId, history.case.id);
+  assert.match(r.path, /^\/case\//);
   const keys = r.path.replace(/^\/case\//, '').split('/');
   let node = expected;
   for (const k of keys.slice(0, -1)) node = node[k];
+  assert.ok(Object.hasOwn(node, keys.at(-1)), r.path + ' must identify an existing field');
   assert.equal(node[keys.at(-1)], r.before, r.path + ' before');
   node[keys.at(-1)] = r.after;
 }
@@ -50,5 +69,5 @@ assert.deepEqual(lab, history.lab.after);
 assert.equal(lab.id, history.lab.before.id);
 assert.equal(lab.review.status, 'pending');
 console.log(
-  `${source.size} current case/index entries agree; corrected case and lab match their preserved before/after history; five answer indices retained. Clinical and browser review remain pending.`
+  `${source.size} current case/index entries agree; corrected case and lab match their preserved history and dated reconciliation; five answer indices retained. No new clinical review is claimed.`
 );

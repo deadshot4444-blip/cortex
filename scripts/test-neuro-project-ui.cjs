@@ -339,7 +339,8 @@ test('failed result and completion saves do not advance the visible state until 
   assert.equal(h.find('#project-new'), null);
   h.fail = false;
   h.run('StudyStorage.retry()');
-  await tick();
+  // Recovery verifies the saved inputs asynchronously before rebuilding the completed view.
+  await h.until(() => h.find('#project-new'));
   assert.ok(h.work(projects[0].id).completedAt);
   assert.ok(h.find('#project-new'));
   h.close();

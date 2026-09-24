@@ -304,6 +304,27 @@ test('the "subtract the speeds" distractor carries the value that error actually
   assert.equal(it.options[d.i], '10.5 hours');
 });
 
+test('the average-rate trap uses the mean of the two rates and reaches its distractor', () => {
+  const it = get('qr-applied-5');
+  const rates = [...it.stem.matchAll(/(\d+) (?:instrument )?trays per hour/g)].map(m => Number(m[1]));
+  const trays = Number(it.stem.match(/prepare (\d+) trays/)[1]);
+  assert.equal(rates.length, 2);
+  const sum = rates.reduce((a, b) => a + b, 0);
+  assert.equal(it.options[it.answer], `${trays / sum} hours`);
+  const d = it.distractors.find(x => /instead of the combined rate/.test(x.why));
+  assert.ok(d, 'the average-rate trap is present');
+  assert.equal(it.options[d.i], `${trays / (sum / rates.length)} hours`);
+  assert.doesNotMatch(it.explanation + d.why, /16 trays/);
+});
+
+test('x greater than one does not exclude fractions greater than one', () => {
+  const it = get('qr-qc-8');
+  assert.ok(it.worked.values.x.some(x => x > 1 && !Number.isInteger(x)));
+  assert.doesNotMatch(it.explanation, /rules fractions out/);
+  assert.match(it.explanation, /between 0 and 1/);
+  assert.equal(it.answer, 0);
+});
+
 test('the unsquared-radius gloss calls pi*r*h an area, not a length times an area', () => {
   // qr-applied-7's explanation said "a length times an area", which is a volume.
   const it = get('qr-applied-7');

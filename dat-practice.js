@@ -1,7 +1,8 @@
-/* DAT timed drills (DAT-03): setup, runner, review, cheat sheets and the mistake-log
-   placeholder. Reads location.search for its own options (section, category, topic, n,
-   mode, review), resumes from cs-dat-r-drill, logs every answer to cs-dat-log / cs-dat-q and
-   enrols misses into cs-dat-srs through DatDrillCore. Names: #dat-*, .dat-*, data-dat-* only;
+/* DAT timed drills (DAT-03) and the mistake log (DAT-05): setup, runner, review, cheat sheets,
+   the log reader and the spaced review drill. Reads location.search for its own options
+   (section, category, topic, n, mode, review), resumes from cs-dat-r-drill (cs-dat-r-review for
+   a review), logs every answer to cs-dat-log / cs-dat-q and enrols misses into cs-dat-srs
+   through DatDrillCore. Names: #dat-*, .dat-*, data-dat-* only;
    option letters come from LETTERS (app.js) over options.length, never a literal count. */
 (function () {
   'use strict';
@@ -10,7 +11,14 @@
     HIST_KEY = 'cs-dat-q',
     SRS_KEY = 'cs-dat-srs',
     RESUME_KEY = 'cs-dat-r-drill',
-    LOG_CAP = 2000;
+    REVIEW_RESUME_KEY = 'cs-dat-r-review',
+    LOG_CAP = 2000,
+    REVIEW_CAP = 20;
+  // A review answer rates itself from the confidence the learner already chose: a miss is
+  // "again", and a correct answer is hard, good or easy as they felt guessing, unsure or sure.
+  const RATING = { guess: 'hard', unsure: 'good', sure: 'easy' };
+  // Log order for the mistake log, matching the test-day blocks.
+  const LOG_SECTIONS = ['bio', 'gchem', 'ochem', 'pat', 'rc', 'qr'];
   const CONF = { guess: 'Guess', unsure: 'Unsure', sure: 'Sure' };
   const MODES = { paced: 'Paced', exam: 'Exam clock', untimed: 'Untimed' };
   const MODE_HINT = {
@@ -63,10 +71,22 @@
       const log = StudyStorage.read(LOG_KEY, []),
         hist = StudyStorage.read(HIST_KEY, {}),
         srs = StudyStorage.read(SRS_KEY, {});
+      const valid = {
+        log: Core.validAttemptStore(log, 'log'),
+        hist: Core.validAttemptStore(hist, 'hist'),
+        srs: Core.validAttemptStore(srs, 'srs'),
+      };
+      // Keep the saved copy for recovery; never overwrite an invalid store with empty progress.
+      if (!Object.values(valid).every(Boolean))
+        StudyStorage.sessionFailed(
+          Object.keys(valid)
+            .filter(key => !valid[key])
+            .map(key => ({ log: LOG_KEY, hist: HIST_KEY, srs: SRS_KEY })[key])
+        );
       DAT.attemptStores = {
-        log: Array.isArray(log) ? log : [],
-        hist: hist && typeof hist === 'object' ? hist : {},
-        srs: srs && typeof srs === 'object' ? srs : {},
+        log: valid.log ? log : [],
+        hist: valid.hist ? hist : {},
+        srs: valid.srs ? srs : {},
       };
       // The callbacks read back through stores(), so a reset between writes hands StudyStorage the
       // rebuilt cache rather than the dropped one.
@@ -94,7 +114,10 @@
     const store = stores();
     const ts = now();
     if (!store.log.some(row => row.attemptId === run.attemptId && row.qId === entry.id)) {
-      store.log.push(Core.logRow(run, Object.assign({ ts }, entry), ts));
+      const row = Core.logRow(run, Object.assign({ ts }, entry), ts);
+      // A PAT row keeps its regeneration triple and a reading row its passage, as their own runners write them.
+      for (const key of ['subtest', 'seed', 'level', 'passage']) if (entry[key] != null) row[key] = entry[key];
+      store.log.push(row);
       if (store.log.length > LOG_CAP) store.log.splice(0, store.log.length - LOG_CAP);
     }
     const h = store.hist[entry.id] || { n: 0 };
@@ -104,8 +127,15 @@
     h.conf = entry.conf;
     h.ts = ts;
     store.hist[entry.id] = h;
-    let ok = StudyStorage.write(LOG_KEY, store.log) && StudyStorage.write(HIST_KEY, store.hist);
-    if (!entry.correct) {
+    // Queue every record even when the first write fails, so Retry can save the whole answer.
+    const logOK = StudyStorage.write(LOG_KEY, store.log);
+    let ok = StudyStorage.write(HIST_KEY, store.hist) && logOK;
+    const rec = run.review ? store.srs[entry.id] : null;
+    if (rec) {
+      // Rescheduled in place, so a PAT record keeps its triple and a reading record its passage.
+      Core.schedule(rec, entry.correct ? RATING[entry.conf] || 'good' : 'again', ts);
+      ok = StudyStorage.write(SRS_KEY, store.srs) && ok;
+    } else if (!entry.correct) {
       Core.enroll(store.srs, entry, ts);
       ok = StudyStorage.write(SRS_KEY, store.srs) && ok;
     }
@@ -119,16 +149,22 @@
     if (blob.deadline) blob._remain = Math.max(0, blob.deadline - now());
     delete blob.deadline;
     blob._saved = now();
-    const ok = StudyStorage.write(RESUME_KEY, blob);
+    const ok = StudyStorage.write(drill.review ? REVIEW_RESUME_KEY : RESUME_KEY, blob);
     saveStatus(ok);
     return ok;
   }
-  function loadResume() {
-    const blob = StudyStorage.read(RESUME_KEY, null);
-    return blob && Array.isArray(blob.qs) && blob.scope ? blob : null;
+  // A review saves under its own key, so starting one never replaces a drill in progress.
+  function loadResume(review = false) {
+    const blob = StudyStorage.read(review ? REVIEW_RESUME_KEY : RESUME_KEY, null);
+    if (blob === null) return null;
+    if (!Core.validDrillResume(blob) || !!blob.review !== review) {
+      StudyStorage.sessionFailed([review ? REVIEW_RESUME_KEY : RESUME_KEY]);
+      return null;
+    }
+    return blob;
   }
-  function clearResume() {
-    return StudyStorage.remove(RESUME_KEY);
+  function clearResume(review = false) {
+    return StudyStorage.remove(review ? REVIEW_RESUME_KEY : RESUME_KEY);
   }
 
   /* ---------- outline helpers ---------- */
@@ -137,6 +173,7 @@
   }
   function sectionName(key) {
     if (key === 'mixed') return 'Mixed sciences';
+    if (key === 'review') return 'Mistake review';
     return outline()?.sections?.[key]?.name || key;
   }
   function sectionAbbr(key) {
@@ -182,10 +219,45 @@
   function sameScope(a, b) {
     return a.section === b.section && (a.category || '') === (b.category || '') && (a.topic || '') === (b.topic || '');
   }
+  // Every item a drill can show, in the runner's shape (section, category, topic, stem, options,
+  // answer, explanation, distractors). The mistake log holds ids from all four runners: bank items
+  // (bio, gchem, ochem, qr) come from DAT.questions and reading questions from DAT.rc with their
+  // passage. PAT items are rebuilt from the id by lookup(); nothing about a figure is stored.
   function byId() {
     const map = new Map();
     for (const q of DAT.questions) map.set(q.id, q);
+    for (const passage of DAT.rc?.passages || [])
+      for (const q of passage.questions || [])
+        map.set(q.id, Object.assign({}, q, { section: 'rc', category: rcCategory(q), topic: null, passage }));
     return map;
+  }
+  // readingSkills rc-1..rc-3 mirror the outline categories RC-1..RC-3, as dat-rc.js logs them.
+  function rcCategory(q) {
+    const n = String(q?.skill || '').split('-')[1];
+    return n ? 'RC-' + n : 'RC';
+  }
+  // A PAT id carries its (subtest, seed, level) triple; DatPatCore regenerates the figure and its
+  // options from it. Without the engine loaded the item is unavailable and a review skips it.
+  function patItem(id) {
+    const Pat = window.DatPatCore;
+    const item = typeof Pat?.fromId === 'function' ? Pat.fromId(id) : null;
+    if (!item) return null;
+    const rendered = Pat.render(item);
+    return Object.assign({}, item, {
+      section: 'pat',
+      topic: null,
+      figure: rendered.figure,
+      options: rendered.options,
+      optionKind: rendered.optionKind,
+      pat: true,
+    });
+  }
+  function resolver() {
+    const map = byId();
+    return id => map.get(id) || patItem(id);
+  }
+  function lookup(id) {
+    return resolver()(id);
   }
   function fmtClock(ms) {
     const s = Math.max(0, Math.ceil(ms / 1000));
@@ -240,16 +312,57 @@
     };
     return true;
   }
+  // A review re-asks what the mistake log has due, most overdue first, capped at REVIEW_CAP. An
+  // item this page cannot show (a retired bank item, a PAT item without its engine) waits in the
+  // log untouched. Reviews are untimed: the point is to rework the item, not to race it.
+  function startReview(section) {
+    const store = stores(),
+      find = resolver(),
+      seed = now() % 2147483647;
+    const items = Core.dueMistakes(store.srs, now())
+      .filter(rec => !section || rec.section === section)
+      .map(rec => find(rec.id))
+      .filter(Boolean)
+      .slice(0, REVIEW_CAP);
+    if (!items.length) return false;
+    const orders = {};
+    // Bank items reshuffle as a drill does; reading and PAT options keep the order their own runners show.
+    items.forEach(
+      (q, i) =>
+        (orders[q.id] = q.section === 'rc' || q.pat ? q.options.map((_, j) => j) : Core.orderOptions(q, seed + i))
+    );
+    drill = {
+      scope: { section: 'review', category: '', topic: '' },
+      filter: section || '',
+      review: true,
+      source: 'review',
+      n: items.length,
+      mode: 'untimed',
+      qs: items.map(q => q.id),
+      orders,
+      idx: 0,
+      results: [],
+      attemptId: attemptId(),
+      seed,
+      paceSeconds: Core.pace(outline(), items[0]),
+      startedAt: now(),
+      itemStart: null,
+      itemMs: 0,
+      deadline: null,
+      shownSets: [],
+    };
+    return true;
+  }
   function resumeRun(blob) {
     stores();
-    const map = byId();
+    const find = resolver();
     // A deploy can retire a bank item under a saved blob. Dropping its id from qs shifts every
     // later position, so results and idx are re-indexed through the same keep list rather than
     // carried over: the learner keeps every answer they gave, each still attached to the question
     // it was given for. (orders is keyed by id, so it needs no re-indexing.)
-    const keep = blob.qs.map((id, i) => i).filter(i => map.has(blob.qs[i]));
+    const keep = blob.qs.map((id, i) => i).filter(i => find(blob.qs[i]));
     if (!keep.length) {
-      clearResume();
+      clearResume(!!blob.review);
       return false;
     }
     const qs = keep.map(i => blob.qs[i]);
@@ -445,7 +558,6 @@
       refresh();
     });
     start.addEventListener('click', () => {
-      if (saved && !sameScope(saved.scope, state)) clearResume();
       datGo(scopeParams(state, { n: state.n, mode: state.mode }));
     });
     refresh();
@@ -475,12 +587,22 @@
   }
 
   function optionButtons(item, order, letters) {
+    // PAT options are figures DatPatCore drew from the item's own seed, never stored text.
+    const svg = item.optionKind === 'svg';
     return order
       .map(
         (authored, pos) =>
-          `<button class="opt dat-opt" id="dat-opt-${pos}" data-dat-i="${authored}" data-dat-pos="${pos}"><span class="key">${esc(letters[pos] ?? pos + 1)}</span><span>${esc(item.options[authored])}</span></button>`
+          `<button class="opt dat-opt${svg ? ' dat-pat-opt-svg' : ''}" id="dat-opt-${pos}" data-dat-i="${authored}" data-dat-pos="${pos}"><span class="key">${esc(letters[pos] ?? pos + 1)}</span>${svg ? `<span class="dat-pat-opt-body">${item.options[authored]}</span>` : `<span>${esc(item.options[authored])}</span>`}</button>`
       )
       .join('');
+  }
+  // A reading question is re-asked with its passage, paragraphs numbered as the RC runner numbers them.
+  function passageHtml(passage) {
+    const paragraphs = String(passage?.text || '')
+      .split(/\n\n+/)
+      .map(par => par.trim())
+      .filter(Boolean);
+    return `<details class="dat-review-passage" open><summary>Passage &middot; ${esc(passage?.title || '')}</summary><div class="dat-review-passage-text">${paragraphs.map((par, i) => `<p data-dat-par="${i + 1}"><span class="dat-review-par-n">${i + 1}</span>${esc(par)}</p>`).join('')}</div></details>`;
   }
   function tableHtml(table) {
     if (!table) return '';
@@ -488,6 +610,7 @@
   }
   function itemBody(item) {
     const parts = [];
+    if (item.section === 'rc' && item.passage) parts.push(passageHtml(item.passage));
     if (item.format === 'data' && item.table) {
       const again = item.setId && drill.shownSets.includes(item.setId);
       parts.push(
@@ -507,7 +630,8 @@
       parts.push(
         `<ol class="dat-ds">${item.statements.map((s, i) => `<li><span class="label">Statement ${i + 1}</span><p>${esc(s)}</p></li>`).join('')}</ol>`
       );
-    if (item.figure) parts.push(`<figure class="dat-figure">${item.figure}</figure>`);
+    if (item.pat) parts.push(`<div class="dat-pat-figure">${item.figure}</div>`);
+    else if (item.figure) parts.push(`<figure class="dat-figure">${item.figure}</figure>`);
     return parts.join('');
   }
   function periodicTableHtml() {
@@ -543,13 +667,15 @@
     modal.addEventListener('click', e => {
       if (e.target === modal) close();
     });
+    // aria-modal promises the page behind is out of reach, so Tab has to stay inside the table.
+    window.trapModal?.(modal, close);
     modal.querySelector('#dat-periodic-close').focus();
   }
 
   function renderItem() {
     if (!drill) return renderSetup();
     if (drill.idx >= drill.qs.length) return finishRun(false);
-    const item = byId().get(drill.qs[drill.idx]);
+    const item = lookup(drill.qs[drill.idx]);
     if (!item) {
       drill.idx++;
       return renderItem();
@@ -558,7 +684,11 @@
       order = drill.orders[item.id] || Core.orderOptions(item, drill.seed),
       letters = Core.letters(order.length),
       saved = drill.results[drill.idx],
-      exit = datUrl({ view: 'drill' });
+      exit = datUrl({ view: drill.review ? 'mistakes' : 'drill' });
+    const calculator =
+      item.section === 'qr' &&
+      typeof window.DatQr?.openCalculator === 'function' &&
+      (outline()?.tools?.calculator?.sections || ['qr']).includes('qr');
     if (!saved && item.setId && !drill.shownSets.includes(item.setId)) {
       // The set's table shows in full for this item and collapsed for the rest of the set.
       setTimeout(() => drill && drill.shownSets.push(item.setId), 0);
@@ -573,11 +703,11 @@
     const root = el(`<div class="dat-drill" data-dat-mode="${drill.mode}">
       <header class="dat-drill-bar">
         <a class="dat-drill-exit" id="dat-drill-exit" data-dat-go href="${esc(exit)}">&larr; Exit</a>
-        <nav class="dat-drill-crumb" aria-label="Drill position"><span>DAT</span><span>${esc(sectionAbbr(item.section))}</span><span>${esc(categoryTitle(item.category))}</span></nav>
+        <nav class="dat-drill-crumb" aria-label="Drill position"><span>${drill.review ? 'Review' : 'DAT'}</span><span>${esc(sectionAbbr(item.section))}</span><span>${esc(categoryTitle(item.category))}</span></nav>
         <div class="dat-drill-right">${clock}<span class="dat-drill-count">Q ${drill.idx + 1}/${drill.qs.length}</span></div>
       </header>
-      <main class="case dat-drill-main">
-        <div class="dat-drill-tools">${periodicTableAllowed(item.section) ? '<button class="btn" id="dat-periodic" type="button">Periodic table</button>' : ''}<span class="dat-drill-topic">${esc(item.topic || '')}</span></div>
+      <main class="case dat-drill-main${item.pat ? ' dat-review-pat' : ''}">
+        <div class="dat-drill-tools">${periodicTableAllowed(item.section) ? '<button class="btn" id="dat-periodic" type="button">Periodic table</button>' : ''}${calculator ? '<button class="btn" id="dat-review-calc" type="button">Calculator</button>' : ''}<span class="dat-drill-topic">${esc(item.topic || '')}</span></div>
         <div class="block dat-item">${itemBody(item)}</div>
         <div class="dat-conf-row"><span class="label">Confidence</span><div class="modes" id="dat-conf">${Object.entries(
           CONF
@@ -587,7 +717,7 @@
               `<button class="mode dat-conf${k === 'unsure' ? ' active' : ''}" data-dat-conf="${k}" type="button">${label}</button>`
           )
           .join('')}</div></div>
-        <div class="opts dat-opts" id="dat-opts">${optionButtons(item, order, letters)}</div>
+        <div class="opts dat-opts${item.optionKind === 'svg' ? ' dat-pat-opts-svg' : ''}" id="dat-opts">${optionButtons(item, order, letters)}</div>
         <div class="dat-after" id="dat-after"></div>
         <p class="dat-save-status" id="dat-save-status" role="status"></p>
       </main>
@@ -603,6 +733,7 @@
       .querySelectorAll('.dat-opt')
       .forEach(b => b.addEventListener('click', () => answer(root, item, +b.dataset.datI, conf)));
     root.querySelector('#dat-periodic')?.addEventListener('click', () => openPeriodicTable(root));
+    root.querySelector('#dat-review-calc')?.addEventListener('click', () => window.DatQr.openCalculator(root));
     const wrap = el('<div></div>');
     wrap.appendChild(topbar('dat'));
     wrap.appendChild(root);
@@ -638,6 +769,8 @@
       conf,
       ms,
     };
+    if (item.pat) Object.assign(entry, { subtest: item.subtest, seed: item.seed, level: item.level });
+    if (item.section === 'rc' && item.passage) entry.passage = item.passage.id;
     drill.results[drill.idx] = entry;
     drill.itemStart = null;
     drill.itemMs = 0;
@@ -659,6 +792,36 @@
       .join('');
     return rows ? `<div class="autopsy dat-autopsy"><span class="label">Distractor autopsy</span>${rows}</div>` : '';
   }
+  function evidenceNote(item) {
+    const evidence = item.section === 'rc' ? (item.evidenceParagraphs || []).filter(n => n >= 1) : [];
+    return evidence.length
+      ? `<p class="dat-review-evidence-note">Evidence: paragraph ${evidence.join(', ')}, marked in the passage above.</p>`
+      : '';
+  }
+  // The PAT review's worked steps, regenerated with the figure.
+  function patSteps(item) {
+    if (!item.pat || typeof window.DatPatCore?.explain !== 'function') return '';
+    const steps = window.DatPatCore.explain(item);
+    return steps.length
+      ? `<details class="dat-pat-steps"><summary>How the figure works</summary><ol>${steps.map(step => `<li><strong>${esc(step.title)}</strong><p>${esc(step.text)}</p>${step.svg ? `<div class="dat-pat-figure dat-pat-figure-step">${step.svg}</div>` : ''}</li>`).join('')}</ol></details>`
+      : '';
+  }
+  function dueText(due, t = now()) {
+    const ms = due - t;
+    if (ms <= 0) return 'due now';
+    if (ms < 3600000) return `due in ${Math.max(1, Math.round(ms / 60000))} min`;
+    if (ms < Core.DAY) return `due in ${Math.round(ms / 3600000)} h`;
+    const days = Math.round(ms / Core.DAY);
+    return `due in ${days} day${days === 1 ? '' : 's'}`;
+  }
+  // What a review answer did to the item's schedule, in words.
+  function reviewNote(item, entry) {
+    const rec = drill?.review ? stores().srs[item.id] : null;
+    if (!rec) return '';
+    return entry.correct
+      ? `<p class="dat-review-next">Marked ${esc(CONF[entry.conf] || 'Unsure')}, so this counts as ${RATING[entry.conf] || 'good'}: ${dueText(rec.due)}.</p>`
+      : '<p class="dat-review-next">Still in your mistake log, due again in a minute.</p>';
+  }
   function reveal(root, item, entry) {
     const order = drill.orders[item.id] || Core.orderOptions(item, drill.seed),
       examMode = drill.mode === 'exam';
@@ -677,10 +840,15 @@
     });
     const last = drill.idx + 1 >= drill.qs.length,
       after = root.querySelector('#dat-after');
-    const seconds = typeof entry.ms === 'number' ? (entry.ms / 1000).toFixed(0) : null;
+    const seconds = typeof entry.ms === 'number' ? (entry.ms / 1000).toFixed(0) : null,
+      overPace = !drill.review && typeof entry.ms === 'number' && entry.ms > drill.paceSeconds * 1000;
+    if (item.section === 'rc')
+      root.querySelectorAll('.dat-review-passage-text p').forEach(par => {
+        par.classList.toggle('dat-review-evidence', (item.evidenceParagraphs || []).includes(+par.dataset.datPar));
+      });
     after.innerHTML = examMode
       ? `<div class="continue-row"><span class="hint">answer recorded${seconds ? ` &middot; ${seconds} s` : ''}</span><button class="btn btn-solid" id="dat-next" data-next>${last ? 'Finish' : 'Next'}</button></div>`
-      : `<div class="explain dat-explain ${entry.correct ? 'good' : 'bad'}"><span class="verdict">${entry.correct ? 'CORRECT' : 'INCORRECT'}${seconds ? ` &middot; ${seconds} s${entry.ms > drill.paceSeconds * 1000 ? ' (over pace)' : ''}` : ''}</span><p>${esc(item.explanation)}</p>${autopsyHtml(item, order, entry.chosen)}</div>
+      : `<div class="explain dat-explain ${entry.correct ? 'good' : 'bad'}"><span class="verdict">${entry.correct ? 'CORRECT' : 'INCORRECT'}${seconds ? ` &middot; ${seconds} s${overPace ? ' (over pace)' : ''}` : ''}</span><p>${esc(item.explanation)}</p>${evidenceNote(item)}${autopsyHtml(item, order, entry.chosen)}${patSteps(item)}${reviewNote(item, entry)}</div>
         <div class="continue-row"><span class="hint">ENTER &rarr;</span><button class="btn btn-solid" id="dat-next" data-next>${last ? 'Results' : 'Next'}</button></div>`;
     after.querySelector('#dat-next').addEventListener('click', () => {
       if (!drill) return;
@@ -693,10 +861,10 @@
   function finishRun(forced) {
     if (!drill) return renderSetup();
     stopTicker();
-    const map = byId();
+    const find = resolver();
     drill.qs.forEach((id, i) => {
       if (drill.results[i]) return;
-      const item = map.get(id);
+      const item = find(id);
       if (!item) return;
       const entry = {
         id,
@@ -716,38 +884,44 @@
     drill.forced = !!forced;
     lastRun = drill;
     drill = null;
-    clearResume();
+    clearResume(!!lastRun.review);
     renderReview(lastRun);
   }
 
   function renderReview(run) {
     const o = outline(),
-      map = byId(),
+      find = resolver(),
       s = Core.summary(run);
     const secs = s.msPerItem ? (s.msPerItem / 1000).toFixed(1) : '—';
     const topics = Object.entries(s.byTopic).sort(
       (a, b) => a[1].correct / a[1].n - b[1].correct / b[1].n || b[1].n - a[1].n || a[0].localeCompare(b[0])
     );
-    const again = datUrl(scopeParams(run.scope, { n: run.n, mode: run.mode }));
+    const again = run.review
+      ? datUrl({ view: 'mistakes' })
+      : datUrl(scopeParams(run.scope, { n: run.n, mode: run.mode }));
     const letterFor = (item, authored) => {
       const order = run.orders[item.id] || Core.orderOptions(item, run.seed);
       return Core.letters(order.length)[order.indexOf(authored)] ?? '—';
     };
     const main = el(`<main class="panel dat-review">
       <section class="summary dat-review-summary">
-        <span class="label">Drill complete${run.forced ? ' &middot; section clock ended the drill' : ''}</span>
+        <span class="label">${run.review ? 'Review complete' : 'Drill complete'}${run.forced ? ' &middot; section clock ended the drill' : ''}</span>
         <div class="score">${String(s.correct).padStart(2, '0')}<span class="of">/${String(s.n).padStart(2, '0')}</span></div>
         <dl class="dat-review-stats">
           <div><dt>Accuracy</dt><dd id="dat-review-accuracy">${pct(s.accuracy)}</dd></div>
-          <div><dt>Seconds per item</dt><dd id="dat-review-pace">${secs} s <small>vs ${s.paceSeconds} s target</small></dd></div>
-          <div><dt>Over pace</dt><dd>${s.overPace} of ${s.n}</dd></div>
+          <div><dt>Seconds per item</dt><dd id="dat-review-pace">${secs} s${run.review ? '' : ` <small>vs ${s.paceSeconds} s target</small>`}</dd></div>
+          ${
+            run.review
+              ? `<div><dt>Still due soon</dt><dd id="dat-review-lapsed">${s.n - s.correct}</dd></div>`
+              : `<div><dt>Over pace</dt><dd>${s.overPace} of ${s.n}</dd></div>
           <div><dt>Fast wrong</dt><dd id="dat-review-fast-wrong">${s.fastWrong}</dd></div>
-          <div><dt>Slow wrong</dt><dd id="dat-review-slow-wrong">${s.slowWrong}</dd></div>
+          <div><dt>Slow wrong</dt><dd id="dat-review-slow-wrong">${s.slowWrong}</dd></div>`
+          }
           ${s.unanswered ? `<div><dt>Unanswered</dt><dd>${s.unanswered}</dd></div>` : ''}
         </dl>
         <div class="ticks">${run.results.map((r, i) => `<span class="${r?.correct ? 'ok' : 'no'}">Q${i + 1} ${r?.correct ? '&#10003;' : '&#10007;'}</span>`).join('')}</div>
       </section>
-      <section class="dat-review-topics" aria-labelledby="dat-review-topics-title"><h2 id="dat-review-topics-title">By topic</h2>
+      <section class="dat-review-topics" aria-labelledby="dat-review-topics-title"${topics.length ? '' : ' hidden'}><h2 id="dat-review-topics-title">By topic</h2>
         <table class="dat-topic-table"><thead><tr><th scope="col">Category</th><th scope="col">Topic</th><th scope="col">Correct</th><th scope="col">Accuracy</th></tr></thead>
         <tbody>${topics
           .map(
@@ -759,7 +933,7 @@
       <section class="drill-review dat-review-items"><span class="label">Review</span>
         ${run.qs
           .map((id, i) => {
-            const item = map.get(id),
+            const item = find(id),
               r = run.results[i];
             if (!item || !r) return '';
             const order = run.orders[item.id] || Core.orderOptions(item, run.seed);
@@ -768,13 +942,18 @@
               <div class="rev-body">
                 <div class="rev-ans">You: ${r.chosen == null ? 'Unanswered' : esc(letterFor(item, r.chosen))} &middot; Correct: <b>${esc(letterFor(item, item.answer))}</b>${r.conf ? ` &middot; felt ${CONF[r.conf] || esc(r.conf)}` : ''}${typeof r.ms === 'number' ? ` &middot; ${(r.ms / 1000).toFixed(0)} s` : ''}</div>
                 <p class="dat-rev-topic">${esc(categoryTitle(item.category))} &middot; ${esc(item.topic || '')}</p>
+                ${item.pat ? `<div class="dat-pat-figure">${item.figure}</div>` : ''}
                 <p>${esc(item.explanation)}</p>
                 ${autopsyHtml(item, order, r.chosen)}
               </div></details>`;
           })
           .join('')}
       </section>
-      <div class="endbtns"><a class="btn btn-solid" id="dat-again" data-dat-go href="${esc(again)}">Drill again</a><a class="btn" data-dat-go href="${esc(datUrl({ view: 'drill' }))}">New drill</a><a class="btn" data-dat-go href="${esc(datUrl({ view: 'mistakes' }))}">Mistake log</a>${backLink()}</div>
+      <div class="endbtns">${
+        run.review
+          ? `<a class="btn btn-solid" id="dat-again" data-dat-go href="${esc(again)}">Back to the mistake log</a><a class="btn" data-dat-go href="${esc(datUrl({ view: 'drill' }))}">New drill</a>`
+          : `<a class="btn btn-solid" id="dat-again" data-dat-go href="${esc(again)}">Drill again</a><a class="btn" data-dat-go href="${esc(datUrl({ view: 'drill' }))}">New drill</a><a class="btn" data-dat-go href="${esc(datUrl({ view: 'mistakes' }))}">Mistake log</a>`
+      }${backLink()}</div>
       <p class="dat-save-status" id="dat-save-status" role="status"></p>
       ${o?.optionPolicy?.sns?.status === 'unverified' ? `<p class="course-caption">Option count per item follows the outline's option policy (${esc(o.optionPolicy.sns.status)}).</p>` : ''}
     </main>`);
@@ -785,6 +964,8 @@
   /* ---------- entry points ---------- */
   function render() {
     const p = params();
+    // Checked first: a review may be limited to qr, pat or rc, which would otherwise hand off below.
+    if (p.review) return reviewEntry(p.section);
     if (p.section === 'qr' && window.DatQr?.render) {
       history.replaceState(
         { sec: 'dat' },
@@ -808,40 +989,94 @@
       return window.DatRc.render();
     }
     if (!p.section) return renderSetup();
-    if (p.review) return mistakes();
     if (p.mode === 'sheet') return renderSheet(p.section);
     const scope = { section: p.section, category: p.category, topic: p.topic };
     const saved = loadResume();
     if (saved && sameScope(saved.scope, scope) && resumeRun(saved)) return renderItem();
+    if (
+      saved &&
+      !sameScope(saved.scope, scope) &&
+      !window.confirm(
+        'Replace your unfinished science drill with this new drill? Cancel keeps the saved drill so you can resume it.'
+      )
+    ) {
+      history.replaceState({ sec: 'dat' }, '', datUrl({ view: 'drill' }));
+      return renderSetup();
+    }
     if (!startRun(scope, p.n, p.mode))
       return renderSetup(
         `<strong>No items match that scope yet.</strong><p>${esc(sectionName(p.section))}${p.category ? ` · ${esc(p.category)}` : ''}${p.topic ? ` · ${esc(p.topic)}` : ''} has no practice items in the loaded banks. Pick another scope below.</p>`
       );
     renderItem();
   }
-  // DAT-05 builds the grouped log and the review drill; this lists what is due today.
-  function mistakes() {
-    const store = stores();
-    const due = Core.dueMistakes(store.srs, now()),
-      total = Object.keys(store.srs).length,
-      map = byId();
-    const groups = {};
-    for (const rec of due) (groups[rec.section || 'other'] ||= []).push(rec);
+  // /dat?view=drill&review=1[&section=x]: resume the review in progress for the same filter, or deal
+  // a new one from what is due.
+  function reviewEntry(section) {
+    const filter = LOG_SECTIONS.includes(section) ? section : '';
+    const saved = loadResume(true);
+    if (saved && (saved.filter || '') === filter && resumeRun(saved)) return renderItem();
+    if (
+      saved &&
+      (saved.filter || '') !== filter &&
+      !window.confirm(
+        'Replace your unfinished mistake review with this new review? Cancel keeps the saved review so you can resume it.'
+      )
+    ) {
+      history.replaceState({ sec: 'dat' }, '', datUrl({ view: 'mistakes' }));
+      return mistakes();
+    }
+    if (!startReview(filter)) return mistakes('Nothing in your mistake log is due right now.');
+    renderItem();
+  }
+  function patAlias(subtest) {
+    return DAT.pat?.subtests?.find(s => s.id === subtest)?.alias || subtest;
+  }
+  function snippet(item, rec) {
+    if (!item)
+      return rec.section === 'pat'
+        ? 'A perceptual-ability figure. It can be rebuilt once the PAT engine loads.'
+        : 'This item is no longer in the bank.';
+    const stem = item.stem.length > 110 ? item.stem.slice(0, 110) + '…' : item.stem;
+    if (item.pat) return `${patAlias(item.subtest)} · level ${item.level} · ${stem}`;
+    if (item.section === 'rc') return `${item.passage?.title || 'Reading'}: ${stem}`;
+    return stem;
+  }
+  // The mistake log (DAT-05): every item a runner enrolled, grouped by section in test-day order,
+  // most overdue first, with when each one comes back. Review re-asks the due ones in the drill
+  // runner; the schedule is DatDrillCore's SM-2, shared by all four runners.
+  function mistakes(notice) {
+    const store = stores(),
+      find = resolver(),
+      t = now();
+    const records = Object.entries(store.srs)
+      .filter(([, rec]) => rec && typeof rec === 'object' && Number.isFinite(rec.due))
+      .map(([id, rec]) => ({ id, rec, item: find(id), section: rec.section || 'other' }))
+      .sort((a, b) => a.rec.due - b.rec.due);
+    const due = records.filter(r => r.item && r.rec.due <= t);
+    const sections = [...LOG_SECTIONS, 'other'].filter(sec => records.some(r => r.section === sec));
+    const next = records.find(r => r.item && r.rec.due > t);
+    const saved = loadResume(true);
+    const reviewUrl = section => datUrl(Object.assign({ view: 'drill', review: '1' }, section ? { section } : {}));
     const main = el(`<main class="panel dat-mistakes">
       <div class="hero"><span class="label">DAT &middot; Mistake log</span><h1>Mistake log</h1>
-      <p class="sub">${total ? `${total} missed item${total === 1 ? '' : 's'} enrolled; ${due.length} due now.` : 'Missed drill items are enrolled here automatically.'} Spaced review of these items (re-asking them and rating each answer) arrives in DAT-05.</p></div>
-      ${Object.entries(groups)
-        .map(
-          ([section, list]) =>
-            `<section class="dat-mistake-group"><h2>${esc(sectionName(section))} <small>${list.length} due</small></h2><ul>${list
-              .map(rec => {
-                const item = map.get(rec.id);
-                return `<li><span class="dat-mistake-topic">${esc(categoryTitle(rec.category))}${rec.topic ? ' · ' + esc(rec.topic) : ''}</span>${item ? `<span class="dat-mistake-stem">${esc(item.stem.slice(0, 110))}${item.stem.length > 110 ? '…' : ''}</span>` : `<span class="dat-mistake-stem">${esc(rec.id)}</span>`}<small>${rec.lapses ? `missed ${rec.lapses + 1}×` : 'missed once'}</small></li>`;
-              })
-              .join('')}</ul></section>`
-        )
+      <p class="sub">${records.length ? `${records.length} missed item${records.length === 1 ? '' : 's'} enrolled; ${due.length} due now.` : 'Nothing here yet. Every item you miss in a science drill, a perceptual-ability set, a reading passage or a quantitative set lands here by itself.'}</p>
+      ${records.length ? '<p class="dat-mistakes-how">A missed item comes back in a minute, then a day, then a few days, and further apart each time you get it right. The confidence you mark before answering sets how far: Guess counts as hard, Unsure as good, Sure as easy.</p>' : ''}</div>
+      ${notice ? `<aside class="course-notice dat-drill-notice" role="status">${esc(notice)}</aside>` : ''}
+      ${saved ? `<div class="dat-resume-row"><span>A review is in progress (${(saved.results || []).filter(Boolean).length}/${saved.qs.length} answered).</span><a class="btn btn-solid" id="dat-review-resume" data-dat-go href="${esc(reviewUrl(saved.filter))}">Resume review</a></div>` : ''}
+      ${records.length ? `<div class="endbtns dat-mistakes-actions">${due.length ? `<a class="btn${saved ? '' : ' btn-solid'}" id="dat-review-start" data-dat-go href="${esc(reviewUrl(''))}">Review ${Math.min(due.length, REVIEW_CAP)} due now</a>` : `<span class="dat-mistakes-next" id="dat-review-next">${next ? `Next item ${esc(dueText(next.rec.due, t))}.` : 'Nothing is due.'}</span>`}</div>` : ''}
+      ${sections
+        .map(section => {
+          const list = records.filter(r => r.section === section),
+            dueHere = list.filter(r => r.item && r.rec.due <= t).length;
+          return `<section class="dat-mistake-group" data-dat-section="${esc(section)}"><h2>${esc(section === 'other' ? 'Other' : sectionName(section))} <small>${dueHere} due &middot; ${list.length} in the log</small>${dueHere ? `<a class="dat-mistake-review" data-dat-go href="${esc(reviewUrl(section))}">Review ${esc(section === 'other' ? 'these' : sectionAbbr(section))}</a>` : ''}</h2><ul>${list
+            .map(
+              ({ rec, item }) =>
+                `<li class="${item && rec.due <= t ? 'dat-mistake-due' : ''}${item ? '' : ' dat-mistake-gone'}"><span class="dat-mistake-topic">${esc(categoryTitle(rec.category))}${rec.topic ? ' · ' + esc(rec.topic) : ''}</span><span class="dat-mistake-stem">${esc(snippet(item, rec))}</span><small>${item ? esc(dueText(rec.due, t)) : 'not available here'} &middot; ${rec.lapses ? `missed ${rec.lapses + 1}×` : 'missed once'}${rec.reps ? ` &middot; right ${rec.reps}× in a row` : ''}</small></li>`
+            )
+            .join('')}</ul></section>`;
+        })
         .join('')}
-      <div class="endbtns"><a class="btn btn-solid" data-dat-go href="${esc(datUrl({ view: 'drill' }))}">Start a drill</a>${backLink()}</div>
+      <div class="endbtns"><a class="btn" data-dat-go href="${esc(datUrl({ view: 'drill' }))}">Start a drill</a>${backLink()}</div>
     </main>`);
     page(main);
   }

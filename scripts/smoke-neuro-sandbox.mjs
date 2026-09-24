@@ -19,21 +19,15 @@ await page.waitForSelector('.neuro-library', { timeout: 10000 });
 await page.click('#ne-codelab');
 await page.waitForSelector('#necodelab .neuro-row', { timeout: 10000 });
 
-// Spike counting lesson — starter should run to Spikes: 3
+// Threshold-episode lesson: the stub runs, then the solution passes every authored input case.
 await page.locator('#necodelab .neuro-row').nth(3).click();
 await page.waitForSelector('[data-run-code]', { timeout: 10000 });
 
 await page.click('[data-run-code]');
-await page.waitForFunction(
-  () =>
-    document.querySelector('[data-py-status]')?.textContent?.includes('ready') ||
-    document.querySelector('[data-py-status]')?.textContent?.includes('error') ||
-    document.querySelector('.neuro-term-line.out')?.textContent?.includes('Spikes'),
-  { timeout: 120000 }
-);
+await page.waitForFunction(() => document.querySelector('[data-stop-code]')?.hidden === true, null, { timeout: 60000 });
 
-const runOut = await page.locator('.neuro-term-line.out').last().textContent();
-const starterOk = runOut?.includes('Spikes: 3');
+const runOut = await page.locator('[data-term-log]').textContent();
+const starterOk = runOut?.trim() === 'Events: 0';
 
 // The solution/check controls live inside a collapsed <details> fold — open it first.
 await page.evaluate(() =>
@@ -43,10 +37,10 @@ await page.evaluate(() =>
 );
 await page.click('[data-load-sol]');
 await page.click('[data-check-code]');
-await page.waitForFunction(() => document.querySelector('[data-term-msg]')?.textContent?.includes('Check passed'), {
-  timeout: 120000,
-});
-const checkMsg = await page.textContent('[data-term-msg]');
+await page.waitForFunction(() => document.querySelector('[data-stop-code]')?.hidden === true, null, { timeout: 60000 });
+const checkMsg = await page.textContent('[data-py-status]');
+const checkedOutput = await page.textContent('[data-term-log]');
+const caseResults = await page.locator('[data-check-results] li').allTextContents();
 
 console.log(
   JSON.stringify(
@@ -54,6 +48,8 @@ console.log(
       starterOk,
       runOut: runOut?.trim(),
       checkMsg: checkMsg?.trim(),
+      checkedOutput: checkedOutput?.trim(),
+      caseResults,
       errors,
     },
     null,
@@ -61,5 +57,11 @@ console.log(
   )
 );
 await browser.close();
-const ok = !errors.length && starterOk && checkMsg?.includes('Check passed');
+const ok =
+  !errors.length &&
+  starterOk &&
+  checkMsg === '6/6 input cases passed.' &&
+  checkedOutput?.trim() === 'Events: 2' &&
+  caseResults.length === 6 &&
+  caseResults.every(result => result.includes(': passed'));
 process.exit(ok ? 0 : 1);

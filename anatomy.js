@@ -3376,6 +3376,10 @@ const VIEW_BONES = {
   ],
 };
 
+// Some structures have different descriptions in different atlas views. Keep their
+// stable IDs and generic fallback while retaining each view's authored explanation.
+const BONE_VIEW_META = {};
+
 /* ---------- state ---------- */
 let anat = null;
 let anatMode = 'explore';
@@ -3449,7 +3453,7 @@ function bestFor(view, mode) {
   return ANAT_STORE[view]?.[mode] ?? null;
 }
 function anatMeta(id) {
-  return anat?.metadata?.[id] || BONE_META[id];
+  return anat?.metadata?.[id] || BONE_VIEW_META[anat?.view]?.[id] || BONE_META[id];
 }
 function anatUrl(view, mode) {
   const url = new URL(sectionUrl('anatomy'), location.origin);
@@ -3495,6 +3499,7 @@ async function loadBones() {
         pearl: b.pearl,
         region: b.region,
       };
+    if (typeof b.view === 'string') (BONE_VIEW_META[b.view] ||= {})[b.id] = { ...BONE_META[b.id] };
   }
   BONE_META.__loaded = true;
 }
@@ -3664,7 +3669,7 @@ function startAnat(view, mode, restart = false) {
         answers: [],
         orders: [],
         startedAt: Date.now(),
-        metadata: Object.fromEntries(bones.map(id => [id, { ...BONE_META[id] }])),
+        metadata: Object.fromEntries(bones.map(id => [id, { ...(BONE_VIEW_META[view]?.[id] || BONE_META[id]) }])),
       };
       ANAT_RUNS.sessions[key] = anat;
       if (!saveAnatRun()) return;

@@ -5,6 +5,20 @@
 
 const CHANGELOG = [
   {
+    version: '2.33.0-beta.1',
+    tag: 'BETA',
+    date: 'September 23, 2026',
+    title: 'DAT schedules, spaced review and safer saved work',
+    items: [
+      'Build a DAT schedule around your test date, weekly hours and days off. Today opens the planned drills, and the full schedule lets you launch and complete every allocated practice block. DAT overview keeps all practice sections and the mistake log accessible.',
+      'Record six section scores to put your weakest section first. Reading passages rotate, perceptual-ability levels follow accuracy, and very small study budgets show any unavoidable extra time.',
+      'The DAT mistake log brings missed science, perceptual-ability, reading and quantitative questions back on a spaced schedule. Reviews keep passages, figures and calculator access, and preserve an unfinished regular drill.',
+      'Improved recovery when browser storage fills up. Damaged DAT records can be restarted after preserving their originals and tab drafts in recovery copies. Quantitative Reasoning sets resume after reload, including work saved in earlier versions. Practice links ask before replacing an unfinished session, and expired schedules show that their study period has ended.',
+      'Corrected two quantitative explanations. The periodic table and calculator keep keyboard focus inside while open and close on Escape. Clinical patient charts display full vital readings without cutting off their units.',
+      'The homepage and link previews now include DAT preparation. The UTSA page and lesson discovery reflect the courses that are currently open.',
+    ],
+  },
+  {
     version: '2.31.0-beta.1',
     tag: 'BETA',
     date: 'September 17, 2026',
@@ -620,10 +634,6 @@ const CHANGELOG = [
     version: '',
     tag: 'SOON',
     title: 'In the works',
-    items: [
-      'Anatomy — interactive, clickable diagrams.',
-      'Medicine — pharmacology, microbiology, lab values, and EKG reference.',
-      'Learn to Learn — guided, Socratic study sessions.',
-    ],
+    items: ['DAT — estimated section scores.', 'DAT — lessons for each section.'],
   },
 ];

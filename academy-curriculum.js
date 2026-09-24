@@ -161,9 +161,11 @@
       .split(/\s+/)
       .filter(Boolean);
     const names = Object.fromEntries(data.objectives.map(o => [o.id, o.title + ' ' + o.description]));
+    const closed = new Set(filters.closed || []);
     return data.entries
       .filter(
         e =>
+          !closed.has(e.track) &&
           (!filters.track || e.track === filters.track) &&
           (!filters.level || e.level === filters.level) &&
           (!filters.objective || e.objectives.includes(filters.objective)) &&

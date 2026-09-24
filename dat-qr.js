@@ -54,10 +54,22 @@
       const log = StudyStorage.read(LOG_KEY, []),
         hist = StudyStorage.read(HIST_KEY, {}),
         srs = StudyStorage.read(SRS_KEY, {});
+      const valid = {
+        log: Core.validAttemptStore(log, 'log'),
+        hist: Core.validAttemptStore(hist, 'hist'),
+        srs: Core.validAttemptStore(srs, 'srs'),
+      };
+      // Keep the saved copy for recovery; never overwrite an invalid store with empty progress.
+      if (!Object.values(valid).every(Boolean))
+        StudyStorage.sessionFailed(
+          Object.keys(valid)
+            .filter(key => !valid[key])
+            .map(key => ({ log: LOG_KEY, hist: HIST_KEY, srs: SRS_KEY })[key])
+        );
       DAT.attemptStores = {
-        log: Array.isArray(log) ? log : [],
-        hist: hist && typeof hist === 'object' ? hist : {},
-        srs: srs && typeof srs === 'object' ? srs : {},
+        log: valid.log ? log : [],
+        hist: valid.hist ? hist : {},
+        srs: valid.srs ? srs : {},
       };
       // The callbacks read back through stores(), so a reset between writes hands StudyStorage
       // the rebuilt cache rather than the dropped one.
@@ -96,7 +108,9 @@
     h.conf = entry.conf;
     h.ts = ts;
     store.hist[entry.id] = h;
-    let ok = StudyStorage.write(LOG_KEY, store.log) && StudyStorage.write(HIST_KEY, store.hist);
+    // Queue every record even when the first write fails, so Retry can save the whole answer.
+    const logOK = StudyStorage.write(LOG_KEY, store.log);
+    let ok = StudyStorage.write(HIST_KEY, store.hist) && logOK;
     if (!entry.correct) {
       Core.enroll(store.srs, entry, ts);
       ok = StudyStorage.write(SRS_KEY, store.srs) && ok;
@@ -117,8 +131,26 @@
     return ok;
   }
   function loadResume() {
-    const blob = StudyStorage.read(RESUME_KEY, null);
-    return blob && Array.isArray(blob.qs) && blob.scope ? blob : null;
+    const saved = StudyStorage.read(RESUME_KEY, null);
+    if (saved === null) return null;
+    const scope = saved?.scope;
+    const qrScope =
+      saved?.source === SECTION &&
+      scope &&
+      typeof scope === 'object' &&
+      !Array.isArray(scope) &&
+      typeof scope.category === 'string' &&
+      typeof scope.format === 'string' &&
+      (scope.format === '' || Object.hasOwn(FORMATS, scope.format)) &&
+      (!Object.hasOwn(scope, 'section') || scope.section === SECTION);
+    // Published QR saves used {category, format}. Normalize a copy so those sessions
+    // pass the shared runner guard without changing a damaged record on disk.
+    const blob = qrScope ? Object.assign({}, saved, { scope: Object.assign({ section: SECTION }, scope) }) : null;
+    if (!blob || !Core.validDrillResume(blob)) {
+      StudyStorage.sessionFailed([RESUME_KEY]);
+      return null;
+    }
+    return blob;
   }
   function clearResume() {
     return StudyStorage.remove(RESUME_KEY);
@@ -449,7 +481,6 @@
       refresh();
     });
     start.addEventListener('click', () => {
-      if (saved && !sameScope(saved.scope, state)) clearResume();
       datGo(scopeParams(state, { n: state.n, mode: state.mode }));
     });
     refresh();
@@ -583,6 +614,9 @@
     modal.addEventListener('click', event => {
       if (event.target === modal) close();
     });
+    // aria-modal promises the page behind is out of reach, so Tab stays inside and Escape closes.
+    // That is the shell's dialog handling (app.js trapModal), not keyboard entry into the calculator.
+    window.trapModal?.(modal, close);
     modal.querySelector('#dat-qr-calc-close').focus();
   }
 
@@ -812,9 +846,19 @@
   function render() {
     const p = params();
     if (!p.started) return renderSetup();
-    const scope = { category: p.category, format: p.format };
+    const scope = { section: SECTION, category: p.category, format: p.format };
     const saved = loadResume();
     if (saved && sameScope(saved.scope, scope) && resumeRun(saved)) return renderItem();
+    if (
+      saved &&
+      !sameScope(saved.scope, scope) &&
+      !window.confirm(
+        'Replace your unfinished Quantitative Reasoning set with this new set? Cancel keeps the saved set so you can resume it.'
+      )
+    ) {
+      history.replaceState({ sec: 'dat' }, '', datUrl({ view: 'qr' }));
+      return renderSetup();
+    }
     if (!startRun(scope, p.n, p.mode))
       return renderSetup(
         `<strong>No items match that scope yet.</strong><p>${esc(sectionName())}${p.category ? ` · ${esc(p.category)}` : ''}${p.format ? ` · ${esc(FORMATS[p.format])}` : ''} has no practice items in the loaded banks. Pick another scope below.</p>`
@@ -833,5 +877,6 @@
   }
 
   DAT.pausers.push(pause);
-  window.DatQr = { render, pause, reset };
+  // openCalculator lets the mistake-log review (dat-practice.js) offer the same click-only calculator on a re-asked QR item.
+  window.DatQr = { render, pause, reset, openCalculator };
 })();

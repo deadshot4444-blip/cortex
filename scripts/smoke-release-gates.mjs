@@ -1,8 +1,26 @@
 import { chromium } from 'playwright';
 import { readFileSync } from 'node:fs';
+import { runInNewContext } from 'node:vm';
 
 const APP_VERSION =
   (readFileSync(new URL('../app.js', import.meta.url), 'utf8').match(/APP_VERSION\s*=\s*'([^']+)'/) || [])[1] || '';
+const catalog = runInNewContext(
+  readFileSync(new URL('../academy.js', import.meta.url), 'utf8') + '\nwindow.CortexAcademy.tracks',
+  { window: {}, IS_LOCAL_PREVIEW: false }
+);
+const publicIds = catalog.filter(track => track.available).map(track => track.id);
+if (JSON.stringify(publicIds) !== JSON.stringify(['mcat', 'dat', 'practice']))
+  throw new Error(`Review public course availability before changing this gate smoke: ${JSON.stringify(publicIds)}`);
+const gateLabel = id => {
+  const track = catalog.find(track => track.id === id);
+  if (!track || track.available) throw new Error(`Expected a closed course in this gate smoke: ${id}`);
+  return `${track.name} · Under construction`;
+};
+const publicNotes = runInNewContext(
+  readFileSync(new URL('../changelog.js', import.meta.url), 'utf8') + '\nCHANGELOG'
+).filter(release => release.tag !== 'LOCAL');
+const latestPublic = publicNotes[0];
+const previousPublic = publicNotes.slice(1).find(release => release.version);
 const base = new URL(process.env.CORTEX_URL || 'http://localhost:8765/');
 const viewports = [
   { name: 'desktop', width: 1280, height: 900 },
@@ -80,7 +98,9 @@ for (const viewport of viewports) {
     clinicalShiftHeading !== 'Start your shift.' ||
     clinicalRotationCount !== 3 ||
     clinicalLegacyClutterCount !== 0 ||
-    !clinicalReviewStatus.includes('Educational case practice.')
+    !clinicalReviewStatus.includes('fictional encounters') ||
+    !clinicalReviewStatus.includes('independent clinician review remains pending') ||
+    !clinicalReviewStatus.includes('do not establish clinical competence')
   ) {
     throw new Error(
       `Clinical Shift landing is wrong: ${JSON.stringify({ clinicalShiftHeading, clinicalRotationCount, clinicalLegacyClutterCount, clinicalReviewStatus })}`
@@ -250,34 +270,31 @@ for (const viewport of viewports) {
   await page.evaluate(() => document.querySelector('[data-go="reference"]')?.click());
   await page.waitForSelector('.comingsoon');
   const medicineLabel = (await page.locator('.cs-box .label').textContent())?.trim();
-  if (medicineLabel !== 'Medicine · Under construction')
-    throw new Error(`Medicine gate label is wrong: ${medicineLabel}`);
+  if (medicineLabel !== gateLabel('reference')) throw new Error(`Medicine gate label is wrong: ${medicineLabel}`);
   await assertNoOverflow('Medicine gate');
 
   await page.goto(new URL('?gates=prod', base).href, { waitUntil: 'networkidle' });
   await page.click('.topbar.mainbar .nav > [data-go="socrates"]');
-  await page.waitForURL(new URL('learn', base).href);
+  await page.waitForURL(url => url.pathname === '/learn' && url.searchParams.get('gates') === 'prod');
   await page.waitForSelector('.comingsoon');
   const learnLabel = (await page.locator('.cs-box .label').textContent())?.trim();
   const learnPrimaryActive = await page
     .locator('.topbar.mainbar .nav > [data-go="socrates"]')
     .evaluate(button => button.classList.contains('active'));
-  if (learnLabel !== 'Learn to Learn · Coming soon' || !learnPrimaryActive) {
+  if (learnLabel !== gateLabel('socrates') || !learnPrimaryActive) {
     throw new Error(`Learn flagship gate is wrong: ${JSON.stringify({ learnLabel, learnPrimaryActive })}`);
   }
   await assertNoOverflow('Learn to Learn gate');
   await page.goto(new URL('learn?gates=prod', base).href, { waitUntil: 'networkidle' });
   await page.waitForSelector('.comingsoon');
   const directLearnLabel = (await page.locator('.cs-box .label').textContent())?.trim();
-  if (directLearnLabel !== 'Learn to Learn · Coming soon')
-    throw new Error(`Direct Learn gate is wrong: ${directLearnLabel}`);
+  if (directLearnLabel !== gateLabel('socrates')) throw new Error(`Direct Learn gate is wrong: ${directLearnLabel}`);
 
   await page.goto(new URL('?gates=prod', base).href, { waitUntil: 'networkidle' });
   await page.evaluate(() => document.querySelector('[data-go="neuro"]')?.click());
   await page.waitForSelector('.comingsoon');
   const neuroGateLabel = (await page.locator('.cs-box .label').textContent())?.trim();
-  if (neuroGateLabel !== 'Neuroengineering · Under construction')
-    throw new Error(`Neuro gate label is wrong: ${neuroGateLabel}`);
+  if (neuroGateLabel !== gateLabel('neuro')) throw new Error(`Neuro gate label is wrong: ${neuroGateLabel}`);
   await assertNoOverflow('Neuroengineering gate');
 
   await page.goto(new URL('?gates=prod', base).href, { waitUntil: 'networkidle' });
@@ -294,8 +311,9 @@ for (const viewport of viewports) {
     mcatExpandedAfterExplore !== 'false' ||
     exploreExpanded !== 'true' ||
     medicineMenuTag !== 'Under construction' ||
-    JSON.stringify(exploreLearningPaths) !== JSON.stringify(['Anatomy', 'Medicine']) ||
-    JSON.stringify(quickLabels) !== JSON.stringify(['Focus timer', 'UTSA & UT Health'])
+    JSON.stringify(exploreLearningPaths) !== JSON.stringify(['All courses', 'Anatomy', 'Medicine']) ||
+    JSON.stringify(quickLabels) !==
+      JSON.stringify(['Academy Today', 'My private portfolio', 'Focus timer', 'UTSA & UT Health'])
   ) {
     throw new Error(
       `Explore menu organization is wrong: ${JSON.stringify({ mcatExpandedAfterExplore, exploreExpanded, medicineMenuTag, exploreLearningPaths, quickLabels })}`
@@ -306,7 +324,8 @@ for (const viewport of viewports) {
   const cogMenuCount = await page.locator('#explore-panel [data-go="cogpsych"]').count();
   if (cogMenuCount !== 0) throw new Error('Cognitive Psychology is still in the Explore menu');
   await page.goto(new URL('cogpsych?gates=prod', base).href, { waitUntil: 'networkidle' });
-  await page.waitForFunction(() => location.pathname === '/');
+  await page.waitForURL(url => url.pathname === '/academy');
+  await page.waitForSelector('.academy-catalog');
   const cogRetiredCourseCount = await page.locator('.cog-course-home, .cog-simple-hero').count();
   if (cogRetiredCourseCount !== 0) throw new Error('Retired /cogpsych still renders the course');
 
@@ -318,23 +337,24 @@ for (const viewport of viewports) {
   await page.click('#stats-medpath');
   await page.waitForSelector('.comingsoon');
   const statsGateLabel = (await page.locator('.cs-box .label').textContent())?.trim();
-  if (statsGateLabel !== 'Medicine · Under construction')
-    throw new Error(`Stats bypassed the Medicine gate: ${statsGateLabel}`);
+  if (statsGateLabel !== gateLabel('reference')) throw new Error(`Stats bypassed the Medicine gate: ${statsGateLabel}`);
 
   await page.click('button.ver');
   await page.waitForSelector('.upd-featured');
   const versionText = (await page.locator('button.ver').textContent())?.trim();
   const whatsNewTitle = (await page.locator('.upd-featured h2').textContent())?.trim();
-  const whatsNewItems = await page.locator('.upd-featured-list li').count();
+  const whatsNewContents = await page.locator('.upd-featured-list li').allTextContents();
+  const whatsNewItems = whatsNewContents.length;
   const priorPublicVersion = (await page.locator('.updates-history .upd-ver').first().textContent())?.trim();
   if (
     versionText !== `v${APP_VERSION}` ||
-    whatsNewTitle !== 'MCAT 2.0: a smoother study day' ||
-    whatsNewItems !== 8 ||
-    priorPublicVersion !== 'v2.0.0-beta.1'
+    whatsNewTitle !== latestPublic.title ||
+    JSON.stringify(whatsNewContents) !== JSON.stringify(latestPublic.items) ||
+    priorPublicVersion !== `v${previousPublic.version}` ||
+    (await page.locator('.updates .tag-local').count()) !== 0
   ) {
     throw new Error(
-      `What's New is not the cumulative ${APP_VERSION} release: ${JSON.stringify({ versionText, whatsNewTitle, whatsNewItems, priorPublicVersion })}`
+      `What's New does not match the current public release history: ${JSON.stringify({ versionText, whatsNewTitle, whatsNewItems, priorPublicVersion })}`
     );
   }
   await assertNoOverflow("What's New");
@@ -350,14 +370,21 @@ for (const viewport of viewports) {
   await modalPage.reload({ waitUntil: 'networkidle' });
   await modalPage.waitForSelector('.upd-modal', { timeout: 15000 });
   const modalBox = await modalPage.locator('.upd-modal').boundingBox();
-  const modalItemCount = await modalPage.locator('.upd-modal-list li').count();
+  const modalContents = await modalPage.locator('.upd-modal-list li').allTextContents();
+  const modalItemCount = modalContents.length;
   const modalFits = !!modalBox && modalBox.y >= 0 && modalBox.y + modalBox.height <= viewport.height + 1;
   const modalCloseVisible = await modalPage.locator('.upd-modal-x').isVisible();
   await modalPage.locator('.upd-modal-x').click();
   const modalGone = (await modalPage.locator('.upd-modal-back').count()) === 0;
   const modalSeenAfter = await modalPage.evaluate(() => localStorage.getItem('cs-seen-ver'));
   await modalContext.close();
-  if (!modalFits || !modalCloseVisible || !modalGone || modalItemCount !== 8 || modalSeenAfter !== APP_VERSION) {
+  if (
+    !modalFits ||
+    !modalCloseVisible ||
+    !modalGone ||
+    JSON.stringify(modalContents) !== JSON.stringify(latestPublic.items) ||
+    modalSeenAfter !== APP_VERSION
+  ) {
     throw new Error(
       `First-visit update modal is broken: ${JSON.stringify({ modalBox, modalItemCount, modalFits, modalCloseVisible, modalGone, modalSeenAfter, viewport })}`
     );

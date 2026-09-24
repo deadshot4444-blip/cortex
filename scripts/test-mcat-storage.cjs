@@ -20,6 +20,7 @@ function setup(seed = new Map()) {
     setAttribute() {},
     addEventListener() {},
     appendChild() {},
+    replaceChildren() {},
     showModal() {
       this.open = true;
     },

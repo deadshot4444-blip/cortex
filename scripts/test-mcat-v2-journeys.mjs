@@ -37,7 +37,7 @@ try {
       if (index === 0) {
         await page.click('#coach-map-hint');
         await page.reload({ waitUntil: 'networkidle' });
-        await page.click('#coach-resume');
+        await page.waitForSelector('#coach-note-0');
         assert.equal(await page.locator('.v2-hint').count(), 1);
         assert.ok((await page.inputValue('#coach-note-0')).includes('limited claim'));
       }
@@ -52,7 +52,7 @@ try {
         if (c.passageId === 'cp2' && i === 1) await page.click('#coach-q-hint');
         if (index === 0 && i === 0) {
           await page.reload({ waitUntil: 'networkidle' });
-          await page.click('#coach-resume');
+          await page.waitForSelector('[name="coach-answer"]');
           assert.equal(await page.locator('[name="coach-answer"]:checked').count(), 1);
           assert.ok((await page.inputValue('#coach-evidence')).length);
         }
@@ -113,7 +113,7 @@ try {
       await page.click('#math-setup-save');
       if (i === 0) {
         await page.reload({ waitUntil: 'networkidle' });
-        await page.click('#math-resume');
+        await page.waitForSelector('#math-value');
         assert.ok((await page.locator('.course-feedback').innerText()).includes(q.errors[(q.answer + 1) % 3]));
         await page.fill('#math-value', '1/2');
         await page.locator('#math-calculate button').click();
@@ -185,10 +185,22 @@ try {
       await page.evaluate(() => JSON.parse(localStorage.getItem('cortex-mcat-pilot-v2')).sessions.length),
       1
     );
-    assert.equal(await page.evaluate(() => SYNC_KEYS('cortex-mcat-pilot-v2')), false);
+    assert.equal(await page.evaluate(() => CortexProgress.syncKey('cortex-mcat-pilot-v2')), false);
+    const studyBeforeExport = await page.evaluate(() => [
+      localStorage.getItem('cs-mcat-v2'),
+      localStorage.getItem('cs-mcat-log'),
+    ]);
     const dl = page.waitForEvent('download');
     await page.click('#pilot-export');
-    assert.ok((await dl).suggestedFilename().includes('pilot-feedback'));
+    const download = await dl;
+    assert.equal(download.suggestedFilename(), 'cortex-mcat-reflections.json');
+    const reflections = JSON.parse(readFileSync(await download.path(), 'utf8'));
+    assert.equal(reflections.sessions.length, 1);
+    assert.equal(reflections.active, null);
+    assert.deepEqual(
+      await page.evaluate(() => [localStorage.getItem('cs-mcat-v2'), localStorage.getItem('cs-mcat-log')]),
+      studyBeforeExport
+    );
     await overflow('pilot');
     assert.deepEqual(errors, []);
     console.log(

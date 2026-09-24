@@ -77,7 +77,7 @@ const DAT_DATA_VERSIONS = [
   'dat-questions-ochem-1.json?v=1',
   'dat-questions-ochem-2.json?v=1',
   'dat-questions-ochem-3.json?v=1',
-  'dat-questions-qr-1.json?v=3',
+  'dat-questions-qr-1.json?v=4',
   'dat-questions-qr-2.json?v=1',
   'dat-questions-qr-3.json?v=1',
   'dat-rc.json?v=3',
@@ -249,6 +249,7 @@ function resetDatState() {
   window.DatPat?.reset?.();
   window.DatRc?.reset?.();
   window.DatQr?.reset?.();
+  window.DatPlan?.reset?.();
   DAT.attemptStores = null;
   DAT.loaded = false;
   for (const kind of Object.keys(datFragments)) datFragments[kind] = {};
@@ -297,10 +298,12 @@ const DAT_SECTION_TARGETS = {
   rc: { view: 'rc' },
   qr: { view: 'qr' },
 };
-const DAT_TOOL_LINKS = [['mistakes', 'Mistake log']];
+const DAT_TOOL_LINKS = [
+  ['mistakes', 'Mistake log'],
+  ['plan', 'Schedule'],
+];
 const DAT_TOOL_SOON = [
   ['course', 'Lessons'],
-  ['plan', 'Schedule'],
   ['progress', 'Progress'],
   ['coverage', 'Coverage map'],
   ['rehearsal', 'Full-length rehearsal'],
@@ -314,6 +317,9 @@ function datRenderLanding() {
   // answerable questions that are not bank items, so they are counted from the loaded passages
   // and named on their own line rather than folded into that total.
   const rcQuestions = (DAT.rc?.passages || []).reduce((n, p) => n + (p.questions?.length || 0), 0);
+  // The mistake log's due count, so the landing says when a review is waiting.
+  const srs = DAT.attemptStores?.srs || StudyStorage.read('cs-dat-srs', {});
+  const dueMistakes = window.DatDrillCore?.dueMistakes ? window.DatDrillCore.dueMistakes(srs || {}).length : 0;
   const main = el(`<main class="course-page dat-landing">
     <header class="course-hero"><div>
       <span class="course-eyebrow">CORTEX / DAT</span>
@@ -341,7 +347,7 @@ function datRenderLanding() {
       })
       .join('')}</div>
       <p class="course-caption">${esc(outline.ochemGoLive)}</p></section>
-    <nav class="dat-tools" aria-label="DAT tools"><span class="course-eyebrow">TOOLS</span>${DAT_TOOL_LINKS.map(([view, label]) => `<a data-dat-go href="${esc(datUrl({ view }))}">${esc(label)}</a>`).join('')}${DAT_TOOL_SOON.map(([, label]) => `<span class="dat-tool-soon">${esc(label)} <small>Soon</small></span>`).join('')}</nav>`
+    <nav class="dat-tools" aria-label="DAT tools"><span class="course-eyebrow">TOOLS</span>${DAT_TOOL_LINKS.map(([view, label]) => `<a data-dat-go href="${esc(datUrl({ view }))}">${esc(label)}${view === 'mistakes' && dueMistakes ? ` <small id="dat-mistakes-due">${dueMistakes} due</small>` : ''}</a>`).join('')}${DAT_TOOL_SOON.map(([, label]) => `<span class="dat-tool-soon">${esc(label)} <small>Soon</small></span>`).join('')}</nav>`
         : ''
     }
     <p class="course-caption">Original Cortex material keyed to a paraphrase of the ADA DAT outline. Not affiliated with or endorsed by the American Dental Association. Independent subject review is pending.</p>
@@ -365,6 +371,8 @@ async function renderDATEntry() {
     unit = params.get('unit');
   const built = fn => (typeof fn === 'function' ? fn : null);
   switch (view) {
+    case 'home':
+      return datRenderLanding();
     case 'today': {
       const today = built(window.DatPlan?.today);
       if (today && (await today())) return;

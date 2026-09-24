@@ -286,6 +286,49 @@ function harness(saved = new Map(), data = original) {
       );
     }
   }
+  for (const lesson of original.lessons.filter(item => item.steps.some(step => step.trace))) {
+    const historical = structuredClone(original);
+    const priorLesson = historical.lessons.find(item => item.id === lesson.id);
+    priorLesson.revision = Math.max(1, lesson.revision - 1);
+    const priorTrace = priorLesson.steps.find(step => step.trace).trace;
+    // A distinguishable valid old waveform must survive both an unfinished and completed record.
+    priorTrace.values[100] = 0.19;
+    const earlier = harness(new Map(), historical);
+    await earlier.api.load(section, 'test');
+    earlier.api.open(section, lesson.id, 0);
+    const priorRecord = earlier.internal.courses.get(section).progress.lessons[lesson.id];
+    const snapshot = JSON.stringify(priorRecord.content);
+    const upgraded = harness(earlier.saved, original);
+    await upgraded.api.load(section, 'test');
+    upgraded.api.open(section, lesson.id, 0);
+    const loaded = upgraded.internal.courses.get(section).progress.lessons[lesson.id];
+    assert.equal(JSON.stringify(loaded.content), snapshot, `${lesson.id}: unfinished old figure must remain frozen`);
+    assert.ok(upgraded.internal.validRecord(loaded));
+    // Complete using the saved figure, then reload once more against the newer catalog.
+    for (const [index, step] of loaded.content.steps.entries()) {
+      upgraded.api.open(section, lesson.id, index);
+      if (step.kind === 'check') upgraded.nodes.get('answer-' + step.answer).onclick();
+      if (step.required) {
+        const input = upgraded.nodes.get('#academy-response');
+        input.value = 'My interpretation of this saved ECG example.';
+        input.oninput();
+        upgraded.nodes.get('#academy-reveal').onclick();
+        const comparison = upgraded.nodes.get('#academy-comparison');
+        comparison.value = 'Compared my explanation with the saved model.';
+        comparison.oninput();
+      }
+      upgraded.nodes.get('#academy-next').onclick();
+    }
+    assert.ok(loaded.completedAt);
+    const completed = harness(upgraded.saved, original);
+    await completed.api.load(section, 'test');
+    completed.api.open(section, lesson.id, 0);
+    assert.equal(
+      JSON.stringify(completed.internal.courses.get(section).progress.lessons[lesson.id].content),
+      snapshot,
+      `${lesson.id}: completed old figure must remain frozen`
+    );
+  }
   const changed = structuredClone(original);
   changed.lessons[0].title = 'Changed content';
   changed.lessons[0].steps[1].answer = (changed.lessons[0].steps[1].answer + 1) % 4;

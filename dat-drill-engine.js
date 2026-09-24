@@ -8,6 +8,68 @@
   const SNS_SECTIONS = ['bio', 'gchem', 'ochem'];
   const FIXED_ORDER = new Set(['qc', 'ds', 'data']);
 
+  /* ---------- persisted state guards ---------- */
+  const record = value => !!value && typeof value === 'object' && !Array.isArray(value);
+  const nonnegative = value => Number.isFinite(value) && value >= 0;
+  const count = value => Number.isInteger(value) && value >= 0;
+  function validAttemptStore(value, kind) {
+    if (kind === 'log') return Array.isArray(value) && value.every(record);
+    if (!record(value)) return false;
+    return Object.values(value).every(row => {
+      if (!record(row)) return false;
+      if (kind === 'hist') return count(row.n);
+      return (
+        Number.isFinite(row.ease) &&
+        row.ease >= 1.3 &&
+        ['interval', 'reps', 'lapses'].every(key => count(row[key])) &&
+        ['due', 'last'].every(key => nonnegative(row[key]))
+      );
+    });
+  }
+  // Science drills, QR and mistake reviews share this persisted runner shape. Refuse a
+  // damaged session before its result arrays or display permutations reach the renderer.
+  function validDrillResume(blob) {
+    if (
+      !record(blob) ||
+      !record(blob.scope) ||
+      typeof blob.scope.section !== 'string' ||
+      !Array.isArray(blob.qs) ||
+      !blob.qs.length ||
+      !blob.qs.every(id => typeof id === 'string') ||
+      new Set(blob.qs).size !== blob.qs.length ||
+      !record(blob.orders) ||
+      !Array.isArray(blob.results) ||
+      blob.results.length > blob.qs.length ||
+      !Array.isArray(blob.shownSets) ||
+      !blob.shownSets.every(id => typeof id === 'string') ||
+      !count(blob.idx) ||
+      blob.idx > blob.qs.length ||
+      !['paced', 'exam', 'untimed'].includes(blob.mode) ||
+      typeof blob.attemptId !== 'string' ||
+      !blob.attemptId ||
+      !nonnegative(blob.startedAt) ||
+      !Number.isFinite(blob.seed) ||
+      !Number.isFinite(blob.paceSeconds) ||
+      blob.paceSeconds <= 0 ||
+      (blob.mode === 'exam' && !nonnegative(blob._remain))
+    )
+      return false;
+    return blob.qs.every((id, i) => {
+      const order = blob.orders[id],
+        result = blob.results[i];
+      if (!Array.isArray(order) || !order.length || ![...order].sort((a, b) => a - b).every((n, j) => n === j))
+        return false;
+      return (
+        result == null ||
+        (record(result) &&
+          result.id === id &&
+          typeof result.correct === 'boolean' &&
+          (result.chosen === null || (count(result.chosen) && result.chosen < order.length)) &&
+          (result.ms === null || nonnegative(result.ms)))
+      );
+    });
+  }
+
   /* ---------- randomness ---------- */
   function seedOf(seed) {
     if (typeof seed === 'number' && Number.isFinite(seed)) return seed >>> 0;
@@ -196,7 +258,7 @@
     return Object.entries(srs || {})
       .filter(([, rec]) => rec && Number.isFinite(rec.due) && rec.due <= now)
       .sort((a, b) => a[1].due - b[1].due)
-      .map(([id, rec]) => Object.assign({ id }, rec));
+      .map(([id, rec]) => Object.assign({}, rec, { id }));
   }
   // A missed item enters the log due in one minute; a repeat miss lapses the existing record.
   function enroll(srs, item, now = Date.now()) {
@@ -208,6 +270,8 @@
 
   const api = {
     DAY,
+    validAttemptStore,
+    validDrillResume,
     rng,
     shuffle,
     orderOptions,

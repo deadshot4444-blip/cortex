@@ -68,6 +68,10 @@ async function assertDelayedFeedback(page, label) {
 async function runViewport(browser, viewport) {
   const context = await browser.newContext({ viewport });
   const page = await context.newPage();
+  // serve.py cannot proxy the external visitor counter; keep this content-flow test local.
+  await context.route('**/cx-visits/**', route =>
+    route.fulfill({ status: 200, contentType: 'application/json', body: '{"value":0}' })
+  );
   const pageErrors = [];
   const consoleErrors = [];
   const overflowChecks = [];
@@ -97,8 +101,8 @@ async function runViewport(browser, viewport) {
       rotationCount !== 3 ||
       legacyControlCount !== 0 ||
       exposedTitles.length ||
-      !hubText.includes('Formal clinician review is not yet recorded') ||
-      !shiftFooterText.includes('has not yet undergone formal clinician review') ||
+      !hubText.includes('independent clinician review remains pending') ||
+      !shiftFooterText.includes('Not a substitute for official AAMC materials or clinical judgment') ||
       shiftFooterText.includes('independently reviewed')
     ) {
       fail(`${viewport.name} Clinical Shift hub is not specialty-only or honestly disclosed`, {
@@ -426,8 +430,8 @@ async function runViewport(browser, viewport) {
       reviewCount !== decisionCount ||
       explanationLengths.some(length => length < 20) ||
       pearlCount !== caseData.pearls.length ||
-      !debriefText.includes('Content status:') ||
-      !debriefText.includes('Formal clinician review is not yet recorded') ||
+      !debriefText.includes('Scope and alternatives') ||
+      !debriefText.includes('Independent clinician review remains pending') ||
       activeStep !== 'Debrief' ||
       completedSteps !== 4 ||
       (await page.locator('.cshift-debrief textarea').count())
@@ -460,7 +464,10 @@ async function runViewport(browser, viewport) {
     const neurologyProgress = (
       await page.locator('[data-shift-specialty="neurology"] .cshift-rotation-progress').textContent()
     )?.trim();
-    if (neurologyProgress !== '1/5 completed' || (await page.locator('#cshift-resume').count())) {
+    if (
+      neurologyProgress !== `1/${neurologyRotation.caseIds.length} completed` ||
+      (await page.locator('#cshift-resume').count())
+    ) {
       fail(`${viewport.name} completed patient did not return to the rotation hub cleanly`, { neurologyProgress });
     }
     await page.locator('#cshift-classic').click();
@@ -488,8 +495,18 @@ async function runViewport(browser, viewport) {
     await page.waitForSelector('.cs-landing');
     await page.locator('#reset').click();
     await page.waitForSelector('#rst');
+    const beforeReset = await page.evaluate(key => localStorage.getItem(key), PILOT_STATE_KEY);
     await page.locator('#rst-clinical').click();
+    await page.waitForSelector('#rst-confirm');
+    if ((await page.evaluate(key => localStorage.getItem(key), PILOT_STATE_KEY)) !== beforeReset)
+      fail(`${viewport.name} reset preview changed saved work before confirmation`);
+    await page.locator('#rst-confirm').click();
     await page.waitForSelector('.cshift-hub');
+    const recoveryCopy = await page.evaluate(
+      key => JSON.parse(localStorage.getItem(CortexProgress.archiveKey('guest')))?.data?.[key],
+      PILOT_STATE_KEY
+    );
+    if (recoveryCopy !== beforeReset) fail(`${viewport.name} reset did not retain the previous shift for recovery`);
     const resetState = await page.evaluate(
       key => ({
         pilot: localStorage.getItem(key),
@@ -507,7 +524,7 @@ async function runViewport(browser, viewport) {
       Object.keys(resetState.progress).length ||
       Object.keys(resetState.cases).length ||
       resetState.history.length ||
-      resetNeurologyProgress !== '0/5 completed'
+      resetNeurologyProgress !== `0/${neurologyRotation.caseIds.length} completed`
     ) {
       fail(`${viewport.name} Clinical reset did not clear both shift and classic progress`, {
         resetState,

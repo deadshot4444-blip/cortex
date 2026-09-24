@@ -31,10 +31,21 @@ const onDisk = name => fs.existsSync('data/' + name);
 
 // `modules` loads further track scripts into the same realm after dat.js, so a test can drive a
 // view through the real router instead of a second hand-built page harness.
-function harness({ url = 'http://localhost/dat', fault = null, modules = [] } = {}) {
+function harness({ url = 'http://localhost/dat', fault = null, modules = [], now = null } = {}) {
   const dom = new JSDOM('<!doctype html><div id="app"></div>', { url, runScripts: 'outside-only' });
   const w = dom.window,
     context = dom.getInternalVMContext();
+  if (now) {
+    const NativeDate = w.Date;
+    w.Date = class extends NativeDate {
+      constructor(...args) {
+        super(...(args.length ? args : [now]));
+      }
+      static now() {
+        return new NativeDate(now).getTime();
+      }
+    };
+  }
   const fetches = [],
     removed = [],
     store = new Map();
@@ -88,8 +99,8 @@ function harness({ url = 'http://localhost/dat', fault = null, modules = [] } = 
   vm.runInContext(fs.readFileSync('academy.js', 'utf8'), context);
   vm.runInContext(fs.readFileSync('dat.js', 'utf8'), context);
   if (modules.length) {
-    // dat-pat.js enrols a missed item through the shared scheduler; the shell never loads it.
-    w.DatDrillCore = { enroll: (store, item) => (store[item.id] = store[item.id] || { id: item.id }) };
+    // Production loads the shared storage guards and scheduler before any DAT runner.
+    vm.runInContext(fs.readFileSync('dat-drill-engine.js', 'utf8'), context);
     for (const file of modules) vm.runInContext(fs.readFileSync(file, 'utf8'), context);
   }
   const run = code => vm.runInContext(code, context);
@@ -99,6 +110,7 @@ function harness({ url = 'http://localhost/dat', fault = null, modules = [] } = 
     run,
     fetches,
     removed,
+    store,
     find: selector => w.document.querySelector(selector),
     text: selector => w.document.querySelector(selector)?.textContent.trim(),
     set fault(value) {
@@ -146,8 +158,9 @@ test('the landing renders from the outline with the availability tag, format tab
   assert.match(h.text('.dat-tools'), /Mistake log/);
   assert.match(
     h.text('.dat-tools'),
-    /Lessons\s+Soon.*Schedule\s+Soon.*Progress\s+Soon.*Coverage map\s+Soon.*Full-length rehearsal\s+Soon/s
+    /Lessons\s+Soon.*Progress\s+Soon.*Coverage map\s+Soon.*Full-length rehearsal\s+Soon/s
   );
+  assert.ok(h.find('.dat-tools a[href*="view=plan"]'), 'the schedule is a link once the planner exists');
   assert.equal(h.find('.dat-tools a[href*="view=course"]'), null, 'unbuilt tools are not links');
   assert.equal(h.find('#dat-data-retry'), null);
   // A second render uses the cached data.
@@ -222,6 +235,63 @@ test('Today defers to DatPlan.today() only when it reports that it rendered', as
   await h.go('');
   assert.equal(h.find('main.dat-landing'), null, 'a rendered Today card replaces the landing');
   h.close();
+});
+
+test('a saved plan keeps Today as default while active, day-off and ended views link to the DAT overview', async () => {
+  for (const [now, heading] of [
+    ['2026-09-23T12:00:00', 'Today'],
+    ['2026-09-27T12:00:00', 'Next study day'],
+    ['2026-12-06T12:00:00', 'This schedule has ended.'],
+  ]) {
+    const h = harness({ now, modules: ['dat-plan-engine.js', 'dat-plan.js'] });
+    // Use the real shared URL helper so this tests production gate/offline preservation.
+    h.run("const SEC_PATHS = { dat: 'dat' }");
+    const app = fs.readFileSync('app.js', 'utf8');
+    h.run(app.slice(app.indexOf('function sectionUrl('), app.indexOf('function navigateSection(')));
+    const plan = h.w.DatPlanCore.build({
+      startDate: '2026-09-21',
+      testDate: '2026-12-05',
+      hoursPerWeek: 22,
+      daysOff: ['Sun'],
+      features: ['drill', 'pat', 'qr', 'rc'],
+    });
+    assert.ok(h.w.DatPlanCore.validPlan(plan));
+    h.store.set('cs-dat-plan', JSON.stringify(plan));
+    h.store.set('cs-dat-log', '[]');
+    const saved = [...h.store];
+    const click = async selector => {
+      h.find(selector).click();
+      await new Promise(resolve => setTimeout(resolve, 0));
+    };
+    const expectOverview = async () => {
+      const link = h.find('.dat-plan-back a[href*="view=home"]');
+      assert.ok(link, `${heading}: overview link is available`);
+      assert.equal(link.textContent, 'DAT overview');
+      assert.equal(link.getAttribute('href'), '/dat?gates=prod&offline=1&view=home');
+      await click('.dat-plan-back a[href*="view=home"]');
+      assert.equal(h.w.location.search, '?gates=prod&offline=1&view=home');
+      assert.ok(h.find('main.dat-landing'));
+      assert.equal(h.w.document.querySelectorAll('.dat-section-card').length, 6);
+      assert.equal(
+        h.find('.dat-tools a[href*="view=mistakes"]').getAttribute('href'),
+        '/dat?gates=prod&offline=1&view=mistakes'
+      );
+    };
+    await h.go('gates=prod&offline=1');
+    assert.equal(h.text('main h1'), heading, 'the saved plan remains the default');
+    await expectOverview();
+    await click('.dat-tools a[href*="view=plan"]');
+    assert.ok(h.find('main.dat-plan'), 'the existing overview can reopen the full schedule');
+    await expectOverview();
+    await h.go('gates=prod&offline=1&view=today');
+    assert.equal(h.text('main h1'), heading);
+    await click('.dat-plan-back a[href*="view=plan"]');
+    assert.ok(h.find('main.dat-plan'));
+    await click('.dat-plan-back a:not([href*="view=home"])');
+    assert.equal(h.text('main h1'), heading, 'Back to today still opens the saved plan');
+    assert.deepEqual([...h.store], saved, 'navigation must not alter the plan or other saved DAT data');
+    h.close();
+  }
 });
 
 test('pauseDatTools runs every registered pauser, on navigation and on demand, and survives a throw', async () => {
@@ -396,7 +466,7 @@ test('the shared shell registers the track everywhere DAT-01 promises', () => {
     'cs-dat-item-reports-v1',
   ])
     assert.ok(backup.includes(`'${key}'`), 'backup registers ' + key);
-  assert.match(backup, /dat-r-\(\?:drill\|pat\|qr\|rc\|sim\)/, 'backup resume regex');
+  assert.match(backup, /dat-r-\(\?:drill\|review\|pat\|qr\|rc\|sim\)/, 'backup resume regex');
   assert.match(today, /read\('cs-dat-course-v1'\)/, 'Today reader');
   assert.match(curriculum, /dat: '\/dat'/, 'curriculum path');
   assert.match(curriculum, /return 'dat:' \+ p\.get\('unit'\)/, 'curriculum contextKey');

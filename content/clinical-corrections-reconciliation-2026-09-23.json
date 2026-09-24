@@ -1,0 +1,47 @@
+{
+  "format": "cortex-clinical-history-reconciliation",
+  "recordedOn": "2026-09-23",
+  "caseId": "cd-020",
+  "kind": "reconstructed-authoring-history",
+  "actualChangeDate": null,
+  "scope": "Record the four already-shipped differences missing from the preserved cd-020 correction chain. No teaching content or learner records changed.",
+  "method": "Compared the preserved revision-2 case plus its separately logged narrative changes with revision 3 in Git. The first available commit containing both the older record and newer case is recorded below; it does not establish the actual authoring date or order of edits.",
+  "reviewEffect": "No new clinical review, approval, source check, or answer-key change is claimed. Existing case review metadata is unchanged.",
+  "sourceEvidence": {
+    "firstKnownCommit": "26125eca30503ed59581c26f565bafb6b29382df",
+    "firstKnownCommitDate": "2026-09-08T12:31:21-05:00",
+    "observationBaseline": "c935a33",
+    "currentCasePath": "data/cardiology.json",
+    "currentCaseBankSha256": "eb19ab16248856de282bba5cdc6023a80b880cfc68853bea6d6d99fcb4ac14b7",
+    "preservedHistoryPath": "content/clinical-corrections-m29.json",
+    "preservedHistorySha256": "b66e00b6e58036bb0cf12253f162fdf4b2d0a0b5bf92c37240ea53f63ab3a14f",
+    "laterNarrativeChangesPath": "data/clinical-shift-revisions.json",
+    "finding": "Commit 26125eca introduced the revision-2 correction record and revision-3 case together. Its parent has the older three distractors and no case revision. No separate committed revision-2-to-3 transition was found."
+  },
+  "changes": [
+    {
+      "caseId": "cd-020",
+      "path": "/case/revision",
+      "before": 2,
+      "after": 3
+    },
+    {
+      "caseId": "cd-020",
+      "path": "/case/stages/5/options/1",
+      "before": "Continue both unchanged, as neither affects coronary tone",
+      "after": "Continue both medications with symptom monitoring, assuming calcium channel blocker treatment removes their relevant risks."
+    },
+    {
+      "caseId": "cd-020",
+      "path": "/case/stages/5/options/2",
+      "before": "Increase the sumatriptan dose to treat the chest pain episodes",
+      "after": "Replace sumatriptan with another migraine treatment, but continue estrogen-containing contraception because angiography showed no obstructive lesion."
+    },
+    {
+      "caseId": "cd-020",
+      "path": "/case/stages/5/options/3",
+      "before": "Stop the calcium channel blocker and rely on sumatriptan for chest pain",
+      "after": "Replace estrogen-containing contraception, but continue occasional sumatriptan once calcium channel blocker treatment controls the chest pain."
+    }
+  ]
+}

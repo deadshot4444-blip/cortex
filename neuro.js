@@ -50,7 +50,7 @@ async function loadNeuro() {
   if (neuroLoading) return neuroLoading;
   neuroLoading = (async () => {
     const results = await Promise.allSettled(
-      ['data/neuro.json?v=8', 'data/neuro-milestones.json?v=3'].map(async file => {
+      ['data/neuro.json?v=8', 'data/neuro-milestones.json?v=4'].map(async file => {
         const response = await fetch(file);
         if (!response.ok) throw new Error('Neuroengineering lessons did not download');
         return response.json();
@@ -313,7 +313,7 @@ async function renderNeuroEngineering(options = {}) {
     const button = event.currentTarget;
     button.disabled = true;
     try {
-      const response = await fetch('data/neuro-milestones.json?v=3');
+      const response = await fetch('data/neuro-milestones.json?v=4');
       if (!response.ok) throw new Error('Unavailable');
       const data = await response.json();
       if (!Array.isArray(data?.milestones)) throw new Error('Invalid project list');

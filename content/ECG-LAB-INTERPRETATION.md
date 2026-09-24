@@ -34,6 +34,8 @@ Targeted sources include [MedlinePlus lab interpretation](https://medlineplus.go
 
 Passing local checks: thirteen ECG engine/handler scenarios; the full 22-lesson Medicine and 12-lesson Anatomy handlers; legacy Medicine storage/retry checks; Clinical Shift and rotation checks; authoring consistency for the eight lessons, four frozen traces, sixteen links, 84 rows and 49 scoped corrections; portable-backup and offline protocol checks. These are code/DOM-stub tests, not a browser walkthrough. The QRS-to-ST boundary test found a floating-point gap; quantized time subtraction corrected it and the four authored trace snapshots were regenerated before this checkpoint.
 
+September 23, 2026 reconciliation: the four tracked lesson figures already contained that QRS-to-ST boundary correction, but their T-wave timing still matched older parameters. They have now been regenerated from the unchanged current engine, with individual lesson revision increments. `content/ecg-frozen-trace-reconciliation-2026-09-23.json` records the exact before/after hashes and timing changes. Event metadata, answer keys and review status are unchanged. Targeted regressions cover the stored samples and preservation of unfinished and completed learner snapshots across the revision. This is an authoring consistency correction, not a new clinical review.
+
 Browser verification still required after Mac unlock:
 
 - Open every pattern at desktop, 390 px and 320 px; inspect grid, pulse, waveform shape, polarity and event measurements. Confirm page-level overflow stays absent while the plot/table scroll internally.

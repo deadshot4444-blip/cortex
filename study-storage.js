@@ -1,6 +1,18 @@
 /* Shared study persistence: retain drafts, refuse stale writes, and expose recovery. */
 const StudyStorage = (() => {
   const stores = new Map();
+  const damaged = new Set();
+  const recoveryPrefix = 'cortex-dat-recovery-v1:';
+  const datRecords = {
+    'cs-dat-log': 'DAT attempt log',
+    'cs-dat-q': 'DAT question history',
+    'cs-dat-srs': 'DAT mistake-review schedule',
+    'cs-dat-r-drill': 'Unfinished science drill',
+    'cs-dat-r-review': 'Unfinished mistake review',
+    'cs-dat-r-pat': 'Unfinished perceptual-ability set',
+    'cs-dat-r-qr': 'Unfinished quantitative-reasoning set',
+    'cs-dat-r-rc': 'Unfinished reading-comprehension set',
+  };
   let problem = null,
     dialog = null,
     allowReload = false;
@@ -53,15 +65,30 @@ const StudyStorage = (() => {
       records[key] = {
         thisTab,
         saved: parse(saved),
+        savedRaw: saved,
         savedReadable: readable,
         savedSource: currentOwner ? 'current browser copy' : 'last copy read by this tab',
       };
     }
+    const datRecoveries = [];
+    if (currentOwner)
+      try {
+        const id = parse(owner)?.id || 'guest';
+        for (let i = 0; i < localStorage.length; i++) {
+          const key = localStorage.key(i);
+          if (!key?.startsWith(recoveryPrefix)) continue;
+          const copy = parse(localStorage.getItem(key));
+          if (copy?.owner === id) datRecoveries.push(copy);
+        }
+      } catch {
+        // Current drafts remain exportable if older recovery copies cannot be read.
+      }
     return {
       exportedAt: new Date().toISOString(),
       purpose: 'Cortex study save recovery',
       accountChanged: currentOwner === null ? null : !currentOwner,
       records,
+      datRecoveries,
     };
   }
   function download() {
@@ -73,8 +100,100 @@ const StudyStorage = (() => {
     link.click();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
+  function markDamaged(keys) {
+    for (const key of Array.isArray(keys) ? keys : [keys])
+      if (Object.hasOwn(datRecords, key) && stores.has(key) && stores.get(key).last !== null) damaged.add(key);
+  }
+  function recoverySnapshot() {
+    if (!['session', 'read'].includes(problem) || !damaged.size || !sameOwner())
+      throw Error('The saved workspace changed. Reload before recovering DAT records.');
+    const snapshot = window.CortexAccount.snapshot();
+    for (const [key, store] of stores) {
+      if ((!store.readable && !damaged.has(key)) || (snapshot.data[key] ?? null) !== store.last)
+        throw Error('Saved work changed or cannot be read. Download recovery copies and reload before trying again.');
+    }
+    return snapshot;
+  }
+  function previewDatRecovery() {
+    const host = dialog.querySelector('#study-dat-recovery'),
+      status = dialog.querySelector('#study-conflict-status');
+    host.replaceChildren();
+    host.hidden = false;
+    try {
+      const before = recoverySnapshot(),
+        next = { ...before.data },
+        keys = [...damaged].sort();
+      for (const key of keys) delete next[key];
+      const preview = window.CortexAccount.prepareRestore(next);
+      host.innerHTML =
+        '<h3>Restart only the affected DAT records</h3><ul></ul><p>A separate recovery copy will keep the original saved workspace and unwritten work from this tab. Other saved records stay in place. Reload continues from saved work; drafts remain in the recovery download available under Your study data.</p><label style="display:block;margin:12px 0"><input type="checkbox" id="study-dat-confirm"> I want to restart only the records listed above.</label><button class="btn" id="study-dat-apply" disabled>Keep recovery copy and restart</button><button class="btn" id="study-dat-cancel">Cancel</button>';
+      for (const key of keys) {
+        const row = document.createElement('li');
+        row.textContent = datRecords[key];
+        host.querySelector('ul').appendChild(row);
+      }
+      for (const button of host.querySelectorAll('button'))
+        button.style.cssText =
+          'color:#fff;border-color:#a5bac6;background:transparent;min-height:44px;white-space:normal';
+      const checkbox = host.querySelector('#study-dat-confirm'),
+        apply = host.querySelector('#study-dat-apply');
+      checkbox.onchange = () => (apply.disabled = !checkbox.checked);
+      host.querySelector('#study-dat-cancel').onclick = () => {
+        host.replaceChildren();
+        host.hidden = true;
+        dialog.querySelector('#study-dat-recover').focus();
+        status.textContent = 'Recovery canceled. Your saved work is unchanged.';
+      };
+      apply.onclick = () => {
+        if (!checkbox.checked) return;
+        apply.disabled = true;
+        try {
+          const snapshot = recoverySnapshot();
+          if (
+            Object.keys(snapshot.data).length !== Object.keys(before.data).length ||
+            !Object.keys(before.data).every(key => snapshot.data[key] === before.data[key])
+          )
+            throw Error('Saved work changed after the preview. Review a fresh recovery preview.');
+          const drafts = recovery().records;
+          if (Object.values(drafts).some(record => record.thisTab?.recoveryError))
+            throw Error('An unwritten draft could not be copied. Keep this tab open and copy it before restarting.');
+          // Keep an immutable, account-labelled copy before the account transaction's
+          // rolling archive is replaced. Include tab drafts as well as exact disk bytes.
+          const copy = JSON.stringify({
+            owner: snapshot.owner,
+            exportedAt: new Date().toISOString(),
+            purpose: 'Cortex DAT scoped recovery',
+            affectedKeys: keys,
+            savedWorkspace: snapshot.data,
+            drafts,
+          });
+          let archiveKey;
+          do {
+            archiveKey = recoveryPrefix + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2);
+          } while (localStorage.getItem(archiveKey) !== null);
+          localStorage.setItem(archiveKey, copy);
+          if (localStorage.getItem(archiveKey) !== copy) throw Error('The recovery copy could not be saved.');
+          // The existing account transaction archives exact raw values, rejects stale
+          // previews and rolls back interrupted writes before the next app boot.
+          allowReload = true;
+          window.CortexAccount.restore(preview);
+        } catch (error) {
+          allowReload = false;
+          host.replaceChildren();
+          host.hidden = true;
+          status.textContent = error.message + ' The restart did not complete; keep this tab open.';
+        }
+      };
+      checkbox.focus();
+      status.textContent = 'Nothing has changed. Review the affected records before continuing.';
+    } catch (error) {
+      host.hidden = true;
+      status.textContent = error.message;
+    }
+  }
   function showProblem(kind) {
     if (problem && problem !== 'write' && kind === 'write') return;
+    if (['account', 'conflict'].includes(problem) && ['read', 'session'].includes(kind)) return;
     const first = !problem;
     problem = kind;
     if (first) {
@@ -90,7 +209,7 @@ const StudyStorage = (() => {
       dialog.style.cssText =
         'box-sizing:border-box;position:fixed;inset:0;margin:auto;width:min(480px,calc(100vw - 32px));max-height:85vh;overflow:auto;padding:24px;border:1px solid #71828b;border-radius:16px;background:#102029;color:#fff;line-height:1.6';
       dialog.innerHTML =
-        '<h2 id="study-conflict-title"></h2><p id="study-conflict-description"></p><p>Keep this tab open. Download the available copies before reloading if you have work to keep.</p><div style="display:flex;gap:12px;flex-wrap:wrap"><button class="btn" id="study-conflict-export">Download recovery copies</button><button class="btn" id="study-save-retry">Retry saving</button><button class="btn" id="study-conflict-reload">Reload saved work</button></div><p id="study-conflict-status" role="status"></p>';
+        '<h2 id="study-conflict-title"></h2><p id="study-conflict-description"></p><p>Keep this tab open. Download the available copies before reloading if you have work to keep.</p><div style="display:flex;gap:12px;flex-wrap:wrap"><button class="btn" id="study-conflict-export">Download recovery copies</button><button class="btn" id="study-save-retry">Retry saving</button><button class="btn" id="study-conflict-reload">Reload saved work</button><button class="btn" id="study-dat-recover" hidden>Recover DAT records</button></div><section id="study-dat-recovery" hidden></section><p id="study-conflict-status" role="status"></p>';
       dialog.addEventListener('cancel', e => e.preventDefault());
       dialog.addEventListener('keydown', e => {
         if (e.key === 'Escape') {
@@ -116,6 +235,7 @@ const StudyStorage = (() => {
         location.reload();
       };
       dialog.querySelector('#study-save-retry').onclick = retry;
+      dialog.querySelector('#study-dat-recover').onclick = previewDatRecovery;
       document.body.appendChild(dialog);
       dialog.showModal();
     }
@@ -143,6 +263,11 @@ const StudyStorage = (() => {
     const retryButton = dialog.querySelector('#study-save-retry');
     retryButton.hidden = kind !== 'write';
     retryButton.style.display = kind === 'write' ? '' : 'none';
+    const recoverButton = dialog.querySelector('#study-dat-recover');
+    recoverButton.hidden = !(['session', 'read'].includes(kind) && damaged.size && window.CortexAccount?.available);
+    const preview = dialog.querySelector('#study-dat-recovery');
+    preview.replaceChildren();
+    preview.hidden = true;
   }
   function entry(key) {
     if (stores.has(key)) return stores.get(key);
@@ -170,6 +295,7 @@ const StudyStorage = (() => {
       return JSON.parse(raw);
     } catch {
       store.readable = false;
+      markDamaged(key);
       showProblem('read');
       return fallback;
     }
@@ -308,7 +434,10 @@ const StudyStorage = (() => {
     retry,
     recovery,
     workspaceChanged: () => showProblem('account'),
-    sessionFailed: () => showProblem('session'),
+    sessionFailed: keys => {
+      markDamaged(keys);
+      showProblem('session');
+    },
     get conflicted() {
       return problem === 'conflict' || problem === 'account';
     },

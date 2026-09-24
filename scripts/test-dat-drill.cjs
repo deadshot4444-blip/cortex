@@ -377,3 +377,55 @@ test('logRow builds one cs-dat-log row with the documented shape, topic included
   for (const value of Object.values(Core.logRow({ attemptId: 'a', source: 'drill' }, RUN.results[0], 1)))
     assert.ok(typeof value !== 'string' || !value.includes('<'), 'log rows stay plain');
 });
+
+/* ---------- DAT-05: the SM-2 schedule behind the mistake log ---------- */
+test('schedule: again lapses the record and brings it back in a minute; ease never drops below 1.3', () => {
+  const t = 1_000_000;
+  const rec = Core.srsRec({}, 'x');
+  Core.schedule(rec, 'again', t);
+  assert.deepEqual([rec.reps, rec.interval, rec.lapses, rec.due, rec.last], [0, 0, 1, t + 60000, t]);
+  assert.equal(rec.ease, 2.3);
+  for (let i = 0; i < 20; i++) Core.schedule(rec, 'again', t);
+  assert.equal(rec.ease, 1.3);
+});
+
+test('schedule: good gives 1, then 3 days, then grows by ease; hard and easy bend both', () => {
+  const t = 0,
+    DAY = Core.DAY;
+  const good = Core.srsRec({}, 'g');
+  Core.schedule(good, 'good', t);
+  assert.equal(good.interval, 1);
+  Core.schedule(good, 'good', t);
+  assert.equal(good.interval, 3);
+  Core.schedule(good, 'good', t);
+  assert.equal(good.interval, Math.round(3 * 2.5), 'after two reps the interval multiplies by ease');
+  assert.equal(good.due, 8 * DAY);
+  const easy = Core.srsRec({}, 'e');
+  Core.schedule(easy, 'easy', t);
+  assert.deepEqual([easy.interval, easy.ease], [3, 2.65]);
+  const hard = Core.srsRec({}, 'h');
+  Core.schedule(hard, 'good', t);
+  Core.schedule(hard, 'hard', t);
+  assert.deepEqual([hard.interval, hard.ease], [3, 2.35]);
+});
+
+test('enroll starts a missed item due in a minute and lapses a repeat miss; dueMistakes lists the due ones oldest first', () => {
+  const srs = {};
+  const item = { id: 'bio-1', section: 'bio', category: 'BIO-1', topic: 'Cells' };
+  Core.enroll(srs, item, 1000);
+  assert.deepEqual(
+    [srs['bio-1'].due, srs['bio-1'].lapses, srs['bio-1'].section, srs['bio-1'].topic],
+    [61000, 0, 'bio', 'Cells']
+  );
+  srs['bio-1'].extra = 'kept';
+  Core.enroll(srs, item, 5000);
+  assert.deepEqual([srs['bio-1'].lapses, srs['bio-1'].due, srs['bio-1'].extra], [1, 65000, 'kept']);
+  srs.early = { due: 10 };
+  srs.later = { due: 70000 };
+  srs.broken = { due: NaN };
+  assert.deepEqual(
+    Core.dueMistakes(srs, 66000).map(r => r.id),
+    ['early', 'bio-1'],
+    'due now, most overdue first; future and malformed records are left out'
+  );
+});

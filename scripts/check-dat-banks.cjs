@@ -29,12 +29,14 @@ const REASONS = Object.freeze({
   VENDOR_TOKEN: 'error',
   DUPLICATE_STEM: 'error',
   LAYER_SHORTFALL: 'error',
+  ARITHMETIC_FALSE: 'error',
   ANSWER_BALANCE: 'warning',
   LONGEST_OPTION_BIAS: 'warning',
   DIFFICULTY_MIX: 'warning',
   WORKED_MISMATCH: 'warning',
   THIN_TOPIC: 'warning',
   SUSPECT_TERM: 'warning',
+  DISTRACTOR_ARITHMETIC: 'warning',
 });
 
 const ID_RE = /^[a-z0-9][\w-]{2,80}$/;
@@ -134,6 +136,118 @@ function checkWorkedQc(item) {
     else if (relation !== r) return 3;
   }
   return relation;
+}
+
+// Arithmetic written out in teaching copy: "210 ÷ 140 = 1.5", "0.20 × 40 = 8.0", "30/200 = 3/20".
+// Only digits, operators, brackets and numeric "25% of 40" count. Algebra ("x + 3 = 5"), names ("[2+2]", "2-methyl"),
+// hyphenated ranges and anything touching a letter are skipped, so every hit is arithmetic a
+// learner is asked to take on trust. Every class of content defect two audits found was a
+// rationale or explanation whose own numbers did not add up (CONTENT-LOG, C12 corrections).
+const A_NUM = String.raw`\d+(?:,\d{3})*(?:\.\d+)?`;
+const A_PERCENT_AMOUNT = String.raw`(?:\(\s*${A_NUM}\s*\)|${A_NUM})[²³]?`;
+const A_PERCENT_OF = String.raw`(${A_NUM})\s*%\s*of\s*(${A_PERCENT_AMOUNT})`;
+const A_TERM = String.raw`\(?\s*(?:${A_PERCENT_OF}|${A_NUM})\s*\)?[²³]?`;
+const A_OP = String.raw`(?:\s*[+×*÷/−]\s*|\s+-\s+)`;
+const A_EXPR = String.raw`${A_TERM}(?:${A_OP}${A_TERM})*`;
+const ARITHMETIC = new RegExp(
+  String.raw`(?<![\w.,'’^[-])(?<![+×*÷/−^]\s*)(?<!\s-\s*)(?<!%\s*of\s*)${A_EXPR}(?:\s*=\s*${A_EXPR})*(?![\w\]]|\.\d|\s*[+×*÷/−^]|\s+-\s)`,
+  'gi'
+);
+const NUMBERS = new RegExp(A_NUM, 'g');
+
+function arithmeticValue(text) {
+  const source = String(text)
+    // Treat the complete numeric phrase as one factor; do not extract its quantity alone.
+    .replace(new RegExp(A_PERCENT_OF, 'gi'), '($1 / 100 * $2)')
+    .replace(/,(?=\d{3})/g, '')
+    .replace(/−/g, '-')
+    .replace(/×/g, '*')
+    .replace(/÷/g, '/')
+    .replace(/²/g, '**2')
+    .replace(/³/g, '**3')
+    .trim();
+  if (!/^[\d\s+\-*/().]+$/.test(source)) return null;
+  let depth = 0;
+  for (const ch of source) {
+    depth += ch === '(' ? 1 : ch === ')' ? -1 : 0;
+    if (depth < 0) return null;
+  }
+  if (depth !== 0) return null;
+  try {
+    const value = new Function('return (' + source + ');')();
+    return Number.isFinite(value) ? value : null;
+  } catch {
+    return null;
+  }
+}
+// Half a unit in the last place a plain number states: "8.0" claims ±0.05, "13" claims ±0.5.
+// An expression claims exactness.
+function statedPrecision(text) {
+  const t = String(text).trim();
+  if (!/^\d+(?:,\d{3})*(?:\.\d+)?$/.test(t)) return 0;
+  const decimals = (/\.(\d+)$/.exec(t) || ['', ''])[1].length;
+  return 0.5 * 10 ** -decimals;
+}
+function agrees(a, b, tolerance) {
+  return Math.abs(a - b) <= Math.max(tolerance, 1e-9 * Math.max(1, Math.abs(a), Math.abs(b))) * (1 + 1e-9);
+}
+// Each written-out computation in `text`: its parts in order and their values. A chain
+// `a = b = c` must agree link by link at the precision each plain number states.
+function arithmeticIn(text) {
+  const out = [];
+  for (const m of String(text).matchAll(ARITHMETIC)) {
+    if (!/[+×*÷/−=%]|\s-\s/.test(m[0])) continue;
+    const parts = m[0].split('=').map(p => p.trim());
+    const values = parts.map(arithmeticValue);
+    const tolerances = parts.map(statedPrecision);
+    if (values.some(v => v === null)) continue;
+    // "20/50 = 40 %" states a percentage.
+    if (parts.length > 1 && /^\s*%/.test(String(text).slice(m.index + m[0].length))) {
+      values[values.length - 1] /= 100;
+      tolerances[tolerances.length - 1] /= 100;
+    }
+    out.push({ text: m[0].trim(), parts, values, tolerances });
+  }
+  return out;
+}
+function falseLink(hit) {
+  for (let i = 1; i < hit.parts.length; i++) {
+    const tolerance = Math.max(hit.tolerances[i - 1], hit.tolerances[i]);
+    if (!agrees(hit.values[i - 1], hit.values[i], tolerance)) return i;
+  }
+  return 0;
+}
+// The number a numeric option states ("2.625 hours" → 2.625, "7/20" → 0.35, "40 %" → 0.4).
+function optionValue(option) {
+  const m = /^\s*(−|-)?\s*(\d+(?:,\d{3})*(?:\.\d+)?(?:\s*\/\s*\d+)?)\s*(%?)\s*[^\d]*$/.exec(String(option));
+  if (!m) return null;
+  const value = arithmeticValue(m[2]);
+  if (value === null) return null;
+  const sign = m[1] ? -1 : 1;
+  return { value: (sign * value) / (m[3] ? 100 : 1), tolerance: statedPrecision(m[2]) / (m[3] ? 100 : 1) };
+}
+// A wrong option's rationale that shows arithmetic has to reach that option: directly, or one
+// multiplication or division away by a number the stem or the rationale itself gives (a
+// rationale may name the wrong ratio and leave the "× 2.0 atm" to the stem). Prose-only
+// rationales are out of reach of a checker and are left to review.
+function distractorReaches(item, d) {
+  const option = optionValue(item.options[d.i]);
+  if (!option) return true;
+  const hits = arithmeticIn(d.why);
+  if (!hits.length) return true;
+  const given = [item.stem, item.common, d.why, ...(item.table?.rows || []).flat()]
+    .filter(t => typeof t === 'string' || typeof t === 'number')
+    .flatMap(t => String(t).match(NUMBERS) || [])
+    .map(arithmeticValue)
+    .filter(v => v !== null && v !== 0);
+  const tolerance = Math.max(option.tolerance, 0.005 * Math.abs(option.value));
+  return hits
+    .flatMap(h => h.values)
+    .some(
+      v =>
+        agrees(v, option.value, tolerance) ||
+        given.some(k => agrees(v * k, option.value, tolerance) || agrees(v / k, option.value, tolerance))
+    );
 }
 
 function checkDatBanks(outline, fragments, options = {}) {
@@ -354,6 +468,31 @@ function checkDatBanks(outline, fragments, options = {}) {
               'figure must be one inline <svg> ≤ 8 KB with no <script>, no href or xlink, no <foreignObject> and no inline event handler.',
           });
       }
+      for (const [label, text] of [
+        ['stem', item.stem],
+        ['common', item.common],
+        ['explanation', item.explanation],
+        ...distractors.map(d => [`distractors[i=${d?.i}]`, d?.why]),
+      ]) {
+        if (typeof text !== 'string') continue;
+        for (const hit of arithmeticIn(text)) {
+          const i = falseLink(hit);
+          if (i)
+            finding('ARITHMETIC_FALSE', {
+              ...where,
+              message: `${label}: "${hit.text}" — ${hit.parts[i - 1]} is ${+hit.values[i - 1].toPrecision(6)}, not ${hit.parts[i]}. Use ≈ for a rounded result.`,
+            });
+        }
+      }
+      if (format === 'standard' || format === 'data')
+        for (const d of distractors)
+          if (Number.isInteger(d?.i) && typeof d.why === 'string' && !distractorReaches(item, d))
+            finding('DISTRACTOR_ARITHMETIC', {
+              ...where,
+              message: `distractors[i=${d.i}] shows ${arithmeticIn(d.why)
+                .map(h => `"${h.text}"`)
+                .join(', ')}, which does not produce option ${d.i} "${item.options[d.i]}".`,
+            });
       const url = item.provenance.source?.url;
       if (item.provenance.source != null && !/^https:\/\//.test(String(url)))
         finding('SOURCE_URL', { ...where, message: `provenance.source.url "${url}" must be https.` });
@@ -534,4 +673,4 @@ if (require.main === module) {
   process.exitCode = report.ok ? 0 : 1;
 }
 
-module.exports = { checkDatBanks, minimumFor, policyKey, REASONS };
+module.exports = { checkDatBanks, minimumFor, policyKey, REASONS, arithmeticIn, optionValue };

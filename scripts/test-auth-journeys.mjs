@@ -146,7 +146,12 @@ try {
       await h.page.evaluate(() => testAuthEvent('B'));
       await h.page.waitForFunction(() => JSON.parse(localStorage.getItem('cortex-progress-owner-v1')).id === 'B');
       await h.page.waitForLoadState('networkidle');
-      await other.waitForSelector('#account-work-paused');
+      // Learn loads StudyStorage, so the shared recovery dialog owns workspace changes.
+      // The standalone account dialog is used only before the course storage layer loads.
+      await other.waitForSelector('#study-save-conflict');
+      assert.equal(await other.locator('#study-conflict-title').innerText(), 'Your active workspace changed.');
+      assert.equal(await other.evaluate(() => progress.paused && StudyStorage.paused), true);
+      assert.equal(await other.locator('dialog[open]').count(), 1);
       assert.equal(
         await other.evaluate(() => {
           try {

@@ -2,7 +2,7 @@
 // class (DECISIONS-NUMERIC §N3), plus minimumFor() and the option-policy resolver.
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { checkDatBanks, minimumFor, policyKey, REASONS } = require('./check-dat-banks.cjs');
+const { checkDatBanks, minimumFor, policyKey, REASONS, arithmeticIn } = require('./check-dat-banks.cjs');
 const { outline } = require('./dat-data.cjs');
 
 const SOURCE = { title: 'OpenStax Biology 2e', url: 'https://openstax.org/books/biology-2e' };
@@ -258,6 +258,140 @@ test('worked values that contradict a QC answer warn; consistent values and unev
     ]),
   ]);
   assert.deepEqual(reasons(prose), []);
+});
+
+// qr-applied-10 as shipped: every rationale's arithmetic reaches its own option.
+const courier = (overrides = {}) =>
+  item({
+    id: 'qr-applied-' + n,
+    section: 'qr',
+    category: 'QR-5',
+    topic: 'Distance and travel',
+    stem: `Two clinics are 210 km apart. Couriers leave each at 60 km/h and 80 km/h, driving toward each other. After how long do they meet (case ${n})?`,
+    options: ['1.5 hours', '2.625 hours', '3 hours', '3.5 hours', '10.5 hours'],
+    answer: 0,
+    explanation: 'The gap closes at 60 + 80 = 140 km/h, so 210 ÷ 140 = 1.5 hours.',
+    distractors: [
+      { i: 1, why: "This uses only the faster courier's speed, 210 ÷ 80." },
+      { i: 2, why: 'This uses the average speed of 70 km/h instead of the closing speed.' },
+      { i: 3, why: "This uses only the slower courier's speed, 210 ÷ 60." },
+      { i: 4, why: 'This subtracts the speeds: 210 ÷ (80 − 60) = 10.5.', weakest: true },
+    ],
+    ...overrides,
+  });
+const withWhy = (base, i, why) => base.distractors.map(d => (d.i === i ? { ...d, why } : d));
+
+test('arithmetic in teaching copy has to be true, and a rationale has to reach its own option', () => {
+  assert.deepEqual(reasons(checkDatBanks(outline, [qrFragment([courier()])])), []);
+
+  // A false equation anywhere a learner reads it is an error.
+  const falseExplanation = checkDatBanks(outline, [
+    qrFragment([courier({ explanation: 'The gap closes at 60 + 80 = 140 km/h, so 210 ÷ 140 = 1.4 hours.' })]),
+  ]);
+  assert.deepEqual(reasons(falseExplanation), ['ARITHMETIC_FALSE']);
+  assert.equal(falseExplanation.ok, false);
+  assert.match(falseExplanation.errors[0].message, /210 ÷ 140 is 1\.5, not 1\.4/);
+  const base = courier();
+  assert.deepEqual(
+    reasons(
+      checkDatBanks(outline, [qrFragment([courier({ distractors: withWhy(base, 4, 'Subtracting: 210 ÷ 20 = 7.') })])])
+    ),
+    ['ARITHMETIC_FALSE']
+  );
+
+  // The defect class of qr-applied-10 before C12: the rationale's error does not produce the option.
+  const wrongOption = courier({ options: ['1.5 hours', '2.5 hours', '3 hours', '3.5 hours', '10.5 hours'] });
+  const report = checkDatBanks(outline, [qrFragment([wrongOption])]);
+  assert.deepEqual(reasons(report), ['DISTRACTOR_ARITHMETIC']);
+  assert.equal(report.warnings[0].itemId, wrongOption.id);
+  assert.match(report.warnings[0].message, /distractors\[i=1\] shows "210 ÷ 80"/);
+  assert.equal(checkDatBanks(outline, [qrFragment([wrongOption])], { strict: true }).ok, false);
+});
+
+test('the arithmetic rules read stated precision, one step through a given number, and leave non-arithmetic alone', () => {
+  const pad = ' The rest of the explanation walks through the setup in words.';
+  const clean = overrides =>
+    reasons(
+      checkDatBanks(outline, [
+        qrFragment([
+          courier({ ...overrides, ...(overrides.explanation ? { explanation: overrides.explanation + pad } : {}) }),
+        ]),
+      ])
+    );
+  const base = courier();
+  // Stated precision: "8.0" claims ±0.05, so 0.20 × 40 = 8.0 holds and = 8.1 does not; ≈ is never checked.
+  assert.deepEqual(clean({ explanation: 'The mass is 0.20 × 40 = 8.0 g, so the rest follows here.' }), []);
+  assert.deepEqual(clean({ explanation: 'The mass is 0.20 × 40 = 8.1 g, so the rest follows here.' }), [
+    'ARITHMETIC_FALSE',
+  ]);
+  assert.deepEqual(clean({ explanation: 'The mass is 210 ÷ 80 ≈ 2.6 hours, which rounds the value here.' }), []);
+  // Chains, fractions, percentages and thousands separators.
+  assert.deepEqual(
+    clean({ explanation: 'Area is 3.14 × 10² × 30 = 3.14 × 3000 = 9420, and 30/200 = 3/20 of it.' }),
+    []
+  );
+  assert.deepEqual(
+    clean({ explanation: 'Of the fifty, 20/50 = 40 % passed and 6,000 ÷ 40,000 = 0.15 were late.' }),
+    []
+  );
+  // Percentage precision must use the same fraction units as its computed value.
+  for (const equation of ['20/50 = 49 %', '1/4 = 70 %', '20/50 = 40.1 %'])
+    assert.deepEqual(clean({ explanation: `${equation} of the cases passed.` }), ['ARITHMETIC_FALSE']);
+  assert.deepEqual(clean({ explanation: '1/3 = 33 % of the cases passed.' }), []);
+  assert.deepEqual(clean({ explanation: '20/50 = 40.0 % of the cases passed.' }), []);
+  assert.deepEqual(clean({ explanation: '30/200 = 15% of the cases passed.' }), []);
+  assert.deepEqual(clean({ explanation: '30/200 = 16% of the cases passed.' }), ['ARITHMETIC_FALSE']);
+  // Algebra, reaction names, hyphenated names and ranges are not arithmetic.
+  assert.deepEqual(
+    clean({
+      explanation:
+        'Solving x + 3 = 5 gives x = 2; a [2+2] cycloaddition makes 2-methylbutane; scores run 13.8 to 18.2 and 1900-1929.',
+    }),
+    []
+  );
+  // A rationale may name the wrong ratio and leave the multiplication by a given quantity to the stem.
+  assert.deepEqual(
+    clean({
+      stem: 'A gas at 2.0 atm and 27 °C (300 K) is heated to 177 °C (450 K) at fixed volume. What is its new pressure?',
+      options: ['3.0 atm', '1.3 atm', '2.0 atm', '4.5 atm', '13 atm'],
+      explanation: 'Pressure scales with kelvin temperature: 2.0 × 450/300 = 3.0 atm at fixed volume.',
+      distractors: [
+        { i: 1, why: 'This inverts the ratio, 300/450, so the pressure appears to fall.' },
+        { i: 2, why: 'This leaves the pressure unchanged, as if volume had been allowed to change.' },
+        // 450 ÷ 27 mixes the scales, but no single step from it lands on 4.5.
+        { i: 3, why: 'This multiplies by 450 ÷ 27, mixing kelvin with Celsius.' },
+        { i: 4, why: 'This uses the Celsius ratio 177/27.', weakest: true },
+      ],
+    }),
+    ['DISTRACTOR_ARITHMETIC']
+  );
+  // Prose-only rationales and non-numeric options are left to review.
+  assert.deepEqual(clean({ distractors: withWhy(base, 1, 'This uses one speed only, which cannot be right.') }), []);
+});
+
+test('numeric percent-of prose is checked as a complete computation rather than its suffix', () => {
+  const report = equation =>
+    checkDatBanks(outline, [
+      qrFragment([courier({ explanation: `${equation}. The percentage applies to the stated quantity.` })]),
+    ]);
+  const hit = arithmeticIn('25% of 40 = 10');
+  assert.equal(hit.length, 1);
+  assert.deepEqual(hit[0].parts, ['25% of 40', '10']);
+  assert.deepEqual(hit[0].values, [10, 10]);
+  for (const equation of [
+    '25% of 40 = 10',
+    '12.5 % of 80 = 10.0',
+    '25% OF (40) = 10',
+    '25% of 4,000 = 1,000',
+    '(25% of 40) + 5 = 15',
+    '100 / (25% of 40) = 10',
+    '25% of 40 = 0.25 × 40 = 10',
+  ])
+    assert.deepEqual(reasons(report(equation)), [], equation);
+  for (const equation of ['25% of 40 = 12', '25% of 40 = 40', '12.5% of 80 = 11', '25% of 40 = 0.25 × 40 = 11'])
+    assert.deepEqual(reasons(report(equation)), ['ARITHMETIC_FALSE'], equation);
+  // A quantity expressed through unsupported prose/algebra must not become a bare "40 = 10".
+  assert.deepEqual(arithmeticIn('25% of (20 + 20) = 10'), []);
 });
 
 test('minimumFor floors the per-category target and returns null for ungated categories', () => {

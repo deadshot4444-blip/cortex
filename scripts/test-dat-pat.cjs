@@ -1490,16 +1490,10 @@ function patPage(url, extras) {
     datUrl: (query = {}) => '/dat?' + new URLSearchParams(query).toString(),
     datDataNotice: () => w.document.createElement('div'),
     datView: main => w.document.querySelector('#app').replaceChildren(main),
-    DatDrillCore: {
-      enroll: (store, item) => {
-        store[item.id] = store[item.id] || { id: item.id };
-        return store[item.id];
-      },
-    },
     DAT: { pausers: [], attemptStores: null, outline, pat: null, loaded: true },
   });
   Object.assign(w, extras || {});
-  for (const file of ['dat-pat-engine.js', 'dat-pat.js'])
+  for (const file of ['dat-drill-engine.js', 'dat-pat-engine.js', 'dat-pat.js'])
     vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), dom.getInternalVMContext());
   return { dom, w, cell };
 }

@@ -2,7 +2,12 @@ import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 const base = process.env.CORTEX_URL || 'http://127.0.0.1:8805/';
-assert.equal(new URL(base).port, '8805');
+assert.ok(
+  new URL(base).protocol === 'http:' &&
+    ['127.0.0.1', 'localhost'].includes(new URL(base).hostname) &&
+    new URL(base).port,
+  'Use an isolated local test origin'
+);
 const data = JSON.parse(readFileSync('data/mcat-course.json')),
   h2 = JSON.parse(readFileSync('data/mcat-cars.json')).find(p => p.id === 'h2');
 const browser = await chromium.launch({ headless: true });
@@ -130,7 +135,7 @@ try {
     await page.check('[name="coach-answer"][value="1"]');
     await page.fill('#coach-evidence', 'The passage makes the claim conditional.');
     await page.reload({ waitUntil: 'networkidle' });
-    await page.click('#coach-resume');
+    await page.waitForSelector('[name="coach-answer"]');
     assert.equal(await page.locator('[name="coach-answer"]:checked').inputValue(), '1');
     assert.deepEqual(
       await page.locator('[name="coach-answer"]').evaluateAll(bs => bs.map(b => Number(b.value))),

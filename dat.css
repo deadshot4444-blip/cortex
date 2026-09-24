@@ -662,3 +662,73 @@
     padding: 16px 14px 20px;
   }
 }
+
+/* ---------- DAT-05: mistake log and spaced review ---------- */
+.dat-mistakes-how { margin-top:10px; max-width:620px; font-size:14px; line-height:1.65; color:var(--dim); }
+.dat-mistakes-actions { margin-top:18px; }
+.dat-mistakes-next { font-family:var(--mono); font-size:12px; color:var(--dim); }
+.dat-mistake-group h2 { display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 10px; }
+.dat-mistake-group h2 small { margin-left:0; }
+.dat-mistake-review { margin-left:auto; font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--text); text-underline-offset:3px; }
+.dat-mistake-group li.dat-mistake-due { border-left:2px solid var(--text); }
+.dat-mistake-group li.dat-mistake-gone { opacity:.6; }
+.dat-tools a small { margin-left:4px; font-family:var(--mono); font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--text); }
+/* A re-asked reading question carries its passage, sized like the RC runner's (readability pass). */
+.dat-review-passage { margin:0 0 18px; border:1px solid var(--line); background:var(--bg); }
+.dat-review-passage summary { padding:10px 14px; font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--dim); cursor:pointer; }
+.dat-review-passage-text { max-height:46vh; overflow-y:auto; overscroll-behavior:contain; padding:4px 18px 16px; border-top:1px solid var(--line); }
+.dat-review-passage-text p { margin-top:14px; font-size:16px; line-height:1.85; color:var(--text); overflow-wrap:break-word; border-left:2px solid transparent; padding-left:10px; margin-left:-12px; }
+.dat-review-par-n { margin-right:8px; font-family:var(--mono); font-size:11px; color:var(--faint); }
+.dat-review-passage-text p.dat-review-evidence { border-left-color:var(--text); background:var(--surface); }
+.dat-review-evidence-note, .dat-review-next { margin-top:12px; font-family:var(--mono); font-size:12px; line-height:1.6; color:var(--dim); }
+/* PAT items re-asked in the drill runner: the keyhole scale rule needs a query container here too. */
+.dat-review-pat { container-type:inline-size; }
+.dat-review-pat .dat-opts.dat-pat-opts-svg { display:grid; }
+@media (max-width: 420px) {
+  .dat-review-passage-text { padding:4px 14px 14px; }
+}
+
+/* ---------- DAT-07: date-driven schedule and DAT Today ---------- */
+.dat-plan-form, .dat-plan-scores form { margin-top: 22px; }
+.dat-plan-fields, .dat-plan-scores form { display: flex; flex-wrap: wrap; gap: 16px; }
+.dat-plan-fields label, .dat-plan-scores label, .dat-plan-bg label { display: flex; flex-direction: column; gap: 6px; flex: 1 1 180px; min-width: 0; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--dim); }
+.dat-plan-fields input, .dat-plan-scores input, .dat-plan-bg select { width: 100%; min-height: 44px; padding: 10px 12px; font: inherit; letter-spacing: 0; text-transform: none; color: var(--text); background: var(--bg); border: 1px solid var(--line-bright); border-radius: 0; }
+.dat-plan-off { margin: 18px 0 0; padding: 12px 14px; border: 1px solid var(--line); }
+.dat-plan-off legend { padding: 0 6px; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--dim); }
+.dat-plan-off label { display: inline-flex; align-items: center; gap: 6px; margin: 6px 14px 6px 0; font-size: 14px; text-transform: none; letter-spacing: 0; color: var(--text); }
+.dat-plan-acc { display: flex; align-items: flex-start; gap: 8px; margin-top: 16px; font-size: 14px; }
+.dat-plan-bg { margin-top: 16px; }
+.dat-plan-bg summary { cursor: pointer; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--dim); }
+.dat-plan-bg div { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 14px; }
+.dat-plan-bg p, .dat-plan-scores > p, .dat-plan .sub { max-width: 62ch; }
+.dat-plan-error:empty { display: none; }
+.dat-plan-error, .dat-plan-warn { margin-top: 14px; color: var(--amber); font-size: 14px; }
+.dat-plan-reminder { margin-top: 14px; font-size: 14px; }
+.dat-plan-form .btn, .dat-plan-scores .btn { margin-top: 16px; }
+.dat-plan-phases { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 22px 0 0; padding: 0; list-style: none; }
+.dat-plan-phases li { font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--dim); }
+.dat-plan-phases span { color: var(--text); }
+.dat-plan-board { margin-top: 28px; }
+.dat-plan-pager { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.dat-plan-pager h2 { margin: 0; font-size: 16px; font-weight: 450; }
+.dat-plan-week { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 8px; margin-top: 14px; }
+.dat-plan-day { min-width: 0; padding: 10px; border: 1px solid var(--line); }
+.dat-plan-day header { display: flex; justify-content: space-between; gap: 8px; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--dim); }
+.dat-plan-phase { margin: 8px 0; font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); }
+.dat-plan-day ul { list-style: none; margin: 0; padding: 0; }
+.dat-plan-day li { margin-top: 8px; }
+.dat-plan-day li a { display: inline; font-size: 13px; }
+.dat-plan-day small, .dat-plan-more, .dat-plan-rest { display: block; margin-top: 4px; font-family: var(--mono); font-size: 10px; letter-spacing: .04em; color: var(--faint); }
+.dat-plan-day li.is-done a { color: var(--dim); }
+.dat-plan-day.is-off { background: var(--surface); }
+.dat-plan-scores { margin-top: 32px; padding-top: 8px; border-top: 1px solid var(--line); }
+.dat-plan-score-list { margin: 12px 0 0; padding: 0; list-style: none; }
+.dat-plan-score-list li { margin-top: 10px; font-size: 14px; }
+.dat-plan-score-list small { display: block; margin-top: 4px; color: var(--dim); }
+.dat-plan-back { margin-top: 28px; }
+.dat-today-tasks { list-style: none; margin: 22px 0 0; padding: 0; }
+.dat-today-task { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 12px; }
+.dat-today-task.is-done span { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--dim); }
+@media (max-width: 800px) {
+  .dat-plan-week { grid-template-columns: 1fr; }
+}

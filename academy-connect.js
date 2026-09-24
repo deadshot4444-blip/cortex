@@ -8,6 +8,8 @@
     state = null,
     generation = 0;
   const trackName = key => CortexAcademy.tracks.find(t => t.id === key)?.name || 'Academy';
+  // Closed courses (app.js UNDER_CONSTRUCTION) are left out of discovery on the public site.
+  const closedCourses = () => (typeof UNDER_CONSTRUCTION !== 'undefined' ? UNDER_CONSTRUCTION : new Set());
   const current = () => location.pathname + location.search + location.hash;
   const params = () => new URLSearchParams(location.search);
   const back = () => Core.safeReturn(params().get('returnTo'));
@@ -32,6 +34,8 @@
     return url;
   }
   function courseLink(entry, label = entry.title) {
+    // A closed course's lessons are named, never linked: the link would only reach its gate page.
+    if (closedCourses().has(entry.track)) return `${esc(label)} (under construction)`;
     return `<a data-connect-course="${esc(entry.track)}" href="${esc(href(entry))}">${esc(label)}</a>`;
   }
   function shell(title, description, body) {
@@ -62,7 +66,7 @@
   async function load() {
     if (catalog) return catalog;
     if (!loading)
-      loading = fetch('data/academy-curriculum.json?v=8')
+      loading = fetch('data/academy-curriculum.json?v=9')
         .then(response => {
           if (!response.ok) throw Error('Curriculum could not load.');
           return response.json();
@@ -102,6 +106,7 @@
       level: p.get('level') || '',
       objective: p.get('objective') || '',
       drafts: p.get('scope') === 'drafts',
+      closed: closedCourses(),
     };
     const results = Core.search(catalog, filters),
       matches = new Set(results.map(e => e.id));
@@ -130,7 +135,10 @@
       'Search public lesson descriptions and selected shared objectives. Preparation levels are author suggestions, not calibrated difficulty or a measurement of your ability.',
       `
       <form class="connect-search" id="connect-search"><label for="connect-query">Search lessons and objectives<input id="connect-query" name="q" type="search" maxlength="200" value="${esc(filters.q)}" placeholder="Try pressure, memory or measurement"></label>
-      <label for="connect-track">Course<select id="connect-track" name="track"><option value="">All courses</option>${CortexAcademy.tracks.map(t => `<option value="${t.id}" ${filters.track === t.id ? 'selected' : ''}>${esc(t.name)}</option>`).join('')}</select></label>
+      <label for="connect-track">Course<select id="connect-track" name="track"><option value="">All courses</option>${CortexAcademy.tracks
+        .filter(t => !closedCourses().has(t.id))
+        .map(t => `<option value="${t.id}" ${filters.track === t.id ? 'selected' : ''}>${esc(t.name)}</option>`)
+        .join('')}</select></label>
       <label for="connect-level">Preparation level<select id="connect-level" name="level"><option value="">All levels</option>${Core.levels.map(l => `<option value="${l}" ${filters.level === l ? 'selected' : ''}>${levelName(l)}</option>`).join('')}</select></label>
       <label for="connect-objective">Shared objective<select id="connect-objective" name="objective"><option value="">Any objective</option>${catalog.objectives.map(o => `<option value="${o.id}" ${filters.objective === o.id ? 'selected' : ''}>${esc(o.title)}</option>`).join('')}</select></label>
       <label class="connect-check"><input name="drafts" type="checkbox" ${filters.drafts ? 'checked' : ''}>Include the separate draft library</label><button class="btn btn-solid" type="submit">Search</button><a data-connect-view href="${esc(academyUrl('curriculum', { context: context?.id }))}">Clear filters</a></form>

@@ -34,10 +34,22 @@
       const log = StudyStorage.read(LOG_KEY, []),
         hist = StudyStorage.read(HIST_KEY, {}),
         srs = StudyStorage.read(SRS_KEY, {});
+      const valid = {
+        log: Core.validAttemptStore(log, 'log'),
+        hist: Core.validAttemptStore(hist, 'hist'),
+        srs: Core.validAttemptStore(srs, 'srs'),
+      };
+      // Keep the saved copy for recovery; never overwrite an invalid store with empty progress.
+      if (!Object.values(valid).every(Boolean))
+        StudyStorage.sessionFailed(
+          Object.keys(valid)
+            .filter(key => !valid[key])
+            .map(key => ({ log: LOG_KEY, hist: HIST_KEY, srs: SRS_KEY })[key])
+        );
       DAT.attemptStores = {
-        log: Array.isArray(log) ? log : [],
-        hist: hist && typeof hist === 'object' ? hist : {},
-        srs: srs && typeof srs === 'object' ? srs : {},
+        log: valid.log ? log : [],
+        hist: valid.hist ? hist : {},
+        srs: valid.srs ? srs : {},
       };
       StudyStorage.watch(LOG_KEY, () => stores().log);
       StudyStorage.watch(HIST_KEY, () => stores().hist);
@@ -279,7 +291,49 @@
   }
   function loadResume() {
     const blob = StudyStorage.read(RESUME_KEY, null);
-    return blob && Array.isArray(blob.ids) && blob.ids.length && blob.attemptId ? blob : null;
+    if (blob === null) return null;
+    const record = value => !!value && typeof value === 'object' && !Array.isArray(value);
+    const count = value => Number.isInteger(value) && value >= 0;
+    const maps = ['answers', 'marks', 'conf', 'qMs', 'passageMs', 'highlights', 'reviews'];
+    const valid =
+      record(blob) &&
+      Array.isArray(blob.ids) &&
+      blob.ids.length > 0 &&
+      blob.ids.every(id => typeof id === 'string') &&
+      new Set(blob.ids).size === blob.ids.length &&
+      maps.every(key => record(blob[key])) &&
+      count(blob.idx) &&
+      count(blob.reviewIdx) &&
+      ['attempt', 'blind'].includes(blob.phase) &&
+      Number.isFinite(blob._remain) &&
+      blob._remain >= 0 &&
+      typeof blob.attemptId === 'string' &&
+      blob.attemptId &&
+      Number.isFinite(blob.startedAt) &&
+      (blob.reviewOrder === null ||
+        (Array.isArray(blob.reviewOrder) && blob.reviewOrder.every(id => typeof id === 'string'))) &&
+      Object.values(blob.answers).every(value => value === null || count(value)) &&
+      ['qMs', 'passageMs'].every(key =>
+        Object.values(blob[key]).every(value => Number.isFinite(value) && value >= 0)
+      ) &&
+      Object.values(blob.highlights).every(
+        list =>
+          Array.isArray(list) &&
+          list.every(r => record(r) && count(r.par) && count(r.start) && count(r.end) && r.end >= r.start)
+      ) &&
+      Object.values(blob.reviews).every(
+        r =>
+          record(r) &&
+          (r.chosen === null || count(r.chosen)) &&
+          Array.isArray(r.evidence) &&
+          r.evidence.every(count) &&
+          typeof r.rationale === 'string'
+      );
+    if (!valid) {
+      StudyStorage.sessionFailed([RESUME_KEY]);
+      return null;
+    }
+    return blob;
   }
   function clearResume() {
     return StudyStorage.remove(RESUME_KEY);
@@ -857,10 +911,9 @@
         record.passage = p.id;
       }
     }
-    const ok =
-      StudyStorage.write(LOG_KEY, store.log) &&
-      StudyStorage.write(HIST_KEY, store.hist) &&
-      StudyStorage.write(SRS_KEY, store.srs);
+    const logOK = StudyStorage.write(LOG_KEY, store.log);
+    const histOK = StudyStorage.write(HIST_KEY, store.hist);
+    const ok = StudyStorage.write(SRS_KEY, store.srs) && histOK && logOK;
     saveStatus(ok);
     return ok;
   }
@@ -1050,7 +1103,15 @@
       );
     const saved = loadResume();
     if (saved && sameRun(saved, ids, p.set) && resumeRun(saved)) return renderPhase();
-    if (saved) clearResume();
+    if (
+      saved &&
+      !window.confirm(
+        'Replace your unfinished Reading Comprehension session with this new session? Cancel keeps the saved session so you can resume it.'
+      )
+    ) {
+      history.replaceState({ sec: 'dat' }, '', datUrl({ view: 'rc' }));
+      return renderPicker();
+    }
     if (!startRun(ids, p.set || null)) return renderPicker();
     return renderPhase();
   }

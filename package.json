@@ -13,7 +13,7 @@
     "test": "node --test --test-concurrency=4 scripts/test-*.cjs",
     "test:browser": "node scripts/run-browser-tests.mjs",
     "check": "python3 scripts/build-academy-curriculum.py --check && python3 scripts/build-neuro-projects.py --check && python3 scripts/build-offline-manifest.py --check && node scripts/check-clinical-longitudinal.cjs > /dev/null && node scripts/check-clinical-rotations.cjs > /dev/null && node scripts/check-mcat-item-history.cjs > /dev/null && node scripts/check-mcat-rehearsals.cjs > /dev/null && node scripts/check-dat-banks.cjs > /dev/null && node scripts/check-dat-item-history.cjs > /dev/null",
-    "check:content": "for f in scripts/check-*.cjs; do node \"$f\" > /dev/null || echo \"FAIL $f\"; done",
+    "check:content": "result=0; for f in scripts/check-*.cjs; do node \"$f\" > /dev/null || { echo \"FAIL $f\"; result=1; }; done; exit \"$result\"",
     "lint": "eslint .",
     "format": "prettier --write \"*.js\" \"scripts/**/*.{js,cjs,mjs}\" \"netlify/**/*.js\"",
     "format:check": "prettier --check \"*.js\" \"scripts/**/*.{js,cjs,mjs}\" \"netlify/**/*.js\"",

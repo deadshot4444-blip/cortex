@@ -54,7 +54,11 @@ try {
     });
     assert.equal(await page.locator('[data-today-task]').count(), 0);
     assert.ok((await page.locator('main').innerText()).includes('rest day'));
-    await page.locator('.course-map summary').click();
+    await page
+      .locator('details.course-map')
+      .filter({ has: page.locator('#v2-original-plan') })
+      .locator(':scope > summary')
+      .click();
     await page.click('#v2-original-plan');
     assert.equal(await page.locator('.study-session').count(), 1);
     assert.equal(await page.evaluate(() => guidePlan().targetDate), oldPlan.targetDate);

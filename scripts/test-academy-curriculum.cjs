@@ -62,6 +62,15 @@ test('search honors intersecting track, preparation, text and shared-objective f
   assert.equal(Core.search(data, { track: 'neuro', level: 'advanced', drafts: true }).length, 15);
   assert.equal(Core.search(data, { q: 'no-such-phrase' }).length, 0);
 });
+test('search leaves out closed courses, even when drafts are included or the course is asked for by name', () => {
+  const closed = new Set(['socrates', 'anatomy', 'reference', 'neuro']);
+  const open = Core.search(data, { drafts: true, closed });
+  assert.ok(open.length);
+  assert.ok(open.every(e => !closed.has(e.track)));
+  assert.deepEqual([...new Set(open.map(e => e.track))].sort(), ['dat', 'mcat', 'practice']);
+  assert.equal(Core.search(data, { track: 'anatomy', closed }).length, 0);
+  assert.equal(Core.search(data, { closed: [] }).length, Core.search(data).length);
+});
 test('return destinations reject redirects and preserve valid original progress routes', () => {
   for (const value of [
     'https://evil.test/mcat',
@@ -166,7 +175,7 @@ test('new retrieval records round-trip through portable backup without adding co
 });
 
 // Minimal DOM stand-in for actual handler logic. It does not render or automate a browser.
-function harness(saved = new Map(), initial = '/academy?view=queue', catalog = clone(data)) {
+function harness(saved = new Map(), initial = '/academy?view=queue', catalog = clone(data), closed = new Set()) {
   let screen,
     fail = false,
     reads = 0,
@@ -273,6 +282,7 @@ function harness(saved = new Map(), initial = '/academy?view=queue', catalog = c
     document: { querySelector: () => screen },
     AcademyCurriculum: Core,
     CortexAcademy: { tracks },
+    UNDER_CONSTRUCTION: closed,
     StudyStorage: storage,
     URL,
     URLSearchParams,
@@ -356,6 +366,35 @@ test('discovery does not read or write private progress; loading after navigatio
   await pending;
   assert.doesNotMatch(delayed.html, /matching entries/);
   assert.equal(delayed.reads, 0);
+});
+test('discovery under production gates lists, links and offers no closed course', async () => {
+  const closed = new Set(['socrates', 'anatomy', 'reference', 'neuro']);
+  const h = harness(new Map(), '/academy?view=curriculum&scope=drafts', clone(data), closed);
+  await h.render();
+  assert.match(h.html, /matching entries/);
+  for (const id of closed) {
+    assert.doesNotMatch(h.html, new RegExp(`data-connect-course="${id}"`));
+    assert.doesNotMatch(h.html, new RegExp(`<option value="${id}"`));
+  }
+  assert.match(h.html, /data-connect-course="mcat"/);
+  const direct = harness(new Map(), '/academy?view=curriculum&track=anatomy', clone(data), closed);
+  await direct.render();
+  assert.match(direct.html, /0 matching entries/);
+  // A saved retrieval prompt still names its closed-course lessons, as text rather than a link.
+  const card = data.cards.find(c => c.links.some(e => e.track === 'anatomy'));
+  const state = Core.emptyState();
+  state.enabled = true;
+  const run = Core.enqueue(state, card, 'retrieval-closed', Date.now());
+  const q = harness(
+    new Map([['cs-academy-connections-v1', JSON.stringify(state)]]),
+    `/academy?view=queue&run=${run.id}`,
+    clone(data),
+    closed
+  );
+  await q.render();
+  const anatomy = card.links.find(e => e.track === 'anatomy');
+  assert.match(q.html, new RegExp(`${anatomy.title.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')} \\(under construction\\)`));
+  assert.doesNotMatch(q.html, /data-connect-course="anatomy"/);
 });
 test('queue handlers opt in, save drafts, freeze first writing, require a comparison and resume it', async () => {
   const h = harness();

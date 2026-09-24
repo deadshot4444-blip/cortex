@@ -140,7 +140,10 @@
       }
     }
     for (const [key, raw] of Object.entries(data)) {
-      if (!keys.has(key) && !/^cs-(?:mcat-r-(?:flash|drill|cars|plab|sim)|dat-r-(?:drill|pat|qr|rc|sim))$/.test(key))
+      if (
+        !keys.has(key) &&
+        !/^cs-(?:mcat-r-(?:flash|drill|cars|plab|sim)|dat-r-(?:drill|review|pat|qr|rc|sim))$/.test(key)
+      )
         throw Error('This app cannot restore the study record: ' + key);
       if (typeof raw !== 'string') throw Error('A saved study record is not serialized text.');
       if (plainKeys.has(key)) {

@@ -1274,6 +1274,7 @@ button[data-reveal] { opacity: 1; transform: none; }
 .utsa-photo { border: 1px solid var(--line); overflow: hidden; background: var(--bg); }
 .utsa-photo img { display: block; width: 100%; height: 240px; object-fit: cover; }
 .utsa-photo figcaption { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); padding: 13px 15px; border-top: 1px solid var(--line); }
+.utsa-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
 .utsa-note { margin-top: 34px; font-family: var(--mono); font-size: 11px; line-height: 1.65; letter-spacing: .02em; color: var(--faint); }
 @media (max-width: 760px) { .utsa-photo img { height: 200px; } }
 
@@ -4659,6 +4660,7 @@ button.neuro-trackms.open:hover { background: var(--ne-surface); }
 .academy-home .academy-workspace a:focus-visible { outline-color:#b4c8e6; }
 .academy-clinical { border-block:1px solid var(--line); padding:48px 0; display:grid; grid-template-columns:minmax(0,1.2fr) minmax(0,1fr); gap:64px; align-items:center; }
 .academy-home .academy-clinical h2, .academy-section-heading h2, .academy-mission h2 { font-size:clamp(28px,3.2vw,39px); font-weight:580; line-height:1.13; letter-spacing:-.035em; margin:15px 0; }
+.academy-dat + .academy-clinical { border-top:0; }
 .academy-clinical-copy>p { font-size:15px; color:var(--body); line-height:1.75; max-width:490px; }
 .academy-clinical-copy>.btn { margin-top:24px; }
 .academy-case-steps { list-style:none; padding:0; margin:0; }

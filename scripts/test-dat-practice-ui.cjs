@@ -214,6 +214,7 @@ test('neither DAT module pins an option count or an A-E letter run of its own', 
 
 test('the periodic table is offered on an SNS drill, opens, closes, and is absent where the outline forbids it', async () => {
   const h = harness();
+  h.w.confirm = () => true; // Explicitly replace each unfinished fixture while checking its section's tools.
   for (const section of PERIODIC_SECTIONS) {
     await h.go(`view=drill&section=${section}&n=1&mode=untimed`);
     assert.ok(h.find('#dat-periodic'), section + ' offers the periodic table');
@@ -238,6 +239,35 @@ test('the periodic table is offered on an SNS drill, opens, closes, and is absen
   assert.ok(!PERIODIC_SECTIONS.includes('qr'));
   await h.go('view=drill&section=qr&category=QR-3&n=1&mode=untimed');
   assert.equal(h.find('#dat-periodic'), null, 'no periodic table outside the sections the outline names');
+  h.close();
+});
+
+test('the periodic table is a real modal: the shell traps it, Escape closes it and focus goes back to its button', async () => {
+  const h = harness();
+  let disconnected = 0;
+  h.w.MutationObserver = class extends h.w.MutationObserver {
+    disconnect() {
+      disconnected++;
+      super.disconnect();
+    }
+  };
+  // The shell's own trapModal, verbatim from app.js, so the test exercises what production runs.
+  const trap = fs.readFileSync('app.js', 'utf8').match(/\nfunction trapModal\([\s\S]*?\n}\n/);
+  assert.ok(trap, 'app.js trapModal');
+  h.run(trap[0] + 'window.trapModal = trapModal;');
+  await h.go('view=drill&section=bio&n=1&mode=untimed');
+  const opener = h.find('#dat-periodic');
+  opener.focus();
+  opener.click();
+  const close = h.find('#dat-periodic-close');
+  assert.equal(h.w.document.activeElement, close, 'focus moves into the table');
+  close.dispatchEvent(new h.w.KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true }));
+  assert.equal(h.find('#dat-periodic-modal'), null, 'Escape inside the table closes it');
+  assert.equal(h.w.document.activeElement, opener, 'focus returns to the button that opened it');
+  assert.equal(h.saved('cs-dat-log'), null, 'closing the table answered nothing');
+  // Let the real removal observer clean up before jsdom destroys its document.
+  await Promise.resolve();
+  assert.equal(disconnected, 1, 'the modal observer disconnects after the overlay is removed');
   h.close();
 });
 
@@ -294,11 +324,14 @@ test('answering writes one cs-dat-log row of the documented shape, plus history 
   assert.equal(log2[1].correct, false);
   assert.equal(log2[0].attemptId, log2[1].attemptId, 'one attempt id for the run');
 
-  // The mistake log counts the enrolment; the item itself is due a minute from now.
+  // The mistake log lists the enrolment, due a minute from now and not yet reviewable.
   await h.go('view=mistakes');
   assert.ok(h.find('main.dat-mistakes'));
   assert.match(h.text('.dat-mistakes .sub'), /1 missed item enrolled; 0 due now\./);
-  assert.equal(h.all('.dat-mistake-group li').length, 0, 'nothing is due in the first minute');
+  assert.equal(h.all('.dat-mistake-group li').length, 1, 'every enrolled item is listed');
+  assert.equal(h.all('.dat-mistake-group li.dat-mistake-due').length, 0, 'nothing is due in the first minute');
+  assert.equal(h.find('#dat-review-start'), null, 'no review is offered before anything is due');
+  assert.match(h.text('#dat-review-next'), /Next item due in 1 min\./);
   // Wind the record back a minute: the log then lists it under its section with its topic.
   const back = h.saved('cs-dat-srs');
   back[second.id].due = Date.now() - 1000;
@@ -421,13 +454,20 @@ test('a drill resumes after a simulated reload with its answers, its attempt id 
   third.close();
 });
 
-test('a different scope does not resume another scope run', async () => {
+test('a different scope starts only after confirming replacement of the unfinished run', async () => {
   const store = new Map();
   const h = harness({ store });
   await h.go('view=drill&section=bio&n=3&mode=untimed');
   answer(h, 'correct');
   assert.ok(h.saved('cs-dat-r-drill'));
+  let confirmations = 0;
+  h.w.confirm = message => {
+    assert.match(message, /Replace your unfinished science drill/);
+    confirmations++;
+    return true;
+  };
   await h.go('view=drill&section=gchem&n=3&mode=untimed');
+  assert.equal(confirmations, 1);
   assert.equal(h.item().section, 'gchem', 'a gchem drill never resumes the bio blob');
   assert.equal(h.text('.dat-drill-count'), 'Q 1/3');
   h.close();
@@ -796,5 +836,224 @@ test('the landing counts the PAT generators that exist, not the subtests the out
     /\d+ perceptual-ability generators/,
     'the count is read from the data, never written as a literal'
   );
+  h.close();
+});
+
+/* ---------- DAT-05: the mistake log and its spaced review ---------- */
+// The key of the visible review item, read in the page's own realm from the id in the resume blob:
+// a bank item, a reading question, or a PAT item regenerated from its id.
+function reviewKey(h) {
+  const blob = h.saved('cs-dat-r-review');
+  assert.ok(blob, 'a review writes its own resume blob');
+  const id = blob.qs[blob.idx];
+  const key = h.run(`(() => {
+    const id = ${JSON.stringify(id)};
+    const bank = DAT.questions.find(q => q.id === id);
+    if (bank) return bank.answer;
+    const rc = (DAT.rc?.passages || []).flatMap(p => p.questions).find(q => q.id === id);
+    if (rc) return rc.answer;
+    return window.DatPatCore.fromId(id).answer;
+  })()`);
+  return { id, key };
+}
+function reviewAnswer(h, how = 'correct', conf) {
+  const { id, key } = reviewKey(h);
+  if (conf) h.find(`#dat-conf .mode[data-dat-conf="${conf}"]`).click();
+  h.all('.dat-opt')
+    .find(b => (how === 'correct' ? +b.dataset.datI === key : +b.dataset.datI !== key))
+    .click();
+  return id;
+}
+function dueRecord(extra) {
+  return Object.assign({ ease: 2.5, interval: 0, reps: 0, lapses: 0, due: Date.now() - 1000, last: 0 }, extra);
+}
+
+test('a review re-asks what is due, rates each answer from its confidence and never touches the drill in progress', async () => {
+  const h = harness();
+  await h.go('view=drill&section=bio&n=4&mode=untimed');
+  const missed = [answer(h, 'wrong').id];
+  h.find('#dat-next').click();
+  missed.push(answer(h, 'wrong').id);
+  h.find('#dat-next').click();
+  answer(h, 'correct');
+  const drillBlob = h.store.get('cs-dat-r-drill');
+  assert.ok(drillBlob, 'a drill is in progress');
+
+  // A minute later both misses are due.
+  const srs = h.saved('cs-dat-srs');
+  for (const id of Object.keys(srs)) srs[id].due = Date.now() - 1000;
+  h.store.set('cs-dat-srs', JSON.stringify(srs));
+  const later = harness({ store: h.store });
+  await later.go('view=mistakes');
+  assert.equal(later.all('.dat-mistake-group li.dat-mistake-due').length, 2, 'both misses are listed as due now');
+  assert.equal(later.text('#dat-review-start'), 'Review 2 due now');
+  assert.match(later.find('#dat-review-start').getAttribute('href'), /view=drill&review=1/);
+
+  await later.go('view=drill&review=1');
+  assert.ok(later.find('.dat-drill'), 'the review runs in the drill runner');
+  assert.equal(later.text('.dat-drill-crumb span'), 'Review');
+  assert.deepEqual(later.saved('cs-dat-r-review').qs.slice().sort(), missed.slice().sort(), 'exactly the due items');
+
+  // Right and sure: rated easy, so the first repetition comes back in three days.
+  const first = reviewAnswer(later, 'correct', 'sure');
+  const rec = later.saved('cs-dat-srs')[first];
+  assert.equal(rec.reps, 1);
+  assert.equal(rec.interval, 3);
+  assert.ok(rec.due > Date.now() + 2.9 * 86400000, 'the due date moved three days out');
+  assert.equal(rec.section, 'bio', 'the record keeps its tags');
+  assert.match(later.text('.dat-review-next'), /Marked Sure, so this counts as easy: due in 3 days\./);
+  const row = later.saved('cs-dat-log').at(-1);
+  assert.equal(row.qId, first);
+  assert.equal(row.source, 'review', 'review answers are logged as reviews');
+
+  // Wrong again: a lapse, back in a minute.
+  later.find('#dat-next').click();
+  const second = reviewAnswer(later, 'wrong');
+  const lapsed = later.saved('cs-dat-srs')[second];
+  assert.equal(lapsed.lapses, 1, 'the first miss enrolled the item; missing it again in review is its first lapse');
+  assert.equal(lapsed.reps, 0);
+  assert.ok(lapsed.due <= Date.now() + 60000);
+  assert.match(later.text('.dat-review-next'), /due again in a minute/);
+
+  later.find('#dat-next').click();
+  assert.match(later.text('.dat-review-summary .label'), /^Review complete/);
+  assert.match(later.find('#dat-again').getAttribute('href'), /view=mistakes/);
+  assert.equal(later.saved('cs-dat-r-review'), null, 'the finished review clears its resume blob');
+  assert.equal(later.store.get('cs-dat-r-drill'), drillBlob, 'the drill in progress is untouched');
+
+  await later.go('view=mistakes');
+  assert.equal(later.all('.dat-mistake-group li.dat-mistake-due').length, 0);
+  assert.equal(later.text('#dat-review-next'), 'Next item due in 1 min.');
+  h.close();
+  later.close();
+});
+
+test('a review in progress resumes after a reload, and asking with nothing due explains itself', async () => {
+  const store = new Map();
+  const ids = questions.filter(q => q.section === 'gchem').slice(0, 2);
+  store.set(
+    'cs-dat-srs',
+    JSON.stringify(
+      Object.fromEntries(ids.map(q => [q.id, dueRecord({ section: 'gchem', category: q.category, topic: q.topic })]))
+    )
+  );
+  const h = harness({ store });
+  await h.go('view=drill&review=1');
+  reviewAnswer(h, 'correct');
+  const reload = harness({ store });
+  await reload.go('view=mistakes');
+  assert.match(reload.text('.dat-resume-row'), /A review is in progress \(1\/2 answered\)/);
+  await reload.go('view=drill&review=1');
+  assert.equal(reload.text('.dat-drill-count'), 'Q 1/2', 'the review resumes where it was left');
+  assert.ok(reload.find('.dat-explain'), 'with the answered item still showing its feedback');
+  reload.find('#dat-next').click();
+  assert.equal(reload.text('.dat-drill-count'), 'Q 2/2');
+  reviewAnswer(reload, 'correct');
+  reload.find('#dat-next').click();
+
+  await reload.go('view=drill&review=1');
+  assert.ok(reload.find('main.dat-mistakes'), 'nothing due falls back to the log');
+  assert.equal(reload.text('.dat-drill-notice'), 'Nothing in your mistake log is due right now.');
+  h.close();
+  reload.close();
+});
+
+test('a missed PAT item is re-asked from its triple, and waits in the log when the engine is absent', async () => {
+  const probe = harness({ pat: true });
+  const item = probe.run(
+    '(() => { const i = DatPatCore.set("holes", 7, 2, 1)[0]; return { id: i.id, category: i.category, seed: i.seed }; })()'
+  );
+  probe.close();
+  const store = new Map([
+    [
+      'cs-dat-srs',
+      JSON.stringify({
+        [item.id]: dueRecord({
+          section: 'pat',
+          category: item.category,
+          topic: null,
+          subtest: 'holes',
+          seed: item.seed,
+          level: 2,
+        }),
+      }),
+    ],
+  ]);
+  const h = harness({ store, pat: true });
+  await h.go('view=drill&review=1');
+  assert.ok(h.find('.dat-review-pat .dat-pat-figure svg'), 'the figure is regenerated, not stored');
+  assert.equal(h.all('.dat-opt.dat-pat-opt-svg svg').length, 5, 'the five hole patterns are drawn as options');
+  assert.deepEqual(h.texts('.dat-opt .key'), LETTERS.slice(0, 5));
+  reviewAnswer(h, 'correct');
+  assert.ok(h.find('.dat-pat-steps'), 'the worked steps come back with the figure');
+  const row = h.saved('cs-dat-log').at(-1);
+  assert.deepEqual(
+    { qId: row.qId, section: row.section, subtest: row.subtest, seed: row.seed, level: row.level, source: row.source },
+    { qId: item.id, section: 'pat', subtest: 'holes', seed: item.seed, level: 2, source: 'review' }
+  );
+  const rec = h.saved('cs-dat-srs')[item.id];
+  assert.deepEqual([rec.subtest, rec.seed, rec.level, rec.reps, rec.interval], ['holes', item.seed, 2, 1, 1]);
+  assert.doesNotMatch(h.store.get('cs-dat-r-review') || '', /<svg/, 'no figure reaches the resume blob');
+  h.close();
+
+  // Without the PAT engine the record is listed but not offered.
+  const bare = harness({ store: new Map([['cs-dat-srs', store.get('cs-dat-srs')]]) });
+  await bare.go('view=mistakes');
+  assert.equal(bare.all('.dat-mistake-group li.dat-mistake-gone').length, 1);
+  assert.match(bare.text('.dat-mistake-gone small'), /not available here/);
+  assert.equal(bare.find('#dat-review-start'), null);
+  bare.close();
+});
+
+test('a reading question is re-asked with its passage and marks its evidence paragraph after the answer', async () => {
+  const rc = JSON.parse(fs.readFileSync('data/dat-rc.json', 'utf8'));
+  const passage = rc.passages[0],
+    q = passage.questions[0];
+  const store = new Map([
+    [
+      'cs-dat-srs',
+      JSON.stringify({ [q.id]: dueRecord({ section: 'rc', category: 'RC-1', topic: null, passage: passage.id }) }),
+    ],
+  ]);
+  const h = harness({ store });
+  await h.go('view=drill&review=1');
+  const paragraphs = passage.text.split(/\n\n+/).filter(p => p.trim());
+  assert.equal(h.all('.dat-review-passage-text p').length, paragraphs.length, 'the whole passage, numbered');
+  assert.equal(h.all('.dat-review-evidence').length, 0, 'no evidence is marked before the answer');
+  reviewAnswer(h, 'wrong');
+  assert.deepEqual(
+    h.all('.dat-review-evidence').map(p => +p.dataset.datPar),
+    q.evidenceParagraphs,
+    'the evidence paragraph is marked after the answer'
+  );
+  const row = h.saved('cs-dat-log').at(-1);
+  assert.deepEqual([row.section, row.category, row.passage, row.source], ['rc', 'RC-1', passage.id, 'review']);
+  assert.equal(h.saved('cs-dat-srs')[q.id].passage, passage.id, 'the record keeps its passage');
+  h.close();
+});
+
+test('a review limited to one section stays in the drill runner and offers the QR calculator', async () => {
+  const qr = questions.find(q => q.section === 'qr' && q.format === 'standard'),
+    bio = questions.find(q => q.section === 'bio');
+  const store = new Map([
+    [
+      'cs-dat-srs',
+      JSON.stringify({
+        [qr.id]: dueRecord({ section: 'qr', category: qr.category, topic: qr.topic }),
+        [bio.id]: dueRecord({ section: 'bio', category: bio.category, topic: bio.topic }),
+      }),
+    ],
+  ]);
+  const h = harness({ store });
+  for (const file of ['dat-calc-engine.js', 'dat-qr.js']) h.run(fs.readFileSync(file, 'utf8'));
+  await h.go('view=mistakes');
+  const link = h.all('.dat-mistake-review').find(a => /section=qr/.test(a.getAttribute('href')));
+  assert.ok(link, 'each section with due items offers its own review');
+  await h.go('view=drill&review=1&section=qr');
+  assert.ok(h.find('.dat-drill'), 'a QR review is not handed off to the QR set runner');
+  assert.deepEqual(h.saved('cs-dat-r-review').qs, [qr.id], 'only the QR item is dealt');
+  assert.equal(h.find('#dat-periodic'), null, 'no periodic table in QR');
+  h.find('#dat-review-calc').click();
+  assert.ok(h.find('#dat-qr-calc'), 'the exam calculator opens over the re-asked item');
   h.close();
 });

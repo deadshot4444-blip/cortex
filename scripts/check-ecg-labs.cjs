@@ -41,7 +41,7 @@ for (const [id, kind] of Object.entries({
   assert.deepEqual(
     trace,
     ECGTrace.create(kind),
-    `${id}: the authored trace must include the latest boundary correction`
+    `${id}: the current lesson figure must match the calibrated generator; revise the lesson when changing it`
   );
 }
 assert.equal(labs.length, 84);

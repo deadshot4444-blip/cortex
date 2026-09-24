@@ -1,0 +1,84 @@
+{
+  "format": "cortex-ecg-figure-reconciliation",
+  "recordedOn": "2026-09-23",
+  "scope": "Regenerate four current lesson figures from the existing ECGTrace.create implementation. Change voltage samples and lesson revisions only; preserve original learner snapshots, event times, source metadata, review status, and teaching text.",
+  "sourceEvidence": {
+    "baselineCommit": "c935a3389156da2845d01798020e156d3ff6c8c8",
+    "firstKnownCommit": "26125eca30503ed59581c26f565bafb6b29382df",
+    "generatorPath": "ecg-engine.js",
+    "generatorSha256": "b57fe68435525403b9c8c9e9753334a41d54ea86588c929055d898079ce8ede2",
+    "finding": "All 6004 prior samples exactly match the current generator with only T offset 0.035 s, default T width 0.16 s and tall-T width 0.10 s substituted. Both the tracked generator and its QT tests already use 0.06 s, 0.24 s and 0.20 s. The QRS-to-ST boundary correction is present in both versions. No separate generating commit is available, so the original edit date is unknown.",
+    "hashEncoding": "SHA-256 of UTF-8 JSON.stringify(value) for trace objects and trace metadata; generator hash uses raw UTF-8 file bytes."
+  },
+  "reviewEffect": "This reconciles authored figures with the existing calibrated schematic model. It does not change answer keys, establish diagnoses, assert independent clinical review, or open Medicine.",
+  "changes": [
+    {
+      "lessonId": "med-ecg-measure",
+      "stepId": "med-ecg-measure-1",
+      "patternId": "sinus",
+      "revisionBefore": 1,
+      "revisionAfter": 2,
+      "changedFields": [
+        "revision",
+        "steps.med-ecg-measure-1.trace.values"
+      ],
+      "traceSha256Before": "debe5359c3a692535a37c5c4a3b5ce4810cdc043b0e7c0e19f9a48a662d4b1a1",
+      "traceSha256After": "0e74c9dfa4f5384e0600a53fb34d7e6f3077ca0d9ef4ce2aca51d2e0dff192b4",
+      "unchangedTraceMetadataSha256": "45c5c92dc1daad603e8457439220b02660479d339a9c82aea8cc52de10ad05c4",
+      "sampledQTmsBefore": 272,
+      "sampledQTmsAfter": 376,
+      "changedSamples": 462
+    },
+    {
+      "lessonId": "med-ecg-av-timing",
+      "stepId": "med-ecg-av-timing-1",
+      "patternId": "mobitz1",
+      "revisionBefore": 1,
+      "revisionAfter": 2,
+      "changedFields": [
+        "revision",
+        "steps.med-ecg-av-timing-1.trace.values"
+      ],
+      "traceSha256Before": "bd69575bacc302d2a1aacc20e724305c078ff3b960a096e29d070ab4bbf48aa1",
+      "traceSha256After": "a5bc276dab9280e35421374b2e4c1714c156d61e52ad3eef63a6493520e56f8e",
+      "unchangedTraceMetadataSha256": "fe39b9a0643330758fb56e1b2e54815c9f56f1f517196cb37b43490b63f8c19e",
+      "sampledQTmsBefore": 272,
+      "sampledQTmsAfter": 376,
+      "changedSamples": 396
+    },
+    {
+      "lessonId": "med-potassium-sample",
+      "stepId": "med-potassium-sample-3",
+      "patternId": "hyperk",
+      "revisionBefore": 1,
+      "revisionAfter": 2,
+      "changedFields": [
+        "revision",
+        "steps.med-potassium-sample-3.trace.values"
+      ],
+      "traceSha256Before": "5169b504e01e625524531e13df998a39c609e4990cb56ac49b53fc7576fd469a",
+      "traceSha256After": "173ceb658b52d449e54e7e794cb695436663ce2952cc5b0076a68bf62b09759c",
+      "unchangedTraceMetadataSha256": "db07029a1e895fdce58a530c9683514a3e24cf3b32b72ab1120cdb39382df7d8",
+      "sampledQTmsBefore": 212,
+      "sampledQTmsAfter": 336,
+      "changedSamples": 393
+    },
+    {
+      "lessonId": "med-st-troponin",
+      "stepId": "med-st-troponin-1",
+      "patternId": "stemi",
+      "revisionBefore": 2,
+      "revisionAfter": 3,
+      "changedFields": [
+        "revision",
+        "steps.med-st-troponin-1.trace.values"
+      ],
+      "traceSha256Before": "b1e59006fb1a52a8333706b29350e4aba16cc53fa2ba108f0dbf77f50a81dc45",
+      "traceSha256After": "2e6509296610a30c4312c0387ca856a0015dcf8537016996ea9f21d93386cef7",
+      "unchangedTraceMetadataSha256": "ced8d684269b85c3353e089241e966db44916411f364847ea40dd71061e82c21",
+      "sampledQTmsBefore": 272,
+      "sampledQTmsAfter": 376,
+      "changedSamples": 463
+    }
+  ]
+}

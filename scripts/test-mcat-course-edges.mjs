@@ -1,5 +1,7 @@
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+const data = JSON.parse(readFileSync(new URL('../data/mcat-course.json', import.meta.url), 'utf8'));
 const browser = await chromium.launch({ headless: true }),
   base = process.env.CORTEX_URL || 'http://127.0.0.1:8805/';
 const context = await browser.newContext(),
@@ -116,7 +118,7 @@ try {
   await page.unroute('**/data/mcat-course.json*');
   await page.click('#course-retry');
   await page.waitForSelector('.course-unit');
-  assert.equal(await page.locator('.course-unit').count(), 36);
+  assert.equal(await page.locator('.course-unit').count(), data.units.length);
   // A quota error must be visible rather than claiming a successful save.
   await page.locator('.course-unit').first().click();
   await page.evaluate(() => {
