@@ -156,11 +156,9 @@ test('the landing renders from the outline with the availability tag, format tab
   );
   assert.match(h.text('.course-hero-index'), /6 lesson units drafted/);
   assert.match(h.text('.dat-tools'), /Mistake log/);
-  assert.match(
-    h.text('.dat-tools'),
-    /Lessons\s+Soon.*Progress\s+Soon.*Coverage map\s+Soon.*Full-length rehearsal\s+Soon/s
-  );
+  assert.match(h.text('.dat-tools'), /Lessons\s+Soon.*Coverage map\s+Soon.*Full-length rehearsal\s+Soon/s);
   assert.ok(h.find('.dat-tools a[href*="view=plan"]'), 'the schedule is a link once the planner exists');
+  assert.ok(h.find('.dat-tools a[href*="view=progress"]'), 'progress is a link once the score layer exists');
   assert.equal(h.find('.dat-tools a[href*="view=course"]'), null, 'unbuilt tools are not links');
   assert.equal(h.find('#dat-data-retry'), null);
   // A second render uses the cached data.

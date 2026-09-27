@@ -5,6 +5,17 @@
 
 const CHANGELOG = [
   {
+    version: '2.34.0-beta.1',
+    tag: 'BETA',
+    date: 'September 27, 2026',
+    title: 'DAT score estimates and a progress page',
+    items: [
+      'A new DAT progress page shows each section\u2019s recent accuracy and pace, with an estimated 200\u2013600 score, a band, a percentile and the pre-2025 1\u201330 equivalent once a section has 15 answered items. Academic average and total science follow when their sections all have an estimate.',
+      'Perceptual ability adds accuracy by subtest and level, and the mistake log\u2019s size and due count sit on the same page.',
+      'Scores you record on the schedule now show academic average and total science with their percentile. Estimates come from percent correct on Cortex practice, not from the ADA, and every one carries that disclaimer.',
+    ],
+  },
+  {
     version: '2.33.0-beta.1',
     tag: 'BETA',
     date: 'September 23, 2026',

@@ -85,10 +85,21 @@
     const score = window.DatScoreCore;
     if (!score?.academicAverage || !score?.totalScience) return '';
     try {
+      score.load(window.DAT?.scoreTables);
       const aa = score.academicAverage(scores);
       const ts = score.totalScience({ bio: scores.bio, gchem: scores.gchem, ochem: scores.ochem });
       if (aa == null && ts == null) return '';
-      return `Academic average ${aa ?? '—'} · Total science ${ts ?? '—'}. These are estimates, not ADA scores.`;
+      // Averaged the way the ADA does; band, percentile and 1-30 appear once the tables load.
+      const part = (label, kind, value) => {
+        if (value == null) return `${label} —`;
+        const c = score.composite(kind, value);
+        if (!c) return `${label} ${value}`;
+        const bits = [`band ${c.low}–${c.high}`];
+        if (c.percentile != null) bits.push(`about the ${score.ordinal(c.percentile)} percentile`);
+        if (c.oldScale != null) bits.push(`≈ ${c.oldScale} on the 1–30 scale`);
+        return `${label} ${value} (${bits.join(', ')})`;
+      };
+      return `${part('Academic average', 'aa', aa)} · ${part('Total science', 'ts', ts)}. Averaged from your section scores; percentiles from ADA Table 2 (Jan 2025).`;
     } catch {
       return '';
     }

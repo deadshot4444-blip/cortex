@@ -88,7 +88,7 @@ const DAT_DATA_VERSIONS = [
 ];
 // Singletons a later milestone creates: absent by design until then, so they neither block
 // DAT.loaded nor appear in the notice. Each milestone removes its own name when its file lands.
-const DAT_DATA_PENDING = new Set(['dat-score-tables']);
+const DAT_DATA_PENDING = new Set([]);
 const DAT_DATA_LABELS = {
   'dat-outline': 'content outline',
   'dat-rc': 'reading passages',
@@ -301,10 +301,10 @@ const DAT_SECTION_TARGETS = {
 const DAT_TOOL_LINKS = [
   ['mistakes', 'Mistake log'],
   ['plan', 'Schedule'],
+  ['progress', 'Progress'],
 ];
 const DAT_TOOL_SOON = [
   ['course', 'Lessons'],
-  ['progress', 'Progress'],
   ['coverage', 'Coverage map'],
   ['rehearsal', 'Full-length rehearsal'],
 ];

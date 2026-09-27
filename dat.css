@@ -732,3 +732,29 @@
 @media (max-width: 800px) {
   .dat-plan-week { grid-template-columns: 1fr; }
 }
+
+/* ---------- DAT-08: progress page (rolling estimates, AA/TS, PAT by level) ---------- */
+.dat-progress-composites { display: flex; flex-wrap: wrap; gap: 0; margin-top: 24px; border: 1px solid var(--line); }
+.dat-progress-composite { flex: 1 1 260px; min-width: 0; padding: 16px 18px; }
+.dat-progress-composite + .dat-progress-composite { border-left: 1px solid var(--line); }
+.dat-progress-composite dt { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); }
+.dat-progress-composite dd { margin-top: 6px; font-size: 30px; line-height: 1.1; color: var(--text); font-variant-numeric: tabular-nums; }
+.dat-progress-composite dd small { display: block; margin-top: 6px; font-size: 12px; line-height: 1.5; color: var(--dim); font-variant-numeric: normal; }
+.dat-progress-composite.is-pending dd { color: var(--faint); }
+.dat-progress-sections, .dat-progress-pat, .dat-progress-log { margin-top: 36px; }
+.dat-progress h2 { font-size: 18px; font-weight: 450; letter-spacing: -.01em; margin-bottom: 12px; }
+.dat-progress h2 small { margin-left: 10px; font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); font-weight: 400; }
+.dat-progress-scroll { overflow-x: auto; }
+.dat-progress-table { min-width: 560px; }
+.dat-progress-table td, .dat-progress-pat td { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.dat-progress-table td small, .dat-progress-pat td small { margin-left: 4px; font-size: 11px; color: var(--dim); }
+.dat-progress-few { font-size: 12px; color: var(--faint); }
+.dat-progress-log p { font-size: 14px; color: var(--body); }
+.dat-progress-log a { margin-left: 6px; }
+.dat-progress-notes { margin-top: 36px; padding-top: 16px; border-top: 1px solid var(--line); max-width: 720px; }
+.dat-progress-notes p { font-size: 13px; line-height: 1.65; color: var(--dim); }
+.dat-progress-notes p + p { margin-top: 10px; }
+.dat-progress-notes .dat-progress-disclaimer { color: var(--body); }
+@media (max-width: 560px) {
+  .dat-progress-composite + .dat-progress-composite { border-left: 0; border-top: 1px solid var(--line); }
+}

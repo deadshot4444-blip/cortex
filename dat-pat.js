@@ -810,7 +810,8 @@
     }
     if (!est || !Number.isFinite(Number(est.scaled))) return '';
     const band = Array.isArray(est.band) ? ' (band ' + est.band[0] + '–' + est.band[1] + ')' : '';
-    const pct = Number.isFinite(Number(est.percentile)) ? ' · about the ' + est.percentile + 'th percentile' : '';
+    const nth = typeof Score.ordinal === 'function' ? Score.ordinal(est.percentile) : est.percentile + 'th';
+    const pct = Number.isFinite(Number(est.percentile)) ? ' · about the ' + nth + ' percentile' : '';
     const old = Number.isFinite(Number(est.old)) ? ' · ≈ ' + est.old + ' on the pre-2025 scale' : '';
     return (
       '<p class="dat-pat-estimate">PAT ' +
