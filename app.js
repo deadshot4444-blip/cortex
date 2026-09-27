@@ -97,7 +97,7 @@ const SECTION_INFO = {
   },
 };
 // Public beta version; independent subject acceptance remains separate.
-const APP_VERSION = '2.35.0-beta.1';
+const APP_VERSION = '2.35.1-beta.1';
 function cortexFreeNote(sectionPill, sectionName) {
   return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free</span><span class="free-note-txt">${sectionName} is free to use — no account, no paywall, no catch.</span></p>`;
 }
@@ -914,7 +914,7 @@ function topbar(active) {
     </nav>
     <div class="bar-right">
       <button class="navlink special ${active === 'neuro' ? 'active' : ''}" data-go="neuro" title="${COMING_SOON.has('neuro') ? 'Neuroengineering · Under construction' : PREVIEW_COURSES.has('neuro') ? 'Neuroengineering · Reviewer preview' : 'Neuroengineering'}"><svg class="neuro-ico" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2L17 6V14L10 18L3 14V6Z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span class="neuro-label">Neuro<span class="nl-rest">engineering</span>${COMING_SOON.has('neuro') ? '<span class="nav-availability">In review</span>' : PREVIEW_COURSES.has('neuro') ? '<span class="nav-availability">Preview</span>' : ''}</span></button>
-      ${stat ? `<span class="topstat">${stat}</span>` : ''}<a class="xlink" href="${X_URL}" target="_blank" rel="noopener" title="Constant Cortex updates on X · @${X_HANDLE}" aria-label="Constant Cortex updates on X · @${X_HANDLE}">${X_SVG}</a><button class="acctbtn" data-acct hidden>Sign in</button><button class="ver${hasUnseenUpdate() ? ' ver-hasnew' : ''}" data-go="updates" title="What’s new">v${APP_VERSION}</button>
+      ${stat ? `<span class="topstat">${stat}</span>` : ''}<a class="xlink" href="${X_URL}" target="_blank" rel="noopener" title="Constant Cortex updates on X · @${X_HANDLE}" aria-label="Constant Cortex updates on X · @${X_HANDLE}">${X_SVG}</a><button class="acctbtn" data-acct hidden>Sign in</button><button class="ver${hasUnseenUpdate() ? ' ver-hasnew' : ''}" data-go="updates" title="What’s new"><span class="ver-num">v${APP_VERSION.split('-')[0]}</span><span class="ver-tag">${APP_VERSION.slice(APP_VERSION.split('-')[0].length)}</span></button>
     </div>
   </header>`);
   root.dataset.section = active;

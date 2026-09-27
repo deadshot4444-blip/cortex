@@ -1001,6 +1001,12 @@ button.ver.ver-hasnew::after {
   content: ''; position: absolute; top: -1px; right: -5px;
   width: 5px; height: 5px; border-radius: 50%; background: var(--green);
 }
+/* The header's right cluster has no slack on the smallest phones (Neuro + Account + chip
+   is ~310px at 320). Below 380px the chip shows only the release number; the full version
+   stays in the footer and on What's new. */
+@media (max-width: 379px) {
+  button.ver .ver-tag { display: none; }
+}
 
 /* ---------- updates / changelog ---------- */
 .panel.updates { max-width: 820px; }

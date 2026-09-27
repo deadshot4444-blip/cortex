@@ -5,6 +5,15 @@
 
 const CHANGELOG = [
   {
+    version: '2.35.1-beta.1',
+    tag: 'BETA',
+    date: 'September 27, 2026',
+    title: 'The top bar fits the smallest phones',
+    items: [
+      'On phones narrower than 380 pixels the top bar no longer scrolls sideways, signed in or out. The version label shows its release number there; the full version stays in the footer and on What\u2019s new.',
+    ],
+  },
+  {
     version: '2.35.0-beta.1',
     tag: 'BETA',
     date: 'September 27, 2026',
