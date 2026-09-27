@@ -107,6 +107,9 @@ button:focus-visible, .opt:focus-visible { outline: 1px solid var(--text); outli
 .cs-box h1 { font-size: clamp(28px, 6.5vw, 40px); font-size: round(clamp(28px, 6.5vw, 40px), 1px); font-weight: 350; letter-spacing: -.01em; margin-top: 12px; }
 .cs-box .sub { margin: 14px 0 28px; color: var(--dim); font-size: 15px; }
 .cs-box .endbtns { justify-content: center; }
+.cs-preview-note { margin-top: 22px; font-size: 13px; line-height: 1.5; color: var(--dim); }
+.cs-preview-note button { background: none; border: 0; padding: 0; font: inherit; color: var(--text); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.cs-preview-note button:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
 
 .bookmark {
   display: inline-flex; align-items: center; gap: 6px;
@@ -1181,6 +1184,7 @@ button[data-reveal] { opacity: 1; transform: none; }
 .acct-dot.syncing { background: var(--amber); }
 .acct-dot.error { background: var(--red); }
 .acct-state { font-size: 13px; line-height: 1.5; margin: 4px 0 2px; color: var(--dim); }
+.acct-preview { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--dim); margin: 2px 0 6px; }
 .acct-state.acct-synced { color: var(--green); }
 .acct-state.acct-error { color: var(--amber); }
 

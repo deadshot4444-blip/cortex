@@ -5,6 +5,16 @@
 
 const CHANGELOG = [
   {
+    version: '2.35.0-beta.1',
+    tag: 'BETA',
+    date: 'September 27, 2026',
+    title: 'Reviewer access to courses under construction',
+    items: [
+      'Course reviewers can sign in with an invited email to open a course that is still under construction. Everyone else keeps seeing it as under construction until it opens.',
+      'A course page that is under construction now offers invited reviewers a sign-in link, and tells a signed-in account without an invitation that it has no preview access.',
+    ],
+  },
+  {
     version: '2.34.0-beta.1',
     tag: 'BETA',
     date: 'September 27, 2026',

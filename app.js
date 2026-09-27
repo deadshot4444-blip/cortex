@@ -36,13 +36,27 @@ const IS_LOCAL_PREVIEW =
   typeof location !== 'undefined' &&
   /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname) &&
   !/[?&]gates=prod\b/.test(location.search);
-const UNDER_CONSTRUCTION = new Set(
-  IS_LOCAL_PREVIEW ? [] : CortexAcademy.tracks.filter(track => !track.available).map(track => track.id)
-);
+// A reviewer Kevin granted in Supabase (preview_access) may open named closed courses. auth.js
+// caches the grant under this key after sign-in and reloads when what it opens changes; it
+// counts only while the same account owns this browser's saved work, so a guest never inherits it.
+function previewGrant() {
+  try {
+    const grant = JSON.parse(localStorage.getItem('cortex-preview-access-v1') || 'null');
+    const owner = JSON.parse(localStorage.getItem('cortex-progress-owner-v1') || 'null');
+    if (grant?.v !== 1 || !Array.isArray(grant.courses) || !owner?.id || owner.id !== grant.user) return [];
+    return grant.courses.filter(id => typeof id === 'string');
+  } catch {
+    return [];
+  }
+}
+const CLOSED_COURSES = CortexAcademy.tracks.filter(track => !track.available).map(track => track.id);
+const PREVIEW_COURSES = new Set(IS_LOCAL_PREVIEW ? [] : previewGrant().filter(id => CLOSED_COURSES.includes(id)));
+const UNDER_CONSTRUCTION = new Set(IS_LOCAL_PREVIEW ? [] : CLOSED_COURSES.filter(id => !PREVIEW_COURSES.has(id)));
 const COMING_SOON = new Set(UNDER_CONSTRUCTION);
 function sectionMenuTag(key) {
   if (UNDER_CONSTRUCTION.has(key)) return '<span class="mi-soon">Under construction</span>';
   if (COMING_SOON.has(key)) return '<span class="mi-soon">Soon</span>';
+  if (PREVIEW_COURSES.has(key)) return '<span class="mi-soon">Preview</span>';
   if (IS_LOCAL_PREVIEW && CortexAcademy.tracks.some(track => track.id === key && !track.available)) {
     return '<span class="mi-soon">Local preview</span>';
   }
@@ -83,7 +97,7 @@ const SECTION_INFO = {
   },
 };
 // Public beta version; independent subject acceptance remains separate.
-const APP_VERSION = '2.34.0-beta.1';
+const APP_VERSION = '2.35.0-beta.1';
 function cortexFreeNote(sectionPill, sectionName) {
   return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free</span><span class="free-note-txt">${sectionName} is free to use — no account, no paywall, no catch.</span></p>`;
 }
@@ -182,7 +196,7 @@ function saveStreak() {
 const SECTION_SCRIPTS = {
   academy: [
     'study-storage.js?v=6',
-    'academy-today.js?v=11',
+    'academy-today.js?v=12',
     'study-backup.js?v=14',
     'academy-storage.js?v=5',
     'academy-portfolio-core.js?v=4',
@@ -865,7 +879,7 @@ function topbar(active) {
         </div>
       </div>
       <button class="navlink ${active === 'practice' ? 'active' : ''}" data-go="practice" aria-label="Clinical Scenarios"><span class="clinical-nav-full" aria-hidden="true">Clinical Scenarios</span><span class="clinical-nav-short" aria-hidden="true">Clinical</span></button>
-      <button class="navlink ${active === 'socrates' ? 'active' : ''}" data-go="socrates" aria-label="Learn to Learn" aria-description="${COMING_SOON.has('socrates') ? 'Under construction' : 'Learning course'}"><span class="learn-nav-full" aria-hidden="true">Learn to Learn</span><span class="learn-nav-short" aria-hidden="true">Learn</span>${COMING_SOON.has('socrates') ? '<span class="nav-availability">In review</span>' : ''}</button>
+      <button class="navlink ${active === 'socrates' ? 'active' : ''}" data-go="socrates" aria-label="Learn to Learn" aria-description="${COMING_SOON.has('socrates') ? 'Under construction' : PREVIEW_COURSES.has('socrates') ? 'Reviewer preview' : 'Learning course'}"><span class="learn-nav-full" aria-hidden="true">Learn to Learn</span><span class="learn-nav-short" aria-hidden="true">Learn</span>${COMING_SOON.has('socrates') ? '<span class="nav-availability">In review</span>' : PREVIEW_COURSES.has('socrates') ? '<span class="nav-availability">Preview</span>' : ''}</button>
       <div class="navmenu">
         <button class="navlink menubtn ${['academy', 'anatomy', 'reference', 'utsa', 'pomodoro'].includes(active) ? 'active' : ''}" data-menu="explore" data-nav-menu aria-label="Explore" aria-expanded="false" aria-controls="explore-panel">Explore<span class="caret">&#9662;</span></button>
         <div class="menupanel" id="explore-panel" aria-label="Explore Cortex" hidden>
@@ -899,7 +913,7 @@ function topbar(active) {
       </div>
     </nav>
     <div class="bar-right">
-      <button class="navlink special ${active === 'neuro' ? 'active' : ''}" data-go="neuro" title="${COMING_SOON.has('neuro') ? 'Neuroengineering · Under construction' : 'Neuroengineering'}"><svg class="neuro-ico" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2L17 6V14L10 18L3 14V6Z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span class="neuro-label">Neuro<span class="nl-rest">engineering</span>${COMING_SOON.has('neuro') ? '<span class="nav-availability">In review</span>' : ''}</span></button>
+      <button class="navlink special ${active === 'neuro' ? 'active' : ''}" data-go="neuro" title="${COMING_SOON.has('neuro') ? 'Neuroengineering · Under construction' : PREVIEW_COURSES.has('neuro') ? 'Neuroengineering · Reviewer preview' : 'Neuroengineering'}"><svg class="neuro-ico" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2L17 6V14L10 18L3 14V6Z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span class="neuro-label">Neuro<span class="nl-rest">engineering</span>${COMING_SOON.has('neuro') ? '<span class="nav-availability">In review</span>' : PREVIEW_COURSES.has('neuro') ? '<span class="nav-availability">Preview</span>' : ''}</span></button>
       ${stat ? `<span class="topstat">${stat}</span>` : ''}<a class="xlink" href="${X_URL}" target="_blank" rel="noopener" title="Constant Cortex updates on X · @${X_HANDLE}" aria-label="Constant Cortex updates on X · @${X_HANDLE}">${X_SVG}</a><button class="acctbtn" data-acct hidden>Sign in</button><button class="ver${hasUnseenUpdate() ? ' ver-hasnew' : ''}" data-go="updates" title="What’s new">v${APP_VERSION}</button>
     </div>
   </header>`);
@@ -1133,6 +1147,7 @@ function renderComingSoon(key) {
         <button class="btn btn-solid" id="cs-mcat">Start with MCAT prep</button>
         <button class="btn" id="cs-prac">Clinical scenarios</button>
       </div>
+      ${CLOSED_COURSES.includes(key) ? `<p class="cs-preview-note" data-preview-note="${esc(key)}" hidden></p>` /* filled by auth.js refreshAuthUI */ : ''}
     </div>
   </main>`);
   main.querySelector('#cs-prac').addEventListener('click', () => navigateSection('practice'));

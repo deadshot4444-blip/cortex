@@ -10,7 +10,7 @@ const { JSDOM } = require('jsdom');
 const OPEN = ['mcat', 'dat', 'practice'];
 const CLOSED = ['socrates', 'anatomy', 'reference', 'neuro'];
 
-function harness(local) {
+function harness(local, preview = null) {
   const dom = new JSDOM('<!doctype html><div id="app"></div>', {
     url: 'https://cortex.example/academy',
     runScripts: 'outside-only',
@@ -19,6 +19,7 @@ function harness(local) {
     context = dom.getInternalVMContext();
   Object.assign(w, {
     IS_LOCAL_PREVIEW: local,
+    ...(preview ? { PREVIEW_COURSES: new Set(preview) } : {}),
     sectionUrl: id => '/' + id,
     stopTimer() {},
     el: html => {
@@ -91,6 +92,30 @@ test('localhost previews still open the closed courses for development', () => {
   dom.window.close();
 });
 
+test('a reviewer grant opens only its course in the catalog, labelled Preview', () => {
+  const { w, dom } = harness(false, ['socrates']);
+  w.CortexAcademy.renderCatalog();
+  const statuses = [...w.document.querySelectorAll('.academy-status')].map(node => node.textContent);
+  assert.deepEqual(statuses, [
+    'Beta',
+    'Beta',
+    'Preview',
+    'Beta',
+    'Under construction',
+    'Under construction',
+    'Under construction',
+  ]);
+  const learn = w.document.querySelector('.academy-course-bottom a[data-course="socrates"]').textContent;
+  assert.doesNotMatch(learn, /View course status/);
+  assert.equal(
+    w.document
+      .querySelector('.academy-course-bottom a[data-course="anatomy"]')
+      .textContent.includes('View course status'),
+    true
+  );
+  dom.window.close();
+});
+
 test('the public offline download list skips closed courses but keeps open ones', () => {
   const source = fs.readFileSync('offline.js', 'utf8');
   const manifest = JSON.parse(fs.readFileSync('offline-manifest.json'));
@@ -111,6 +136,18 @@ test('the public offline download list skips closed courses but keeps open ones'
   assert.deepEqual(
     manifest.packs.filter(pack => !localCheck(pack.id)).map(pack => pack.id),
     manifest.packs.map(pack => pack.id)
+  );
+  const granted = vm.createContext({
+    IS_LOCAL_PREVIEW: false,
+    PREVIEW_COURSES: new Set(['socrates']),
+    window: { CortexAcademy: { tracks: catalog } },
+  });
+  vm.runInContext(closedCourse + ' closedCourse;', granted);
+  const grantedCheck = id => vm.runInContext(`closedCourse(${JSON.stringify(id)})`, granted);
+  assert.deepEqual(
+    manifest.packs.filter(pack => !grantedCheck(pack.id)).map(pack => pack.id),
+    manifest.packs.map(pack => pack.id).filter(id => [...OPEN, 'socrates'].includes(id)),
+    'a reviewer can download the granted course and no other closed one'
   );
   const noCatalog = vm.createContext({ IS_LOCAL_PREVIEW: false, window: {} });
   vm.runInContext(closedCourse + ' closedCourse;', noCatalog);

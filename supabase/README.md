@@ -31,6 +31,34 @@ each account's work are kept in separate archived copies in the browser.
 4. Authentication → URL Configuration: Site URL `https://cortexmedical.academy`; add
    `http://127.0.0.1:8765` to Redirect URLs for local testing.
 
+## Reviewer preview access
+
+`public.preview_access` lets Kevin open a closed course (`available: false` in `academy.js`)
+for one person before it is public. It holds one row per reviewer email with the course ids
+they may open. Row-level security lets a signed-in account read only the row for its own
+email; nobody can write it through the publishable key. Grants are SQL:
+
+```sql
+-- grant (works before or after the reviewer's first sign-in)
+insert into public.preview_access (email, courses, note)
+values ('reviewer@example.com', '{socrates}', 'Learn to Learn contributor')
+on conflict (email) do update set courses = excluded.courses, note = excluded.note;
+-- add a course
+update public.preview_access set courses = array_append(courses, 'anatomy') where email = 'reviewer@example.com';
+-- revoke (closes the course on their next page load)
+delete from public.preview_access where email = 'reviewer@example.com';
+```
+
+Course ids: `socrates` (Learn to Learn), `anatomy`, `reference` (Medicine), `neuro`. After
+sign-in, `auth.js` reads the row once and caches the course list in the browser under
+`cortex-preview-access-v1` (not a `cs-` key, so it never syncs or enters a backup);
+`app.js` honours the cache only while that account owns the browser's saved work.
+
+This is a presentation gate, not secrecy. The site is static and the repository is public, so
+a closed course's files are downloadable by anyone who looks for them. The grant decides what
+the site shows on cortexmedical.academy; keeping material off `main` is the only way to keep
+it unpublished.
+
 ## Checks
 
 `node scripts/check-auth-rls-readonly.mjs` proves read isolation between two dedicated

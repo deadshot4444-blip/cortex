@@ -28,6 +28,11 @@ let currentUser = null;
 let syncState = 'idle';
 let progress = null;
 let authFailure = false;
+// Reviewer preview access (supabase/README.md): the grant cache app.js reads at load, whether
+// this page has heard back from the table, and whether a workspace reload is already under way.
+const PREVIEW_KEY = 'cortex-preview-access-v1';
+let previewChecked = false;
+let reloading = false;
 
 function downloadProgress() {
   let copies;
@@ -94,6 +99,90 @@ async function signOut() {
   }
 }
 
+/* ---------- reviewer preview access ---------- */
+function cachedPreview() {
+  try {
+    return JSON.parse(localStorage.getItem(PREVIEW_KEY) || 'null');
+  } catch {
+    return null;
+  }
+}
+// Courses a grant actually opens on this page (app.js derives the gates at load). Localhost
+// already previews everything, so a grant changes nothing there and must never reload.
+function effectivePreview(courses) {
+  if (typeof IS_LOCAL_PREVIEW === 'undefined' || typeof CLOSED_COURSES === 'undefined' || IS_LOCAL_PREVIEW) return '';
+  return courses
+    .filter(id => CLOSED_COURSES.includes(id))
+    .sort()
+    .join(',');
+}
+// Reads this account's grant (row-level security returns only its own email's row) and caches
+// it for app.js. Returns true only when the courses open on this page would differ after a
+// reload, so a reload always settles: the next load derives exactly what was cached.
+async function refreshPreviewAccess(user) {
+  const before = localStorage.getItem(PREVIEW_KEY);
+  const open = typeof PREVIEW_COURSES !== 'undefined' ? [...PREVIEW_COURSES].sort().join(',') : '';
+  let next = null;
+  previewChecked = false;
+  if (user) {
+    let result;
+    try {
+      result = await sb.from('preview_access').select('courses').maybeSingle();
+    } catch (error) {
+      result = { error };
+    }
+    if (result?.error) {
+      // An outage keeps this account's cached grant and drops anyone else's; the gate-page
+      // line stays hidden because nothing was learned.
+      if (cachedPreview()?.user === user.id) return false;
+    } else {
+      previewChecked = true;
+      const courses = Array.isArray(result?.data?.courses)
+        ? result.data.courses.filter(id => typeof id === 'string')
+        : [];
+      if (courses.length)
+        next = JSON.stringify({ v: 1, user: user.id, email: String(user.email || '').toLowerCase(), courses });
+    }
+  }
+  if (next !== before) {
+    try {
+      if (next) localStorage.setItem(PREVIEW_KEY, next);
+      else localStorage.removeItem(PREVIEW_KEY);
+    } catch {
+      return false;
+    }
+  }
+  return effectivePreview(next ? JSON.parse(next).courses : []) !== open;
+}
+function previewNames() {
+  const grant = cachedPreview();
+  if (!currentUser || grant?.user !== currentUser.id || !Array.isArray(grant.courses)) return [];
+  const tracks = window.CortexAcademy?.tracks || [];
+  return grant.courses.map(id => tracks.find(track => track.id === id)?.name).filter(Boolean);
+}
+// The line under a closed course's Under construction page (app.js renderComingSoon).
+function refreshPreviewNotes() {
+  document.querySelectorAll('[data-preview-note]').forEach(note => {
+    const name =
+      window.CortexAcademy?.tracks?.find(track => track.id === note.dataset.previewNote)?.name || 'this course';
+    if (!AUTH_ENABLED || authFailure || (currentUser && !previewChecked)) {
+      note.hidden = true;
+      return;
+    }
+    note.hidden = false;
+    if (currentUser) {
+      note.textContent = `This account (${currentUser.email}) does not have preview access to ${name}.`;
+      return;
+    }
+    note.innerHTML = '';
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.textContent = `Reviewing ${name}? Sign in with your invited email.`;
+    button.addEventListener('click', openAuth);
+    note.appendChild(button);
+  });
+}
+
 /* ---------- UI ---------- */
 function setSyncState(s) {
   syncState = s;
@@ -101,6 +190,7 @@ function setSyncState(s) {
 }
 
 function refreshAuthUI() {
+  refreshPreviewNotes();
   document.querySelectorAll('[data-acct]').forEach(btn => {
     if (!AUTH_ENABLED) {
       btn.hidden = true;
@@ -144,6 +234,7 @@ function openAuth() {
       <span class="label">Your account</span>
       <h3>Signed in</h3>
       <p class="fbmodal-sub">${escapeHTML(currentUser.email)}</p>
+      ${previewNames().length ? `<p class="acct-preview">Preview access: ${escapeHTML(previewNames().join(', '))}</p>` : ''}
       <p class="acct-state acct-${syncState}">${{ syncing: 'Checking and saving your progress…', synced: 'Your latest saved copy is synced. This device checks for changes when you return or save.', error: 'Sync could not finish. Your local changes remain on this device. Retry before relying on another device.', conflict: 'This device and the cloud have different saved work. Sync is paused. Download both copies before choosing which one to continue with.', paused: 'Saving is paused. Reload to continue with the active account.', idle: 'Connected.' }[syncState] || ''}</p>
       ${syncState === 'conflict' ? '<p>Loading cloud work replaces the active device copy. Keeping device work replaces the cloud copy if it has not changed again. A recovery copy stays in this browser.</p><div class="fbmodal-btns"><button class="btn" data-cloud>Load cloud work</button><button class="btn" data-device>Keep device work</button></div>' : ''}
       ${progress?.hasGuest ? '<details><summary>Guest work saved in this browser</summary><p>Guest progress stays separate from this account. Copying it here replaces this account’s active progress and syncs that copy. Download your recovery copies first.</p><button class="btn" data-guest>Use guest work in this account</button></details>' : ''}
@@ -339,7 +430,10 @@ function initAuth() {
       storage: raw,
       client: sb,
       onState: setSyncState,
-      onReload: () => location.reload(),
+      onReload: () => {
+        reloading = true;
+        location.reload();
+      },
       onBlocked: accountBlocked,
     });
     window.addEventListener('storage', e => {
@@ -371,8 +465,13 @@ function initAuth() {
     if (!['SIGNED_IN', 'INITIAL_SESSION', 'TOKEN_REFRESHED', 'SIGNED_OUT', 'USER_UPDATED'].includes(event)) return;
     setTimeout(async () => {
       currentUser = session?.user || null;
+      // The reviewer grant is asked alongside the workspace switch (hourly token refreshes do
+      // not re-ask). The page reloads only when the courses open on it would change.
+      const preview = event === 'TOKEN_REFRESHED' ? Promise.resolve(false) : refreshPreviewAccess(currentUser);
       await progress.setUser(currentUser);
       refreshAuthUI();
+      if ((await preview) && !reloading) location.reload();
+      else refreshAuthUI(); // fills the gate-page line now that the grant has been checked
     }, 0);
   });
   refreshAuthUI();

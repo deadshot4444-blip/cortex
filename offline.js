@@ -6,10 +6,11 @@ window.CortexOffline = (() => {
   const selected = () => new URLSearchParams(location.search).get('offline');
   const bytes = n => (n / 1024 / 1024).toFixed(1) + ' MB';
   // Courses closed in the Academy catalog (`available: false`) are not offered for a new
-  // download on the public site; localhost keeps them for development previews. Courses that
+  // download on the public site; localhost and reviewer grants keep them. Courses that
   // were downloaded earlier stay listed below so saved work remains reachable.
   const closedCourse = id =>
     !(typeof IS_LOCAL_PREVIEW !== 'undefined' && IS_LOCAL_PREVIEW) &&
+    !(typeof PREVIEW_COURSES !== 'undefined' && PREVIEW_COURSES.has(id)) &&
     !!window.CortexAcademy?.tracks?.some(track => track.id === id && !track.available);
   const available = () =>
     window.isSecureContext && 'serviceWorker' in navigator && 'caches' in window && !!window.crypto?.subtle;

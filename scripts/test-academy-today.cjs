@@ -224,7 +224,7 @@ assert.match(timelineToday.api.evidence().practice.url, /view=shift&run=new-shif
 console.log('Academy Today longitudinal continuation and distinct-completion checks passed.');
 /* Real DOM: each Today control re-renders the view, so focus and the viewport must come back to the control. */
 const { JSDOM } = require('jsdom');
-function domHarness(seed = {}, { local = true, closed = [] } = {}) {
+function domHarness(seed = {}, { local = true, closed = [], preview = null } = {}) {
   const dom = new JSDOM('<!doctype html><body><div id="app"></div></body>', {
     url: 'http://localhost/academy?view=today',
     runScripts: 'outside-only',
@@ -234,6 +234,7 @@ function domHarness(seed = {}, { local = true, closed = [] } = {}) {
     saved = new Map(Object.entries(seed).map(([k, v]) => [k, JSON.stringify(v)]));
   Object.assign(w, {
     IS_LOCAL_PREVIEW: local,
+    ...(preview ? { PREVIEW_COURSES: new Set(preview) } : {}),
     openSection() {},
     sectionUrl: id => '/' + (id === 'socrates' ? 'learn' : id === 'reference' ? 'medicine' : id),
     CortexAcademy: { tracks: ids.map(id => ({ id, name: id, available: !closed.includes(id) })) },
@@ -372,4 +373,24 @@ function domHarness(seed = {}, { local = true, closed = [] } = {}) {
   );
   closed.close();
   console.log('Academy Today keeps closed courses informational on the public site.');
+
+  // A reviewer grant opens its course in Today exactly as an open course; the rest stay closed.
+  const reviewer = domHarness(
+    {
+      'cs-academy-today-v1': { version: 1, budget: 30, priority: ['socrates', 'mcat'], paused: [], days: {} },
+    },
+    { local: false, closed: ['socrates', 'anatomy', 'reference', 'neuro'], preview: ['socrates'] }
+  );
+  reviewer.api.render();
+  assert.equal(reviewer.find('[data-track="socrates"]').disabled, false);
+  assert.doesNotMatch(reviewer.find('[data-track="socrates"]').parentElement.textContent, /Under construction/);
+  assert.ok(reviewer.find('a[data-resume="socrates"]'), 'A granted course keeps its resume link');
+  assert.equal(reviewer.find('a[data-resume="anatomy"]'), null);
+  assert.equal(reviewer.find('[data-track="neuro"]').disabled, true);
+  assert.ok(
+    reviewer.api.plan(date).items.some(item => item.id === 'socrates'),
+    'A granted course gets planned time'
+  );
+  reviewer.close();
+  console.log('Academy Today treats a reviewer grant as open for that course only.');
 }

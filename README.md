@@ -25,7 +25,10 @@ MCAT, DAT and Clinical Scenarios are open on the public site right now. Learn to
 Medicine and Neuroengineering are closed for review (`available: false` in `academy.js`): their
 routes show an Under construction page in production and open only on localhost for development.
 Course copies downloaded for offline study before a course closed keep working; the public download
-list simply stops offering closed courses.
+list simply stops offering closed courses. An invited reviewer can open a closed course on the live
+site by signing in with an email Kevin has granted in Supabase (`preview_access`, see
+`supabase/README.md`); the course's files are public either way, so this controls what the site
+shows, not what is published.
 
 The Academy catalog at `/academy` describes audiences, prerequisites and review status,
 and connects the tracks through Academy Today, lesson discovery and a private portfolio.

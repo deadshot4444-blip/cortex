@@ -38,8 +38,21 @@ try {
     '/rest/v1/progress?select=user_id&user_id=in.(' + users.map(u => encodeURIComponent(u.id)).join(',') + ')'
   );
   assert.equal(anonymous.length, 0, 'Anonymous access exposes a test progress row');
+  // Reviewer grants: an account sees at most its own email's row, and anonymous sees none.
+  for (let i = 0; i < 2; i++) {
+    const grants = await get('/rest/v1/preview_access?select=email', tokens[i]);
+    assert.ok(
+      grants.every(row => row.email === String(users[i].email || '').toLowerCase()),
+      "A test account can read another email's preview grant"
+    );
+  }
+  assert.equal(
+    (await get('/rest/v1/preview_access?select=email')).length,
+    0,
+    'Anonymous access exposes a preview grant'
+  );
   console.log(
-    'PASS: both test accounts can read their own existing row; neither can read the other row; anonymous access exposes neither row.'
+    'PASS: both test accounts can read their own existing row; neither can read the other row; anonymous access exposes neither row; preview grants are visible only to their own email.'
   );
   console.log(
     'NOT TESTED: cross-account insert/update enforcement, real-device sync, email delivery, or deployed app behavior.'

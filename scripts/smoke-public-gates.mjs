@@ -115,6 +115,10 @@ for (const viewport of viewports) {
     // A deep link carries a lesson/unit context; the gate must not grow a related-lessons aside.
     const asides = await page.locator('main.comingsoon .connect-context').count();
     if (asides !== 0) fail(`${course.label} gate shows related-lesson discovery`, asides);
+    // Signed out, the gate offers an invited reviewer a way to sign in (supabase/README.md).
+    const reviewer = (await page.locator('[data-preview-note]:not([hidden]) button').allTextContents()).join('');
+    if (!reviewer.includes(`Reviewing ${course.label}? Sign in with your invited email.`))
+      fail(`${course.label} gate reviewer sign-in`, reviewer);
   }
   await page.click('#cs-prac');
   await page.waitForURL(url => url.pathname === '/practice');

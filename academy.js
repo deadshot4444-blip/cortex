@@ -102,10 +102,13 @@
     },
   ].map(Object.freeze);
 
+  // A reviewer grant (app.js PREVIEW_COURSES) opens a closed course for one signed-in account.
+  const granted = id => typeof PREVIEW_COURSES !== 'undefined' && PREVIEW_COURSES.has(id);
   function status(track) {
     if (!track) return 'Archived';
     if (track.available) return 'Beta';
-    return IS_LOCAL_PREVIEW ? 'Local preview' : 'Under construction';
+    if (IS_LOCAL_PREVIEW) return 'Local preview';
+    return granted(track.id) ? 'Preview' : 'Under construction';
   }
 
   function renderCatalog() {
@@ -138,7 +141,7 @@
             <div><dt>Inside</dt><dd>${esc(track.scope)}</dd></div>
           </dl>
           <div class="academy-course-bottom"><span>${esc(track.time)}</span>
-            <a href="${esc(sectionUrl(track.id))}" data-course="${track.id}">${track.available || IS_LOCAL_PREVIEW ? esc(track.action) : 'View course status'} <span aria-hidden="true">→</span></a>
+            <a href="${esc(sectionUrl(track.id))}" data-course="${track.id}">${track.available || IS_LOCAL_PREVIEW || granted(track.id) ? esc(track.action) : 'View course status'} <span aria-hidden="true">→</span></a>
           </div>
         </article>`
           )

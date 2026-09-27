@@ -4,9 +4,9 @@ const base = process.env.CORTEX_URL || 'http://127.0.0.1:8805/';
 if (!/^http:\/\/(127\.0\.0\.1|localhost):/.test(base))
   throw Error('Use an isolated local preview for synthetic accounts');
 const browser = await chromium.launch({ headless: true });
-const sdk = `window.supabase={createClient(){let cb;const auth={onAuthStateChange(fn){cb=fn;setTimeout(()=>fn('INITIAL_SESSION',JSON.parse(localStorage.getItem('test-account')||'null')),0);return {data:{subscription:{unsubscribe(){}}}};},async signOut(){if(window.testSignOutFailure)return {error:{message:'offline'}};localStorage.removeItem('test-account');cb('SIGNED_OUT',null);return {};},async signInWithOtp(){throw Error('mail offline');}};window.testAuthEvent=(id)=>{const session=id?{user:{id,email:id+'@example.test'}}:null;if(session)localStorage.setItem('test-account',JSON.stringify(session));else localStorage.removeItem('test-account');cb(id?'SIGNED_IN':'SIGNED_OUT',session);};return {auth,from(){let op='read',value,uid,revision;const q={select(){return q;},eq(k,v){if(k==='user_id')uid=v;else revision=v;return q;},update(v){op='update';value=v;return q;},insert(v){op='insert';value=v;uid=v.user_id;return q;},async maybeSingle(){return fetch('/__auth-test',{method:'POST',body:JSON.stringify({op,value,uid,revision})}).then(r=>r.json());}};return q;}};}};`;
+const sdk = `window.supabase={createClient(){let cb;const auth={onAuthStateChange(fn){cb=fn;setTimeout(()=>fn('INITIAL_SESSION',JSON.parse(localStorage.getItem('test-account')||'null')),0);return {data:{subscription:{unsubscribe(){}}}};},async signOut(){if(window.testSignOutFailure)return {error:{message:'offline'}};localStorage.removeItem('test-account');cb('SIGNED_OUT',null);return {};},async signInWithOtp(){throw Error('mail offline');}};window.testAuthEvent=(id)=>{const session=id?{user:{id,email:id+'@example.test'}}:null;if(session)localStorage.setItem('test-account',JSON.stringify(session));else localStorage.removeItem('test-account');cb(id?'SIGNED_IN':'SIGNED_OUT',session);};return {auth,from(table){let op='read',value,revision,uid=table==='preview_access'?(JSON.parse(localStorage.getItem('test-account')||'null')?.user?.id):undefined;const q={select(){return q;},eq(k,v){if(k==='user_id')uid=v;else revision=v;return q;},update(v){op='update';value=v;return q;},insert(v){op='insert';value=v;uid=v.user_id;return q;},async maybeSingle(){return fetch('/__auth-test',{method:'POST',body:JSON.stringify({table,op,value,uid,revision})}).then(r=>r.json());}};return q;}};}};`;
 let checks = 0;
-async function setup({ user = null, storage = {}, rows = {} } = {}) {
+async function setup({ user = null, storage = {}, rows = {}, grants = {} } = {}) {
   const ctx = await browser.newContext({ viewport: { width: 390, height: 844 } }),
     errors = [],
     calls = [];
@@ -28,8 +28,21 @@ async function setup({ user = null, storage = {}, rows = {} } = {}) {
   });
   await ctx.route('**/api/**', r => r.fulfill({ contentType: 'application/json', body: '{"value":0}' }));
   let offline = false;
+  const closedAssets = [];
+  ctx.on('request', request => {
+    if (/\/(socrates|anatomy|reference|neuro)\.js(\?|$)/.test(request.url())) closedAssets.push(request.url());
+  });
   await ctx.route('**/__auth-test', async r => {
     const q = r.request().postDataJSON();
+    if (q.table === 'preview_access') {
+      // Row-level security returns only the signed-in account's row; the mock SDK sends the
+      // session's user id in place of the JWT.
+      const courses = grants[q.uid];
+      return r.fulfill({
+        contentType: 'application/json',
+        body: JSON.stringify({ data: courses ? { courses } : null, error: null }),
+      });
+    }
     calls.push(q);
     let data = null,
       error = null,
@@ -53,6 +66,7 @@ async function setup({ user = null, storage = {}, rows = {} } = {}) {
     errors,
     calls,
     rows,
+    closedAssets,
     setOffline(v) {
       offline = v;
     },
@@ -203,6 +217,75 @@ try {
       rows: { A: { data: { 'cs-auth-check': 'remote' }, updated_at: '2026-09-06T00:00:01.000Z' } },
     }
   );
+  const PREVIEW = 'cortex-preview-access-v1';
+  await test(
+    'An invited reviewer opens Learn to Learn under production gates; other closed courses stay closed',
+    async h => {
+      await h.page.goto(base + 'learn?gates=prod', { waitUntil: 'networkidle' });
+      // The first load caches the grant and reloads once; the course then renders.
+      await h.page.waitForSelector('main.ltl-shell', { timeout: 15000 });
+      assert.deepEqual(JSON.parse(await h.page.evaluate(k => localStorage.getItem(k), PREVIEW)).courses, ['socrates']);
+      assert.equal(await h.page.locator('.comingsoon').count(), 0);
+      assert.match(await h.page.locator('[data-go="socrates"] .nav-availability').innerText(), /Preview/i);
+      await h.page.evaluate(() => openAuth());
+      assert.match(await h.page.locator('.acct-preview').textContent(), /Preview access: Learn to Learn/);
+      await h.page.goto(base + 'anatomy?gates=prod', { waitUntil: 'networkidle' });
+      await h.page.waitForSelector('main.comingsoon');
+      assert.equal(await h.page.evaluate(() => [...PREVIEW_COURSES].join()), 'socrates');
+      assert.deepEqual(
+        h.closedAssets.filter(url => !/socrates\.js/.test(url)),
+        [],
+        'no other closed course module is downloaded'
+      );
+      // Signing out closes it again and drops the cached grant.
+      await h.page.evaluate(() => window.testAuthEvent(null));
+      await h.page.waitForFunction(() => JSON.parse(localStorage.getItem('cortex-progress-owner-v1')).id === 'guest');
+      await h.page.waitForLoadState('networkidle');
+      await h.page.goto(base + 'learn?gates=prod', { waitUntil: 'networkidle' });
+      await h.page.waitForSelector('main.comingsoon');
+      assert.equal(await h.page.evaluate(k => localStorage.getItem(k), PREVIEW), null);
+    },
+    {
+      user: 'rev',
+      storage: owned('rev'),
+      rows: { rev: { data: {}, updated_at: revision } },
+      grants: { rev: ['socrates'] },
+    }
+  );
+  await test(
+    'An uninvited account sees the gate and is told it has no preview access',
+    async h => {
+      await h.page.goto(base + 'learn?gates=prod', { waitUntil: 'networkidle' });
+      await h.page.waitForSelector('main.comingsoon');
+      await h.page.waitForFunction(() => !document.querySelector('[data-preview-note]').hidden);
+      assert.match(
+        await h.page.locator('[data-preview-note]').innerText(),
+        /plain@example\.test\) does not have preview access to Learn to Learn/
+      );
+      assert.equal(await h.page.evaluate(k => localStorage.getItem(k), PREVIEW), null);
+      assert.deepEqual(h.closedAssets, [], 'no closed course module is downloaded');
+    },
+    { user: 'plain', storage: owned('plain'), rows: { plain: { data: {}, updated_at: revision } } }
+  );
+  await test('A signed-out visitor can open sign-in from a closed course page at 320px', async h => {
+    await h.page.setViewportSize({ width: 320, height: 720 });
+    await h.page.goto(base + 'learn?gates=prod', { waitUntil: 'networkidle' });
+    await h.page.waitForSelector('main.comingsoon');
+    const note = h.page.locator('[data-preview-note] button');
+    assert.match(await note.innerText(), /Reviewing Learn to Learn\? Sign in with your invited email\./);
+    await note.click();
+    await h.page.waitForSelector('#auth-email');
+    // The reviewer line and the sign-in dialog fit the phone width.
+    assert.ok(
+      await h.page.evaluate(() =>
+        ['[data-preview-note]', '.fbmodal:not(.upd-modal)'].every(sel => {
+          const r = document.querySelector(sel).getBoundingClientRect();
+          return r.left >= 0 && r.right <= innerWidth;
+        })
+      )
+    );
+    assert.deepEqual(h.closedAssets, []);
+  });
   console.log(`${checks} isolated account browser journeys passed.`);
 } finally {
   await browser.close();

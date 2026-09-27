@@ -21,3 +21,20 @@ create policy "own row insert" on public.progress
 drop policy if exists "own row update" on public.progress;
 create policy "own row update" on public.progress
   for update using (auth.uid() = user_id) with check (auth.uid() = user_id);
+
+-- Reviewer preview access: which closed courses a signed-in reviewer may open on the site.
+-- Keyed by lowercase email so a grant can exist before the reviewer's first sign-in.
+-- Readable only by the account whose JWT email matches; there are deliberately no insert,
+-- update or delete policies, so grants are made in the SQL Editor (see README).
+create table if not exists public.preview_access (
+  email      text primary key check (email = lower(email)),
+  courses    text[] not null default '{}',
+  note       text,
+  granted_at timestamptz not null default now()
+);
+
+alter table public.preview_access enable row level security;
+
+drop policy if exists "own email select" on public.preview_access;
+create policy "own email select" on public.preview_access
+  for select using (email = lower(auth.jwt() ->> 'email'));
