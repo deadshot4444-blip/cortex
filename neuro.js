@@ -256,7 +256,7 @@ async function renderNeuroEngineering(options = {}) {
         <p class="neuro-membership">
           <span class="free-pill">MCAT free</span>
           <span class="free-pill free-pill--soft">Neuro free</span>
-          <span class="neuro-membership-txt">Free to use — no account, no paywall</span>
+          <span class="neuro-membership-txt">Free forever — no account, no paywall</span>
         </p>
         ${
           path

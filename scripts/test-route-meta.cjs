@@ -41,7 +41,7 @@ test('route metadata rewrites canonical, title and description, and 404s unknown
   });
   assert.match(practice, /<link rel="canonical" href="https:\/\/cortexmedical\.academy\/practice">/);
   assert.match(practice, /property="og:image" content="https:\/\/cortexmedical\.academy\/og-clinical\.jpg"/);
-  assert.match(practice, /twitter:site" content="@Kevin_Vigil"/);
+  assert.match(practice, /twitter:site" content="@kevin__vigil"/);
 
   const missing = mod.transform(shell, {
     title: mod.NOT_FOUND.title,

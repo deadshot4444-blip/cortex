@@ -99,7 +99,7 @@ const SECTION_INFO = {
 // Public beta version; independent subject acceptance remains separate.
 const APP_VERSION = '2.35.1-beta.1';
 function cortexFreeNote(sectionPill, sectionName) {
-  return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free</span><span class="free-note-txt">${sectionName} is free to use — no account, no paywall, no catch.</span></p>`;
+  return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free</span><span class="free-note-txt">${sectionName} is free forever — no account, no paywall, no catch.</span></p>`;
 }
 const X_HANDLE = 'kevin__vigil';
 const X_URL = 'https://x.com/kevin__vigil';
@@ -228,7 +228,7 @@ const SECTION_SCRIPTS = {
   // register their pausers at load time. Each milestone appends its own lines here.
   dat: [
     'study-storage.js?v=6',
-    'dat.js?v=13',
+    'dat.js?v=14',
     'dat-drill-engine.js?v=2',
     'dat-practice.js?v=8',
     'dat-pat-engine.js?v=6',
@@ -257,7 +257,7 @@ const SECTION_SCRIPTS = {
     'code-evaluator.js?v=9',
     'neuro-project-engine.js?v=3',
     'neuro-practitioner.js?v=12',
-    'neuro.js?v=41',
+    'neuro.js?v=42',
   ],
 };
 const _scriptLoads = {};
@@ -1705,7 +1705,7 @@ function renderClinicalCaseBank() {
   const stats = clinicalStatBand();
   const main = el(`<main class="home panel cs-landing">
     <section class="cs-hero mcat-hero">
-      <span class="mcat-eyebrow">Clinical Scenarios &middot; Interactive cases &middot; Free for now</span>
+      <span class="mcat-eyebrow">Clinical Scenarios &middot; Interactive cases &middot; Free forever</span>
       <h1>Think like a clinician.</h1>
       <p class="mcat-lede">Interactive cases across ${SPECIALTIES.length} specialties &mdash; history, vitals, staged decisions, and pearls. Pick a track or go mixed. A random unseen case begins immediately.</p>
       ${cortexFreeNote('Clinical', 'Clinical Scenarios')}

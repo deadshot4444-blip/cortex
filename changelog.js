@@ -15,6 +15,7 @@ const CHANGELOG = [
       'MCAT and DAT show a loading state on a direct visit while their scripts download together.',
       'The DAT start button, the footer legal line, and several small labels meet WCAG AA contrast. Suggestion and sign-in fields have labels, and a suggestion needs a real email or none.',
       'What’s new and UTSA Access update the address bar. DAT question screens have one page heading, and selected drill controls announce their state.',
+      'Link cards credit @kevin__vigil. DAT reading passages use American spelling. Clinical, medicine, and neuro notes say free forever, matching the rest of the site. Retired course addresses redirect permanently.',
     ],
   },
   {

@@ -9,11 +9,11 @@
 # the page). Netlify fetches abacus server-side; the client only sees first-party.
 /cx-visits/*  https://abacus.jasoncameron.dev/:splat  200
 
-# Retired class-specific workspaces. Temporary redirects keep these paths
-# available for a future reorganization without leaving dead course screens.
-/genetics  /  302
-/ccma  /  302
-/cogpsych  /academy  302
+# Retired class-specific workspaces. Permanent redirects: these addresses
+# are not course screens.
+/genetics  /  301
+/ccma  /  301
+/cogpsych  /academy  301
 
 # Do not 301 /mcat/ → /mcat. Netlify matches those paths as the same rule, so
 # /mcat 301s to itself and the browser dies. The blank-page bug was relative
