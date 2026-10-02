@@ -48,6 +48,17 @@ test('_redirects does not 301 a section onto itself (Netlify slash-collapses the
   }
 });
 
+test('retired course paths redirect permanently', () => {
+  const text = fs.readFileSync('_redirects', 'utf8');
+  const lines = text
+    .split('\n')
+    .map(l => l.split('#', 1)[0].trim())
+    .filter(Boolean);
+  assert.ok(lines.includes('/genetics  /  301'));
+  assert.ok(lines.includes('/ccma  /  301'));
+  assert.ok(lines.includes('/cogpsych  /academy  301'));
+});
+
 test('loadScript prefixes relative module URLs so lazy sections survive a slashed path', () => {
   const app = fs.readFileSync('app.js', 'utf8');
   assert.match(app, /src\.startsWith\('\/'\)/);

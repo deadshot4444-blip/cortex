@@ -6,7 +6,8 @@
 
   * serves the repository root,
   * applies the rules in _redirects (200 rewrites, 301/302 redirects, and the /* SPA
-    fallback, which Netlify only applies when no real file matches),
+    fallback, which Netlify only applies when no real file matches). Unknown paths
+    still receive index.html, with HTTP 404, matching route-meta.js,
   * answers proxied external rules (the visitor counter) with 404 so the app degrades
     the same way it does offline,
   * sends Cache-Control: no-cache so browsers revalidate every file while developing
@@ -44,6 +45,29 @@ def load_rules() -> list[tuple[str, str, int]]:
 
 RULES = load_rules()
 
+# Keep in step with ROUTES in netlify/edge-functions/route-meta.js. One segment,
+# with or without a trailing slash. Anything else that falls through to the SPA
+# shell is a not-found page.
+KNOWN_ROUTES = {
+    'mcat',
+    'dat',
+    'learn',
+    'practice',
+    'anatomy',
+    'medicine',
+    'neuro',
+    'academy',
+    'stats',
+    'utsa',
+    'focus',
+    'updates',
+}
+
+
+def is_known_route(path: str) -> bool:
+    parts = [part for part in path.split('/') if part]
+    return len(parts) == 1 and parts[0].lower() in KNOWN_ROUTES
+
 
 def match(rule: str, path: str) -> str | None:
     """Return the splat for a matching rule ('' for exact matches), else None."""
@@ -66,17 +90,27 @@ class Handler(SimpleHTTPRequestHandler):
     def log_message(self, fmt, *args):  # quieter than the default, still shows each request
         print(f'{self.address_string()} {fmt % args}')
 
-    def do_GET(self):
+    def send_response(self, code, message=None):
+        # Unknown SPA paths are the app shell with a real 404, same as route-meta.js.
+        forced = getattr(self, '_rewrite_status', None)
+        if forced and int(code) == 200:
+            code = forced
+            self._rewrite_status = None
+        super().send_response(code, message)
+
+    def _prepare(self):
+        """Apply _redirects. Return True when the response has already been sent."""
         parsed = urlsplit(self.path)
         path = parsed.path
         if self.file_exists(path):
-            return super().do_GET()
+            return False
         for source, target, status in RULES:
             splat = match(source, path)
             if splat is None:
                 continue
             if target.startswith(('http://', 'https://')):
-                return self.send_error(404, 'External proxy rules are not available locally')
+                self.send_error(404, 'External proxy rules are not available locally')
+                return True
             target = target.replace(':splat', splat)
             if status in (301, 302, 307, 308):
                 if parsed.query:
@@ -84,11 +118,23 @@ class Handler(SimpleHTTPRequestHandler):
                 self.send_response(status)
                 self.send_header('Location', target)
                 self.end_headers()
-                return None
+                return True
             if self.file_exists(target):
                 self.path = target
-                return super().do_GET()
+                if source == '/*' and status == 200 and not is_known_route(path):
+                    self._rewrite_status = 404
+                return False
+        return False
+
+    def do_GET(self):
+        if self._prepare():
+            return None
         return super().do_GET()
+
+    def do_HEAD(self):
+        if self._prepare():
+            return None
+        return super().do_HEAD()
 
     def file_exists(self, path: str) -> bool:
         clean = posixpath.normpath(path)

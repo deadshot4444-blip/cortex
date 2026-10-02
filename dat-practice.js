@@ -473,12 +473,12 @@
       <p class="sub">One item at a time against the ${Core.pace(o, 'bio')}-second pace, with confidence tagging and a distractor autopsy. The periodic table is one click away on every drill.</p></div>
       ${notice ? `<aside class="course-notice dat-drill-notice" role="status">${notice}</aside>` : ''}
       ${saved ? `<div class="dat-resume-row"><span>A ${esc(sectionName(saved.scope.section))} drill is in progress (${(saved.results || []).filter(Boolean).length}/${saved.qs.length} answered).</span><a class="btn btn-solid" id="dat-resume" data-dat-go href="${esc(datUrl(scopeParams(saved.scope, { n: saved.n, mode: saved.mode })))}">Resume drill</a></div>` : ''}
-      <div class="ctl"><span class="label">Section</span><div class="modes" id="dat-setup-section">${SECTION_CHOICES.map(s => `<button class="mode${s === state.section ? ' active' : ''}" data-dat-section="${s}">${esc(s === 'mixed' ? 'Mixed' : sectionAbbr(s))}</button>`).join('')}</div></div>
-      <div class="ctl"><span class="label">Length</span><div class="modes" id="dat-setup-n">${LENGTHS.map(n => `<button class="mode${n === state.n ? ' active' : ''}" data-dat-n="${n}">${n}</button>`).join('')}</div></div>
+      <div class="ctl"><span class="label">Section</span><div class="modes" id="dat-setup-section">${SECTION_CHOICES.map(s => `<button class="mode${s === state.section ? ' active' : ''}" data-dat-section="${s}" aria-pressed="${s === state.section}">${esc(s === 'mixed' ? 'Mixed' : sectionAbbr(s))}</button>`).join('')}</div></div>
+      <div class="ctl"><span class="label">Length</span><div class="modes" id="dat-setup-n">${LENGTHS.map(n => `<button class="mode${n === state.n ? ' active' : ''}" data-dat-n="${n}" aria-pressed="${n === state.n}">${n}</button>`).join('')}</div></div>
       <div class="ctl"><span class="label">Mode</span><div class="modes" id="dat-setup-mode">${Object.entries(MODES)
         .map(
           ([k, label]) =>
-            `<button class="mode${k === state.mode ? ' active' : ''}" data-dat-mode="${k}">${label}</button>`
+            `<button class="mode${k === state.mode ? ' active' : ''}" data-dat-mode="${k}" aria-pressed="${k === state.mode}">${label}</button>`
         )
         .join('')}</div><p class="dat-mode-hint" id="dat-mode-hint">${MODE_HINT[state.mode]}</p></div>
       <div class="dat-filters">
@@ -541,7 +541,11 @@
       main.querySelectorAll(selector + ' .mode').forEach(b =>
         b.addEventListener('click', () => {
           set(b.dataset[key]);
-          main.querySelectorAll(selector + ' .mode').forEach(x => x.classList.toggle('active', x === b));
+          main.querySelectorAll(selector + ' .mode').forEach(x => {
+            const on = x === b;
+            x.classList.toggle('active', on);
+            x.setAttribute('aria-pressed', String(on));
+          });
           refresh();
         })
       );
@@ -701,12 +705,13 @@
           ? `<span class="dat-exam-clock" id="dat-drill-clock" aria-live="off">${fmtClock((drill.deadline || now() + (drill._remain || 0)) - now())}</span>`
           : '';
     const root = el(`<div class="dat-drill" data-dat-mode="${drill.mode}">
-      <header class="dat-drill-bar">
+      <div class="dat-drill-bar">
         <a class="dat-drill-exit" id="dat-drill-exit" data-dat-go href="${esc(exit)}">&larr; Exit</a>
         <nav class="dat-drill-crumb" aria-label="Drill position"><span>${drill.review ? 'Review' : 'DAT'}</span><span>${esc(sectionAbbr(item.section))}</span><span>${esc(categoryTitle(item.category))}</span></nav>
         <div class="dat-drill-right">${clock}<span class="dat-drill-count">Q ${drill.idx + 1}/${drill.qs.length}</span></div>
-      </header>
+      </div>
       <main class="case dat-drill-main${item.pat ? ' dat-review-pat' : ''}">
+        <h1 class="dat-run-title">${drill.review ? 'Review' : 'Drill'} question ${drill.idx + 1} of ${drill.qs.length}</h1>
         <div class="dat-drill-tools">${periodicTableAllowed(item.section) ? '<button class="btn" id="dat-periodic" type="button">Periodic table</button>' : ''}${calculator ? '<button class="btn" id="dat-review-calc" type="button">Calculator</button>' : ''}<span class="dat-drill-topic">${esc(item.topic || '')}</span></div>
         <div class="block dat-item">${itemBody(item)}</div>
         <div class="dat-conf-row"><span class="label">Confidence</span><div class="modes" id="dat-conf">${Object.entries(
@@ -714,7 +719,7 @@
         )
           .map(
             ([k, label]) =>
-              `<button class="mode dat-conf${k === 'unsure' ? ' active' : ''}" data-dat-conf="${k}" type="button">${label}</button>`
+              `<button class="mode dat-conf${k === 'unsure' ? ' active' : ''}" data-dat-conf="${k}" type="button" aria-pressed="${k === 'unsure'}">${label}</button>`
           )
           .join('')}</div></div>
         <div class="opts dat-opts${item.optionKind === 'svg' ? ' dat-pat-opts-svg' : ''}" id="dat-opts">${optionButtons(item, order, letters)}</div>
@@ -726,7 +731,11 @@
     root.querySelectorAll('#dat-conf .mode').forEach(b =>
       b.addEventListener('click', () => {
         conf = b.dataset.datConf;
-        root.querySelectorAll('#dat-conf .mode').forEach(x => x.classList.toggle('active', x === b));
+        root.querySelectorAll('#dat-conf .mode').forEach(x => {
+          const on = x === b;
+          x.classList.toggle('active', on);
+          x.setAttribute('aria-pressed', String(on));
+        });
       })
     );
     root
@@ -835,8 +844,10 @@
       else btn.classList.add('dimmed');
     });
     root.querySelectorAll('#dat-conf .mode').forEach(b => {
+      const on = b.dataset.datConf === entry.conf;
       b.disabled = true;
-      b.classList.toggle('active', b.dataset.datConf === entry.conf);
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-pressed', String(on));
     });
     const last = drill.idx + 1 >= drill.qs.length,
       after = root.querySelector('#dat-after');

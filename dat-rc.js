@@ -455,7 +455,7 @@
     )
       .map(
         ([key, label]) =>
-          `<button class="mode dat-rc-conf${key === value ? ' active' : ''}" type="button" data-dat-conf="${key}">${label}</button>`
+          `<button class="mode dat-rc-conf${key === value ? ' active' : ''}" type="button" data-dat-conf="${key}" aria-pressed="${key === value}">${label}</button>`
       )
       .join('')}</div></div>`;
   }
@@ -469,7 +469,7 @@
         return `<li class="dat-rc-par" data-dat-par="${par}">${body}</li>`;
       })
       .join('');
-    return `<section class="dat-rc-passage" id="dat-rc-passage" aria-labelledby="dat-rc-passage-title">
+    return `<section class="dat-rc-passage" id="dat-rc-passage" tabindex="0" aria-labelledby="dat-rc-passage-title">
       <div class="dat-rc-passage-head"><span class="label" id="dat-rc-passage-title">${esc(p.title)}</span><span class="dat-rc-words">${esc(p.words || paragraphsOf(p).join(' ').split(/\s+/).length)} words · ${paragraphsOf(p).length} paragraphs</span></div>
       <p class="dat-rc-instruction">${esc(options.instruction || 'Drag across the text to highlight it. Click a highlight to remove it.')}</p>
       <ol class="dat-rc-text">${items}</ol>
@@ -576,7 +576,7 @@
       positionInPassage = inPassage.findIndex(r => r.q === q.id) + 1;
     saveResume();
     const root = el(`<div class="dat-rc" data-dat-phase="attempt">
-      <header class="dat-rc-bar">
+      <div class="dat-rc-bar">
         <a class="dat-rc-exit" id="dat-rc-exit" data-dat-go href="${esc(datUrl({ view: 'rc' }))}">&larr; Exit</a>
         <nav class="dat-rc-crumb" aria-label="Reading position"><span>DAT</span><span>RC</span><span>Passage ${passageIndex + 1}/${run.ids.length}</span></nav>
         <div class="dat-rc-clocks">
@@ -584,10 +584,10 @@
           <span class="dat-rc-clock" id="dat-rc-clock" title="Time left in the section" aria-label="Time left in the section">${fmtClock(remainMs())}</span>
           <span class="dat-rc-count">Q ${run.idx + 1}/${run.qs.length}</span>
         </div>
-      </header>
+      </div>
       <main class="dat-rc-stage">
         <section class="dat-rc-q">
-          <p class="dat-rc-qmeta">Question ${positionInPassage} of ${inPassage.length} on this passage &middot; ${esc(skillTitle(q.skill))}</p>
+          <h1 class="dat-rc-qmeta">Question ${positionInPassage} of ${inPassage.length} on this passage &middot; ${esc(skillTitle(q.skill))}</h1>
           <p class="q dat-rc-stem">${esc(q.stem)}</p>
           ${confRow(run.conf[q.id] || 'unsure', 'dat-rc-conf')}
           <div class="opts dat-rc-opts" id="dat-rc-opts">${optionButtons(q, run.answers[q.id], 'dat-rc-opt')}</div>
@@ -606,9 +606,11 @@
     root.querySelectorAll('#dat-rc-conf .mode').forEach(button =>
       button.addEventListener('click', () => {
         run.conf[q.id] = button.dataset.datConf;
-        root
-          .querySelectorAll('#dat-rc-conf .mode')
-          .forEach(other => other.classList.toggle('active', other === button));
+        root.querySelectorAll('#dat-rc-conf .mode').forEach(other => {
+          const on = other === button;
+          other.classList.toggle('active', on);
+          other.setAttribute('aria-pressed', String(on));
+        });
         saveResume();
       })
     );
@@ -723,7 +725,7 @@
       ]
         .map(
           ([key, label]) =>
-            `<button class="mode${key === filter ? ' active' : ''}" type="button" data-dat-filter="${key}">${label}</button>`
+            `<button class="mode${key === filter ? ' active' : ''}" type="button" data-dat-filter="${key}" aria-pressed="${key === filter}">${label}</button>`
         )
         .join('')}</div></div>
       <div class="dat-rc-nav-wrap"><table class="dat-rc-nav-table"><thead><tr><th scope="col">#</th><th scope="col">Passage</th><th scope="col">Status</th><th scope="col"></th></tr></thead>
@@ -788,11 +790,11 @@
     const draft = (run.reviews[q.id] ||= { chosen: run.answers[q.id] ?? null, evidence: [], rationale: '' });
     const position = run.qs.findIndex(r => r.q === q.id);
     const root = el(`<div class="dat-rc" data-dat-phase="blind">
-      <header class="dat-rc-bar">
+      <div class="dat-rc-bar">
         <a class="dat-rc-exit" data-dat-go href="${esc(datUrl({ view: 'rc' }))}">&larr; Exit</a>
         <nav class="dat-rc-crumb" aria-label="Blind review position"><span>DAT</span><span>RC</span><span>Blind review</span></nav>
         <div class="dat-rc-clocks"><span class="dat-rc-count">${run.reviewIdx + 1}/${order.length}</span></div>
-      </header>
+      </div>
       <main class="dat-rc-stage">
         <section class="dat-rc-q">
           <span class="label">Untimed second pass &middot; answers hidden</span>

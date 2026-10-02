@@ -415,11 +415,11 @@
       <p class="sub">Forty items in ${o.sections[SECTION].minutes} minutes on test day — ${paceSeconds()} seconds each. Four shapes: standard problems, quantitative comparison, data sufficiency and data-table sets. The click-only calculator is one button away, and nowhere else in the track.</p></div>
       ${notice ? `<aside class="course-notice dat-qr-notice" role="status">${notice}</aside>` : ''}
       ${saved ? `<div class="dat-qr-resume"><span>A Quantitative Reasoning set is in progress (${(saved.results || []).filter(Boolean).length}/${saved.qs.length} answered).</span><a class="btn btn-solid" id="dat-qr-resume" data-dat-go href="${esc(datUrl(scopeParams(saved.scope, { n: saved.n, mode: saved.mode })))}">Resume set</a></div>` : ''}
-      <div class="ctl"><span class="label">Length</span><div class="modes" id="dat-qr-setup-n">${LENGTHS.map(n => `<button class="mode${n === state.n ? ' active' : ''}" type="button" data-dat-qr-n="${n}">${n}</button>`).join('')}</div></div>
+      <div class="ctl"><span class="label">Length</span><div class="modes" id="dat-qr-setup-n">${LENGTHS.map(n => `<button class="mode${n === state.n ? ' active' : ''}" type="button" data-dat-qr-n="${n}" aria-pressed="${n === state.n}">${n}</button>`).join('')}</div></div>
       <div class="ctl"><span class="label">Mode</span><div class="modes" id="dat-qr-setup-mode">${Object.entries(MODES)
         .map(
           ([k, label]) =>
-            `<button class="mode${k === state.mode ? ' active' : ''}" type="button" data-dat-qr-mode="${k}">${label}</button>`
+            `<button class="mode${k === state.mode ? ' active' : ''}" type="button" data-dat-qr-mode="${k}" aria-pressed="${k === state.mode}">${label}</button>`
         )
         .join('')}</div><p class="dat-qr-hint" id="dat-qr-mode-hint">${MODE_HINT[state.mode]}</p></div>
       <div class="dat-qr-filters">
@@ -466,7 +466,11 @@
       main.querySelectorAll(selector + ' .mode').forEach(b =>
         b.addEventListener('click', () => {
           set(b.dataset[key]);
-          main.querySelectorAll(selector + ' .mode').forEach(x => x.classList.toggle('active', x === b));
+          main.querySelectorAll(selector + ' .mode').forEach(x => {
+            const on = x === b;
+            x.classList.toggle('active', on);
+            x.setAttribute('aria-pressed', String(on));
+          });
           refresh();
         })
       );
@@ -645,12 +649,13 @@
           ? `<span class="dat-qr-clock" id="dat-qr-clock" aria-live="off">${fmtClock((run.deadline || now() + (run._remain || 0)) - now())}</span>`
           : '';
     const root = el(`<div class="dat-qr-run" data-dat-qr-mode="${run.mode}">
-      <header class="dat-qr-bar">
+      <div class="dat-qr-bar">
         <a class="dat-qr-exit" id="dat-qr-exit" data-dat-go href="${esc(exit)}">&larr; Exit</a>
         <nav class="dat-qr-crumb" aria-label="Set position"><span>DAT</span><span>${esc(outline()?.sections?.[SECTION]?.abbr || 'QR')}</span><span>${esc(categoryTitle(item.category))}</span></nav>
         <div class="dat-qr-right">${clock}<span class="dat-qr-count">Q ${run.idx + 1}/${run.qs.length}</span></div>
-      </header>
+      </div>
       <main class="case dat-qr-main">
+        <h1 class="dat-run-title">Quantitative question ${run.idx + 1} of ${run.qs.length}</h1>
         <div class="dat-qr-tools">${calculatorAllowed() ? '<button class="btn" id="dat-qr-calc-open" type="button">Calculator</button>' : ''}<span class="dat-qr-topic">${esc(FORMATS[shapeOf(item)] || '')}${item.topic ? ' · ' + esc(item.topic) : ''}</span></div>
         <div class="block dat-qr-item">${itemBody(item)}</div>
         <div class="dat-conf-row"><span class="label">Confidence</span><div class="modes" id="dat-qr-conf">${Object.entries(
@@ -658,7 +663,7 @@
         )
           .map(
             ([k, label]) =>
-              `<button class="mode dat-qr-conf${k === 'unsure' ? ' active' : ''}" type="button" data-dat-qr-conf="${k}">${label}</button>`
+              `<button class="mode dat-qr-conf${k === 'unsure' ? ' active' : ''}" type="button" data-dat-qr-conf="${k}" aria-pressed="${k === 'unsure'}">${label}</button>`
           )
           .join('')}</div></div>
         <div class="opts dat-qr-opts" id="dat-qr-opts">${optionButtons(item, order, letters)}</div>
@@ -671,7 +676,11 @@
       b.addEventListener('click', () => {
         if (!run) return;
         conf = b.dataset.datQrConf;
-        root.querySelectorAll('#dat-qr-conf .mode').forEach(x => x.classList.toggle('active', x === b));
+        root.querySelectorAll('#dat-qr-conf .mode').forEach(x => {
+          const on = x === b;
+          x.classList.toggle('active', on);
+          x.setAttribute('aria-pressed', String(on));
+        });
       })
     );
     root.querySelectorAll('.dat-qr-opt').forEach(b =>
@@ -731,8 +740,10 @@
       else btn.classList.add('dimmed');
     });
     root.querySelectorAll('#dat-qr-conf .mode').forEach(b => {
+      const on = b.dataset.datQrConf === entry.conf;
       b.disabled = true;
-      b.classList.toggle('active', b.dataset.datQrConf === entry.conf);
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-pressed', String(on));
     });
     const last = run.idx + 1 >= run.qs.length,
       after = root.querySelector('#dat-qr-after');

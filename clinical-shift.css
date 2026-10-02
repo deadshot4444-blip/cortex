@@ -60,7 +60,7 @@
 }
 .cshift-rotation + .cshift-rotation { border-top: 1px solid var(--line); }
 .cshift-rotation:hover { background: #f7f9fb; }
-.cshift-rotation-num { color: #9ca4ae; font-size: 14px; }
+.cshift-rotation-num { color: var(--dim); font-size: 14px; }
 .cshift-rotation-copy strong { display: block; font-size: 18px; font-weight: 640; }
 .cshift-rotation-copy span { display: block; max-width: 690px; margin-top: 5px; color: var(--dim); font-size: 12px; line-height: 1.5; }
 .cshift-rotation-progress { color: var(--dim); font-family: var(--mono); font-size: 10px; text-align: right; text-transform: uppercase; }

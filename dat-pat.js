@@ -490,7 +490,9 @@
           lvl +
           '" href="' +
           esc(datUrl({ view: 'pat', level: lvl })) +
-          '">' +
+          '"' +
+          (lvl === p.level ? ' aria-current="page"' : '') +
+          '>' +
           esc(lvl + '. ' + levelLabel(lvl)) +
           '</a>'
       )
@@ -579,9 +581,9 @@
     const main = el(
       '<main class="panel dat-pat dat-pat-run">' +
         '<div class="dat-pat-head">' +
-        '<span class="dat-pat-eyebrow">' +
+        '<h1 class="dat-pat-eyebrow">' +
         esc(eyebrow) +
-        '</span>' +
+        '</h1>' +
         '<span class="dat-pat-count">Item ' +
         (run.idx + 1) +
         ' of ' +
@@ -604,10 +606,12 @@
           .map(
             ([k, label]) =>
               '<button class="mode dat-pat-conf' +
-              (k === 'unsure' ? ' active' : '') +
+              (k === ((answered && answered.conf) || 'unsure') ? ' active' : '') +
               '" data-dat-conf="' +
               k +
-              '" type="button">' +
+              '" type="button" aria-pressed="' +
+              (k === ((answered && answered.conf) || 'unsure') ? 'true' : 'false') +
+              '">' +
               esc(label) +
               '</button>'
           )
@@ -629,9 +633,11 @@
     main.querySelectorAll('#dat-pat-conf .mode').forEach(button => {
       button.onclick = () => {
         conf = button.getAttribute('data-dat-conf');
-        main
-          .querySelectorAll('#dat-pat-conf .mode')
-          .forEach(other => other.classList.toggle('active', other === button));
+        main.querySelectorAll('#dat-pat-conf .mode').forEach(other => {
+          const on = other === button;
+          other.classList.toggle('active', on);
+          other.setAttribute('aria-pressed', String(on));
+        });
       };
       if (answered) button.disabled = true;
     });

@@ -5,6 +5,20 @@
 
 const CHANGELOG = [
   {
+    version: '2.35.2-local.1',
+    tag: 'LOCAL',
+    date: 'October 2, 2026',
+    title: 'Unknown pages, route previews, and clearer controls',
+    items: [
+      'A mistyped address stays on that address and shows a page-not-found screen, so Back can leave the site. The favicon and Apple touch icon are real image files.',
+      'Each public route has its own title, description, and canonical URL for link previews.',
+      'MCAT and DAT show a loading state on a direct visit while their scripts download together.',
+      'The DAT start button, the footer legal line, and several small labels meet WCAG AA contrast. Suggestion and sign-in fields have labels, and a suggestion needs a real email or none.',
+      'What’s new and UTSA Access update the address bar. DAT question screens have one page heading, and selected drill controls announce their state.',
+      'Link cards credit @kevin__vigil. DAT reading passages use American spelling. Clinical, medicine, and neuro notes say free forever, matching the rest of the site. Retired course addresses redirect permanently.',
+    ],
+  },
+  {
     version: '2.35.1-beta.1',
     tag: 'BETA',
     date: 'September 27, 2026',
