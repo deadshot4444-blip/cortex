@@ -24,7 +24,7 @@ function setup() {
   run(fs.readFileSync('mcat-course.js', 'utf8'));
   const app = fs.readFileSync('app.js', 'utf8');
   run('let _sectionRequest = 0; const COMING_SOON = new Set(); const SECTION_SCRIPTS = {};');
-  run(app.slice(app.indexOf('async function openSection(key)'), app.indexOf('function sectionFromPath()')));
+  run(app.slice(app.indexOf('async function openSection(key)'), app.indexOf('function routeFromLocation()')));
   return { run, events };
 }
 

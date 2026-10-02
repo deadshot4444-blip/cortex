@@ -230,12 +230,12 @@ const SECTION_SCRIPTS = {
     'study-storage.js?v=6',
     'dat.js?v=13',
     'dat-drill-engine.js?v=2',
-    'dat-practice.js?v=7',
+    'dat-practice.js?v=8',
     'dat-pat-engine.js?v=6',
-    'dat-pat.js?v=9',
-    'dat-rc.js?v=5',
+    'dat-pat.js?v=10',
+    'dat-rc.js?v=6',
     'dat-calc-engine.js?v=2',
-    'dat-qr.js?v=5',
+    'dat-qr.js?v=6',
     'dat-plan-engine.js?v=3',
     'dat-score-core.js?v=1',
     'dat-plan.js?v=4',
@@ -266,6 +266,8 @@ function loadScript(src) {
   _scriptLoads[src] = new Promise((resolve, reject) => {
     const s = document.createElement('script');
     s.src = /^https?:\/\//.test(src) || src.startsWith('/') ? src : '/' + src;
+    // async=false keeps document order while the browser fetches the files together.
+    s.async = false;
     s.onload = () => resolve();
     s.onerror = () => {
       s.remove();
@@ -279,7 +281,8 @@ function loadScript(src) {
 async function ensureSection(key) {
   const files = SECTION_SCRIPTS[key];
   if (!files) return;
-  for (const f of files) await loadScript(f);
+  // map() appends every tag before the first await, so ordered execution still holds.
+  await Promise.all(files.map(loadScript));
 }
 // MCAT is lazy-loaded like every other section. Its entry is the saved daily
 // plan (or plan setup on first use), with the complete tool library one level back.
@@ -793,26 +796,38 @@ async function openSection(key) {
   return true;
 }
 
-function sectionFromPath() {
-  let segment;
+function routeFromLocation() {
+  let parts;
   try {
-    segment = decodeURIComponent(location.pathname.replace(/^\/+|\/+$/g, '').split('/')[0] || '').toLowerCase();
+    parts = decodeURIComponent(location.pathname.replace(/^\/+|\/+$/g, ''))
+      .split('/')
+      .filter(Boolean);
   } catch {
-    return undefined;
+    return { kind: 'missing' };
   }
+  if (!parts.length) return { kind: 'home' };
+  // Trailing-slash routes (/dat/) collapse to one segment. Extra segments are not routes.
+  if (parts.length > 1) return { kind: 'missing' };
+  const segment = parts[0].toLowerCase();
   if (segment === 'cogpsych') {
     history.replaceState({ sec: 'academy' }, '', '/academy');
-    return 'academy';
+    return { kind: 'section', key: 'academy' };
   }
   if (RETIRED_PATHS.has(segment)) {
     history.replaceState({ sec: 'mission' }, '', '/');
-    return undefined;
+    return { kind: 'home' };
   }
-  return PATH_SEC[segment];
+  const key = PATH_SEC[segment];
+  return key ? { kind: 'section', key } : { kind: 'missing' };
 }
 async function routeFromUrl() {
-  const key = sectionFromPath();
-  return key ? openSection(key) : false;
+  const route = routeFromLocation();
+  if (route.kind === 'section') return openSection(route.key);
+  if (route.kind === 'missing') {
+    renderNotFound();
+    return true;
+  }
+  return false;
 }
 
 let _routerReady = false;
@@ -858,7 +873,7 @@ function topbar(active) {
   const root = el(`<header class="topbar mainbar">
     <a class="skip-link" href="#main">Skip to content</a>
     <a class="wordmark" href="#">${MARK_SVG}<span class="wm-name">Cortex <span class="wm-sub">Medical Academy</span></span></a>
-    <nav class="nav">
+    <nav class="nav" aria-label="Primary">
       <div class="navmenu">
         <button class="navlink menubtn ${['mcat', 'stats', 'dat'].includes(active) ? 'active' : ''}" data-menu="mcat" data-nav-menu aria-label="MCAT" aria-expanded="false" aria-controls="mcat-panel">MCAT<span class="caret">&#9662;</span></button>
         <div class="menupanel mcat-menupanel" id="mcat-panel" aria-label="MCAT navigation" hidden>
@@ -1033,14 +1048,105 @@ function showUpdateModal() {
   back.querySelector('.upd-modal').addEventListener('click', e => e.stopPropagation());
   back.querySelector('#upd-log').addEventListener('click', () => {
     dismiss(true);
-    renderUpdates();
+    navigateSection('updates');
   });
   document.addEventListener('keydown', onKey);
   document.body.appendChild(back);
   trapModal(back);
 }
 
-function setView(node) {
+// Keep descriptions in step with ROUTES in netlify/edge-functions/route-meta.js.
+// Hardcoded on purpose: the edge function may already have replaced the homepage tags.
+const SITE_ORIGIN = 'https://cortexmedical.academy';
+const HOME_DESCRIPTION =
+  'Free, evidence-based MCAT prep: 260+ practice questions with answer breakdowns, 500+ spaced-repetition flashcards, original CARS & science passages, and timed practice with saved review. No account, no paywall — free forever.';
+const NOT_FOUND_DESCRIPTION = 'That address is not part of Cortex Medical Academy.';
+const ROUTE_META = {
+  mcat: {
+    path: '/mcat',
+    description: HOME_DESCRIPTION,
+  },
+  dat: {
+    path: '/dat',
+    description:
+      "Free preparation for the U.S. Dental Admission Test: timed biology, general chemistry and organic chemistry drills, all six perceptual-ability subtests with generated figures, timed reading-comprehension passages, and quantitative reasoning with the exam's on-screen calculator.",
+  },
+  practice: {
+    path: '/practice',
+    description:
+      "Start your shift: interview the patient, examine, order tests, decide — then chart your note and compare it against the clinician's. 2,599+ cases across 26 specialties, free.",
+  },
+  academy: {
+    path: '/academy',
+    description:
+      'Find a study path at Cortex Medical Academy. MCAT and DAT preparation and clinical scenarios are open; other courses stay in review until they are ready.',
+  },
+  updates: { path: '/updates', description: 'Public release history for Cortex Medical Academy.' },
+  utsa: {
+    path: '/utsa',
+    description:
+      'Free access for students at UTSA and UT Health San Antonio. Verification is still in development; courses that are already open are free for everyone.',
+  },
+  focus: {
+    path: '/focus',
+    description: 'A focus timer for study rounds and breaks. It keeps running while you study elsewhere on Cortex.',
+  },
+  learn: {
+    path: '/learn',
+    description: 'Learn to Learn is under construction while its lessons are reviewed.',
+  },
+  anatomy: {
+    path: '/anatomy',
+    description: 'Anatomy is under construction while its lessons and atlas explorers are reviewed.',
+  },
+  medicine: {
+    path: '/medicine',
+    description: 'Medicine is under construction while its lessons and learning flow are reviewed.',
+  },
+  neuro: {
+    path: '/neuro',
+    description: 'Neuroengineering is under construction while its units and learning flow are reviewed.',
+  },
+  stats: {
+    path: '/stats',
+    description:
+      'See what is changing in MCAT preparation: lessons, accuracy, recall, and timed practice saved on this device.',
+  },
+};
+
+function syncRouteMeta(notFound) {
+  let segment = '';
+  try {
+    const parts = decodeURIComponent(location.pathname.replace(/^\/+|\/+$/g, ''))
+      .split('/')
+      .filter(Boolean);
+    if (parts.length === 1) segment = parts[0].toLowerCase();
+  } catch {
+    segment = '';
+  }
+  const route = !notFound && ROUTE_META[segment];
+  const description = route ? route.description : !notFound && !segment ? HOME_DESCRIPTION : NOT_FOUND_DESCRIPTION;
+  const canonical = route
+    ? SITE_ORIGIN + route.path
+    : !notFound && !segment
+      ? SITE_ORIGIN + '/'
+      : SITE_ORIGIN + location.pathname + location.search;
+  const setContent = (selector, value) => {
+    const node = document.head.querySelector(selector);
+    if (node) node.setAttribute('content', value);
+  };
+  const canon = document.head.querySelector('link[rel="canonical"]');
+  if (canon) canon.setAttribute('href', canonical);
+  setContent('meta[name="description"]', description);
+  setContent('meta[property="og:url"]', canonical);
+  setContent('meta[property="og:title"]', document.title);
+  setContent('meta[property="og:description"]', description);
+  setContent('meta[name="twitter:title"]', document.title);
+  setContent('meta[name="twitter:description"]', description);
+}
+
+let routeFocusMoved = false;
+function setView(node, options) {
   if (typeof stopPythonCode === 'function') stopPythonCode();
   window.AcademyConnect?.attach(node);
   // Every full view gets the site footer; skip if the view already appended one.
@@ -1055,10 +1161,13 @@ function setView(node) {
     node.querySelector('h1')?.textContent.trim() ||
     'Study';
   document.title = title + ' | Cortex Medical Academy';
+  syncRouteMeta(options && options.notFound);
   const ft = node.querySelector('h1') || mainEl || node;
   if (ft && ft.focus) {
     ft.setAttribute('tabindex', '-1');
-    ft.focus({ preventScroll: true });
+    // The first view leaves focus at the top of the document so Skip to content is the first Tab stop.
+    if (routeFocusMoved) ft.focus({ preventScroll: true });
+    routeFocusMoved = true;
   }
   announceView(node);
   setupCountUps(node);
@@ -1233,7 +1342,7 @@ function siteFooter() {
   const f = el(`<footer class="sitefoot">
     <div class="sf-top">
       <a class="sf-brand" href="#">${MARK_SVG}<span>Cortex <span class="wm-sub">Medical Academy</span></span></a>
-      <nav class="sf-links">
+      <nav class="sf-links" aria-label="Footer">
         <a class="sf-link" href="https://x.com/kevin__vigil" target="_blank" rel="noopener">X &middot; @kevin__vigil</a>
         <button class="sf-link sf-utsa">UTSA Access</button>
         <button class="sf-link" data-go="updates">What&rsquo;s new</button>
@@ -1249,26 +1358,28 @@ function siteFooter() {
     e.preventDefault();
     renderMission();
   });
-  f.querySelector('[data-go="updates"]').addEventListener('click', renderUpdates);
+  f.querySelector('[data-go="updates"]').addEventListener('click', () => navigateSection('updates'));
   f.querySelector('.sf-suggest').addEventListener('click', openFeedback);
-  f.querySelector('.sf-utsa').addEventListener('click', renderUTSA);
+  f.querySelector('.sf-utsa').addEventListener('click', () => navigateSection('utsa'));
   return f;
 }
 
 /* ---------- suggestion box (emails via Netlify Forms) ---------- */
 function openFeedback() {
   const back = el(`<div class="fbmodal-back">
-    <div class="fbmodal" role="dialog" aria-modal="true">
+    <div class="fbmodal" role="dialog" aria-modal="true" aria-labelledby="fb-title">
       <span class="label">Suggestion box</span>
-      <h3>What would make Cortex better?</h3>
+      <h3 id="fb-title">What would make Cortex better?</h3>
       <p class="fbmodal-sub">Ideas, bugs, requests &mdash; anything. It goes straight to the team.</p>
+      <label class="fb-label" for="fb-msg">Suggestion</label>
       <textarea id="fb-msg" rows="4" placeholder="Type your suggestion&hellip;"></textarea>
-      <input id="fb-email" type="email" placeholder="Your email (optional &mdash; only if you want a reply)">
+      <label class="fb-label" for="fb-email">Email, optional</label>
+      <input id="fb-email" type="email" placeholder="Your email (optional &mdash; only if you want a reply)" autocomplete="email">
       <div class="fbmodal-btns">
         <button class="btn" id="fb-cancel">Cancel</button>
         <button class="btn btn-solid" id="fb-send">Send</button>
       </div>
-      <div class="fbmodal-status" id="fb-status"></div>
+      <div class="fbmodal-status" id="fb-status" role="status"></div>
       <p class="fbmodal-mail">Or email us: <a href="mailto:cortexmedical.academy.support@gmail.com">cortexmedical.academy.support@gmail.com</a></p>
     </div>
   </div>`);
@@ -1285,7 +1396,8 @@ function openFeedback() {
   back.querySelector('#fb-cancel').addEventListener('click', close);
   back.querySelector('#fb-send').addEventListener('click', async () => {
     const msg = back.querySelector('#fb-msg').value.trim();
-    const email = back.querySelector('#fb-email').value.trim();
+    const emailInput = back.querySelector('#fb-email');
+    const email = emailInput.value.trim();
     const status = back.querySelector('#fb-status');
     const sendBtn = back.querySelector('#fb-send');
     if (msg.length < 3) {
@@ -1293,6 +1405,15 @@ function openFeedback() {
       status.className = 'fbmodal-status err';
       return;
     }
+    // Same shape as the sign-in check in auth.js. A blank email is allowed.
+    if (email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+      status.textContent = 'Enter a valid email, or leave it blank.';
+      status.className = 'fbmodal-status err';
+      emailInput.setAttribute('aria-invalid', 'true');
+      emailInput.focus();
+      return;
+    }
+    emailInput.removeAttribute('aria-invalid');
     sendBtn.disabled = true;
     status.textContent = 'Sending…';
     status.className = 'fbmodal-status';
@@ -1429,6 +1550,32 @@ function renderUpdates() {
   markSeenVersion();
 }
 
+function renderNotFound() {
+  ++_sectionRequest;
+  stopTimer();
+  session = null;
+  window.pauseMcatTools?.();
+  window.pauseDatTools?.();
+  const root = el('<div></div>');
+  root.appendChild(topbar('mission'));
+  const main = el(`<main class="panel comingsoon">
+    <div class="cs-box">
+      <span class="label">404</span>
+      <h1>Page not found.</h1>
+      <p class="sub">That address is not part of Cortex Medical Academy. The link may be mistyped, or the page may have moved.</p>
+      <div class="endbtns">
+        <button class="btn btn-solid" id="nf-home" type="button">Back to the homepage</button>
+        <button class="btn" id="nf-academy" type="button">Browse courses</button>
+      </div>
+    </div>
+  </main>`);
+  main.querySelector('#nf-home').addEventListener('click', () => renderMission());
+  main.querySelector('#nf-academy').addEventListener('click', () => navigateSection('academy'));
+  root.appendChild(main);
+  root.appendChild(siteFooter());
+  setView(root, { notFound: true });
+}
+
 function renderMission() {
   ++_sectionRequest;
   stopTimer();
@@ -1525,7 +1672,7 @@ function renderMission() {
   main.querySelector('#m-dat').addEventListener('click', () => navigateSection('dat'));
   main.querySelector('#m-cases').addEventListener('click', () => navigateSection('practice'));
   main.querySelector('#m-enter').addEventListener('click', gotoMCAT);
-  main.querySelector('#m-updates').addEventListener('click', renderUpdates);
+  main.querySelector('#m-updates').addEventListener('click', () => navigateSection('updates'));
   root.appendChild(main);
   root.appendChild(siteFooter());
   setView(root);

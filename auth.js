@@ -251,12 +251,13 @@ function openAuth() {
       <span class="label">Optional account</span>
       <h3>Save your progress</h3>
       <p class="fbmodal-sub">Your progress saves on this device. Sign in to open your account’s saved work and sync it across devices. Guest work stays separate; you can choose to copy it into your account afterward. We email you a one-tap sign-in link.</p>
+      <label class="fb-label" for="auth-email">Email</label>
       <input id="auth-email" type="email" placeholder="you@email.com" autocomplete="email">
       <div class="fbmodal-btns">
         <button class="btn" data-x>Cancel</button>
         <button class="btn btn-solid" data-send>Email me a link</button>
       </div>
-      <div class="fbmodal-status" id="auth-status"></div>
+      <div class="fbmodal-status" id="auth-status" role="status"></div>
       <p class="fbmodal-mail">100% optional. We only use your email to save your progress &mdash; nothing else.</p>
     </div>`;
   const close = () => {

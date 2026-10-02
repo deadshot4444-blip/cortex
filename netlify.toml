@@ -7,8 +7,9 @@
 # build machine, let alone in the deploy.
 #
 # Routing and caching stay in _redirects and _headers (Netlify reads both from the publish
-# directory). The /practice social card is netlify/edge-functions/practice-og.js, which
-# declares its own path, so no [[edge_functions]] block is needed.
+# directory). Per-route titles and the unknown-path 404 are
+# netlify/edge-functions/route-meta.js, which declares its own path, so no
+# [[edge_functions]] block is needed.
 
 [build]
   publish = "."

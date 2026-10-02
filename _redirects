@@ -20,6 +20,10 @@
 # app.js resolving as /mcat/app.js; index.html and loadScript now load from /.
 # The catch-all below serves both /mcat and /mcat/ as the app.
 
-# SPA fallback: serve the app for section deep-links (e.g. /medicine, /mcat).
-# Must stay last — Netlify serves real static files first, then falls back here.
+# SPA fallback: serve the app for section deep-links (e.g. /medicine, /mcat) and
+# for unknown paths, so the in-app not-found view can render. Must stay last —
+# Netlify serves real static files first, then falls back here. Status stays 200
+# so a POST (the suggestion form) is not turned into a 404; route-meta.js sets
+# HTTP 404 on GET/HEAD for paths that are not routes. Do not add /section/ → /section
+# 301 rules: Netlify slash-collapses them and the section 301s to itself.
 /*  /index.html  200
