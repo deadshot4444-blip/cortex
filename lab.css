@@ -105,8 +105,11 @@
 .lab-scope-inline, .lab-scope-host, .lab-notebook-host, .lab-designer-host { margin-top: 16px; }
 
 /* ---------- 3D stage ---------- */
-.lab-stage { position: relative; height: clamp(320px, 62vh, 760px); border: 1px solid var(--line-bright); border-radius: var(--radius-sm); background: var(--surface-2); overflow: hidden; }
+/* The stage sits in the page like a photograph: a soft shadow, and once the bench is live a faint
+   vignette along the bottom edge (over the canvas, under the stage's buttons, taking no pointer). */
+.lab-stage { position: relative; height: clamp(320px, 62vh, 760px); border: 1px solid var(--line-bright); border-radius: var(--radius-sm); background: var(--surface-2); box-shadow: var(--shadow-sm); overflow: hidden; }
 .lab-stage canvas { display: block; width: 100%; height: 100%; }
+.lab-stage-live::after { content: ""; position: absolute; inset: 0; z-index: 1; border-radius: inherit; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .3), inset 0 -56px 80px -64px rgba(31, 24, 12, .2); pointer-events: none; }
 .lab-stage-status { position: absolute; inset: auto 12px 12px 12px; margin: 0; padding: 8px 12px; background: rgba(255,255,255,.92); border: 1px solid var(--line); border-radius: var(--radius-sm); box-shadow: var(--shadow-xs); font-size: 13px; }
 .lab-stage-live .lab-stage-status { display: none; }
 
@@ -623,6 +626,15 @@ html:has(.lab-page) { scroll-padding-top: calc(var(--lab-topbar-h, 64px) + 8px);
 .lab-stage-hint:empty { padding: 0; }
 .lab-stage-hint.lab-stage-hint-on { opacity: 1; }
 @media (prefers-reduced-motion: reduce) { .lab-stage-hint { transition: none; } }
+/* Quiet motion (2026-10-14): chips, station pills, head buttons, cards, segments and step rows ease their
+   hover and selected states instead of snapping; a hovered pill or chip lifts on the paper tint; the specimen
+   cards show the keyboard ring the mode cards had; the result card and Your hands sit on the lightest shadow.
+   Only a pointer or a key starts any of it, and the reduced-motion rule above turns every transition off. The
+   notes blocks (FIX2 on) keep their "nothing moves on its own" and stay transition-free, so this lives here. */
+.lab-chip, .lab-station-btn, .lab-head-btn, .lab-mode-switch-btn, .lab-seg-option span, .lab-hand-opt > span, .lab-slide-chip, .lab-card, .lab-specimen-card, .lab-mode-card, .lab-progress-seg, .lab-step-list-click .lab-step, .lab-recenter, .lab-stage-expand, .lab-notes-float, .lab-result-pic, .lab-drawer-btn { transition: border-color .15s ease, background-color .15s ease, color .15s ease, box-shadow .15s ease; }
+.lab-specimen-card:has(input:focus-visible) { outline: 2px solid var(--blue); outline-offset: 3px; }
+.lab-station-btn:hover:not([aria-current="true"]), .lab-chip:hover:not(.lab-chip-static):not([aria-expanded="true"]), .lab-head-btn:hover:not(:disabled), .lab-slide-chip:hover { background: var(--bg); box-shadow: var(--shadow-xs); }
+.lab-result-card, .lab-hands { box-shadow: var(--shadow-xs); }
 /* on a narrow screen the open menu spans the header (the Run button need not sit at the right edge) */
 @media (max-width: 640px) {
   .lab-bench-head { position: relative; }
@@ -801,7 +813,7 @@ main.lab-notes-host.lab-rack-dragging .lab-notes-float { display: none; }
 #lab-notepad-more[hidden] { display: none; }
 /* I2: "Back to my station" over the stage's bottom-right corner while the camera is turned or zoomed away (44px on
    touch); the stage hint steps above it */
-.lab-recenter { position: absolute; z-index: 3; right: 10px; bottom: 10px; min-height: 36px; margin: 0; padding: 4px 14px; border: 1px solid var(--text); border-radius: var(--radius-sm); background: #fff; color: var(--text); font: inherit; font-size: 14px; font-weight: 600; box-shadow: var(--shadow-md); cursor: pointer; }
+.lab-recenter { position: absolute; z-index: 3; right: 10px; bottom: 10px; min-height: 36px; margin: 0; padding: 4px 14px; border: 1px solid var(--text); border-radius: var(--radius-sm); background: rgba(255, 253, 249, .94); color: var(--text); font: inherit; font-size: 14px; font-weight: 600; box-shadow: var(--shadow-md); cursor: pointer; }
 .lab-recenter:hover { background: var(--surface-2); }
 .lab-recenter:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
 .lab-recenter[hidden] { display: none; }
@@ -981,9 +993,19 @@ html:has(main.lab-page) {
   --blue-soft: #f3e6d2;
   --lab-accent: #8a5520;
   --lab-accent-deep: #6b3f12;
+  /* (2026-10-14) the text greys and the shadows lean warm like the lines; the near-black is the
+     lab page's theme colour */
+  --text: #17150f;
+  --body: #46413a;
+  --dim: #6b655b;
+  --faint: #7a7369;
+  --shadow-xs: 0 1px 2px rgba(31, 24, 12, .04);
+  --shadow-sm: 0 8px 24px rgba(31, 24, 12, .06), 0 1px 3px rgba(31, 24, 12, .04);
+  --shadow-md: 0 22px 60px rgba(31, 24, 12, .1), 0 2px 8px rgba(31, 24, 12, .05);
   background: var(--bg);
 }
-html:has(main.lab-page) body { background: var(--bg); }
+/* the site's haze at the top of the page, in bronze */
+html:has(main.lab-page) body { background: radial-gradient(circle at 50% -260px, rgba(138, 85, 32, .07), transparent 520px), var(--bg); }
 html:has(main.lab-page) .topbar.mainbar { background: rgba(251, 248, 243, .86); box-shadow: inset 0 -2px 0 var(--lab-accent); }
 html:has(main.lab-page) main.lab-page > .label { color: var(--lab-accent); }
 html:has(main.lab-page) main.lab-page a:not(.btn):hover { color: var(--lab-accent-deep); }
@@ -991,7 +1013,7 @@ html:has(main.lab-page) ::selection { background: var(--lab-accent); color: #fff
 html:has(main.lab-page) .sitefoot { border-top-color: var(--line-bright); }
 
 /* ---------- Full view (2026-10-14): the 3D part fills the window ---------- */
-.lab-stage-expand { position: absolute; z-index: 3; top: 10px; right: 10px; display: inline-flex; align-items: center; gap: 8px; min-height: 36px; margin: 0; padding: 4px 12px; border: 1px solid var(--line-bright); border-radius: var(--radius-sm); background: rgba(255, 255, 255, .92); color: var(--text); font: inherit; font-size: 14px; font-weight: 600; box-shadow: var(--shadow-sm); cursor: pointer; }
+.lab-stage-expand { position: absolute; z-index: 3; top: 10px; right: 10px; display: inline-flex; align-items: center; gap: 8px; min-height: 36px; margin: 0; padding: 4px 12px; border: 1px solid var(--line-bright); border-radius: var(--radius-sm); background: rgba(255, 253, 249, .94); color: var(--text); font: inherit; font-size: 14px; font-weight: 600; box-shadow: var(--shadow-sm); cursor: pointer; }
 .lab-stage-expand:hover { background: #fff; border-color: var(--text); }
 .lab-stage-expand:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
 .lab-stage-expand-icon { position: relative; width: 12px; height: 12px; border: 2px solid currentColor; border-radius: 2px; }
@@ -1002,28 +1024,3 @@ section.lab-bench-3d.lab-stage-full > h2 { margin: 0 0 8px; }
 section.lab-bench-3d.lab-stage-full .lab-stage { height: calc(100dvh - 200px); min-height: 300px; }
 html:has(section.lab-stage-full) { overflow: hidden; }
 @media print { .lab-stage-expand { display: none !important; } }
-
-/* ---------- Polish (2026-10-14): a settled stage, quiet motion ----------
-   The lab's text greys and shadows lean warm like its lines (the page's near-black is the lab's
-   theme colour, #17150f), and the top of the page carries the site's haze in bronze. The 3D stage
-   sits in the page like a photograph: a soft shadow, a faint vignette once the bench is live, and
-   its own buttons on paper white. Chips, pills, cards, segments and step rows ease their hover and
-   selected states instead of snapping (the reduced-motion rule above turns every transition off),
-   and the specimen cards show the keyboard ring the mode cards had. */
-html:has(main.lab-page) {
-  --text: #17150f;
-  --body: #46413a;
-  --dim: #6b655b;
-  --faint: #7a7369;
-  --shadow-xs: 0 1px 2px rgba(31, 24, 12, .04);
-  --shadow-sm: 0 8px 24px rgba(31, 24, 12, .06), 0 1px 3px rgba(31, 24, 12, .04);
-  --shadow-md: 0 22px 60px rgba(31, 24, 12, .1), 0 2px 8px rgba(31, 24, 12, .05);
-}
-html:has(main.lab-page) body { background: radial-gradient(circle at 50% -260px, rgba(138, 85, 32, .07), transparent 520px), var(--bg); }
-.lab-stage { box-shadow: var(--shadow-sm); }
-.lab-stage-live::after { content: ""; position: absolute; inset: 0; z-index: 1; border-radius: inherit; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .3), inset 0 -56px 80px -64px rgba(31, 24, 12, .2); pointer-events: none; }
-.lab-stage-expand, .lab-recenter { background: rgba(255, 253, 249, .94); }
-.lab-chip, .lab-station-btn, .lab-head-btn, .lab-mode-switch-btn, .lab-seg-option span, .lab-hand-opt > span, .lab-slide-chip, .lab-card, .lab-specimen-card, .lab-mode-card, .lab-progress-seg, .lab-step-list-click .lab-step, .lab-recenter, .lab-stage-expand, .lab-notes-float, .lab-result-pic, .lab-drawer-btn { transition: border-color .15s ease, background-color .15s ease, color .15s ease, box-shadow .15s ease; }
-.lab-specimen-card:has(input:focus-visible) { outline: 2px solid var(--blue); outline-offset: 3px; }
-.lab-station-btn:hover:not([aria-current="true"]), .lab-chip:hover:not(.lab-chip-static):not([aria-expanded="true"]), .lab-head-btn:hover:not(:disabled), .lab-slide-chip:hover { background: var(--bg); box-shadow: var(--shadow-xs); }
-.lab-result-card, .lab-hands { box-shadow: var(--shadow-xs); }
