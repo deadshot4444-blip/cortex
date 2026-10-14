@@ -410,10 +410,12 @@ export function buildScene(opts) {
   };
 
   // ---------- room shell (outside the framed bounds) ----------
-  const floor = add(root, G.plane, M.floor, 0, 0, 6, ROOM_WIDTH, ROOM_DEPTH, 1, false, false);
+  // The shell and the bench top cast as well as receive: bench.js draws variance shadow maps, which want every
+  // receiver in the map (a receiver missing from it bleeds light at a contact edge).
+  const floor = add(root, G.plane, M.floor, 0, 0, 6, ROOM_WIDTH, ROOM_DEPTH, 1, true, false);
   floor.rotation.x = -Math.PI / 2;
   floor.receiveShadow = shadows;
-  const wall = add(root, G.plane, M.wall, 0, WALL_HEIGHT / 2, WALL_Z, ROOM_WIDTH, WALL_HEIGHT, 1, false, false);
+  const wall = add(root, G.plane, M.wall, 0, WALL_HEIGHT / 2, WALL_Z, ROOM_WIDTH, WALL_HEIGHT, 1, true, false);
   wall.receiveShadow = shadows;
   // The backsplash: a tiled band standing just off the wall (its back face never meets the wall's plane), the
   // whiteboard frame and the coat hook (S7, S8) mounted on it, a warm-stone trim along its top.
@@ -437,7 +439,7 @@ export function buildScene(opts) {
   part(root, 'box', 'hairline', 0, SHELF_Y - 0.014, WALL_Z + 0.16, BENCH_LENGTH + 1.2, 0.006, 0.006, { framed: false });
 
   // ---------- bench ----------
-  const top = add(root, G.box, M.benchTop, 0, BENCH_TOP_Y - 0.02, 0, BENCH_LENGTH, 0.04, BENCH_DEPTH);
+  const top = add(root, G.box, M.benchTop, 0, BENCH_TOP_Y - 0.02, 0, BENCH_LENGTH, 0.04, BENCH_DEPTH, true);
   top.receiveShadow = shadows;
   part(root, 'box', 'benchEdge', 0, BENCH_TOP_Y - 0.048, 0, BENCH_LENGTH + 0.006, 0.016, BENCH_DEPTH + 0.006);
   const bodyTop = BENCH_TOP_Y - 0.064;
