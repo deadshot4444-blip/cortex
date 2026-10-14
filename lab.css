@@ -110,7 +110,10 @@
 .lab-stage { position: relative; height: clamp(320px, 62vh, 760px); border: 1px solid var(--line-bright); border-radius: var(--radius-sm); background: var(--surface-2); box-shadow: var(--shadow-sm); overflow: hidden; }
 .lab-stage canvas { display: block; width: 100%; height: 100%; }
 .lab-stage-live::after { content: ""; position: absolute; inset: 0; z-index: 1; border-radius: inherit; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .3), inset 0 -56px 80px -64px rgba(31, 24, 12, .2); pointer-events: none; }
-.lab-stage-status { position: absolute; inset: auto 12px 12px 12px; margin: 0; padding: 8px 12px; background: rgba(255,255,255,.92); border: 1px solid var(--line); border-radius: var(--radius-sm); box-shadow: var(--shadow-xs); font-size: 13px; }
+/* While the bench loads (or when it cannot start) the stage says so in its centre, inside its frame, with
+   a small overline so the empty frame reads as the bench's place rather than a gap in the page. */
+.lab-stage-status { position: absolute; inset: 0; display: grid; place-content: center; gap: 10px; margin: 0; padding: 24px; color: var(--body); font-size: 15px; line-height: 1.5; text-align: center; text-wrap: balance; }
+.lab-stage-status::before { content: "3D bench"; color: var(--dim); font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; }
 .lab-stage-live .lab-stage-status { display: none; }
 
 /* ---------- activities (the stepper itself is the UX-E block at the end) ---------- */
@@ -1021,6 +1024,23 @@ html:has(main.lab-page) .sitefoot { border-top-color: var(--line-bright); }
 @media (pointer: coarse) { .lab-stage-expand { min-height: 44px; } }
 section.lab-bench-3d.lab-stage-full { position: fixed; inset: 0; z-index: 44; margin: 0; padding: max(12px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left)); background: var(--bg); overflow-y: auto; overscroll-behavior: contain; }
 section.lab-bench-3d.lab-stage-full > h2 { margin: 0 0 8px; }
-section.lab-bench-3d.lab-stage-full .lab-stage { height: calc(100dvh - 200px); min-height: 300px; }
+section.lab-bench-3d.lab-stage-full .lab-stage { height: calc(100dvh - 200px); min-height: 300px; max-height: none; aspect-ratio: auto; }
 html:has(section.lab-stage-full) { overflow: hidden; }
 @media print { .lab-stage-expand { display: none !important; } }
+
+/* ---------- Wide bench (2026-10-14, Kevin: "utilize the whole page; screen bigger, notes to the side") ----------
+   From 1200 px the bench view takes the window. Its column widens to 1680 px (the other lab views keep the
+   readable 1120 px), the notes column is a fixed 360 px whose notepad grows into the height it gets, and the
+   stage is sized by its width (16:10) up to the room the viewport leaves for the station row and "Do this
+   step" under it, so on a laptop the stage, the pills and the step button share one screen; Full view stays
+   for a presentation. The result picture grows with the column. The side sheet's reserved margin follows
+   the wider column (the 900 px rule above assumes 1120). Under 1200 px nothing here applies. */
+@media (min-width: 1200px) {
+  #app main.panel.lab-page.lab-view-bench { max-width: 1680px; }
+  #app main.panel.lab-page.lab-view-bench:not(.lab-notes-open) { max-width: 1320px; } /* notes closed: the stage alone, lines still readable */
+  main.lab-view-bench.lab-notes-host.lab-notes-open { grid-template-columns: minmax(0, 1fr) 360px; column-gap: 32px; }
+  main.lab-view-bench .lab-notepad textarea { height: calc(100dvh - var(--lab-topbar-h, 64px) - 232px); min-height: 200px; max-height: 760px; }
+  .lab-view-bench .lab-stage { width: 100%; height: auto; aspect-ratio: 16 / 10; min-height: 420px; max-height: calc(100dvh - var(--lab-topbar-h, 64px) - 252px); } /* an explicit width: a capped height must not narrow the stage */
+  .lab-view-bench .lab-result-pic, .lab-view-bench .lab-result-canvas { width: 320px; height: 240px; }
+  #app main.lab-view-bench.lab-sheet-side { padding-right: max(28px, calc(444px - max(0px, (100vw - 1680px) / 2))); }
+}
