@@ -1336,6 +1336,7 @@ function labTopbarHeight() {
 // or a bar in the flow has scrolled away).
 function labTopInset() {
   if (typeof document === 'undefined' || typeof getComputedStyle !== 'function') return 0;
+  if (document.querySelector('section.lab-stage-full')) return 0; // full view covers the top bar
   const bar = document.querySelector('header.topbar') || document.querySelector('#app header');
   if (!bar) return 0;
   const position = getComputedStyle(bar).position;
@@ -6654,6 +6655,18 @@ function labBench3D(lab, run, ctx, { gated = false } = {}) {
     ctx.recenter.addEventListener('click', () => labRecenter(ctx));
   }
   ctx.hint.after(ctx.recenter);
+  // Full view (Kevin, 2026-10-14: "the window is too small"): the 3D part fills the browser window, the
+  // stage as tall as it fits with the station row, the hints and the controls under it; Escape or the
+  // button gives the page back. The bench resizes itself (ResizeObserver), so only the layout changes.
+  if (!ctx.expand) {
+    ctx.expand = el(
+      '<button type="button" class="lab-stage-expand" id="lab-stage-expand" aria-pressed="false"><span class="lab-stage-expand-icon" aria-hidden="true"></span><span class="lab-stage-expand-text">Full view</span></button>'
+    );
+    ctx.expand.addEventListener('click', () => labStageFull(ctx, !ctx.stageFull));
+  }
+  ctx.recenter.after(ctx.expand);
+  section.classList.toggle('lab-stage-full', !!ctx.stageFull);
+  labStageFullSync(ctx);
   ctx.hudGated = gated;
   section.querySelector('[data-lab-slot="extras"]').replaceWith(labStageExtras(lab, ctx, { gated }));
   section.querySelector('#lab-clip-stage').addEventListener('keydown', event => labClipKeys(lab, ctx, event));
@@ -6680,6 +6693,35 @@ function labBench3D(lab, run, ctx, { gated = false } = {}) {
     labStartBench(lab, ctx);
   } else if (LAB.bench) LAB.bench.setRun(labBenchRun(run), { animate: false });
   return section;
+}
+function labStageFullSync(ctx) {
+  if (!ctx.expand) return;
+  const on = !!ctx.stageFull;
+  ctx.expand.setAttribute('aria-pressed', String(on));
+  ctx.expand.querySelector('.lab-stage-expand-text').textContent = on ? 'Exit full view' : 'Full view';
+  ctx.expand.title = on ? 'Back to the page (Esc)' : 'Fill the window with the 3D bench';
+}
+function labStageFull(ctx, on) {
+  ctx.stageFull = !!on;
+  const section = ctx.expand && ctx.expand.closest('section.lab-bench-3d');
+  if (section) section.classList.toggle('lab-stage-full', ctx.stageFull);
+  labStageFullSync(ctx);
+  if (!ctx.stageFullKeys) {
+    ctx.stageFullKeys = event => {
+      if (event.key !== 'Escape' || !ctx.stageFull || event.defaultPrevented) return;
+      // Escape inside a sheet, the notepad or a structure card belongs to them.
+      if (event.target && event.target.closest && event.target.closest('#lab-sheet, #lab-notepad, #lab-clip-card'))
+        return;
+      labStageFull(ctx, false);
+    };
+    document.addEventListener('keydown', ctx.stageFullKeys);
+    labHandles.add(() => document.removeEventListener('keydown', ctx.stageFullKeys));
+  }
+  if (section) section.scrollTop = 0;
+  labAnnounce(
+    ctx.stageFull ? 'Full view: the 3D bench fills the window. Escape returns to the page.' : 'Back to the page.'
+  );
+  ctx.expand?.focus({ preventScroll: true });
 }
 async function labStartBench(lab, ctx) {
   const token = ++labBenchGeneration;

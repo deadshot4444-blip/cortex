@@ -5,6 +5,15 @@
 
 const CHANGELOG = [
   {
+    version: '2.36.2',
+    tag: 'UPDATE',
+    date: 'October 14, 2026',
+    title: 'A bigger 3D bench',
+    items: [
+      'The Histology Lab’s 3D bench is taller, and Full view fills the window with it (Escape returns to the page).',
+    ],
+  },
+  {
     version: '2.36.1-beta.1',
     tag: 'BETA',
     date: 'October 13, 2026',

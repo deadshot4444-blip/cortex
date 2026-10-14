@@ -4268,10 +4268,15 @@ test('UX-R2 budget: while steps remain the first view holds the Run menu, the to
   ];
   const head = mid.slice(0, 3),
     steps = mid.slice(3);
-  assert.deepEqual(firstViewControls(w), [...head, ...STATIONS, ...steps, '3D options'], '3D, mid-run');
+  // Full view (2026-10-14) is one more control on the 3D stage, beside Back to my station's corner.
+  assert.deepEqual(
+    firstViewControls(w),
+    [...head, 'lab-stage-expand', ...STATIONS, ...steps, '3D options'],
+    '3D, mid-run'
+  );
   $(w, '[data-lab-drawer="3d-options"] .lab-drawer-btn').click();
   assert.deepEqual(
-    firstViewControls(w).slice(head.length + STATIONS.length + steps.length),
+    firstViewControls(w).slice(head.length + 1 + STATIONS.length + steps.length),
     ['3D options', 'lab-clip-intro', 'lab-3d-reduced'],
     'opened, the 3D options show the intro and Reduce motion (Read aloud is disabled here: no voice)'
   );
@@ -4280,7 +4285,15 @@ test('UX-R2 budget: while steps remain the first view holds the Run menu, the to
   // SHELF (§13.3): a finished practice run offers New slide beside Run complete
   assert.deepEqual(
     firstViewControls(w),
-    ['lab-run-menu-btn', 'lab-mode-toggle', 'lab-notes-toggle', ...STATIONS, 'lab-new-slide', '3D options'],
+    [
+      'lab-run-menu-btn',
+      'lab-mode-toggle',
+      'lab-notes-toggle',
+      'lab-stage-expand',
+      ...STATIONS,
+      'lab-new-slide',
+      '3D options',
+    ],
     '3D, finished'
   );
   $(w, '#lab-mode-toggle').click();
@@ -9765,4 +9778,33 @@ test('3D is the default bench: a fresh visitor and an older save open in 3D, a c
   const noGl = harness({ startMode: null, webgl2: false });
   assert.equal(noGl.run('labCurrentMode()'), 'list', 'no WebGL2: list');
   noGl.close();
+});
+
+test('Full view: the 3D part fills the window and Escape or the button gives the page back', async () => {
+  const h = harness({
+    url: 'http://localhost/lab?view=bench',
+    webgl2: true,
+    startMode: '3d',
+    benchModule: fakeBench().module,
+  });
+  const { w } = h;
+  await w.renderLabEntry();
+  $(w, '#lab-safety-ack').click();
+  await settled(w, () => !!$(w, '#lab-stage-expand'));
+  const button = $(w, '#lab-stage-expand');
+  assert.equal(button.getAttribute('aria-pressed'), 'false');
+  assert.equal(text(button), 'Full view');
+  button.click();
+  const section = $(w, 'section.lab-bench-3d');
+  assert.ok(section.classList.contains('lab-stage-full'), 'the 3D part takes the window');
+  assert.equal($(w, '#lab-stage-expand').getAttribute('aria-pressed'), 'true');
+  assert.equal(text($(w, '#lab-stage-expand')), 'Exit full view');
+  assert.equal(h.run('labTopInset()'), 0, 'tags are not held under a covered top bar');
+  w.document.dispatchEvent(new w.KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+  assert.equal($(w, 'section.lab-bench-3d').classList.contains('lab-stage-full'), false, 'Escape gives the page back');
+  $(w, '#lab-stage-expand').click();
+  $(w, '#lab-stage-expand').click();
+  assert.equal($(w, 'section.lab-bench-3d').classList.contains('lab-stage-full'), false, 'the button toggles back');
+  await flush();
+  h.close();
 });

@@ -105,7 +105,7 @@ const SECTION_INFO = {
   },
 };
 // Public beta version; independent subject acceptance remains separate.
-const APP_VERSION = '2.36.1-beta.1';
+const APP_VERSION = '2.36.2';
 function cortexFreeNote(sectionPill, sectionName) {
   return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free</span><span class="free-note-txt">${sectionName} is free to use — no account, no paywall, no catch.</span></p>`;
 }
@@ -269,7 +269,7 @@ const SECTION_SCRIPTS = {
   ],
   // silver-lab-core.js loads before lab.js so the shell can normalize saved state at parse time;
   // lab.js declares window.CortexLab so the later lab modules can register on it when they load.
-  lab: ['study-storage.js?v=6', 'silver-lab-core.js?v=1', 'lab.js?v=4', 'lab-microscope.js?v=3', 'lab-notebook.js?v=3'],
+  lab: ['study-storage.js?v=6', 'silver-lab-core.js?v=1', 'lab.js?v=5', 'lab-microscope.js?v=3', 'lab-notebook.js?v=3'],
 };
 const _scriptLoads = {};
 function loadScript(src) {
