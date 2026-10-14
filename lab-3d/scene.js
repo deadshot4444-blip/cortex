@@ -250,7 +250,13 @@ export function buildScene(opts) {
     kick: std(0x57524a, { roughness: 0.9 }),
     tray: std(0xe8e4dd, { roughness: 0.6 }),
     glass: glass(0xf1f3f1, 0.26),
+    // The liquids: water-clear by default (washes, the alcohol and clearing rows), a faint straw for the two
+    // silver baths, a warm grey for the developer, a pale gold for the toning bath. Illustrative tints that let
+    // the eye tell the baths apart along the bench; the bench still never says what is in a jar.
     liquid: std(0xc9d1d2, { roughness: 0.22 }),
+    liquidSilver: std(0xd8d0b4, { roughness: 0.22 }),
+    liquidDeveloper: std(0xc4bdb2, { roughness: 0.22 }),
+    liquidGold: std(0xd9c58e, { roughness: 0.22 }),
     lid: std(0x312f2b, { roughness: 0.45 }),
     metal: std(0xb6b4af, { metalness: 0.6, roughness: 0.32 }),
     dark: std(0x2f2d29, { roughness: 0.65 }),
@@ -452,8 +458,8 @@ export function buildScene(opts) {
   // when it is a hotspot visual (hover tint), otherwise it is instanced too.
   // A picked jar's glass carries its lid's world box (userData.lidBox): the lid is part of the jar
   // a pointer sees, so the jar's hit proxy covers it too (the lid's top strip used to pick nothing).
-  const jar = (g, x, z, w = 0.11, h = 0.15, d = 0.075, pick = true) => {
-    part(g, 'box', 'liquid', x, h * 0.34, z, w * 0.84, h * 0.64, d * 0.78);
+  const jar = (g, x, z, w = 0.11, h = 0.15, d = 0.075, pick = true, fill = 'liquid') => {
+    part(g, 'box', fill, x, h * 0.34, z, w * 0.84, h * 0.64, d * 0.78);
     part(g, 'box', 'lid', x, h + 0.012, z, w * 1.08, 0.024, d * 1.12);
     if (!pick) {
       part(g, 'box', 'glass', x, h / 2, z, w, h, d);
@@ -523,7 +529,7 @@ export function buildScene(opts) {
     },
     S2(g, st) {
       const [impregnate, wash] = st.steps;
-      const main = jar(g, -0.5, -0.1, 0.12, 0.16, 0.08);
+      const main = jar(g, -0.5, -0.1, 0.12, 0.16, 0.08, true, 'liquidSilver');
       part(g, 'box', 'shield', -0.5, 0.11, -0.19, 0.24, 0.22, 0.02); // light shield
       part(g, 'box', 'shield', -0.61, 0.11, -0.1, 0.02, 0.22, 0.2);
       part(g, 'box', 'shield', -0.39, 0.11, -0.1, 0.02, 0.22, 0.2);
@@ -557,11 +563,11 @@ export function buildScene(opts) {
       part(g, 'box', 'sash', 0, H * 0.68, 0.17, 1.68, H * 0.52, 0.008); // sash, raised
       part(g, 'box', 'frame', 0, H * 0.42, 0.17, 1.72, 0.024, 0.016); // sash rails
       part(g, 'box', 'frame', 0, H - 0.062, 0.17, 1.72, 0.024, 0.016);
-      const aJar = jar(g, -0.52, -0.16, 0.12, 0.16, 0.08);
+      const aJar = jar(g, -0.52, -0.16, 0.12, 0.16, 0.08, true, 'liquidSilver');
       const w1 = jar(g, -0.17, -0.2);
       const w2 = jar(g, 0.08, -0.2);
       const dev = add(g, G.cyl, M.glass, 0.5, 0.075, -0.12, 0.2, 0.15, 0.2);
-      part(g, 'cyl', 'liquid', 0.5, 0.045, -0.12, 0.17, 0.09, 0.17);
+      part(g, 'cyl', 'liquidDeveloper', 0.5, 0.045, -0.12, 0.17, 0.09, 0.17);
       part(g, 'cyl', 'lid', 0.5, 0.16, -0.12, 0.21, 0.02, 0.21);
       if (ammoniacal) {
         addHotspot(g, stepSpec(ammoniacal, st.id), [aJar]);
@@ -579,7 +585,7 @@ export function buildScene(opts) {
     S4(g, st) {
       const [toning, thio] = st.steps;
       tray(g, 0.02, -0.12, 1.32, 0.22);
-      const t = jar(g, -0.52, -0.1, 0.12, 0.16, 0.08);
+      const t = jar(g, -0.52, -0.1, 0.12, 0.16, 0.08, true, 'liquidGold');
       const s = jar(g, -0.17, -0.1, 0.12, 0.16, 0.08);
       jar(g, 0.3, -0.14, 0.11, 0.15, 0.075, false);
       jar(g, 0.55, -0.14, 0.11, 0.15, 0.075, false);
