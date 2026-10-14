@@ -5,6 +5,16 @@
 
 const CHANGELOG = [
   {
+    version: '2.36.3',
+    tag: 'UPDATE',
+    date: 'October 14, 2026',
+    title: 'The Histology Lab, polished',
+    items: [
+      'The 3D bench stands in a warmer room on the lab’s own palette: a tiled backsplash behind the stations, glass and metal that catch the light, signs on paper plates, and an amber glow on whatever you point at.',
+      'The lab page settles with it: a framed stage, warmer text and shadows, and controls that ease between states instead of snapping.',
+    ],
+  },
+  {
     version: '2.36.2',
     tag: 'UPDATE',
     date: 'October 14, 2026',

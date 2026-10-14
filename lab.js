@@ -6750,7 +6750,7 @@ async function labStartBench(lab, ctx) {
   let mod;
   try {
     // Always awaited, so the continuation runs after the stage is attached (an injected module too).
-    mod = await (LAB.benchModule ? Promise.resolve(LAB.benchModule) : import('/lab-3d/bench.js?v=2'));
+    mod = await (LAB.benchModule ? Promise.resolve(LAB.benchModule) : import('/lab-3d/bench.js?v=3'));
   } catch (error) {
     if (token !== labBenchGeneration) return;
     return fallback(
