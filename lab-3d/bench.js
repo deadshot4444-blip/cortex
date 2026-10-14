@@ -673,6 +673,7 @@ function createBench(container, api) {
     let rafId = 0;
     let destroyed = false;
     let dirty = true;
+    let shadowsStale = true; // something that casts a shadow moved since the shadow map was drawn (renderFrame)
     let hoverDirty = false;
     let lastRender = 0;
     let lastTick = 0;
@@ -746,7 +747,7 @@ function createBench(container, api) {
       }
       refitBand(now); // r4-p4-4: a notes drawer opened or closed under a resting view
       const racking = rackTween.step(now);
-      if (racking) animating = true;
+      if (racking) animating = shadowsStale = true;
       if (ghostTween.step(now)) animating = true;
       if (stepSlideTint(now)) animating = true;
       // G1: report a view change once the view is still (not during a flight, an orbit or a pan).
@@ -823,11 +824,20 @@ function createBench(container, api) {
 
     // One frame: the active scene (bench, or the tissue volume while the dive runs) and, during
     // the clip, the screen-space overlay (label plate, dip). renderer.info covers both passes.
+    // The shadow map is drawn only on a frame something that casts a shadow has moved (shadowsStale: the
+    // first frame, the rack while it slides or jumps, the S9 tray's jars): the sun's shadow camera is fixed
+    // over the bench, so a camera flight, an orbit or a hover leaves the map as it is, and the VSM blur
+    // passes cost nothing on those frames.
     renderer.info.autoReset = false;
+    renderer.shadowMap.autoUpdate = false;
     function renderFrame() {
       shown = true;
       renderer.info.reset();
       if (!director.inTissue()) fadeEdgeLabels();
+      if (shadowsStale && !director.inTissue()) {
+        renderer.shadowMap.needsUpdate = true;
+        shadowsStale = false;
+      }
       renderer.render(director.activeScene(), camera);
       director.renderOverlay();
     }
@@ -1578,6 +1588,7 @@ function createBench(container, api) {
       rackTween.targets[0].to.set(built.stationXs.get(id), BENCH_TOP_Y, RACK_Z);
       const duration = animate && !reducedMotion ? RACK_MS / rate : 0;
       const promise = rackTween.start(performance.now(), duration);
+      shadowsStale = true; // an instant move (no tween step) draws its shadow on this frame
       requestRender();
       return promise;
     }
@@ -1708,6 +1719,7 @@ function createBench(container, api) {
         hoverStale = true;
       }
       built.jarTray.layout(list);
+      shadowsStale = true; // jars came or went
       indexStations();
       dipSpots = stepHotspots.concat(built.jarTray.slots.filter(h => !h.off));
       dropProxies = dipSpots.map(h => h.proxy);
@@ -2853,6 +2865,7 @@ function createBench(container, api) {
         if (rackTween.active) {
           rackTween.targets[0].obj.copy(rackTween.targets[0].to);
           rackTween.finish(true);
+          shadowsStale = true;
         }
         if (slideTint.active) {
           slideTint.active = false;
