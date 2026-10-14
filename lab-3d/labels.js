@@ -12,8 +12,8 @@ const LINE_HEIGHT = 1.12; // of the text size
 const SIGN_MAX_WIDEN = 1.5;
 
 /**
- * Build a sprite showing `text` as a white plate with a hairline border and near-black text
- * (the site's card look). The plate is 4:1; `px` is its texture width. A label shrinks its text until
+ * Build a sprite showing `text` as a paper-white plate with a warm hairline border and near-black text
+ * (the lab page's card look). The plate is 4:1; `px` is its texture width. A label shrinks its text until
  * it fits. `sign: true` (the bench's station and specimen signs) keeps the text at the size a short
  * title gets instead: a title too long for one line wraps to two at a space (the plate grows taller)
  * and a line still too long widens the plate; the sprite's scale follows the plate's shape.
@@ -49,8 +49,10 @@ export function makeLabelSprite(text, { widthWorld = 0.84, px = 1280, sign = fal
   const radius = h0 * 0.07;
 
   ctx.clearRect(0, 0, w, h);
-  ctx.fillStyle = '#ffffff';
-  ctx.strokeStyle = '#c9cdd3';
+  // The lab page's card: paper white, its warm hairline (lab.css --line-bright), near-black text that
+  // leans brown rather than blue (--text there).
+  ctx.fillStyle = '#fffdf9';
+  ctx.strokeStyle = '#cdbfa6';
   ctx.lineWidth = border;
   roundRect(ctx, border / 2, border / 2, w - border, h - border, radius);
   ctx.fill();
@@ -59,7 +61,7 @@ export function makeLabelSprite(text, { widthWorld = 0.84, px = 1280, sign = fal
   ctx.font = font(size); // resizing the canvas reset the context
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
-  ctx.fillStyle = '#0b0c0e';
+  ctx.fillStyle = '#17150f';
   const step = size * LINE_HEIGHT;
   lines.forEach((line, i) => ctx.fillText(line, w / 2, h / 2 + (i - (lines.length - 1) / 2) * step + size * 0.04));
 
@@ -68,7 +70,7 @@ export function makeLabelSprite(text, { widthWorld = 0.84, px = 1280, sign = fal
   texture.minFilter = THREE.LinearMipmapLinearFilter;
   texture.generateMipmaps = true;
   texture.anisotropy = 4;
-  // Not tone mapped: the plate is pure white and the text pure near-black, like the page.
+  // Not tone mapped: the plate is paper white and the text near-black, like the page.
   const material = new THREE.SpriteMaterial({ map: texture, transparent: true, depthWrite: false, toneMapped: false });
   const sprite = new THREE.Sprite(material);
   const unit = widthWorld / px; // world units per texture px

@@ -22,8 +22,9 @@ import {
   stationX,
   JARS_STATION,
   JARS_MAX,
-} from './scene.js?v=2';
-import { createDirector } from './clip.js?v=2';
+  ROOM_COLOR,
+} from './scene.js?v=3';
+import { createDirector } from './clip.js?v=3';
 // The same module URL clip.js imports, so the structure names come from one table.
 import { SITE_NAMES } from './tissue.js?v=1';
 
@@ -37,7 +38,13 @@ const TINT_OPACITY = [0.55, 0.68, 0.8, 0.9, 0.96];
 // §11.4: the shell's by-eye look colour (SilverLab.LOOK_COLORS[look.key]) eases in over this long
 // (a cut under reduced motion); setSlideTint(null) eases back to the deposit tint above.
 const SLIDE_TINT_MS = 300;
-const HOVER_EMISSIVE = 0x1769d2;
+// The hover glow and the lit sign plate follow the lab page's accent (lab.css --lab-accent, bronze), as the
+// site's link blue they used to be is bronze there too.
+const HOVER_EMISSIVE = 0xa8601c;
+const HOVER_LABEL_TINT = 0xffe6c4;
+// How much of the environment (makeEnvironment) lights the scene: the sheen on glass, metal and the backsplash
+// comes from its light panels and window; its diffuse share is counted in the lights below.
+const ENV_INTENSITY = 0.35;
 const CAMERA_MS = 800;
 const RACK_MS = 650;
 const REPLAY_PAUSE_MS = 450;
@@ -335,6 +342,58 @@ function depositLevel(state) {
   return Math.max(0, Math.min(4, Math.round(level)));
 }
 
+/**
+ * The bench scene's environment map: a plain room (a bright warm ceiling, paper walls, a stone floor) with two
+ * light panels overhead and a tall window to one side, prefiltered once at mount. Nothing is downloaded and no
+ * addon is needed; three's RoomEnvironment is not vendored. Returns { texture, dispose }: the texture goes on
+ * scene.environment, dispose() frees its render target (destroy()). A device that cannot render the prefilter
+ * (no half-float colour buffer) gets no environment rather than no bench.
+ */
+function makeEnvironment(renderer) {
+  try {
+    return prefilterRoom(renderer);
+  } catch {
+    return { texture: null, dispose() {} };
+  }
+}
+
+function prefilterRoom(renderer) {
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  const room = new THREE.Scene();
+  const geometries = [];
+  const materials = [];
+  const surface = (geometry, color, intensity = 1, side = THREE.FrontSide) => {
+    const material = new THREE.MeshBasicMaterial({ side });
+    material.color.setHex(color).multiplyScalar(intensity);
+    geometries.push(geometry);
+    materials.push(material);
+    const mesh = new THREE.Mesh(geometry, material);
+    room.add(mesh);
+    return mesh;
+  };
+  const shell = new THREE.BoxGeometry(14, 8, 14);
+  geometries.push(shell);
+  const walls = new THREE.MeshBasicMaterial({ color: 0xe8e4de, side: THREE.BackSide });
+  const ceiling = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.BackSide });
+  const floor = new THREE.MeshBasicMaterial({ color: 0x8c8880, side: THREE.BackSide });
+  materials.push(walls, ceiling, floor);
+  room.add(new THREE.Mesh(shell, [walls, walls, ceiling, floor, walls, walls]));
+  for (const x of [-2.4, 2.4]) {
+    const panel = surface(new THREE.PlaneGeometry(1.4, 6), 0xfff8f0, 4);
+    panel.position.set(x, 3.95, 0);
+    panel.rotation.x = Math.PI / 2;
+  }
+  // A window to one side, a touch cool like daylight: the one highlight on glass that is not the room's colour.
+  const window_ = surface(new THREE.PlaneGeometry(4, 3.2), 0xf2f5fa, 2.6);
+  window_.position.set(-6.95, 1.6, 0);
+  window_.rotation.y = Math.PI / 2;
+  const target = pmrem.fromScene(room, 0.03);
+  for (const g of geometries) g.dispose();
+  for (const m of materials) m.dispose();
+  pmrem.dispose();
+  return { texture: target.texture, dispose: () => target.dispose() };
+}
+
 /** A reusable vector tween (camera uses two vectors, the rack one). */
 class VecTween {
   constructor(targets) {
@@ -426,17 +485,24 @@ function createBench(container, api) {
     renderer.shadowMap.type = THREE.PCFShadowMap; // r186 dropped PCFSoftShadowMap (and warned at every mount)
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xeceef1);
-    scene.fog = new THREE.Fog(0xeceef1, 40, 110);
+    scene.background = new THREE.Color(ROOM_COLOR);
+    scene.fog = new THREE.Fog(ROOM_COLOR, 40, 110);
+    // Image-based light for the standard and physical materials: without it glass, metal and the glossy
+    // tiles have nothing to reflect but three point-like lights and look like matte plastic.
+    const environment = makeEnvironment(renderer);
+    scene.environment = environment.texture;
+    scene.environmentIntensity = ENV_INTENSITY;
 
     const camera = new THREE.PerspectiveCamera(50, 1, 0.05, 160);
     camera.position.set(stationX(0), BENCH_TOP_Y + 0.85, 1.9);
 
-    // r186 lights are physically based: about pi of irradiance lands a white material near 1.0.
-    const hemi = new THREE.HemisphereLight(0xffffff, 0xc9ccd1, 1.9);
+    // r186 lights are physically based: about pi of irradiance lands a white material near 1.0. The
+    // environment carries a share of the diffuse light too (its irradiance counts pi, the lights' does not),
+    // so the hemisphere is lower than it was without it and there is no ambient term; the sun keeps the
+    // shadows and the one clear highlight. An upward face gets about 1.3 of its albedo in all.
+    const hemi = new THREE.HemisphereLight(0xffffff, 0xd6d0c6, 1.0);
     scene.add(hemi);
-    scene.add(new THREE.AmbientLight(0xffffff, 0.35));
-    const sun = new THREE.DirectionalLight(0xffffff, 2.3);
+    const sun = new THREE.DirectionalLight(0xfffbf6, 2.0);
     sun.position.set(3, 7.5, 5.5);
     sun.target.position.set(0, BENCH_TOP_Y, 0);
     scene.add(sun);
@@ -1755,7 +1821,7 @@ function createBench(container, api) {
             m.opacity = on ? Math.min(1, m.opacity + 0.3) : m.userData.restOpacity;
           }
         } else if (v.userData.label) {
-          m.color.setHex(on ? 0xcfe0ff : v.userData.label.baseColor);
+          m.color.setHex(on ? HOVER_LABEL_TINT : v.userData.label.baseColor);
         }
       }
     }
@@ -2735,6 +2801,8 @@ function createBench(container, api) {
       scene.remove(built.root);
       built.dispose();
       if (sun.shadow) sun.shadow.dispose();
+      scene.environment = null;
+      environment.dispose();
       scene.clear();
       renderer.renderLists.dispose();
       renderer.dispose();
