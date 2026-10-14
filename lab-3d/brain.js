@@ -9,7 +9,7 @@
 
 const BASE_COLOR = 0xdcc4bd; // pale pinkish grey
 const SULCUS_COLOR = 0x9a7772; // darker groove tone
-const ACCENT = 0xa8601c; // patch highlight (the lab page's bronze accent, as bench.js's hover glow)
+const ACCENT = 0xd27a24; // patch highlight (the lab page's bronze accent, as bench.js's hover glow)
 // three's IcosahedronGeometry splits each of the 20 faces into (detail + 1)^2 triangles.
 const HEMI_DETAIL = 24; // 12500 triangles per hemisphere: grooves a few edges wide stay continuous
 const CEREBELLUM_DETAIL = 12; // 3380 triangles

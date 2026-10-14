@@ -40,7 +40,8 @@ const TINT_OPACITY = [0.55, 0.68, 0.8, 0.9, 0.96];
 const SLIDE_TINT_MS = 300;
 // The hover glow and the lit sign plate follow the lab page's accent (lab.css --lab-accent, bronze), as the
 // site's link blue they used to be is bronze there too.
-const HOVER_EMISSIVE = 0xa8601c;
+const HOVER_EMISSIVE = 0xd27a24;
+const HOVER_GLOW = 0.6; // emissiveIntensity while lit (an amber glow reads fainter than the old blue did on warm surfaces)
 const HOVER_LABEL_TINT = 0xffe6c4;
 // How much of the environment (makeEnvironment) lights the scene: the sheen on glass, metal and the backsplash
 // comes from its light panels and window; its diffuse share is counted in the lights below.
@@ -155,11 +156,11 @@ const TAG_STYLE = [
   'width:max-content',
   `max-width:${TAG_MAX_WIDTH}`,
   'padding:6px 10px',
-  'background:#fff',
-  'color:#16181d',
-  'border:1px solid #c3c8cf',
+  'background:#fffdf9', // the lab page's card (lab.css "Lab identity"), as the signs' plates
+  'color:#17150f',
+  'border:1px solid #cdbfa6',
   'border-radius:6px',
-  'box-shadow:0 2px 8px rgba(11, 12, 14, 0.14)',
+  'box-shadow:0 2px 8px rgba(31, 24, 12, 0.16)',
   'font-size:13px',
   'line-height:1.35',
   'text-align:left',
@@ -1814,7 +1815,7 @@ function createBench(container, api) {
         if (!m) continue;
         if (m.emissive) {
           m.emissive.setHex(on ? HOVER_EMISSIVE : 0x000000);
-          m.emissiveIntensity = on ? 0.45 : 1;
+          m.emissiveIntensity = on ? HOVER_GLOW : 1;
           if (m.isMeshPhysicalMaterial) {
             // glass is faint at rest; let the hover tint read through it
             if (on) m.userData.restOpacity = m.opacity;
@@ -2420,7 +2421,7 @@ function createBench(container, api) {
     ghostMaterial.depthTest = false; // drawn over the jars it passes in front of
     if (ghostMaterial.emissive) {
       ghostMaterial.emissive.setHex(HOVER_EMISSIVE);
-      ghostMaterial.emissiveIntensity = 0.45; // the hover tint: this slide is in hand
+      ghostMaterial.emissiveIntensity = HOVER_GLOW; // the hover tint: this slide is in hand
     }
     const ghost = new THREE.Mesh(ghostGeometry, ghostMaterial);
     ghost.name = 'slide-ghost';
