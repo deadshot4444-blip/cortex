@@ -19,9 +19,12 @@ export const BENCH_LENGTH = STATION_COUNT * STATION_SPACING + 0.4;
 export const BENCH_DEPTH = 0.9;
 export const WALL_Z = -0.62;
 export const RACK_Z = 0.3;
-export const LABEL_Y = BENCH_TOP_Y + 0.82;
+// The signs hang just over the tallest equipment (S3's hood ends 0.64 over the bench; a two-line plate reaches
+// 0.085 under LABEL_Y) so a station's framed box stays short and its equipment fills the frame; the plate is
+// sized to read beside a jar, not to span a station (bench.js grows a sign that would draw too small).
+export const LABEL_Y = BENCH_TOP_Y + 0.76;
 
-const LABEL_WIDTH = 0.72; // world units; a one-line plate is 4:1 (labels.js `sign`: a long title is taller or wider)
+const LABEL_WIDTH = 0.52; // world units; a one-line plate is 4:1 (labels.js `sign`: a long title is taller or wider)
 const SPECIMEN_X = -BENCH_LENGTH / 2 + 0.36; // specimen tray centre: the head of the bench, left of S1
 const SPECIMEN_Z = -0.06;
 const BRAIN_SCALE = 0.085; // brain.js units -> bench metres (a hand-sized schematic brain)
