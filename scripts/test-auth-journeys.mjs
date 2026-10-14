@@ -30,7 +30,12 @@ async function setup({ user = null, storage = {}, rows = {}, grants = {} } = {})
   let offline = false;
   const closedAssets = [];
   ctx.on('request', request => {
-    if (/\/(socrates|anatomy|reference|neuro)\.js(\?|$)/.test(request.url())) closedAssets.push(request.url());
+    if (
+      /\/(socrates|anatomy|reference|neuro|lab|lab-microscope|lab-notebook|silver-lab-core)\.js(\?|$)/.test(
+        request.url()
+      )
+    )
+      closedAssets.push(request.url());
   });
   await ctx.route('**/__auth-test', async r => {
     const q = r.request().postDataJSON();

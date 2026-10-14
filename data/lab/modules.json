@@ -1,0 +1,818 @@
+{
+  "v": 1,
+  "items": [
+    {
+      "id": "M1",
+      "title": "Observation to explanation",
+      "week": 1,
+      "order": 1,
+      "activityUrl": "https://utsa.instructure.com/courses/91998/assignments/1418350",
+      "goal": "Turn what you see in a section into an explanation you could test.",
+      "steps": [
+        {
+          "kind": "clip",
+          "prompt": "Watch the clip: where a section comes from, what the shapes stand for, what the stain does in the model. Then write what you saw, not what you expected.",
+          "required": false
+        },
+        {
+          "kind": "view",
+          "prompt": "Which structures can you find in practice specimen A: plaque cores, plaque neurites, tangles, neuropil threads, axons? Which are missing from the negative comparison?",
+          "field": "observations",
+          "required": false
+        },
+        {
+          "kind": "annotate",
+          "prompt": "Mark a plaque core, a tangle, a neuropil thread and an axon. What made you pick each label, and which are you least sure of?",
+          "field": "annotations",
+          "required": false
+        },
+        {
+          "kind": "choose",
+          "prompt": "Which of the four explanations from the course could account for what you see? Which can you not rule out yet?",
+          "field": "candidates",
+          "required": false
+        },
+        {
+          "kind": "write",
+          "prompt": "Write one testable statement that names something you would change and something you would measure. What result would count against it?",
+          "field": "statement",
+          "required": true
+        }
+      ],
+      "facts": [
+        {
+          "text": "The Bielschowsky stain marks both parts of senile plaques. It stains the amyloid and the neurites. It also reliably stains neurofibrillary tangles.",
+          "claims": [
+            "C-litchfield-2001-what-stains"
+          ]
+        },
+        {
+          "text": "The negative comparison does not have to be fully unstained. Normal neural structures, such as axons, can still stain.",
+          "claims": [
+            "C-course-negative-tissue-stains"
+          ]
+        },
+        {
+          "text": "The course’s introductory recording names four competing explanations for why silver stains these structures. They are fixation-related carbonyls, endogenous carbonyls, reduced metals and other reduction sites. None of them is proven. This lab never treats one as true.",
+          "claims": [
+            "C-course-hypotheses"
+          ]
+        },
+        {
+          "text": "Every outcome in this module is an illustrative simulation from a teaching model. It is not an observation and not a tested prediction. Darker staining does not mean more protein, more pathology or a better method.",
+          "claims": [
+            "C-brief-illustrative-only",
+            "C-brief-intensity-not-amount"
+          ]
+        },
+        {
+          "text": "In polyacrylamide gels, glutaraldehyde pretreatment was needed for maximal ammoniacal silver staining of proteins, and the authors argue the enhancement was not simple fixation. This is a gel observation; the lab treats it as a cross-system analogy only, never as calibration for brain tissue and never as evidence for or against any of the competing explanations.",
+          "claims": [
+            "C-dion-1983-glutaraldehyde"
+          ]
+        },
+        {
+          "text": "Specimen properties (region, fixation history, thickness, lesion distribution) are separate from run properties (method, timing, temperature, reagent condition, washes, development endpoint). Every specimen here is synthetic and its real-tissue fields are unknown.",
+          "claims": [
+            "C-brief-specimen-vs-run"
+          ]
+        }
+      ],
+      "engine": [
+        "resolve",
+        "describeOutcome"
+      ],
+      "specimens": [
+        "SPEC-SYN-AD-01",
+        "SPEC-SYN-NEG-01"
+      ],
+      "defaultRuns": [
+        {
+          "label": "AD-like section, SOP defaults",
+          "specimenId": "SPEC-SYN-AD-01",
+          "method": "bielschowsky-modified",
+          "params": {}
+        },
+        {
+          "label": "Negative comparison, SOP defaults",
+          "specimenId": "SPEC-SYN-NEG-01",
+          "method": "bielschowsky-modified",
+          "params": {}
+        }
+      ]
+    },
+    {
+      "id": "M2",
+      "title": "How methods shape images",
+      "week": 2,
+      "order": 2,
+      "activityUrl": "https://utsa.instructure.com/courses/91998/assignments/1418363",
+      "goal": "Change only the developer or the method, and read each method’s sources before you decide what a difference means.",
+      "steps": [
+        {
+          "kind": "run",
+          "prompt": "Run the standard protocol on practice specimen A. Which structures are visible, at what level, and what level is the background?",
+          "field": "baseline",
+          "required": false
+        },
+        {
+          "kind": "compare",
+          "prompt": "Copy the baseline and change only the developer strength or the development time. What changed (structures, background or contrast), and which rules does the comparison name?",
+          "field": "developerComparison",
+          "required": false
+        },
+        {
+          "kind": "compare",
+          "prompt": "Compare the Bielschowsky picture with the CPS-I and CPS-II pictures. Why does the lab not compute a difference between methods, and what is each picture based on?",
+          "field": "methodComparison",
+          "required": false
+        },
+        {
+          "kind": "write",
+          "prompt": "Which structures does each method’s source say it shows? What evidence would you need before claiming that one method “sees more” than another?",
+          "field": "reflection",
+          "required": true
+        }
+      ],
+      "facts": [
+        {
+          "text": "Ten photographic developers were tested on nerve tissue. Only four worked well in general; the rest were too weak (light, incomplete staining) or too strong (nerves did not stand out). So the lab lets you change developer strength.",
+          "claims": [
+            "C-peters-1955-developer-strength"
+          ]
+        },
+        {
+          "text": "On neighboring sections from two brains with Alzheimer’s disease, a modified Bielschowsky stain showed more tangles, more clearly, than the Bodian stain (another silver stain). So the method changes what gets counted.",
+          "claims": [
+            "C-yamamoto-1986-more-nft"
+          ]
+        },
+        {
+          "text": "Of the two copper-peroxide-silver (CPS-I and CPS-II) methods, CPS-I stains senile plaques, tangles and neuropil threads black on a clear background. It leaves normal neurites unstained. CPS-II adds a sodium acetate wash. This suppresses amyloid deposit staining but keeps tangles and neuropil threads. It shows plaque neurites the amyloid hid.",
+          "claims": [
+            "C-velasco-1992-cps1",
+            "C-velasco-1992-cps2",
+            "C-velasco-1992-normal-neurites-unstained"
+          ]
+        },
+        {
+          "text": "Every outcome in this module is an illustrative simulation from a teaching model. It is not an observation and not a tested prediction. Darker staining does not mean more protein, more pathology or a better method.",
+          "claims": [
+            "C-brief-illustrative-only",
+            "C-brief-intensity-not-amount"
+          ]
+        },
+        {
+          "text": "Whether a differentiated staining pattern forms depends on the developer and its redox and bromide potentials, its sulphite and hydrogen ion concentrations, and protective effects of tissue components.",
+          "claims": [
+            "C-peters-1955-developer-factors"
+          ]
+        },
+        {
+          "text": "Among six silver methods compared on hippocampal serial sections, Gallyas and Bielschowsky were among the most sensitive for tangles while other methods were superior for plaques and diffuse amyloid; the authors state that most silver methods are not reliable because certain steps lack control.",
+          "claims": [
+            "C-rosenwald-1993-sensitivity",
+            "C-rosenwald-1993-lack-of-control"
+          ]
+        },
+        {
+          "text": "CPS staining can be abolished by formic acid pretreatment and erased by a brief sulfochromic acid wash, and destained sections can be restained.",
+          "claims": [
+            "C-velasco-1992-reversible"
+          ]
+        },
+        {
+          "text": "The course assigns Velasco's copper-peroxide-silver methods (CPS-I and CPS-II) as an additional comparison; this lab keeps them separate from the Bielschowsky stain, and no source in the registry compares them on the same sections, so the lab shows the two outcomes side by side with their own labels and no difference table.",
+          "claims": [
+            "C-course-cps-separate"
+          ]
+        },
+        {
+          "text": "The course procedure's developer is 3 drops of stock per 50 ml of ammoniacal silver, judged under the microscope. The developer strength positions weak / sop-default / strong are ordered schematic positions, not formulations or drop counts.",
+          "claims": [
+            "C-course-procedure-quantities"
+          ]
+        }
+      ],
+      "engine": [
+        "resolve",
+        "compare"
+      ],
+      "specimens": [
+        "SPEC-SYN-AD-01"
+      ],
+      "defaultRuns": [
+        {
+          "label": "Baseline, SOP defaults",
+          "specimenId": "SPEC-SYN-AD-01",
+          "method": "bielschowsky-modified",
+          "params": {}
+        },
+        {
+          "label": "Strong developer",
+          "specimenId": "SPEC-SYN-AD-01",
+          "method": "bielschowsky-modified",
+          "params": {
+            "development": {
+              "strength": "strong"
+            }
+          }
+        },
+        {
+          "label": "Weak developer",
+          "specimenId": "SPEC-SYN-AD-01",
+          "method": "bielschowsky-modified",
+          "params": {
+            "development": {
+              "strength": "weak"
+            }
+          }
+        },
+        {
+          "label": "CPS-I schematic (compare only)",
+          "specimenId": "SPEC-SYN-AD-01",
+          "method": "cps-i",
+          "params": {}
+        },
+        {
+          "label": "CPS-II schematic (compare only)",
+          "specimenId": "SPEC-SYN-AD-01",
+          "method": "cps-ii",
+          "params": {}
+        }
+      ]
+    },
+    {
+      "id": "M3",
+      "title": "Time courses",
+      "week": 3,
+      "order": 3,
+      "activityUrl": "https://utsa.instructure.com/courses/91998/assignments/1418365",
+      "goal": "Tell bound silver from built-up silver and its growth rate, and see why a binding plateau does not mean the visible silver is done.",
+      "steps": [
+        {
+          "kind": "curves",
+          "prompt": "Move the development time and watch the solid line (bound silver). Where does it level off, and why is that a model choice, not a measurement?",
+          "field": "bindingObservation",
+          "required": false
+        },
+        {
+          "kind": "curves",
+          "prompt": "Change the development time: does visible silver stop building once binding plateaus? What can the rate curve tell you at the “development stops” line, and what not?",
+          "field": "developmentObservation",
+          "required": false
+        },
+        {
+          "kind": "run",
+          "prompt": "Run one specimen with extended impregnation, then with extended development. Which run changes the picture, and what moved in each: bound silver, silver nuclei or visible silver?",
+          "field": "endpointRuns",
+          "required": false
+        },
+        {
+          "kind": "write",
+          "prompt": "The procedure's times are 20 min in silver nitrate, 15 min in ammoniacal silver and 1 to 5 min of development. Where would they fall on these curves, what would you need to know to place them, and why does the lab not place them?",
+          "field": "reflection",
+          "required": true
+        }
+      ],
+      "facts": [
+        {
+          "text": "Silver ions binding to the tissue and metallic silver forming are separable processes. Each one has its own time course.",
+          "claims": [
+            "C-gallyas-1979-separable"
+          ]
+        },
+        {
+          "text": "A plateau in silver binding does not mean the visible silver is finished. The model treats binding and development as separate processes.",
+          "claims": [
+            "C-brief-binding-not-development"
+          ]
+        },
+        {
+          "text": "The developer adds more silver. It can come from silver already bound to the tissue during impregnation, or from the developing solution.",
+          "claims": [
+            "C-peters-1955-bound-silver"
+          ]
+        },
+        {
+          "text": "Every outcome in this module is an illustrative simulation from a teaching model. It is not an observation and not a tested prediction. Darker staining does not mean more protein, more pathology or a better method.",
+          "claims": [
+            "C-brief-illustrative-only",
+            "C-brief-intensity-not-amount"
+          ]
+        },
+        {
+          "text": "The course’s Gallyas time-course activity concerns treated human spinal cord; those data were not consulted here, and no shape on screen is derived from them or calibrated to brain tissue.",
+          "claims": [
+            "C-brief-gallyas-spinal-cord"
+          ]
+        },
+        {
+          "text": "The course procedure gives real times: 20 min in silver nitrate, 15 min in ammoniacal silver, 1 to 5 min of development. The endpoints early / sop-default / extended are ordered positions only; nothing is known about where those times fall on any curve.",
+          "claims": [
+            "C-course-procedure-quantities"
+          ]
+        }
+      ],
+      "engine": [
+        "schematicCurves",
+        "resolve",
+        "replay"
+      ],
+      "specimens": [
+        "SPEC-SYN-AD-01"
+      ],
+      "defaultRuns": [
+        {
+          "label": "Baseline, SOP defaults",
+          "specimenId": "SPEC-SYN-AD-01",
+          "method": "bielschowsky-modified",
+          "params": {}
+        },
+        {
+          "label": "Early impregnation endpoint",
+          "specimenId": "SPEC-SYN-AD-01",
+          "method": "bielschowsky-modified",
+          "params": {
+            "impregnation": {
+              "endpoint": "early"
+            }
+          }
+        },
+        {
+          "label": "Extended impregnation endpoint",
+          "specimenId": "SPEC-SYN-AD-01",
+          "method": "bielschowsky-modified",
+          "params": {
+            "impregnation": {
+              "endpoint": "extended"
+            }
+          }
+        },
+        {
+          "label": "Extended development endpoint",
+          "specimenId": "SPEC-SYN-AD-01",
+          "method": "bielschowsky-modified",
+          "params": {
+            "development": {
+              "endpoint": "extended"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "M4",
+      "title": "Intensity versus protein amount",
+      "week": 4,
+      "order": 4,
+      "activityUrl": "https://utsa.instructure.com/courses/91998/assignments/1418366",
+      "goal": "Understand why stain intensity is not a direct measure of how much protein is there.",
+      "steps": [
+        {
+          "kind": "compare",
+          "prompt": "Run practice specimens A and B with the standard protocol. Which has more lesions, which has the darker plaque core, and what does the comparison list as changed?",
+          "field": "burdenComparison",
+          "required": false
+        },
+        {
+          "kind": "compare",
+          "prompt": "Compare specimen B with extended development against specimen A on the standard protocol. From these two pictures alone, what would a reader conclude about amount, and what would they get wrong?",
+          "field": "sameDarkness",
+          "required": false
+        },
+        {
+          "kind": "compare",
+          "prompt": "Run the high-amount, low-signal specimen (lots of target, few reduction sites) with the standard protocol. Why does more target give less signal here, and what limits the visible silver?",
+          "field": "siteChemistry",
+          "required": false
+        },
+        {
+          "kind": "write",
+          "prompt": "Why can darkness not be read as amount in this model, and which sources support that? What measurement would you need before saying anything about amount?",
+          "field": "reflection",
+          "required": true
+        }
+      ],
+      "facts": [
+        {
+          "text": "Every outcome in this module is an illustrative simulation from a teaching model. It is not an observation and not a tested prediction. Darker staining does not mean more protein, more pathology or a better method.",
+          "claims": [
+            "C-brief-illustrative-only",
+            "C-brief-intensity-not-amount"
+          ]
+        },
+        {
+          "text": "This lab keeps specimen properties and run properties apart. The same run on two specimens, or two runs on one specimen, can give the same darkness from different amounts.",
+          "claims": [
+            "C-brief-specimen-vs-run"
+          ]
+        },
+        {
+          "text": "Silver staining needs reduced-silver nuclei in the section. The developer builds more silver on them. In the teaching model, nuclei limit the visible silver, and reduction sites limit the nuclei.",
+          "claims": [
+            "C-peters-1955-nuclei"
+          ]
+        },
+        {
+          "text": "In polyacrylamide gels, the ammoniacal silver staining intensity of standard proteins was directly related to their mole percentage of lysine. The lab treats this as its analogy for intensity following site chemistry rather than the amount of protein loaded.",
+          "claims": [
+            "C-dion-1983-lysine"
+          ]
+        },
+        {
+          "text": "In polyacrylamide gels, silver ions are proposed to oxidize aldehyde groups, depositing metallic silver that acts as nucleation sites for further deposition when developer is added. In the teaching model, the reduction sites available, not the amount of protein, set where silver grows.",
+          "claims": [
+            "C-dion-1983-nucleation"
+          ]
+        },
+        {
+          "text": "Dion and Pomenti’s comparison concerns gels, not tissue; it is an analogy for why intensity tracks site chemistry, never a calibration for this course’s brain tissue.",
+          "claims": [
+            "C-brief-gels-not-brain"
+          ]
+        },
+        {
+          "text": "Many tangles were eosinophilic and less argentophilic. In the teaching model this is one reason a silver stain is not read as a measure of how much pathology is present.",
+          "claims": [
+            "C-yamamoto-1986-less-argentophilic"
+          ]
+        }
+      ],
+      "engine": [
+        "resolve",
+        "compare"
+      ],
+      "specimens": [
+        "SPEC-SYN-AD-01",
+        "SPEC-SYN-AD-02",
+        "SPEC-SYN-LOWCHEM-01"
+      ],
+      "defaultRuns": [
+        {
+          "label": "Higher burden, SOP defaults",
+          "specimenId": "SPEC-SYN-AD-01",
+          "method": "bielschowsky-modified",
+          "params": {}
+        },
+        {
+          "label": "Lower burden, SOP defaults",
+          "specimenId": "SPEC-SYN-AD-02",
+          "method": "bielschowsky-modified",
+          "params": {}
+        },
+        {
+          "label": "Lower burden, extended development",
+          "specimenId": "SPEC-SYN-AD-02",
+          "method": "bielschowsky-modified",
+          "params": {
+            "development": {
+              "endpoint": "extended"
+            }
+          }
+        },
+        {
+          "label": "High amount, few reduction sites, SOP defaults",
+          "specimenId": "SPEC-SYN-LOWCHEM-01",
+          "method": "bielschowsky-modified",
+          "params": {}
+        }
+      ]
+    },
+    {
+      "id": "M5",
+      "title": "Controls",
+      "week": 5,
+      "order": 5,
+      "activityUrl": "https://utsa.instructure.com/courses/91998/assignments/1418367",
+      "goal": "Plan a test that can tell your explanation from another likely one; the checklist checks the plan, never how dark a stain is.",
+      "steps": [
+        {
+          "kind": "design",
+          "prompt": "What one thing will you change between the baseline and the experimental run? What will you keep the same: specimen, method, impregnation, washes, development?",
+          "field": "changedHeld",
+          "required": false
+        },
+        {
+          "kind": "design",
+          "prompt": "Which of the three comparisons will you include, and which other explanation does each one address?",
+          "field": "controls",
+          "required": false
+        },
+        {
+          "kind": "design",
+          "prompt": "Which measure will you use: contrast, lesion count in set regions, artifact area, tissue coverage or a blinded quality score? What is its rule, written before you see any outcome?",
+          "field": "measures",
+          "required": false
+        },
+        {
+          "kind": "write",
+          "prompt": "These practice specimens are not real tissue or characterized controls. What would a real positive control need, and what does the negative comparison fail to prove when its axons stain?",
+          "field": "reflection",
+          "required": true
+        }
+      ],
+      "facts": [
+        {
+          "text": "This course asks for three comparisons. They are a positive control whose staining is already known, a negative comparison without the lesions, and a baseline run of the standard process.",
+          "claims": [
+            "C-course-controls-three-types"
+          ]
+        },
+        {
+          "text": "You could measure contrast against the background, artifact area, tissue coverage, lesions counted in regions set in advance, or a quality score from experts who do not know which run they see. Each one needs a clear written rule.",
+          "claims": [
+            "C-course-measures"
+          ]
+        },
+        {
+          "text": "The negative comparison does not have to be fully unstained. Normal neural structures can still stain.",
+          "claims": [
+            "C-course-negative-tissue-stains"
+          ]
+        },
+        {
+          "text": "Every outcome in this module is an illustrative simulation from a teaching model. It is not an observation and not a tested prediction. Darker staining does not mean more protein, more pathology or a better method.",
+          "claims": [
+            "C-brief-illustrative-only",
+            "C-brief-intensity-not-amount"
+          ]
+        },
+        {
+          "text": "The same AD-related lesions received different assessments across the participating laboratories of the BrainNet Europe consortium, which motivates controls, matched sections and blinded scoring.",
+          "claims": [
+            "C-alafuzoff-2006-interlab"
+          ]
+        },
+        {
+          "text": "Most silver methods are described as complicated and not reliable because certain steps lack control, and the Bielschowsky stain is highly sensitive to ambient temperature; a controlled-temperature modification was the most reproducible in one laboratory’s hands, at a temperature that is theirs, not the course SOP’s.",
+          "claims": [
+            "C-rosenwald-1993-lack-of-control",
+            "C-litchfield-2001-temp",
+            "C-litchfield-2001-reproducible"
+          ]
+        },
+        {
+          "text": "Specimen properties and run properties are separate: a control that changes the specimen is a different comparison from a control that changes the run.",
+          "claims": [
+            "C-brief-specimen-vs-run"
+          ]
+        }
+      ],
+      "engine": [
+        "checkExperiment",
+        "measurementRules",
+        "resolve"
+      ],
+      "specimens": [
+        "SPEC-SYN-AD-01",
+        "SPEC-SYN-NEG-01"
+      ],
+      "defaultRuns": [
+        {
+          "label": "Baseline process, SOP defaults",
+          "specimenId": "SPEC-SYN-AD-01",
+          "method": "bielschowsky-modified",
+          "params": {}
+        },
+        {
+          "label": "Negative comparison, SOP defaults",
+          "specimenId": "SPEC-SYN-NEG-01",
+          "method": "bielschowsky-modified",
+          "params": {}
+        }
+      ]
+    },
+    {
+      "id": "M6",
+      "title": "Alternative outcomes",
+      "week": 6,
+      "order": 6,
+      "activityUrl": "https://utsa.instructure.com/courses/91998/assignments/1418368",
+      "goal": "Before the reveal, write what an Expected outcome, a Negligible change and an Opposite outcome would each mean for your test.",
+      "steps": [
+        {
+          "kind": "predict",
+          "prompt": "If the experimental run shows the change you expect, what does that support, and what does it fail to show?",
+          "field": "expected",
+          "required": true
+        },
+        {
+          "kind": "predict",
+          "prompt": "If the change is negligible, what does that support, what does it fail to show, and which explanations does it leave untouched?",
+          "field": "negligible",
+          "required": true
+        },
+        {
+          "kind": "predict",
+          "prompt": "If the change goes the opposite way, what does that support, what does it fail to show, and which of the four explanations could account for it?",
+          "field": "opposite",
+          "required": true
+        },
+        {
+          "kind": "interpret",
+          "prompt": "After the reveal, which explanations can the outcome not tell apart? What would a “Not modeled” answer tell you about the model’s limits, and what experiment would you run next?",
+          "field": "interpretation",
+          "required": true
+        }
+      ],
+      "facts": [
+        {
+          "text": "The course asks you to interpret three kinds of outcome. This lab calls them Expected outcome, Negligible change and Opposite outcome. For each, say what it supports, what it fails to show, and what to test next.",
+          "claims": [
+            "C-course-alternative-outcomes"
+          ]
+        },
+        {
+          "text": "The four competing explanations are hypotheses. They are fixation-related carbonyls, endogenous carbonyls, reduced metals and other reduction sites. No source says which pretreatment tests which, or how the stain would change. So a pretreatment gives a “Not modeled” answer (the model has no rule for it), not a picture.",
+          "claims": [
+            "C-course-hypotheses"
+          ]
+        },
+        {
+          "text": "Even a validated model of staining quality would not prove a biological hypothesis. This model is not validated. If the reveal matches your Expected outcome, that shows the model’s rules, not that your hypothesis is true.",
+          "claims": [
+            "C-brief-illustrative-only"
+          ]
+        },
+        {
+          "text": "Every outcome in this module is an illustrative simulation from a teaching model. It is not an observation and not a tested prediction. Darker staining does not mean more protein, more pathology or a better method.",
+          "claims": [
+            "C-brief-illustrative-only",
+            "C-brief-intensity-not-amount"
+          ]
+        },
+        {
+          "text": "The Bielschowsky stain is highly sensitive to ambient temperature; a temperature deviation lowers the confidence of an illustrative outcome and encodes no direction of change.",
+          "claims": [
+            "C-litchfield-2001-temp"
+          ]
+        }
+      ],
+      "engine": [
+        "canReveal",
+        "reveal",
+        "compare"
+      ],
+      "specimens": [
+        "SPEC-SYN-AD-01",
+        "SPEC-SYN-AD-02"
+      ],
+      "defaultRuns": [
+        {
+          "label": "Baseline, SOP defaults",
+          "specimenId": "SPEC-SYN-AD-01",
+          "method": "bielschowsky-modified",
+          "params": {}
+        },
+        {
+          "label": "Experimental: extended development",
+          "specimenId": "SPEC-SYN-AD-01",
+          "method": "bielschowsky-modified",
+          "params": {
+            "development": {
+              "endpoint": "extended"
+            }
+          }
+        },
+        {
+          "label": "Experimental: a changed wash (not modeled; resolves to an uncertainty card)",
+          "specimenId": "SPEC-SYN-AD-01",
+          "method": "bielschowsky-modified",
+          "params": {
+            "washes": {
+              "condition": "deviated"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "M7",
+      "title": "Evidence-supported writing",
+      "week": 7,
+      "order": 7,
+      "activityUrl": "https://utsa.instructure.com/courses/91998/assignments/1418369",
+      "goal": "Build a report that ties each claim to a source, a dated observation or a labeled simulation, plus limits and next steps.",
+      "steps": [
+        {
+          "kind": "notebook",
+          "prompt": "Which published claims does your argument rest on (add each as a Published entry)? Which of them were checked only at the abstract or title level?",
+          "field": "published",
+          "required": false
+        },
+        {
+          "kind": "notebook",
+          "prompt": "Add what you observed in the real lab (dated) and what was only simulated as separate entries. Which would a reader mistake for a real result without its label?",
+          "field": "observedVsSimulated",
+          "required": false
+        },
+        {
+          "kind": "notebook",
+          "prompt": "What are the limits of your design and of this teaching model? Which changes came back Not modeled, and what evidence would fill those gaps?",
+          "field": "limitations",
+          "required": false
+        },
+        {
+          "kind": "write",
+          "prompt": "What would you do next, and why? How will you write up an unfinished or unperformed experiment so it is discussed thoughtfully, not reported as done?",
+          "field": "nextSteps",
+          "required": true
+        }
+      ],
+      "facts": [
+        {
+          "text": "The final report must clearly keep observations apart from predictions. Experiments you did not finish, or never ran, can still earn full credit if you discuss them thoughtfully.",
+          "claims": [
+            "C-course-report-distinguish"
+          ]
+        },
+        {
+          "text": "Every outcome in this module is an illustrative simulation from a teaching model. It is not an observation and not a tested prediction. Darker staining does not mean more protein, more pathology or a better method.",
+          "claims": [
+            "C-brief-illustrative-only",
+            "C-brief-intensity-not-amount"
+          ]
+        },
+        {
+          "text": "The measures are contrast, artifact area, tissue coverage, lesions counted in set regions and a blind quality score. Each one needs a clear written rule. The rule belongs in the report next to the number.",
+          "claims": [
+            "C-course-measures"
+          ]
+        },
+        {
+          "text": "The same AD-related lesions received different assessments across laboratories, which is why a claim about staining needs a source, a control and a measurement rule rather than an impression of darkness.",
+          "claims": [
+            "C-alafuzoff-2006-interlab"
+          ]
+        },
+        {
+          "text": "Several sources in this lab were verified only by title or metadata (the Gallyas 1979 papers, the BrainNet Europe study); the lab’s source records state each source’s verification level, and the evidence index prints each claim’s strength and its source citations so a reader can check them.",
+          "claims": [
+            "C-gallyas-1979-separable",
+            "C-alafuzoff-2006-interlab"
+          ]
+        }
+      ],
+      "engine": [
+        "addEntry",
+        "exportNotebook"
+      ],
+      "specimens": [],
+      "defaultRuns": []
+    }
+  ],
+  "measurements": [
+    {
+      "id": "contrast-ordinal",
+      "title": "Target/background contrast",
+      "rule": "Read the darkest structure and the background off the picture as steps on the model scale: none, trace, low, moderate, high. Contrast is how many steps apart they are (0 none, 1 trace, 2 low, 3 moderate, 4 high). These steps are not measured darkness and not an amount of protein.",
+      "ruleDetail": "The tool samples the rendered illustrative image at the 4x preset and reads the darkest present site and the background back as the nearest of five fixed tints; the model-state contrast is recorded beside it. Both are illustrative ordinals, not optical densities, and say nothing about protein amount.",
+      "unit": "ordinal",
+      "manual": false,
+      "claims": [
+        "C-course-measures"
+      ]
+    },
+    {
+      "id": "roi-lesion-count",
+      "title": "Predefined-region lesion count",
+      "rule": "Before counting, fix the regions of interest, the structure class to count and one written inclusion criterion (for example: a structure counts only when it lies fully inside the region at the chosen objective). Count only inside the fixed regions, record the objective and the criterion with the count, and never adjust the regions after seeing the image.",
+      "unit": "count",
+      "manual": true,
+      "claims": [
+        "C-course-measures"
+      ]
+    },
+    {
+      "id": "artifact-area",
+      "title": "Artifact area",
+      "rule": "Decide one written criterion for what counts as artifact (for example: deposit that follows no tissue structure, tears, folds) before outlining. Outline every region meeting the criterion and report the fraction of the field outlined. The fraction is a manual estimate, not a segmentation, and the criterion is recorded with it.",
+      "unit": "fraction",
+      "manual": true,
+      "claims": [
+        "C-course-measures"
+      ]
+    },
+    {
+      "id": "tissue-coverage",
+      "title": "Tissue coverage",
+      "rule": "Estimate the fraction of the field occupied by tissue section (versus empty slide, folds or lost tissue) with a fixed grid and record the grid size. Coverage describes the section, not the staining, and is reported separately from any visibility value.",
+      "unit": "fraction",
+      "manual": true,
+      "claims": [
+        "C-course-measures"
+      ]
+    },
+    {
+      "id": "blinded-quality-score",
+      "title": "Blinded quality score",
+      "rule": "A blinded score needs a second scorer who rates each image on a written scale agreed before scoring without knowing which run produced it. This version has no image-set export, so no score recorded here is blinded; record the scale, the scorer and the date, and the entry is tagged blinded=no. A score is a judgment of image quality, not a measurement of protein or pathology.",
+      "unit": "score",
+      "manual": true,
+      "claims": [
+        "C-course-measures"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,538 @@
+{
+  "v": 1,
+  "items": [
+    {
+      "id": "C-litchfield-2001-temp",
+      "text": "The Bielschowsky stain is highly sensitive to changes in ambient temperature.",
+      "sources": [
+        "S-litchfield-2001"
+      ],
+      "strength": "published-qualitative",
+      "system": "human AD brain (OPTIMA, Oxford)",
+      "transferable": "qualitative-only"
+    },
+    {
+      "id": "C-litchfield-2001-what-stains",
+      "text": "The Bielschowsky stain impregnates both the amyloid and the neuritic components of senile plaques and reliably stains neurofibrillary tangles, and can serve as a single diagnostic stain.",
+      "sources": [
+        "S-litchfield-2001"
+      ],
+      "strength": "published-qualitative",
+      "system": "human AD brain (OPTIMA, Oxford)",
+      "transferable": "qualitative-only"
+    },
+    {
+      "id": "C-litchfield-2001-reproducible",
+      "text": "Of three Bielschowsky modifications compared against methenamine silver and immunohistochemistry, the modification with incubations at a controlled low temperature was the most reliable and reproducible in the authors' hands; that temperature is the authors', not the course SOP's.",
+      "sources": [
+        "S-litchfield-2001"
+      ],
+      "strength": "published-qualitative",
+      "system": "human AD brain (OPTIMA, Oxford)",
+      "transferable": "qualitative-only"
+    },
+    {
+      "id": "C-yamamoto-1986-more-nft",
+      "text": "On serial sections of two AD brains, a modified Bielschowsky stain demonstrated 15 to 75 percent more neurofibrillary tangles, and more distinctly, than the Bodian stain.",
+      "sources": [
+        "S-yamamoto-1986"
+      ],
+      "strength": "published-qualitative",
+      "system": "serial sections, two AD brains",
+      "transferable": "qualitative-only"
+    },
+    {
+      "id": "C-yamamoto-1986-less-argentophilic",
+      "text": "Many tangles were eosinophilic and less argentophilic; thioflavin S showed no apparent advantage over modified Bielschowsky for tangles.",
+      "sources": [
+        "S-yamamoto-1986"
+      ],
+      "strength": "published-qualitative",
+      "system": "serial sections, two AD brains",
+      "transferable": "qualitative-only"
+    },
+    {
+      "id": "C-rosenwald-1993-sensitivity",
+      "text": "Among six silver methods and immunohistology compared on hippocampal serial sections from 35 brains, Gallyas, Bielschowsky, a Reusche variant and tau immunostaining were the most sensitive for neurofibrillary tangles, while Campbell and the Reusche variant were superior for senile plaques and diffuse or subpial amyloid.",
+      "sources": [
+        "S-rosenwald-1993"
+      ],
+      "strength": "published-qualitative",
+      "system": "hippocampal serial sections, 35 human brains, paraffin",
+      "transferable": "qualitative-only"
+    },
+    {
+      "id": "C-rosenwald-1993-lack-of-control",
+      "text": "The authors state that most silver methods are complicated and not reliable because certain steps lack control.",
+      "sources": [
+        "S-rosenwald-1993"
+      ],
+      "strength": "published-qualitative",
+      "system": "hippocampal serial sections, 35 human brains, paraffin",
+      "transferable": "qualitative-only"
+    },
+    {
+      "id": "C-velasco-1992-cps1",
+      "text": "Pretreating sections with copper sulfate and hydrogen peroxide before ammoniacal silver (CPS-I) gives strong impregnation of AD lesions: senile plaques, neurofibrillary tangles and neuropil threads stain black on a clear background.",
+      "sources": [
+        "S-velasco-1992"
+      ],
+      "strength": "published-qualitative",
+      "system": "human AD brain",
+      "transferable": "qualitative-only"
+    },
+    {
+      "id": "C-velasco-1992-cps2",
+      "text": "Interposing a sodium acetate wash between the copper sulfate and the hydrogen peroxide (CPS-II) suppresses amyloid staining while keeping tangles and neuropil threads, and delineates the dystrophic neurites of plaques that are otherwise obscured by amyloid argyrophilia.",
+      "sources": [
+        "S-velasco-1992"
+      ],
+      "strength": "published-qualitative",
+      "system": "human AD brain",
+      "transferable": "qualitative-only"
+    },
+    {
+      "id": "C-velasco-1992-normal-neurites-unstained",
+      "text": "With CPS-I, normal neurites remain unstained (the abstract states this for CPS-I; it does not state it for CPS-II).",
+      "sources": [
+        "S-velasco-1992"
+      ],
+      "strength": "published-qualitative",
+      "system": "human AD brain",
+      "transferable": "qualitative-only"
+    },
+    {
+      "id": "C-velasco-1992-reversible",
+      "text": "CPS staining can be abolished by formic acid pretreatment and erased by a brief sulfochromic acid wash; destained sections can be restained, and CPS applied after immunostaining intensifies the DAB product.",
+      "sources": [
+        "S-velasco-1992"
+      ],
+      "strength": "published-qualitative",
+      "system": "human AD brain",
+      "transferable": "qualitative-only"
+    },
+    {
+      "id": "C-peters-1955-nuclei",
+      "text": "Silver staining requires reduced-silver nuclei in the section, which act as centres on which the developer deposits more silver.",
+      "sources": [
+        "S-peters-1955"
+      ],
+      "strength": "published-qualitative",
+      "system": "nerve tissue sections",
+      "transferable": "qualitative-only"
+    },
+    {
+      "id": "C-peters-1955-bound-silver",
+      "text": "The silver that the developer deposits can come from silver already bound to the tissue during impregnation or from the developing solution.",
+      "sources": [
+        "S-peters-1955"
+      ],
+      "strength": "published-qualitative",
+      "system": "nerve tissue sections",
+      "transferable": "qualitative-only"
+    },
+    {
+      "id": "C-peters-1955-developer-strength",
+      "text": "Of ten photographic developers tested on nerve tissue sections, only hydroquinone, chloroquinol, pyrogallol and p-aminophenol worked well in general; the others were too weak, giving light and incomplete staining, or too strong, giving no differentiated nerve staining.",
+      "sources": [
+        "S-peters-1955"
+      ],
+      "strength": "published-qualitative",
+      "system": "nerve tissue sections",
+      "transferable": "qualitative-only"
+    },
+    {
+      "id": "C-peters-1955-developer-factors",
+      "text": "Whether a differentiated staining pattern forms depends on the developer and its redox and bromide potentials, its sulphite and hydrogen ion concentrations, and protective effects of tissue components.",
+      "sources": [
+        "S-peters-1955"
+      ],
+      "strength": "published-qualitative",
+      "system": "nerve tissue sections",
+      "transferable": "qualitative-only"
+    },
+    {
+      "id": "C-gallyas-1979-separable",
+      "text": "Binding of silver ions by tissue components and formation of metallic silver are separable processes with different time courses.",
+      "sources": [
+        "S-gallyas-1979a",
+        "S-gallyas-1979b"
+      ],
+      "strength": "schematic-analogy",
+      "system": "treated human spinal cord per the course activity (abstracts not fetched; title, author and journal only)",
+      "transferable": "analogy-only"
+    },
+    {
+      "id": "C-dion-1983-nucleation",
+      "text": "In polyacrylamide gels, the proposed mechanism is that silver ions oxidize aldehyde groups, depositing metallic silver that acts as nucleation sites for further silver deposition when formaldehyde developer is added.",
+      "sources": [
+        "S-dion-1983"
+      ],
+      "strength": "schematic-analogy",
+      "system": "polyacrylamide gels (NOT tissue)",
+      "transferable": "analogy-only"
+    },
+    {
+      "id": "C-dion-1983-lysine",
+      "text": "In polyacrylamide gels, the ammoniacal silver staining intensity of standard proteins was directly related to their mole percentage of lysine.",
+      "sources": [
+        "S-dion-1983"
+      ],
+      "strength": "schematic-analogy",
+      "system": "polyacrylamide gels (NOT tissue)",
+      "transferable": "analogy-only"
+    },
+    {
+      "id": "C-dion-1983-glutaraldehyde",
+      "text": "In polyacrylamide gels, glutaraldehyde pretreatment was needed for maximal ammoniacal silver staining of proteins, and the authors argue this enhancement was not simple fixation.",
+      "sources": [
+        "S-dion-1983"
+      ],
+      "strength": "schematic-analogy",
+      "system": "polyacrylamide gels (NOT tissue)",
+      "transferable": "analogy-only"
+    },
+    {
+      "id": "C-alafuzoff-2006-interlab",
+      "text": "The same AD-related lesions received different assessments across the participating laboratories of the BrainNet Europe consortium, which motivates controls, matched sections and blinded scoring.",
+      "sources": [
+        "S-alafuzoff-2006"
+      ],
+      "strength": "published-qualitative",
+      "system": "human brain, multiple laboratories (title and metadata only; no specifics about methods or numbers)",
+      "transferable": "qualitative-only"
+    },
+    {
+      "id": "C-course-steps-order",
+      "text": "The course procedure lists the modified Bielschowsky steps in this order: dewax and rehydrate; first silver impregnation; water rinse; ammoniacal silver (made in the hood from the silver nitrate jar, then the second impregnation); ammonia water rinse; development and stop; gold toning (optional); fix in sodium thiosulfate; wash, dehydrate, clear and mount, then clean up.",
+      "sources": [
+        "S-course-procedure"
+      ],
+      "strength": "course-handout",
+      "system": "course procedure, paraffin sections",
+      "transferable": "course-specific"
+    },
+    {
+      "id": "C-course-procedure-quantities",
+      "text": "The course procedure states every reagent, strength, time and temperature, all at room temperature: 20% silver nitrate 20 min in the dark; ammoniacal silver made from that jar with concentrated ammonium hydroxide added drop by drop until just clear plus 2 drops, 15 min in the dark; ammonia water (3 drops per 50 ml) 1 to 5 min; 3 drops of developer stock (20 ml formaldehyde, 100 ml water, 0.5 g citric acid, 1 drop nitric acid) added to the ammoniacal silver, 1 to 5 min and at most 10; ammonia water 30 s to 1 min, then water; optional 0.2% gold chloride 5 min, which turns the stain from brown-black to gray-black; 5% sodium thiosulfate 2 min.",
+      "sources": [
+        "S-course-procedure"
+      ],
+      "strength": "course-handout",
+      "system": "course procedure, paraffin sections",
+      "transferable": "course-specific"
+    },
+    {
+      "id": "C-course-procedure-rinses-solvents",
+      "text": "The course procedure dewaxes in xylene (5 min twice) and rehydrates through 100% ethanol (3 min twice), 95% and 70% ethanol (3 min each) to distilled water (3 changes of 1 min); rinses in distilled water (3 changes of 1 min) after the first silver bath, after the stop and before dehydration; dehydrates through 95% ethanol (2 min) and 100% ethanol (2 min twice), clears in xylene (2 min twice) and coverslips with resinous medium; and cleans up at once: ammoniacal silver and developer to the silver waste, every jar that held silver rinsed the same hour.",
+      "sources": [
+        "S-course-procedure"
+      ],
+      "strength": "course-handout",
+      "system": "course procedure, paraffin sections",
+      "transferable": "course-specific"
+    },
+    {
+      "id": "C-course-endpoint-microscope",
+      "text": "Development is judged under the microscope, not by the clock: from 1 min, check a slide every 30 to 60 s and stop when axons, plaque neurites and tangles are black on a still-tan background, typically 1 to 5 min and never past 10; dark brown everywhere means it went too long.",
+      "sources": [
+        "S-course-procedure"
+      ],
+      "strength": "course-handout",
+      "system": "course procedure, paraffin sections",
+      "transferable": "course-specific"
+    },
+    {
+      "id": "C-course-appearance",
+      "text": "On a finished slide the course procedure expects axons, plaque neurites and tangles black, plaque amyloid brown to dark brown, nuclei dark brown and the background yellow to light brown: contrast, not darkness, is the goal, and a control from a known Alzheimer's case should show plaques and tangles every time.",
+      "sources": [
+        "S-course-procedure"
+      ],
+      "strength": "course-handout",
+      "system": "course procedure, paraffin sections",
+      "transferable": "course-specific"
+    },
+    {
+      "id": "C-uchihara-2007-standard",
+      "text": "Uchihara (2007) tabulates the Yamamoto-Hirano modified Bielschowsky as the currently accepted standard for paraffin-embedded autopsy brain: 20% silver nitrate 20 min; 20% ammoniacal silver 15 min in the dark; then three drops of a formalin, nitric acid and citric acid developer added to that ammoniacal silver.",
+      "sources": [
+        "S-uchihara-2007"
+      ],
+      "strength": "published-qualitative",
+      "system": "review of silver methods for paraffin-embedded human autopsy brain",
+      "transferable": "qualitative-only"
+    },
+    {
+      "id": "C-course-hypotheses",
+      "text": "The introductory recording raises fixation-related carbonyls, endogenous carbonyls, reduced metals and other reduction sites as competing explanations for why silver stains reveal these structures; they are hypotheses to investigate, not established mechanisms.",
+      "sources": [
+        "S-course-recording"
+      ],
+      "strength": "course-handout",
+      "system": "course recording",
+      "transferable": "course-specific"
+    },
+    {
+      "id": "C-course-negative-tissue-stains",
+      "text": "A negative biological comparison need not be completely unstained, because normal neural structures can stain.",
+      "sources": [
+        "S-course-guide",
+        "S-course-procedure"
+      ],
+      "strength": "course-handout",
+      "system": "course guide",
+      "transferable": "course-specific"
+    },
+    {
+      "id": "C-course-controls-three-types",
+      "text": "This lab teaches, per the course brief, three comparisons: a characterized positive staining control, an appropriate negative biological comparison and a baseline process comparison.",
+      "sources": [
+        "S-course-guide"
+      ],
+      "strength": "course-handout",
+      "system": "course guide",
+      "transferable": "course-specific"
+    },
+    {
+      "id": "C-course-measures",
+      "text": "Potential outcomes to measure include target/background contrast, artifact area, tissue coverage, predefined-region lesion counts and blinded expert quality scores; each requires explicit measurement rules.",
+      "sources": [
+        "S-course-guide"
+      ],
+      "strength": "course-handout",
+      "system": "course guide",
+      "transferable": "course-specific"
+    },
+    {
+      "id": "C-course-cps-separate",
+      "text": "The course assigns Velasco's copper-peroxide-silver methods (CPS-I and CPS-II) as an additional comparison; this lab keeps them separate from the Bielschowsky stain.",
+      "sources": [
+        "S-course-guide"
+      ],
+      "strength": "course-handout",
+      "system": "course guide",
+      "transferable": "course-specific"
+    },
+    {
+      "id": "C-course-alternative-outcomes",
+      "text": "The course asks students to interpret predicted, negligible and opposite results: what each outcome supports, what it fails to establish and what experiment would be informative next.",
+      "sources": [
+        "S-course-guide"
+      ],
+      "strength": "course-handout",
+      "system": "course guide",
+      "transferable": "course-specific"
+    },
+    {
+      "id": "C-course-report-distinguish",
+      "text": "The final report must clearly distinguish observations from predictions, and thoughtfully discussed incomplete or unperformed experiments can earn full credit.",
+      "sources": [
+        "S-course-guide"
+      ],
+      "strength": "course-handout",
+      "system": "course guide",
+      "transferable": "course-specific"
+    },
+    {
+      "id": "C-brief-binding-not-development",
+      "text": "A plateau in silver binding does not mean visible deposition has finished; binding and development are modeled as separate processes.",
+      "sources": [
+        "S-course-guide"
+      ],
+      "strength": "schematic-analogy",
+      "system": "course modeling rule (schematic)",
+      "transferable": "qualitative-only"
+    },
+    {
+      "id": "C-brief-intensity-not-amount",
+      "text": "Darker staining does not necessarily mean more protein, more pathology or a better method.",
+      "sources": [
+        "S-course-guide"
+      ],
+      "strength": "schematic-analogy",
+      "system": "course modeling rule (schematic)",
+      "transferable": "qualitative-only"
+    },
+    {
+      "id": "C-brief-illustrative-only",
+      "text": "The simulator's outputs are illustrative, qualitative simulations: a visually convincing animation is not a validated experimental predictor, and even a validated staining-quality model would not prove whether a biological hypothesis is true.",
+      "sources": [
+        "S-course-guide"
+      ],
+      "strength": "schematic-analogy",
+      "system": "course modeling rule (schematic)",
+      "transferable": "qualitative-only"
+    },
+    {
+      "id": "C-brief-specimen-vs-run",
+      "text": "Specimen properties (brain region, fixation history, section thickness, underlying lesion distribution) are separate from run properties (method, timing, temperature, reagent condition, washes, development endpoint).",
+      "sources": [
+        "S-course-guide"
+      ],
+      "strength": "schematic-analogy",
+      "system": "course modeling rule (schematic)",
+      "transferable": "qualitative-only"
+    },
+    {
+      "id": "C-brief-gallyas-spinal-cord",
+      "text": "The course's Gallyas time-course activity concerns treated human spinal cord; its relationships do not automatically calibrate this course's brain tissue.",
+      "sources": [
+        "S-course-guide"
+      ],
+      "strength": "schematic-analogy",
+      "system": "course modeling rule (schematic)",
+      "transferable": "analogy-only"
+    },
+    {
+      "id": "C-brief-gels-not-brain",
+      "text": "Dion and Pomenti's protein-loading comparison concerns gels; it does not automatically calibrate this course's brain tissue.",
+      "sources": [
+        "S-course-guide"
+      ],
+      "strength": "schematic-analogy",
+      "system": "course modeling rule (schematic)",
+      "transferable": "analogy-only"
+    },
+    {
+      "id": "C-course-specimen-unknown",
+      "text": "The course procedure fixes no specimen facts: tissue, region and section thickness are written on the recording sheet per slide, and the positive control is cortex from a known Alzheimer's case; the species, region, fixation and thickness of the course specimens are not known to this lab.",
+      "sources": [
+        "S-course-guide",
+        "S-course-procedure"
+      ],
+      "strength": "course-handout",
+      "system": "course guide",
+      "transferable": "course-specific"
+    },
+    {
+      "id": "C-brief-section-not-3d",
+      "text": "A single thin section cannot establish a true 3D reconstruction of a plaque or tangle.",
+      "sources": [
+        "S-course-guide"
+      ],
+      "strength": "schematic-analogy",
+      "system": "course modeling rule (schematic)",
+      "transferable": "qualitative-only"
+    },
+    {
+      "id": "C-course-what-you-see",
+      "text": "What you should see, per the course procedure: after the silver nitrate \"Sections turn faintly yellow to light brown\"; after the ammoniacal silver \"Sections turn tan to brown\"; development is stopped when axons, plaque neurites and tangles are black on a background that is still tan.",
+      "sources": [
+        "S-course-procedure"
+      ],
+      "strength": "course-handout",
+      "system": "course procedure, paraffin sections",
+      "transferable": "course-specific"
+    },
+    {
+      "id": "C-course-thiosulfate-purpose",
+      "text": "Sodium thiosulfate, per the course procedure: \"This removes silver that was never reduced, so the slide stops changing.\"",
+      "sources": [
+        "S-course-procedure"
+      ],
+      "strength": "course-handout",
+      "system": "course procedure, paraffin sections",
+      "transferable": "course-specific"
+    },
+    {
+      "id": "C-course-toning-colour",
+      "text": "Gold toning is optional in the course procedure: \"It turns the stain from brown-black to gray-black.\"",
+      "sources": [
+        "S-course-procedure"
+      ],
+      "strength": "course-handout",
+      "system": "course procedure, paraffin sections",
+      "transferable": "course-specific"
+    },
+    {
+      "id": "C-course-trouble-no-black",
+      "text": "Course procedure troubleshooting, little or no black even on the control: \"Too much ammonia in step 4; silver nitrate old or light-exposed; development stopped too early; developer made wrong\".",
+      "sources": [
+        "S-course-procedure"
+      ],
+      "strength": "course-handout",
+      "system": "course procedure, paraffin sections",
+      "transferable": "course-specific"
+    },
+    {
+      "id": "C-course-trouble-dark",
+      "text": "Course procedure troubleshooting, everything dark brown with no contrast: \"Development too long or too warm; too much developer; slides left in ammoniacal silver far beyond 15 min\"; dark brown everywhere means development went too long.",
+      "sources": [
+        "S-course-procedure"
+      ],
+      "strength": "course-handout",
+      "system": "course procedure, paraffin sections",
+      "transferable": "course-specific"
+    },
+    {
+      "id": "C-course-trouble-grains",
+      "text": "Course procedure troubleshooting, black grains or a mirror film on the slide or jar: \"Metal forceps touched a silver solution; dirty or scratched glass; ammoniacal silver starting to precipitate\".",
+      "sources": [
+        "S-course-procedure"
+      ],
+      "strength": "course-handout",
+      "system": "course procedure, paraffin sections",
+      "transferable": "course-specific"
+    },
+    {
+      "id": "C-course-trouble-patchy",
+      "text": "Course procedure troubleshooting, patchy or uneven staining: \"Wax left behind; section dried between steps; jar not full enough to cover the section\"; after dewaxing, sections \"must look wet and even, with no cloudy wax left\".",
+      "sources": [
+        "S-course-procedure"
+      ],
+      "strength": "course-handout",
+      "system": "course procedure, paraffin sections",
+      "transferable": "course-specific"
+    },
+    {
+      "id": "C-course-ammonia-endpoint",
+      "text": "Making the ammoniacal silver, per the course procedure: ammonia until just clear plus two drops, then \"Do not add extra ammonia beyond that: too much weakens the stain\"; \"If it stays faintly cloudy, filter it through paper\".",
+      "sources": [
+        "S-course-procedure"
+      ],
+      "strength": "course-handout",
+      "system": "course procedure, paraffin sections",
+      "transferable": "course-specific"
+    },
+    {
+      "id": "C-course-mount-seal",
+      "text": "The course procedure finishes the slide with distilled water, ethanol and xylene, then \"coverslip with resinous medium\"; no bath follows the mounting.",
+      "sources": [
+        "S-course-procedure"
+      ],
+      "strength": "course-handout",
+      "system": "course procedure, paraffin sections",
+      "transferable": "course-specific"
+    },
+    {
+      "id": "C-intorcia-2019-pretreat",
+      "text": "In a modified Bielschowsky stain for neuritic plaques, plaque-like artifactual staining is common, and \"pretreatment with oxidizing agents prior to the initial incubation in silver nitrate eliminates these artifacts and reduces the commonly observed high background staining\" (preprint).",
+      "sources": [
+        "S-intorcia-2019"
+      ],
+      "strength": "published-qualitative",
+      "system": "human AD brain",
+      "transferable": "qualitative-only"
+    },
+    {
+      "id": "C-course-pretreat-blobs",
+      "text": "Course procedure troubleshooting, round plaque-like blobs (a known Bielschowsky artifact): \"Pretreating with 0.25% potassium permanganate 2 min then 2% oxalic acid 2 min (3 water washes of 1 min after each) before step 2 removes them\".",
+      "sources": [
+        "S-course-procedure"
+      ],
+      "strength": "course-handout",
+      "system": "course procedure, paraffin sections",
+      "transferable": "course-specific"
+    },
+    {
+      "id": "C-course-alternatives",
+      "text": "Course procedure, alternatives the class may test, one change per run with a baseline alongside: the first \"impregnation at 37 °C for 15 min instead of 20 min at room temperature; a cold 5 °C impregnation; 10% silver nitrate for 30 min\".",
+      "sources": [
+        "S-course-procedure"
+      ],
+      "strength": "course-handout",
+      "system": "course procedure, paraffin sections",
+      "transferable": "course-specific"
+    }
+  ]
+}

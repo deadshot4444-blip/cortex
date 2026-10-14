@@ -5,6 +5,16 @@
 
 const CHANGELOG = [
   {
+    version: '2.36.0-beta.1',
+    tag: 'BETA',
+    date: 'October 13, 2026',
+    title: "Alzheimer's Histology Lab opens",
+    items: [
+      'Practice the modified Bielschowsky silver stain step by step, or take the free bench: any bottle in any jar with real strengths, times and temperatures, and an honest "Currently unknown reaction" where no published source says what happens.',
+      'A 3D bench, a list mode that needs no WebGL, a 2D microscope with real reference slides from open-access studies, and a notepad beside the bench. Every simulated picture is an illustration, not a measurement.',
+    ],
+  },
+  {
     version: '2.35.1-beta.1',
     tag: 'BETA',
     date: 'September 27, 2026',

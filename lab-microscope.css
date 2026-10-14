@@ -1,0 +1,274 @@
+/* ALZ histology lab: microscope viewer (lab-microscope.js). Only .labm-* rules live here; lab.js
+   injects this sheet lazily as /lab-microscope.css?v=1, and every rule is namespaced so it is also
+   harmless if linked site-wide. Light canvas, tokens from styles.css (CONVENTIONS §3.7), compact
+   one-rule-per-line style like dat.css. Breakpoints: 560 / 420 (viewport); the viewer is also a
+   size container (560 / 860). The badge look belongs to lab.css (.lab-badge*); the :where()
+   fallback below has zero specificity so lab.css always wins. */
+
+/* ---------- MICRO-1 / UX-C: frame, headings, badge row ---------- */
+.labm { --labm-line: var(--line, #e0e2e6); --labm-line-bright: var(--line-bright, #c9cdd3); --labm-surface: var(--surface, #f5f6f7); --labm-surface-2: var(--surface-2, #eceef1); --labm-text: var(--text, #0b0c0e); --labm-body: var(--body, #41464d); --labm-dim: var(--dim, #666d76); --labm-blue: var(--blue, #1769d2); --labm-blue-soft: var(--blue-soft, #eaf2ff); --labm-amber: var(--amber, #8a6100); --labm-red: var(--red, #c52b37); --labm-paper: #f8f2e7; color: var(--labm-text); font-size: 15px; line-height: 1.5; max-width: 100%; box-sizing: border-box; }
+.labm *, .labm *::before, .labm *::after { box-sizing: inherit; }
+.labm { container-type: inline-size; container-name: labm; }
+/* Headings carry classes, not levels: mount({ headingLevel: 2 | 3 }) decides the element, the look stays the same. */
+.labm .labm-h { font-size: 18px; line-height: 1.3; letter-spacing: -.01em; text-transform: none; color: var(--labm-text); margin: 24px 0 8px; }
+.labm .labm-h-sub { font-size: 16px; line-height: 1.3; letter-spacing: 0; text-transform: none; color: var(--labm-text); margin: 16px 0 6px; }
+.labm p { margin: 8px 0; }
+.labm code, .labm kbd { font-family: var(--mono, ui-monospace, Menlo, monospace); font-size: .92em; padding: 1px 5px; border: 1px solid var(--labm-line); border-radius: 5px; background: var(--labm-surface); }
+.labm small { font-size: 12px; color: var(--labm-dim); }
+.labm-sub { font-family: var(--mono, ui-monospace, Menlo, monospace); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--labm-dim); margin: 16px 0 6px; }
+.labm-badges { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin: 0 0 12px; min-height: 28px; }
+.labm-badge-side { display: inline-flex; align-items: center; gap: 8px; }
+.labm-badge-run { font-family: var(--mono, ui-monospace, Menlo, monospace); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--labm-dim); }
+:where(.labm .lab-badge) { display: inline-flex; align-items: center; padding: 3px 10px; border: 1.5px solid var(--labm-line-bright); border-radius: 999px; font-size: 13px; font-weight: 600; line-height: 1.35; color: var(--labm-text); background: transparent; white-space: normal; }
+:where(.labm .lab-badge-simulated) { border-color: var(--labm-amber); }
+:where(.labm .lab-badge-not-modeled, .labm .lab-badge-in-progress) { background: var(--labm-surface-2); }
+:where(.labm .lab-badge-observed) { border-color: var(--labm-blue); }
+:where(.labm .lab-sr-only) { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- UX-C: top bar (segmented objective, Compare menu, Layers) ---------- */
+.labm-toolbar { display: flex; flex-wrap: wrap; gap: 10px 20px; align-items: center; margin: 0 0 12px; }
+.labm-group { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; }
+.labm-group[hidden], .labm-seg[hidden], .labm-split[hidden], .labm-compare[hidden], .labm-tools[hidden], .labm-menu[hidden] { display: none; }
+.labm-group-label { font-family: var(--mono, ui-monospace, Menlo, monospace); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--labm-dim); margin-right: 2px; }
+.labm-group-label small { display: block; font-size: 10px; letter-spacing: .04em; text-transform: none; }
+.labm button:not(.btn) { font: inherit; font-size: 14px; min-height: 44px; min-width: 44px; padding: 6px 12px; border: 1px solid var(--labm-line-bright); border-radius: var(--radius-sm, 7px); background: var(--bg, #fcfcfd); color: var(--labm-text); cursor: pointer; }
+.labm button:not(.btn):hover { background: var(--labm-surface); }
+.labm button[aria-pressed="true"]:not(.btn) { background: var(--labm-blue-soft); border-color: var(--labm-blue); color: var(--labm-text); box-shadow: inset 0 0 0 1px var(--labm-blue); }
+.labm button:disabled { opacity: .45; cursor: default; }
+.labm .btn { min-height: 44px; }
+.labm-seg { display: inline-flex; flex-wrap: nowrap; }
+.labm .labm-seg > button:not(.btn) { border-radius: 0; margin: 0; position: relative; }
+.labm .labm-seg > button:not(.btn) + button { margin-left: -1px; }
+.labm .labm-seg > button:not(.btn):first-child { border-radius: var(--radius-sm, 7px) 0 0 var(--radius-sm, 7px); }
+.labm .labm-seg > button:not(.btn):last-child { border-radius: 0 var(--radius-sm, 7px) var(--radius-sm, 7px) 0; }
+.labm .labm-seg > button[aria-pressed="true"]:not(.btn), .labm .labm-seg > button:not(.btn):focus-visible { z-index: 1; }
+/* Toggles show their state as a box as well as a colour (aria-pressed carries it for AT). */
+.labm .labm-toggle { display: inline-flex; align-items: center; gap: 8px; }
+.labm .labm-toggle::before { content: ""; flex: none; width: 14px; height: 14px; border: 1.5px solid currentColor; border-radius: 3px; }
+.labm .labm-toggle[aria-pressed="true"]::before { background: var(--labm-blue); border-color: var(--labm-blue); box-shadow: inset 0 0 0 2px var(--bg, #fcfcfd); }
+/* UX-FIX K9: one Compare button opens a small menu (side by side / swipe, or one run only); a choice closes it. */
+.labm-compare-wrap { position: relative; }
+.labm .labm-menu-btn { display: inline-flex; align-items: center; gap: 4px; }
+.labm .labm-menu-btn::after { content: ""; flex: none; width: 7px; height: 7px; margin: 0 2px 4px 8px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg); }
+.labm .labm-menu-btn[aria-expanded="true"]::after { margin-bottom: -4px; transform: rotate(-135deg); }
+.labm-menu { position: absolute; z-index: 20; top: calc(100% + 6px); left: 0; width: max-content; min-width: 240px; max-width: 360px; padding: 4px 12px 12px; border: 1px solid var(--labm-line-bright); border-radius: var(--radius, 12px); background: var(--bg, #fcfcfd); box-shadow: var(--shadow-sm, 0 8px 24px rgba(9, 12, 18, .055)); }
+.labm .labm-menu-label { font-family: var(--mono, ui-monospace, Menlo, monospace); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--labm-dim); margin: 10px 0 6px; }
+.labm-menu-list { display: grid; gap: 6px; }
+.labm .labm-menu-list > button:not(.btn) { width: 100%; text-align: left; }
+/* A narrow viewer opens the menu in place (full row) so it never runs past the screen edge. */
+@container labm (max-width: 559px) { .labm-menu { position: static; flex: 1 1 100%; width: auto; min-width: 0; max-width: none; box-shadow: none; } }
+.labm-split { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--labm-body); }
+.labm-split input[type="range"] { width: 160px; min-height: 44px; accent-color: var(--labm-blue); }
+
+/* ---------- MICRO-1 / UX-C: stage, canvases, under the picture ---------- */
+.labm-panel { margin: 0 0 4px; }
+.labm-panel:focus { outline: none; }
+.labm-stage { position: relative; display: grid; grid-template-columns: 1fr; gap: 12px; padding: 8px; border: 1px solid var(--labm-line); border-radius: var(--radius, 12px); background: var(--labm-surface); }
+/* Two pictures sit side by side only when the viewer itself is wide enough (container query). */
+@container labm (min-width: 560px) { .labm-stage[data-labm-stage="side"] { grid-template-columns: 1fr 1fr; } .labm-stage[data-labm-stage="side"] .labm-side { display: grid; grid-template-rows: subgrid; grid-row: span 2; align-content: start; } }
+.labm-stage:focus-visible { outline: 3px solid var(--labm-blue); outline-offset: 3px; }
+/* Touch: one finger scrolls the page and the browser pinch zooms the page until the "Drag to pan" toggle (.labm-touch-pan) hands the gestures to the viewer. A mouse drag always pans. */
+.labm-canvas { display: block; width: 100%; aspect-ratio: 4 / 3; max-height: 70vh; border: 1px solid var(--labm-line-bright); border-radius: var(--radius-sm, 7px); background: var(--labm-paper); touch-action: pan-y pinch-zoom; cursor: grab; user-select: none; -webkit-user-select: none; }
+.labm-touch-pan .labm-canvas { touch-action: none; }
+.labm-canvas:active { cursor: grabbing; }
+.labm-side, .labm-swipe, .labm-observed { margin: 0; min-width: 0; }
+.labm-side figcaption, .labm-swipe figcaption, .labm-observed figcaption { font-size: 13px; color: var(--labm-body); margin: 0 0 6px; line-height: 1.4; }
+.labm-below { margin: 8px 0 0; max-width: 72ch; }
+.labm-below > * { margin: 6px 0; }
+.labm-caption { font-size: 13px; color: var(--labm-body); margin: 8px 0; }
+/* MODE-micro (contract §11.6): the by-eye look under the picture, with the engine's drawing-aid swatch */
+.labm-look-swatch { display: inline-block; width: 14px; height: 14px; margin-right: 6px; vertical-align: -2px; border-radius: 3px; border: 1px solid var(--labm-line-bright); }
+.labm-hc .labm-look-swatch { border-color: #000; }
+.labm-reference { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; font-size: 13px; color: var(--labm-body); }
+.labm-compare-contrast { font-size: 14px; font-weight: 600; color: var(--labm-text); }
+.labm-card { padding: 10px 12px; border-radius: var(--radius-sm, 7px); background: var(--labm-surface); font-size: 14px; color: var(--labm-text); }
+
+/* ---------- UX-C: Measure button, status, the Measure sheet ---------- */
+.labm-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin: 16px 0 12px; }
+.labm-actions .labm-status, .labm-actions .labm-measure-hint { margin: 0; flex: 1 1 200px; }
+.labm-status { min-height: 0; font-size: 14px; color: var(--green, #147a3d); }
+.labm-status:empty { display: none; }
+.labm-tools { max-width: 760px; margin: 0 0 16px; padding: 4px 20px 16px; border: 1px solid var(--labm-line); border-radius: var(--radius, 12px); background: var(--bg, #fcfcfd); box-shadow: var(--shadow-sm, 0 8px 24px rgba(9, 12, 18, .055)); }
+.labm-sheet-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.labm-sheet-head .labm-h { margin: 12px 0 4px; }
+.labm-tools > .labm-group { margin: 8px 0; }
+.labm .labm-tool-list { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 8px; }
+.labm-tool-item { margin: 0; }
+.labm .labm-tool-btn:not(.btn) { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; width: 100%; padding: 9px 14px; text-align: left; }
+.labm .labm-tool-btn[aria-expanded="true"]:not(.btn) { background: var(--labm-blue-soft); border-color: var(--labm-blue); box-shadow: inset 0 0 0 1px var(--labm-blue); }
+.labm-tool-name { font-weight: 600; font-size: 15px; }
+.labm-tool-line { font-size: 13px; color: var(--labm-body); }
+.labm-tool-pane { margin: 8px 0 8px 6px; padding: 2px 0 8px 16px; border-left: 3px solid var(--labm-blue-soft); }
+.labm-tool-pane .labm-h-sub { margin-top: 8px; }
+.labm-rule-text { max-width: 72ch; }
+.labm-check { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; font-weight: 600; font-size: 15px; cursor: pointer; }
+.labm-check input { width: 20px; height: 20px; margin: 0; accent-color: var(--labm-blue); }
+.labm-tool-form { margin: 4px 0 0; }
+.labm-tool-body label { display: flex; flex-direction: column; gap: 6px; margin: 12px 0; font-family: var(--mono, ui-monospace, Menlo, monospace); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--labm-dim); }
+.labm-tool-body input[type="text"], .labm-tool-body input[type="number"], .labm-tool-body select { width: 100%; min-height: 44px; padding: 10px 12px; font: inherit; font-family: var(--sans, -apple-system, BlinkMacSystemFont, sans-serif); font-size: 16px; letter-spacing: 0; text-transform: none; color: var(--labm-text); background: var(--bg, #fcfcfd); border: 1px solid var(--labm-line-bright); border-radius: var(--radius-sm, 7px); }
+.labm-roi, .labm-score { display: grid; gap: 8px; margin: 12px 0; padding: 10px 12px; border: 1px solid var(--labm-line); border-radius: var(--radius-sm, 7px); }
+.labm-roi { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.labm-roi legend, .labm-score legend { font-family: var(--mono, ui-monospace, Menlo, monospace); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--labm-dim); padding: 0 6px; }
+.labm-roi label { margin: 0; }
+.labm-score { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.labm-score label { flex-direction: row; align-items: center; justify-content: center; gap: 6px; min-height: 44px; margin: 0; font-size: 15px; letter-spacing: 0; text-transform: none; color: var(--labm-text); border: 1px solid var(--labm-line-bright); border-radius: var(--radius-sm, 7px); background: var(--bg, #fcfcfd); cursor: pointer; }
+.labm-score input { width: 18px; height: 18px; accent-color: var(--labm-blue); margin: 0; }
+.labm-tool-actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 0; }
+.labm-cells summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; font-size: 14px; }
+.labm-cell-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 4px; max-width: 360px; margin: 8px 0; }
+.labm-cell-grid button { min-width: 0; padding: 4px; font-size: 12px; font-family: var(--mono, ui-monospace, Menlo, monospace); }
+.labm-contrast p { margin: 6px 0; }
+.labm-error { color: var(--labm-red); font-size: 14px; margin: 8px 0 0; min-height: 0; }
+.labm-error:empty { display: none; }
+.labm-warn { padding: 10px 12px; border-left: 4px solid var(--labm-amber); border-radius: var(--radius-sm, 7px); background: #fff8e6; font-size: 14px; }
+
+/* ---------- UX-C: the two disclosures (View controls, Numbers behind this image) ---------- */
+.labm-more { border-top: 1px solid var(--labm-line); }
+.labm-more:last-of-type { border-bottom: 1px solid var(--labm-line); }
+.labm-more > summary { display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 6px 0; font-weight: 600; font-size: 14px; color: var(--labm-text); cursor: pointer; list-style: none; }
+.labm-more > summary::-webkit-details-marker { display: none; }
+.labm-more > summary::before { content: ""; flex: none; width: 7px; height: 7px; margin: 0 2px 0 3px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(-45deg); }
+.labm-more[open] > summary::before { transform: rotate(45deg); }
+.labm summary:focus-visible { outline: 2px solid var(--labm-blue); outline-offset: 3px; }
+.labm-more-body { padding: 0 0 16px; }
+.labm-more-body > .labm-group { margin: 8px 0; }
+.labm-more-body > .labm-group > .labm-group-label { width: 100%; }
+.labm-textalt { font-size: 14px; color: var(--labm-body); max-width: 72ch; }
+.labm-keys { font-size: 14px; color: var(--labm-body); }
+.labm-keys ul { margin: 4px 0 0; padding-left: 20px; max-width: 72ch; }
+.labm-keys li { margin: 4px 0; }
+
+/* ---------- MICRO-1 / UX-C: layer choices and tables (inside Numbers) ---------- */
+.labm-layers { display: flex; flex-wrap: wrap; gap: 0 18px; margin: 12px 0; padding: 6px 14px; border: 1px solid var(--labm-line); border-radius: var(--radius-sm, 7px); }
+.labm-layers legend { font-family: var(--mono, ui-monospace, Menlo, monospace); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--labm-dim); padding: 0 6px; }
+.labm-layers label { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-size: 14px; cursor: pointer; }
+.labm-layers input { width: 20px; height: 20px; accent-color: var(--labm-blue); margin: 0; }
+.labm-table-wrap { overflow-x: auto; margin: 12px 0; -webkit-overflow-scrolling: touch; }
+.labm-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.labm-table caption { text-align: left; font-size: 13px; color: var(--labm-body); padding: 0 0 8px; caption-side: top; }
+.labm-table th, .labm-table td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--labm-line); vertical-align: top; }
+.labm-table thead th { font-family: var(--mono, ui-monospace, Menlo, monospace); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--labm-dim); font-weight: 600; }
+.labm-table thead th small { display: block; font-size: 10px; letter-spacing: .04em; text-transform: none; font-weight: 500; }
+.labm-table tbody th { font-weight: 600; white-space: nowrap; }
+.labm-diff .labm-delta { font-family: var(--mono, ui-monospace, Menlo, monospace); font-variant-numeric: tabular-nums; }
+.labm-diff .labm-changed td, .labm-diff .labm-changed th { background: #fff8e6; }
+.labm-diff .labm-changed .labm-delta { font-weight: 700; }
+.labm-card-detail { font-size: 14px; }
+.labm-compare { margin: 16px 0 8px; }
+.labm-compare .labm-h { margin-top: 0; }
+.labm-rules ul, .labm-caveats ul { margin: 4px 0 0; padding-left: 20px; font-size: 14px; color: var(--labm-body); }
+.labm-rules li, .labm-caveats li { margin: 4px 0; }
+
+/* ---------- UX-C: wide layout (viewer ≥ 860px): picture left, Measure + sheet + View controls right ---------- */
+/* The picture stays in view (sticky inside .labm-main only) while the sheet scrolls past it. */
+@container labm (min-width: 860px) {
+  .labm-main { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, 340px); column-gap: 28px; align-items: start; }
+  /* A11Y-14: below the site's top bar, which wraps taller between about 860 and 1180 px; lab.js keeps its height in --lab-topbar-h (A11Y-04). */
+  .labm-panel { position: sticky; top: calc(var(--lab-topbar-h, var(--topbar-h, 64px)) + 8px); }
+  .labm-aside .labm-actions { margin-top: 0; }
+  .labm-grid > .labm-more { margin-top: 16px; }
+  .labm-pair .labm-main { display: block; }
+  .labm-pair .labm-panel { position: static; }
+  .labm-pair .labm-aside .labm-actions { margin-top: 16px; }
+}
+
+/* ---------- FIX4 (H3): a picture tool that takes clicks (Count lesions, Artifact area) keeps the picture and its rule field, counts and Record on screen together ---------- */
+/* A 600-859 px viewer (a desktop with the Notes column open): while the tool takes clicks the sheet sits beside the picture in a narrower, tighter column. lab-microscope.js keeps the focused control in place when this layout comes or goes. */
+@container labm (min-width: 600px) and (max-width: 859px) {
+  .labm-picking .labm-main { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 300px); column-gap: 20px; align-items: start; }
+  .labm-picking .labm-aside .labm-actions { margin-top: 0; }
+  .labm-picking .labm-tools { padding: 4px 12px 12px; }
+  .labm-picking .labm-tool-pane { margin-left: 0; padding-left: 10px; }
+  .labm-picking .labm-tool-body > label { margin: 8px 0; }
+  .labm-picking .labm-roi { gap: 6px; margin: 8px 0; padding: 8px 10px; }
+}
+/* Tall enough windows only (a stuck picture on a short one would hide the sheet): beside the sheet the picture sticks under the top bar; under 600 px (phones, or a 900-1000 px desktop with the Notes column) the picture itself (canvas, chips, total; the notes under it scroll on) sticks above the sheet, no taller than leaves about 360 px for the sheet, so the rule field, the region boxes and Record scroll up directly under it. */
+@media (min-height: 560px) {
+  @container labm (min-width: 600px) and (max-width: 859px) {
+    .labm-picking .labm-panel { position: sticky; top: calc(var(--lab-topbar-h, var(--topbar-h, 64px)) + 8px); }
+  }
+  @container labm (max-width: 599px) {
+    .labm-picking .labm-panel { display: contents; }
+    .labm-picking .labm-stage { position: sticky; top: calc(var(--lab-topbar-h, var(--topbar-h, 64px)) + 8px); z-index: 2; box-shadow: 0 0 0 8px var(--bg, #fcfcfd); }
+    .labm-picking .labm-canvas { max-height: max(200px, calc(100vh - var(--lab-topbar-h, var(--topbar-h, 64px)) - 360px)); }
+  }
+}
+/* While the picture is stuck, lab-microscope.js keeps its height in --labm-stuck-h on the html element: a control the keyboard focuses (or any scroll into view) lands below the picture, not under it. Otherwise the same as the shell's scroll padding (lab.css). */
+html:has(.labm-picking) { scroll-padding-top: calc(var(--lab-topbar-h, 64px) + 8px + var(--labm-stuck-h, 0px)); }
+/* An open Notes drawer (under 900 px, the shell's lab.css) leaves no room under a stuck picture: the picture scrolls with the page. */
+@media (max-width: 899.98px) { main.lab-notes-open .labm-picking .labm-stage { position: relative; box-shadow: none; } }
+/* FIX5 (I5, p5-3): while a picture tool takes clicks and the picture sticks above the sheet (a viewer under 600 px) in the shell's drawer layout (under 900 px, Notes closed), the Measure sheet keeps its right 86 px free of fields, labels and buttons (its contents end about 103 px from the window's right edge), so the shell's floating Notes button (bottom right, about 80 px wide) always has a free place beside the sheet while the stuck picture is on screen. The button never meets the picture or its chips: the shell keeps it off the canvas and off the words of the chips and the count line, which sit inside .labm-stage. A wider viewer puts the sheet beside the picture, where the shell finds room under the picture. */
+@media (max-width: 899.98px) { @container labm (max-width: 599px) { main.lab-notes-host:not(.lab-notes-open) .labm-picking .labm-tools { padding-right: 86px; } } }
+
+/* ---------- GAME-micro (contract §10): hint chips under the picture, the identify tag ---------- */
+/* Decoration only (aria-hidden, no pointer events, nothing to click): the keys list and the text description stay the accessible path. GAME-FIX-micro: the chips are a caption row under the canvases (the stage's last grid row, full width), never over the picture, and read as plain text with a bold verb (no pill, border or shadow), so nothing about them looks clickable. */
+.labm-hud { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 2px 18px; margin: -4px 2px 0; pointer-events: none; }
+.labm-hud[hidden], .labm-tag[hidden] { display: none; }
+.lab-hints-off .labm-hud { display: none; }
+.labm-hint { max-width: 100%; color: var(--labm-body); font-size: 13px; line-height: 1.45; }
+.labm-hint-verb { font-weight: 700; color: var(--labm-text); }
+/* FIX3 (G5): Count lesions' running total, a line under the chips (a count, not a hint: it stays with Show hints off; aria-hidden, the region boxes carry the numbers). */
+.labm .labm-tally { grid-column: 1 / -1; margin: -6px 2px 0; font-size: 14px; line-height: 1.45; color: var(--labm-text); pointer-events: none; }
+.labm-tally[hidden] { display: none; }
+.labm-tally strong { font-variant-numeric: tabular-nums; }
+.labm-tag { position: absolute; z-index: 3; width: max-content; max-width: min(320px, calc(100% - 8px)); padding: 5px 9px; border-radius: var(--radius-sm, 7px); background: rgba(11, 12, 14, .92); color: #fff; font-size: 12px; line-height: 1.4; pointer-events: none; box-shadow: 0 4px 14px rgba(9, 12, 18, .18); }
+.labm-tag-main { display: block; font-weight: 600; }
+.labm-tag-line { display: block; font-size: 11px; color: #e4e6ea; }
+/* A picture tool that takes clicks (outline points, lesion counts) shows a crosshair. */
+.labm-picking .labm-canvas { cursor: crosshair; }
+.labm-hc .labm-hint, .labm-hc .labm-hint-verb { color: #000; }
+.labm-hc .labm-tag { background: #000; color: #fff; box-shadow: 0 0 0 2px #fff; }
+.labm-hc .labm-tag-line { color: #fff; }
+@media (forced-colors: active) { .labm-tag { border: 1px solid CanvasText; background: Canvas; color: CanvasText; box-shadow: none; } .labm-tag-line { color: CanvasText; } }
+@media print { .labm-hud, .labm-tag, .labm-tally { display: none; } }
+
+/* ---------- REF-micro (contract §12): the Picture switch, the real slide, its rings, the strip, the credit ---------- */
+/* The switch is a segmented control in the top bar (the shared .labm-seg look); hidden with [hidden] like the other groups. */
+.labm-view[hidden], .labm button[hidden] { display: none; }
+/* The photo sits in a clipping box its own size (the inline style keeps the picture's aspect ratio and caps the box at twice the picture's width, never taller than about 70 % of the window); the img and the ring layer share one CSS transform (pan / zoom), so nothing is ever drawn outside the box and nothing sits over the photo. Touch: like the canvas, one finger scrolls the page until Drag to pan is on. */
+.labm-photo { position: relative; width: 100%; overflow: hidden; border: 1px solid var(--labm-line-bright); border-radius: var(--radius-sm, 7px); background: var(--labm-surface-2); touch-action: pan-y pinch-zoom; cursor: grab; user-select: none; -webkit-user-select: none; }
+.labm-touch-pan .labm-photo { touch-action: none; }
+.labm-photo:active { cursor: grabbing; }
+.labm-picking .labm-photo { cursor: crosshair; }
+.labm-photo-img { display: block; width: 100%; max-width: none; height: auto; transform-origin: 0 0; }
+.labm-rings { position: absolute; inset: 0; transform-origin: 0 0; pointer-events: none; }
+/* While Count lesions is open the 3×3 regions show as thin lines (the same grid the region boxes name). */
+.labm-rings-grid { background-image: linear-gradient(to right, rgba(23, 105, 210, .55) 1px, transparent 1px), linear-gradient(to bottom, rgba(23, 105, 210, .55) 1px, transparent 1px); background-size: 33.3334% 33.3334%; }
+/* A numbered ring where a click landed (counter-scaled so it keeps its screen size at any zoom). */
+.labm-ring { position: absolute; width: 22px; height: 22px; margin: -11px 0 0 -11px; border: 2.5px solid var(--labm-blue); border-radius: 50%; box-shadow: 0 0 0 2px #fff, inset 0 0 0 2px #fff; transform: scale(var(--labm-ring-scale, 1)); transform-origin: 50% 50%; }
+.labm-ring > span { position: absolute; left: 14px; top: -14px; min-width: 16px; height: 16px; padding: 0 3px; border-radius: 8px; background: var(--labm-blue); color: #fff; font: 700 11px/16px system-ui, sans-serif; text-align: center; box-shadow: 0 0 0 1.5px #fff; }
+.labm-photo-bar { display: flex; justify-content: flex-end; min-height: 0; margin: 2px 0 0; }
+.labm .labm-link:not(.btn) { min-height: 32px; min-width: 0; padding: 4px 6px; border: 0; background: none; color: var(--labm-blue); text-decoration: underline; font-size: 13px; }
+.labm .labm-link:not(.btn):hover { background: var(--labm-blue-soft); }
+/* The strip: 56 px thumbnails, one pressed. */
+.labm-strip { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0 0; }
+.labm .labm-strip > button:not(.btn) { width: 56px; height: 56px; min-width: 56px; min-height: 56px; padding: 2px; overflow: hidden; }
+.labm-strip img { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 4px; }
+/* The credit and the facts: small, legible, wrapping on a phone (the links may be long). */
+.labm-observed figcaption { margin: 8px 0 0; }
+.labm-credit { font-size: 13px; line-height: 1.45; color: var(--labm-body); margin: 0; overflow-wrap: anywhere; }
+.labm-credit a { color: var(--labm-blue); }
+.labm-facts { font-size: 13px; line-height: 1.45; color: var(--labm-body); margin: 4px 0 0; }
+.labm-real-note { font-weight: 600; color: var(--labm-text); }
+.labm-hc .labm-ring { border-color: #000; }
+.labm-hc .labm-ring > span { background: #000; }
+.labm-hc .labm-rings-grid { background-image: linear-gradient(to right, #000 1px, transparent 1px), linear-gradient(to bottom, #000 1px, transparent 1px); }
+@media (forced-colors: active) { .labm-ring { border-color: Highlight; forced-color-adjust: none; } .labm-ring > span { background: Highlight; color: HighlightText; } }
+@media print { .labm-photo-bar, .labm-strip { display: none; } }
+
+/* ---------- MICRO-1: utilities, high contrast, motion, forced colors ---------- */
+.labm-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; margin: -1px; padding: 0; border: 0; }
+.labm-hc { --labm-line: #000; --labm-line-bright: #000; --labm-body: #000; --labm-dim: #222; --labm-surface: #fff; --labm-surface-2: #fff; --labm-paper: #fff; }
+.labm-hc .labm-card, .labm-hc .labm-warn, .labm-hc .labm-diff .labm-changed td, .labm-hc .labm-diff .labm-changed th { background: #fff; }
+.labm-hc .labm-card { border: 2px solid #000; }
+.labm-hc button:not(.btn) { border-width: 2px; }
+.labm-hc button[aria-pressed="true"]:not(.btn), .labm-hc .labm-tool-btn[aria-expanded="true"]:not(.btn) { background: #000; color: #fff; border-color: #000; box-shadow: none; }
+.labm-hc .labm-tool-btn[aria-expanded="true"] .labm-tool-line { color: #fff; }
+.labm-hc .labm-toggle[aria-pressed="true"]::before { background: #fff; border-color: #fff; box-shadow: inset 0 0 0 2px #000; }
+.labm-hc .labm-stage:focus-visible, .labm-hc button:focus-visible, .labm-hc input:focus-visible, .labm-hc select:focus-visible, .labm-hc summary:focus-visible { outline: 3px solid #000; outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { .labm * { transition: none !important; animation: none !important; } }
+@media (forced-colors: active) { .labm-card, .labm-warn, .labm-tools, .labm-stage, .labm-menu { border: 2px solid CanvasText; } .labm button[aria-pressed="true"]:not(.btn), .labm .labm-tool-btn[aria-expanded="true"]:not(.btn) { outline: 2px solid Highlight; outline-offset: -2px; } .labm button[aria-pressed="true"]:not(.btn):focus-visible { outline-style: dashed; } /* the chosen objective is filled, like the bench's chosen 3D | List (A11Y-10) */ .labm .labm-seg > button[aria-pressed="true"]:not(.btn) { forced-color-adjust: none; background: Highlight; border-color: Highlight; color: HighlightText; } .labm .labm-seg > button[aria-pressed="true"]:not(.btn):focus-visible { outline-color: CanvasText; } .labm .labm-toggle[aria-pressed="true"]::before { background: Highlight; forced-color-adjust: none; } .labm-canvas { border: 1px solid CanvasText; } :where(.labm .lab-badge) { border-color: CanvasText; } }
+
+/* ---------- MICRO-1 / UX-C: responsive ---------- */
+@media (max-width: 560px) { .labm { font-size: 14px; } .labm-toolbar { gap: 10px 12px; } .labm-split input[type="range"] { width: 120px; } .labm-tools { padding: 4px 14px 14px; } .labm-tool-pane { margin-left: 2px; padding-left: 12px; } }
+@media (max-width: 420px) { .labm button:not(.btn) { padding: 6px 10px; font-size: 13px; } .labm .labm-seg > button:not(.btn) { padding: 6px 9px; } .labm-cell-grid { max-width: 100%; } .labm-score { gap: 4px; } .labm-score label { font-size: 14px; } .labm-table { font-size: 13px; } .labm-table th, .labm-table td { padding: 7px 6px; } }

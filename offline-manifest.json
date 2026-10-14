@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "build": "6d8c390e4ec1702bb08f",
+  "build": "be79944a3815e2d68882",
   "packs": [
     {
       "id": "mcat",
@@ -51,13 +51,13 @@
         },
         {
           "url": "/academy.js",
-          "bytes": 9082,
-          "sha256": "f5e6a968fede50cf8ee409c6bff8d62a227eac41de6bd523f4dbdcd1bb1e2102"
+          "bytes": 9922,
+          "sha256": "d8eb2bca2f6011a887f06a56f17409e902f29bdba6783f890789954811391885"
         },
         {
           "url": "/app.js",
-          "bytes": 114974,
-          "sha256": "0e125f6ebd96f5a5f213b79a77a7a487d68ea02779aa4aebba909eedaf4c19c1"
+          "bytes": 116185,
+          "sha256": "b2a109fe330c55550fac98dd2afd803d5a37d471ab0234c2d215219e37ab4bcd"
         },
         {
           "url": "/assets/supabase.js",
@@ -76,8 +76,8 @@
         },
         {
           "url": "/changelog.js",
-          "bytes": 34768,
-          "sha256": "fbe2f106b43cddb4b9e68ae47f6a56fc36a36bf87691fef22ecdebb4bf034b5b"
+          "bytes": 35388,
+          "sha256": "275cad32ff917580ce2f4a7b979c649f36d56d7f5870c46e429e99424d28c4b4"
         },
         {
           "url": "/clinical-shift.css",
@@ -176,8 +176,13 @@
         },
         {
           "url": "/index.html",
-          "bytes": 8941,
-          "sha256": "76c60074fbb277c938a733f452617cc35126d7b6c6417773ff666e8b82a00fdc"
+          "bytes": 9211,
+          "sha256": "0df24722058f0182f3d54c22e55874ee950f32551567925f2e688a77f545cb2d"
+        },
+        {
+          "url": "/lab.css",
+          "bytes": 85776,
+          "sha256": "c21bc7f9058b025c457af9fd52c231c705d4fe0123f1e39adbade26ea8b7e897"
         },
         {
           "url": "/mcat-course-engine.js",
@@ -286,8 +291,8 @@
         },
         {
           "url": "/study-backup.js",
-          "bytes": 9832,
-          "sha256": "000c7ccd0efedf48c9c96d366d54fbd101f26fdd73dd4655c176bb5c2d270b13"
+          "bytes": 10049,
+          "sha256": "e51bd208f2009802c4a7202a92394e0c79758744d79047e7260db222e6a80106"
         },
         {
           "url": "/study-storage.js",
@@ -350,13 +355,13 @@
         },
         {
           "url": "/academy.js",
-          "bytes": 9082,
-          "sha256": "f5e6a968fede50cf8ee409c6bff8d62a227eac41de6bd523f4dbdcd1bb1e2102"
+          "bytes": 9922,
+          "sha256": "d8eb2bca2f6011a887f06a56f17409e902f29bdba6783f890789954811391885"
         },
         {
           "url": "/app.js",
-          "bytes": 114974,
-          "sha256": "0e125f6ebd96f5a5f213b79a77a7a487d68ea02779aa4aebba909eedaf4c19c1"
+          "bytes": 116185,
+          "sha256": "b2a109fe330c55550fac98dd2afd803d5a37d471ab0234c2d215219e37ab4bcd"
         },
         {
           "url": "/assets/supabase.js",
@@ -375,8 +380,8 @@
         },
         {
           "url": "/changelog.js",
-          "bytes": 34768,
-          "sha256": "fbe2f106b43cddb4b9e68ae47f6a56fc36a36bf87691fef22ecdebb4bf034b5b"
+          "bytes": 35388,
+          "sha256": "275cad32ff917580ce2f4a7b979c649f36d56d7f5870c46e429e99424d28c4b4"
         },
         {
           "url": "/clinical-shift.css",
@@ -715,8 +720,13 @@
         },
         {
           "url": "/index.html",
-          "bytes": 8941,
-          "sha256": "76c60074fbb277c938a733f452617cc35126d7b6c6417773ff666e8b82a00fdc"
+          "bytes": 9211,
+          "sha256": "0df24722058f0182f3d54c22e55874ee950f32551567925f2e688a77f545cb2d"
+        },
+        {
+          "url": "/lab.css",
+          "bytes": 85776,
+          "sha256": "c21bc7f9058b025c457af9fd52c231c705d4fe0123f1e39adbade26ea8b7e897"
         },
         {
           "url": "/mcat-course.css",
@@ -760,8 +770,8 @@
         },
         {
           "url": "/study-backup.js",
-          "bytes": 9832,
-          "sha256": "000c7ccd0efedf48c9c96d366d54fbd101f26fdd73dd4655c176bb5c2d270b13"
+          "bytes": 10049,
+          "sha256": "e51bd208f2009802c4a7202a92394e0c79758744d79047e7260db222e6a80106"
         },
         {
           "url": "/study-storage.js",
@@ -824,13 +834,13 @@
         },
         {
           "url": "/academy.js",
-          "bytes": 9082,
-          "sha256": "f5e6a968fede50cf8ee409c6bff8d62a227eac41de6bd523f4dbdcd1bb1e2102"
+          "bytes": 9922,
+          "sha256": "d8eb2bca2f6011a887f06a56f17409e902f29bdba6783f890789954811391885"
         },
         {
           "url": "/app.js",
-          "bytes": 114974,
-          "sha256": "0e125f6ebd96f5a5f213b79a77a7a487d68ea02779aa4aebba909eedaf4c19c1"
+          "bytes": 116185,
+          "sha256": "b2a109fe330c55550fac98dd2afd803d5a37d471ab0234c2d215219e37ab4bcd"
         },
         {
           "url": "/assets/supabase.js",
@@ -849,8 +859,8 @@
         },
         {
           "url": "/changelog.js",
-          "bytes": 34768,
-          "sha256": "fbe2f106b43cddb4b9e68ae47f6a56fc36a36bf87691fef22ecdebb4bf034b5b"
+          "bytes": 35388,
+          "sha256": "275cad32ff917580ce2f4a7b979c649f36d56d7f5870c46e429e99424d28c4b4"
         },
         {
           "url": "/clinical-shift.css",
@@ -889,8 +899,13 @@
         },
         {
           "url": "/index.html",
-          "bytes": 8941,
-          "sha256": "76c60074fbb277c938a733f452617cc35126d7b6c6417773ff666e8b82a00fdc"
+          "bytes": 9211,
+          "sha256": "0df24722058f0182f3d54c22e55874ee950f32551567925f2e688a77f545cb2d"
+        },
+        {
+          "url": "/lab.css",
+          "bytes": 85776,
+          "sha256": "c21bc7f9058b025c457af9fd52c231c705d4fe0123f1e39adbade26ea8b7e897"
         },
         {
           "url": "/mcat-course.css",
@@ -939,8 +954,8 @@
         },
         {
           "url": "/study-backup.js",
-          "bytes": 9832,
-          "sha256": "000c7ccd0efedf48c9c96d366d54fbd101f26fdd73dd4655c176bb5c2d270b13"
+          "bytes": 10049,
+          "sha256": "e51bd208f2009802c4a7202a92394e0c79758744d79047e7260db222e6a80106"
         },
         {
           "url": "/study-storage.js",
@@ -1003,13 +1018,13 @@
         },
         {
           "url": "/academy.js",
-          "bytes": 9082,
-          "sha256": "f5e6a968fede50cf8ee409c6bff8d62a227eac41de6bd523f4dbdcd1bb1e2102"
+          "bytes": 9922,
+          "sha256": "d8eb2bca2f6011a887f06a56f17409e902f29bdba6783f890789954811391885"
         },
         {
           "url": "/app.js",
-          "bytes": 114974,
-          "sha256": "0e125f6ebd96f5a5f213b79a77a7a487d68ea02779aa4aebba909eedaf4c19c1"
+          "bytes": 116185,
+          "sha256": "b2a109fe330c55550fac98dd2afd803d5a37d471ab0234c2d215219e37ab4bcd"
         },
         {
           "url": "/assets/supabase.js",
@@ -1028,8 +1043,8 @@
         },
         {
           "url": "/changelog.js",
-          "bytes": 34768,
-          "sha256": "fbe2f106b43cddb4b9e68ae47f6a56fc36a36bf87691fef22ecdebb4bf034b5b"
+          "bytes": 35388,
+          "sha256": "275cad32ff917580ce2f4a7b979c649f36d56d7f5870c46e429e99424d28c4b4"
         },
         {
           "url": "/clinical-longitudinal-engine.js",
@@ -1218,8 +1233,13 @@
         },
         {
           "url": "/index.html",
-          "bytes": 8941,
-          "sha256": "76c60074fbb277c938a733f452617cc35126d7b6c6417773ff666e8b82a00fdc"
+          "bytes": 9211,
+          "sha256": "0df24722058f0182f3d54c22e55874ee950f32551567925f2e688a77f545cb2d"
+        },
+        {
+          "url": "/lab.css",
+          "bytes": 85776,
+          "sha256": "c21bc7f9058b025c457af9fd52c231c705d4fe0123f1e39adbade26ea8b7e897"
         },
         {
           "url": "/mcat-course.css",
@@ -1263,8 +1283,8 @@
         },
         {
           "url": "/study-backup.js",
-          "bytes": 9832,
-          "sha256": "000c7ccd0efedf48c9c96d366d54fbd101f26fdd73dd4655c176bb5c2d270b13"
+          "bytes": 10049,
+          "sha256": "e51bd208f2009802c4a7202a92394e0c79758744d79047e7260db222e6a80106"
         },
         {
           "url": "/study-storage.js",
@@ -1332,8 +1352,8 @@
         },
         {
           "url": "/academy.js",
-          "bytes": 9082,
-          "sha256": "f5e6a968fede50cf8ee409c6bff8d62a227eac41de6bd523f4dbdcd1bb1e2102"
+          "bytes": 9922,
+          "sha256": "d8eb2bca2f6011a887f06a56f17409e902f29bdba6783f890789954811391885"
         },
         {
           "url": "/anatomy.js",
@@ -1342,8 +1362,8 @@
         },
         {
           "url": "/app.js",
-          "bytes": 114974,
-          "sha256": "0e125f6ebd96f5a5f213b79a77a7a487d68ea02779aa4aebba909eedaf4c19c1"
+          "bytes": 116185,
+          "sha256": "b2a109fe330c55550fac98dd2afd803d5a37d471ab0234c2d215219e37ab4bcd"
         },
         {
           "url": "/assets/skeleton.svg",
@@ -1367,8 +1387,8 @@
         },
         {
           "url": "/changelog.js",
-          "bytes": 34768,
-          "sha256": "fbe2f106b43cddb4b9e68ae47f6a56fc36a36bf87691fef22ecdebb4bf034b5b"
+          "bytes": 35388,
+          "sha256": "275cad32ff917580ce2f4a7b979c649f36d56d7f5870c46e429e99424d28c4b4"
         },
         {
           "url": "/clinical-shift.css",
@@ -1417,8 +1437,13 @@
         },
         {
           "url": "/index.html",
-          "bytes": 8941,
-          "sha256": "76c60074fbb277c938a733f452617cc35126d7b6c6417773ff666e8b82a00fdc"
+          "bytes": 9211,
+          "sha256": "0df24722058f0182f3d54c22e55874ee950f32551567925f2e688a77f545cb2d"
+        },
+        {
+          "url": "/lab.css",
+          "bytes": 85776,
+          "sha256": "c21bc7f9058b025c457af9fd52c231c705d4fe0123f1e39adbade26ea8b7e897"
         },
         {
           "url": "/mcat-course.css",
@@ -1462,8 +1487,8 @@
         },
         {
           "url": "/study-backup.js",
-          "bytes": 9832,
-          "sha256": "000c7ccd0efedf48c9c96d366d54fbd101f26fdd73dd4655c176bb5c2d270b13"
+          "bytes": 10049,
+          "sha256": "e51bd208f2009802c4a7202a92394e0c79758744d79047e7260db222e6a80106"
         },
         {
           "url": "/study-storage.js",
@@ -1531,13 +1556,13 @@
         },
         {
           "url": "/academy.js",
-          "bytes": 9082,
-          "sha256": "f5e6a968fede50cf8ee409c6bff8d62a227eac41de6bd523f4dbdcd1bb1e2102"
+          "bytes": 9922,
+          "sha256": "d8eb2bca2f6011a887f06a56f17409e902f29bdba6783f890789954811391885"
         },
         {
           "url": "/app.js",
-          "bytes": 114974,
-          "sha256": "0e125f6ebd96f5a5f213b79a77a7a487d68ea02779aa4aebba909eedaf4c19c1"
+          "bytes": 116185,
+          "sha256": "b2a109fe330c55550fac98dd2afd803d5a37d471ab0234c2d215219e37ab4bcd"
         },
         {
           "url": "/assets/supabase.js",
@@ -1556,8 +1581,8 @@
         },
         {
           "url": "/changelog.js",
-          "bytes": 34768,
-          "sha256": "fbe2f106b43cddb4b9e68ae47f6a56fc36a36bf87691fef22ecdebb4bf034b5b"
+          "bytes": 35388,
+          "sha256": "275cad32ff917580ce2f4a7b979c649f36d56d7f5870c46e429e99424d28c4b4"
         },
         {
           "url": "/clinical-shift.css",
@@ -1631,8 +1656,13 @@
         },
         {
           "url": "/index.html",
-          "bytes": 8941,
-          "sha256": "76c60074fbb277c938a733f452617cc35126d7b6c6417773ff666e8b82a00fdc"
+          "bytes": 9211,
+          "sha256": "0df24722058f0182f3d54c22e55874ee950f32551567925f2e688a77f545cb2d"
+        },
+        {
+          "url": "/lab.css",
+          "bytes": 85776,
+          "sha256": "c21bc7f9058b025c457af9fd52c231c705d4fe0123f1e39adbade26ea8b7e897"
         },
         {
           "url": "/mcat-course.css",
@@ -1686,8 +1716,8 @@
         },
         {
           "url": "/study-backup.js",
-          "bytes": 9832,
-          "sha256": "000c7ccd0efedf48c9c96d366d54fbd101f26fdd73dd4655c176bb5c2d270b13"
+          "bytes": 10049,
+          "sha256": "e51bd208f2009802c4a7202a92394e0c79758744d79047e7260db222e6a80106"
         },
         {
           "url": "/study-storage.js",
@@ -1750,13 +1780,13 @@
         },
         {
           "url": "/academy.js",
-          "bytes": 9082,
-          "sha256": "f5e6a968fede50cf8ee409c6bff8d62a227eac41de6bd523f4dbdcd1bb1e2102"
+          "bytes": 9922,
+          "sha256": "d8eb2bca2f6011a887f06a56f17409e902f29bdba6783f890789954811391885"
         },
         {
           "url": "/app.js",
-          "bytes": 114974,
-          "sha256": "0e125f6ebd96f5a5f213b79a77a7a487d68ea02779aa4aebba909eedaf4c19c1"
+          "bytes": 116185,
+          "sha256": "b2a109fe330c55550fac98dd2afd803d5a37d471ab0234c2d215219e37ab4bcd"
         },
         {
           "url": "/assets/supabase.js",
@@ -1775,8 +1805,8 @@
         },
         {
           "url": "/changelog.js",
-          "bytes": 34768,
-          "sha256": "fbe2f106b43cddb4b9e68ae47f6a56fc36a36bf87691fef22ecdebb4bf034b5b"
+          "bytes": 35388,
+          "sha256": "275cad32ff917580ce2f4a7b979c649f36d56d7f5870c46e429e99424d28c4b4"
         },
         {
           "url": "/clinical-shift.css",
@@ -1835,8 +1865,13 @@
         },
         {
           "url": "/index.html",
-          "bytes": 8941,
-          "sha256": "76c60074fbb277c938a733f452617cc35126d7b6c6417773ff666e8b82a00fdc"
+          "bytes": 9211,
+          "sha256": "0df24722058f0182f3d54c22e55874ee950f32551567925f2e688a77f545cb2d"
+        },
+        {
+          "url": "/lab.css",
+          "bytes": 85776,
+          "sha256": "c21bc7f9058b025c457af9fd52c231c705d4fe0123f1e39adbade26ea8b7e897"
         },
         {
           "url": "/mcat-course.css",
@@ -1905,8 +1940,8 @@
         },
         {
           "url": "/study-backup.js",
-          "bytes": 9832,
-          "sha256": "000c7ccd0efedf48c9c96d366d54fbd101f26fdd73dd4655c176bb5c2d270b13"
+          "bytes": 10049,
+          "sha256": "e51bd208f2009802c4a7202a92394e0c79758744d79047e7260db222e6a80106"
         },
         {
           "url": "/study-storage.js",

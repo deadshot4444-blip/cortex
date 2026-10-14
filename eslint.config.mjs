@@ -79,6 +79,17 @@ export default [
     rules: sharedRules,
   },
   {
+    // Lab 3D bench: ES modules reached through the import map in index.html and import() from
+    // lab.js. Vendored three.js lives under assets/, which the top-level ignores already skip.
+    files: ['lab-3d/**/*.js'],
+    languageOptions: {
+      ecmaVersion: 2024,
+      sourceType: 'module',
+      globals: { ...globals.browser, ...sharedGlobals },
+    },
+    rules: sharedRules,
+  },
+  {
     // Tooling and tests run on Node. Unit harnesses evaluate runtime modules inside vm
     // contexts, so the app's globals are legitimate there too.
     files: ['scripts/**/*.cjs'],

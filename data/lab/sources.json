@@ -1,0 +1,305 @@
+{
+  "v": 1,
+  "items": [
+    {
+      "id": "S-litchfield-2001",
+      "citation": "Litchfield S, Nagy Z. New temperature modification makes the Bielschowsky silver stain reproducible. Acta Neuropathol. 2001;101(1):17-21. doi:10.1007/s004010000248. PMID 11194935.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/11194935/",
+      "type": "peer-reviewed",
+      "verified": {
+        "date": "2026-10-10",
+        "level": "abstract"
+      },
+      "system": "human AD brain (OPTIMA, Oxford)",
+      "rights": "cite-only",
+      "excluded": []
+    },
+    {
+      "id": "S-yamamoto-1986",
+      "citation": "Yamamoto T, Hirano A. A comparative study of modified Bielschowsky, Bodian and thioflavin S stains on Alzheimer's neurofibrillary tangles. Neuropathol Appl Neurobiol. 1986;12(1):3-9. PMID 2422580.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/2422580/",
+      "type": "peer-reviewed",
+      "verified": {
+        "date": "2026-10-10",
+        "level": "abstract"
+      },
+      "system": "serial sections, two AD brains",
+      "rights": "cite-only",
+      "excluded": []
+    },
+    {
+      "id": "S-dion-1983",
+      "citation": "Dion AS, Pomenti AA. Ammoniacal silver staining of proteins: mechanism of glutaraldehyde enhancement. Anal Biochem. 1983;129(2):490-6. PMID 6189426.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/6189426/",
+      "type": "peer-reviewed",
+      "verified": {
+        "date": "2026-10-10",
+        "level": "abstract"
+      },
+      "system": "polyacrylamide gels (NOT tissue)",
+      "rights": "cite-only",
+      "excluded": []
+    },
+    {
+      "id": "S-rosenwald-1993",
+      "citation": "Rosenwald A, Reusche E, Ogomori K, Teichert HM. Comparison of silver stainings and immunohistology for the detection of neurofibrillary tangles and extracellular cerebral amyloid in paraffin sections. Acta Neuropathol. 1993;86(2):182-6. PMID 7692696.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/7692696/",
+      "type": "peer-reviewed",
+      "verified": {
+        "date": "2026-10-10",
+        "level": "abstract"
+      },
+      "system": "hippocampal serial sections, 35 human brains, paraffin",
+      "rights": "cite-only",
+      "excluded": []
+    },
+    {
+      "id": "S-velasco-1992",
+      "citation": "Velasco ME. The copper-peroxide-silver method: a highly sensitive procedure for the demonstration of Alzheimer's disease lesions and for signal intensification in immunocytochemistry. Mod Pathol. 1992;5(4):455-63. PMID 1495951.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/1495951/",
+      "type": "peer-reviewed",
+      "verified": {
+        "date": "2026-10-10",
+        "level": "abstract"
+      },
+      "system": "human AD brain",
+      "rights": "cite-only",
+      "excluded": []
+    },
+    {
+      "id": "S-peters-1955",
+      "citation": "Peters A. Experiments on the Mechanism of Silver Staining: II. Development. Quart J Microsc Sci (J Cell Sci). 1955;s3-96(33):103-115. doi:10.1242/jcs.s3-96.33.103.",
+      "url": "https://journals.biologists.com/jcs/article/s3-96/33/103/64148/Experiments-on-the-Mechanism-of-Silver-Staining-II",
+      "type": "peer-reviewed",
+      "verified": {
+        "date": "2026-10-10",
+        "level": "abstract"
+      },
+      "system": "nerve tissue sections",
+      "rights": "cite-only",
+      "excluded": []
+    },
+    {
+      "id": "S-gallyas-1979a",
+      "citation": "Gallyas F. Kinetics of formation of metallic silver and binding of silver ions by tissue components. Histochemistry. 1979;64:87-96. doi:10.1007/BF00493357.",
+      "url": "https://link.springer.com/article/10.1007/BF00493357",
+      "type": "peer-reviewed",
+      "verified": {
+        "date": "2026-10-10",
+        "level": "title-only"
+      },
+      "system": null,
+      "rights": "cite-only",
+      "excluded": []
+    },
+    {
+      "id": "S-gallyas-1979b",
+      "citation": "Gallyas F. Factors affecting the formation of metallic silver and the binding of silver ions by tissue components. Histochemistry. 1979;64:97-109. doi:10.1007/BF00493358.",
+      "url": "https://link.springer.com/article/10.1007/BF00493358",
+      "type": "peer-reviewed",
+      "verified": {
+        "date": "2026-10-10",
+        "level": "title-only"
+      },
+      "system": null,
+      "rights": "cite-only",
+      "excluded": []
+    },
+    {
+      "id": "S-alafuzoff-2006",
+      "citation": "Alafuzoff I, Pikkarainen M, Al-Sarraj S, et al. Interlaboratory comparison of assessments of Alzheimer disease-related lesions: a study of the BrainNet Europe Consortium. J Neuropathol Exp Neurol. 2006;65(8):740-757. PMID 16896308.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/16896308/",
+      "type": "peer-reviewed",
+      "verified": {
+        "date": "2026-10-10",
+        "level": "metadata"
+      },
+      "system": null,
+      "rights": "cite-only",
+      "excluded": []
+    },
+    {
+      "id": "S-uchihara-2007",
+      "citation": "Uchihara T. Silver diagnosis in neuropathology: principles, practice and revised interpretation. Acta Neuropathol. 2007;113(5):483-499. doi:10.1007/s00401-007-0200-2. PMID 17401570; PMC1868652 (open access). Table 1 tabulates the Yamamoto-Hirano modified Bielschowsky: 20% silver nitrate 20 min; 20% ammoniacal silver 15 min in the dark; three drops of a formalin, nitric acid and citric acid developer added to that ammoniacal silver.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1868652/",
+      "type": "peer-reviewed",
+      "verified": {
+        "date": "2026-10-12",
+        "level": "full-text"
+      },
+      "system": "review of silver methods for paraffin-embedded human autopsy brain",
+      "rights": "cite-only",
+      "excluded": []
+    },
+    {
+      "id": "S-abcam-protocol",
+      "citation": "Abcam. Bielschowsky's silver stain protocol (vendor protocol page). Comparison reference only; never a substitute for the course SOP.",
+      "url": "https://www.abcam.com/en-us/technical-resources/protocols/bielschowskys-silver-stain",
+      "type": "vendor-protocol",
+      "verified": {
+        "date": "2026-10-10",
+        "level": "not-fetched"
+      },
+      "system": null,
+      "rights": "cite-only",
+      "excluded": []
+    },
+    {
+      "id": "S-utah-webpath",
+      "citation": "University of Utah WebPath. Bielschowsky stain manual (legacy university protocol PDF). Comparison reference only; never a substitute for the course SOP.",
+      "url": "https://webpath.med.utah.edu/HISTHTML/MANUALS/BIELSCH.PDF",
+      "type": "legacy-protocol",
+      "verified": {
+        "date": "2026-10-10",
+        "level": "not-fetched"
+      },
+      "system": null,
+      "rights": "cite-only",
+      "excluded": [
+        "drain disposal advice"
+      ]
+    },
+    {
+      "id": "S-pmc-copyright",
+      "citation": "PubMed Central. Copyright and reuse rules for PMC content. Governs whether any PMC-hosted figure may be reused; default is no until rights are confirmed.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/about/copyright/",
+      "type": "rights-policy",
+      "verified": {
+        "date": "2026-10-10",
+        "level": "not-fetched"
+      },
+      "system": null,
+      "rights": "cite-only",
+      "excluded": []
+    },
+    {
+      "id": "S-course-handout",
+      "citation": "Course handout (superseded): modified Bielschowsky silver stain for mounted paraffin sections (Canvas file 15321361), UTSA NDRB 2903-001, Fall 2026. Read in full on 2026-10-12 and replaced for this lab by the course procedure (S-course-procedure); kept for the record.",
+      "url": "https://utsa.instructure.com/courses/91998/files/15321361",
+      "type": "course-handout",
+      "verified": {
+        "date": "2026-10-12",
+        "level": "full-text"
+      },
+      "system": null,
+      "rights": "course-access-only",
+      "excluded": []
+    },
+    {
+      "id": "S-course-procedure",
+      "citation": "NDRB 2903 Bielschowsky Silver Stain Procedure: the course's modified Bielschowsky procedure for paraffin sections (Yamamoto-Hirano type), UTSA NDRB 2903-001, Fall 2026, approved for course use by the course teaching staff on 2026-10-12. Reagents, strengths, times, temperatures, endpoints, expected appearance and safety handling in this lab come from it.",
+      "type": "course-handout",
+      "verified": {
+        "date": "2026-10-12",
+        "level": "full-text"
+      },
+      "system": "course procedure, paraffin sections; positive control cortex from a known Alzheimer's case",
+      "rights": "course-access-only",
+      "excluded": []
+    },
+    {
+      "id": "S-course-recording",
+      "citation": "Perry G. Introductory recording (Panopto), UTSA NDRB 2903-001, Fall 2026. Relevant portions approximately 3:57-4:54, 7:03-7:40 and 10:35-11:17; captions may contain transcription errors.",
+      "url": "https://utsa.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=db803f1d-4637-410b-9bcf-b4ad0047b3e4",
+      "type": "course-recording",
+      "verified": {
+        "date": "2026-10-10",
+        "level": "not-read"
+      },
+      "system": null,
+      "rights": "course-access-only",
+      "excluded": []
+    },
+    {
+      "id": "S-course-velasco-pdf",
+      "citation": "Velasco ME. Mod Pathol. 1992;5(4):455-63, as distributed in the course (Canvas file 15491908), UTSA NDRB 2903-001, Fall 2026. Cite the PubMed record (PMID 1495951) instead of this file.",
+      "url": "https://utsa.instructure.com/courses/91998/files/15491908",
+      "type": "course-pdf",
+      "verified": {
+        "date": "2026-10-10",
+        "level": "not-read"
+      },
+      "system": null,
+      "rights": "course-access-only",
+      "excluded": []
+    },
+    {
+      "id": "S-course-guide",
+      "citation": "NDRB 2903 course context (UTSA, Fall 2026), as summarized by the lab's author; not the official course guide, which the link points to (course access only).",
+      "url": "https://utsa.instructure.com/courses/91998/pages/start-here-course-guide",
+      "type": "course-handout",
+      "verified": {
+        "date": "2026-10-10",
+        "level": "not-read"
+      },
+      "system": null,
+      "rights": "course-access-only",
+      "excluded": []
+    },
+    {
+      "id": "S-ikonomovic-2020",
+      "citation": "Ikonomovic MD, Buckley CJ, Abrahamson EE, Kofler JK, Mathis CA, Klunk WE, Farrar G. Post-mortem analyses of PiB and flutemetamol in diffuse and cored amyloid-β plaques in Alzheimer's disease. Acta Neuropathol. 2020;140:649-661. doi:10.1007/s00401-020-02175-1. PMC7498488. Open access, CC BY 4.0 (© The Author(s) 2020). Fig. 4 panels d and h used: Bielschowsky silver stain of frontal cortex, AD case 27, sequential 8 µm paraffin sections also stained for amyloid-β (4G8).",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7498488/",
+      "type": "peer-reviewed",
+      "verified": {
+        "date": "2026-10-13",
+        "level": "full-text"
+      },
+      "system": "human AD brain, frontal cortex, autopsy (University of Pittsburgh ADRC brain bank)",
+      "rights": "cc-by",
+      "excluded": []
+    },
+    {
+      "id": "S-liu-2022",
+      "citation": "Liu F, Sun J, Wang X, Jin S, Sun F, Wang T, Yuan B, Qiu W, Ma C. Focal-type, but not diffuse-type, amyloid beta plaques are correlated with Alzheimer's neuropathology, cognitive dysfunction, and neuroinflammation in the human hippocampus. Neurosci Bull. 2022. doi:10.1007/s12264-022-00927-5. PMC9554074. Open access, CC BY 4.0 (© The Author(s) 2022). Fig. 4 'Neuritic plaque' column used: modified Bielschowsky staining of hippocampus, the authors' 'normal' group (A) and AD group (B, C); scale bars 50 µm.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9554074/",
+      "type": "peer-reviewed",
+      "verified": {
+        "date": "2026-10-13",
+        "level": "full-text"
+      },
+      "system": "human hippocampus, autopsy (National Human Brain Bank for Development and Function, Beijing)",
+      "rights": "cc-by",
+      "excluded": []
+    },
+    {
+      "id": "S-marengo-2022",
+      "citation": "Marengo L, Armbrust F, Schoenherr C, Storck SE, Schmitt U, Zampar S, Wirths O, et al. Meprin β knockout reduces brain Aβ levels and rescues learning and memory impairments in the APP/lon mouse model for Alzheimer's disease. Cell Mol Life Sci. 2022;79:168. doi:10.1007/s00018-022-04205-5. PMC8891209. Open access, CC BY 4.0 (© The Author(s) 2022). Fig. 1A 'Bielschowsky' column used: Bielschowsky staining kit on FFPE frontal isocortex from an AD patient and an age-matched non-demented control; scale bar 100 µm.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8891209/",
+      "type": "peer-reviewed",
+      "verified": {
+        "date": "2026-10-13",
+        "level": "full-text"
+      },
+      "system": "human frontal isocortex, post mortem (University Medical Center Hamburg-Eppendorf), AD vs non-demented control",
+      "rights": "cc-by",
+      "excluded": []
+    },
+    {
+      "id": "S-zhang-2025",
+      "citation": "Zhang QL, Liu Y, Tu T, Yan XX. The comorbidity of AD and PD: exploring clinical, pathological, and biomarker interactions. Aging Dis. 2025. doi:10.14336/AD.2025.0301. PMC13256385. Open access, Creative Commons Attribution License. Fig. 1 panels B and C used: Bielschowsky silver stain of the middle temporal gyrus (diffuse amyloid plaques) and of the hippocampus (a cored compact plaque) in a 70-year-old man with a clinical diagnosis of Parkinson's disease.",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13256385/",
+      "type": "peer-reviewed",
+      "verified": {
+        "date": "2026-10-13",
+        "level": "full-text"
+      },
+      "system": "human autopsy brain (Chinese brain bank network), one case with clinical Parkinson's disease and AD-type lesions",
+      "rights": "cc-by",
+      "excluded": []
+    },
+    {
+      "id": "S-intorcia-2019",
+      "citation": "Intorcia AJ, Filon JR, Hoffman B, Serrano GE, Sue LI, Beach TG. A modification of the Bielschowsky silver stain for Alzheimer neuritic plaques: suppression of artifactual staining by pretreatment with oxidizing agents. bioRxiv 2019 (preprint, not peer reviewed). doi:10.1101/570093.",
+      "url": "https://doi.org/10.1101/570093",
+      "type": "peer-reviewed",
+      "verified": {
+        "date": "2026-10-13",
+        "level": "abstract"
+      },
+      "system": "human AD brain",
+      "rights": "cite-only",
+      "excluded": []
+    }
+  ]
+}

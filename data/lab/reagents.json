@@ -1,0 +1,627 @@
+{
+  "v": 1,
+  "note": "The free bench's reagent shelf (contract §13.1): every bottle with its fields, the procedure's value as each field's default (worded \"(procedure)\"), the contents of the nine procedure jars, and the four handling choices from the course procedure's troubleshooting table. A dip the engine cannot trace to a registered source is a \"Currently unknown reaction\" (unknownWhy says why). No strength, time or effect here is invented: every non-default value is a choice the student makes.",
+  "items": [
+    {
+      "id": "dewax-series",
+      "name": "Xylene and ethanol series",
+      "short": "Xylene series",
+      "group": "procedure",
+      "step": "deparaffinize-rehydrate",
+      "fields": {
+        "minutes": {
+          "values": [
+            1,
+            2,
+            5,
+            10
+          ],
+          "default": 5,
+          "words": {
+            "1": "1 min per xylene change",
+            "2": "2 min per xylene change",
+            "5": "5 min per xylene change (procedure)",
+            "10": "10 min per xylene change"
+          }
+        }
+      },
+      "claims": [
+        "C-course-procedure-rinses-solvents",
+        "C-course-trouble-patchy"
+      ]
+    },
+    {
+      "id": "silver-nitrate",
+      "name": "Silver nitrate",
+      "short": "Silver nitrate",
+      "group": "procedure",
+      "step": "silver-impregnation",
+      "fields": {
+        "strength": {
+          "values": [
+            10,
+            20
+          ],
+          "default": 20,
+          "words": {
+            "10": "10%",
+            "20": "20% (procedure)"
+          }
+        },
+        "minutes": {
+          "values": [
+            10,
+            15,
+            20,
+            30,
+            40
+          ],
+          "default": 20,
+          "words": {
+            "10": "10 min",
+            "15": "15 min",
+            "20": "20 min (procedure)",
+            "30": "30 min",
+            "40": "40 min"
+          }
+        },
+        "tempC": {
+          "values": [
+            5,
+            22,
+            37,
+            60
+          ],
+          "default": 22,
+          "words": {
+            "5": "5 °C",
+            "22": "room temperature (procedure)",
+            "37": "37 °C",
+            "60": "60 °C"
+          }
+        },
+        "dark": {
+          "values": [
+            true,
+            false
+          ],
+          "default": true,
+          "words": {
+            "true": "in the dark (procedure)",
+            "false": "in the light"
+          }
+        },
+        "fresh": {
+          "values": [
+            "fresh",
+            "old"
+          ],
+          "default": "fresh",
+          "words": {
+            "fresh": "fresh (procedure)",
+            "old": "old or light-exposed"
+          }
+        }
+      },
+      "claims": [
+        "C-course-procedure-quantities",
+        "C-course-trouble-no-black",
+        "C-litchfield-2001-temp",
+        "C-litchfield-2001-reproducible",
+        "C-course-alternatives"
+      ]
+    },
+    {
+      "id": "distilled-water",
+      "name": "Distilled water",
+      "short": "Distilled water",
+      "group": "procedure",
+      "step": "water-wash",
+      "fields": {
+        "minutes": {
+          "values": [
+            1,
+            3,
+            10
+          ],
+          "default": 3,
+          "words": {
+            "1": "1 min",
+            "3": "3 min (procedure)",
+            "10": "10 min"
+          }
+        }
+      },
+      "claims": [
+        "C-course-procedure-rinses-solvents"
+      ]
+    },
+    {
+      "id": "ammoniacal-silver",
+      "name": "Ammoniacal silver",
+      "short": "Ammoniacal silver",
+      "group": "procedure",
+      "step": "ammoniacal-silver",
+      "fields": {
+        "ammonia": {
+          "values": [
+            "just-clear",
+            "extra",
+            "cloudy"
+          ],
+          "default": "just-clear",
+          "words": {
+            "just-clear": "ammonia just clear + 2 drops (procedure)",
+            "extra": "extra ammonia drops",
+            "cloudy": "left cloudy, not filtered"
+          }
+        },
+        "minutes": {
+          "values": [
+            5,
+            10,
+            15,
+            30,
+            60
+          ],
+          "default": 15,
+          "words": {
+            "5": "5 min",
+            "10": "10 min",
+            "15": "15 min (procedure)",
+            "30": "30 min",
+            "60": "60 min"
+          }
+        },
+        "tempC": {
+          "values": [
+            22,
+            37
+          ],
+          "default": 22,
+          "words": {
+            "22": "room temperature (procedure)",
+            "37": "37 °C"
+          }
+        },
+        "dark": {
+          "values": [
+            true,
+            false
+          ],
+          "default": true,
+          "words": {
+            "true": "in the dark (procedure)",
+            "false": "in the light"
+          }
+        }
+      },
+      "claims": [
+        "C-course-procedure-quantities",
+        "C-course-ammonia-endpoint",
+        "C-course-trouble-dark"
+      ]
+    },
+    {
+      "id": "ammonia-water",
+      "name": "Ammonia water",
+      "short": "Ammonia water",
+      "group": "procedure",
+      "step": "ammonium-hydroxide-wash",
+      "fields": {
+        "minutes": {
+          "values": [
+            1,
+            3,
+            5,
+            15
+          ],
+          "default": 3,
+          "words": {
+            "1": "1 min",
+            "3": "3 min (procedure)",
+            "5": "5 min",
+            "15": "15 min"
+          }
+        }
+      },
+      "claims": [
+        "C-course-procedure-quantities"
+      ]
+    },
+    {
+      "id": "developer",
+      "name": "Developer",
+      "short": "Developer",
+      "group": "procedure",
+      "step": "development",
+      "fields": {
+        "drops": {
+          "values": [
+            1,
+            3,
+            6,
+            9
+          ],
+          "default": 3,
+          "words": {
+            "1": "1 drop per 50 ml",
+            "3": "3 drops per 50 ml (procedure)",
+            "6": "6 drops per 50 ml",
+            "9": "9 drops per 50 ml"
+          }
+        },
+        "minutes": {
+          "values": [
+            0.5,
+            1,
+            3,
+            5,
+            10,
+            15
+          ],
+          "default": 3,
+          "words": {
+            "0.5": "30 s",
+            "1": "1 min",
+            "3": "3 min (procedure)",
+            "5": "5 min",
+            "10": "10 min",
+            "15": "15 min"
+          }
+        },
+        "tempC": {
+          "values": [
+            22,
+            37
+          ],
+          "default": 22,
+          "words": {
+            "22": "room temperature (procedure)",
+            "37": "37 °C"
+          }
+        },
+        "dark": {
+          "values": [
+            true,
+            false
+          ],
+          "default": true,
+          "words": {
+            "true": "in the dark (procedure)",
+            "false": "in the light"
+          }
+        },
+        "into": {
+          "values": [
+            "ammoniacal-jar",
+            "fresh-jar"
+          ],
+          "default": "ammoniacal-jar",
+          "words": {
+            "ammoniacal-jar": "added to the ammoniacal silver jar (procedure)",
+            "fresh-jar": "in a fresh jar with no silver"
+          }
+        }
+      },
+      "unknownWhy": "The procedure adds the developer to the ammoniacal silver jar; no source here says what it does in a fresh jar with no silver in it.",
+      "claims": [
+        "C-course-procedure-quantities",
+        "C-course-endpoint-microscope",
+        "C-course-trouble-dark"
+      ]
+    },
+    {
+      "id": "gold-chloride",
+      "name": "Gold chloride 0.2%",
+      "short": "Gold chloride",
+      "group": "procedure",
+      "step": "gold-toning",
+      "fields": {
+        "minutes": {
+          "values": [
+            1,
+            5,
+            10
+          ],
+          "default": 5,
+          "words": {
+            "1": "1 min",
+            "5": "5 min (procedure)",
+            "10": "10 min"
+          }
+        }
+      },
+      "claims": [
+        "C-course-procedure-quantities",
+        "C-course-toning-colour"
+      ]
+    },
+    {
+      "id": "thiosulfate",
+      "name": "Sodium thiosulfate 5%",
+      "short": "Thiosulfate",
+      "group": "procedure",
+      "step": "sodium-thiosulfate",
+      "fields": {
+        "minutes": {
+          "values": [
+            1,
+            2,
+            5
+          ],
+          "default": 2,
+          "words": {
+            "1": "1 min",
+            "2": "2 min (procedure)",
+            "5": "5 min"
+          }
+        }
+      },
+      "claims": [
+        "C-course-procedure-quantities",
+        "C-course-thiosulfate-purpose"
+      ]
+    },
+    {
+      "id": "dehydrate-mount",
+      "name": "Ethanol, xylene and coverslip",
+      "short": "Dehydrate and mount",
+      "group": "procedure",
+      "step": "final-wash-dehydrate-clear-mount",
+      "fields": {},
+      "claims": [
+        "C-course-procedure-rinses-solvents",
+        "C-course-mount-seal"
+      ]
+    },
+    {
+      "id": "permanganate",
+      "name": "Potassium permanganate 0.25%",
+      "short": "Permanganate",
+      "group": "pretreatment",
+      "step": null,
+      "fields": {
+        "minutes": {
+          "values": [
+            2
+          ],
+          "default": 2,
+          "words": {
+            "2": "2 min (procedure)"
+          }
+        }
+      },
+      "unknownWhy": "The published pretreatment runs on dewaxed sections before any silver; no source here says what permanganate does through the wax or on a section carrying silver.",
+      "claims": [
+        "C-course-pretreat-blobs",
+        "C-intorcia-2019-pretreat"
+      ]
+    },
+    {
+      "id": "oxalic-acid",
+      "name": "Oxalic acid 2%",
+      "short": "Oxalic acid",
+      "group": "pretreatment",
+      "step": null,
+      "fields": {
+        "minutes": {
+          "values": [
+            2
+          ],
+          "default": 2,
+          "words": {
+            "2": "2 min (procedure)"
+          }
+        }
+      },
+      "unknownWhy": "The published pretreatment uses oxalic acid after permanganate, on dewaxed sections before any silver; no source here says what it does through the wax, alone or after silver.",
+      "claims": [
+        "C-course-pretreat-blobs",
+        "C-intorcia-2019-pretreat"
+      ]
+    },
+    {
+      "id": "tap-water",
+      "name": "Tap water",
+      "short": "Tap water",
+      "group": "other",
+      "step": null,
+      "fields": {
+        "minutes": {
+          "values": [
+            1,
+            3,
+            10
+          ],
+          "default": 3,
+          "words": {
+            "1": "1 min",
+            "3": "3 min",
+            "10": "10 min"
+          }
+        }
+      },
+      "unknownWhy": "The procedure uses distilled water throughout; no source here says what tap water does to this stain.",
+      "claims": [
+        "C-course-procedure-rinses-solvents"
+      ]
+    },
+    {
+      "id": "formic-acid",
+      "name": "Formic acid",
+      "short": "Formic acid",
+      "group": "other",
+      "step": null,
+      "fields": {
+        "minutes": {
+          "values": [
+            5
+          ],
+          "default": 5,
+          "words": {
+            "5": "5 min"
+          }
+        }
+      },
+      "unknownWhy": "Velasco 1992 found formic acid abolishes CPS silver staining, a different method; no source here says what it does to the Bielschowsky stain.",
+      "claims": [
+        "C-velasco-1992-reversible"
+      ]
+    },
+    {
+      "id": "copper-sulfate",
+      "name": "Copper sulfate",
+      "short": "Copper sulfate",
+      "group": "other",
+      "step": null,
+      "fields": {
+        "minutes": {
+          "values": [
+            5
+          ],
+          "default": 5,
+          "words": {
+            "5": "5 min"
+          }
+        }
+      },
+      "unknownWhy": "Velasco 1992 uses it before ammoniacal silver in the CPS method; no source here says what it does inside this Bielschowsky sequence.",
+      "claims": [
+        "C-velasco-1992-cps1"
+      ]
+    },
+    {
+      "id": "hydrogen-peroxide",
+      "name": "Hydrogen peroxide",
+      "short": "Hydrogen peroxide",
+      "group": "other",
+      "step": null,
+      "fields": {
+        "minutes": {
+          "values": [
+            5
+          ],
+          "default": 5,
+          "words": {
+            "5": "5 min"
+          }
+        }
+      },
+      "unknownWhy": "Velasco 1992 uses it before ammoniacal silver in the CPS method; no source here says what it does inside this Bielschowsky sequence.",
+      "claims": [
+        "C-velasco-1992-cps1"
+      ]
+    }
+  ],
+  "jars": {
+    "deparaffinize-rehydrate": {
+      "reagent": "dewax-series",
+      "minutes": 5
+    },
+    "silver-impregnation": {
+      "reagent": "silver-nitrate",
+      "strength": 20,
+      "minutes": 20,
+      "tempC": 22,
+      "dark": true,
+      "fresh": "fresh"
+    },
+    "water-wash": {
+      "reagent": "distilled-water",
+      "minutes": 3
+    },
+    "ammoniacal-silver": {
+      "reagent": "ammoniacal-silver",
+      "ammonia": "just-clear",
+      "minutes": 15,
+      "tempC": 22,
+      "dark": true
+    },
+    "ammonium-hydroxide-wash": {
+      "reagent": "ammonia-water",
+      "minutes": 3
+    },
+    "development": {
+      "reagent": "developer",
+      "drops": 3,
+      "minutes": 3,
+      "tempC": 22,
+      "dark": true,
+      "into": "ammoniacal-jar"
+    },
+    "gold-toning": {
+      "reagent": "gold-chloride",
+      "minutes": 5
+    },
+    "sodium-thiosulfate": {
+      "reagent": "thiosulfate",
+      "minutes": 2
+    },
+    "final-wash-dehydrate-clear-mount": {
+      "reagent": "dehydrate-mount"
+    }
+  },
+  "handling": [
+    {
+      "id": "forceps",
+      "label": "Forceps",
+      "values": [
+        {
+          "id": "plastic",
+          "words": "plastic forceps (procedure)"
+        },
+        {
+          "id": "metal",
+          "words": "metal forceps"
+        }
+      ],
+      "default": "plastic"
+    },
+    {
+      "id": "glass",
+      "label": "Glassware",
+      "values": [
+        {
+          "id": "acid-cleaned",
+          "words": "acid-cleaned glassware (procedure)"
+        },
+        {
+          "id": "ordinary",
+          "words": "ordinary glassware"
+        }
+      ],
+      "default": "acid-cleaned"
+    },
+    {
+      "id": "between",
+      "label": "Between jars",
+      "values": [
+        {
+          "id": "kept-wet",
+          "words": "section kept wet (procedure)"
+        },
+        {
+          "id": "let-dry",
+          "words": "section left to dry"
+        }
+      ],
+      "default": "kept-wet"
+    },
+    {
+      "id": "fill",
+      "label": "Jar fill",
+      "values": [
+        {
+          "id": "full",
+          "words": "jar full enough to cover the section (procedure)"
+        },
+        {
+          "id": "half",
+          "words": "half-filled jar"
+        }
+      ],
+      "default": "full"
+    }
+  ]
+}

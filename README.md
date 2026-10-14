@@ -20,10 +20,12 @@ for official AAMC materials or clinical judgment.
 | Anatomy | `/anatomy` | 12 foundation and regional lessons plus draft atlas explorers |
 | Medicine | `/medicine` | 22 mechanism and interpretation lessons, 20 synthetic ECG patterns, a draft reference pathway |
 | Neuroengineering | `/neuro` | Five revised foundations, 13 coding exercises, 15 simulations, six synthetic projects |
+| Alzheimer's Histology Lab | `/lab` | Modified Bielschowsky silver stain: practice the procedure step by step or use the free bench (reagent shelf, "Currently unknown reaction" where no source applies), 3D bench, 2D microscope with CC BY reference slides; simulated outputs are illustrations, not measurements |
 
-MCAT, DAT and Clinical Scenarios are open on the public site right now. Learn to Learn, Anatomy,
-Medicine and Neuroengineering are closed for review (`available: false` in `academy.js`): their
-routes show an Under construction page in production and open only on localhost for development.
+MCAT, DAT, Clinical Scenarios and the Alzheimer's Histology Lab are open on the public site right now.
+Learn to Learn, Anatomy, Medicine and Neuroengineering are closed for review
+(`available: false` in `academy.js`): their routes show an Under construction page in production
+and open only on localhost for development.
 Course copies downloaded for offline study before a course closed keep working; the public download
 list simply stops offering closed courses. An invited reviewer can open a closed course on the live
 site by signing in with an email Kevin has granted in Supabase (`preview_access`, see
@@ -55,6 +57,9 @@ anatomy.js, reference.js, ekg.js, ecg-engine.js, performance-drugs.js
 neuro*.js, code-evaluator.js, python-runtime*.js
                       Neuroengineering track (Python runs in a Pyodide worker)
 socrates.js           Learn to Learn
+silver-lab-core.js, lab.js, lab-microscope.js, lab-notebook.js, lab-3d/
+                      Alzheimer's Histology Lab (silver-stain engine, shell, 2D microscope,
+                      notebook; the 3D bench in lab-3d/ is ES modules loaded on demand)
 offline*.js           service worker and downloadable course packs (offline-manifest.json)
 styles.css + *.css    styling; one stylesheet per feature area
 data/                 all course content and question banks (JSON; stable item ids)
@@ -71,6 +76,21 @@ supabase/             database schema and sync notes
 `require` them; the matching UI modules only run in the browser. Saved work lives in
 `localStorage` under `cs-*` keys, guarded by `study-storage.js` (stale-write refusal, draft
 retention, recovery downloads).
+
+### Alzheimer's Histology Lab
+
+`/lab` is an illustrative teaching simulator for the modified Bielschowsky silver stain, open since
+2.36.0-beta.1 (its activities, experiment designer and report stay off unless `window.LAB_FLAGS` turns them on). `silver-lab-core.js` is the pure engine (a
+modified Bielschowsky silver stain as a schematic ordinal model; every effect traces to a rule in
+`data/lab/rules.json` whose claims trace to `data/lab/sources.json`), `lab.js` the section shell,
+`lab-microscope.js` the 2D viewer and `lab-notebook.js` the experiment designer and evidence
+notebook; all load through `SECTION_SCRIPTS.lab`. Content lives in `data/lab/*.json` and is linted
+by `scripts/check-lab-content.cjs`. The optional 3D bench is the only ES-module code in the app:
+`lab-3d/*.js` imports the vendored three.js (`assets/three/`) through the import map in
+`index.html`, and `lab.js` `import()`s it after a WebGL2 check; list mode has the same steps
+without it. Saved work lives under `cs-lab-state-v1`. Every simulated output is labeled
+illustrative, not a measurement. The lab has no offline pack. Real reference slides in `assets/lab/reference/` are CC BY panels
+credited in `ATTRIBUTION.md` there.
 
 ## Development
 

@@ -49,8 +49,9 @@ update public.preview_access set courses = array_append(courses, 'anatomy') wher
 delete from public.preview_access where email = 'reviewer@example.com';
 ```
 
-Course ids: `socrates` (Learn to Learn), `anatomy`, `reference` (Medicine), `neuro`. After
-sign-in, `auth.js` reads the row once and caches the course list in the browser under
+Course ids: `socrates` (Learn to Learn), `anatomy`, `reference` (Medicine), `neuro`, `lab`
+(Alzheimer's Histology Lab). After sign-in, `auth.js` reads the row once and caches the course
+list in the browser under
 `cortex-preview-access-v1` (not a `cs-` key, so it never syncs or enters a backup);
 `app.js` honours the cache only while that account owns the browser's saved work.
 

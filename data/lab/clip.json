@@ -1,0 +1,224 @@
+{
+  "v": 1,
+  "label": "A drawing, not a reconstruction of any section",
+  "noRunCaption": "If you look into the tissue before starting a run, the staining scenes show a built-in standard run (per procedure), not saved.",
+  "noBasisCaption": "Not modeled: the model has no picture for this run, so the tissue stays unstained. What is missing: {explanation}.",
+  "impregnationNotDone": "The field is unstained: the ammoniacal silver bath has not been performed on this run, so the model has bound no silver yet.",
+  "developmentNotDone": "Silver is bound in the model, but development has not been performed, so there is no visible silver yet. Binding is not development.",
+  "impregnationNoSilver": "The ammoniacal silver bath was performed, but with this run's settings the model bound no silver, so the field stays unstained.",
+  "developmentNoSilver": "Development was performed, but the model found no bound silver to reduce, so no visible silver was made: no reaction.",
+  "captionFacts": {
+    "impregnationNotDone": [
+      {
+        "text": "The course procedure lists the ammoniacal silver bath before development; until that step is performed the model binds no silver.",
+        "claims": [
+          "C-course-steps-order"
+        ]
+      }
+    ],
+    "developmentNotDone": [
+      {
+        "text": "A plateau in silver binding does not mean visible deposition has finished; binding and development are modeled as separate processes.",
+        "claims": [
+          "C-brief-binding-not-development"
+        ]
+      }
+    ]
+  },
+  "items": [
+    {
+      "id": "brain-overview",
+      "title": "A schematic brain",
+      "caption": "A cartoon brain built from simple shapes sits on the specimen tray. It is not an atlas; no real anatomy was traced.",
+      "durationMs": 6000,
+      "facts": [],
+      "sub": []
+    },
+    {
+      "id": "region",
+      "title": "A cortex patch, standing in",
+      "caption": "A patch of cortex lights up. It stands in for the course specimens, whose species, region, fixation and thickness are unknown here.",
+      "durationMs": 7000,
+      "facts": [
+        {
+          "text": "The species, brain region, fixation and section thickness of the course specimens are not known to this lab; the course procedure records tissue, region and thickness per slide rather than fixing them.",
+          "claims": [
+            "C-course-specimen-unknown"
+          ]
+        }
+      ],
+      "sub": []
+    },
+    {
+      "id": "section-cut",
+      "title": "Cutting a section",
+      "caption": "A plane sweeps through the patch and a thin slab lifts out. The slab's thickness is a drawing choice, not the course's.",
+      "durationMs": 7000,
+      "facts": [
+        {
+          "text": "The course procedure does not fix a section thickness (it is recorded per slide), so the slab here has an arbitrary thickness.",
+          "claims": [
+            "C-course-specimen-unknown"
+          ]
+        }
+      ],
+      "sub": []
+    },
+    {
+      "id": "slide",
+      "title": "One thin section",
+      "caption": "The slab settles onto a slide. A single thin section cannot establish a true 3D reconstruction of a plaque or tangle.",
+      "durationMs": 7000,
+      "facts": [
+        {
+          "text": "A single thin section cannot establish a true 3D reconstruction of a plaque or tangle.",
+          "claims": [
+            "C-brief-section-not-3d"
+          ]
+        }
+      ],
+      "sub": []
+    },
+    {
+      "id": "dive",
+      "title": "Into the section",
+      "caption": "Through the eyepiece, the camera drops into the section. Every shape from here on is a teaching drawing; counts and sizes are not measurements.",
+      "durationMs": 6000,
+      "facts": [
+        {
+          "text": "Every output of this lab is an illustrative, qualitative simulation; a visually convincing animation is not a validated experimental predictor.",
+          "claims": [
+            "C-brief-illustrative-only"
+          ]
+        }
+      ],
+      "sub": []
+    },
+    {
+      "id": "structures",
+      "title": "What the shapes stand for",
+      "caption": "Five kinds of shape stand for five structures. Each cartoon shows a shape only, not what the structure is made of.",
+      "durationMs": 9000,
+      "facts": [
+        {
+          "text": "The Bielschowsky stain impregnates both the amyloid and the neuritic components of senile plaques and reliably stains neurofibrillary tangles.",
+          "claims": [
+            "C-litchfield-2001-what-stains"
+          ]
+        }
+      ],
+      "sub": [
+        {
+          "site": "axon",
+          "title": "Axon",
+          "caption": "Long thin tubes running through the field stand for axons.",
+          "facts": []
+        },
+        {
+          "site": "plaque-core",
+          "title": "Plaque core",
+          "caption": "A cluster of spheres with a soft halo stands for a plaque core.",
+          "facts": []
+        },
+        {
+          "site": "plaque-neurite",
+          "title": "Plaque neurite",
+          "caption": "Short tubes radiating around a core stand for the neuritic part of a plaque.",
+          "facts": []
+        },
+        {
+          "site": "tangle",
+          "title": "Tangle",
+          "caption": "A flame shape inside a cell body stands for a tangle.",
+          "facts": []
+        },
+        {
+          "site": "neuropil-thread",
+          "title": "Neuropil thread",
+          "caption": "Short thin threads scattered between the cells stand for neuropil threads.",
+          "facts": []
+        }
+      ]
+    },
+    {
+      "id": "impregnation",
+      "title": "Impregnation: silver binds",
+      "caption": "Glints show where silver has bound to the tissue. Binding is not development: a plateau in binding does not mean deposition has finished.",
+      "durationMs": 8000,
+      "facts": [
+        {
+          "text": "A plateau in silver binding does not mean visible deposition has finished; binding and development are modeled as separate processes.",
+          "claims": [
+            "C-brief-binding-not-development",
+            "C-gallyas-1979-separable"
+          ]
+        },
+        {
+          "text": "The silver that the developer deposits can come from silver already bound to the tissue during impregnation or from the developing solution (Peters 1955, nerve tissue sections).",
+          "claims": [
+            "C-peters-1955-bound-silver"
+          ]
+        }
+      ],
+      "sub": []
+    },
+    {
+      "id": "development",
+      "title": "Development: nuclei, then deposit",
+      "caption": "Dots mark silver nuclei, then each structure darkens as the model’s rules say. Darker does not mean more protein, more pathology or a better method.",
+      "durationMs": 9000,
+      "facts": [
+        {
+          "text": "Silver staining requires reduced-silver nuclei in the section, which act as centres on which the developer deposits more silver (Peters 1955, nerve tissue sections).",
+          "claims": [
+            "C-peters-1955-nuclei"
+          ]
+        },
+        {
+          "text": "Darker staining does not necessarily mean more protein, more pathology or a better method.",
+          "claims": [
+            "C-brief-intensity-not-amount"
+          ]
+        }
+      ],
+      "sub": []
+    },
+    {
+      "id": "record-only",
+      "title": "Toning and thiosulfate",
+      "caption": "Gold toning turns the stain gray-black; sodium thiosulfate removes unreduced silver, so the slide stops changing. This drawing keeps its silver colour.",
+      "durationMs": 5000,
+      "facts": [
+        {
+          "text": "The course procedure lists optional gold toning and the sodium thiosulfate fix after development, before the final washes, dehydration, clearing and mounting.",
+          "claims": [
+            "C-course-steps-order"
+          ]
+        },
+        {
+          "text": "Gold toning turns the stain from brown-black to gray-black; sodium thiosulfate removes silver that was never reduced, so the slide stops changing.",
+          "claims": [
+            "C-course-toning-colour",
+            "C-course-thiosulfate-purpose"
+          ]
+        }
+      ],
+      "sub": []
+    },
+    {
+      "id": "end",
+      "title": "What you saw",
+      "caption": "Everything here was a drawing; any darkness came from a teaching model, not a measurement. Explore the tissue or go back to the bench.",
+      "durationMs": 6000,
+      "facts": [
+        {
+          "text": "The course raises fixation-related carbonyls, endogenous carbonyls, reduced metals and other reduction sites as competing explanations for why these structures take silver; none is established and this clip asserts none of them.",
+          "claims": [
+            "C-course-hypotheses"
+          ]
+        }
+      ],
+      "sub": []
+    }
+  ]
+}

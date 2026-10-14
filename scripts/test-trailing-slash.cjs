@@ -14,6 +14,7 @@ const SECTIONS = [
   'anatomy',
   'medicine',
   'neuro',
+  'lab',
   'academy',
   'stats',
   'utsa',

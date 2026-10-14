@@ -37,6 +37,7 @@
     'cs-dat-srs',
     'cs-ekg',
     'cs-genetics',
+    'cs-lab-state-v1',
     'cs-labs',
     'cs-ltl-progress-v1',
     'cs-mcat-course-v1',
@@ -133,6 +134,9 @@
               (rootKey === 'cs-clinical-longitudinal-v1' && longitudinalText.has(key)) ||
               (rootKey === 'cs-neuro' && depth === 0 && key === 'projects') ||
               (rootKey === 'cs-cogpsych' && depth === 0 && key === 'practice') ||
+              (rootKey === 'cs-lab-state-v1' &&
+                depth === 0 &&
+                ['notebook', 'experiments', 'runs', 'measurements', 'moduleProgress', 'notepad'].includes(key)) ||
               (rootKey === 'cs-mcat-course-v1' && depth === 2 && key === 'help'),
             rootKey
           );

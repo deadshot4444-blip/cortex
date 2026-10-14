@@ -9,7 +9,8 @@ const catalog = runInNewContext(
   { window: {}, IS_LOCAL_PREVIEW: false }
 );
 const publicIds = catalog.filter(track => track.available).map(track => track.id);
-if (JSON.stringify(publicIds) !== JSON.stringify(['mcat', 'dat', 'practice']))
+// Kevin opened the Alzheimer's Histology Lab in 2.36.0-beta.1; the other four stay closed.
+if (JSON.stringify(publicIds) !== JSON.stringify(['mcat', 'dat', 'practice', 'lab']))
   throw new Error(`Review public course availability before changing this gate smoke: ${JSON.stringify(publicIds)}`);
 const gateLabel = id => {
   const track = catalog.find(track => track.id === id);
@@ -311,7 +312,7 @@ for (const viewport of viewports) {
     mcatExpandedAfterExplore !== 'false' ||
     exploreExpanded !== 'true' ||
     medicineMenuTag !== 'Under construction' ||
-    JSON.stringify(exploreLearningPaths) !== JSON.stringify(['All courses', 'Anatomy', 'Medicine']) ||
+    JSON.stringify(exploreLearningPaths) !== JSON.stringify(['All courses', 'Anatomy', 'Medicine', 'Histology lab']) ||
     JSON.stringify(quickLabels) !==
       JSON.stringify(['Academy Today', 'My private portfolio', 'Focus timer', 'UTSA & UT Health'])
   ) {

@@ -1,0 +1,968 @@
+/* Alzheimer's Histology Lab. Only .lab-* rules live here (the sheet is linked site-wide from
+   index.html); ids #lab-*, attributes data-lab-*. Light canvas; tokens from styles.css :root.
+   Compact one-rule-per-line style. The shell (lab.js) owns this file; lab-microscope.css and
+   lab-notebook.css hold the microscope and notebook modules' rules. */
+
+/* ---------- SHELL-01: page, type, utilities ---------- */
+.panel.lab-page { max-width: 1120px; }
+.lab-page h1 { font-size: 32px; font-weight: 600; letter-spacing: -.02em; line-height: 1.2; margin: 10px 0 14px; }
+.lab-page h2 { font-size: 22px; letter-spacing: -.02em; line-height: 1.25; margin: 0 0 12px; }
+.lab-page h3 { font-size: 16px; line-height: 1.35; margin: 0 0 8px; }
+.lab-page h4 { font-size: 13px; letter-spacing: .04em; text-transform: uppercase; color: var(--dim); margin: 16px 0 6px; }
+.lab-page p { line-height: 1.6; }
+.lab-page ul, .lab-page ol { padding-left: 20px; line-height: 1.55; }
+.lab-page code { font-family: var(--mono); font-size: .9em; padding: 1px 5px; background: var(--surface); border: 1px solid var(--line); border-radius: 4px; word-break: break-word; }
+.lab-page a:not(.btn) { color: var(--blue); text-underline-offset: 3px; }
+.lab-page button:not(.btn), .lab-page select, .lab-page input, .lab-page textarea { font: inherit; } /* MODE-FIX-shell-22: .btn keeps the house face */
+.lab-page .btn { text-decoration: none; cursor: pointer; }
+.lab-page .btn-solid { color: #fff; }
+.lab-page .btn:disabled { opacity: .45; cursor: default; }
+.lab-lede { max-width: 72ch; color: var(--body); }
+.lab-dim { color: var(--dim); font-size: 13px; }
+.lab-note { color: var(--body); font-size: 14px; max-width: 72ch; }
+.lab-empty { padding: 28px 0; color: var(--dim); }
+.lab-save-status { min-height: 1.4em; margin: 0 0 8px; color: var(--amber); font-size: 14px; }
+.lab-save-status:empty { display: none; }
+.lab-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.lab-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin: 12px 0 0; }
+.lab-endbtns { margin-top: 36px; }
+.lab-notice h1 { font-size: clamp(26px, 3.4vw, 38px); }
+.lab-page .course-notice { margin: 16px 0; }
+
+/* ---------- labels, chips, disclosures ---------- */
+.lab-banner { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; margin: 0 0 12px; font-size: 14px; line-height: 1.4; }
+.lab-banner strong { font-weight: 650; }
+.lab-banner > span:not(.lab-badge) { color: var(--dim); font-size: 13px; }
+.lab-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0; }
+.lab-chip { display: inline-flex; align-items: center; gap: 6px; min-height: 30px; padding: 3px 10px; border: 1px solid var(--line-bright); border-radius: 999px; background: #fff; color: var(--text); font-family: var(--mono); font-size: 12px; letter-spacing: .01em; line-height: 1.3; cursor: pointer; text-align: left; }
+.lab-chip:hover:not(.lab-chip-static) { border-color: var(--text); }
+.lab-chip[aria-expanded="true"] { background: var(--text); color: var(--bg); border-color: var(--text); }
+.lab-chip-static { cursor: default; background: var(--surface); }
+.lab-chip-detail { flex: 1 0 100%; margin-top: 4px; padding: 12px 14px; border: 1px solid var(--line); background: var(--surface); font-size: 14px; }
+.lab-chip-detail[hidden] { display: none; }
+.lab-claim + .lab-claim { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--line); }
+.lab-claim p { margin: 0 0 6px; }
+.lab-sources { margin: 4px 0 0; padding-left: 18px; font-size: 13px; line-height: 1.55; }
+.lab-disclosure { margin-top: 10px; }
+.lab-drawer-btn { display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 6px 12px; border: 1px solid var(--line-bright); border-radius: 7px; background: #fff; color: var(--text); font-size: 13px; font-weight: 600; cursor: pointer; }
+.lab-drawer-btn::before { content: "+"; font-family: var(--mono); color: var(--dim); }
+.lab-drawer-btn[aria-expanded="true"]::before { content: "\2212"; }
+.lab-drawer-btn:hover { border-color: var(--text); }
+.lab-drawer { margin-top: 10px; padding: 14px 16px; border: 1px solid var(--line); background: var(--surface); font-size: 14px; }
+.lab-drawer[hidden] { display: none; }
+.lab-explain p { margin: 0 0 8px; }
+.lab-details summary { cursor: pointer; font-weight: 600; font-size: 14px; padding: 6px 0; }
+.lab-page summary:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+
+/* ---------- forms ---------- */
+.lab-fields { display: grid; gap: 12px 16px; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); align-items: end; }
+.lab-field { display: flex; flex-direction: column; gap: 6px; min-width: 0; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--dim); }
+.lab-field > span abbr { text-decoration: none; color: var(--red); }
+.lab-field select, .lab-field input[type="text"], .lab-field textarea { width: 100%; min-height: 44px; padding: 10px 12px; font: inherit; font-size: 15px; letter-spacing: 0; text-transform: none; color: var(--text); background: #fff; border: 1px solid var(--line-bright); border-radius: 7px; }
+.lab-field textarea { min-height: 110px; line-height: 1.55; resize: vertical; }
+.lab-field.lab-inline { flex-direction: row; align-items: center; gap: 8px; }
+.lab-field.lab-inline select { width: auto; min-height: 36px; padding: 4px 8px; }
+.lab-field.lab-range input[type="range"] { width: 100%; min-width: 160px; accent-color: var(--text); }
+.lab-checks, .lab-check { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 12px 0 0; font-size: 14px; }
+.lab-checks label, .lab-check { display: inline-flex; align-items: center; gap: 8px; min-height: 32px; cursor: pointer; }
+.lab-checks input, .lab-check input { width: 18px; height: 18px; accent-color: var(--text); }
+.lab-checks .lab-dim { flex: 1 0 100%; margin: 0; }
+.lab-field-status { min-height: 1.2em; margin: 4px 0 0; }
+
+/* ---------- tables and key-value lists ---------- */
+.lab-table-wrap { overflow-x: auto; margin: 10px 0; -webkit-overflow-scrolling: touch; }
+.lab-table { width: 100%; min-width: 0; border-collapse: collapse; font-size: 14px; }
+.lab-frame .lab-table, .lab-why-table { font-size: 14px; }
+.lab-frame .lab-table th, .lab-frame .lab-table td { padding: 6px 8px; }
+.lab-table caption { text-align: left; font-size: 12px; letter-spacing: .04em; color: var(--dim); padding: 0 0 6px; }
+.lab-table th, .lab-table td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.lab-table thead th { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--dim); font-weight: 600; }
+.lab-table tbody th { font-weight: 600; }
+.lab-table .lab-num, .lab-log-table td:first-child { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.lab-row-marked th, .lab-row-marked td { background: var(--blue-soft); }
+.lab-kv { display: grid; gap: 8px 18px; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); margin: 12px 0 0; }
+.lab-kv > div { padding: 8px 10px; border: 1px solid var(--line); background: #fff; }
+.lab-kv dt { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--dim); }
+.lab-kv dd { margin: 2px 0 0; font-weight: 600; }
+.lab-caveats { font-size: 14px; }
+.lab-caveats li + li { margin-top: 4px; }
+
+/* ---------- safety gate ---------- */
+.lab-ack { margin: 0; font-weight: 600; color: var(--green); }
+
+/* ---------- bench: history, replay and the microscope fallback views ---------- */
+.lab-bench-body { margin-top: 12px; }
+.lab-log-table { min-width: 460px; }
+.lab-note-form { display: flex; flex-wrap: wrap; align-items: end; gap: 10px 14px; margin-top: 12px; }
+.lab-note-form .lab-field { flex: 1 1 220px; }
+.lab-resolve-out, .lab-compare-out { margin-top: 14px; }
+.lab-describe, .lab-explanation { font-size: 14px; line-height: 1.6; color: var(--body); }
+.lab-frame { padding: 14px 16px; border: 1px solid var(--line); background: #fff; margin-top: 12px; }
+.lab-frame-head { margin: 0 0 8px; }
+.lab-replay-controls { display: flex; flex-wrap: wrap; align-items: end; gap: 10px 14px; }
+.lab-replay-controls .lab-range { flex: 1 1 200px; }
+.lab-scope-inline:empty { display: none; }
+.lab-scope-inline, .lab-scope-host, .lab-notebook-host, .lab-designer-host { margin-top: 16px; }
+
+/* ---------- 3D stage ---------- */
+.lab-stage { position: relative; height: clamp(280px, 48vh, 560px); border: 1px solid var(--line-bright); border-radius: var(--radius-sm); background: var(--surface-2); overflow: hidden; }
+.lab-stage canvas { display: block; width: 100%; height: 100%; }
+.lab-stage-status { position: absolute; inset: auto 12px 12px 12px; margin: 0; padding: 8px 12px; background: rgba(255,255,255,.92); border: 1px solid var(--line); font-size: 13px; }
+.lab-stage-live .lab-stage-status { display: none; }
+
+/* ---------- activities (the stepper itself is the UX-E block at the end) ---------- */
+.lab-module-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin: 16px 0 0; font-size: 14px; }
+.lab-hypotheses { font-size: 16px; }
+.lab-page .lab-fact-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.lab-fact-list li { padding: 10px 0; border-top: 1px solid var(--line); }
+.lab-fact-list li:first-child { border-top: 0; }
+.lab-fact-list p { margin: 0 0 6px; font-size: 15px; }
+
+/* ---------- schematic curves ---------- */
+.lab-curves { margin: 14px 0 0; padding: 16px; border: 1px solid var(--line-bright); background: #fff; }
+.lab-curves-plot { overflow-x: auto; }
+.lab-curves-plot:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+.lab-curves-svg { display: block; width: 100%; max-width: 760px; height: auto; min-width: 280px; }
+.lab-curve-grid { stroke: var(--line); stroke-width: 1; }
+.lab-curve-tick, .lab-curve-label, .lab-curve-axis { font: 12px var(--sans); fill: var(--dim); }
+.lab-curve { fill: none; stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; }
+.lab-curve-binding { stroke: var(--text); }
+.lab-curve-accumulated { stroke: var(--blue); stroke-dasharray: 8 5; }
+.lab-curve-rate { stroke: var(--amber); stroke-dasharray: 2 5; }
+.lab-curve-marker { stroke: var(--red); stroke-width: 1.5; stroke-dasharray: 5 4; }
+.lab-curve-legend { list-style: none; display: flex; flex-wrap: wrap; gap: 8px 20px; padding: 0; margin: 10px 0 0; font-size: 13px; color: var(--body); }
+.lab-curve-legend li { display: inline-flex; align-items: center; gap: 8px; }
+.lab-curve-legend li > span { display: inline-block; width: 28px; border-top: 3px solid var(--text); }
+.lab-legend-accumulated { border-top-style: dashed !important; border-top-color: var(--blue) !important; }
+.lab-legend-rate { border-top-style: dotted !important; border-top-color: var(--amber) !important; }
+.lab-curves figcaption { margin-top: 10px; font-size: 14px; color: var(--body); }
+
+/* ---------- responsive, motion, print ---------- */
+@media (max-width: 560px) {
+  .panel.lab-page { padding-left: 16px; padding-right: 16px; }
+  .lab-page h1 { font-size: 28px; }
+  .lab-log-table { min-width: 420px; }
+  .lab-kv { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .lab-safety { padding: 16px; }
+  .lab-stage { height: 46vh; min-height: 260px; }
+  .lab-field select, .lab-field input[type="text"], .lab-field textarea { font-size: 16px; }
+}
+@media (max-width: 380px) {
+  .lab-kv { grid-template-columns: minmax(0, 1fr); }
+  .lab-fields { grid-template-columns: minmax(0, 1fr); }
+  .lab-page .btn { width: 100%; }
+}
+@media (max-width: 768px) {
+  .lab-chip:not(.lab-chip-static) { min-height: 44px; padding: 8px 14px; }
+  .lab-drawer-btn { min-height: 44px; }
+  .lab-page summary { min-height: 44px; padding: 10px 0; box-sizing: border-box; }
+  .lab-check { min-height: 44px; }
+}
+@media (forced-colors: active) {
+  .lab-chip[aria-expanded="true"] { outline: 2px solid Highlight; outline-offset: 2px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lab-page *, .lab-page *::before, .lab-page *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+}
+@media print {
+  .lab-stage, .lab-stations, .lab-bench-head, .lab-save-status, .lab-endbtns, .lab-note-form, .lab-newrun, .lab-do-actions, .lab-do-more, .lab-result-links, .lab-pair-form, .lab-sheet, .lab-result-thumb { display: none !important; }
+  .lab-page { max-width: none; padding: 0; }
+  .lab-badge { border: 1px solid #000; background: none; color: #000; }
+  .lab-drawer[hidden], .lab-chip-detail[hidden] { display: block !important; }
+  .lab-result-card, .lab-step, .lab-frame, .lab-mstep { break-inside: avoid; }
+}
+
+/* ---------- SHELL-8: tissue clip inside the 3D bench (contract §7.1) ---------- */
+.lab-clip-banner { margin: 2px 0 0; justify-content: center; text-align: center; }
+.lab-clip-layout { display: grid; gap: 12px; grid-template-columns: minmax(0, 1fr); align-items: start; }
+.lab-clip-stage-wrap { min-width: 0; }
+.lab-clip-stage-wrap:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+.lab-clip-caption { margin: 12px auto 0; max-width: 70ch; min-height: 1.5em; text-align: center; font-size: 19px; line-height: 1.5; color: var(--text); }
+.lab-clip-caption:empty { min-height: 0; margin: 0; }
+.lab-clip-transcript { margin-top: 10px; font-size: 14px; }
+.lab-clip-transcript summary { cursor: pointer; font-weight: 600; padding: 6px 0; }
+.lab-clip-list { margin: 8px 0 0; padding-left: 22px; display: flex; flex-direction: column; gap: 8px; }
+.lab-clip-list li { padding: 6px 10px; border-left: 3px solid transparent; }
+.lab-clip-list li p { margin: 2px 0 0; color: var(--body); }
+.lab-clip-list li[aria-current="step"] { border-left-color: var(--blue); background: var(--blue-soft); }
+.lab-clip-text { margin-top: 18px; }
+.lab-clip-text .lab-clip-list { max-width: 80ch; }
+.lab-clip-loaded { margin: 0; color: var(--body); font-size: 14px; }
+.lab-clip-ended { margin: 4px auto 0; max-width: 70ch; text-align: center; color: var(--text); font-size: 16px; font-weight: 600; }
+.lab-clip-note { margin: 6px auto 0; max-width: 70ch; text-align: center; font-size: 14px; }
+.lab-clip-card { padding: 14px 16px; border: 1px solid var(--line-bright); background: #fff; font-size: 14px; }
+.lab-clip-card[hidden] { display: none; }
+.lab-clip-card h3 { margin-bottom: 8px; }
+.lab-clip-kv { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 6px; }
+.lab-clip-card-labels { margin: 10px 0; }
+@media (max-width: 560px) { .lab-clip-caption { font-size: 18px; } }
+@media (max-width: 390px) { .lab-clip-controls .btn { flex: 1 1 calc(50% - 8px); } }
+@media (forced-colors: active) { .lab-clip-list li[aria-current="step"], #lab-clip-explore[aria-pressed="true"] { outline: 2px solid Highlight; outline-offset: 2px; } }
+@media print { .lab-clip-controls, .lab-clip-card, .lab-clip-stage-wrap, .lab-clip-caption, .lab-clip-note, .lab-clip-ended, .lab-stations, .lab-stage-extras { display: none !important; } .lab-clip-transcript { display: block; } }
+
+/* ---------- UX-A: badges, cards, home, How this lab works, compact safety gate (contract §8.1-8.3) ---------- */
+.lab-badge { display: inline-flex; align-items: center; min-height: 26px; padding: 2px 10px; border: 1px solid var(--line-bright); border-radius: 999px; background: #fff; color: var(--body); font-family: var(--sans); font-size: 13px; font-weight: 600; letter-spacing: 0; line-height: 1.3; text-transform: none; vertical-align: middle; }
+.lab-badge-simulated { border-color: var(--amber); color: var(--amber); }
+.lab-badge-not-modeled { border-color: var(--line); background: var(--line); color: var(--text); }
+.lab-badge-reference-none { border-color: var(--line-bright); }
+.lab-badge-in-progress { border-color: var(--line-bright); background: var(--surface); color: var(--text); }
+.lab-view-home, .lab-view-about, .lab-view-modules { font-size: 17px; line-height: 1.5; }
+.lab-view-home .lab-lede, .lab-view-modules .lab-lede { font-size: 17px; }
+.lab-page .lab-cards { list-style: none; margin: 32px 0 0; padding: 0; display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+.lab-card { position: relative; display: flex; flex-direction: column; gap: 8px; min-width: 0; padding: 20px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: #fff; }
+.lab-card:hover { border-color: var(--line-bright); box-shadow: var(--shadow-xs); }
+.lab-card:focus-within { outline: 2px solid var(--blue); outline-offset: 3px; }
+.lab-page .lab-card-title { margin: 0; font-size: 22px; font-weight: 600; letter-spacing: -.01em; line-height: 1.25; }
+.lab-page .lab-card-title a { color: var(--text); text-decoration: none; }
+.lab-page .lab-card-title a:focus-visible { outline: none; }
+.lab-card-title a::after { content: ""; position: absolute; inset: 0; }
+.lab-card-text { margin: 0; color: var(--body); font-size: 16px; line-height: 1.5; }
+.lab-page .lab-home-cards { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.lab-home-card { min-height: 168px; }
+.lab-home-card-step { display: inline-flex; width: 28px; height: 28px; align-items: center; justify-content: center; border: 1px solid var(--line-bright); border-radius: 50%; font-family: var(--mono); font-size: 13px; color: var(--dim); }
+.lab-home-links { display: flex; flex-wrap: wrap; gap: 8px 24px; margin: 24px 0 0; font-size: 16px; }
+.lab-home-intro { max-width: 72ch; margin: 24px 0 0; font-size: 17px; line-height: 1.55; color: var(--body); }
+.lab-home-intro p { margin: 0 0 12px; }
+.lab-home-enter { margin: 24px 0 0; }
+.lab-page .lab-enter { font-size: 16px; padding: 14px 28px; }
+.lab-nav { display: flex; flex-wrap: wrap; gap: 0 22px; margin: 2px 0 10px; font-size: 15px; }
+.lab-nav a { display: inline-flex; align-items: center; min-height: 32px; color: var(--blue); text-decoration: none; }
+.lab-nav a:hover { text-decoration: underline; }
+.lab-notepad { margin: 16px 0 0; padding: 16px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: #fff; }
+.lab-notepad-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.lab-page .lab-notepad h2 { margin: 0; font-size: 18px; }
+.lab-notepad-hint { margin: 6px 0 10px; font-size: 14px; }
+.lab-notepad textarea { display: block; width: 100%; min-height: 240px; padding: 10px 12px; border: 1px solid var(--line-bright); border-radius: var(--radius-sm); font: inherit; font-size: 15px; line-height: 1.5; resize: vertical; }
+.lab-notepad-status { margin: 6px 0 0; min-height: 1.3em; font-size: 14px; }
+.lab-mix-summary { margin: 0 0 6px; font-weight: 600; }
+.lab-guess { margin: 12px 0 0; }
+.lab-guess textarea { width: 100%; max-width: 72ch; resize: vertical; font: inherit; font-size: 15px; padding: 8px 10px; border: 1px solid var(--line-bright); border-radius: var(--radius-sm); }
+.lab-result-guess { margin: 0 0 8px; color: var(--body); }
+.lab-mix-hint { margin: 0 0 12px; max-width: 72ch; }
+.lab-mix .lab-all-settings-body { padding: 16px; border: 1px solid var(--line); border-radius: var(--radius-sm); }
+@media (min-width: 900px) {
+  main.lab-notes-host.lab-notes-open { display: grid; grid-template-columns: minmax(0, 1fr) clamp(280px, 26vw, 320px); column-gap: 28px; align-items: start; }
+  main.lab-notes-host.lab-notes-open > * { grid-column: 1; }
+  main.lab-notes-host.lab-notes-open > .lab-notepad { grid-column: 2; grid-row: 1 / span 40; position: sticky; top: calc(var(--lab-topbar-h, 64px) + 12px); margin: 0; }
+}
+.lab-module-grid .lab-card-title { font-size: 19px; }
+.lab-module-status { margin: auto 0 0; padding-top: 4px; font-size: 14px; color: var(--dim); }
+.lab-module-done .lab-module-status { color: var(--green); font-weight: 600; }
+.lab-progress { margin: 40px 0 0; }
+.lab-progress-text { margin: 0 0 8px; font-size: 15px; font-weight: 600; color: var(--text); }
+.lab-page .lab-progress-segs { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; grid-template-columns: repeat(7, minmax(0, 1fr)); max-width: 560px; }
+.lab-progress-seg { display: flex; align-items: center; justify-content: center; min-height: 40px; border: 1px solid var(--line-bright); border-radius: var(--radius-sm); background: #fff; color: var(--dim); font-family: var(--mono); font-size: 13px; text-decoration: none; }
+.lab-page a.lab-progress-seg { color: var(--dim); }
+.lab-progress-seg:hover { border-color: var(--text); }
+.lab-page a.lab-progress-done { background: var(--text); border-color: var(--text); color: #fff; }
+.lab-progress-check { margin-left: 3px; }
+.lab-page a.lab-progress-seg[aria-current="step"] { border: 2px solid var(--text); color: var(--text); font-weight: 600; }
+.lab-honesty { margin: 40px 0 0; padding-top: 16px; border-top: 1px solid var(--line); font-size: 15px; color: var(--body); }
+.lab-about-section { margin: 40px 0 0; max-width: 72ch; }
+.lab-about-section p { margin: 0 0 12px; }
+.lab-about-labels { display: grid; gap: 14px; margin: 0; }
+.lab-about-labels > div { display: grid; gap: 4px 16px; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 640px) { .lab-about-labels > div { grid-template-columns: 220px minmax(0, 1fr); align-items: baseline; } }
+.lab-about-labels dt { margin: 0; }
+.lab-about-labels dd { margin: 0; color: var(--body); }
+.lab-about-reserved { font-size: 14px; color: var(--dim); }
+.lab-safety-notes { margin: 8px 0 0; padding-left: 20px; font-size: 15px; line-height: 1.5; color: var(--body); }
+.lab-safety-notes li + li { margin-top: 6px; }
+.lab-page .lab-safety-notes-details { list-style: none; padding: 0; }
+.lab-safety-notes-details li + li { margin-top: 0; border-top: 1px solid var(--line); }
+.lab-safety-notes-details summary { cursor: pointer; padding: 8px 0; color: var(--text); font-weight: 600; }
+.lab-safety-notes-details p { margin: 0 0 10px; }
+.lab-safety { margin: 24px 0 0; padding: 20px; border: 1px solid var(--line-bright); border-radius: var(--radius-sm); background: #fff; max-width: 760px; }
+.lab-safety h2 { margin-bottom: 10px; }
+.lab-page .lab-safety-lines { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; font-size: 16px; line-height: 1.5; }
+.lab-safety .lab-drawer-btn, .lab-linkbtn { gap: 6px; min-height: 32px; padding: 4px 0; border: 0; border-radius: 0; background: none; color: var(--blue); font-size: 15px; font-weight: 600; cursor: pointer; }
+.lab-safety .lab-drawer-btn:hover, .lab-linkbtn:hover { text-decoration: underline; text-underline-offset: 3px; }
+.lab-safety .lab-drawer-btn::before { content: none; }
+.lab-safety .lab-drawer-btn::after { content: "+"; font-family: var(--mono); }
+.lab-safety .lab-drawer-btn[aria-expanded="true"]::after { content: "\2212"; }
+.lab-safety .lab-drawer { margin-top: 4px; padding: 4px 0 0; border: 0; background: none; }
+@media (max-width: 560px) {
+  .lab-page .lab-cards { margin-top: 24px; }
+  .lab-card { padding: 16px; }
+  .lab-home-card { min-height: 0; }
+  .lab-safety { padding: 16px; }
+}
+@media (max-width: 768px) {
+  .lab-progress-seg { min-height: 44px; }
+  .lab-home-links a, .lab-honesty a { display: inline-flex; align-items: center; min-height: 44px; }
+  .lab-safety .lab-drawer-btn, .lab-linkbtn, .lab-safety-notes-details summary { min-height: 44px; }
+}
+@media (forced-colors: active) {
+  .lab-badge { border-color: CanvasText; }
+}
+
+/* ---------- UX-B: the bench in three parts (contract §8.3; PLAN-ALZ-LAB-SIMPLIFY §3.3, §5) ---------- */
+.lab-page [hidden] { display: none !important; }
+.panel.lab-view-bench { padding-top: 28px; }
+.lab-view-bench { font-size: 16px; line-height: 1.5; }
+.lab-titlebar { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 8px 24px; }
+.lab-view-bench .lab-titlebar h1 { margin: 6px 0 4px; }
+.lab-bench-headhost { flex: 1 1 520px; min-width: 0; padding-top: 6px; }
+.lab-bench-headhost:empty { display: none; }
+/* header: specimen chip + run name on the left; the Run menu and the view toggle on the right (UX-R2) */
+.lab-bench-head { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 18px; }
+.lab-bench-id { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; margin: 0 auto 0 0; min-width: 0; }
+.lab-specimen-chip { display: inline-flex; align-items: center; min-height: 30px; padding: 3px 12px; border: 1px solid var(--line-bright); border-radius: 999px; background: var(--surface); color: var(--text); font-size: 14px; font-weight: 600; }
+.lab-run-name { color: var(--body); font-size: 14px; }
+/* MODE-FIX-shell-23: the Run menu, the view toggle and Notes are one group that wraps as a whole (right-aligned), never one orphan */
+.lab-bench-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 18px; margin-left: auto; }
+.lab-bench-tools .lab-safety, .lab-bench-tools .lab-safety > .lab-disclosure, .lab-mode-wrap { display: contents; }
+.lab-bench-head .lab-drawer { flex: 1 0 100%; order: 10; margin: 4px 0 0; padding: 16px 20px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: #fff; }
+.lab-safety-drawer .lab-ack { color: var(--body); font-weight: 400; }
+.lab-safety-again { margin: 8px 0 0; }
+.lab-mode-reason { flex: 1 0 100%; order: 9; margin: 0; text-align: right; }
+/* parts 1-3 and History: one heading row each, the 8-pt spacing scale, no nested bordered boxes */
+.lab-part { margin: 24px 0 0; }
+.lab-part-head { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 16px; }
+.lab-page .lab-part h2 { margin: 0 0 12px; font-size: 20px; }
+.lab-setup[data-lab-setup="collapsed"] { padding: 6px 16px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: #fff; }
+.lab-page .lab-setup[data-lab-setup="collapsed"] h2 { margin: 0; font-size: 17px; }
+.lab-setup-line { flex: 1 1 260px; min-width: 0; margin: 0; color: var(--body); font-size: 15px; }
+.lab-newrun { display: grid; gap: 20px; max-width: 960px; }
+.lab-specimens, .lab-change-group { min-width: 0; margin: 0; padding: 0; border: 0; }
+.lab-specimens legend, .lab-change-group legend { margin: 0 0 8px; padding: 0; color: var(--text); font-size: 15px; font-weight: 600; }
+.lab-specimen-cards { display: grid; gap: 12px; grid-template-columns: minmax(0, 1fr); } /* MODE-FIX-shell-27: as the mode cards, never a 3 + 1 orphan */
+@media (min-width: 640px) { .lab-specimen-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.lab-specimen-card { display: flex; align-items: flex-start; gap: 10px; min-height: 44px; padding: 14px 16px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: #fff; cursor: pointer; }
+.lab-specimen-card:hover { border-color: var(--line-bright); }
+.lab-specimen-card:has(input:checked) { border-color: var(--text); box-shadow: inset 0 0 0 1px var(--text); }
+.lab-specimen-card input { flex: 0 0 auto; width: 18px; height: 18px; margin: 3px 0 0; accent-color: var(--text); }
+.lab-specimen-text { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.lab-specimen-text strong { color: var(--text); font-size: 15px; }
+.lab-specimen-text span { color: var(--body); font-size: 14px; line-height: 1.45; }
+.lab-change { display: grid; gap: 12px; }
+.lab-change-what { max-width: 420px; }
+.lab-change-options { display: flex; flex-wrap: wrap; gap: 8px; }
+.lab-seg-option { position: relative; display: inline-flex; }
+.lab-seg-option input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.lab-seg-option span { display: inline-flex; align-items: center; min-height: 40px; padding: 6px 16px; border: 1px solid var(--line-bright); border-radius: var(--radius-sm); background: #fff; color: var(--text); font-size: 15px; cursor: pointer; }
+.lab-seg-option input:checked + span { background: var(--text); border-color: var(--text); color: #fff; }
+.lab-seg-option input:checked + span::before { content: "\2713"; margin-right: 6px; }
+.lab-seg-option input:focus-visible + span { outline: 2px solid var(--blue); outline-offset: 3px; }
+.lab-seg-option input:disabled + span { border-style: dashed; color: var(--dim); cursor: not-allowed; }
+.lab-change-hint { margin: 8px 0 0; }
+.lab-change-summary { margin: 0; color: var(--body); font-size: 15px; }
+.lab-all-settings .lab-drawer { padding: 16px; }
+.lab-all-settings-body > .lab-dim { margin: 0 0 12px; max-width: 72ch; }
+/* 2. Do the steps */
+.lab-do-status { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; margin: 12px 0 0; color: var(--body); font-size: 15px; }
+#lab-do-count { color: var(--text); font-weight: 600; font-variant-numeric: tabular-nums; }
+#lab-do-progress { width: min(240px, 45%); height: 8px; accent-color: var(--text); }
+.lab-do-actions { display: flex; flex-wrap: wrap; gap: 10px 12px; margin: 10px 0 0; }
+.lab-do-more { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 22px; margin: 6px 0 0; }
+.lab-do-more > .lab-disclosure, .lab-result-links > .lab-disclosure { display: contents; }
+/* min-width 0: the drawer is a flex item, so its table's min width would widen the page (A11Y-05) */
+.lab-do-more .lab-drawer, .lab-result-links .lab-drawer { flex: 1 0 100%; order: 10; min-width: 0; max-width: 100%; margin: 8px 0 0; padding: 16px 0 0; border: 0; border-top: 1px solid var(--line); background: none; font-size: 15px; }
+.lab-do-more .lab-drawer-btn, .lab-result-links .lab-drawer-btn { min-height: 32px; padding: 4px 0; border: 0; border-radius: 0; background: none; color: var(--blue); font-size: 15px; font-weight: 600; }
+.lab-do-more .lab-drawer-btn::before, .lab-result-links .lab-drawer-btn::before { content: none; }
+.lab-do-more .lab-drawer-btn::after, .lab-result-links .lab-drawer-btn::after { content: "+"; font-family: var(--mono); }
+.lab-do-more .lab-drawer-btn[aria-expanded="true"]::after, .lab-result-links .lab-drawer-btn[aria-expanded="true"]::after { content: "\2212"; }
+.lab-do-more .lab-drawer-btn:hover, .lab-result-links .lab-drawer-btn:hover { text-decoration: underline; text-underline-offset: 3px; }
+.lab-do-reduced { min-height: 32px; margin: 0; font-size: 15px; }
+.lab-step-order { display: inline-flex; flex: 0 0 auto; align-items: center; justify-content: center; width: 24px; height: 24px; border: 1px solid var(--line-bright); border-radius: 50%; color: var(--dim); font-family: var(--mono); font-size: 12px; }
+.lab-page .lab-step-list { list-style: none; margin: 0; padding: 0; border: 1px solid var(--line); border-radius: var(--radius-sm); background: #fff; }
+.lab-step { display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 6px 14px; border-top: 1px solid var(--line); }
+.lab-step:first-child { border-top: 0; }
+.lab-step-main { flex: 1 1 auto; min-width: 0; }
+.lab-step-title { display: block; line-height: 1.35; }
+.lab-step-state { display: block; min-width: 0; overflow: hidden; color: var(--dim); font-size: 13px; line-height: 18px; white-space: nowrap; text-overflow: ellipsis; }
+.lab-step-done .lab-step-order { background: var(--text); border-color: var(--text); color: #fff; }
+/* MODE-FIX-shell-28: free bench rows carry a small jar (a lidded glass, drawn), not an ordinal; a done jar is filled */
+.lab-step-order.lab-step-jar { position: relative; width: 20px; height: 22px; margin: 2px 2px 0; border-radius: 3px 3px 7px 7px; }
+.lab-step-order.lab-step-jar::before { content: ""; position: absolute; top: -5px; left: 3px; right: 3px; height: 4px; border: 1px solid var(--line-bright); border-bottom: 0; border-radius: 2px 2px 0 0; background: #fff; }
+.lab-step-done .lab-step-order.lab-step-jar::before { background: var(--text); border-color: var(--text); }
+.lab-step-done .lab-step-state { color: var(--green); font-weight: 600; }
+.lab-step-next { background: var(--blue-soft); }
+.lab-step-next .lab-step-title, .lab-step-next .lab-step-state { color: var(--text); font-weight: 600; }
+.lab-stage-extras { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 22px; margin: 12px 0 0; }
+.lab-stage-tip { flex: 1 0 100%; margin: 0; }
+/* the clip block: caption, controls row, transcript and label, only while the intro or the dive plays */
+.lab-clip-block { display: grid; justify-items: center; gap: 8px; }
+.lab-clip-controls { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.lab-clip-transcript { justify-self: stretch; text-align: center; }
+.lab-clip-transcript[open] { text-align: left; }
+/* 3. Result: one card */
+.lab-result-card { padding: 20px; border: 1px solid var(--line-bright); border-radius: var(--radius-sm); background: #fff; }
+.lab-result-card > .lab-banner { margin-bottom: 12px; }
+.lab-result-body { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 16px 20px; }
+.lab-result-thumb { display: flex; flex: 0 0 auto; flex-direction: column; gap: 6px; padding: 0; border: 0; background: none; color: var(--blue); font-size: 14px; font-weight: 600; text-align: left; cursor: pointer; }
+.lab-result-pic { display: block; overflow: hidden; border: 1px solid var(--line); border-radius: 4px; background: var(--surface); }
+.lab-result-canvas { display: block; }
+.lab-result-thumb:hover .lab-result-pic { border-color: var(--text); }
+.lab-result-thumb:hover .lab-result-thumb-text { text-decoration: underline; text-underline-offset: 3px; }
+.lab-result-text { flex: 1 1 280px; min-width: 0; max-width: 72ch; }
+.lab-result-summary { margin: 0; color: var(--text); font-size: 17px; line-height: 1.5; }
+.lab-result-needs, .lab-result-flag { margin: 8px 0 0; color: var(--body); font-size: 15px; }
+.lab-result-links { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 24px; margin: 14px 0 0; }
+.lab-page .lab-result-links > a.lab-result-design { font-size: 15px; font-weight: 600; text-decoration: none; }
+.lab-page .lab-result-links > a.lab-result-design:hover { text-decoration: underline; }
+/* the badge a resolve or a comparison focuses: a visible ring for keyboard users (KB-03) */
+.lab-result-card > .lab-banner:focus-visible { outline: 2px solid var(--blue); outline-offset: 4px; border-radius: 4px; }
+.lab-why-flag { color: var(--text); }
+.lab-scope-title { margin: 16px 0 0; color: var(--text); font-size: 15px; font-weight: 600; }
+.lab-scope-title + .lab-scope-inline { margin-top: 8px; }
+.lab-empty-line { margin: 0; padding: 16px 20px; border: 1px dashed var(--line-bright); border-radius: var(--radius-sm); color: var(--dim); }
+.lab-scope-full { margin: 8px 0 0; font-size: 15px; }
+.lab-page .lab-bench-honesty { margin: 20px 0 0; padding-top: 12px; font-size: 14px; }
+.lab-why-body { max-width: 80ch; }
+.lab-scale { margin: 0 0 6px; color: var(--dim); font-size: 14px; }
+.lab-th-engine { display: block; color: var(--dim); font-family: var(--mono); font-size: 10px; font-weight: 400; letter-spacing: .04em; text-transform: none; }
+.lab-page .lab-why-body h3, .lab-page .lab-why-body h4, .lab-page .lab-why-body h5 { margin: 16px 0 6px; color: var(--text); font-size: 15px; letter-spacing: 0; text-transform: none; }
+.lab-why-rules, .lab-why-body .lab-caveats { font-size: 15px; }
+.lab-why-card { margin-top: 16px; }
+.lab-sources-disclosure { margin-top: 12px; }
+.lab-pair { margin: 24px 0 0; padding-top: 20px; border-top: 1px solid var(--line); }
+.lab-page .lab-pair h3 { margin: 0 0 8px; font-size: 18px; }
+.lab-pair-form { display: grid; gap: 14px; max-width: 960px; }
+.lab-pair-form .lab-note { margin: 0; }
+.lab-compare-existing { margin-top: 8px; }
+.lab-pair-existing { display: grid; gap: 12px; }
+/* History */
+.lab-history { padding-top: 20px; border-top: 1px solid var(--line); }
+.lab-history-runs { max-width: 640px; margin: 8px 0 0; }
+.lab-history .lab-log, .lab-history .lab-replay { margin-top: 28px; }
+.lab-3d-replay { margin-top: 16px; }
+/* the step side sheet: beside the bench, below the site's top bar, at 900px and up (room is kept for it);
+   below 900px (or on a short screen) a modal dialog under the top bar, the page behind it inert (A11Y-02) */
+.lab-sheet { position: fixed; z-index: 45; top: var(--lab-topbar-h, 64px); right: 0; bottom: 0; width: min(420px, 100vw); overflow-y: auto; padding: 20px 24px 32px; border-left: 1px solid var(--line-bright); background: #fff; box-shadow: var(--shadow-md); font-size: 15px; line-height: 1.5; overscroll-behavior: contain; }
+.lab-sheet-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.lab-page .lab-sheet h2 { margin: 6px 0 0; font-size: 20px; }
+.lab-page .lab-sheet h3 { margin: 18px 0 6px; font-size: 15px; }
+.lab-sheet-kicker { margin: 4px 0 0; color: var(--dim); font-size: 13px; }
+.lab-sheet-body p { margin: 0 0 8px; }
+.lab-sheet-effects { margin: 0; }
+.lab-page .lab-hazards { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.lab-hazard-title { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+.lab-sheet .lab-hazard-text { color: var(--body); font-size: 14px; }
+.lab-sheet-quant { margin-top: 12px; }
+dl.lab-sheet-quant { margin: 0; display: grid; grid-template-columns: max-content 1fr; gap: 4px 12px; font-size: 14px; }
+dl.lab-sheet-quant > div { display: contents; }
+dl.lab-sheet-quant dt { font-weight: 600; color: var(--text); }
+dl.lab-sheet-quant dd { margin: 0; color: var(--body); }
+.lab-sheet-pick { margin-top: 18px; }
+@media (min-width: 900px) {
+  #app main.lab-view-bench.lab-sheet-side { padding-right: max(28px, calc(444px - max(0px, (100vw - 1120px) / 2))); }
+}
+@media (max-width: 899.98px) {
+  .lab-sheet { left: 0; width: auto; border-top: 1px solid var(--line-bright); border-left: 0; }
+}
+.lab-sheet[aria-modal="true"] { left: 0; width: auto; border-left: 0; border-top: 1px solid var(--line-bright); }
+@media (max-width: 560px) {
+  .panel.lab-view-bench { padding-top: 20px; }
+  .lab-bench-headhost { flex-basis: 100%; padding-top: 0; }
+  .lab-bench-tools { margin-left: 0; gap: 6px 8px; } /* MODE-FIX-shell-9: Run, Switch and Notes on one left-aligned row at 320 px */
+  .lab-menu { margin-left: 0; }
+  .lab-mode-reason { text-align: left; }
+  .lab-do-actions { display: contents; }
+  .lab-do-actions .btn { width: 100%; margin-top: 10px; }
+  .lab-result-card { padding: 16px; }
+  .lab-sheet { padding: 16px 16px 24px; }
+}
+/* a sticky primary action only in list mode, where the screen is tall enough to keep room for the focused
+   control (A11Y-03): it wraps to up to three lines (94px at 320px), so the page keeps that much room under
+   a focused control. In 3D it stays in the flow right under the stage, which nothing covers. */
+@media (max-width: 560px) and (min-height: 520px) {
+  #lab-do:not(.lab-bench-3d) #lab-do-step { position: sticky; bottom: calc(10px + env(safe-area-inset-bottom)); z-index: 4; }
+  html:has(#lab-do:not(.lab-bench-3d) #lab-do-step) { scroll-padding-bottom: calc(112px + env(safe-area-inset-bottom)); }
+  #lab-do.lab-slide-dragging #lab-do-step { visibility: hidden; }
+}
+@media (max-width: 768px) {
+  .lab-page .btn, .lab-head-btn, .lab-seg-option span, .lab-result-thumb, .lab-do-reduced { min-height: 44px; }
+  .lab-do-more .lab-drawer-btn, .lab-result-links .lab-drawer-btn, .lab-page .lab-result-links > a.lab-result-design { min-height: 44px; }
+  .lab-result-links > a.lab-result-design { display: inline-flex; align-items: center; }
+  .lab-field.lab-range input[type="range"]#lab-replay-range { height: 44px; } /* A11Y-08: a 44px slider on touch */
+}
+@media (forced-colors: active) {
+  .lab-seg-option input:checked + span, .lab-step-next, .lab-specimen-card:has(input:checked) { outline: 2px solid Highlight; outline-offset: 2px; }
+  .lab-sheet, .lab-result-card { border-color: CanvasText; }
+  /* link-styled buttons keep looking like links (A11Y-09) */
+  .lab-linkbtn, .lab-result-links .lab-drawer-btn, .lab-do-more .lab-drawer-btn, .lab-readfirst .lab-drawer-btn, .lab-safety .lab-drawer-btn, .lab-mstep-tool > .lab-disclosure > .lab-drawer-btn, .lab-scope-pick-wrap > .lab-drawer-btn, .lab-result-thumb-text { color: LinkText; text-decoration: underline; }
+}
+/* UX-B polish: plain sans labels on the bench, one link-button style, the fixed side sheet */
+#app main.lab-view-bench { animation-fill-mode: backwards; } /* a lingering transform would trap the fixed side sheet */
+.lab-view-bench .lab-field > span { color: var(--text); font-family: var(--sans); font-size: 14px; font-weight: 600; letter-spacing: 0; text-transform: none; }
+.lab-view-bench .lab-field select, .lab-view-bench .lab-field input[type="text"] { font-family: var(--sans); }
+.lab-page .lab-linkbtn { font-size: 15px; font-weight: 600; }
+.lab-history-runs { grid-template-columns: minmax(0, 1fr); }
+.lab-replay-live { margin: 10px 0 0; color: var(--body); font-size: 15px; }
+/* the site's sticky top bar is 64px wide-screen and up to 159px narrow: everything that scrolls into
+   view, by script or by Tab, clears its measured height (KB-01, A11Y-04) */
+html:has(.lab-page) { scroll-padding-top: calc(var(--lab-topbar-h, 64px) + 8px); }
+.lab-do-finished { color: var(--text); }
+.lab-result-pic, .lab-result-canvas { width: 216px; height: 162px; }
+/* §12.4: a real photo in the thumbnail box (the drawing's box; cover, never stretched); the badge sits above it, covering nothing */
+.lab-result-pic-real { position: relative; background: var(--surface-2); }
+.lab-result-photo { display: block; width: 100%; height: 100%; object-fit: cover; }
+.lab-thumb-real { margin: 0; }
+.lab-slide-now-thumbwrap { margin: 0 0 12px; }
+
+/* ---------- UX-E: activities stepper and host view headers (contract §8.3; PLAN-ALZ-LAB-SIMPLIFY §3.5, §5) ---------- */
+.lab-backlink { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 24px; margin: 0 0 6px; font-size: 15px; }
+.lab-page .lab-backlink a { display: inline-flex; align-items: center; gap: 6px; text-decoration: none; }
+.lab-page .lab-backlink a:hover { text-decoration: underline; }
+.lab-view-module { font-size: 17px; line-height: 1.5; }
+.lab-view-module .lab-lede, .lab-view-host .lab-lede { font-size: 17px; }
+.lab-module-state { margin: 0 0 8px; }
+.lab-mstepper { margin: 24px 0 0; }
+.lab-page .lab-mstep-dots { list-style: none; display: flex; gap: 6px; max-width: 320px; margin: 0 0 16px; padding: 0; }
+.lab-mstep-dots li { flex: 1 1 0; height: 6px; border-radius: 3px; background: var(--line); }
+.lab-mstep-dots .lab-dot-done { background: var(--faint); }
+.lab-mstep-dots .lab-dot-current { background: var(--text); }
+.lab-mstep { display: grid; gap: 24px; grid-template-columns: minmax(0, 1fr); align-items: start; }
+.lab-mstep-head, .lab-mstep-work { min-width: 0; }
+.lab-page .lab-mstep h2 { display: flex; flex-direction: column; gap: 6px; margin: 0; font-size: 24px; font-weight: 600; letter-spacing: -.01em; line-height: 1.25; }
+.lab-mstep-prompt { margin: 12px 0 0; max-width: 72ch; color: var(--text); font-size: 18px; line-height: 1.5; }
+.lab-mstep-work, .lab-answers, .lab-answer { display: grid; grid-template-columns: minmax(0, 1fr); }
+.lab-mstep-work { gap: 24px; }
+.lab-mstep-tool:empty { display: none; }
+.lab-mstep-tool > .lab-note, .lab-mstep-tool > .lab-row:first-child { margin-top: 0; }
+.lab-mstep-tool .lab-note { margin: 0; font-size: 16px; }
+.lab-mstep-tool .lab-safety { margin-top: 0; }
+.lab-mstep-tool > .lab-disclosure { margin-top: 8px; }
+.lab-mstep-tool > .lab-disclosure > .lab-drawer { padding: 4px 0 0; border: 0; background: none; }
+.lab-page .lab-module-runs { margin: 10px 0 0; padding-left: 20px; display: grid; gap: 4px; font-size: 16px; }
+.lab-page .lab-module-compare { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); max-width: 640px; margin: 0; }
+.lab-module-compare .lab-row { grid-column: 1 / -1; margin: 0; }
+.lab-view-module .lab-field > span { color: var(--text); font-family: var(--sans); font-size: 15px; font-weight: 600; letter-spacing: 0; text-transform: none; }
+.lab-view-module .lab-field select { font-family: var(--sans); }
+.lab-page .lab-curves-fields { grid-template-columns: minmax(0, 340px); margin-bottom: 12px; }
+.lab-curves-note { margin: 10px 0 0; color: var(--body); font-size: 15px; }
+.lab-curves .lab-result-links { margin-top: 6px; }
+.lab-answers { gap: 20px; }
+.lab-answer { gap: 6px; max-width: 72ch; }
+.lab-answers-grouped .lab-answer { padding: 16px 20px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: #fff; }
+.lab-answer-name { color: var(--text); font-size: 16px; font-weight: 600; }
+.lab-req { color: var(--body); font-weight: 400; }
+.lab-answer-hint { margin: 0; color: var(--body); font-size: 15px; line-height: 1.5; }
+.lab-answer-text { width: 100%; min-height: 120px; padding: 10px 12px; font: inherit; font-size: 16px; line-height: 1.5; color: var(--text); background: #fff; border: 1px solid var(--line-bright); border-radius: 7px; resize: vertical; }
+.lab-answer .lab-field-status { min-height: 1.2em; margin: 0; color: var(--dim); font-size: 13px; }
+/* Read first: one tinted box (no nested borders); its Sources link opens the claim chips and the other facts */
+.lab-readfirst { padding: 16px 20px; border-radius: var(--radius-sm); background: var(--surface); }
+.lab-page .lab-readfirst h3 { margin: 0 0 8px; font-size: 16px; }
+.lab-page .lab-readfirst-list { display: grid; gap: 8px; margin: 0; padding-left: 20px; color: var(--body); font-size: 15px; line-height: 1.5; }
+.lab-readfirst .lab-disclosure { margin-top: 10px; }
+/* link-styled disclosures inside a step: Read the clip as text, Sources */
+.lab-readfirst .lab-drawer-btn, .lab-mstep-tool > .lab-disclosure > .lab-drawer-btn, .lab-scope-pick-wrap > .lab-drawer-btn { min-height: 32px; padding: 4px 0; border: 0; border-radius: 0; background: none; color: var(--blue); font-size: 15px; font-weight: 600; }
+.lab-readfirst .lab-drawer-btn::before, .lab-mstep-tool > .lab-disclosure > .lab-drawer-btn::before, .lab-scope-pick-wrap > .lab-drawer-btn::before { content: none; }
+.lab-readfirst .lab-drawer-btn::after, .lab-mstep-tool > .lab-disclosure > .lab-drawer-btn::after, .lab-scope-pick-wrap > .lab-drawer-btn::after { content: "+"; font-family: var(--mono); }
+.lab-readfirst .lab-drawer-btn[aria-expanded="true"]::after, .lab-mstep-tool > .lab-disclosure > .lab-drawer-btn[aria-expanded="true"]::after, .lab-scope-pick-wrap > .lab-drawer-btn[aria-expanded="true"]::after { content: "\2212"; }
+.lab-readfirst .lab-drawer-btn:hover, .lab-mstep-tool > .lab-disclosure > .lab-drawer-btn:hover, .lab-scope-pick-wrap > .lab-drawer-btn:hover { text-decoration: underline; text-underline-offset: 3px; }
+.lab-readfirst .lab-drawer { margin-top: 4px; padding: 8px 0 0; border: 0; border-top: 1px solid var(--line-bright); background: none; }
+.lab-page .lab-module-sources h4 { margin: 14px 0 4px; color: var(--text); font-size: 14px; letter-spacing: 0; text-transform: none; }
+.lab-module-sources .lab-fact-list p.lab-dim { margin: 0 0 2px; }
+@media (min-width: 960px) {
+  .lab-mstep { grid-template-columns: minmax(0, 1fr) minmax(260px, 340px); grid-template-rows: auto 1fr; grid-template-areas: "head side" "work side"; gap: 24px 48px; }
+  .lab-mstep-head { grid-area: head; }
+  .lab-mstep-work { grid-area: work; }
+  .lab-readfirst { grid-area: side; position: sticky; top: calc(var(--lab-topbar-h, 64px) + 8px); }
+}
+.lab-mstep-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 12px; margin: 32px 0 0; padding-top: 16px; border-top: 1px solid var(--line); }
+.lab-page #lab-module-next { margin-left: auto; }
+.lab-designer-new { font-weight: 600; }
+.lab-page a.lab-designer-fresh { font-size: 16px; font-weight: 600; }
+.lab-mstep-tool .lab-designer-checklist { margin: 10px 0 0; color: var(--body); font-size: 15px; }
+@media (max-width: 560px) {
+  .lab-page .lab-mstep h2 { font-size: 21px; }
+  .lab-mstep-prompt { font-size: 17px; }
+  .lab-readfirst, .lab-answers-grouped .lab-answer { padding: 14px 16px; }
+  .lab-mstep .lab-curves { padding: 12px; }
+  .lab-curves-svg { min-width: 400px; } /* readable labels; the plot region scrolls sideways */
+  .lab-curve-tick, .lab-curve-label, .lab-curve-axis { font-size: 16px; }
+  .lab-mstep-nav { flex-wrap: nowrap; margin: 24px -16px 0; padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); border-top: 1px solid var(--line-bright); background: var(--bg); }
+  .lab-mstep-nav .btn { width: auto; }
+  .lab-page #lab-module-next { flex: 1 1 auto; justify-content: center; }
+  .lab-mstep-next-name { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+}
+/* the Back / Next bar sticks only on a tall enough phone screen, and scrolling keeps focus above it (A11Y-03) */
+@media (max-width: 560px) and (min-height: 520px) {
+  .lab-mstep-nav { position: sticky; bottom: 0; z-index: 4; }
+  html:has(.lab-view-module) { scroll-padding-bottom: 88px; }
+}
+@media (max-width: 768px) {
+  .lab-backlink a, .lab-designer-new, .lab-designer-fresh, .lab-module-meta a, .lab-module-runs a, .lab-module-full, .lab-readfirst .lab-drawer-btn, .lab-mstep-tool > .lab-disclosure > .lab-drawer-btn, .lab-scope-pick-wrap > .lab-drawer-btn { display: inline-flex; align-items: center; min-height: 44px; }
+}
+@media (forced-colors: active) {
+  .lab-mstep-dots li { border: 1px solid CanvasText; }
+  .lab-mstep-dots .lab-dot-done, .lab-mstep-dots .lab-dot-current { background: CanvasText; }
+  .lab-readfirst, .lab-answers-grouped .lab-answer { border: 1px solid CanvasText; }
+}
+
+/* ---------- UX-R2: the bench's control budget while steps remain ---------- */
+/* header: ONE Run menu (New run, History, Safety notes) and ONE view toggle, pushed right on every line */
+.lab-head-btn { display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 4px 14px; border: 1px solid var(--line-bright); border-radius: var(--radius-sm); background: #fff; color: var(--text); font-size: 14px; font-weight: 600; cursor: pointer; }
+.lab-head-btn:hover:not(:disabled) { border-color: var(--text); }
+.lab-head-btn:disabled { color: var(--faint); cursor: not-allowed; }
+.lab-menu { position: relative; margin-left: auto; }
+.lab-menu-caret { width: 0; height: 0; border-top: 5px solid currentColor; border-right: 4px solid transparent; border-left: 4px solid transparent; }
+.lab-menu-btn[aria-expanded="true"] { border-color: var(--text); }
+.lab-menu-btn[aria-expanded="true"] .lab-menu-caret { transform: rotate(180deg); }
+.lab-menu-panel { position: absolute; z-index: 30; top: calc(100% + 6px); right: 0; width: max-content; min-width: 220px; max-width: min(400px, calc(100vw - 32px)); max-height: calc(100vh - var(--lab-topbar-h, 64px) - 140px); overflow-y: auto; padding: 6px 0; border: 1px solid var(--line-bright); border-radius: var(--radius-sm); background: #fff; box-shadow: var(--shadow-md); font-size: 15px; }
+.lab-menu-panel > .lab-linkbtn, .lab-menu-panel .lab-safety .lab-drawer-btn { display: flex; width: 100%; min-height: 40px; padding: 8px 16px; color: var(--text); text-align: left; }
+.lab-menu-panel > .lab-linkbtn:hover, .lab-menu-panel .lab-safety .lab-drawer-btn:hover { background: var(--surface-2); text-decoration: none; }
+.lab-menu-panel .lab-safety .lab-drawer-btn::after { margin-left: auto; color: var(--dim); }
+.lab-bench-head .lab-menu-panel .lab-drawer { margin: 0; padding: 8px 16px 12px; border: 0; border-top: 1px solid var(--line); border-radius: 0; background: none; }
+.lab-menu-panel .lab-safety-notes { max-width: 52ch; }
+/* 3D options: one link-styled disclosure beside the canvas tip; its body opens under them */
+.lab-stage-extras > .lab-3d-options { display: contents; }
+.lab-3d-options > .lab-drawer-btn { min-height: 32px; padding: 4px 0; border: 0; border-radius: 0; background: none; color: var(--blue); font-size: 15px; font-weight: 600; }
+.lab-3d-options > .lab-drawer-btn::before { content: none; }
+.lab-3d-options > .lab-drawer-btn::after { content: "+"; font-family: var(--mono); }
+.lab-3d-options > .lab-drawer-btn[aria-expanded="true"]::after { content: "\2212"; }
+.lab-3d-options > .lab-drawer-btn:hover { text-decoration: underline; text-underline-offset: 3px; }
+.lab-3d-options-body { display: flex; flex: 1 0 100%; flex-wrap: wrap; align-items: center; order: 10; gap: 8px 22px; min-width: 0; margin: 0; padding: 12px 0 0; border: 0; border-top: 1px solid var(--line); background: none; font-size: 15px; }
+.lab-stage-extras > .lab-stage-tip { flex: 1 1 320px; }
+/* the bench's transient hint (api.onHint) over the stage's lower edge */
+.lab-clip-stage-wrap { position: relative; }
+.lab-stage-box { position: relative; }
+.lab-stage-hint { position: absolute; left: 50%; bottom: 14px; z-index: 2; width: max-content; max-width: calc(100% - 32px); margin: 0; padding: 6px 14px; border-radius: 999px; background: rgba(17, 17, 20, .86); color: #fff; font-size: 14px; line-height: 1.4; text-align: center; pointer-events: none; opacity: 0; transform: translateX(-50%); transition: opacity .2s ease; }
+.lab-stage-hint:empty { padding: 0; }
+.lab-stage-hint.lab-stage-hint-on { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .lab-stage-hint { transition: none; } }
+/* on a narrow screen the open menu spans the header (the Run button need not sit at the right edge) */
+@media (max-width: 640px) {
+  .lab-bench-head { position: relative; }
+  .lab-menu { position: static; }
+  .lab-menu-panel { left: 0; right: 0; width: auto; max-width: none; }
+}
+@media (max-width: 768px) {
+  .lab-3d-options > .lab-drawer-btn, .lab-menu-panel > .lab-linkbtn, .lab-menu-panel .lab-safety .lab-drawer-btn { min-height: 44px; }
+}
+@media (forced-colors: active) {
+  .lab-head-btn, .lab-menu-panel { border-color: CanvasText; }
+  .lab-menu-caret { border-top-color: ButtonText; }
+  .lab-3d-options > .lab-drawer-btn { color: LinkText; text-decoration: underline; }
+  .lab-stage-hint { border: 1px solid CanvasText; background: Canvas; color: CanvasText; }
+}
+/* ---------- UX-POLISH: sealed runs, the finished sheet, plain run log ---------- */
+/* a finished run's step sheet (and a sealed slide's) */
+.lab-sheet-finished { margin: 12px 0 0; padding: 8px 12px; border-left: 3px solid var(--text); background: var(--surface-2); }
+/* a sealed run (made by "Make the runs for me"): its name and the way to the predictions, no picture */
+.lab-sealed-card, .lab-sealed-ready { padding: 16px 20px; border: 1px dashed var(--line-bright); border-radius: var(--radius-sm); background: #fff; }
+.lab-sealed-card + .lab-sealed-card { margin-top: 12px; }
+.lab-sealed-run { margin: 0 0 4px; color: var(--text); font-weight: 600; }
+.lab-sealed { margin: 0; }
+.lab-sealed-ready { border-style: solid; border-color: var(--text); }
+.lab-sealed-ready p { margin: 0 0 8px; }
+.lab-sealed-ready p:last-child { margin-bottom: 0; }
+.lab-page .lab-sealed-runs { margin: 0 0 8px; padding-left: 20px; }
+.lab-sealed-ready:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+.lab-log-settings { margin: 0 0 4px; color: var(--dim); font-size: 14px; }
+/* the full microscope's second way back, under the viewer (styled as the back link at the top) */
+.lab-backlink-end { margin: 24px 0 0; font-size: 15px; }
+.lab-page .lab-backlink-end a { display: inline-flex; align-items: center; gap: 6px; text-decoration: none; }
+.lab-page .lab-backlink-end a:hover { text-decoration: underline; }
+@media (max-width: 560px) { .lab-sealed-card, .lab-sealed-ready { padding: 14px 16px; } }
+@media (max-width: 768px) { .lab-page .lab-backlink-end a { min-height: 44px; } }
+@media (forced-colors: active) {
+  .lab-sealed-card, .lab-sealed-ready { border-color: CanvasText; }
+  .lab-sheet-finished { border-left-color: CanvasText; }
+}
+/* ---------- UX-LAST: refused "Make the runs for me", microscope split, select chevron ---------- */
+/* the bench cannot make the planned change: nothing was made; the way back to designer step 2 */
+.lab-make-refused { margin: 0 0 18px; padding: 16px 20px; border: 1px solid var(--text); border-radius: var(--radius-sm); background: #fff; }
+.lab-make-refused p { margin: 0; }
+.lab-make-refused:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+/* one run sealed, the other open: the open run's picture beside the sealed card (stacked on phones) */
+.lab-scope-split { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 16px; }
+.lab-scope-split > .lab-sealed-card { flex: 1 1 240px; min-width: 0; }
+.lab-scope-split > .lab-sealed-card + .lab-sealed-card { margin-top: 0; }
+.lab-scope-split > .lab-scope-split-open { flex: 3 1 480px; min-width: 0; }
+.lab-scope-split-open > .lab-scope-title { margin: 0 0 8px; }
+/* native selects: room for the chevron, so a long run name never runs under it */
+.lab-page select:not([multiple]) { padding-right: 36px; text-overflow: ellipsis; }
+@media (max-width: 560px) { .lab-make-refused { padding: 14px 16px; } }
+@media (forced-colors: active) { .lab-make-refused { border-color: CanvasText; } }
+/* ---------- TONING: steps the run's settings skip (ENGINE-14) ---------- */
+/* never next, never done: a dashed number and the words "Skipped (your setting)" (the list and the sheet) */
+.lab-step-skipped .lab-step-order { border-style: dashed; }
+.lab-step-skipped .lab-step-title { color: var(--dim); }
+.lab-step-skipped .lab-step-state { color: var(--text); font-style: italic; }
+.lab-sheet-skipped { margin: 12px 0 0; padding: 8px 12px; border-left: 3px dashed var(--text); background: var(--surface-2); }
+@media (forced-colors: active) { .lab-sheet-skipped { border-left-color: CanvasText; } }
+/* ---------- GAME: hints that say what a control does, the 3D HUD, the slide chip in list mode (contract §10) ---------- */
+/* a hint: the verb first, then what it does; caption text, never a pill or a box, so it never looks like a
+   button; "Show hints" off (html.lab-hints-off) hides every one */
+.lab-hints { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 16px; margin: 0; }
+.lab-hint { display: inline; max-width: 100%; color: var(--body); font-size: 13px; line-height: 1.45; }
+.lab-hint-verb { color: var(--text); font-weight: 600; }
+html.lab-hints-off .lab-hint, html.lab-hints-off .lab-hints, html.lab-hints-off .lab-hud { display: none !important; }
+/* "Show hints" in the Run menu, styled as the menu's other rows */
+.lab-menu-panel > .lab-menu-check { display: flex; flex-wrap: nowrap; width: 100%; min-height: 40px; margin: 0; padding: 8px 16px; border-top: 1px solid var(--line); box-sizing: border-box; color: var(--text); font-size: 15px; font-weight: 600; }
+.lab-menu-panel > .lab-menu-check:hover { background: var(--surface-2); }
+/* 3D: a row of hints right under the stage, in the flow, so nothing covers the scene; they never take a click */
+.lab-hud { position: static; display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 16px; margin: 8px 0 0; pointer-events: none; }
+/* list mode: the slide chip that drags onto a step row, its hint line and the refused-drop note; while a
+   drag is on, the sticky "Do this step" of a phone hides (with the sticky rule: only where it sticks), so
+   it never covers a row (nor takes the drop) */
+.lab-play { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin: 0 0 10px; }
+.lab-slide-chip { display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 4px 12px 4px 8px; border: 1px solid var(--line-bright); border-radius: var(--radius-sm); background: #fff; color: var(--text); font-size: 14px; font-weight: 600; cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none; }
+.lab-slide-chip:hover { border-color: var(--text); }
+.lab-slide-chip.lab-dragging { cursor: grabbing; opacity: .45; }
+.lab-slide-glass { display: inline-block; flex: 0 0 auto; width: 40px; height: 14px; border: 1px solid var(--line-bright); border-radius: 2px; background: linear-gradient(90deg, var(--surface-2) 0 28%, #d6dae0 28% 72%, var(--surface-2) 72%); }
+.lab-slide-ghost { position: fixed; z-index: 60; display: inline-flex; align-items: center; gap: 8px; max-width: min(320px, 80vw); margin: 0; padding: 4px 12px 4px 8px; border: 1px solid var(--text); border-radius: var(--radius-sm); background: #fff; color: var(--text); font-size: 13px; font-weight: 600; pointer-events: none; box-shadow: var(--shadow-md); transform: translate(-50%, calc(-100% - 12px)); }
+.lab-drop-note, .lab-look-reason { margin: 0 0 10px; padding: 8px 12px; border-left: 3px solid var(--text); background: var(--surface-2); color: var(--text); font-size: 14px; }
+.lab-drop-note:empty { display: none; }
+.lab-list-hints { margin: 0 0 10px; }
+.lab-sheet-hints { margin: 12px 0 0; }
+/* a row's verbs on hover, only where the list holds the title, its state and the verbs on one line: they
+   never squeeze the title or change a row's height (one line; the verbs give way first, clipped) */
+.lab-step-list-click { container-type: inline-size; }
+.lab-step-list-click .lab-step { cursor: pointer; }
+.lab-step-list-click .lab-step:hover:not(.lab-step-next) { background: var(--surface-2); }
+.lab-step-verbs { display: none; flex: 0 1000 auto; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.lab-step-verbs .lab-hint { font-size: 12px; }
+.lab-step-verbs .lab-hint + .lab-hint { margin-left: 12px; }
+@media (hover: hover) { @container (min-width: 640px) { .lab-step-list-click .lab-step:hover .lab-step-verbs { display: block; } } }
+.lab-page .lab-step-list .lab-step.lab-step-over { outline: 2px solid var(--blue); outline-offset: -2px; background: var(--blue-soft); }
+.lab-page .lab-step-list .lab-step.lab-step-over.lab-step-drop-no { outline-style: dashed; outline-color: var(--dim); background: var(--surface-2); }
+/* the result card: the hint under the thumbnail */
+.lab-result-thumbwrap { display: flex; flex: 0 0 auto; flex-direction: column; align-items: flex-start; gap: 8px; max-width: 100%; }
+.lab-mix-hints { margin: 0 0 12px; }
+@media (max-width: 560px) { .lab-hud { gap: 2px 12px; } }
+@media (max-width: 768px) {
+  .lab-slide-chip, .lab-menu-panel > .lab-menu-check { min-height: 44px; }
+}
+@media (forced-colors: active) {
+  .lab-slide-chip, .lab-slide-ghost { border-color: CanvasText; }
+  .lab-page .lab-step-list .lab-step.lab-step-over { outline-color: Highlight; }
+  .lab-drop-note, .lab-look-reason { border-left-color: CanvasText; }
+}
+@media print { .lab-hints, .lab-hud, .lab-play, .lab-drop-note, .lab-step-verbs, .lab-slide-ghost { display: none !important; } }
+/* ---------- FIX2: notes everywhere, the row the sheet explains, the lab's reaction on the row ---------- */
+/* below 900px (FIX3 G7; was 1100px) the notepad is a bottom drawer over the page (its own scroll, over the
+   sticky "Do this step", under the side sheet, which is a modal there), clear of the phone's home bar, at most
+   45vh tall (40vh on a short screen) so the stage or the picture stays in view above it; the page keeps room
+   to scroll everything above it. From 900px up it is the side column. */
+@media screen and (max-width: 899.98px) {
+  .lab-notepad { position: fixed; z-index: 44; left: 0; right: 0; bottom: 0; max-width: 760px; max-height: 45vh; margin: 0 auto; padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); overflow-y: auto; overscroll-behavior: contain; border: 1px solid var(--line-bright); border-bottom: 0; border-radius: var(--radius-sm) var(--radius-sm) 0 0; box-shadow: var(--shadow-md); }
+  .lab-notepad textarea { height: 20vh; min-height: 96px; }
+  main.lab-notes-host.lab-notes-open { padding-bottom: calc(45vh + 24px); }
+}
+@media screen and (max-width: 899.98px) and (max-height: 699.98px) {
+  .lab-notepad { max-height: 40vh; }
+  .lab-notepad textarea { height: 16vh; min-height: 88px; }
+  .lab-notepad-hint { display: none; }
+  main.lab-notes-host.lab-notes-open { padding-bottom: calc(40vh + 24px); }
+}
+/* the full microscope view: the Notes button at the end of the back-link row; its page-in animation leaves
+   no transform behind, which would trap the fixed drawer (as on the bench) */
+.lab-backlink .lab-notes-btn { margin-left: auto; }
+#app main.lab-notes-host { animation-fill-mode: backwards; }
+/* list mode: the row whose sheet is open, and an out-of-order or repeated step's reaction on its row */
+.lab-page .lab-step-list .lab-step.lab-step-viewing { box-shadow: inset 4px 0 0 var(--blue); }
+.lab-step-note { display: block; min-width: 0; overflow: hidden; color: var(--text); font-size: 13px; font-weight: 600; line-height: 18px; white-space: normal; overflow-wrap: anywhere; } /* MODE-FIX-shell-5: wraps, never cut mid-sentence */
+@media (forced-colors: active) { .lab-page .lab-step-list .lab-step.lab-step-viewing { outline: 2px solid Highlight; outline-offset: -2px; } }
+@media print { .lab-step-note { display: none !important; } }
+/* ---------- FIX3: notes on small screens and the floating Notes button ---------- */
+/* while the slide is dragged the drawer shrinks to its head (a slim bar; the textarea keeps its text and focus),
+   so the rows under it can take the drop; the floating Notes button steps aside */
+@media screen and (max-width: 899.98px) { main.lab-notes-host:has(.lab-slide-dragging) .lab-notepad { max-height: calc(58px + env(safe-area-inset-bottom)); overflow: hidden; } }
+/* the floating Notes button (below 900px, while the header's Notes is out of view and the drawer closed): fixed
+   bottom right, 44px, clear of the home bar and of a phone's sticky "Do this step"; under the drawer and the sheet */
+.lab-notes-float { position: fixed; z-index: 43; right: calc(16px + env(safe-area-inset-right)); bottom: calc(16px + env(safe-area-inset-bottom)); min-width: 44px; min-height: 44px; margin: 0; padding: 0 18px; border: 1px solid var(--text); border-radius: 22px; background: #fff; color: var(--text); font: inherit; font-size: 15px; font-weight: 600; box-shadow: var(--shadow-md); cursor: pointer; }
+.lab-notes-float:hover { background: var(--surface-2); }
+.lab-notes-float[hidden] { display: none; }
+@media (min-width: 900px) { .lab-notes-float { display: none !important; } }
+main.lab-notes-host:has(.lab-slide-dragging) .lab-notes-float { display: none; }
+@media (forced-colors: active) { .lab-notes-float { border-color: ButtonText; } }
+@media print { .lab-notes-float { display: none !important; } }
+/* ---------- FIX4: rows that hold still, sheets that leave the list alone, Notes that cover nothing ---------- */
+/* H13: a row's state sits on its own line under the title, a line kept while a run exists ("to do" is read, not
+   shown); a note (the lab's reaction, a refused drop) takes that same line in place of the state, which stays
+   for screen readers. MODE-FIX-shell-5: a note may add lines to its own row (the §11.3 reaction sentences and
+   "Next in the procedure: <step>" must read in full at 390 px), only once a dip or drop is taken or refused,
+   never during a drag; a sheet over the list's right side never hides a state, and the hover verbs step aside
+   while a sheet is open */
+.lab-step-line { display: grid; min-height: 18px; }
+.lab-step-line > * { grid-area: 1 / 1; }
+.lab-step-line:has(> .lab-step-state:empty:last-child) { display: none; }
+.lab-step-noted .lab-step-state { opacity: 0; }
+main:has(#lab-sheet:not([hidden])) .lab-step-verbs { display: none !important; }
+/* H4: from 900 to 1099px with the Notes column open, every step sheet (Explain too) lies over the page: the list
+   keeps its width (beside it, it would shrink to a strip) */
+@media (min-width: 900px) and (max-width: 1099.98px) { #app main.lab-view-bench.lab-sheet-side.lab-notes-open { padding-right: 28px; } }
+/* H10: a rack drag on the 3D bench shrinks an open drawer to its bar like the list's slide drag; the floating Notes
+   button steps aside; the browser's own focus scrolls stop above an open drawer */
+@media screen and (max-width: 899.98px) { main.lab-notes-host.lab-rack-dragging .lab-notepad { max-height: calc(58px + env(safe-area-inset-bottom)); overflow: hidden; } }
+main.lab-notes-host.lab-rack-dragging .lab-notes-float { display: none; }
+@media screen and (max-width: 899.98px) { html:has(#lab-notepad#lab-notepad:not([hidden])) { scroll-padding-bottom: calc(45vh + 8px); } }
+@media screen and (max-width: 899.98px) and (max-height: 699.98px) { html:has(#lab-notepad#lab-notepad:not([hidden])) { scroll-padding-bottom: calc(40vh + 8px); } }
+/* ---------- FIX5: Notes that stay in reach, the way back in 3D, the structure card over the stage ---------- */
+/* I5: after a drag on the bench an open drawer stays slim (its bar, as during the drag) until the student opens it
+   again (its Open button, a press on the bar, typing, a Notes button); the browser's own focus scrolls stop above it */
+@media screen and (max-width: 899.98px) { main.lab-notes-host.lab-notes-slim .lab-notepad { max-height: calc(58px + env(safe-area-inset-bottom)); overflow: hidden; } }
+@media screen and (max-width: 899.98px) { html:has(main.lab-notes-slim #lab-notepad#lab-notepad:not([hidden])) { scroll-padding-bottom: calc(66px + env(safe-area-inset-bottom)); } }
+.lab-notepad-head > #lab-notepad-more { margin-left: auto; }
+#lab-notepad-more[hidden] { display: none; }
+/* I2: "Back to my station" over the stage's bottom-right corner while the camera is turned or zoomed away (44px on
+   touch); the stage hint steps above it */
+.lab-recenter { position: absolute; z-index: 3; right: 10px; bottom: 10px; min-height: 36px; margin: 0; padding: 4px 14px; border: 1px solid var(--text); border-radius: var(--radius-sm); background: #fff; color: var(--text); font: inherit; font-size: 14px; font-weight: 600; box-shadow: var(--shadow-md); cursor: pointer; }
+.lab-recenter:hover { background: var(--surface-2); }
+.lab-recenter:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+.lab-recenter[hidden] { display: none; }
+@media (pointer: coarse) { .lab-recenter { min-height: 44px; } }
+.lab-stage-box:has(> .lab-recenter:not([hidden])) > .lab-stage-hint { bottom: 64px; }
+@media (forced-colors: active) { .lab-recenter { border-color: ButtonText; } }
+@media print { .lab-recenter { display: none !important; } }
+/* I3: from 900px the structure card lies over the stage, on the side away from the pointer's press, so the canvas
+   never changes size under the pointer; below 900px it sits under the stage; its values never overflow their boxes;
+   a greyed-out Explore says why under the clip's buttons */
+.lab-clip-layout { position: relative; }
+@media (min-width: 900px) { .lab-clip-layout > .lab-clip-card { position: absolute; z-index: 3; top: 8px; right: 8px; width: min(300px, calc(100% - 16px)); max-height: calc(100% - 16px); overflow-y: auto; box-shadow: var(--shadow-md); } }
+@media (min-width: 900px) { .lab-clip-layout[data-lab-clip-side="left"] > .lab-clip-card { right: auto; left: 8px; } }
+.lab-clip-card .lab-clip-kv { display: flex; flex-wrap: wrap; }
+.lab-clip-card .lab-clip-kv > div { flex: 1 1 auto; min-width: max-content; }
+.lab-clip-explore-why { flex: 1 0 100%; margin: 0; text-align: center; font-size: 14px; }
+.lab-clip-explore-why[hidden] { display: none; }
+/* I7: Show hints off hides the 3D tip's jar and zoom sentence (a verb line); the finished tip and the honesty sentence stay */
+html.lab-hints-off .lab-tip-verbs { display: none; }
+/* ---------- MODE (contract §11): the two modes, the station row, the free bench's log and Slide now card ---------- */
+/* Your slide: two mode cards (one column below 640 px), the chosen one outlined; the radio stays for the keyboard */
+.lab-bench-mode { min-width: 0; margin: 0; padding: 0; border: 0; }
+.lab-bench-mode legend { margin: 0 0 8px; padding: 0; color: var(--text); font-size: 15px; font-weight: 600; }
+.lab-mode-cards { display: grid; gap: 12px; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 640px) { .lab-mode-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.lab-mode-card { position: relative; display: flex; align-items: flex-start; gap: 12px; min-height: 44px; padding: 16px 18px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: #fff; cursor: pointer; }
+.lab-mode-card:hover { border-color: var(--line-bright); box-shadow: var(--shadow-xs); }
+.lab-mode-card:has(input:checked) { border-color: var(--text); box-shadow: inset 0 0 0 1px var(--text); }
+.lab-mode-card:has(input:focus-visible) { outline: 2px solid var(--blue); outline-offset: 3px; }
+.lab-mode-card input { flex: 0 0 auto; width: 18px; height: 18px; margin: 3px 0 0; accent-color: var(--text); }
+.lab-mode-text { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.lab-mode-text strong { color: var(--text); font-size: 17px; letter-spacing: -.01em; }
+.lab-mode-text span { color: var(--body); font-size: 14px; line-height: 1.45; }
+.lab-mix { margin: 0; }
+.lab-mix-run-body { margin-top: 4px; }
+.lab-do-more > .lab-mix-run { display: contents; }
+/* the station row directly under the stage (above the HUD): wraps from 640 px, scrolls sideways below it, 44 px on touch */
+.lab-stations { display: flex; flex-wrap: wrap; gap: 6px 8px; margin: 8px 0 0; padding: 0; }
+.lab-stations[hidden] { display: none; }
+.lab-station-btn { display: inline-flex; align-items: center; min-height: 36px; padding: 4px 10px; /* MODE-FIX-integrate-6: 10 px sides, so the nine pills take two rows beside the open notes column at 1280 */ border: 1px solid var(--line-bright); border-radius: 999px; background: #fff; color: var(--text); font: inherit; font-size: 14px; font-weight: 600; line-height: 1.3; white-space: nowrap; cursor: pointer; }
+.lab-station-btn:hover { border-color: var(--text); }
+.lab-station-btn[aria-current="true"] { background: var(--text); border-color: var(--text); color: #fff; }
+.lab-station-btn:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+@media (max-width: 639.98px) {
+  .lab-stations { flex-wrap: nowrap; overflow-x: auto; scroll-snap-type: x proximity; padding-bottom: 4px; -webkit-overflow-scrolling: touch; scrollbar-width: thin; }
+  .lab-station-btn { flex: 0 0 auto; scroll-snap-align: center; }
+}
+@media (pointer: coarse) { .lab-station-btn { min-height: 44px; } }
+/* the free bench's jar row (keyboard path): the select and Dip the slide on one line, stacked on a phone */
+.lab-free-row { display: flex; flex-wrap: wrap; align-items: end; gap: 10px 14px; margin: 0 0 12px; }
+.lab-free-row .lab-free-pick { flex: 1 1 260px; flex-direction: column; align-items: stretch; max-width: 420px; }
+.lab-view-bench .lab-free-row .lab-free-pick select { width: 100%; min-height: 44px; padding: 8px 36px 8px 12px; font-size: 15px; }
+.lab-bench-3d .lab-free-row { margin: 10px 0 0; } /* MODE-FIX-integrate-4: in 3D the jar select, Dip, Do the whole procedure and New slide share one wrapping row */
+.lab-bench-3d .lab-free-row .lab-free-pick { flex: 0 1 300px; flex-direction: row; align-items: center; gap: 8px; }
+.lab-free-actions { margin-top: 10px; }
+.lab-do-sealed { margin-top: 8px; }
+/* Slide now: the by-eye look with its swatch (LOOK_COLORS), the flags, the summary and what is not in the model */
+.lab-slide-now-body { display: grid; gap: 8px; max-width: 72ch; }
+.lab-look { display: flex; align-items: flex-start; gap: 12px; margin: 0; color: var(--text); font-size: 17px; line-height: 1.5; }
+.lab-look-swatch { display: inline-block; flex: 0 0 auto; width: 44px; height: 28px; margin-top: 2px; border: 1px solid var(--line-bright); border-radius: 3px; background: var(--surface-2); }
+.lab-slide-flags { margin: 0; color: var(--body); font-size: 15px; }
+.lab-slide-summary { margin: 0; color: var(--body); font-size: 15px; line-height: 1.5; }
+.lab-slide-gaps { margin: 4px 0 0; padding: 10px 14px; border: 1px dashed var(--line-bright); border-radius: var(--radius-sm); }
+.lab-page .lab-slide-gaps h4 { margin: 0 0 4px; }
+.lab-page .lab-slide-gaps ul { margin: 0; padding-left: 18px; font-size: 14px; color: var(--body); }
+/* What happened: one entry per dip, the latest marked; a no-reaction entry keeps a dashed rule */
+.lab-reactions { margin: 20px 0 0; }
+.lab-page .lab-reactions-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.lab-reaction { position: relative; padding: 10px 14px 10px 18px; border: 1px solid var(--line); border-left: 4px solid var(--line-bright); border-radius: var(--radius-sm); background: #fff; }
+.lab-reaction[data-lab-reaction="no-reaction"], .lab-reaction[data-lab-reaction="sealed"] { border-left-style: dashed; }
+.lab-reaction-latest { border-color: var(--text); border-left-color: var(--text); }
+.lab-reaction-head { margin: 0; font-size: 14px; }
+.lab-reaction-step { color: var(--text); }
+.lab-reaction-text { margin: 2px 0 0; color: var(--text); font-size: 15px; line-height: 1.5; }
+.lab-reaction > .lab-disclosure { margin-top: 4px; }
+.lab-reaction .lab-drawer-btn { min-height: 28px; padding: 2px 0; border: 0; border-radius: 0; background: none; color: var(--blue); font-size: 14px; font-weight: 600; }
+.lab-reaction .lab-drawer-btn::before { content: none; }
+.lab-reaction .lab-drawer-btn::after { content: "+"; font-family: var(--mono); }
+.lab-reaction .lab-drawer-btn[aria-expanded="true"]::after { content: "\2212"; }
+.lab-reaction .lab-drawer { margin-top: 6px; padding: 8px 0 0; border: 0; border-top: 1px solid var(--line); background: none; font-size: 14px; }
+.lab-reaction-why p { margin: 0 0 6px; }
+@media (max-width: 560px) { .lab-mode-card { padding: 14px 16px; } .lab-look { font-size: 16px; } }
+@media (max-width: 768px) { .lab-reaction .lab-drawer-btn { min-height: 44px; } }
+@media (forced-colors: active) {
+  .lab-mode-card:has(input:checked), .lab-station-btn[aria-current="true"] { outline: 2px solid Highlight; outline-offset: 2px; }
+  .lab-mode-card, .lab-station-btn, .lab-reaction, .lab-look-swatch, .lab-slide-gaps { border-color: CanvasText; }
+}
+@media print { .lab-free-row, .lab-free-actions { display: none !important; } }
+/* ---------- SHELF (contract §13): the mode switch, the jars, the jar editor, Your hands, currently unknown ---------- */
+/* the mode switch at the top of the bench: one segmented pill, the pressed mode filled; halves on a phone */
+.lab-mode-switch { display: inline-flex; gap: 2px; margin: 0; padding: 3px; border: 1px solid var(--line-bright); border-radius: 999px; background: var(--surface); }
+.lab-mode-switch-btn { min-height: 36px; padding: 6px 18px; border: 0; border-radius: 999px; background: none; color: var(--body); font: inherit; font-size: 14px; font-weight: 600; line-height: 1.2; cursor: pointer; }
+.lab-mode-switch-btn:hover { color: var(--text); background: #fff; }
+.lab-mode-switch-btn[aria-pressed="true"] { background: var(--text); color: #fff; box-shadow: var(--shadow-xs); cursor: default; }
+.lab-mode-switch-btn:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+@media (pointer: coarse) { .lab-mode-switch-btn { min-height: 44px; } }
+@media (max-width: 560px) { .lab-mode-switch { display: flex; } .lab-mode-switch-btn { flex: 1 1 auto; padding: 6px 10px; white-space: nowrap; } }
+#lab-mode-switch + .lab-part, #lab-mode-switch + .course-notice { margin-top: 16px; } /* one tight group with Your slide */
+/* a finished practice run: "New slide" beside "Run complete" */
+.lab-do-status .lab-new-slide { min-height: 36px; padding: 4px 16px; font-size: 14px; }
+/* jar rows: line 2 says what is in the jar, "(changed)" when it is not the procedure's; an extra jar's glass is dashed */
+.lab-view-bench .lab-do:not(.lab-bench-3d) .lab-free-row .lab-free-pick { max-width: 560px; } /* the jars are named by their contents */
+.lab-step-contents { display: block; min-width: 0; color: var(--body); font-size: 13px; line-height: 18px; overflow-wrap: anywhere; }
+.lab-jar-changed { color: var(--blue); font-weight: 600; white-space: nowrap; }
+.lab-step-extra .lab-step-order.lab-step-jar, .lab-step-extra .lab-step-order.lab-step-jar::before { border-style: dashed; }
+.lab-step:not(.lab-step-extra) + .lab-step-extra { border-top: 2px solid var(--line); }
+/* Add a jar · Reset every jar, right under the list (under the stage's row in 3D) */
+.lab-jar-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 24px; margin: 8px 0 0; }
+.lab-jar-add::before { content: "+"; margin-right: 6px; font-family: var(--mono); }
+.lab-jar-tools .lab-linkbtn:disabled { color: var(--dim); cursor: not-allowed; text-decoration: none; }
+.lab-jar-full { flex: 1 0 100%; margin: 0; }
+/* Your hands: one row per choice (its name, then a small segmented control), the procedure's choice first and
+   marked; the name sits above the control on a phone */
+.lab-hands { min-width: 0; margin: 12px 0 0; padding: 8px 16px 14px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: #fff; }
+.lab-hands legend { margin: 0 0 0 -4px; padding: 0 4px; color: var(--text); font-size: 15px; font-weight: 600; }
+.lab-hands-grid { display: grid; gap: 8px; }
+.lab-hand { display: grid; grid-template-columns: 112px minmax(0, 1fr); align-items: center; gap: 4px 12px; min-width: 0; }
+.lab-hand-label { color: var(--dim); font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+.lab-hand-seg { display: inline-flex; justify-self: start; max-width: 100%; border: 1px solid var(--line-bright); border-radius: var(--radius-sm); background: #fff; overflow: hidden; }
+.lab-hand-opt { position: relative; display: flex; flex: 0 1 auto; min-width: 0; }
+.lab-hand-opt + .lab-hand-opt { border-left: 1px solid var(--line-bright); }
+.lab-hand-opt input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.lab-hand-opt > span { display: block; min-height: 34px; padding: 7px 12px; color: var(--body); font-size: 13px; line-height: 1.4; cursor: pointer; }
+.lab-hand-opt:hover > span { background: var(--surface); color: var(--text); }
+.lab-hand-opt input:checked + span { background: var(--text); color: #fff; }
+.lab-hand-opt input:focus-visible + span { outline: 2px solid var(--blue); outline-offset: -4px; }
+.lab-proc { color: var(--dim); font-size: 12px; white-space: nowrap; }
+.lab-hand-opt input:checked + span .lab-proc { color: inherit; opacity: .75; }
+@media (pointer: coarse) { .lab-hand-opt > span { min-height: 44px; padding-top: 12px; padding-bottom: 12px; } }
+@media (max-width: 560px) { .lab-hands { padding: 8px 12px 12px; } .lab-hand { grid-template-columns: minmax(0, 1fr); } .lab-hand + .lab-hand { margin-top: 4px; } }
+/* the jar editor in a jar's sheet: what is in it now, the bottle and one select per field, labels above */
+.lab-jar-box { margin: 14px 0 4px; padding: 14px 16px 16px; border: 1px solid var(--line-bright); border-radius: var(--radius-sm); background: var(--surface); }
+.lab-page .lab-sheet .lab-jar-box h3 { margin: 0 0 8px; }
+.lab-jar-now { margin: 0 0 12px; color: var(--text); font-size: 15px; line-height: 1.45; }
+.lab-jar-now-label { display: block; margin-bottom: 2px; color: var(--dim); font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+.lab-jar-edit { margin: 0; }
+.lab-jar-fields { display: grid; gap: 8px; grid-template-columns: minmax(0, 1fr); }
+.lab-jar-field { gap: 4px; }
+.lab-jar-field select { min-height: 40px; padding-top: 6px; padding-bottom: 6px; font-size: 15px; }
+.lab-jar-fixed p { display: flex; align-items: center; min-height: 40px; margin: 0; padding: 0 12px; border: 1px dashed var(--line-bright); border-radius: 7px; color: var(--text); font-family: var(--sans); font-size: 15px; letter-spacing: 0; text-transform: none; }
+.lab-jar-actions { display: flex; flex-wrap: wrap; gap: 2px 20px; margin: 10px 0 0; }
+.lab-page .lab-jar-remove { color: var(--red); }
+.lab-jar-why { margin: 12px 0 0; padding-top: 10px; border-top: 1px solid var(--line); color: var(--body); font-size: 14px; }
+/* Currently unknown reaction: a result in the house's neutral tone (a "?" mark, never an error red) */
+.lab-reaction-head { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; }
+.lab-reaction-chip { display: inline-flex; align-items: center; gap: 6px; min-height: 24px; padding: 1px 10px 1px 3px; border: 1px solid var(--line-bright); border-radius: 999px; background: var(--surface-2); color: var(--text); font-size: 13px; font-weight: 600; line-height: 1.2; }
+.lab-unknown-mark { display: inline-flex; flex: 0 0 auto; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: var(--body); color: #fff; font-family: var(--mono); font-size: 12px; font-weight: 700; line-height: 1; }
+.lab-reaction[data-lab-reaction-kind="unknown"] { background: var(--surface); }
+.lab-reaction[data-lab-reaction-kind="unknown"]:not(.lab-reaction-latest) { border-left-color: var(--dim); }
+.lab-reaction-jar { margin: 2px 0 0; color: var(--dim); font-size: 13px; }
+.lab-page .lab-reaction-unknown { margin: 6px 0 0; padding: 6px 0 0; border-top: 1px dashed var(--line-bright); list-style: none; color: var(--body); font-size: 14px; }
+.lab-reaction-unknown > li + li { margin-top: 4px; }
+/* Slide now: the dips left out of the drawing, and the partly unknown fields */
+.lab-slide-unknown { margin: 4px 0 0; padding: 10px 14px; border: 1px solid var(--line-bright); border-radius: var(--radius-sm); background: var(--surface); }
+.lab-slide-unknown-head { display: flex; align-items: center; gap: 8px; margin: 0; color: var(--text); font-size: 15px; font-weight: 600; }
+.lab-page .lab-slide-unknown ul { margin: 4px 0 0; padding-left: 44px; color: var(--body); font-size: 14px; }
+.lab-page .lab-slide-unknown .lab-slide-partly { padding-left: 18px; }
+.lab-page .lab-slide-unknown-head + ul + .lab-slide-partly { margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--line-bright); }
+@media (forced-colors: active) {
+  .lab-mode-switch-btn[aria-pressed="true"], .lab-hand-opt input:checked + span { outline: 2px solid Highlight; outline-offset: -2px; }
+  .lab-mode-switch, .lab-hand-seg, .lab-hands, .lab-jar-box, .lab-reaction-chip, .lab-slide-unknown { border-color: CanvasText; }
+  .lab-unknown-mark { border: 1px solid CanvasText; }
+}
+@media print { .lab-mode-switch, .lab-jar-tools, .lab-hands, .lab-do-status .lab-new-slide { display: none !important; } }

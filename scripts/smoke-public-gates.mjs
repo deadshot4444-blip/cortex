@@ -1,7 +1,7 @@
 // Public gate smoke: with production gating forced (`?gates=prod`), the closed courses
-// (Learn to Learn, Anatomy, Medicine, Neuroengineering) show their Under construction page from
-// the navigation, the Academy catalog and direct deep links; MCAT, DAT and Clinical Scenarios stay
-// open; none of the closed courses' modules are downloaded; Academy Today and the offline
+// (Learn to Learn, Anatomy, Medicine, Neuroengineering) show their Under construction page from the
+// navigation, the Academy catalog and direct deep links; MCAT, DAT, Clinical Scenarios and the Alzheimer's
+// Histology Lab (open since 2.36.0) stay open; none of the closed courses' modules are downloaded; Academy Today and the offline
 // download list reflect the same catalog. Runs at desktop and phone widths.
 //
 //   CORTEX_URL=http://127.0.0.1:8807/ node scripts/smoke-public-gates.mjs
@@ -23,7 +23,8 @@ const CLOSED = {
   neuro: { path: 'neuro', label: 'Neuroengineering', deep: 'unit=1' },
 };
 // The tracks that are open to the public; everything else renders the Under construction page.
-const OPEN = ['mcat', 'dat', 'practice'];
+const OPEN = ['mcat', 'dat', 'practice', 'lab'];
+// Scripts and data banks that only a closed course loads. (The lab is open, so its files are not listed.)
 const CLOSED_ASSETS =
   /\/(dat(?:-[a-z-]+)?|socrates|anatomy|reference|ekg|ecg-engine|performance-drugs|neuro|neuro-practitioner|neuro-project-engine|python-runtime|code-evaluator)\.js(?:\?|$)|\/data\/(dat-[a-z0-9-]+|learn-to-learn|neuro-projects)\.json/;
 // Every file that only a closed course's offline pack ships (data banks, figures, workers) is a
@@ -102,6 +103,14 @@ for (const viewport of viewports) {
     await page.click(`#explore-panel [data-go="${key}"]`);
     record[key + 'FromMenu'] = await gateLabel(CLOSED[key].label);
   }
+  // The lab is open: Explore opens its home, never a gate.
+  await page.goto(prod('/'), { waitUntil: 'networkidle' });
+  await page.click('[data-menu="explore"]');
+  await page.click('#explore-panel [data-go="lab"]');
+  await page.waitForURL(url => url.pathname === '/lab');
+  await page.waitForSelector('#lab-enter');
+  if (await page.locator('main.comingsoon').count()) fail('lab shows a gate', 'comingsoon');
+  record.labOpen = true;
 
   // Closed courses from direct and deep links.
   record.deepLinks = {};
@@ -145,6 +154,7 @@ for (const viewport of viewports) {
         'Under construction',
         'Under construction',
         'Under construction',
+        'Beta',
       ]) ||
     record.catalogActions.filter(t => t === 'View course status').length !== 4
   )

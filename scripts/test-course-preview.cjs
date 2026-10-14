@@ -60,7 +60,7 @@ function gates(seed, { host = 'cortexmedical.academy', search = '' } = {}) {
   return Object.assign(JSON.parse(JSON.stringify(lists)), { tag });
 }
 
-test('the catalog closes the same four courses this plan was written against', () => {
+test('the catalog closes the four courses still under review (the lab opened in 2.36.0)', () => {
   assert.deepEqual(
     TRACKS.filter(t => !t.available)
       .map(t => t.id)

@@ -1,0 +1,2424 @@
+{
+  "v": 1,
+  "items": [
+    {
+      "id": "R-model-01",
+      "title": "Binding (schematic): the model fixes the bound-ionic-silver ordinal at the ammoniacal-silver step from impregnation.endpoint",
+      "when": {
+        "all": [
+          {
+            "mode": "practice"
+          },
+          {
+            "step": "ammoniacal-silver"
+          },
+          {
+            "stepsDone": [
+              "silver-impregnation"
+            ]
+          }
+        ]
+      },
+      "effect": [
+        {
+          "op": "bind",
+          "gain": {
+            "early": 2,
+            "sop-default": 4,
+            "extended": 4
+          },
+          "ammoniaDelta": {
+            "just-clear": 0,
+            "extra": -2,
+            "cloudy": 0
+          }
+        },
+        {
+          "op": "caveat",
+          "text": "Endpoint positions early / sop-default / extended are ordered schematic positions. Nothing is known about where the course SOP's actual times fall on any binding or deposition curve."
+        }
+      ],
+      "basis": "schematic-analogy",
+      "claims": [
+        "C-brief-binding-not-development",
+        "C-gallyas-1979-separable",
+        "C-peters-1955-bound-silver",
+        "C-course-ammonia-endpoint",
+        "C-course-trouble-no-black"
+      ],
+      "system": "schematic ordinal model (no tissue); the listed claims support the shape, not any quantity",
+      "transferable": "qualitative-only",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-model-02",
+      "title": "Nuclei: reduced-silver nuclei are limited by bound silver and by reduction sites",
+      "when": {
+        "all": [
+          {
+            "mode": "practice"
+          },
+          {
+            "step": "development"
+          }
+        ]
+      },
+      "effect": [
+        {
+          "op": "nuclei"
+        }
+      ],
+      "basis": "schematic-analogy",
+      "claims": [
+        "C-peters-1955-nuclei",
+        "C-dion-1983-nucleation"
+      ],
+      "system": "schematic ordinal model (no tissue); the listed claims support the shape, not any quantity",
+      "transferable": "qualitative-only",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-model-03",
+      "title": "Deposit: the developer grows deposit on nuclei; development endpoint and strength shift it",
+      "when": {
+        "all": [
+          {
+            "mode": "practice"
+          },
+          {
+            "step": "development"
+          }
+        ]
+      },
+      "effect": [
+        {
+          "op": "develop",
+          "endpointDelta": {
+            "early": -1,
+            "sop-default": 0,
+            "extended": 1
+          },
+          "strengthDelta": {
+            "weak": -1,
+            "sop-default": 0,
+            "strong": 0
+          }
+        }
+      ],
+      "basis": "schematic-analogy",
+      "claims": [
+        "C-brief-binding-not-development",
+        "C-gallyas-1979-separable",
+        "C-peters-1955-developer-strength"
+      ],
+      "system": "schematic ordinal model (no tissue); the listed claims support the shape, not any quantity",
+      "transferable": "qualitative-only",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-model-04",
+      "title": "Background (schematic assumption; no source for Bielschowsky): a strong developer or extended development raises background deposit by one ordinal step",
+      "when": {
+        "all": [
+          {
+            "mode": "practice"
+          },
+          {
+            "step": "development"
+          }
+        ]
+      },
+      "effect": [
+        {
+          "op": "background",
+          "base": 1,
+          "extendedDelta": 1,
+          "strongDelta": 1
+        },
+        {
+          "op": "caveat",
+          "text": "Longer development is assumed to raise background in this schematic; no source in the registry supports or refutes this for Bielschowsky."
+        }
+      ],
+      "basis": "schematic-analogy",
+      "claims": [
+        "C-peters-1955-developer-strength"
+      ],
+      "system": "schematic ordinal model (no tissue); the listed claims support the shape, not any quantity",
+      "transferable": "qualitative-only",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-model-05",
+      "title": "Visibility: what is visible is accumulated deposit, never presence and never bound ionic silver",
+      "when": {
+        "all": [
+          {
+            "mode": "practice"
+          },
+          {
+            "step": "development"
+          }
+        ]
+      },
+      "effect": [
+        {
+          "op": "visibility"
+        }
+      ],
+      "basis": "schematic-analogy",
+      "claims": [
+        "C-peters-1955-nuclei",
+        "C-dion-1983-lysine"
+      ],
+      "system": "schematic ordinal model (no tissue); the listed claims support the shape, not any quantity",
+      "transferable": "qualitative-only",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-model-06",
+      "title": "Rate phase: schematic position of the development endpoint relative to the reference",
+      "when": {
+        "all": [
+          {
+            "mode": "practice"
+          },
+          {
+            "step": "development"
+          }
+        ]
+      },
+      "effect": [
+        {
+          "op": "ratePhase",
+          "map": {
+            "early": "before-reference",
+            "sop-default": "reference",
+            "extended": "after-reference"
+          }
+        },
+        {
+          "op": "caveat",
+          "text": "Endpoint positions early / sop-default / extended are ordered schematic positions. Nothing is known about where the course SOP's actual times fall on any binding or deposition curve."
+        }
+      ],
+      "basis": "schematic-analogy",
+      "claims": [
+        "C-brief-binding-not-development"
+      ],
+      "system": "schematic ordinal model (no tissue); the listed claims support the shape, not any quantity",
+      "transferable": "qualitative-only",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-model-08",
+      "title": "Gold toning (practice): the reduced silver is toned gold",
+      "when": {
+        "all": [
+          {
+            "mode": "practice"
+          },
+          {
+            "step": "gold-toning"
+          },
+          {
+            "path": "silver.maxDeposit",
+            "in": [
+              1,
+              2,
+              3,
+              4
+            ]
+          }
+        ]
+      },
+      "effect": [
+        {
+          "op": "tone",
+          "tone": "gold"
+        }
+      ],
+      "basis": "schematic-analogy",
+      "claims": [
+        "C-course-toning-colour"
+      ],
+      "system": "schematic ordinal model (no tissue); the listed claims support the shape, not any quantity",
+      "transferable": "qualitative-only",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-model-09",
+      "title": "Sodium thiosulfate (practice): unreduced silver removed",
+      "when": {
+        "all": [
+          {
+            "mode": "practice"
+          },
+          {
+            "step": "sodium-thiosulfate"
+          }
+        ]
+      },
+      "effect": [
+        {
+          "op": "fix"
+        }
+      ],
+      "basis": "schematic-analogy",
+      "claims": [
+        "C-course-thiosulfate-purpose"
+      ],
+      "system": "schematic ordinal model (no tissue); the listed claims support the shape, not any quantity",
+      "transferable": "qualitative-only",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-react-sealed",
+      "title": "Sealed slide: no bath reaches a mounted section",
+      "when": {
+        "all": [
+          {
+            "mode": "free"
+          },
+          {
+            "event": "step"
+          },
+          {
+            "path": "slide.coverslipped",
+            "eq": true
+          }
+        ]
+      },
+      "effect": [
+        {
+          "op": "react",
+          "kind": "sealed",
+          "text": "No reaction: the slide is under a coverslip, so the solution never reaches the section.",
+          "why": "Resinous mounting medium and the coverslip close the section off from every bath; in this model a mounted slide is finished.",
+          "final": true
+        },
+        {
+          "op": "caveat",
+          "text": "A real lab can take a mounted slide back through xylene; the model does not."
+        }
+      ],
+      "basis": "schematic-analogy",
+      "claims": [
+        "C-course-mount-seal"
+      ],
+      "system": "schematic ordinal model (no tissue); the listed claims support the shape, not any quantity",
+      "transferable": "qualitative-only",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-react-short-xylene",
+      "title": "Xylene too short: wax is left on the section",
+      "when": {
+        "all": [
+          {
+            "mode": "free"
+          },
+          {
+            "step": "deparaffinize-rehydrate"
+          },
+          {
+            "path": "dip.shortXylene",
+            "eq": true
+          },
+          {
+            "path": "slide.wax",
+            "eq": true
+          }
+        ]
+      },
+      "effect": [
+        {
+          "op": "flag",
+          "id": "shortXylene"
+        },
+        {
+          "op": "react",
+          "kind": "reaction",
+          "text": "Xylene too short: wax is left on the section, so later solutions will not reach it evenly.",
+          "why": "The procedure dewaxes in xylene for 5 min twice and names wax left behind as a cause of patchy staining; a shorter change leaves wax on the section in this model."
+        },
+        {
+          "op": "caveat",
+          "text": "A xylene change shorter than the procedure's 5 min leaving wax is the model's reading of the procedure, which gives the time and names wax left behind as a cause of patchy staining, not the shortest time that works."
+        }
+      ],
+      "basis": "course-handout",
+      "claims": [
+        "C-course-procedure-rinses-solvents",
+        "C-course-trouble-patchy"
+      ],
+      "system": "course procedure, paraffin sections",
+      "transferable": "course-specific",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-react-dewax",
+      "title": "Dewax and rehydrate: the wax leaves and the section is in water",
+      "when": {
+        "all": [
+          {
+            "mode": "free"
+          },
+          {
+            "step": "deparaffinize-rehydrate"
+          },
+          {
+            "path": "slide.wax",
+            "eq": true
+          },
+          {
+            "path": "dip.shortXylene",
+            "defined": false
+          }
+        ]
+      },
+      "effect": [
+        {
+          "op": "dewax"
+        },
+        {
+          "op": "react",
+          "kind": "reaction",
+          "text": "Wax removed; the section is wet and even, in water.",
+          "why": "Xylene dissolves the paraffin and the ethanol series brings the section back to water, so every later solution can reach it.",
+          "byLook": {
+            "patchy": "The silver already went on unevenly under the wax, so the patchiness stays."
+          }
+        }
+      ],
+      "basis": "course-handout",
+      "claims": [
+        "C-course-procedure-rinses-solvents",
+        "C-course-trouble-patchy"
+      ],
+      "system": "course procedure, paraffin sections",
+      "transferable": "course-specific",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-react-dewax-repeat",
+      "title": "Dewax again: nothing left to remove",
+      "when": {
+        "all": [
+          {
+            "mode": "free"
+          },
+          {
+            "step": "deparaffinize-rehydrate"
+          },
+          {
+            "path": "slide.wax",
+            "eq": false
+          }
+        ]
+      },
+      "effect": [
+        {
+          "op": "react",
+          "kind": "no-reaction",
+          "text": "No wax left to remove.",
+          "why": "The section is already dewaxed and in water; another pass through xylene and ethanol changes nothing on it."
+        }
+      ],
+      "basis": "course-handout",
+      "claims": [
+        "C-course-procedure-rinses-solvents"
+      ],
+      "system": "course procedure, paraffin sections",
+      "transferable": "course-specific",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-react-silver-1",
+      "title": "First silver bath (free bench): silver binds to the section",
+      "when": {
+        "all": [
+          {
+            "mode": "free"
+          },
+          {
+            "step": "silver-impregnation"
+          }
+        ]
+      },
+      "effect": [
+        {
+          "op": "bindFree",
+          "gain": {
+            "early": 1,
+            "sop-default": 2,
+            "extended": 2
+          },
+          "waxCap": 1
+        },
+        {
+          "op": "prime"
+        },
+        {
+          "op": "flag",
+          "id": "oldSilver",
+          "value": false,
+          "when": {
+            "path": "dip.oldSilver",
+            "defined": false
+          }
+        },
+        {
+          "op": "react",
+          "kind": "reaction",
+          "text": "Silver bound to the section: faintly yellow to light brown by eye; nothing specific under the microscope yet.",
+          "why": "Silver ions from the silver nitrate bind to the section; the model treats binding and the later formation of metallic silver as separate steps, so no black deposit yet.",
+          "noChange": {
+            "text": "No reaction: binding is at its plateau for this bath.",
+            "why": "This bath can bind no more silver to the section than it already holds at these settings."
+          }
+        },
+        {
+          "op": "caveat",
+          "text": "Endpoint positions early / sop-default / extended are ordered schematic positions. Nothing is known about where the course SOP's actual times fall on any binding or deposition curve."
+        }
+      ],
+      "basis": "schematic-analogy",
+      "claims": [
+        "C-course-what-you-see",
+        "C-gallyas-1979-separable",
+        "C-peters-1955-bound-silver"
+      ],
+      "system": "schematic ordinal model (no tissue); the listed claims support the shape, not any quantity",
+      "transferable": "qualitative-only",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-react-silver-2",
+      "title": "Ammoniacal silver bath (free bench): more silver binds",
+      "when": {
+        "all": [
+          {
+            "mode": "free"
+          },
+          {
+            "step": "ammoniacal-silver"
+          }
+        ]
+      },
+      "effect": [
+        {
+          "op": "bindFree",
+          "gain": {
+            "early": 2,
+            "sop-default": 4,
+            "extended": 4
+          },
+          "unprimedGain": 2,
+          "endpointDelta": {
+            "early": -1,
+            "sop-default": 0,
+            "extended": 0
+          },
+          "ammoniaDelta": {
+            "just-clear": 0,
+            "extra": -2,
+            "cloudy": 0
+          },
+          "waxCap": 1,
+          "flagDelta": {
+            "oldSilver": -2
+          }
+        },
+        {
+          "op": "react",
+          "kind": "reaction",
+          "text": "More silver bound: tan to brown by eye; fine brown fibres may show, no black yet.",
+          "why": "The ammoniacal silver binds more silver to the section; binding and reduction are separate processes, so still no black.",
+          "noChange": {
+            "text": "No reaction: binding is at its plateau for this bath.",
+            "why": "This bath can bind no more silver to the section than it already holds at these settings."
+          }
+        },
+        {
+          "op": "caveat",
+          "text": "Endpoint positions early / sop-default / extended are ordered schematic positions. Nothing is known about where the course SOP's actual times fall on any binding or deposition curve."
+        }
+      ],
+      "basis": "schematic-analogy",
+      "claims": [
+        "C-brief-binding-not-development",
+        "C-gallyas-1979-separable",
+        "C-peters-1955-bound-silver",
+        "C-course-what-you-see",
+        "C-course-ammonia-endpoint",
+        "C-course-trouble-no-black",
+        "C-course-trouble-grains"
+      ],
+      "system": "schematic ordinal model (no tissue); the listed claims support the shape, not any quantity",
+      "transferable": "qualitative-only",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-react-ammonia-extra",
+      "title": "Extra ammonia weakens the stain",
+      "when": {
+        "all": [
+          {
+            "mode": "free"
+          },
+          {
+            "step": "ammoniacal-silver"
+          },
+          {
+            "path": "params.ammoniacal.ammonia",
+            "eq": "extra"
+          }
+        ]
+      },
+      "effect": [
+        {
+          "op": "react",
+          "append": true,
+          "text": "The extra ammonia weakened the binding.",
+          "noChange": {
+            "text": "No more silver bound: the extra ammonia weakened this bath, so it added nothing to what the section already carried.",
+            "why": "Extra ammonia weakens the stain (course procedure); in the model it lowers what the ammoniacal bath can bind, here to no more than the section already held."
+          }
+        }
+      ],
+      "basis": "course-handout",
+      "claims": [
+        "C-course-ammonia-endpoint",
+        "C-course-trouble-no-black"
+      ],
+      "system": "course procedure, paraffin sections",
+      "transferable": "course-specific",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-react-ammonia-cloudy",
+      "title": "Cloudy ammoniacal silver leaves black grains",
+      "when": {
+        "all": [
+          {
+            "mode": "free"
+          },
+          {
+            "step": "ammoniacal-silver"
+          },
+          {
+            "path": "params.ammoniacal.ammonia",
+            "eq": "cloudy"
+          }
+        ]
+      },
+      "effect": [
+        {
+          "op": "artifact",
+          "id": "grains"
+        },
+        {
+          "op": "react",
+          "append": true,
+          "text": "The cloudy bath left black grains on the slide."
+        }
+      ],
+      "basis": "course-handout",
+      "claims": [
+        "C-course-trouble-grains",
+        "C-course-ammonia-endpoint"
+      ],
+      "system": "course procedure, paraffin sections",
+      "transferable": "course-specific",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-react-wax-cap",
+      "title": "Wax left on the section: patchy, uneven staining",
+      "when": {
+        "all": [
+          {
+            "mode": "free"
+          },
+          {
+            "any": [
+              {
+                "step": "silver-impregnation"
+              },
+              {
+                "step": "ammoniacal-silver"
+              }
+            ]
+          },
+          {
+            "path": "slide.wax",
+            "eq": true
+          }
+        ]
+      },
+      "effect": [
+        {
+          "op": "artifact",
+          "id": "patchy"
+        },
+        {
+          "op": "react",
+          "append": true,
+          "text": "The wax left on the section keeps the solution from reaching it evenly: patchy.",
+          "noChange": {
+            "text": "No more silver bound: the wax on the section keeps the silver solution out, so the staining stays patchy.",
+            "why": "Wax left on the section keeps the solution from reaching it (course procedure); the model caps binding under wax at a trace, which the section already holds."
+          }
+        },
+        {
+          "op": "caveat",
+          "text": "The cap on binding under wax is a schematic device; the procedure names wax left behind as a cause of patchy staining, not an amount."
+        }
+      ],
+      "basis": "course-handout",
+      "claims": [
+        "C-course-trouble-patchy"
+      ],
+      "system": "course procedure, paraffin sections",
+      "transferable": "course-specific",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-react-silver-2-unprimed",
+      "title": "Ammoniacal silver with no first bath: a model position, said so",
+      "when": {
+        "all": [
+          {
+            "mode": "free"
+          },
+          {
+            "step": "ammoniacal-silver"
+          },
+          {
+            "path": "slide.primed",
+            "eq": false
+          }
+        ]
+      },
+      "effect": [
+        {
+          "op": "react",
+          "append": true,
+          "text": "No first silver bath: the model gives this bath its shortest-exposure position."
+        },
+        {
+          "op": "caveat",
+          "text": "Skipping the first silver bath: the lower binding is a model position; the procedure does not say what skipping the bath does."
+        }
+      ],
+      "basis": "schematic-analogy",
+      "claims": [
+        "C-course-what-you-see"
+      ],
+      "system": "schematic ordinal model (no tissue); the listed claims support the shape, not any quantity",
+      "transferable": "qualitative-only",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-react-old-silver",
+      "title": "Old or light-exposed silver nitrate: little or no black",
+      "when": {
+        "all": [
+          {
+            "mode": "free"
+          },
+          {
+            "any": [
+              {
+                "all": [
+                  {
+                    "step": "silver-impregnation"
+                  },
+                  {
+                    "path": "dip.oldSilver",
+                    "eq": true
+                  }
+                ]
+              },
+              {
+                "all": [
+                  {
+                    "step": "ammoniacal-silver"
+                  },
+                  {
+                    "path": "slide.oldSilver",
+                    "eq": true
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "effect": [
+        {
+          "op": "flag",
+          "id": "oldSilver",
+          "when": {
+            "step": "silver-impregnation"
+          }
+        },
+        {
+          "op": "react",
+          "append": true,
+          "when": {
+            "step": "silver-impregnation"
+          },
+          "text": "The silver nitrate is old or light-exposed: the procedure lists that as a cause of little or no black."
+        },
+        {
+          "op": "react",
+          "append": true,
+          "when": {
+            "step": "ammoniacal-silver"
+          },
+          "text": "Made from old or light-exposed silver nitrate, this bath bound less.",
+          "noChange": {
+            "text": "No more silver bound: ammoniacal silver made from old or light-exposed silver nitrate added nothing to what the section held.",
+            "why": "Old or light-exposed silver nitrate is a cause of little or no black (course procedure); in the model it lowers what the ammoniacal bath made from it can bind."
+          }
+        },
+        {
+          "op": "caveat",
+          "text": "Old or light-exposed silver nitrate lowering what the ammoniacal bath made from it binds is the model's reading of the procedure's troubleshooting, which names the cause, not an amount."
+        }
+      ],
+      "basis": "course-handout",
+      "claims": [
+        "C-course-trouble-no-black",
+        "C-course-procedure-quantities"
+      ],
+      "system": "course procedure, paraffin sections",
+      "transferable": "course-specific",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-react-rinse",
+      "title": "Rinse in water: loose silver nitrate washed off",
+      "when": {
+        "all": [
+          {
+            "mode": "free"
+          },
+          {
+            "step": "water-wash"
+          }
+        ]
+      },
+      "effect": [
+        {
+          "op": "react",
+          "kind": "reaction",
+          "text": "Rinsed: loose silver nitrate washed off. No change to the picture.",
+          "why": "Distilled water carries off silver nitrate that did not bind; what is bound stays on the section."
+        }
+      ],
+      "basis": "course-handout",
+      "claims": [
+        "C-course-procedure-rinses-solvents"
+      ],
+      "system": "course procedure, paraffin sections",
+      "transferable": "course-specific",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-react-ammonia-wait",
+      "title": "Ammonia water: the slides wait",
+      "when": {
+        "all": [
+          {
+            "mode": "free"
+          },
+          {
+            "step": "ammonium-hydroxide-wash"
+          }
+        ]
+      },
+      "effect": [
+        {
+          "op": "react",
+          "kind": "reaction",
+          "text": "The slides wait in ammonia water. No change to the picture.",
+          "why": "The ammonia water holds the slides between the silver bath and the developer; the model makes no change to the section in it."
+        }
+      ],
+      "basis": "course-handout",
+      "claims": [
+        "C-course-steps-order"
+      ],
+      "system": "course procedure, paraffin sections",
+      "transferable": "course-specific",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-react-develop-none",
+      "title": "Developer with no bound silver: no reaction",
+      "when": {
+        "all": [
+          {
+            "mode": "free"
+          },
+          {
+            "step": "development"
+          },
+          {
+            "path": "silver.maxBound",
+            "eq": 0
+          },
+          {
+            "path": "slide.fixed",
+            "eq": false
+          }
+        ]
+      },
+      "effect": [
+        {
+          "op": "react",
+          "kind": "no-reaction",
+          "text": "No reaction: the developer found no bound silver on the section, so there was nothing to reduce.",
+          "why": "A developer reduces silver that is already bound to the section; with none bound, no deposit can form."
+        }
+      ],
+      "basis": "schematic-analogy",
+      "claims": [
+        "C-peters-1955-nuclei",
+        "C-peters-1955-bound-silver",
+        "C-dion-1983-nucleation"
+      ],
+      "system": "schematic ordinal model (no tissue); the listed claims support the shape, not any quantity",
+      "transferable": "qualitative-only",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-react-develop-fixed",
+      "title": "Developer after thiosulfate: nothing left to reduce",
+      "when": {
+        "all": [
+          {
+            "mode": "free"
+          },
+          {
+            "step": "development"
+          },
+          {
+            "path": "silver.maxBound",
+            "eq": 0
+          },
+          {
+            "path": "slide.fixed",
+            "eq": true
+          }
+        ]
+      },
+      "effect": [
+        {
+          "op": "react",
+          "kind": "no-reaction",
+          "text": "No reaction: the thiosulfate removed the unreduced silver, so the developer has nothing left to reduce.",
+          "why": "The thiosulfate dissolved the unreduced silver, so the developer finds no silver ions to reduce."
+        }
+      ],
+      "basis": "course-handout",
+      "claims": [
+        "C-course-thiosulfate-purpose"
+      ],
+      "system": "course procedure, paraffin sections",
+      "transferable": "course-specific",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-react-develop",
+      "title": "Development (free bench, first time): bound silver is reduced to visible deposit",
+      "when": {
+        "all": [
+          {
+            "mode": "free"
+          },
+          {
+            "step": "development"
+          },
+          {
+            "path": "silver.maxBound",
+            "in": [
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          {
+            "path": "silver.maxDeposit",
+            "eq": 0
+          }
+        ]
+      },
+      "effect": [
+        {
+          "op": "nuclei"
+        },
+        {
+          "op": "develop",
+          "endpointDelta": {
+            "early": -1,
+            "sop-default": 0,
+            "extended": 1
+          },
+          "strengthDelta": {
+            "weak": -1,
+            "sop-default": 0,
+            "strong": 0
+          }
+        },
+        {
+          "op": "background",
+          "base": 1,
+          "extendedDelta": 1,
+          "strongDelta": 1
+        },
+        {
+          "op": "visibility"
+        },
+        {
+          "op": "ratePhase",
+          "map": {
+            "early": "before-reference",
+            "sop-default": "reference",
+            "extended": "after-reference"
+          }
+        },
+        {
+          "op": "react",
+          "kind": "reaction",
+          "text": "Silver reduced where bound silver met reduction sites.",
+          "why": "The developer reduces bound silver ions to metallic silver on nuclei in the section; more time or a stronger developer adds background as well.",
+          "byLook": {
+            "light-detail": "Only a little: faint structures on a pale background.",
+            "black-on-tan": "Black detail on a background that is still tan.",
+            "patchy": "Uneven: the solution did not reach the whole section.",
+            "dark-brown": "Too long / too strong: dark brown everywhere."
+          },
+          "noChange": {
+            "text": "No reaction: the bound silver met no reduction sites, so nothing was reduced.",
+            "why": "Nuclei form only where bound silver meets a reduction site; this section offers none, so the developer has nothing to grow."
+          }
+        },
+        {
+          "op": "caveat",
+          "text": "Endpoint positions early / sop-default / extended are ordered schematic positions. Nothing is known about where the course SOP's actual times fall on any binding or deposition curve."
+        },
+        {
+          "op": "caveat",
+          "text": "Longer development is assumed to raise background in this schematic; no source in the registry supports or refutes this for Bielschowsky."
+        }
+      ],
+      "basis": "schematic-analogy",
+      "claims": [
+        "C-peters-1955-nuclei",
+        "C-dion-1983-nucleation",
+        "C-brief-binding-not-development",
+        "C-gallyas-1979-separable",
+        "C-peters-1955-developer-strength",
+        "C-dion-1983-lysine",
+        "C-course-what-you-see",
+        "C-course-endpoint-microscope",
+        "C-course-trouble-patchy"
+      ],
+      "system": "schematic ordinal model (no tissue); the listed claims support the shape, not any quantity",
+      "transferable": "qualitative-only",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-react-develop-again",
+      "title": "Development again: more deposit everywhere, and more background",
+      "when": {
+        "all": [
+          {
+            "mode": "free"
+          },
+          {
+            "step": "development"
+          },
+          {
+            "path": "silver.maxBound",
+            "in": [
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          {
+            "path": "silver.maxDeposit",
+            "in": [
+              1,
+              2,
+              3,
+              4
+            ]
+          }
+        ]
+      },
+      "effect": [
+        {
+          "op": "developAgain",
+          "deposit": 1,
+          "background": 1
+        },
+        {
+          "op": "react",
+          "kind": "reaction",
+          "text": "Developed again: more silver reduced where it was already reduced, and the background darkens with it.",
+          "why": "The developer keeps reducing silver wherever nuclei exist, and the background takes up silver too.",
+          "noChange": {
+            "text": "No reaction: the deposit and the background are already at the top of the model's scale.",
+            "why": "The drawing's scale has no step above the darkest; the model cannot say what more development does there."
+          },
+          "byLook": {
+            "dark-brown": "Too long / too strong: dark brown everywhere."
+          }
+        }
+      ],
+      "basis": "course-handout",
+      "claims": [
+        "C-course-trouble-dark",
+        "C-course-endpoint-microscope"
+      ],
+      "system": "course procedure, paraffin sections",
+      "transferable": "course-specific",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-react-long-ammoniacal",
+      "title": "Ammoniacal silver far beyond 15 min: a darker background once developed",
+      "when": {
+        "all": [
+          {
+            "mode": "free"
+          },
+          {
+            "any": [
+              {
+                "all": [
+                  {
+                    "step": "ammoniacal-silver"
+                  },
+                  {
+                    "path": "dip.longAmmoniacal",
+                    "eq": true
+                  }
+                ]
+              },
+              {
+                "all": [
+                  {
+                    "step": "development"
+                  },
+                  {
+                    "path": "slide.longAmmoniacal",
+                    "eq": true
+                  },
+                  {
+                    "path": "silver.maxBound",
+                    "in": [
+                      1,
+                      2,
+                      3,
+                      4
+                    ]
+                  },
+                  {
+                    "path": "silver.maxDeposit",
+                    "eq": 0
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "effect": [
+        {
+          "op": "flag",
+          "id": "longAmmoniacal",
+          "when": {
+            "step": "ammoniacal-silver"
+          }
+        },
+        {
+          "op": "react",
+          "append": true,
+          "when": {
+            "step": "ammoniacal-silver"
+          },
+          "text": "Left far beyond 15 min: the procedure lists that as a cause of dark brown everywhere once developed."
+        },
+        {
+          "op": "shiftBackground",
+          "by": 1,
+          "when": {
+            "step": "development"
+          }
+        },
+        {
+          "op": "react",
+          "append": true,
+          "when": {
+            "step": "development"
+          },
+          "text": "The long ammoniacal bath darkens the background too."
+        },
+        {
+          "op": "caveat",
+          "text": "One step more background after a long ammoniacal bath is a drawing position; the procedure names the cause of dark brown, not an amount."
+        }
+      ],
+      "basis": "course-handout",
+      "claims": [
+        "C-course-trouble-dark"
+      ],
+      "system": "course procedure, paraffin sections",
+      "transferable": "course-specific",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-react-dev-too-much",
+      "title": "Too much developer: a cause of dark brown everywhere",
+      "when": {
+        "all": [
+          {
+            "mode": "free"
+          },
+          {
+            "step": "development"
+          },
+          {
+            "path": "dip.tooMuch",
+            "eq": true
+          },
+          {
+            "path": "silver.maxBound",
+            "in": [
+              1,
+              2,
+              3,
+              4
+            ]
+          }
+        ]
+      },
+      "effect": [
+        {
+          "op": "react",
+          "append": true,
+          "text": "Too much developer: the procedure lists that as a cause of dark brown everywhere."
+        }
+      ],
+      "basis": "course-handout",
+      "claims": [
+        "C-course-trouble-dark"
+      ],
+      "system": "course procedure, paraffin sections",
+      "transferable": "course-specific",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-react-dev-too-warm",
+      "title": "Developer too warm: a darker background",
+      "when": {
+        "all": [
+          {
+            "mode": "free"
+          },
+          {
+            "step": "development"
+          },
+          {
+            "path": "dip.tooWarm",
+            "eq": true
+          },
+          {
+            "path": "silver.maxBound",
+            "in": [
+              1,
+              2,
+              3,
+              4
+            ]
+          }
+        ]
+      },
+      "effect": [
+        {
+          "op": "flag",
+          "id": "tooWarm"
+        },
+        {
+          "op": "shiftBackground",
+          "by": 1
+        },
+        {
+          "op": "react",
+          "append": true,
+          "text": "Developed too warm: the procedure lists that as a cause of dark brown everywhere."
+        },
+        {
+          "op": "caveat",
+          "text": "One step more background for a warm developer is a drawing position; the procedure names the cause of dark brown, not an amount."
+        }
+      ],
+      "basis": "course-handout",
+      "claims": [
+        "C-course-trouble-dark"
+      ],
+      "system": "course procedure, paraffin sections",
+      "transferable": "course-specific",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-react-dev-past-ten",
+      "title": "Developed past 10 minutes: a darker background",
+      "when": {
+        "all": [
+          {
+            "mode": "free"
+          },
+          {
+            "step": "development"
+          },
+          {
+            "path": "dip.pastTen",
+            "eq": true
+          },
+          {
+            "path": "silver.maxBound",
+            "in": [
+              1,
+              2,
+              3,
+              4
+            ]
+          }
+        ]
+      },
+      "effect": [
+        {
+          "op": "flag",
+          "id": "pastTen"
+        },
+        {
+          "op": "shiftBackground",
+          "by": 1
+        },
+        {
+          "op": "react",
+          "append": true,
+          "text": "Past 10 minutes: the procedure stops by then, and too long means dark brown everywhere."
+        },
+        {
+          "op": "caveat",
+          "text": "One step more background past 10 minutes is a drawing position; the procedure says to stop by 10 minutes and names too long as the cause of dark brown, not an amount."
+        }
+      ],
+      "basis": "course-handout",
+      "claims": [
+        "C-course-endpoint-microscope",
+        "C-course-trouble-dark"
+      ],
+      "system": "course procedure, paraffin sections",
+      "transferable": "course-specific",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-react-pretreated-background",
+      "title": "Pretreated section: a lighter background once developed",
+      "when": {
+        "all": [
+          {
+            "mode": "free"
+          },
+          {
+            "step": "development"
+          },
+          {
+            "path": "slide.pretreated",
+            "eq": true
+          },
+          {
+            "path": "silver.maxBound",
+            "in": [
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          {
+            "path": "silver.maxDeposit",
+            "eq": 0
+          }
+        ]
+      },
+      "effect": [
+        {
+          "op": "shiftBackground",
+          "by": -1
+        },
+        {
+          "op": "react",
+          "append": true,
+          "text": "The pretreatment keeps the background lighter."
+        },
+        {
+          "op": "caveat",
+          "text": "One step less background after the pretreatment is a drawing position; the published method reports a lower background, not an amount, and what the pretreatment does to the real lesions is currently unknown."
+        }
+      ],
+      "basis": "published-qualitative",
+      "claims": [
+        "C-intorcia-2019-pretreat",
+        "C-course-pretreat-blobs"
+      ],
+      "system": "human AD brain; course procedure, paraffin sections",
+      "transferable": "qualitative-only",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-react-tone",
+      "title": "Gold toning: brown-black to gray-black",
+      "when": {
+        "all": [
+          {
+            "mode": "free"
+          },
+          {
+            "step": "gold-toning"
+          },
+          {
+            "path": "silver.maxDeposit",
+            "in": [
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          {
+            "path": "slide.toned",
+            "eq": false
+          }
+        ]
+      },
+      "effect": [
+        {
+          "op": "tone",
+          "tone": "gold"
+        },
+        {
+          "op": "react",
+          "kind": "reaction",
+          "text": "Gold toned: the silver turns from brown-black to gray-black.",
+          "why": "The gold chloride changes the colour of the reduced silver; the procedure gives the colour, not the mechanism."
+        }
+      ],
+      "basis": "course-handout",
+      "claims": [
+        "C-course-toning-colour"
+      ],
+      "system": "course procedure, paraffin sections",
+      "transferable": "course-specific",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-react-tone-repeat",
+      "title": "Gold toning again: already toned",
+      "when": {
+        "all": [
+          {
+            "mode": "free"
+          },
+          {
+            "step": "gold-toning"
+          },
+          {
+            "path": "silver.maxDeposit",
+            "in": [
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          {
+            "path": "slide.toned",
+            "eq": true
+          }
+        ]
+      },
+      "effect": [
+        {
+          "op": "react",
+          "kind": "no-reaction",
+          "text": "Already toned.",
+          "why": "The stain is already gray-black; more gold changes nothing in the model."
+        }
+      ],
+      "basis": "course-handout",
+      "claims": [
+        "C-course-toning-colour"
+      ],
+      "system": "course procedure, paraffin sections",
+      "transferable": "course-specific",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-react-tone-none",
+      "title": "Gold toning with no reduced silver: no reaction",
+      "when": {
+        "all": [
+          {
+            "mode": "free"
+          },
+          {
+            "step": "gold-toning"
+          },
+          {
+            "path": "silver.maxDeposit",
+            "eq": 0
+          }
+        ]
+      },
+      "effect": [
+        {
+          "op": "react",
+          "kind": "no-reaction",
+          "text": "No reaction: there is no reduced silver on the section for the gold to tone.",
+          "why": "Gold toning acts on reduced silver; bound silver that was never developed is not a stain."
+        }
+      ],
+      "basis": "course-handout",
+      "claims": [
+        "C-course-toning-colour"
+      ],
+      "system": "course procedure, paraffin sections",
+      "transferable": "course-specific",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-react-fix",
+      "title": "Thiosulfate: unreduced silver removed, the slide stops changing",
+      "when": {
+        "all": [
+          {
+            "mode": "free"
+          },
+          {
+            "step": "sodium-thiosulfate"
+          },
+          {
+            "path": "silver.maxBound",
+            "in": [
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          {
+            "path": "silver.maxDeposit",
+            "in": [
+              1,
+              2,
+              3,
+              4
+            ]
+          }
+        ]
+      },
+      "effect": [
+        {
+          "op": "fix"
+        },
+        {
+          "op": "react",
+          "kind": "reaction",
+          "text": "Unreduced silver removed: the slide stops changing.",
+          "why": "Sodium thiosulfate dissolves silver that was never reduced; the reduced deposit stays."
+        }
+      ],
+      "basis": "course-handout",
+      "claims": [
+        "C-course-thiosulfate-purpose"
+      ],
+      "system": "course procedure, paraffin sections",
+      "transferable": "course-specific",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-react-fix-unstained",
+      "title": "Thiosulfate before development: back to unstained",
+      "when": {
+        "all": [
+          {
+            "mode": "free"
+          },
+          {
+            "step": "sodium-thiosulfate"
+          },
+          {
+            "path": "silver.maxBound",
+            "in": [
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          {
+            "path": "silver.maxDeposit",
+            "eq": 0
+          }
+        ]
+      },
+      "effect": [
+        {
+          "op": "fix"
+        },
+        {
+          "op": "react",
+          "kind": "reaction",
+          "text": "Unreduced silver removed: the bound silver is gone, so the section is back to unstained and a developer now has nothing to reduce.",
+          "why": "Sodium thiosulfate dissolves silver that was never reduced; nothing had been reduced here, so nothing stays."
+        }
+      ],
+      "basis": "course-handout",
+      "claims": [
+        "C-course-thiosulfate-purpose"
+      ],
+      "system": "course procedure, paraffin sections",
+      "transferable": "course-specific",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-react-fix-none",
+      "title": "Thiosulfate with no unreduced silver: no reaction",
+      "when": {
+        "all": [
+          {
+            "mode": "free"
+          },
+          {
+            "step": "sodium-thiosulfate"
+          },
+          {
+            "path": "silver.maxBound",
+            "eq": 0
+          }
+        ]
+      },
+      "effect": [
+        {
+          "op": "react",
+          "kind": "no-reaction",
+          "text": "No reaction: no unreduced silver on the section to remove.",
+          "why": "Thiosulfate removes silver that was never reduced; there is none on this section."
+        }
+      ],
+      "basis": "course-handout",
+      "claims": [
+        "C-course-thiosulfate-purpose"
+      ],
+      "system": "course procedure, paraffin sections",
+      "transferable": "course-specific",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-react-seal",
+      "title": "Dehydrate, clear and mount: the slide is sealed",
+      "when": {
+        "all": [
+          {
+            "mode": "free"
+          },
+          {
+            "step": "final-wash-dehydrate-clear-mount"
+          }
+        ]
+      },
+      "effect": [
+        {
+          "op": "seal"
+        },
+        {
+          "op": "react",
+          "kind": "reaction",
+          "text": "Dehydrated, cleared and coverslipped: the slide is sealed.",
+          "why": "Dehydrated, cleared in xylene and coverslipped with resinous medium, the section is closed off from every later bath."
+        }
+      ],
+      "basis": "course-handout",
+      "claims": [
+        "C-course-mount-seal",
+        "C-course-procedure-rinses-solvents"
+      ],
+      "system": "course procedure, paraffin sections",
+      "transferable": "course-specific",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-react-seal-unfixed",
+      "title": "Mounted without thiosulfate: unreduced silver still in the section",
+      "when": {
+        "all": [
+          {
+            "mode": "free"
+          },
+          {
+            "step": "final-wash-dehydrate-clear-mount"
+          },
+          {
+            "path": "slide.fixed",
+            "eq": false
+          },
+          {
+            "path": "silver.maxBound",
+            "in": [
+              1,
+              2,
+              3,
+              4
+            ]
+          }
+        ]
+      },
+      "effect": [
+        {
+          "op": "flag",
+          "id": "unfixed"
+        },
+        {
+          "op": "react",
+          "append": true,
+          "text": "Silver that was never reduced is still in it (no thiosulfate), so it will keep changing."
+        }
+      ],
+      "basis": "course-handout",
+      "claims": [
+        "C-course-thiosulfate-purpose",
+        "C-course-mount-seal"
+      ],
+      "system": "course procedure, paraffin sections",
+      "transferable": "course-specific",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-react-permanganate",
+      "title": "Potassium permanganate before any silver: oxidized, half the pretreatment",
+      "when": {
+        "all": [
+          {
+            "mode": "free"
+          },
+          {
+            "event": "dip"
+          },
+          {
+            "path": "dip.reagent",
+            "eq": "permanganate"
+          },
+          {
+            "path": "slide.wax",
+            "eq": false
+          },
+          {
+            "path": "slide.primed",
+            "eq": false
+          },
+          {
+            "path": "silver.maxBound",
+            "eq": 0
+          },
+          {
+            "path": "silver.maxDeposit",
+            "eq": 0
+          }
+        ]
+      },
+      "effect": [
+        {
+          "op": "flag",
+          "id": "oxidized"
+        },
+        {
+          "op": "flag",
+          "id": "pretreated",
+          "value": false
+        },
+        {
+          "op": "react",
+          "kind": "reaction",
+          "text": "Oxidized: the first half of the pretreatment. Oxalic acid completes it.",
+          "why": "Potassium permanganate is an oxidizing agent; the published pretreatment follows it with oxalic acid before the first silver bath to remove plaque-like artifact staining."
+        }
+      ],
+      "basis": "course-handout",
+      "claims": [
+        "C-course-pretreat-blobs",
+        "C-intorcia-2019-pretreat"
+      ],
+      "system": "course procedure, paraffin sections",
+      "transferable": "course-specific",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-react-oxalic",
+      "title": "Oxalic acid after permanganate, before any silver: pretreated",
+      "when": {
+        "all": [
+          {
+            "mode": "free"
+          },
+          {
+            "event": "dip"
+          },
+          {
+            "path": "dip.reagent",
+            "eq": "oxalic-acid"
+          },
+          {
+            "path": "slide.wax",
+            "eq": false
+          },
+          {
+            "path": "slide.oxidized",
+            "eq": true
+          },
+          {
+            "path": "slide.primed",
+            "eq": false
+          },
+          {
+            "path": "silver.maxBound",
+            "eq": 0
+          },
+          {
+            "path": "silver.maxDeposit",
+            "eq": 0
+          }
+        ]
+      },
+      "effect": [
+        {
+          "op": "flag",
+          "id": "pretreated"
+        },
+        {
+          "op": "react",
+          "kind": "reaction",
+          "text": "Pretreated: in the published method this removes plaque-like artifact blobs and lowers the background. What it does to the real lesions is currently unknown.",
+          "why": "Oxidizing pretreatment before the first silver bath is reported to remove plaque-like artifactual staining and lower a high background; the course procedure lists it for round plaque-like blobs."
+        }
+      ],
+      "basis": "course-handout",
+      "claims": [
+        "C-course-pretreat-blobs",
+        "C-intorcia-2019-pretreat"
+      ],
+      "system": "course procedure, paraffin sections",
+      "transferable": "course-specific",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-react-handling-grains",
+      "title": "Metal forceps or ordinary glassware in a silver solution: black grains",
+      "when": {
+        "all": [
+          {
+            "mode": "free"
+          },
+          {
+            "event": "dip"
+          },
+          {
+            "path": "dip.silver",
+            "eq": true
+          },
+          {
+            "any": [
+              {
+                "path": "dip.handling.forceps",
+                "eq": "metal"
+              },
+              {
+                "path": "dip.handling.glass",
+                "eq": "ordinary"
+              }
+            ]
+          }
+        ]
+      },
+      "effect": [
+        {
+          "op": "artifact",
+          "id": "grains"
+        },
+        {
+          "op": "react",
+          "append": true,
+          "when": {
+            "path": "dip.handling.forceps",
+            "eq": "metal"
+          },
+          "text": "The procedure lists metal forceps in a silver solution as a cause of black grains, so the drawing shows it."
+        },
+        {
+          "op": "react",
+          "append": true,
+          "when": {
+            "path": "dip.handling.glass",
+            "eq": "ordinary"
+          },
+          "text": "The procedure lists ordinary glassware as a cause of black grains, so the drawing shows it."
+        }
+      ],
+      "basis": "course-handout",
+      "claims": [
+        "C-course-trouble-grains"
+      ],
+      "system": "course procedure, paraffin sections",
+      "transferable": "course-specific",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-react-handling-patchy",
+      "title": "A section left to dry or a half-filled jar: patchy staining",
+      "when": {
+        "all": [
+          {
+            "mode": "free"
+          },
+          {
+            "event": "dip"
+          },
+          {
+            "any": [
+              {
+                "path": "dip.handling.between",
+                "eq": "let-dry"
+              },
+              {
+                "path": "dip.handling.fill",
+                "eq": "half"
+              }
+            ]
+          }
+        ]
+      },
+      "effect": [
+        {
+          "op": "artifact",
+          "id": "patchy"
+        },
+        {
+          "op": "react",
+          "append": true,
+          "when": {
+            "path": "dip.handling.between",
+            "eq": "let-dry"
+          },
+          "text": "The procedure lists a section left to dry as a cause of patchy staining, so the drawing shows it."
+        },
+        {
+          "op": "react",
+          "append": true,
+          "when": {
+            "path": "dip.handling.fill",
+            "eq": "half"
+          },
+          "text": "The procedure lists a half-filled jar as a cause of patchy staining, so the drawing shows it."
+        }
+      ],
+      "basis": "course-handout",
+      "claims": [
+        "C-course-trouble-patchy"
+      ],
+      "system": "course procedure, paraffin sections",
+      "transferable": "course-specific",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-temp-01",
+      "title": "Temperature deviation lowers reproducibility",
+      "when": {
+        "all": [
+          {
+            "path": "params.impregnation.temperature",
+            "eq": "deviated"
+          }
+        ]
+      },
+      "effect": [
+        {
+          "op": "confidence",
+          "level": "low"
+        },
+        {
+          "op": "caveat",
+          "text": "Bielschowsky staining is reported to be highly sensitive to ambient temperature; this run's temperature deviates from the SOP, so the outcome is low-confidence and no direction of change is encoded."
+        }
+      ],
+      "basis": "published-qualitative",
+      "claims": [
+        "C-litchfield-2001-temp"
+      ],
+      "system": "human AD brain",
+      "transferable": "qualitative-only",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-model-07",
+      "title": "Cloudy ammoniacal silver (practice): black grains",
+      "when": {
+        "all": [
+          {
+            "mode": "practice"
+          },
+          {
+            "path": "params.ammoniacal.ammonia",
+            "eq": "cloudy"
+          }
+        ]
+      },
+      "effect": [
+        {
+          "op": "artifact",
+          "id": "grains"
+        },
+        {
+          "op": "caveat",
+          "text": "The ammoniacal silver was left cloudy and not filtered; the course procedure's troubleshooting names that as a cause of black grains on the slide."
+        }
+      ],
+      "basis": "schematic-analogy",
+      "claims": [
+        "C-course-trouble-grains",
+        "C-course-ammonia-endpoint"
+      ],
+      "system": "schematic ordinal model (no tissue); the listed claims support the shape, not any quantity",
+      "transferable": "qualitative-only",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-model-10",
+      "title": "Skipping gold toning or thiosulfate (practice): what the course procedure says is left",
+      "when": {
+        "all": [
+          {
+            "mode": "practice"
+          },
+          {
+            "any": [
+              {
+                "path": "params.toning",
+                "eq": false
+              },
+              {
+                "path": "params.thiosulfate",
+                "eq": false
+              }
+            ]
+          }
+        ]
+      },
+      "effect": [
+        {
+          "op": "caveat",
+          "text": "No gold toning: the stain stays brown-black.",
+          "when": {
+            "all": [
+              {
+                "path": "params.toning",
+                "eq": false
+              },
+              {
+                "path": "slide.toned",
+                "eq": false
+              }
+            ]
+          }
+        },
+        {
+          "op": "caveat",
+          "text": "No thiosulfate: silver that was never reduced stays in the section, so the slide will keep changing (course procedure).",
+          "when": {
+            "all": [
+              {
+                "path": "params.thiosulfate",
+                "eq": false
+              },
+              {
+                "path": "slide.fixed",
+                "eq": false
+              }
+            ]
+          }
+        },
+        {
+          "op": "flag",
+          "id": "unfixed",
+          "when": {
+            "all": [
+              {
+                "path": "params.thiosulfate",
+                "eq": false
+              },
+              {
+                "path": "slide.fixed",
+                "eq": false
+              }
+            ]
+          }
+        }
+      ],
+      "basis": "schematic-analogy",
+      "claims": [
+        "C-course-toning-colour",
+        "C-course-thiosulfate-purpose"
+      ],
+      "system": "schematic ordinal model (no tissue); the listed claims support the shape, not any quantity",
+      "transferable": "qualitative-only",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-react-look",
+      "title": "By-eye look: the course procedure's what-you-should-see column",
+      "when": {
+        "path": "method",
+        "eq": "bielschowsky-modified"
+      },
+      "effect": [
+        {
+          "op": "look",
+          "darkBackground": 3,
+          "blackFrom": 3,
+          "patchyBelow": 3
+        }
+      ],
+      "basis": "course-handout",
+      "claims": [
+        "C-course-what-you-see",
+        "C-course-trouble-dark",
+        "C-course-trouble-patchy"
+      ],
+      "system": "course procedure, paraffin sections",
+      "transferable": "course-specific",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-method-01",
+      "title": "Method choice changes which lesions are shown and how many",
+      "when": null,
+      "effect": [
+        {
+          "op": "caveat",
+          "text": "Method choice changes which lesions are shown and how many: on serial sections of two AD brains, a modified Bielschowsky stain demonstrated more tangles, and more distinctly, than the Bodian stain (Yamamoto and Hirano 1986). No source in the registry compares Bielschowsky with CPS on the same sections."
+        }
+      ],
+      "basis": "published-qualitative",
+      "claims": [
+        "C-yamamoto-1986-more-nft"
+      ],
+      "system": "serial sections, two AD brains",
+      "transferable": "qualitative-only",
+      "conditionalOn": null,
+      "informational": true
+    },
+    {
+      "id": "R-method-02",
+      "title": "Silver methods differ in sensitivity and most lack control in some steps",
+      "when": null,
+      "effect": [
+        {
+          "op": "caveat",
+          "text": "Among six silver methods compared on hippocampal serial sections, Gallyas and Bielschowsky were among the most sensitive for tangles, and the authors state that most silver methods are not reliable because certain steps lack control (Rosenwald et al. 1993)."
+        }
+      ],
+      "basis": "published-qualitative",
+      "claims": [
+        "C-rosenwald-1993-sensitivity",
+        "C-rosenwald-1993-lack-of-control"
+      ],
+      "system": "hippocampal serial sections, 35 human brains, paraffin",
+      "transferable": "qualitative-only",
+      "conditionalOn": null,
+      "informational": true
+    },
+    {
+      "id": "R-method-03-cps1",
+      "title": "CPS-I schematic outcome (Velasco 1992)",
+      "when": {
+        "path": "method",
+        "eq": "cps-i"
+      },
+      "effect": [
+        {
+          "op": "schematicOutcome",
+          "perSite": {
+            "axon": 0,
+            "plaque-core": 4,
+            "plaque-neurite": 4,
+            "tangle": 4,
+            "neuropil-thread": 4
+          },
+          "background": 0
+        },
+        {
+          "op": "caveat",
+          "text": "Compare-only method; not runnable on the bench; schematic from the published description."
+        },
+        {
+          "op": "caveat",
+          "text": "In CPS-I the dystrophic neurites of plaques are obscured by amyloid argyrophilia (Velasco 1992); the schematic shows the plaque stained as a whole and cannot show the neurites separately."
+        }
+      ],
+      "basis": "published-qualitative",
+      "claims": [
+        "C-velasco-1992-cps1",
+        "C-velasco-1992-normal-neurites-unstained"
+      ],
+      "system": "human AD brain",
+      "transferable": "qualitative-only",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-method-03-cps2",
+      "title": "CPS-II schematic outcome (Velasco 1992)",
+      "when": {
+        "path": "method",
+        "eq": "cps-ii"
+      },
+      "effect": [
+        {
+          "op": "schematicOutcome",
+          "perSite": {
+            "axon": 0,
+            "plaque-core": 1,
+            "plaque-neurite": 4,
+            "tangle": 4,
+            "neuropil-thread": 4
+          },
+          "background": 0
+        },
+        {
+          "op": "caveat",
+          "text": "Compare-only method; not runnable on the bench; schematic from the published description."
+        },
+        {
+          "op": "caveat",
+          "text": "Axon 0 and plaque core 1 (trace) are schematic readings of the CPS-II description: the abstract states unstained normal neurites for CPS-I, not CPS-II, and says amyloid staining is suppressed, not abolished."
+        }
+      ],
+      "basis": "published-qualitative",
+      "claims": [
+        "C-velasco-1992-cps2"
+      ],
+      "system": "human AD brain",
+      "transferable": "qualitative-only",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-dev-01",
+      "title": "Developer strength: too weak gives light, incomplete staining; too strong loses differentiation",
+      "when": null,
+      "effect": [
+        {
+          "op": "caveat",
+          "text": "In nerve tissue sections, developers that were too weak gave light, incomplete staining and developers that were too strong gave no differentiated nerve staining (Peters 1955). The course procedure's developer (3 drops of a formaldehyde, citric acid and nitric acid stock per 50 ml of ammoniacal silver, judged under the microscope) is not characterized on those axes here; the strength positions weak / sop-default / strong are ordered schematic positions only."
+        }
+      ],
+      "basis": "published-qualitative",
+      "claims": [
+        "C-peters-1955-developer-strength"
+      ],
+      "system": "nerve tissue sections",
+      "transferable": "qualitative-only",
+      "conditionalOn": null,
+      "informational": true
+    },
+    {
+      "id": "R-kinetics-01",
+      "title": "Binding and metallic-silver formation are separable processes with different time courses",
+      "when": null,
+      "effect": [
+        {
+          "op": "caveat",
+          "text": "Binding of silver ions and formation of metallic silver are separable processes with different time courses (Gallyas 1979). The curves are schematic shapes only: not calibrated to any tissue, and the course Gallyas activity concerns treated human spinal cord, whose data were not consulted. A plateau in binding does not mean visible deposition has finished."
+        }
+      ],
+      "basis": "schematic-analogy",
+      "claims": [
+        "C-gallyas-1979-separable",
+        "C-brief-binding-not-development"
+      ],
+      "system": "schematic shapes; Gallyas papers verified by title only",
+      "transferable": "analogy-only",
+      "conditionalOn": null,
+      "informational": true
+    },
+    {
+      "id": "R-intensity-01",
+      "title": "Intensity tracks site chemistry, not protein amount alone",
+      "when": null,
+      "effect": [
+        {
+          "op": "caveat",
+          "text": "In polyacrylamide gels, ammoniacal silver staining intensity was directly related to the lysine content of standard proteins, and the authors proposed that deposition builds on nucleation sites formed before the developer is added (Dion and Pomenti 1983). This is a different system: an analogy for why intensity is not a direct measure of protein amount, never a calibration for brain tissue."
+        }
+      ],
+      "basis": "schematic-analogy",
+      "claims": [
+        "C-dion-1983-lysine",
+        "C-dion-1983-nucleation"
+      ],
+      "system": "polyacrylamide gels (NOT tissue)",
+      "transferable": "analogy-only",
+      "conditionalOn": null,
+      "informational": true
+    },
+    {
+      "id": "R-interlab-01",
+      "title": "The same lesions are assessed differently across laboratories",
+      "when": null,
+      "effect": [
+        {
+          "op": "caveat",
+          "text": "The same AD-related lesions received different assessments across laboratories (Alafuzoff et al. 2006), which motivates controls, matched sections and blinded scoring."
+        }
+      ],
+      "basis": "published-qualitative",
+      "claims": [
+        "C-alafuzoff-2006-interlab"
+      ],
+      "system": "human brain, multiple laboratories (title and metadata only)",
+      "transferable": "qualitative-only",
+      "conditionalOn": null,
+      "informational": true
+    },
+    {
+      "id": "R-order-01",
+      "title": "Protocol deviation: a step out of procedure order or repeated",
+      "when": {
+        "all": [
+          {
+            "mode": "practice"
+          },
+          {
+            "any": [
+              {
+                "deviation": "out-of-order"
+              },
+              {
+                "deviation": "repeated"
+              }
+            ]
+          }
+        ]
+      },
+      "effect": [
+        {
+          "op": "artifact",
+          "id": "protocol-deviation"
+        },
+        {
+          "op": "caveat",
+          "text": "Protocol deviation: at least one step was performed out of the course procedure order or repeated. The illustrative state is whatever the performed order produced; no source in the registry describes the staining consequence of this deviation, so nothing beyond the recorded deviation is encoded."
+        }
+      ],
+      "basis": "course-handout",
+      "claims": [
+        "C-course-steps-order"
+      ],
+      "system": "course protocol",
+      "transferable": "course-specific",
+      "conditionalOn": null,
+      "informational": false
+    },
+    {
+      "id": "R-norm-01",
+      "title": "A negative biological comparison still stains normal structures",
+      "when": {
+        "path": "specimen.role",
+        "eq": "negative-comparison-stand-in"
+      },
+      "effect": [
+        {
+          "op": "caveat",
+          "text": "A negative biological comparison is not expected to be blank: normal neural structures such as axons can stain."
+        }
+      ],
+      "basis": "course-handout",
+      "claims": [
+        "C-course-negative-tissue-stains"
+      ],
+      "system": "course guide",
+      "transferable": "course-specific",
+      "conditionalOn": null,
+      "informational": false
+    }
+  ],
+  "hypothesisRules": [],
+  "note": "No R-hyp-* rules in v1. The course raises four competing explanations (C-course-hypotheses) but no source in the registry states which pretreatment probes which hypothesis or which direction each hypothesis predicts; filling that in from general chemistry would assert a hypothesis as true. Any pretreatment other than none resolves to an uncertainty card (hypothesis-unencoded). Any R-hyp-* rule added later must carry conditionalOn (lint hypothesis-rule-without-condition) and cite instructor guidance."
+}

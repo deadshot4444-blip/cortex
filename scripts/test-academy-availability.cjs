@@ -7,8 +7,10 @@ const fs = require('node:fs');
 const vm = require('node:vm');
 const { JSDOM } = require('jsdom');
 
-const OPEN = ['mcat', 'dat', 'practice'];
+const OPEN = ['mcat', 'dat', 'practice', 'lab'];
 const CLOSED = ['socrates', 'anatomy', 'reference', 'neuro'];
+// The lab is open but has no offline pack (conventions §1 rule 11), so the open packs are these three.
+const OPEN_PACKS = ['mcat', 'dat', 'practice'];
 
 function harness(local, preview = null) {
   const dom = new JSDOM('<!doctype html><div id="app"></div>', {
@@ -39,7 +41,7 @@ test('only MCAT and Clinical Scenarios are open to the public', () => {
   const { w, dom } = harness(false);
   // Array.from re-creates the list in this realm; jsdom's arrays fail deepEqual on prototype.
   const tracks = Array.from(w.CortexAcademy.tracks);
-  assert.equal(tracks.length, 7);
+  assert.equal(tracks.length, 8);
   assert.deepEqual(
     tracks.filter(t => t.available).map(t => t.id),
     OPEN
@@ -65,6 +67,7 @@ test('the public catalog labels closed courses and points them at the course sta
     'Under construction',
     'Under construction',
     'Under construction',
+    'Beta',
   ]);
   const actions = [...w.document.querySelectorAll('.academy-course-bottom a')].map(a =>
     a.textContent.replace(/\s*→\s*$/, '').trim()
@@ -77,6 +80,7 @@ test('the public catalog labels closed courses and points them at the course sta
     'View course status',
     'View course status',
     'View course status',
+    'Open the lab',
   ]);
   for (const id of CLOSED)
     assert.equal(w.document.querySelector(`h2 a[data-course="${id}"]`).getAttribute('href'), '/' + id);
@@ -104,6 +108,7 @@ test('a reviewer grant opens only its course in the catalog, labelled Preview', 
     'Under construction',
     'Under construction',
     'Under construction',
+    'Beta',
   ]);
   const learn = w.document.querySelector('.academy-course-bottom a[data-course="socrates"]').textContent;
   assert.doesNotMatch(learn, /View course status/);
@@ -130,7 +135,7 @@ test('the public offline download list skips closed courses but keeps open ones'
   const publicCheck = evaluate(false, catalog);
   assert.deepEqual(
     manifest.packs.filter(pack => !publicCheck(pack.id)).map(pack => pack.id),
-    OPEN
+    OPEN_PACKS
   );
   const localCheck = evaluate(true, catalog);
   assert.deepEqual(

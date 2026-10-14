@@ -1,0 +1,335 @@
+{
+  "v": 1,
+  "items": [
+    {
+      "id": "bielschowsky-modified",
+      "title": "Modified Bielschowsky silver stain (course procedure)",
+      "runnable": true,
+      "compareOnly": false,
+      "steps": [
+        {
+          "id": "deparaffinize-rehydrate",
+          "title": "Dewax and rehydrate",
+          "studentTitle": "Remove the wax and rehydrate",
+          "order": 1,
+          "purpose": {
+            "text": "Remove the wax and bring the section to water: xylene twice, then down the ethanol series to distilled water. Sections must look wet and even, with no cloudy wax left.",
+            "basis": "course-handout",
+            "claims": [
+              "C-course-steps-order",
+              "C-course-procedure-rinses-solvents"
+            ]
+          },
+          "quantities": {
+            "reagent": "xylene (two jars), 100% ethanol (two jars), 95% ethanol, 70% ethanol, distilled water",
+            "concentration": "100%, 95% and 70% ethanol",
+            "time": "xylene 5 + 5 min; ethanol 3 + 3 + 3 + 3 min; distilled water 3 changes of 1 min",
+            "temperature": "room temperature"
+          },
+          "hazards": [
+            "H-deparaffinize-solvents"
+          ],
+          "station": "S1",
+          "requiresHood": true
+        },
+        {
+          "id": "silver-impregnation",
+          "title": "First silver impregnation",
+          "studentTitle": "First silver bath",
+          "order": 2,
+          "purpose": {
+            "text": "The first exposure of the section to silver: 20% silver nitrate, 20 min, in the dark. Sections turn faintly yellow to light brown. Keep this jar: the ammoniacal silver is made from it.",
+            "basis": "course-handout",
+            "claims": [
+              "C-course-steps-order",
+              "C-course-procedure-quantities",
+              "C-uchihara-2007-standard"
+            ]
+          },
+          "quantities": {
+            "reagent": "20% silver nitrate (10 g in 50 ml distilled water), made the same day in a brown or foil-wrapped jar; remake after 10 to 15 slides",
+            "concentration": "20%",
+            "time": "20 min",
+            "temperature": "room temperature, in the dark"
+          },
+          "hazards": [
+            "H-impregnation-reagent"
+          ],
+          "station": "S2",
+          "requiresHood": false
+        },
+        {
+          "id": "water-wash",
+          "title": "Rinse",
+          "studentTitle": "Rinse in water",
+          "order": 3,
+          "purpose": {
+            "text": "Rinse in distilled water after the first silver bath, 3 changes of 1 min each, before the ammoniacal silver.",
+            "basis": "course-handout",
+            "claims": [
+              "C-course-steps-order",
+              "C-course-procedure-rinses-solvents"
+            ]
+          },
+          "quantities": {
+            "reagent": "distilled water",
+            "concentration": "none (water only)",
+            "time": "3 changes of 1 min",
+            "temperature": "room temperature"
+          },
+          "hazards": [],
+          "station": "S2",
+          "requiresHood": false
+        },
+        {
+          "id": "ammoniacal-silver",
+          "title": "Make the ammoniacal silver, then the second impregnation",
+          "studentTitle": "Ammoniacal silver bath",
+          "order": 4,
+          "purpose": {
+            "text": "In the hood, with gloves and goggles: into the silver nitrate jar from the first bath, add concentrated ammonium hydroxide one drop at a time while swirling. It turns brown and cloudy, then clears. Stop at the first moment it is completely clear, add 2 more drops, and filter it if it stays faintly cloudy; extra ammonia weakens the stain. Then the second impregnation: slides in, 15 min, in the dark. Sections turn tan to brown. Keep this jar: development happens in it.",
+            "basis": "course-handout",
+            "claims": [
+              "C-course-steps-order",
+              "C-course-procedure-quantities",
+              "C-uchihara-2007-standard"
+            ]
+          },
+          "quantities": {
+            "reagent": "ammoniacal silver: the 20% silver nitrate from the first bath plus concentrated (28 to 30%) ammonium hydroxide, roughly 7 to 10 ml per 50 ml, made right before use and used once",
+            "concentration": "20% silver, titrated to just clear plus 2 drops",
+            "time": "15 min",
+            "temperature": "room temperature, in the dark"
+          },
+          "hazards": [
+            "H-ammoniacal-silver",
+            "H-ammonium-hydroxide"
+          ],
+          "station": "S3",
+          "requiresHood": true
+        },
+        {
+          "id": "ammonium-hydroxide-wash",
+          "title": "Ammonia water rinse",
+          "studentTitle": "Ammonia rinse",
+          "order": 5,
+          "purpose": {
+            "text": "Between the ammoniacal silver and the developer: slides into ammonia water (3 drops of concentrated ammonium hydroxide in 50 ml water) for 1 to 5 min. They wait here while the developer is added to the silver jar.",
+            "basis": "course-handout",
+            "claims": [
+              "C-course-steps-order",
+              "C-course-procedure-quantities"
+            ]
+          },
+          "quantities": {
+            "reagent": "ammonia water: 3 drops of concentrated ammonium hydroxide in 50 ml distilled water, made right before use",
+            "concentration": "3 drops per 50 ml",
+            "time": "1 to 5 min",
+            "temperature": "room temperature"
+          },
+          "hazards": [
+            "H-ammonium-hydroxide"
+          ],
+          "station": "S3",
+          "requiresHood": true
+        },
+        {
+          "id": "development",
+          "title": "Develop, then stop",
+          "studentTitle": "Develop the silver",
+          "order": 6,
+          "purpose": {
+            "text": "Reduction of the impregnated silver to visible deposits. Add 3 drops of developer stock to the ammoniacal silver jar and swirl; slides in, in the dark, timer on. From 1 min, pull a slide every 30 to 60 s and look under the microscope: stop when axons, plaque neurites and tangles are black and the background is still tan, typically 1 to 5 min and never past 10; write down the time. Dark brown everywhere means too long. Stop in ammonia water for 30 s to 1 min, then distilled water, 3 changes of 1 min.",
+            "basis": "course-handout",
+            "claims": [
+              "C-course-steps-order",
+              "C-course-procedure-quantities",
+              "C-course-endpoint-microscope",
+              "C-uchihara-2007-standard"
+            ]
+          },
+          "quantities": {
+            "reagent": "developer stock: 20 ml formaldehyde (37 to 40%), 100 ml water, 0.5 g citric acid, 1 drop concentrated nitric acid, made in the hood the same day and discarded after use; then ammonia water and distilled water to stop",
+            "concentration": "3 drops of stock per 50 ml of ammoniacal silver (about 9 drops for 150 ml)",
+            "time": "1 to 5 min typical, judged under the microscope, at most 10; stop in ammonia water 30 s to 1 min, then water 3 changes of 1 min",
+            "temperature": "room temperature, in the dark"
+          },
+          "hazards": [
+            "H-developer",
+            "H-ammoniacal-silver"
+          ],
+          "station": "S3",
+          "requiresHood": true
+        },
+        {
+          "id": "gold-toning",
+          "title": "Gold toning (optional)",
+          "studentTitle": "Gold toning",
+          "order": 7,
+          "purpose": {
+            "text": "Optional: 0.2% gold chloride for 5 min, then distilled water for 1 min. It turns the stain from brown-black to gray-black.",
+            "basis": "course-handout",
+            "claims": [
+              "C-course-steps-order",
+              "C-course-procedure-quantities"
+            ]
+          },
+          "quantities": {
+            "reagent": "0.2% gold chloride (0.2 g in 100 ml water), made ahead; keeps for months in the dark",
+            "concentration": "0.2%",
+            "time": "5 min, then distilled water 1 min",
+            "temperature": "room temperature"
+          },
+          "hazards": [
+            "H-gold-chloride"
+          ],
+          "station": "S4",
+          "requiresHood": false
+        },
+        {
+          "id": "sodium-thiosulfate",
+          "title": "Fix in sodium thiosulfate",
+          "studentTitle": "Thiosulfate treatment",
+          "order": 8,
+          "purpose": {
+            "text": "5% sodium thiosulfate for 2 min. This removes silver that was never reduced, so the slide stops changing.",
+            "basis": "course-handout",
+            "claims": [
+              "C-course-steps-order",
+              "C-course-procedure-quantities"
+            ]
+          },
+          "quantities": {
+            "reagent": "5% sodium thiosulfate (5 g in 100 ml water), made ahead; keeps for weeks at room temperature",
+            "concentration": "5%",
+            "time": "2 min",
+            "temperature": "room temperature"
+          },
+          "hazards": [
+            "H-sodium-thiosulfate"
+          ],
+          "station": "S4",
+          "requiresHood": false
+        },
+        {
+          "id": "final-wash-dehydrate-clear-mount",
+          "title": "Wash, dehydrate, clear and mount, then clean up",
+          "studentTitle": "Rinse, dehydrate, clear and mount",
+          "order": 9,
+          "purpose": {
+            "text": "Distilled water, 3 changes of 1 min; then 95% ethanol, 100% ethanol twice and xylene twice, 2 min each; coverslip with resinous medium. Clean up at once: ammoniacal silver and developer mix to the silver waste, every jar that held silver rinsed the same hour, and the sheet filled in while you remember.",
+            "basis": "course-handout",
+            "claims": [
+              "C-course-steps-order",
+              "C-course-procedure-rinses-solvents"
+            ]
+          },
+          "quantities": {
+            "reagent": "distilled water; 95% and 100% ethanol; xylene (two jars); xylene-based resinous mounting medium and coverslips",
+            "concentration": "95% and 100% ethanol",
+            "time": "water 3 changes of 1 min; ethanol 2 + 2 + 2 min; xylene 2 + 2 min",
+            "temperature": "room temperature"
+          },
+          "hazards": [
+            "H-dehydrate-clear-solvents",
+            "H-waste-no-pour"
+          ],
+          "station": "S5",
+          "requiresHood": true
+        }
+      ],
+      "probes": [],
+      "sources": [
+        "S-course-procedure",
+        "S-uchihara-2007"
+      ]
+    },
+    {
+      "id": "cps-i",
+      "title": "Copper-peroxide-silver, CPS-I (Velasco 1992)",
+      "runnable": false,
+      "compareOnly": true,
+      "outcomeRule": "R-method-03-cps1",
+      "sources": [
+        "S-velasco-1992"
+      ]
+    },
+    {
+      "id": "cps-ii",
+      "title": "Copper-peroxide-silver, CPS-II (Velasco 1992)",
+      "runnable": false,
+      "compareOnly": true,
+      "outcomeRule": "R-method-03-cps2",
+      "sources": [
+        "S-velasco-1992"
+      ]
+    }
+  ],
+  "stations": [
+    {
+      "id": "S1",
+      "title": "Deparaffinize / rehydrate",
+      "studentTitle": "Remove the wax",
+      "steps": [
+        "deparaffinize-rehydrate"
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "Silver impregnation",
+      "studentTitle": "First silver bath",
+      "steps": [
+        "silver-impregnation",
+        "water-wash"
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "Ammoniacal silver + developer",
+      "studentTitle": "Ammoniacal silver and develop",
+      "steps": [
+        "ammoniacal-silver",
+        "ammonium-hydroxide-wash",
+        "development"
+      ]
+    },
+    {
+      "id": "S4",
+      "title": "Toning + thiosulfate",
+      "studentTitle": "Gold and thiosulfate",
+      "steps": [
+        "gold-toning",
+        "sodium-thiosulfate"
+      ]
+    },
+    {
+      "id": "S5",
+      "title": "Dehydrate / clear / mount",
+      "studentTitle": "Dehydrate and mount",
+      "steps": [
+        "final-wash-dehydrate-clear-mount"
+      ]
+    },
+    {
+      "id": "S6",
+      "title": "Microscope",
+      "steps": []
+    },
+    {
+      "id": "S7",
+      "title": "Waste + safety",
+      "steps": []
+    },
+    {
+      "id": "S8",
+      "title": "Notebook / whiteboard",
+      "steps": []
+    },
+    {
+      "id": "S9",
+      "title": "Your jars",
+      "studentTitle": "Your jars",
+      "steps": []
+    }
+  ]
+}

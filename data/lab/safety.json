@@ -1,0 +1,151 @@
+{
+  "v": 1,
+  "items": [
+    {
+      "id": "H-disclaimer",
+      "kind": "disclaimer",
+      "title": "Educational software, not qualification",
+      "text": "This is educational software, not qualification to perform hazardous procedures independently. Use instructor-approved protocols, current SDS information and institutional EHS guidance.",
+      "sourceId": "S-course-guide",
+      "stations": []
+    },
+    {
+      "id": "H-ppe",
+      "kind": "ppe",
+      "title": "Personal protective equipment",
+      "text": "Gloves, goggles and a lab coat from set-up to clean-up. Never touch a slide near silver with metal forceps.",
+      "sourceId": "S-course-procedure",
+      "stations": [
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S5",
+        "S7"
+      ]
+    },
+    {
+      "id": "H-fume-hood",
+      "kind": "hood",
+      "title": "Fume hood",
+      "text": "In the hood: making the ammoniacal silver, the ammonia rinses, the developer, and xylene.",
+      "sourceId": "S-course-procedure",
+      "stations": [
+        "S1",
+        "S3",
+        "S5",
+        "S7"
+      ]
+    },
+    {
+      "id": "H-deparaffinize-solvents",
+      "kind": "hazard",
+      "title": "Xylene (dewaxing)",
+      "text": "Xylene is flammable and toxic to breathe: use it in the hood.",
+      "sourceId": "S-course-procedure",
+      "stations": [
+        "S1",
+        "S7"
+      ]
+    },
+    {
+      "id": "H-impregnation-reagent",
+      "kind": "hazard",
+      "title": "Silver nitrate",
+      "text": "20% silver nitrate stains skin and is an oxidizer. Keep it dark and fresh; use plastic forceps.",
+      "sourceId": "S-course-procedure",
+      "stations": [
+        "S2",
+        "S7"
+      ]
+    },
+    {
+      "id": "H-ammoniacal-silver",
+      "kind": "hazard",
+      "title": "Ammoniacal silver",
+      "text": "Make it fresh in the hood, use it once, never store, cap or let it dry: residues can become explosive.",
+      "sourceId": "S-course-procedure",
+      "stations": [
+        "S3",
+        "S7"
+      ]
+    },
+    {
+      "id": "H-ammonium-hydroxide",
+      "kind": "hazard",
+      "title": "Ammonia",
+      "text": "Concentrated ammonia irritates eyes and airways: open and use it in the hood, titrating drop by drop.",
+      "sourceId": "S-course-procedure",
+      "stations": [
+        "S3",
+        "S7"
+      ]
+    },
+    {
+      "id": "H-developer",
+      "kind": "hazard",
+      "title": "Developer",
+      "text": "Formaldehyde is a carcinogen and nitric acid is corrosive: make the developer in the hood, same day.",
+      "sourceId": "S-course-procedure",
+      "stations": [
+        "S3",
+        "S7"
+      ]
+    },
+    {
+      "id": "H-gold-chloride",
+      "kind": "hazard",
+      "title": "Gold chloride",
+      "text": "Gloves, goggles and a lab coat for every reagent; read its safety data sheet before the first run.",
+      "sourceId": "S-course-procedure",
+      "stations": [
+        "S4",
+        "S7"
+      ]
+    },
+    {
+      "id": "H-sodium-thiosulfate",
+      "kind": "hazard",
+      "title": "Sodium thiosulfate",
+      "text": "Gloves, goggles and a lab coat, as for every reagent; its safety data sheet is read before the first run.",
+      "sourceId": "S-course-procedure",
+      "stations": [
+        "S4",
+        "S7"
+      ]
+    },
+    {
+      "id": "H-dehydrate-clear-solvents",
+      "kind": "hazard",
+      "title": "Xylene (clearing)",
+      "text": "Xylene is flammable and toxic to breathe: use it in the hood.",
+      "sourceId": "S-course-procedure",
+      "stations": [
+        "S5",
+        "S7"
+      ]
+    },
+    {
+      "id": "H-waste-no-pour",
+      "kind": "waste",
+      "title": "Silver waste",
+      "text": "Nothing is poured away. Ammoniacal silver and developer go straight to the silver waste the EHS procedure names.",
+      "sourceId": "S-course-procedure",
+      "stations": [
+        "S3",
+        "S5",
+        "S7"
+      ]
+    },
+    {
+      "id": "H-silver-waste",
+      "kind": "waste",
+      "title": "Silver waste container",
+      "text": "Ammoniacal silver and developer go to the silver waste the EHS procedure names; the jar is rinsed the same hour.",
+      "sourceId": "S-course-procedure",
+      "stations": [
+        "S7"
+      ]
+    }
+  ]
+}

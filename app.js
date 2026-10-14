@@ -95,9 +95,17 @@ const SECTION_INFO = {
     headline: 'DAT preparation is under construction.',
     desc: 'This track is being built and reviewed. It opens only on localhost for now.',
   },
+  // `label` must stay byte-identical to CLOSED.lab.label in scripts/smoke-public-gates.mjs and to
+  // the lab track's name in academy.js (auth.js fills the reviewer line from the track name).
+  lab: {
+    label: "Alzheimer's Histology Lab",
+    badge: 'Under construction',
+    headline: "Alzheimer's Histology Lab is under construction.",
+    desc: 'This course is being built for one class and reviewed. It opens on localhost and for invited reviewers.',
+  },
 };
 // Public beta version; independent subject acceptance remains separate.
-const APP_VERSION = '2.35.1-beta.1';
+const APP_VERSION = '2.36.0-beta.1';
 function cortexFreeNote(sectionPill, sectionName) {
   return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free</span><span class="free-note-txt">${sectionName} is free to use — no account, no paywall, no catch.</span></p>`;
 }
@@ -197,7 +205,7 @@ const SECTION_SCRIPTS = {
   academy: [
     'study-storage.js?v=6',
     'academy-today.js?v=12',
-    'study-backup.js?v=14',
+    'study-backup.js?v=17',
     'academy-storage.js?v=5',
     'academy-portfolio-core.js?v=4',
     'academy-portfolio.js?v=4',
@@ -259,6 +267,9 @@ const SECTION_SCRIPTS = {
     'neuro-practitioner.js?v=12',
     'neuro.js?v=41',
   ],
+  // silver-lab-core.js loads before lab.js so the shell can normalize saved state at parse time;
+  // lab.js declares window.CortexLab so the later lab modules can register on it when they load.
+  lab: ['study-storage.js?v=6', 'silver-lab-core.js?v=1', 'lab.js?v=3', 'lab-microscope.js?v=3', 'lab-notebook.js?v=3'],
 };
 const _scriptLoads = {};
 function loadScript(src) {
@@ -726,6 +737,7 @@ async function openSection(key) {
   const request = ++_sectionRequest;
   if (key !== 'mcat') window.pauseMcatTools?.();
   if (key !== 'dat') window.pauseDatTools?.();
+  if (key !== 'lab') window.pauseLabTools?.();
   if (COMING_SOON.has(key)) {
     renderComingSoon(key);
     return true;
@@ -782,6 +794,9 @@ async function openSection(key) {
         break;
       case 'updates':
         renderUpdates();
+        break;
+      case 'lab':
+        await window.renderLabEntry();
         break;
       default:
         return false;
@@ -881,7 +896,7 @@ function topbar(active) {
       <button class="navlink ${active === 'practice' ? 'active' : ''}" data-go="practice" aria-label="Clinical Scenarios"><span class="clinical-nav-full" aria-hidden="true">Clinical Scenarios</span><span class="clinical-nav-short" aria-hidden="true">Clinical</span></button>
       <button class="navlink ${active === 'socrates' ? 'active' : ''}" data-go="socrates" aria-label="Learn to Learn" aria-description="${COMING_SOON.has('socrates') ? 'Under construction' : PREVIEW_COURSES.has('socrates') ? 'Reviewer preview' : 'Learning course'}"><span class="learn-nav-full" aria-hidden="true">Learn to Learn</span><span class="learn-nav-short" aria-hidden="true">Learn</span>${COMING_SOON.has('socrates') ? '<span class="nav-availability">In review</span>' : PREVIEW_COURSES.has('socrates') ? '<span class="nav-availability">Preview</span>' : ''}</button>
       <div class="navmenu">
-        <button class="navlink menubtn ${['academy', 'anatomy', 'reference', 'utsa', 'pomodoro'].includes(active) ? 'active' : ''}" data-menu="explore" data-nav-menu aria-label="Explore" aria-expanded="false" aria-controls="explore-panel">Explore<span class="caret">&#9662;</span></button>
+        <button class="navlink menubtn ${['academy', 'anatomy', 'reference', 'lab', 'utsa', 'pomodoro'].includes(active) ? 'active' : ''}" data-menu="explore" data-nav-menu aria-label="Explore" aria-expanded="false" aria-controls="explore-panel">Explore<span class="caret">&#9662;</span></button>
         <div class="menupanel" id="explore-panel" aria-label="Explore Cortex" hidden>
           <div class="menu-intro">
             <span class="menu-title">Explore Cortex</span>
@@ -900,6 +915,10 @@ function topbar(active) {
               <button class="menuitem${menuActive('reference')}" data-go="reference"${menuCurrent('reference')}>
                 <span class="mi-copy"><span class="mi-name">Medicine</span><span class="mi-desc">Pharm, micro, labs &amp; ECG</span></span>
                 ${sectionMenuTag('reference')}
+              </button>
+              <button class="menuitem${menuActive('lab')}" data-go="lab"${menuCurrent('lab')}>
+                <span class="mi-copy"><span class="mi-name">Histology lab</span><span class="mi-desc">Silver stain practice bench</span></span>
+                ${sectionMenuTag('lab')}
               </button>
             </section>
           </div>

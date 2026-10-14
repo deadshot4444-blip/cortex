@@ -1,0 +1,157 @@
+{
+  "v": 1,
+  "items": [
+    {
+      "id": "SPEC-SYN-AD-01",
+      "label": "Synthetic AD-like section, higher burden (schematic)",
+      "studentLabel": "Practice specimen A · high burden",
+      "studentNote": "A made-up practice section with many lesions, not real tissue; it plays the positive control, but no one has checked how it stains.",
+      "kind": "synthetic-schematic",
+      "species": null,
+      "region": null,
+      "fixation": null,
+      "thicknessUm": null,
+      "processingKnown": false,
+      "seed": 101,
+      "sites": {
+        "axon": {
+          "presence": 3,
+          "reductionSites": 3
+        },
+        "plaque-core": {
+          "presence": 3,
+          "reductionSites": 3
+        },
+        "plaque-neurite": {
+          "presence": 3,
+          "reductionSites": 3
+        },
+        "tangle": {
+          "presence": 3,
+          "reductionSites": 3
+        },
+        "neuropil-thread": {
+          "presence": 2,
+          "reductionSites": 2
+        }
+      },
+      "role": "positive-control-stand-in",
+      "notes": "Synthetic stand-in for a characterized positive staining control. Nothing about it has been characterized; a real control requires a real section with known staining history. Schematic lesion distribution for teaching. Not derived from any real specimen.",
+      "assetId": null
+    },
+    {
+      "id": "SPEC-SYN-AD-02",
+      "label": "Synthetic AD-like section, lower burden (schematic)",
+      "studentLabel": "Practice specimen B · low burden",
+      "studentNote": "A made-up practice section with fewer lesions, not real tissue; it shows that the same darkness can come from different amounts.",
+      "kind": "synthetic-schematic",
+      "species": null,
+      "region": null,
+      "fixation": null,
+      "thicknessUm": null,
+      "processingKnown": false,
+      "seed": 102,
+      "sites": {
+        "axon": {
+          "presence": 3,
+          "reductionSites": 3
+        },
+        "plaque-core": {
+          "presence": 2,
+          "reductionSites": 3
+        },
+        "plaque-neurite": {
+          "presence": 2,
+          "reductionSites": 3
+        },
+        "tangle": {
+          "presence": 2,
+          "reductionSites": 3
+        },
+        "neuropil-thread": {
+          "presence": 1,
+          "reductionSites": 2
+        }
+      },
+      "role": "experimental",
+      "notes": "Synthetic experimental section with lower schematic lesion presence than SPEC-SYN-AD-01. Under an extended development endpoint its plaque-core visibility matches SPEC-SYN-AD-01 at SOP defaults: the same darkness from different amounts. Schematic lesion distribution for teaching. Not derived from any real specimen.",
+      "assetId": null
+    },
+    {
+      "id": "SPEC-SYN-NEG-01",
+      "label": "Synthetic negative comparison section (schematic)",
+      "studentLabel": "Negative comparison · no plaques or tangles",
+      "studentNote": "A made-up practice section, not real tissue; it plays the negative comparison, but its axons still stain.",
+      "kind": "synthetic-schematic",
+      "species": null,
+      "region": null,
+      "fixation": null,
+      "thicknessUm": null,
+      "processingKnown": false,
+      "seed": 103,
+      "sites": {
+        "axon": {
+          "presence": 3,
+          "reductionSites": 3
+        },
+        "plaque-core": {
+          "presence": 0,
+          "reductionSites": 0
+        },
+        "plaque-neurite": {
+          "presence": 0,
+          "reductionSites": 0
+        },
+        "tangle": {
+          "presence": 0,
+          "reductionSites": 0
+        },
+        "neuropil-thread": {
+          "presence": 0,
+          "reductionSites": 0
+        }
+      },
+      "role": "negative-comparison-stand-in",
+      "notes": "Synthetic stand-in for a negative biological comparison: no plaques, tangles or neuropil threads, but normal structures (axons) still stain, so it is not expected to be blank. Nothing about it has been characterized. Not derived from any real specimen.",
+      "assetId": null
+    },
+    {
+      "id": "SPEC-SYN-LOWCHEM-01",
+      "label": "Synthetic high-amount, low-reduction-site section (schematic)",
+      "studentLabel": "High amount, low signal",
+      "studentNote": "Not real tissue: it has lots of target, but few reduction sites (spots that turn silver ions into metal) limit the signal.",
+      "kind": "synthetic-schematic",
+      "species": null,
+      "region": null,
+      "fixation": null,
+      "thicknessUm": null,
+      "processingKnown": false,
+      "seed": 104,
+      "sites": {
+        "axon": {
+          "presence": 4,
+          "reductionSites": 1
+        },
+        "plaque-core": {
+          "presence": 4,
+          "reductionSites": 1
+        },
+        "plaque-neurite": {
+          "presence": 4,
+          "reductionSites": 1
+        },
+        "tangle": {
+          "presence": 4,
+          "reductionSites": 1
+        },
+        "neuropil-thread": {
+          "presence": 4,
+          "reductionSites": 1
+        }
+      },
+      "role": "experimental",
+      "notes": "Synthetic experimental section with high schematic presence at every site but few reduction sites, so deposit is limited by site chemistry rather than by amount: more target, less signal. Schematic device for teaching intensity versus amount. Not derived from any real specimen.",
+      "assetId": null
+    }
+  ]
+}

@@ -95,10 +95,25 @@
       audience: 'Learners exploring neuroscience and engineering.',
       prerequisites: 'Foundations introduce the science and coding; later projects build on those units.',
       scope:
-        'Five revised foundation units within a 20-unit draft path; 13 checked coding exercises, 15 simulations, and six project entries. Independent subject review is pending.',
+        'Five revised foundation units within a 20-unit draft path; 13 checked coding exercises, 15 simulations, and six project entries. Not yet independently reviewed.',
       time: 'Start with the foundations',
       action: 'Explore neuroengineering',
       kind: 'Engineering',
+    },
+    {
+      id: 'lab',
+      path: 'lab',
+      name: "Alzheimer's Histology Lab",
+      available: true,
+      description:
+        'Practice the modified Bielschowsky silver stain step by step, or take the free bench and mix anything to see what happens, with real reference slides from open-access studies.',
+      audience: 'Students learning Alzheimer’s disease histology methods.',
+      prerequisites: 'None. The steps, reagents, quantities and safety notes follow the course procedure.',
+      scope:
+        'A list mode that needs no WebGL, a 2D microscope and an optional 3D bench. Every simulated output is an illustration, not a measurement; real slides are credited under each. Not yet independently reviewed.',
+      time: 'Open-ended: one run takes a few minutes',
+      action: 'Open the lab',
+      kind: 'Laboratory methods',
     },
   ].map(Object.freeze);
 
@@ -149,7 +164,7 @@
       </div>
       <details class="academy-review-note">
         <summary>About course status and review</summary>
-        <p>Beta material is available for evaluation. Independent subject review is pending. A course's presence here describes its available material, not a qualification or a guarantee of learning outcomes.</p>
+        <p>Beta material is available for evaluation. Not yet independently reviewed. A course's presence here describes its available material, not a qualification or a guarantee of learning outcomes.</p>
         <p>MCAT preparation is free forever. Your work stays on this device unless you choose to use an account or share it.</p>
       </details>
     </main>`);

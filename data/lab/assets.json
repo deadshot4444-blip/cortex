@@ -1,0 +1,355 @@
+{
+  "v": 1,
+  "items": [
+    {
+      "id": "A-ref-ikonomovic-2020-fig4d",
+      "kind": "reference-image",
+      "label": "observed-reference",
+      "src": "/assets/lab/reference/ikonomovic-2020-fig4d.jpg?v=1",
+      "width": 499,
+      "height": 375,
+      "specimenId": "SPEC-SYN-AD-01",
+      "role": "positive",
+      "looks": [
+        "black-on-tan",
+        "gray-black"
+      ],
+      "stain": "Bielschowsky silver stain",
+      "region": "frontal cortex",
+      "tissue": "Alzheimer's disease, autopsy (case 27)",
+      "shows": [
+        "neuritic plaques"
+      ],
+      "scale": "scale bar 100 µm (shown in panel h)",
+      "magnification": null,
+      "description": "Real slide: Bielschowsky silver stain of Alzheimer's disease frontal cortex; the arrows mark neuritic plaques.",
+      "sourceId": "S-ikonomovic-2020",
+      "figure": "Fig. 4, panel d",
+      "rights": {
+        "status": "cc-by-4.0",
+        "holder": "© The Author(s) 2020",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+        "changes": "panel d cropped from the figure; the authors' label and arrows kept"
+      }
+    },
+    {
+      "id": "A-ref-ikonomovic-2020-fig4h",
+      "kind": "reference-image",
+      "label": "observed-reference",
+      "src": "/assets/lab/reference/ikonomovic-2020-fig4h.jpg?v=1",
+      "width": 500,
+      "height": 375,
+      "specimenId": "SPEC-SYN-AD-01",
+      "role": "positive",
+      "looks": [
+        "black-on-tan",
+        "gray-black"
+      ],
+      "stain": "Bielschowsky silver stain",
+      "region": "frontal cortex",
+      "tissue": "Alzheimer's disease, autopsy (case 27)",
+      "shows": [
+        "neuritic plaques",
+        "plaques"
+      ],
+      "scale": "scale bar 100 µm",
+      "magnification": null,
+      "description": "Real slide: Bielschowsky silver stain of Alzheimer's disease frontal cortex, a second field with plaques; scale bar 100 µm.",
+      "sourceId": "S-ikonomovic-2020",
+      "figure": "Fig. 4, panel h",
+      "rights": {
+        "status": "cc-by-4.0",
+        "holder": "© The Author(s) 2020",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+        "changes": "panel h cropped from the figure; the authors' label kept"
+      }
+    },
+    {
+      "id": "A-ref-liu-2022-fig4a-np",
+      "kind": "reference-image",
+      "label": "observed-reference",
+      "src": "/assets/lab/reference/liu-2022-fig4a-np.jpg?v=1",
+      "width": 426,
+      "height": 368,
+      "specimenId": "SPEC-SYN-NEG-01",
+      "role": "negative",
+      "looks": [
+        "black-on-tan",
+        "gray-black",
+        "light-detail"
+      ],
+      "stain": "modified Bielschowsky staining",
+      "region": "hippocampus",
+      "tissue": "the authors' 'normal' group, autopsy",
+      "shows": [
+        "few neuritic plaques",
+        "neuropil"
+      ],
+      "scale": "scale bar 50 µm",
+      "magnification": null,
+      "description": "Real slide: modified Bielschowsky stain of hippocampus from the authors' normal group; arrowheads mark areas without neuritic plaques.",
+      "sourceId": "S-liu-2022",
+      "figure": "Fig. 4, panel A (neuritic plaque column)",
+      "rights": {
+        "status": "cc-by-4.0",
+        "holder": "© The Author(s) 2022",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+        "changes": "one panel cropped from the figure; the authors' arrowheads kept"
+      }
+    },
+    {
+      "id": "A-ref-liu-2022-fig4b-np",
+      "kind": "reference-image",
+      "label": "observed-reference",
+      "src": "/assets/lab/reference/liu-2022-fig4b-np.jpg?v=1",
+      "width": 426,
+      "height": 382,
+      "specimenId": "SPEC-SYN-AD-01",
+      "role": "positive",
+      "looks": [
+        "black-on-tan",
+        "gray-black"
+      ],
+      "stain": "modified Bielschowsky staining",
+      "region": "hippocampus",
+      "tissue": "Alzheimer's disease group, autopsy",
+      "shows": [
+        "neuritic plaques"
+      ],
+      "scale": "scale bar 50 µm",
+      "magnification": null,
+      "description": "Real slide: modified Bielschowsky stain of Alzheimer's disease hippocampus; arrowheads mark neuritic plaques beside diffuse amyloid.",
+      "sourceId": "S-liu-2022",
+      "figure": "Fig. 4, panel B (neuritic plaque column)",
+      "rights": {
+        "status": "cc-by-4.0",
+        "holder": "© The Author(s) 2022",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+        "changes": "one panel cropped from the figure; the authors' arrowheads kept"
+      }
+    },
+    {
+      "id": "A-ref-liu-2022-fig4c-np",
+      "kind": "reference-image",
+      "label": "observed-reference",
+      "src": "/assets/lab/reference/liu-2022-fig4c-np.jpg?v=1",
+      "width": 427,
+      "height": 391,
+      "specimenId": "SPEC-SYN-AD-01",
+      "role": "positive",
+      "looks": [
+        "black-on-tan",
+        "gray-black"
+      ],
+      "stain": "modified Bielschowsky staining",
+      "region": "hippocampus",
+      "tissue": "Alzheimer's disease group, autopsy",
+      "shows": [
+        "neuritic plaques"
+      ],
+      "scale": "scale bar 50 µm",
+      "magnification": null,
+      "description": "Real slide: modified Bielschowsky stain of Alzheimer's disease hippocampus; arrows mark neuritic plaques around focal amyloid.",
+      "sourceId": "S-liu-2022",
+      "figure": "Fig. 4, panel C (neuritic plaque column)",
+      "rights": {
+        "status": "cc-by-4.0",
+        "holder": "© The Author(s) 2022",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+        "changes": "one panel cropped from the figure; the authors' arrows kept"
+      }
+    },
+    {
+      "id": "A-ref-marengo-2022-fig1-ad",
+      "kind": "reference-image",
+      "label": "observed-reference",
+      "src": "/assets/lab/reference/marengo-2022-fig1-ad.jpg?v=1",
+      "width": 349,
+      "height": 362,
+      "specimenId": "SPEC-SYN-AD-01",
+      "role": "positive",
+      "looks": [
+        "black-on-tan",
+        "gray-black"
+      ],
+      "stain": "Bielschowsky staining (kit, standard laboratory procedure)",
+      "region": "frontal isocortex",
+      "tissue": "Alzheimer's disease patient, post mortem",
+      "shows": [
+        "neuritic plaque",
+        "tangles",
+        "threads"
+      ],
+      "scale": "scale bar 100 µm (in the figure's first panel)",
+      "magnification": null,
+      "description": "Real slide: Bielschowsky stain of Alzheimer's disease frontal cortex with a black neuritic plaque and dark fibres.",
+      "sourceId": "S-marengo-2022",
+      "figure": "Fig. 1A, Bielschowsky column, AD row",
+      "rights": {
+        "status": "cc-by-4.0",
+        "holder": "© The Author(s) 2022",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+        "changes": "the AD half of the column cropped from the figure"
+      }
+    },
+    {
+      "id": "A-ref-marengo-2022-fig1-control",
+      "kind": "reference-image",
+      "label": "observed-reference",
+      "src": "/assets/lab/reference/marengo-2022-fig1-control.jpg?v=1",
+      "width": 349,
+      "height": 362,
+      "specimenId": "SPEC-SYN-NEG-01",
+      "role": "negative",
+      "looks": [
+        "black-on-tan",
+        "gray-black",
+        "light-detail"
+      ],
+      "stain": "Bielschowsky staining (kit, standard laboratory procedure)",
+      "region": "frontal isocortex",
+      "tissue": "age-matched non-demented control, post mortem",
+      "shows": [
+        "axons",
+        "no plaques"
+      ],
+      "scale": "scale bar 100 µm (in the figure's first panel)",
+      "magnification": null,
+      "description": "Real slide: Bielschowsky stain of non-demented control frontal cortex: fine dark fibres, no plaque.",
+      "sourceId": "S-marengo-2022",
+      "figure": "Fig. 1A, Bielschowsky column, Control row",
+      "rights": {
+        "status": "cc-by-4.0",
+        "holder": "© The Author(s) 2022",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+        "changes": "the Control half of the column cropped from the figure"
+      }
+    },
+    {
+      "id": "A-ref-zhang-2025-fig1b",
+      "kind": "reference-image",
+      "label": "observed-reference",
+      "src": "/assets/lab/reference/zhang-2025-fig1b.jpg?v=1",
+      "width": 374,
+      "height": 377,
+      "specimenId": "SPEC-SYN-AD-01",
+      "role": "positive",
+      "looks": [
+        "black-on-tan",
+        "gray-black"
+      ],
+      "stain": "Bielschowsky silver stain",
+      "region": "middle temporal gyrus",
+      "tissue": "70-year-old man, clinical Parkinson's disease with Alzheimer-type lesions, autopsy",
+      "shows": [
+        "diffuse plaques",
+        "cortical layers"
+      ],
+      "scale": "scale bar 125 µm",
+      "magnification": null,
+      "description": "Real slide: Bielschowsky silver stain of middle temporal gyrus with diffuse plaques; the case had Parkinson's disease clinically.",
+      "sourceId": "S-zhang-2025",
+      "figure": "Fig. 1, panel B (low magnification)",
+      "rights": {
+        "status": "cc-by",
+        "holder": "© Zhang et al. 2025",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+        "changes": "one panel cropped from the figure; the authors' labels and inset kept"
+      }
+    },
+    {
+      "id": "A-ref-zhang-2025-fig1b-detail",
+      "kind": "reference-image",
+      "label": "observed-reference",
+      "src": "/assets/lab/reference/zhang-2025-fig1b-detail.jpg?v=1",
+      "width": 375,
+      "height": 377,
+      "specimenId": "SPEC-SYN-AD-01",
+      "role": "positive",
+      "looks": [
+        "black-on-tan",
+        "gray-black"
+      ],
+      "stain": "Bielschowsky silver stain",
+      "region": "middle temporal gyrus",
+      "tissue": "70-year-old man, clinical Parkinson's disease with Alzheimer-type lesions, autopsy",
+      "shows": [
+        "diffuse plaques"
+      ],
+      "scale": "scale bar 10 µm",
+      "magnification": null,
+      "description": "Real slide: close view of diffuse plaques in Bielschowsky silver stain, middle temporal gyrus; the case had Parkinson's disease clinically.",
+      "sourceId": "S-zhang-2025",
+      "figure": "Fig. 1, panel B (detail)",
+      "rights": {
+        "status": "cc-by",
+        "holder": "© Zhang et al. 2025",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+        "changes": "one panel cropped from the figure"
+      }
+    },
+    {
+      "id": "A-ref-zhang-2025-fig1c",
+      "kind": "reference-image",
+      "label": "observed-reference",
+      "src": "/assets/lab/reference/zhang-2025-fig1c.jpg?v=1",
+      "width": 374,
+      "height": 377,
+      "specimenId": "SPEC-SYN-AD-01",
+      "role": "positive",
+      "looks": [
+        "black-on-tan",
+        "gray-black"
+      ],
+      "stain": "Bielschowsky silver stain",
+      "region": "hippocampus",
+      "tissue": "70-year-old man, clinical Parkinson's disease with Alzheimer-type lesions, autopsy",
+      "shows": [
+        "cored plaque"
+      ],
+      "scale": "scale bar 40 µm",
+      "magnification": null,
+      "description": "Real slide: Bielschowsky silver stain of hippocampus with a cored compact plaque (boxed); the case had Parkinson's disease clinically.",
+      "sourceId": "S-zhang-2025",
+      "figure": "Fig. 1, panel C (low magnification)",
+      "rights": {
+        "status": "cc-by",
+        "holder": "© Zhang et al. 2025",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+        "changes": "one panel cropped from the figure; the authors' labels and inset kept"
+      }
+    },
+    {
+      "id": "A-ref-zhang-2025-fig1c-detail",
+      "kind": "reference-image",
+      "label": "observed-reference",
+      "src": "/assets/lab/reference/zhang-2025-fig1c-detail.jpg?v=1",
+      "width": 375,
+      "height": 377,
+      "specimenId": "SPEC-SYN-AD-01",
+      "role": "positive",
+      "looks": [
+        "black-on-tan",
+        "gray-black"
+      ],
+      "stain": "Bielschowsky silver stain",
+      "region": "hippocampus",
+      "tissue": "70-year-old man, clinical Parkinson's disease with Alzheimer-type lesions, autopsy",
+      "shows": [
+        "cored plaque"
+      ],
+      "scale": "scale bar 5 µm",
+      "magnification": null,
+      "description": "Real slide: close view of a cored compact plaque in Bielschowsky silver stain, hippocampus; the case had Parkinson's disease clinically.",
+      "sourceId": "S-zhang-2025",
+      "figure": "Fig. 1, panel C (detail)",
+      "rights": {
+        "status": "cc-by",
+        "holder": "© Zhang et al. 2025",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+        "changes": "one panel cropped from the figure"
+      }
+    }
+  ],
+  "note": "Real reference slides (contract §12): cropped panels of CC BY open-access figures, each an observed-reference image of a published slide, never the student's run. Synthetic renders are still generated at runtime by the microscope and carry the illustrative-synthetic label there. Every item carries a known rights status, its source id, the figure and panel used, and what was changed."
+}
