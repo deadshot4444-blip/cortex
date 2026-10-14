@@ -3,14 +3,14 @@
 // Parts that never move and never light up are instanced per (geometry, material) pair, so the
 // whole bench costs a few dozen draw calls; hotspot visuals, done markers and the carried rack
 // stay plain meshes. Original assets by construction: nothing is downloaded, and the only
-// textures are generated here (floor tiles, bench-top grain) and in labels.js (station titles).
+// textures are generated here (floor tiles, bench-top grain, backsplash tiles) and in labels.js (station titles).
 // In-scene text shows station titles and the specimen plate only; hotspot titles (DOM tooltips)
 // may add step titles and plain object names. No reagent names, quantities, temperatures or
 // times anywhere. The specimen tray at the head of the bench carries the schematic brain of
 // brain.js (contract §7.1); the tissue volume lives in the director's second scene (clip.js).
 import * as THREE from 'three';
-import { makeLabelSprite, disposeLabel } from './labels.js?v=1';
-import { buildBrain } from './brain.js?v=1';
+import { makeLabelSprite, disposeLabel } from './labels.js?v=2';
+import { buildBrain } from './brain.js?v=2';
 
 export const BENCH_TOP_Y = 0.9;
 export const STATION_SPACING = 2.1;
@@ -31,6 +31,13 @@ const ROOM_DEPTH = 60;
 const WALL_HEIGHT = 12;
 const TILE = 0.9; // floor tile edge, world units
 const DOOR = 1.05; // cabinet door pitch, world units
+// The room on the lab's own palette (lab.css "Lab identity": paper, warm lines, bronze). A tiled backsplash
+// runs along the wall from the bench top to just under the signs (its top is flush with the whiteboard's), so
+// a station view is never a bare plane: three rows of SPLASH_TILE tiles, a whole number of them along the band.
+export const ROOM_COLOR = 0xe6e1d8; // the background and the fog: the wall's tone, a shade deeper
+const SPLASH_TILE = 0.22;
+const SPLASH_TOP = BENCH_TOP_Y + 3 * SPLASH_TILE;
+const SPLASH_LENGTH = Math.round((BENCH_LENGTH + 1.2) / SPLASH_TILE) * SPLASH_TILE;
 // §13.4 (open free bench): the "Your jars" tray, station S9, on the free stretch of bench between "Dehydrate and
 // mount" (S5's equipment ends at x 1.73) and the microscope (S6's starts at 3.0), its sign over it. It holds up to
 // JARS_MAX of the student's own jars (the procedure jars' size), packed in a row on a tray their size; layoutJars()
@@ -107,7 +114,20 @@ function canvasTexture(canvas, repeatX, repeatY) {
   return texture;
 }
 
-// Floor: a 2x2 block of matte tiles with hairline grout, repeated across the room.
+// A small seeded generator for the textures' speckle (mulberry32), so every mount draws the same room.
+function prng(seed) {
+  let a = seed >>> 0;
+  return () => {
+    a = (a + 0x6d2b79f5) >>> 0;
+    let t = a;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+// Floor: a 2x2 block of warm stone tiles with a soft grout line and a faint terrazzo speckle, repeated
+// across the room. The speckle is a few hundred low-contrast dots, gone in the mip chain at a distance.
 function makeTileTexture() {
   const px = 512;
   const n = 2;
@@ -117,14 +137,24 @@ function makeTileTexture() {
   canvas.height = px;
   const ctx = canvas.getContext('2d');
   if (!ctx) return null;
-  ctx.fillStyle = '#878c92';
+  ctx.fillStyle = '#7f7a70';
   ctx.fillRect(0, 0, px, px);
-  const tones = ['#9ea3a9', '#9a9fa5', '#a0a5ab', '#9ca1a7'];
+  const tones = ['#a39d92', '#9e988d', '#a6a095', '#a19b90'];
   for (let j = 0; j < n; j++) {
     for (let i = 0; i < n; i++) {
       ctx.fillStyle = tones[i + j * n];
       ctx.fillRect(i * cell + 2, j * cell + 2, cell - 4, cell - 4);
     }
+  }
+  const rnd = prng(11);
+  for (let k = 0; k < 900; k++) {
+    const x = rnd() * px;
+    const y = rnd() * px;
+    const r = 0.6 + rnd() * 1.6;
+    ctx.fillStyle = rnd() < 0.5 ? 'rgba(255, 250, 240, 0.22)' : 'rgba(70, 60, 48, 0.16)';
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.fill();
   }
   return canvasTexture(canvas, ROOM_WIDTH / (n * TILE), ROOM_DEPTH / (n * TILE));
 }
@@ -158,6 +188,32 @@ function makeGrainTexture() {
   return canvasTexture(canvas, BENCH_LENGTH / 3.2, 1);
 }
 
+// Backsplash: pale warm tiles with a hairline grout, one tile per texture repeat, slightly glossy in the
+// material so the environment gives them a sheen. Repeated along the band by its length over SPLASH_TILE.
+function makeSplashTexture() {
+  const px = 256;
+  const canvas = document.createElement('canvas');
+  canvas.width = px;
+  canvas.height = px;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return null;
+  ctx.fillStyle = '#bfb8ab';
+  ctx.fillRect(0, 0, px, px);
+  const grad = ctx.createLinearGradient(0, 0, px, px);
+  grad.addColorStop(0, '#e7e3db');
+  grad.addColorStop(1, '#dcd7ce');
+  ctx.fillStyle = grad;
+  ctx.fillRect(3, 3, px - 6, px - 6);
+  ctx.strokeStyle = 'rgba(255, 253, 248, 0.5)'; // a bevel highlight on the tile's top and left edges
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(4, px - 4);
+  ctx.lineTo(4, 4);
+  ctx.lineTo(px - 4, 4);
+  ctx.stroke();
+  return canvasTexture(canvas, 1, 1);
+}
+
 /**
  * Build the scene graph.
  * @param {{ stations: Array<{id, title, steps}>, stepTitle: (step) => string, shadows: boolean, touch: boolean }} opts
@@ -174,45 +230,51 @@ export function buildScene(opts) {
     cyl: new THREE.CylinderGeometry(0.5, 0.5, 1, 32),
     plane: new THREE.PlaneGeometry(1, 1),
   };
-  const textures = { tile: makeTileTexture(), grain: makeGrainTexture() };
+  const textures = { tile: makeTileTexture(), grain: makeGrainTexture(), splash: makeSplashTexture() };
+  // The lab's palette: warm off-whites and stone greys for the room and the furniture, near-black that leans
+  // brown rather than blue, metal and glass that take the environment's sheen (bench.js sets scene.environment).
   const M = {
-    floor: std(textures.tile ? 0xffffff : 0x9ca1a7, { map: textures.tile, roughness: 0.95 }),
-    wall: std(0xf4f3ef, { roughness: 1 }),
-    shelf: std(0xe9eaec, { roughness: 0.8 }),
-    hairline: std(0x3a3e45, { roughness: 0.8 }),
-    benchTop: std(textures.grain ? 0xffffff : 0xcdc2ab, { map: textures.grain, roughness: 0.55 }),
-    benchEdge: std(0x2b2f36, { roughness: 0.6 }),
-    benchBody: std(0xd6d9dd, { roughness: 0.85 }),
-    seam: std(0xaab0b6, { roughness: 0.8 }),
-    kick: std(0x4a4f57, { roughness: 0.9 }),
-    tray: std(0xe3e5e8, { roughness: 0.7 }),
-    glass: glass(0xeaf1f5, 0.28),
-    liquid: std(0xbfcbd4, { roughness: 0.3 }),
-    lid: std(0x2e3238, { roughness: 0.5 }),
-    metal: std(0xaab0b7, { metalness: 0.55, roughness: 0.35 }),
-    dark: std(0x2b2f36, { roughness: 0.7 }),
-    shield: std(0x4a4f57, { roughness: 0.9 }),
-    body: std(0xf3f4f6, { roughness: 0.55 }),
-    paper: std(0xfbfbfc, { roughness: 1 }),
-    board: std(0xffffff, { roughness: 0.3 }),
-    frame: std(0xb3b8bf, { roughness: 0.55 }),
-    cover: std(0x2f3640, { roughness: 0.7 }),
-    binder: std(0x3a3f47, { roughness: 0.75 }),
-    wasteA: std(0xe6e2d9, { roughness: 0.8 }),
-    wasteB: std(0x80868e, { roughness: 0.7 }),
+    floor: std(textures.tile ? 0xffffff : 0xa19b90, { map: textures.tile, roughness: 0.9 }),
+    wall: std(0xf4f0e8, { roughness: 1 }),
+    splash: std(textures.splash ? 0xffffff : 0xe2ded6, { map: textures.splash, roughness: 0.3 }),
+    trim: std(0xc9b89c, { roughness: 0.6 }),
+    shelf: std(0xece8e0, { roughness: 0.8 }),
+    hairline: std(0x4a443c, { roughness: 0.8 }),
+    benchTop: std(textures.grain ? 0xffffff : 0xcdc2ab, { map: textures.grain, roughness: 0.5 }),
+    benchEdge: std(0x33302b, { roughness: 0.55 }),
+    benchBody: std(0xe4e0d9, { roughness: 0.8 }),
+    seam: std(0xb5ada1, { roughness: 0.8 }),
+    kick: std(0x57524a, { roughness: 0.9 }),
+    tray: std(0xe8e4dd, { roughness: 0.6 }),
+    glass: glass(0xf1f3f1, 0.26),
+    liquid: std(0xc9d1d2, { roughness: 0.22 }),
+    lid: std(0x312f2b, { roughness: 0.45 }),
+    metal: std(0xb6b4af, { metalness: 0.6, roughness: 0.32 }),
+    dark: std(0x2f2d29, { roughness: 0.65 }),
+    shield: std(0x57524a, { roughness: 0.9 }),
+    body: std(0xf5f3ef, { roughness: 0.5 }),
+    paper: std(0xfbf9f5, { roughness: 1 }),
+    board: std(0xffffff, { roughness: 0.25 }),
+    frame: std(0xb3afa8, { roughness: 0.5 }),
+    cover: std(0x3a3630, { roughness: 0.7 }),
+    binder: std(0x44403a, { roughness: 0.75 }),
+    wasteA: std(0xe9e3d8, { roughness: 0.8 }),
+    wasteB: std(0x86847f, { roughness: 0.7 }),
     stripeA: std(0xa63a3a, { roughness: 0.7 }),
     stripeB: std(0x8a6100, { roughness: 0.7 }),
-    hood: std(0xc9cdd3, { roughness: 0.5, metalness: 0.2 }),
-    hoodInner: std(0xf5f6f8, { roughness: 0.8 }),
-    baffle: std(0x6b7078, { roughness: 0.8 }),
-    lamp: std(0xffffff, { emissive: 0xffffff, emissiveIntensity: 1.2, roughness: 1 }),
-    sash: glass(0xb9ccd9, 0.38),
-    coat: std(0xeef0f3, { roughness: 1 }),
-    markerIdle: std(0xc9cdd3, { roughness: 0.6 }),
+    hood: std(0xb3aea6, { roughness: 0.4, metalness: 0.3 }),
+    hoodInner: std(0xf4f1ec, { roughness: 0.8 }),
+    baffle: std(0x6f6a62, { roughness: 0.8 }),
+    lamp: std(0xffffff, { emissive: 0xfff6e6, emissiveIntensity: 1.2, roughness: 1 }),
+    sash: glass(0xc4d1d6, 0.36),
+    coat: std(0xf1efea, { roughness: 1 }),
+    markerIdle: std(0xc6c1b9, { roughness: 0.6 }),
     markerDone: std(0x0f6232, { emissive: 0x147a3d, emissiveIntensity: 0.12, roughness: 0.5 }),
     slide: std(0xeef2f6, { transparent: true, opacity: 0.55, roughness: 0.15, depthWrite: false }),
     proxy: new THREE.MeshBasicMaterial({ visible: false }),
   };
+  if (textures.splash)
+    textures.splash.repeat.set(SPLASH_LENGTH / SPLASH_TILE, (SPLASH_TOP - BENCH_TOP_Y) / SPLASH_TILE);
 
   const hotspots = [];
   const markers = new Map();
@@ -344,6 +406,23 @@ export function buildScene(opts) {
   floor.receiveShadow = shadows;
   const wall = add(root, G.plane, M.wall, 0, WALL_HEIGHT / 2, WALL_Z, ROOM_WIDTH, WALL_HEIGHT, 1, false, false);
   wall.receiveShadow = shadows;
+  // The backsplash: a tiled band standing just off the wall (its back face never meets the wall's plane), the
+  // whiteboard frame and the coat hook (S7, S8) mounted on it, a warm-stone trim along its top.
+  part(
+    root,
+    'box',
+    'splash',
+    0,
+    (BENCH_TOP_Y + SPLASH_TOP) / 2,
+    WALL_Z + 0.008,
+    SPLASH_LENGTH,
+    SPLASH_TOP - BENCH_TOP_Y,
+    0.012,
+    {
+      framed: false,
+    }
+  );
+  part(root, 'box', 'trim', 0, SPLASH_TOP + 0.01, WALL_Z + 0.015, SPLASH_LENGTH, 0.02, 0.026, { framed: false });
   // A shallow shelf along the wall with a hairline front edge
   part(root, 'box', 'shelf', 0, SHELF_Y, WALL_Z + 0.08, BENCH_LENGTH + 1.2, 0.022, 0.16, { framed: false });
   part(root, 'box', 'hairline', 0, SHELF_Y - 0.014, WALL_Z + 0.16, BENCH_LENGTH + 1.2, 0.006, 0.006, { framed: false });

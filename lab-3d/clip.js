@@ -13,7 +13,7 @@
 // scenes also lay a grey hatched "no picture" wash over the tissue (as the microscope does).
 import * as THREE from 'three';
 import { buildTissue, SITES, SITE_NAMES, DEFAULT_TINTS } from './tissue.js?v=1';
-import { makeLabelSprite, disposeLabel } from './labels.js?v=1';
+import { makeLabelSprite, disposeLabel } from './labels.js?v=2';
 
 export const INTRO_SCENES = ['brain-overview', 'region', 'section-cut', 'slide'];
 export const DIVE_SCENES = ['dive', 'structures', 'impregnation', 'development', 'record-only', 'end'];
