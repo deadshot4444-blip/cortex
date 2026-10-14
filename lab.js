@@ -407,7 +407,10 @@ const LAB_SETTING_DEFAULTS = Object.freeze({ microscopeView: 'real' });
 function labEmptyState() {
   return {
     v: 1,
-    mode: 'list',
+    // 3D is the default bench (Kevin, 2026-10-13); list only when the student picked it (modeChosen) or the
+    // browser cannot run 3D (labCurrentMode falls back on its own).
+    mode: '3d',
+    modeChosen: false,
     safetyAcknowledgedAt: null,
     activeSpecimenId: null,
     runs: {},
@@ -487,7 +490,9 @@ function labMergeState(saved) {
   state.experimentOrder = Array.isArray(saved.experimentOrder) ? saved.experimentOrder : [];
   state.measurementOrder = Array.isArray(saved.measurementOrder) ? saved.measurementOrder : [];
   state.runOrder = Array.isArray(saved.runOrder) ? saved.runOrder.filter(id => state.runs[id]) : [];
-  state.mode = saved.mode === '3d' ? '3d' : 'list';
+  // A saved 'list' stays only when the student chose it; older saves (no modeChosen) open in 3D.
+  state.modeChosen = saved.modeChosen === true;
+  state.mode = saved.mode === 'list' && state.modeChosen ? 'list' : '3d';
   state.notepad = typeof saved.notepad === 'string' ? saved.notepad : '';
   state.freeJars = labIsObj(saved.freeJars) ? saved.freeJars : null; // §13.3: labFreeJars merges the rest
   state.safetyAcknowledgedAt = typeof saved.safetyAcknowledgedAt === 'string' ? saved.safetyAcknowledgedAt : null;
@@ -1890,8 +1895,9 @@ const labSystemReducedMotion = () => labMedia('(prefers-reduced-motion: reduce)'
 function labPrefersReducedMotion() {
   return LAB_STATE.settings.reducedMotion === 'on' || labSystemReducedMotion();
 }
-// Phone widths keep List as the saved bench mode (contract §8.4 #3): the home intro borrows 3D for
-// the visit only and gives List back when the intro ends (F7). Wider screens save the switch.
+// 3D is the default bench at every width (Kevin, 2026-10-13; was: phones kept List, contract §8.4 #3).
+// A student's own switch is saved (modeChosen); the home intro on a phone that chose List still borrows
+// 3D for the visit only and gives List back when the intro ends (F7).
 const labNarrow = () => labMedia('(max-width: 560px)');
 let labModeOverride = null;
 const labCurrentMode = () => (lab3dBlockedReason() ? 'list' : labModeOverride || LAB_STATE.mode);
@@ -2564,6 +2570,7 @@ function labModeSwitch(onChange) {
     if (next === labCurrentMode()) return;
     labModeOverride = null; // the student's own choice is saved
     LAB_STATE.mode = next;
+    LAB_STATE.modeChosen = true;
     labSave();
     labEvents.emit('mode', next);
     onChange?.(next);
@@ -6682,6 +6689,7 @@ async function labStartBench(lab, ctx) {
     ctx.mounting = false;
     labModeOverride = null;
     LAB_STATE.mode = 'list';
+    LAB_STATE.modeChosen = true; // the 3D bench failed to start here: keep list on the next visit
     labSave();
     labEvents.emit('mode', 'list');
     labAnnounce(message);

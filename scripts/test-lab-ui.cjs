@@ -63,7 +63,12 @@ function harness({
   benchModule = null,
   webgl2 = false,
   flags = { activities: true, designer: true, report: true }, // BENCH-1: the tests keep the hidden pages covered
+  // 3D is the bench's default since 2026-10-13; the tests written for the list start keep it as a saved
+  // choice unless they pass startMode: null (a fresh visitor) or seed the store themselves.
+  startMode = 'list',
 } = {}) {
+  if (startMode && !store.has(STATE_KEY))
+    store.set(STATE_KEY, JSON.stringify({ v: 1, mode: startMode, modeChosen: true, runs: {}, runOrder: [] }));
   const dom = new JSDOM('<!doctype html><div id="app"></div>', {
     url,
     runScripts: 'outside-only',
@@ -1836,7 +1841,7 @@ test('m8: a bench refresh that throws leaves a readable notice instead of a froz
 });
 
 test('a refused write shows the saving-paused notice and keeps the draft in the tab', async () => {
-  const h = harness({ writeOk: false });
+  const h = harness({ writeOk: false, startMode: null }); // nothing saved before: the store stays empty
   await h.w.renderLabEntry();
   assert.equal(h.w.CortexLab.save(), false);
   assert.match(text($(h.w, '#lab-save-status')), /Saving is paused/);
@@ -9743,4 +9748,21 @@ test('SHELF-12 the bench api: extraJars (free bench only), jarLabel (an extra ja
   assert.equal(shelfRun(w).events.length, events, 'nothing recorded');
   await flush();
   h.close();
+});
+
+test('3D is the default bench: a fresh visitor and an older save open in 3D, a chosen list stays, no WebGL2 falls back to list', async () => {
+  const fresh = harness({ url: 'http://localhost/lab?view=bench', startMode: null, webgl2: true });
+  assert.equal(fresh.run('labCurrentMode()'), '3d', 'fresh visitor');
+  assert.equal(fresh.run('LAB_STATE.modeChosen'), false);
+  fresh.close();
+  const older = new Map([[STATE_KEY, JSON.stringify({ v: 1, mode: 'list', runs: {}, runOrder: [] })]]);
+  const old = harness({ store: older, startMode: null, webgl2: true });
+  assert.equal(old.run('LAB_STATE.mode'), '3d', 'an older save with no choice opens in 3D');
+  old.close();
+  const chosen = harness({ webgl2: true });
+  assert.equal(chosen.run('labCurrentMode()'), 'list', 'a chosen list stays');
+  chosen.close();
+  const noGl = harness({ startMode: null, webgl2: false });
+  assert.equal(noGl.run('labCurrentMode()'), 'list', 'no WebGL2: list');
+  noGl.close();
 });

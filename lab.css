@@ -966,3 +966,26 @@ html.lab-hints-off .lab-tip-verbs { display: none; }
   .lab-unknown-mark { border: 1px solid CanvasText; }
 }
 @media print { .lab-mode-switch, .lab-jar-tools, .lab-hands, .lab-do-status .lab-new-slide { display: none !important; } }
+
+/* ---------- Lab identity (2026-10-13, Kevin: "a separate identity but still cortex") ----------
+   Lab pages keep Cortex's type, nav, buttons and layout, on a warm "silver stain" palette: paper
+   background, warm lines and a bronze accent (links, focus, the top bar's rule). Scoped to pages
+   that hold a lab view, so the rest of Cortex is unchanged. */
+html:has(main.lab-page) {
+  --bg: #fbf8f3;
+  --surface: #f5efe6;
+  --surface-2: #ede4d6;
+  --line: #e6dccb;
+  --line-bright: #d3c3aa;
+  --blue: #8a5520;
+  --blue-soft: #f3e6d2;
+  --lab-accent: #8a5520;
+  --lab-accent-deep: #6b3f12;
+  background: var(--bg);
+}
+html:has(main.lab-page) body { background: var(--bg); }
+html:has(main.lab-page) .topbar.mainbar { background: rgba(251, 248, 243, .86); box-shadow: inset 0 -2px 0 var(--lab-accent); }
+html:has(main.lab-page) main.lab-page > .label { color: var(--lab-accent); }
+html:has(main.lab-page) main.lab-page a:not(.btn):hover { color: var(--lab-accent-deep); }
+html:has(main.lab-page) ::selection { background: var(--lab-accent); color: #fff; }
+html:has(main.lab-page) .sitefoot { border-top-color: var(--line-bright); }

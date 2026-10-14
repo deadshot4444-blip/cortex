@@ -5,6 +5,15 @@
 
 const CHANGELOG = [
   {
+    version: '2.36.1-beta.1',
+    tag: 'BETA',
+    date: 'October 13, 2026',
+    title: 'The Histology Lab gets its own look',
+    items: [
+      'The lab opens on the 3D bench (list mode is one click away, and stays if you pick it), has its own warm palette, and its link shares with a lab card.',
+    ],
+  },
+  {
     version: '2.36.0-beta.1',
     tag: 'BETA',
     date: 'October 13, 2026',

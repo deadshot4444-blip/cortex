@@ -361,7 +361,10 @@ const readoutText = ([b, x], words) => {
     : `${words[b]} in both runs (no change on the model scale)`;
 };
 
-async function open(browser, viewport, { noWebgl = false, flagsOff = false, ...options } = {}) {
+// The saved list start the journeys begin from (open() writes the same JSON in the page); the gate check
+// accepts exactly this, untouched.
+const LIST_SEED = JSON.stringify({ v: 1, mode: 'list', modeChosen: true, runs: {}, runOrder: [] });
+async function open(browser, viewport, { noWebgl = false, flagsOff = false, startMode = 'list', ...options } = {}) {
   const context = await browser.newContext({
     viewport: { width: viewport.width, height: viewport.height },
     isMobile: !!viewport.isMobile,
@@ -372,6 +375,16 @@ async function open(browser, viewport, { noWebgl = false, flagsOff = false, ...o
   // serve.py answers the proxied visitor counter with 404 on purpose; keep that out of the console.
   await context.route('**/cx-visits/**', r => r.fulfill({ contentType: 'application/json', body: '{"value":0}' }));
   await context.addInitScript(version => localStorage.setItem('cs-seen-ver', version), APP_VERSION);
+  // 3D is the bench's default since 2026-10-13. The journeys below were written from the list start, so
+  // they begin with list as a saved choice; `startMode: null` is a fresh visitor (the 3D-default check).
+  if (startMode)
+    await context.addInitScript(mode => {
+      if (localStorage.getItem('cs-lab-state-v1') === null)
+        localStorage.setItem(
+          'cs-lab-state-v1',
+          JSON.stringify({ v: 1, mode, modeChosen: true, runs: {}, runOrder: [] })
+        );
+    }, startMode);
   // BENCH-1: the activities, designer and report pages are off by default; the smoke keeps them covered.
   if (!flagsOff)
     await context.addInitScript(() => {
@@ -2019,7 +2032,7 @@ try {
       }));
       assert.deepEqual(
         record.blocked,
-        { newRun: 0, modes: 0, stored: null },
+        { newRun: 0, modes: 0, stored: LIST_SEED }, // nothing written beyond the smoke's own list seed
         'bench and 3D blocked before acknowledgement'
       );
       assert.equal(await text(page.locator('#lab-safety-ack')), 'I understand, open the bench');
@@ -3225,6 +3238,25 @@ try {
       await context.close();
     }
   } else console.log(`${base.hostname} is not a development host: the open-lab steps need localhost; gating only.`);
+
+  // 9b. 3D is the default bench: a fresh visitor (nothing saved) lands on the 3D stage, and the one view
+  // toggle offers the list.
+  if (LOCAL) {
+    const { context, page, clean } = await open(browser, viewports[0], { startMode: null });
+    await page.goto(new URL('/lab?view=bench', base).href, { waitUntil: 'networkidle' });
+    await page.waitForSelector('main.lab-view-bench');
+    assert.equal(
+      await page.getAttribute('main.lab-view-bench', 'data-mode'),
+      '3d',
+      'a fresh visitor opens the 3D bench'
+    );
+    await page.click('#lab-safety-ack');
+    await page.waitForSelector('#lab-mode-toggle');
+    assert.equal((await text(page.locator('#lab-mode-toggle'))).trim(), 'Switch to list');
+    results.defaultMode = '3d';
+    clean('3D default');
+    await context.close();
+  }
 
   // 10. Production gating (both viewports): the lab is open since 2.36.0-beta.1, so /lab, a deep link
   // and the About page render the lab itself under ?gates=prod, never the Under construction gate.
