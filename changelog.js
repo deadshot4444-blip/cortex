@@ -5,6 +5,16 @@
 
 const CHANGELOG = [
   {
+    version: '2.36.4',
+    tag: 'UPDATE',
+    date: 'October 14, 2026',
+    title: 'The bench takes the whole page',
+    items: [
+      'On a laptop or desktop the 3D bench fills the window: a far bigger stage with the station row and "Do this step" on the same screen, and Notes in a tall column beside it.',
+      'Softer shadows, signs sized to their stations, faint tints that tell the baths apart, a bigger result picture, and a stage that says it is loading.',
+    ],
+  },
+  {
     version: '2.36.3',
     tag: 'UPDATE',
     date: 'October 14, 2026',

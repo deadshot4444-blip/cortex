@@ -23,7 +23,7 @@ import {
   JARS_STATION,
   JARS_MAX,
   ROOM_COLOR,
-} from './scene.js?v=3';
+} from './scene.js?v=4';
 import { createDirector } from './clip.js?v=3';
 // The same module URL clip.js imports, so the structure names come from one table.
 import { SITE_NAMES } from './tissue.js?v=1';
