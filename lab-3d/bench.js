@@ -46,6 +46,13 @@ const HOVER_LABEL_TINT = 0xffe6c4;
 // How much of the environment (makeEnvironment) lights the scene: the sheen on glass, metal and the backsplash
 // comes from its light panels and window; its diffuse share is counted in the lights below.
 const ENV_INTENSITY = 0.35;
+// The sun's shadow blur in shadow-map texels (VSM): on the 2048 map over the bench's 19 x 10 m that is a few
+// centimetres of penumbra, soft on a jar and still a shadow on the floor.
+const SHADOW_BLUR = 3;
+// The canvas renders at the device's pixel ratio up to a cap (2, 1.5 on touch) and, past this many device pixels
+// per frame, at the ratio that keeps the frame this size (never under 1): a wide stage on a dense display would
+// otherwise push four megapixels of shadowed scene a frame through an integrated GPU.
+const MAX_CANVAS_PIXELS = 3.2e6;
 const CAMERA_MS = 800;
 const RACK_MS = 650;
 const REPLAY_PAUSE_MS = 450;
@@ -483,7 +490,10 @@ function createBench(container, api) {
     renderer.toneMapping = THREE.NeutralToneMapping; // whites stay white; only highlights compress
     renderer.toneMappingExposure = 1.1;
     renderer.shadowMap.enabled = shadows;
-    renderer.shadowMap.type = THREE.PCFShadowMap; // r186 dropped PCFSoftShadowMap (and warned at every mount)
+    // Variance shadow maps: the one soft type left in r186 (PCFSoft is gone), blurred SHADOW_BLUR texels so a
+    // jar's shadow has a penumbra instead of a sawtooth edge. scene.js has every receiver cast too (the room
+    // shell, the bench top), as VSM wants.
+    renderer.shadowMap.type = THREE.VSMShadowMap;
 
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(ROOM_COLOR);
@@ -517,8 +527,10 @@ function createBench(container, api) {
       sun.shadow.camera.right = BENCH_LENGTH / 2 + 1;
       sun.shadow.camera.top = 5;
       sun.shadow.camera.bottom = -5;
-      sun.shadow.bias = -0.0006;
+      sun.shadow.bias = -0.0004;
       sun.shadow.normalBias = 0.02;
+      sun.shadow.radius = SHADOW_BLUR;
+      sun.shadow.blurSamples = 8;
     }
 
     const stations = readStations(api.lab);
@@ -947,10 +959,13 @@ function createBench(container, api) {
     // ---------- sizing ----------
     const size = { w: 0, h: 0 };
     function resize() {
-      const ratio = Math.min(window.devicePixelRatio || 1, pixelRatioCap);
-      if (ratio !== renderer.getPixelRatio()) renderer.setPixelRatio(ratio);
       const w = Math.max(1, container.clientWidth | 0);
       const h = Math.max(1, container.clientHeight | 0);
+      const ratio = Math.max(
+        1,
+        Math.min(window.devicePixelRatio || 1, pixelRatioCap, Math.sqrt(MAX_CANVAS_PIXELS / (w * h)))
+      );
+      if (Math.abs(ratio - renderer.getPixelRatio()) > 1e-3) renderer.setPixelRatio(ratio);
       // d5-3 (FIX5): only a new canvas size moves anything (a card laid over the stage changes nothing)
       const changed = w !== size.w || h !== size.h;
       if (changed) {
