@@ -9,7 +9,7 @@ const read = file => fs.readFileSync(file, 'utf8');
 const meta = (html, attr, key) => (html.match(new RegExp(`<meta ${attr}="${key}" content="([^"]*)"`)) || [])[1];
 
 test('lab.html is index.html with the lab title, canonical URL and share card, and is current', () => {
-  execFileSync('python3', ['scripts/build-lab-page.py', '--check'], { stdio: 'pipe' });
+  execFileSync('python3', ['scripts/build-share-pages.py', '--check'], { stdio: 'pipe' });
   const lab = read('lab.html'),
     index = read('index.html');
   assert.match(lab, /<title>Alzheimer’s Histology Lab — Cortex Medical Academy<\/title>/);

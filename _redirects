@@ -21,9 +21,14 @@
 # The catch-all below serves both /mcat and /mcat/ as the app.
 
 # Alzheimer's Histology Lab: the same app page with the lab's own title and share card
-# (lab.html is generated from index.html by scripts/build-lab-page.py). A 200 rewrite, never a 301.
+# (lab.html is generated from index.html by scripts/build-share-pages.py). A 200 rewrite, never a 301.
 /lab   /lab.html  200
 /lab/  /lab.html  200
+
+# Neuroengineering: the same app page with the course's own title and share card
+# (neuro.html is generated from index.html by scripts/build-share-pages.py). A 200 rewrite, never a 301.
+/neuro   /neuro.html  200
+/neuro/  /neuro.html  200
 
 # SPA fallback: serve the app for section deep-links (e.g. /medicine, /mcat).
 # Must stay last — Netlify serves real static files first, then falls back here.

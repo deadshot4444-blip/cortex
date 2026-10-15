@@ -17,7 +17,7 @@ import re
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-REFERENCE_FILES = [ROOT / 'index.html', ROOT / 'lab.html', *sorted(ROOT.glob('*.js'))]
+REFERENCE_FILES = [ROOT / 'index.html', ROOT / 'lab.html', ROOT / 'neuro.html', *sorted(ROOT.glob('*.js'))]
 
 
 def bump(asset: str) -> int:

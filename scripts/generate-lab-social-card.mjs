@@ -2,7 +2,7 @@
 // Same system as og-v5.jpg and og-clinical.jpg (near-black canvas, corner brackets, the cross mark,
 // one signal badge, a light headline, a tracked footer on a hairline) in the lab's bronze accent,
 // with one real Bielschowsky slide (CC BY 4.0, credited on the card). When the copy changes, bump
-// the file name (og-lab-2.jpg …) and its references in scripts/build-lab-page.py and _headers.
+// the file name (og-lab-2.jpg …) and its references in scripts/build-share-pages.py and _headers.
 //
 //   node scripts/generate-lab-social-card.mjs
 import { chromium } from 'playwright';
