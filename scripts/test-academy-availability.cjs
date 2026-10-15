@@ -7,10 +7,10 @@ const fs = require('node:fs');
 const vm = require('node:vm');
 const { JSDOM } = require('jsdom');
 
-const OPEN = ['mcat', 'dat', 'practice', 'lab'];
-const CLOSED = ['socrates', 'anatomy', 'reference', 'neuro'];
-// The lab is open but has no offline pack (conventions §1 rule 11), so the open packs are these three.
-const OPEN_PACKS = ['mcat', 'dat', 'practice'];
+const OPEN = ['mcat', 'dat', 'practice', 'neuro', 'lab'];
+const CLOSED = ['socrates', 'anatomy', 'reference'];
+// The lab is open but has no offline pack (conventions §1 rule 11), so the open packs are these four.
+const OPEN_PACKS = ['mcat', 'dat', 'practice', 'neuro'];
 
 function harness(local, preview = null) {
   const dom = new JSDOM('<!doctype html><div id="app"></div>', {
@@ -37,7 +37,7 @@ function harness(local, preview = null) {
   return { w, dom };
 }
 
-test('only MCAT and Clinical Scenarios are open to the public', () => {
+test('only MCAT, DAT, Clinical Scenarios, Neuroengineering and the lab are open to the public', () => {
   const { w, dom } = harness(false);
   // Array.from re-creates the list in this realm; jsdom's arrays fail deepEqual on prototype.
   const tracks = Array.from(w.CortexAcademy.tracks);
@@ -66,7 +66,7 @@ test('the public catalog labels closed courses and points them at the course sta
     'Beta',
     'Under construction',
     'Under construction',
-    'Under construction',
+    'Beta',
     'Beta',
   ]);
   const actions = [...w.document.querySelectorAll('.academy-course-bottom a')].map(a =>
@@ -79,7 +79,7 @@ test('the public catalog labels closed courses and points them at the course sta
     'Explore clinical cases',
     'View course status',
     'View course status',
-    'View course status',
+    'Explore neuroengineering',
     'Open the lab',
   ]);
   for (const id of CLOSED)
@@ -107,7 +107,7 @@ test('a reviewer grant opens only its course in the catalog, labelled Preview', 
     'Beta',
     'Under construction',
     'Under construction',
-    'Under construction',
+    'Beta',
     'Beta',
   ]);
   const learn = w.document.querySelector('.academy-course-bottom a[data-course="socrates"]').textContent;

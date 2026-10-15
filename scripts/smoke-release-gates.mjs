@@ -9,8 +9,8 @@ const catalog = runInNewContext(
   { window: {}, IS_LOCAL_PREVIEW: false }
 );
 const publicIds = catalog.filter(track => track.available).map(track => track.id);
-// Kevin opened the Alzheimer's Histology Lab in 2.36.0-beta.1; the other four stay closed.
-if (JSON.stringify(publicIds) !== JSON.stringify(['mcat', 'dat', 'practice', 'lab']))
+// Kevin opened the Alzheimer's Histology Lab in 2.36.0-beta.1 and Neuroengineering in 2.36.5; the other three stay closed.
+if (JSON.stringify(publicIds) !== JSON.stringify(['mcat', 'dat', 'practice', 'neuro', 'lab']))
   throw new Error(`Review public course availability before changing this gate smoke: ${JSON.stringify(publicIds)}`);
 const gateLabel = id => {
   const track = catalog.find(track => track.id === id);
@@ -293,10 +293,11 @@ for (const viewport of viewports) {
 
   await page.goto(new URL('?gates=prod', base).href, { waitUntil: 'networkidle' });
   await page.evaluate(() => document.querySelector('[data-go="neuro"]')?.click());
-  await page.waitForSelector('.comingsoon');
-  const neuroGateLabel = (await page.locator('.cs-box .label').textContent())?.trim();
-  if (neuroGateLabel !== gateLabel('neuro')) throw new Error(`Neuro gate label is wrong: ${neuroGateLabel}`);
-  await assertNoOverflow('Neuroengineering gate');
+  await page.waitForURL(url => url.pathname === '/neuro');
+  await page.waitForTimeout(500);
+  const neuroOpen = (await page.locator('main.comingsoon').count()) === 0;
+  if (!neuroOpen) throw new Error('Neuroengineering shows a gate but is open');
+  await assertNoOverflow('Neuroengineering home');
 
   await page.goto(new URL('?gates=prod', base).href, { waitUntil: 'networkidle' });
   await page.click('[data-menu="mcat"]');
@@ -432,7 +433,7 @@ for (const viewport of viewports) {
     learnLabel,
     directLearnLabel,
     learnPrimaryActive,
-    neuroGateLabel,
+    neuroOpen,
     medicineMenuTag,
     exploreLearningPaths,
     quickLabels,

@@ -90,7 +90,7 @@
       id: 'neuro',
       path: 'neuro',
       name: 'Neuroengineering',
-      available: false,
+      available: true,
       description: 'Move from neurons and signals to code, simulations, and reproducible analysis.',
       audience: 'Learners exploring neuroscience and engineering.',
       prerequisites: 'Foundations introduce the science and coding; later projects build on those units.',

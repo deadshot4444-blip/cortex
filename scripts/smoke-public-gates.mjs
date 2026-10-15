@@ -1,7 +1,7 @@
 // Public gate smoke: with production gating forced (`?gates=prod`), the closed courses
-// (Learn to Learn, Anatomy, Medicine, Neuroengineering) show their Under construction page from the
-// navigation, the Academy catalog and direct deep links; MCAT, DAT, Clinical Scenarios and the Alzheimer's
-// Histology Lab (open since 2.36.0) stay open; none of the closed courses' modules are downloaded; Academy Today and the offline
+// (Learn to Learn, Anatomy, Medicine) show their Under construction page from the
+// navigation, the Academy catalog and direct deep links; MCAT, DAT, Clinical Scenarios, the Alzheimer's
+// Histology Lab (open since 2.36.0) and Neuroengineering (open since 2.36.5) stay open; none of the closed courses' modules are downloaded; Academy Today and the offline
 // download list reflect the same catalog. Runs at desktop and phone widths.
 //
 //   CORTEX_URL=http://127.0.0.1:8807/ node scripts/smoke-public-gates.mjs
@@ -20,13 +20,12 @@ const CLOSED = {
   socrates: { path: 'learn', label: 'Learn to Learn', deep: 'track=general&lesson=remember' },
   anatomy: { path: 'anatomy', label: 'Anatomy', deep: 'lesson=arm' },
   reference: { path: 'medicine', label: 'Medicine', deep: 'lesson=med-flow-resistance&step=4' },
-  neuro: { path: 'neuro', label: 'Neuroengineering', deep: 'unit=1' },
 };
 // The tracks that are open to the public; everything else renders the Under construction page.
-const OPEN = ['mcat', 'dat', 'practice', 'lab'];
-// Scripts and data banks that only a closed course loads. (The lab is open, so its files are not listed.)
+const OPEN = ['mcat', 'dat', 'practice', 'neuro', 'lab'];
+// Scripts and data banks that only a closed course loads. (The lab and Neuroengineering are open, so their files are not listed.)
 const CLOSED_ASSETS =
-  /\/(dat(?:-[a-z-]+)?|socrates|anatomy|reference|ekg|ecg-engine|performance-drugs|neuro|neuro-practitioner|neuro-project-engine|python-runtime|code-evaluator)\.js(?:\?|$)|\/data\/(dat-[a-z0-9-]+|learn-to-learn|neuro-projects)\.json/;
+  /\/(dat(?:-[a-z-]+)?|socrates|anatomy|reference|ekg|ecg-engine|performance-drugs)\.js(?:\?|$)|\/data\/(dat-[a-z0-9-]+|learn-to-learn)\.json/;
 // Every file that only a closed course's offline pack ships (data banks, figures, workers) is a
 // leak too; derive the list from the manifest so new content is covered automatically.
 const manifest = JSON.parse(readFileSync(new URL('../offline-manifest.json', import.meta.url), 'utf8'));
@@ -78,8 +77,8 @@ for (const viewport of viewports) {
     await page.locator('.topbar.mainbar .nav > [data-go="socrates"] .nav-availability').textContent()
   )?.trim();
   record.learnAria = await page.locator('.topbar.mainbar .nav > [data-go="socrates"]').getAttribute('aria-description');
-  record.neuroPill = (await page.locator('[data-go="neuro"] .nav-availability').first().textContent())?.trim();
-  if (record.learnPill !== 'In review' || record.learnAria !== 'Under construction' || record.neuroPill !== 'In review')
+  record.neuroPills = await page.locator('[data-go="neuro"] .nav-availability').count();
+  if (record.learnPill !== 'In review' || record.learnAria !== 'Under construction' || record.neuroPills !== 0)
     fail('navigation availability pills', record);
   await page.click('[data-menu="explore"]');
   record.exploreTags = await page.locator('#explore-panel .menuitem .mi-soon').allTextContents();
@@ -95,8 +94,6 @@ for (const viewport of viewports) {
   await page.waitForURL(url => url.pathname === '/learn');
   record.learnFromNav = await gateLabel('Learn to Learn');
   await page.goto(prod('/'), { waitUntil: 'networkidle' });
-  await page.evaluate(() => document.querySelector('[data-go="neuro"]')?.click());
-  record.neuroFromNav = await gateLabel('Neuroengineering');
   for (const key of ['anatomy', 'reference']) {
     await page.goto(prod('/'), { waitUntil: 'networkidle' });
     await page.click('[data-menu="explore"]');
@@ -111,6 +108,13 @@ for (const viewport of viewports) {
   await page.waitForSelector('#lab-enter');
   if (await page.locator('main.comingsoon').count()) fail('lab shows a gate', 'comingsoon');
   record.labOpen = true;
+  // Neuroengineering is open: the navigation opens its home, never a gate.
+  await page.goto(prod('/'), { waitUntil: 'networkidle' });
+  await page.evaluate(() => document.querySelector('[data-go="neuro"]')?.click());
+  await page.waitForURL(url => url.pathname === '/neuro');
+  await page.waitForTimeout(500);
+  if (await page.locator('main.comingsoon').count()) fail('neuro shows a gate', 'comingsoon');
+  record.neuroOpen = true;
 
   // Closed courses from direct and deep links.
   record.deepLinks = {};
@@ -153,10 +157,10 @@ for (const viewport of viewports) {
         'Beta',
         'Under construction',
         'Under construction',
-        'Under construction',
+        'Beta',
         'Beta',
       ]) ||
-    record.catalogActions.filter(t => t === 'View course status').length !== 4
+    record.catalogActions.filter(t => t === 'View course status').length !== 3
   )
     fail('Academy catalog', { statuses: record.catalogStatuses, actions: record.catalogActions });
   await noOverflow('Academy catalog');
@@ -210,7 +214,8 @@ for (const viewport of viewports) {
   await page.waitForSelector('#offline-catalog .offline-course h3, #offline-catalog p', { timeout: 15000 });
   record.downloads = (await page.locator('#offline-catalog .offline-course h3').allTextContents()).map(t => t.trim());
   if (
-    JSON.stringify(record.downloads) !== JSON.stringify(['MCAT preparation', 'DAT preparation', 'Clinical Scenarios'])
+    JSON.stringify(record.downloads) !==
+    JSON.stringify(['MCAT preparation', 'DAT preparation', 'Clinical Scenarios', 'Neuroengineering'])
   )
     fail('offline download catalog', record.downloads);
   await noOverflow('Study backups & offline downloads');

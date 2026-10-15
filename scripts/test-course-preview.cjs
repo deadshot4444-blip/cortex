@@ -60,12 +60,12 @@ function gates(seed, { host = 'cortexmedical.academy', search = '' } = {}) {
   return Object.assign(JSON.parse(JSON.stringify(lists)), { tag });
 }
 
-test('the catalog closes the four courses still under review (the lab opened in 2.36.0)', () => {
+test('the catalog closes the three courses still under review (the lab opened in 2.36.0, neuroengineering in 2.36.5)', () => {
   assert.deepEqual(
     TRACKS.filter(t => !t.available)
       .map(t => t.id)
       .sort(),
-    ['anatomy', 'neuro', 'reference', 'socrates']
+    ['anatomy', 'reference', 'socrates']
   );
 });
 
@@ -73,7 +73,7 @@ test('a production visitor without a grant sees every closed course closed', () 
   const g = gates({});
   assert.equal(g.local, false);
   assert.deepEqual(g.preview, []);
-  assert.deepEqual(g.closed, ['anatomy', 'neuro', 'reference', 'socrates']);
+  assert.deepEqual(g.closed, ['anatomy', 'reference', 'socrates']);
   assert.match(g.tag('socrates'), /Under construction/);
 });
 
@@ -83,7 +83,7 @@ test('a grant opens only its closed courses, for the account that owns the saved
     [KEY]: grant('u1', ['socrates', 'mcat', 'nonsense', 7]),
   });
   assert.deepEqual(g.preview, ['socrates'], 'open or unknown ids never become previews');
-  assert.deepEqual(g.closed, ['anatomy', 'neuro', 'reference']);
+  assert.deepEqual(g.closed, ['anatomy', 'reference']);
   assert.match(g.tag('socrates'), />Preview</);
   assert.match(g.tag('anatomy'), /Under construction/);
   assert.equal(g.tag('mcat'), '');
@@ -101,7 +101,7 @@ test('a guest, another account, or a damaged cache never inherits a grant', () =
   for (const [name, seed] of Object.entries(cases)) {
     const g = gates(seed);
     assert.deepEqual(g.preview, [], name);
-    assert.deepEqual(g.closed, ['anatomy', 'neuro', 'reference', 'socrates'], name);
+    assert.deepEqual(g.closed, ['anatomy', 'reference', 'socrates'], name);
   }
 });
 
@@ -115,7 +115,7 @@ test('localhost previews everything; ?gates=prod on localhost honours a grant li
   const prod = gates(seed, { host: '127.0.0.1', search: '?gates=prod' });
   assert.equal(prod.local, false);
   assert.deepEqual(prod.preview, ['socrates']);
-  assert.deepEqual(prod.closed, ['anatomy', 'neuro', 'reference']);
+  assert.deepEqual(prod.closed, ['anatomy', 'reference']);
 });
 
 // auth.js in a vm with a fake Supabase client. `app` stands in for the gate globals app.js
@@ -154,7 +154,7 @@ function account({ seed = {}, row = null, fail = false, app: gatesNow = { local:
     localStorage: storage,
     CortexProgress: Progress,
     IS_LOCAL_PREVIEW: gatesNow.local,
-    CLOSED_COURSES: ['socrates', 'anatomy', 'reference', 'neuro'],
+    CLOSED_COURSES: ['socrates', 'anatomy', 'reference'],
     PREVIEW_COURSES: new Set(gatesNow.open),
     document: {
       querySelectorAll: () => [],

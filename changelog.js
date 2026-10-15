@@ -5,6 +5,13 @@
 
 const CHANGELOG = [
   {
+    version: '2.36.5',
+    tag: 'UPDATE',
+    date: 'October 15, 2026',
+    title: 'Neuroengineering reopens',
+    items: ['The Neuroengineering course is open again: foundations, coding exercises, simulations and projects.'],
+  },
+  {
     version: '2.36.4',
     tag: 'UPDATE',
     date: 'October 14, 2026',
