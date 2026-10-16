@@ -19,7 +19,7 @@ test('neuro.html is index.html with the neuro title, canonical URL and share car
     ['property', 'og:image:secure_url'],
     ['name', 'twitter:image'],
   ])
-    assert.equal(meta(neuro, attr, key), 'https://cortexmedical.academy/og-neuro.jpg', key);
+    assert.equal(meta(neuro, attr, key), 'https://cortexmedical.academy/og-neuro-2.jpg', key);
   assert.equal(meta(neuro, 'property', 'og:url'), 'https://cortexmedical.academy/neuro');
   assert.match(meta(neuro, 'property', 'og:title'), /Neuroengineering/);
   // Everything after the head's share block is the same app page.
@@ -40,8 +40,8 @@ test('_redirects serves /neuro and /neuro/ from neuro.html with a 200 rewrite be
   }
 });
 
-test('og-neuro.jpg is a 1200×630 JPEG with long-lived headers like the site card', () => {
-  const buf = fs.readFileSync('og-neuro.jpg');
+test('og-neuro-2.jpg is a 1200×630 JPEG with long-lived headers like the site card', () => {
+  const buf = fs.readFileSync('og-neuro-2.jpg');
   assert.equal(buf.readUInt16BE(0), 0xffd8, 'JPEG');
   let i = 2,
     size = null;
@@ -54,5 +54,5 @@ test('og-neuro.jpg is a 1200×630 JPEG with long-lived headers like the site car
     i += 2 + buf.readUInt16BE(i + 2);
   }
   assert.deepEqual(size, { width: 1200, height: 630 });
-  assert.match(read('_headers'), /\/og-neuro\.jpg\n {2}Content-Type: image\/jpeg/);
+  assert.match(read('_headers'), /\/og-neuro-2\.jpg\n {2}Content-Type: image\/jpeg/);
 });

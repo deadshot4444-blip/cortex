@@ -260,7 +260,7 @@ function harness(saved = new Map(), content = data) {
     assert.ok(markup.includes('Amplitude (' + series.unit + ')'));
     assert.match(markup, /scope="col"/);
     assert.ok(!markup.includes('NaN') && !markup.includes('Infinity'));
-    assert.equal((markup.match(/<circle /g) || []).length, series.values.length);
+    assert.equal((markup.match(/<circle /g) || []).length, series.values.length + (series.markerIndices || []).length);
   }
   assert.equal(h.context.neuroValidSeries({ ...feature.series, sampleRateHz: 0 }), false);
   assert.equal(h.context.neuroValidSeries({ ...feature.series, values: [NaN] }), false);

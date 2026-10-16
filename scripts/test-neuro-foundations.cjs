@@ -69,8 +69,24 @@ function harness(saved = new Map(), content = data) {
 }
 (async () => {
   assert.equal(data.learningPaths[0].steps.length, 20);
-  assert.equal(data.neuroCodeLessons.length, 13);
-  assert.equal(data.simulations.length, 15);
+  assert.equal(data.neuroCodeLessons.length, 22);
+  assert.equal(data.simulations.length, 26);
+  // Every unit owns its checks, code exercise and simulation: none is shared with another unit (2.38.0).
+  const steps = data.learningPaths[0].steps;
+  const shared = key => steps.map(step => step[key]).filter((id, i, all) => id && all.indexOf(id) !== i);
+  assert.deepEqual(shared('neuroCodeLessonId'), [], 'No code exercise is reused across units');
+  assert.deepEqual(
+    steps
+      .filter(step => !data.unitLessons[String(step.order)].simulation)
+      .map(step => step.simulationId)
+      .filter((id, i, all) => id && all.indexOf(id) !== i),
+    [],
+    'No library simulation is reused across units'
+  );
+  const checkIds = steps.flatMap(step => data.unitLessons[String(step.order)].checks.map(q => q.id));
+  assert.equal(new Set(checkIds).size, 40, 'Forty unit-specific checks');
+  const answers = steps.slice(5).flatMap(step => data.unitLessons[String(step.order)].checks.map(q => q.correctIndex));
+  assert.ok(new Set(answers).size === 4, 'Correct answers for units 6 to 20 use every position');
   const old = {
     pathStarted: true,
     pathDone: [data.learningPaths[0].steps[19].id, data.learningPaths[0].steps[19].id, 'retired-unit'],
@@ -97,22 +113,30 @@ function harness(saved = new Map(), content = data) {
   assert.equal(h.run('neuroCodeOutputsMatch("", "A: 1")'), false);
   assert.equal(h.run('neuroCodeEvaluate("anything", {}).passed'), false, 'Offline text matching cannot assign a pass');
   let cases = 0;
-  for (const step of data.learningPaths[0].steps.slice(0, 5)) {
+  for (const step of data.learningPaths[0].steps) {
     h.context.stepId = step.id;
     h.run('var record = neuroUnitRecord(neuroPath().steps.find(step => step.id === stepId))');
     const record = h.run('record'),
       content = record.content,
       lesson = content.code;
-    assert.equal(content.unit.revision, step.order === 4 ? 2 : 3);
+    assert.equal(content.unit.revision, step.order > 5 ? 1 : step.order === 4 ? 2 : 3);
     const application =
-      data.unitLessons[String(step.order)].simulation || data.simulations.find(sim => sim.id === step.simulationId);
+      data.unitLessons[String(step.order)].simulation ||
+      data.simulations.find(sim => sim.id === step.simulationId) ||
+      null;
     assert.deepEqual(
       JSON.parse(JSON.stringify(content.sim)),
       application,
-      'Snapshot uses the application matched to this foundation'
+      'Snapshot uses the application matched to this unit'
     );
     assert.equal(content.checks.length, 2);
-    assert.ok(content.unit.sources.length);
+    assert.deepEqual(
+      content.checks.map(q => q.id),
+      [1, 2].map(n => `${step.id}-check-${n}`),
+      'Checks belong to this unit, not the topic quiz'
+    );
+    assert.ok(content.unit.sources.length >= (step.order > 5 ? 2 : 1));
+    assert.ok(content.code, step.id + ' has a code exercise');
     const advance = stage => h.context.neuroUnitAdvance(record, stage);
     assert.equal(record.layout, 2, 'New records use the merged lesson layout');
     assert.equal(advance('quiz'), false, 'A different stage cannot be skipped');
@@ -151,10 +175,12 @@ function harness(saved = new Map(), content = data) {
     assert.equal(advance('code'), false, 'A check is tied to the submitted draft');
     record.codeWork.draft = lesson.solution;
     assert.equal(advance('code'), true);
-    const q = { id: 'simulation', choices: content.sim.choices };
-    assert.equal(advance('sim'), false);
-    assert.equal(h.context.neuroChoose(record, q, 1), true);
-    assert.equal(advance('sim'), true, 'Reviewed practice can finish while retaining a wrong first answer');
+    if (content.sim) {
+      const q = { id: 'simulation', choices: content.sim.choices };
+      assert.equal(advance('sim'), false);
+      assert.equal(h.context.neuroChoose(record, q, 1), true);
+      assert.equal(advance('sim'), true, 'Reviewed practice can finish while retaining a wrong first answer');
+    }
     record.debrief = 'The threshold gives a candidate, not a source identity.';
     h.fail = true;
     assert.equal(advance('debrief'), false);
@@ -210,8 +236,8 @@ function harness(saved = new Map(), content = data) {
     'Saved applications remain frozen when the catalog changes'
   );
   assert.equal(reload.run('NEURO_PROG.units[firstId].recall[0].draft'), 'First written explanation 0');
-  assert.equal(reload.run('NEURO_PROG.pathDone.length'), 8, 'Legacy IDs remain stored unchanged');
-  assert.equal(reload.run('pathProgress().done'), 6);
+  assert.equal(reload.run('NEURO_PROG.pathDone.length'), 22, 'Legacy IDs remain stored unchanged');
+  assert.equal(reload.run('pathProgress().done'), 20);
   // Records saved before 2.37.0 used nine stages (orientation, lesson, mental, worked, recall, ...).
   const legacy = JSON.parse(saved.get('cs-neuro'));
   const legacyUnit = legacy.units[firstId];
@@ -242,7 +268,7 @@ function harness(saved = new Map(), content = data) {
   assert.equal(bad.invalid, 1);
   assert.equal(corrupted.get('cs-neuro'), JSON.stringify(damaged));
   console.log(
-    `Neuro foundations: 5 complete state journeys, ${cases} Python reference cases, wrong-code counterexamples, first-answer retention, immutable content, legacy progress, loading retry and damaged-record protection passed. Browser walkthroughs remain separate.`
+    `Neuro units: 20 complete state journeys, ${cases} Python reference cases, wrong-code counterexamples, first-answer retention, immutable content, legacy progress, loading retry and damaged-record protection passed. Browser walkthroughs remain separate.`
   );
 })().catch(error => {
   console.error(error);

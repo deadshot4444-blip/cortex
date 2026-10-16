@@ -1,8 +1,8 @@
-// Renders the Neuroengineering course's social card, og-neuro.jpg (1200×630), with Playwright.
+// Renders the Neuroengineering course's social card, og-neuro-2.jpg (1200×630), with Playwright.
 // Same system as og-v5.jpg and og-lab.jpg (near-black canvas, corner brackets, the cross mark,
 // one signal badge, a light headline, a tracked footer on a hairline), monochrome like the /neuro
 // page, with a drawn action-potential trace and the course's numbered contents. When the copy
-// changes, bump the file name (og-neuro-2.jpg …) and its references in scripts/build-share-pages.py
+// changes, bump the file name (og-neuro-3.jpg …) and its references in scripts/build-share-pages.py
 // and _headers.
 //
 //   node scripts/generate-neuro-social-card.mjs
@@ -10,16 +10,16 @@ import { chromium } from 'playwright';
 import { statSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
-const OUT = fileURLToPath(new URL('../og-neuro.jpg', import.meta.url));
+const OUT = fileURLToPath(new URL('../og-neuro-2.jpg', import.meta.url));
 
 // One action potential on a flat baseline: rest, threshold, spike, undershoot, recovery.
 const trace =
   'M0 64 L250 64 C262 64 266 60 272 56 C278 50 280 6 286 4 C292 2 294 84 302 92 C312 100 326 72 344 66 C360 62 380 64 400 64 L560 64';
 
 const rows = [
-  ['01', 'Foundations', '5 UNITS'],
-  ['02', 'Coding exercises', '13 CHECKED'],
-  ['03', 'Simulations', '15 INTERACTIVE'],
+  ['01', 'Units', '20 IN 4 MODULES'],
+  ['02', 'Coding exercises', '22 CHECKED'],
+  ['03', 'Simulations', '26 INTERACTIVE'],
   ['04', 'Projects', '6 BUILDS'],
 ];
 

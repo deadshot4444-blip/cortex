@@ -39,7 +39,7 @@ PAGES = {
             'Move from neurons and signals to code, simulations and reproducible analysis: foundation units, '
             'checked Python exercises that run in the browser, interactive simulations and projects. Free, no account.'
         ),
-        'image': 'og-neuro.jpg',
+        'image': 'og-neuro-2.jpg',
         'image_alt': 'Cortex Medical Academy — Neuroengineering: where the mind meets the machine.',
         'keywords': 'neuroengineering course, brain-computer interface, computational neuroscience, neural signal processing, Python for neuroscience, action potential simulation',
         'theme': '#0b0b0d',

@@ -51,7 +51,7 @@ async function loadNeuro() {
   if (neuroLoading) return neuroLoading;
   neuroLoading = (async () => {
     const results = await Promise.allSettled(
-      ['data/neuro.json?v=9', 'data/neuro-milestones.json?v=5'].map(async file => {
+      ['data/neuro.json?v=10', 'data/neuro-milestones.json?v=5'].map(async file => {
         const response = await fetch(file);
         if (!response.ok) throw new Error('Neuroengineering lessons did not download');
         return response.json();
@@ -565,7 +565,7 @@ async function renderNeuroAbout() {
     <p>${modules.length} modules, ${steps.length} units. Each unit pairs a short lesson with recall prompts, quick checks, a Python exercise and a decision lab. Six practitioner projects ask you to build one piece of the pipeline, check it against several inputs and write a short engineering memo.</p>
     <p>Python runs in your browser, in a separate worker, using Pyodide. The first run downloads the runtime. Only the Python standard library is available, so the exercises use plain lists and loops rather than NumPy.</p>
     <h2>Review status</h2>
-    <p>The course is written and maintained by Cortex Medical Academy. ${revised} of ${steps.length} units have been revised line by line against the sources they cite. The rest are first drafts being rewritten to the same standard. No independent subject-matter expert has reviewed the course yet. When one does, this page will say who and when.</p>
+    <p>The course is written and maintained by Cortex Medical Academy. ${revised} of ${steps.length} units have been revised line by line against the sources they cite.${revised < steps.length ? ' The rest are first drafts being rewritten to the same standard.' : ''} No independent subject-matter expert has reviewed the course yet. When one does, this page will say who and when.</p>
     ${modules
       .map(
         module =>

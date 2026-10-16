@@ -14,12 +14,12 @@ const DAT_UNITS = require('./dat-data.cjs').course.units.length;
 
 test('index resolves all current lesson IDs and keeps drafts distinct from revised material', () => {
   assert.equal(Core.validate(data), data);
-  assert.equal(data.entries.length, 200 + DAT_UNITS);
+  assert.equal(data.entries.length, 220 + DAT_UNITS);
   assert.equal(data.entries.filter(e => e.track === 'dat').length, DAT_UNITS);
   assert.equal(data.cards.length, 12);
   assert.equal(data.connections.length, 23);
   assert.equal(new Set(data.entries.map(e => e.track)).size, DAT_UNITS ? 7 : 6);
-  assert.equal(data.entries.filter(e => e.status === 'draft').length, 27);
+  assert.equal(data.entries.filter(e => e.status === 'draft').length, 9);
   assert.equal(data.entries.filter(e => e.track === 'reference' && e.kind === 'Lesson').length, 22);
   assert.ok(data.entries.every(e => /pending/.test(e.reviewStatus)));
   assert.equal(
@@ -46,8 +46,8 @@ test('missing prerequisites, cycles, invalid destinations and broken connections
   }
 });
 test('search honors intersecting track, preparation, text and shared-objective filters', () => {
-  assert.equal(Core.search(data).length, 173 + DAT_UNITS);
-  assert.equal(Core.search(data, { drafts: true }).length, 200 + DAT_UNITS);
+  assert.equal(Core.search(data).length, 211 + DAT_UNITS);
+  assert.equal(Core.search(data, { drafts: true }).length, 220 + DAT_UNITS);
   const result = Core.search(data, {
     track: 'reference',
     level: 'applied',
@@ -58,7 +58,7 @@ test('search honors intersecting track, preparation, text and shared-objective f
   assert.ok(
     result.every(e => e.track === 'reference' && e.level === 'applied' && e.objectives.includes('measurement-artifact'))
   );
-  assert.equal(Core.search(data, { track: 'neuro', level: 'advanced' }).length, 0);
+  assert.equal(Core.search(data, { track: 'neuro', level: 'advanced' }).length, 15);
   assert.equal(Core.search(data, { track: 'neuro', level: 'advanced', drafts: true }).length, 15);
   assert.equal(Core.search(data, { q: 'no-such-phrase' }).length, 0);
 });

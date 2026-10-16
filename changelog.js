@@ -5,6 +5,17 @@
 
 const CHANGELOG = [
   {
+    version: '2.38.0',
+    tag: 'UPDATE',
+    date: 'October 16, 2026',
+    title: 'Neuroengineering: every unit rewritten',
+    items: [
+      'Units 6 to 20 are rewritten to the same standard as the first five: a full lesson, a worked example you can check by hand, sources, and two quick checks written for that unit.',
+      'Nine new Python exercises, from population vectors and latency budgets to an abstain rule and a capstone pipeline that chains baseline, detection, decoding and a cursor step.',
+      'Eleven new decision labs and three rewritten ones, most with a plotted signal. No two units share a quiz, an exercise or a lab any more.',
+    ],
+  },
+  {
     version: '2.37.0',
     tag: 'UPDATE',
     date: 'October 16, 2026',
