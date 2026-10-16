@@ -4373,6 +4373,72 @@ button.neuro-trackms.open:hover { background: var(--ne-surface); }
 .neuro-primer-ask[open] summary { margin-bottom: 8px; }
 .neuro-primer-ask p { line-height: 1.6; }
 
+/* NEURO 2.37 — modules, topic library, about line, lesson stage, editor hint */
+@media (max-width: 720px) {
+  /* The foundations row stacks into a column on phones; a 180px flex-basis became 180px of height. */
+  .neuro-foundations-row .neuro-lablink { flex: 0 0 auto; }
+}
+.neuro-upnext { margin-top: 14px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--ne-body); }
+.neuro-trackmod {
+  display: flex; align-items: baseline; gap: 12px; width: 100%; text-align: left;
+  padding: 18px 2px 8px; margin-top: 10px; background: transparent; border: 0;
+  border-bottom: 1px solid var(--ne-text); color: var(--ne-text); cursor: pointer;
+}
+.neuro-trackmod:first-child { margin-top: 0; padding-top: 4px; }
+.neuro-trackmod-num { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--ne-meta); }
+.neuro-trackmod-title { flex: 1 1 auto; font-size: 13px; font-weight: 650; letter-spacing: .08em; text-transform: uppercase; }
+.neuro-trackmod-stat { font-size: 11px; color: var(--ne-meta); }
+.neuro-trackmod:hover .neuro-trackmod-stat, .neuro-trackmod:focus-visible .neuro-trackmod-stat { color: var(--ne-text); }
+.neuro-trackmod + .neuro-trackrow { margin-top: 0; }
+.neuro-module-units { margin-top: 22px; }
+.neuro-module-nav { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-top: 28px; }
+.neuro-unit-sub { margin-top: 10px; color: var(--ne-body); max-width: 68ch; }
+.neuro-unit-meta { margin-top: 6px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--ne-meta); }
+.neuro-stage h2 { margin-top: 22px; }
+.neuro-stage .neuro-kv + h2 { margin-top: 18px; }
+.neuro-terms { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.neuro-terms span {
+  font-family: var(--mono); font-size: 11px; letter-spacing: .04em; color: var(--ne-text);
+  border: 1px solid var(--ne-line); padding: 3px 8px;
+}
+.neuro-deeper { margin-top: 26px; border-top: 1px solid var(--ne-line); padding-top: 14px; }
+.neuro-deeper-link {
+  display: block; width: 100%; text-align: left; margin-top: 8px; padding: 12px 14px;
+  background: transparent; border: 1px solid var(--ne-line); color: var(--ne-text);
+  font-size: 15px; font-weight: 600; cursor: pointer;
+}
+.neuro-deeper-link span { display: block; margin-top: 3px; font-size: 12px; font-weight: 400; color: var(--ne-meta); }
+.neuro-deeper-link:hover { background: var(--ne-surface); border-color: var(--ne-text); }
+.neuro-topiclib { margin-top: 8px; }
+.neuro-libgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px; margin-top: 14px; }
+.neuro-libcard { border: 1px solid var(--ne-line); border-top: 2px solid var(--ne-accent, var(--ne-line)); padding: 4px 0 6px; }
+.neuro-libcard-name {
+  display: block; width: 100%; text-align: left; padding: 10px 14px 8px; background: transparent; border: 0;
+  color: var(--ne-text); font-size: 12px; font-weight: 650; letter-spacing: .08em; text-transform: uppercase; cursor: pointer;
+}
+.neuro-libtopic {
+  display: flex; justify-content: space-between; gap: 10px; width: 100%; text-align: left;
+  padding: 7px 14px; background: transparent; border: 0; color: var(--ne-body); font-size: 14px; cursor: pointer;
+}
+.neuro-libtopic .mono { font-size: 11px; color: var(--ne-meta); }
+.neuro-libcard-name:hover, .neuro-libtopic:hover { background: var(--ne-surface); color: var(--ne-text); }
+.neuro-about-line { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--ne-line); font-size: 12px; color: var(--ne-meta); }
+.neuro-about-line a { color: var(--ne-text); }
+.neuro-about h2 { margin-top: 30px; }
+.neuro-about h3 { margin-top: 18px; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--ne-meta); }
+.neuro-about-units { list-style: none; padding: 0; margin: 8px 0 0; }
+.neuro-about-units li {
+  display: flex; justify-content: space-between; gap: 12px; padding: 8px 0;
+  border-bottom: 1px solid var(--ne-line); font-size: 14px; color: var(--ne-body);
+}
+.neuro-about-units .mono { flex: 0 0 auto; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--ne-meta); }
+.neuro-editor-hint { margin-left: 8px; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--ne-meta); font-weight: 400; }
+.neuro-python .neuro-block pre { margin-top: 8px; }
+@media (max-width: 560px) {
+  .neuro-editor-hint { display: block; margin: 4px 0 0; }
+  .neuro-about-units li { flex-direction: column; gap: 2px; }
+}
+
 /* NEURO — never-coded orientation box in the code sandbox */
 .neuro-code-help {
   margin: 10px 0 14px; border: 1px dashed var(--ne-line); padding: 10px 14px;

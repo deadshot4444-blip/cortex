@@ -32,11 +32,21 @@ await page.waitForFunction(
 const hero = (await page.textContent('.neuro-hero h1'))?.trim();
 await assertNoHorizontalOverflow('Neuro hub');
 const mainCards = await page.locator('.neuro-subcard').count();
+const topicLibraryCards = await page.locator('.neuro-libcard').count();
+const moduleHeaders = await page.locator('.neuro-trackmod').count();
 const trackInitiallyOpen = await page.locator('#ne-track').evaluate(el => el.open);
-const showUnitsVisible = await page.locator('.neuro-track-toggle-show').isVisible();
-if (mainCards !== 0) throw new Error(`Main Neuro page should not show subject cards, found: ${mainCards}`);
-if (trackInitiallyOpen) throw new Error('The Track should start collapsed');
+const wideTrack = viewport.width >= 900;
+if (mainCards !== 0) throw new Error(`Main Neuro page should not show old subject cards, found: ${mainCards}`);
+if (topicLibraryCards !== 12) throw new Error(`Hub topic library should show 12 subjects, found: ${topicLibraryCards}`);
+if (moduleHeaders !== 4) throw new Error(`The Track should group units into 4 modules, found: ${moduleHeaders}`);
+if (trackInitiallyOpen !== wideTrack)
+  throw new Error(`The Track should start ${wideTrack ? 'open on wide screens' : 'collapsed on phones'}`);
+const showUnitsVisible = wideTrack || (await page.locator('.neuro-track-toggle-show').isVisible());
 if (!showUnitsVisible) throw new Error('Collapsed Track should show the Show units control');
+const startCardHeights = await page
+  .locator('.neuro-foundations-row .neuro-lablink')
+  .evaluateAll(cards => cards.map(card => Math.round(card.getBoundingClientRect().height)));
+if (Math.max(...startCardHeights) > 120) throw new Error(`Start-here cards are too tall: ${startCardHeights}`);
 await page.click('#nf-track');
 const trackOpenedFromFoundation = await page.locator('#ne-track').evaluate(el => el.open);
 const hideUnitsVisible = await page.locator('.neuro-track-toggle-hide').isVisible();
@@ -48,13 +58,15 @@ await page.click('#ne-library');
 await page.waitForSelector('.neuro-library', { timeout: 10000 });
 const libraryCards = await page.locator('.neuro-library .neuro-subcard').count();
 const libraryLabs = await page.locator('.neuro-library .neuro-lablink').count();
-if (libraryCards !== 12) throw new Error(`Lessons & labs should show 12 subjects, found: ${libraryCards}`);
-if (libraryLabs !== 3) throw new Error(`Lessons & labs should show 3 practice links, found: ${libraryLabs}`);
-await assertNoHorizontalOverflow('Lessons & Labs');
+if (libraryCards !== 0) throw new Error(`Practice & projects should not repeat the subjects, found: ${libraryCards}`);
+if (libraryLabs !== 3) throw new Error(`Practice & projects should show 3 practice links, found: ${libraryLabs}`);
+await assertNoHorizontalOverflow('Practice & projects');
 const libraryBackText = (await page.locator('#neback').textContent())?.trim();
 if (libraryBackText !== '← Back to Neuroengineering')
   throw new Error(`Library needs a clear back button, got: ${libraryBackText}`);
-await page.locator('.neuro-library .neuro-subcard').first().click();
+await page.click('#neback');
+await page.waitForSelector('.neuro-libcard', { timeout: 10000 });
+await page.locator('.neuro-libcard-name').first().click();
 await page.waitForSelector('#nerows', { timeout: 10000 });
 const subjectTopicTitles = await page.locator('.neuro-row-title').allTextContents();
 const subjectTopicMeta = await page.locator('.neuro-row-sub').allTextContents();
@@ -138,7 +150,10 @@ if (continueEntryScrollY > 1)
   throw new Error(`Continue should open the unit at the top, got scrollY: ${continueEntryScrollY}`);
 
 // Current foundation units keep the first answers and review them without retrying to a perfect score.
-for (let i = 0; i < 4; i++) await page.click('#neuro-unit-next');
+const lessonText = (await page.locator('#neunitstages').innerText()).toLowerCase();
+for (const heading of ['Why it matters', 'The idea', 'Mental model', 'Worked example', 'Go deeper'])
+  if (!lessonText.includes(heading.toLowerCase())) throw new Error(`The Lesson stage is missing "${heading}"`);
+await page.click('#neuro-unit-next');
 let recallSubmitSeen = false;
 let recallContinueSeen = false;
 for (let i = 0; i < 2; i++) {
@@ -151,7 +166,7 @@ for (let i = 0; i < 2; i++) {
   await page.click('#neuro-recall-next');
 }
 const quickCheckStartLabel = (await page.locator('#neunitlab').textContent()).trim();
-if (quickCheckStartLabel !== 'Stage 6 / 9 · Quick check') throw new Error(quickCheckStartLabel);
+if (quickCheckStartLabel !== 'Stage 3 / 6 · Quick check') throw new Error(quickCheckStartLabel);
 if (!(await page.locator('#neuro-unit-next').isDisabled()))
   throw new Error('Unanswered quick checks must block progression');
 const checks = await page.evaluate(() => neUnit.record.content.checks);
@@ -170,8 +185,19 @@ if (await page.locator('#neuro-unit-questions [data-choice]:not([disabled])').co
 await assertNoHorizontalOverflow('Quick Check');
 await page.click('#neuro-unit-next');
 const stageAfterQuickCheck = (await page.locator('#neunitlab').textContent()).trim();
-if (stageAfterQuickCheck !== 'Stage 7 / 9 · NeuroCode') throw new Error(stageAfterQuickCheck);
+if (stageAfterQuickCheck !== 'Stage 4 / 6 · NeuroCode') throw new Error(stageAfterQuickCheck);
 if (await page.locator('[data-code-done]').isVisible()) throw new Error('Untested code must not pass the unit gate');
+const editorTab = await page.evaluate(() => {
+  const area = document.querySelector('#neuro-code-editor');
+  area.focus();
+  area.setSelectionRange(0, 0);
+  return area.value;
+});
+await page.keyboard.press('Tab');
+const tabbedValue = await page.locator('#neuro-code-editor').inputValue();
+if (tabbedValue !== '    ' + editorTab) throw new Error('Tab should indent inside the code editor');
+if (!(await page.evaluate(() => document.activeElement?.id === 'neuro-code-editor')))
+  throw new Error('Tab should keep focus in the code editor');
 const codeCases = await page.evaluate(() => neUnit.record.content.code.checks.cases.length);
 await page.locator('details.neuro-sandbox-more > summary').click();
 await page.click('[data-load-sol]');
@@ -184,7 +210,7 @@ if ((await page.locator('[data-check-results] li').count()) !== codeCases)
 await assertNoHorizontalOverflow('NeuroCode result');
 await page.click('[data-code-done]');
 const stageAfterCode = (await page.locator('#neunitlab').textContent()).trim();
-if (stageAfterCode !== 'Stage 8 / 9 · NeuroSim') throw new Error(stageAfterCode);
+if (stageAfterCode !== 'Stage 5 / 6 · NeuroSim') throw new Error(stageAfterCode);
 const sim = await page.evaluate(() => neUnit.record.content.sim);
 const simWrongIndex = (sim.bestAnswerIndex + 1) % sim.choices.length;
 if (!(await page.locator('#neuro-unit-next').isDisabled()))
@@ -213,6 +239,25 @@ if (
   throw new Error('Completion must count the preserved first answers accurately');
 await assertNoHorizontalOverflow('Unit complete');
 
+// The About page holds the review status; units no longer repeat it.
+if ((await page.locator('#neunitstages').innerText()).includes('review is pending'))
+  throw new Error('Unit pages should not repeat the review disclaimer');
+await page.click('[data-neuro-about]');
+await page.waitForSelector('.neuro-about', { timeout: 10000 });
+const aboutText = await page.locator('.neuro-about').innerText();
+if (!aboutText.includes('Review status') || !aboutText.includes('Synthetic data'))
+  throw new Error('About page must state review status and the synthetic-data rule');
+if (new URL(page.url()).searchParams.get('view') !== 'about') throw new Error('About needs its own link');
+await assertNoHorizontalOverflow('About');
+await page.goto(new URL('/neuro?module=decoding', page.url()).href, { waitUntil: 'networkidle' });
+await page.waitForSelector('.neuro-module', { timeout: 10000 });
+const moduleUnits = await page.locator('.neuro-module .neuro-trackrow').count();
+if (moduleUnits !== 5) throw new Error(`A module page should list 5 units, found: ${moduleUnits}`);
+await assertNoHorizontalOverflow('Module page');
+await page.goto(new URL('/neuro?view=python', page.url()).href, { waitUntil: 'networkidle' });
+await page.waitForSelector('#neuro-python-editor', { timeout: 10000 });
+await assertNoHorizontalOverflow('Python primer');
+
 console.log(
   JSON.stringify(
     {
@@ -220,6 +265,9 @@ console.log(
       overflowChecks,
       hero,
       mainCards,
+      topicLibraryCards,
+      moduleHeaders,
+      startCardHeights,
       trackInitiallyOpen,
       showUnitsVisible,
       trackOpenedFromFoundation,
@@ -245,6 +293,7 @@ console.log(
       firstAnswers,
       stageAfterQuickCheck,
       codeResult,
+      moduleUnits,
       stageAfterCode,
       simWrongIndex,
       unitLab,

@@ -2852,6 +2852,56 @@
    "id": "bci-builder-path",
    "title": "BCI Builder Path",
    "summary": "A guided vertical slice for learning how neural signals become useful BCI control, from raw time-series data through decoder drift, feedback, UX, and brain-data ethics.",
+   "modules": [
+    {
+     "id": "signals",
+     "title": "Signals",
+     "lede": "What an electrode actually records: ordered samples with units and timing, threshold events, rates, noise and filtering.",
+     "unitOrders": [
+      1,
+      2,
+      3,
+      4,
+      5
+     ]
+    },
+    {
+     "id": "decoding",
+     "title": "Features & decoding",
+     "lede": "Turn a window of signal into a few numbers, then turn those numbers into a decision you can inspect and test.",
+     "unitOrders": [
+      6,
+      13,
+      7,
+      9,
+      14
+     ]
+    },
+    {
+     "id": "control-loop",
+     "title": "The control loop",
+     "lede": "Put the decoder in a loop with a person: cursor control, latency, feedback, adaptation and knowing when not to act.",
+     "unitOrders": [
+      8,
+      16,
+      10,
+      15,
+      17
+     ]
+    },
+    {
+     "id": "safety-capstone",
+     "title": "Safety, people & capstone",
+     "lede": "Asymmetric error costs, the person using the system, brain-data privacy and regulation, then the whole toy BCI end to end.",
+     "unitOrders": [
+      18,
+      11,
+      12,
+      19,
+      20
+     ]
+    }
+   ],
    "steps": [
     {
      "id": "bci-path-01-time-series",
@@ -2956,6 +3006,23 @@
      "oneLineMaster": "Feature extraction converts raw neural data into model-ready evidence."
     },
     {
+     "id": "bci-path-13-population-vectors",
+     "order": 13,
+     "title": "Population vectors & linear readouts",
+     "subjectId": "decoding-ai",
+     "topicId": "dec-linear-decoder",
+     "neuroCodeLessonId": "code-feature-extraction",
+     "simulationId": null,
+     "primaryActionType": "neuroCode",
+     "primaryActionLabel": "Open NeuroCode",
+     "checkpointPrompt": null,
+     "reflectionQuestion": "Why does combining evidence from many neurons give a more stable signal than any single neuron?",
+     "estimatedFocus": "15 min",
+     "stepObjective": "Understand how a population of neurons can be represented as a vector of features for decoding.",
+     "explanation": "Real BCIs rarely rely on one neuron. They combine activity across a population into a feature vector. This is the foundation of almost every modern decoder.",
+     "oneLineMaster": "A population vector turns many noisy neurons into one useful evidence signal."
+    },
+    {
      "id": "bci-path-07-simple-decoder",
      "order": 7,
      "title": "Simple decoder logic",
@@ -2971,23 +3038,6 @@
      "stepObjective": "Map extracted features to intent or action with a rule, threshold, or classifier.",
      "explanation": "A decoder maps neural features to intended action. Even simple left/right threshold logic teaches the core idea behind more advanced BCI models, and the linked simulation shows why reliability matters.",
      "oneLineMaster": "A decoder is the rule or model that turns neural features into commands."
-    },
-    {
-     "id": "bci-path-08-cursor-control",
-     "order": 8,
-     "title": "Cursor-control BCI",
-     "subjectId": "bci",
-     "topicId": "bci-cursor-control",
-     "neuroCodeLessonId": "code-simple-bci-decoder",
-     "simulationId": "sim-bci-cursor-drift",
-     "primaryActionType": "atlas",
-     "primaryActionLabel": "Socratic study",
-     "checkpointPrompt": null,
-     "reflectionQuestion": "Why does screen feedback change how the user learns the decoder?",
-     "estimatedFocus": "10 min",
-     "stepObjective": "Connect neural decoding to visible cursor movement and user feedback.",
-     "explanation": "Cursor control ties decoding to visible feedback. The user learns through the loop, so latency, calibration, and output feel all matter.",
-     "oneLineMaster": "Cursor BCIs work when decoded intent and fast feedback form a usable loop."
     },
     {
      "id": "bci-path-09-decoder-drift",
@@ -3007,74 +3057,6 @@
      "oneLineMaster": "Decoder drift means yesterday's neural mapping may need today's recalibration."
     },
     {
-     "id": "bci-path-10-closed-loop-feedback",
-     "order": 10,
-     "title": "Closed-loop feedback",
-     "subjectId": "closed-loop",
-     "topicId": "cl-feedback",
-     "neuroCodeLessonId": "code-closed-loop-rule",
-     "simulationId": "sim-cl-false-positive",
-     "primaryActionType": "neuroSim",
-     "primaryActionLabel": "Try NeuroSim",
-     "checkpointPrompt": null,
-     "reflectionQuestion": "Which is more dangerous in this case: a false positive or a missed event?",
-     "estimatedFocus": "15 min",
-     "stepObjective": "Practice the safety trade-off between detection, action, and feedback.",
-     "explanation": "Closed-loop systems sense, decide, act, and update. In neurotechnology, feedback must be useful without becoming unsafe, noisy, or too automatic for the user to understand.",
-     "oneLineMaster": "Closed-loop BCI design links sensing, decoding, action, and feedback."
-    },
-    {
-     "id": "bci-path-11-human-centered-ux",
-     "order": 11,
-     "title": "Human-centered BCI UX",
-     "subjectId": "bci",
-     "topicId": "bci-loop",
-     "neuroCodeLessonId": "code-decoder-drift",
-     "simulationId": "sim-bci-cursor-drift",
-     "primaryActionType": "checkpoint",
-     "primaryActionLabel": "Complete Checkpoint",
-     "checkpointPrompt": "Checkpoint B: What makes a closed-loop BCI safe? What could go wrong with false positives? How should the user stay in control?",
-     "reflectionQuestion": "What should the interface reveal when calibration changes or confidence drops?",
-     "estimatedFocus": "10 min",
-     "stepObjective": "Treat feedback, latency, fatigue, calibration transparency, and autonomy as part of the BCI system.",
-     "explanation": "A BCI user needs clear feedback, low latency, manageable fatigue, understandable calibration, and real control over device behavior. The interface is not decoration; it is part of the neural feedback loop.",
-     "oneLineMaster": "A BCI is not only a decoder; it is a feedback system between a person and a machine."
-    },
-    {
-     "id": "bci-path-12-brain-data-ethics",
-     "order": 12,
-     "title": "Brain data safety and ethics",
-     "subjectId": "ethics",
-     "topicId": "eth-brain-data",
-     "neuroCodeLessonId": "code-data-minimization",
-     "simulationId": "sim-eth-data-privacy",
-     "primaryActionType": "quiz",
-     "primaryActionLabel": "Take Quiz",
-     "checkpointPrompt": null,
-     "reflectionQuestion": "What data would you refuse to collect unless the user clearly opted in?",
-     "estimatedFocus": "10 min",
-     "stepObjective": "Apply privacy, consent, minimization, and mental-data safety to BCI design.",
-     "explanation": "BCI data can reveal sensitive information about attention, intent, and state. Privacy and consent belong in the design, not at the end.",
-     "oneLineMaster": "Brain data safety means minimizing, protecting, and explaining neural data use."
-    },
-    {
-     "id": "bci-path-13-population-vectors",
-     "order": 13,
-     "title": "Population vectors & linear readouts",
-     "subjectId": "decoding-ai",
-     "topicId": "dec-linear-decoder",
-     "neuroCodeLessonId": "code-feature-extraction",
-     "simulationId": null,
-     "primaryActionType": "neuroCode",
-     "primaryActionLabel": "Open NeuroCode",
-     "checkpointPrompt": null,
-     "reflectionQuestion": "Why does combining evidence from many neurons give a more stable signal than any single neuron?",
-     "estimatedFocus": "15 min",
-     "stepObjective": "Understand how a population of neurons can be represented as a vector of features for decoding.",
-     "explanation": "Real BCIs rarely rely on one neuron. They combine activity across a population into a feature vector. This is the foundation of almost every modern decoder.",
-     "oneLineMaster": "A population vector turns many noisy neurons into one useful evidence signal."
-    },
-    {
      "id": "bci-path-14-weighted-decoder",
      "order": 14,
      "title": "Weighted linear decoder",
@@ -3092,21 +3074,21 @@
      "oneLineMaster": "A linear decoder is just a weighted sum of features followed by a decision rule."
     },
     {
-     "id": "bci-path-15-online-adaptation",
-     "order": 15,
-     "title": "Online adaptation & recalibration",
+     "id": "bci-path-08-cursor-control",
+     "order": 8,
+     "title": "Cursor-control BCI",
      "subjectId": "bci",
      "topicId": "bci-cursor-control",
-     "neuroCodeLessonId": "code-decoder-drift",
+     "neuroCodeLessonId": "code-simple-bci-decoder",
      "simulationId": "sim-bci-cursor-drift",
-     "primaryActionType": "checkpoint",
-     "primaryActionLabel": "Complete Checkpoint",
-     "checkpointPrompt": "Checkpoint C: Given drifting features, what is the smallest change that restores performance without full retraining?",
-     "reflectionQuestion": "When should you just shift the baseline versus re-learn the entire weight vector?",
-     "estimatedFocus": "15 min",
-     "stepObjective": "Distinguish baseline offset correction from full model re-fit and choose the right first action.",
-     "explanation": "Neural signals drift. Good systems detect the drift and apply the cheapest fix that restores control (baseline, gain, or full recal).",
-     "oneLineMaster": "Adaptation keeps yesterday's decoder useful today with the smallest possible change."
+     "primaryActionType": "atlas",
+     "primaryActionLabel": "Socratic study",
+     "checkpointPrompt": null,
+     "reflectionQuestion": "Why does screen feedback change how the user learns the decoder?",
+     "estimatedFocus": "10 min",
+     "stepObjective": "Connect neural decoding to visible cursor movement and user feedback.",
+     "explanation": "Cursor control ties decoding to visible feedback. The user learns through the loop, so latency, calibration, and output feel all matter.",
+     "oneLineMaster": "Cursor BCIs work when decoded intent and fast feedback form a usable loop."
     },
     {
      "id": "bci-path-16-latency-and-timing",
@@ -3124,6 +3106,40 @@
      "stepObjective": "Quantify the cost of latency and understand how users adapt their strategy when feedback is delayed.",
      "explanation": "Real BCIs have hard timing budgets. Latency changes both the decoder's job and the user's motor strategy.",
      "oneLineMaster": "Latency is not just annoying — it changes the neural signals the decoder must learn."
+    },
+    {
+     "id": "bci-path-10-closed-loop-feedback",
+     "order": 10,
+     "title": "Closed-loop feedback",
+     "subjectId": "closed-loop",
+     "topicId": "cl-feedback",
+     "neuroCodeLessonId": "code-closed-loop-rule",
+     "simulationId": "sim-cl-false-positive",
+     "primaryActionType": "neuroSim",
+     "primaryActionLabel": "Try NeuroSim",
+     "checkpointPrompt": null,
+     "reflectionQuestion": "Which is more dangerous in this case: a false positive or a missed event?",
+     "estimatedFocus": "15 min",
+     "stepObjective": "Practice the safety trade-off between detection, action, and feedback.",
+     "explanation": "Closed-loop systems sense, decide, act, and update. In neurotechnology, feedback must be useful without becoming unsafe, noisy, or too automatic for the user to understand.",
+     "oneLineMaster": "Closed-loop BCI design links sensing, decoding, action, and feedback."
+    },
+    {
+     "id": "bci-path-15-online-adaptation",
+     "order": 15,
+     "title": "Online adaptation & recalibration",
+     "subjectId": "bci",
+     "topicId": "bci-cursor-control",
+     "neuroCodeLessonId": "code-decoder-drift",
+     "simulationId": "sim-bci-cursor-drift",
+     "primaryActionType": "checkpoint",
+     "primaryActionLabel": "Complete Checkpoint",
+     "checkpointPrompt": "Checkpoint C: Given drifting features, what is the smallest change that restores performance without full retraining?",
+     "reflectionQuestion": "When should you just shift the baseline versus re-learn the entire weight vector?",
+     "estimatedFocus": "15 min",
+     "stepObjective": "Distinguish baseline offset correction from full model re-fit and choose the right first action.",
+     "explanation": "Neural signals drift. Good systems detect the drift and apply the cheapest fix that restores control (baseline, gain, or full recal).",
+     "oneLineMaster": "Adaptation keeps yesterday's decoder useful today with the smallest possible change."
     },
     {
      "id": "bci-path-17-confidence-and-degradation",
@@ -3158,6 +3174,40 @@
      "stepObjective": "Apply asymmetric cost thinking and basic interlocks to closed-loop neurotechnology.",
      "explanation": "When the output is physical (stimulation, movement, speech), the cost of false positives and false negatives is no longer symmetric.",
      "oneLineMaster": "Safety in closed-loop BCIs is about making dangerous mistakes much harder than useful ones."
+    },
+    {
+     "id": "bci-path-11-human-centered-ux",
+     "order": 11,
+     "title": "Human-centered BCI UX",
+     "subjectId": "bci",
+     "topicId": "bci-loop",
+     "neuroCodeLessonId": "code-decoder-drift",
+     "simulationId": "sim-bci-cursor-drift",
+     "primaryActionType": "checkpoint",
+     "primaryActionLabel": "Complete Checkpoint",
+     "checkpointPrompt": "Checkpoint B: What makes a closed-loop BCI safe? What could go wrong with false positives? How should the user stay in control?",
+     "reflectionQuestion": "What should the interface reveal when calibration changes or confidence drops?",
+     "estimatedFocus": "10 min",
+     "stepObjective": "Treat feedback, latency, fatigue, calibration transparency, and autonomy as part of the BCI system.",
+     "explanation": "A BCI user needs clear feedback, low latency, manageable fatigue, understandable calibration, and real control over device behavior. The interface is not decoration; it is part of the neural feedback loop.",
+     "oneLineMaster": "A BCI is not only a decoder; it is a feedback system between a person and a machine."
+    },
+    {
+     "id": "bci-path-12-brain-data-ethics",
+     "order": 12,
+     "title": "Brain data safety and ethics",
+     "subjectId": "ethics",
+     "topicId": "eth-brain-data",
+     "neuroCodeLessonId": "code-data-minimization",
+     "simulationId": "sim-eth-data-privacy",
+     "primaryActionType": "quiz",
+     "primaryActionLabel": "Take Quiz",
+     "checkpointPrompt": null,
+     "reflectionQuestion": "What data would you refuse to collect unless the user clearly opted in?",
+     "estimatedFocus": "10 min",
+     "stepObjective": "Apply privacy, consent, minimization, and mental-data safety to BCI design.",
+     "explanation": "BCI data can reveal sensitive information about attention, intent, and state. Privacy and consent belong in the design, not at the end.",
+     "oneLineMaster": "Brain data safety means minimizing, protecting, and explaining neural data use."
     },
     {
      "id": "bci-path-19-data-and-regulatory",

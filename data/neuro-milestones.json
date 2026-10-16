@@ -5,7 +5,7 @@
     {
       "id": "neural-signal-viewer",
       "title": "Neural Signal Viewer",
-      "unlockUnit": 7,
+      "unlockUnit": 5,
       "phase": "Signal Acquisition",
       "shortDescription": "Describe a sampled signal with units and separate threshold samples from inferred biological events.",
       "status": "live",
@@ -15,7 +15,7 @@
     {
       "id": "spike-detector",
       "title": "Spike Detector + Feature Vector",
-      "unlockUnit": 12,
+      "unlockUnit": 7,
       "phase": "Detection & Features",
       "shortDescription": "Group threshold excursions and explain what a global statistical threshold can and cannot establish.",
       "status": "live",
@@ -25,7 +25,7 @@
     {
       "id": "noise-smoother",
       "title": "Noise Smoother & Drift Corrector",
-      "unlockUnit": 14,
+      "unlockUnit": 9,
       "phase": "Preprocessing & Stability",
       "shortDescription": "Implement a causal rolling baseline estimate and quantify its edge and waveform distortion.",
       "status": "live",
@@ -35,7 +35,7 @@
     {
       "id": "leftright-decoder",
       "title": "Weighted Linear Decoder",
-      "unlockUnit": 16,
+      "unlockUnit": 10,
       "phase": "Decoding & Control",
       "shortDescription": "Fit an inspectable two-class linear rule using training data only and keep the held-out result separate.",
       "status": "live",
@@ -45,7 +45,7 @@
     {
       "id": "cursor-simulator",
       "title": "Cursor Simulator + Latency",
-      "unlockUnit": 18,
+      "unlockUnit": 12,
       "phase": "Closed-Loop Feedback",
       "shortDescription": "Reproduce a delayed-feedback trajectory and distinguish model time from execution time.",
       "status": "live",

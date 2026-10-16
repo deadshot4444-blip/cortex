@@ -105,7 +105,7 @@ const SECTION_INFO = {
   },
 };
 // Public beta version; independent subject acceptance remains separate.
-const APP_VERSION = '2.36.5';
+const APP_VERSION = '2.37.0';
 function cortexFreeNote(sectionPill, sectionName) {
   return `<p class="free-note"><span class="free-pill">MCAT always free</span><span class="free-pill free-pill--soft">${sectionPill} &middot; free</span><span class="free-note-txt">${sectionName} is free to use — no account, no paywall, no catch.</span></p>`;
 }
@@ -264,8 +264,8 @@ const SECTION_SCRIPTS = {
     'python-runtime.js?v=6',
     'code-evaluator.js?v=9',
     'neuro-project-engine.js?v=3',
-    'neuro-practitioner.js?v=12',
-    'neuro.js?v=41',
+    'neuro-practitioner.js?v=13',
+    'neuro.js?v=42',
   ],
   // silver-lab-core.js loads before lab.js so the shell can normalize saved state at parse time;
   // lab.js declares window.CortexLab so the later lab modules can register on it when they load.

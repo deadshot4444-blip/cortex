@@ -5,6 +5,18 @@
 
 const CHANGELOG = [
   {
+    version: '2.37.0',
+    tag: 'UPDATE',
+    date: 'October 16, 2026',
+    title: 'Neuroengineering, reorganized',
+    items: [
+      'The twenty units now sit in four modules (Signals, Features & decoding, The control loop, Safety, people & capstone), each with its own page.',
+      'Each unit opens with one full lesson page instead of four short steps, with a link to the deeper reference lesson on the same topic.',
+      'The topic library lives on the course page, a new "Python in five minutes" page helps if you have never coded, and Tab now indents in the code editor.',
+      'Review status and the synthetic-data rule live on one About page instead of every screen.',
+    ],
+  },
+  {
     version: '2.36.5',
     tag: 'UPDATE',
     date: 'October 15, 2026',

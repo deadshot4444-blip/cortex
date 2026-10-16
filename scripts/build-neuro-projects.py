@@ -188,7 +188,7 @@ def build():
             modelMemo=memo, sources=sources, provenance=provenance, preview=preview,
             review=dict(status='pending', reviewer=None, reviewedOn=None, authorCheckedOn='2026-09-07')))
 
-    add('neural-signal-viewer', 'Neural Signal Viewer', analyze_signal, 7,
+    add('neural-signal-viewer', 'Neural Signal Viewer', analyze_signal, 5,
         'Describe a sampled signal with units and separate threshold samples from inferred biological events.',
         'Implement analyze_signal(samples, threshold, sample_rate_hz). Return mean, minimum, maximum, duration_s, above_indices and sample_count. An index is included when its sample is greater than or equal to the threshold. Duration is N/sample_rate_hz; the last sample time is (N-1)/sample_rate_hz. These are different quantities.',
         ['Preserve the original sample order and use zero-based indices.', 'Count qualifying samples, including adjacent samples separately. Do not label this count as neurons or action potentials.', 'Reject an empty signal, a nonfinite threshold, or a nonpositive/nonfinite sample rate.'],
@@ -204,7 +204,7 @@ def build():
         [stats_source], 'Original repository m1-recording.json samples retained exactly. Synthetic teaching sequence; the old LFP/spike labels are not adopted. The prior milestone pass remains a legacy output comparison.',
         dict(kind='signal', samples=m1['samples'], sampleRateHz=1000, units='mV', note='Toy membrane-like samples; no biological event labels.'))
 
-    add('spike-detector', 'Spike Detector + Feature Vector', detect_runs, 12,
+    add('spike-detector', 'Spike Detector + Feature Vector', detect_runs, 7,
         'Group threshold excursions and explain what a global statistical threshold can and cannot establish.',
         'Implement detect_runs(samples, multiplier, sample_rate_hz). Set threshold to mean minus multiplier times population standard deviation. Group consecutive samples strictly below that threshold into one candidate event. Return threshold and events, with each event containing index, amplitude, width_samples and width_ms. The index is the first minimum in the run; width_ms is 1000*width_samples/sample_rate_hz.',
         ['Use one global threshold for this recording. It is not an online adaptive threshold or a drift correction.', 'Close a final run at the end of the recording and break ties at the earliest trough.', 'Reject an empty signal or a nonpositive/nonfinite multiplier or sample rate. A constant signal has no strictly-below-threshold events.'],
@@ -221,7 +221,7 @@ def build():
         dict(kind='signal', samples=m2['samples'], sampleRateHz=2000, units='µV', note='Synthetic samples. Candidate event markers appear only after your analysis.'), 'neural-signal-viewer')
 
     ramp = signal(2, offset=4, drift=0.16)
-    add('noise-smoother', 'Noise Smoother & Drift Corrector', remove_baseline, 14,
+    add('noise-smoother', 'Noise Smoother & Drift Corrector', remove_baseline, 9,
         'Implement a causal rolling baseline estimate and quantify its edge and waveform distortion.',
         'Implement remove_baseline(samples, window). For sample i, average the samples from max(0,i-window+1) through i, inclusive. Return baseline and residual arrays of the original length, where residual[i] = samples[i] - baseline[i]. Use only the available prefix near the start; do not pad with zeros or use future samples.',
         ['A positive integer window is required; window=1 gives residual zero.', 'This causal estimate includes the current sample. It can attenuate a real deflection and lag a rising baseline.', 'This is baseline subtraction, not proof that noise was removed or the underlying neural signal recovered. Reject empty input or a nonpositive/noninteger window.'],
@@ -241,7 +241,7 @@ def build():
     train = [[4, 1], [3, 1], [5, 2], [1, 4], [1, 3], [2, 5]]
     labels = [-1, -1, -1, 1, 1, 1]
     heldout = [[4, 2], [2, 4], [3, 3], [5, 1]]
-    add('leftright-decoder', 'Weighted Linear Decoder', fit_decoder, 16,
+    add('leftright-decoder', 'Weighted Linear Decoder', fit_decoder, 10,
         'Fit an inspectable two-class linear rule using training data only and keep the held-out result separate.',
         'Implement fit_decoder(train_x, train_y, test_x). Compute each class centroid from its training rows. Set weights = centroid(+1) - centroid(-1) and bias = -0.5*(sum(centroid(+1)^2)-sum(centroid(-1)^2)). Predict +1 when dot(weights,x)+bias >= 0, else -1. Return weights, bias, train_predictions and test_predictions. This is the equal-prior Euclidean nearest-centroid boundary with an explicit +1 tie rule.',
         ['Rows must have equal nonzero dimensions and finite values. Both integer labels -1 and +1 must occur in training; their count must match train_x.', 'test_x may be empty. Test labels are never an input to this function.', 'Report small synthetic train and held-out proportions separately. The exercise does not demonstrate generalization to biological recordings, calibrate confidence, or estimate a deployed BCI accuracy.'],
@@ -259,7 +259,7 @@ def build():
         dict(kind='decoder', train=train, trainLabels=labels, test=heldout, testLabels=[-1, 1, -1, -1], units='synthetic feature counts'), 'noise-smoother')
 
     targets = [0.0] * 5 + [1.0] * 55 + [-0.5] * 50
-    add('cursor-simulator', 'Cursor Simulator + Latency', control_cursor, 18,
+    add('cursor-simulator', 'Cursor Simulator + Latency', control_cursor, 12,
         'Reproduce a delayed-feedback trajectory and distinguish model time from execution time.',
         'Implement control_cursor(targets, gain, delay_steps, max_speed, dt). Start positions=[0.0]. At step t, observe positions[max(0,t-delay_steps)], compute gain*(targets[t]-observed), clip that velocity to [-max_speed,max_speed], and append positions[-1]+velocity*dt. Return positions (N+1 entries) and commands (N entries). Recompute the command from the delayed observation at each step.',
         ['gain is finite and nonnegative. max_speed and dt are finite and positive. delay_steps is a nonnegative integer, not a boolean.', 'At dt=0.01 s, delays 0, 8 and 15 steps represent 0, 80 and 150 ms of modeled observation delay.', 'Targets and positions are arbitrary cursor units, velocity is units/s and gain is 1/s. No inertia, physiological adaptation, transport jitter or real network latency is modeled. An empty target list returns the initial position and no commands.'],

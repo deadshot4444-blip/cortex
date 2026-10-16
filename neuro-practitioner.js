@@ -24,14 +24,14 @@ function neuroMilestonePassed(id) {
 function neuroMilestoneRequirement(ms) {
   if (
     !neuroPath()
-      ?.steps.filter(step => step.order <= ms.unlockUnit)
+      ?.steps.slice(0, ms.unlockUnit)
       .every(step => NEURO_PROG.pathDone.includes(step.id))
   )
-    return `Complete units 1–${ms.unlockUnit}`;
+    return `Unlocks after Unit ${ms.unlockUnit}`;
   const prior = projectIds[projectIds.indexOf(ms.id) - 1];
   if (prior && !neuroMilestonePassed(prior) && !NEURO_PROG.milestones?.[prior]?.passed) {
     const title = NEURO.milestones?.milestones.find(item => item.id === prior)?.title;
-    return title ? `Complete ${title}` : 'Complete the preceding project';
+    return title ? `Unlocks after ${title}` : 'Unlocks after the preceding project';
   }
   return 'In development';
 }
@@ -41,7 +41,7 @@ function neuroMilestoneUnlocked(ms) {
   return (
     ms.status === 'live' &&
     neuroPath()
-      ?.steps.filter(step => step.order <= ms.unlockUnit)
+      ?.steps.slice(0, ms.unlockUnit)
       .every(step => NEURO_PROG.pathDone.includes(step.id)) &&
     (!prior || neuroMilestonePassed(prior) || NEURO_PROG.milestones?.[prior]?.passed)
   );
@@ -58,7 +58,7 @@ function neuroProjectRoute(id, runId) {
 async function loadNeuroProjects() {
   if (neuroProjectCatalog) return neuroProjectCatalog;
   if (!neuroProjectLoading)
-    neuroProjectLoading = fetch('data/neuro-projects.json?v=2')
+    neuroProjectLoading = fetch('data/neuro-projects.json?v=3')
       .then(async response => {
         if (!response.ok) throw Error('The project collection did not download.');
         const data = await response.json();

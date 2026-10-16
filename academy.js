@@ -95,7 +95,7 @@
       audience: 'Learners exploring neuroscience and engineering.',
       prerequisites: 'Foundations introduce the science and coding; later projects build on those units.',
       scope:
-        'Five revised foundation units within a 20-unit draft path; 13 checked coding exercises, 15 simulations, and six project entries. Not yet independently reviewed.',
+        'Four modules and twenty units, from neural time series to a closed-loop toy BCI; 13 checked coding exercises, 15 decision labs and six projects. Not yet independently reviewed.',
       time: 'Start with the foundations',
       action: 'Explore neuroengineering',
       kind: 'Engineering',

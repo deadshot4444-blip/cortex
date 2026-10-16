@@ -114,10 +114,10 @@ function harness(saved = new Map(), content = data) {
     assert.equal(content.checks.length, 2);
     assert.ok(content.unit.sources.length);
     const advance = stage => h.context.neuroUnitAdvance(record, stage);
+    assert.equal(record.layout, 2, 'New records use the merged lesson layout');
     assert.equal(advance('quiz'), false, 'A different stage cannot be skipped');
-    assert.equal(advance('orientation'), true);
-    assert.equal(advance('orientation'), false, 'A stale button cannot advance twice');
-    for (const stage of ['lesson', 'mental', 'worked']) assert.equal(advance(stage), true);
+    assert.equal(advance('lesson'), true);
+    assert.equal(advance('lesson'), false, 'A stale button cannot advance twice');
     assert.equal(advance('recall'), false, 'Written comparisons must be opened');
     content.unit.activeRecallPrompts.forEach(
       (prompt, i) => (record.recall[i] = { draft: 'First written explanation ' + i, revealedAt: Date.now() })
@@ -212,6 +212,29 @@ function harness(saved = new Map(), content = data) {
   assert.equal(reload.run('NEURO_PROG.units[firstId].recall[0].draft'), 'First written explanation 0');
   assert.equal(reload.run('NEURO_PROG.pathDone.length'), 8, 'Legacy IDs remain stored unchanged');
   assert.equal(reload.run('pathProgress().done'), 6);
+  // Records saved before 2.37.0 used nine stages (orientation, lesson, mental, worked, recall, ...).
+  const legacy = JSON.parse(saved.get('cs-neuro'));
+  const legacyUnit = legacy.units[firstId];
+  delete legacyUnit.layout;
+  legacyUnit.stageIdx += 3;
+  const midway = structuredClone(legacyUnit);
+  delete midway.completedAt;
+  midway.stageIdx = 5; // old Quick check
+  const early = structuredClone(midway);
+  early.stageIdx = 2; // old Mental model
+  legacy.units['legacy-midway'] = midway;
+  legacy.units['legacy-early'] = early;
+  const migrated = harness(new Map([['cs-neuro', JSON.stringify(legacy)]]));
+  assert.equal(migrated.invalid, 0, 'Pre-2.37 unit records migrate instead of failing validation');
+  assert.equal(migrated.run('NEURO_PROG.units[' + JSON.stringify(firstId) + '].stageIdx'), legacyUnit.stageIdx - 3);
+  assert.equal(
+    migrated.run('NEURO_PROG.units["legacy-midway"].stageIdx'),
+    2,
+    'Old Quick check maps to the new Quick check'
+  );
+  assert.equal(migrated.run('neuroStageKeys(NEURO_PROG.units["legacy-midway"].content)[2]'), 'quiz');
+  assert.equal(migrated.run('NEURO_PROG.units["legacy-early"].stageIdx'), 0, 'Old lesson sub-stages map to the Lesson');
+  assert.equal(migrated.run('NEURO_PROG.units["legacy-early"].layout'), 2);
   const damaged = JSON.parse(saved.get('cs-neuro'));
   damaged.units[firstId].answers[damaged.units[firstId].content.checks[0].id].chosen = 99;
   const corrupted = new Map([['cs-neuro', JSON.stringify(damaged)]]),
