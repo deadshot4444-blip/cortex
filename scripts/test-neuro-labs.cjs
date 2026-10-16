@@ -256,12 +256,51 @@ function harness(saved = new Map(), content = data) {
   for (const series of [...data.neuroCodeLessons, ...data.simulations].map(x => x.series).filter(Boolean)) {
     assert.equal(h.context.neuroValidSeries(series), true);
     const markup = h.context.neuroSeriesMarkup(series);
-    assert.match(markup, /Time \(s\)/);
-    assert.ok(markup.includes('Amplitude (' + series.unit + ')'));
+    assert.ok(markup.includes(series.xLabel || 'Time (s)'));
+    assert.ok(markup.includes((series.yLabel || 'Amplitude') + ' (' + series.unit + ')'));
     assert.match(markup, /scope="col"/);
     assert.ok(!markup.includes('NaN') && !markup.includes('Infinity'));
     assert.equal((markup.match(/<circle /g) || []).length, series.values.length + (series.markerIndices || []).length);
   }
+  const figures = data.learningPaths[0].steps.map(step => data.unitLessons[String(step.order)].figure);
+  assert.equal(figures.filter(Boolean).length, data.learningPaths[0].steps.length, 'Every unit has a figure');
+  for (const figure of figures) {
+    assert.equal(h.context.neuroValidFigure(figure), true, figure.title);
+    const markup = h.context.neuroFigureMarkup(figure);
+    assert.match(markup, /<svg /, figure.title);
+    assert.match(markup, /scope="col"/, figure.title + ' has an exact-values table');
+    assert.ok(!/NaN|Infinity|undefined/.test(markup), figure.title + ' renders only finite values');
+  }
+  assert.deepEqual(
+    [...new Set(figures.map(figure => figure.kind))].sort(),
+    ['bars', 'events', 'scatter', 'series'],
+    'All four figure kinds are exercised'
+  );
+  for (const bad of [
+    { kind: 'bars', title: 'x', description: 'y', unit: 'Hz', labels: ['a'], values: [Number.NaN] },
+    { kind: 'bars', title: 'x', description: 'y', unit: 'Hz', labels: ['a', 'b'], values: [1] },
+    {
+      kind: 'scatter',
+      title: 'x',
+      description: 'y',
+      xLabel: 'a',
+      yLabel: 'b',
+      groups: ['l', 'r'],
+      points: [{ x: 1, y: 1, group: 2 }],
+    },
+    { kind: 'events', title: 'x', description: 'y', durationS: 1, rows: [{ label: 'a', times: [2] }] },
+    {
+      kind: 'series',
+      title: 'x',
+      description: 'y',
+      unit: 'mV',
+      sampleRateHz: 1,
+      values: [1, 2],
+      compare: { label: 'c', values: [1] },
+    },
+    { kind: 'pie', title: 'x', description: 'y' },
+  ])
+    assert.equal(h.context.neuroFigureMarkup(bad), '', 'Malformed figures render nothing');
   assert.equal(h.context.neuroValidSeries({ ...feature.series, sampleRateHz: 0 }), false);
   assert.equal(h.context.neuroValidSeries({ ...feature.series, values: [NaN] }), false);
   assert.equal(h.context.neuroSeriesMarkup(null), '');

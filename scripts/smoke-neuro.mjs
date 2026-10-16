@@ -153,6 +153,8 @@ if (continueEntryScrollY > 1)
 const lessonText = (await page.locator('#neunitstages').innerText()).toLowerCase();
 for (const heading of ['Why it matters', 'The idea', 'Mental model', 'Worked example', 'Go deeper'])
   if (!lessonText.includes(heading.toLowerCase())) throw new Error(`The Lesson stage is missing "${heading}"`);
+if (!(await page.locator('#neunitstages figure.neuro-series svg').count()))
+  throw new Error('The Lesson stage should show the unit figure');
 await page.click('#neuro-unit-next');
 let recallSubmitSeen = false;
 let recallContinueSeen = false;

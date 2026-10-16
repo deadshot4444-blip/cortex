@@ -3282,7 +3282,68 @@
     "clinicalSafety"
    ],
    "revision": 2,
-   "curriculumStatus": "draft"
+   "curriculumStatus": "draft",
+   "series": {
+    "title": "Deflections aligned with the ECG reference",
+    "description": "Invented values. One channel over 3 s; the large deflections land on the ECG R-peaks (shaded), about once per second.",
+    "values": [
+     0.4,
+     -0.3,
+     0.2,
+     -0.5,
+     0.1,
+     6.0,
+     0.3,
+     -0.2,
+     0.4,
+     -0.1,
+     0.2,
+     -0.4,
+     0.1,
+     0.3,
+     -0.2,
+     6.0,
+     -0.3,
+     0.2,
+     0.4,
+     -0.1,
+     0.3,
+     -0.2,
+     0.1,
+     -0.4,
+     0.2,
+     6.0,
+     0.3,
+     -0.1,
+     0.2,
+     -0.3
+    ],
+    "sampleRateHz": 10,
+    "unit": "µV",
+    "markerIndices": [
+     5,
+     15,
+     25
+    ],
+    "markerLabel": "large deflections",
+    "spans": [
+     {
+      "start": 5,
+      "end": 5,
+      "label": "ECG R-peak"
+     },
+     {
+      "start": 15,
+      "end": 15,
+      "label": "ECG R-peak"
+     },
+     {
+      "start": 25,
+      "end": 25,
+      "label": "ECG R-peak"
+     }
+    ]
+   }
   },
   {
    "id": "sim-bci-cursor-drift",
@@ -3540,7 +3601,48 @@
     "clinicalSafety",
     "efficiency"
    ],
-   "curriculumStatus": "draft"
+   "curriculumStatus": "draft",
+   "series": {
+    "title": "A grip with two settings",
+    "description": "Invented values. The hand jumps between 2 N and 15 N with nothing in between, and the user cannot feel which one is active. The dashed line marks an illustrative force for holding a light cup.",
+    "values": [
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     15,
+     15,
+     15,
+     15,
+     15,
+     15,
+     15,
+     15,
+     15,
+     15,
+     15,
+     15,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2
+    ],
+    "sampleRateHz": 10,
+    "unit": "N",
+    "yLabel": "Grip force",
+    "threshold": 3,
+    "thresholdLabel": "Enough for a light cup (illustrative)"
+   }
   },
   {
    "id": "sim-cn-troubleshoot",
@@ -3612,7 +3714,74 @@
     "engineeringLogic",
     "signalReasoning"
    ],
-   "curriculumStatus": "draft"
+   "curriculumStatus": "draft",
+   "series": {
+    "title": "Two populations split after a step input",
+    "description": "Invented rate-model output with time constant 100 ms. The step arrives at 0.05 s; within about 300 ms one population settles high and the other near zero.",
+    "values": [
+     10,
+     10,
+     10,
+     12.855,
+     17.775,
+     21.804,
+     25.102,
+     27.803,
+     30.014,
+     31.824,
+     33.306,
+     34.519,
+     35.513,
+     36.326,
+     36.992,
+     37.537,
+     37.984,
+     38.349,
+     38.649,
+     38.894,
+     39.094,
+     39.258,
+     39.393,
+     39.503,
+     39.593,
+     39.667
+    ],
+    "sampleRateHz": 50,
+    "unit": "Hz",
+    "yLabel": "Population rate",
+    "primaryLabel": "Population 1",
+    "compare": {
+     "label": "Population 2",
+     "values": [
+      10,
+      10,
+      10,
+      9.048,
+      7.408,
+      6.065,
+      4.966,
+      4.066,
+      3.329,
+      2.725,
+      2.231,
+      1.827,
+      1.496,
+      1.225,
+      1.003,
+      0.821,
+      0.672,
+      0.55,
+      0.45,
+      0.369,
+      0.302,
+      0.247,
+      0.202,
+      0.166,
+      0.136,
+      0.111
+     ]
+    }
+   }
   },
   {
    "id": "sim-nim-lesion",
@@ -3684,7 +3853,30 @@
     "signalReasoning",
     "engineeringLogic"
    ],
-   "curriculumStatus": "draft"
+   "curriculumStatus": "draft",
+   "series": {
+    "title": "Spike amplitude after implantation",
+    "description": "Invented weekly averages on one affected channel: amplitude falls over the first two months and then levels off, while field potentials stay measurable.",
+    "values": [
+     120,
+     115,
+     104,
+     92,
+     80,
+     70,
+     62,
+     57,
+     54,
+     52,
+     51,
+     50,
+     50
+    ],
+    "sampleRateHz": 1,
+    "xLabel": "Week after implant",
+    "unit": "µV",
+    "yLabel": "Spike amplitude"
+   }
   },
   {
    "id": "sim-re-stroke-rehab",
@@ -7366,6 +7558,25 @@
    ],
    "mentalModel": "Think of neural data like a movie made of voltage frames. One frame is rarely enough; the pattern across frames is what the decoder reads.",
    "workedExample": "Synthetic membrane-voltage example: [-70, -68, -45, -42, -70] mV, sampled at 1,000 samples/second starting at 0 seconds. Index 2 occurs at 2/1,000 = 0.002 seconds. The first-to-last timestamp span is 4 milliseconds. This short toy list is not a validated spike recording.",
+   "figure": {
+    "kind": "series",
+    "title": "Five ordered voltage samples",
+    "description": "The toy trace from the worked example. At 1,000 samples per second, index 2 falls at 0.002 s and the first-to-last span is 0.004 s.",
+    "values": [
+     -70,
+     -68,
+     -45,
+     -42,
+     -70
+    ],
+    "sampleRateHz": 1000,
+    "unit": "mV",
+    "yLabel": "Membrane voltage",
+    "markerIndices": [
+     2
+    ],
+    "markerLabel": "index 2, at 0.002 s"
+   },
    "activeRecallPrompts": [
     {
      "prompt": "Explain why a neural signal is more like a movie than a photograph.",
@@ -7434,6 +7645,41 @@
    ],
    "mentalModel": "Count entries through a gate, not every moment spent beyond the gate. A more permissive threshold can admit more unwanted events. Which numerical direction is permissive depends on detection polarity.",
    "workedExample": "Synthetic membrane-voltage samples [-70, -55, -42, -66, -44, -39, -71] mV contain three samples at or above -50 mV, but only two above-threshold episodes. At -40 mV only the -39 sample qualifies, so the episode count is one. These are toy threshold events, not confirmed spikes.",
+   "figure": {
+    "kind": "series",
+    "title": "Three samples, two episodes",
+    "description": "Three samples reach -50 mV, but -44 and -39 are consecutive, so they form one episode. Entering the gate twice gives two candidate events.",
+    "values": [
+     -70,
+     -55,
+     -42,
+     -66,
+     -44,
+     -39,
+     -71
+    ],
+    "sampleRateHz": 1,
+    "xLabel": "Sample index",
+    "unit": "mV",
+    "yLabel": "Membrane voltage",
+    "threshold": -50,
+    "markerIndices": [
+     2,
+     4
+    ],
+    "spans": [
+     {
+      "start": 2,
+      "end": 2,
+      "label": "episode 1"
+     },
+     {
+      "start": 4,
+      "end": 5,
+      "label": "episode 2"
+     }
+    ]
+   },
    "activeRecallPrompts": [
     {
      "prompt": "Why are -44 and -39 counted as one event in this trace?",
@@ -7539,6 +7785,50 @@
    ],
    "mentalModel": "The rate is a summary with a window attached, not a complete description of the event train.",
    "workedExample": "If 12 spikes occur in 2 seconds, the firing rate is 6 spikes/second, or 6 Hz.",
+   "figure": {
+    "kind": "events",
+    "title": "Same count, different windows",
+    "description": "Both recordings contain 12 events. Recording A lasts 2 s, so its mean rate is 12 / 2 = 6 Hz. Recording B lasts 3 s, so 12 / 3 = 4 Hz. Event times are invented.",
+    "durationS": 3,
+    "rows": [
+     {
+      "label": "Recording A (2 s)",
+      "durationS": 2,
+      "times": [
+       0.08,
+       0.21,
+       0.37,
+       0.52,
+       0.66,
+       0.81,
+       0.99,
+       1.18,
+       1.34,
+       1.52,
+       1.71,
+       1.9
+      ]
+     },
+     {
+      "label": "Recording B (3 s)",
+      "durationS": 3,
+      "times": [
+       0.1,
+       0.35,
+       0.6,
+       0.85,
+       1.1,
+       1.4,
+       1.7,
+       1.95,
+       2.2,
+       2.45,
+       2.7,
+       2.92
+      ]
+     }
+    ]
+   },
    "activeRecallPrompts": [
     {
      "prompt": "Calculate the rate for 20 verified spikes over 4 seconds.",
@@ -7627,6 +7917,69 @@
    ],
    "mentalModel": "Noise is like static over a radio message. The message may still be there, but the code needs to know what not to trust.",
    "workedExample": "Synthetic lab example: deflections recur roughly once per second and align with an ECG reference on several channels. This raises suspicion of cardiac contamination. Flag the segment and inspect synchronized traces and acquisition settings before deciding how to exclude or process it; do not infer a neuron identity or recommend a patient intervention.",
+   "figure": {
+    "kind": "series",
+    "title": "Deflections that keep time with the heart",
+    "description": "One synthetic channel over 3 seconds. Large deflections recur once per second, exactly when a separate ECG reference peaks. That timing raises an artifact hypothesis to inspect; it is not proof of the source.",
+    "values": [
+     0.4,
+     -0.3,
+     0.2,
+     -0.5,
+     0.1,
+     6.0,
+     0.3,
+     -0.2,
+     0.4,
+     -0.1,
+     0.2,
+     -0.4,
+     0.1,
+     0.3,
+     -0.2,
+     6.0,
+     -0.3,
+     0.2,
+     0.4,
+     -0.1,
+     0.3,
+     -0.2,
+     0.1,
+     -0.4,
+     0.2,
+     6.0,
+     0.3,
+     -0.1,
+     0.2,
+     -0.3
+    ],
+    "sampleRateHz": 10,
+    "unit": "µV",
+    "markerIndices": [
+     5,
+     15,
+     25
+    ],
+    "markerLabel": "large deflections",
+    "spans": [
+     {
+      "start": 5,
+      "end": 5,
+      "label": "ECG R-peak"
+     },
+     {
+      "start": 15,
+      "end": 15,
+      "label": "ECG R-peak"
+     },
+     {
+      "start": 25,
+      "end": 25,
+      "label": "ECG R-peak"
+     }
+    ],
+    "yLabel": "Amplitude"
+   },
    "activeRecallPrompts": [
     {
      "prompt": "Name two non-neural sources of noise.",
@@ -7687,6 +8040,33 @@
    ],
    "mentalModel": "Filtering is a lens. It can make the target clearer, but the wrong lens can blur away the thing you need.",
    "workedExample": "For synthetic values [10, 12, 50, 13, 11], the full-window centered averages are [24, 25, 24.6667]. The middle output is (12 + 50 + 13) / 3 = 25. A real narrow peak would also be reduced; a smoother plot is not evidence that only noise was removed.",
+   "figure": {
+    "kind": "series",
+    "title": "A three-sample average flattens the peak",
+    "description": "The centered average replaces each interior value with the mean of it and its neighbours. The 50 becomes 25. A real narrow event would be flattened the same way.",
+    "values": [
+     10,
+     12,
+     50,
+     13,
+     11
+    ],
+    "sampleRateHz": 1,
+    "xLabel": "Sample index",
+    "unit": "a.u.",
+    "yLabel": "Value",
+    "primaryLabel": "Raw values",
+    "compare": {
+     "label": "Centered 3-sample average",
+     "values": [
+      null,
+      24.0,
+      25.0,
+      24.6667,
+      null
+     ]
+    }
+   },
    "activeRecallPrompts": [
     {
      "prompt": "Why might smoothing help an LFP feature?",
@@ -7789,6 +8169,48 @@
    ],
    "mentalModel": "Each feature is a question you ask the window. Mean asks \"where is the average level?\", RMS asks \"how big is it overall?\", a count asks \"how often did it get large?\". The decoder can only use the answers, never the window.",
    "workedExample": "Two synthetic 10-sample windows in microvolts. Window A: [1, 0, -1, 10, -5, -5, 2, 0, -2, 0]. Window B: [4, -4, 4, -4, 4, -4, 4, -4, 4, -4]. Both sums are 0, so both means are 0 µV. Squares in A add to 1 + 1 + 100 + 25 + 25 + 4 + 4 = 160; every square in B is 16, also 160 in total. Both RMS values are the square root of 160 / 10 = 16, which is 4 µV. Counting samples at or above +8 µV gives 1 for A (the 10) and 0 for B. Mean and RMS cannot tell these windows apart; the count can. Whether that count reflects neural activity is a separate question this calculation does not answer.",
+   "figure": {
+    "kind": "series",
+    "title": "Same mean, same RMS, different count",
+    "description": "Both windows have mean 0 µV and RMS 4 µV. Only window A has a sample at or above +8 µV, so a count feature separates them where mean and RMS cannot.",
+    "values": [
+     1,
+     0,
+     -1,
+     10,
+     -5,
+     -5,
+     2,
+     0,
+     -2,
+     0
+    ],
+    "sampleRateHz": 1,
+    "xLabel": "Sample index",
+    "unit": "µV",
+    "primaryLabel": "Window A",
+    "compare": {
+     "label": "Window B",
+     "values": [
+      4,
+      -4,
+      4,
+      -4,
+      4,
+      -4,
+      4,
+      -4,
+      4,
+      -4
+     ]
+    },
+    "threshold": 8,
+    "thresholdLabel": "Count threshold",
+    "markerIndices": [
+     3
+    ],
+    "markerLabel": "the one sample in A at or above +8 µV"
+   },
    "activeRecallPrompts": [
     {
      "prompt": "Why can RMS never be negative, even for a window of all-negative samples?",
@@ -7859,6 +8281,61 @@
    ],
    "mentalModel": "Draw the two features as axes. The decoder is a straight fence across that plane. Points on one side get one label; points on the fence itself go wherever the tie rule sends them.",
    "workedExample": "Features are a left-channel rate f0 and a right-channel rate f1, in Hz. Weights [-1, 1] and bias 0 give score = f1 - f0, labeled right when the score is above 0. Trial [12, 20]: score 8, right. Trial [18, 9]: score -9, left. Trial [15, 15]: score 0, left by the tie rule. Now set the bias to -5, so right needs f1 - f0 above 5. Trial [12, 20] scores 8 - 5 = 3 and stays right. Trial [14, 17] scores 3 - 5 = -2 and becomes left. The bias moved the fence 5 Hz toward the right-channel side. All rates are invented.",
+   "figure": {
+    "kind": "scatter",
+    "title": "Moving the fence with the bias",
+    "description": "With bias 0 the fence is f1 = f0. Setting the bias to -5 moves it to f1 = f0 + 5. Trial [14, 17] sits between the two fences: right with bias 0, left with bias -5.",
+    "xLabel": "f0, left-channel rate (Hz)",
+    "yLabel": "f1, right-channel rate (Hz)",
+    "groups": [
+     "Left with bias 0",
+     "Right with bias 0"
+    ],
+    "points": [
+     {
+      "x": 12,
+      "y": 20,
+      "label": "Trial [12, 20]",
+      "group": 1
+     },
+     {
+      "x": 18,
+      "y": 9,
+      "label": "Trial [18, 9]",
+      "group": 0
+     },
+     {
+      "x": 15,
+      "y": 15,
+      "label": "Trial [15, 15]",
+      "group": 0
+     },
+     {
+      "x": 14,
+      "y": 17,
+      "label": "Trial [14, 17]",
+      "group": 1
+     }
+    ],
+    "lines": [
+     {
+      "weights": [
+       -1,
+       1
+      ],
+      "bias": 0,
+      "label": "fence with bias 0 (f1 = f0)"
+     },
+     {
+      "weights": [
+       -1,
+       1
+      ],
+      "bias": -5,
+      "label": "fence with bias -5 (f1 = f0 + 5)"
+     }
+    ]
+   },
    "activeRecallPrompts": [
     {
      "prompt": "Why does a decoder need an explicit tie rule?",
@@ -7928,6 +8405,24 @@
    ],
    "mentalModel": "The decoder is a steering wheel, not a teleport. It sets how fast the cursor moves for the next fraction of a second; the person watches and steers again.",
    "workedExample": "Update interval dt = 0.05 s, speed limit 4 units/s, start at x = 0. Decoded velocities for three updates: 2, 6 and -1 units/s. Step 1: 0 + 2 × 0.05 = 0.10. Step 2: 6 is clipped to 4, so 0.10 + 4 × 0.05 = 0.30. Step 3: 0.30 - 1 × 0.05 = 0.25. A constant decoding bias of 0.2 units/s while the user rests would add 0.2 × 0.05 = 0.01 units every step, or 0.2 units every second. Reaching a target 1 unit away at the full 4 units/s takes 1 / 4 = 0.25 s, five updates of 0.05 s; with a 2 units/s limit it takes ten updates. Numbers are synthetic and the model has no delay; Unit 12 adds one.",
+   "figure": {
+    "kind": "series",
+    "title": "Three updates with a speed limit",
+    "description": "Decoded velocities 2, 6 and -1 units/s, applied every 0.05 s. The 6 is clipped to the 4 units/s limit, so the second step moves 0.2 units instead of 0.3.",
+    "values": [
+     0,
+     0.1,
+     0.3,
+     0.25
+    ],
+    "sampleRateHz": 20,
+    "unit": "units",
+    "yLabel": "Cursor position",
+    "markerIndices": [
+     2
+    ],
+    "markerLabel": "the clipped step"
+   },
    "activeRecallPrompts": [
     {
      "prompt": "Why does a small constant error in decoded velocity matter more than the same error in a decoded position?",
@@ -7998,6 +8493,33 @@
    ],
    "mentalModel": "Think of a bathroom scale. An offset is a scale that reads 2 kg heavy for everyone: subtract 2. A gain error reads 10 % heavy: subtraction cannot fix it. Check which kind of error you have before choosing the fix.",
    "workedExample": "One synthetic channel, yesterday: rest 12 Hz, reaching 32 Hz, so the modulation is 20 Hz. Today: rest 17 Hz. With an unchanged decoder weight of 0.1 (units/s per Hz), the 5 Hz offset produces 0.1 × 5 = 0.5 units/s of drift while the user rests. Subtracting the shift: corrected = observed - (17 - 12). A reach today reads 27 Hz, corrected to 22 Hz, so the corrected modulation is 22 - 12 = 10 Hz. Resting drift is gone, but the reach modulation is half of yesterday's 20 Hz. The additive model fixed the offset and exposed a gain change it cannot correct.",
+   "figure": {
+    "kind": "bars",
+    "title": "An offset you can subtract, a gain you cannot",
+    "description": "Today's rest is 5 Hz higher. Subtracting 5 Hz removes the resting drift, but the corrected reach is only 10 Hz above rest, half of yesterday's 20 Hz modulation.",
+    "labels": [
+     "Yesterday, rest",
+     "Yesterday, reach",
+     "Today, rest",
+     "Today, reach",
+     "Today, reach corrected"
+    ],
+    "values": [
+     12,
+     32,
+     17,
+     27,
+     22
+    ],
+    "unit": "Hz",
+    "axisLabel": "Firing rate (Hz)",
+    "reference": 12,
+    "referenceLabel": "yesterday's rest",
+    "markerIndices": [
+     4
+    ],
+    "markerLabel": "the corrected reach"
+   },
    "activeRecallPrompts": [
     {
      "prompt": "After offset correction the cursor is still at rest, but reaches fall short. What does that pattern suggest?",
@@ -8068,6 +8590,29 @@
    ],
    "mentalModel": "A smoke alarm in a kitchen. It checks the air every second of every day; even a rare false alarm per check adds up to many false alarms per week. How often it checks and how rare real fires are matter as much as how good each single check is.",
    "workedExample": "A synthetic detector checks 10-second windows: 8,640 per day. 20 windows contain the target pattern; 8,620 do not. Sensitivity 90 % detects 0.9 × 20 = 18 events. Specificity 99 % still flags 1 % of 8,620, about 86 windows. Of roughly 104 actions, 18 are correct: a positive predictive value near 17 %. Raising specificity to 99.9 % cuts false actions to about 9, if sensitivity can be kept. A gating condition, such as acting only while the device is armed, leaves these detection counts unchanged; it limits when a detection may become an action. These counts are invented for practice.",
+   "figure": {
+    "kind": "bars",
+    "title": "Rare events, many false actions",
+    "description": "8,640 windows a day, 20 with the target pattern. At 99 % specificity about 86 actions are false and 18 correct, so roughly 1 action in 6 is right. At 99.9 % false actions drop to about 9.",
+    "labels": [
+     "Correct, 99 % specificity",
+     "False, 99 % specificity",
+     "Correct, 99.9 % specificity",
+     "False, 99.9 % specificity"
+    ],
+    "values": [
+     18,
+     86,
+     18,
+     9
+    ],
+    "unit": "actions per day",
+    "axisLabel": "Actions per day",
+    "markerIndices": [
+     1
+    ],
+    "markerLabel": "false actions at 99 % specificity"
+   },
    "activeRecallPrompts": [
     {
      "prompt": "Why can a 99 % specific detector still act wrongly most of the time?",
@@ -8133,6 +8678,52 @@
    ],
    "mentalModel": "The screen is a conversation, not a scoreboard. Every movement says something to the user about how sure the system is.",
    "workedExample": "Graded speed with threshold 0, margin 0.5 and full speed 4 units/s: speed = 4 × min(1, |score| / 0.5), in the direction of the score's sign. Score 0.1 gives 4 × 0.2 = 0.8 units/s. Score -0.3 gives -(4 × 0.6) = -2.4 units/s. Score 0.9 is beyond the margin and gives the full 4 units/s. At 0.8 units/s, crossing 1 unit takes 1 / 0.8 = 1.25 s, slow enough to notice. Throughput: 10 selections in 60 s with 2 wrong, each needing a 5 s undo, gives 8 correct in 60 s = 8 per minute; it is not 10.",
+   "figure": {
+    "kind": "series",
+    "title": "Graded speed near the threshold",
+    "description": "Inside the ±0.5 margin the cursor moves in proportion to the score: 0.1 gives 0.8 units/s, -0.3 gives -2.4 units/s. Beyond the margin it moves at the full 4 units/s.",
+    "values": [
+     -4,
+     -4,
+     -4,
+     -4,
+     -4,
+     -4,
+     -3.2,
+     -2.4,
+     -1.6,
+     -0.8,
+     0.0,
+     0.8,
+     1.6,
+     2.4,
+     3.2,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4
+    ],
+    "sampleRateHz": 10,
+    "xStart": -1,
+    "xLabel": "Decoder score",
+    "unit": "units/s",
+    "yLabel": "Cursor speed",
+    "spans": [
+     {
+      "start": 5,
+      "end": 15,
+      "label": "the ±0.5 margin, where speed is graded"
+     }
+    ],
+    "markerIndices": [
+     7,
+     11,
+     19
+    ],
+    "markerLabel": "the worked-example scores -0.3, 0.1 and 0.9"
+   },
    "activeRecallPrompts": [
     {
      "prompt": "How does graded speed communicate uncertainty without any text?",
@@ -8203,6 +8794,21 @@
    ],
    "mentalModel": "Treat a neural recording like a diary that writes itself. Ask what each page is for before you keep it, and who else could read something you did not mean to say.",
    "workedExample": "Raw synthetic stream: 96 channels × 30,000 samples per second × 2 bytes = 5,760,000 bytes per second, about 5.8 MB/s. Features instead: 2 numbers per channel per 20 ms bin is 96 × 2 = 192 numbers per bin; 50 bins per second makes 9,600 numbers per second, × 4 bytes = 38,400 bytes per second. That is 150 times less data (5,760,000 / 38,400 = 150). The features still describe moment-to-moment activity on every channel, so they still need a stated purpose and consent.",
+   "figure": {
+    "kind": "bars",
+    "title": "Raw stream versus features",
+    "description": "96 channels of raw samples need about 5,760 kB per second. Two features per channel every 20 ms need 38.4 kB per second, 150 times less. The features still describe every channel moment to moment.",
+    "labels": [
+     "Raw samples",
+     "Features"
+    ],
+    "values": [
+     5760.0,
+     38.4
+    ],
+    "unit": "kB/s",
+    "axisLabel": "Data rate (kB per second)"
+   },
    "activeRecallPrompts": [
     {
      "prompt": "Why does sending features instead of raw recordings not settle the privacy question?",
@@ -8272,6 +8878,27 @@
    ],
    "mentalModel": "Each channel is one noisy voter with a fixed direction. The vote is the sum of everyone's arrows. A few voters going quiet makes the result weaker, not random.",
    "workedExample": "Four synthetic channels prefer right, up, left and down. Each has a baseline of 10 Hz. One 100 ms window gives rates [30, 20, 10, 0] Hz, so the modulations are [+20, +10, 0, -10] Hz. Horizontal component: right minus left = 20 - 0 = 20. Vertical component: up minus down = 10 - (-10) = 20. The vector (20, 20) points up and to the right at 45 degrees. Noise: if each channel's rate had independent noise with standard deviation 4 Hz, the average of the four channels would have 4 / 2 = 2 Hz, because the square root of 4 is 2. These numbers are invented; real tuning is broader and noise is partly shared.",
+   "figure": {
+    "kind": "bars",
+    "title": "Four tuned channels in one window",
+    "description": "Rates minus the 10 Hz baseline give modulations of +20, +10, 0 and -10 Hz. Right minus left is 20, up minus down is 20, so the population vector points up and to the right.",
+    "labels": [
+     "Right-preferring",
+     "Up-preferring",
+     "Left-preferring",
+     "Down-preferring"
+    ],
+    "values": [
+     30,
+     20,
+     10,
+     0
+    ],
+    "unit": "Hz",
+    "axisLabel": "Firing rate (Hz)",
+    "reference": 10,
+    "referenceLabel": "baseline"
+   },
    "activeRecallPrompts": [
     {
      "prompt": "Why does averaging four channels halve the noise standard deviation only when the noise is independent?",
@@ -8341,6 +8968,29 @@
    ],
    "mentalModel": "Weights are exchange rates between each feature's units and the score. To see who is driving the decision, convert every feature into score units first, then compare.",
    "workedExample": "Features: firing rate f0 in Hz and RMS f1 in µV. Weights [0.05, 4.0], bias -3. Trial [40 Hz, 0.3 µV]: contributions are 0.05 × 40 = 2.0 and 4.0 × 0.3 = 1.2, so the score is 2.0 + 1.2 - 3 = 0.2, labeled right. The rate drives the decision more, although its weight is 80 times smaller. If you choose among 20 candidate weight vectors by their accuracy on 4 test rows and report the best, that number is no longer a test result; a fresh, untouched set is needed. All values are synthetic.",
+   "figure": {
+    "kind": "bars",
+    "title": "Where the score comes from",
+    "description": "Each feature contributes weight × value. The rate term (2.0) outweighs the RMS term (1.2), even though its weight is 80 times smaller. With the bias of -3 the score is 0.2: right.",
+    "labels": [
+     "Rate term: 0.05 × 40",
+     "RMS term: 4.0 × 0.3",
+     "Bias",
+     "Score"
+    ],
+    "values": [
+     2.0,
+     1.2,
+     -3,
+     0.2
+    ],
+    "unit": "score units",
+    "axisLabel": "Contribution to the score",
+    "markerIndices": [
+     3
+    ],
+    "markerLabel": "the final score, above 0"
+   },
    "activeRecallPrompts": [
     {
      "prompt": "Why can a small weight still mean an important feature?",
@@ -8410,6 +9060,30 @@
    ],
    "mentalModel": "Tune the instrument before you rewrite the music. Fix offsets, then scales, and rewrite the weights only when the tune itself has changed.",
    "workedExample": "One synthetic channel yesterday: resting mean 20 Hz, scale 20 Hz, so a 40 Hz reach normalizes to (40 - 20) / 20 = 1.0. Today rest is 26 Hz and a reach reads 36 Hz. Updating only the mean gives (36 - 26) / 20 = 0.5. Updating the scale to today's 10 Hz modulation gives (36 - 26) / 10 = 1.0 again, with the weights untouched. Tracking: a running mean m = 20 with a = 0.1 and a new rest value 26 becomes 20 + 0.1 × 6 = 20.6; another 26 gives 20.6 + 0.1 × 5.4 = 21.14.",
+   "figure": {
+    "kind": "series",
+    "title": "A running mean catching up",
+    "description": "Each update moves the mean a tenth of the way toward today's rest of 26 Hz: 20, 20.6, 21.14 and so on. Tracking is gradual by design, so one noisy window cannot yank the baseline.",
+    "values": [
+     20.0,
+     20.6,
+     21.14,
+     21.626,
+     22.0634,
+     22.4571,
+     22.8114,
+     23.1302,
+     23.4172,
+     23.6755,
+     23.9079
+    ],
+    "sampleRateHz": 1,
+    "xLabel": "Update",
+    "unit": "Hz",
+    "yLabel": "Running mean",
+    "threshold": 26,
+    "thresholdLabel": "Today's rest"
+   },
    "activeRecallPrompts": [
     {
      "prompt": "Why does re-estimating a channel's scale need data with known targets, while re-estimating its offset does not?",
@@ -8479,6 +9153,38 @@
    ],
    "mentalModel": "Steering by a video feed that is a fifth of a second behind. You keep turning after you are already lined up, then have to turn back.",
    "workedExample": "A synthetic budget: 50 ms feature window, 5 ms filter, 2 ms decode, 10 ms radio link, up to 17 ms waiting for a 60 Hz display refresh. Total: 50 + 5 + 2 + 10 + 17 = 84 ms. With a 100 ms budget, 16 ms remain. A cursor moving at 2 units/s travels 2 × 0.084 = 0.168 units during that delay. Now a toy loop: the cursor moves toward a target at 1.0 with velocity 5 × (target - observed position), updated every 0.1 s. Without delay the positions are 0, 0.5, 0.75, 0.875: the error halves each step. If the observed position is 0.2 s old, the positions are 0, 0.5, 1.0, 1.5, 1.75, 1.75, 1.5: the cursor passes the target and comes back.",
+   "figure": {
+    "kind": "series",
+    "title": "The same controller, with and without delay",
+    "description": "Velocity is 5 × (target − observed position), updated every 0.1 s. Without delay the error halves each step. When the observed position is 0.2 s old, the cursor passes the target and swings back.",
+    "values": [
+     0.0,
+     0.5,
+     0.75,
+     0.875,
+     0.9375,
+     0.9688,
+     0.9844
+    ],
+    "sampleRateHz": 10,
+    "unit": "units",
+    "yLabel": "Cursor position",
+    "primaryLabel": "No delay",
+    "compare": {
+     "label": "Observed position 0.2 s old",
+     "values": [
+      0.0,
+      0.5,
+      1.0,
+      1.5,
+      1.75,
+      1.75,
+      1.5
+     ]
+    },
+    "threshold": 1,
+    "thresholdLabel": "Target"
+   },
    "activeRecallPrompts": [
     {
      "prompt": "Why does delay cause overshoot rather than just a slower approach?",
@@ -8549,6 +9255,48 @@
    ],
    "mentalModel": "A careful driver at a confusing junction slows down and checks before turning. Stopping is a real option, not a failure, but stopping forever is not driving either. The margin sets how confusing a junction has to be before the driver stops.",
    "workedExample": "Ten synthetic windows, threshold 0, right above 0. Scores [2.1, 1.4, 0.3, -0.2, -1.8, -2.5, 0.4, -0.4, 1.9, -1.1]; true labels [R, R, L, R, L, L, R, L, L, L]. Acting on all ten gives 7 correct; counting from 1, windows 3, 4 and 9 are wrong. With a margin of 0.5, windows 3, 4, 7 and 8 abstain, because their scores are within 0.5 of 0. The six acted windows give 5 correct: selective accuracy 5/6 ≈ 83 % at 60 % coverage. Two errors were avoided, two correct actions were lost, and window 9 is still a confident error.",
+   "figure": {
+    "kind": "bars",
+    "title": "Abstaining near the threshold",
+    "description": "Windows 3, 4, 7 and 8 fall inside the ±0.5 margin and abstain. Of the six acted windows, five are right. Window 9 is a confident error the margin cannot catch.",
+    "labels": [
+     "W1 (true R)",
+     "W2 (true R)",
+     "W3 (true L)",
+     "W4 (true R)",
+     "W5 (true L)",
+     "W6 (true L)",
+     "W7 (true R)",
+     "W8 (true L)",
+     "W9 (true L)",
+     "W10 (true L)"
+    ],
+    "values": [
+     2.1,
+     1.4,
+     0.3,
+     -0.2,
+     -1.8,
+     -2.5,
+     0.4,
+     -0.4,
+     1.9,
+     -1.1
+    ],
+    "unit": "score",
+    "axisLabel": "Decoder score (right above 0)",
+    "band": [
+     -0.5,
+     0.5
+    ],
+    "bandLabel": "abstain margin",
+    "markerIndices": [
+     2,
+     3,
+     8
+    ],
+    "markerLabel": "wrong if acted on (W3, W4, W9)"
+   },
    "activeRecallPrompts": [
     {
      "prompt": "Why is a score far from the threshold not proof that the label is correct?",
@@ -8616,6 +9364,30 @@
    ],
    "mentalModel": "Two error budgets: a generous one for missed help and a tiny one for harm. Every layer you add should protect the tiny budget even when the detector is wrong.",
    "workedExample": "Two synthetic thresholds over one day. Threshold A: 40 false positives, 1 false negative. Threshold B: 6 false positives, 3 false negatives. If a false positive costs 1 and a false negative costs 10, A costs 40 + 10 = 50 and B costs 6 + 30 = 36, so B is better. If a false negative costs 20, A costs 40 + 20 = 60 and B costs 6 + 60 = 66, so A is better. The data did not change; the cost judgment did. Confirmation: requiring 3 consecutive 100 ms windows above threshold means acting at the end of the third window, 200 ms after the first one ended.",
+   "figure": {
+    "kind": "bars",
+    "title": "Which threshold is safer depends on the cost",
+    "description": "Same error counts, two cost judgments. When a miss costs 10, B is cheaper (36 vs 50). When a miss costs 20, A is cheaper (60 vs 66).",
+    "labels": [
+     "A, miss costs 10",
+     "B, miss costs 10",
+     "A, miss costs 20",
+     "B, miss costs 20"
+    ],
+    "values": [
+     50,
+     36,
+     60,
+     66
+    ],
+    "unit": "cost",
+    "axisLabel": "Total cost for the day",
+    "markerIndices": [
+     1,
+     2
+    ],
+    "markerLabel": "the cheaper threshold at each cost"
+   },
    "activeRecallPrompts": [
     {
      "prompt": "Why can the code not choose the costs of each error type?",
@@ -8686,6 +9458,36 @@
    ],
    "mentalModel": "Draw a line around each device. Every arrow that crosses a line is a promise to the user about what leaves, why, and who can read it.",
    "workedExample": "A synthetic headset records 1 s windows at 1,000 samples per second. Instead of sending 1,000 samples, the device sends three numbers per window: the sample count, the number of threshold episodes and the RMS. For the short window [0, 3, 4, 0, 5] with threshold 2 those numbers are 5, 2 and the square root of (0 + 9 + 16 + 0 + 25) / 5 = 10, about 3.16. Consent: of 800 stored records, 500 were collected under consent version 1 (decoding only) and 300 under version 2 (decoding and research). A research export may include only the 300.",
+   "figure": {
+    "kind": "series",
+    "title": "What leaves the device: 5, 2, 3.16",
+    "description": "Instead of the samples, the device sends three numbers: 5 samples, 2 episodes at or above the threshold of 2, and an RMS of 3.1623.",
+    "values": [
+     0,
+     3,
+     4,
+     0,
+     5
+    ],
+    "sampleRateHz": 1,
+    "xLabel": "Sample index",
+    "unit": "a.u.",
+    "yLabel": "Value",
+    "threshold": 2,
+    "thresholdLabel": "Threshold",
+    "spans": [
+     {
+      "start": 1,
+      "end": 2,
+      "label": "episode 1"
+     },
+     {
+      "start": 4,
+      "end": 4,
+      "label": "episode 2"
+     }
+    ]
+   },
    "activeRecallPrompts": [
     {
      "prompt": "Why is \"we removed the names\" not the same as anonymizing raw neural recordings?",
@@ -8755,6 +9557,21 @@
    ],
    "mentalModel": "An assembly line with an inspection window after every station. When the final product is wrong, you look through the windows to find the station, not at the product.",
    "workedExample": "Two channels, baselines [10, 20], episodes counted at or above 5 after subtraction, weights [-1, 1], bias 0, right only above 0, cursor step 1. Trial 1: channel 0 [10, 17, 11, 16, 10] becomes [0, 7, 1, 6, 0], two episodes; channel 1 [20, 21, 20, 22, 20] becomes [0, 1, 0, 2, 0], none. Features [2, 0], score -2, left, cursor -1. Trial 2: channel 0 [10, 11, 10, 10, 12] gives 0 episodes; channel 1 [20, 27, 26, 20, 28] becomes [0, 7, 6, 0, 8], two episodes. Features [0, 2], score 2, right, cursor 0. Trial 3: one episode on each channel, features [1, 1], score 0, left by the tie rule, cursor -1. Positions: [0, -1, 0, -1].",
+   "figure": {
+    "kind": "series",
+    "title": "The toy BCI, end to end",
+    "description": "Three trials through baseline subtraction, episode counting, the linear rule and a one-step cursor: left, right, then left by the tie rule. Positions 0, -1, 0, -1.",
+    "values": [
+     0,
+     -1,
+     0,
+     -1
+    ],
+    "sampleRateHz": 1,
+    "xLabel": "Trial",
+    "unit": "steps",
+    "yLabel": "Cursor position"
+   },
    "activeRecallPrompts": [
     {
      "prompt": "Your pipeline gives a wrong final position for one trial. How do intermediate outputs help?",

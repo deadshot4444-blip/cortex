@@ -4434,6 +4434,12 @@ button.neuro-trackms.open:hover { background: var(--ne-surface); }
 .neuro-about-units .mono { flex: 0 0 auto; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--ne-meta); }
 .neuro-editor-hint { margin-left: 8px; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--ne-meta); font-weight: 400; }
 .neuro-python .neuro-block pre { margin-top: 8px; }
+/* NEURO 2.39 — lesson figures */
+.neuro-page .neuro-series { border-radius: 0; }
+.neuro-fig-band { fill: rgba(255, 255, 255, .08); }
+.neuro-fig-compare { stroke: #9a9aa6; }
+.neuro-fig-compare-dot { fill: #9a9aa6; }
+.neuro-stage .neuro-series { margin: 18px 0 6px; }
 @media (max-width: 560px) {
   .neuro-editor-hint { display: block; margin: 4px 0 0; }
   .neuro-about-units li { flex-direction: column; gap: 2px; }

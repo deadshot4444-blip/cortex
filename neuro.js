@@ -51,7 +51,7 @@ async function loadNeuro() {
   if (neuroLoading) return neuroLoading;
   neuroLoading = (async () => {
     const results = await Promise.allSettled(
-      ['data/neuro.json?v=10', 'data/neuro-milestones.json?v=5'].map(async file => {
+      ['data/neuro.json?v=11', 'data/neuro-milestones.json?v=5'].map(async file => {
         const response = await fetch(file);
         if (!response.ok) throw new Error('Neuroengineering lessons did not download');
         return response.json();
@@ -1165,50 +1165,314 @@ function neuroQuizFinish() {
 /* ---------- NeuroSim ---------- */
 
 function neuroValidSeries(series, maxSamples = 128) {
+  const n = Array.isArray(series?.values) ? series.values.length : 0;
   return (
-    series &&
+    !!series &&
     typeof series.title === 'string' &&
     typeof series.description === 'string' &&
     typeof series.unit === 'string' &&
     Number.isFinite(series.sampleRateHz) &&
     series.sampleRateHz > 0 &&
-    Array.isArray(series.values) &&
-    series.values.length > 0 &&
-    series.values.length <= maxSamples &&
-    series.values.every(Number.isFinite)
+    n > 0 &&
+    n <= maxSamples &&
+    series.values.every(Number.isFinite) &&
+    (series.xStart == null || Number.isFinite(series.xStart)) &&
+    (series.compare == null ||
+      (typeof series.compare.label === 'string' &&
+        Array.isArray(series.compare.values) &&
+        series.compare.values.length === n &&
+        series.compare.values.every(value => value === null || Number.isFinite(value)))) &&
+    (series.spans == null ||
+      (Array.isArray(series.spans) &&
+        series.spans.every(
+          span =>
+            Number.isInteger(span?.start) &&
+            Number.isInteger(span?.end) &&
+            span.start >= 0 &&
+            span.end >= span.start &&
+            span.end < n &&
+            typeof span.label === 'string'
+        )))
   );
+}
+const neuroNumber = value => String(Number(Number(value).toPrecision(5)));
+function neuroFigureTable(head, rows) {
+  return `<details><summary>Exact values</summary><div style="overflow-x:auto"><table><thead><tr>${head.map(h => `<th scope="col">${esc(h)}</th>`).join('')}</tr></thead>
+      <tbody>${rows
+        .map(
+          row =>
+            `<tr><th scope="row">${esc(row[0])}</th>${row
+              .slice(1)
+              .map(cell => `<td>${esc(cell)}</td>`)
+              .join('')}</tr>`
+        )
+        .join('')}</tbody></table></div></details>`;
+}
+function neuroFigureFrame(title, description, svg, notes, table) {
+  return `<figure class="neuro-series"><figcaption><b>${esc(title)}</b> · synthetic data</figcaption>
+    <div class="neuro-series-plot" role="region" tabindex="0" aria-label="${esc(title)} chart. Scroll horizontally to inspect the full plot.">${svg}</div>
+    ${notes}<p>${esc(description)}</p>${table}</figure>`;
 }
 function neuroSeriesMarkup(series, maxSamples = 128) {
   if (!neuroValidSeries(series, maxSamples)) return '';
   const values = series.values,
-    lastTime = (values.length - 1) / series.sampleRateHz;
-  const low = Math.min(...values),
-    high = Math.max(...values),
+    rate = series.sampleRateHz,
+    start = series.xStart || 0;
+  const compare = series.compare?.values || [];
+  const all = [...values, ...compare.filter(Number.isFinite)];
+  const low = Math.min(...all),
+    high = Math.max(...all),
     padding = (high - low || 2) * 0.15;
   const min = low - padding,
     max = high + padding;
-  const x = i => 110 + (values.length > 1 ? i / (values.length - 1) : 0) * 415;
+  const step = values.length > 1 ? 415 / (values.length - 1) : 0;
+  const x = i => 110 + i * step;
   const y = value => 190 - ((value - min) / (max - min)) * 150;
-  const number = value => String(Number(value.toPrecision(5)));
+  const xLabel = series.xLabel || 'Time (s)';
+  const yLabel = `${series.yLabel || 'Amplitude'} (${series.unit})`;
   const markers = Array.isArray(series.markerIndices)
     ? series.markerIndices.filter(index => Number.isInteger(index) && index >= 0 && index < values.length)
     : [];
   const thresholdVisible = Number.isFinite(series.threshold) && series.threshold >= min && series.threshold <= max;
-  return `<figure class="neuro-series"><figcaption><b>${esc(series.title)}</b> · synthetic data</figcaption>
-    <div class="neuro-series-plot" role="region" tabindex="0" aria-label="${esc(series.title)} chart. Scroll horizontally to inspect the full plot."><svg viewBox="0 0 580 245" role="img" aria-label="${esc(series.title)}: time in seconds and amplitude in ${esc(series.unit)}">
+  const segments = [];
+  compare.forEach((value, i) => {
+    if (value === null) return;
+    if (i === 0 || compare[i - 1] === null) segments.push([]);
+    segments.at(-1).push(`${x(i)},${y(value)}`);
+  });
+  const half = step / 2 || 8;
+  const svg = `<svg viewBox="0 0 580 245" role="img" aria-label="${esc(series.title)}: ${esc(xLabel)} and ${esc(yLabel)}">
       <title>${esc(series.title)}</title><desc>${esc(series.description)} Exact values follow in a table.</desc>
+      ${(series.spans || []).map(span => `<rect class="neuro-fig-band" x="${Math.max(110, x(span.start) - half)}" y="30" width="${Math.min(535, x(span.end) + half) - Math.max(110, x(span.start) - half)}" height="160"><title>${esc(span.label)}</title></rect>`).join('')}
       <path d="M110 30V190H535" fill="none" stroke="currentColor"/>
-      <g fill="currentColor" font-size="13"><text x="107" y="210">0</text><text x="525" y="210" text-anchor="end">${number(lastTime)}</text>
-        <text x="100" y="${y(low) + 4}" text-anchor="end">${number(low)}</text>${high !== low ? `<text x="100" y="${y(high) + 4}" text-anchor="end">${number(high)}</text>` : ''}
-        <text x="318" y="237" text-anchor="middle">Time (s)</text><text x="18" y="115" transform="rotate(-90 18 115)" text-anchor="middle">Amplitude (${esc(series.unit)})</text></g>
+      <g fill="currentColor" font-size="13"><text x="107" y="210">${neuroNumber(start)}</text><text x="525" y="210" text-anchor="end">${neuroNumber(start + (values.length - 1) / rate)}</text>
+        <text x="100" y="${y(low) + 4}" text-anchor="end">${neuroNumber(low)}</text>${high !== low ? `<text x="100" y="${y(high) + 4}" text-anchor="end">${neuroNumber(high)}</text>` : ''}
+        <text x="318" y="237" text-anchor="middle">${esc(xLabel)}</text><text x="18" y="115" transform="rotate(-90 18 115)" text-anchor="middle">${esc(yLabel)}</text></g>
+      ${thresholdVisible ? `<path class="neuro-series-threshold" d="M110 ${y(series.threshold)}H535" fill="none" stroke-width="2" stroke-dasharray="6 4"/>` : ''}
+      ${segments.map(points => `<polyline class="neuro-fig-compare" points="${points.join(' ')}" fill="none" stroke-width="2" stroke-dasharray="3 4"/>`).join('')}
+      ${compare.map((value, i) => (value === null ? '' : `<rect class="neuro-fig-compare-dot" x="${x(i) - 3.5}" y="${y(value) - 3.5}" width="7" height="7"/>`)).join('')}
       <polyline points="${values.map((value, i) => `${x(i)},${y(value)}`).join(' ')}" fill="none" stroke="currentColor" stroke-width="2"/>
       ${values.map((value, i) => `<circle cx="${x(i)}" cy="${y(value)}" r="3" fill="currentColor"/>`).join('')}
-      ${thresholdVisible ? `<path class="neuro-series-threshold" d="M110 ${y(series.threshold)}H535" fill="none" stroke-width="2" stroke-dasharray="6 4"/>` : ''}
-      ${markers.map(index => `<circle class="neuro-series-marker" cx="${x(index)}" cy="${y(values[index])}" r="7" fill="none" stroke-width="3"><title>Candidate event at sample ${index}</title></circle>`).join('')}</svg></div>
-    ${Number.isFinite(series.threshold) ? `<p>Threshold: ${number(series.threshold)} ${esc(series.unit)}${thresholdVisible ? ' · dashed amber line' : ' · outside the displayed range'}. ${markers.length} candidate events marked with outlined pink circles.</p>` : ''}
-    <p>${esc(series.description)} Sampling rate: ${series.sampleRateHz} Hz. ${values.length} samples.</p>
-    <details><summary>Exact sample values</summary><div style="overflow-x:auto"><table><thead><tr><th scope="col">Index</th><th scope="col">Time (s)</th><th scope="col">Amplitude (${esc(series.unit)})</th></tr></thead>
-      <tbody>${values.map((value, i) => `<tr><th scope="row">${i}</th><td>${i / series.sampleRateHz}</td><td>${value}</td></tr>`).join('')}</tbody></table></div></details></figure>`;
+      ${markers.map(index => `<circle class="neuro-series-marker" cx="${x(index)}" cy="${y(values[index])}" r="7" fill="none" stroke-width="3"><title>Marked sample ${index}</title></circle>`).join('')}</svg>`;
+  const notes = [
+    series.compare
+      ? `Solid line with dots: ${esc(series.primaryLabel || series.title)}. Dotted line with squares: ${esc(series.compare.label)}.`
+      : '',
+    Number.isFinite(series.threshold)
+      ? `${esc(series.thresholdLabel || 'Threshold')}: ${neuroNumber(series.threshold)} ${esc(series.unit)}${thresholdVisible ? ' · dashed amber line' : ' · outside the displayed range'}.${series.thresholdLabel ? '' : ` ${markers.length} candidate events marked with outlined pink circles.`}`
+      : '',
+    markers.length && (series.thresholdLabel || series.markerLabel || !Number.isFinite(series.threshold))
+      ? `Outlined in pink: ${esc(series.markerLabel || 'marked samples')}.`
+      : '',
+    (series.spans || []).length ? `Shaded: ${series.spans.map(span => esc(span.label)).join('; ')}.` : '',
+  ].filter(Boolean);
+  const head = ['Index', xLabel, yLabel, ...(series.compare ? [series.compare.label] : [])];
+  const rows = values.map((value, i) => [
+    i,
+    neuroNumber(start + i / rate),
+    value,
+    ...(series.compare ? [compare[i] === null ? '—' : neuroNumber(compare[i])] : []),
+  ]);
+  return neuroFigureFrame(
+    series.title,
+    `${series.description} ${series.xLabel ? '' : `Sampling rate: ${rate} Hz. `}${values.length} ${!series.xLabel || /sample/i.test(series.xLabel) ? 'samples' : 'points'}.`,
+    svg,
+    notes.length ? `<p>${notes.join(' ')}</p>` : '',
+    neuroFigureTable(head, rows)
+  );
+}
+function neuroValidFigure(fig) {
+  if (!fig || typeof fig !== 'object' || typeof fig.title !== 'string' || typeof fig.description !== 'string')
+    return false;
+  const finite = Number.isFinite;
+  if (fig.kind === 'series') return neuroValidSeries(fig);
+  if (fig.kind === 'bars')
+    return (
+      Array.isArray(fig.labels) &&
+      Array.isArray(fig.values) &&
+      fig.values.length > 0 &&
+      fig.values.length <= 16 &&
+      fig.labels.length === fig.values.length &&
+      fig.labels.every(label => typeof label === 'string') &&
+      fig.values.every(finite) &&
+      typeof fig.unit === 'string' &&
+      (fig.reference == null || finite(fig.reference)) &&
+      (fig.band == null ||
+        (Array.isArray(fig.band) && fig.band.length === 2 && fig.band.every(finite) && fig.band[0] < fig.band[1]))
+    );
+  if (fig.kind === 'scatter')
+    return (
+      Array.isArray(fig.groups) &&
+      fig.groups.length === 2 &&
+      Array.isArray(fig.points) &&
+      fig.points.length > 0 &&
+      fig.points.length <= 40 &&
+      fig.points.every(p => finite(p?.x) && finite(p?.y) && (p.group === 0 || p.group === 1)) &&
+      typeof fig.xLabel === 'string' &&
+      typeof fig.yLabel === 'string' &&
+      (fig.lines || []).every(
+        line =>
+          Array.isArray(line?.weights) &&
+          line.weights.length === 2 &&
+          line.weights.every(finite) &&
+          line.weights[1] !== 0 &&
+          finite(line.bias) &&
+          typeof line.label === 'string'
+      )
+    );
+  if (fig.kind === 'events')
+    return (
+      finite(fig.durationS) &&
+      fig.durationS > 0 &&
+      Array.isArray(fig.rows) &&
+      fig.rows.length > 0 &&
+      fig.rows.length <= 6 &&
+      fig.rows.every(
+        row =>
+          typeof row?.label === 'string' &&
+          (row.durationS == null || (finite(row.durationS) && row.durationS > 0 && row.durationS <= fig.durationS)) &&
+          Array.isArray(row.times) &&
+          row.times.every(time => finite(time) && time >= 0 && time <= (row.durationS || fig.durationS))
+      )
+    );
+  return false;
+}
+function neuroBarsMarkup(fig) {
+  const n = fig.values.length,
+    rowH = 34,
+    top = 20,
+    height = top + n * rowH + 44;
+  const domain = [0, ...fig.values, ...(Number.isFinite(fig.reference) ? [fig.reference] : []), ...(fig.band || [])];
+  let lo = Math.min(...domain),
+    hi = Math.max(...domain);
+  const pad = (hi - lo || 1) * 0.12;
+  if (lo < 0) lo -= pad;
+  hi += pad;
+  const x = value => 210 + ((value - lo) / (hi - lo)) * 320;
+  const markers = new Set((fig.markerIndices || []).filter(i => Number.isInteger(i) && i >= 0 && i < n));
+  const rowsSvg = fig.values
+    .map((value, i) => {
+      const yy = top + i * rowH,
+        x0 = x(Math.min(0, value)),
+        x1 = x(Math.max(0, value));
+      return `<text x="200" y="${yy + 21}" text-anchor="end" fill="currentColor" font-size="13">${esc(fig.labels[i])}</text>
+        <rect x="${x0}" y="${yy + 8}" width="${Math.max(1.5, x1 - x0)}" height="18" fill="currentColor" opacity=".82"/>
+        ${markers.has(i) ? `<rect class="neuro-series-marker" x="${x0 - 4}" y="${yy + 4}" width="${Math.max(1.5, x1 - x0) + 8}" height="26" fill="none" stroke-width="3"/>` : ''}
+        <text x="${value < 0 ? x0 - 6 : x1 + 6}" y="${yy + 21}" text-anchor="${value < 0 ? 'end' : 'start'}" fill="currentColor" font-size="12">${neuroNumber(value)}</text>`;
+    })
+    .join('');
+  const bottom = top + n * rowH;
+  const svg = `<svg viewBox="0 0 580 ${height}" role="img" aria-label="${esc(fig.title)}: bar chart in ${esc(fig.unit)}">
+      <title>${esc(fig.title)}</title><desc>${esc(fig.description)} Exact values follow in a table.</desc>
+      ${fig.band ? `<rect class="neuro-fig-band" x="${x(fig.band[0])}" y="${top}" width="${x(fig.band[1]) - x(fig.band[0])}" height="${n * rowH}"/>` : ''}
+      <path d="M${x(0)} ${top}V${bottom}" stroke="currentColor" fill="none"/>
+      ${Number.isFinite(fig.reference) ? `<path class="neuro-series-threshold" d="M${x(fig.reference)} ${top}V${bottom}" fill="none" stroke-width="2" stroke-dasharray="6 4"/>` : ''}
+      ${rowsSvg}
+      <text x="370" y="${bottom + 32}" text-anchor="middle" fill="currentColor" font-size="13">${esc(fig.axisLabel || fig.unit)}</text></svg>`;
+  const notes = [
+    Number.isFinite(fig.reference)
+      ? `Dashed amber line: ${esc(fig.referenceLabel || 'reference')} (${neuroNumber(fig.reference)} ${esc(fig.unit)}).`
+      : '',
+    fig.band
+      ? `Shaded: ${esc(fig.bandLabel || 'band')} (${neuroNumber(fig.band[0])} to ${neuroNumber(fig.band[1])}).`
+      : '',
+    markers.size ? `Outlined in pink: ${esc(fig.markerLabel || 'marked rows')}.` : '',
+  ].filter(Boolean);
+  return neuroFigureFrame(
+    fig.title,
+    fig.description,
+    svg,
+    notes.length ? `<p>${notes.join(' ')}</p>` : '',
+    neuroFigureTable(
+      ['Item', `Value (${fig.unit})`],
+      fig.values.map((value, i) => [fig.labels[i], value])
+    )
+  );
+}
+let neuroFigureCount = 0;
+function neuroScatterMarkup(fig) {
+  const xs = fig.points.map(p => p.x),
+    ys = fig.points.map(p => p.y);
+  const span = (values, extra) => {
+    const lo = Math.min(...values),
+      hi = Math.max(...values),
+      pad = (hi - lo || 2) * extra;
+    // Whole-number axis ends once the range is wide enough to read them.
+    return hi - lo >= 4 ? [Math.floor(lo - pad), Math.ceil(hi + pad)] : [lo - pad, hi + pad];
+  };
+  const [x0, x1] = span(xs, 0.2),
+    [y0, y1] = span(ys, 0.2);
+  const x = value => 110 + ((value - x0) / (x1 - x0)) * 415;
+  const y = value => 190 - ((value - y0) / (y1 - y0)) * 160;
+  const clip = `neuro-fig-clip-${++neuroFigureCount}`;
+  const lines = (fig.lines || []).map((line, i) => {
+    const [a, b] = line.weights,
+      at = xv => -(a * xv + line.bias) / b;
+    return `<line class="${i ? 'neuro-fig-compare' : 'neuro-series-threshold'}" x1="${x(x0)}" y1="${y(at(x0))}" x2="${x(x1)}" y2="${y(at(x1))}" stroke-width="2" ${i ? 'stroke-dasharray="3 4"' : 'stroke-dasharray="6 4"'}/>`;
+  });
+  const svg = `<svg viewBox="0 0 580 245" role="img" aria-label="${esc(fig.title)}: ${esc(fig.xLabel)} against ${esc(fig.yLabel)}">
+      <title>${esc(fig.title)}</title><desc>${esc(fig.description)} Exact values follow in a table.</desc>
+      <defs><clipPath id="${clip}"><rect x="110" y="30" width="425" height="160"/></clipPath></defs>
+      <path d="M110 30V190H535" fill="none" stroke="currentColor"/>
+      <g fill="currentColor" font-size="13"><text x="110" y="210">${neuroNumber(x0)}</text><text x="535" y="210" text-anchor="end">${neuroNumber(x1)}</text>
+        <text x="100" y="194" text-anchor="end">${neuroNumber(y0)}</text><text x="100" y="38" text-anchor="end">${neuroNumber(y1)}</text>
+        <text x="318" y="237" text-anchor="middle">${esc(fig.xLabel)}</text><text x="18" y="110" transform="rotate(-90 18 110)" text-anchor="middle">${esc(fig.yLabel)}</text></g>
+      <g clip-path="url(#${clip})">${lines.join('')}</g>
+      ${fig.points.map(p => `<circle cx="${x(p.x)}" cy="${y(p.y)}" r="6" ${p.group ? 'fill="currentColor"' : 'fill="none" stroke="currentColor" stroke-width="2"'}><title>${esc(p.label || '')} (${neuroNumber(p.x)}, ${neuroNumber(p.y)}) · ${esc(fig.groups[p.group])}</title></circle>`).join('')}</svg>`;
+  const notes = [
+    `Hollow circles: ${esc(fig.groups[0])}. Filled circles: ${esc(fig.groups[1])}.`,
+    ...(fig.lines || []).map((line, i) => `${i ? 'Dotted grey' : 'Dashed amber'} line: ${esc(line.label)}.`),
+  ];
+  return neuroFigureFrame(
+    fig.title,
+    fig.description,
+    svg,
+    `<p>${notes.join(' ')}</p>`,
+    neuroFigureTable(
+      ['Point', fig.xLabel, fig.yLabel, 'Group'],
+      fig.points.map((p, i) => [p.label || String(i + 1), p.x, p.y, fig.groups[p.group]])
+    )
+  );
+}
+function neuroEventsMarkup(fig) {
+  const rowH = 46,
+    top = 16,
+    height = top + fig.rows.length * rowH + 40;
+  const x = time => 200 + (time / fig.durationS) * 330;
+  const rows = fig.rows
+    .map((row, i) => {
+      const yy = top + i * rowH + 20,
+        end = x(row.durationS || fig.durationS);
+      return `<text x="190" y="${yy + 5}" text-anchor="end" fill="currentColor" font-size="13">${esc(row.label)}</text>
+        <path d="M200 ${yy}H${end}" stroke="currentColor" opacity=".35" fill="none"/><path d="M${end} ${yy - 8}V${yy + 8}" stroke="currentColor" opacity=".6"/>
+        ${row.times.map(time => `<path d="M${x(time)} ${yy - 13}V${yy + 13}" stroke="currentColor" stroke-width="2.5"/>`).join('')}`;
+    })
+    .join('');
+  const bottom = top + fig.rows.length * rowH;
+  const svg = `<svg viewBox="0 0 580 ${height}" role="img" aria-label="${esc(fig.title)}: event times over ${neuroNumber(fig.durationS)} seconds">
+      <title>${esc(fig.title)}</title><desc>${esc(fig.description)} Exact values follow in a table.</desc>
+      ${rows}<path d="M200 ${bottom}H530" stroke="currentColor" fill="none"/>
+      <g fill="currentColor" font-size="13"><text x="200" y="${bottom + 16}">0</text><text x="530" y="${bottom + 16}" text-anchor="end">${neuroNumber(fig.durationS)}</text><text x="365" y="${bottom + 34}" text-anchor="middle">Time (s)</text></g></svg>`;
+  return neuroFigureFrame(
+    fig.title,
+    fig.description,
+    svg,
+    `<p>Each vertical tick is one event${fig.rows.some(row => row.durationS) ? '; a short end bar marks where each recording stops' : ''}.</p>`,
+    neuroFigureTable(
+      ['Row', 'Events', 'Window (s)', 'Mean rate (Hz)', 'Event times (s)'],
+      fig.rows.map(row => {
+        const window = row.durationS || fig.durationS;
+        return [row.label, row.times.length, window, neuroNumber(row.times.length / window), row.times.join(', ')];
+      })
+    )
+  );
+}
+function neuroFigureMarkup(fig) {
+  if (!neuroValidFigure(fig)) return '';
+  if (fig.kind === 'series') return neuroSeriesMarkup(fig);
+  if (fig.kind === 'bars') return neuroBarsMarkup(fig);
+  if (fig.kind === 'scatter') return neuroScatterMarkup(fig);
+  return neuroEventsMarkup(fig);
 }
 function neuroValidSimContent(sim) {
   return (
@@ -2103,6 +2367,7 @@ function neuroUnitAppend() {
         ${unit.keyTerms?.length ? `<p class="neuro-terms">${unit.keyTerms.map(term => `<span>${esc(term)}</span>`).join('')}</p>` : ''}
         <h2>Mental model</h2><p>${esc(unit.mentalModel)}</p>
         <h2>Worked example</h2><p class="neuro-prose">${esc(unit.workedExample)}</p>
+        ${neuroFigureMarkup(unit.figure || neuroUnitLesson(step.order)?.figure)}
         ${unit.commonMistake ? `<h2>Common mistake</h2><p>${esc(unit.commonMistake)}</p>` : ''}`
             : `<p>${esc(step.explanation)}</p>`
         }

@@ -5,6 +5,16 @@
 
 const CHANGELOG = [
   {
+    version: '2.39.0',
+    tag: 'UPDATE',
+    date: 'October 16, 2026',
+    title: 'Neuroengineering, now with pictures',
+    items: [
+      'Every one of the twenty units now has a figure drawn from its worked example: voltage traces with thresholds and episodes, event rasters, decision boundaries, latency overshoot, abstain margins and more.',
+      'Four more decision labs show their signal as a plot, and every figure has an exact-values table for screen readers.',
+    ],
+  },
+  {
     version: '2.38.0',
     tag: 'UPDATE',
     date: 'October 16, 2026',
