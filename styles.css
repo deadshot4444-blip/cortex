@@ -4440,6 +4440,8 @@ button.neuro-trackms.open:hover { background: var(--ne-surface); }
 .neuro-fig-compare { stroke: #9a9aa6; }
 .neuro-fig-compare-dot { fill: #9a9aa6; }
 .neuro-stage .neuro-series { margin: 18px 0 6px; }
+/* NEURO 2.39.1 — a full-sentence subtitle on list rows reads as prose, not as a metadata tag */
+.neuro-row-sub--sentence { text-transform: none; letter-spacing: 0; font-family: inherit; font-size: 13px; line-height: 1.45; color: var(--ne-body); }
 @media (max-width: 560px) {
   .neuro-editor-hint { display: block; margin: 4px 0 0; }
   .neuro-about-units li { flex-direction: column; gap: 2px; }

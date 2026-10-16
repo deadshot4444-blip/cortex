@@ -4,7 +4,6 @@
    "id": "neural-signals",
    "name": "Neural Signals",
    "summary": "The electrical language of the brain — action potentials, local field potentials, and the math that turns voltage into meaning.",
-   "iconName": "waveform.path.ecg",
    "accentHex": "4FC3F7",
    "topicIds": [
     "ns-action-potential",
@@ -15,7 +14,6 @@
    "id": "bci",
    "name": "Brain-Computer Interfaces",
    "summary": "Systems that translate neural activity into commands for computers, cursors, prosthetics, and communication devices.",
-   "iconName": "cpu",
    "accentHex": "7E57C2",
    "topicIds": [
     "bci-loop",
@@ -26,7 +24,6 @@
    "id": "decoding-ai",
    "name": "Neural Decoding",
    "summary": "Using statistical and machine learning models to predict intent, movement, or perception from neural recordings.",
-   "iconName": "brain.head.profile",
    "accentHex": "26A69A",
    "topicIds": [
     "dec-linear-decoder",
@@ -37,7 +34,6 @@
    "id": "neurostim",
    "name": "Neurostimulation",
    "summary": "Delivering current or fields to neurons to modulate circuits — DBS, TMS, tDCS, optogenetics.",
-   "iconName": "bolt.heart",
    "accentHex": "EF5350",
    "topicIds": [
     "stim-dbs",
@@ -48,7 +44,6 @@
    "id": "closed-loop",
    "name": "Closed-Loop Systems",
    "summary": "Devices that sense neural activity, decide, and act in real time — feedback that adapts therapy moment to moment.",
-   "iconName": "arrow.triangle.2.circlepath",
    "accentHex": "FFA726",
    "topicIds": [
     "cl-feedback",
@@ -59,7 +54,6 @@
    "id": "neuroprosthetics",
    "name": "Neuroprosthetics",
    "summary": "Devices that restore lost motor, sensory, or cognitive function — cochlear implants, motor prostheses, retinal implants.",
-   "iconName": "figure.arms.open",
    "accentHex": "AB47BC",
    "topicIds": [
     "np-motor-prosthesis",
@@ -70,7 +64,6 @@
    "id": "clinical-neurotech",
    "name": "Clinical Neurotechnology",
    "summary": "Engineering meets patient care — device approval, surgical workflows, monitoring, and translating research into clinic.",
-   "iconName": "cross.case",
    "accentHex": "EC407A",
    "topicIds": [
     "cn-fda-pathway",
@@ -81,7 +74,6 @@
    "id": "comp-neuro",
    "name": "Computational Neuroscience",
    "summary": "Mathematical and computer models of how neurons and circuits compute — from Hodgkin-Huxley to large-scale networks.",
-   "iconName": "function",
    "accentHex": "5C6BC0",
    "topicIds": [
     "cn-firing-rate-model",
@@ -92,7 +84,6 @@
    "id": "neuroimaging",
    "name": "Neuroimaging and Brain Mapping",
    "summary": "Tools to see structure and function — MRI, fMRI, EEG, MEG, two-photon — and how to localize what they show.",
-   "iconName": "scanner",
    "accentHex": "29B6F6",
    "topicIds": [
     "nim-fmri-bold",
@@ -103,7 +94,6 @@
    "id": "implants-materials",
    "name": "Neural Implants and Materials",
    "summary": "Electrodes, polymers, and biocompatibility — what touches tissue matters as much as what's measured.",
-   "iconName": "rectangle.connected.to.line.below",
    "accentHex": "8D6E63",
    "topicIds": [
     "im-electrodes",
@@ -114,7 +104,6 @@
    "id": "rehab-eng",
    "name": "Rehabilitation Engineering",
    "summary": "Devices and protocols that help the brain and body recover function after injury or disease.",
-   "iconName": "figure.walk.motion",
    "accentHex": "66BB6A",
    "topicIds": [
     "re-stroke-rehab",
@@ -125,7 +114,6 @@
    "id": "ethics",
    "name": "Ethics of Neurotechnology",
    "summary": "Brain data, agency, identity, and access — the neurorights questions that shape how this field can grow.",
-   "iconName": "scale.3d",
    "accentHex": "78909C",
    "topicIds": [
     "eth-brain-data",
@@ -230,8 +218,6 @@
      "wrongAnswerHint": null
     }
    ],
-   "miniProjectIdea": "Mock a BCI loop in Swift: random spike rates → moving average preprocessor → linear decoder → 2D cursor on screen.",
-   "relatedFutureLab": "CursorBCI Decoder Lab — interactively drive a cursor with simulated neural features.",
    "socraticPrompts": [
     {
      "id": "bci-loop-s1",
@@ -343,8 +329,6 @@
      "wrongAnswerHint": null
     }
    ],
-   "miniProjectIdea": "Implement a 2D Kalman cursor decoder fed by synthetic cosine-tuned 'neurons'; render the cursor in SwiftUI.",
-   "relatedFutureLab": "CursorBCI Decoder Lab — VR target-acquisition tasks with a live decoder.",
    "socraticPrompts": [
     {
      "id": "bci-cur-s1",
@@ -456,8 +440,6 @@
      "wrongAnswerHint": null
     }
    ],
-   "miniProjectIdea": "Pick a hypothetical neuro device (e.g., a closed-loop tinnitus mask). Map out which pathway fits and what evidence you'd need.",
-   "relatedFutureLab": "No future lab — strictly clinical/regulatory; pairs well with all neurodevice subjects.",
    "socraticPrompts": [
     {
      "id": "cn-fda-s1",
@@ -569,8 +551,6 @@
      "wrongAnswerHint": null
     }
    ],
-   "miniProjectIdea": "Make a SwiftUI flowchart UI that walks a user through a DBS troubleshooting tree, branching on impedance and symptom reproducibility.",
-   "relatedFutureLab": "No future lab — clinical workflow only.",
    "socraticPrompts": [
     {
      "id": "cn-tr-s1",
@@ -682,8 +662,6 @@
      "wrongAnswerHint": null
     }
    ],
-   "miniProjectIdea": "Simulate a noisy biomarker. Implement a threshold detector and an adaptive controller; measure false positives vs. missed events.",
-   "relatedFutureLab": "Closed-Loop Stimulation Lab — interactively tune detector thresholds and see therapy outcomes.",
    "socraticPrompts": [
     {
      "id": "cl-fb-s1",
@@ -795,8 +773,6 @@
      "wrongAnswerHint": null
     }
    ],
-   "miniProjectIdea": "Implement line length and band power features on simulated seizure-like data; compare detection latency and false alarm rates.",
-   "relatedFutureLab": "Closed-Loop Stimulation Lab — race a detector against a propagating seizure visualization.",
    "socraticPrompts": [
     {
      "id": "cl-sz-s1",
@@ -908,8 +884,6 @@
      "wrongAnswerHint": null
     }
    ],
-   "miniProjectIdea": "Simulate a 2-population rate model (excitatory and inhibitory) in Swift; plot its response to step input under different gains.",
-   "relatedFutureLab": "No future lab specific to this — pairs well with SignalScope Lab visualizations.",
    "socraticPrompts": [
     {
      "id": "cn-fr-s1",
@@ -1021,8 +995,6 @@
      "wrongAnswerHint": null
     }
    ],
-   "miniProjectIdea": "Implement HH in Swift; plot voltage and gating variables during a single spike.",
-   "relatedFutureLab": "No direct future lab — supports DBS Circuit Lab indirectly.",
    "socraticPrompts": [
     {
      "id": "cn-hh-s1",
@@ -1134,8 +1106,6 @@
      "wrongAnswerHint": null
     }
    ],
-   "miniProjectIdea": "Generate synthetic cosine-tuned neurons and fit a ridge regression decoder; sweep the ridge penalty and plot generalization.",
-   "relatedFutureLab": "CursorBCI Decoder Lab — compare a linear and non-linear decoder on the same task.",
    "socraticPrompts": [
     {
      "id": "dec-lin-s1",
@@ -1247,8 +1217,6 @@
      "wrongAnswerHint": null
     }
    ],
-   "miniProjectIdea": "Train a decoder twice — once with random shuffling, once with chronological split. Report both numbers and explain the gap.",
-   "relatedFutureLab": "CursorBCI Decoder Lab — induce overfitting on purpose and watch real-time control degrade.",
    "socraticPrompts": [
     {
      "id": "dec-of-s1",
@@ -1360,8 +1328,6 @@
      "wrongAnswerHint": null
     }
    ],
-   "miniProjectIdea": "Mock a consent UI: show what data the device records, why, and how long it's kept; let the user opt in/out per category.",
-   "relatedFutureLab": "No specific lab — every NeuroSim Lab will share these design defaults.",
    "socraticPrompts": [
     {
      "id": "eth-bd-s1",
@@ -1473,8 +1439,6 @@
      "wrongAnswerHint": null
     }
    ],
-   "miniProjectIdea": "Design a SwiftUI 'patient dashboard' that surfaces what a closed-loop device just did and why, with clear off and override controls.",
-   "relatedFutureLab": "Closed-Loop Stimulation Lab — show the patient's view of the device's decisions in VR.",
    "socraticPrompts": [
     {
      "id": "eth-ai-s1",
@@ -1586,8 +1550,6 @@
      "wrongAnswerHint": null
     }
    ],
-   "miniProjectIdea": "Make a SwiftUI calculator that takes electrode area and material, outputs safe charge injection limits.",
-   "relatedFutureLab": "SignalScope Lab — visualize what each electrode type can and can't see.",
    "socraticPrompts": [
     {
      "id": "im-el-s1",
@@ -1699,8 +1661,6 @@
      "wrongAnswerHint": null
     }
    ],
-   "miniProjectIdea": "Plot synthetic spike amplitude vs. days post-implant under different 'response severity' coefficients; explore what coatings do.",
-   "relatedFutureLab": "SignalScope Lab — simulate how recordings degrade over time.",
    "socraticPrompts": [
     {
      "id": "im-fb-s1",
@@ -1812,8 +1772,6 @@
      "wrongAnswerHint": null
     }
    ],
-   "miniProjectIdea": "Simulate a leaky integrate-and-fire neuron in Swift Playgrounds: integrate input current, fire a spike when voltage crosses threshold, then reset.",
-   "relatedFutureLab": "SignalScope Lab — record and visualize simulated action potentials in 3D.",
    "socraticPrompts": [
     {
      "id": "ns-ap-s1",
@@ -1925,8 +1883,6 @@
      "wrongAnswerHint": null
     }
    ],
-   "miniProjectIdea": "Take a sample neural recording (or a generated one), apply a high-pass and low-pass filter, and plot spikes vs. LFP side by side.",
-   "relatedFutureLab": "SignalScope Lab — flip filter settings live and watch how the same recording becomes spikes or LFPs.",
    "socraticPrompts": [
     {
      "id": "ns-lfp-s1",
@@ -2038,8 +1994,6 @@
      "wrongAnswerHint": null
     }
    ],
-   "miniProjectIdea": "Make a SwiftUI animation that overlays a slow hemodynamic curve on top of a fast neural firing trace to show the temporal mismatch.",
-   "relatedFutureLab": "No direct lab — pairs with Closed-Loop Stimulation Lab when discussing biomarker speed.",
    "socraticPrompts": [
     {
      "id": "nim-fmri-s1",
@@ -2151,8 +2105,6 @@
      "wrongAnswerHint": null
     }
    ],
-   "miniProjectIdea": "Build a SwiftUI map of brain regions; clicking a region 'lesions' it and toggles which functions are listed as impaired.",
-   "relatedFutureLab": "No direct lab — informs DBS Circuit Lab targeting choices.",
    "socraticPrompts": [
     {
      "id": "nim-lm-s1",
@@ -2264,8 +2216,6 @@
      "wrongAnswerHint": null
     }
    ],
-   "miniProjectIdea": "Design a SwiftUI control panel that mixes intent (from a slider) with autonomy (auto-grasp toggle) for a virtual 2-DOF arm.",
-   "relatedFutureLab": "Prosthetic Grip Lab — VR pick-and-place tasks driven by simulated decoder intent.",
    "socraticPrompts": [
     {
      "id": "np-mot-s1",
@@ -2377,8 +2327,6 @@
      "wrongAnswerHint": null
     }
    ],
-   "miniProjectIdea": "Prototype a sensory-feedback map in SwiftUI: as virtual fingers press, illuminate a corresponding zone on a body diagram.",
-   "relatedFutureLab": "Prosthetic Grip Lab — toggle feedback on/off and time pick-and-place tasks.",
    "socraticPrompts": [
     {
      "id": "np-sens-s1",
@@ -2490,8 +2438,6 @@
      "wrongAnswerHint": null
     }
    ],
-   "miniProjectIdea": "Build a programming-session simulator: slider for amplitude, pulse width, frequency; mock side-effect zones light up as values exceed thresholds.",
-   "relatedFutureLab": "DBS Circuit Lab — visualize current spread from a lead in 3D anatomy.",
    "socraticPrompts": [
     {
      "id": "stim-dbs-s1",
@@ -2603,8 +2549,6 @@
      "wrongAnswerHint": null
     }
    ],
-   "miniProjectIdea": "Code a 2D map of induced currents under a figure-8 coil for a few coil orientations; compare focality.",
-   "relatedFutureLab": "DBS Circuit Lab — TMS extension: visualize induced E-fields on a brain mesh.",
    "socraticPrompts": [
     {
      "id": "stim-tms-s1",
@@ -2716,8 +2660,6 @@
      "wrongAnswerHint": null
     }
    ],
-   "miniProjectIdea": "Build a SwiftUI game where the user 'practices' a movement (slider/gesture) and earns adaptive difficulty as accuracy climbs.",
-   "relatedFutureLab": "Prosthetic Grip Lab and CursorBCI Decoder Lab share the rehabilitation feedback patterns.",
    "socraticPrompts": [
     {
      "id": "re-st-s1",
@@ -2829,8 +2771,6 @@
      "wrongAnswerHint": null
     }
    ],
-   "miniProjectIdea": "Simulate a fatigue model: stimulate at a fixed rate, track force output declining over time, then try interleaved stimulation to delay fatigue.",
-   "relatedFutureLab": "Prosthetic Grip Lab and Closed-Loop Stimulation Lab can be adapted to demonstrate FES principles.",
    "socraticPrompts": [
     {
      "id": "re-fes-s1",

@@ -51,7 +51,7 @@ async function loadNeuro() {
   if (neuroLoading) return neuroLoading;
   neuroLoading = (async () => {
     const results = await Promise.allSettled(
-      ['data/neuro.json?v=11', 'data/neuro-milestones.json?v=5'].map(async file => {
+      ['data/neuro.json?v=12', 'data/neuro-milestones.json?v=5'].map(async file => {
         const response = await fetch(file);
         if (!response.ok) throw new Error('Neuroengineering lessons did not download');
         return response.json();
@@ -2033,15 +2033,7 @@ function renderNeuroSimLibrary() {
     const prev = NEURO_PROG.simWork[sim.id];
     const row = el(`<button class="neuro-row">
       <span class="neuro-row-main"><span class="neuro-row-title">${esc(sim.title)}</span>
-      <span class="neuro-row-sub">${esc(sim.difficulty || 'lab')} &middot; ${esc(
-        (sim.scoringCategories || [])
-          .map(label =>
-            String(label)
-              .replace(/([a-z])([A-Z])/g, '$1 $2')
-              .toLowerCase()
-          )
-          .join(', ') || 'decision'
-      )}</span></span>
+      <span class="neuro-row-sub neuro-row-sub--sentence">${esc(sim.oneLineMaster)}</span></span>
       <span class="neuro-row-right">${prev ? `<span class="pill">${prev.completedAt ? 'done' : 'resume'}</span>` : NEURO_PROG.sims[sim.id] ? '<span class="pill">started</span>' : ''}</span>
     </button>`);
     row.addEventListener('click', () => renderNeuroSim(sim.id));

@@ -1,0 +1,307 @@
+{
+ "date": "2026-10-16",
+ "scope": "Topic library cleanup: fields written for the retired NeuroEngineering Atlas iOS app (Swift/SwiftUI mini-project ideas, labs that were never built, SF Symbols icon names) removed from topics and subjects. Nothing rendered them; accentHex stays for subject card accents.",
+ "independentReview": "pending",
+ "changes": [
+  {
+   "path": "/topics/0/miniProjectIdea",
+   "before": "Mock a BCI loop in Swift: random spike rates → moving average preprocessor → linear decoder → 2D cursor on screen.",
+   "after": null
+  },
+  {
+   "path": "/topics/0/relatedFutureLab",
+   "before": "CursorBCI Decoder Lab — interactively drive a cursor with simulated neural features.",
+   "after": null
+  },
+  {
+   "path": "/topics/1/miniProjectIdea",
+   "before": "Implement a 2D Kalman cursor decoder fed by synthetic cosine-tuned 'neurons'; render the cursor in SwiftUI.",
+   "after": null
+  },
+  {
+   "path": "/topics/1/relatedFutureLab",
+   "before": "CursorBCI Decoder Lab — VR target-acquisition tasks with a live decoder.",
+   "after": null
+  },
+  {
+   "path": "/topics/2/miniProjectIdea",
+   "before": "Pick a hypothetical neuro device (e.g., a closed-loop tinnitus mask). Map out which pathway fits and what evidence you'd need.",
+   "after": null
+  },
+  {
+   "path": "/topics/2/relatedFutureLab",
+   "before": "No future lab — strictly clinical/regulatory; pairs well with all neurodevice subjects.",
+   "after": null
+  },
+  {
+   "path": "/topics/3/miniProjectIdea",
+   "before": "Make a SwiftUI flowchart UI that walks a user through a DBS troubleshooting tree, branching on impedance and symptom reproducibility.",
+   "after": null
+  },
+  {
+   "path": "/topics/3/relatedFutureLab",
+   "before": "No future lab — clinical workflow only.",
+   "after": null
+  },
+  {
+   "path": "/topics/4/miniProjectIdea",
+   "before": "Simulate a noisy biomarker. Implement a threshold detector and an adaptive controller; measure false positives vs. missed events.",
+   "after": null
+  },
+  {
+   "path": "/topics/4/relatedFutureLab",
+   "before": "Closed-Loop Stimulation Lab — interactively tune detector thresholds and see therapy outcomes.",
+   "after": null
+  },
+  {
+   "path": "/topics/5/miniProjectIdea",
+   "before": "Implement line length and band power features on simulated seizure-like data; compare detection latency and false alarm rates.",
+   "after": null
+  },
+  {
+   "path": "/topics/5/relatedFutureLab",
+   "before": "Closed-Loop Stimulation Lab — race a detector against a propagating seizure visualization.",
+   "after": null
+  },
+  {
+   "path": "/topics/6/miniProjectIdea",
+   "before": "Simulate a 2-population rate model (excitatory and inhibitory) in Swift; plot its response to step input under different gains.",
+   "after": null
+  },
+  {
+   "path": "/topics/6/relatedFutureLab",
+   "before": "No future lab specific to this — pairs well with SignalScope Lab visualizations.",
+   "after": null
+  },
+  {
+   "path": "/topics/7/miniProjectIdea",
+   "before": "Implement HH in Swift; plot voltage and gating variables during a single spike.",
+   "after": null
+  },
+  {
+   "path": "/topics/7/relatedFutureLab",
+   "before": "No direct future lab — supports DBS Circuit Lab indirectly.",
+   "after": null
+  },
+  {
+   "path": "/topics/8/miniProjectIdea",
+   "before": "Generate synthetic cosine-tuned neurons and fit a ridge regression decoder; sweep the ridge penalty and plot generalization.",
+   "after": null
+  },
+  {
+   "path": "/topics/8/relatedFutureLab",
+   "before": "CursorBCI Decoder Lab — compare a linear and non-linear decoder on the same task.",
+   "after": null
+  },
+  {
+   "path": "/topics/9/miniProjectIdea",
+   "before": "Train a decoder twice — once with random shuffling, once with chronological split. Report both numbers and explain the gap.",
+   "after": null
+  },
+  {
+   "path": "/topics/9/relatedFutureLab",
+   "before": "CursorBCI Decoder Lab — induce overfitting on purpose and watch real-time control degrade.",
+   "after": null
+  },
+  {
+   "path": "/topics/10/miniProjectIdea",
+   "before": "Mock a consent UI: show what data the device records, why, and how long it's kept; let the user opt in/out per category.",
+   "after": null
+  },
+  {
+   "path": "/topics/10/relatedFutureLab",
+   "before": "No specific lab — every NeuroSim Lab will share these design defaults.",
+   "after": null
+  },
+  {
+   "path": "/topics/11/miniProjectIdea",
+   "before": "Design a SwiftUI 'patient dashboard' that surfaces what a closed-loop device just did and why, with clear off and override controls.",
+   "after": null
+  },
+  {
+   "path": "/topics/11/relatedFutureLab",
+   "before": "Closed-Loop Stimulation Lab — show the patient's view of the device's decisions in VR.",
+   "after": null
+  },
+  {
+   "path": "/topics/12/miniProjectIdea",
+   "before": "Make a SwiftUI calculator that takes electrode area and material, outputs safe charge injection limits.",
+   "after": null
+  },
+  {
+   "path": "/topics/12/relatedFutureLab",
+   "before": "SignalScope Lab — visualize what each electrode type can and can't see.",
+   "after": null
+  },
+  {
+   "path": "/topics/13/miniProjectIdea",
+   "before": "Plot synthetic spike amplitude vs. days post-implant under different 'response severity' coefficients; explore what coatings do.",
+   "after": null
+  },
+  {
+   "path": "/topics/13/relatedFutureLab",
+   "before": "SignalScope Lab — simulate how recordings degrade over time.",
+   "after": null
+  },
+  {
+   "path": "/topics/14/miniProjectIdea",
+   "before": "Simulate a leaky integrate-and-fire neuron in Swift Playgrounds: integrate input current, fire a spike when voltage crosses threshold, then reset.",
+   "after": null
+  },
+  {
+   "path": "/topics/14/relatedFutureLab",
+   "before": "SignalScope Lab — record and visualize simulated action potentials in 3D.",
+   "after": null
+  },
+  {
+   "path": "/topics/15/miniProjectIdea",
+   "before": "Take a sample neural recording (or a generated one), apply a high-pass and low-pass filter, and plot spikes vs. LFP side by side.",
+   "after": null
+  },
+  {
+   "path": "/topics/15/relatedFutureLab",
+   "before": "SignalScope Lab — flip filter settings live and watch how the same recording becomes spikes or LFPs.",
+   "after": null
+  },
+  {
+   "path": "/topics/16/miniProjectIdea",
+   "before": "Make a SwiftUI animation that overlays a slow hemodynamic curve on top of a fast neural firing trace to show the temporal mismatch.",
+   "after": null
+  },
+  {
+   "path": "/topics/16/relatedFutureLab",
+   "before": "No direct lab — pairs with Closed-Loop Stimulation Lab when discussing biomarker speed.",
+   "after": null
+  },
+  {
+   "path": "/topics/17/miniProjectIdea",
+   "before": "Build a SwiftUI map of brain regions; clicking a region 'lesions' it and toggles which functions are listed as impaired.",
+   "after": null
+  },
+  {
+   "path": "/topics/17/relatedFutureLab",
+   "before": "No direct lab — informs DBS Circuit Lab targeting choices.",
+   "after": null
+  },
+  {
+   "path": "/topics/18/miniProjectIdea",
+   "before": "Design a SwiftUI control panel that mixes intent (from a slider) with autonomy (auto-grasp toggle) for a virtual 2-DOF arm.",
+   "after": null
+  },
+  {
+   "path": "/topics/18/relatedFutureLab",
+   "before": "Prosthetic Grip Lab — VR pick-and-place tasks driven by simulated decoder intent.",
+   "after": null
+  },
+  {
+   "path": "/topics/19/miniProjectIdea",
+   "before": "Prototype a sensory-feedback map in SwiftUI: as virtual fingers press, illuminate a corresponding zone on a body diagram.",
+   "after": null
+  },
+  {
+   "path": "/topics/19/relatedFutureLab",
+   "before": "Prosthetic Grip Lab — toggle feedback on/off and time pick-and-place tasks.",
+   "after": null
+  },
+  {
+   "path": "/topics/20/miniProjectIdea",
+   "before": "Build a programming-session simulator: slider for amplitude, pulse width, frequency; mock side-effect zones light up as values exceed thresholds.",
+   "after": null
+  },
+  {
+   "path": "/topics/20/relatedFutureLab",
+   "before": "DBS Circuit Lab — visualize current spread from a lead in 3D anatomy.",
+   "after": null
+  },
+  {
+   "path": "/topics/21/miniProjectIdea",
+   "before": "Code a 2D map of induced currents under a figure-8 coil for a few coil orientations; compare focality.",
+   "after": null
+  },
+  {
+   "path": "/topics/21/relatedFutureLab",
+   "before": "DBS Circuit Lab — TMS extension: visualize induced E-fields on a brain mesh.",
+   "after": null
+  },
+  {
+   "path": "/topics/22/miniProjectIdea",
+   "before": "Build a SwiftUI game where the user 'practices' a movement (slider/gesture) and earns adaptive difficulty as accuracy climbs.",
+   "after": null
+  },
+  {
+   "path": "/topics/22/relatedFutureLab",
+   "before": "Prosthetic Grip Lab and CursorBCI Decoder Lab share the rehabilitation feedback patterns.",
+   "after": null
+  },
+  {
+   "path": "/topics/23/miniProjectIdea",
+   "before": "Simulate a fatigue model: stimulate at a fixed rate, track force output declining over time, then try interleaved stimulation to delay fatigue.",
+   "after": null
+  },
+  {
+   "path": "/topics/23/relatedFutureLab",
+   "before": "Prosthetic Grip Lab and Closed-Loop Stimulation Lab can be adapted to demonstrate FES principles.",
+   "after": null
+  },
+  {
+   "path": "/subjects/0/iconName",
+   "before": "waveform.path.ecg",
+   "after": null
+  },
+  {
+   "path": "/subjects/1/iconName",
+   "before": "cpu",
+   "after": null
+  },
+  {
+   "path": "/subjects/2/iconName",
+   "before": "brain.head.profile",
+   "after": null
+  },
+  {
+   "path": "/subjects/3/iconName",
+   "before": "bolt.heart",
+   "after": null
+  },
+  {
+   "path": "/subjects/4/iconName",
+   "before": "arrow.triangle.2.circlepath",
+   "after": null
+  },
+  {
+   "path": "/subjects/5/iconName",
+   "before": "figure.arms.open",
+   "after": null
+  },
+  {
+   "path": "/subjects/6/iconName",
+   "before": "cross.case",
+   "after": null
+  },
+  {
+   "path": "/subjects/7/iconName",
+   "before": "function",
+   "after": null
+  },
+  {
+   "path": "/subjects/8/iconName",
+   "before": "scanner",
+   "after": null
+  },
+  {
+   "path": "/subjects/9/iconName",
+   "before": "rectangle.connected.to.line.below",
+   "after": null
+  },
+  {
+   "path": "/subjects/10/iconName",
+   "before": "figure.walk.motion",
+   "after": null
+  },
+  {
+   "path": "/subjects/11/iconName",
+   "before": "scale.3d",
+   "after": null
+  }
+ ]
+}

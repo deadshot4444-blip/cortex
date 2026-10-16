@@ -5,6 +5,13 @@
 
 const CHANGELOG = [
   {
+    version: '2.39.1',
+    tag: 'UPDATE',
+    date: 'October 16, 2026',
+    title: 'Neuroengineering tidy-up',
+    items: ['Each decision lab in the NeuroSim list now shows its one-line takeaway instead of a category tag.'],
+  },
+  {
     version: '2.39.0',
     tag: 'UPDATE',
     date: 'October 16, 2026',
