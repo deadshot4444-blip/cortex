@@ -63,7 +63,7 @@ try {
           };
         });
         const label = `${width}px ${user ? 'signed in' : 'signed out'} v${version}`;
-        assert.equal(m.acct, user ? 'ACCOUNT' : 'SIGN IN', label);
+        assert.equal(m.acct.toUpperCase(), user ? 'ACCOUNT' : 'SIGN IN', label);
         assert.ok(m.sw <= m.iw, `${label}: page is ${m.sw}px wide`);
         assert.ok(
           m.right <= m.limit + 0.5,

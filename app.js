@@ -114,9 +114,10 @@ const X_URL = 'https://x.com/kevin__vigil';
 const X_UPDATES_COPY = `Constant Cortex updates on X &middot; <strong>@${X_HANDLE}</strong>`;
 const X_SVG =
   '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>';
-// Logo mark — matches the favicon (dark square + white cross) so the brand reads as one system.
+// Logo mark: a ruled circle with the cross from the favicon, drawn in the current text color so it
+// reads on the navy bar and on the white footer.
 const MARK_SVG =
-  '<svg class="wm-glyph" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" fill="currentColor"/><path d="M14 8h4v6h6v4h-6v6h-4v-6H8v-4h6z" fill="#fff"/></svg>';
+  '<svg class="wm-glyph" viewBox="0 0 34 34" aria-hidden="true"><circle cx="17" cy="17" r="16" fill="none" stroke="currentColor" stroke-width="1"/><path d="M15.4 9h3.2v6.4H25v3.2h-6.4V25h-3.2v-6.4H9v-3.2h6.4z" fill="currentColor"/></svg>';
 
 const SECONDS_PER_QUESTION = 90;
 const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F'];
@@ -1455,76 +1456,64 @@ function renderMission() {
   const gates = new URLSearchParams(location.search).get('gates') === 'prod';
   const homePath = '/' + (gates ? '?gates=prod' : '');
   if (location.pathname !== '/') history.pushState({ sec: 'mission' }, '', homePath);
-  const previewQuery = gates ? '&gates=prod' : '';
   const root = el('<div></div>');
   root.appendChild(topbar('mission'));
-  const main = el(`<main class="panel mission academy-home">
-    <section class="mission-hero">
-      <div class="mission-hero-grid">
-        <div class="mission-hero-copy">
-          <span class="mcat-eyebrow">Cortex Medical Academy</span>
-          <h1>Master the<br> human machine.</h1>
-          <p class="mission-lede">Understand the science. Put it into practice. Free MCAT and DAT preparation and clinical case learning for the work ahead.</p>
-          <div class="mcat-cta">
-            <button class="btn btn-solid" id="m-mcat">Open MCAT prep →</button>
-            <button class="btn" id="m-quick">Try a 5-minute session</button>
-          </div>
-          <p class="academy-promise">MCAT and DAT prep are free forever. Start without an account.</p>
+  const tracks = CortexAcademy.tracks;
+  const open = tracks.filter(track => track.available);
+  const closed = tracks.filter(track => !track.available);
+  const numerals = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII'];
+  const courseId = { dat: ' id="m-dat"', practice: ' id="m-cases"' };
+  const main = el(`<main class="mission mn-home">
+    <section class="mn-hero">
+      <div class="mn-wrap">
+        <span class="mn-caps">Free &middot; Open to everyone</span>
+        <h1>Master the <em>human machine.</em></h1>
+        <span class="mn-rule" aria-hidden="true"></span>
+        <p class="mn-lede">Understand the science. Put it into practice. Free MCAT and DAT preparation and clinical case learning for the work ahead.</p>
+        <div class="mn-actions">
+          <button class="btn btn-solid" id="m-mcat">Begin with MCAT</button>
+          <button class="mn-textlink" id="m-quick">Try a 5-minute session</button>
         </div>
-        <aside class="academy-workspace" aria-labelledby="academy-workspace-title">
-          <div class="academy-workspace-head"><span class="label">Inside MCAT 2.0</span><span class="academy-edition">BETA</span></div>
-          <h2 id="academy-workspace-title">Your MCAT workspace.</h2>
-          <p>From your first lesson to your next practice session.</p>
-          <div class="academy-workspace-links">
-            <a href="/mcat?view=course${previewQuery}"><span><strong>Build your foundation</strong><small>45 lessons across 15 chapters</small></span><span aria-hidden="true">↗</span></a>
-            <a href="/mcat?view=practice${previewQuery}"><span><strong>Practice your reasoning</strong><small>Science, CARS, and quantitative skills</small></span><span aria-hidden="true">↗</span></a>
-            <a href="/mcat?view=weekly${previewQuery}"><span><strong>Make time for progress</strong><small>A weekly plan around your availability</small></span><span aria-hidden="true">↗</span></a>
-          </div>
-        </aside>
+        <p class="mn-promise">MCAT and DAT prep are free forever. Start without an account.</p>
       </div>
     </section>
 
-    <section class="academy-clinical academy-dat" aria-labelledby="academy-dat-title">
-      <div class="academy-clinical-copy">
-        <span class="label">DAT preparation &middot; Beta</span>
-        <h2 id="academy-dat-title">Train for the DAT,<br> section by section.</h2>
-        <p>Science drills on the clock, perceptual-ability figures drawn new every round, and timed reading and quantitative sets with the exam’s own calculator.</p>
-        <button class="btn" id="m-dat">Open DAT prep →</button>
+    <section class="mn-curriculum" aria-labelledby="mn-curriculum-title">
+      <div class="mn-wrap">
+        <h2 class="mn-caps" id="mn-curriculum-title">The curriculum</h2>
+        <div class="mn-courses">${open
+          .map(
+            (
+              track,
+              i
+            ) => `<a class="mn-course" href="${esc(sectionUrl(track.id))}" data-course="${track.id}"${courseId[track.id] || ''}>
+            <span class="mn-num" aria-hidden="true">${numerals[i]}</span>
+            <span class="mn-course-name">${esc(track.name)}</span>
+            <span class="mn-course-desc">${esc(track.description)}</span>
+            <span class="mn-course-go mn-caps">Enter</span>
+          </a>`
+          )
+          .join('')}</div>
+        ${closed.length ? `<p class="mn-review"><span class="mn-caps">In review</span>${closed.map(track => esc(track.name)).join(' &middot; ')}. Closed while the material is reviewed.</p>` : ''}
       </div>
-      <ol class="academy-case-steps" aria-label="Inside DAT preparation">
-        <li><span class="academy-step-index" aria-hidden="true">01</span><div><h3>Survey of the Natural Sciences</h3><p>Biology, general and organic chemistry in timed drills.</p></div></li>
-        <li><span class="academy-step-index" aria-hidden="true">02</span><div><h3>Perceptual Ability</h3><p>All six subtests, with unlimited generated figures.</p></div></li>
-        <li><span class="academy-step-index" aria-hidden="true">03</span><div><h3>Reading and Quantitative Reasoning</h3><p>Timed passages, and the exam’s on-screen calculator.</p></div></li>
-      </ol>
     </section>
 
-    <section class="academy-clinical" aria-labelledby="academy-clinical-title">
-      <div class="academy-clinical-copy">
-        <span class="label">Clinical Scenarios</span>
-        <h2 id="academy-clinical-title">Put your reasoning<br> to work.</h2>
-        <p>Meet a patient, gather the findings, and decide what comes next. Compare your decisions and written note with a model response.</p>
-        <button class="btn" id="m-cases" data-go="practice">Explore clinical cases →</button>
+    <section class="mn-method" aria-labelledby="mn-method-title">
+      <div class="mn-wrap">
+        <span class="mn-caps">How learning works here</span>
+        <h2 id="mn-method-title">Build understanding. <em>Then build on it.</em></h2>
+        <div class="mn-steps">${PRINCIPLES.map((p, i) => `<article class="mn-step"><span class="mn-num" aria-hidden="true">${numerals[i].toLowerCase()}</span><h3>${p[0]}</h3><p>${p[1]}</p></article>`).join('')}</div>
       </div>
-      <ol class="academy-case-steps" aria-label="Inside a Clinical Shift">
-        <li><span class="academy-step-index" aria-hidden="true">01</span><div><h3>Gather the story</h3><p>Choose interview questions and focused examinations.</p></div></li>
-        <li><span class="academy-step-index" aria-hidden="true">02</span><div><h3>Make the call</h3><p>Weigh the findings, rank a differential, and write your note.</p></div></li>
-        <li><span class="academy-step-index" aria-hidden="true">03</span><div><h3>Review your reasoning</h3><p>Compare with a model and work through the debrief.</p></div></li>
-      </ol>
     </section>
 
-    <section class="academy-method" aria-labelledby="academy-method-title">
-      <div class="academy-section-heading"><span class="label">How learning works here</span><h2 id="academy-method-title">Build understanding.<br> Then build on it.</h2></div>
-      <div class="academy-principles">${PRINCIPLES.map((p, i) => `<article><span class="label">0${i + 1}</span><h3>${p[0]}</h3><p>${p[1]}</p></article>`).join('')}</div>
-    </section>
-
-    <section class="academy-mission" aria-labelledby="academy-mission-title">
-      <div><span class="label">Why Cortex exists</span><h2 id="academy-mission-title">Opportunity should<br> stay open.</h2></div>
-      <div class="academy-founder-copy"><p>I started Cortex on a simple first-principles conviction: the path into medicine should never be decided by how much money you have.</p><p class="academy-founder-sign">Kevin Vigil<span>Founder, Cortex Medical Academy</span></p><div class="academy-reach" data-visit-summary hidden><span class="js-visits"></span><span>visits to Cortex</span></div></div>
-    </section>
-
-    <section class="mcat-closing academy-closing">
-      <div><span class="label">Start where you are</span><h2>Your next step starts here.</h2><p>Choose a lesson, plan a session, or pick up your saved work.</p></div>
-      <div class="academy-closing-actions"><button class="btn btn-solid" id="m-enter">Open MCAT prep →</button><button class="ghostbtn" id="m-updates">See what’s new ↗</button></div>
+    <section class="mn-quote" aria-labelledby="mn-quote-title">
+      <div class="mn-wrap">
+        <h2 class="mn-caps" id="mn-quote-title">Why Cortex exists</h2>
+        <blockquote>I started Cortex on a simple first-principles conviction: the path into medicine should never be decided by how much money you have.</blockquote>
+        <span class="mn-rule" aria-hidden="true"></span>
+        <p class="mn-sign"><strong>Kevin Vigil</strong>Founder, Cortex Medical Academy</p>
+        <div class="academy-reach" data-visit-summary hidden><span class="js-visits"></span><span>visits to Cortex</span></div>
+      </div>
     </section>
   </main>`);
 
@@ -1541,10 +1530,14 @@ function renderMission() {
     }
   });
   main.querySelector('#m-mcat').addEventListener('click', gotoMCAT);
-  main.querySelector('#m-dat').addEventListener('click', () => navigateSection('dat'));
-  main.querySelector('#m-cases').addEventListener('click', () => navigateSection('practice'));
-  main.querySelector('#m-enter').addEventListener('click', gotoMCAT);
-  main.querySelector('#m-updates').addEventListener('click', renderUpdates);
+  main.querySelectorAll('[data-course]').forEach(link => {
+    link.addEventListener('click', event => {
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
+      if (link.dataset.course === 'mcat') gotoMCAT();
+      else navigateSection(link.dataset.course);
+    });
+  });
   root.appendChild(main);
   root.appendChild(siteFooter());
   setView(root);

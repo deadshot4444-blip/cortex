@@ -153,12 +153,12 @@ for (const viewport of viewports) {
       JSON.stringify([
         'Beta',
         'Beta',
-        'Under construction',
+        'Beta',
+        'Beta',
         'Beta',
         'Under construction',
         'Under construction',
-        'Beta',
-        'Beta',
+        'Under construction',
       ]) ||
     record.catalogActions.filter(t => t === 'View course status').length !== 3
   )

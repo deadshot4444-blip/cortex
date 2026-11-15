@@ -21,6 +21,8 @@ for href in re.findall(r'(?:src|href)="([^"?]+)(?:\?[^\"]*)?"', index):
     if rel.endswith(('.js', '.css')) and (root / rel).is_file():
         base.add(rel)
 base.update(sections['academy'])
+# The bundled text and headline fonts: every offline course needs them to look like the site.
+base.update(str(p.relative_to(root)) for p in (root / 'assets/fonts').glob('*.woff2'))
 clinical = list(json.loads((root / 'data/manifest.json').read_text()))
 specs = [
     ('mcat', 'MCAT preparation', '/mcat', '45 foundation lessons, available practice banks, CARS coaching, math, investigations and planning.',
