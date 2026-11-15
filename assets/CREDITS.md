@@ -35,3 +35,12 @@ Cropped panels of CC BY figures (real Bielschowsky-stained human brain tissue), 
 | liu-2022-fig4a-np.jpg, -fig4b-np.jpg, -fig4c-np.jpg | Liu F et al., Neurosci Bull 2022, Fig. 4 (PMC9554074) | CC BY 4.0 |
 | marengo-2022-fig1-ad.jpg, -fig1-control.jpg | Marengo L et al., Cell Mol Life Sci 2022, Fig. 1A (PMC8891209) | CC BY 4.0 |
 | zhang-2025-fig1b.jpg, -fig1b-detail.jpg, -fig1c.jpg, -fig1c-detail.jpg | Zhang QL et al., Aging Dis 2025, Fig. 1 B/C (PMC13256385) | CC BY |
+
+# Font credits
+
+Bundled in `assets/fonts/` (Latin subset, variable weight) so the site reads the same offline.
+
+| File(s) | Source | License |
+|------|--------|---------|
+| cormorant-garamond-latin-wght-normal.woff2, -italic.woff2 | Cormorant Garamond, The Cormorant Project Authors (github.com/CatharsisFonts/Cormorant), via @fontsource-variable/cormorant-garamond 5.3.0 | SIL Open Font License 1.1 |
+| source-sans-3-latin-wght-normal.woff2 | Source Sans 3, Adobe (github.com/adobe-fonts/source-sans), via @fontsource-variable/source-sans-3 5.3.1 | SIL Open Font License 1.1 |

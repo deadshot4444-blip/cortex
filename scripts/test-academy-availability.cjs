@@ -59,15 +59,16 @@ test('the public catalog labels closed courses and points them at the course sta
   const { w, dom } = harness(false);
   w.CortexAcademy.renderCatalog();
   const statuses = [...w.document.querySelectorAll('.academy-status')].map(node => node.textContent);
+  // The catalog lists the open courses first, then the ones in review.
   assert.deepEqual(statuses, [
     'Beta',
     'Beta',
-    'Under construction',
+    'Beta',
+    'Beta',
     'Beta',
     'Under construction',
     'Under construction',
-    'Beta',
-    'Beta',
+    'Under construction',
   ]);
   const actions = [...w.document.querySelectorAll('.academy-course-bottom a')].map(a =>
     a.textContent.replace(/\s*→\s*$/, '').trim()
@@ -75,12 +76,12 @@ test('the public catalog labels closed courses and points them at the course sta
   assert.deepEqual(actions, [
     'Open MCAT',
     'Open DAT',
-    'View course status',
     'Explore clinical cases',
-    'View course status',
-    'View course status',
     'Explore neuroengineering',
     'Open the lab',
+    'View course status',
+    'View course status',
+    'View course status',
   ]);
   for (const id of CLOSED)
     assert.equal(w.document.querySelector(`h2 a[data-course="${id}"]`).getAttribute('href'), '/' + id);
@@ -103,12 +104,12 @@ test('a reviewer grant opens only its course in the catalog, labelled Preview', 
   assert.deepEqual(statuses, [
     'Beta',
     'Beta',
+    'Beta',
+    'Beta',
+    'Beta',
     'Preview',
-    'Beta',
     'Under construction',
     'Under construction',
-    'Beta',
-    'Beta',
   ]);
   const learn = w.document.querySelector('.academy-course-bottom a[data-course="socrates"]').textContent;
   assert.doesNotMatch(learn, /View course status/);

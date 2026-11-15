@@ -132,41 +132,66 @@
     if (typeof stopTimer === 'function') stopTimer();
     const root = el('<div></div>');
     root.appendChild(topbar('academy'));
-    const main = el(`<main class="panel academy-shell">
-      <div class="academy-intro">
-        <span class="label">Your Academy</span>
-        <h1>Choose what you want to learn.</h1>
-        <p>Find a path that fits your goal. Start with one useful session, and return to the work you save.</p>
-        <a class="academy-primary" href="${esc(sectionUrl('academy'))}${sectionUrl('academy').includes('?') ? '&' : '?'}view=today" id="academy-open-today">Plan my study day <span aria-hidden="true">→</span></a>
-        <a class="academy-primary" href="${esc(sectionUrl('mcat'))}" data-course="mcat">Start MCAT preparation <span aria-hidden="true">→</span></a>
-        <p><a href="${esc(sectionUrl('academy'))}${sectionUrl('academy').includes('?') ? '&' : '?'}view=storage" data-academy-view>Study backups &amp; offline downloads</a></p>
-        <p><a href="${esc(sectionUrl('academy'))}${sectionUrl('academy').includes('?') ? '&' : '?'}view=portfolio" data-academy-view>My private portfolio</a></p>
-        <p><a href="${esc(sectionUrl('academy'))}${sectionUrl('academy').includes('?') ? '&' : '?'}view=curriculum" data-academy-view>Find lessons and connections across the Academy</a> · <a href="${esc(sectionUrl('academy'))}${sectionUrl('academy').includes('?') ? '&' : '?'}view=queue" data-academy-view>Optional retrieval practice</a></p>
-      </div>
-      <div class="academy-catalog" aria-label="Learning paths">
-        ${tracks
-          .map(
-            track => `<article class="academy-course">
-          <div class="academy-course-top"><span>${esc(track.kind)}</span><span class="academy-status">${status(track)}</span></div>
-          <h2><a href="${esc(sectionUrl(track.id))}" data-course="${track.id}">${esc(track.name)}</a></h2>
-          <p>${esc(track.description)}</p>
-          <dl>
-            <div><dt>For</dt><dd>${esc(track.audience)}</dd></div>
-            <div><dt>Before you start</dt><dd>${esc(track.prerequisites)}</dd></div>
-            <div><dt>Inside</dt><dd>${esc(track.scope)}</dd></div>
-          </dl>
-          <div class="academy-course-bottom"><span>${esc(track.time)}</span>
-            <a href="${esc(sectionUrl(track.id))}" data-course="${track.id}">${track.available || IS_LOCAL_PREVIEW || granted(track.id) ? esc(track.action) : 'View course status'} <span aria-hidden="true">→</span></a>
+    const view = name => `${esc(sectionUrl('academy'))}${sectionUrl('academy').includes('?') ? '&' : '?'}view=${name}`;
+    // Open courses first, then the ones in review, each group in catalog order.
+    const ordered = [...tracks.filter(track => track.available), ...tracks.filter(track => !track.available)];
+    const firstClosed = ordered.findIndex(track => !track.available);
+    const numerals = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII'];
+    const main = el(`<main class="academy-shell academy-catalog-page">
+      <section class="academy-band">
+        <div class="mn-wrap academy-intro">
+          <span class="label">Your Academy</span>
+          <h1>Choose what you want <em>to learn.</em></h1>
+          <p>Find a path that fits your goal. Start with one useful session, and return to the work you save.</p>
+          <div class="academy-band-actions">
+            <a class="academy-primary" href="${view('today')}" id="academy-open-today">Plan my study day <span aria-hidden="true">→</span></a>
+            <a class="academy-primary academy-primary--ghost" href="${esc(sectionUrl('mcat'))}" data-course="mcat">Start MCAT preparation <span aria-hidden="true">→</span></a>
           </div>
-        </article>`
-          )
-          .join('')}
+        </div>
+      </section>
+      <div class="mn-wrap academy-body">
+        <nav class="academy-tools" aria-label="Study tools">
+          <a href="${view('storage')}" data-academy-view>Study backups &amp; offline downloads</a>
+          <a href="${view('portfolio')}" data-academy-view>My private portfolio</a>
+          <a href="${view('curriculum')}" data-academy-view>Find lessons and connections across the Academy</a>
+          <a href="${view('queue')}" data-academy-view>Optional retrieval practice</a>
+        </nav>
+        <div class="academy-catalog" aria-label="Learning paths">
+          ${ordered
+            .map(
+              (
+                track,
+                i
+              ) => `${i === 0 ? '<p class="academy-group">Open now</p>' : i === firstClosed ? '<p class="academy-group">In review</p>' : ''}<article class="academy-course${track.available ? '' : ' academy-course--closed'}">
+            <span class="academy-course-num" aria-hidden="true">${track.available ? numerals[i] : ''}</span>
+            <div class="academy-course-head">
+              <h2><a href="${esc(sectionUrl(track.id))}" data-course="${track.id}">${esc(track.name)}</a></h2>
+              <div class="academy-course-top"><span>${esc(track.kind)}</span><span class="academy-status">${status(track)}</span></div>
+            </div>
+            <div class="academy-course-copy">
+              <p>${esc(track.description)}</p>
+              <dl><div><dt>For</dt><dd>${esc(track.audience)}</dd></div></dl>
+              <details class="academy-course-more">
+                <summary>Before you start, and what is inside</summary>
+                <dl>
+                  <div><dt>Before you start</dt><dd>${esc(track.prerequisites)}</dd></div>
+                  <div><dt>Inside</dt><dd>${esc(track.scope)}</dd></div>
+                </dl>
+              </details>
+            </div>
+            <div class="academy-course-bottom"><span>${esc(track.time)}</span>
+              <a href="${esc(sectionUrl(track.id))}" data-course="${track.id}">${track.available || IS_LOCAL_PREVIEW || granted(track.id) ? esc(track.action) : 'View course status'} <span aria-hidden="true">→</span></a>
+            </div>
+          </article>`
+            )
+            .join('')}
+        </div>
+        <details class="academy-review-note">
+          <summary>About course status and review</summary>
+          <p>Beta material is available for evaluation. Not yet independently reviewed. A course's presence here describes its available material, not a qualification or a guarantee of learning outcomes.</p>
+          <p>MCAT preparation is free forever. Your work stays on this device unless you choose to use an account or share it.</p>
+        </details>
       </div>
-      <details class="academy-review-note">
-        <summary>About course status and review</summary>
-        <p>Beta material is available for evaluation. Not yet independently reviewed. A course's presence here describes its available material, not a qualification or a guarantee of learning outcomes.</p>
-        <p>MCAT preparation is free forever. Your work stays on this device unless you choose to use an account or share it.</p>
-      </details>
     </main>`);
     main.querySelectorAll('[data-course]').forEach(link => {
       link.addEventListener('click', event => {
