@@ -209,6 +209,215 @@ function neuroMilestonesPassed() {
   return Object.values(NEURO_PROG.projects || {}).filter(record => NeuroProjectCore.completed(record)).length;
 }
 
+/* ---------- hub figures ----------
+   The landing page's line drawings are made at render from a seeded generator, so every visit
+   shows the same pictures and nothing extra has to download. */
+function neuroRng(seed) {
+  let a = seed >>> 0;
+  const next = () => {
+    a = (a + 0x6d2b79f5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+  next.gauss = (mean, sd) => mean + sd * Math.sqrt(-2 * Math.log(1 - next())) * Math.cos(2 * Math.PI * next());
+  return next;
+}
+// A noisy baseline with sharp spikes: the SVG path and where each spike sits.
+function neuroTracePath(width, y, amp, spikeCount, rand, step = 5) {
+  const n = Math.floor(width / step);
+  const spikes = new Set();
+  while (spikes.size < spikeCount) spikes.add(6 + Math.floor(rand() * (n - 12)));
+  const pts = [],
+    xs = [];
+  let v = 0;
+  for (let k = 0; k <= n; k++) {
+    const x = k * step;
+    v = 0.55 * v + rand.gauss(0, amp * 0.11);
+    if (spikes.has(k)) {
+      pts.push([x, y + v], [x + 1.2, y - amp], [x + 2.5, y + amp * 0.42], [x + 3.6, y + v * 0.5]);
+      xs.push(x + 1.2);
+    } else pts.push([x, y + v]);
+  }
+  return { d: 'M' + pts.map(pt => `${pt[0].toFixed(1)} ${pt[1].toFixed(1)}`).join(' L'), xs };
+}
+// One drawing per module, in order: a thresholded trace, features to a decision, a cursor
+// settling on its target, and a loop with a break in it.
+function neuroModuleArt(index) {
+  const M = '#6ff0c2',
+    W = '#ffffff',
+    BG = '#05080c';
+  const n = value => value.toFixed(1);
+  let s = '';
+  if (index === 1) {
+    const trace = neuroTracePath(560, 130, 62, 7, neuroRng(3));
+    s += `<line x1="0" y1="92" x2="560" y2="92" stroke="${W}" stroke-opacity=".6" stroke-dasharray="5 6"/>`;
+    s += `<path d="${trace.d}" stroke="${M}" stroke-width="1.6"/>`;
+    for (const x of trace.xs)
+      s += `<circle cx="${n(x)}" cy="68" r="5" stroke="${W}" stroke-width="1.4"/><line x1="${n(x)}" y1="196" x2="${n(x)}" y2="210" stroke="${W}" stroke-width="1.6"/>`;
+  } else if (index === 2) {
+    const rand = neuroRng(9);
+    [60, 118, 84, 150, 40, 102].forEach((height, i) => {
+      s += `<rect x="${24 + i * 34}" y="${196 - height}" width="20" height="${height}" stroke="${M}" stroke-width="1.5"/>`;
+    });
+    s += `<line x1="14" y1="196" x2="236" y2="196" stroke="${W}" stroke-opacity=".6"/>`;
+    s += `<path d="M252 110h36m-10-9l10 9l-10 9" stroke="${W}" stroke-opacity=".7" stroke-width="1.4"/>`;
+    for (let i = 0; i < 20; i++)
+      s += `<circle cx="${n(rand.gauss(370, 22))}" cy="${n(rand.gauss(150, 20))}" r="4.5" fill="${M}"/>`;
+    for (let i = 0; i < 20; i++)
+      s += `<circle cx="${n(rand.gauss(480, 22))}" cy="${n(rand.gauss(72, 20))}" r="4.5" stroke="${W}" stroke-width="1.4"/>`;
+    s += `<line x1="330" y1="24" x2="540" y2="204" stroke="${W}" stroke-opacity=".75" stroke-width="1.2" stroke-dasharray="5 6"/>`;
+  } else if (index === 3) {
+    const rand = neuroRng(4),
+      pts = [];
+    for (const r of [16, 34, 52])
+      s += `<circle cx="470" cy="70" r="${r}" stroke="${W}" stroke-opacity="${r === 16 ? 0.9 : 0.45}" stroke-width="1.3"/>`;
+    s += `<line x1="60" y1="170" x2="470" y2="70" stroke="${W}" stroke-opacity=".4" stroke-dasharray="4 7"/>`;
+    for (let k = 0; k <= 60; k++) {
+      const t = k / 60;
+      pts.push(
+        `${n(60 + 410 * t)} ${n(170 - 100 * t + (1 - t) ** 1.3 * 42 * Math.sin(t * 13) + rand.gauss(0, 2.2 * (1 - t)))}`
+      );
+    }
+    s += `<path d="M${pts.join(' L')}" stroke="${M}" stroke-width="1.8"/>`;
+    s += `<circle cx="60" cy="170" r="6" fill="${M}"/><circle cx="470" cy="70" r="5" fill="${W}"/>`;
+  } else {
+    const cx = 280,
+      cy = 110,
+      r = 78;
+    const at = (deg, radius = r) => [
+      cx + radius * Math.cos((deg * Math.PI) / 180),
+      cy + radius * Math.sin((deg * Math.PI) / 180),
+    ];
+    const arc = (from, to) => {
+      const a = at(from),
+        b = at(to);
+      return `<path d="M${n(a[0])} ${n(a[1])} A${r} ${r} 0 0 1 ${n(b[0])} ${n(b[1])}" stroke="${M}" stroke-width="1.8"/>`;
+    };
+    s += arc(-70, 80) + arc(100, 170) + arc(190, 250);
+    const gap = at(250),
+      lifted = at(262, r + 26);
+    s += `<line x1="${n(gap[0])}" y1="${n(gap[1])}" x2="${n(lifted[0])}" y2="${n(lifted[1])}" stroke="${W}" stroke-width="1.8"/>`;
+    for (const deg of [250, 290]) {
+      const pt = at(deg);
+      s += `<circle cx="${n(pt[0])}" cy="${n(pt[1])}" r="5" fill="${BG}" stroke="${W}" stroke-width="1.6"/>`;
+    }
+    for (const deg of [0, 90, 180]) {
+      const pt = at(deg);
+      s += `<rect x="${n(pt[0] - 9)}" y="${n(pt[1] - 9)}" width="18" height="18" fill="${BG}" stroke="${M}" stroke-width="1.6"/>`;
+    }
+    for (const deg of [45, 135]) {
+      const pt = at(deg),
+        t = ((deg + 90) * Math.PI) / 180,
+        ux = Math.cos(t),
+        uy = Math.sin(t);
+      s += `<path d="M${n(pt[0] - 7 * ux - 5 * uy)} ${n(pt[1] - 7 * uy + 5 * ux)} L${n(pt[0])} ${n(pt[1])} L${n(pt[0] - 7 * ux + 5 * uy)} ${n(pt[1] - 7 * uy - 5 * ux)}" stroke="${M}" stroke-width="1.6"/>`;
+    }
+    s += `<circle cx="${cx}" cy="${cy}" r="118" stroke="${W}" stroke-opacity=".25" stroke-dasharray="2 8"/>`;
+  }
+  return `<svg class="nx-art" aria-hidden="true" viewBox="0 0 560 220" fill="none" stroke-linecap="round" stroke-linejoin="round">${s}</svg>`;
+}
+
+/* The code in the landing page's editor window: the course in nineteen lines, from a recording to a
+   moving cursor. Decoration, hidden from assistive technology. */
+const NEURO_HERO_CODE = [
+  'import numpy as np',
+  '',
+  'fs = 30_000                      # samples per second',
+  'x  = load_recording("ch03")      # synthetic signal',
+  '',
+  '# 1 · threshold crossings',
+  'sigma  = np.median(np.abs(x)) / 0.6745',
+  'thr    = -4.5 * sigma',
+  'cross  = (x[1:] < thr) & (x[:-1] >= thr)',
+  'spikes = np.flatnonzero(cross)',
+  '',
+  '# 2 · firing rate in 50 ms bins',
+  'bins      = np.arange(0, x.size / fs, 0.050)',
+  'counts, _ = np.histogram(spikes / fs, bins)',
+  'rate      = counts / 0.050',
+  '',
+  '# 3 · decode, then move the cursor',
+  'velocity = rates[t] @ W + b      # rates: time × channels',
+  'cursor  += velocity * dt',
+];
+// Comments, strings and numbers, and the three names a beginner meets first.
+function neuroHeroCodeLine(line) {
+  const hash = line.indexOf('#');
+  const code = hash < 0 ? line : line.slice(0, hash);
+  let out = '',
+    pos = 0;
+  for (const match of code.matchAll(/"[^"]*"|[A-Za-z_]\w*|-?\d[\d_]*(?:\.\d+)?/g)) {
+    const token = match[0];
+    const kind = /^(?:import|as|np)$/.test(token) ? 'nx-k' : /^[A-Za-z_]/.test(token) ? '' : 'nx-n';
+    out += esc(code.slice(pos, match.index)) + (kind ? `<span class="${kind}">${esc(token)}</span>` : esc(token));
+    pos = match.index + token.length;
+  }
+  return out + esc(code.slice(pos)) + (hash < 0 ? '' : `<span class="nx-c">${esc(line.slice(hash))}</span>`);
+}
+function neuroHeroArt() {
+  const lines = NEURO_HERO_CODE.map(
+    (line, i) =>
+      `<span class="nx-ln" style="--i:${i}"><span class="nx-no">${i + 1}</span><span>${neuroHeroCodeLine(line) || ' '}</span></span>`
+  ).join('');
+  const last = NEURO_HERO_CODE.length;
+  const trace = neuroTracePath(2400, 60, 34, 27, neuroRng(8));
+  const dots = trace.xs
+    .map(x => `<circle class="nx-dot" style="--x:${(x / 2400).toFixed(3)}" cx="${x.toFixed(1)}" cy="14" r="4"/>`)
+    .join('');
+  return `<div class="nx-editor" aria-hidden="true">
+        <div class="nx-editor-bar"><i></i><i></i><i></i><span>bci_pipeline.py</span></div>
+        <div class="nx-code">${lines}<span class="nx-ln" style="--i:${last}"><span class="nx-no">${last + 1}</span><span class="nx-caret"></span></span></div>
+      </div>
+      <svg class="nx-trace" aria-hidden="true" viewBox="0 0 2400 110" preserveAspectRatio="xMinYMid slice" fill="none">
+        <path pathLength="1000" d="${trace.d}"/>${dots}
+      </svg>`;
+}
+/* The editor types its lines in one after another, holds, clears and starts again. One class on the
+   hero drives all of it (.nx-hero.is-typing / .is-clearing in styles.css). Under reduced motion the
+   finished code simply rests there. A run starts only while the window is on screen in a visible
+   tab, so nobody arrives to find it already finished. */
+function neuroHeroPlay(hero) {
+  const editor = hero?.querySelector('.nx-editor');
+  if (!editor) return;
+  if (typeof window.matchMedia !== 'function' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    hero.classList.add('is-static');
+    return;
+  }
+  let inView = !('IntersectionObserver' in window),
+    running = false,
+    watcher = null;
+  const stop = () => {
+    watcher?.disconnect();
+    document.removeEventListener('visibilitychange', wake);
+  };
+  const cycle = () => {
+    if (!hero.isConnected) return stop();
+    running = inView && !document.hidden;
+    if (!running) return;
+    hero.classList.add('is-typing');
+    setTimeout(() => hero.classList.add('is-clearing'), 15600);
+    setTimeout(() => {
+      hero.classList.remove('is-typing', 'is-clearing');
+      setTimeout(cycle, 700);
+    }, 16800);
+  };
+  function wake() {
+    if (!hero.isConnected) return stop();
+    if (!running) cycle();
+  }
+  document.addEventListener('visibilitychange', wake);
+  if (inView) return void setTimeout(cycle, 80);
+  watcher = new IntersectionObserver(
+    entries => {
+      inView = entries[entries.length - 1].isIntersecting;
+      if (inView) wake();
+    },
+    { threshold: 0.2 }
+  );
+  watcher.observe(editor);
+}
+
 /* ---------- hub ---------- */
 
 /* Foundations primer — the philosophy on-ramp for absolute beginners.
@@ -361,21 +570,24 @@ async function renderNeuroEngineering(options = {}) {
   const nextModule = pg.next ? neuroModuleOf(pg.next) : null;
   const wide = window.matchMedia?.('(min-width: 900px)').matches;
 
-  const main = el(`<main class="neuro-page neuro-hub">
-    <section class="neuro-hero">
-      <video class="neuro-video" loop muted playsinline preload="none" poster="assets/neuro-bg-poster.jpg?v=1" aria-hidden="true">
-        <source src="assets/neuro-bg.mp4?v=2" type="video/mp4">
-      </video>
-      <div class="neuro-veil"></div>
+  const numerals = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII'];
+  const course = (window.CortexAcademy?.tracks || [])
+    .filter(track => track.available)
+    .findIndex(track => track.id === 'neuro');
+  const stats = [
+    [modules.length, 'Modules'],
+    [pg.total, 'Units'],
+    [codeN, 'Python exercises'],
+    [simN, 'Decision labs'],
+  ];
+
+  const main = el(`<main class="neuro-page neuro-hub nx-hub">
+    <section class="neuro-hero nx-hero">
+      ${neuroHeroArt()}
       <div class="neuro-hero-inner">
-        <span class="neuro-eyebrow">Neuroengineering</span>
-        <h1>Where the mind meets the machine.</h1>
-        <p class="neuro-lede">${modules.length} modules &middot; ${pg.total} units &middot; ${codeN} Python exercises &middot; ${simN} decision labs</p>
-        <p>Learn how a brain&ndash;computer interface turns measured neural activity into action by building each piece yourself in Python, right in the browser.</p>
-        <p class="neuro-membership">
-          <span class="free-pill free-pill--soft">Free</span>
-          <span class="neuro-membership-txt">No account, no paywall</span>
-        </p>
+        <span class="neuro-eyebrow">Neuroengineering${course >= 0 ? ` &middot; Course ${numerals[course]}` : ''}</span>
+        <h1>Where the mind meets <em>the machine.</em></h1>
+        <p class="nx-lede">Learn how a brain&ndash;computer interface turns measured neural activity into action by building each piece yourself in Python, right in the browser.</p>
         ${
           path
             ? `<div class="neuro-cta">
@@ -387,23 +599,45 @@ async function renderNeuroEngineering(options = {}) {
         }
       </div>
     </section>
-    <section class="neuro-body">
-      <div class="neuro-section neuro-foundations">
-        <span class="neuro-section-label">Start here &middot; no prerequisites</span>
+    <section class="nx-stats" aria-label="What is in the course" data-reveal>
+      <dl class="nx-wrap">${stats.map(stat => `<div><dt>${stat[1]}</dt><dd data-countup="${stat[0]}">${stat[0]}</dd></div>`).join('')}</dl>
+    </section>
+    <section class="neuro-body nx-wrap">
+      <div class="neuro-section neuro-foundations" data-reveal>
+        <h2 class="neuro-section-label">Start here &middot; no prerequisites</h2>
         <div class="neuro-lablinks neuro-foundations-row">
-          <button class="neuro-lablink" id="nf-why">1 &middot; Why BCIs? <span>scope and evidence</span></button>
-          <button class="neuro-lablink" id="nf-sci">2 &middot; The science <span>neurons &rarr; signals</span></button>
-          <button class="neuro-lablink" id="nf-code">3 &middot; Never coded? <span>Python in 5 minutes</span></button>
-          <button class="neuro-lablink" id="nf-track">4 &middot; The Track <span>build the BCI</span></button>
+          <button class="neuro-lablink" id="nf-why"><b>01</b><strong>Why BCIs?</strong><span>Scope and evidence</span></button>
+          <button class="neuro-lablink" id="nf-sci"><b>02</b><strong>The science</strong><span>Neurons &rarr; signals</span></button>
+          <button class="neuro-lablink" id="nf-code"><b>03</b><strong>Never coded?</strong><span>Python in 5 minutes</span></button>
+          <button class="neuro-lablink" id="nf-track"><b>04</b><strong>The Track</strong><span>Build the BCI</span></button>
         </div>
         ${NEURO.milestones ? '' : '<p>The optional project list could not load. Foundation lessons remain available.</p><button class="btn" id="neuro-project-retry">Retry project list</button>'}
       </div>
       ${
         path
-          ? `<details class="neuro-track" id="ne-track" ${wide ? 'open' : ''}>
+          ? `<div class="nx-track">
+        <div class="nx-track-head" data-reveal>
+          <span class="neuro-section-label">The track</span>
+          <h2>From raw samples <em>to a closed loop.</em></h2>
+          <p>${modules.length === 4 ? 'Four' : modules.length} modules follow one workflow, ending in a closed-loop toy BCI. No account, no paywall.</p>
+        </div>
+        <div class="nx-modules" data-reveal>${modules
+          .map(module => {
+            const mp = neuroModuleProgress(module);
+            return `<button class="nx-module" type="button" data-module="${esc(module.id)}">
+            ${neuroModuleArt(module.index)}
+            <span class="nx-module-kicker">Module ${numerals[module.index - 1] || module.index} &middot; ${mp.total} units${mp.done ? ` &middot; ${mp.done} done` : ''}</span>
+            <span class="nx-module-name">${esc(module.title)}</span>
+            <span class="nx-module-lede">${esc(module.lede || '')}</span>
+            <span class="nx-module-go">Open module <i aria-hidden="true">&rarr;</i></span>
+          </button>`;
+          })
+          .join('')}</div>
+      </div>
+      <details class="neuro-track" id="ne-track" ${wide ? 'open' : ''}>
         <summary class="neuro-track-summary">
           <span class="neuro-track-head">
-            <span class="label">The Track</span>
+            <span class="label">Every unit</span>
             <span class="neuro-track-summary-meta">
               <span class="neuro-pathstat">${pg.done}/${pg.total} &middot; ${pg.pct}%</span>
               <span class="neuro-track-toggle" aria-hidden="true"><span class="neuro-track-toggle-show">Show units</span><span class="neuro-track-toggle-hide">Hide units</span><span class="neuro-track-toggle-arrow">&darr;</span></span>
@@ -418,7 +652,7 @@ async function renderNeuroEngineering(options = {}) {
       ${
         subjects.length
           ? `<div class="neuro-section neuro-topiclib" id="ne-topiclib">
-        <span class="neuro-section-label">Topic library &middot; ${subjects.length} subjects &middot; ${topicN} topics</span>
+        <h2 class="neuro-section-label">Topic library &middot; ${subjects.length} subjects &middot; ${topicN} topics</h2>
         <p class="neuro-pathsum">Short reference lessons with vocabulary, a quiz and Socratic prompts. Use them beside the Track or on their own.</p>
         <div class="neuro-libgrid">${subjects
           .map(
@@ -479,24 +713,13 @@ async function renderNeuroEngineering(options = {}) {
   main.querySelector('#nf-track')?.addEventListener('click', () => {
     const track = main.querySelector('#ne-track');
     if (track) track.open = true;
-    track?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    (main.querySelector('.nx-track') || track)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
   root.appendChild(main);
   if (typeof siteFooter === 'function') root.appendChild(siteFooter());
   setView(root);
 
-  const nv = root.querySelector('.neuro-video');
-  if (nv) {
-    nv.muted = true;
-    nv.defaultMuted = true;
-    nv.setAttribute('muted', '');
-    // Decorative motion: skipped on phones, data saver and reduced-motion; the poster stands in.
-    const quiet =
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
-      !window.matchMedia('(min-width: 768px)').matches ||
-      navigator.connection?.saveData;
-    if (!quiet) nv.play()?.catch(() => {});
-  }
+  neuroHeroPlay(root.querySelector('.nx-hero'));
 }
 
 /* ---------- modules ---------- */

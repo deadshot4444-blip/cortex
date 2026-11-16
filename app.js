@@ -266,11 +266,11 @@ const SECTION_SCRIPTS = {
     'code-evaluator.js?v=9',
     'neuro-project-engine.js?v=3',
     'neuro-practitioner.js?v=13',
-    'neuro.js?v=46',
+    'neuro.js?v=47',
   ],
   // silver-lab-core.js loads before lab.js so the shell can normalize saved state at parse time;
   // lab.js declares window.CortexLab so the later lab modules can register on it when they load.
-  lab: ['study-storage.js?v=6', 'silver-lab-core.js?v=1', 'lab.js?v=7', 'lab-microscope.js?v=3', 'lab-notebook.js?v=3'],
+  lab: ['study-storage.js?v=6', 'silver-lab-core.js?v=1', 'lab.js?v=8', 'lab-microscope.js?v=3', 'lab-notebook.js?v=3'],
 };
 const _scriptLoads = {};
 function loadScript(src) {

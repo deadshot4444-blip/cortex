@@ -302,6 +302,60 @@
   .lab-badge { border-color: CanvasText; }
 }
 
+/* ---------- Home, Midnight layout (November 2026) ----------
+   The entry page opens on the site's navy band: the name, one sentence, the one button, and a drawing of
+   a stained field beside them. Under it, on the lab's warm paper, the two short paragraphs sit side by
+   side with the honesty line below. The lab keeps its bronze: the label, the plaques in the drawing and
+   the numerals. Only .lab-view-home changes; every other lab view keeps the layout above. */
+#app main.panel.lab-page.lab-view-home { max-width: none; padding: 0; animation: none; }
+.lab-home-band { background: var(--navy); color: var(--on-navy); }
+.lab-home-hero { display: flex; flex-wrap: wrap; align-items: center; gap: 40px 64px; padding-block: clamp(48px, 6vw, 88px) clamp(56px, 7vw, 104px); }
+.lab-home-copy { flex: 1.4 1 420px; display: flex; flex-direction: column; align-items: flex-start; gap: 22px; min-width: 0; }
+.lab-view-home .lab-home-copy .label { color: #dcb98a; }
+#app .lab-view-home h1 { margin: 0; color: inherit; font-size: clamp(44px, 6.2vw, 88px); font-weight: 500; line-height: .96; letter-spacing: -.012em; text-wrap: balance; }
+.lab-view-home h1 em { font-style: italic; font-weight: 400; }
+.lab-view-home .lab-lede { max-width: 540px; margin: 0; color: var(--on-navy-dim); font-size: 18px; line-height: 1.65; text-wrap: pretty; }
+.lab-view-home .lab-home-enter { margin: 6px 0 0; }
+#app .lab-view-home a.lab-enter { display: inline-flex; align-items: center; min-height: 54px; padding: 0 32px; border-color: var(--on-navy); background: var(--on-navy); color: var(--navy); font-size: 16px; }
+#app .lab-view-home a.lab-enter:hover { border-color: #fff; background: #fff; box-shadow: 0 12px 26px -14px rgba(0, 0, 0, .7); }
+.lab-view-home .lab-enter:focus-visible { outline-color: var(--on-navy); }
+.lab-view-home .lab-save-status { margin: 0; color: #f0c98c; }
+.lab-home-figure { flex: 1 1 300px; display: flex; justify-content: center; min-width: 0; }
+.lab-home-figure svg { display: block; width: 100%; max-width: 400px; height: auto; }
+.lab-home-fibres path { stroke: #d7deea; stroke-dasharray: 1; }
+.lab-home-plaques circle { fill: #dcb98a; }
+.lab-home-rim { stroke: #d7deea; stroke-width: 1.6; }
+.lab-home-ticks line { stroke: #d7deea; stroke-opacity: .55; }
+.lab-home-body { display: flex; flex-direction: column; gap: 36px; padding-block: clamp(56px, 7vw, 96px) clamp(48px, 6vw, 80px); }
+.lab-view-home .lab-home-intro { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 36px 56px; max-width: none; margin: 0; counter-reset: lab-home; }
+.lab-view-home .lab-home-intro p { margin: 0; padding-top: 22px; border-top: 1px solid var(--text); color: var(--body); font-size: 17px; line-height: 1.65; counter-increment: lab-home; }
+.lab-view-home .lab-home-intro p::before { content: counter(lab-home, upper-roman); display: block; margin-bottom: 10px; color: var(--lab-accent); font-family: var(--serif); font-size: 22px; font-weight: 500; line-height: 1.2; }
+.lab-view-home .lab-honesty { margin: 0; padding-top: 22px; border-top: 1px solid var(--line-bright); color: var(--body); font-size: 15px; }
+/* arrival: the band stays put, the words rise, the fibres draw themselves in and the plaques follow */
+.lab-home-copy > * { animation: mn-rise .7s var(--ease-out) both; }
+.lab-home-copy > :nth-child(2) { animation-delay: .06s; }
+.lab-home-copy > :nth-child(3) { animation-delay: .12s; }
+.lab-home-copy > :nth-child(4) { animation-delay: .18s; }
+.lab-home-body { animation: mn-rise .7s var(--ease-out) .22s both; }
+.lab-home-fibres path { animation: lab-home-draw 1.5s var(--ease-out) both; animation-delay: calc(.25s + var(--i) * .045s); }
+.lab-home-plaques { animation: lab-home-fade .9s ease 1.5s both; }
+.lab-home-rim, .lab-home-ticks { animation: lab-home-fade .8s ease .1s both; }
+@keyframes lab-home-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes lab-home-fade { from { opacity: 0; } to { opacity: 1; } }
+@media (max-width: 720px) {
+  .lab-home-hero { gap: 28px; }
+  .lab-home-figure svg { max-width: 300px; }
+  .lab-view-home .lab-enter { width: 100%; justify-content: center; }
+  .lab-view-home .lab-home-enter { align-self: stretch; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lab-home-copy > *, .lab-home-body, .lab-home-fibres path, .lab-home-plaques, .lab-home-rim, .lab-home-ticks { animation: none; }
+}
+@media (forced-colors: active) {
+  .lab-home-fibres path, .lab-home-rim, .lab-home-ticks line { stroke: CanvasText; }
+  .lab-home-plaques circle { fill: CanvasText; }
+}
+
 /* ---------- UX-B: the bench in three parts (contract §8.3; PLAN-ALZ-LAB-SIMPLIFY §3.3, §5) ---------- */
 .lab-page [hidden] { display: none !important; }
 .panel.lab-view-bench { padding-top: 28px; }
