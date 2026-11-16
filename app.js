@@ -1480,8 +1480,8 @@ function renderMission() {
 
     <section class="mn-curriculum" aria-labelledby="mn-curriculum-title">
       <div class="mn-wrap">
-        <h2 class="mn-caps" id="mn-curriculum-title">The curriculum</h2>
-        <div class="mn-courses">${open
+        <h2 class="mn-caps" id="mn-curriculum-title" data-reveal>The curriculum</h2>
+        <div class="mn-courses" data-reveal-stagger>${open
           .map(
             (
               track,
@@ -1494,20 +1494,20 @@ function renderMission() {
           </a>`
           )
           .join('')}</div>
-        ${closed.length ? `<p class="mn-review"><span class="mn-caps">In review</span>${closed.map(track => esc(track.name)).join(' &middot; ')}. Closed while the material is reviewed.</p>` : ''}
+        ${closed.length ? `<p class="mn-review" data-reveal><span class="mn-caps">In review</span>${closed.map(track => esc(track.name)).join(' &middot; ')}. Closed while the material is reviewed.</p>` : ''}
       </div>
     </section>
 
     <section class="mn-method" aria-labelledby="mn-method-title">
       <div class="mn-wrap">
-        <span class="mn-caps">How learning works here</span>
-        <h2 id="mn-method-title">Build understanding. <em>Then build on it.</em></h2>
-        <div class="mn-steps">${PRINCIPLES.map((p, i) => `<article class="mn-step"><span class="mn-num" aria-hidden="true">${numerals[i].toLowerCase()}</span><h3>${p[0]}</h3><p>${p[1]}</p></article>`).join('')}</div>
+        <span class="mn-caps" data-reveal>How learning works here</span>
+        <h2 id="mn-method-title" data-reveal>Build understanding. <em>Then build on it.</em></h2>
+        <div class="mn-steps" data-reveal-stagger>${PRINCIPLES.map((p, i) => `<article class="mn-step"><span class="mn-num" aria-hidden="true">${numerals[i].toLowerCase()}</span><h3>${p[0]}</h3><p>${p[1]}</p></article>`).join('')}</div>
       </div>
     </section>
 
     <section class="mn-quote" aria-labelledby="mn-quote-title">
-      <div class="mn-wrap">
+      <div class="mn-wrap" data-reveal-stagger>
         <h2 class="mn-caps" id="mn-quote-title">Why Cortex exists</h2>
         <blockquote>I started Cortex on a simple first-principles conviction: the path into medicine should never be decided by how much money you have.</blockquote>
         <span class="mn-rule" aria-hidden="true"></span>
