@@ -522,9 +522,11 @@ async function renderMCAT() {
   root.appendChild(topbar('mcat'));
   const main = el(`<main class="panel mcat-landing">
     <header class="mcat-simple-hero">
-      <span class="mcat-eyebrow">Free MCAT preparation</span>
-      <h1>Practice with purpose.</h1>
-      <p>Apply the ideas you have studied, review the reasoning, and build stamina one session at a time.</p>
+      <div class="mn-band">
+        <span class="mcat-eyebrow">Free MCAT preparation</span>
+        <h1>Practice with purpose.</h1>
+        <p>Apply the ideas you have studied, review the reasoning, and build stamina one session at a time.</p>
+      </div>
       <div id="course-practice-mode"></div>
       <div class="mcat-simple-facts"><span><strong>${cn || '—'}</strong> cards</span><span><strong>${qn || '—'}</strong> questions</span><span><strong>${carsN + sciN || '—'}</strong> passages</span></div>
       <div class="mcat-cta"><button class="btn btn-solid" id="mc-enter">${findHubResume() || guidePlan() ? 'Continue studying' : 'Start studying'} &rarr;</button><button class="btn" id="mc-quick">Try a 5-minute session</button></div>

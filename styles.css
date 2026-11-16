@@ -4864,7 +4864,7 @@ button.neuro-trackms.open:hover { background: var(--ne-surface); }
 }
 
 /* ----- base ----- */
-body { background: var(--bg); }
+body { background: var(--bg); font-variant-numeric: lining-nums; }
 ::selection { background: var(--navy); color: #fff; }
 .label, .mcat-eyebrow, .menu-head, .mod-stat, .ms-lab {
   font-family: var(--sans);
@@ -4935,7 +4935,8 @@ a.btn.btn-solid:not(.neuro-btn) { color: #fff; }
   background: var(--navy);
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
-  box-shadow: 0 10px 32px rgba(5, 10, 24, .08);
+  /* the first shadow is one navy pixel under the bar, so a band below it never shows a seam */
+  box-shadow: 0 1px 0 var(--navy), 0 10px 32px rgba(5, 10, 24, .08);
   color: var(--on-navy);
 }
 .topbar.mainbar .wordmark {
@@ -5301,7 +5302,7 @@ html:has(main.neuro-page) body { background: var(--nx-bg); }
 html:has(main.neuro-page) .topbar.mainbar {
   border-bottom-color: rgba(180, 192, 203, .22);
   background: var(--nx-bg);
-  box-shadow: none;
+  box-shadow: 0 1px 0 var(--nx-bg);
 }
 html:has(main.neuro-page) .topbar.mainbar .navlink.active,
 html:has(main.neuro-page) .topbar.mainbar .navlink.special.active { box-shadow: inset 0 -1px 0 var(--nx-mint); }
@@ -5624,4 +5625,257 @@ html:has(main.neuro-page) .sf-legal { color: var(--nx-sub); }
   .nx-editor,
   .nx-caret { animation: none; }
   .nx-module:hover .nx-module-go i { transform: none; }
+}
+
+/* ==========================================================================================
+   MIDNIGHT, step 3 — MCAT, DAT and Clinical Scenarios.
+   Each section's entry screens open on the navy band, the MCAT workspace tabs sit in the navy
+   under the top bar, and panels become square, ruled and white. Selectors carry #app so they
+   win over the section stylesheets that load after this file; the working screens keep their
+   layouts and pick up the palette through the section tokens.
+   ========================================================================================== */
+#app .course-workspace {
+  --course-blue: var(--blue);
+  --course-ink: var(--text);
+  --course-muted: var(--dim);
+  --course-line: var(--rule);
+  --course-wash: var(--surface);
+}
+
+/* ----- the navy band: a hero that paints edge to edge from inside its column ----- */
+#app :is(.guide-day-hero, main.course-page > .course-hero, .course-progress-heading, .v2-hero, .mcat-simple-hero > .mn-band, .cshift-hub-hero) {
+  max-width: none;
+  margin: 0 0 clamp(32px, 4vw, 52px);
+  padding-block: clamp(40px, 5vw, 68px) clamp(40px, 5vw, 64px);
+  border: 0;
+  background: var(--navy);
+  box-shadow: 0 0 0 100vmax var(--navy);
+  clip-path: inset(0 -100vmax);
+  color: var(--on-navy);
+}
+#app main:has(> :is(.guide-day-hero, .course-hero, .course-progress-heading, .v2-hero, .cshift-hub-hero)),
+#app main.mcat-landing { padding-top: 0; animation: none; }
+#app main:has(> :is(.guide-day-hero, .course-hero, .course-progress-heading, .v2-hero, .cshift-hub-hero)) > :not(header, .course-notice:first-child),
+#app main.mcat-landing > :not(header),
+#app .mcat-simple-hero > :not(.mn-band) { animation: mn-rise .7s var(--ease-out) .14s both; }
+#app main > .course-notice:first-child { margin-top: 20px; }
+#app :is(.guide-day-hero, .course-progress-heading, .v2-hero, .mn-band, .cshift-hub-hero) > *,
+#app main.course-page > .course-hero > div > * { animation: mn-rise .7s var(--ease-out) both; }
+#app :is(.guide-day-hero, .course-progress-heading, .v2-hero, .mn-band, .cshift-hub-hero) > :nth-child(2),
+#app main.course-page > .course-hero > div > :nth-child(2) { animation-delay: .06s; }
+#app :is(.guide-day-hero, .course-progress-heading, .v2-hero, .mn-band, .cshift-hub-hero) > :nth-child(3),
+#app main.course-page > .course-hero > div > :nth-child(3) { animation-delay: .12s; }
+#app :is(.guide-day-hero, .course-progress-heading, .v2-hero, .mn-band, .cshift-hub-hero) > :nth-child(n + 4),
+#app main.course-page > .course-hero > div > :nth-child(n + 4) { animation-delay: .18s; }
+#app :is(.guide-day-hero, .course-hero, .course-progress-heading, .v2-hero, .mn-band, .cshift-hub-hero) :is(.label, .course-eyebrow, .mcat-eyebrow) {
+  color: var(--silver);
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+}
+#app :is(.guide-day-hero, .course-hero, .course-progress-heading, .v2-hero, .mn-band, .cshift-hub-hero) h1 {
+  max-width: 900px;
+  margin: 18px 0 0;
+  color: inherit;
+  font-size: clamp(40px, 6vw, 84px);
+  line-height: .98;
+  letter-spacing: -.012em;
+  text-wrap: balance;
+}
+#app :is(.guide-day-hero, .course-hero, .course-progress-heading, .v2-hero, .mn-band, .cshift-hub-hero) h1 em { color: inherit; font-style: italic; font-weight: 400; }
+#app :is(.guide-day-hero, .course-progress-heading, .v2-hero, .mn-band, .cshift-hub-hero) > p,
+#app main.course-page > .course-hero > div > p {
+  max-width: 620px;
+  margin: 20px 0 0;
+  color: var(--on-navy-dim);
+  font-size: 18px;
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+#app :is(.guide-day-hero, .course-hero, .course-progress-heading, .v2-hero, .cshift-hub-hero) .btn { border-color: var(--silver); background: none; color: var(--on-navy); }
+#app :is(.guide-day-hero, .course-hero, .course-progress-heading, .v2-hero, .cshift-hub-hero) .btn:hover:not(:disabled) { border-color: var(--on-navy); background: rgba(255, 255, 255, .07); }
+#app :is(.guide-day-hero, .course-hero, .course-progress-heading, .v2-hero, .cshift-hub-hero) .btn-solid { border-color: var(--on-navy); background: var(--on-navy); color: var(--navy); }
+#app :is(.guide-day-hero, .course-hero, .course-progress-heading, .v2-hero, .cshift-hub-hero) .btn-solid:hover:not(:disabled) { border-color: #fff; background: #fff; box-shadow: 0 12px 26px -14px rgba(0, 0, 0, .7); }
+#app :is(.guide-day-hero, .course-hero, .course-progress-heading, .v2-hero, .cshift-hub-hero) :is(a, button, summary):focus-visible { outline-color: var(--on-navy); }
+#app :is(.guide-day-hero, .course-hero) .btn { min-height: 52px; padding: 0 26px; border-radius: 0; font-size: 16px; }
+
+/* the course hero's figure column (lesson and practice-item counts) */
+#app main.course-page > .course-hero { align-items: end; padding-top: clamp(40px, 5vw, 68px); }
+#app .course-hero .course-actions { margin-top: 30px; }
+#app .course-hero-index { border-color: var(--navy-hair); color: var(--on-navy); }
+#app .course-hero-index > span { color: var(--silver); letter-spacing: .16em; }
+#app .course-hero-index > strong {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 12px;
+  color: var(--on-navy);
+  font-family: var(--serif);
+  font-weight: 500;
+  letter-spacing: -.01em;
+  line-height: 1;
+}
+#app .course-hero-index > strong :is(small, span) { margin: 0; color: var(--on-navy-dim); font-family: var(--sans); font-size: 15px; font-weight: 400; letter-spacing: 0; white-space: nowrap; }
+#app .course-hero-index > div { margin-top: 14px; color: var(--on-navy-dim); }
+
+/* ----- MCAT workspace tabs: a second row of the navy frame ----- */
+#app .course-nav {
+  justify-content: center;
+  gap: clamp(20px, 3vw, 44px);
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  box-sizing: border-box;
+  border-bottom: 0;
+  background: var(--navy);
+  color: var(--on-navy);
+}
+/* the tab row's height is fractional; a one-pixel overlap keeps the page color from showing in the seam */
+#app .course-nav + main { margin-top: -1px; }
+#app .course-nav + main > :is(.guide-day-hero, .course-hero, .course-progress-heading, .v2-hero),
+#app .course-nav + main.mcat-landing .mn-band { padding-top: clamp(32px, 4vw, 52px); }
+#app .course-nav-brand { color: var(--on-navy); font-family: var(--sans); }
+#app .course-nav-brand span { color: var(--silver); }
+#app .course-nav button {
+  border-bottom-width: 2px;
+  color: var(--on-navy-dim);
+  font-family: var(--sans);
+  font-size: 15px;
+  transition: color .18s var(--ease-out), border-color .18s var(--ease-out);
+}
+#app .course-nav button:hover { color: #fff; }
+#app .course-nav button[aria-current] { border-color: var(--on-navy); color: #fff; font-weight: 600; }
+#app .course-nav :focus-visible { outline-color: var(--on-navy); }
+
+/* ----- panels: white, ruled, square ----- */
+#app :is(
+  .study-session, .study-next-step, .guide-track-list, .course-unit, .course-map, .course-today, .course-notebook,
+  .course-lab-controls, .course-lab-visual, .course-answers label, .course-feedback, .course-notice, .course-metrics,
+  .course-mode, .course-mode-options button, .course-exam-record, .v2-features > button, .v2-evidence > article,
+  .v2-today-strip, .mcat-simple-list, .repair-priority, .cshift-rotation-list, .cshift-content-status
+),
+#app .course-workspace :is(textarea, select, .btn),
+#app .mcat-landing .btn { border-radius: 0; }
+#app :is(.study-session, .course-unit, .course-today, .v2-features > button, .v2-evidence > article, .v2-today-strip, .mcat-simple-list, .repair-priority, .cshift-rotation-list, .guide-track-list) {
+  border: 1px solid var(--rule);
+  background: #fff;
+  box-shadow: none;
+}
+#app .course-unit:hover { border-color: var(--text); box-shadow: none; }
+#app :is(.course-mode, .course-notice, .course-feedback, .course-notebook, .course-lab-controls) { border: 1px solid var(--rule); background: var(--surface); }
+#app .course-answers label:has(input:checked),
+#app .course-mode-options button[aria-pressed="true"] { border-color: var(--navy); background: var(--blue-soft); box-shadow: inset 0 0 0 1px var(--navy); }
+#app .course-answers input, #app .course-slider input, #app .course-section-progress progress { accent-color: var(--navy); }
+#app :is(.course-lab-badge, .course-today-aside .ghostbtn, .course-feedback-links button) { color: var(--blue); }
+#app .course-mini-track { background: var(--rule); }
+#app .course-mini-track i { background: var(--navy); }
+#app .course-page :is(button, a, input, select, textarea, summary):focus-visible,
+#app .course-today :focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+#app :is(main.course-page, main.mcat-landing, main.guide-page, main.cshift-hub) h2 {
+  font-family: var(--serif);
+  font-weight: 500;
+  letter-spacing: 0;
+}
+#app :is(main.course-page:not(.course-lesson), main.mcat-landing, main.cshift-hub) h2 { font-size: clamp(26px, 2.4vw, 32px); line-height: 1.1; }
+
+/* ----- MCAT Today: the session card beside the other ways in ----- */
+#app .study-session { margin-top: 0; padding: clamp(22px, 3vw, 38px); }
+#app .study-time-picker .label { color: var(--text); font-size: 12px; }
+#app .study-budgets { gap: 0; padding: 0; border: 1px solid var(--text); border-radius: 0; background: #fff; }
+#app .study-budgets .btn { min-height: 44px; border: 0; border-radius: 0; padding: 0 20px; background: #fff; box-shadow: none; color: var(--text); font-size: 15px; transform: none; }
+#app .study-budgets .btn + .btn { border-left: 1px solid var(--text); }
+#app .study-budgets .btn[aria-pressed="true"] { background: var(--navy); color: #fff; }
+#app .study-next-step { margin-top: 22px; padding: 24px 0 4px; border: 0; border-top: 1px solid var(--rule); background: none; }
+#app .study-next-step .label { color: var(--numeral); font-size: 11px; }
+#app .study-next-step h2 { margin: 10px 0 0; font-size: clamp(34px, 3.6vw, 50px); line-height: 1; letter-spacing: -.012em; }
+#app .study-next-step p { margin-top: 10px; color: var(--body); font-size: 18px; line-height: 1.5; }
+#app .study-session > .btn-solid { min-height: 54px; margin-top: 22px; padding: 0 32px; font-size: 16px; }
+#app .study-session :is(.repair-fine, .study-budget-note) { color: var(--body); font-size: 15px; line-height: 1.6; }
+#app .study-save-help { max-width: none; color: var(--body); font-size: 14px; line-height: 1.6; }
+#app .today-library { margin: 0; border-top: 1px solid var(--rule); text-align: left; }
+#app .today-library .ghostbtn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 44px;
+  padding: 22px 4px;
+  color: var(--text);
+  font-family: var(--serif);
+  font-size: 25px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.1;
+  text-align: left;
+  text-transform: none;
+}
+#app .today-library .ghostbtn:hover { color: var(--numeral); }
+#app .guide-schedule { margin-top: 0; border-block: 0; border-top: 1px solid var(--rule); }
+#app .guide-schedule > summary strong { font-family: var(--serif); font-size: 25px; font-weight: 500; line-height: 1.1; }
+#app .guide-schedule > summary small { margin-top: 4px; color: var(--body); font-size: 15px; line-height: 1.5; }
+#app .guide-schedule > summary > i { font-family: var(--sans); font-size: 12px; font-weight: 600; letter-spacing: .14em; }
+#app .guide-schedule[open] > summary > i { font-size: 0; }
+#app .guide-schedule[open] > summary > i::after { font-size: 12px; }
+#app .guide-track.active { background: var(--blue-soft); box-shadow: inset 3px 0 var(--navy); }
+@media (min-width: 1000px) {
+  #app main.guide-welcome { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); column-gap: clamp(40px, 5vw, 64px); align-items: start; max-width: 1200px; }
+  #app main.guide-welcome > * { grid-column: 1 / -1; }
+  #app main.guide-welcome > .study-session { grid-column: 1; grid-row: 2 / span 4; }
+  #app main.guide-welcome > :is(.today-library, .guide-schedule, .study-save-help) { grid-column: 2; }
+  #app main.guide-welcome > .guide-schedule { order: 1; }
+  #app main.guide-welcome > .today-library { order: 2; }
+  #app main.guide-welcome > .study-save-help { order: 3; margin: 0; padding-top: 22px; border-top: 1px solid var(--rule); }
+  #app main.guide-welcome > .guide-schedule[open] { grid-column: 1 / -1; order: 4; margin-top: 28px; }
+}
+
+/* ----- MCAT Course, Practice, Progress ----- */
+#app .course-coverage { margin-top: 0; }
+#app .course-filters .btn[aria-pressed="true"] { border-color: var(--navy); background: var(--navy); color: #fff; }
+#app .course-section-heading > span { color: var(--numeral); font-family: var(--serif); font-size: 20px; font-weight: 500; letter-spacing: 0; }
+#app .course-unit h3 { font-family: var(--serif); font-size: 26px; font-weight: 500; letter-spacing: 0; line-height: 1.1; }
+#app .course-unit-bottom > span:last-child { color: var(--text); font-weight: 600; }
+#app .mcat-simple-hero { padding-top: 0; }
+#app .mcat-simple-hero > .mn-band > p { margin-bottom: 0; }
+#app .v2-features > button .course-eyebrow { color: var(--numeral); }
+#app .v2-features > button strong { color: var(--text); }
+#app .v2-features > button:hover { border-color: var(--text); }
+#app .mcat-simple-tool-copy strong { font-family: var(--serif); font-size: 22px; font-weight: 500; line-height: 1.15; }
+#app .mcat-simple-tool-copy span { font-size: 14px; }
+#app .mcat-simple-tool-stat, #app .mcat-simple-note { font-family: var(--sans); font-size: 12px; letter-spacing: .06em; }
+#app .mcat-simple-fold > summary strong { font-family: var(--serif); font-size: 24px; font-weight: 500; line-height: 1.1; }
+#app .mcat-simple-fold > summary small { font-size: 14px; }
+#app .course-metrics strong { font-family: var(--serif); font-size: 46px; font-weight: 500; line-height: 1.1; }
+#app .course-metrics strong small { font-family: var(--sans); font-size: 15px; }
+
+/* ----- Clinical Scenarios ----- */
+#app .cshift-hub-hero .cshift-content-status {
+  max-width: 720px;
+  margin-top: 24px;
+  border-left: 1px solid var(--silver);
+  background: none;
+  color: var(--on-navy-dim);
+  font-size: 14px;
+  line-height: 1.6;
+}
+#app .dat-section-card { border-color: var(--rule); border-radius: 0; box-shadow: none; }
+#app .dat-section-card h3 { font-family: var(--serif); font-size: 27px; font-weight: 500; letter-spacing: 0; line-height: 1.1; }
+#app .dat-landing h1 .academy-status { border-color: var(--silver); border-radius: 0; color: var(--silver); }
+#app .cshift-rotation-copy span { font-size: 14px; }
+#app .cshift-rotation-progress { font-family: var(--sans); font-size: 12px; letter-spacing: .08em; }
+#app .cshift-rotation-go { font-size: 14px; font-weight: 600; }
+#app .cshift-rotation strong, #app .cshift-rotation h3 { font-family: var(--serif); font-size: 26px; font-weight: 500; letter-spacing: 0; line-height: 1.1; }
+
+@media (max-width: 720px) {
+  #app :is(.guide-day-hero, main.course-page > .course-hero, .course-progress-heading, .v2-hero, .mcat-simple-hero > .mn-band, .cshift-hub-hero) { padding-block: 36px 40px; }
+  #app :is(.guide-day-hero, .course-progress-heading, .v2-hero, .mn-band, .cshift-hub-hero) > p,
+  #app main.course-page > .course-hero > div > p { font-size: 17px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #app main:has(> :is(.guide-day-hero, .course-hero, .course-progress-heading, .v2-hero, .cshift-hub-hero)) > *,
+  #app main.mcat-landing > *,
+  #app .mcat-simple-hero > *,
+  #app :is(.guide-day-hero, .course-progress-heading, .v2-hero, .mn-band, .cshift-hub-hero) > *,
+  #app main.course-page > .course-hero > div > * { animation: none; }
 }
