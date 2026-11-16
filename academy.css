@@ -399,3 +399,47 @@
   .academy-course-num { flex-basis: 100%; }
   .academy-course--closed .academy-course-num { display: none; }
 }
+
+/* Catalog motion (keyframes and easing come from the Midnight layer in styles.css): the navy band
+   stays still while its words come in, the list follows, and links ease on hover. */
+#app main.academy-catalog-page { animation: none; }
+.academy-catalog-page .academy-intro > * { animation: mn-rise .7s var(--ease-out) both; }
+.academy-catalog-page .academy-intro > :nth-child(2) { animation-delay: .06s; }
+.academy-catalog-page .academy-intro > :nth-child(3) { animation-delay: .12s; }
+.academy-catalog-page .academy-intro > :nth-child(4) { animation-delay: .18s; }
+.academy-catalog-page .academy-body { animation: mn-rise .7s var(--ease-out) .2s both; }
+.academy-catalog-page .academy-primary,
+.academy-tools a,
+.academy-catalog-page .academy-course-bottom a,
+.academy-course-more summary {
+  transition:
+    color .18s var(--ease-out),
+    background .18s var(--ease-out),
+    border-color .18s var(--ease-out),
+    transform .18s var(--ease-out),
+    box-shadow .18s var(--ease-out);
+}
+.academy-catalog-page .academy-primary:hover { transform: translateY(-1px); box-shadow: 0 12px 26px -14px rgba(0, 0, 0, .7); }
+.academy-catalog-page .academy-primary:active { transform: none; box-shadow: none; }
+.academy-catalog-page .academy-primary > span,
+.academy-catalog-page .academy-course-bottom a > span {
+  display: inline-block;
+  transition: transform .18s var(--ease-out);
+}
+.academy-catalog-page .academy-primary:hover > span,
+.academy-catalog-page .academy-course:hover .academy-course-bottom a > span { transform: translateX(4px); }
+.academy-catalog-page .academy-course h2 a {
+  text-decoration: underline 1px transparent;
+  text-underline-offset: 6px;
+  transition: color .18s var(--ease-out), text-decoration-color .18s var(--ease-out);
+}
+.academy-catalog-page .academy-course h2 a:hover { text-decoration-color: currentColor; }
+.academy-course-more[open] > dl { animation: mn-rise .35s var(--ease-out) both; }
+@media (prefers-reduced-motion: reduce) {
+  .academy-catalog-page .academy-intro > *,
+  .academy-catalog-page .academy-body,
+  .academy-course-more[open] > dl { animation: none; }
+  .academy-catalog-page .academy-primary:hover,
+  .academy-catalog-page .academy-primary:hover > span,
+  .academy-catalog-page .academy-course:hover .academy-course-bottom a > span { transform: none; }
+}

@@ -4903,13 +4903,14 @@ body { background: var(--bg); }
   text-transform: none;
 }
 .btn:hover:not(:disabled) {
-  transform: none;
+  transform: translateY(-1px);
   border-color: var(--text);
   background: rgba(11, 23, 48, .06);
-  box-shadow: none;
+  box-shadow: 0 8px 18px -12px rgba(11, 23, 48, .5);
 }
 .btn-solid { background: var(--navy); border-color: var(--navy); color: #fff; box-shadow: none; }
-.btn-solid:hover:not(:disabled) { background: #16284f; border-color: #16284f; box-shadow: none; }
+.btn-solid:hover:not(:disabled) { background: #16284f; border-color: #16284f; box-shadow: 0 10px 22px -12px rgba(11, 23, 48, .7); }
+.btn:active:not(:disabled) { transform: none; box-shadow: none; }
 /* A solid button that is a link keeps white text even where a section colors its links. */
 a.btn.btn-solid:not(.neuro-btn) { color: #fff; }
 .ghostbtn {
@@ -4934,7 +4935,7 @@ a.btn.btn-solid:not(.neuro-btn) { color: #fff; }
   background: var(--navy);
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
-  box-shadow: none;
+  box-shadow: 0 10px 32px rgba(5, 10, 24, .08);
   color: var(--on-navy);
 }
 .topbar.mainbar .wordmark {
@@ -5194,3 +5195,64 @@ a.btn.btn-solid:not(.neuro-btn) { color: #fff; }
 .mn-sign strong { display: block; color: var(--on-navy); font-family: var(--serif); font-size: 24px; font-weight: 500; }
 .mn-quote .academy-reach { justify-content: center; margin-top: 0; color: var(--silver); font-size: 13px; }
 .mn-quote .academy-reach .js-visits { color: var(--on-navy); font: 600 16px var(--sans); }
+
+/* ----- motion: the soft timing the earlier design had, carried into this one -----
+   Every hover and press eases instead of snapping, pages that open on a navy band bring their
+   words in while the band stays put (so it reads as one piece with the top bar), and the home
+   page's lower sections rise as they scroll into view through the existing data-reveal hooks. */
+@keyframes mn-rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@keyframes mn-menu { from { opacity: 0; translate: 0 -6px; } to { opacity: 1; translate: 0 0; } }
+
+/* The bar is on screen from the first paint, before the app has drawn anything. */
+#app:empty::before { content: ""; display: block; height: 68px; background: var(--navy); }
+@media (max-width: 1240px) { #app:empty::before { height: 115px; } }
+@media (max-width: 720px) { #app:empty::before { height: 107px; } }
+
+.btn {
+  transition:
+    transform .18s var(--ease-out),
+    box-shadow .18s var(--ease-out),
+    background .18s var(--ease-out),
+    border-color .18s var(--ease-out),
+    color .18s var(--ease-out);
+}
+.topbar.mainbar .navlink {
+  transition: color .18s var(--ease-out), background .18s var(--ease-out), box-shadow .18s var(--ease-out);
+}
+.topbar.mainbar .acctbtn,
+.topbar.mainbar button.ver,
+.ghostbtn,
+.sf-link,
+.mn-textlink,
+.mn-course-name,
+.mn-course-go {
+  transition:
+    color .18s var(--ease-out),
+    background .18s var(--ease-out),
+    border-color .18s var(--ease-out),
+    text-underline-offset .18s var(--ease-out);
+}
+.menupanel:not([hidden]) { animation: mn-menu .2s var(--ease-out) both; }
+
+/* Home: the navy band is there at once; its words follow, one after another. */
+#app main.mn-home { animation: none; }
+.mn-hero .mn-wrap > * { animation: mn-rise .7s var(--ease-out) both; }
+.mn-hero .mn-wrap > :nth-child(2) { animation-delay: .06s; }
+.mn-hero .mn-wrap > :nth-child(3) { animation-delay: .12s; }
+.mn-hero .mn-wrap > :nth-child(4) { animation-delay: .18s; }
+.mn-hero .mn-wrap > :nth-child(5) { animation-delay: .24s; }
+.mn-hero .mn-wrap > :nth-child(6) { animation-delay: .3s; }
+.mn-home [data-reveal],
+.mn-home [data-reveal-stagger] > * {
+  transition-duration: .7s;
+  transition-timing-function: var(--ease-out);
+}
+.mn-hero .btn-solid:hover:not(:disabled) { box-shadow: 0 12px 26px -14px rgba(0, 0, 0, .7); }
+.mn-textlink:hover:not(:disabled) { text-underline-offset: 8px; }
+.mn-course:hover .mn-course-go { color: var(--numeral); text-underline-offset: 8px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn:hover:not(:disabled) { transform: none; }
+  .mn-hero .mn-wrap > *,
+  .menupanel:not([hidden]) { animation: none; }
+}
