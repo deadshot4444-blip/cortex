@@ -44,3 +44,4 @@ Bundled in `assets/fonts/` (Latin subset, variable weight) so the site reads the
 |------|--------|---------|
 | cormorant-garamond-latin-wght-normal.woff2, -italic.woff2 | Cormorant Garamond, The Cormorant Project Authors (github.com/CatharsisFonts/Cormorant), via @fontsource-variable/cormorant-garamond 5.3.0 | SIL Open Font License 1.1 |
 | source-sans-3-latin-wght-normal.woff2 | Source Sans 3, Adobe (github.com/adobe-fonts/source-sans), via @fontsource-variable/source-sans-3 5.3.1 | SIL Open Font License 1.1 |
+| jetbrains-mono-latin-wght-normal.woff2 | JetBrains Mono, JetBrains (github.com/JetBrains/JetBrainsMono), via @fontsource-variable/jetbrains-mono 5.3.0 | SIL Open Font License 1.1 |

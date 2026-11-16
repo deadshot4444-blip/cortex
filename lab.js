@@ -1960,19 +1960,81 @@ function labIntroLabel(lab) {
   return seconds > 0 ? `Watch the ${seconds}-second intro` : 'Watch the intro';
 }
 
-/* ---------- home: three cards, a report link, the progress strip, one honesty line ---------- */
+/* ---------- home: a navy band with the one button, two short paragraphs, one honesty line ---------- */
+// The home page's drawing: a microscope field with stained fibres and three plaques. Decoration only
+// (aria-hidden), made from a seeded generator so it is the same picture on every visit.
+function labHomeFigure() {
+  let seed = 5;
+  const rand = () => {
+    seed = (seed + 0x6d2b79f5) | 0;
+    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+  const between = (low, high) => low + (high - low) * rand();
+  const pick = list => list[Math.floor(rand() * list.length)];
+  const n = value => value.toFixed(1);
+  let fibres = '',
+    plaques = '',
+    ticks = '';
+  for (let i = 0; i < 34; i++) {
+    const x = between(40, 440),
+      y = between(10, 390),
+      angle = between(-0.5, 0.5) + pick([0.3, 1.2]),
+      length = between(120, 300),
+      dx = Math.cos(angle),
+      dy = Math.sin(angle);
+    const bend = at => `${n(x + length * at * dx + between(-40, 40))} ${n(y + length * at * dy + between(-40, 40))}`;
+    fibres += `<path pathLength="1" style="--i:${i}" d="M${n(x)} ${n(y)} C${bend(0.33)} ${bend(0.66)} ${n(x + length * dx)} ${n(y + length * dy)}" stroke-opacity="${between(0.38, 0.9).toFixed(2)}" stroke-width="${pick([1, 1.2, 1.8, 2.4])}"/>`;
+  }
+  for (const [cx, cy, radius] of [
+    [170, 150, 30],
+    [310, 245, 38],
+    [255, 110, 18],
+  ])
+    for (let i = 0; i < Math.floor(radius * 2.2); i++) {
+      const turn = between(0, 2 * Math.PI),
+        out = radius * Math.sqrt(rand());
+      plaques += `<circle cx="${n(cx + out * Math.cos(turn))}" cy="${n(cy + out * Math.sin(turn))}" r="${pick([1.2, 1.8, 2.6])}" opacity="${between(0.5, 1).toFixed(2)}"/>`;
+    }
+  for (let k = 0; k < 72; k++) {
+    const turn = (k * 5 * Math.PI) / 180,
+      outer = k % 6 ? 190 : 198;
+    ticks += `<line x1="${n(240 + 180 * Math.cos(turn))}" y1="${n(200 + 180 * Math.sin(turn))}" x2="${n(240 + outer * Math.cos(turn))}" y2="${n(200 + outer * Math.sin(turn))}"/>`;
+  }
+  return `<svg viewBox="0 0 480 400" fill="none" stroke-linecap="round" aria-hidden="true" focusable="false">
+    <defs><clipPath id="lab-home-field"><circle cx="240" cy="200" r="172"/></clipPath></defs>
+    <g clip-path="url(#lab-home-field)"><g class="lab-home-fibres">${fibres}</g><g class="lab-home-plaques">${plaques}</g></g>
+    <circle class="lab-home-rim" cx="240" cy="200" r="172"/>
+    <g class="lab-home-ticks">${ticks}</g>
+  </svg>`;
+}
 function labRenderHome(lab) {
   // FREE-1: one page, one button. The intro clip, the activities, the designer and the report are
   // reached from the bench's nav line (labNavHtml); the activity progress strip lives on ?view=modules.
+  const track = labTrack();
   const main = el(`<main class="panel lab-page lab-view-home">
-    ${labHeaderHtml(labStatusText(), LAB_TITLE, 'Practice the modified Bielschowsky silver stain step by step, or take the free bench and mix anything to see what happens. Finished runs can be compared with real slides from open-access studies.')}
-    ${LAB.stateError ? `<aside class="course-notice" role="status"><strong>Saved state refused.</strong><p>${esc(LAB.stateError)}</p></aside>` : ''}
-    <div class="lab-home-intro">
-      <p>You get a virtual bench with a practice specimen on a slide. Practice the procedure does the course steps in order with the standard settings; the free bench takes any jar in any order with any mix, and every dip says what happened, even when nothing did.</p>
-      <p>Anything can change: a bath time, the developer, the ammonia, a skipped step, or several at once. The teaching model draws what might happen, says plainly when it has no rule for a change, and never pretends to be a measurement.</p>
+    <section class="lab-home-band">
+      <div class="mn-wrap lab-home-hero">
+        <div class="lab-home-copy">
+          <span class="label">${esc((track && track.kind) || 'Laboratory methods')} &middot; ${esc(labStatusText())}</span>
+          <h1>Alzheimer&#39;s <em>Histology Lab</em></h1>
+          <p class="sub lab-lede">Practice the modified Bielschowsky silver stain step by step, or take the free bench and mix anything to see what happens. Finished runs can be compared with real slides from open-access studies.</p>
+          <div class="lab-home-enter"><a class="btn btn-solid lab-enter" id="lab-enter" data-lab-go href="${esc(labUrl({ view: 'bench' }))}">Enter the lab</a></div>
+          <p role="status" id="lab-save-status" class="lab-save-status"></p>
+          <div id="lab-live" role="status" aria-live="polite" class="lab-sr-only"></div>
+        </div>
+        <div class="lab-home-figure">${labHomeFigure()}</div>
+      </div>
+    </section>
+    <div class="mn-wrap lab-home-body">
+      ${LAB.stateError ? `<aside class="course-notice" role="status"><strong>Saved state refused.</strong><p>${esc(LAB.stateError)}</p></aside>` : ''}
+      <div class="lab-home-intro">
+        <p>You get a virtual bench with a practice specimen on a slide. Practice the procedure does the course steps in order with the standard settings; the free bench takes any jar in any order with any mix, and every dip says what happened, even when nothing did.</p>
+        <p>Anything can change: a bath time, the developer, the ammonia, a skipped step, or several at once. The teaching model draws what might happen, says plainly when it has no rule for a change, and never pretends to be a measurement.</p>
+      </div>
+      ${labHonestyLine()}
     </div>
-    <div class="lab-home-enter"><a class="btn btn-solid lab-enter" id="lab-enter" data-lab-go href="${esc(labUrl({ view: 'bench' }))}">Enter the lab</a></div>
-    ${labHonestyLine()}
   </main>`);
   labView(main);
 }
