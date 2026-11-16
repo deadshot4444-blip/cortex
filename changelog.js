@@ -5,6 +5,19 @@
 
 const CHANGELOG = [
   {
+    version: '2.40.0',
+    tag: 'UPDATE',
+    date: 'November 16, 2026',
+    title: 'A new look for Cortex',
+    items: [
+      'Every page has a new design: a midnight-navy frame, serif headlines and calmer pages, with smooth transitions between screens.',
+      'The home page and the course catalog are simpler. Open courses come first, and each course sits on one row you can scan.',
+      'Neuroengineering has a design of its own, with a code window that types out a small brain–computer interface pipeline.',
+      'MCAT, DAT, Clinical Scenarios and the Histology Lab open on matching pages, and the drill and flashcard setup screens have clearer controls.',
+      'Your saved work, progress and settings are unchanged.',
+    ],
+  },
+  {
     version: '2.39.1',
     tag: 'UPDATE',
     date: 'October 16, 2026',

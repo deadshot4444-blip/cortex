@@ -5985,3 +5985,15 @@ html:has(main.neuro-page) .sf-legal { color: var(--nx-sub); }
 #app main:not(.neuro-page, .lab-page) .cornerframe::before,
 #app main:not(.neuro-page, .lab-page) .cornerframe::after { content: none; }
 #app main:not(.neuro-page, .lab-page) .free-pill { border-radius: 0; font-size: 11px; font-weight: 600; }
+
+/* ----- What's new: the pop-up a returning visitor sees, and the lead card on the updates page ----- */
+.fbmodal-back { background: rgba(11, 23, 48, .55); }
+.fbmodal-back .fbmodal { border-color: var(--rule); border-radius: 0; background: #fff; box-shadow: 0 30px 80px -30px rgba(5, 10, 24, .55); }
+.fbmodal-back .fbmodal :is(textarea, input) { border-radius: 0; }
+.fbmodal-back .upd-modal-date { font-family: var(--sans); font-size: 13px; letter-spacing: 0; }
+.fbmodal-back .upd-modal .upd-xlink,
+.fbmodal-back .upd-modal .upd-xlink-txt { border-radius: 0; font-family: var(--sans); font-size: 14px; letter-spacing: 0; }
+.fbmodal-back .upd-modal-x { border-radius: 0; }
+#app .upd-featured { border-color: var(--rule); border-radius: 0; background: #fff; box-shadow: none; }
+#app .upd-featured h2 { font-family: var(--serif); font-size: clamp(30px, 3.4vw, 40px); font-weight: 500; letter-spacing: 0; line-height: 1.08; }
+#app .upd-featured .upd-xlink { border-radius: 0; }
