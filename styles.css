@@ -5879,3 +5879,109 @@ html:has(main.neuro-page) .sf-legal { color: var(--nx-sub); }
   #app :is(.guide-day-hero, .course-progress-heading, .v2-hero, .mn-band, .cshift-hub-hero) > *,
   #app main.course-page > .course-hero > div > * { animation: none; }
 }
+
+/* ----- step 3, part two: the shared setup-screen controls -----
+   The tool and drill setup screens were built from a handful of older parts: monospace small-caps
+   labels, rounded segmented controls, rounded stat tiles and cards. They are restyled here once, for
+   every light page. Neuroengineering keeps monospace for its code and the Histology Lab keeps its
+   own identity, so both are left out. */
+#app main:not(.neuro-page, .lab-page) { --mono: var(--sans); }
+
+/* segmented controls: square, ink-ruled, sentence case, navy when chosen. Every option carries
+   its own top and left rule and sits one pixel up and left, so the outer frame hides the rules on the
+   first row and column and a wrapped row still gets its dividers. */
+#app main:not(.neuro-page, .lab-page) .modes {
+  display: inline-flex;
+  flex-flow: row wrap;
+  align-self: flex-start;
+  width: fit-content;
+  max-width: 100%;
+  overflow: hidden;
+  border: 1px solid var(--text);
+  border-radius: 0;
+  background: #fff;
+  box-shadow: none;
+}
+#app main:not(.neuro-page, .lab-page) .mode {
+  display: inline-flex;
+  flex: 0 1 auto;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  margin: -1px 0 0 -1px;
+  padding: 0 18px;
+  border: solid var(--text) !important;
+  border-width: 1px 0 0 1px !important;
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-decoration: none;
+  text-transform: none;
+  transition: background .18s var(--ease-out), color .18s var(--ease-out);
+}
+#app main:not(.neuro-page, .lab-page) .mode:hover:not(.active, :disabled) { background: var(--blue-soft); color: var(--text); }
+#app main:not(.neuro-page, .lab-page) .mode:is(.active, [aria-pressed="true"], [aria-current]) { background: var(--navy); color: #fff; }
+#app main:not(.neuro-page, .lab-page) .mode:disabled { color: var(--faint); }
+@media (max-width: 560px) {
+  #app main:not(.neuro-page, .lab-page) .modes { display: flex; width: 100%; }
+  #app main:not(.neuro-page, .lab-page) .mode { flex: 1 1 auto; padding: 0 14px; }
+}
+
+/* stat tiles: one ruled strip, serif figures */
+#app main:not(.neuro-page, .lab-page) :is(.metrics, .mcat-statband) { gap: 1px; border: 1px solid var(--rule); background: var(--rule); }
+#app main:not(.neuro-page, .lab-page) :is(.metric, .mcat-stat, .callout) { border: 0; border-radius: 0; background: #fff; box-shadow: none; }
+#app main:not(.neuro-page, .lab-page) .callout { border: 1px solid var(--rule); }
+#app main:not(.neuro-page, .lab-page) :is(.m-num, .ms-num) {
+  color: var(--text);
+  font-family: var(--serif);
+  font-size: 40px;
+  font-weight: 500;
+  font-variant-numeric: lining-nums tabular-nums;
+  letter-spacing: 0;
+  line-height: 1;
+}
+#app main:not(.neuro-page, .lab-page) :is(.m-lab, .ms-lab) { color: var(--dim); font-size: 11px; font-weight: 600; letter-spacing: .16em; line-height: 1.4; }
+#app main:not(.neuro-page, .lab-page) .m-sub { color: var(--dim); font-size: 13px; }
+
+/* tabs, back links, small notes: the text face, in sentence case */
+#app main:not(.neuro-page, .lab-page) .tabs { gap: 28px; border-bottom-color: var(--rule); }
+#app main:not(.neuro-page, .lab-page) .tab {
+  min-height: 44px;
+  padding: 10px 2px;
+  border-bottom-width: 2px;
+  color: var(--dim);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+  transition: color .18s var(--ease-out), border-color .18s var(--ease-out);
+}
+#app main:not(.neuro-page, .lab-page) .tab:hover { color: var(--text); }
+#app main:not(.neuro-page, .lab-page) .tab.active { border-bottom-color: var(--navy); color: var(--text); }
+#app main:not(.neuro-page, .lab-page) .backbtn {
+  min-height: 44px;
+  color: var(--body);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+  transition: color .18s var(--ease-out);
+}
+#app main:not(.neuro-page, .lab-page) .backbtn:hover { color: var(--text); }
+#app main:not(.neuro-page, .lab-page) .hint { font-size: 13px; letter-spacing: 0; color: var(--dim); }
+#app main:not(.neuro-page, .lab-page) .opt .key { font-size: 14px; font-weight: 600; color: var(--numeral); }
+
+/* cards and panels: square, ruled, white */
+#app main:not(.neuro-page, .lab-page) :is(.card, .cs-card, .rcard, .utsa-card, .cs-config, .mixedbtn, .coverage-area, .v2-catalog-card, .searchbox input, .pomo-timer, .pomo-list, .pomo-add input) { border-radius: 0; box-shadow: none; }
+#app main:not(.neuro-page, .lab-page) :is(.cs-card, .rcard, .utsa-card, .coverage-area, .v2-catalog-card) { border: 1px solid var(--rule); background: #fff; }
+#app main:not(.neuro-page, .lab-page) .cs-card:hover:not(:disabled) { border-color: var(--text) !important; background: #fff; box-shadow: none; }
+#app main:not(.neuro-page, .lab-page) .cs-config { border-color: var(--rule); background: #fff; }
+#app main:not(.neuro-page, .lab-page) .mixedbtn { border-color: var(--navy); background: var(--navy); transition: background .18s var(--ease-out); }
+#app main:not(.neuro-page, .lab-page) .mixedbtn:hover { background: #16284f; }
+#app main:not(.neuro-page, .lab-page) .mixedbtn .mx-r { font-size: 12px; font-weight: 600; letter-spacing: .14em; }
+#app main:not(.neuro-page, .lab-page) :is(.card .name, .cs-card h3, .cs-card .name, .v2-catalog-card h2, .v2-catalog-card h3) { font-family: var(--serif); font-size: 24px; font-weight: 500; letter-spacing: 0; line-height: 1.12; }
+#app main:not(.neuro-page, .lab-page) .cornerframe::before,
+#app main:not(.neuro-page, .lab-page) .cornerframe::after { content: none; }
+#app main:not(.neuro-page, .lab-page) .free-pill { border-radius: 0; font-size: 11px; font-weight: 600; }
