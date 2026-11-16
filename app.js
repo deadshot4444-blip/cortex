@@ -231,7 +231,7 @@ const SECTION_SCRIPTS = {
     'mcat-coverage.js?v=3',
     'mcat-v2-engine.js?v=11',
     'mcat-v2.js?v=19',
-    'mcat.js?v=90',
+    'mcat.js?v=91',
   ],
   // dat.js loads second on purpose: it declares window.DAT so later DAT modules can
   // register their pausers at load time. Each milestone appends its own lines here.
