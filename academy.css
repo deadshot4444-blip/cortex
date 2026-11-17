@@ -198,7 +198,7 @@
 .neuro-series-plot svg { display:block; width:100%; min-width:580px; height:auto; }
 .neuro-series-plot:focus-visible { outline:3px solid var(--ne-text); outline-offset:3px; }
 .neuro-series-threshold { stroke:#e2b86b; }
-.neuro-series-marker { stroke:#fda4af; }
+.neuro-series-marker { stroke:#eef3f6; }
 .neuro-series table { width:100%; border-collapse:collapse; font-variant-numeric:tabular-nums; }
 .neuro-series th, .neuro-series td { padding:10px; border-bottom:1px solid var(--ne-line); text-align:left; }
 .neuro-project p, .neuro-project li { line-height:1.7; overflow-wrap:anywhere; }
