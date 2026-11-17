@@ -5,6 +5,19 @@
 
 const CHANGELOG = [
   {
+    version: '2.42.0',
+    tag: 'UPDATE',
+    date: 'November 17, 2026',
+    title: 'Neuroengineering: labs you can adjust',
+    items: [
+      'Eight decision labs now have a plot you can adjust. Drag a detector threshold, slide a decoder boundary, widen an abstain margin, or change the delay, gain and speed limit of a cursor loop. The numbers beside the plot update as you go.',
+      'After your first answer, each of these labs gives you one thing to try and tells you when you have found it. In two early units the plot opens only after that first answer.',
+      'In the latency lab you can steer the cursor yourself while your view of it runs behind.',
+      'Every number is worked out from the lab’s own rule, the scenario’s setting is one button away, and an exact-values table sits under each plot. Sliders work from the keyboard and the plots fit a phone screen.',
+      'Your saved answers are unchanged. Labs you already started get the adjustable plot too.',
+    ],
+  },
+  {
     version: '2.41.0',
     tag: 'UPDATE',
     date: 'November 17, 2026',
