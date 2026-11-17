@@ -4964,6 +4964,8 @@ a.btn.btn-solid:not(.neuro-btn) { color: #fff; }
   text-transform: none;
 }
 .topbar.mainbar .navlink:hover { color: #fff; background: rgba(255, 255, 255, .07); }
+.topbar.mainbar .menubtn .caret { color: var(--silver); }
+.topbar.mainbar .menubtn:is(.open, :hover) .caret { color: #fff; }
 .topbar.mainbar .navlink.active,
 .topbar.mainbar .navlink.special.active {
   color: #fff;
@@ -5314,6 +5316,21 @@ html:has(main.neuro-page) .sitefoot .wm-glyph,
 html:has(main.neuro-page) .sf-tag,
 html:has(main.neuro-page) .sf-founder,
 html:has(main.neuro-page) .sf-legal { color: var(--nx-sub); }
+/* Every button on a Neuroengineering screen, whether or not it is classed .neuro-btn. The site-wide
+   .btn is ink on paper, which is unreadable on this dark page, so buttons, links, and the right and
+   wrong colors all get dark-page values here. */
+.neuro-page { --green: #6fe3a0; --red: #ff8a93; }
+.neuro-page .btn { border-color: #4a5763; background: transparent; color: var(--nx-text); }
+.neuro-page .btn:hover:not(:disabled) { border-color: var(--nx-text); background: rgba(255, 255, 255, .06); box-shadow: none; color: var(--nx-text); }
+.neuro-page .btn-solid { border-color: var(--nx-mint); background: var(--nx-mint); color: var(--nx-bg); }
+.neuro-page .btn-solid:hover:not(:disabled) { border-color: #a4f7da; background: #a4f7da; box-shadow: 0 12px 28px -14px rgba(111, 240, 194, .55); color: var(--nx-bg); }
+.neuro-page .btn:is(:disabled, [disabled]) { border-color: #2b3641; background: transparent; color: #94a1ad; opacity: 1; }
+.neuro-page .btn-solid:is(:disabled, [disabled]) { border-color: #2b3641; background: #18212a; color: #94a1ad; }
+.neuro-page .neuro-btn-ghost { border-color: transparent; color: var(--ne-body); }
+.neuro-page :where(a:not(.btn)) { color: var(--nx-mint); text-underline-offset: 3px; }
+.neuro-page :where(a:not(.btn)):hover { color: #a4f7da; }
+html:has(main.neuro-page) .connect-context { border-top-color: var(--nx-line); color: var(--nx-sub); }
+html:has(main.neuro-page) .connect-context a { color: var(--nx-mint); }
 .neuro-page .neuro-btn:hover:not(:disabled) { border-color: var(--nx-text); background: rgba(255, 255, 255, .06); color: var(--nx-text); }
 .neuro-page .neuro-btn.btn-solid:hover:not(:disabled) { border-color: #a4f7da; background: #a4f7da; color: var(--nx-bg); box-shadow: 0 12px 28px -14px rgba(111, 240, 194, .55); }
 .neuro-page :is(a, button, summary, input, textarea, select):focus-visible { outline-color: var(--nx-mint); }
