@@ -4972,8 +4972,38 @@ a.btn.btn-solid:not(.neuro-btn) { color: #fff; }
   background: none;
   box-shadow: inset 0 -1px 0 var(--silver);
 }
-.topbar.mainbar .navlink.special { gap: 0; }
-.topbar.mainbar .neuro-ico { display: none; }
+/* The Neuroengineering link keeps a box of its own at the right of the bar: mint-edged, with a small
+   spike for its mark, lit a little on hover and filled in while you are in the course. */
+.topbar.mainbar .navlink.special {
+  gap: 9px;
+  min-height: 40px;
+  padding: 0 15px;
+  border: 1px solid rgba(111, 240, 194, .5);
+  background: linear-gradient(135deg, rgba(111, 240, 194, .13), rgba(111, 240, 194, 0) 64%);
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: .01em;
+  transition:
+    border-color .18s var(--ease-out),
+    background-color .18s var(--ease-out),
+    box-shadow .18s var(--ease-out),
+    color .18s var(--ease-out);
+}
+.topbar.mainbar .navlink.special:hover {
+  border-color: var(--nx-mint);
+  background-color: rgba(111, 240, 194, .1);
+  box-shadow: 0 0 24px -8px rgba(111, 240, 194, .8);
+  color: #fff;
+}
+.topbar.mainbar .navlink.special.active {
+  border-color: var(--nx-mint);
+  background: rgba(111, 240, 194, .14);
+  box-shadow: none;
+  color: var(--nx-mint);
+}
+.topbar.mainbar .neuro-ico { display: block; width: 15px; height: 15px; color: var(--nx-mint); animation: nx-mark 3.2s ease-in-out infinite; }
+@keyframes nx-mark { 0%, 100% { opacity: .6; } 50% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .topbar.mainbar .neuro-ico { animation: none; } }
 .topbar.mainbar .nav-availability { color: var(--silver); font-size: 11px; letter-spacing: .04em; }
 .topbar.mainbar .topstat { color: var(--on-navy-dim); font-family: var(--sans); font-size: 13px; letter-spacing: .02em; }
 .topbar.mainbar .xlink { color: var(--on-navy-dim); }
@@ -5000,7 +5030,8 @@ a.btn.btn-solid:not(.neuro-btn) { color: #fff; }
   .topbar.mainbar .wordmark { gap: 10px; font-size: 15px; letter-spacing: .14em; }
   .topbar.mainbar .wm-glyph { width: 24px; height: 24px; }
   .topbar.mainbar .navlink { min-height: 40px; padding: 6px 10px; font-size: 14px; }
-  .topbar.mainbar .navlink.special { padding: 6px 8px; }
+  .topbar.mainbar .navlink.special { gap: 7px; min-height: 34px; padding: 0 10px; }
+  .topbar.mainbar .neuro-ico { width: 13px; height: 13px; }
   .topbar.mainbar .acctbtn { min-height: 34px; padding: 0 12px; font-size: 14px; }
   .topbar.mainbar button.ver { font-size: 11px; }
 }
@@ -5208,8 +5239,8 @@ a.btn.btn-solid:not(.neuro-btn) { color: #fff; }
 
 /* The bar is on screen from the first paint, before the app has drawn anything. */
 #app:empty::before { content: ""; display: block; height: 68px; background: var(--navy); }
-@media (max-width: 1240px) { #app:empty::before { height: 115px; } }
-@media (max-width: 720px) { #app:empty::before { height: 107px; } }
+@media (max-width: 1240px) { #app:empty::before { height: 111px; } }
+@media (max-width: 720px) { #app:empty::before { height: 101px; } }
 
 .btn {
   transition:
@@ -5306,8 +5337,7 @@ html:has(main.neuro-page) .topbar.mainbar {
   background: var(--nx-bg);
   box-shadow: 0 1px 0 var(--nx-bg);
 }
-html:has(main.neuro-page) .topbar.mainbar .navlink.active,
-html:has(main.neuro-page) .topbar.mainbar .navlink.special.active { box-shadow: inset 0 -1px 0 var(--nx-mint); }
+html:has(main.neuro-page) .topbar.mainbar .navlink.active:not(.special) { box-shadow: inset 0 -1px 0 var(--nx-mint); }
 html:has(main.neuro-page) .sitefoot { border-top-color: var(--nx-line); background: var(--nx-bg); color: var(--nx-text); }
 html:has(main.neuro-page) .sf-brand,
 html:has(main.neuro-page) .sf-link { color: var(--nx-text); }
