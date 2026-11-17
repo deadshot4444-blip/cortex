@@ -146,10 +146,16 @@ function neuroBindLinks(root) {
     })
   );
 }
-/* Code editor: Tab indents, Shift+Tab outdents, Enter keeps indentation. Esc then Tab leaves the editor. */
-function neuroEditorKeys(area) {
+/* Code editor: Tab indents, Shift+Tab outdents, Enter keeps indentation. Esc then Tab leaves the editor.
+   Where the editor has a Run button, Ctrl+Enter (or Cmd+Enter) presses it. */
+function neuroEditorKeys(area, run) {
   let release = false;
   area.addEventListener('keydown', event => {
+    if (run && event.key === 'Enter' && (event.ctrlKey || event.metaKey) && !event.altKey && !event.shiftKey) {
+      event.preventDefault();
+      run();
+      return;
+    }
     if (area.readOnly || event.altKey || event.ctrlKey || event.metaKey) return;
     if (event.key === 'Escape') {
       release = true;
@@ -1432,7 +1438,7 @@ function neuroFigureTable(head, rows) {
         .join('')}</tbody></table></div></details>`;
 }
 function neuroFigureFrame(title, description, svg, notes, table) {
-  return `<figure class="neuro-series"><figcaption><b>${esc(title)}</b> · synthetic data</figcaption>
+  return `<figure class="neuro-series"><figcaption><b>${esc(title)}</b> <span>· synthetic data</span></figcaption>
     <div class="neuro-series-plot" role="region" tabindex="0" aria-label="${esc(title)} chart. Scroll horizontally to inspect the full plot.">${svg}</div>
     ${notes}<p>${esc(description)}</p>${table}</figure>`;
 }
@@ -1467,25 +1473,26 @@ function neuroSeriesMarkup(series, maxSamples = 128) {
   const svg = `<svg viewBox="0 0 580 245" role="img" aria-label="${esc(series.title)}: ${esc(xLabel)} and ${esc(yLabel)}">
       <title>${esc(series.title)}</title><desc>${esc(series.description)} Exact values follow in a table.</desc>
       ${(series.spans || []).map(span => `<rect class="neuro-fig-band" x="${Math.max(110, x(span.start) - half)}" y="30" width="${Math.min(535, x(span.end) + half) - Math.max(110, x(span.start) - half)}" height="160"><title>${esc(span.label)}</title></rect>`).join('')}
-      <path d="M110 30V190H535" fill="none" stroke="currentColor"/>
-      <g fill="currentColor" font-size="13"><text x="107" y="210">${neuroNumber(start)}</text><text x="525" y="210" text-anchor="end">${neuroNumber(start + (values.length - 1) / rate)}</text>
+      <path class="neuro-fig-grid" d="M110 70H535M110 110H535M110 150H535" fill="none" stroke="currentColor" opacity=".14"/>
+      <path class="neuro-fig-axis" d="M110 30V190H535" fill="none" stroke="currentColor"/>
+      <g class="neuro-fig-text" fill="currentColor" font-size="13"><text x="107" y="210">${neuroNumber(start)}</text><text x="525" y="210" text-anchor="end">${neuroNumber(start + (values.length - 1) / rate)}</text>
         <text x="100" y="${y(low) + 4}" text-anchor="end">${neuroNumber(low)}</text>${high !== low ? `<text x="100" y="${y(high) + 4}" text-anchor="end">${neuroNumber(high)}</text>` : ''}
         <text x="318" y="237" text-anchor="middle">${esc(xLabel)}</text><text x="18" y="115" transform="rotate(-90 18 115)" text-anchor="middle">${esc(yLabel)}</text></g>
       ${thresholdVisible ? `<path class="neuro-series-threshold" d="M110 ${y(series.threshold)}H535" fill="none" stroke-width="2" stroke-dasharray="6 4"/>` : ''}
       ${segments.map(points => `<polyline class="neuro-fig-compare" points="${points.join(' ')}" fill="none" stroke-width="2" stroke-dasharray="3 4"/>`).join('')}
       ${compare.map((value, i) => (value === null ? '' : `<rect class="neuro-fig-compare-dot" x="${x(i) - 3.5}" y="${y(value) - 3.5}" width="7" height="7"/>`)).join('')}
-      <polyline points="${values.map((value, i) => `${x(i)},${y(value)}`).join(' ')}" fill="none" stroke="currentColor" stroke-width="2"/>
-      ${values.map((value, i) => `<circle cx="${x(i)}" cy="${y(value)}" r="3" fill="currentColor"/>`).join('')}
+      <polyline class="neuro-fig-line" points="${values.map((value, i) => `${x(i)},${y(value)}`).join(' ')}" fill="none" stroke="currentColor" stroke-width="2"/>
+      ${values.map((value, i) => `<circle class="neuro-fig-dot" cx="${x(i)}" cy="${y(value)}" r="3" fill="currentColor"/>`).join('')}
       ${markers.map(index => `<circle class="neuro-series-marker" cx="${x(index)}" cy="${y(values[index])}" r="7" fill="none" stroke-width="3"><title>Marked sample ${index}</title></circle>`).join('')}</svg>`;
   const notes = [
     series.compare
       ? `Solid line with dots: ${esc(series.primaryLabel || series.title)}. Dotted line with squares: ${esc(series.compare.label)}.`
       : '',
     Number.isFinite(series.threshold)
-      ? `${esc(series.thresholdLabel || 'Threshold')}: ${neuroNumber(series.threshold)} ${esc(series.unit)}${thresholdVisible ? ' · dashed amber line' : ' · outside the displayed range'}.${series.thresholdLabel ? '' : ` ${markers.length} candidate events marked with outlined pink circles.`}`
+      ? `${esc(series.thresholdLabel || 'Threshold')}: ${neuroNumber(series.threshold)} ${esc(series.unit)}${thresholdVisible ? ' · dashed amber line' : ' · outside the displayed range'}.${series.thresholdLabel ? '' : ` ${markers.length} candidate events marked with white circles.`}`
       : '',
     markers.length && (series.thresholdLabel || series.markerLabel || !Number.isFinite(series.threshold))
-      ? `Outlined in pink: ${esc(series.markerLabel || 'marked samples')}.`
+      ? `Circled in white: ${esc(series.markerLabel || 'marked samples')}.`
       : '',
     (series.spans || []).length ? `Shaded: ${series.spans.map(span => esc(span.label)).join('; ')}.` : '',
   ].filter(Boolean);
@@ -1578,20 +1585,20 @@ function neuroBarsMarkup(fig) {
       const yy = top + i * rowH,
         x0 = x(Math.min(0, value)),
         x1 = x(Math.max(0, value));
-      return `<text x="200" y="${yy + 21}" text-anchor="end" fill="currentColor" font-size="13">${esc(fig.labels[i])}</text>
-        <rect x="${x0}" y="${yy + 8}" width="${Math.max(1.5, x1 - x0)}" height="18" fill="currentColor" opacity=".82"/>
+      return `<text class="neuro-fig-text" x="200" y="${yy + 21}" text-anchor="end" fill="currentColor" font-size="13">${esc(fig.labels[i])}</text>
+        <rect class="neuro-fig-bar" x="${x0}" y="${yy + 8}" width="${Math.max(1.5, x1 - x0)}" height="18" fill="currentColor" opacity=".82"/>
         ${markers.has(i) ? `<rect class="neuro-series-marker" x="${x0 - 4}" y="${yy + 4}" width="${Math.max(1.5, x1 - x0) + 8}" height="26" fill="none" stroke-width="3"/>` : ''}
-        <text x="${value < 0 ? x0 - 6 : x1 + 6}" y="${yy + 21}" text-anchor="${value < 0 ? 'end' : 'start'}" fill="currentColor" font-size="12">${neuroNumber(value)}</text>`;
+        <text class="neuro-fig-text" x="${value < 0 ? x0 - 6 : x1 + 6}" y="${yy + 21}" text-anchor="${value < 0 ? 'end' : 'start'}" fill="currentColor" font-size="12">${neuroNumber(value)}</text>`;
     })
     .join('');
   const bottom = top + n * rowH;
   const svg = `<svg viewBox="0 0 580 ${height}" role="img" aria-label="${esc(fig.title)}: bar chart in ${esc(fig.unit)}">
       <title>${esc(fig.title)}</title><desc>${esc(fig.description)} Exact values follow in a table.</desc>
       ${fig.band ? `<rect class="neuro-fig-band" x="${x(fig.band[0])}" y="${top}" width="${x(fig.band[1]) - x(fig.band[0])}" height="${n * rowH}"/>` : ''}
-      <path d="M${x(0)} ${top}V${bottom}" stroke="currentColor" fill="none"/>
+      <path class="neuro-fig-axis" d="M${x(0)} ${top}V${bottom}" stroke="currentColor" fill="none"/>
       ${Number.isFinite(fig.reference) ? `<path class="neuro-series-threshold" d="M${x(fig.reference)} ${top}V${bottom}" fill="none" stroke-width="2" stroke-dasharray="6 4"/>` : ''}
       ${rowsSvg}
-      <text x="370" y="${bottom + 32}" text-anchor="middle" fill="currentColor" font-size="13">${esc(fig.axisLabel || fig.unit)}</text></svg>`;
+      <text class="neuro-fig-text" x="370" y="${bottom + 32}" text-anchor="middle" fill="currentColor" font-size="13">${esc(fig.axisLabel || fig.unit)}</text></svg>`;
   const notes = [
     Number.isFinite(fig.reference)
       ? `Dashed amber line: ${esc(fig.referenceLabel || 'reference')} (${neuroNumber(fig.reference)} ${esc(fig.unit)}).`
@@ -1599,7 +1606,7 @@ function neuroBarsMarkup(fig) {
     fig.band
       ? `Shaded: ${esc(fig.bandLabel || 'band')} (${neuroNumber(fig.band[0])} to ${neuroNumber(fig.band[1])}).`
       : '',
-    markers.size ? `Outlined in pink: ${esc(fig.markerLabel || 'marked rows')}.` : '',
+    markers.size ? `Outlined in white: ${esc(fig.markerLabel || 'marked rows')}.` : '',
   ].filter(Boolean);
   return neuroFigureFrame(
     fig.title,
@@ -1636,12 +1643,13 @@ function neuroScatterMarkup(fig) {
   const svg = `<svg viewBox="0 0 580 245" role="img" aria-label="${esc(fig.title)}: ${esc(fig.xLabel)} against ${esc(fig.yLabel)}">
       <title>${esc(fig.title)}</title><desc>${esc(fig.description)} Exact values follow in a table.</desc>
       <defs><clipPath id="${clip}"><rect x="110" y="30" width="425" height="160"/></clipPath></defs>
-      <path d="M110 30V190H535" fill="none" stroke="currentColor"/>
-      <g fill="currentColor" font-size="13"><text x="110" y="210">${neuroNumber(x0)}</text><text x="535" y="210" text-anchor="end">${neuroNumber(x1)}</text>
+      <path class="neuro-fig-grid" d="M110 70H535M110 110H535M110 150H535" fill="none" stroke="currentColor" opacity=".14"/>
+      <path class="neuro-fig-axis" d="M110 30V190H535" fill="none" stroke="currentColor"/>
+      <g class="neuro-fig-text" fill="currentColor" font-size="13"><text x="110" y="210">${neuroNumber(x0)}</text><text x="535" y="210" text-anchor="end">${neuroNumber(x1)}</text>
         <text x="100" y="194" text-anchor="end">${neuroNumber(y0)}</text><text x="100" y="38" text-anchor="end">${neuroNumber(y1)}</text>
         <text x="318" y="237" text-anchor="middle">${esc(fig.xLabel)}</text><text x="18" y="110" transform="rotate(-90 18 110)" text-anchor="middle">${esc(fig.yLabel)}</text></g>
       <g clip-path="url(#${clip})">${lines.join('')}</g>
-      ${fig.points.map(p => `<circle cx="${x(p.x)}" cy="${y(p.y)}" r="6" ${p.group ? 'fill="currentColor"' : 'fill="none" stroke="currentColor" stroke-width="2"'}><title>${esc(p.label || '')} (${neuroNumber(p.x)}, ${neuroNumber(p.y)}) · ${esc(fig.groups[p.group])}</title></circle>`).join('')}</svg>`;
+      ${fig.points.map(p => `<circle class="neuro-fig-pt neuro-fig-pt-${p.group ? 'b' : 'a'}" cx="${x(p.x)}" cy="${y(p.y)}" r="6" ${p.group ? 'fill="currentColor"' : 'fill="none" stroke="currentColor" stroke-width="2"'}><title>${esc(p.label || '')} (${neuroNumber(p.x)}, ${neuroNumber(p.y)}) · ${esc(fig.groups[p.group])}</title></circle>`).join('')}</svg>`;
   const notes = [
     `Hollow circles: ${esc(fig.groups[0])}. Filled circles: ${esc(fig.groups[1])}.`,
     ...(fig.lines || []).map((line, i) => `${i ? 'Dotted grey' : 'Dashed amber'} line: ${esc(line.label)}.`),
@@ -1666,16 +1674,16 @@ function neuroEventsMarkup(fig) {
     .map((row, i) => {
       const yy = top + i * rowH + 20,
         end = x(row.durationS || fig.durationS);
-      return `<text x="190" y="${yy + 5}" text-anchor="end" fill="currentColor" font-size="13">${esc(row.label)}</text>
+      return `<text class="neuro-fig-text" x="190" y="${yy + 5}" text-anchor="end" fill="currentColor" font-size="13">${esc(row.label)}</text>
         <path d="M200 ${yy}H${end}" stroke="currentColor" opacity=".35" fill="none"/><path d="M${end} ${yy - 8}V${yy + 8}" stroke="currentColor" opacity=".6"/>
-        ${row.times.map(time => `<path d="M${x(time)} ${yy - 13}V${yy + 13}" stroke="currentColor" stroke-width="2.5"/>`).join('')}`;
+        ${row.times.map(time => `<path class="neuro-fig-tick" d="M${x(time)} ${yy - 13}V${yy + 13}" stroke="currentColor" stroke-width="2.5"/>`).join('')}`;
     })
     .join('');
   const bottom = top + fig.rows.length * rowH;
   const svg = `<svg viewBox="0 0 580 ${height}" role="img" aria-label="${esc(fig.title)}: event times over ${neuroNumber(fig.durationS)} seconds">
       <title>${esc(fig.title)}</title><desc>${esc(fig.description)} Exact values follow in a table.</desc>
-      ${rows}<path d="M200 ${bottom}H530" stroke="currentColor" fill="none"/>
-      <g fill="currentColor" font-size="13"><text x="200" y="${bottom + 16}">0</text><text x="530" y="${bottom + 16}" text-anchor="end">${neuroNumber(fig.durationS)}</text><text x="365" y="${bottom + 34}" text-anchor="middle">Time (s)</text></g></svg>`;
+      ${rows}<path class="neuro-fig-axis" d="M200 ${bottom}H530" stroke="currentColor" fill="none"/>
+      <g class="neuro-fig-text" fill="currentColor" font-size="13"><text x="200" y="${bottom + 16}">0</text><text x="530" y="${bottom + 16}" text-anchor="end">${neuroNumber(fig.durationS)}</text><text x="365" y="${bottom + 34}" text-anchor="middle">Time (s)</text></g></svg>`;
   return neuroFigureFrame(
     fig.title,
     fig.description,
@@ -1738,6 +1746,14 @@ function neuroCompleteSim(record) {
   record.completedAt = Date.now();
   return saveNeuroProg();
 }
+// A lab's scenario and signal, with its plot beside them when the lab has one.
+function neuroLabBrief(sim) {
+  const plot = neuroSeriesMarkup(sim.series);
+  return `<div class="nx-lab-brief${plot ? ' has-plot' : ''}"><div class="nx-lab-text">
+      <div class="neuro-block"><span class="label">Scenario</span><p>${esc(sim.scenario)}</p></div>
+      <div class="neuro-block"><span class="label">Signal</span><p>${esc(sim.signalDescription)}</p></div>
+    </div>${plot}</div>`;
+}
 function renderNeuroSim(simId, opts = {}) {
   const record = neuroSimRecord(simId);
   if (!record) {
@@ -1750,34 +1766,47 @@ function renderNeuroSim(simId, opts = {}) {
   const answer = neuroAnswerRecord(record, question),
     chosen = answer.chosen;
   if (!opts.mount) neuroRoute(null, null, null, null, simId);
+  const right = chosen === sim.bestAnswerIndex;
   const body = `<span class="neuro-eyebrow">NeuroSim · ${esc(sim.difficulty || 'lab')}</span><h1>${esc(sim.title)}</h1>
-    <p>Your first answer is saved. Read the model answer, then write one line on why.</p>
-    <div class="neuro-block"><span class="label">Scenario</span><p>${esc(sim.scenario)}</p></div>
-    <div class="neuro-block"><span class="label">Signal</span><p>${esc(sim.signalDescription)}</p></div>${neuroSeriesMarkup(sim.series)}
-    <p class="q">${esc(sim.decisionQuestion)}</p><div class="opts">${answer.order.map((index, i) => `<button class="opt ${chosen === index ? (index === sim.bestAnswerIndex ? 'correct' : 'wrong') : ''}" data-sim-choice="${index}" ${chosen == null ? '' : 'disabled'}><span class="key">${LETTERS[i]}</span><span>${esc(sim.choices[index].label)}</span></button>`).join('')}</div>
+    <p class="nx-stage-note">Your first answer is saved. Read the model answer, then write one line on why.</p>
+    ${neuroLabBrief(sim)}
+    <div class="neuro-block nx-q"><span class="nx-q-n">Decision</span><p class="q">${esc(sim.decisionQuestion)}</p><div class="opts">${answer.order.map((index, i) => `<button class="opt ${chosen === index ? (right ? 'correct' : 'wrong') : chosen != null && index === sim.bestAnswerIndex ? 'is-model' : ''}" data-sim-choice="${index}" ${chosen == null ? '' : 'disabled'}><span class="key">${LETTERS[i]}</span><span>${esc(sim.choices[index].label)}</span></button>`).join('')}</div>
     ${
       chosen == null
         ? ''
-        : `<div class="explain"><b>${chosen === sim.bestAnswerIndex ? 'Correct first answer' : 'First answer needs review'}</b>${chosen === sim.bestAnswerIndex ? '' : `<p>${esc(sim.choices[chosen].rationale)}</p>`}<p>Model answer: ${esc(sim.choices[sim.bestAnswerIndex].label)}</p><p>${esc(sim.choices[sim.bestAnswerIndex].rationale)}</p></div>
-      <p>${esc(sim.oneLineMaster)}</p><label for="sim-debrief">Explain the calculation or one limit of this conclusion.</label>
-      <textarea class="socinput neuro-input" id="sim-debrief" rows="4" maxlength="12000" ${record.completedAt ? 'readonly' : ''}>${esc(record.debrief)}</textarea>
-      ${record.completedAt ? `<p role="status">Saved.</p><button class="btn btn-solid" id="sim-back">${opts.mount ? 'Continue' : 'Back to NeuroSim'}</button>` : `<button class="btn btn-solid" id="sim-complete" ${record.debrief.trim() ? '' : 'disabled'}>Save and finish</button>`}`
+        : `<div class="explain ${right ? 'good' : 'bad'}"><b>${right ? 'Correct first answer' : 'First answer needs review'}</b>${right ? '' : `<p>${esc(sim.choices[chosen].rationale)}</p>`}<p>Model answer: ${esc(sim.choices[sim.bestAnswerIndex].label)}</p><p>${esc(sim.choices[sim.bestAnswerIndex].rationale)}</p></div>`
+    }</div>
+    ${
+      chosen == null
+        ? ''
+        : `<div class="nx-lab-close"><p class="nx-done-take">${esc(sim.oneLineMaster)}</p>
+      <div class="nx-field nx-field-ask"><label for="sim-debrief">Explain the calculation or one limit of this conclusion.</label>
+      <textarea class="socinput neuro-input" id="sim-debrief" rows="4" maxlength="12000" ${record.completedAt ? 'readonly' : ''}>${esc(record.debrief)}</textarea></div>
+      <div class="nx-stage-foot">${record.completedAt ? `<button class="btn btn-solid" id="sim-back">${opts.mount ? 'Continue' : 'Back to NeuroSim'}</button><p class="nx-stage-next" role="status">Saved.</p>` : `<button class="btn btn-solid" id="sim-complete" ${record.debrief.trim() ? '' : 'disabled'}>Save and finish</button><span class="nx-stage-next">One line is enough.</span>`}</div></div>`
     }
-    ${sim.sources?.length ? `<details><summary>Sources</summary><ul>${sim.sources.map(source => `<li><a href="${esc(source.url)}" target="_blank" rel="noopener">${esc(source.title)}</a></li>`).join('')}</ul></details>` : ''}`;
+    ${sim.sources?.length ? `<details class="nx-sources"><summary>Sources</summary><ul>${sim.sources.map(source => `<li><a href="${esc(source.url)}" target="_blank" rel="noopener">${esc(source.title)}</a></li>`).join('')}</ul></details>` : ''}`;
   const main = el(
     opts.mount
-      ? `<section class="neuro-stage">${body}</section>`
-      : `<main class="neuro-page neuro-inner"><section class="neuro-body"><button class="backbtn topback" id="neback">← Back to NeuroSim Lab</button>${body}</section></main>`
+      ? `<section class="neuro-stage nx-stage nx-s-sim">${body}</section>`
+      : `<main class="neuro-page neuro-inner nx-bench nx-labpage${opts.quiet ? ' is-quiet' : ''}"><section class="neuro-body"><button class="backbtn topback" id="neback">← Back to NeuroSim Lab</button>${body}</section></main>`
   );
   main.querySelector('#neback')?.addEventListener('click', () => renderNeuroSimLibrary());
-  const redraw = () => {
+  // A redraw after an answer keeps the reader where they were and moves focus to what just appeared.
+  const redraw = focus => {
+    const y = typeof scrollY === 'number' ? scrollY : 0;
     if (opts.mount) main.remove();
-    renderNeuroSim(simId, opts);
+    renderNeuroSim(simId, { ...opts, quiet: true });
+    if (opts.mount || typeof scrollTo !== 'function') return;
+    scrollTo(0, y);
+    const target = document.querySelector(`.nx-labpage ${focus}`);
+    if (!target) return;
+    target.setAttribute('tabindex', '-1');
+    target.focus({ preventScroll: true });
   };
   main.querySelectorAll('[data-sim-choice]').forEach(
     button =>
       (button.onclick = () => {
-        if (neuroChoose(record, question, Number(button.dataset.simChoice))) redraw();
+        if (neuroChoose(record, question, Number(button.dataset.simChoice))) redraw('.explain');
       })
   );
   const input = main.querySelector('#sim-debrief'),
@@ -1793,7 +1822,7 @@ function renderNeuroSim(simId, opts = {}) {
     complete.onclick = () => {
       if (neuroCompleteSim(record)) {
         if (opts.onDone) opts.onDone(true);
-        else redraw();
+        else redraw('.nx-lab-close');
       }
     };
   const back = main.querySelector('#sim-back');
@@ -1892,6 +1921,89 @@ function neuroCodeEntry(codeId) {
   if (!old || typeof old !== 'object') NEURO_PROG.code[codeId] = { legacyCompletion: old === true };
   return NEURO_PROG.code[codeId];
 }
+/* The exercise editor is a textarea with a painted copy of its text underneath. The copy carries
+   the Python colors and the line numbers; the textarea, its own text transparent, carries the caret
+   and the typing. The two have to wrap identically, so the painted mode is used only where that can
+   be relied on (a mouse or trackpad, not iOS) and is dropped for good the moment the textarea needs
+   more room than the copy gives it. Everywhere else the editor is the plain textarea. */
+const NEURO_PY_WORDS =
+  /^(?:def|return|if|elif|else|for|while|in|not|and|or|import|from|as|lambda|class|try|except|finally|raise|with|pass|break|continue|is|assert|global|nonlocal|yield|del|None|True|False)$/;
+function neuroPyHighlight(code) {
+  const token =
+    /(#[^\n]*)|("""[\s\S]*?(?:"""|$)|'''[\s\S]*?(?:'''|$)|"(?:\\.|[^"\\\n])*"?|'(?:\\.|[^'\\\n])*'?)|\b(\d[\d_]*(?:\.[\d_]+)?(?:[eE][+-]?\d+)?)\b|\b([A-Za-z_]\w*)\b/g;
+  const lines = [''];
+  const put = (text, kind) => {
+    text.split('\n').forEach((part, i) => {
+      if (i) lines.push('');
+      if (part) lines[lines.length - 1] += kind ? `<span class="${kind}">${esc(part)}</span>` : esc(part);
+    });
+  };
+  let at = 0,
+    match;
+  while ((match = token.exec(code))) {
+    if (!match[0]) {
+      token.lastIndex++;
+      continue;
+    }
+    put(code.slice(at, match.index));
+    put(
+      match[0],
+      match[1] ? 'nx-c' : match[2] ? 'nx-s' : match[3] ? 'nx-n' : NEURO_PY_WORDS.test(match[4]) ? 'nx-k' : ''
+    );
+    at = token.lastIndex;
+  }
+  put(code.slice(at));
+  return lines.map(line => `<span class="nx-l">${line}</span>`).join('');
+}
+function neuroEditorRich(host, area, plain) {
+  const layer = host?.querySelector('[data-highlight]');
+  if (!layer || plain || typeof matchMedia !== 'function' || typeof CSS !== 'object') return () => {};
+  if (
+    !matchMedia('(pointer: fine)').matches ||
+    matchMedia('(forced-colors: active)').matches ||
+    CSS.supports('-webkit-touch-callout', 'none')
+  )
+    return () => {};
+  let rich = true,
+    queued = false;
+  host.classList.add('is-rich');
+  // The check below resizes the textarea for an instant; that must never be eased.
+  area.style.setProperty('transition', 'none', 'important');
+  // The textarea lies over the copy, so its own content height is read with its height set aside
+  // for a moment; the two agree when the last painted line ends where the typed text ends.
+  const verify = () => {
+    queued = false;
+    if (!rich || !host.isConnected || !host.offsetWidth) return;
+    const held = area.style.height;
+    area.style.height = '0';
+    const typed = area.scrollHeight - parseFloat(getComputedStyle(area).paddingBottom);
+    area.style.height = held;
+    area.scrollTop = area.scrollLeft = 0;
+    const last = layer.lastElementChild;
+    if (last && Math.abs(typed - (last.offsetTop + last.offsetHeight)) <= 2) return;
+    rich = false;
+    host.classList.remove('is-rich');
+    layer.textContent = '';
+  };
+  // Nothing scrolls inside the textarea in this mode; if a browser nudges it, put it back.
+  area.addEventListener('scroll', () => {
+    if (rich && (area.scrollTop || area.scrollLeft)) area.scrollTop = area.scrollLeft = 0;
+  });
+  const paint = () => {
+    if (!rich) return;
+    layer.innerHTML = neuroPyHighlight(area.value);
+    if (queued || typeof requestAnimationFrame !== 'function') return;
+    queued = true;
+    requestAnimationFrame(verify);
+  };
+  paint();
+  return paint;
+}
+// The tab on the editor window: the function the exercise asks for, as a file name.
+function neuroCodeFile(lesson) {
+  const name = lesson?.checks?.function;
+  return typeof name === 'string' && /^[A-Za-z_]\w*$/.test(name) ? `${name}.py` : 'exercise.py';
+}
 function mountNeuroCodeSandbox(lesson, codeId, opts, shell) {
   const entry = neuroCodeEntry(codeId);
   const work = opts.work || (entry.current ||= neuroNewCodeWork(lesson));
@@ -1899,33 +2011,54 @@ function mountNeuroCodeSandbox(lesson, codeId, opts, shell) {
   const last = neuroCodeLastCheck(work);
   const reflection = !lesson.checks && !neuroCodeIsRunnablePython(lesson.solution);
   saveNeuroProg();
-  const sandbox =
-    el(`<div class="neuro-sandbox"><span class="label">${reflection ? 'Written practice' : 'Python practice'}</span>
-    <p>${lesson.checks ? 'Check runs your function on several input cases. The example printout alone cannot pass.' : reflection ? 'Compare your response with the model; written explanations are not automatically graded.' : 'This draft exercise compares only the example output. It has no tests of other inputs yet.'}</p>
-    <p class="neuro-prose">${esc(lesson.challengePrompt)}</p>
-    <label for="neuro-code-editor">${reflection ? 'Your explanation' : 'Python editor <span class="neuro-editor-hint mono">Tab indents &middot; Esc then Tab leaves</span>'}</label><textarea id="neuro-code-editor" class="neuro-code-draft" rows="14" maxlength="40000" spellcheck="false">${esc(work.draft)}</textarea>
-    <div class="neuro-sandbox-actions">${reflection ? '' : '<button class="btn btn-solid" data-run-code>Run</button><button class="btn" data-stop-code hidden>Stop Python</button>'}<button class="btn" data-check-code>${reflection ? 'Save and compare' : 'Check'}</button>
-      <details class="neuro-sandbox-more"><summary class="btn">More</summary><div class="neuro-sandbox-more-inner">
-        <button class="btn" data-reset-code>Reset editor</button><button class="btn" data-show-hint>Hint</button><button class="btn" data-show-sol>Reveal solution</button><button class="btn" data-load-sol>Load solution</button>
-      </div></details></div>
-    <p data-py-status role="status">${esc(last?.message || 'Draft saved in this browser.')}</p>
-    <pre class="neuro-code" data-term-log>${esc(last?.stdout || '')}${last?.stderr ? '\n' + esc(last.stderr) : ''}</pre>
+  const sandbox = el(`<div class="neuro-sandbox nx-work${reflection ? ' is-written' : ''}">
+    <div class="nx-win nx-editor-win">
+      <div class="nx-win-bar"><i></i><i></i><i></i><span class="nx-win-tab">${esc(reflection ? 'response.txt' : neuroCodeFile(lesson))}</span>${reflection ? '' : '<span class="neuro-editor-hint mono">Tab indents &middot; Esc then Tab leaves</span>'}</div>
+      <label class="nx-sr" for="neuro-code-editor">${reflection ? 'Your explanation' : 'Python editor'}</label>
+      <div class="nx-edit" data-editor><pre class="nx-edit-hl" data-highlight aria-hidden="true"></pre><textarea id="neuro-code-editor" class="neuro-code-draft" rows="14" maxlength="40000" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off">${esc(work.draft)}</textarea></div>
+      <div class="neuro-sandbox-actions nx-win-foot">${reflection ? '' : '<button class="btn btn-solid" data-run-code title="Run (Ctrl+Enter)" aria-keyshortcuts="Control+Enter Meta+Enter">Run</button><button class="btn" data-stop-code hidden>Stop Python</button>'}<button class="btn" data-check-code>${reflection ? 'Save and compare' : 'Check'}</button>
+        <details class="neuro-sandbox-more"><summary class="btn">More</summary><div class="neuro-sandbox-more-inner">
+          <button class="btn" data-show-hint>Hint</button><button class="btn" data-show-sol>Reveal solution</button><button class="btn" data-load-sol>Load solution</button><button class="btn" data-reset-code>Reset editor</button>
+        </div></details>
+        <p class="nx-status" data-py-status role="status">${esc(last?.message || 'Draft saved in this browser.')}</p></div>
+    </div>
+    <div class="nx-win nx-out-win"${reflection ? ' hidden' : ''}><div class="nx-win-bar"><span class="nx-win-tab">output</span></div><pre class="neuro-code" data-term-log>${esc(last?.stdout || '')}${last?.stderr ? '\n' + esc(last.stderr) : ''}</pre></div>
+    <p class="nx-fine nx-how">${lesson.checks ? 'Check runs your function on several input cases. The example printout alone cannot pass.' : reflection ? 'Compare your response with the model; written explanations are not automatically graded.' : 'This draft exercise compares only the example output. It has no tests of other inputs yet.'}</p>
     <div data-check-results></div><div data-extra></div>
-    ${lesson.checks ? '<div class="neuro-sandbox-actions"><button class="btn" data-trace-code>Trace without Python</button><button class="btn" data-export-code>Download current code</button></div><div data-manual-trace></div>' : ''}
-    <p data-gate>${opts.requirePass ? 'Finish this exercise to continue. Results and help used remain in your saved work.' : 'Checks describe only this exercise.'}</p>
+    ${lesson.checks ? '<div class="neuro-sandbox-actions nx-work-links"><button class="btn" data-trace-code>Trace without Python</button><button class="btn" data-export-code>Download current code</button></div><div data-manual-trace></div>' : ''}
+    <p class="nx-fine" data-gate>${opts.requirePass ? 'Finish this exercise to continue. Results and help used remain in your saved work.' : 'Checks describe only this exercise.'}</p>
     <div class="continue-row" data-continue-row ${opts.requirePass && !neuroWorkComplete(work) ? 'hidden' : ''}><button class="btn btn-solid" data-code-done>Continue</button></div></div>`);
   const draft = sandbox.querySelector('#neuro-code-editor'),
     status = sandbox.querySelector('[data-py-status]');
   const log = sandbox.querySelector('[data-term-log]'),
     extra = sandbox.querySelector('[data-extra]');
   const continueRow = sandbox.querySelector('[data-continue-row]');
+  // The More menu closes once something in it is chosen, on Escape, and when focus moves away.
+  const more = sandbox.querySelector('.neuro-sandbox-more');
+  const closeMore = () => {
+    if (!more?.open) return;
+    more.open = false;
+    more.querySelector('summary').focus({ preventScroll: true });
+  };
+  if (more) {
+    more.addEventListener('keydown', event => {
+      if (event.key !== 'Escape' || !more.open) return;
+      more.open = false;
+      more.querySelector('summary').focus();
+    });
+    more.addEventListener('focusout', event => {
+      if (!more.contains(event.relatedTarget)) more.open = false;
+    });
+  }
   let busy = false,
     continued = false,
     controller;
   const stop = sandbox.querySelector('[data-stop-code]');
   if (stop) stop.onclick = () => controller?.abort();
+  const gate = sandbox.querySelector('[data-gate]');
   const refreshGate = () => {
     continueRow.hidden = !!opts.requirePass && !neuroWorkComplete(work);
+    if (opts.requirePass) gate.hidden = !continueRow.hidden;
   };
   const saveDraft = () => {
     if (StudyStorage.paused || busy) return;
@@ -1933,14 +2066,18 @@ function mountNeuroCodeSandbox(lesson, codeId, opts, shell) {
     saveNeuroProg();
     refreshGate();
   };
-  draft.oninput = saveDraft;
-  if (!reflection) neuroEditorKeys(draft);
+  const paint = neuroEditorRich(sandbox.querySelector('[data-editor]'), draft, reflection);
+  draft.oninput = () => {
+    paint();
+    saveDraft();
+  };
+  if (!reflection) neuroEditorKeys(draft, () => execute(false));
   function showFeedback(feedback) {
     if (!feedback) return;
     status.textContent = feedback.message;
     log.textContent = [feedback.stdout, feedback.stderr].filter(Boolean).join('\n');
     sandbox.querySelector('[data-check-results]').innerHTML =
-      `${feedback.explanation ? `<p>${esc(feedback.explanation)}</p>` : ''}${feedback.cases ? `<ol>${feedback.cases.map((item, i) => `<li>Case ${i + 1}: ${item.passed ? 'passed' : 'needs work'} · expected ${esc(item.expected)}, received ${esc(item.actual)}${item.argsPreserved === false ? ' · input was changed' : ''}</li>`).join('')}</ol>` : ''}`;
+      `${feedback.explanation ? `<p>${esc(feedback.explanation)}</p>` : ''}${feedback.cases ? `<ol class="nx-cases">${feedback.cases.map((item, i) => `<li class="${item.passed ? 'ok' : 'no'}"><b>Case ${i + 1}: ${item.passed ? 'passed' : 'needs work'}</b> · expected <code>${esc(item.expected)}</code>, received <code>${esc(item.actual)}</code>${item.argsPreserved === false ? ' · input was changed' : ''}</li>`).join('')}</ol>` : ''}`;
   }
   function showSupport() {
     extra.innerHTML = `${work.support.hintAt ? `<p class="sochint">${esc(lesson.hint)}</p>` : ''}${work.support.solutionAt ? `<details open><summary>Authored solution · consulted</summary><pre class="neuro-code">${esc(lesson.solution)}</pre><p>Loading or reading the model is recorded as support used.</p></details>` : ''}`;
@@ -2087,6 +2224,15 @@ function mountNeuroCodeSandbox(lesson, codeId, opts, shell) {
       if (stop) stop.hidden = true;
       showTrace();
       refreshGate();
+      // The buttons were disabled while Python ran, which drops keyboard focus; hand it back.
+      const starter = check ? sandbox.querySelector('[data-check-code]') : run;
+      if (starter && (!document.activeElement || document.activeElement === document.body))
+        starter.focus({ preventScroll: true });
+      if (check)
+        (continueRow.hidden ? sandbox.querySelector('[data-check-results]') : continueRow).scrollIntoView({
+          behavior: 'auto',
+          block: 'nearest',
+        });
     }
   }
   const run = sandbox.querySelector('[data-run-code]');
@@ -2119,29 +2265,35 @@ function mountNeuroCodeSandbox(lesson, codeId, opts, shell) {
     };
   sandbox.querySelector('[data-check-code]').onclick = () => execute(true);
   sandbox.querySelector('[data-reset-code]').onclick = () => {
+    closeMore();
     if (StudyStorage.paused || busy) return;
     work.previousDraft = work.draft;
     draft.value = lesson.codeExample.trim();
+    paint();
     saveDraft();
     status.textContent = 'Starter restored. The preceding draft is retained in recovery data.';
   };
   sandbox.querySelector('[data-show-hint]').onclick = () => {
+    closeMore();
     if (StudyStorage.paused || busy) return;
     work.support.hintAt ||= Date.now();
     saveNeuroProg();
     showSupport();
   };
   sandbox.querySelector('[data-show-sol]').onclick = () => {
+    closeMore();
     if (StudyStorage.paused || busy) return;
     work.support.solutionAt ||= Date.now();
     saveNeuroProg();
     showSupport();
   };
   sandbox.querySelector('[data-load-sol]').onclick = () => {
+    closeMore();
     if (StudyStorage.paused || busy) return;
     work.previousDraft = work.draft;
     work.support.solutionAt ||= Date.now();
     draft.value = lesson.solution.trim();
+    paint();
     saveDraft();
     showSupport();
   };
@@ -2154,6 +2306,7 @@ function mountNeuroCodeSandbox(lesson, codeId, opts, shell) {
   showFeedback(last);
   showSupport();
   showTrace();
+  refreshGate();
   shell.appendChild(sandbox);
 }
 
@@ -2166,10 +2319,20 @@ function renderNeuroCode(codeId, opts = {}) {
     return;
   }
 
-  const conceptBlock = `<div class="neuro-block"><span class="label">Concept</span><p class="neuro-prose">${esc(lesson.explanation)}</p>
-    <p class="neuro-mono">${esc(lesson.codingConcept)} &middot; ${esc(lesson.neuroengineeringConcept)}</p></div>${neuroSeriesMarkup(lesson.series)}
-    ${lesson.checks ? '<details><summary>New to Python functions?</summary><p>A function starts with def, followed by its name and inputs in parentheses. Indented lines form its body. return sends a result back to the caller; print only displays a value. A list stores values in order, and its first index is 0. Replace the marked starter lines, run an example, then use Check to call your function with several inputs.</p><p><a href="/neuro?view=python" data-neuro-python>Never coded? Read Python in five minutes.</a></p></details>' : ''}
-    ${lesson.sources?.length ? `<details><summary>Sources</summary><ul>${lesson.sources.map(source => `<li><a href="${esc(source.url)}" target="_blank" rel="noopener">${esc(source.title)}</a></li>`).join('')}</ul></details>` : ''}`;
+  const reflection =
+    !lesson.checks && typeof neuroCodeIsRunnablePython === 'function' && !neuroCodeIsRunnablePython(lesson.solution);
+  const heading = opts.mount ? ['h2', 'neuro-h2'] : ['h1', 'neuro-h1'];
+  const brief = `<div class="nx-ex-brief">
+      <span class="neuro-eyebrow">NeuroCode &middot; ${esc(lesson.codingConcept)}</span>
+      <${heading[0]} class="${heading[1]}">${esc(lesson.title)}</${heading[0]}>
+      <div class="neuro-block"><span class="label">Concept</span><p class="neuro-prose">${esc(lesson.explanation)}</p>
+        <p class="nx-tags"><span>${esc(lesson.codingConcept)}</span><span>${esc(lesson.neuroengineeringConcept)}</span></p></div>
+      ${neuroSeriesMarkup(lesson.series)}
+      <div class="neuro-block nx-task"><span class="label">${reflection ? 'Your prompt' : 'Your task'}</span><p class="neuro-prose">${esc(lesson.challengePrompt)}</p></div>
+      ${lesson.checks ? '<details><summary>New to Python functions?</summary><p>A function starts with def, followed by its name and inputs in parentheses. Indented lines form its body. return sends a result back to the caller; print only displays a value. A list stores values in order, and its first index is 0. Replace the marked starter lines, run an example, then use Check to call your function with several inputs.</p><p><a href="/neuro?view=python" data-neuro-python>Never coded? Read Python in five minutes.</a></p></details>' : ''}
+      ${lesson.sources?.length ? `<details class="nx-sources"><summary>Sources</summary><ul>${lesson.sources.map(source => `<li><a href="${esc(source.url)}" target="_blank" rel="noopener">${esc(source.title)}</a></li>`).join('')}</ul></details>` : ''}
+      ${opts.mount ? '' : `<p class="neuro-master"><span class="label">In one line</span>${esc(lesson.oneLineMaster)}</p>`}
+    </div>`;
 
   if (opts.mount) {
     const mount = typeof opts.mount === 'string' ? document.querySelector(opts.mount) : opts.mount;
@@ -2177,11 +2340,7 @@ function renderNeuroCode(codeId, opts = {}) {
       if (opts.onDone) opts.onDone(false);
       return;
     }
-    const wrap = el(`<section class="neuro-stage neuro-embed">
-      <span class="neuro-eyebrow">NeuroCode &middot; ${esc(lesson.codingConcept)}</span>
-      <h2 class="neuro-h2">${esc(lesson.title)}</h2>
-      ${conceptBlock}
-    </section>`);
+    const wrap = el(`<section class="neuro-stage neuro-embed nx-stage nx-s-code nx-ex">${brief}</section>`);
     mount.appendChild(wrap);
     neuroBindLinks(wrap);
     mountNeuroCodeSandbox(lesson, codeId, opts, wrap);
@@ -2190,18 +2349,15 @@ function renderNeuroCode(codeId, opts = {}) {
 
   const root = el('<div></div>');
   root.appendChild(topbar('neuro'));
-  const main = el(`<main class="neuro-page neuro-inner">
+  const main = el(`<main class="neuro-page neuro-inner nx-bench nx-codepage">
     <section class="neuro-body">
       <button class="backbtn topback" id="neback">&larr; Back to NeuroCode Lab</button>
-      <span class="neuro-eyebrow">NeuroCode &middot; ${esc(lesson.codingConcept)}</span>
-      <h1 class="neuro-h1">${esc(lesson.title)}</h1>
-      ${conceptBlock}
-      <p class="neuro-mono neuro-master">${esc(lesson.oneLineMaster)}</p>
+      <div class="nx-ex">${brief}</div>
     </section>
   </main>`);
   main.querySelector('#neback').addEventListener('click', renderNeuroCodeLab);
   neuroBindLinks(main);
-  mountNeuroCodeSandbox(lesson, codeId, opts, main.querySelector('.neuro-body'));
+  mountNeuroCodeSandbox(lesson, codeId, opts, main.querySelector('.nx-ex'));
   root.appendChild(main);
   setView(root);
 }
@@ -2433,6 +2589,49 @@ function neuroUnitAdvance(record, expectedStage) {
 function neuroUnitStages() {
   return neUnit ? neuroStageKeys(neUnit.record.content) : [];
 }
+/* The unit's progress rail is a synthetic trace with one spike per stage. The spikes sit at the
+   centre of each stage's column, so the markers drawn above them in HTML line up at any width. */
+function neuroRailPath(count, seed) {
+  const width = 1200,
+    y = 42,
+    amp = 28,
+    step = 6,
+    rand = neuroRng(seed);
+  const spikes = Array.from({ length: count }, (_, i) => ((i + 0.5) * width) / count);
+  const pts = [];
+  let v = 0,
+    next = 0;
+  for (let x = 0; x <= width; x += step) {
+    v = 0.55 * v + rand.gauss(0, amp * 0.09);
+    while (next < spikes.length && spikes[next] <= x) {
+      const at = spikes[next++],
+        last = pts.length ? pts[pts.length - 1][0] : -1;
+      pts.push(
+        [Math.max(at - 1.6, last + 0.2), y + v],
+        [at, y - amp],
+        [at + 1.8, y + amp * 0.4],
+        [at + 3.4, y + v * 0.5]
+      );
+    }
+    if (!pts.length || pts[pts.length - 1][0] < x) pts.push([x, y + v]);
+  }
+  return 'M' + pts.map(pt => `${pt[0].toFixed(1)} ${pt[1].toFixed(1)}`).join(' L');
+}
+function neuroRailMarkup(stages, seed) {
+  const d = neuroRailPath(stages.length, seed);
+  const trace = name =>
+    `<svg class="nx-rail-trace ${name}" viewBox="0 0 1200 64" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="${d}" fill="none" vector-effect="non-scaling-stroke"/></svg>`;
+  return `<div class="nx-rail" id="neunitrail" style="--nx-stages:${stages.length}">
+      <div class="nx-rail-head"><span class="nx-rail-title">Unit progress</span><span class="nx-rail-now" id="neunitlab" role="status"></span></div>
+      <div class="nx-rail-track">${trace('nx-rail-base')}${trace('nx-rail-live')}
+        <ol class="nx-rail-steps" aria-label="Stages in this unit">${stages
+          .map(
+            (key, i) =>
+              `<li data-rail-step><span class="nx-rail-n" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span><span class="nx-rail-name">${esc(UNIT_STAGE_LABELS[key])}</span><span class="nx-sr"></span></li>`
+          )
+          .join('')}</ol>
+      </div></div>`;
+}
 function renderNeuroUnit(stepId) {
   const step = neuroPath()?.steps.find(item => item.id === stepId);
   if (!step) return renderNeuroEngineering();
@@ -2443,15 +2642,19 @@ function renderNeuroUnit(stepId) {
   const root = el('<div></div>');
   root.appendChild(topbar('neuro'));
   const module = neuroModuleOf(step),
-    subject = neuroSubject(step.subjectId);
-  const main = el(`<main class="neuro-page neuro-inner"><section class="neuro-body">
-    <button class="backbtn topback" id="neback">&larr; Back to Neuroengineering</button>
-    <span class="neuro-eyebrow">${module ? `Module ${module.index} &middot; ${esc(module.title)} &middot; ` : ''}Unit ${neuroUnitNumber(step)} / ${neuroPath().steps.length}</span>
-    <h1 class="neuro-h1">${esc(record.content.step.title)}</h1>
-    <p class="neuro-unit-sub">${esc(step.explanation || '')}</p>
-    <p class="neuro-unit-meta mono">${esc(step.estimatedFocus || '')}${subject ? ` &middot; ${esc(subject.name)}` : ''}</p>
-    <div class="neuro-runbar cornerframe"><div class="cs-runbar-meta"><span class="label">Unit progress</span><span id="neunitlab"></span></div><span class="bar"><i id="neunitfill"></i></span></div>
-    <div id="neunitstages"></div>${neuroAboutLine()}</section></main>`);
+    subject = neuroSubject(step.subjectId),
+    number = neuroUnitNumber(step);
+  const main = el(`<main class="neuro-page neuro-inner nx-bench nx-unit"><section class="neuro-body">
+    <header class="nx-unit-head">
+      <button class="backbtn topback" id="neback">&larr; Back to Neuroengineering</button>
+      <span class="neuro-eyebrow">${module ? `Module ${module.index} &middot; ${esc(module.title)} &middot; ` : ''}Unit ${number} / ${neuroPath().steps.length}</span>
+      <h1 class="neuro-h1">${esc(record.content.step.title)}</h1>
+      <p class="neuro-unit-sub">${esc(step.explanation || '')}</p>
+      <p class="neuro-unit-meta mono">${esc(step.estimatedFocus || '')}${subject ? ` &middot; ${esc(subject.name)}` : ''}</p>
+      ${module ? `<div class="nx-unit-art">${neuroModuleArt(module.index)}</div>` : ''}
+    </header>
+    ${neuroRailMarkup(neuroStageKeys(record.content), 4100 + number)}
+    <div id="neunitstages" tabindex="-1"></div>${neuroAboutLine()}</section></main>`);
   main.querySelector('#neback').onclick = () => renderNeuroEngineering();
   neuroBindLinks(main);
   root.appendChild(main);
@@ -2460,16 +2663,84 @@ function renderNeuroUnit(stepId) {
 }
 function neuroUnitProgress() {
   const record = neUnit.record,
-    stages = neuroUnitStages();
-  document.getElementById('neunitfill').style.width = `${Math.round((100 * record.stageIdx) / stages.length)}%`;
-  document.getElementById('neunitlab').textContent = record.completedAt
+    stages = neuroUnitStages(),
+    done = !!record.completedAt;
+  const rail = document.getElementById('neunitrail');
+  // The lit part of the trace runs to the spike of the stage in progress.
+  rail.style.setProperty(
+    '--nx-progress',
+    `${(100 * (done ? 1 : (record.stageIdx + 0.5) / stages.length)).toFixed(2)}%`
+  );
+  rail.classList.toggle('is-complete', done);
+  rail.querySelectorAll('[data-rail-step]').forEach((item, i) => {
+    const state = done || i < record.stageIdx ? 'done' : i === record.stageIdx ? 'now' : 'next';
+    item.dataset.state = state;
+    if (state === 'now') item.setAttribute('aria-current', 'step');
+    else item.removeAttribute('aria-current');
+    item.querySelector('.nx-sr').textContent = state === 'done' ? ' (done)' : state === 'now' ? ' (in progress)' : '';
+  });
+  rail.closest('main').dataset.stage = done ? 'complete' : stages[record.stageIdx];
+  document.getElementById('neunitlab').textContent = done
     ? 'Complete'
     : `Stage ${record.stageIdx + 1} / ${stages.length} · ${UNIT_STAGE_LABELS[stages[record.stageIdx]]}`;
 }
-function neuroUnitAppend() {
+/* Where a stage is shown for the first time it comes in from below, the page jumps to the rail
+   (the stage before it may have been several screens long) and keyboard focus moves to the stage.
+   A redraw of the same stage (an answer chosen, a hint opened) keeps the page where it is and puts
+   focus on what just appeared. */
+function neuroUnitArrive(node, key, focus) {
+  const container = document.getElementById('neunitstages');
+  const first = neUnit.shown == null,
+    changed = neUnit.shown !== key;
+  neUnit.shown = key;
+  if (first) return;
+  if (changed) {
+    node.classList.add('is-entering');
+    const rail = document.getElementById('neunitrail'),
+      top = rail.getBoundingClientRect().top;
+    if (top < 76 || top > innerHeight * 0.4) rail.scrollIntoView({ behavior: 'auto', block: 'start' });
+    container.focus({ preventScroll: true });
+    return;
+  }
+  const target = focus && node.querySelector(focus);
+  if (target) {
+    if (!target.matches('button, textarea, input, a[href], summary')) target.setAttribute('tabindex', '-1');
+    target.focus({ preventScroll: true });
+  }
+}
+// Prose from the course file: a blank line starts a new paragraph.
+function neuroParas(text, cls = '') {
+  return String(text || '')
+    .split(/\n\s*\n/)
+    .filter(part => part.trim())
+    .map(part => `<p${cls ? ` class="${cls}"` : ''}>${esc(part.trim())}</p>`)
+    .join('');
+}
+// A worked example is a chain of short statements, so it is set as numbered steps when it has several.
+function neuroSentences(text) {
+  const source = String(text || '').trim(),
+    boundary = /[.!?]\s+(?=[A-Z[("“])/g,
+    out = [];
+  let from = 0,
+    match;
+  while ((match = boundary.exec(source))) {
+    out.push(source.slice(from, match.index + 1));
+    from = boundary.lastIndex;
+  }
+  if (from < source.length) out.push(source.slice(from));
+  return out;
+}
+function neuroStepsMarkup(text) {
+  const parts = neuroSentences(text);
+  return parts.length < 3
+    ? `<p class="neuro-prose">${esc(text)}</p>`
+    : `<ol class="nx-steps">${parts.map(part => `<li>${esc(part)}</li>`).join('')}</ol>`;
+}
+function neuroUnitAppend(focus) {
   const record = neUnit.record,
     { step, unit, checks, code, sim } = record.content;
-  const stage = neuroStageKeys(record.content)[record.stageIdx];
+  const stages = neuroStageKeys(record.content),
+    stage = stages[record.stageIdx];
   neuroRoute(step.id, stage || 'complete');
   neuroUnitProgress();
   const container = document.getElementById('neunitstages');
@@ -2477,6 +2748,12 @@ function neuroUnitAppend() {
   if (record.completedAt) return neuroUnitFinish();
   const advance = () => {
     if (neuroUnitAdvance(record, stage)) neuroUnitAppend();
+  };
+  const upNext = stages[record.stageIdx + 1],
+    nextNote = upNext ? `Next &middot; ${esc(UNIT_STAGE_LABELS[upNext])}` : '';
+  const show = (node, key = stage) => {
+    container.appendChild(node);
+    neuroUnitArrive(node, key, focus);
   };
   if (stage === 'code') {
     record.codeWork ||= neuroNewCodeWork(code);
@@ -2488,6 +2765,7 @@ function neuroUnitAppend() {
       requirePass: true,
       onDone: advance,
     });
+    if (container.firstElementChild) neuroUnitArrive(container.firstElementChild, stage, focus);
     return;
   }
   if (stage === 'quiz' || stage === 'sim') {
@@ -2502,30 +2780,36 @@ function neuroUnitAppend() {
               correctIndex: sim.bestAnswerIndex,
             },
           ];
+    const ready = neuroUnitReady(record);
     const intro =
       stage === 'sim'
-        ? `<h2>${esc(sim.title)}</h2><p>${esc(sim.scenario)}</p><p>${esc(sim.signalDescription)}</p>${neuroSeriesMarkup(sim.series)}`
-        : '<p>Your first answer is saved. Read the explanation, then continue.</p>';
+        ? `<h2 class="nx-lab-title">${esc(sim.title)}</h2>${neuroLabBrief(sim)}`
+        : '<p class="nx-stage-note">Your first answer is saved. Read the explanation, then continue.</p>';
+    const waiting =
+      stage === 'sim' || questions.length === 1 ? 'Choose an answer to continue.' : 'Answer each question to continue.';
     const node = el(
-      `<section class="neuro-stage"><span class="label">${UNIT_STAGE_LABELS[stage]}</span>${intro}<div id="neuro-unit-questions"></div><button class="btn btn-solid" id="neuro-unit-next" ${neuroUnitReady(record) ? '' : 'disabled'}>Continue after review</button></section>`
+      `<section class="neuro-stage nx-stage nx-s-${stage}"><span class="label">${UNIT_STAGE_LABELS[stage]}</span>${intro}<div id="neuro-unit-questions"></div>
+      <div class="nx-stage-foot"><button class="btn btn-solid" id="neuro-unit-next" ${ready ? '' : 'disabled'}>Continue after review</button><span class="nx-stage-next">${ready ? nextNote : waiting}</span></div></section>`
     );
-    for (const question of questions) {
+    questions.forEach((question, n) => {
       const answer = neuroAnswerRecord(record, question),
-        chosen = answer.chosen;
+        chosen = answer.chosen,
+        right = chosen === question.correctIndex;
       const explanation = stage === 'sim' && chosen != null ? sim.choices[chosen].rationale : question.explanation;
       const item = el(
-        `<div class="neuro-block"><p class="q">${esc(question.prompt)}</p><div class="opts">${answer.order.map((index, i) => `<button class="opt ${chosen === index ? (index === question.correctIndex ? 'correct' : 'wrong') : ''}" data-choice="${index}" ${chosen == null ? '' : 'disabled'}><span class="key">${LETTERS[i]}</span><span>${esc(question.choices[index])}</span></button>`).join('')}</div>${chosen == null ? '' : `<div class="explain"><b>${chosen === question.correctIndex ? 'Correct first answer' : 'First answer needs review'}</b><p>Model answer: ${esc(question.choices[question.correctIndex])}</p><p>${esc(explanation)}</p></div>`}</div>`
+        `<div class="neuro-block nx-q" data-q="${n}"><span class="nx-q-n">${stage === 'sim' ? 'Decision' : `Question ${n + 1} of ${questions.length}`}</span><p class="q">${esc(question.prompt)}</p><div class="opts">${answer.order.map((index, i) => `<button class="opt ${chosen === index ? (right ? 'correct' : 'wrong') : chosen != null && index === question.correctIndex ? 'is-model' : ''}" data-choice="${index}" ${chosen == null ? '' : 'disabled'}><span class="key">${LETTERS[i]}</span><span>${esc(question.choices[index])}</span></button>`).join('')}</div>${chosen == null ? '' : `<div class="explain ${right ? 'good' : 'bad'}"><b>${right ? 'Correct first answer' : 'First answer needs review'}</b><p>Model answer: ${esc(question.choices[question.correctIndex])}</p><p>${esc(explanation)}</p></div>`}</div>`
       );
       item.querySelectorAll('[data-choice]').forEach(
         button =>
           (button.onclick = () => {
-            if (neuroChoose(record, question, Number(button.dataset.choice))) neuroUnitAppend();
+            if (neuroChoose(record, question, Number(button.dataset.choice)))
+              neuroUnitAppend(`[data-q="${n}"] .explain`);
           })
       );
       node.querySelector('#neuro-unit-questions').appendChild(item);
-    }
+    });
     node.querySelector('#neuro-unit-next').onclick = advance;
-    container.appendChild(node);
+    show(node);
     return;
   }
   if (stage === 'recall') {
@@ -2536,12 +2820,22 @@ function neuroUnitAppend() {
     }
     const index = record.recallIdx,
       prompt = prompts[index],
-      saved = (record.recall[index] ||= { draft: '' });
+      saved = (record.recall[index] ||= { draft: '' }),
+      last = index + 1 === prompts.length;
     const node =
-      el(`<section class="neuro-stage"><span class="label">Active recall ${index + 1}/${prompts.length}</span><p class="q">${esc(prompt.prompt)}</p>
-      <label for="neuro-recall">Your explanation (optional)</label><textarea class="socinput neuro-input" id="neuro-recall" rows="4" maxlength="12000" ${saved.revealedAt ? 'readonly' : ''}>${esc(saved.draft)}</textarea>
-      ${saved.revealedAt ? `<div class="explain"><b>Compare with the model</b><p>${esc(prompt.answer)}</p><p>Your writing is saved without automatic grading.</p></div><button class="btn btn-solid" id="neuro-recall-next">${index + 1 === prompts.length ? 'Continue' : 'Next prompt'}</button>` : `<button class="btn" id="neuro-recall-hint">Hint</button><button class="btn btn-solid" id="neuro-recall-reveal">Save and compare</button>`}
-      ${saved.hintAt ? `<p class="sochint">${esc(prompt.hint)}</p>` : ''}</section>`);
+      el(`<section class="neuro-stage nx-stage nx-s-recall${saved.revealedAt ? ' is-revealed' : ''}"><span class="label">Active recall ${index + 1}/${prompts.length}</span>
+      <p class="nx-stage-note">Answer from memory before you compare. Writing is optional and is never graded.</p>
+      <p class="q">${esc(prompt.prompt)}</p>
+      <div class="nx-recall-grid">
+        <div class="nx-field"><label for="neuro-recall">Your explanation (optional)</label><textarea class="socinput neuro-input" id="neuro-recall" rows="5" maxlength="12000" ${saved.revealedAt ? 'readonly' : ''}>${esc(saved.draft)}</textarea></div>
+        ${saved.revealedAt ? `<div class="explain nx-model"><b>Compare with the model</b><p>${esc(prompt.answer)}</p><p class="nx-fine">Your writing is saved without automatic grading.</p></div>` : ''}
+      </div>
+      ${saved.hintAt && !saved.revealedAt ? `<p class="sochint">${esc(prompt.hint)}</p>` : ''}
+      <div class="nx-stage-foot">${
+        saved.revealedAt
+          ? `<button class="btn btn-solid" id="neuro-recall-next">${last ? 'Continue' : 'Next prompt'}</button><span class="nx-stage-next">${last ? nextNote : `Next &middot; prompt ${index + 2} of ${prompts.length}`}</span>`
+          : `<button class="btn btn-solid" id="neuro-recall-reveal">Save and compare</button>${saved.hintAt ? '' : '<button class="btn" id="neuro-recall-hint">Hint</button>'}`
+      }</div></section>`);
     node.querySelector('#neuro-recall').oninput = event => {
       if (saved.revealedAt || StudyStorage.paused) return;
       saved.draft = event.target.value;
@@ -2552,14 +2846,14 @@ function neuroUnitAppend() {
       hint.onclick = () => {
         if (StudyStorage.paused) return;
         saved.hintAt ||= Date.now();
-        if (saveNeuroProg()) neuroUnitAppend();
+        if (saveNeuroProg()) neuroUnitAppend('.sochint');
       };
     const reveal = node.querySelector('#neuro-recall-reveal');
     if (reveal)
       reveal.onclick = () => {
         if (StudyStorage.paused) return;
         saved.revealedAt ||= Date.now();
-        if (saveNeuroProg()) neuroUnitAppend();
+        if (saveNeuroProg()) neuroUnitAppend('.nx-model');
       };
     const next = node.querySelector('#neuro-recall-next');
     if (next)
@@ -2568,32 +2862,38 @@ function neuroUnitAppend() {
         record.recallIdx++;
         if (saveNeuroProg()) neuroUnitAppend();
       };
-    container.appendChild(node);
+    show(node, `recall:${index}`);
     return;
   }
   const topic = stage === 'lesson' ? neuroTopic(step.topicId) : null;
-  const body =
-    stage === 'lesson'
-      ? `<div class="neuro-kv"><span>Objective</span><span>${esc(step.stepObjective)}</span></div>
-        ${
-          unit
-            ? `<h2>Why it matters</h2><p>${esc(unit.whyItMatters)}</p>
-        <h2>The idea</h2><p>${esc(unit.shortLesson)}</p>
-        ${unit.keyTerms?.length ? `<p class="neuro-terms">${unit.keyTerms.map(term => `<span>${esc(term)}</span>`).join('')}</p>` : ''}
-        <h2>Mental model</h2><p>${esc(unit.mentalModel)}</p>
-        <h2>Worked example</h2><p class="neuro-prose">${esc(unit.workedExample)}</p>
-        ${neuroFigureMarkup(unit.figure || neuroUnitLesson(step.order)?.figure)}
-        ${unit.commonMistake ? `<h2>Common mistake</h2><p>${esc(unit.commonMistake)}</p>` : ''}`
-            : `<p>${esc(step.explanation)}</p>`
-        }
-        ${topic ? `<div class="neuro-deeper"><span class="label">Go deeper</span><button class="neuro-deeper-link" type="button" id="neuro-unit-topic">${esc(topic.title)} <span>Reference lesson &middot; vocabulary &middot; ${topic.quizQuestions?.length || 0}-question quiz &middot; Socratic study</span></button></div>` : ''}`
-      : `<p>${esc(step.reflectionQuestion || 'What changed in your understanding?')}</p><label for="neuro-debrief">Your debrief (optional)</label><textarea class="socinput neuro-input" rows="4" id="neuro-debrief" maxlength="12000">${esc(record.debrief)}</textarea>`;
-  const sources =
-    stage === 'lesson' && unit.sources?.length
-      ? `<details><summary>Sources and scope</summary><ul>${unit.sources.map(source => `<li><a href="${esc(source.url)}" target="_blank" rel="noopener">${esc(source.title)}</a></li>`).join('')}</ul></details>`
+  let body;
+  if (stage === 'lesson') {
+    const terms = unit?.keyTerms?.length
+      ? `<div class="nx-aside-block"><span class="nx-aside-label">Key terms</span><p class="neuro-terms">${unit.keyTerms.map(term => `<span>${esc(term)}</span>`).join('')}</p></div>`
       : '';
+    const deeper = topic
+      ? `<div class="neuro-deeper nx-aside-block"><span class="label nx-aside-label">Go deeper</span><button class="neuro-deeper-link" type="button" id="neuro-unit-topic">${esc(topic.title)} <span>Reference lesson &middot; vocabulary &middot; ${topic.quizQuestions?.length || 0}-question quiz &middot; Socratic study</span></button></div>`
+      : '';
+    const sources = unit?.sources?.length
+      ? `<details class="nx-aside-block nx-sources"><summary>Sources and scope</summary><ul>${unit.sources.map(source => `<li><a href="${esc(source.url)}" target="_blank" rel="noopener">${esc(source.title)}</a></li>`).join('')}</ul></details>`
+      : '';
+    body = `<div class="neuro-kv"><span>Objective</span><span>${esc(step.stepObjective)}</span></div>
+      <div class="nx-lesson-grid"><div class="nx-lesson-main">${
+        unit
+          ? `<section class="nx-sec"><h2>Why it matters</h2>${neuroParas(unit.whyItMatters)}</section>
+        <section class="nx-sec"><h2>The idea</h2>${neuroParas(unit.shortLesson)}</section>
+        <section class="nx-sec nx-sec-model"><h2>Mental model</h2>${neuroParas(unit.mentalModel)}</section>
+        <section class="nx-sec nx-sec-worked"><h2>Worked example</h2>${neuroStepsMarkup(unit.workedExample)}
+        ${neuroFigureMarkup(unit.figure || neuroUnitLesson(step.order)?.figure)}</section>
+        ${unit.commonMistake ? `<section class="nx-sec nx-sec-mistake"><h2>Common mistake</h2>${neuroParas(unit.commonMistake)}</section>` : ''}`
+          : `<p>${esc(step.explanation)}</p>`
+      }</div>${terms || deeper || sources ? `<aside class="nx-lesson-aside" aria-label="Lesson reference">${terms}${deeper}${sources}</aside>` : ''}</div>`;
+  } else
+    body = `<p class="q">${esc(step.reflectionQuestion || 'What changed in your understanding?')}</p>
+      <div class="nx-field"><label for="neuro-debrief">Your debrief (optional)</label><textarea class="socinput neuro-input" rows="5" id="neuro-debrief" maxlength="12000">${esc(record.debrief)}</textarea></div>`;
   const node = el(
-    `<section class="neuro-stage"><span class="label">${UNIT_STAGE_LABELS[stage]}</span>${body}${sources}<button class="btn btn-solid" id="neuro-unit-next">${stage === 'debrief' ? 'Complete unit' : 'Continue'}</button></section>`
+    `<section class="neuro-stage nx-stage nx-s-${stage}"><span class="label">${UNIT_STAGE_LABELS[stage]}</span>${body}
+      <div class="nx-stage-foot"><button class="btn btn-solid" id="neuro-unit-next">${stage === 'debrief' ? 'Complete unit' : 'Continue'}</button>${nextNote ? `<span class="nx-stage-next">${nextNote}</span>` : ''}</div></section>`
   );
   const input = node.querySelector('#neuro-debrief');
   if (input)
@@ -2606,7 +2906,7 @@ function neuroUnitAppend() {
   node
     .querySelector('#neuro-unit-topic')
     ?.addEventListener('click', () => renderNeuroTopic(step.topicId, { fromUnit: step.id }));
-  container.appendChild(node);
+  show(node);
 }
 function neuroUnitFinish() {
   const record = neUnit.record,
@@ -2619,17 +2919,21 @@ function neuroUnitFinish() {
   const nextModule = next ? neuroModuleOf(next) : null;
   const newModule = !!nextModule && nextModule.id !== neuroModuleOf(step)?.id;
   const node =
-    el(`<section class="neuro-stage"><h2>Unit ${index + 1 || step.order} complete</h2><p>${correct}/${checks.length} quick checks correct on the first attempt. Your original responses remain saved.</p>
-    <p>${esc(step.oneLineMaster)}</p><details><summary>Review saved writing and checks</summary>
+    el(`<section class="neuro-stage nx-stage nx-s-done"><span class="nx-done-mark" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="22.5"/><path d="M14.5 24.5l6.5 6.5 12.5-13.5"/></svg></span>
+    <h2>Unit ${index + 1 || step.order} complete</h2>
+    <p class="nx-done-take">${esc(step.oneLineMaster)}</p>
+    <p class="nx-done-score">${correct}/${checks.length} quick checks correct on the first attempt. Your original responses remain saved.</p>
+    <details class="nx-review"><summary>Review saved writing and checks</summary>
     ${(unit?.activeRecallPrompts || []).map((prompt, i) => `<div class="neuro-block"><p><b>${esc(prompt.prompt)}</b></p><p>Your answer: ${esc(record.recall[i]?.draft || '(No written answer)')}</p><p>Model: ${esc(prompt.answer)}</p>${record.recall[i]?.hintAt ? '<p>Hint used</p>' : ''}</div>`).join('')}
     ${checks.map(q => `<div class="neuro-block"><p><b>${esc(q.prompt)}</b></p><p>First answer: ${esc(q.choices[record.answers[q.id]?.chosen] || '(No answer)')}</p><p>${esc(q.explanation)}</p></div>`).join('')}
     ${sim ? `<div class="neuro-block"><h3>${esc(sim.title)}</h3><p>${esc(sim.scenario)}</p><p>${esc(sim.signalDescription)}</p>${neuroSeriesMarkup(sim.series)}<p><b>${esc(sim.decisionQuestion)}</b></p><p>First answer: ${esc(sim.choices[record.answers.simulation?.chosen]?.label || '(No answer)')}</p><p>Model answer: ${esc(sim.choices[sim.bestAnswerIndex]?.label || '')}</p><p>${esc(sim.choices[record.answers.simulation?.chosen]?.rationale || '')}</p></div>` : ''}
-    <p><b>Debrief:</b> ${esc(record.debrief || '(No written debrief)')}</p><p>Coding evidence: ${esc(record.codeWork ? neuroCodeEvidenceLabel(record.codeWork) : 'No code exercise in this unit')}${record.codeWork?.support?.solutionAt ? ' · solution consulted' : ''}</p></details>
+    <div class="neuro-block"><p><b>Debrief:</b> ${esc(record.debrief || '(No written debrief)')}</p><p>Coding evidence: ${esc(record.codeWork ? neuroCodeEvidenceLabel(record.codeWork) : 'No code exercise in this unit')}${record.codeWork?.support?.solutionAt ? ' · solution consulted' : ''}</p></div></details>
     <div class="endbtns">${next ? `<button class="btn btn-solid" id="neuro-next-unit">${newModule ? `Next: Module ${nextModule.index} &middot; ${esc(nextModule.title)}` : 'Next unit'}</button>` : ''}<button class="btn" id="neuro-unit-hub">Course hub</button></div></section>`);
   const nextButton = node.querySelector('#neuro-next-unit');
   if (nextButton) nextButton.onclick = () => (newModule ? renderNeuroModule(nextModule.id) : renderNeuroUnit(next.id));
   node.querySelector('#neuro-unit-hub').onclick = () => renderNeuroEngineering();
   document.getElementById('neunitstages').appendChild(node);
+  neuroUnitArrive(node, 'complete');
 }
 window.addEventListener('study-storage-recovered', () => {
   if (location.pathname === new URL(sectionUrl('neuro'), location.origin).pathname)

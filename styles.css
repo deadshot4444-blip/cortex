@@ -6044,3 +6044,623 @@ html:has(main.neuro-page) .connect-context a { color: var(--nx-mint); }
 #app .upd-featured { border-color: var(--rule); border-radius: 0; background: #fff; box-shadow: none; }
 #app .upd-featured h2 { font-family: var(--serif); font-size: clamp(30px, 3.4vw, 40px); font-weight: 500; letter-spacing: 0; line-height: 1.08; }
 #app .upd-featured .upd-xlink { border-radius: 0; }
+
+/* ==========================================================================================
+   MIDNIGHT — Neuroengineering, the workbench (course update, step 1).
+   The unit, exercise and lab screens (main.nx-bench) take the landing page's design inward: a wide
+   dark canvas, serif headlines, mono labels, and a window for each thing you work in (the editor,
+   its output, a figure). A unit's progress is a trace with one spike per stage; the lit part runs
+   to the stage in progress (neuro.js: neuroRailMarkup, neuroUnitProgress).
+   ========================================================================================== */
+.nx-sr { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; border: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* ----- canvas, way back, headline ----- */
+.nx-bench .neuro-body { max-width: 1180px; padding: clamp(26px, 3.2vw, 44px) clamp(20px, 4vw, 56px) clamp(72px, 8vw, 112px); }
+.neuro-inner .backbtn.topback {
+  min-height: 32px;
+  margin: 0 0 clamp(22px, 2.8vw, 34px);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--nx-sub);
+  font-family: var(--nx-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  transition: color .18s var(--ease-out);
+}
+.neuro-inner .backbtn.topback:hover { border: 0; background: none; color: var(--nx-mint); }
+.nx-unit-head { display: flex; flex-direction: column; align-items: flex-start; }
+/* the module's drawing from the landing page, beside the title on wide screens */
+.nx-unit-head { position: relative; }
+.nx-unit-art { display: none; }
+@media (min-width: 1100px) {
+  .nx-unit-art { position: absolute; top: 52px; right: 0; display: block; width: min(400px, 36%); pointer-events: none; }
+  .nx-unit-art .nx-art { margin: 0; }
+}
+.neuro-inner .neuro-eyebrow { color: var(--nx-mint); font-family: var(--nx-mono); font-size: 12px; font-weight: 500; letter-spacing: .14em; }
+#app .nx-bench .neuro-h1,
+#app .nx-labpage .neuro-body > h1 {
+  max-width: 22ch;
+  margin: 14px 0 0;
+  color: var(--nx-text);
+  font-size: clamp(38px, 4.6vw, 64px);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -.012em;
+  text-wrap: balance;
+}
+.nx-bench .neuro-unit-sub { max-width: 62ch; margin: 18px 0 0; color: var(--nx-sub); font-size: 18px; line-height: 1.6; text-wrap: pretty; }
+.nx-bench .neuro-unit-meta { margin: 14px 0 0; color: var(--nx-comment); font-family: var(--nx-mono); font-size: 12px; font-weight: 500; letter-spacing: .1em; }
+/* past the lesson the unit's summary has done its job; the stage gets the room */
+.nx-unit:not([data-stage="lesson"]) .neuro-unit-sub { display: none; }
+
+/* ----- the rail: a trace with a spike for every stage ----- */
+.nx-rail { --nx-progress: 0%; margin-top: clamp(26px, 3.4vw, 40px); scroll-margin-top: 92px; }
+.nx-rail-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
+.nx-rail-title,
+.nx-rail-now { font-family: var(--nx-mono); font-size: 11px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; }
+.nx-rail-title { color: var(--nx-comment); }
+.nx-rail-now { color: var(--nx-text); text-align: right; }
+.nx-rail-track { position: relative; margin-top: 12px; }
+.nx-rail-trace { position: absolute; top: 14px; left: 0; display: block; width: 100%; height: 64px; overflow: visible; }
+.nx-rail-trace path { stroke-width: 1.4; stroke-linejoin: round; }
+.nx-rail-base path { stroke: #2b3744; }
+.nx-rail-live { clip-path: inset(-12px calc(100% - var(--nx-progress) - 8px) -12px 0); transition: clip-path .9s var(--ease-out); }
+.nx-rail-live path { stroke: var(--nx-mint); }
+.nx-rail-steps { position: relative; display: grid; grid-template-columns: repeat(var(--nx-stages, 6), minmax(0, 1fr)); margin: 0; padding: 0; list-style: none; }
+.nx-rail-steps li {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 2px 8px;
+  padding: 88px 4px 0;
+  color: var(--nx-comment);
+  font-family: var(--nx-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .12em;
+  line-height: 1.5;
+  text-align: center;
+  text-transform: uppercase;
+  transition: color .3s var(--ease-out);
+}
+.nx-rail-steps li::before {
+  content: "";
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  margin-left: -5px;
+  border: 1.4px solid #55626f;
+  border-radius: 50%;
+  box-sizing: border-box;
+  background: var(--nx-bg);
+  transition: background .3s var(--ease-out), border-color .3s var(--ease-out);
+}
+.nx-rail-steps li[data-state="done"] { color: var(--nx-sub); }
+.nx-rail-steps li[data-state="done"] .nx-rail-n,
+.nx-rail-steps li[data-state="now"] .nx-rail-n { color: var(--nx-mint); }
+.nx-rail-steps li[data-state="done"]::before { border-color: var(--nx-mint); background: var(--nx-mint); }
+.nx-rail-steps li[data-state="now"] { color: var(--nx-text); }
+.nx-rail-steps li[data-state="now"]::before { border-color: var(--nx-mint); animation: nx-rail-pulse 2.4s ease-out infinite; }
+@keyframes nx-rail-pulse { 0% { box-shadow: 0 0 0 0 rgba(111, 240, 194, .45); } 70%, 100% { box-shadow: 0 0 0 9px rgba(111, 240, 194, 0); } }
+
+/* ----- a stage ----- */
+#neunitstages { margin-top: clamp(26px, 3.4vw, 40px); outline: none; }
+.nx-bench .neuro-stage { margin: 0; padding: clamp(24px, 3vw, 34px) 0 0; border-top: 1px solid var(--nx-line); }
+.nx-bench .neuro-stage > .label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 20px;
+  color: var(--nx-text);
+  font-family: var(--sans);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.3;
+  text-transform: none;
+}
+.nx-bench .neuro-stage > .label::before { content: ""; flex: 0 0 18px; height: 1.5px; background: var(--nx-mint); }
+.nx-stage-note { max-width: 62ch; margin: -8px 0 22px; color: var(--nx-sub); font-size: 15px; line-height: 1.6; }
+.nx-stage-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 22px;
+  margin-top: clamp(28px, 3.4vw, 40px);
+  padding-top: 24px;
+  border-top: 1px solid var(--nx-line);
+}
+.nx-stage-foot .btn { min-height: 50px; padding: 0 28px; font-size: 16px; }
+.nx-stage-next { margin: 0; color: var(--nx-comment); font-family: var(--nx-mono); font-size: 12px; font-weight: 500; letter-spacing: .1em; line-height: 1.5; text-transform: uppercase; }
+.nx-fine { margin: 0; color: var(--nx-comment); font-size: 13.5px; line-height: 1.55; }
+.nx-bench .neuro-about-line { margin-top: clamp(48px, 6vw, 80px); border-top-color: var(--nx-line); color: var(--nx-comment); font-size: 13px; }
+main.nx-bench > :is(.connect-context, .connect-return) { max-width: 1180px; margin-inline: auto; padding-inline: clamp(20px, 4vw, 56px); box-sizing: border-box; }
+
+/* ----- the lesson ----- */
+.nx-bench .neuro-stage > .neuro-kv {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr);
+  align-items: baseline;
+  gap: 8px 20px;
+  margin: 0;
+  padding: 18px 22px;
+  border: 1px solid var(--nx-line);
+  border-left: 2px solid var(--nx-mint);
+  background: var(--nx-panel);
+  color: var(--nx-text);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0;
+}
+.nx-bench .neuro-stage > .neuro-kv + .neuro-kv { border-bottom: 1px solid var(--nx-line); }
+.nx-bench .neuro-stage > .neuro-kv > span:first-child { padding: 0; color: var(--nx-mint); font-family: var(--nx-mono); font-size: 11px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; }
+.nx-bench .neuro-stage > .neuro-kv > span:last-child { color: var(--nx-text); font-size: 16px; font-weight: 600; letter-spacing: 0; }
+.nx-lesson-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(36px, 4.4vw, 52px); margin-top: clamp(30px, 3.8vw, 46px); }
+.nx-lesson-main { display: flex; flex-direction: column; gap: clamp(34px, 4.2vw, 50px); min-width: 0; max-width: 716px; counter-reset: nxsec; }
+.nx-sec { position: relative; padding-left: 64px; counter-increment: nxsec; }
+.nx-sec::before {
+  content: counter(nxsec, decimal-leading-zero);
+  position: absolute;
+  top: 11px;
+  left: 0;
+  color: var(--nx-mint);
+  font-family: var(--nx-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .12em;
+}
+#app .nx-bench .nx-sec > h2 { margin: 0 0 12px; color: var(--nx-text); font-family: var(--serif); font-size: clamp(28px, 2.7vw, 34px); font-weight: 500; line-height: 1.1; letter-spacing: -.005em; }
+.nx-sec > p { max-width: 36em; margin: 0; color: var(--ne-prose); font-size: 18px; line-height: 1.7; text-wrap: pretty; }
+.nx-sec > p + p { margin-top: 14px; }
+.nx-sec.nx-sec-model > p { max-width: 31em; color: var(--nx-text); font-family: var(--serif); font-size: clamp(24px, 2.3vw, 30px); font-style: italic; font-weight: 400; line-height: 1.32; }
+.nx-sec.nx-sec-mistake > p { padding: 16px 20px; border-left: 2px solid var(--nx-amber); background: rgba(242, 201, 125, .07); color: var(--nx-text); }
+.nx-steps { margin: 0; padding: 0; border-top: 1px solid var(--nx-line); list-style: none; counter-reset: nxstep; }
+.nx-steps li {
+  position: relative;
+  padding: 11px 0 11px 42px;
+  border-bottom: 1px solid var(--nx-line);
+  color: var(--ne-prose);
+  font-size: 16px;
+  font-variant-numeric: lining-nums tabular-nums;
+  line-height: 1.6;
+  counter-increment: nxstep;
+}
+.nx-steps li::before { content: counter(nxstep); position: absolute; top: 14px; left: 0; width: 22px; color: var(--nx-comment); font-family: var(--nx-mono); font-size: 12px; line-height: 1.5; text-align: right; }
+.nx-lesson-aside { display: flex; flex-direction: column; gap: 28px; min-width: 0; }
+.nx-bench .nx-aside-label { display: block; margin: 0 0 12px; color: var(--nx-comment); font-family: var(--nx-mono); font-size: 11px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; }
+.nx-bench .neuro-terms,
+.nx-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; }
+.nx-bench .neuro-terms span,
+.nx-tags span { padding: 5px 10px; border: 1px solid var(--nx-line); background: var(--nx-panel); color: var(--nx-text); font-family: var(--nx-mono); font-size: 12px; letter-spacing: 0; line-height: 1.5; }
+.nx-bench .neuro-deeper { margin: 0; padding: 0; border: 0; }
+.nx-bench .neuro-deeper-link {
+  margin: 0;
+  padding: 16px 18px 18px;
+  border: 1px solid var(--nx-line);
+  background: var(--nx-panel);
+  color: var(--nx-text);
+  font-family: var(--serif);
+  font-size: 23px;
+  font-weight: 500;
+  line-height: 1.15;
+  transition: border-color .18s var(--ease-out), color .18s var(--ease-out);
+}
+.nx-bench .neuro-deeper-link { position: relative; padding-right: 46px; }
+.nx-bench .neuro-deeper-link::after { content: "\2192"; position: absolute; top: 17px; right: 18px; color: var(--nx-mint); font-family: var(--nx-mono); font-size: 15px; line-height: 1.4; transition: transform .18s var(--ease-out); }
+.nx-bench .neuro-deeper-link:hover::after { transform: translateX(4px); }
+.nx-bench .neuro-deeper-link span { margin-top: 8px; color: var(--nx-sub); font-family: var(--sans); font-size: 13px; font-weight: 400; line-height: 1.5; }
+.nx-bench .neuro-deeper-link:hover { border-color: var(--nx-mint); background: var(--nx-panel); color: var(--nx-mint); }
+.nx-bench details:not(.neuro-sandbox-more) > summary {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  width: fit-content;
+  padding: 4px 0;
+  color: var(--nx-text);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+}
+.nx-bench details:not(.neuro-sandbox-more) > summary::-webkit-details-marker { display: none; }
+.nx-bench details:not(.neuro-sandbox-more) > summary::before { content: "+"; flex: 0 0 12px; color: var(--nx-mint); font-family: var(--nx-mono); font-weight: 500; }
+.nx-bench details:not(.neuro-sandbox-more)[open] > summary::before { content: "\2212"; }
+.nx-bench details:not(.neuro-sandbox-more) > summary:hover { color: var(--nx-mint); }
+.nx-bench details > :is(p, ul) { max-width: 66ch; margin: 10px 0 0; color: var(--nx-sub); font-size: 14.5px; line-height: 1.6; }
+.nx-bench details > ul { padding-left: 22px; }
+.nx-bench details > ul li + li { margin-top: 6px; }
+
+/* ----- writing: recall, debrief ----- */
+.nx-bench .nx-stage > .q { max-width: 30em; margin: 0 0 22px; color: var(--nx-text); font-family: var(--serif); font-size: clamp(26px, 2.7vw, 36px); font-weight: 500; line-height: 1.16; letter-spacing: -.005em; text-wrap: balance; }
+.nx-field { display: flex; flex-direction: column; gap: 9px; min-width: 0; max-width: 780px; }
+.nx-field.nx-field-ask > label { color: var(--nx-text); font-family: var(--sans); font-size: 16px; font-weight: 600; letter-spacing: 0; line-height: 1.45; text-transform: none; }
+.nx-field > label { color: var(--nx-comment); font-family: var(--nx-mono); font-size: 11px; font-weight: 500; letter-spacing: .14em; line-height: 1.5; text-transform: uppercase; }
+.nx-bench .socinput,
+.nx-bench .neuro-input {
+  display: block;
+  width: 100%;
+  min-height: 132px;
+  margin: 0;
+  padding: 14px 16px;
+  border: 1px solid #2b3744;
+  border-radius: 0;
+  box-sizing: border-box;
+  background: var(--nx-panel);
+  color: var(--nx-text);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.6;
+  resize: vertical;
+  transition: border-color .18s var(--ease-out), box-shadow .18s var(--ease-out);
+}
+.nx-bench .socinput:focus,
+.nx-bench .neuro-input:focus { border-color: var(--nx-mint); box-shadow: 0 0 0 1px var(--nx-mint); outline: none; }
+.nx-bench .socinput[readonly] { border-style: dashed; color: var(--ne-body); }
+.nx-recall-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; align-items: start; }
+.nx-bench .sochint { max-width: 780px; margin: 18px 0 0; padding: 14px 18px; border-left: 2px solid var(--nx-amber); background: rgba(242, 201, 125, .07); color: var(--nx-text); font-size: 15.5px; line-height: 1.6; box-sizing: border-box; }
+.nx-bench .sochint:focus { outline: none; }
+.nx-bench .sochint::before { content: "Hint"; display: block; margin-bottom: 4px; color: var(--nx-amber); font-family: var(--nx-mono); font-size: 11px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; }
+
+/* ----- questions ----- */
+.nx-bench .nx-q { margin: 0; }
+.nx-bench .nx-q + .nx-q { margin-top: clamp(30px, 3.8vw, 44px); padding-top: clamp(26px, 3.2vw, 36px); border-top: 1px solid var(--nx-line); }
+.nx-q-n { display: block; margin: 0 0 10px; color: var(--nx-mint); font-family: var(--nx-mono); font-size: 11px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; }
+.nx-bench .nx-q > .q { max-width: 62ch; margin: 0 0 18px; color: var(--nx-text); font-size: 19px; font-weight: 600; line-height: 1.45; text-wrap: pretty; }
+.nx-bench .opts { display: grid; gap: 10px; max-width: 860px; margin: 0; }
+.nx-bench .opt {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 4px 14px;
+  width: 100%;
+  min-height: 58px;
+  margin: 0;
+  padding: 14px 18px 14px 14px;
+  border: 1px solid #2b3744;
+  border-radius: 0;
+  background: var(--nx-panel);
+  color: var(--ne-prose);
+  font-size: 16px;
+  line-height: 1.5;
+  text-align: left;
+  transition: border-color .16s var(--ease-out), background .16s var(--ease-out), color .16s var(--ease-out);
+}
+.nx-bench .opt > span:nth-child(2) { padding-top: 2px; }
+.nx-bench .opt .key {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid #3d4b59;
+  box-sizing: border-box;
+  color: var(--nx-sub);
+  font-family: var(--nx-mono);
+  font-size: 12px;
+  font-weight: 500;
+  transition: border-color .16s var(--ease-out), background .16s var(--ease-out), color .16s var(--ease-out);
+}
+.nx-bench .opt:hover:not(:disabled) { border-color: var(--nx-mint); background: #0e1620; color: var(--nx-text); }
+.nx-bench .opt:hover:not(:disabled) .key { border-color: var(--nx-mint); color: var(--nx-mint); }
+.nx-bench .opt:disabled { color: var(--ne-meta); }
+.nx-bench .opt::after { grid-column: 3; align-self: center; font-family: var(--nx-mono); font-size: 11px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; white-space: nowrap; }
+.nx-bench .opt.correct { border-color: var(--green); background: rgba(111, 227, 160, .07); color: var(--nx-text); }
+.nx-bench .opt.correct .key { border-color: var(--green); background: var(--green); color: var(--nx-bg); }
+.nx-bench .opt.correct::after { content: "Your answer"; color: var(--green); }
+.nx-bench .opt.wrong { border-color: var(--red); background: rgba(255, 138, 147, .06); color: var(--nx-text); }
+.nx-bench .opt.wrong .key { border-color: var(--red); color: var(--red); }
+.nx-bench .opt.wrong::after { content: "Your answer"; color: var(--red); }
+.nx-bench .opt.is-model { border-color: rgba(111, 227, 160, .55); border-style: dashed; color: var(--nx-text); }
+.nx-bench .opt.is-model .key { border-color: var(--green); color: var(--green); }
+.nx-bench .opt.is-model::after { content: "Model answer"; color: var(--green); }
+.nx-bench .explain { max-width: 860px; margin: 14px 0 0; padding: 18px 22px 20px; border: 1px solid var(--nx-line); border-left: 2px solid var(--nx-sub); box-sizing: border-box; background: var(--nx-panel); outline: none; }
+.nx-bench .explain.good { border-left-color: var(--green); }
+.nx-bench .explain.bad { border-left-color: var(--nx-amber); }
+.nx-bench .explain > b { display: block; color: var(--nx-text); font-size: 16px; font-weight: 600; line-height: 1.4; }
+.nx-bench .explain.good > b { color: var(--green); }
+.nx-bench .explain.bad > b { color: var(--nx-amber); }
+.nx-bench .explain p { max-width: 66ch; margin: 8px 0 0; color: var(--ne-body); font-size: 16px; line-height: 1.6; }
+.nx-bench .explain.nx-model { max-width: none; margin: 0; border-left-color: var(--nx-mint); }
+.nx-bench .explain.nx-model > b { color: var(--nx-mint); font-family: var(--nx-mono); font-size: 11px; font-weight: 500; letter-spacing: .04em; }
+.nx-bench .explain.nx-model > b + p { margin-top: 10px; color: var(--nx-text); font-size: 17px; line-height: 1.65; }
+.nx-bench .explain .nx-fine { margin-top: 12px; color: var(--nx-comment); font-size: 13.5px; }
+
+/* ----- windows: a figure, the editor, its output ----- */
+.nx-win { border: 1px solid var(--nx-line); border-radius: 10px; background: var(--nx-panel); }
+.nx-win-bar { display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border-bottom: 1px solid var(--nx-line); box-sizing: border-box; }
+.nx-win-bar i { flex: 0 0 11px; width: 11px; height: 11px; border: 1px solid #55626f; border-radius: 50%; box-sizing: border-box; }
+.nx-win-tab { margin-left: 10px; padding: 4px 12px; border-radius: 6px; background: var(--nx-bg); color: var(--nx-sub); font-family: var(--nx-mono); font-size: 12px; line-height: 1.5; }
+.nx-win-bar .neuro-editor-hint { margin: 0 0 0 auto; color: var(--nx-comment); font-family: var(--nx-mono); font-size: 10.5px; font-weight: 500; letter-spacing: .1em; text-align: right; text-transform: uppercase; }
+.neuro-page .neuro-series { margin: 24px 0 0; padding: 0; border: 1px solid var(--nx-line); border-radius: 10px; background: var(--nx-panel); overflow: hidden; }
+.neuro-page .neuro-series figcaption { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; min-height: 44px; padding: 8px 18px; border-bottom: 1px solid var(--nx-line); box-sizing: border-box; color: var(--nx-text); font-size: 14px; line-height: 1.4; }
+.neuro-page .neuro-series figcaption::before {
+  content: "";
+  flex: 0 0 49px;
+  height: 11px;
+  background: radial-gradient(circle at 5.5px 5.5px, transparent 0 4.4px, #55626f 4.6px 5.4px, transparent 5.6px) 0 0 / 19px 11px repeat-x;
+}
+.neuro-page .neuro-series figcaption b { font-weight: 600; }
+.neuro-page .neuro-series figcaption span { margin-left: auto; color: var(--nx-comment); font-family: var(--nx-mono); font-size: 11px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; }
+.neuro-page .neuro-series-plot { margin: 0; padding: 18px 16px 6px; }
+.neuro-page .neuro-series-plot:focus-visible { outline: 2px solid var(--nx-mint); outline-offset: -2px; }
+.neuro-page .neuro-series > p { margin: 0; padding: 4px 20px 0; color: var(--nx-sub); font-size: 14px; line-height: 1.6; }
+.neuro-page .neuro-series > details { padding: 10px 20px 16px; }
+.neuro-page .neuro-series > details > summary { color: var(--nx-text); font-size: 14px; font-weight: 600; cursor: pointer; }
+.neuro-page .neuro-series table { margin-top: 10px; color: var(--nx-sub); font-family: var(--nx-mono); font-size: 12.5px; }
+.neuro-page .neuro-series th,
+.neuro-page .neuro-series td { padding: 8px 10px; border-bottom-color: var(--nx-line); font-weight: 400; }
+.neuro-page .neuro-series thead th { color: var(--nx-comment); font-size: 11px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; }
+.neuro-page .neuro-series svg { color: #c3ced8; }
+.neuro-page .neuro-fig-axis { stroke: #55626f; }
+.neuro-page .neuro-fig-grid { stroke: #55626f; stroke-dasharray: 2 6; opacity: .5; }
+.neuro-page .neuro-fig-text { fill: var(--nx-sub); }
+.neuro-page .neuro-fig-line,
+.neuro-page .neuro-fig-tick { stroke: var(--nx-mint); }
+.neuro-page .neuro-fig-dot,
+.neuro-page .neuro-fig-bar,
+.neuro-page .neuro-fig-pt-b { fill: var(--nx-mint); }
+.neuro-page .neuro-fig-pt-a { stroke: var(--nx-text); }
+.neuro-page .neuro-series-threshold { stroke: var(--nx-amber); }
+.neuro-page .neuro-series-marker { stroke: var(--nx-text); }
+.neuro-page .neuro-fig-compare { stroke: var(--nx-comment); }
+.neuro-page .neuro-fig-compare-dot { fill: var(--nx-comment); }
+
+/* ----- the exercise: brief on the left, workspace on the right ----- */
+.nx-ex { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(28px, 3.4vw, 40px); align-items: start; }
+.nx-ex-brief { display: flex; flex-direction: column; gap: 22px; min-width: 0; }
+.nx-ex-brief > * { margin: 0; }
+#app .nx-bench .nx-ex-brief > :is(.neuro-h1, .neuro-h2) {
+  max-width: 18ch;
+  margin: -8px 0 2px;
+  color: var(--nx-text);
+  font-family: var(--serif);
+  font-size: clamp(32px, 3.2vw, 44px);
+  font-weight: 500;
+  line-height: 1.04;
+  letter-spacing: -.01em;
+  text-wrap: balance;
+}
+.nx-bench .neuro-block { margin: 0; }
+.nx-bench .neuro-block > .label { display: block; margin: 0 0 8px; color: var(--nx-comment); font-family: var(--nx-mono); font-size: 11px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; }
+.nx-bench .neuro-prose,
+.nx-bench .neuro-block > p { max-width: 66ch; margin: 0; color: var(--ne-prose); font-size: 16px; line-height: 1.65; text-wrap: pretty; }
+.nx-bench .nx-tags { margin-top: 16px; }
+.nx-task { padding: 18px 20px 20px; border: 1px solid var(--nx-line); border-left: 2px solid var(--nx-mint); background: var(--nx-panel); }
+.nx-bench .nx-task > .label { color: var(--nx-mint); }
+.nx-bench .nx-task > .neuro-prose { color: var(--nx-text); }
+.nx-ex-brief .neuro-series { margin: 0; }
+.nx-bench .neuro-master { margin: 6px 0 0; padding: 18px 0 0; border: 0; border-top: 1px solid var(--nx-line); background: none; color: var(--nx-text); font-family: var(--serif); font-size: 23px; font-style: italic; line-height: 1.3; }
+.nx-bench .neuro-master > .label { display: block; margin: 0 0 8px; color: var(--nx-comment); font-family: var(--nx-mono); font-size: 11px; font-style: normal; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; }
+.nx-bench .neuro-sandbox { display: flex; flex-direction: column; gap: 16px; min-width: 0; margin: 0; padding: 0; border: 0; background: none; }
+.nx-bench .neuro-sandbox > * { margin: 0; }
+.nx-bench .neuro-sandbox > :is([data-check-results], [data-extra], [data-manual-trace]):empty { display: none; }
+.nx-editor-win { box-shadow: 0 30px 70px -44px rgba(0, 0, 0, .95), 0 0 0 1px rgba(111, 240, 194, .05); transition: border-color .18s var(--ease-out); }
+.nx-editor-win:focus-within { border-color: rgba(111, 240, 194, .5); }
+/* The textarea and its painted copy take every text property from one rule and their sizes from the
+   variables on .nx-edit, so the two always break lines in the same places. */
+.nx-edit { position: relative; --nx-gutter: 56px; --nx-edit-pad: 18px; --nx-edit-size: 14px; --nx-edit-lh: 22px; --nx-edit-rows: 14; }
+.nx-edit-hl,
+.nx-bench .nx-edit .neuro-code-draft {
+  width: 100%;
+  min-height: calc(var(--nx-edit-rows) * var(--nx-edit-lh) + 34px);
+  margin: 0;
+  padding: 16px var(--nx-edit-pad) 18px;
+  border: 0;
+  border-radius: 0;
+  box-sizing: border-box;
+  background: transparent;
+  color: #d7e0e8;
+  font-family: var(--nx-mono);
+  font-size: var(--nx-edit-size);
+  font-style: normal;
+  font-weight: 400;
+  font-feature-settings: normal;
+  font-variant-ligatures: none;
+  font-variant-numeric: normal;
+  letter-spacing: 0;
+  word-spacing: 0;
+  line-height: var(--nx-edit-lh);
+  tab-size: 4;
+  text-align: left;
+  text-indent: 0;
+  text-transform: none;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  word-break: normal;
+  hyphens: none;
+}
+.nx-bench .nx-edit .neuro-code-draft { display: block; caret-color: var(--nx-mint); outline: none; resize: vertical; }
+/* The painted mode measures the textarea by resizing it for an instant (neuro.js: neuroEditorRich),
+   which only works if a size change lands at once, including under the reduced-motion rule that
+   gives every element a token transition. */
+.nx-bench .nx-edit :is(.neuro-code-draft, .nx-edit-hl) { transition: none !important; }
+.nx-edit-hl { display: none; }
+.nx-bench .nx-edit.is-rich .nx-edit-hl,
+.nx-bench .nx-edit.is-rich .neuro-code-draft { padding-left: calc(var(--nx-gutter) + var(--nx-edit-pad)); overflow: hidden; }
+.nx-bench .nx-edit.is-rich .nx-edit-hl { display: block; pointer-events: none; counter-reset: nxline; }
+.nx-bench .nx-edit.is-rich .neuro-code-draft { position: absolute; inset: 0; height: 100%; min-height: 0; resize: none; color: transparent; -webkit-text-fill-color: transparent; }
+.nx-bench .nx-edit.is-rich .neuro-code-draft::selection { background: rgba(111, 240, 194, .28); color: transparent; -webkit-text-fill-color: transparent; }
+.nx-edit.is-rich::before { content: ""; position: absolute; inset: 0 auto 0 var(--nx-gutter); width: 1px; background: var(--nx-line); }
+.nx-l { position: relative; display: block; min-height: var(--nx-edit-lh); counter-increment: nxline; }
+.nx-l::before { content: counter(nxline); position: absolute; top: 0; left: calc(-1 * (var(--nx-gutter) + var(--nx-edit-pad))); width: calc(var(--nx-gutter) - 14px); color: #7c8a99; text-align: right; }
+.nx-edit .nx-k { color: var(--nx-mint); }
+.nx-edit .nx-n { color: var(--nx-amber); }
+.nx-edit .nx-s { color: #e9d9b4; }
+.nx-edit .nx-c { color: var(--nx-comment); }
+.nx-bench .nx-win-foot { position: relative; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 0; padding: 12px 14px; border-top: 1px solid var(--nx-line); border-radius: 0 0 9px 9px; background: rgba(5, 8, 12, .55); }
+.nx-bench .nx-win-foot .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 0 18px; font-size: 14px; }
+.nx-bench .nx-win-foot [data-run-code]::before { content: ""; width: 0; height: 0; margin-right: 9px; border-block: 5px solid transparent; border-left: 8px solid currentColor; }
+.nx-bench .nx-status { flex: 1 1 200px; margin: 0; color: var(--nx-sub); font-family: var(--nx-mono); font-size: 12px; line-height: 1.5; text-align: right; }
+.nx-bench .neuro-sandbox-more { position: relative; }
+.nx-bench .neuro-sandbox-more > summary::after { content: ""; width: 0; height: 0; margin-left: 9px; border-inline: 4px solid transparent; border-top: 5px solid currentColor; }
+.nx-bench .neuro-sandbox-more[open] > summary { border-color: var(--nx-text); background: rgba(255, 255, 255, .06); }
+.nx-bench .neuro-sandbox-more-inner {
+  position: absolute;
+  z-index: 6;
+  top: calc(100% + 8px);
+  left: 0;
+  display: grid;
+  gap: 2px;
+  width: 240px;
+  margin: 0;
+  padding: 6px;
+  border: 1px solid #33414f;
+  border-radius: 8px;
+  box-sizing: border-box;
+  background: #0e1620;
+  box-shadow: 0 24px 50px -18px rgba(0, 0, 0, .9);
+}
+.nx-bench .neuro-sandbox-more-inner .btn { justify-content: flex-start; width: 100%; min-height: 40px; padding: 0 12px; border-color: transparent; border-radius: 5px; font-weight: 500; text-align: left; }
+.nx-bench .neuro-sandbox-more-inner .btn:hover:not(:disabled) { transform: none; border-color: transparent; background: rgba(111, 240, 194, .1); color: var(--nx-mint); }
+.nx-out-win .nx-win-bar { min-height: 38px; }
+.nx-out-win .nx-win-tab { margin: 0; padding: 0; background: none; color: var(--nx-comment); font-size: 11px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; }
+.nx-bench .nx-out-win .neuro-code { min-height: 22px; max-height: 320px; margin: 0; padding: 14px 18px 16px; border: 0; background: transparent; color: #d7e0e8; font-family: var(--nx-mono); font-size: 13px; line-height: 1.6; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; }
+.nx-bench .nx-out-win .neuro-code:empty::before { content: "Nothing printed yet. Run shows what your code prints."; color: var(--nx-comment); }
+.nx-cases { margin: 0; padding: 0; border: 1px solid var(--nx-line); border-radius: 10px; background: var(--nx-panel); list-style: none; overflow: hidden; }
+.nx-cases li { position: relative; padding: 10px 16px 10px 44px; border-bottom: 1px solid var(--nx-line); color: var(--nx-sub); font-family: var(--nx-mono); font-size: 12.5px; line-height: 1.6; overflow-wrap: anywhere; }
+.nx-cases li:last-child { border-bottom: 0; }
+.nx-cases li::before { position: absolute; top: 9px; left: 17px; font-size: 14px; font-weight: 700; }
+.nx-cases li.ok::before { content: "\2713"; color: var(--green); }
+.nx-cases li.no::before { content: "\00d7"; color: var(--red); }
+.nx-cases b { color: var(--nx-text); font-weight: 600; }
+.nx-cases code { color: var(--nx-text); font: inherit; }
+.nx-bench [data-check-results] > p { max-width: 66ch; margin: 0 0 12px; color: var(--ne-body); font-size: 15px; line-height: 1.6; }
+.nx-bench [data-extra] > * + * { margin-top: 14px; }
+.nx-bench [data-extra] .neuro-code,
+.nx-bench .neuro-python .neuro-code { margin: 10px 0 0; padding: 14px 18px; border: 1px solid var(--nx-line); border-radius: 10px; background: var(--nx-panel); color: #d7e0e8; font-family: var(--nx-mono); font-size: 13px; line-height: 1.6; white-space: pre-wrap; }
+.nx-bench .nx-work-links { display: flex; flex-wrap: wrap; gap: 6px 26px; margin: 0; }
+.nx-bench .nx-work-links .btn { display: inline; min-height: 0; padding: 6px 0; border: 0; background: none; box-shadow: none; color: var(--nx-sub); font-family: var(--nx-mono); font-size: 12px; font-weight: 500; text-decoration: underline; text-decoration-color: #3d4b59; text-underline-offset: 5px; transform: none; }
+.nx-bench .nx-work-links .btn:hover:not(:disabled) { background: none; color: var(--nx-mint); text-decoration-color: currentColor; }
+.nx-bench .nx-work-links .btn:disabled { color: #94a1ad; }
+.nx-bench [data-manual-trace] .neuro-block { display: flex; flex-direction: column; gap: 10px; padding: 20px 22px 22px; border: 1px solid var(--nx-line); border-radius: 10px; background: var(--nx-panel); }
+.nx-bench [data-manual-trace] h3 { margin: 0; color: var(--nx-text); font-size: 17px; font-weight: 600; }
+.nx-bench [data-manual-trace] p { margin: 0; color: var(--nx-sub); font-size: 14.5px; line-height: 1.6; }
+.nx-bench [data-manual-trace] label { margin-top: 6px; color: var(--nx-text); font-size: 14px; font-weight: 600; }
+.nx-bench [data-manual-trace] code { color: var(--nx-amber); font-family: var(--nx-mono); font-size: 13px; }
+.nx-bench [data-manual-trace] .neuro-code-draft { width: 100%; min-height: 0; margin: 0; padding: 10px 12px; border: 1px solid #2b3744; box-sizing: border-box; background: var(--nx-bg); color: var(--nx-text); font-family: var(--nx-mono); font-size: 14px; line-height: 1.55; resize: vertical; }
+.nx-bench [data-manual-trace] .neuro-code-draft:focus { border-color: var(--nx-mint); outline: none; }
+.nx-bench [data-manual-trace] .btn { align-self: flex-start; margin-top: 6px; }
+.nx-bench .neuro-sandbox .continue-row { display: flex; justify-content: flex-end; margin: 0; padding-top: 18px; border-top: 1px solid var(--nx-line); }
+.nx-bench .neuro-sandbox .continue-row .btn { flex: 0 0 auto; min-height: 50px; padding: 0 28px; font-size: 16px; }
+
+/* ----- the lab ----- */
+#app .nx-bench .nx-lab-title { max-width: 22ch; margin: 0 0 22px; color: var(--nx-text); font-family: var(--serif); font-size: clamp(32px, 3.4vw, 46px); font-weight: 500; line-height: 1.04; letter-spacing: -.01em; text-wrap: balance; }
+.nx-labpage .nx-stage-note { margin: 18px 0 0; }
+.nx-lab-brief { display: grid; grid-template-columns: minmax(0, 1fr); gap: 22px; align-items: start; margin: 0 0 clamp(30px, 3.8vw, 44px); }
+.nx-labpage .nx-lab-brief { margin-top: clamp(26px, 3.4vw, 40px); }
+.nx-lab-text { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; min-width: 0; }
+.nx-lab-text .neuro-block { padding: 18px 20px 20px; border: 1px solid var(--nx-line); background: var(--nx-panel); }
+.nx-lab-brief .neuro-series { min-width: 0; margin: 0; }
+.nx-bench .neuro-series { max-width: 760px; }
+.nx-bench .nx-s-sim .nx-q > .q,
+.nx-labpage .neuro-body > .nx-q > .q { max-width: 26em; font-family: var(--serif); font-size: clamp(25px, 2.5vw, 32px); font-weight: 500; line-height: 1.18; letter-spacing: -.005em; text-wrap: balance; }
+.nx-lab-close { display: grid; gap: 22px; margin-top: clamp(28px, 3.4vw, 40px); padding-top: clamp(24px, 3vw, 32px); border-top: 1px solid var(--nx-line); outline: none; }
+.nx-lab-close .nx-stage-foot { margin-top: 4px; }
+.nx-done-take { max-width: 29em; margin: 0; color: var(--nx-text); font-family: var(--serif); font-size: clamp(24px, 2.4vw, 31px); font-style: italic; font-weight: 400; line-height: 1.3; }
+.nx-labpage .nx-sources { margin-top: 28px; }
+
+/* ----- a finished unit ----- */
+.nx-done-mark { display: block; width: 54px; height: 54px; color: var(--nx-mint); }
+.nx-done-mark svg { display: block; width: 100%; height: 100%; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.nx-done-mark path { stroke-dasharray: 30; stroke-dashoffset: 0; }
+#app .nx-bench .nx-s-done > h2 { margin: 20px 0 0; color: var(--nx-text); font-family: var(--serif); font-size: clamp(40px, 5vw, 66px); font-weight: 500; line-height: 1; letter-spacing: -.012em; }
+.nx-s-done > .nx-done-take { margin-top: 18px; }
+.nx-done-score { max-width: 62ch; margin: 16px 0 0; color: var(--nx-sub); font-size: 16px; line-height: 1.6; }
+.nx-review { max-width: 860px; margin-top: 26px; }
+.nx-bench .nx-review > .neuro-block { margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--nx-line); }
+.nx-bench .nx-review > .neuro-block > :is(p, h3) { max-width: 66ch; margin: 0 0 6px; color: var(--ne-body); font-size: 15px; line-height: 1.6; }
+.nx-bench .nx-review > .neuro-block > h3 { color: var(--nx-text); font-size: 17px; font-weight: 600; }
+.nx-bench .nx-review b { color: var(--nx-text); font-weight: 600; }
+.nx-bench .nx-review .neuro-series { margin: 14px 0 18px; }
+.nx-bench .endbtns { gap: 12px; margin-top: clamp(28px, 3.4vw, 40px); }
+.nx-bench .endbtns .btn { min-height: 50px; padding: 0 28px; font-size: 16px; }
+
+/* ----- arrival: the page is dark already, so its parts come in rather than the page ----- */
+#app main.nx-bench { animation: none; }
+.nx-unit-head > *,
+.nx-codepage .neuro-body > *,
+.nx-labpage:not(.is-quiet) .neuro-body > * { animation: mn-rise .6s var(--ease-out) both; }
+:is(.nx-unit-head, .nx-codepage .neuro-body, .nx-labpage .neuro-body) > :nth-child(2) { animation-delay: .05s; }
+:is(.nx-unit-head, .nx-codepage .neuro-body, .nx-labpage .neuro-body) > :nth-child(3) { animation-delay: .1s; }
+:is(.nx-unit-head, .nx-codepage .neuro-body, .nx-labpage .neuro-body) > :nth-child(n + 4) { animation-delay: .15s; }
+.nx-unit .nx-rail { animation: nx-fade .6s ease .15s both; }
+.nx-unit .nx-rail-live { animation: nx-rail-sweep 1.1s var(--ease-out) .3s backwards; }
+.nx-unit #neunitstages { animation: mn-rise .6s var(--ease-out) .22s both; }
+.nx-bench .neuro-stage.is-entering { animation: mn-rise .5s var(--ease-out) both; }
+.nx-s-done.is-entering .nx-done-mark path { animation: nx-done-draw .6s var(--ease-out) .35s backwards; }
+@keyframes nx-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes nx-rail-sweep { from { clip-path: inset(-12px 100% -12px 0); } }
+@keyframes nx-done-draw { from { stroke-dashoffset: 30; } }
+
+/* ----- wide screens: reference beside the lesson, workspace beside the brief ----- */
+@media (min-width: 1100px) {
+  .nx-lesson-grid { grid-template-columns: minmax(0, 716px) 280px; justify-content: space-between; column-gap: 40px; }
+  .nx-ex { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: clamp(36px, 4vw, 56px); }
+  .nx-lab-brief.has-plot { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: clamp(32px, 3.6vw, 48px); }
+  .nx-lab-brief:not(.has-plot) .nx-lab-text { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .nx-s-recall.is-revealed .nx-recall-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+  .nx-s-recall.is-revealed .nx-field { max-width: none; }
+}
+@media (min-width: 1100px) and (min-height: 720px) {
+  .nx-lesson-aside { position: sticky; top: 104px; align-self: start; }
+}
+@media (min-width: 700px) and (max-width: 1099px) {
+  .nx-lab-text { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 1240px) {
+  .nx-rail { scroll-margin-top: 132px; }
+}
+@media (max-width: 900px) {
+  .nx-rail-steps li { flex-direction: column; align-items: center; gap: 0; }
+}
+@media (max-width: 720px) {
+  .nx-bench .neuro-body { padding-top: 22px; padding-right: max(20px, env(safe-area-inset-right, 0px)); padding-left: max(20px, env(safe-area-inset-left, 0px)); }
+  .neuro-inner .backbtn.topback { min-height: 44px; margin-bottom: 14px; }
+  #app .nx-bench .neuro-h1,
+  #app .nx-labpage .neuro-body > h1 { margin-top: 12px; font-size: clamp(34px, 10vw, 44px); }
+  .nx-bench .neuro-unit-sub { font-size: 17px; }
+  .nx-rail { scroll-margin-top: 122px; }
+  .nx-rail-name { display: none; }
+  .nx-rail-steps li { padding-top: 84px; }
+  .nx-bench .neuro-stage > .neuro-kv { grid-template-columns: minmax(0, 1fr); padding: 16px 18px; }
+  .nx-sec { padding-left: 0; }
+  .nx-sec::before { position: static; display: block; margin-bottom: 8px; }
+  .nx-sec > p { font-size: 17px; line-height: 1.7; }
+  .nx-stage-foot .btn,
+  .nx-bench .endbtns .btn,
+  .nx-bench .neuro-sandbox .continue-row .btn { flex: 1 1 100%; }
+  .nx-bench .opt { grid-template-columns: 28px minmax(0, 1fr); padding: 13px 14px 13px 12px; }
+  .nx-bench .opt::after { grid-column: 2; }
+  .nx-bench .explain { padding: 16px 18px 18px; }
+  .nx-win-bar .neuro-editor-hint { display: none; }
+  .nx-edit { --nx-gutter: 42px; --nx-edit-pad: 14px; --nx-edit-size: 16px; --nx-edit-lh: 24px; --nx-edit-rows: 10; }
+  .nx-bench .nx-win-foot .btn { flex: 1 1 auto; min-height: 44px; }
+  .nx-bench .neuro-sandbox-more { position: static; flex: 1 1 auto; }
+  .nx-bench .neuro-sandbox-more > summary { width: 100%; box-sizing: border-box; }
+  .nx-bench .neuro-sandbox-more-inner { top: calc(100% - 4px); right: 14px; left: 14px; width: auto; }
+  .nx-bench .nx-status { flex-basis: 100%; text-align: left; }
+  .nx-bench .nx-work-links .btn { min-height: 44px; }
+  .nx-bench .neuro-prose,
+  .nx-bench .neuro-block > p { font-size: 16px; line-height: 1.65; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nx-unit-head > *,
+  .nx-codepage .neuro-body > *,
+  .nx-labpage .neuro-body > *,
+  .nx-unit .nx-rail,
+  .nx-unit .nx-rail-live,
+  .nx-unit #neunitstages,
+  .nx-bench .neuro-stage.is-entering,
+  .nx-s-done.is-entering .nx-done-mark path,
+  .nx-rail-steps li[data-state="now"]::before { animation: none; }
+  .nx-rail-live { transition: none; }
+  .nx-bench .neuro-deeper-link:hover::after { transform: none; }
+}
