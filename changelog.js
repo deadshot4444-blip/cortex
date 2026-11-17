@@ -5,6 +5,19 @@
 
 const CHANGELOG = [
   {
+    version: '2.41.0',
+    tag: 'UPDATE',
+    date: 'November 17, 2026',
+    title: 'Neuroengineering: new unit, exercise and lab screens',
+    items: [
+      'Units have a new layout. Your progress through a unit is a signal trace with one spike per stage, and each lesson is set in numbered sections with its key terms alongside.',
+      'Python exercises open in an editor window with its own output window, and every test case gets a passed or needs-work row. On a computer the editor shows line numbers and Python colors, and Ctrl+Enter runs your code.',
+      'Decision labs show the scenario and signal beside the plot, and mark your answer and the model answer in words as well as color.',
+      'Moving to the next stage takes you to the top of it, and choosing an answer no longer moves the page.',
+      'Lessons, exercises, labs and your saved work are unchanged.',
+    ],
+  },
+  {
     version: '2.40.0',
     tag: 'UPDATE',
     date: 'November 16, 2026',
