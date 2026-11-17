@@ -51,7 +51,7 @@ async function loadNeuro() {
   if (neuroLoading) return neuroLoading;
   neuroLoading = (async () => {
     const results = await Promise.allSettled(
-      ['data/neuro.json?v=12', 'data/neuro-milestones.json?v=5'].map(async file => {
+      ['data/neuro.json?v=13', 'data/neuro-milestones.json?v=5'].map(async file => {
         const response = await fetch(file);
         if (!response.ok) throw new Error('Neuroengineering lessons did not download');
         return response.json();
@@ -1746,13 +1746,57 @@ function neuroCompleteSim(record) {
   record.completedAt = Date.now();
   return saveNeuroProg();
 }
-// A lab's scenario and signal, with its plot beside them when the lab has one.
-function neuroLabBrief(sim) {
-  const plot = neuroSeriesMarkup(sim.series);
+// A lab's adjustable plot (neuro-instruments.js). Work saved before a lab had one borrows the current
+// lab's settings, but only while the saved copy still describes the same signal.
+function neuroLabInstrument(sim) {
+  if (typeof neuroBenchValid !== 'function' || !sim) return null;
+  let spec = sim.instrument;
+  if (!spec) {
+    const current =
+      neuroSim(sim.id) ||
+      Object.values(NEURO.data?.unitLessons || {})
+        .map(unit => unit.simulation)
+        .find(item => item?.id === sim.id);
+    const same = key => JSON.stringify(current?.[key]) === JSON.stringify(sim[key]);
+    if (current?.instrument && ['series', 'scenario', 'signalDescription'].every(same)) spec = current.instrument;
+  }
+  return spec && neuroBenchValid(spec, sim) ? spec : null;
+}
+// A lab's scenario and signal, with its plot beside them when the lab has one. The plot is adjustable
+// when the lab carries an instrument; some instruments open only after the first answer.
+function neuroLabBrief(sim, answered) {
+  const spec = neuroLabInstrument(sim),
+    live = !!spec && (answered || spec.gate === 'open');
+  let plot = '';
+  // The instrument is an extra. If it cannot draw, the lab still opens with its static plot.
+  if (live)
+    try {
+      plot = neuroBenchMarkup(sim, spec, !!answered);
+    } catch {
+      plot = '';
+    }
+  plot ||= neuroSeriesMarkup(sim.series);
+  const soon =
+    spec && !live && plot
+      ? '<p class="nx-live-soon">Answer first. This plot then becomes adjustable so you can test the rule yourself.</p>'
+      : '';
   return `<div class="nx-lab-brief${plot ? ' has-plot' : ''}"><div class="nx-lab-text">
       <div class="neuro-block"><span class="label">Scenario</span><p>${esc(sim.scenario)}</p></div>
       <div class="neuro-block"><span class="label">Signal</span><p>${esc(sim.signalDescription)}</p></div>
-    </div>${plot}</div>`;
+    </div>${plot ? `<div class="nx-lab-plot">${plot}${soon}</div>` : ''}</div>`;
+}
+function neuroLabBenchMount(root, sim, answered) {
+  const spec = neuroLabInstrument(sim);
+  if (!spec || !(answered || spec.gate === 'open')) return;
+  try {
+    neuroBenchMount(root, sim, spec, !!answered);
+  } catch {
+    // Controls that failed to wire would look alive and do nothing. Show the static plot instead.
+    const figure = root.querySelector('[data-bench]'),
+      plain = neuroSeriesMarkup(sim.series);
+    if (figure && plain) figure.replaceWith(el(plain));
+    else if (figure) figure.remove();
+  }
 }
 function renderNeuroSim(simId, opts = {}) {
   const record = neuroSimRecord(simId);
@@ -1768,8 +1812,8 @@ function renderNeuroSim(simId, opts = {}) {
   if (!opts.mount) neuroRoute(null, null, null, null, simId);
   const right = chosen === sim.bestAnswerIndex;
   const body = `<span class="neuro-eyebrow">NeuroSim · ${esc(sim.difficulty || 'lab')}</span><h1>${esc(sim.title)}</h1>
-    <p class="nx-stage-note">Your first answer is saved. Read the model answer, then write one line on why.</p>
-    ${neuroLabBrief(sim)}
+    <p class="nx-stage-note">${neuroLabInstrument(sim)?.gate === 'open' ? 'Work the plot, then choose. ' : ''}Your first answer is saved. Read the model answer, then write one line on why.</p>
+    ${neuroLabBrief(sim, chosen != null)}
     <div class="neuro-block nx-q"><span class="nx-q-n">Decision</span><p class="q">${esc(sim.decisionQuestion)}</p><div class="opts">${answer.order.map((index, i) => `<button class="opt ${chosen === index ? (right ? 'correct' : 'wrong') : chosen != null && index === sim.bestAnswerIndex ? 'is-model' : ''}" data-sim-choice="${index}" ${chosen == null ? '' : 'disabled'}><span class="key">${LETTERS[i]}</span><span>${esc(sim.choices[index].label)}</span></button>`).join('')}</div>
     ${
       chosen == null
@@ -1791,6 +1835,7 @@ function renderNeuroSim(simId, opts = {}) {
       : `<main class="neuro-page neuro-inner nx-bench nx-labpage${opts.quiet ? ' is-quiet' : ''}"><section class="neuro-body"><button class="backbtn topback" id="neback">← Back to NeuroSim Lab</button>${body}</section></main>`
   );
   main.querySelector('#neback')?.addEventListener('click', () => renderNeuroSimLibrary());
+  neuroLabBenchMount(main, sim, chosen != null);
   // A redraw after an answer keeps the reader where they were and moves focus to what just appeared.
   const redraw = focus => {
     const y = typeof scrollY === 'number' ? scrollY : 0;
@@ -2394,7 +2439,8 @@ function renderNeuroCodeLab() {
 
 function renderNeuroSimLibrary() {
   neuroRoute(null, null, null, 'sims');
-  const sims = NEURO.data?.simulations || [];
+  const sims = NEURO.data?.simulations || [],
+    live = sims.filter(neuroLabInstrument).length;
   const root = el('<div></div>');
   root.appendChild(topbar('neuro'));
   const main = el(`<main class="neuro-page neuro-inner">
@@ -2402,7 +2448,7 @@ function renderNeuroSimLibrary() {
       <button class="backbtn topback" id="neback">&larr; Back to Neuroengineering</button>
       <span class="neuro-eyebrow">NeuroSim Lab</span>
       <h1 class="neuro-h1">Decision labs.</h1>
-      <p class="neuro-lede">${sims.length} short decision labs. Read the scenario, pick the best next step, then compare your answer with the model.</p>
+      <p class="neuro-lede">${sims.length} short decision labs. Read the scenario, pick the best next step, then compare your answer with the model.${live ? ` ${live} have a plot you can adjust.` : ''}</p>
       <div class="neuro-rows" id="nesimlib"></div>
     </section>
   </main>`);
@@ -2413,7 +2459,7 @@ function renderNeuroSimLibrary() {
     const row = el(`<button class="neuro-row">
       <span class="neuro-row-main"><span class="neuro-row-title">${esc(sim.title)}</span>
       <span class="neuro-row-sub neuro-row-sub--sentence">${esc(sim.oneLineMaster)}</span></span>
-      <span class="neuro-row-right">${prev ? `<span class="pill">${prev.completedAt ? 'done' : 'resume'}</span>` : NEURO_PROG.sims[sim.id] ? '<span class="pill">started</span>' : ''}</span>
+      <span class="neuro-row-right">${neuroLabInstrument(sim) ? '<span class="pill nx-live-pill">adjustable</span>' : ''}${prev ? `<span class="pill">${prev.completedAt ? 'done' : 'resume'}</span>` : NEURO_PROG.sims[sim.id] ? '<span class="pill">started</span>' : ''}</span>
     </button>`);
     row.addEventListener('click', () => renderNeuroSim(sim.id));
     rows.appendChild(row);
@@ -2783,7 +2829,7 @@ function neuroUnitAppend(focus) {
     const ready = neuroUnitReady(record);
     const intro =
       stage === 'sim'
-        ? `<h2 class="nx-lab-title">${esc(sim.title)}</h2>${neuroLabBrief(sim)}`
+        ? `<h2 class="nx-lab-title">${esc(sim.title)}</h2>${neuroLabBrief(sim, record.answers.simulation?.chosen != null)}`
         : '<p class="nx-stage-note">Your first answer is saved. Read the explanation, then continue.</p>';
     const waiting =
       stage === 'sim' || questions.length === 1 ? 'Choose an answer to continue.' : 'Answer each question to continue.';
@@ -2809,6 +2855,7 @@ function neuroUnitAppend(focus) {
       node.querySelector('#neuro-unit-questions').appendChild(item);
     });
     node.querySelector('#neuro-unit-next').onclick = advance;
+    if (stage === 'sim') neuroLabBenchMount(node, sim, record.answers.simulation?.chosen != null);
     show(node);
     return;
   }

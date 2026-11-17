@@ -6664,3 +6664,149 @@ main.nx-bench > :is(.connect-context, .connect-return) { max-width: 1180px; marg
   .nx-rail-live { transition: none; }
   .nx-bench .neuro-deeper-link:hover::after { transform: none; }
 }
+
+/* =========================================================================
+   MIDNIGHT — Neuroengineering, lab instruments (course update, step 2)
+   The adjustable plot inside a lab: the plot drawn at its real size, a grip
+   on the line the reader moves, sliders, live readouts and one task.
+   Markup comes from neuro-instruments.js.
+   ========================================================================= */
+.nx-lab-plot { min-width: 0; }
+.nx-live-soon { margin: 12px 2px 0; color: var(--nx-comment); font-size: 13.5px; line-height: 1.55; }
+.neuro-page .nx-live figcaption span { color: var(--nx-mint); }
+.neuro-page .neuro-series > p.nx-sr { padding: 0; }
+
+/* ----- plot ----- */
+.nx-live-stage { padding: 14px 14px 0; }
+.nx-live-plot { position: relative; -webkit-user-select: none; user-select: none; }
+.nx-live-plot svg { display: block; width: 100%; height: auto; overflow: visible; }
+.nx-live-plot text { font-size: 12px; font-variant-numeric: tabular-nums; }
+.nx-live-plot .nx-live-axis { fill: var(--nx-comment); font-family: var(--nx-mono); font-size: 11px; letter-spacing: .04em; }
+.nx-live-plot .nx-live-tag { fill: var(--nx-mint); font-family: var(--nx-mono); font-size: 11px; letter-spacing: .02em; }
+.nx-live-plot .nx-live-tag.is-quiet { fill: var(--nx-sub); }
+.nx-live .neuro-fig-line { stroke-width: 2; stroke-linejoin: round; }
+.nx-live .neuro-fig-dot.is-on { fill: var(--nx-text); }
+.nx-live .neuro-fig-dot.is-held { fill: var(--nx-panel); stroke: var(--nx-mint); stroke-width: 1.5; }
+.nx-live-event { fill: rgba(111, 240, 194, .1); }
+.nx-live-run { fill: var(--nx-amber); }
+.nx-live-run.is-short { fill: none; stroke: var(--nx-amber); stroke-width: 1.5; }
+.nx-live-margin { fill: rgba(242, 201, 125, .1); }
+.nx-live-edge { stroke: var(--nx-amber); stroke-width: 1; stroke-dasharray: 2 4; }
+.nx-live-hold { stroke: var(--nx-comment); stroke-width: 2; stroke-linecap: round; }
+.nx-live-go { fill: var(--nx-mint); }
+.nx-live-go.is-other { fill: var(--nx-text); }
+.nx-live-clip { stroke: var(--nx-amber); stroke-width: 4; stroke-linecap: round; }
+.nx-live-other { stroke-width: 2; stroke-dasharray: 3 4; }
+.nx-live-side { fill: rgba(111, 240, 194, .07); }
+.nx-live-cut { stroke: var(--nx-amber); stroke-width: 2.5; }
+.nx-live-miss { stroke: var(--red); stroke-width: 2.5; stroke-dasharray: 4 3; }
+.nx-live .nx-live-faint { opacity: .5; }
+.nx-live-out { stroke: var(--nx-amber); stroke-width: 2.5; stroke-linejoin: round; }
+.nx-live-out-dot { fill: var(--nx-amber); }
+
+/* The grip is a pointer shortcut. The slider below is the labelled control. */
+.nx-live-grip { position: absolute; z-index: 2; display: grid; place-items: center; width: 44px; height: 40px; margin: -20px 0 0 -22px; cursor: ns-resize; touch-action: none; }
+.nx-live-grip i { position: relative; width: 24px; height: 14px; border: 1px solid var(--nx-amber); border-radius: 7px; background: #14110a; box-shadow: 0 0 0 3px var(--nx-panel); transition: background-color .15s ease; }
+.nx-live-grip i::before,
+.nx-live-grip i::after { content: ""; position: absolute; left: 6px; right: 6px; height: 1px; background: var(--nx-amber); }
+.nx-live-grip i::before { top: 4px; }
+.nx-live-grip i::after { bottom: 4px; }
+.nx-live-grip:hover i,
+.nx-live-grip.is-held i { background: #3a2f17; }
+.neuro-page .neuro-series > .nx-live-key { padding-top: 10px; color: var(--nx-comment); font-size: 13px; line-height: 1.55; }
+
+/* ----- controls ----- */
+.nx-live-controls { display: grid; gap: 14px; margin: 16px 0 0; padding: 16px 20px 0; border-top: 1px solid var(--nx-line); }
+.nx-live-ctl { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; gap: 0 12px; }
+.nx-live-ctl label,
+.nx-live-sub { color: var(--nx-sub); font-family: var(--nx-mono); font-size: 11px; font-weight: 500; letter-spacing: .12em; line-height: 1.5; text-transform: uppercase; }
+.nx-live-sub { margin: 0 0 -2px; color: var(--nx-mint); }
+.nx-live-controls.is-later { margin-top: 0; }
+.nx-live-val { color: var(--nx-text); font-family: var(--nx-mono); font-size: 14px; font-variant-numeric: tabular-nums; text-align: right; }
+.nx-live input[type="range"] { grid-column: 1 / -1; -webkit-appearance: none; appearance: none; width: 100%; height: 32px; margin: 0; padding: 0; border: 0; background: transparent; cursor: pointer; }
+.nx-live input[type="range"]::-webkit-slider-runnable-track { height: 4px; border-radius: 2px; background: linear-gradient(to right, var(--nx-mint) var(--nx-fill, 50%), #2a3644 var(--nx-fill, 50%)); }
+.nx-live input[type="range"]::-moz-range-track { height: 4px; border-radius: 2px; background: #2a3644; }
+.nx-live input[type="range"]::-moz-range-progress { height: 4px; border-radius: 2px; background: var(--nx-mint); }
+.nx-live input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; margin-top: -7px; border: 2px solid var(--nx-mint); border-radius: 50%; background: var(--nx-bg); }
+.nx-live input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; border: 2px solid var(--nx-mint); border-radius: 50%; background: var(--nx-bg); }
+.nx-live input[type="range"]:focus-visible { outline: 2px solid var(--nx-mint); outline-offset: 2px; }
+.nx-live-check { display: flex; align-items: center; gap: 10px; min-height: 32px; color: var(--nx-text); font-size: 14.5px; cursor: pointer; }
+.nx-live-check input { width: 18px; height: 18px; margin: 0; accent-color: var(--nx-mint); }
+.nx-live-tools { display: flex; flex-wrap: wrap; gap: 8px; }
+.nx-live-chip { min-height: 34px; padding: 6px 12px; border: 1px solid #2a3644; border-radius: 0; background: transparent; color: var(--nx-text); font-family: var(--nx-mono); font-size: 12px; letter-spacing: .03em; line-height: 1.4; cursor: pointer; transition: border-color .15s ease, color .15s ease, background-color .15s ease; }
+.nx-live-chip:hover:not(:disabled) { border-color: var(--nx-mint); }
+.nx-live-chip:focus-visible { outline: 2px solid var(--nx-mint); outline-offset: 2px; }
+.nx-live-chip[aria-pressed="true"] { border-color: var(--nx-mint); background: rgba(111, 240, 194, .08); color: var(--nx-mint); }
+.nx-live-chip.is-reset { margin-left: auto; color: var(--nx-sub); }
+.nx-live-chip:disabled { color: var(--nx-comment); cursor: default; opacity: .6; }
+
+/* ----- readouts, costs, task ----- */
+.nx-live-read { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin: 16px 0 0; border-top: 1px solid var(--nx-line); overflow: hidden; }
+.nx-live-read > div:last-child:nth-child(odd) { grid-column: 1 / -1; }
+.nx-live-read > div { min-width: 0; padding: 12px 20px 13px; box-shadow: 1px 0 0 var(--nx-line), 0 1px 0 var(--nx-line); }
+.nx-live-read dt { color: var(--nx-comment); font-family: var(--nx-mono); font-size: 11px; font-weight: 500; letter-spacing: .1em; line-height: 1.45; text-transform: uppercase; }
+.nx-live-read dd { margin: 5px 0 0; color: var(--nx-text); font-family: var(--nx-mono); font-size: 16px; font-variant-numeric: tabular-nums; line-height: 1.35; overflow-wrap: anywhere; }
+.nx-live-read .is-good dd { color: var(--nx-mint); }
+.nx-live-read .is-warn dd { color: var(--nx-amber); }
+.nx-live-read .is-bad dd { color: var(--red); }
+.nx-live-costs { padding: 12px 20px 2px; }
+.nx-live-costs ul { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.nx-live-costs li { display: grid; grid-template-columns: 1.4em 18ch minmax(40px, 1fr) 3ch 4em; align-items: center; gap: 4px 10px; color: var(--nx-sub); font-family: var(--nx-mono); font-size: 12.5px; line-height: 1.5; }
+.nx-live-costs li > i { height: 8px; border-radius: 4px; background: #1a232e; overflow: hidden; }
+.nx-live-costs li > i > i { display: block; height: 100%; border-radius: 4px; background: var(--nx-comment); }
+.nx-live-costs li.is-low > i > i { background: var(--nx-mint); }
+.nx-live-costs b,
+.nx-live-costs strong { color: var(--nx-text); font-weight: 600; }
+.nx-live-costs strong { font-variant-numeric: tabular-nums; text-align: right; }
+.nx-live-costs em { color: var(--nx-mint); font-style: normal; }
+.neuro-page .neuro-series > .nx-live-task { display: grid; gap: 4px; margin: 0; padding: 12px 20px 13px; border-bottom: 1px solid var(--nx-line); border-left: 2px solid var(--nx-mint); background: rgba(111, 240, 194, .04); color: var(--nx-text); font-size: 15px; line-height: 1.55; }
+.nx-live-task b { color: var(--nx-mint); font-family: var(--nx-mono); font-size: 11px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; }
+.nx-live-task.is-done b::before { content: "\2713\00a0"; }
+.neuro-page .neuro-series > .nx-live-won { margin: 16px 20px 0; padding: 12px 16px 14px; border: 1px solid var(--nx-line); border-left: 2px solid var(--nx-mint); background: rgba(111, 240, 194, .04); color: var(--nx-text); font-size: 15px; line-height: 1.55; }
+.nx-live-won[hidden] { display: none; }
+
+/* ----- steering by hand ----- */
+.nx-live-hand { display: grid; gap: 10px; padding: 16px 20px 2px; }
+.nx-live-hand .nx-live-sub { margin: 0; }
+.nx-live-hand-note { margin: 0; color: var(--nx-sub); font-size: 14.5px; line-height: 1.55; }
+.nx-live-track { position: relative; height: 38px; margin: 4px 10px 0; border-bottom: 1px solid #55626f; }
+.nx-live-zone { position: absolute; top: 6px; bottom: 0; border-right: 1px dashed var(--nx-amber); border-left: 1px dashed var(--nx-amber); background: rgba(242, 201, 125, .14); box-sizing: border-box; }
+.nx-live-start { position: absolute; bottom: -5px; width: 1px; height: 9px; background: #55626f; }
+.nx-live-dot { position: absolute; bottom: 6px; width: 18px; height: 18px; margin-left: -9px; border-radius: 50%; background: var(--nx-mint); box-shadow: 0 0 0 4px rgba(111, 240, 194, .14); }
+.nx-live-scale { position: relative; height: 16px; margin: -4px 10px 0; color: var(--nx-comment); font-family: var(--nx-mono); font-size: 11px; line-height: 16px; }
+.nx-live-scale span { position: absolute; transform: translateX(-50%); }
+.nx-live-hand [data-hand-move] { touch-action: none; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+.nx-live-hand [data-hand-move]:active { border-color: var(--nx-mint); background: rgba(111, 240, 194, .12); color: var(--nx-mint); }
+.nx-live-hand-say { min-height: 1.5em; margin: 0; color: var(--nx-text); font-family: var(--nx-mono); font-size: 13px; line-height: 1.5; }
+.nx-live-hand.is-in .nx-live-hand-say { color: var(--nx-mint); }
+
+@media (pointer: coarse) {
+  .nx-live input[type="range"] { height: 44px; }
+  .nx-live input[type="range"]::-webkit-slider-thumb { width: 24px; height: 24px; margin-top: -10px; }
+  .nx-live input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; }
+  .nx-live-chip { min-height: 44px; }
+  .nx-live-check { min-height: 44px; }
+}
+@media (max-width: 720px) {
+  .nx-live-stage { padding: 12px 8px 0; }
+  .nx-live-controls,
+  .nx-live-costs,
+  .nx-live-hand { padding-right: 16px; padding-left: 16px; }
+  .nx-live-read > div { padding-right: 16px; padding-left: 16px; }
+  .neuro-page .neuro-series > .nx-live-task { padding-right: 16px; padding-left: 16px; }
+  .neuro-page .neuro-series > .nx-live-won { margin-right: 16px; margin-left: 16px; }
+  .nx-live-chip.is-reset { margin-left: 0; }
+  .nx-live-hand .nx-live-tools { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .nx-live-hand [data-hand-reset] { justify-self: start; }
+  .nx-live-costs li { grid-template-columns: 1.4em minmax(40px, 1fr) 3ch 4em; }
+  .nx-live-costs li > span { grid-column: 2 / -1; grid-row: 2; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nx-live-grip i,
+  .nx-live-chip { transition: none; }
+}
+/* Beside a tall instrument the scenario stays in view while the reader works the controls. */
+@media (min-width: 1100px) and (min-height: 720px) {
+  .nx-lab-brief.has-plot .nx-lab-text { position: sticky; top: 104px; }
+}
+.neuro-row-right .nx-live-pill { margin-right: 8px; border-color: rgba(111, 240, 194, .45); color: var(--nx-mint, #6ff0c2); }

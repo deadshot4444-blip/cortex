@@ -3504,6 +3504,37 @@
      7,
      10
     ]
+   },
+   "instrument": {
+    "kind": "detector",
+    "gate": "open",
+    "view": "event",
+    "threshold": {
+     "value": 5,
+     "min": 2,
+     "max": 10,
+     "step": 0.1
+    },
+    "event": {
+     "start": 7,
+     "end": 8,
+     "label": "Labeled event"
+    },
+    "explore": "Drag the threshold or use the slider. Watch which windows trigger and where they fall.",
+    "task": "Find a threshold that triggers inside the labeled event and nowhere else.",
+    "goal": [
+     [
+      "inside",
+      ">=",
+      1
+     ],
+     [
+      "outside",
+      "=",
+      0
+     ]
+    ],
+    "done": "In this excerpt any threshold from 5.5 to 9.6 does it. A full day of recording would have to confirm that no real event is lost."
    }
   },
   {
@@ -4225,7 +4256,72 @@
     "sampleRateHz": 1,
     "unit": "score units"
    },
-   "curriculumStatus": "revised"
+   "curriculumStatus": "revised",
+   "instrument": {
+    "kind": "decoder",
+    "gate": "open",
+    "title": "Six labeled trials and the decision boundary",
+    "weights": [
+     -1,
+     1
+    ],
+    "bias": {
+     "value": 0,
+     "min": -6,
+     "max": 6,
+     "step": 0.5
+    },
+    "labels": [
+     "left",
+     "right"
+    ],
+    "axes": [
+     "f0",
+     "f1"
+    ],
+    "trials": [
+     [
+      8,
+      15,
+      1
+     ],
+     [
+      14,
+      6,
+      0
+     ],
+     [
+      9,
+      13,
+      1
+     ],
+     [
+      12,
+      11,
+      1
+     ],
+     [
+      16,
+      7,
+      0
+     ],
+     [
+      10,
+      10,
+      0
+     ]
+    ],
+    "explore": "Each point is one trial at [f0, f1]. Drag the boundary or change the bias and watch the six scores.",
+    "task": "Slide the boundary until the trial at 3 s is labeled correctly. Then check the other five.",
+    "goal": [
+     [
+      "bias",
+      ">",
+      1
+     ]
+    ],
+    "done": "A bias above 1 fixes the trial at [12, 11] and breaks the one at [10, 10]. No shift of this boundary labels all six correctly."
+   }
   },
   {
    "id": "sim-dec-weight-choice",
@@ -4334,7 +4430,53 @@
     "sampleRateHz": 10,
     "unit": "cursor units"
    },
-   "curriculumStatus": "revised"
+   "curriculumStatus": "revised",
+   "instrument": {
+    "kind": "cursor",
+    "gate": "open",
+    "title": "Cursor position with a speed limit",
+    "target": 1,
+    "dt": 0.1,
+    "steps": 15,
+    "gain": {
+     "value": 8,
+     "min": 1,
+     "max": 10,
+     "step": 0.5
+    },
+    "limit": {
+     "value": 2,
+     "min": 0.5,
+     "max": 10,
+     "step": 0.5
+    },
+    "delay": {
+     "value": 0
+    },
+    "readouts": [
+     "firstStep",
+     "settle",
+     "clipped"
+    ],
+    "mask": [
+     "clipped"
+    ],
+    "explore": "Change one setting at a time. Watch the size of the first few steps.",
+    "task": "Leave the gain at 8. Raise the speed limit until no update is clipped.",
+    "goal": [
+     [
+      "gain",
+      "=",
+      8
+     ],
+     [
+      "clipped",
+      "=",
+      0
+     ]
+    ],
+    "done": "At a limit of 8 or more the first command, 8 units/s, passes unclipped and the first step is 0.8. The gain never changed."
+   }
   },
   {
    "id": "sim-bci-latency-trace",
@@ -4399,7 +4541,60 @@
     "sampleRateHz": 10,
     "unit": "cursor units"
    },
-   "curriculumStatus": "revised"
+   "curriculumStatus": "revised",
+   "instrument": {
+    "kind": "cursor",
+    "gate": "open",
+    "title": "Cursor position in the delayed loop",
+    "target": 1,
+    "dt": 0.1,
+    "steps": 30,
+    "gain": {
+     "value": 5,
+     "min": 1,
+     "max": 8,
+     "step": 0.5
+    },
+    "limit": {
+     "value": 10
+    },
+    "delay": {
+     "value": 2,
+     "min": 0,
+     "max": 4,
+     "step": 1
+    },
+    "compare": {
+     "label": "Same gain, no delay",
+     "set": {
+      "delaySteps": 0
+     }
+    },
+    "readouts": [
+     "peak",
+     "overshoot",
+     "settle"
+    ],
+    "hand": {
+     "speed": 1,
+     "zone": 0.1
+    },
+    "explore": "Change one setting at a time and watch the swing. The dotted line is the same loop with no delay.",
+    "task": "Keep the delay at 0.2 s. Lower the gain until the cursor passes the target by 0.05 or less.",
+    "goal": [
+     [
+      "delay",
+      "=",
+      2
+     ],
+     [
+      "overshoot",
+      "<=",
+      0.05
+     ]
+    ],
+    "done": "At a gain of 2 or less the cursor passes the target by no more than 0.04. At 2 it settles in 0.6 s. At 5 it was still swinging after 3 s."
+   }
   },
   {
    "id": "sim-bci-recal-choice",
@@ -4515,7 +4710,32 @@
     "sampleRateHz": 4,
     "unit": "score units"
    },
-   "curriculumStatus": "revised"
+   "curriculumStatus": "revised",
+   "instrument": {
+    "kind": "margin",
+    "gate": "open",
+    "threshold": 0,
+    "margin": {
+     "value": 0.5,
+     "min": 0,
+     "max": 1,
+     "step": 0.1
+    },
+    "labels": [
+     "left",
+     "right"
+    ],
+    "explore": "Drag the edge of the shaded margin or use the slider. Watch which windows the decoder acts on.",
+    "task": "Shrink the margin to 0 and count how often the cursor changes direction.",
+    "goal": [
+     [
+      "margin",
+      "=",
+      0
+     ]
+    ],
+    "done": "Four direction changes in the last 2.25 s, each driven by a score of 0.4 or less. The cursor moves again, but on the weakest evidence."
+   }
   },
   {
    "id": "sim-cl-confirm-cost",
@@ -4588,7 +4808,80 @@
      5
     ]
    },
-   "curriculumStatus": "revised"
+   "curriculumStatus": "revised",
+   "instrument": {
+    "kind": "detector",
+    "gate": "open",
+    "view": "confirm",
+    "threshold": {
+     "value": 5,
+     "min": 4,
+     "max": 10,
+     "step": 1
+    },
+    "confirm": {
+     "value": 1,
+     "max": 5
+    },
+    "event": {
+     "start": 5,
+     "end": 9,
+     "label": "Sustained event"
+    },
+    "artifact": {
+     "index": 2,
+     "label": "Single-window artifact",
+     "tag": "artifact"
+    },
+    "presets": [
+     {
+      "label": "A",
+      "threshold": 5,
+      "confirm": 1
+     },
+     {
+      "label": "B",
+      "threshold": 5,
+      "confirm": 3
+     },
+     {
+      "label": "C",
+      "threshold": 8,
+      "confirm": 1
+     }
+    ],
+    "costs": {
+     "falseAction": 1,
+     "missedEvent": 8,
+     "settings": [
+      {
+       "label": "A",
+       "falseActions": 30,
+       "missed": 0
+      },
+      {
+       "label": "B",
+       "falseActions": 4,
+       "missed": 1
+      },
+      {
+       "label": "C",
+       "falseActions": 2,
+       "missed": 4
+      }
+     ]
+    },
+    "explore": "Try settings A, B and C on this excerpt. Watch what each one does with the artifact and with the event.",
+    "task": "Raise the cost of a missed event until A becomes the cheapest setting.",
+    "goal": [
+     [
+      "lowest",
+      "=",
+      "A"
+     ]
+    ],
+    "done": "A wins once one missed event costs more than 26 false actions. The detector did not change. The agreed costs did."
+   }
   },
   {
    "id": "sim-bci-silent-update",
@@ -7711,6 +8004,26 @@
      ],
      "sampleRateHz": 5,
      "unit": "arbitrary units"
+    },
+    "instrument": {
+     "kind": "detector",
+     "gate": "after",
+     "view": "count",
+     "threshold": {
+      "value": 2,
+      "min": 0,
+      "max": 3,
+      "step": 0.5
+     },
+     "task": "Raise the threshold one step, to 2.5. What qualifies now?",
+     "goal": [
+      [
+       "threshold",
+       ">",
+       2
+      ]
+     ],
+     "done": "Nothing qualifies. The samples equal to 2 counted only because the rule says at least 2."
     }
    }
   },
@@ -8094,6 +8407,34 @@
      ],
      "sampleRateHz": 5,
      "unit": "arbitrary units"
+    },
+    "instrument": {
+     "kind": "average",
+     "gate": "after",
+     "title": "Isolated peak and its moving average",
+     "width": {
+      "value": 3,
+      "min": 1,
+      "max": 5,
+      "step": 2
+     },
+     "pad": {
+      "value": false
+     },
+     "task": "Widen the window to 5 samples.",
+     "goal": [
+      [
+       "width",
+       "=",
+       5
+      ],
+      [
+       "pad",
+       "=",
+       0
+      ]
+     ],
+     "done": "Only one full window fits, so there is one output: 9 / 5 = 1.8. A wider window lowers the peak further and leaves fewer output samples."
     }
    }
   },
