@@ -14,7 +14,8 @@ dependencies (jsdom, Playwright, ESLint, Prettier).
 | `serve.py` | Local static server mirroring `_redirects` (SPA fallback, retired-course redirects). | `npm run serve` |
 | `run-browser-tests.mjs` | Starts `serve.py`, runs every browser suite, prints one line per suite. | `npm run test:browser` |
 | `merge.py`, `build-index.py`, `balance-clinical-mcqs.mjs` | Classic clinical case-bank pipeline: merge `data/raw/*` batches into `data/<specialty>.json` + `manifest.json`, rebuild the flat `index.json`, rebalance MCQ options. `merge.py` refuses to run with no batches. Re-running the balancer reshuffles options; do not run it casually. | see each file's docstring |
-| `generate-social-card.mjs` | Renders the site-wide social card `og-v5.jpg` (1200×630) from inline HTML with Playwright. Bump the file name and its references when the copy changes. | `node scripts/generate-social-card.mjs` |
+| `generate-social-cards.mjs` | Renders the share cards, one 1200×630 JPEG per main area, into `og/` with Playwright, and writes `og/cards.json` (each card's file, alt text and the counts on it). Counts come from the site's data; `test-social-cards.cjs` fails when they no longer match. To change a card, raise its `rev`, run this, then `build-share-pages.py`. | `node scripts/generate-social-cards.mjs` |
+| `build-share-pages.py` | Writes the share pages (`mcat.html`, `dat.html`, `neuro.html`, `lab.html`, `academy.html`, `updates.html`): copies of `index.html` with one area's title, description and card, served at that area's path by `_redirects`. Supports `--check`. | `python3 scripts/build-share-pages.py [--check]` |
 | `check-auth-rls-readonly.mjs` | Live Supabase read-isolation check using two dedicated test-account tokens. Never writes. | see `supabase/README.md` |
 
 Conventions:
