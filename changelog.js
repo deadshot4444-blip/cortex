@@ -7,7 +7,7 @@ const CHANGELOG = [
   {
     version: '2.43.0',
     tag: 'UPDATE',
-    date: 'November 17, 2026',
+    date: 'November 18, 2026',
     title: 'Neuroengineering: NumPy tier and module checkpoints',
     items: [
       'Each of the four modules now ends with a checkpoint: six questions drawn from that module’s units, in a new mix on every attempt. Five right is a pass, and your first answer to each question counts.',
