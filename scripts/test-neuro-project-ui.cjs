@@ -315,8 +315,10 @@ test('failed draft/start/check writes retain work and never launch Python before
   assert.equal(h.executions, 0);
   h.fail = false;
   h.run('StudyStorage.retry()');
-  await tick();
+  // The recovered save settles a few milliseconds later, so one event-loop turn is not always enough.
+  await h.until(() => h.work(projects[0].id).attempts.at(-1)?.status === 'interrupted');
   assert.equal(h.work(projects[0].id).attempts.at(-1).status, 'interrupted');
+  assert.equal(h.executions, 0);
   assert.equal(h.find('#project-finish').disabled, true);
   h.close();
 });
