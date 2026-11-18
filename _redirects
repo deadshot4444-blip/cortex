@@ -21,10 +21,11 @@
 /ccma  /  302
 /cogpsych  /academy  302
 
-# Do not 301 /mcat/ → /mcat. Netlify matches those paths as the same rule, so
-# /mcat 301s to itself and the browser dies. The blank-page bug was relative
+# Do not write a 301 from /mcat/ to /mcat here. Netlify matches those paths as the same
+# rule, so /mcat 301s to itself and the browser dies. The blank-page bug was relative
 # app.js resolving as /mcat/app.js; index.html and loadScript now load from /.
-# The catch-all below serves both /mcat and /mcat/ as the app.
+# Netlify itself sends /mcat/ to /mcat (it does for every path that has a share page
+# below), and the catch-all serves any other path, with or without the slash, as the app.
 
 # Share pages: the same app page with one main area's own title and share card. Each .html here is
 # generated from index.html by scripts/build-share-pages.py. Every page inside an area keeps the
