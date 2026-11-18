@@ -7,7 +7,8 @@ after editing a runtime asset instead of hunting for the references by hand:
 
     python3 scripts/bump-cache.py styles.css app.js academy-today.js
 
-Every `name?v=N` reference in index.html and the root *.js files is incremented by one.
+Every `name?v=N` reference in index.html, the share pages generated from it and the root *.js
+files is incremented by one.
 The offline manifest hashes file bodies, so rebuild it afterwards:
 
     python3 scripts/build-offline-manifest.py
@@ -17,7 +18,14 @@ import re
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-REFERENCE_FILES = [ROOT / 'index.html', ROOT / 'lab.html', ROOT / 'neuro.html', *sorted(ROOT.glob('*.js'))]
+# The share pages (mcat.html, neuro.html, …) are copies of index.html; scripts/build-share-pages.py
+# stamps each one on its second line, which is how they are found here.
+SHARE_PAGES = sorted(
+    path
+    for path in ROOT.glob('*.html')
+    if 'GENERATED from index.html by scripts/build-share-pages.py' in path.read_text().split('\n', 2)[1]
+)
+REFERENCE_FILES = [ROOT / 'index.html', *SHARE_PAGES, *sorted(ROOT.glob('*.js'))]
 
 
 def bump(asset: str) -> int:

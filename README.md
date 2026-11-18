@@ -67,7 +67,8 @@ content/              authoring contracts, review queues and correction records
 assets/               figures, media, vendored supabase-js (credits in assets/CREDITS.md)
 netlify/, _redirects, _headers
                       hosting rules: SPA fallback, retired-route redirects, cache policy,
-                      per-path social cards
+                      per-path share pages
+og/                   share cards, one per main area (scripts/generate-social-cards.mjs)
 scripts/              tests, content checks, generators and dev tooling (scripts/README.md)
 supabase/             database schema and sync notes
 ```
@@ -94,8 +95,8 @@ credited in `ATTRIBUTION.md` there.
 
 ## Development
 
-Requirements: Node 20+, Python 3.11+. Optional: Pillow and ffmpeg for the social card,
-`shapely` for `build-hand-hotspots.py`, `npx playwright install chromium` for browser suites.
+Requirements: Node 20+, Python 3.11+. Optional: `shapely` for `build-hand-hotspots.py`,
+`npx playwright install chromium` for the browser suites and the share cards.
 
 ```sh
 npm ci                 # jsdom, Playwright, ESLint, Prettier
@@ -145,6 +146,8 @@ Netlify deploys `main` to https://cortexmedical.academy. Pushing to `main` ships
 is no build step, and the dependency install is a no-op (the root package.json is developer
 tooling only). `_headers` sets long-lived caching for `?v=`-busted scripts and
 `netlify/edge-functions/practice-og.js` rewrites social-card metadata for `/practice`.
+Every other main area has a share page (`mcat.html`, `neuro.html`, …) that `_redirects`
+serves at its path, so a shared link previews that area's own card from `og/`.
 
 ## Release recovery
 

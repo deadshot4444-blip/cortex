@@ -1,5 +1,11 @@
 /share  /share.html  200
 
+# The share cards moved to /og/ (one per main area). The old image addresses still answer.
+/og-v5.jpg        /og/home-1.jpg      301
+/og-clinical.jpg  /og/clinical-1.jpg  301
+/og-neuro-2.jpg   /og/neuro-1.jpg     301
+/og-lab.jpg       /og/lab-1.jpg       301
+
 # Clinical Scenarios share link — its own og card, then an instant client
 # redirect to /practice. Share THIS url to get the clinical thumbnail.
 /share/clinical  /share-clinical.html  200
@@ -20,15 +26,22 @@
 # app.js resolving as /mcat/app.js; index.html and loadScript now load from /.
 # The catch-all below serves both /mcat and /mcat/ as the app.
 
-# Alzheimer's Histology Lab: the same app page with the lab's own title and share card
-# (lab.html is generated from index.html by scripts/build-share-pages.py). A 200 rewrite, never a 301.
-/lab   /lab.html  200
-/lab/  /lab.html  200
-
-# Neuroengineering: the same app page with the course's own title and share card
-# (neuro.html is generated from index.html by scripts/build-share-pages.py). A 200 rewrite, never a 301.
-/neuro   /neuro.html  200
-/neuro/  /neuro.html  200
+# Share pages: the same app page with one main area's own title and share card. Each .html here is
+# generated from index.html by scripts/build-share-pages.py. Every page inside an area keeps the
+# area's path (its own state rides in the query string), so it is served the same card.
+# These are 200 rewrites, never 301s.
+/academy   /academy.html  200
+/academy/  /academy.html  200
+/mcat      /mcat.html     200
+/mcat/     /mcat.html     200
+/dat       /dat.html      200
+/dat/      /dat.html      200
+/updates   /updates.html  200
+/updates/  /updates.html  200
+/lab       /lab.html      200
+/lab/      /lab.html      200
+/neuro     /neuro.html    200
+/neuro/    /neuro.html    200
 
 # SPA fallback: serve the app for section deep-links (e.g. /medicine, /mcat).
 # Must stay last — Netlify serves real static files first, then falls back here.

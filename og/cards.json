@@ -1,0 +1,104 @@
+{
+ "facts": {
+  "courses": [
+   {
+    "id": "mcat",
+    "name": "MCAT preparation",
+    "kind": "Exam preparation"
+   },
+   {
+    "id": "dat",
+    "name": "DAT preparation",
+    "kind": "Exam preparation"
+   },
+   {
+    "id": "practice",
+    "name": "Clinical Scenarios",
+    "kind": "Clinical reasoning"
+   },
+   {
+    "id": "neuro",
+    "name": "Neuroengineering",
+    "kind": "Engineering"
+   },
+   {
+    "id": "lab",
+    "name": "Alzheimer's Histology Lab",
+    "kind": "Laboratory methods"
+   }
+  ],
+  "mcat": {
+   "description": "Learn the foundations, reason through passages, and build a study week you can return to.",
+   "lessons": 45,
+   "questions": 263,
+   "flashcards": 504,
+   "carsPassages": 32,
+   "sciencePassages": 37
+  },
+  "dat": {
+   "description": "Drill the sciences on the clock, train perceptual ability against generated figures, and work timed reading and quantitative sets.",
+   "items": 216,
+   "sections": 6,
+   "readingQuestions": 50,
+   "patGenerators": 6
+  },
+  "clinical": {
+   "rotations": [
+    "Emergency Medicine",
+    "Cardiology",
+    "Neurology"
+   ],
+   "encounters": 18,
+   "bankFloor": 2600
+  },
+  "neuro": {
+   "units": 20,
+   "exercises": 30,
+   "labs": 26,
+   "projects": 6,
+   "course": "IV"
+  }
+ },
+ "cards": {
+  "home": {
+   "file": "og/home-1.jpg",
+   "alt": "Cortex Medical Academy. Master the human machine: free MCAT and DAT preparation and clinical case learning.",
+   "sha256": "92adb512445d027728cfab41f847f44f1b5108ea36e0ba671498c4e55d9f3a8a"
+  },
+  "academy": {
+   "file": "og/academy-1.jpg",
+   "alt": "Cortex Medical Academy course catalog. Choose what you want to learn: MCAT preparation, DAT preparation, Clinical Scenarios, Neuroengineering, Alzheimer's Histology Lab.",
+   "sha256": "3a9487241d65e0bab222a0bbbe5e7d0686b08bc32d37939ce2dc862829579477"
+  },
+  "mcat": {
+   "file": "og/mcat-1.jpg",
+   "alt": "Cortex Medical Academy, MCAT preparation: 45 lessons, 263 practice questions, 504 flashcards and 69 CARS and science passages.",
+   "sha256": "9f2936bee40effcaaa438207067dab1c8aa3feb0e7e28c0f4df746b3ef33d463"
+  },
+  "dat": {
+   "file": "og/dat-1.jpg",
+   "alt": "Cortex Medical Academy, DAT preparation: 216 practice items across 6 test sections.",
+   "sha256": "a59ec5a42fc52b154c6e095c065108ec56b4c207e3f3dd4aae1e99bf22377178"
+  },
+  "clinical": {
+   "file": "og/clinical-1.jpg",
+   "alt": "Cortex Medical Academy, Clinical Scenarios. Start your shift: 18 shift encounters in Emergency Medicine, Cardiology, Neurology, and a case bank of 2,600+.",
+   "sha256": "65072ffc0c75be37ec6ee4990e0d950e911a87c045ac30c012e381ed05f307ef"
+  },
+  "neuro": {
+   "file": "og/neuro-1.jpg",
+   "alt": "Cortex Medical Academy, Neuroengineering. Where the mind meets the machine: 20 units, 30 Python exercises, 26 labs and 6 projects.",
+   "sha256": "5da99b7fe98c260173cac8c10320f914b733170967d8f74b2b6529c398527cfa"
+  },
+  "lab": {
+   "file": "og/lab-1.jpg",
+   "alt": "Cortex Medical Academy, Alzheimer’s Histology Lab, with a real Bielschowsky-stained slide.",
+   "sha256": "37c2051454f88f0d237e556a82565afc2d7c18c985e8a5e0c1f3b99e2b2fe334"
+  },
+  "updates": {
+   "file": "og/updates-1.jpg",
+   "alt": "Cortex Medical Academy updates: the public release history.",
+   "sha256": "39cbeaceb72d575a24b96a61fb764ede4403a71cb17d1bd1eb1a1754589416c2"
+  }
+ }
+}
