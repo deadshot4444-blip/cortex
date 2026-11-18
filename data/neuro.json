@@ -7775,6 +7775,1452 @@
      "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/implanted-brain-computer-interface-bci-devices-patients-paralysis-or-amputation-non-clinical-testing"
     }
    ]
+  },
+  {
+   "id": "code-np-count-episodes",
+   "title": "Masks: Count Threshold Episodes Without a Loop",
+   "codingConcept": "Boolean masks and shifted comparisons",
+   "neuroengineeringConcept": "Threshold episodes in a sampled signal",
+   "explanation": "Comparing an array with a number gives a mask: one True or False per sample. An episode starts wherever the mask is True and the entry before it is False, so two shifted views of the same mask replace the loop and its previous-sample variable. The rule is the one from Unit 2: at or above the threshold counts, and the trace starts below it.",
+   "codeExample": "import numpy as np\n\ndef count_events(samples, threshold):\n    # one True or False per sample\n    above = samples >= threshold\n    return 0  # Replace this line\n\ntrace = np.array([-70, -55, -42, -66, -44, -39, -71])\nprint(\"Events:\", count_events(trace, -50))\n",
+   "expectedOutput": "Events: 2",
+   "challengePrompt": "Complete count_events(samples, threshold). samples is a NumPy array. Count a new event wherever a sample is >= threshold and the sample before it was below. Assume an initially below-threshold state, so a first sample at or above the threshold starts an event. An empty array returns 0. Try it without a for loop, and do not change the input array.",
+   "hint": "An event starts where the mask is True and the entry before it is False. Put one False in front of the mask with np.concatenate, then compare mask[1:] with mask[:-1].",
+   "solution": "import numpy as np\n\ndef count_events(samples, threshold):\n    above = np.concatenate(([False], samples >= threshold))\n    starts = above[1:] & ~above[:-1]\n    return int(starts.sum())\n\ntrace = np.array([-70, -55, -42, -66, -44, -39, -71])\nprint(\"Events:\", count_events(trace, -50))\n",
+   "oneLineMaster": "A mask and its shifted copy find every episode start without a loop.",
+   "difficulty": "intermediate",
+   "relatedSubjectId": "neural-signals",
+   "revision": 1,
+   "moduleId": "signals",
+   "buildsOn": "code-loops-spike-counting",
+   "packages": [
+    "numpy"
+   ],
+   "checks": {
+    "function": "count_events",
+    "arrays": true,
+    "preserveArgs": true,
+    "cases": [
+     {
+      "args": [
+       [
+        0,
+        3,
+        4,
+        0,
+        5
+       ],
+       2
+      ],
+      "expected": 2
+     },
+     {
+      "args": [
+       [
+        -70,
+        -55,
+        -42,
+        -66,
+        -44,
+        -39,
+        -71
+       ],
+       -50
+      ],
+      "expected": 2
+     },
+     {
+      "args": [
+       [
+        -70,
+        -55,
+        -42,
+        -66,
+        -44,
+        -39,
+        -71
+       ],
+       -40
+      ],
+      "expected": 1
+     },
+     {
+      "args": [
+       [
+        5,
+        6,
+        7
+       ],
+       5
+      ],
+      "expected": 1
+     },
+     {
+      "args": [
+       [
+        1,
+        2,
+        1,
+        2
+       ],
+       2
+      ],
+      "expected": 2
+     },
+     {
+      "args": [
+       [
+        1,
+        1,
+        1
+       ],
+       2
+      ],
+      "expected": 0
+     },
+     {
+      "args": [
+       [],
+       0
+      ],
+      "expected": 0
+     }
+    ]
+   },
+   "reviewStatus": "Author-revised synthetic exercise. Independent engineering review is pending.",
+   "sources": [
+    {
+     "title": "NumPy: indexing on ndarrays (boolean arrays)",
+     "url": "https://numpy.org/doc/stable/user/basics.indexing.html"
+    },
+    {
+     "title": "NumPy: the absolute basics for beginners",
+     "url": "https://numpy.org/doc/stable/user/absolute_beginners.html"
+    }
+   ]
+  },
+  {
+   "id": "code-np-moving-average",
+   "title": "Convolution: A Moving Average of Any Width",
+   "codingConcept": "np.convolve with equal weights",
+   "neuroengineeringConcept": "Smoothing and what it changes",
+   "explanation": "A moving average is a convolution with equal weights: every sample in a window counts 1 / width. With mode=\"valid\" NumPy keeps only the positions where the whole window fits. That is the full-windows-only rule from Unit 5, so five samples and a width of three give three outputs.",
+   "codeExample": "import numpy as np\n\ndef moving_average(samples, width):\n    # every sample in a window counts equally\n    weights = np.ones(width) / width\n    return samples  # Replace this line\n\npeak = np.array([0, 0, 9, 0, 0])\nprint(moving_average(peak, 3))\n",
+   "expectedOutput": "[3. 3. 3.]",
+   "challengePrompt": "Complete moving_average(samples, width). samples is a NumPy array. Return the mean of each run of width consecutive samples, in order, using full windows only. Raise ValueError unless width is an integer from 1 to the number of samples. Do not change the input array.",
+   "hint": "np.convolve(samples, weights, mode=\"valid\") slides the weights along the samples and keeps only full overlaps. The weights are already built for you.",
+   "solution": "import numpy as np\n\ndef moving_average(samples, width):\n    if not isinstance(width, int) or not 1 <= width <= samples.size:\n        raise ValueError(\"width must be 1 to the number of samples\")\n    weights = np.ones(width) / width\n    return np.convolve(samples, weights, mode=\"valid\")\n\npeak = np.array([0, 0, 9, 0, 0])\nprint(moving_average(peak, 3))\n",
+   "oneLineMaster": "A moving average is a convolution with equal weights; \"valid\" keeps full windows only.",
+   "difficulty": "intermediate",
+   "relatedSubjectId": "neural-signals",
+   "revision": 1,
+   "moduleId": "signals",
+   "buildsOn": "code-noise-smoothing",
+   "packages": [
+    "numpy"
+   ],
+   "checks": {
+    "function": "moving_average",
+    "arrays": true,
+    "preserveArgs": true,
+    "cases": [
+     {
+      "args": [
+       [
+        0,
+        0,
+        9,
+        0,
+        0
+       ],
+       3
+      ],
+      "expected": [
+       3,
+       3,
+       3
+      ]
+     },
+     {
+      "args": [
+       [
+        10,
+        12,
+        50,
+        13,
+        11
+       ],
+       3
+      ],
+      "expected": [
+       24,
+       25,
+       24.666666666666668
+      ]
+     },
+     {
+      "args": [
+       [
+        0,
+        0,
+        9,
+        0,
+        0
+       ],
+       5
+      ],
+      "expected": [
+       1.8
+      ]
+     },
+     {
+      "args": [
+       [
+        1,
+        2,
+        3,
+        4
+       ],
+       2
+      ],
+      "expected": [
+       1.5,
+       2.5,
+       3.5
+      ]
+     },
+     {
+      "args": [
+       [
+        4,
+        8
+       ],
+       1
+      ],
+      "expected": [
+       4,
+       8
+      ]
+     },
+     {
+      "args": [
+       [
+        1,
+        2
+       ],
+       3
+      ],
+      "raises": "ValueError"
+     },
+     {
+      "args": [
+       [
+        1,
+        2,
+        3
+       ],
+       0
+      ],
+      "raises": "ValueError"
+     }
+    ]
+   },
+   "reviewStatus": "Author-revised synthetic exercise. Independent engineering review is pending.",
+   "sources": [
+    {
+     "title": "NumPy reference: numpy.convolve",
+     "url": "https://numpy.org/doc/stable/reference/generated/numpy.convolve.html"
+    },
+    {
+     "title": "NumPy: the absolute basics for beginners",
+     "url": "https://numpy.org/doc/stable/user/absolute_beginners.html"
+    }
+   ]
+  },
+  {
+   "id": "code-np-channel-features",
+   "title": "Axes: Features for Every Channel at Once",
+   "codingConcept": "Reductions along an axis",
+   "neuroengineeringConcept": "Window features across channels",
+   "explanation": "Stack one window per channel as the rows of a 2-D array. A reduction with axis=1 then collapses each row to one number, so the mean, the RMS and a count come out for every channel in one call each. The count compares each row with its own mean, which needs the means reshaped into a column.",
+   "codeExample": "import numpy as np\n\ndef channel_features(windows):\n    # one mean per channel\n    mean = windows.mean(axis=1)\n    return mean  # Replace this line\n\nwindows = np.array([[2, -1, 8, 3, -2, 9, 1, 4],\n                    [1, 1, 1, 1, 1, 1, 1, 1]])\nprint(channel_features(windows))\n",
+   "expectedOutput": "[[3.         4.74341649 3.        ]\n [1.         1.         0.        ]]",
+   "challengePrompt": "Complete channel_features(windows). windows is a 2-D NumPy array with one row of samples per channel. Return one row per channel holding [mean, rms, count_above_mean], where the count uses strictly greater than that channel’s own mean. Raise ValueError when windows is not 2-D or has no samples. Do not change the input array.",
+   "hint": "windows.mean(axis=1) gives one mean per row. To compare every row with its own mean, turn the means into a column first: mean[:, None].",
+   "solution": "import numpy as np\n\ndef channel_features(windows):\n    if windows.ndim != 2 or windows.shape[1] == 0:\n        raise ValueError(\"Give one row of samples per channel\")\n    mean = windows.mean(axis=1)\n    rms = np.sqrt((windows ** 2).mean(axis=1))\n    count = (windows > mean[:, None]).sum(axis=1)\n    return np.column_stack([mean, rms, count])\n\nwindows = np.array([[2, -1, 8, 3, -2, 9, 1, 4],\n                    [1, 1, 1, 1, 1, 1, 1, 1]])\nprint(channel_features(windows))\n",
+   "oneLineMaster": "axis=1 reduces each row, so one call computes a feature for every channel.",
+   "difficulty": "intermediate",
+   "relatedSubjectId": "decoding-ai",
+   "revision": 1,
+   "moduleId": "decoding",
+   "buildsOn": "code-feature-extraction",
+   "packages": [
+    "numpy"
+   ],
+   "checks": {
+    "function": "channel_features",
+    "arrays": true,
+    "preserveArgs": true,
+    "cases": [
+     {
+      "args": [
+       [
+        [
+         2,
+         -1,
+         8,
+         3,
+         -2,
+         9,
+         1,
+         4
+        ]
+       ]
+      ],
+      "expected": [
+       [
+        3,
+        4.743416490252569,
+        3
+       ]
+      ]
+     },
+     {
+      "args": [
+       [
+        [
+         2,
+         -1,
+         8,
+         3,
+         -2,
+         9,
+         1,
+         4
+        ],
+        [
+         1,
+         1,
+         1,
+         1,
+         1,
+         1,
+         1,
+         1
+        ]
+       ]
+      ],
+      "expected": [
+       [
+        3,
+        4.743416490252569,
+        3
+       ],
+       [
+        1,
+        1,
+        0
+       ]
+      ]
+     },
+     {
+      "args": [
+       [
+        [
+         0,
+         2,
+         0,
+         2
+        ],
+        [
+         -3,
+         3,
+         -3,
+         3
+        ]
+       ]
+      ],
+      "expected": [
+       [
+        1,
+        1.4142135623730951,
+        2
+       ],
+       [
+        0,
+        3,
+        2
+       ]
+      ]
+     },
+     {
+      "args": [
+       [
+        [
+         5
+        ]
+       ]
+      ],
+      "expected": [
+       [
+        5,
+        5,
+        0
+       ]
+      ]
+     },
+     {
+      "args": [
+       [
+        2,
+        -1,
+        8
+       ]
+      ],
+      "raises": "ValueError"
+     },
+     {
+      "args": [
+       [
+        []
+       ]
+      ],
+      "raises": "ValueError"
+     }
+    ]
+   },
+   "reviewStatus": "Author-revised synthetic exercise. Independent engineering review is pending.",
+   "sources": [
+    {
+     "title": "NumPy reference: numpy.mean",
+     "url": "https://numpy.org/doc/stable/reference/generated/numpy.mean.html"
+    },
+    {
+     "title": "NumPy: broadcasting",
+     "url": "https://numpy.org/doc/stable/user/basics.broadcasting.html"
+    }
+   ]
+  },
+  {
+   "id": "code-np-decode-trials",
+   "title": "Matrix Product: Score Every Trial at Once",
+   "codingConcept": "The @ operator and comparing arrays",
+   "neuroengineeringConcept": "Linear decoding and held-out accuracy",
+   "explanation": "A linear decoder gives every trial the same weights. With the trials as rows of a matrix, features @ weights computes every weighted sum in one product. The decision rule does not change: a trial is labeled right, written 1, only when its score is above 0, so a score of exactly 0 is left, written 0. Accuracy is the mean of an array of matches.",
+   "codeExample": "import numpy as np\n\ndef decode_trials(features, labels, weights, bias):\n    # one score per trial\n    scores = features @ weights + bias\n    return [scores, 0.0]  # Replace this line\n\nfeatures = np.array([[8, 15], [14, 6], [9, 13],\n                     [12, 11], [16, 7], [10, 10]])\nlabels = np.array([1, 0, 1, 1, 0, 0])\nweights = np.array([-1, 1])\nout = decode_trials(features, labels, weights, 0)\nprint(out[0], out[1])\n",
+   "expectedOutput": "[ 7 -8  4 -1 -9  0] 0.8333333333333334",
+   "challengePrompt": "Complete decode_trials(features, labels, weights, bias). features has one row per trial, labels holds 1 for right and 0 for left, and weights has one entry per feature column. Return [scores, accuracy]: scores is features @ weights + bias, and accuracy is the fraction of trials whose prediction (1 only when the score is above 0) equals its label. Raise ValueError when features is not 2-D, has no rows, or its shape does not match weights and labels. Do not change the inputs.",
+   "hint": "scores > 0 is a True/False array. Compare it with labels == 1 and take np.mean of the matches: True counts as 1.",
+   "solution": "import numpy as np\n\ndef decode_trials(features, labels, weights, bias):\n    if features.ndim != 2 or features.shape[0] == 0:\n        raise ValueError(\"Give one row of features per trial\")\n    if features.shape[1] != weights.size:\n        raise ValueError(\"One weight per feature column\")\n    if labels.size != features.shape[0]:\n        raise ValueError(\"One label per trial\")\n    scores = features @ weights + bias\n    accuracy = np.mean((scores > 0) == (labels == 1))\n    return [scores, accuracy]\n\nfeatures = np.array([[8, 15], [14, 6], [9, 13],\n                     [12, 11], [16, 7], [10, 10]])\nlabels = np.array([1, 0, 1, 1, 0, 0])\nweights = np.array([-1, 1])\nout = decode_trials(features, labels, weights, 0)\nprint(out[0], out[1])\n",
+   "oneLineMaster": "Rows of trials times a weight vector scores every trial in one product.",
+   "difficulty": "intermediate",
+   "relatedSubjectId": "decoding-ai",
+   "revision": 1,
+   "moduleId": "decoding",
+   "buildsOn": "code-weighted-linear-decoder",
+   "packages": [
+    "numpy"
+   ],
+   "checks": {
+    "function": "decode_trials",
+    "arrays": true,
+    "preserveArgs": true,
+    "cases": [
+     {
+      "args": [
+       [
+        [
+         8,
+         15
+        ],
+        [
+         14,
+         6
+        ],
+        [
+         9,
+         13
+        ],
+        [
+         12,
+         11
+        ],
+        [
+         16,
+         7
+        ],
+        [
+         10,
+         10
+        ]
+       ],
+       [
+        1,
+        0,
+        1,
+        1,
+        0,
+        0
+       ],
+       [
+        -1,
+        1
+       ],
+       0
+      ],
+      "expected": [
+       [
+        7,
+        -8,
+        4,
+        -1,
+        -9,
+        0
+       ],
+       0.8333333333333334
+      ]
+     },
+     {
+      "args": [
+       [
+        [
+         8,
+         15
+        ],
+        [
+         14,
+         6
+        ],
+        [
+         9,
+         13
+        ],
+        [
+         12,
+         11
+        ],
+        [
+         16,
+         7
+        ],
+        [
+         10,
+         10
+        ]
+       ],
+       [
+        1,
+        0,
+        1,
+        1,
+        0,
+        0
+       ],
+       [
+        -1,
+        1
+       ],
+       1.5
+      ],
+      "expected": [
+       [
+        8.5,
+        -6.5,
+        5.5,
+        0.5,
+        -7.5,
+        1.5
+       ],
+       0.8333333333333334
+      ]
+     },
+     {
+      "args": [
+       [
+        [
+         3,
+         8
+        ],
+        [
+         9,
+         2
+        ],
+        [
+         4,
+         7
+        ],
+        [
+         8,
+         3
+        ]
+       ],
+       [
+        1,
+        0,
+        1,
+        0
+       ],
+       [
+        -1,
+        1
+       ],
+       0
+      ],
+      "expected": [
+       [
+        5,
+        -7,
+        3,
+        -5
+       ],
+       1
+      ]
+     },
+     {
+      "args": [
+       [
+        [
+         1,
+         2,
+         3
+        ]
+       ],
+       [
+        1
+       ],
+       [
+        1,
+        1,
+        1
+       ],
+       -6
+      ],
+      "expected": [
+       [
+        0
+       ],
+       0
+      ]
+     },
+     {
+      "args": [
+       [
+        [
+         1,
+         2
+        ]
+       ],
+       [
+        1
+       ],
+       [
+        1,
+        2,
+        3
+       ],
+       0
+      ],
+      "raises": "ValueError"
+     },
+     {
+      "args": [
+       [
+        [
+         1,
+         2
+        ],
+        [
+         3,
+         4
+        ]
+       ],
+       [
+        1
+       ],
+       [
+        1,
+        1
+       ],
+       0
+      ],
+      "raises": "ValueError"
+     },
+     {
+      "args": [
+       [],
+       [],
+       [
+        1,
+        1
+       ],
+       0
+      ],
+      "raises": "ValueError"
+     }
+    ]
+   },
+   "reviewStatus": "Author-revised synthetic exercise. Independent engineering review is pending.",
+   "sources": [
+    {
+     "title": "NumPy reference: numpy.matmul",
+     "url": "https://numpy.org/doc/stable/reference/generated/numpy.matmul.html"
+    },
+    {
+     "title": "NumPy: the absolute basics for beginners",
+     "url": "https://numpy.org/doc/stable/user/absolute_beginners.html"
+    }
+   ]
+  },
+  {
+   "id": "code-np-normalize-session",
+   "title": "Broadcasting: Recalibrate Every Window at Once",
+   "codingConcept": "Broadcasting a row across a matrix",
+   "neuroengineeringConcept": "Per-channel offset and scale correction",
+   "explanation": "Broadcasting lines a one-row array of per-channel values up against every row of a matrix. With one window per row and one channel per column, a single expression recalibrates a whole session: subtract each channel’s resting mean, then divide by its scale. The order is the one from Unit 14, offset first and scale second.",
+   "codeExample": "import numpy as np\n\ndef normalize(features, rest_means, scales):\n    # every row loses the same offsets\n    centered = features - rest_means\n    return centered  # Replace this line\n\nsession = np.array([[36, 30, 8], [16, 20, 10]])\nrest = np.array([26, 20, 8])\nscale = np.array([10, 10, 2])\nprint(normalize(session, rest, scale))\n",
+   "expectedOutput": "[[ 1.  1.  0.]\n [-1.  0.  1.]]",
+   "challengePrompt": "Complete normalize(features, rest_means, scales). features is a 2-D NumPy array with one row per window and one column per channel. Return (feature - rest_mean) / scale for every entry, using each column’s own rest mean and scale. Raise ValueError when features is not 2-D, when the number of columns differs from the length of rest_means or scales, or when any scale is zero or negative. Do not change the inputs.",
+   "hint": "features - rest_means already subtracts the right offset from every row: NumPy matches the last dimension. Check the shapes and the scales before you divide.",
+   "solution": "import numpy as np\n\ndef normalize(features, rest_means, scales):\n    columns = features.shape[1] if features.ndim == 2 else -1\n    if not (columns == rest_means.size == scales.size):\n        raise ValueError(\"One offset and one scale per channel\")\n    if np.any(scales <= 0):\n        raise ValueError(\"Scales must be positive\")\n    return (features - rest_means) / scales\n\nsession = np.array([[36, 30, 8], [16, 20, 10]])\nrest = np.array([26, 20, 8])\nscale = np.array([10, 10, 2])\nprint(normalize(session, rest, scale))\n",
+   "oneLineMaster": "Broadcasting applies one offset and one scale per channel to every window at once.",
+   "difficulty": "intermediate",
+   "relatedSubjectId": "bci",
+   "revision": 1,
+   "moduleId": "control-loop",
+   "buildsOn": "code-channel-rescale",
+   "packages": [
+    "numpy"
+   ],
+   "checks": {
+    "function": "normalize",
+    "arrays": true,
+    "preserveArgs": true,
+    "cases": [
+     {
+      "args": [
+       [
+        [
+         36,
+         30,
+         8
+        ]
+       ],
+       [
+        26,
+        20,
+        8
+       ],
+       [
+        10,
+        10,
+        2
+       ]
+      ],
+      "expected": [
+       [
+        1,
+        1,
+        0
+       ]
+      ]
+     },
+     {
+      "args": [
+       [
+        [
+         36,
+         30,
+         8
+        ],
+        [
+         16,
+         20,
+         10
+        ]
+       ],
+       [
+        26,
+        20,
+        8
+       ],
+       [
+        10,
+        10,
+        2
+       ]
+      ],
+      "expected": [
+       [
+        1,
+        1,
+        0
+       ],
+       [
+        -1,
+        0,
+        1
+       ]
+      ]
+     },
+     {
+      "args": [
+       [
+        [
+         0,
+         0
+        ],
+        [
+         2,
+         10
+        ]
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        1,
+        4
+       ]
+      ],
+      "expected": [
+       [
+        -1,
+        -0.5
+       ],
+       [
+        1,
+        2
+       ]
+      ]
+     },
+     {
+      "args": [
+       [
+        [
+         1,
+         2,
+         3
+        ]
+       ],
+       [
+        1,
+        2
+       ],
+       [
+        1,
+        1
+       ]
+      ],
+      "raises": "ValueError"
+     },
+     {
+      "args": [
+       [
+        [
+         1,
+         2
+        ]
+       ],
+       [
+        0,
+        0
+       ],
+       [
+        1,
+        0
+       ]
+      ],
+      "raises": "ValueError"
+     },
+     {
+      "args": [
+       [
+        [
+         1,
+         2
+        ]
+       ],
+       [
+        0,
+        0
+       ],
+       [
+        1,
+        -2
+       ]
+      ],
+      "raises": "ValueError"
+     },
+     {
+      "args": [
+       [
+        1,
+        2
+       ],
+       [
+        0,
+        0
+       ],
+       [
+        1,
+        1
+       ]
+      ],
+      "raises": "ValueError"
+     }
+    ]
+   },
+   "reviewStatus": "Author-revised synthetic exercise. Independent engineering review is pending.",
+   "sources": [
+    {
+     "title": "NumPy: broadcasting",
+     "url": "https://numpy.org/doc/stable/user/basics.broadcasting.html"
+    },
+    {
+     "title": "NumPy: the absolute basics for beginners",
+     "url": "https://numpy.org/doc/stable/user/absolute_beginners.html"
+    }
+   ]
+  },
+  {
+   "id": "code-np-delayed-cursor",
+   "title": "Simulation: A Cursor That Sees an Old Position",
+   "codingConcept": "Preallocating an array and filling it in a loop",
+   "neuroengineeringConcept": "Delay in a feedback loop",
+   "explanation": "A feedback loop cannot be turned into one array expression, because each position depends on the one before it. NumPy still helps: allocate the whole trace with np.zeros, fill it update by update, and let np.clip apply the speed limit. The target is 1 and the cursor starts at 0. With a delay of two updates the loop reproduces the overshoot from the latency lab.",
+   "codeExample": "import numpy as np\n\ndef simulate(steps, gain, delay_steps, max_speed, dt):\n    # the whole trace, filled in below\n    positions = np.zeros(steps + 1)\n    for n in range(steps):\n        # Replace the next line: the view is delay_steps old\n        observed = positions[n]\n        command = gain * (1.0 - observed)\n        velocity = np.clip(command, -max_speed, max_speed)\n        positions[n + 1] = positions[n] + velocity * dt\n    return positions\n\nprint(simulate(6, 5, 2, 10, 0.1))\n",
+   "expectedOutput": "[0.   0.5  1.   1.5  1.75 1.75 1.5 ]",
+   "challengePrompt": "Complete simulate(steps, gain, delay_steps, max_speed, dt). Return a NumPy array of steps + 1 positions, starting at 0. At each update the controller observes the position from delay_steps updates earlier, or 0 if the run is not that old yet. It commands gain × (1 - observed), clips that velocity to [-max_speed, max_speed], and the cursor moves by velocity × dt. Raise ValueError when steps is below 1, delay_steps is negative, or max_speed or dt is zero or negative.",
+   "hint": "At update n the controller sees positions[n - delay_steps], but only once n has reached delay_steps. Before that it sees the starting position, 0.",
+   "solution": "import numpy as np\n\ndef simulate(steps, gain, delay_steps, max_speed, dt):\n    if steps < 1 or delay_steps < 0 or max_speed <= 0 or dt <= 0:\n        raise ValueError(\"Check steps, delay_steps, max_speed and dt\")\n    positions = np.zeros(steps + 1)\n    for n in range(steps):\n        seen = n - delay_steps\n        observed = positions[seen] if seen >= 0 else 0.0\n        command = gain * (1.0 - observed)\n        velocity = np.clip(command, -max_speed, max_speed)\n        positions[n + 1] = positions[n] + velocity * dt\n    return positions\n\nprint(simulate(6, 5, 2, 10, 0.1))\n",
+   "oneLineMaster": "A loop that acts on an old position overshoots; preallocate the trace and fill it step by step.",
+   "difficulty": "intermediate",
+   "relatedSubjectId": "bci",
+   "revision": 1,
+   "moduleId": "control-loop",
+   "buildsOn": "code-cursor-step",
+   "packages": [
+    "numpy"
+   ],
+   "checks": {
+    "function": "simulate",
+    "arrays": true,
+    "cases": [
+     {
+      "args": [
+       12,
+       5,
+       2,
+       10,
+       0.1
+      ],
+      "expected": [
+       0,
+       0.5,
+       1.0,
+       1.5,
+       1.75,
+       1.75,
+       1.5,
+       1.125,
+       0.75,
+       0.5,
+       0.4375,
+       0.5625,
+       0.8125
+      ]
+     },
+     {
+      "args": [
+       4,
+       5,
+       0,
+       10,
+       0.1
+      ],
+      "expected": [
+       0,
+       0.5,
+       0.75,
+       0.875,
+       0.9375
+      ]
+     },
+     {
+      "args": [
+       8,
+       8,
+       0,
+       2,
+       0.1
+      ],
+      "expected": [
+       0,
+       0.2,
+       0.4,
+       0.6,
+       0.8,
+       0.96,
+       0.992,
+       0.9984,
+       0.99968
+      ]
+     },
+     {
+      "args": [
+       3,
+       2,
+       1,
+       10,
+       0.5
+      ],
+      "expected": [
+       0,
+       1,
+       2,
+       2
+      ]
+     },
+     {
+      "args": [
+       1,
+       5,
+       3,
+       10,
+       0.1
+      ],
+      "expected": [
+       0,
+       0.5
+      ]
+     },
+     {
+      "args": [
+       0,
+       5,
+       2,
+       10,
+       0.1
+      ],
+      "raises": "ValueError"
+     },
+     {
+      "args": [
+       5,
+       5,
+       2,
+       10,
+       0
+      ],
+      "raises": "ValueError"
+     }
+    ]
+   },
+   "reviewStatus": "Author-revised synthetic exercise. Independent engineering review is pending.",
+   "sources": [
+    {
+     "title": "NumPy reference: numpy.clip",
+     "url": "https://numpy.org/doc/stable/reference/generated/numpy.clip.html"
+    },
+    {
+     "title": "NumPy: the absolute basics for beginners",
+     "url": "https://numpy.org/doc/stable/user/absolute_beginners.html"
+    }
+   ]
+  },
+  {
+   "id": "code-np-confirm-triggers",
+   "title": "Windowed Sums: Confirm N Windows in a Row",
+   "codingConcept": "Summing a mask over a sliding window",
+   "neuroengineeringConcept": "Confirmation before a closed-loop action",
+   "explanation": "Turn the threshold test into a mask of ones and zeros and sum it over every run of n samples. A sum of n means all n were at or above the threshold. The detector acts where that first becomes true in each run, which is the last sample of the first full window. This is the confirmation rule from Unit 16 without a run counter.",
+   "codeExample": "import numpy as np\n\ndef confirmed_triggers(values, threshold, n):\n    # 1 where the detector output qualifies, else 0\n    above = (values >= threshold).astype(int)\n    return np.flatnonzero(above)  # Replace this line\n\nexcerpt = np.array([2, 3, 9, 2, 3, 6, 7, 8, 9, 8, 3, 2])\nprint(confirmed_triggers(excerpt, 5, 3))\n",
+   "expectedOutput": "[7]",
+   "challengePrompt": "Complete confirmed_triggers(values, threshold, n). values is a NumPy array. Return the indices where a run of consecutive values at or above threshold reaches exactly n. Each run fires at most once, and a value below threshold resets the run. With n = 1 the result is the first index of each run. Fewer than n values give an empty result. Raise ValueError unless n is an integer of at least 1. Do not change the input array.",
+   "hint": "np.convolve(above, np.ones(n, dtype=int), mode=\"valid\") == n marks every full window. Keep the positions where that is True and the position before it is not, then add n - 1 to turn a window start into the index where the run reaches n.",
+   "solution": "import numpy as np\n\ndef confirmed_triggers(values, threshold, n):\n    if not isinstance(n, int) or n < 1:\n        raise ValueError(\"n must be an integer of at least 1\")\n    above = (values >= threshold).astype(int)\n    if above.size < n:\n        return np.array([], dtype=int)\n    window = np.ones(n, dtype=int)\n    full = np.convolve(above, window, mode=\"valid\") == n\n    before = np.concatenate(([False], full[:-1]))\n    return np.flatnonzero(full & ~before) + n - 1\n\nexcerpt = np.array([2, 3, 9, 2, 3, 6, 7, 8, 9, 8, 3, 2])\nprint(confirmed_triggers(excerpt, 5, 3))\n",
+   "oneLineMaster": "A windowed sum equal to n means n qualifying samples in a row.",
+   "difficulty": "intermediate",
+   "relatedSubjectId": "closed-loop",
+   "revision": 1,
+   "moduleId": "safety-capstone",
+   "buildsOn": "code-consecutive-confirm",
+   "packages": [
+    "numpy"
+   ],
+   "checks": {
+    "function": "confirmed_triggers",
+    "arrays": true,
+    "preserveArgs": true,
+    "cases": [
+     {
+      "args": [
+       [
+        2,
+        3,
+        9,
+        2,
+        3,
+        6,
+        7,
+        8,
+        9,
+        8,
+        3,
+        2
+       ],
+       5,
+       3
+      ],
+      "expected": [
+       7
+      ]
+     },
+     {
+      "args": [
+       [
+        2,
+        3,
+        9,
+        2,
+        3,
+        6,
+        7,
+        8,
+        9,
+        8,
+        3,
+        2
+       ],
+       5,
+       1
+      ],
+      "expected": [
+       2,
+       5
+      ]
+     },
+     {
+      "args": [
+       [
+        2,
+        3,
+        9,
+        2,
+        3,
+        6,
+        7,
+        8,
+        9,
+        8,
+        3,
+        2
+       ],
+       8,
+       1
+      ],
+      "expected": [
+       2,
+       7
+      ]
+     },
+     {
+      "args": [
+       [
+        3,
+        6,
+        7,
+        2,
+        6,
+        6,
+        6,
+        6,
+        1
+       ],
+       5,
+       3
+      ],
+      "expected": [
+       6
+      ]
+     },
+     {
+      "args": [
+       [
+        6,
+        6,
+        6,
+        1,
+        6,
+        6,
+        6
+       ],
+       5,
+       3
+      ],
+      "expected": [
+       2,
+       6
+      ]
+     },
+     {
+      "args": [
+       [
+        2,
+        3,
+        9,
+        2,
+        3,
+        6,
+        7,
+        8,
+        9,
+        8,
+        3,
+        2
+       ],
+       5,
+       6
+      ],
+      "expected": []
+     },
+     {
+      "args": [
+       [
+        6,
+        6
+       ],
+       5,
+       3
+      ],
+      "expected": []
+     },
+     {
+      "args": [
+       [
+        6,
+        6,
+        6
+       ],
+       5,
+       0
+      ],
+      "raises": "ValueError"
+     }
+    ]
+   },
+   "reviewStatus": "Author-revised synthetic exercise. Independent engineering review is pending.",
+   "sources": [
+    {
+     "title": "NumPy reference: numpy.convolve",
+     "url": "https://numpy.org/doc/stable/reference/generated/numpy.convolve.html"
+    },
+    {
+     "title": "NumPy reference: numpy.flatnonzero",
+     "url": "https://numpy.org/doc/stable/reference/generated/numpy.flatnonzero.html"
+    }
+   ]
+  },
+  {
+   "id": "code-np-error-costs",
+   "title": "Arrays of Settings: Price the Errors and Choose",
+   "codingConcept": "Elementwise arithmetic and np.argmin",
+   "neuroengineeringConcept": "Choosing an operating point by cost",
+   "explanation": "Each detector setting has a count of false actions and a count of missed events. With the counts in two arrays, one line prices every setting at once and np.argmin points at the cheapest. The counts come from the recording. The costs come from the people responsible for the device, and changing them can change the answer, as in the Price the Errors lab.",
+   "codeExample": "import numpy as np\n\ndef cheapest(false_actions, missed, false_cost, miss_cost):\n    # Replace the next line: missed events cost something too\n    costs = false_actions * false_cost\n    return [costs, 0]\n\nfalse_actions = np.array([30, 4, 2])\nmissed = np.array([0, 1, 4])\nout = cheapest(false_actions, missed, 1, 8)\nprint(out[0], out[1])\n",
+   "expectedOutput": "[30 12 34] 1",
+   "challengePrompt": "Complete cheapest(false_actions, missed, false_cost, miss_cost). The two arrays hold one count per setting. Return [costs, index]: costs is false_actions × false_cost + missed × miss_cost for every setting, and index is the position of the lowest cost. If two settings tie, return the first. Raise ValueError when the arrays are empty or differ in length, or when a cost is negative. Do not change the inputs.",
+   "hint": "Arrays multiply and add entry by entry, so the cost line needs no loop. np.argmin returns the first position of the smallest value.",
+   "solution": "import numpy as np\n\ndef cheapest(false_actions, missed, false_cost, miss_cost):\n    if false_actions.size == 0 or false_actions.size != missed.size:\n        raise ValueError(\"One count of each kind per setting\")\n    if false_cost < 0 or miss_cost < 0:\n        raise ValueError(\"Costs cannot be negative\")\n    costs = false_actions * false_cost + missed * miss_cost\n    return [costs, int(np.argmin(costs))]\n\nfalse_actions = np.array([30, 4, 2])\nmissed = np.array([0, 1, 4])\nout = cheapest(false_actions, missed, 1, 8)\nprint(out[0], out[1])\n",
+   "oneLineMaster": "Price every setting in one line, then let the agreed costs pick the operating point.",
+   "difficulty": "intermediate",
+   "relatedSubjectId": "closed-loop",
+   "revision": 1,
+   "moduleId": "safety-capstone",
+   "packages": [
+    "numpy"
+   ],
+   "checks": {
+    "function": "cheapest",
+    "arrays": true,
+    "preserveArgs": true,
+    "cases": [
+     {
+      "args": [
+       [
+        30,
+        4,
+        2
+       ],
+       [
+        0,
+        1,
+        4
+       ],
+       1,
+       8
+      ],
+      "expected": [
+       [
+        30,
+        12,
+        34
+       ],
+       1
+      ]
+     },
+     {
+      "args": [
+       [
+        30,
+        4,
+        2
+       ],
+       [
+        0,
+        1,
+        4
+       ],
+       1,
+       27
+      ],
+      "expected": [
+       [
+        30,
+        31,
+        110
+       ],
+       0
+      ]
+     },
+     {
+      "args": [
+       [
+        30,
+        4,
+        2
+       ],
+       [
+        0,
+        1,
+        4
+       ],
+       1,
+       26
+      ],
+      "expected": [
+       [
+        30,
+        30,
+        106
+       ],
+       0
+      ]
+     },
+     {
+      "args": [
+       [
+        30,
+        4,
+        2
+       ],
+       [
+        0,
+        1,
+        4
+       ],
+       1,
+       1
+      ],
+      "expected": [
+       [
+        30,
+        5,
+        6
+       ],
+       1
+      ]
+     },
+     {
+      "args": [
+       [
+        30,
+        4,
+        2
+       ],
+       [
+        0,
+        1,
+        4
+       ],
+       0,
+       1
+      ],
+      "expected": [
+       [
+        0,
+        1,
+        4
+       ],
+       0
+      ]
+     },
+     {
+      "args": [
+       [
+        30,
+        4
+       ],
+       [
+        0,
+        1,
+        4
+       ],
+       1,
+       8
+      ],
+      "raises": "ValueError"
+     },
+     {
+      "args": [
+       [],
+       [],
+       1,
+       8
+      ],
+      "raises": "ValueError"
+     },
+     {
+      "args": [
+       [
+        30,
+        4,
+        2
+       ],
+       [
+        0,
+        1,
+        4
+       ],
+       -1,
+       8
+      ],
+      "raises": "ValueError"
+     }
+    ]
+   },
+   "reviewStatus": "Author-revised synthetic exercise. Independent engineering review is pending.",
+   "sources": [
+    {
+     "title": "NumPy reference: numpy.argmin",
+     "url": "https://numpy.org/doc/stable/reference/generated/numpy.argmin.html"
+    },
+    {
+     "title": "NumPy: the absolute basics for beginners",
+     "url": "https://numpy.org/doc/stable/user/absolute_beginners.html"
+    }
+   ]
   }
  ],
  "unitLessons": {

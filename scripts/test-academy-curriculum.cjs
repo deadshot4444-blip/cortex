@@ -14,7 +14,7 @@ const DAT_UNITS = require('./dat-data.cjs').course.units.length;
 
 test('index resolves all current lesson IDs and keeps drafts distinct from revised material', () => {
   assert.equal(Core.validate(data), data);
-  assert.equal(data.entries.length, 220 + DAT_UNITS);
+  assert.equal(data.entries.length, 228 + DAT_UNITS);
   assert.equal(data.entries.filter(e => e.track === 'dat').length, DAT_UNITS);
   assert.equal(data.cards.length, 12);
   assert.equal(data.connections.length, 23);
@@ -46,8 +46,8 @@ test('missing prerequisites, cycles, invalid destinations and broken connections
   }
 });
 test('search honors intersecting track, preparation, text and shared-objective filters', () => {
-  assert.equal(Core.search(data).length, 211 + DAT_UNITS);
-  assert.equal(Core.search(data, { drafts: true }).length, 220 + DAT_UNITS);
+  assert.equal(Core.search(data).length, 219 + DAT_UNITS);
+  assert.equal(Core.search(data, { drafts: true }).length, 228 + DAT_UNITS);
   const result = Core.search(data, {
     track: 'reference',
     level: 'applied',

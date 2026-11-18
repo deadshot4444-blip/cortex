@@ -6810,3 +6810,33 @@ main.nx-bench > :is(.connect-context, .connect-return) { max-width: 1180px; marg
   .nx-lab-brief.has-plot .nx-lab-text { position: sticky; top: 104px; }
 }
 .neuro-row-right .nx-live-pill { margin-right: 8px; border-color: rgba(111, 240, 194, .45); color: var(--nx-mint, #6ff0c2); }
+
+/* =========================================================================
+   MIDNIGHT — Neuroengineering, intermediate tier and module checkpoints
+   (course update, step 3)
+   ========================================================================= */
+.neuro-page .neuro-tier { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; margin: 40px 0 12px; color: var(--nx-text); font-family: var(--serif); font-size: clamp(24px, 3vw, 30px); font-weight: 500; line-height: 1.15; }
+.neuro-page .neuro-tier span { color: var(--nx-mint); font-family: var(--nx-mono); font-size: 11px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; }
+.neuro-page .neuro-tier-note { max-width: 62ch; margin: 0 0 16px; color: var(--nx-sub); font-size: 15.5px; line-height: 1.6; }
+.nx-tags .nx-tag-tier { border-color: rgba(111, 240, 194, .45); color: var(--nx-mint); }
+.nx-ex-brief .nx-builds { margin: 12px 0 0; }
+.nx-ex-brief .nx-task .nx-fine { margin: 10px 0 0; }
+/* ----- checkpoint ----- */
+.neuro-trackcp .neuro-trackms-tag { color: var(--nx-mint, #6ff0c2); }
+.nx-checkpoint .neuro-body { max-width: 860px; }
+.nx-checkpoint #necpmeta { margin: 16px 0 24px; }
+.nx-checkpoint .nx-q + .nx-q { margin-top: 18px; }
+.nx-cp-result { margin: 30px 0 0; padding: 24px 26px 26px; border: 1px solid var(--nx-line); border-left: 2px solid var(--nx-amber); background: var(--nx-panel); }
+.nx-cp-result.is-passed { border-left-color: var(--nx-mint); }
+.nx-cp-result:focus { outline: none; }
+.nx-cp-result:focus-visible { outline: 2px solid var(--nx-mint); outline-offset: 3px; }
+.nx-cp-result .label { color: var(--nx-amber); }
+.nx-cp-result.is-passed .label { color: var(--nx-mint); }
+.nx-cp-score { margin: 8px 0 0; color: var(--nx-text); font-family: var(--serif); font-size: clamp(34px, 5vw, 46px); font-weight: 500; line-height: 1.1; }
+.nx-cp-take { max-width: 60ch; margin: 10px 0 0; color: var(--nx-sub); font-size: 16px; line-height: 1.6; }
+.nx-cp-actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 20px 0 0; }
+.nx-cp-more { margin: 26px 0 10px; color: var(--nx-comment); font-family: var(--nx-mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; }
+@media (max-width: 720px) {
+  .nx-cp-result { padding: 20px 18px 22px; }
+  .nx-cp-actions .btn { flex: 1 1 100%; }
+}
