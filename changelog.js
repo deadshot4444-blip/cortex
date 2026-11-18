@@ -5,6 +5,19 @@
 
 const CHANGELOG = [
   {
+    version: '2.43.0',
+    tag: 'UPDATE',
+    date: 'November 17, 2026',
+    title: 'Neuroengineering: NumPy tier and module checkpoints',
+    items: [
+      'Each of the four modules now ends with a checkpoint: six questions drawn from that module’s units, in a new mix on every attempt. Five right is a pass, and your first answer to each question counts.',
+      'A checkpoint tells you which units the questions you missed came from. A retake brings mostly new questions, and a pass is kept even if a later attempt falls short.',
+      'Eight new intermediate exercises redo the course’s computations with NumPy, two per module: masks, convolution, reductions along an axis, the matrix product, broadcasting, a simulated feedback loop, windowed sums and argmin.',
+      'The NumPy exercises use the numbers the lessons and labs already use, and each one says which plain-Python exercise or lab it revisits. They are optional and sit after the checkpoint on each module page and in the NeuroCode list.',
+      'Python loads NumPy only for those exercises. The 22 foundation exercises, the projects and your saved work are unchanged.',
+    ],
+  },
+  {
     version: '2.42.0',
     tag: 'UPDATE',
     date: 'November 17, 2026',
