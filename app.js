@@ -263,11 +263,11 @@ const SECTION_SCRIPTS = {
   neuro: [
     'study-storage.js?v=6',
     'python-runtime.js?v=6',
-    'code-evaluator.js?v=9',
+    'code-evaluator.js?v=10',
     'neuro-project-engine.js?v=3',
-    'neuro-practitioner.js?v=13',
+    'neuro-practitioner.js?v=14',
     'neuro-instruments.js?v=1',
-    'neuro.js?v=49',
+    'neuro.js?v=50',
   ],
   // silver-lab-core.js loads before lab.js so the shell can normalize saved state at parse time;
   // lab.js declares window.CortexLab so the later lab modules can register on it when they load.

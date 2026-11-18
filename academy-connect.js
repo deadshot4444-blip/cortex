@@ -66,7 +66,7 @@
   async function load() {
     if (catalog) return catalog;
     if (!loading)
-      loading = fetch('data/academy-curriculum.json?v=10')
+      loading = fetch('data/academy-curriculum.json?v=11')
         .then(response => {
           if (!response.ok) throw Error('Curriculum could not load.');
           return response.json();

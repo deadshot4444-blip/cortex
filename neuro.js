@@ -13,6 +13,7 @@ function neuroReadProgress() {
     milestones: {},
     projects: {},
     units: {},
+    checkpoints: {},
   };
   const saved = StudyStorage.read('cs-neuro', empty);
   const object = value => value && typeof value === 'object' && !Array.isArray(value);
@@ -21,9 +22,10 @@ function neuroReadProgress() {
     !object(saved) ||
     !Array.isArray(saved.pathDone) ||
     !saved.pathDone.every(id => typeof id === 'string') ||
-    ['topicQuiz', 'topicAtlas', 'sims', 'simWork', 'code', 'milestones', 'projects', 'units'].some(
+    ['topicQuiz', 'topicAtlas', 'sims', 'simWork', 'code', 'milestones', 'projects', 'units', 'checkpoints'].some(
       key => saved[key] != null && !object(saved[key])
     ) ||
+    Object.values(saved.checkpoints || {}).some(record => !neuroValidCheckpoint(record)) ||
     Object.values(saved.units || {}).some(record => !neuroValidUnit(record)) ||
     Object.values(saved.simWork || {}).some(record => !neuroValidSimWork(record)) ||
     Object.values(saved.code || {}).some(item => item?.current && !neuroValidCodeWork(item.current))
@@ -51,7 +53,7 @@ async function loadNeuro() {
   if (neuroLoading) return neuroLoading;
   neuroLoading = (async () => {
     const results = await Promise.allSettled(
-      ['data/neuro.json?v=13', 'data/neuro-milestones.json?v=5'].map(async file => {
+      ['data/neuro.json?v=14', 'data/neuro-milestones.json?v=5'].map(async file => {
         const response = await fetch(file);
         if (!response.ok) throw new Error('Neuroengineering lessons did not download');
         return response.json();
@@ -511,7 +513,8 @@ function neuroTrackRows(pg, modules = neuroModules(), headers = true) {
             const ms = msByUnit[neuroUnitNumber(step)];
             return neuroTrackUnitRow(step, pg) + (ms ? neuroTrackMilestoneRow(ms, pg) : '');
           })
-          .join('')
+          .join('') +
+        neuroTrackCheckpointRow(module)
       );
     })
     .join('');
@@ -523,6 +526,9 @@ function neuroBindTrack(root) {
   root
     .querySelectorAll('[data-module]')
     .forEach(btn => btn.addEventListener('click', () => renderNeuroModule(btn.dataset.module)));
+  root
+    .querySelectorAll('[data-checkpoint]')
+    .forEach(btn => btn.addEventListener('click', () => renderNeuroCheckpoint(btn.dataset.checkpoint)));
   root.querySelectorAll('[data-ms]').forEach(btn =>
     btn.addEventListener('click', () => {
       if (typeof renderNeuroMilestone === 'function') renderNeuroMilestone(btn.dataset.ms);
@@ -553,6 +559,7 @@ async function renderNeuroEngineering(options = {}) {
     if (params.has('unit')) return renderNeuroUnit(params.get('unit'));
     if (params.has('code')) return renderNeuroCode(params.get('code'));
     if (params.has('sim')) return renderNeuroSim(params.get('sim'));
+    if (params.has('checkpoint')) return renderNeuroCheckpoint(params.get('checkpoint'));
     if (params.has('module')) return renderNeuroModule(params.get('module'));
     if (params.has('topic')) return renderNeuroTopic(params.get('topic'), { fromUnit: null });
     if (params.has('subject')) return renderNeuroSubject(params.get('subject'));
@@ -742,7 +749,10 @@ function renderNeuroModule(moduleId) {
   const numbers = module.steps.map(neuroUnitNumber);
   const projects = (NEURO.milestones?.milestones || []).filter(ms => numbers.includes(ms.unlockUnit));
   const prev = modules[module.index - 2],
-    next = modules[module.index];
+    next = modules[module.index],
+    extras = (NEURO.data?.neuroCodeLessons || []).filter(
+      lesson => lesson.moduleId === module.id && neuroCodeUsesNumpy(lesson)
+    );
   const root = el('<div></div>');
   root.appendChild(topbar('neuro'));
   const main = el(`<main class="neuro-page neuro-inner neuro-module"><section class="neuro-body">
@@ -753,13 +763,265 @@ function renderNeuroModule(moduleId) {
     <p class="neuro-unit-meta mono">Units ${numbers[0]}&ndash;${numbers.at(-1)} &middot; ${mp.done}/${mp.total} done${projects.length ? ` &middot; ${projects.length === 1 ? 'Project' : 'Projects'}: ${projects.map(ms => esc(ms.title)).join(', ')}` : ''}</p>
     <div class="neuro-cta"><button class="btn btn-solid neuro-btn" id="ne-module-go">${mp.done === mp.total ? 'Review' : mp.done || neuroPathStarted() ? 'Continue' : 'Start'} &middot; Unit ${neuroUnitNumber(target)}</button></div>
     <div class="neuro-tracklist neuro-module-units">${neuroTrackRows(pg, [module], false)}</div>
+    ${
+      extras.length
+        ? `<h2 class="neuro-tier">Intermediate <span>NumPy</span></h2>
+    <p class="neuro-tier-note">Optional, for after the checkpoint: this module&rsquo;s computations on arrays.</p>
+    <div class="neuro-rows">${extras.map(lesson => `<button class="neuro-row" data-code="${esc(lesson.id)}"><span class="neuro-row-main"><span class="neuro-row-title">${esc(lesson.title)}</span><span class="neuro-row-sub">${esc(lesson.codingConcept)}</span></span><span class="neuro-row-right">${neuroCodeHasActivity(lesson.id) ? '<span class="pill">started</span>' : ''}</span></button>`).join('')}</div>`
+        : ''
+    }
     <div class="neuro-module-nav">${prev ? `<button class="btn neuro-btn" data-module="${esc(prev.id)}">&larr; Module ${prev.index} &middot; ${esc(prev.title)}</button>` : '<span></span>'}${next ? `<button class="btn neuro-btn" data-module="${esc(next.id)}">Module ${next.index} &middot; ${esc(next.title)} &rarr;</button>` : ''}</div>
     ${neuroAboutLine()}
   </section></main>`);
   main.querySelector('#neback').onclick = () => renderNeuroEngineering();
   main.querySelector('#ne-module-go').onclick = () => renderNeuroUnit(target.id);
+  main.querySelectorAll('[data-code]').forEach(button => (button.onclick = () => renderNeuroCode(button.dataset.code)));
   neuroBindTrack(main);
   neuroBindLinks(main);
+  root.appendChild(main);
+  setView(root);
+}
+
+/* ---------- module checkpoints ----------
+   A mixed review at the end of a module: six questions drawn from the module's unit questions,
+   at least one from every unit, in a new mix on each attempt. The first answer to each question
+   counts and five right passes. Only ids, option orders and answers are saved. The questions
+   themselves are read from the course, so an attempt is redrawn if one of them no longer exists. */
+const NEURO_CHECKPOINT = { questions: 6, pass: 5 };
+function neuroCheckpointPool(module) {
+  return module.steps.flatMap(step =>
+    (neuroUnitLesson(step.order)?.checks || []).map(question => ({
+      ...question,
+      unit: neuroUnitNumber(step),
+      stepId: step.id,
+    }))
+  );
+}
+function neuroShuffled(list) {
+  const out = [...list];
+  for (let i = out.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [out[i], out[j]] = [out[j], out[i]];
+  }
+  return out;
+}
+// One question from every unit first, then more until the count is reached. Questions from the
+// previous attempt rank last, so a retake is mostly new.
+function neuroCheckpointDraw(module, previous = []) {
+  const repeat = question => (previous.includes(question.id) ? 1 : 0),
+    ranked = neuroShuffled(neuroCheckpointPool(module)).sort((a, b) => repeat(a) - repeat(b)),
+    picked = [];
+  for (const step of module.steps) {
+    const question = ranked.find(item => item.stepId === step.id);
+    if (question) picked.push(question);
+  }
+  for (const question of ranked) if (!picked.includes(question)) picked.push(question);
+  const chosen = neuroShuffled(picked.slice(0, NEURO_CHECKPOINT.questions));
+  return {
+    ids: chosen.map(question => question.id),
+    order: Object.fromEntries(chosen.map(question => [question.id, neuroShuffled(question.choices.map((_, i) => i))])),
+    answers: {},
+    startedAt: Date.now(),
+  };
+}
+function neuroValidCheckpoint(record) {
+  const whole = value => Number.isInteger(value) && value >= 0,
+    object = value => !!value && typeof value === 'object' && !Array.isArray(value),
+    ids = value => Array.isArray(value) && value.every(id => typeof id === 'string'),
+    run = record?.current;
+  return (
+    object(record) &&
+    whole(record.attempts) &&
+    whole(record.best) &&
+    (record.passedAt == null || Number.isFinite(record.passedAt)) &&
+    ids(record.last) &&
+    (run == null ||
+      (object(run) &&
+        ids(run.ids) &&
+        new Set(run.ids).size === run.ids.length &&
+        Number.isFinite(run.startedAt) &&
+        (run.finishedAt == null || Number.isFinite(run.finishedAt)) &&
+        object(run.order) &&
+        run.ids.every(
+          id =>
+            Array.isArray(run.order[id]) &&
+            new Set(run.order[id]).size === run.order[id].length &&
+            run.order[id].every(whole)
+        ) &&
+        object(run.answers) &&
+        Object.entries(run.answers).every(([id, choice]) => run.ids.includes(id) && run.order[id].includes(choice))))
+  );
+}
+// Reading a checkpoint never writes: the hub and the module page only show what was saved.
+function neuroCheckpointSaved(module) {
+  return NEURO_PROG.checkpoints?.[module.id] || null;
+}
+function neuroCheckpointRecord(module) {
+  const all = (NEURO_PROG.checkpoints ||= {}),
+    record = (all[module.id] ||= { attempts: 0, best: 0, passedAt: null, last: [], current: null }),
+    pool = neuroCheckpointPool(module),
+    known = id => {
+      const question = pool.find(item => item.id === id);
+      return !!question && record.current.order[id].length === question.choices.length;
+    };
+  if (!record.current || !record.current.ids.length || !record.current.ids.every(known)) {
+    record.current = neuroCheckpointDraw(module, record.last);
+    saveNeuroProg();
+  }
+  return record;
+}
+function neuroCheckpointScore(module, run) {
+  const pool = neuroCheckpointPool(module),
+    questions = run.ids.map(id => pool.find(question => question.id === id));
+  return {
+    questions,
+    answered: questions.filter(question => run.answers[question.id] != null).length,
+    right: questions.filter(question => run.answers[question.id] === question.correctIndex).length,
+  };
+}
+function neuroCheckpointChoose(module, questionId, choice) {
+  const record = neuroCheckpointRecord(module),
+    run = record.current;
+  if (StudyStorage.paused || run.finishedAt || run.answers[questionId] != null) return false;
+  if (!run.order[questionId]?.includes(choice)) return false;
+  run.answers[questionId] = choice;
+  const score = neuroCheckpointScore(module, run);
+  if (score.answered === score.questions.length) {
+    run.finishedAt = Date.now();
+    record.attempts += 1;
+    record.best = Math.max(record.best, score.right);
+    record.last = [...run.ids];
+    if (score.right >= NEURO_CHECKPOINT.pass) record.passedAt ||= run.finishedAt;
+  }
+  return saveNeuroProg();
+}
+function neuroCheckpointRetake(module) {
+  const record = neuroCheckpointRecord(module);
+  if (StudyStorage.paused || !record.current.finishedAt) return false;
+  record.current = neuroCheckpointDraw(module, record.last);
+  return saveNeuroProg();
+}
+function neuroTrackCheckpointRow(module) {
+  if (!neuroCheckpointPool(module).length) return '';
+  const saved = neuroCheckpointSaved(module),
+    total = Math.min(NEURO_CHECKPOINT.questions, neuroCheckpointPool(module).length),
+    sub = saved?.passedAt
+      ? `Passed &middot; best ${saved.best}/${total}`
+      : saved?.attempts
+        ? `Best ${saved.best}/${total} &middot; try a new mix &rarr;`
+        : saved?.current && Object.keys(saved.current.answers).length
+          ? 'Continue &rarr;'
+          : `${total} mixed questions &rarr;`;
+  return `<button class="neuro-trackms neuro-trackcp open ${saved?.passedAt ? 'done' : ''}" type="button" data-checkpoint="${esc(module.id)}">
+        <span class="neuro-trackms-tag mono">Checkpoint</span>
+        <span class="neuro-trackms-title">Module ${module.index} mixed review</span>
+        <span class="neuro-trackms-sub mono">${sub}</span>
+      </button>`;
+}
+function renderNeuroCheckpoint(moduleId) {
+  if (typeof stopTimer === 'function') stopTimer();
+  const modules = neuroModules(),
+    module = modules.find(item => item.id === moduleId);
+  if (!module || !neuroCheckpointPool(module).length) return renderNeuroEngineering();
+  neuroRoute(null, null, null, null, null, { checkpoint: module.id });
+  const numbers = module.steps.map(neuroUnitNumber),
+    next = modules[module.index],
+    extras = (NEURO.data?.neuroCodeLessons || []).filter(
+      lesson => lesson.moduleId === module.id && neuroCodeUsesNumpy(lesson)
+    );
+  const word = count =>
+    ['Zero', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight'][count] || String(count);
+  const root = el('<div></div>');
+  root.appendChild(topbar('neuro'));
+  const main = el(`<main class="neuro-page neuro-inner nx-bench nx-checkpoint"><section class="neuro-body">
+    <button class="backbtn topback" id="neback">&larr; Module ${module.index} &middot; ${esc(module.title)}</button>
+    <span class="neuro-eyebrow">Module ${module.index} checkpoint</span>
+    <h1 class="neuro-h1">${esc(module.title)}: mixed review.</h1>
+    <p class="neuro-lede">${word(Math.min(NEURO_CHECKPOINT.questions, neuroCheckpointPool(module).length))} questions from Units ${numbers[0]}&ndash;${numbers.at(-1)}, in a new mix each time. ${word(NEURO_CHECKPOINT.pass)} right is a pass. Your first answer to each question counts.</p>
+    <div id="necpbody"></div>
+  </section></main>`);
+  main.querySelector('#neback').onclick = () => renderNeuroModule(module.id);
+  const body = main.querySelector('#necpbody');
+  const draw = focus => {
+    const record = neuroCheckpointRecord(module),
+      run = record.current,
+      score = neuroCheckpointScore(module, run),
+      total = score.questions.length,
+      passed = !!run.finishedAt && score.right >= Math.min(NEURO_CHECKPOINT.pass, total),
+      missed = score.questions.filter(question => run.answers[question.id] !== question.correctIndex),
+      units = [...new Set(missed.map(question => question.unit))].sort((a, b) => a - b),
+      where = units.length < 2 ? `Unit ${units[0]}` : `Units ${units.slice(0, -1).join(', ')} and ${units.at(-1)}`,
+      y = typeof scrollY === 'number' ? scrollY : 0;
+    const block = (question, n) => {
+      const chosen = run.answers[question.id],
+        right = chosen === question.correctIndex;
+      return `<div class="neuro-block nx-q" data-q="${n}"><span class="nx-q-n">Question ${n + 1} of ${total} &middot; Unit ${question.unit}</span><p class="q">${esc(question.prompt)}</p><div class="opts">${run.order[
+        question.id
+      ]
+        .map(
+          (index, i) =>
+            `<button class="opt ${chosen === index ? (right ? 'correct' : 'wrong') : chosen != null && index === question.correctIndex ? 'is-model' : ''}" data-cp-choice="${index}" ${chosen == null ? '' : 'disabled'}><span class="key">${LETTERS[i]}</span><span>${esc(question.choices[index])}</span></button>`
+        )
+        .join(
+          ''
+        )}</div>${chosen == null ? '' : `<div class="explain ${right ? 'good' : 'bad'}" tabindex="-1"><b>${right ? 'Correct first answer' : 'First answer needs review'}</b><p>Model answer: ${esc(question.choices[question.correctIndex])}</p><p>${esc(question.explanation)}</p></div>`}</div>`;
+    };
+    const result = !run.finishedAt
+      ? ''
+      : `<section class="nx-cp-result ${passed ? 'is-passed' : ''}" id="necpresult" tabindex="-1">
+        <span class="label">${passed ? 'Checkpoint passed' : 'Not yet'}</span>
+        <p class="nx-cp-score">${score.right} of ${total}</p>
+        <p class="nx-cp-take">${
+          passed
+            ? missed.length
+              ? `You missed ${missed.length === 1 ? 'one question' : `${missed.length} questions`}, from ${where}.`
+              : 'Every first answer was right.'
+            : `${word(NEURO_CHECKPOINT.pass)} right is a pass. The questions you missed come from ${where}. Reread ${units.length === 1 ? 'that lesson' : 'those lessons'}, then try a new mix.`
+        }${record.passedAt && !passed ? ' Your earlier pass still stands.' : ''}</p>
+        <div class="nx-cp-actions">
+          ${units.map(unit => `<button class="btn neuro-btn" data-cp-unit="${esc(module.steps[numbers.indexOf(unit)].id)}">Review Unit ${unit}</button>`).join('')}
+          <button class="btn neuro-btn" id="necpretake">Try a new mix</button>
+          ${passed && next ? `<button class="btn btn-solid neuro-btn" data-module="${esc(next.id)}">Module ${next.index} &middot; ${esc(next.title)} &rarr;</button>` : ''}
+        </div>
+        ${
+          passed && extras.length
+            ? `<p class="nx-cp-more">Go further: this module in NumPy.</p><div class="neuro-rows">${extras.map(lesson => `<button class="neuro-row" data-code="${esc(lesson.id)}"><span class="neuro-row-main"><span class="neuro-row-title">${esc(lesson.title)}</span><span class="neuro-row-sub">${esc(lesson.codingConcept)}</span></span></button>`).join('')}</div>`
+            : ''
+        }
+      </section>`;
+    body.innerHTML = `<p class="neuro-unit-meta mono" id="necpmeta" role="status">${run.finishedAt ? `Attempt ${record.attempts} finished` : `${score.answered} of ${total} answered`}${record.passedAt ? ' &middot; passed' : record.attempts ? ` &middot; best so far ${record.best}/${total}` : ''}</p>
+      <div id="necpquestions">${score.questions.map(block).join('')}</div>${result}`;
+    body.querySelectorAll('[data-cp-choice]').forEach(button => {
+      const n = Number(button.closest('[data-q]').dataset.q);
+      button.onclick = () => {
+        if (!neuroCheckpointChoose(module, score.questions[n].id, Number(button.dataset.cpChoice))) return;
+        draw(neuroCheckpointRecord(module).current.finishedAt ? '#necpresult' : `[data-q="${n}"] .explain`);
+      };
+    });
+    body
+      .querySelectorAll('[data-cp-unit]')
+      .forEach(button => (button.onclick = () => renderNeuroUnit(button.dataset.cpUnit)));
+    body
+      .querySelectorAll('[data-module]')
+      .forEach(button => (button.onclick = () => renderNeuroModule(button.dataset.module)));
+    body
+      .querySelectorAll('[data-code]')
+      .forEach(button => (button.onclick = () => renderNeuroCode(button.dataset.code)));
+    const retake = body.querySelector('#necpretake');
+    if (retake)
+      retake.onclick = () => {
+        if (!neuroCheckpointRetake(module)) return;
+        draw('#necpmeta');
+        main.querySelector('.neuro-eyebrow')?.scrollIntoView?.({ behavior: 'auto', block: 'start' });
+      };
+    if (!focus) return;
+    if (typeof scrollTo === 'function' && focus !== '#necpmeta') scrollTo({ top: y, behavior: 'instant' });
+    const target = body.querySelector(focus);
+    if (target && focus === '#necpmeta') target.setAttribute('tabindex', '-1');
+    target?.focus?.({ preventScroll: focus !== '#necpresult' });
+    if (focus === '#necpresult') target?.scrollIntoView?.({ behavior: 'auto', block: 'nearest' });
+  };
+  draw();
   root.appendChild(main);
   setView(root);
 }
@@ -776,6 +1038,7 @@ async function renderNeuroAbout() {
   neuroRoute(null, null, null, 'about');
   const modules = neuroModules();
   const steps = neuroPath()?.steps || [];
+  const numpyCount = (NEURO.data?.neuroCodeLessons || []).filter(neuroCodeUsesNumpy).length;
   const revised = steps.filter(step => neuroUnitLesson(step.order)?.revision).length;
   const sources = new Map();
   Object.values(NEURO.data?.unitLessons || {}).forEach(unit =>
@@ -791,8 +1054,8 @@ async function renderNeuroAbout() {
     <h1 class="neuro-h1">About this course.</h1>
     <p class="neuro-lede">A free introduction to how brain&ndash;computer interfaces work, built around one question: how does measured neural activity become an action?</p>
     <h2>How it works</h2>
-    <p>${modules.length} modules, ${steps.length} units. Each unit pairs a short lesson with recall prompts, quick checks, a Python exercise and a decision lab. Six practitioner projects ask you to build one piece of the pipeline, check it against several inputs and write a short engineering memo.</p>
-    <p>Python runs in your browser, in a separate worker, using Pyodide. The first run downloads the runtime. Only the Python standard library is available, so the exercises use plain lists and loops rather than NumPy.</p>
+    <p>${modules.length} modules, ${steps.length} units. Each unit pairs a short lesson with recall prompts, quick checks, a Python exercise and a decision lab. Each module ends with a checkpoint: a mixed review drawn from its units&rsquo; questions, in a new mix on every attempt. Six practitioner projects ask you to build one piece of the pipeline, check it against several inputs and write a short engineering memo.</p>
+    <p>Python runs in your browser, in a separate worker, using Pyodide. The first run downloads the runtime. The unit exercises and the projects use only the Python standard library: plain lists and loops. ${numpyCount ? `${numpyCount} optional intermediate exercises redo the same computations with NumPy, which the runtime loads only for them.` : ''}</p>
     <h2>Review status</h2>
     <p>The course is written and maintained by Cortex Medical Academy. ${revised} of ${steps.length} units have been revised line by line against the sources they cite.${revised < steps.length ? ' The rest are first drafts being rewritten to the same standard.' : ''} No independent subject-matter expert has reviewed the course yet. When one does, this page will say who and when.</p>
     ${modules
@@ -1892,6 +2155,12 @@ function neuroCodeHasActivity(codeId) {
     !!(saved?.legacyCompletion || saved?.passed || saved?.latest?.passed || neuroWorkComplete(saved?.current))
   );
 }
+// NumPy is the only package an exercise can ask for. Saved exercise content is never a way to
+// load anything else.
+function neuroCodePackages(lesson) {
+  return (Array.isArray(lesson?.packages) ? lesson.packages : []).filter(name => name === 'numpy');
+}
+const neuroCodeUsesNumpy = lesson => neuroCodePackages(lesson).length > 0;
 function neuroNewCodeWork(lesson) {
   return {
     content: JSON.parse(JSON.stringify(lesson)),
@@ -2218,6 +2487,7 @@ function mountNeuroCodeSandbox(lesson, codeId, opts, shell) {
     status.textContent = check ? 'Checking…' : 'Running Python…';
     const runtimeOptions = {
       signal: controller.signal,
+      packages: neuroCodePackages(lesson),
       onOutput: output => {
         log.textContent = [output.stdout, output.stderr].filter(Boolean).join('\n');
       },
@@ -2367,14 +2637,19 @@ function renderNeuroCode(codeId, opts = {}) {
   const reflection =
     !lesson.checks && typeof neuroCodeIsRunnablePython === 'function' && !neuroCodeIsRunnablePython(lesson.solution);
   const heading = opts.mount ? ['h2', 'neuro-h2'] : ['h1', 'neuro-h1'];
+  const numpy = neuroCodeUsesNumpy(lesson),
+    base = lesson.buildsOn ? neuroCode(lesson.buildsOn) : null;
   const brief = `<div class="nx-ex-brief">
       <span class="neuro-eyebrow">NeuroCode &middot; ${esc(lesson.codingConcept)}</span>
       <${heading[0]} class="${heading[1]}">${esc(lesson.title)}</${heading[0]}>
       <div class="neuro-block"><span class="label">Concept</span><p class="neuro-prose">${esc(lesson.explanation)}</p>
-        <p class="nx-tags"><span>${esc(lesson.codingConcept)}</span><span>${esc(lesson.neuroengineeringConcept)}</span></p></div>
+        <p class="nx-tags">${numpy ? '<span class="nx-tag-tier">Intermediate &middot; NumPy</span>' : ''}<span>${esc(lesson.codingConcept)}</span><span>${esc(lesson.neuroengineeringConcept)}</span></p>
+        ${base ? `<p class="nx-fine nx-builds">The plain-Python version of this is &ldquo;${esc(base.title)}&rdquo;.</p>` : ''}</div>
       ${neuroSeriesMarkup(lesson.series)}
-      <div class="neuro-block nx-task"><span class="label">${reflection ? 'Your prompt' : 'Your task'}</span><p class="neuro-prose">${esc(lesson.challengePrompt)}</p></div>
-      ${lesson.checks ? '<details><summary>New to Python functions?</summary><p>A function starts with def, followed by its name and inputs in parentheses. Indented lines form its body. return sends a result back to the caller; print only displays a value. A list stores values in order, and its first index is 0. Replace the marked starter lines, run an example, then use Check to call your function with several inputs.</p><p><a href="/neuro?view=python" data-neuro-python>Never coded? Read Python in five minutes.</a></p></details>' : ''}
+      <div class="neuro-block nx-task"><span class="label">${reflection ? 'Your prompt' : 'Your task'}</span><p class="neuro-prose">${esc(lesson.challengePrompt)}</p>
+        ${numpy ? '<p class="nx-fine">List inputs arrive as NumPy arrays. Python loads NumPy for this exercise, so the first run takes a little longer.</p>' : ''}</div>
+      ${numpy ? '<details><summary>New to NumPy arrays?</summary><p>An array holds numbers of one kind, and arithmetic or a comparison applies to every entry at once: samples >= 2 gives one True or False per sample. a[1:] is the array without its first entry and a[:-1] is the array without its last. A 2-D array has rows and columns; axis=1 means work along each row.</p></details>' : ''}
+      ${lesson.checks && !numpy ? '<details><summary>New to Python functions?</summary><p>A function starts with def, followed by its name and inputs in parentheses. Indented lines form its body. return sends a result back to the caller; print only displays a value. A list stores values in order, and its first index is 0. Replace the marked starter lines, run an example, then use Check to call your function with several inputs.</p><p><a href="/neuro?view=python" data-neuro-python>Never coded? Read Python in five minutes.</a></p></details>' : ''}
       ${lesson.sources?.length ? `<details class="nx-sources"><summary>Sources</summary><ul>${lesson.sources.map(source => `<li><a href="${esc(source.url)}" target="_blank" rel="noopener">${esc(source.title)}</a></li>`).join('')}</ul></details>` : ''}
       ${opts.mount ? '' : `<p class="neuro-master"><span class="label">In one line</span>${esc(lesson.oneLineMaster)}</p>`}
     </div>`;
@@ -2409,30 +2684,42 @@ function renderNeuroCode(codeId, opts = {}) {
 
 function renderNeuroCodeLab() {
   neuroRoute(null, null, null, 'code');
-  const lessons = NEURO.data?.neuroCodeLessons || [];
+  const lessons = NEURO.data?.neuroCodeLessons || [],
+    modules = neuroModules(),
+    numpy = lessons.filter(neuroCodeUsesNumpy),
+    plain = lessons.filter(lesson => !neuroCodeUsesNumpy(lesson));
   const root = el('<div></div>');
   root.appendChild(topbar('neuro'));
+  const row = (lesson, sub) => `<button class="neuro-row" data-code="${esc(lesson.id)}">
+      <span class="neuro-row-main"><span class="neuro-row-title">${esc(lesson.title)}</span>
+      <span class="neuro-row-sub">${esc(lesson.codingConcept)} &middot; ${esc(sub)}</span></span>
+      <span class="neuro-row-right">${neuroCodeHasActivity(lesson.id) ? '<span class="pill">started</span>' : ''}</span>
+    </button>`;
+  const place = lesson => {
+    const module = modules.find(item => item.id === lesson.moduleId);
+    return module ? `Module ${module.index}: ${module.title}` : lesson.difficulty || 'intermediate';
+  };
   const main = el(`<main class="neuro-page neuro-inner">
     <section class="neuro-body">
       <button class="backbtn topback" id="neback">&larr; Back to Neuroengineering</button>
       <span class="neuro-eyebrow">NeuroCode Lab</span>
       <h1 class="neuro-h1">Guided code practice.</h1>
-      <p class="neuro-lede">${lessons.length} short Python exercises. Each one runs in your browser and is checked against several inputs, not just the printed example. No Python available? Every exercise also has a trace-by-hand mode.</p>
-      <div class="neuro-rows" id="necodelab"></div>
+      <p class="neuro-lede">${numpy.length ? `${plain.length} exercises in plain Python and ${numpy.length} in NumPy.` : `${lessons.length} short Python exercises.`} Each one runs in your browser and is checked against several inputs, not just the printed example. No Python available? Every exercise also has a trace-by-hand mode.</p>
+      ${numpy.length ? '<h2 class="neuro-tier">Foundations <span>plain Python</span></h2>' : ''}
+      <div class="neuro-rows" id="necodelab">${plain.map(lesson => row(lesson, lesson.difficulty || 'beginner')).join('')}</div>
+      ${
+        numpy.length
+          ? `<h2 class="neuro-tier">Intermediate <span>NumPy</span></h2>
+      <p class="neuro-tier-note">The same computations on arrays, two per module. Each one says which plain-Python exercise or lab it revisits.</p>
+      <div class="neuro-rows" id="necodelab-numpy">${numpy.map(lesson => row(lesson, place(lesson))).join('')}</div>`
+          : ''
+      }
     </section>
   </main>`);
   main.querySelector('#neback').addEventListener('click', renderNeuroEngineering);
-  const rows = main.querySelector('#necodelab');
-  for (const lesson of lessons) {
-    const done = neuroCodeHasActivity(lesson.id);
-    const row = el(`<button class="neuro-row">
-      <span class="neuro-row-main"><span class="neuro-row-title">${esc(lesson.title)}</span>
-      <span class="neuro-row-sub">${esc(lesson.codingConcept)} &middot; ${esc(lesson.difficulty || 'beginner')}</span></span>
-      <span class="neuro-row-right">${done ? '<span class="pill">started</span>' : ''}</span>
-    </button>`);
-    row.addEventListener('click', () => renderNeuroCode(lesson.id));
-    rows.appendChild(row);
-  }
+  main
+    .querySelectorAll('[data-code]')
+    .forEach(button => button.addEventListener('click', () => renderNeuroCode(button.dataset.code)));
   root.appendChild(main);
   setView(root);
 }
@@ -2489,10 +2776,10 @@ function neuroRoute(unit, stage, code, view, sim, extra = {}) {
   if (code) url.searchParams.set('code', code);
   if (sim) url.searchParams.set('sim', sim);
   if (view) url.searchParams.set('view', view);
-  for (const key of ['module', 'topic', 'subject']) if (extra[key]) url.searchParams.set(key, extra[key]);
+  for (const key of ['module', 'topic', 'subject', 'checkpoint']) if (extra[key]) url.searchParams.set(key, extra[key]);
   if (location.pathname + location.search === url.pathname + url.search) return;
   const previous = new URLSearchParams(location.search);
-  const same = ['unit', 'code', 'sim', 'view', 'module', 'topic', 'subject'].every(
+  const same = ['unit', 'code', 'sim', 'view', 'module', 'topic', 'subject', 'checkpoint'].every(
     key => previous.get(key) === url.searchParams.get(key)
   );
   history[same ? 'replaceState' : 'pushState']({}, '', url.pathname + url.search);

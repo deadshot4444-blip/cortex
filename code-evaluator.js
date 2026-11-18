@@ -35,6 +35,9 @@ function neuroCodeCheckScript(code, lesson, marker) {
 def _cortex_check():
     import json, math, copy, io, contextlib
     spec = json.loads(${JSON.stringify(spec)})
+    arrays = bool(spec.get('arrays'))
+    if arrays:
+        import numpy as np
     scope = {'__name__': '__cortex_exercise__'}
     class LimitedOutput(io.StringIO):
         def write(self, value):
@@ -57,16 +60,35 @@ def _cortex_check():
         if isinstance(expected, dict):
             return isinstance(actual, dict) and actual.keys() == expected.keys() and all(equal(actual[k], expected[k]) for k in expected)
         return type(actual) == type(expected) and actual == expected
+    # Array exercises: list arguments arrive as NumPy arrays, and arrays or NumPy numbers in the
+    # result are compared as the plain lists and numbers they hold.
+    def give(case_args):
+        args = copy.deepcopy(case_args)
+        return [np.array(item) if isinstance(item, list) else item for item in args] if arrays else args
+    def kept(args, case_args):
+        if not arrays:
+            return args == case_args
+        return all(np.array_equal(a, np.array(c)) if isinstance(c, list) else a == c for a, c in zip(args, case_args))
+    def plain(value):
+        if not arrays:
+            return value
+        if isinstance(value, (np.ndarray, np.generic)):
+            return value.tolist()
+        if isinstance(value, (list, tuple)):
+            return [plain(item) for item in value]
+        if isinstance(value, dict):
+            return {key: plain(item) for key, item in value.items()}
+        return value
     def clip(value):
         return value if len(value) <= 2000 else value[:2000] + '… (truncated; full length ' + str(len(value)) + ' characters)'
     results = []
     for index, case in enumerate(spec['cases']):
-        args = copy.deepcopy(case['args'])
+        args = give(case['args'])
         expected_label = case.get('raises') or repr(case['expected'])
         try:
             with contextlib.redirect_stdout(output):
-                actual = function(*args)
-            unchanged = not spec.get('preserveArgs') or args == case['args']
+                actual = plain(function(*args))
+            unchanged = not spec.get('preserveArgs') or kept(args, case['args'])
             item = {'passed': not case.get('raises') and equal(actual, case.get('expected')) and unchanged, 'actual': clip(repr(actual)), 'expected': clip(expected_label), 'argsPreserved': unchanged}
             if spec.get('captureExampleResult') and index in spec.get('captureResultIndices', [0]):
                 try:
@@ -77,7 +99,7 @@ def _cortex_check():
                     pass
             results.append(item)
         except Exception as error:
-            unchanged = not spec.get('preserveArgs') or args == case['args']
+            unchanged = not spec.get('preserveArgs') or kept(args, case['args'])
             results.append({'passed': case.get('raises') == type(error).__name__ and unchanged, 'actual': clip(type(error).__name__ + ': ' + str(error)), 'expected': clip(expected_label), 'argsPreserved': unchanged})
     print(${JSON.stringify(marker)} + json.dumps({'cases': results, 'stdout': output.getvalue()}))
 _cortex_check()

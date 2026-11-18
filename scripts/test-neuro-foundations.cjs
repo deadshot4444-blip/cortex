@@ -69,7 +69,12 @@ function harness(saved = new Map(), content = data) {
 }
 (async () => {
   assert.equal(data.learningPaths[0].steps.length, 20);
-  assert.equal(data.neuroCodeLessons.length, 22);
+  assert.equal(data.neuroCodeLessons.length, 30);
+  assert.equal(
+    data.neuroCodeLessons.filter(lesson => !lesson.packages).length,
+    22,
+    'Twenty-two plain-Python exercises'
+  );
   assert.equal(data.simulations.length, 26);
   // Every unit owns its checks, code exercise and simulation: none is shared with another unit (2.38.0).
   const steps = data.learningPaths[0].steps;
