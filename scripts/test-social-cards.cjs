@@ -179,9 +179,15 @@ test('Clinical Scenarios gets its card at the edge, and both share links carry t
   assert.equal(meta(html, 'property', 'og:url'), `${SITE}/practice`);
   assert.equal(link(html, 'canonical'), `${SITE}/practice`);
   assert.equal(meta(html, 'property', 'og:title'), 'Clinical Scenarios — Cortex Medical Academy');
-  // The description says what the page says, and its one number is the case bank's.
+  // The description's one number is the case bank's. Neither it nor the card says the note is
+  // compared with a model or with a clinician's.
   const description = meta(html, 'property', 'og:description');
-  assert.match(description, /compare it with a model/);
+  assert.match(description, /^Start your shift: review the chart/);
+  assert.doesNotMatch(description, /model|clinician|compare/i);
+  const { CARDS, cardFacts } = await generator();
+  const drawn = CARDS.find(card => card.id === 'clinical').build(cardFacts());
+  assert.doesNotMatch(drawn.slice(drawn.indexOf('<body')), /model|clinician|compare/i, 'the Clinical card');
+  assert.doesNotMatch(stamp.cards.clinical.alt, /model|clinician|compare/i, 'the Clinical alt text');
   const specialties = new Set(JSON.parse(read('data/index.json')).map(entry => entry.key)).size;
   assert.ok(description.includes(`${specialties} specialties`), description);
 

@@ -292,7 +292,7 @@ function clinical(facts) {
       <p class="eyebrow">Clinical reasoning · Beta</p>
       <h1>Start<br><em>your shift.</em></h1>
       <span class="rule"></span>
-      <p class="sub">Review the chart, lock your decisions, rank a differential, write your note, and compare it with a model.</p>
+      <p class="sub">Review the chart, lock your decisions, rank a differential, and write your note.</p>
     </main>
     <aside class="figure">
       <div class="monitor">
