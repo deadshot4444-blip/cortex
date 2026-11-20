@@ -96,8 +96,10 @@ async function runViewport(browser, viewport) {
     const hubText = await page.locator('.cshift-hub').innerText();
     const shiftFooterText = await page.locator('.sitefoot .sf-legal').innerText();
     const exposedTitles = pilotCaseTitles.filter(title => hubText.includes(title));
+    const howSteps = (await page.locator('.cshift-how li strong').allTextContents()).join(' > ');
     if (
       heading !== 'Start your shift.' ||
+      howSteps !== 'Meet the patient > Ask and examine > Decide > Debrief' ||
       rotationCount !== 3 ||
       legacyControlCount !== 0 ||
       exposedTitles.length ||
@@ -229,187 +231,147 @@ async function runViewport(browser, viewport) {
       );
     }
     await assertNoHorizontalOverflow(page, viewport, 'completed chart review', overflowChecks);
+
+    // the notepad: optional, beside the chart, and what is typed there stays put
+    const notes = 'Right pupil smaller\n<b>not bold</b> & recheck';
+    const notepad = page.locator('.cshift-notepad');
+    if (await notepad.evaluate(node => node.open)) fail(`${viewport.name} notepad did not start closed`);
+    await notepad.locator('summary').click();
+    await page.locator('#cshift-notes').fill(notes);
+    await page.waitForFunction(
+      ([key, text]) => JSON.parse(localStorage.getItem(key))?.active?.notes === text,
+      [PILOT_STATE_KEY, notes]
+    );
+    await assertNoHorizontalOverflow(page, viewport, 'open notepad', overflowChecks);
     await page.locator('#cshift-begin-reasoning').click();
-    await page.waitForSelector('.cshift-task');
+    await page.waitForSelector('.cshift-task.is-question');
 
-    let decisionCount = 0;
-    let differentialSeen = false;
-    let decisionResumeChecked = false;
-    for (let step = 0; step < 20 && !(await page.locator('#cshift-assessment').count()); step++) {
-      if (await page.locator('.cshift-options').count()) {
-        await assertNoCaseSpoilers(page, caseData, `${viewport.name} decision ${decisionCount + 1}`);
-        await assertDelayedFeedback(page, `${viewport.name} decision ${decisionCount + 1}`);
-        const options = page.locator('.cshift-option');
-        if ((await options.count()) < 4) fail(`${viewport.name} decision has fewer than four choices`);
-        await options.first().click();
-        if ((await page.locator('.cshift-option[aria-pressed="true"]').count()) !== 1) {
-          fail(`${viewport.name} decision selection did not expose its pressed state`);
-        }
-        const lockButton = page.locator('#cshift-lock-decision');
-        if (await lockButton.isDisabled()) fail(`${viewport.name} selected decision could not be locked`);
-        await lockButton.click();
-        await page.waitForSelector('.cshift-locked');
-        const everyChoiceDisabled = await page
-          .locator('.cshift-option')
-          .evaluateAll(buttons => buttons.every(button => button.disabled));
-        const lockedText = (await page.locator('.cshift-locked').innerText()).trim();
-        if (!everyChoiceDisabled || !lockedText.toLowerCase().includes('decision locked')) {
-          fail(`${viewport.name} decision did not become immutable`, { everyChoiceDisabled, lockedText });
-        }
-        await assertDelayedFeedback(page, `${viewport.name} locked decision ${decisionCount + 1}`);
-        await assertNoHorizontalOverflow(page, viewport, `locked decision ${decisionCount + 1}`, overflowChecks);
-        decisionCount++;
-
-        if (!decisionResumeChecked) {
-          await page.locator('#cshift-exit').click();
-          await page.waitForSelector('.cshift-hub');
-          await page.reload({ waitUntil: 'networkidle' });
-          await page.waitForSelector('#cshift-resume');
-          await page.locator('#cshift-resume').click();
-          await page.waitForSelector('.cshift-options');
-          const resumedChoicesDisabled = await page
-            .locator('.cshift-option')
-            .evaluateAll(buttons => buttons.every(button => button.disabled));
-          const resumedState = await readPilotState(page);
-          if (
-            !resumedChoicesDisabled ||
-            resumedState.active.phase !== 'decision' ||
-            Object.keys(resumedState.active.locks).length !== 1
-          ) {
-            fail(`${viewport.name} locked decision did not survive reload and resume`, resumedState.active);
-          }
-          await assertDelayedFeedback(page, `${viewport.name} resumed locked decision`);
-          decisionResumeChecked = true;
-        }
-
-        await page.locator('#cshift-next-stage').click();
-        await page.waitForSelector('.cshift-task');
-        continue;
+    // Every question is answered with one tap: nothing to type, nothing to confirm, and no stop on the
+    // way to the next one. How each call held up stays hidden until the debrief.
+    const questions = caseData.stages.filter(stage => stage.type === 'question');
+    const answered = active => Object.keys(active.locks).length + (active.differential.lockedAt ? 1 : 0);
+    const waitForAnswer = count =>
+      page.waitForFunction(
+        ([key, expected]) => {
+          const active = JSON.parse(localStorage.getItem(key)).active;
+          return Object.keys(active.locks).length + (active.differential.lockedAt ? 1 : 0) === expected;
+        },
+        [PILOT_STATE_KEY, count]
+      );
+    let questionCount = 0;
+    let diagnosisSeen = false;
+    let resumeChecked = false;
+    let doubleTapChecked = false;
+    let holdChecked = false;
+    for (let step = 0; step < 20 && !(await page.locator('.cshift-debrief').count()); step++) {
+      const number = questionCount + 1;
+      const stage = questions[questionCount];
+      const task = page.locator('.cshift-task.is-question');
+      await task.waitFor();
+      const kind = await task.getAttribute('data-cshift-kind');
+      const label = (await task.locator('> .label').textContent()).trim();
+      const diagnosis = stage?.label === 'DIAGNOSIS';
+      if (
+        !stage ||
+        kind !== (diagnosis ? 'diagnosis' : 'decision') ||
+        label !== `Question ${number} of ${questions.length} · ${diagnosis ? 'Diagnosis' : stage.label}`
+      ) {
+        fail(`${viewport.name} question ${number} is not the next question of the case`, { kind, label });
       }
-
-      if (await page.locator('.cshift-dx-list').count()) {
-        differentialSeen = true;
-        const evidenceCount = await page.locator('.cshift-evidence').count();
-        const evidencePrecedesQuestion = await page.locator('.cshift-task').evaluate(task => {
-          const evidence = task.querySelector('.cshift-evidence');
-          const heading = task.querySelector('h1');
+      await assertNoCaseSpoilers(page, caseData, `${viewport.name} question ${number}`);
+      await assertDelayedFeedback(page, `${viewport.name} question ${number}`);
+      const toType = await page.locator('.cshift-task :is(textarea, input)').count();
+      const textBoxes = await page.locator('.cshift-workspace :is(textarea, input)').count();
+      const toConfirm = await page
+        .locator('#cshift-lock-decision, #cshift-lock-differential, #cshift-next-stage, .cshift-locked')
+        .count();
+      if (toType || textBoxes !== 1 || toConfirm) {
+        fail(`${viewport.name} question ${number} asks for more than one tap`, { toType, textBoxes, toConfirm });
+      }
+      const options = page.locator('.cshift-option');
+      if ((await options.count()) < 4) fail(`${viewport.name} question ${number} has fewer than four choices`);
+      if (diagnosis) {
+        diagnosisSeen = true;
+        const evidencePrecedesQuestion = await task.evaluate(node => {
+          const evidence = node.querySelector('.cshift-evidence');
+          const heading = node.querySelector('h1');
           return (
-            !!evidence && !!heading && evidence.compareDocumentPosition(heading) & Node.DOCUMENT_POSITION_FOLLOWING
+            !!evidence && !!heading && !!(evidence.compareDocumentPosition(heading) & Node.DOCUMENT_POSITION_FOLLOWING)
           );
         });
-        if (!evidenceCount || !evidencePrecedesQuestion)
-          fail(`${viewport.name} chart evidence was not surfaced before the differential`);
-        await assertNoCaseSpoilers(page, caseData, `${viewport.name} differential`);
-        await assertDelayedFeedback(page, `${viewport.name} differential`);
-        for (let rank = 1; rank <= 3; rank++) {
-          await page.locator('.cshift-dx-option:not(.selected)').first().click();
-          const ranks = (await page.locator('.cshift-dx-option.selected > span').allTextContents())
-            .map(value => value.trim())
-            .sort();
-          const pressed = await page.locator('.cshift-dx-option[aria-pressed="true"]').count();
-          if (ranks.length !== rank || pressed !== rank || !ranks.includes(String(rank))) {
-            fail(`${viewport.name} differential rank ${rank} was not retained`, ranks);
-          }
-        }
-        const rationale = 'The vascular findings make the leading diagnosis more likely than the competing causes.';
-        await page.locator('#cshift-rationale').fill(rationale);
-        const lockButton = page.locator('#cshift-lock-differential');
-        if (await lockButton.isDisabled()) fail(`${viewport.name} complete differential could not be locked`);
-        await lockButton.click();
-        await page.waitForSelector('.cshift-locked');
-        const dxDisabled = await page
-          .locator('.cshift-dx-option')
-          .evaluateAll(buttons => buttons.every(button => button.disabled));
-        const rationaleDisabled = await page.locator('#cshift-rationale').isDisabled();
-        const differentialState = await readPilotState(page);
-        if (
-          !dxDisabled ||
-          !rationaleDisabled ||
-          !differentialState.active.differential.lockedAt ||
-          differentialState.active.differential.ranked.length !== 3 ||
-          differentialState.active.differential.rationale !== rationale
-        ) {
-          fail(
-            `${viewport.name} differential did not lock its ranking and rationale`,
-            differentialState.active.differential
-          );
-        }
-        await assertDelayedFeedback(page, `${viewport.name} locked differential`);
-        await assertNoHorizontalOverflow(page, viewport, 'locked differential', overflowChecks);
-        await page.locator('#cshift-next-stage').click();
-        await page.waitForSelector('.cshift-task');
-        continue;
+        if (!evidencePrecedesQuestion)
+          fail(`${viewport.name} chart evidence was not surfaced before the diagnosis question`);
+      }
+      if ((await page.locator('#cshift-notes').inputValue()) !== notes || !(await notepad.evaluate(node => node.open)))
+        fail(`${viewport.name} notepad did not keep its text and stay open at question ${number}`);
+      await assertNoHorizontalOverflow(page, viewport, `question ${number}`, overflowChecks);
+
+      if (!holdChecked) {
+        // The next question is drawn in the same task as the tap. Its options start inert, so a second
+        // tap that lands on them answers nothing; then they wake up.
+        await page.waitForSelector('.cshift-option:not(:disabled)');
+        const inert = await page.evaluate(() => {
+          document.querySelector('.cshift-option').click();
+          return [...document.querySelectorAll('.cshift-option')].map(button => button.disabled);
+        });
+        if (inert.length < 4 || inert.some(disabled => !disabled))
+          fail(`${viewport.name} the next question did not open with its options inert`, inert);
+        await page.waitForSelector('.cshift-option:not(:disabled)');
+        holdChecked = true;
+      } else if (!doubleTapChecked) {
+        await options.first().dblclick();
+        doubleTapChecked = true;
+      } else await options.first().click();
+      await waitForAnswer(number);
+      questionCount = number;
+      const after = (await readPilotState(page)).active;
+      if (answered(after) !== number || (diagnosis && after.differential.ranked.length !== 1)) {
+        fail(`${viewport.name} one tap did not answer exactly one question`, {
+          number,
+          locks: after.locks,
+          differential: after.differential,
+        });
       }
 
-      fail(`${viewport.name} reached an unknown Clinical Shift phase`, await readPilotState(page));
+      if (!resumeChecked) {
+        await page.locator('#cshift-exit').click();
+        await page.waitForSelector('.cshift-hub');
+        await page.reload({ waitUntil: 'networkidle' });
+        await page.waitForSelector('#cshift-resume');
+        await page.locator('#cshift-resume').click();
+        await page.waitForSelector('.cshift-task.is-question');
+        const resumedState = await readPilotState(page);
+        const resumedLabel = (await page.locator('.cshift-task > .label').textContent()).trim();
+        if (
+          answered(resumedState.active) !== 1 ||
+          !['decision', 'differential'].includes(resumedState.active.phase) ||
+          !resumedLabel.startsWith(`Question 2 of ${questions.length}`) ||
+          (await page.locator('#cshift-notes').inputValue()) !== notes
+        ) {
+          fail(`${viewport.name} an answered question did not survive reload and resume`, resumedState.active);
+        }
+        await assertDelayedFeedback(page, `${viewport.name} resumed question`);
+        // a reload closes the notepad; the text is still in it
+        await notepad.locator('summary').click();
+        resumeChecked = true;
+      }
     }
 
-    if (
-      !decisionCount ||
-      !decisionResumeChecked ||
-      !differentialSeen ||
-      !(await page.locator('#cshift-assessment').count())
-    ) {
-      fail(`${viewport.name} did not reach every reasoning phase`, {
-        decisionCount,
-        decisionResumeChecked,
-        differentialSeen,
+    if (questionCount !== questions.length || !diagnosisSeen || !resumeChecked || !doubleTapChecked || !holdChecked) {
+      fail(`${viewport.name} did not answer every question with one tap each`, {
+        questionCount,
+        diagnosisSeen,
+        resumeChecked,
+        doubleTapChecked,
+        holdChecked,
       });
     }
-    await assertNoCaseSpoilers(page, caseData, `${viewport.name} unrevealed note`);
-    const revealButton = page.locator('#cshift-reveal-note');
-    if (!(await revealButton.isDisabled())) fail(`${viewport.name} empty note could reveal the model`);
-    if (await page.locator('.cshift-model-note').count())
-      fail(`${viewport.name} model note appeared before the learner wrote a response`);
-    const assessment =
-      'The presentation is most consistent with an acute vascular neurologic process supported by the chart findings.';
-    const plan =
-      'Obtain urgent confirmatory testing, begin appropriate risk-reducing treatment, and arrange monitored follow-up.';
-    await page.locator('#cshift-assessment').fill(assessment);
-    if (!(await revealButton.isDisabled())) fail(`${viewport.name} model could be revealed with the plan still empty`);
-    await page.locator('#cshift-plan').fill(plan);
-    if (await revealButton.isDisabled()) fail(`${viewport.name} complete note could not reveal the model`);
-    await assertNoHorizontalOverflow(page, viewport, 'unrevealed note', overflowChecks);
-    await revealButton.click();
-    await page.waitForSelector('.cshift-note-review-stage');
-    let chartReviewText = await page.locator('.cshift-note-review-stage').innerText();
-    savedState = await readPilotState(page);
-    if (
-      !chartReviewText.includes(assessment) ||
-      !chartReviewText.includes(plan) ||
-      !chartReviewText.includes(caseModelNote.assessment) ||
-      !chartReviewText.includes(caseModelNote.plan) ||
-      (await page.locator('.cshift-model-note').count()) !== 2 ||
-      savedState.active.phase !== 'note' ||
-      !savedState.active.note.revealedAt ||
-      savedState.active.completedAt
-    ) {
-      fail(`${viewport.name} charting self-review did not reveal and save both responses`, savedState.active.note);
-    }
-    await assertNoHorizontalOverflow(page, viewport, 'charting self-review', overflowChecks);
 
-    await page.locator('#cshift-exit').click();
-    await page.waitForSelector('.cshift-hub');
-    await page.reload({ waitUntil: 'networkidle' });
-    await page.waitForSelector('#cshift-resume');
-    await page.locator('#cshift-resume').click();
-    await page.waitForSelector('.cshift-note-review-stage');
-    chartReviewText = await page.locator('.cshift-note-review-stage').innerText();
-    if (
-      !chartReviewText.includes(caseModelNote.assessment) ||
-      (await page.locator('#cshift-assessment, #cshift-plan').count())
-    ) {
-      fail(`${viewport.name} revealed charting self-review did not survive reload and resume`);
-    }
-    await page.locator('#cshift-finish-note').click();
+    // the last call leads straight to the debrief: there is no write-up step
     await page.waitForSelector('.cshift-debrief');
-
+    const decisionCount = questions.length - 1;
     const debriefText = await page.locator('.cshift-debrief').innerText();
     const domainCount = await page.locator('.cshift-domain-grid > article').count();
-    const notAssessedCount = await page
-      .locator('.cshift-domain-grid > article strong')
-      .filter({ hasText: 'Not assessed' })
-      .count();
     const reviewCount = await page.locator('.cshift-review-card').count();
     const explanationLengths = await page
       .locator('.cshift-review-explanation')
@@ -417,42 +379,51 @@ async function runViewport(browser, viewport) {
     const pearlCount = await page.locator('.cshift-pearls > article').count();
     const activeStep = (await page.locator('.cshift-stepper li.active strong').textContent())?.trim();
     const completedSteps = await page.locator('.cshift-stepper li.done').count();
+    const exampleNote = await page.locator('.cshift-clinical-note').innerText();
+    const notesShown = await page.locator('.cshift-notes-review p').evaluate(node => node.textContent);
     savedState = await readPilotState(page);
     if (
       !debriefText.includes(caseData.title) ||
       !debriefText.includes(caseData.diagnosis) ||
-      !debriefText.includes(assessment) ||
-      !debriefText.includes(plan) ||
-      !debriefText.includes(caseModelNote.assessment) ||
-      !debriefText.includes(caseModelNote.plan) ||
-      domainCount !== 6 ||
-      notAssessedCount !== 2 ||
+      !exampleNote.includes(caseModelNote.assessment) ||
+      !exampleNote.includes(caseModelNote.plan) ||
+      /Not assessed|Model note|Charting self-review|Your differential/i.test(debriefText) ||
+      domainCount !== 3 ||
       reviewCount !== decisionCount ||
+      explanationLengths.length !== decisionCount + 1 ||
       explanationLengths.some(length => length < 20) ||
       pearlCount !== caseData.pearls.length ||
       !debriefText.includes('Scope and alternatives') ||
       !debriefText.includes('Independent clinician review remains pending') ||
       activeStep !== 'Debrief' ||
-      completedSteps !== 4 ||
-      (await page.locator('.cshift-debrief textarea').count())
+      completedSteps !== 3 ||
+      notesShown !== notes ||
+      (await page.locator('.cshift-notes-review p *').count()) ||
+      (await page.locator('.cshift-workspace :is(textarea, input), .cshift-notepad, .cshift-note-comparison').count())
     ) {
       fail(`${viewport.name} delayed debrief is incomplete`, {
         domainCount,
-        notAssessedCount,
         reviewCount,
         decisionCount,
         explanationLengths,
         pearlCount,
         activeStep,
         completedSteps,
+        notesShown,
       });
     }
     if (
       savedState.active.phase !== 'debrief' ||
-      !savedState.active.note.revealedAt ||
       !savedState.active.completedAt ||
       !savedState.active.differential.lockedAt ||
+      savedState.active.differential.ranked.length !== 1 ||
+      savedState.active.differential.rationale ||
+      savedState.active.note.assessment ||
+      savedState.active.note.plan ||
+      savedState.active.note.revealedAt ||
+      savedState.active.notes !== notes ||
       Object.keys(savedState.active.locks).length !== decisionCount ||
+      savedState.active.scores.documentation !== 0 ||
       savedState.completed[caseData.id]?.attempts !== 1
     ) {
       fail(`${viewport.name} completed debrief state was not saved`, savedState);
@@ -539,8 +510,9 @@ async function runViewport(browser, viewport) {
     return {
       viewport,
       assignedCaseId: caseData.id,
+      questionCount,
       decisionCount,
-      differentialRankCount: savedState.active.differential.ranked.length,
+      diagnosisPicks: savedState.active.differential.ranked.length,
       domainCount,
       reviewCount,
       pearlCount,

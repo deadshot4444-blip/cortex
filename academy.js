@@ -50,7 +50,7 @@
       path: 'practice',
       name: 'Clinical Scenarios',
       available: true,
-      description: 'Gather findings, weigh explanations, write a note, and compare your reasoning with a model.',
+      description: 'Meet a patient, ask and examine, make each call with one tap, and see how it held up.',
       audience: 'Learners with introductory clinical knowledge.',
       prerequisites: 'Basic physiology and medical terminology.',
       scope: '18 Clinical Shift cases across 3 rotations, plus the separately labeled classic case bank.',

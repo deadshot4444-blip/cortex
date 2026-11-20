@@ -208,14 +208,14 @@ const SECTION_SCRIPTS = {
     'academy-today.js?v=12',
     'study-backup.js?v=17',
     'academy-storage.js?v=5',
-    'academy-portfolio-core.js?v=4',
+    'academy-portfolio-core.js?v=5',
     'academy-portfolio.js?v=4',
   ],
   practice: [
     'study-storage.js?v=6',
     'clinical-longitudinal-engine.js?v=3',
     'clinical-longitudinal.js?v=4',
-    'clinical-shift.js?v=24',
+    'clinical-shift.js?v=25',
   ],
   mcat: [
     'study-storage.js?v=6',
