@@ -220,10 +220,11 @@ async function runViewport(browser, viewport) {
     const lessons = reaction.science.filter(item => item.lesson);
     if (links.length !== lessons.length || !links.length) fail(`${viewport.name} debrief has no lesson links`, links);
     const lessonPage = await context.newPage();
-    await lessonPage.goto(new URL(links[0], base).href, { waitUntil: 'networkidle' });
+    // A lesson keeps loading media after it is readable, so wait for its title rather than a quiet network.
+    await lessonPage.goto(new URL(links[0], base).href, { waitUntil: 'domcontentloaded' });
     const unit = course.units.find(item => item.id === lessons[0].lesson);
     await lessonPage.waitForFunction(title => document.querySelector('main')?.innerText.includes(title), unit.title, {
-      timeout: 15000,
+      timeout: 60000,
     });
     await lessonPage.close();
 
