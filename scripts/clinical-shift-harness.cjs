@@ -101,11 +101,13 @@ function harness({ manifest = pilot, seed = null, hold = false } = {}) {
       node.click();
       assert.equal(errors.length, 0, errors[0]?.stack);
     },
-    type(selector, value) {
+    /* Types into a field. `leave` also moves on from it, which is when the notepad is written to disk. */
+    type(selector, value, { leave = true } = {}) {
       const node = find(selector);
       assert.ok(node, 'Missing ' + selector);
       node.value = value;
       node.dispatchEvent(new w.Event('input', { bubbles: true }));
+      if (leave) node.dispatchEvent(new w.Event('blur'));
       assert.equal(errors.length, 0, errors[0]?.stack);
     },
     /* Opens or closes the notepad the way a click on its title bar does. */
