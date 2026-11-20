@@ -1,12 +1,12 @@
 {
-  "version": 7,
+  "version": 8,
   "title": "Clinical Shift foundations and rotation practice",
   "reviewStatus": "Local source and consistency checks recorded September 7, 2026. Independent clinician review remains pending for all 18 encounters.",
   "rotations": [
     {
       "key": "emergency-medicine",
       "name": "Emergency Medicine",
-      "description": "Prioritize urgent problems, interpret new data, and decide what happens next.",
+      "description": "Sort out what is urgent and decide what happens next.",
       "caseIds": [
         "em-016",
         "em-018",
@@ -19,7 +19,7 @@
     {
       "key": "cardiology",
       "name": "Cardiology",
-      "description": "Connect symptoms, examination findings, testing, and treatment decisions.",
+      "description": "Connect symptoms, exam findings and tests to a decision.",
       "caseIds": [
         "cd-001",
         "cd-006",
@@ -32,7 +32,7 @@
     {
       "key": "neurology",
       "name": "Neurology",
-      "description": "Localize the problem, rank a differential, and protect the patient from dangerous misses.",
+      "description": "Work out where the problem is and catch the dangerous misses.",
       "caseIds": [
         "nr-011",
         "nr-025",
@@ -946,6 +946,334 @@
         "Check the interpretation against every finding available at each stage.",
         "Check whether the distractors or written plan exclude a legitimate alternative.",
         "Verify the follow-up and any regional guidance before public use."
+      ]
+    }
+  },
+  "reactions": {
+    "em-018": {
+      "sourceCheckedOn": "2026-11-19",
+      "independentReview": "pending",
+      "title": "Headache and confusion _after a fall._",
+      "setting": "Emergency department",
+      "handoff": "A 50-year-old man fell and hit his head ten days ago. His wife says he has been getting sleepier and more confused for three days.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask what happened and when it started",
+            "finding": "He hit his head on a tile floor 10 days ago and felt fine at first. For three days his headache, sleepiness and confusion have been getting worse, and he vomited once."
+          },
+          {
+            "prompt": "Ask about his medicines and bleeding risk",
+            "finding": "He takes warfarin, a blood thinner, for an irregular heartbeat. His last clotting test was “a little high”. He also drinks alcohol regularly."
+          },
+          {
+            "prompt": "Ask about new weakness, speech trouble or fever",
+            "finding": "His wife says he is struggling to find words and his right hand is clumsy today. No fever, no stiff neck, no seizures."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Check how awake and aware he is",
+            "finding": "Drowsy, but he wakes when you speak. He knows who he is and where he is, but not the date."
+          },
+          {
+            "prompt": "Test his strength, speech and walking",
+            "finding": "His right arm drifts down when he holds both arms out. He is slow to find words and walks with his feet wide apart."
+          },
+          {
+            "prompt": "Look at his head, eyes and neck",
+            "finding": "The left side of his scalp is tender, with no cut. Both pupils are the same size and react to light. His neck moves freely."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Scan and blood tests",
+          "content": "CT scan of the head: a crescent of blood over the left side of the brain. It crosses the seams of the skull, is about 12 mm thick, and pushes the brain 6 mm off center.\nClotting test (INR): 3.8. About 1 is normal, so his blood is very slow to clot.\nPlatelets, blood sugar and salts: normal."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "He hit his head ten days ago, he takes a blood thinner, and he is getting drowsier.",
+          "question": "What do we do first?",
+          "options": [
+            "Tell him it is from the altitude and send him home",
+            "Get a CT scan of his head now",
+            "Do a spinal tap to check for infection",
+            "Book an MRI for next week and let him go"
+          ],
+          "fix": "Get the CT now",
+          "terms": [
+            {
+              "term": "Blood thinner",
+              "meaning": "A medicine that slows clotting. His is called warfarin."
+            },
+            {
+              "term": "CT scan",
+              "meaning": "A fast X-ray scan that shows bleeding within minutes."
+            },
+            {
+              "term": "Spinal tap",
+              "meaning": "A needle in the lower back that samples the fluid around the brain and spine."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "delay",
+              "minutes": 40,
+              "story": "You tell him the mountain trip is the likely cause and start his discharge. Before he leaves, the nurse calls you back: he is hard to wake and has vomited again.",
+              "reply": "A head injury on a blood thinner is a bleed until a scan says otherwise. We are getting a CT now.",
+              "vitals": {
+                "BP": "176/98 mmHg"
+              },
+              "trend": {
+                "BP": "up"
+              },
+              "status": "worse",
+              "alarm": "Harder to wake · blood pressure rising"
+            },
+            {
+              "kind": "safe",
+              "minutes": 12,
+              "story": "The scan is done within minutes. It shows a crescent of blood between his skull and his brain, pushing the brain 6 mm to one side.",
+              "reply": "Good call. That is blood pressing on his brain. The full report is in his chart."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 10,
+              "story": "You start setting up for the spinal tap. The resident sees the tray and stops you before anything happens.",
+              "reply": "Not with possible bleeding inside the skull. Draining fluid from below can let the brain shift downward. We scan first."
+            },
+            {
+              "kind": "delay",
+              "minutes": 35,
+              "story": "You book the MRI and start his discharge papers. Before he leaves, his wife says he can no longer find his words.",
+              "reply": "He cannot wait a week. Speech that is getting worse means the pressure is building. CT now.",
+              "vitals": {
+                "BP": "168/96 mmHg"
+              },
+              "trend": {
+                "BP": "up"
+              },
+              "status": "worse",
+              "alarm": "Speech getting worse"
+            }
+          ]
+        },
+        "3": {
+          "resident": "His clotting test is back. His INR is 3.8, and normal is about 1, so his blood is very slow to clot. The surgeon is on the way.",
+          "question": "What do we do about his blood?",
+          "options": [
+            "Keep the warfarin going and watch him closely",
+            "Reverse the blood thinner now with clotting factors and vitamin K",
+            "Give aspirin to stop new clots forming",
+            "Start heparin, another blood thinner, for his irregular heartbeat"
+          ],
+          "fix": "Reverse the blood thinner now",
+          "terms": [
+            {
+              "term": "INR",
+              "meaning": "A blood test of how long clotting takes. About 1 is normal; higher means slower clotting."
+            },
+            {
+              "term": "Clotting factors",
+              "meaning": "Proteins in blood that build a clot. Warfarin lowers them; a concentrate puts them back within minutes."
+            },
+            {
+              "term": "Vitamin K",
+              "meaning": "The liver needs it to make clotting factors. It keeps the reversal going after the concentrate wears off."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "delay",
+              "minutes": 30,
+              "story": "You keep the warfarin on his chart and watch. Half an hour later his right arm is weaker and he is harder to wake.",
+              "reply": "Watching does not stop a bleed. His blood still cannot clot, so the bleed keeps growing. We reverse it now.",
+              "vitals": {
+                "BP": "180/100 mmHg"
+              },
+              "trend": {
+                "BP": "up"
+              },
+              "status": "worse",
+              "alarm": "Right arm weaker · harder to wake"
+            },
+            {
+              "kind": "safe",
+              "minutes": 20,
+              "story": "The clotting factors go in through his vein, with vitamin K to make the effect last. A repeat test shows his INR is down to 1.3.",
+              "reply": "Now his blood can clot. That slows the bleeding and makes surgery safer."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write the order for aspirin. The pharmacist calls before anyone gives it.",
+              "reply": "Aspirin stops platelets from sticking together, so it makes bleeding worse. He needs help clotting, not less of it."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write the order for heparin. The nurse stops at the bedside and asks the resident to check it.",
+              "reply": "Heparin is another blood thinner. With blood already in his skull it would make the bleed far worse. His heartbeat can wait; the bleed cannot."
+            }
+          ]
+        },
+        "4": {
+          "resident": "The bleed is 12 mm thick and has pushed his brain 6 mm off center. His clotting is fixed.",
+          "question": "What is the plan for the bleed itself?",
+          "options": [
+            "Watch him closely with repeated checks, and no surgery",
+            "Surgery now to drain the blood",
+            "A medicine to lower the pressure in his skull, and nothing else",
+            "Restart a blood thinner once he looks stable"
+          ],
+          "fix": "Send him to surgery now",
+          "terms": [
+            {
+              "term": "Midline shift",
+              "meaning": "How far the bleed has pushed the brain off center. More than 5 mm is a sign surgeons act on."
+            },
+            {
+              "term": "Neurosurgeon",
+              "meaning": "A surgeon who operates on the brain and spine."
+            },
+            {
+              "term": "Drain the blood",
+              "meaning": "The surgeon opens the skull and removes the clot, so the brain has room again."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "delay",
+              "minutes": 60,
+              "story": "You order checks every hour. At the first one his left pupil is larger than the right, and he no longer follows commands.",
+              "reply": "That pupil means his brain is being squeezed downward. He goes to the operating room now.",
+              "vitals": {
+                "BP": "198/90 mmHg",
+                "HR": "50 bpm (irregular)",
+                "RR": "10 /min"
+              },
+              "trend": {
+                "BP": "up",
+                "HR": "down",
+                "RR": "down"
+              },
+              "status": "critical",
+              "alarm": "Left pupil enlarged · slow heart rate · uneven breathing"
+            },
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "The neurosurgeon looks at the scan and agrees. The operating room is called and he is taken straight up.",
+              "reply": "A bleed this thick, with this much shift, comes out. You do not wait for him to get worse."
+            },
+            {
+              "kind": "delay",
+              "minutes": 30,
+              "story": "The medicine eases the pressure for a while. Half an hour later he is drowsier again. The blood is still there.",
+              "reply": "That medicine buys time. It does not remove the clot. He needs surgery.",
+              "vitals": {
+                "BP": "184/100 mmHg"
+              },
+              "trend": {
+                "BP": "up"
+              },
+              "status": "worse",
+              "alarm": "Drowsier again"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest restarting a blood thinner. The neurosurgeon overhears.",
+              "reply": "Not with fresh blood in his head. That decision comes later, with the surgical team."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "The scan report is in his chart. Read it, then tell me what kind of problem this is.",
+        "question": "What is going on inside his skull?",
+        "options": [
+          "Epidural hematoma: bleeding from an artery, just under the skull",
+          "Subdural hematoma: bleeding from torn veins, over the surface of the brain",
+          "Subarachnoid hemorrhage: blood in the fluid spaces around the brain",
+          "Ischemic stroke: a blocked artery, with no bleeding"
+        ],
+        "reveal": "It is a subdural hematoma: a crescent of blood that crosses the skull’s seams, from torn veins over the surface of the brain. An epidural bleed bulges like a lens and stops at the seams.",
+        "terms": [
+          {
+            "term": "Hematoma",
+            "meaning": "A collection of blood outside the blood vessels."
+          },
+          {
+            "term": "Crescent or lens",
+            "meaning": "A subdural bleed spreads in a thin crescent and crosses the skull’s seams. An epidural bleed bulges like a lens and stops at them."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "In the operating room, stable",
+        "worse": "In the operating room, after getting worse",
+        "critical": "In the operating room, in critical condition"
+      },
+      "plainDiagnosis": "Bleeding around the brain (a subdural hematoma) in a man on a blood thinner.",
+      "science": [
+        {
+          "tag": "Enzymes",
+          "title": "Why a blood thinner turns a bump into a bleed",
+          "text": "Warfarin blocks an enzyme the liver needs to recycle vitamin K. Without it, the liver makes fewer working clotting factors, so a small torn vein keeps leaking.",
+          "lesson": "enzyme-rates",
+          "lessonTitle": "Read an enzyme curve"
+        },
+        {
+          "tag": "Pressure in a fluid",
+          "title": "Why pressure inside the skull is dangerous",
+          "text": "The skull is a closed box. Blood that collects has nowhere to go, so the pressure climbs and squeezes the brain.",
+          "lesson": "hydrostatics",
+          "lessonTitle": "Read pressure in a fluid"
+        },
+        {
+          "tag": "Pressure and blood flow",
+          "title": "Why his blood pressure climbs as he gets worse",
+          "text": "Blood reaches the brain only if the pressure pushing it in beats the pressure inside the skull. As that inside pressure rises, the body raises blood pressure to keep blood flowing.",
+          "lesson": "circulatory-flow",
+          "lessonTitle": "Connect pressure to blood flow"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Brain Trauma Foundation: surgical management of traumatic brain injury (acute subdural hematoma)",
+          "url": "https://braintrauma.org/coma/guidelines/surgical"
+        },
+        {
+          "title": "Neurocritical Care Society and SCCM guideline, full text: reversal of antithrombotics in intracranial hemorrhage",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5351795/"
+        },
+        {
+          "title": "NICE guideline NG232: head injury, assessment and early management",
+          "url": "https://www.nice.org.uk/guidance/ng232"
+        },
+        {
+          "title": "Merck Manual Professional: how to do lumbar puncture (contraindications)",
+          "url": "https://www.merckmanuals.com/professional/neurologic-disorders/how-to-do-lumbar-puncture/how-to-do-lumbar-puncture"
+        },
+        {
+          "title": "StatPearls: Cushing reflex",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/31747208/"
+        },
+        {
+          "title": "StatPearls: transtentorial herniation",
+          "url": "https://www.ncbi.nlm.nih.gov/books/NBK560536/"
+        },
+        {
+          "title": "StatPearls: intracranial hypertension",
+          "url": "https://www.ncbi.nlm.nih.gov/books/NBK482119/"
+        },
+        {
+          "title": "StatPearls: warfarin",
+          "url": "https://www.ncbi.nlm.nih.gov/books/NBK470313/"
+        }
       ]
     }
   }

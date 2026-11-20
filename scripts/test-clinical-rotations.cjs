@@ -67,6 +67,117 @@ const changedBanks = structuredClone(banks);
 changedBanks.neurology.cases.find(c => c.id === 'nr-101').stages[0].answer = 4;
 assert.ok(validate(manifest, changedBanks, index, counts).errors.some(error => error.includes('invalid answer')));
 
+// A reacting patient is checked option for option: a layer that drifts from its case must fail.
+const course = read('mcat-course');
+assert.deepEqual(validate(manifest, banks, index, counts, course).errors, []);
+const reactingId = Object.keys(manifest.reactions)[0];
+const firstDecision = reaction => Object.values(reaction.decisions)[0];
+for (const [mutate, expected] of [
+  [
+    r => {
+      const outcomes = firstDecision(r).outcomes;
+      [outcomes[0], outcomes[1]] = [outcomes[1], outcomes[0]];
+    },
+    /only the case's keyed option may be the safe call/,
+  ],
+  [r => firstDecision(r).outcomes.pop(), /one outcome per option/],
+  [r => firstDecision(r).options.pop(), /one distinct plain option per case option/],
+  [r => delete firstDecision(r).outcomes.find(outcome => outcome.kind === 'delay').status, /visibly worse/],
+  [
+    r => {
+      firstDecision(r).outcomes.find(outcome => outcome.kind === 'near-miss').vitals = { HR: '40 bpm' };
+    },
+    /caught before it reaches the patient/,
+  ],
+  [
+    r => {
+      firstDecision(r).outcomes.find(outcome => outcome.kind === 'safe').status = 'critical';
+    },
+    /the safe call cannot make the patient worse/,
+  ],
+  [
+    r => {
+      firstDecision(r).outcomes[0].minutes = 0;
+    },
+    /positive whole number/,
+  ],
+  [
+    r => {
+      firstDecision(r).outcomes.find(outcome => outcome.vitals).vitals.Mood = 'low';
+    },
+    /vitals this case records/,
+  ],
+  [
+    r => {
+      firstDecision(r).outcomes.find(outcome => outcome.trend).trend.Temp = 'up';
+    },
+    /a trend must point up or down on a vital that changed/,
+  ],
+  [
+    r => {
+      // a later "rising" reading that is lower than one an earlier call could have left behind
+      const later = Object.values(r.decisions)
+        .slice(1)
+        .flatMap(decision => decision.outcomes)
+        .find(outcome => outcome.trend?.BP === 'up');
+      later.vitals.BP = '160/90 mmHg';
+    },
+    /BP is shown rising but an earlier call can already leave it at/,
+  ],
+  [r => delete r.decisions[Object.keys(r.decisions)[0]], /exactly the case's decision stages/],
+  [r => delete firstDecision(r).fix, /resident line, question and fix required/],
+  [r => r.differential.options.pop(), /one distinct plain diagnosis/],
+  [r => delete r.differential.reveal, /a resident line, a question and a reveal/],
+  [r => r.investigation.interview.pop(), /match the authored list/],
+  [
+    r => {
+      r.results = {};
+    },
+    /every result needs a plain-language version/,
+  ],
+  [
+    r => {
+      r.science[0].lesson = 'no-such-lesson';
+    },
+    /must name an MCAT lesson/,
+  ],
+  [
+    r => {
+      r.science[0].lessonTitle = 'A title the lesson no longer has';
+    },
+    /must name an MCAT lesson/,
+  ],
+  [
+    r => {
+      r.sources = [];
+    },
+    /primary source links required/,
+  ],
+  [r => delete r.ending.critical, /an ending is required/],
+  [
+    r => {
+      r.independentReview = 'approved';
+    },
+    /completed review needs identity and date/,
+  ],
+  [r => delete r.plainDiagnosis, /missing plainDiagnosis/],
+]) {
+  const changed = structuredClone(manifest);
+  mutate(changed.reactions[reactingId]);
+  const { errors } = validate(changed, banks, index, counts, course);
+  assert.ok(
+    errors.some(error => expected.test(error)),
+    `${expected} was not reported: ${errors.join(' | ')}`
+  );
+}
+const stray = structuredClone(manifest);
+stray.reactions['em-001'] = stray.reactions[reactingId];
+assert.ok(validate(stray, banks, index, counts, course).errors.some(error => error.includes('outside the rotations')));
+assert.equal(
+  validate(manifest, banks, index, counts, course).queue.filter(row => row.reactingPatient).length,
+  Object.keys(manifest.reactions).length
+);
+
 // Render the content register as a DOM stub to check inclusion and non-mutation, not appearance.
 let markup = '',
   writes = 0;
