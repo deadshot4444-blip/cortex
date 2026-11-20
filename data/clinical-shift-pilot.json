@@ -1024,12 +1024,10 @@
               "story": "You tell him the mountain trip is the likely cause and start his discharge. Before he leaves, the nurse calls you back: he is hard to wake and has vomited again.",
               "reply": "A head injury on a blood thinner is a bleed until a scan says otherwise. We are getting a CT now.",
               "vitals": {
-                "BP": "176/98 mmHg",
-                "HR": "62 bpm (irregular)"
+                "BP": "176/98 mmHg"
               },
               "trend": {
-                "BP": "up",
-                "HR": "down"
+                "BP": "up"
               },
               "status": "worse",
               "alarm": "Harder to wake · blood pressure rising"
@@ -1093,12 +1091,10 @@
               "story": "You keep the warfarin on his chart and watch. Half an hour later his right arm is weaker and he is harder to wake.",
               "reply": "Watching does not stop a bleed. His blood still cannot clot, so the bleed keeps growing. We reverse it now.",
               "vitals": {
-                "BP": "180/100 mmHg",
-                "HR": "58 bpm (irregular)"
+                "BP": "180/100 mmHg"
               },
               "trend": {
-                "BP": "up",
-                "HR": "down"
+                "BP": "up"
               },
               "status": "worse",
               "alarm": "Right arm weaker · harder to wake"
@@ -1154,7 +1150,7 @@
               "story": "You order checks every hour. At the first one his left pupil is larger than the right, and he no longer follows commands.",
               "reply": "That pupil means his brain is being squeezed downward. He goes to the operating room now.",
               "vitals": {
-                "BP": "192/104 mmHg",
+                "BP": "198/90 mmHg",
                 "HR": "50 bpm (irregular)",
                 "RR": "10 /min"
               },

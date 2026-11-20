@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "build": "8b4724b1b7be838efc0e",
+  "build": "5b2e3d4b745d78e7a0ad",
   "packs": [
     {
       "id": "mcat",
@@ -1168,8 +1168,8 @@
         },
         {
           "url": "/data/clinical-shift-pilot.json",
-          "bytes": 68935,
-          "sha256": "ff972d2b2987fc6a3a9a41bb9f9bd43220a293c2e528377f5ef9796269a9f436"
+          "bytes": 68786,
+          "sha256": "97d5d66cfafd51dc1c1f2cb15cef07a834552dcf570c3b23c93937035c926865"
         },
         {
           "url": "/data/clinical-shift-revisions.json",
