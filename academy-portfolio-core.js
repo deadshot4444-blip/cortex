@@ -259,6 +259,8 @@
                 'assistance',
                 'The authored clinical note was opened after the recorded writing.'
               );
+            // Shifts no longer ask for writing; the optional notepad is the learner's own text.
+            fields(evidence, 'Shift notepad', run.completedAt ? 'original' : 'draft', run.notes);
             add(
               item(
                 key,

@@ -1,7 +1,8 @@
-// The reacting patient in a real browser, at desktop and phone widths: the monitor is on screen when
-// the patient changes, the shift clock runs forward, nothing overflows sideways, a reload does not
-// replay a call, and the debrief links into the MCAT course. The decision logic itself is covered
-// by scripts/test-clinical-reactions.cjs.
+// The reacting patient in a real browser, at desktop and phone widths: one tap makes a call, the monitor
+// is on screen when the patient changes, the shift clock runs forward, a double tap cannot skip an
+// outcome, the optional notepad keeps its text, nothing overflows sideways, a reload does not replay a
+// call, and the debrief links into the MCAT course. The decision logic itself is covered by
+// scripts/test-clinical-reactions.cjs.
 import { chromium } from 'playwright';
 import { readFileSync } from 'node:fs';
 
@@ -110,6 +111,19 @@ async function runViewport(browser, viewport) {
         fail('desktop patient column does not follow the page', side);
     }
     await noSidewaysScroll(page, viewport, 'investigation');
+
+    // the notepad is optional and costs no time; what is typed in it stays for the rest of the shift
+    const notes = 'On a blood thinner\nINR<1.4 before surgery?';
+    const notepad = page.locator('.cshift-notepad');
+    if (await notepad.evaluate(node => node.open)) fail(`${viewport.name} notepad did not start closed`);
+    await notepad.locator('summary').click();
+    await page.locator('#cshift-notes').fill(notes);
+    await page.waitForFunction(
+      ([key, text]) => JSON.parse(localStorage.getItem(key))?.active?.notes === text,
+      [STATE_KEY, notes]
+    );
+    if ((await clockFace(page)) !== '00:02') fail(`${viewport.name} writing a note moved the shift clock`);
+    await noSidewaysScroll(page, viewport, 'open notepad');
     await page.locator('#cshift-begin-reasoning').click();
     await page.waitForSelector('.cshift-options');
 
@@ -120,9 +134,15 @@ async function runViewport(browser, viewport) {
     const choice = harmful >= 0 ? harmful : decision.outcomes.findIndex(outcome => outcome.kind === 'near-miss');
     const outcome = decision.outcomes[choice];
     await noSidewaysScroll(page, viewport, 'open decision');
-    await page.locator(`.cshift-option[data-cshift-choice="${choice}"]`).click();
-    await page.locator('#cshift-lock-decision').click();
+    if (await page.locator('#cshift-lock-decision, .cshift-option[aria-pressed]').count())
+      fail(`${viewport.name} a call needs more than one tap`);
+    // One tap makes the call. It is a double tap here: the second one must not carry the learner past
+    // what happens next.
+    await page.locator(`.cshift-option[data-cshift-choice="${choice}"]`).dblclick();
     await page.waitForSelector(`.cshift-beat.is-${outcome.kind}`);
+    const called = (await saved(page)).active;
+    if (called.stageCursor !== cursor || called.events.length !== 1 || called.locks[cursor]?.choice !== choice)
+      fail(`${viewport.name} a double tap did more than make one call`, called.events);
     const afterCall = 2 + outcome.minutes;
     // The page glides back to the top, where the patient and the consequence are on screen together.
     await page.waitForFunction(() => scrollY === 0, null, { timeout: 5000 });
@@ -158,9 +178,14 @@ async function runViewport(browser, viewport) {
     await page.waitForSelector('.cshift-task');
     let expectedClock = afterCall + decision.outcomes[stages[cursor].answer].minutes;
 
-    // the rest of the shift, every call the safe one; nothing on the way asks for typed text
-    const typing = () => page.locator('.cshift-workspace :is(textarea, input[type="text"])').count();
+    // the rest of the shift, every call the safe one; nothing on the way asks for typed text, and the
+    // notepad keeps what was written
+    const typing = () => page.locator('.cshift-task :is(textarea, input)').count();
+    const notepadKept = async () =>
+      (await page.locator('.cshift-workspace :is(textarea, input)').count()) === 1 &&
+      (await page.locator('#cshift-notes').inputValue()) === notes;
     if (await typing()) fail(`${viewport.name} a reacting shift asked for typed text`);
+    let holdChecked = false;
     for (let step = 0; step < 20 && !(await page.locator('.cshift-debrief-ward').count()); step++) {
       cursor = (await saved(page)).active.stageCursor;
       const kind = await page.locator('.cshift-task').getAttribute('data-cshift-kind');
@@ -168,14 +193,24 @@ async function runViewport(browser, viewport) {
         if (!(await page.locator('.cshift-evidence').isVisible()))
           fail(`${viewport.name} the report is not shown before the diagnosis question`);
         await page.locator(`.cshift-option[data-cshift-choice="${stages[cursor].answer}"]`).click();
-        await page.locator('#cshift-lock-decision').click();
         await page.waitForSelector('.cshift-task.is-decided .cshift-verdict.is-safe');
         if ((await clockFace(page)) !== face(expectedClock)) fail(`${viewport.name} naming the problem cost time`);
         await noSidewaysScroll(page, viewport, 'diagnosis');
       } else if (kind === 'decision') {
         const safe = reaction.decisions[cursor].outcomes[stages[cursor].answer];
-        await page.locator(`.cshift-option[data-cshift-choice="${stages[cursor].answer}"]`).click();
-        await page.locator('#cshift-lock-decision').click();
+        const option = `.cshift-option[data-cshift-choice="${stages[cursor].answer}"]`;
+        if (!holdChecked) {
+          // The outcome is drawn in the same task as the tap. The button that moves on from it starts
+          // inert, so a second tap cannot skip the outcome; then it wakes up.
+          await page.waitForSelector(`${option}:not(:disabled)`);
+          const inert = await page.evaluate(selector => {
+            document.querySelector(selector).click();
+            return document.querySelector('#cshift-next-stage')?.disabled;
+          }, option);
+          if (inert !== true) fail(`${viewport.name} the way on from an outcome did not open inert`, inert);
+          await page.waitForSelector('#cshift-next-stage:not(:disabled)');
+          holdChecked = true;
+        } else await page.locator(option).click();
         await page.waitForSelector('.cshift-beat.is-safe');
         expectedClock += safe.minutes;
         await page.waitForFunction(
@@ -185,6 +220,7 @@ async function runViewport(browser, viewport) {
         await noSidewaysScroll(page, viewport, 'safe outcome');
       } else fail(`${viewport.name} reached an unknown phase`, (await saved(page)).active.phase);
       if (await typing()) fail(`${viewport.name} a reacting shift asked for typed text`);
+      if (!(await notepadKept())) fail(`${viewport.name} the notepad lost its text`);
       await page.locator('#cshift-next-stage').click();
       await page.waitForSelector('.cshift-task, .cshift-debrief-ward');
     }
@@ -192,7 +228,10 @@ async function runViewport(browser, viewport) {
     // the last call leads straight to the debrief
     await page.waitForSelector('.cshift-debrief-ward');
     const steps = await page.locator('.cshift-stepper li').count();
-    if (steps !== 4 || (await typing())) fail(`${viewport.name} debrief is not the fourth and last step`, { steps });
+    if (steps !== 4 || !holdChecked || (await page.locator('.cshift-workspace :is(textarea, input)').count()))
+      fail(`${viewport.name} debrief is not the fourth and last step`, { steps, holdChecked });
+    const notesShown = await page.locator('.cshift-notes-review p').evaluate(node => node.textContent);
+    if (notesShown !== notes) fail(`${viewport.name} debrief does not show the notepad as written`, notesShown);
     state = await saved(page);
     const bar = await page.locator('.cshift-timebar').evaluate(node => ({
       width: node.getBoundingClientRect().width,
@@ -274,7 +313,6 @@ async function runReducedMotion(browser) {
     await page.locator('#cshift-begin-reasoning').click();
     await page.waitForSelector('.cshift-options');
     await page.locator('.cshift-option').first().click();
-    await page.locator('#cshift-lock-decision').click();
     await page.waitForSelector('.cshift-beat');
     const active = (await saved(page)).active;
     const still = await page.evaluate(() => ({

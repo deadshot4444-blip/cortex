@@ -114,6 +114,7 @@ function fixture() {
         content: { revision: 1, caseData: { title: 'Fictional shift' } },
         differential: { rationale: 'First differential', lockedAt: 110 },
         note: { assessment: 'My assessment', plan: 'My plan', revealedAt: 150 },
+        notes: 'Shift notepad jotting',
       },
     },
     'cs-neuro': {
@@ -156,6 +157,16 @@ test('eight tracks produce selected evidence without importing unrelated records
   assert.equal(dat.kind, 'DAT lesson record');
   assert.ok(dat.evidence.some(e => e.text === 'Original DAT wording'));
   assert.ok(text.includes('Independent content review not established'));
+  const shift = result.items.find(a => a.track === 'practice' && a.id.endsWith('/shift1'));
+  assert.deepEqual(
+    shift.evidence.map(e => [e.label, e.role, e.text]).filter(([label]) => label !== 'Support record'),
+    [
+      ['Differential rationale', 'original', 'First differential'],
+      ['Clinical note · assessment', 'original', 'My assessment'],
+      ['Clinical note · plan', 'original', 'My plan'],
+      ['Shift notepad', 'original', 'Shift notepad jotting'],
+    ]
+  );
   const mcat = result.items.find(a => a.track === 'mcat');
   assert.ok(mcat.evidence.some(e => e.label.startsWith('Delayed application')));
   assert.ok(mcat.evidence.some(e => e.role === 'assistance' && e.text.includes('after this answer')));

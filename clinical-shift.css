@@ -224,10 +224,8 @@
 .cshift-evidence article strong { display: block; font-size: 14px; font-weight: 600; }
 .cshift-evidence article p { margin: 5px 0 0; color: var(--body); font-size: 16px; line-height: 1.55; white-space: pre-line; }
 
-.cshift-options,
-.cshift-dx-list { display: flex; flex-direction: column; gap: 10px; }
-.cshift-option,
-.cshift-dx-option {
+.cshift-options { display: flex; flex-direction: column; gap: 10px; }
+.cshift-option {
   display: grid;
   grid-template-columns: 30px minmax(0, 1fr);
   gap: 16px;
@@ -241,23 +239,17 @@
   text-align: left;
   transition: border-color .16s var(--ease-out), background .16s var(--ease-out), box-shadow .16s var(--ease-out);
 }
-.cshift-option:hover:not(:disabled),
-.cshift-dx-option:hover:not(:disabled) { border-color: var(--navy); }
-.cshift-option > span,
-.cshift-dx-option > span { display: grid; place-items: center; box-sizing: border-box; width: 30px; height: 30px; border: 1px solid var(--line-bright); border-radius: 50%; color: var(--body); font-size: 13px; font-weight: 600; }
-.cshift-option strong,
-.cshift-dx-option strong { font-size: 17px; font-weight: 500; line-height: 1.4; }
-.cshift-option.selected,
-.cshift-dx-option.selected { border-color: var(--navy); background: var(--blue-soft); box-shadow: inset 0 0 0 1px var(--navy); }
-.cshift-option.selected > span,
-.cshift-dx-option.selected > span { border-color: var(--navy); background: var(--navy); color: #fff; }
-.cshift-option:disabled,
-.cshift-dx-option:disabled { opacity: 1; cursor: default; }
-.cshift-option:disabled:not(.selected),
-.cshift-dx-option:disabled:not(.selected) { color: var(--dim); }
-.cshift-locked { padding: 14px 18px; border: 1px solid var(--line); border-left: 3px solid var(--navy); background: #fff; }
-.cshift-locked span { display: block; color: var(--dim); font-size: 11px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; }
-.cshift-locked strong { display: block; margin-top: 5px; font-size: 16px; font-weight: 600; line-height: 1.45; }
+.cshift-option:hover:not(:disabled) { border-color: var(--navy); }
+.cshift-option > span { display: grid; place-items: center; box-sizing: border-box; width: 30px; height: 30px; border: 1px solid var(--line-bright); border-radius: 50%; color: var(--body); font-size: 13px; font-weight: 600; }
+.cshift-option strong { font-size: 17px; font-weight: 500; line-height: 1.4; }
+/* One tap is the answer, so the press itself is the feedback. */
+.cshift-option:active:not(:disabled) { border-color: var(--navy); background: var(--blue-soft); box-shadow: inset 0 0 0 1px var(--navy); }
+.cshift-option:active:not(:disabled) > span { border-color: var(--navy); background: var(--navy); color: #fff; }
+/* Buttons that commit a call are inert for a moment after a view opens (a stray second tap must not
+   answer the next question). They look ready throughout. */
+.cshift-option:disabled { opacity: 1; cursor: default; }
+#app .cshift-workspace .btn[data-cshift-hold]:disabled { opacity: 1; }
+.cshift-task.is-question { animation: mn-rise .45s var(--ease-out) both; }
 
 /* what happened next */
 .cshift-beat { display: flex; flex-direction: column; gap: 18px; }
@@ -289,11 +281,7 @@
 .cshift-terms dt { font-size: 16px; font-weight: 600; }
 .cshift-terms dd { margin: 3px 0 0; color: var(--body); font-size: 15px; line-height: 1.45; }
 
-.cshift-field { display: block; }
-.cshift-field > span { display: block; margin-bottom: 8px; font-size: 15px; font-weight: 600; }
-.cshift-field textarea { box-sizing: border-box; width: 100%; padding: 12px 14px; resize: vertical; border: 1px solid var(--line-bright); border-radius: 0; background: #fff; color: var(--text); font: inherit; font-size: 16px; line-height: 1.55; }
-.cshift-field textarea:focus { border-color: var(--navy); outline: 2px solid var(--blue); outline-offset: 2px; }
-.cshift-field textarea:disabled { background: var(--surface); color: var(--body); }
+/* a typed note, kept from shifts finished before every step became a tap */
 .cshift-note-comparison { display: flex; flex-direction: column; gap: 24px; }
 .cshift-debrief .cshift-note-comparison { margin-top: 16px; }
 .cshift-note-comparison > section > div { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; }
@@ -373,6 +361,22 @@
 .cshift-original { margin-top: 10px; }
 .cshift-original > summary { cursor: pointer; color: var(--blue); font-size: 14px; font-weight: 600; }
 .cshift-original > p { margin: 8px 0 0; color: var(--dim); font-size: 14px; line-height: 1.55; white-space: pre-line; }
+#app .cshift-chart-findings article .cshift-call { margin-top: 5px; color: var(--text); font-weight: 600; }
+
+/* the optional notepad: a second small window under the chart */
+.cshift-notepad { overflow: hidden; border: 1px solid var(--line); border-radius: 10px; background: #fff; }
+.cshift-notepad > summary { display: flex; align-items: center; gap: 7px; padding: 10px 14px; background: var(--surface); cursor: pointer; list-style: none; }
+.cshift-notepad > summary::-webkit-details-marker { display: none; }
+.cshift-notepad > summary i { flex: 0 0 9px; box-sizing: border-box; width: 9px; height: 9px; border: 1px solid var(--faint); border-radius: 50%; }
+.cshift-notepad > summary span { flex: 1 1 0; min-width: 0; margin-left: 8px; color: var(--body); font-family: var(--cs-mono); font-size: 11.5px; letter-spacing: .04em; line-height: 1.5; }
+.cshift-notepad > summary strong { color: var(--text); font-weight: 600; }
+.cshift-notepad > summary::after { content: "+"; flex: 0 0 auto; color: var(--body); font-family: var(--cs-mono); font-size: 16px; line-height: 1; }
+.cshift-notepad[open] > summary { border-bottom: 1px solid var(--line); }
+.cshift-notepad[open] > summary::after { content: "−"; }
+.cshift-notepad > div { display: flex; flex-direction: column; gap: 8px; padding: 12px 14px 14px; }
+.cshift-notepad textarea { box-sizing: border-box; width: 100%; min-height: 120px; padding: 10px 12px; resize: vertical; border: 1px solid var(--line-bright); border-radius: 4px; background: #fff; color: var(--text); font: inherit; font-size: 16px; line-height: 1.5; }
+.cshift-notepad textarea:focus { border-color: var(--navy); outline: 2px solid var(--blue); outline-offset: 2px; }
+.cshift-notepad p { margin: 0; color: var(--dim); font-size: 13px; line-height: 1.45; }
 
 /* ---------- debrief ---------- */
 .cshift-debrief-hero { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px 48px; padding: 6px 0 38px; border-bottom: 1px solid var(--line); }
@@ -447,6 +451,7 @@
 .cshift-clinical-note article { min-width: 0; padding: 18px 20px; border: 1px solid var(--line); border-left: 3px solid var(--navy); background: #fff; }
 .cshift-clinical-note strong { color: var(--dim); font-size: 11px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; }
 .cshift-clinical-note p { margin: 8px 0 0; color: var(--body); font-size: 16px; line-height: 1.6; }
+#app .cshift-notes-review > p { max-width: 78ch; padding: 16px 20px; border: 1px solid var(--line); border-left: 3px solid var(--line-bright); background: #fff; color: var(--text); font-size: 16px; line-height: 1.6; white-space: pre-wrap; overflow-wrap: anywhere; }
 .cshift-debrief-section > blockquote { margin: 14px 0 0; padding: 16px 20px; border-left: 3px solid var(--navy); background: #fff; color: var(--body); font-size: 16px; line-height: 1.6; }
 .cshift-review-list { display: flex; flex-direction: column; gap: 14px; margin-top: 16px; }
 .cshift-review-card { padding: 22px 24px; border: 1px solid var(--line); border-left: 3px solid var(--line-bright); background: #fff; }
@@ -486,7 +491,8 @@
   .cshift-two-col { display: flex; flex-direction: column; }
   .cshift-side { display: contents; }
   .cshift-two-col .cshift-monitor { order: -1; align-self: stretch; }
-  .cshift-two-col .cshift-chart { order: 1; }
+  .cshift-two-col .cshift-chart { order: 1; align-self: stretch; }
+  .cshift-two-col .cshift-notepad { order: 2; align-self: stretch; }
   .cshift-two-col :is(.cshift-monitor-neck, .cshift-monitor-foot) { display: none; }
   .cshift-two-col .cshift-monitor-case { padding: 10px; border-radius: 18px; }
   .cshift-two-col .cshift-monitor-screen { gap: 9px; padding: 12px 14px; }
@@ -522,8 +528,8 @@
   .cshift-beat { gap: 14px; }
   .cshift-beat-story { padding: 14px 16px; }
   .cshift-beat > .btn, .cshift-task > .btn, .cshift-handoff-main > .btn { align-self: stretch; }
-  .cshift-option, .cshift-dx-option { gap: 12px; padding: 11px 14px; }
-  .cshift-option strong, .cshift-dx-option strong, .cshift-inquiry > strong { font-size: 16px; }
+  .cshift-option { gap: 12px; padding: 11px 14px; }
+  .cshift-option strong, .cshift-inquiry > strong { font-size: 16px; }
   .cshift-investigation-group > header { align-items: flex-start; flex-direction: column; gap: 8px; }
   .cshift-note-comparison > section > div, .cshift-review-card dl, .cshift-clinical-note { grid-template-columns: 1fr; }
   .cshift-debrief-hero { align-items: flex-start; flex-direction: column; }
@@ -544,6 +550,7 @@
   .cshift-ecg-base { opacity: 0; }
   .cshift-monitor.is-critical .cshift-monitor-status i,
   .cshift-vitals .is-changed,
+  .cshift-task.is-question,
   .is-arriving .cshift-beat > * { animation: none; }
   .cshift-rotation:hover { transform: none; }
 }

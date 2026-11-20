@@ -1,21 +1,11 @@
 /* The reacting patient: every authored reaction layer is played through the real screens (jsdom, real
-   StudyStorage) on its safest and on its worst path. Checks the clock, the patient, the resident's
-   step-in and the debrief, and that nothing in the shift asks for typed text. Layout and motion are
-   covered by scripts/smoke-clinical-reacting.mjs. */
+   StudyStorage) on its safest and on its worst path, one tap per call. Checks the clock, the patient, the
+   resident's step-in, the debrief and the optional notepad. The tap-only flow of the classic encounters is
+   covered by scripts/test-clinical-taps.cjs; layout and motion by scripts/smoke-clinical-reacting.mjs. */
 const { test } = require('node:test'),
   assert = require('node:assert/strict');
-const fs = require('node:fs'),
-  vm = require('node:vm'),
-  { JSDOM } = require('jsdom');
-const KEY = 'cs-clinical-shift-v1',
-  pause = () => new Promise(resolve => setImmediate(resolve));
-const read = file => JSON.parse(fs.readFileSync(file, 'utf8'));
-const pilot = read('data/clinical-shift-pilot.json');
-const banks = Object.fromEntries(pilot.rotations.map(rotation => [rotation.key, read(`data/${rotation.key}.json`)]));
-const reacting = Object.keys(pilot.reactions || {}).map(id => {
-  const rotation = pilot.rotations.find(item => item.caseIds.includes(id));
-  return { id, rotation, caseData: banks[rotation.key].cases.find(c => c.id === id), reaction: pilot.reactions[id] };
-});
+const { pause, pilot, encounters, harness, assertTapOnly } = require('./clinical-shift-harness.cjs');
+const reacting = encounters.filter(entry => entry.reaction);
 const STATUS = {
   better: 'Improving',
   stable: 'Stable for now',
@@ -23,92 +13,6 @@ const STATUS = {
   worse: 'Getting worse',
   critical: 'Critical',
 };
-const expose = source =>
-  source.replace(
-    'window.renderClinicalShift = renderClinicalShift;',
-    'window.testShift={reactionUsable,activeIsCompatible,newActiveShift,shiftTimeline,applyDecisionOutcome,applyResidentFix,setManifest:value=>shiftManifest=value,setSession:value=>shiftSession=value}; window.renderClinicalShift = renderClinicalShift;'
-  );
-
-function harness({ manifest = pilot, seed = null } = {}) {
-  const dom = new JSDOM('<!doctype html><body><div id="app"></div></body>', {
-    url: 'http://localhost/practice',
-    runScripts: 'outside-only',
-    pretendToBeVisual: true,
-  });
-  const w = dom.window,
-    ctx = dom.getInternalVMContext(),
-    errors = [];
-  if (seed) w.localStorage.setItem(KEY, seed);
-  w.addEventListener('error', event => {
-    errors.push(event.error);
-    event.preventDefault();
-  });
-  w.scrollTo = () => {};
-  w.HTMLElement.prototype.scrollIntoView = () => {};
-  w.HTMLDialogElement.prototype.showModal = function () {
-    this.setAttribute('open', '');
-  };
-  w.HTMLDialogElement.prototype.close = function () {
-    this.removeAttribute('open');
-  };
-  w.el = html => {
-    const template = w.document.createElement('template');
-    template.innerHTML = html.trim();
-    return template.content.firstElementChild;
-  };
-  w.esc = value =>
-    String(value ?? '').replace(
-      /[&<>"']/g,
-      c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]
-    );
-  w.topbar = () => w.el('<header>Clinical Scenarios</header>');
-  w.setView = root => w.document.querySelector('#app').replaceChildren(root);
-  w.store = { progress: {}, cases: {}, history: [], streak: {} };
-  w.stopTimer = () => {};
-  w.session = null;
-  w.LETTERS = ['A', 'B', 'C', 'D', 'E', 'F'];
-  w.NAME_BY_KEY = Object.fromEntries(pilot.rotations.map(rotation => [rotation.key, rotation.name]));
-  w.renderClinicalCaseBank = () => {};
-  w.renderReview = () => {};
-  w.ClinicalLongitudinal = { entry: async () => {}, open() {} };
-  w.CortexProgress = { OWNER: 'test-owner' };
-  w.sectionUrl = key => '/' + key;
-  w.fetch = async () => ({ ok: true, json: async () => structuredClone(manifest) });
-  w.loadSpecialty = async key => structuredClone(banks[key]);
-  vm.runInContext(fs.readFileSync('study-storage.js', 'utf8'), ctx);
-  vm.runInContext(expose(fs.readFileSync('clinical-shift.js', 'utf8')), ctx);
-  const find = selector => w.document.querySelector(selector),
-    all = selector => [...w.document.querySelectorAll(selector)];
-  const text = selector => {
-    const node = find(selector);
-    assert.ok(node, 'Missing ' + selector);
-    return node.textContent.replace(/\s+/g, ' ').trim();
-  };
-  return {
-    w,
-    find,
-    all,
-    text,
-    errors,
-    click(selector) {
-      const node = find(selector);
-      assert.ok(node, 'Missing ' + selector);
-      assert.equal(node.disabled, false, selector + ' is disabled');
-      node.click();
-      assert.equal(errors.length, 0, errors[0]?.stack);
-    },
-    type(selector, value) {
-      const node = find(selector);
-      assert.ok(node, 'Missing ' + selector);
-      node.value = value;
-      node.dispatchEvent(new w.Event('input', { bubbles: true }));
-    },
-    clock: () => Number(find('#cshift-clock').dataset.minutes),
-    state: () => JSON.parse(w.localStorage.getItem(KEY)),
-    raw: () => w.localStorage.getItem(KEY),
-    close: () => w.close(),
-  };
-}
 
 /* What the authored data says should happen on a path, worked out independently of the engine. */
 function expectedRun({ caseData, reaction }, pick) {
@@ -156,7 +60,7 @@ const worst = (stage, decision) => {
   return delay >= 0 ? delay : decision.outcomes.findIndex(outcome => outcome.kind === 'near-miss');
 };
 
-async function play(h, entry, pick, { resumeAtBeat = false, rightDiagnosis = true } = {}) {
+async function play(h, entry, pick, { resumeAtBeat = false, rightDiagnosis = true, notes = '' } = {}) {
   const { id, rotation, caseData, reaction } = entry;
   const want = expectedRun(entry, pick);
   await h.w.startClinicalShift(rotation.key, { caseId: id });
@@ -186,15 +90,24 @@ async function play(h, entry, pick, { resumeAtBeat = false, rightDiagnosis = tru
       assert.ok(h.text('.cshift-chart').includes(plain[kind][index].finding), 'the answer is filed in the chart');
     }
   assert.equal(h.clock(), want.startClock);
+  // the notepad is there for anyone who wants it; writing in it costs no time
+  assert.equal(h.find('.cshift-notepad').open, false, 'the notepad starts closed');
+  assert.equal(h.text('.cshift-notepad summary'), 'notepad · optional');
+  if (notes) {
+    h.notepad(true);
+    h.type('#cshift-notes', notes);
+    assert.equal(h.state().active.notes, notes);
+    assert.equal(h.text('.cshift-notepad summary'), 'notepad · your notes');
+    assert.equal(h.clock(), want.startClock);
+  }
   h.click('#cshift-begin-reasoning');
 
-  // every step of a reacting shift is a quick pick: four steps, and never a text box
+  // every step of a shift is one tap: four steps, nothing to type, nothing to confirm
   const quick = label => {
-    assert.equal(h.find('textarea, input[type="text"]'), null, `${label} asks for typed text`);
-    assert.deepEqual(
-      h.all('.cshift-stepper strong').map(node => node.textContent),
-      ['Handoff', 'Investigate', 'Decide', 'Debrief']
-    );
+    assertTapOnly(h, label);
+    // what was written stays put, and the notepad stays as it was left, from one screen to the next
+    assert.equal(h.find('#cshift-notes').value, notes, `${label}: the notepad kept its text`);
+    assert.equal(h.find('.cshift-notepad').open, !!notes, `${label}: the notepad stayed ${notes ? 'open' : 'closed'}`);
   };
   quick('the first decision');
 
@@ -218,21 +131,19 @@ async function play(h, entry, pick, { resumeAtBeat = false, rightDiagnosis = tru
         h.text('.cshift-evidence').includes(result.content.replace(/\s+/g, ' ')),
         'the plain report is in front of the question'
       );
-    assert.ok(!h.text('.cshift-task').includes(reaction.differential.reveal), 'no reveal before the answer is locked');
-    assert.equal(h.find('#cshift-lock-decision').disabled, true);
+    assert.ok(!h.text('.cshift-task').includes(reaction.differential.reveal), 'no reveal before the answer');
+    assert.equal(h.text('.cshift-task > p'), 'Pick one. Your answer is final.');
     const before = h.clock();
-    // one pick: choosing another option replaces the first instead of adding to it
-    h.click(`.cshift-option[data-cshift-choice="${(diagnosisPick + 1) % diagnosisStage.options.length}"]`);
+    // one tap is the answer
     h.click(`.cshift-option[data-cshift-choice="${diagnosisPick}"]`);
-    assert.equal(h.all('.cshift-option[aria-pressed="true"]').length, 1);
-    h.click('#cshift-lock-decision');
+    assert.equal(h.text('.cshift-task .label'), 'Work it out');
     assert.equal(
       h.text('.cshift-beat .cshift-resident p'),
       `${rightDiagnosis ? 'Yes.' : 'Not this time.'} ${reaction.differential.reveal}`
     );
     assert.equal(h.text('.cshift-verdict'), rightDiagnosis ? 'Right first time' : 'Not this time');
     assert.equal(h.text('.cshift-beat-story p'), reaction.differential.options[diagnosisPick]);
-    assert.equal(h.find('.cshift-option'), null, 'a locked answer offers no second choice');
+    assert.equal(h.find('.cshift-option'), null, 'an answered question offers no second choice');
     assert.equal(h.clock(), before, 'naming the problem costs no time');
     assert.deepEqual(h.state().active.differential.ranked, [diagnosisPick]);
     h.click('#cshift-next-stage');
@@ -257,12 +168,12 @@ async function play(h, entry, pick, { resumeAtBeat = false, rightDiagnosis = tru
       [...decision.options].sort()
     );
     assert.doesNotMatch(h.text('.cshift-task'), /Safe call|Unsafe delay|Near miss|steps in/);
-    assert.equal(h.find('#cshift-lock-decision').disabled, true);
+    assert.equal(h.text('.cshift-task > p'), 'Pick one. Your call is final, and it changes what happens next.');
     const before = h.clock();
+    // one tap makes the call, and what happens next is shown at once
     h.click(`.cshift-option[data-cshift-choice="${choice}"]`);
-    h.click('#cshift-lock-decision');
-    // what happens next
     assert.ok(h.find(`.cshift-beat.is-${outcome.kind}`), 'the outcome of this option is shown');
+    assert.equal(h.text('.cshift-task .label'), `Decision ${number + 1} of ${want.steps.length}`);
     assert.equal(
       h.text('.cshift-beat-time'),
       `${outcome.minutes} ${outcome.minutes === 1 ? 'minute' : 'minutes'} later`
@@ -288,7 +199,7 @@ async function play(h, entry, pick, { resumeAtBeat = false, rightDiagnosis = tru
         `${key} on the monitor follows the outcome`
       );
     if (outcome.alarm) assert.equal(h.text('.cshift-monitor-alarm'), outcome.alarm);
-    assert.equal(h.find('.cshift-option'), null, 'a locked call offers no second choice');
+    assert.equal(h.find('.cshift-option'), null, 'a call that is made offers no second choice');
     if (resumeAtBeat) {
       // leaving and reopening on the outcome must not charge the time or the harm twice
       const saved = h.raw();
@@ -309,8 +220,8 @@ async function play(h, entry, pick, { resumeAtBeat = false, rightDiagnosis = tru
   if (atDiagnosis()) diagnosis();
   assert.ok(diagnosisSeen, 'the diagnosis question was asked');
 
-  // no note to write: the last call leads straight to the debrief
-  assert.equal(h.find('#cshift-assessment, #cshift-plan, #cshift-reveal-note'), null);
+  // nothing to write up: the last call leads straight to the debrief
+  assert.equal(h.find('#cshift-assessment, #cshift-plan, #cshift-reveal-note, #cshift-rationale'), null);
 
   // the debrief
   assert.ok(h.find('.cshift-debrief.cshift-debrief-ward'), 'the reacting debrief renders');
@@ -399,7 +310,13 @@ async function play(h, entry, pick, { resumeAtBeat = false, rightDiagnosis = tru
   for (const source of reaction.sources) assert.ok(h.find(`.cshift-debrief a[href="${source.url}"]`), source.url);
   assert.equal(state.completed[id].attempts, 1);
   assert.equal(state.history[0].encounter.runId, active.runId);
-  assert.equal(h.find('.cshift-debrief textarea'), null);
+  // the debrief has nothing to type; what was jotted down is shown as it was written
+  assert.equal(h.find('textarea, input, .cshift-notepad'), null);
+  if (notes.trim()) {
+    assert.equal(h.find('.cshift-notes-review p').textContent, notes.trim());
+    assert.equal(h.find('.cshift-notes-review p').children.length, 0, 'a note is text, never markup');
+    assert.equal(state.history[0].encounter.notes, notes);
+  } else assert.equal(h.find('.cshift-notes-review'), null);
   return { want, runId: active.runId };
 }
 
@@ -506,11 +423,13 @@ for (const entry of reacting) {
   test(`${entry.id}: every safe call keeps the patient where the author left them and loses no time`, async () => {
     const h = harness();
     await h.w.renderClinicalShift();
-    const { want } = await play(h, entry, safest);
+    // a note that opens with a line break and holds angle brackets comes back exactly as typed
+    const notes = '\nINR 4.6 <b>high</b> & rising\nfell 10 days ago';
+    const { want } = await play(h, entry, safest, { notes });
     assert.equal(want.delays + want.nearMisses, 0);
     assert.match(h.text('.cshift-timeline h2'), /Every call was safe/);
     assert.equal(h.all('.cshift-chip.is-fix').length, 0);
-    assert.equal(h.state().active.scores.total, 100, 'a clean shift is a full score');
+    assert.equal(h.state().active.scores.total, 100, 'a clean shift is a full score, whatever is on the notepad');
     h.close();
   });
 
@@ -542,7 +461,7 @@ for (const entry of reacting) {
   test(`${entry.id}: the same patient can be replayed from the debrief with a fresh clock`, async () => {
     const h = harness();
     await h.w.renderClinicalShift();
-    const { runId } = await play(h, entry, safest);
+    const { runId } = await play(h, entry, safest, { notes: 'From the first run' });
     h.click('#cshift-replay');
     await pause();
     await pause();
@@ -552,6 +471,12 @@ for (const entry of reacting) {
     assert.notEqual(active.runId, runId);
     assert.equal(active.clock, 0);
     assert.deepEqual(active.events, []);
+    // a new run starts with an empty notepad, closed; the finished run keeps its own
+    assert.equal(active.notes, '');
+    h.click('#cshift-open-chart');
+    assert.equal(h.find('.cshift-notepad').open, false);
+    assert.equal(h.find('#cshift-notes').value, '');
+    assert.equal(h.state().history[0].encounter.notes, 'From the first run');
     assert.equal(active.patient.status, entry.reaction.start?.status || 'stable');
     assert.equal(h.state().history.length, 1, 'the finished run stays in the saved shifts');
     h.close();

@@ -111,7 +111,7 @@ const options = { crypto, now: '2026-09-07T12:00:00.000Z' };
     );
     const data = {
       'cs-clinical-shift-v1':
-        '{"version":1,"active":{"note":{"assessment":"Na<K and K>Cl in this patient","plan":"Replete K<3.5 first"},"drafts":{},"differential":{"rationale":"<3 hours of symptoms"}},"history":[{"encounter":{"note":{"assessment":"HCO3<18"}}}]}',
+        '{"version":1,"active":{"note":{"assessment":"Na<K and K>Cl in this patient","plan":"Replete K<3.5 first"},"notes":"INR<1.4 before surgery","drafts":{},"differential":{"rationale":"<3 hours of symptoms"}},"history":[{"encounter":{"note":{"assessment":"HCO3<18"},"notes":"GCS<13 and falling"}}]}',
       'cs-mcat-course-v1': '{"units":{"u1":{"notes":"Km<Ka means higher affinity"}}}',
       'cs-cogpsych':
         '{"lessons":{"l1":{"steps":{"0":{"draft":"RT<200 ms is implausible","content":{"body":"<p>Authored</p>"}}}}}}',
