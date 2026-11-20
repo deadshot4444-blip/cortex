@@ -8,6 +8,8 @@
   const SHIFT_STORAGE_KEY = 'cs-clinical-shift-v1';
   const SHIFT_MANIFEST_URL = 'data/clinical-shift-pilot.json?v=9';
   const SHIFT_STEPS = ['Handoff', 'Investigate', 'Decide', 'Write it up', 'Debrief'];
+  /* A reacting patient is all quick calls. Nothing is typed, so there is no write-up step. */
+  const SHIFT_STEPS_REACTING = ['Handoff', 'Investigate', 'Decide', 'Debrief'];
   /* Reacting patients: every question or check moves the shift clock by this many minutes. */
   const SHIFT_MINUTES_PER_INQUIRY = 2;
   /* How the patient is doing. A higher rank is a worse place to end a shift. */
@@ -850,17 +852,18 @@
     else advanceShiftTimeline();
   }
 
-  function shiftStepIndex(phase) {
+  function shiftStepIndex(phase, reacting) {
     if (phase === 'handoff') return 0;
     if (phase === 'investigate') return 1;
     if (phase === 'timeline' || phase === 'decision' || phase === 'differential') return 2;
-    if (phase === 'note') return 3;
-    return 4;
+    if (reacting) return 3;
+    return phase === 'note' ? 3 : 4;
   }
 
   function shiftProgressMarkup(phase) {
-    const current = shiftStepIndex(phase);
-    return `<ol class="cshift-stepper" aria-label="Shift progress">${SHIFT_STEPS.map((step, index) => `<li class="${index === current ? 'active' : ''} ${index < current ? 'done' : ''}" ${index === current ? 'aria-current="step"' : ''}><span>${index < current ? '✓' : index + 1}</span><strong>${step}</strong></li>`).join('')}</ol>`;
+    const reacting = !!reactionOf(shiftSession.active);
+    const current = shiftStepIndex(phase, reacting);
+    return `<ol class="cshift-stepper" aria-label="Shift progress">${(reacting ? SHIFT_STEPS_REACTING : SHIFT_STEPS).map((step, index) => `<li class="${index === current ? 'active' : ''} ${index < current ? 'done' : ''}" ${index === current ? 'aria-current="step"' : ''}><span>${index < current ? '✓' : index + 1}</span><strong>${step}</strong></li>`).join('')}</ol>`;
   }
 
   /* ---------- the ward: bedside monitor, resident and chart ---------- */
@@ -1270,6 +1273,10 @@
       active.stageCursor++;
     }
     if (active.stageCursor >= caseData.stages.length) {
+      if (reactionOf(active)) {
+        renderShiftDebrief();
+        return;
+      }
       active.phase = 'note';
       saveShiftState();
       renderShiftNote();
@@ -1430,8 +1437,8 @@
     const root = shiftFrame(
       `<div class="cshift-two-col">${
         lock
-          ? `<section class="cshift-task is-decided"><span class="label">Decision ${number} of ${total} · locked</span><h1>${accentHeading(decision.question)}</h1>${outcomeBeatMarkup(decision, lock.choice)}${termsMarkup(decision.terms)}</section>`
-          : `<section class="cshift-task"><span class="label">Decision ${number} of ${total}</span>${residentMarkup(decision.resident)}<h1>${accentHeading(decision.question)}</h1><p>Choose one, then lock it in. A locked call cannot be changed, and it changes what happens next.</p>
+          ? `<section class="cshift-task is-decided" data-cshift-kind="decision"><span class="label">Decision ${number} of ${total} · locked</span><h1>${accentHeading(decision.question)}</h1>${outcomeBeatMarkup(decision, lock.choice)}${termsMarkup(decision.terms)}</section>`
+          : `<section class="cshift-task" data-cshift-kind="decision"><span class="label">Decision ${number} of ${total}</span>${residentMarkup(decision.resident)}<h1>${accentHeading(decision.question)}</h1><p>Choose one, then lock it in. A locked call cannot be changed, and it changes what happens next.</p>
         <div class="cshift-options">${decisionOptionsMarkup(stage, stageIndex, selected, false, decision.options)}</div>
         <button class="btn btn-solid" id="cshift-lock-decision" ${selected == null ? 'disabled' : ''}>Lock it in</button>${termsMarkup(decision.terms)}</section>`
       }${sideMarkup({ changed: lock && arriving ? Object.keys(decision.outcomes[lock.choice].vitals || {}) : [] })}</div>`,
@@ -1459,40 +1466,33 @@
     if (arriving) tickClock(root, from);
   }
 
-  function differentialOptionsMarkup(stage, stageIndex, texts = stage.options) {
+  function differentialOptionsMarkup(stage, stageIndex) {
     const { active } = shiftSession;
     const ranked = active.differential.ranked;
     return shuffledOrder(stageIndex, stage)
       .map(originalIndex => {
         const rank = ranked.indexOf(originalIndex);
         const rankLabel = rank >= 0 ? `Rank ${rank + 1}: ` : 'Unranked: ';
-        return `<button class="cshift-dx-option ${rank >= 0 ? 'selected' : ''}" data-cshift-dx="${originalIndex}" aria-pressed="${rank >= 0}" aria-label="${esc(rankLabel + texts[originalIndex])}" ${active.differential.lockedAt ? 'disabled' : ''}><span>${rank >= 0 ? rank + 1 : '+'}</span><strong>${esc(texts[originalIndex])}</strong></button>`;
+        return `<button class="cshift-dx-option ${rank >= 0 ? 'selected' : ''}" data-cshift-dx="${originalIndex}" aria-pressed="${rank >= 0}" aria-label="${esc(rankLabel + stage.options[originalIndex])}" ${active.differential.lockedAt ? 'disabled' : ''}><span>${rank >= 0 ? rank + 1 : '+'}</span><strong>${esc(stage.options[originalIndex])}</strong></button>`;
       })
       .join('');
   }
 
   function renderShiftDifferential({ preserveScroll = false } = {}) {
     const { caseData, active } = shiftSession;
+    if (reactionOf(active)) {
+      renderReactingDiagnosis();
+      return;
+    }
     const stageIndex = active.differential.stageIndex;
     const stage = caseData.stages[stageIndex];
     const locked = !!active.differential.lockedAt;
-    const plain = reactionOf(active)?.differential || null;
-    const texts = plain ? plain.options : stage.options;
-    const rank = active.differential.ranked.indexOf(stage.answer);
-    const lockedMarkup = plain?.reveal
-      ? `<div class="cshift-beat">${residentMarkup(`${rank === 0 ? 'Yes.' : rank > 0 ? 'It was on your list, but not first.' : 'Not this time.'} ${plain.reveal}`)}<button class="btn btn-solid" id="cshift-next-stage">Continue →</button></div>`
-      : `<div class="cshift-locked"><span>${plain ? 'Answer locked' : 'Differential locked'}</span><strong>Your ranking and rationale are saved for the debrief.</strong></div><button class="btn btn-solid" id="cshift-next-stage">Continue →</button>`;
     const root = shiftFrame(
       `<div class="cshift-two-col">
-      <section class="cshift-task">${
-        plain
-          ? `<span class="label">Work it out</span>${plain.resident ? residentMarkup(plain.resident) : ''}${reasoningEvidenceMarkup()}<h1>${accentHeading(plain.question)}</h1><p>Pick up to three, most likely first. Then say why in a sentence or two, at least 20 characters. Your reasons are saved for the debrief and are not graded.</p>`
-          : `<span class="label">Clinical reasoning</span>${reasoningEvidenceMarkup()}<h1>Rank your differential.</h1><p class="cshift-review-question">${esc(stage.question)}</p><p>Rank one to three possibilities, leading choice first. Explain the evidence and why alternatives fit less well in at least 20 characters. The written rationale is saved for reflection and is not auto-graded.</p>`
-      }
-        <div class="cshift-dx-list">${differentialOptionsMarkup(stage, stageIndex, texts)}</div>
-        <label class="cshift-field"><span>${plain ? 'Why do you think so?' : 'Reasoning note'}</span><textarea id="cshift-rationale" rows="4" ${locked ? 'disabled' : ''} placeholder="${plain ? 'I think it is … because …' : 'My leading diagnosis is ahead because…'}">${esc(active.differential.rationale || '')}</textarea></label>
-        ${locked ? lockedMarkup : `<button class="btn btn-solid" id="cshift-lock-differential" ${active.differential.ranked.length < 1 || (active.differential.rationale || '').trim().length < 20 ? 'disabled' : ''}>${plain ? 'Lock my answer' : 'Lock differential'}</button>`}
-        ${termsMarkup(plain?.terms)}
+      <section class="cshift-task"><span class="label">Clinical reasoning</span>${reasoningEvidenceMarkup()}<h1>Rank your differential.</h1><p class="cshift-review-question">${esc(stage.question)}</p><p>Rank one to three possibilities, leading choice first. Explain the evidence and why alternatives fit less well in at least 20 characters. The written rationale is saved for reflection and is not auto-graded.</p>
+        <div class="cshift-dx-list">${differentialOptionsMarkup(stage, stageIndex)}</div>
+        <label class="cshift-field"><span>Reasoning note</span><textarea id="cshift-rationale" rows="4" ${locked ? 'disabled' : ''} placeholder="My leading diagnosis is ahead because…">${esc(active.differential.rationale || '')}</textarea></label>
+        ${locked ? '<div class="cshift-locked"><span>Differential locked</span><strong>Your ranking and rationale are saved for the debrief.</strong></div><button class="btn btn-solid" id="cshift-next-stage">Continue →</button>' : `<button class="btn btn-solid" id="cshift-lock-differential" ${active.differential.ranked.length < 1 || (active.differential.rationale || '').trim().length < 20 ? 'disabled' : ''}>Lock differential</button>`}
       </section>${sideMarkup()}</div>`,
       'differential'
     );
@@ -1505,7 +1505,7 @@
           const rank = active.differential.ranked.indexOf(choice);
           button.classList.toggle('selected', rank >= 0);
           button.setAttribute('aria-pressed', String(rank >= 0));
-          button.setAttribute('aria-label', `${rank >= 0 ? `Rank ${rank + 1}` : 'Unranked'}: ${texts[choice]}`);
+          button.setAttribute('aria-label', `${rank >= 0 ? `Rank ${rank + 1}` : 'Unranked'}: ${stage.options[choice]}`);
           button.querySelector('span').textContent = rank >= 0 ? rank + 1 : '+';
         });
         lockButton.disabled = active.differential.ranked.length < 1 || rationale.value.trim().length < 20;
@@ -1543,6 +1543,52 @@
     setShiftView(root, { preserveScroll, focusSelector: preserveScroll ? '#cshift-next-stage' : '' });
   }
 
+  /* The diagnosis for a reacting patient is one quick call: pick one, lock it, hear the answer. */
+  function renderReactingDiagnosis({ arriving = false } = {}) {
+    const { caseData, active } = shiftSession;
+    const stageIndex = active.differential.stageIndex;
+    const stage = caseData.stages[stageIndex];
+    const plain = reactionOf(active).differential;
+    const locked = !!active.differential.lockedAt;
+    const choice = active.differential.ranked[0];
+    const right = choice === stage.answer;
+    const root = shiftFrame(
+      `<div class="cshift-two-col">${
+        locked
+          ? `<section class="cshift-task is-decided" data-cshift-kind="diagnosis"><span class="label">Work it out · locked</span><h1>${accentHeading(plain.question)}</h1>
+        <div class="cshift-beat">
+          <div class="cshift-beat-story" tabindex="-1"><span>You said</span><p>${esc(plain.options[choice])}</p></div>
+          ${residentMarkup(`${right ? 'Yes.' : 'Not this time.'} ${plain.reveal || `It is this: ${plain.options[stage.answer]}`}`)}
+          <p class="cshift-verdict is-${right ? 'safe' : 'near-miss'}">${SHIFT_ICONS[right ? 'safe' : 'near-miss']}<span>${right ? 'Right first time' : 'Not this time'}</span></p>
+          <button class="btn btn-solid" id="cshift-next-stage">Continue →</button>
+        </div>${termsMarkup(plain.terms)}</section>`
+          : `<section class="cshift-task" data-cshift-kind="diagnosis"><span class="label">Work it out</span>${plain.resident ? residentMarkup(plain.resident) : ''}${reasoningEvidenceMarkup()}<h1>${accentHeading(plain.question)}</h1><p>Choose one, then lock it in.</p>
+        <div class="cshift-options">${decisionOptionsMarkup(stage, stageIndex, active.drafts[stageIndex], false, plain.options)}</div>
+        <button class="btn btn-solid" id="cshift-lock-decision" ${active.drafts[stageIndex] == null ? 'disabled' : ''}>Lock it in</button>${termsMarkup(plain.terms)}</section>`
+      }${sideMarkup()}</div>`,
+      'differential'
+    );
+    if (arriving) root.querySelector('.cshift-workspace').classList.add('is-arriving');
+    bindDecisionChoices(root, stageIndex);
+    root.querySelector('#cshift-lock-decision')?.addEventListener('click', () => {
+      const picked = active.drafts[stageIndex];
+      if (picked == null) return;
+      active.differential.ranked = [picked];
+      active.differential.rationale = '';
+      active.differential.lockedAt = Date.now();
+      delete active.drafts[stageIndex];
+      saveShiftState();
+      renderReactingDiagnosis({ arriving: true });
+    });
+    root.querySelector('#cshift-next-stage')?.addEventListener('click', () => {
+      active.stageCursor++;
+      active.phase = 'timeline';
+      saveShiftState();
+      advanceShiftTimeline();
+    });
+    setShiftView(root, { focusSelector: arriving ? '.cshift-beat-story' : '' });
+  }
+
   function modelNoteFor(caseData) {
     const authored = shiftSession?.active.content?.modelNote || shiftManifest?.modelNotes?.[caseData.id];
     if (authored?.assessment && authored?.plan) return authored;
@@ -1560,44 +1606,33 @@
 
   function noteComparisonMarkup(modelNote) {
     const { active } = shiftSession;
-    const plain = !!reactionOf(active);
-    const yours = plain ? 'Your note' : 'Your response',
-      theirs = plain ? 'The resident’s note' : 'Model note';
     return `<div class="cshift-note-comparison">
-      <section><span class="label">${plain ? 'What is going on' : 'Assessment'}</span><div><article class="cshift-note-yours"><strong>${yours}</strong><p>${esc(active.note.assessment)}</p></article><article class="cshift-model-note"><strong>${theirs}</strong><p>${esc(modelNote.assessment)}</p></article></div></section>
-      <section><span class="label">${plain ? 'The plan' : 'Plan'}</span><div><article class="cshift-note-yours"><strong>${yours}</strong><p>${esc(active.note.plan)}</p></article><article class="cshift-model-note"><strong>${theirs}</strong><p>${esc(modelNote.plan)}</p></article></div></section>
+      <section><span class="label">Assessment</span><div><article class="cshift-note-yours"><strong>Your response</strong><p>${esc(active.note.assessment)}</p></article><article class="cshift-model-note"><strong>Model note</strong><p>${esc(modelNote.assessment)}</p></article></div></section>
+      <section><span class="label">Plan</span><div><article class="cshift-note-yours"><strong>Your response</strong><p>${esc(active.note.plan)}</p></article><article class="cshift-model-note"><strong>Model note</strong><p>${esc(modelNote.plan)}</p></article></div></section>
     </div>`;
   }
 
   function renderShiftNote() {
     const { caseData, active } = shiftSession;
+    if (reactionOf(active)) {
+      /* Nothing is typed for a reacting patient; an encounter left on this step goes to its debrief. */
+      renderShiftDebrief();
+      return;
+    }
     active.note ||= { assessment: '', plan: '', revealedAt: null };
     const revealed = !!(active.note.revealedAt || active.note.signedAt);
     const modelNote = modelNoteFor(caseData);
-    const plain = !!reactionOf(active);
     active.phase = 'note';
     saveShiftState();
-    const tooShort = active.note.assessment.trim().length < 30 || active.note.plan.trim().length < 30;
     const content = revealed
-      ? plain
-        ? `<section class="cshift-task cshift-note-review-stage"><span class="label">Write it up</span><h1>Your note, and <em>the resident’s.</em></h1><p>The resident’s note uses the words you will hear on the ward. Look for what it includes that yours left out. Nothing here is graded yet.</p>
-          ${noteComparisonMarkup(modelNote)}
-          <button class="btn btn-solid" id="cshift-finish-note">Go to the debrief →</button>
-        </section>`
-        : `<section class="cshift-task cshift-note-review-stage"><span class="label">Charting self-review</span><h1>Compare your note with the model.</h1><p>Look for a concise problem representation, the evidence supporting the leading diagnosis, immediate management, consultation, and disposition. This educational reference is not an automated grade or a formally clinician-reviewed note.</p>
+      ? `<section class="cshift-task cshift-note-review-stage"><span class="label">Charting self-review</span><h1>Compare your note with the model.</h1><p>Look for a concise problem representation, the evidence supporting the leading diagnosis, immediate management, consultation, and disposition. This educational reference is not an automated grade or a formally clinician-reviewed note.</p>
           ${noteComparisonMarkup(modelNote)}
           <button class="btn btn-solid" id="cshift-finish-note">Continue to debrief →</button>
         </section>`
-      : plain
-        ? `<section class="cshift-task"><span class="label">Write it up</span>${residentMarkup('Before the next team takes over, write the handoff. Tell them what is going on and what the plan is.')}<h1>Write your <em>handoff note.</em></h1><p>Use your own words. A few clear sentences in each box is enough.</p>
-          <label class="cshift-field"><span>What is going on</span><textarea id="cshift-assessment" rows="5" placeholder="Who the patient is, what you think is wrong, and the clues that point to it…">${esc(active.note.assessment)}</textarea></label>
-          <label class="cshift-field"><span>The plan</span><textarea id="cshift-plan" rows="5" placeholder="What has been done, what happens next, and who needs to know…">${esc(active.note.plan)}</textarea></label>
-          <p class="cshift-sign-note">Write at least 30 characters in each box. Your note is not graded yet. Showing the resident’s note freezes yours.</p><button class="btn btn-solid" id="cshift-reveal-note" ${tooShort ? 'disabled' : ''}>See the resident’s note →</button>
-        </section>`
-        : `<section class="cshift-task"><span class="label">Charting</span><h1>Write your assessment and plan.</h1><p>Capture what you think is happening and what should happen next. When you are ready, reveal a case-specific model note and compare it with your own.</p>
+      : `<section class="cshift-task"><span class="label">Charting</span><h1>Write your assessment and plan.</h1><p>Capture what you think is happening and what should happen next. When you are ready, reveal a case-specific model note and compare it with your own.</p>
           <label class="cshift-field"><span>Assessment</span><textarea id="cshift-assessment" rows="6" placeholder="Problem representation, leading diagnosis, and supporting evidence…">${esc(active.note.assessment)}</textarea></label>
           <label class="cshift-field"><span>Plan</span><textarea id="cshift-plan" rows="6" placeholder="Immediate actions, testing, treatment, consultation, and disposition…">${esc(active.note.plan)}</textarea></label>
-          <p class="cshift-sign-note">Write at least 30 characters in each field. Nothing is submitted or clinically graded. Revealing the model freezes this response for self-review.</p><button class="btn btn-solid" id="cshift-reveal-note" ${tooShort ? 'disabled' : ''}>Reveal model note →</button>
+          <p class="cshift-sign-note">Write at least 30 characters in each field. Nothing is submitted or clinically graded. Revealing the model freezes this response for self-review.</p><button class="btn btn-solid" id="cshift-reveal-note" ${active.note.assessment.trim().length < 30 || active.note.plan.trim().length < 30 ? 'disabled' : ''}>Reveal model note →</button>
         </section>`;
     const root = shiftFrame(`<div class="cshift-two-col">${content}${sideMarkup()}</div>`, 'note');
     if (!revealed) {
@@ -1647,13 +1682,18 @@
     const { caseData, active } = shiftSession;
     const diagnosisStage = caseData.stages[active.differential.stageIndex];
     const rank = active.differential.ranked.indexOf(diagnosisStage.answer);
-    const reasoning = rank === 0 ? 30 : rank === 1 ? 20 : rank === 2 ? 10 : 0;
+    /* A reacting patient has no written note, so its hundred points sit on the calls: 15 for asking and
+       examining, 25 for the diagnosis and 60 for the decisions. */
+    const reacting = !!reactionOf(active);
+    const reasoning = reacting ? (rank === 0 ? 25 : 0) : rank === 0 ? 30 : rank === 1 ? 20 : rank === 2 ? 10 : 0;
     const decisionEntries = Object.entries(active.locks).map(([index, lock]) => ({
       stage: caseData.stages[Number(index)],
       lock,
     }));
     const correct = decisionEntries.filter(entry => entry.lock.choice === entry.stage.answer).length;
-    const decisions = decisionEntries.length ? Math.round((45 * correct) / decisionEntries.length) : 0;
+    const decisions = decisionEntries.length
+      ? Math.round(((reacting ? 60 : 45) * correct) / decisionEntries.length)
+      : 0;
     normalizeInvestigationState(active);
     const investigation = investigationFor(caseData);
     const historyCoverage = active.revealed.interviewItems.length
@@ -1667,7 +1707,7 @@
         ? 1
         : 0;
     const information = Math.round(8 * Math.min(historyCoverage, 1)) + Math.round(7 * Math.min(examCoverage, 1));
-    const documentation = active.note.revealedAt || active.note.signedAt ? 10 : 0;
+    const documentation = !reacting && (active.note.revealedAt || active.note.signedAt) ? 10 : 0;
     return {
       information,
       reasoning,
@@ -1677,7 +1717,7 @@
       correct,
       decisionTotal: decisionEntries.length,
       diagnosisRank: rank,
-      ...(reactionOf(active) ? { safety: safetySummary(active) } : {}),
+      ...(reacting ? { safety: safetySummary(active) } : {}),
     };
   }
 
@@ -1812,6 +1852,15 @@
     normalizeInvestigationState(active);
     const investigation = investigationFor(caseData);
     const asked = active.revealed.interviewItems.length + active.revealed.examItems.length;
+    const answer = diagnosisStage.answer,
+      picked = active.differential.ranked;
+    /* The shortest this shift could have been with the same questions asked and every call the safe one. */
+    const fastest =
+      asked * SHIFT_MINUTES_PER_INQUIRY +
+      Object.entries(reaction.decisions).reduce(
+        (sum, [index, decision]) => sum + decision.outcomes[caseData.stages[index].answer].minutes,
+        0
+      );
     const ending = reaction.ending?.[safety.status] || reaction.ending?.stable || SHIFT_STATUS[safety.status].label;
     const tone = SHIFT_STATUS[safety.status].rank >= 2 ? 'is-bad' : safety.minutesLost ? 'is-warn' : 'is-good';
     const misses = countWord(safety.nearMisses, 'near miss', 'near misses');
@@ -1835,9 +1884,9 @@
       <div class="cshift-domain-grid">
         <article class="${tone}"><span>Patient safety</span><strong>${safety.delays ? `${safety.delays} unsafe ${safety.delays === 1 ? 'delay' : 'delays'}` : safety.nearMisses ? `${safety.nearMisses} near ${safety.nearMisses === 1 ? 'miss' : 'misses'}` : 'No unsafe calls'}</strong><small>${safety.delays ? `${minuteCount(safety.minutesLost)} lost in all${safety.nearMisses ? `, counting ${misses.toLowerCase()}` : ''}.` : safety.nearMisses ? `The team stopped it in time. ${minuteCount(safety.minutesLost)} lost.` : 'Every call was the safe one, first time.'}</small></article>
         <article><span>Decisions</span><strong>${scores.correct} of ${scores.decisionTotal}</strong><small>Safe on the first try.</small></article>
-        <article><span>Diagnosis</span><strong>${['First pick', 'Second pick', 'Third pick'][scores.diagnosisRank] || 'Missed'}</strong><small>${scores.diagnosisRank < 0 ? 'The diagnosis was not among your three.' : 'Where you ranked the diagnosis.'}</small></article>
+        <article><span>Diagnosis</span><strong>${scores.diagnosisRank === 0 ? 'Right first time' : 'Missed'}</strong><small>${scores.diagnosisRank === 0 ? 'You named it before the resident did.' : 'The resident named it for you.'}</small></article>
         <article><span>Investigating</span><strong>${asked} of ${investigation.interview.length + investigation.exam.length}</strong><small>Questions and checks, ${minuteCount(asked * SHIFT_MINUTES_PER_INQUIRY)} on the clock.</small></article>
-        <article><span>Your note</span><strong>${scores.documentation ? 'Written' : 'Not written'}</strong><small>Not graded yet. Read it beside the resident’s note below.</small></article>
+        <article><span>Time on shift</span><strong>${safety.minutes} min</strong><small>${safety.minutes > fastest ? `With every call safe it would have been ${fastest}.` : 'As fast as this patient allows.'}</small></article>
         <article><span>Practice points</span><strong>${scores.total}/100</strong><small>For this shift only.</small></article>
       </div>
       <p class="cshift-provenance">These scores are for practice. They follow the choices built into this fictional patient and do not measure clinical ability.</p></section>
@@ -1852,10 +1901,9 @@
           : ''
       }
       <section class="cshift-debrief-section"><span class="label">Your calls, one by one</span><div class="cshift-review-list">${decisionReviewMarkup()}</div></section>
-      <section class="cshift-debrief-section"><span class="label">Your diagnosis</span><ol class="cshift-ranked-review">${active.differential.ranked.map((choice, index) => `<li class="${choice === diagnosisStage.answer ? 'correct' : ''}"><span>${index + 1}</span><strong>${esc(reaction.differential.options[choice])}</strong>${choice === diagnosisStage.answer ? '<em>The diagnosis</em>' : ''}</li>`).join('')}</ol><blockquote>${esc(active.differential.rationale)}</blockquote></section>
-      <section class="cshift-debrief-section"><span class="label">Your note and the resident’s</span>${noteComparisonMarkup(modelNote)}</section>
+      <section class="cshift-debrief-section"><span class="label">Your diagnosis</span><ol class="cshift-ranked-review">${picked.map(choice => `<li class="${choice === answer ? 'correct' : 'missed'}"><span>${choice === answer ? '✓' : '✕'}</span><strong>${esc(reaction.differential.options[choice])}</strong><em>${choice === answer ? 'The diagnosis' : 'Your pick'}</em></li>`).join('')}${picked.includes(answer) ? '' : `<li class="correct"><span>✓</span><strong>${esc(reaction.differential.options[answer])}</strong><em>The diagnosis</em></li>`}</ol>${reaction.differential.reveal ? `<p>${esc(reaction.differential.reveal)}</p>` : ''}</section>
       ${readOnly ? `<details class="cshift-saved-chart"><summary>Review the saved patient chart</summary>${chartMarkup({ vitals: true })}</details>` : ''}
-      <section class="cshift-debrief-section"><span class="label">In clinical language</span><p class="cshift-diagnosis-line">${reaction.title ? `Case: <strong>${esc(caseData.title)}</strong><br>` : ''}Final diagnosis: <strong>${esc(caseData.diagnosis)}</strong></p><div class="cshift-pearls">${caseData.pearls.map((pearl, index) => `<article><span>${String(index + 1).padStart(2, '0')}</span><p>${esc(pearl)}</p></article>`).join('')}</div></section>
+      <section class="cshift-debrief-section"><span class="label">In clinical language</span><p class="cshift-diagnosis-line">${reaction.title ? `Case: <strong>${esc(caseData.title)}</strong><br>` : ''}Final diagnosis: <strong>${esc(caseData.diagnosis)}</strong></p><div class="cshift-clinical-note"><article><strong>The resident’s note · what is going on</strong><p>${esc(modelNote.assessment)}</p></article><article><strong>The resident’s note · the plan</strong><p>${esc(modelNote.plan)}</p></article></div><div class="cshift-pearls">${caseData.pearls.map((pearl, index) => `<article><span>${String(index + 1).padStart(2, '0')}</span><p>${esc(pearl)}</p></article>`).join('')}</div></section>
       ${reviewSourceMarkup()}`;
   }
 

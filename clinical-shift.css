@@ -145,7 +145,7 @@
 .cshift-clock b { font-weight: 600; font-variant-numeric: tabular-nums; }
 .cshift-clock.is-ticking { border-color: var(--navy); background: var(--blue-soft); }
 
-.cshift-stepper { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; margin: 0 0 36px; padding: 0; }
+.cshift-stepper { display: grid; grid-auto-columns: minmax(0, 1fr); grid-auto-flow: column; gap: 8px; margin: 0 0 36px; padding: 0; }
 .cshift-stepper li {
   display: flex;
   align-items: center;
@@ -264,7 +264,8 @@
 #app .cshift-beat-time { display: flex; align-items: center; gap: 14px; margin: 0; color: var(--text); font-family: var(--cs-mono); font-size: 12px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; }
 .cshift-beat-time::before,
 .cshift-beat-time::after { content: ""; flex: 1 1 0; height: 1px; background: var(--line-bright); }
-.cshift-beat-time:focus { outline: none; }
+.cshift-beat-time:focus,
+.cshift-beat-story:focus { outline: none; }
 .cshift-beat-story { padding: 18px 22px 20px; border: 1px solid var(--line); border-radius: 6px; background: #fff; }
 .cshift-beat-story > span { display: block; color: var(--dim); font-size: 11px; font-weight: 600; letter-spacing: .2em; line-height: 1.5; text-transform: uppercase; }
 .cshift-beat-story > p { margin: 6px 0 0; color: var(--text); font-size: 18px; line-height: 1.55; }
@@ -441,6 +442,11 @@
 .cshift-ranked-review li strong { font-size: 16px; font-weight: 600; line-height: 1.4; }
 .cshift-ranked-review li em { color: var(--cs-safe-ink); font-size: 11px; font-style: normal; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
 .cshift-ranked-review li.correct { background: var(--cs-safe-wash); }
+.cshift-ranked-review li.missed em { color: var(--cs-harm-ink); }
+.cshift-clinical-note { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+.cshift-clinical-note article { min-width: 0; padding: 18px 20px; border: 1px solid var(--line); border-left: 3px solid var(--navy); background: #fff; }
+.cshift-clinical-note strong { color: var(--dim); font-size: 11px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; }
+.cshift-clinical-note p { margin: 8px 0 0; color: var(--body); font-size: 16px; line-height: 1.6; }
 .cshift-debrief-section > blockquote { margin: 14px 0 0; padding: 16px 20px; border-left: 3px solid var(--navy); background: #fff; color: var(--body); font-size: 16px; line-height: 1.6; }
 .cshift-review-list { display: flex; flex-direction: column; gap: 14px; margin-top: 16px; }
 .cshift-review-card { padding: 22px 24px; border: 1px solid var(--line); border-left: 3px solid var(--line-bright); background: #fff; }
@@ -519,7 +525,7 @@
   .cshift-option, .cshift-dx-option { gap: 12px; padding: 11px 14px; }
   .cshift-option strong, .cshift-dx-option strong, .cshift-inquiry > strong { font-size: 16px; }
   .cshift-investigation-group > header { align-items: flex-start; flex-direction: column; gap: 8px; }
-  .cshift-note-comparison > section > div, .cshift-review-card dl { grid-template-columns: 1fr; }
+  .cshift-note-comparison > section > div, .cshift-review-card dl, .cshift-clinical-note { grid-template-columns: 1fr; }
   .cshift-debrief-hero { align-items: flex-start; flex-direction: column; }
   .cshift-debrief-hero > div:first-child { flex: 0 1 auto; }
   .cshift-outcome { align-self: stretch; }
