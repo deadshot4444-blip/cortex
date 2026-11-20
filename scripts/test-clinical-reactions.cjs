@@ -1,6 +1,7 @@
 /* The reacting patient: every authored reaction layer is played through the real screens (jsdom, real
    StudyStorage) on its safest and on its worst path. Checks the clock, the patient, the resident's
-   step-in and the debrief. Layout and motion are covered by scripts/smoke-clinical-reacting.mjs. */
+   step-in and the debrief, and that nothing in the shift asks for typed text. Layout and motion are
+   covered by scripts/smoke-clinical-reacting.mjs. */
 const { test } = require('node:test'),
   assert = require('node:assert/strict');
 const fs = require('node:fs'),
@@ -155,7 +156,7 @@ const worst = (stage, decision) => {
   return delay >= 0 ? delay : decision.outcomes.findIndex(outcome => outcome.kind === 'near-miss');
 };
 
-async function play(h, entry, pick, { resumeAtBeat = false } = {}) {
+async function play(h, entry, pick, { resumeAtBeat = false, rightDiagnosis = true } = {}) {
   const { id, rotation, caseData, reaction } = entry;
   const want = expectedRun(entry, pick);
   await h.w.startClinicalShift(rotation.key, { caseId: id });
@@ -187,13 +188,27 @@ async function play(h, entry, pick, { resumeAtBeat = false } = {}) {
   assert.equal(h.clock(), want.startClock);
   h.click('#cshift-begin-reasoning');
 
-  let differentialSeen = false;
-  const differential = () => {
-    const stage = caseData.stages.find(item => item.label === 'DIAGNOSIS');
+  // every step of a reacting shift is a quick pick: four steps, and never a text box
+  const quick = label => {
+    assert.equal(h.find('textarea, input[type="text"]'), null, `${label} asks for typed text`);
+    assert.deepEqual(
+      h.all('.cshift-stepper strong').map(node => node.textContent),
+      ['Handoff', 'Investigate', 'Decide', 'Debrief']
+    );
+  };
+  quick('the first decision');
+
+  let diagnosisSeen = false;
+  const diagnosisStage = caseData.stages.find(item => item.label === 'DIAGNOSIS');
+  const diagnosisPick = rightDiagnosis
+    ? diagnosisStage.answer
+    : (diagnosisStage.answer + 1) % diagnosisStage.options.length;
+  const diagnosis = () => {
+    quick('the diagnosis');
     assert.equal(h.text('.cshift-task h1'), reaction.differential.question);
     assert.deepEqual(
       h
-        .all('.cshift-dx-option strong')
+        .all('.cshift-option strong')
         .map(node => node.textContent)
         .sort(),
       [...reaction.differential.options].sort()
@@ -204,16 +219,31 @@ async function play(h, entry, pick, { resumeAtBeat = false } = {}) {
         'the plain report is in front of the question'
       );
     assert.ok(!h.text('.cshift-task').includes(reaction.differential.reveal), 'no reveal before the answer is locked');
-    h.click(`.cshift-dx-option[data-cshift-dx="${stage.answer}"]`);
-    h.type('#cshift-rationale', 'Because the report in the chart points to it.');
-    h.click('#cshift-lock-differential');
-    assert.ok(h.text('.cshift-beat .cshift-resident p').startsWith('Yes. ' + reaction.differential.reveal));
+    assert.equal(h.find('#cshift-lock-decision').disabled, true);
+    const before = h.clock();
+    // one pick: choosing another option replaces the first instead of adding to it
+    h.click(`.cshift-option[data-cshift-choice="${(diagnosisPick + 1) % diagnosisStage.options.length}"]`);
+    h.click(`.cshift-option[data-cshift-choice="${diagnosisPick}"]`);
+    assert.equal(h.all('.cshift-option[aria-pressed="true"]').length, 1);
+    h.click('#cshift-lock-decision');
+    assert.equal(
+      h.text('.cshift-beat .cshift-resident p'),
+      `${rightDiagnosis ? 'Yes.' : 'Not this time.'} ${reaction.differential.reveal}`
+    );
+    assert.equal(h.text('.cshift-verdict'), rightDiagnosis ? 'Right first time' : 'Not this time');
+    assert.equal(h.text('.cshift-beat-story p'), reaction.differential.options[diagnosisPick]);
+    assert.equal(h.find('.cshift-option'), null, 'a locked answer offers no second choice');
+    assert.equal(h.clock(), before, 'naming the problem costs no time');
+    assert.deepEqual(h.state().active.differential.ranked, [diagnosisPick]);
     h.click('#cshift-next-stage');
-    differentialSeen = true;
+    diagnosisSeen = true;
   };
+  const atDiagnosis = () => !!h.find('.cshift-task[data-cshift-kind="diagnosis"]');
 
   for (const [number, step] of want.steps.entries()) {
-    if (h.find('.cshift-dx-list')) differential();
+    if (atDiagnosis()) diagnosis();
+    quick(`decision ${number + 1}`);
+    assert.ok(h.find('.cshift-task[data-cshift-kind="decision"]'));
     const { decision, outcome, choice, stage } = step;
     // the call: plain wording, nothing about correctness yet
     assert.equal(h.text('.cshift-task .label'), `Decision ${number + 1} of ${want.steps.length}`);
@@ -276,18 +306,11 @@ async function play(h, entry, pick, { resumeAtBeat = false } = {}) {
     assert.equal(state.patient.status, step.afterFix.status);
     assert.equal(state.events.filter(event => event.stage === step.index).length, choice === stage.answer ? 1 : 2);
   }
-  if (h.find('.cshift-dx-list')) differential();
-  assert.ok(differentialSeen, 'the diagnosis question was asked');
+  if (atDiagnosis()) diagnosis();
+  assert.ok(diagnosisSeen, 'the diagnosis question was asked');
 
-  // the note
-  assert.equal(h.find('#cshift-reveal-note').disabled, true);
-  assert.equal(h.find('.cshift-model-note'), null);
-  h.type('#cshift-assessment', 'A patient with a serious problem that we found and treated in time today.');
-  h.type('#cshift-plan', 'The team has started treatment and the specialists are taking over from here.');
-  h.click('#cshift-reveal-note');
-  assert.ok(h.text('.cshift-note-review-stage').includes(pilot.modelNotes[id].assessment));
-  assert.doesNotMatch(h.text('.cshift-note-review-stage'), /model/i);
-  h.click('#cshift-finish-note');
+  // no note to write: the last call leads straight to the debrief
+  assert.equal(h.find('#cshift-assessment, #cshift-plan, #cshift-reveal-note'), null);
 
   // the debrief
   assert.ok(h.find('.cshift-debrief.cshift-debrief-ward'), 'the reacting debrief renders');
@@ -316,6 +339,35 @@ async function play(h, entry, pick, { resumeAtBeat = false } = {}) {
   );
   assert.equal(h.all('.cshift-events > li').length, want.events);
   assert.equal(h.all('.cshift-domain-grid > article').length, 6);
+  assert.deepEqual(
+    h.all('.cshift-domain-grid > article > span').map(node => node.textContent),
+    ['Patient safety', 'Decisions', 'Diagnosis', 'Investigating', 'Time on shift', 'Practice points']
+  );
+  assert.match(
+    h.text('.cshift-domain-grid > article:nth-child(3)'),
+    rightDiagnosis ? /^DiagnosisRight first time/ : /^DiagnosisMissed/
+  );
+  assert.equal(
+    h.text('.cshift-domain-grid > article:nth-child(5) small'),
+    want.clock > expectedRun(entry, safest).clock
+      ? `With every call safe it would have been ${expectedRun(entry, safest).clock}.`
+      : 'As fast as this patient allows.'
+  );
+  // 15 for asking and examining, 25 for the diagnosis, 60 for the decisions; nothing for a note
+  const safeCalls = want.steps.length - want.delays - want.nearMisses;
+  assert.deepEqual(
+    [active.scores.information, active.scores.reasoning, active.scores.decisions, active.scores.documentation],
+    [15, rightDiagnosis ? 25 : 0, Math.round((60 * safeCalls) / want.steps.length), 0]
+  );
+  assert.equal(active.scores.total, 15 + (rightDiagnosis ? 25 : 0) + Math.round((60 * safeCalls) / want.steps.length));
+  assert.equal(h.text('.cshift-domain-grid > article:nth-child(6) strong'), `${active.scores.total}/100`);
+  assert.equal(h.all('.cshift-ranked-review li').length, rightDiagnosis ? 1 : 2);
+  assert.equal(h.all('.cshift-ranked-review li.correct').length, 1);
+  assert.ok(h.text('.cshift-ranked-review li.correct').includes(reaction.differential.options[diagnosisStage.answer]));
+  // the resident's note is there to read, in clinical language
+  assert.ok(h.text('.cshift-clinical-note').includes(pilot.modelNotes[id].assessment));
+  assert.ok(h.text('.cshift-clinical-note').includes(pilot.modelNotes[id].plan));
+  assert.doesNotMatch(h.text('.cshift-debrief'), /model note|compare/i);
   const safetyTile = h.text('.cshift-domain-grid > article:first-child');
   assert.match(
     safetyTile,
@@ -458,17 +510,17 @@ for (const entry of reacting) {
     assert.equal(want.delays + want.nearMisses, 0);
     assert.match(h.text('.cshift-timeline h2'), /Every call was safe/);
     assert.equal(h.all('.cshift-chip.is-fix').length, 0);
-    assert.equal(h.state().active.scores.decisions, 45);
+    assert.equal(h.state().active.scores.total, 100, 'a clean shift is a full score');
     h.close();
   });
 
   test(`${entry.id}: unsafe calls cost time, change the patient, and the resident steps in once`, async () => {
     const h = harness();
     await h.w.renderClinicalShift();
-    const { want, runId } = await play(h, entry, worst, { resumeAtBeat: true });
+    const { want, runId } = await play(h, entry, worst, { resumeAtBeat: true, rightDiagnosis: false });
     assert.ok(want.delays + want.nearMisses === want.steps.length, 'every call on this path was unsafe');
     assert.equal(h.all('.cshift-chip.is-fix').length, want.steps.length);
-    assert.equal(h.state().active.scores.decisions, 0);
+    assert.equal(h.state().active.scores.total, 15, 'only the questions asked earn points');
     assert.doesNotMatch(h.text('.cshift-timeline h2'), /Every call was safe/);
     assert.ok(want.clock > expectedRun(entry, safest).clock, 'the unsafe path takes longer');
 
@@ -540,5 +592,27 @@ test('a rotation hands out its reacting patients before its classic ones', async
   await pause();
   await pause();
   assert.ok(pilot.reactions[h.state().active.caseId], 'the first patient assigned is a reacting one');
+  h.close();
+});
+
+test('a reacting encounter saved on the old write-up step opens at its debrief', async () => {
+  const { id, rotation, caseData } = reacting[0];
+  const source = harness();
+  source.w.testShift.setManifest(structuredClone(pilot));
+  const active = JSON.parse(JSON.stringify(source.w.testShift.newActiveShift(rotation, caseData)));
+  source.close();
+  const dx = caseData.stages.findIndex(stage => stage.label === 'DIAGNOSIS');
+  active.phase = 'note';
+  active.stageCursor = caseData.stages.length;
+  active.differential = { stageIndex: dx, ranked: [caseData.stages[dx].answer], rationale: '', lockedAt: 5 };
+  for (const [index, stage] of caseData.stages.entries())
+    if (stage.type === 'question' && index !== dx) active.locks[index] = { choice: stage.answer, lockedAt: 5 };
+  const h = harness({ seed: JSON.stringify({ version: 1, active, completed: {}, history: [] }) });
+  h.w.history.pushState({}, '', `/practice?view=shift&run=${active.runId}`);
+  await h.w.renderClinicalShift();
+  await pause();
+  assert.ok(h.find('.cshift-debrief.cshift-debrief-ward'));
+  assert.equal(h.find('textarea'), null);
+  assert.equal(h.state().completed[id].attempts, 1);
   h.close();
 });

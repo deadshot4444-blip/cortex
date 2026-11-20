@@ -158,18 +158,21 @@ async function runViewport(browser, viewport) {
     await page.waitForSelector('.cshift-task');
     let expectedClock = afterCall + decision.outcomes[stages[cursor].answer].minutes;
 
-    // the rest of the shift, every call the safe one
-    for (let step = 0; step < 20 && !(await page.locator('#cshift-assessment').count()); step++) {
+    // the rest of the shift, every call the safe one; nothing on the way asks for typed text
+    const typing = () => page.locator('.cshift-workspace :is(textarea, input[type="text"])').count();
+    if (await typing()) fail(`${viewport.name} a reacting shift asked for typed text`);
+    for (let step = 0; step < 20 && !(await page.locator('.cshift-debrief-ward').count()); step++) {
       cursor = (await saved(page)).active.stageCursor;
-      if (await page.locator('.cshift-dx-list').count()) {
+      const kind = await page.locator('.cshift-task').getAttribute('data-cshift-kind');
+      if (kind === 'diagnosis') {
         if (!(await page.locator('.cshift-evidence').isVisible()))
           fail(`${viewport.name} the report is not shown before the diagnosis question`);
-        await page.locator(`.cshift-dx-option[data-cshift-dx="${stages[cursor].answer}"]`).click();
-        await page.locator('#cshift-rationale').fill('The report in the chart describes exactly this.');
-        await page.locator('#cshift-lock-differential').click();
-        await page.waitForSelector('.cshift-beat .cshift-resident');
+        await page.locator(`.cshift-option[data-cshift-choice="${stages[cursor].answer}"]`).click();
+        await page.locator('#cshift-lock-decision').click();
+        await page.waitForSelector('.cshift-task.is-decided .cshift-verdict.is-safe');
+        if ((await clockFace(page)) !== face(expectedClock)) fail(`${viewport.name} naming the problem cost time`);
         await noSidewaysScroll(page, viewport, 'diagnosis');
-      } else if (await page.locator('.cshift-options').count()) {
+      } else if (kind === 'decision') {
         const safe = reaction.decisions[cursor].outcomes[stages[cursor].answer];
         await page.locator(`.cshift-option[data-cshift-choice="${stages[cursor].answer}"]`).click();
         await page.locator('#cshift-lock-decision').click();
@@ -181,19 +184,15 @@ async function runViewport(browser, viewport) {
         );
         await noSidewaysScroll(page, viewport, 'safe outcome');
       } else fail(`${viewport.name} reached an unknown phase`, (await saved(page)).active.phase);
+      if (await typing()) fail(`${viewport.name} a reacting shift asked for typed text`);
       await page.locator('#cshift-next-stage').click();
-      await page.waitForSelector('.cshift-task');
+      await page.waitForSelector('.cshift-task, .cshift-debrief-ward');
     }
 
-    // the note, then the debrief
-    await page.locator('#cshift-assessment').fill('A patient with a serious problem that the team found and treated.');
-    await page.locator('#cshift-plan').fill('Treatment has started and the specialists are taking over from here.');
-    await noSidewaysScroll(page, viewport, 'note');
-    await page.locator('#cshift-reveal-note').click();
-    await page.waitForSelector('.cshift-note-review-stage');
-    await noSidewaysScroll(page, viewport, 'two notes');
-    await page.locator('#cshift-finish-note').click();
+    // the last call leads straight to the debrief
     await page.waitForSelector('.cshift-debrief-ward');
+    const steps = await page.locator('.cshift-stepper li').count();
+    if (steps !== 4 || (await typing())) fail(`${viewport.name} debrief is not the fourth and last step`, { steps });
     state = await saved(page);
     const bar = await page.locator('.cshift-timebar').evaluate(node => ({
       width: node.getBoundingClientRect().width,
