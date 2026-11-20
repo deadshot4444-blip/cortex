@@ -6,7 +6,7 @@
    by scripts/test-clinical-reactions.cjs; layout by scripts/smoke-clinical-shift.mjs. */
 const { test } = require('node:test'),
   assert = require('node:assert/strict');
-const { pause, pilot, encounters, harness, holdMs, assertTapOnly, flat } = require('./clinical-shift-harness.cjs');
+const { KEY, pause, pilot, encounters, harness, holdMs, assertTapOnly, flat } = require('./clinical-shift-harness.cjs');
 const classic = encounters.filter(entry => !entry.reaction);
 const NOTES_MAX = 4000;
 const questionsOf = caseData =>
@@ -270,6 +270,43 @@ test('the notepad is optional, keeps what is written, and is never scored', asyn
   h.close();
 });
 
+test('the notepad is written to disk when the typing stops, or at once when it is left', async () => {
+  const entry = classic[0];
+  const h = harness();
+  await start(h, entry);
+  h.click('#cshift-open-chart');
+  h.notepad(true);
+  const before = h.raw();
+  let writes = 0;
+  const set = h.w.Storage.prototype.setItem;
+  h.w.Storage.prototype.setItem = function (...args) {
+    if (args[0] === KEY) writes++;
+    return set.apply(this, args);
+  };
+  // a burst of typing is one write, a moment after the last key
+  for (const text of ['K', 'K 5', 'K 5.9']) h.type('#cshift-notes', text, { leave: false });
+  assert.equal(h.raw(), before, 'nothing is written while the keys are still coming');
+  assert.equal(writes, 0);
+  await new Promise(resolve => setTimeout(resolve, 600));
+  assert.equal(h.state().active.notes, 'K 5.9');
+  assert.equal(writes, 1);
+  // leaving the notepad writes at once, and so does leaving the page
+  h.type('#cshift-notes', 'K 5.9, repeat it', { leave: false });
+  h.find('#cshift-notes').dispatchEvent(new h.w.Event('blur'));
+  assert.equal(h.state().active.notes, 'K 5.9, repeat it');
+  h.type('#cshift-notes', 'K 5.9, repeat it now', { leave: false });
+  h.w.dispatchEvent(new h.w.Event('pagehide'));
+  assert.equal(h.state().active.notes, 'K 5.9, repeat it now');
+  // any call saves the notepad with it, and no late write follows
+  h.type('#cshift-notes', 'K 5.9, repeated', { leave: false });
+  h.click('#cshift-begin-reasoning');
+  assert.equal(h.state().active.notes, 'K 5.9, repeated');
+  const settled = writes;
+  await new Promise(resolve => setTimeout(resolve, 600));
+  assert.equal(writes, settled);
+  h.close();
+});
+
 test('a stray second tap cannot answer the next question or skip an outcome', async () => {
   assert.ok(holdMs >= 300 && holdMs <= 1000, 'the hold outlasts a double click without making anyone wait');
   const wake = () => new Promise(resolve => setTimeout(resolve, holdMs + 80));
@@ -317,6 +354,55 @@ test('a stray second tap cannot answer the next question or skip an outcome', as
   await wake();
   r.click('#cshift-next-stage');
   assert.ok(r.state().active.stageCursor > cursor);
+  r.close();
+});
+
+test('an answer is given once: a tap that reaches an answered question changes nothing', async () => {
+  // classic: the first question's buttons are tapped again after the shift has moved on
+  const entry = classic[0],
+    questions = questionsOf(entry.caseData);
+  const h = harness();
+  await start(h, entry);
+  h.click('#cshift-open-chart');
+  h.click('#cshift-begin-reasoning');
+  const first = questions[0],
+    stale = h.all('.cshift-option');
+  h.click(`.cshift-option[data-cshift-choice="${first.stage.answer}"]`);
+  const after = h.raw();
+  for (const button of stale) button.click();
+  assert.equal(h.raw(), after);
+  assert.equal(h.state().active.stageCursor, questions[1].index);
+  assert.equal(h.text('.cshift-task h1'), flat(questions[1].stage.question));
+  h.close();
+
+  // reacting: a second tap cannot swap the call that was made, or charge its time again
+  const reacting = encounters.find(item => item.reaction),
+    decision = questionsOf(reacting.caseData)[0];
+  const r = harness();
+  await start(r, reacting);
+  r.click('#cshift-open-chart');
+  r.click('#cshift-begin-reasoning');
+  const options = r.all('.cshift-option');
+  r.click(`.cshift-option[data-cshift-choice="${decision.stage.answer}"]`);
+  const made = r.raw();
+  for (const button of options) button.click();
+  assert.equal(r.raw(), made);
+  assert.equal(r.state().active.locks[decision.index].choice, decision.stage.answer);
+  assert.equal(r.state().active.events.length, 1);
+  assert.ok(r.find('.cshift-beat.is-safe'));
+  // and the same for the diagnosis
+  for (let step = 0; step < 6 && r.find('.cshift-task').dataset.cshiftKind !== 'diagnosis'; step++) {
+    if (r.find('#cshift-next-stage')) r.click('#cshift-next-stage');
+    else r.click(`.cshift-option[data-cshift-choice="${r.find('.cshift-option').dataset.cshiftChoice}"]`);
+  }
+  const dx = questionsOf(reacting.caseData).find(({ stage }) => isDiagnosis(stage));
+  const picks = r.all('.cshift-option');
+  assert.ok(picks.length >= 4, 'the diagnosis question is on screen');
+  r.click(`.cshift-option[data-cshift-choice="${dx.stage.answer}"]`);
+  const named = r.raw();
+  for (const button of picks) button.click();
+  assert.equal(r.raw(), named);
+  assert.deepEqual(r.state().active.differential.ranked, [dx.stage.answer]);
   r.close();
 });
 

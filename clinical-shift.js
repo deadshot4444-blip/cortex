@@ -14,8 +14,11 @@
      and wake up after this long. */
   const SHIFT_TAP_HOLD_MS = 450;
   const SHIFT_HELD = SHIFT_TAP_HOLD_MS > 0 ? 'disabled data-cshift-hold' : '';
-  /* The optional notepad holds the learner's own words. It is saved with the shift and never scored. */
+  /* The optional notepad holds the learner's own words. It is saved with the shift and never scored.
+     A save writes every saved shift, so the notepad is saved a moment after the typing stops, not on
+     each key. */
   const SHIFT_NOTES_MAX = 4000;
+  const SHIFT_NOTES_SAVE_MS = 400;
   /* Reacting patients: every question or check moves the shift clock by this many minutes. */
   const SHIFT_MINUTES_PER_INQUIRY = 2;
   /* How the patient is doing. A higher rank is a worse place to end a shift. */
@@ -58,6 +61,7 @@
   let shiftSession = null;
   /* Whether the notepad is open. It stays as the learner left it from one question to the next. */
   let shiftNotesOpen = false;
+  let shiftNotesTimer = null;
 
   function minuteCount(minutes) {
     return `${minutes} ${minutes === 1 ? 'minute' : 'minutes'}`;
@@ -206,8 +210,23 @@
   });
 
   function saveShiftState() {
+    if (shiftNotesTimer !== null) clearTimeout(shiftNotesTimer);
+    shiftNotesTimer = null;
     return StudyStorage.write(SHIFT_STORAGE_KEY, shiftState);
   }
+
+  /* What is typed on the notepad is in the encounter at once and on disk shortly after. Every other save
+     carries it too, and it is written straight away when the learner leaves the notepad or the page. */
+  function saveNotesSoon() {
+    if (shiftNotesTimer !== null) clearTimeout(shiftNotesTimer);
+    shiftNotesTimer = setTimeout(saveShiftState, SHIFT_NOTES_SAVE_MS);
+  }
+  function saveNotesNow() {
+    if (shiftNotesTimer !== null) saveShiftState();
+  }
+  window.addEventListener('pagehide', saveNotesNow);
+  if (typeof document !== 'undefined')
+    document.addEventListener('visibilitychange', () => document.hidden && saveNotesNow());
 
   function shiftRoute(active = null) {
     const url = new URL(location.href);
@@ -863,8 +882,10 @@
     const phase = shiftSession?.active.phase;
     if (phase === 'handoff') renderShiftHandoff();
     else if (phase === 'investigate') renderShiftInvestigation();
-    /* 'note' was the write-up step. An encounter left on it has made every call, so it is debriefed. */
-    else if (phase === 'debrief' || phase === 'note') renderShiftDebrief();
+    else if (phase === 'debrief') renderShiftDebrief();
+    /* Every other phase is worked out again from the calls made so far. That includes 'note', the
+       write-up step of an encounter begun before every step became a tap: it has made every call, so
+       it is debriefed. */
     else advanceShiftTimeline();
   }
 
@@ -1149,8 +1170,9 @@
     field.addEventListener('input', () => {
       active.notes = field.value.slice(0, SHIFT_NOTES_MAX);
       label.textContent = active.notes.trim() ? 'your notes' : 'optional';
-      saveShiftState();
+      saveNotesSoon();
     });
+    field.addEventListener('blur', saveNotesNow);
   }
 
   /* Monitor above chart: the patient first, then the paperwork, then the notepad. */
@@ -1391,14 +1413,14 @@
       diagnosis ? 'differential' : 'decision'
     );
     onChoice(root, choice => {
+      /* An answer is given once. A tap that reaches a question already answered changes nothing. */
       if (diagnosis ? active.differential.lockedAt : active.locks[stageIndex]) return;
       if (diagnosis) {
         active.differential.ranked = [choice];
         active.differential.lockedAt = Date.now();
       } else active.locks[stageIndex] = { choice, lockedAt: Date.now() };
       delete active.drafts[stageIndex];
-      active.stageCursor = stageIndex + 1;
-      saveShiftState();
+      /* The question is answered now, so this moves on to the next one, or to the debrief. */
       advanceShiftTimeline();
     });
     setShiftView(root);
