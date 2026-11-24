@@ -149,6 +149,35 @@ tooling only). `_headers` sets long-lived caching for `?v=`-busted scripts and
 Every other main area has a share page (`mcat.html`, `neuro.html`, …) that `_redirects`
 serves at its path, so a shared link previews that area's own card from `og/`.
 
+### Safeguards
+
+The sign-in session is kept in browser storage, so the rule is that nothing but our own
+script files ever runs on a page.
+
+- `_headers` sends a Content-Security-Policy on every path: no inline or evaluated scripts,
+  no outside hosts except the Supabase project and the pinned Pyodide folder. If the import
+  map in `index.html`, the Supabase project in `auth.js` or the Pyodide version in
+  `python-runtime-worker.js` changes, the policy line has to change with it.
+- Nothing from another host is served under this site's address. The visitor counter goes
+  through `netlify/edge-functions/visit-counter.js`, which returns only a checked number.
+  Do not add a `_redirects` rule that proxies to another host.
+- `scripts/test-security.cjs` (part of `npm test`) fails when any of the above drifts, when
+  a database policy opens to signed-out visitors, or when something shaped like a secret key
+  is committed. `scripts/serve.py` sends the same headers, so the browser suites run under
+  the policy.
+- Use `addEventListener`, never `onclick="…"` in markup: the policy blocks inline handlers.
+- `/.well-known/security.txt` tells people where to report a problem. Renew its `Expires`
+  date once a year.
+
+No test here can see settings that live in dashboards. `main` ships to every learner, so
+whoever can push to it, or sign in to the hosting, database or domain accounts, can change
+what their browsers run:
+
+- Two-step sign-in on every account that can reach the site: both GitHub accounts, Netlify,
+  Supabase, the domain registrar and the support mailbox.
+- A GitHub rule on `main` that blocks force pushes and deletion and requires a pull request.
+- The Supabase sign-in settings listed in `supabase/README.md`.
+
 ## Release recovery
 
 Keep the exact source and reviewed study backups. Do not downgrade a workspace containing

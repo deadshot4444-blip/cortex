@@ -10,10 +10,10 @@
 # redirect to /practice. Share THIS url to get the clinical thumbnail.
 /share/clinical  /share-clinical.html  200
 
-# Proxy the visitor counter through our own domain so the browser never makes a
-# third-party request on load (keeps Safari/Brave privacy shields from flagging
-# the page). Netlify fetches abacus server-side; the client only sees first-party.
-/cx-visits/*  https://abacus.jasoncameron.dev/:splat  200
+# The visitor counter (/cx-visits/...) is netlify/edge-functions/visit-counter.js, not a rule
+# here. The browser still only ever talks to our own domain, but a proxy rule would serve
+# whatever the outside counter service answers, for any of its paths, under this site's
+# address. Do not add a rule that proxies to another host (scripts/test-security.cjs checks).
 
 # Retired class-specific workspaces. Temporary redirects keep these paths
 # available for a future reorganization without leaving dead course screens.

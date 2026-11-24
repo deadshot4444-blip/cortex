@@ -22,6 +22,14 @@ drop policy if exists "own row update" on public.progress;
 create policy "own row update" on public.progress
   for update using (auth.uid() = user_id) with check (auth.uid() = user_id);
 
+-- One account's document is what a browser can hold for the site, re-encoded as JSON: a few
+-- megabytes at most (the portable backup format stops at 16 MB too). The cap keeps a throwaway
+-- account from being used to fill the database. A write over the cap fails and the app reports
+-- a sync error; nothing already saved is touched.
+alter table public.progress drop constraint if exists progress_data_size;
+alter table public.progress
+  add constraint progress_data_size check (octet_length(data::text) <= 16777216);
+
 -- Reviewer preview access: which closed courses a signed-in reviewer may open on the site.
 -- Keyed by lowercase email so a grant can exist before the reviewer's first sign-in.
 -- Readable only by the account whose JWT email matches; there are deliberately no insert,
