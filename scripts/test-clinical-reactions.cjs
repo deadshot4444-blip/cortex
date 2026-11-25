@@ -378,7 +378,9 @@ test('there is at least one reacting patient and each one lines up with its case
         a.patient = null;
       },
       a => {
-        a.events = [{ type: 'decision', stage: 1, choice: 0, kind: 'safe', minutes: 1, at: 0, status: 'stable' }];
+        // a call recorded against a result, which takes no decision
+        const stage = caseData.stages.findIndex(item => item.type === 'result');
+        a.events = [{ type: 'decision', stage, choice: 0, kind: 'safe', minutes: 1, at: 0, status: 'stable' }];
       },
       a => {
         a.events = [{ type: 'decision', stage: 0, choice: 99, kind: 'safe', minutes: 1, at: 0, status: 'stable' }];

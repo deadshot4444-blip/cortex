@@ -70,7 +70,10 @@ assert.ok(validate(manifest, changedBanks, index, counts).errors.some(error => e
 // A reacting patient is checked option for option: a layer that drifts from its case must fail.
 const course = read('mcat-course');
 assert.deepEqual(validate(manifest, banks, index, counts, course).errors, []);
-const reactingId = Object.keys(manifest.reactions)[0];
+// The mutations below are written against the model layer: its first decision has an unsafe delay with
+// changed readings and a near miss, and a later call shows a rising blood pressure.
+const reactingId = 'em-018';
+assert.ok(manifest.reactions[reactingId]);
 const firstDecision = reaction => Object.values(reaction.decisions)[0];
 for (const [mutate, expected] of [
   [
@@ -161,6 +164,18 @@ for (const [mutate, expected] of [
     /completed review needs identity and date/,
   ],
   [r => delete r.plainDiagnosis, /missing plainDiagnosis/],
+  [
+    r => {
+      r.start = { status: 'doomed' };
+    },
+    /a starting state takes a known status/,
+  ],
+  [
+    r => {
+      r.start = { status: 'unstable', alarm: 7 };
+    },
+    /a starting state takes a known status/,
+  ],
 ]) {
   const changed = structuredClone(manifest);
   mutate(changed.reactions[reactingId]);
