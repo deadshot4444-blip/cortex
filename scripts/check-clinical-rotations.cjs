@@ -31,6 +31,15 @@ function checkReaction(id, c, reaction, investigation, lessons, check, text) {
   );
   for (const field of ['title', 'setting', 'handoff', 'plainDiagnosis'])
     check(text(reaction[field]), `${tag}: missing ${field}`);
+  /* A patient who arrives already unwell starts on a status and an alarm line of their own. The app
+     falls back to a stable patient when it cannot read one, so a misspelt status has to fail here. */
+  check(
+    reaction.start === undefined ||
+      (object(reaction.start) &&
+        (reaction.start.status === undefined || STATUSES.includes(reaction.start.status)) &&
+        (reaction.start.alarm === undefined || typeof reaction.start.alarm === 'string')),
+    `${tag}: a starting state takes a known status and an alarm line`
+  );
   for (const kind of ['interview', 'exam'])
     check(
       Array.isArray(reaction.investigation?.[kind]) &&

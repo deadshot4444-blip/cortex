@@ -1,5 +1,5 @@
 {
-  "version": 8,
+  "version": 9,
   "title": "Clinical Shift foundations and rotation practice",
   "reviewStatus": "Local source and consistency checks recorded September 7, 2026. Independent clinician review remains pending for all 18 encounters.",
   "rotations": [
@@ -950,6 +950,297 @@
     }
   },
   "reactions": {
+    "em-016": {
+      "sourceCheckedOn": "2026-11-24",
+      "independentReview": "pending",
+      "title": "A heartbeat that suddenly _took off._",
+      "setting": "Emergency department",
+      "start": {
+        "status": "stable",
+        "alarm": "Very fast heart rate"
+      },
+      "handoff": "A 32-year-old woman was sitting at her desk 40 minutes ago when her heart began to pound. It is fast and steady, and it has not stopped.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask how the pounding started and whether it has happened before",
+            "finding": "It began all at once 40 minutes ago, while she was sitting still. It is fast and regular. She has had a few spells like it this past year, and each one stopped on its own within minutes."
+          },
+          {
+            "prompt": "Ask about chest pain, fainting and trouble breathing",
+            "finding": "She feels a little lightheaded, with a fluttering in her throat. No chest pain, no fainting, and no real trouble breathing."
+          },
+          {
+            "prompt": "Ask about caffeine, drugs and her family’s heart history",
+            "finding": "She drinks two or three coffees a day and had an extra one this morning. She has no heart problems, no recent illness and no signs of a thyroid problem. She takes no stimulant drugs or medicines. No one in her family has died suddenly."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Check how she looks and whether enough blood is reaching her brain and skin",
+            "finding": "Awake, a little anxious and thinking clearly. Her skin is warm, with good blood flow. She is breathing comfortably."
+          },
+          {
+            "prompt": "Listen to her heart and feel her pulse",
+            "finding": "Very fast and perfectly regular. Her heart sounds are normal, with nothing extra. The pulse at her wrist is fast, regular and strong."
+          },
+          {
+            "prompt": "Check her lungs, her neck and her legs",
+            "finding": "Her lungs are clear. The veins in her neck are not swollen, and her thyroid gland is not enlarged. Her legs are not swollen."
+          }
+        ]
+      },
+      "results": {
+        "2": {
+          "label": "Heart tracing after the medicine",
+          "content": "After the second dose of adenosine (12 mg), the fast rhythm stopped all at once.\nHeart tracing (ECG) now: a normal rhythm at 78 beats a minute.\nSignals cross from the upper to the lower chambers in a normal time, with no sign of an extra pathway (no “delta wave”).\nNo sign of strain on the heart muscle, and a normal reset time between beats (QT).\nBlood salts and thyroid test: normal."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "The monitor shows a fast, regular rhythm at 188 with narrow beats. Her blood pressure is fine and she is thinking clearly.",
+          "question": "What do we try first?",
+          "options": [
+            "Shock her heart back to a normal rhythm right away",
+            "Coach her through a bearing-down maneuver while watching the monitor",
+            "Give amiodarone, a strong rhythm medicine, through a vein",
+            "Give procainamide, another rhythm medicine, through a vein"
+          ],
+          "fix": "Try the bearing-down maneuver",
+          "terms": [
+            {
+              "term": "Narrow beats",
+              "meaning": "On the heart tracing each beat is a thin spike. That means the signal starts above the heart’s lower chambers."
+            },
+            {
+              "term": "Bearing-down maneuver (Valsalva)",
+              "meaning": "Blowing hard against resistance for about 15 seconds, then lying back with the legs lifted. It sets off a nerve reflex that can slow the heart’s signals."
+            },
+            {
+              "term": "Cardioversion",
+              "meaning": "A timed electric shock that resets the heart’s rhythm. The patient is sedated for it."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for the shock pads and sedation. The resident stops the cart before anyone opens it.",
+              "reply": "A shock is for a patient who is crashing: low blood pressure, chest pain, confusion. She has none of those. We start with the gentlest thing that can work."
+            },
+            {
+              "kind": "safe",
+              "minutes": 6,
+              "story": "She blows hard into a syringe for 15 seconds. Then you lay her back and lift her legs. The monitor does not change: still 188. She is no worse.",
+              "reply": "Right first step. It stops this rhythm in about 4 of every 10 people, and it costs almost nothing to try. It did not work this time, so we move on."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write the order for amiodarone. The pharmacist calls before it is mixed.",
+              "reply": "Amiodarone is a heavy medicine that can drop the blood pressure. For this rhythm there are simpler, safer steps to try first."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write the order for procainamide. The nurse checks with the resident before drawing it up.",
+              "reply": "Procainamide has to run in slowly and can drop the blood pressure. We keep it for other rhythm problems. This one has a simpler first step."
+            }
+          ]
+        },
+        "1": {
+          "resident": "The maneuver did not work. She is still at 188, and her blood pressure is holding.",
+          "question": "Which medicine do we give next?",
+          "options": [
+            "Adenosine, pushed fast into a vein",
+            "Digoxin, run slowly into a vein",
+            "Flecainide, as a tablet",
+            "Magnesium, through a vein"
+          ],
+          "fix": "Give adenosine",
+          "terms": [
+            {
+              "term": "Adenosine",
+              "meaning": "A medicine that blocks the heart’s relay station for a few seconds. The body clears it within seconds, so it is pushed in fast and chased with salt water."
+            },
+            {
+              "term": "Relay station (AV node)",
+              "meaning": "The one normal electrical link between the heart’s upper and lower chambers."
+            },
+            {
+              "term": "Digoxin",
+              "meaning": "An old heart medicine that slows the relay station. It can take hours to reach its full effect."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 8,
+              "story": "You warn her that she will feel awful for a few seconds. The first dose changes nothing. The second, larger dose goes in: the monitor pauses for a moment, then shows a normal rhythm at 78. She says her chest has gone quiet.",
+              "reply": "That pause was the medicine working. It breaks the loop for a moment, and the heart’s own pacemaker takes over again.",
+              "vitals": {
+                "HR": "78 bpm"
+              },
+              "trend": {
+                "HR": "down"
+              },
+              "status": "better",
+              "alarm": ""
+            },
+            {
+              "kind": "delay",
+              "minutes": 45,
+              "story": "The digoxin runs in slowly. Forty-five minutes later her heart is still at 188. She is more lightheaded, and her blood pressure has started to drift down.",
+              "reply": "Digoxin can take hours to work. She has now spent most of an hour at 188. Her pressure is still good enough for the fast medicine, so we give adenosine now.",
+              "vitals": {
+                "BP": "104/66 mmHg"
+              },
+              "trend": {
+                "BP": "down"
+              },
+              "status": "worse",
+              "alarm": "Still 188 beats a minute · more lightheaded"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a flecainide tablet. The resident stops the order.",
+              "reply": "A tablet has to be absorbed first, and flecainide is a long-term medicine for preventing these spells. She needs something that works in seconds."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write the order for magnesium. The pharmacist calls to ask what rhythm it is for.",
+              "reply": "Magnesium treats a different, dangerous rhythm called torsades. It is not the medicine that stops this one."
+            }
+          ]
+        },
+        "4": {
+          "resident": "She feels fine, and her heart tracing is normal now.",
+          "question": "What is the plan from here?",
+          "options": [
+            "Admit her for a procedure tonight to burn away the short circuit",
+            "Send her home with a plan and a heart clinic visit",
+            "Start amiodarone, to be taken for life",
+            "Put in a permanent pacemaker"
+          ],
+          "fix": "Send her home with a plan",
+          "terms": [
+            {
+              "term": "Ablation",
+              "meaning": "A procedure that passes a thin wire into the heart and destroys the tiny patch of tissue behind the short circuit."
+            },
+            {
+              "term": "Pacemaker",
+              "meaning": "A small implanted device that speeds up a heart that beats too slowly."
+            },
+            {
+              "term": "Heart clinic (cardiology)",
+              "meaning": "The specialists who follow heart rhythm problems and decide whether anything more is needed."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You call to book the procedure for tonight. The resident takes the phone.",
+              "reply": "Ablation can cure this, but it is a planned procedure, not an emergency one. It is worth discussing if the spells keep coming back. That is a conversation for the heart clinic."
+            },
+            {
+              "kind": "safe",
+              "minutes": 20,
+              "story": "You watch her on the monitor a little longer, and her rhythm stays normal. You teach her the maneuver, talk about cutting back on caffeine and book the heart clinic. She knows when to come back.",
+              "reply": "That is the whole plan. One spell that stopped cleanly, a normal tracing, and a patient who knows what to do next time."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write a prescription for amiodarone. The pharmacist calls before it is filled.",
+              "reply": "Amiodarone taken for years can damage the thyroid, the lungs and the liver. That is far too much risk for a healthy 32-year-old with a few short spells a year."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask about booking a pacemaker. The resident shakes their head.",
+              "reply": "A pacemaker speeds up a slow heart. Hers was too fast, and it is normal now. A pacemaker would do nothing for her."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "The second dose of adenosine worked, and her heart is back in a normal rhythm. The new heart tracing is in her chart.",
+        "question": "What was this rhythm?",
+        "options": [
+          "Atrial fibrillation: the upper chambers quiver, so the pulse is irregular",
+          "Supraventricular tachycardia (SVT): a short circuit near the relay station, fast and regular",
+          "Multifocal atrial tachycardia: many spots in the upper chambers fire, so the pulse is irregular",
+          "Ventricular tachycardia: a fast rhythm that starts in the lower chambers, with wide beats"
+        ],
+        "reveal": "It was supraventricular tachycardia, or SVT. It began all at once, it was fast, regular and narrow, and it stopped the moment adenosine blocked the relay station. That points to a loop running through the relay. Her full set of tracings will show the exact type.",
+        "terms": [
+          {
+            "term": "Supraventricular",
+            "meaning": "Above the ventricles, the heart’s two lower chambers."
+          },
+          {
+            "term": "Tachycardia",
+            "meaning": "A heart rate over 100 beats a minute."
+          }
+        ]
+      },
+      "ending": {
+        "better": "Going home with her heart in a normal rhythm",
+        "stable": "Going home with her heart in a normal rhythm",
+        "worse": "Still on the monitor in the emergency department",
+        "critical": "In the resuscitation room"
+      },
+      "plainDiagnosis": "A fast heart rhythm caused by a short circuit in the heart’s wiring (supraventricular tachycardia, or SVT).",
+      "science": [
+        {
+          "tag": "Circuits",
+          "title": "Why her heart suddenly ran at 188",
+          "text": "A signal should cross the heart’s relay station once per beat. Hers most likely has two paths side by side. A signal went down one and back up the other, and the loop fired her heart again on every lap.",
+          "lesson": "circuit-paths",
+          "lessonTitle": "Follow current through a circuit"
+        },
+        {
+          "tag": "Membranes",
+          "title": "How adenosine stopped it in seconds",
+          "text": "Adenosine opens potassium channels in the cells of the relay station. Potassium flows out of the cells, and for a few seconds they are much harder to fire. The loop has nowhere to go, so it stops.",
+          "lesson": "membrane-transport",
+          "lessonTitle": "Cross a membrane"
+        },
+        {
+          "tag": "Pressure and blood flow",
+          "title": "Why a racing heart made her lightheaded",
+          "text": "The heart fills between beats. At 188 beats a minute there is little time to fill, so each beat pushes out less blood. Less flow means less pressure to carry blood up to the brain.",
+          "lesson": "circulatory-flow",
+          "lessonTitle": "Connect pressure to blood flow"
+        }
+      ],
+      "sources": [
+        {
+          "title": "REVERT trial (Lancet 2015): modified Valsalva maneuver for supraventricular tachycardia",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/26314489/"
+        },
+        {
+          "title": "2015 ACC/AHA/HRS guideline: management of adults with supraventricular tachycardia",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/26409259/"
+        },
+        {
+          "title": "AHA guidelines: adult advanced life support (2025)",
+          "url": "https://cpr.heart.org/en/resuscitation-science/cpr-and-ecc-guidelines/adult-advanced-life-support"
+        },
+        {
+          "title": "StatPearls: adenosine",
+          "url": "https://www.ncbi.nlm.nih.gov/books/NBK519049/"
+        },
+        {
+          "title": "StatPearls: amiodarone",
+          "url": "https://www.ncbi.nlm.nih.gov/books/NBK482154/"
+        }
+      ]
+    },
     "em-018": {
       "sourceCheckedOn": "2026-11-19",
       "independentReview": "pending",
@@ -1273,6 +1564,1331 @@
         {
           "title": "StatPearls: warfarin",
           "url": "https://www.ncbi.nlm.nih.gov/books/NBK470313/"
+        }
+      ]
+    },
+    "em-015": {
+      "sourceCheckedOn": "2026-11-24",
+      "independentReview": "pending",
+      "title": "He keeps passing out, _and his pulse is slow._",
+      "setting": "Emergency department",
+      "start": {
+        "status": "unstable",
+        "alarm": "Very slow heart rate · low blood pressure"
+      },
+      "handoff": "A 78-year-old man has passed out three times in two days, each time with no warning. He says his pulse feels very slow.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask what happens when he passes out",
+            "finding": "He has passed out three times in two days, each time with no warning. He comes round quickly and is not confused afterward. He has not bitten his tongue or hit his head."
+          },
+          {
+            "prompt": "Ask how he feels between the episodes",
+            "finding": "Tired and dizzy, and short of breath after very little effort. When he checks his pulse at home, it feels very slow."
+          },
+          {
+            "prompt": "Ask about his heart history and his medicines",
+            "finding": "He had a heart attack six years ago. He has high blood pressure and diabetes. One of his daily medicines is metoprolol, which slows the heart. None of his medicines has changed lately, and he has not been ill."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Check how awake he is and how well blood is reaching his skin",
+            "finding": "Awake and making sense, but pale and tired. His blood pressure is a little low and his pulse is slow. When you press on a fingernail, the color is a little slow to come back."
+          },
+          {
+            "prompt": "Listen to his heart and watch the veins in his neck",
+            "finding": "Slow and regular. The first heart sound is loud on some beats and soft on others. Now and then a vein in his neck gives a big jump. There are no extra heart sounds."
+          },
+          {
+            "prompt": "Check his strength, his speech and his lungs",
+            "finding": "His strength and speech are normal, with no sign of a stroke. His lungs are clear. His legs are not swollen."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Heart tracing (ECG)",
+          "content": "Upper chambers: beating about 88 times a minute.\nLower chambers: beating about 38 times a minute.\nThe two are completely out of step. Each keeps its own steady beat, and neither follows the other.\nThe beats of the lower chambers are wide. A slow backup pacemaker low in the heart is driving them.\nThe tracing also shows the scar of his earlier heart attack.\nBlood test for new heart damage (troponin): not back yet."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "He keeps passing out with no warning, and his pulse is 38.",
+          "question": "What do we do first?",
+          "options": [
+            "A heart tracing (ECG) now, and keep him on a heart monitor",
+            "A CT scan of his head",
+            "A tilt-table test, to see whether being upright makes him faint",
+            "An ultrasound of his heart before any other test"
+          ],
+          "fix": "Get the heart tracing",
+          "terms": [
+            {
+              "term": "ECG",
+              "meaning": "A tracing of the heart’s electrical signals, taken with stickers on the chest. It takes a few minutes at the bedside."
+            },
+            {
+              "term": "Tilt-table test",
+              "meaning": "A test that straps a patient to a table and tilts them upright, to bring on a simple faint while they are watched."
+            },
+            {
+              "term": "Heart ultrasound (echocardiogram)",
+              "meaning": "Moving pictures of the heart’s walls and valves. It shows the pump, not the wiring."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "The tracing is done at his bedside within minutes, and he stays on the monitor. While it prints, he says he feels faint again. His blood pressure now reads 84/50.",
+              "reply": "Good call. The tracing is in his chart. That drop in pressure is the slow heart, not anything you did, and it is why he stays on a monitor.",
+              "vitals": {
+                "BP": "84/50 mmHg"
+              },
+              "alarm": "Feels faint · blood pressure lower"
+            },
+            {
+              "kind": "delay",
+              "minutes": 30,
+              "story": "You send him down the hall for a head scan. On the scanner table he passes out again for a few seconds. The scan itself is normal.",
+              "reply": "His brain is not why he faints. His heart is. With a pulse of 38 he should not leave a heart monitor. We get the tracing now.",
+              "vitals": {
+                "BP": "84/50 mmHg"
+              },
+              "trend": {
+                "BP": "down"
+              },
+              "status": "worse",
+              "alarm": "Passed out again · blood pressure falling"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a tilt-table test. The resident cancels the request before it is sent.",
+              "reply": "That test is for simple faints, and it works by making the patient faint. With a pulse of 38 that is not safe, and it would not show us his heart rhythm."
+            },
+            {
+              "kind": "delay",
+              "minutes": 40,
+              "story": "You order the heart ultrasound first. It takes forty minutes to arrive. In that time nobody has looked at his heart rhythm, and he is dizzier.",
+              "reply": "The ultrasound shows the pump. His problem is the timing. A tracing takes five minutes and answers the question, so we do it now.",
+              "vitals": {
+                "BP": "84/50 mmHg"
+              },
+              "trend": {
+                "BP": "down"
+              },
+              "status": "worse",
+              "alarm": "Dizzier · blood pressure falling"
+            }
+          ]
+        },
+        "3": {
+          "resident": "He feels faint again. His blood pressure is 84/50 and his pulse is still 38.",
+          "question": "What do we do right now?",
+          "options": [
+            "Hold his home medicines and watch the monitor",
+            "Pace his heart now, through pads on his chest",
+            "Give fluid through a vein and check him again in an hour",
+            "Give metoprolol through a vein to steady the rhythm"
+          ],
+          "fix": "Start pacing",
+          "terms": [
+            {
+              "term": "Pacing through the skin",
+              "meaning": "Sticky pads on the chest and back deliver small timed pulses that make the heart beat. It is uncomfortable, so the patient is given pain relief and sedation."
+            },
+            {
+              "term": "Pacing wire",
+              "meaning": "A thin wire passed through a vein into the heart. It paces more reliably and more comfortably than pads."
+            },
+            {
+              "term": "Metoprolol",
+              "meaning": "A beta blocker. It slows the heart and its electrical signals."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "delay",
+              "minutes": 20,
+              "story": "You hold his home medicines, the metoprolol among them, and watch. Twenty minutes later the monitor shows several seconds with no heartbeat at all. He slumps over, then comes round.",
+              "reply": "Stopping the metoprolol is right, but it takes many hours to wear off. A backup rhythm this slow can simply stop. We pace him now.",
+              "vitals": {
+                "BP": "78/46 mmHg"
+              },
+              "trend": {
+                "BP": "down"
+              },
+              "status": "worse",
+              "alarm": "Pause on the monitor · passed out again"
+            },
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "Sticky pads go on his chest and back. He gets medicine for pain and to make him drowsy, because each pulse makes his chest muscles jump. The pacer is set to 70, and you can feel a pulse with every beat.",
+              "reply": "Now the machine is doing the timing that his own wiring cannot. A pulse you can feel with each beat shows the heart is really pumping. This is a bridge until the heart team places a pacing wire.",
+              "vitals": {
+                "HR": "70 bpm (paced)",
+                "BP": "112/68 mmHg"
+              },
+              "trend": {
+                "HR": "up",
+                "BP": "up"
+              },
+              "status": "stable",
+              "alarm": ""
+            },
+            {
+              "kind": "delay",
+              "minutes": 60,
+              "story": "The fluid runs in and you come back in an hour. His pulse is still 38 and his blood pressure is lower. He is confused, and his hands are cold.",
+              "reply": "Fluid cannot fix this. His tank is not empty. His heart is beating too slowly to move what is in it. We pace him now.",
+              "vitals": {
+                "BP": "70/40 mmHg"
+              },
+              "trend": {
+                "BP": "down"
+              },
+              "status": "critical",
+              "alarm": "Confused · cold hands · blood pressure very low"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write the order for metoprolol. The nurse reads it twice and calls the resident before giving it.",
+              "reply": "Metoprolol slows the heart’s signals even more. In a heart that depends on a slow backup rhythm, it could stop that rhythm altogether."
+            }
+          ]
+        },
+        "4": {
+          "resident": "The pacer is working. His pulse is 70 and his blood pressure is back up. We are checking for causes we can reverse: his medicines, his blood salts and a new heart attack.",
+          "question": "If the block stays, what is the lasting fix?",
+          "options": [
+            "A permanent pacemaker, placed under the skin",
+            "Atropine, a medicine that speeds the heart, for life",
+            "Bypass surgery to bring more blood to his heart muscle",
+            "Flecainide, a daily rhythm medicine"
+          ],
+          "fix": "Plan a permanent pacemaker",
+          "terms": [
+            {
+              "term": "Permanent pacemaker",
+              "meaning": "A small battery-powered device placed under the skin of the chest, with a wire into the heart. It sends a signal whenever the heart’s own wiring fails to."
+            },
+            {
+              "term": "Atropine",
+              "meaning": "A medicine given through a vein that briefly speeds the heart by blocking the nerve that slows it."
+            },
+            {
+              "term": "Bypass surgery",
+              "meaning": "An operation that reroutes blood around blocked heart arteries."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 15,
+              "story": "The heart-rhythm team sees him. They agree: unless a cause they can reverse turns up, he gets a permanent pacemaker. He goes to the cardiac unit on a monitor, with the pacer still running.",
+              "reply": "That is the lasting fix. A pacemaker does for good what the pads are doing now."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest atropine for life. The resident stops you before it goes into the plan.",
+              "reply": "Atropine is a short-acting medicine given through a vein. It cannot be a lifelong treatment, and for a block this low in the wiring it often does nothing at all."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest bypass surgery. The resident shakes their head.",
+              "reply": "Bypass brings blood to the heart muscle. His problem is the wiring between the chambers, and new plumbing does not reliably repair old wiring."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You write flecainide into the plan. The pharmacist calls.",
+              "reply": "Flecainide slows the electrical signals in the heart. That would make a heart block worse, not better."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "The tracing is in his chart. Look at how the upper and the lower chambers are beating.",
+        "question": "What kind of block is this?",
+        "options": [
+          "Second-degree block: signals slow more and more until one beat is dropped",
+          "First-degree block: every signal gets through, just slowly",
+          "Third-degree (complete) block: no signal gets through at all",
+          "Sinus bradycardia: a slow heartbeat with the wiring working normally"
+        ],
+        "reveal": "It is a complete heart block. The upper chambers beat at 88 and the lower at 38, each one steady and neither following the other. In the lesser blocks at least some signals still get through.",
+        "terms": [
+          {
+            "term": "Heart block",
+            "meaning": "A fault in the wiring that carries each heartbeat signal from the upper chambers to the lower ones."
+          },
+          {
+            "term": "Backup pacemaker (escape rhythm)",
+            "meaning": "When no signal arrives from above, cells in the lower heart fire on their own. They are slow, and they can stop without warning."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "In the cardiac unit on a temporary pacer, waiting for a permanent pacemaker",
+        "worse": "In the cardiac unit on a temporary pacer, after getting worse",
+        "critical": "In the cardiac unit on a temporary pacer, in critical condition"
+      },
+      "plainDiagnosis": "A complete break in the heart’s wiring, so the upper and lower chambers beat on their own (complete heart block).",
+      "science": [
+        {
+          "tag": "Circuits",
+          "title": "Why one break stops every signal",
+          "text": "In a circuit with a single path, one break stops the current everywhere past it. His heart has one electrical link between the upper and lower chambers, and it has failed. No signal arrives from above, so the lower chambers run on a slow backup of their own.",
+          "lesson": "circuit-paths",
+          "lessonTitle": "Follow current through a circuit"
+        },
+        {
+          "tag": "Pressure and blood flow",
+          "title": "Why a slow heart drops his blood pressure",
+          "text": "The blood his heart moves each minute is the amount per beat times the beats per minute. At 38 beats a minute too little blood flows, and with less flow through the same vessels the pressure falls. A pacer set to 70 brings the flow back.",
+          "lesson": "circulatory-flow",
+          "lessonTitle": "Connect pressure to blood flow"
+        }
+      ],
+      "sources": [
+        {
+          "title": "AHA 2025 adult bradycardia algorithm",
+          "url": "https://cpr.heart.org/-/media/CPR-Files/CPR-Guidelines-Files/2025-Algorithms/Algorithm-ACLS-Bradycardia-250514.pdf?sc_lang=en"
+        },
+        {
+          "title": "AHA guidelines: adult advanced life support (2025)",
+          "url": "https://cpr.heart.org/en/resuscitation-science/cpr-and-ecc-guidelines/adult-advanced-life-support"
+        },
+        {
+          "title": "2018 ACC/AHA/HRS guideline: evaluation and management of bradycardia and cardiac conduction delay",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/30412709/"
+        },
+        {
+          "title": "StatPearls: third-degree atrioventricular block",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/31424783/"
+        },
+        {
+          "title": "Review: transcutaneous cardiac pacing, indications and technique",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6376978"
+        }
+      ]
+    },
+    "em-020": {
+      "sourceCheckedOn": "2026-11-24",
+      "independentReview": "pending",
+      "title": "Pain far worse _than the skin looks._",
+      "setting": "Emergency department",
+      "start": {
+        "status": "unstable",
+        "alarm": "High fever · fast heart rate · low blood pressure"
+      },
+      "handoff": "A 59-year-old man with diabetes has pain and swelling between his legs that became much worse in one day. He has a fever and looks very unwell.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask about the pain and how the skin has changed",
+            "finding": "The pain, swelling and dark color between his legs and over his scrotum became much worse within 24 hours. The pain is far worse than the skin looks, and he says the skin feels as if it is crackling."
+          },
+          {
+            "prompt": "Ask what could have let an infection in",
+            "finding": "His diabetes is poorly controlled. He has obesity and he smokes. Two weeks ago an abscess beside his anus was drained. Now a foul-smelling fluid is leaking from the area."
+          },
+          {
+            "prompt": "Ask how the rest of his body feels",
+            "finding": "He has fever and chills. He feels weak and sick to his stomach, has eaten little, and gets lightheaded when he stands."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Look at the skin between his legs and over his scrotum",
+            "finding": "The skin is dusky red to purple and tightly swollen. Some patches are dead. A foul, blood-tinged fluid is leaking out."
+          },
+          {
+            "prompt": "Press gently to find how far it has spread",
+            "finding": "It is tender well beyond the edge of the red skin, up toward his lower belly, and the pain is far more than the skin would explain. The tissue crackles under your fingers, as if there is gas in it. Some patches of skin have no feeling at all."
+          },
+          {
+            "prompt": "Check how sick he looks and how well blood is reaching his skin",
+            "finding": "He looks very ill and is drenched in sweat. His heart is racing and his blood pressure is low. When you press on a fingernail, the color is slow to come back."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Blood tests and scan",
+          "content": "The surgical team has been called, and treatment is starting. A scan that was already done is below. Treatment does not wait for more pictures.\nWhite blood cells: 22.4, about twice the upper limit, with many young cells. His body is fighting a severe infection.\nSodium: 128 (low). Blood sugar: 412 (very high).\nKidney test (creatinine): 1.9, up from his usual 1.1. His kidneys are under strain.\nInflammation marker (CRP): 320 (very high).\nLactate: 4.2 (high). Parts of his body are not getting enough blood flow.\nX-ray and CT scan of the pelvis: gas under the skin, tracking through the tissue between his legs and into the scrotum."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "Look at the skin, and then look at him. A simple skin infection and a deep one that kills tissue are treated very differently.",
+          "question": "Which picture is his?",
+          "options": [
+            "A simple skin infection: mild redness with clear edges and no body-wide illness",
+            "A deep infection killing tissue: pain beyond what shows, crackling, dead skin",
+            "Harmless swelling: warmth and puffiness that settle when the area is raised",
+            "A skin rash: an itchy, raised patch of skin with sharp, clear edges"
+          ],
+          "fix": "Treat it as a deep infection",
+          "terms": [
+            {
+              "term": "Cellulitis",
+              "meaning": "A common infection of the skin. It causes redness and warmth and is usually treated with antibiotics alone."
+            },
+            {
+              "term": "Necrotizing infection",
+              "meaning": "An infection that kills the tissue under the skin and spreads fast along the layers that wrap the muscles."
+            },
+            {
+              "term": "Crackling under the skin (crepitus)",
+              "meaning": "Gas made by bacteria and trapped in the tissue. It should never be there."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "delay",
+              "minutes": 60,
+              "story": "You call it a simple skin infection. He gets one antibiotic and a plan to check on him later. An hour on, the dark skin has spread past the line the nurse drew around it, and he is drowsy.",
+              "reply": "This was never a simple skin infection. Pain far beyond what the skin shows, crackling, dead patches and a patient this sick mean the tissue underneath is dying. We call the surgeons now.",
+              "vitals": {
+                "BP": "88/52 mmHg",
+                "HR": "132 bpm"
+              },
+              "trend": {
+                "BP": "down",
+                "HR": "up"
+              },
+              "status": "worse",
+              "alarm": "Dark skin spreading · drowsy"
+            },
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "You name it: a deep infection that is killing tissue. The resident nods and phones the surgical team. Blood tests are sent, and fluids are started through a vein.",
+              "reply": "Yes. Pain far worse than the skin looks, crackling, dead and numb patches, and a very sick patient. Any one of those is a warning. Together they mean we move now."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest it is swelling that will settle if the area is raised. The resident stops you before the plan is written.",
+              "reply": "Harmless swelling does not come with a fever, a racing heart and dead skin. Look at the whole patient, not only the swelling."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest it is an itchy skin rash. The resident stops you before the plan is written.",
+              "reply": "A rash itches. It does not crackle, kill skin or make a patient this sick. This is far deeper than the skin."
+            }
+          ]
+        },
+        "3": {
+          "resident": "The surgical team is here. He is getting fluids, and his blood pressure is still low.",
+          "question": "What does he need most?",
+          "options": [
+            "Strong antibiotics through a vein, and no surgery",
+            "Surgery now to cut away all the dead tissue",
+            "A session in a high-pressure oxygen chamber first, then decide",
+            "A small cut at the bedside to let the pus out"
+          ],
+          "fix": "Send him to surgery",
+          "terms": [
+            {
+              "term": "Debridement",
+              "meaning": "Surgery that cuts away dead and infected tissue until only healthy, bleeding tissue is left."
+            },
+            {
+              "term": "Hyperbaric oxygen",
+              "meaning": "Breathing pure oxygen in a pressurized chamber. Some centers add it after surgery. It never replaces surgery."
+            },
+            {
+              "term": "Source control",
+              "meaning": "Removing the place an infection is coming from. Antibiotics work far better once that is done."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "delay",
+              "minutes": 90,
+              "story": "The antibiotics run in, and you wait for them to work. Ninety minutes later the dark, crackling area has reached his lower belly. His blood pressure is lower and he is breathing fast.",
+              "reply": "Antibiotics travel in the blood, and dead tissue has no blood flow, so they cannot reach the bacteria living in it. The longer surgery waits, the lower his chance of living. He goes to the operating room now.",
+              "vitals": {
+                "BP": "80/46 mmHg",
+                "HR": "138 bpm",
+                "RR": "30 /min"
+              },
+              "trend": {
+                "BP": "down",
+                "HR": "up",
+                "RR": "up"
+              },
+              "status": "critical",
+              "alarm": "Spreading to the belly · blood pressure falling"
+            },
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "The surgeon examines him and agrees. The operating room is called, and the team starts getting him ready.",
+              "reply": "Right. Antibiotics and fluids help, but only surgery removes the dead tissue the infection is feeding on. The sooner it is done, the better his chances."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You call to book the oxygen chamber. The surgeon overhears and stops the call.",
+              "reply": "Some centers use the chamber as an extra, after surgery. It must never hold surgery up. Time in a chamber is time the infection keeps spreading."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You open a small procedure kit at the bedside. The surgeon stops you before you start.",
+              "reply": "A small cut drains one pocket of pus. This infection runs along whole layers of tissue, far past what you can see. It needs a full operation, with him asleep."
+            }
+          ]
+        },
+        "4": {
+          "resident": "The operating room will be ready in a few minutes. He needs antibiotics before he goes.",
+          "question": "Which antibiotics?",
+          "options": [
+            "One mild antibiotic as a tablet, the kind used for ordinary skin infections",
+            "Broad antibiotics through a vein, plus one that blocks toxins",
+            "An antifungal medicine through a vein, and no antibiotics",
+            "No antibiotics yet: wait for the lab to test samples taken in surgery"
+          ],
+          "fix": "Give broad antibiotics now",
+          "terms": [
+            {
+              "term": "Broad-spectrum antibiotics",
+              "meaning": "A mix that covers many kinds of bacteria at once. It is used when several kinds are likely and there is no time to find out which."
+            },
+            {
+              "term": "Toxins",
+              "meaning": "Poisons that some bacteria release. They damage tissue and drive shock."
+            },
+            {
+              "term": "Cultures",
+              "meaning": "Samples grown in the lab to find out which bacteria are present. Results take a day or more."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You order one antibiotic tablet. The pharmacist calls before it leaves the pharmacy.",
+              "reply": "One mild antibiotic covers only a few kinds of bacteria. This infection is usually several kinds at once, and he is far too sick for tablets. He needs broad antibiotics through a vein."
+            },
+            {
+              "kind": "safe",
+              "minutes": 100,
+              "story": "The antibiotics are running within minutes, and he goes to the operating room with them still going in. The surgeons cut away the dead tissue. About ninety minutes later he is in intensive care.",
+              "reply": "Good. The mix covers the many kinds of bacteria this infection usually involves. The extra one cuts down the toxins that some of those bacteria make.",
+              "vitals": {
+                "BP": "100/60 mmHg",
+                "HR": "110 bpm"
+              },
+              "trend": {
+                "BP": "up",
+                "HR": "down"
+              },
+              "alarm": "In intensive care after surgery"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You order an antifungal on its own. The pharmacist calls to question it.",
+              "reply": "This infection is caused mainly by bacteria. An antifungal alone leaves them untouched."
+            },
+            {
+              "kind": "delay",
+              "minutes": 60,
+              "story": "You hold the antibiotics so that the samples will be clean. Getting him into the operating room takes another hour, and in that hour nothing is fighting the infection. His fever climbs and his blood pressure falls further.",
+              "reply": "In shock from an infection, antibiotics go in within the hour. Samples can be taken first if that causes no delay, but treatment never waits for their results.",
+              "vitals": {
+                "BP": "76/44 mmHg",
+                "HR": "142 bpm",
+                "Temp": "40.1 °C"
+              },
+              "trend": {
+                "BP": "down",
+                "HR": "up",
+                "Temp": "up"
+              },
+              "status": "critical",
+              "alarm": "Fever climbing · blood pressure falling"
+            }
+          ]
+        },
+        "5": {
+          "resident": "He is out of the first operation and in intensive care. The surgeons removed all the dead tissue they could find.",
+          "question": "What does he need now?",
+          "options": [
+            "One more wash of the wound, then home once the fever is gone",
+            "Intensive care, with more operations until the infection stops spreading",
+            "Wound care at a clinic, with antibiotic tablets",
+            "An operation to reroute his urine for good, before anything else"
+          ],
+          "fix": "Keep him in intensive care",
+          "terms": [
+            {
+              "term": "Second-look surgery",
+              "meaning": "A planned return to the operating room, usually within a day or so, to find and remove any tissue that has died since."
+            },
+            {
+              "term": "Intensive care",
+              "meaning": "A unit with constant monitoring and a nurse for every one or two patients, for people whose organs need support."
+            },
+            {
+              "term": "Reconstruction",
+              "meaning": "Later surgery, such as skin grafts, to close and rebuild the area once the infection is gone."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write a plan for one more wash and a discharge once his fever settles. The surgeon reads it and crosses it out.",
+              "reply": "This infection often keeps spreading after the first operation. He will go back to the operating room, usually within a day or so, and again until no dead tissue is left."
+            },
+            {
+              "kind": "safe",
+              "minutes": 15,
+              "story": "The plan is set with the intensive care team: antibiotics, fluids and careful control of his blood sugar. The surgeons book a second look for tomorrow. Rebuilding the area comes much later.",
+              "reply": "That is the plan. Beating this takes repeated surgery and days of close support, not one operation."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest clinic visits and antibiotic tablets. The intensive care doctor stops you.",
+              "reply": "He is still dangerously ill and needs support that only intensive care can give. Tablets and a clinic are for much later."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask about an operation to reroute his urine for good. The surgeon shakes their head.",
+              "reply": "Not first, and not for good. Sometimes a temporary tube or bag is used later to keep urine or stool off the wound. Removing dead tissue always comes first."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "The blood tests and the scan are in his chart. The scan shows gas in the tissue.",
+        "question": "What is this?",
+        "options": [
+          "An infection of the testicle and of the coiled tube behind it",
+          "Fournier gangrene: a tissue-killing infection of the groin",
+          "A trapped hernia: a loop of bowel stuck in the groin",
+          "A simple abscess: one pocket of pus in the scrotum"
+        ],
+        "reveal": "It is Fournier gangrene: a fast-spreading infection that kills the tissue under the skin of the groin and genitals. Gas in the tissue, dead skin and a patient this sick do not fit an infected testicle, a trapped hernia or a single pocket of pus.",
+        "terms": [
+          {
+            "term": "Gangrene",
+            "meaning": "Tissue that has died. Here infection has cut off its blood supply."
+          },
+          {
+            "term": "Sepsis",
+            "meaning": "The body’s response to an infection has started to damage its own organs. Low blood pressure and a high lactate are signs of it."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "In intensive care after surgery, with another operation planned",
+        "unstable": "In intensive care after surgery, with another operation planned",
+        "worse": "In intensive care after surgery, sicker than when he arrived",
+        "critical": "In intensive care after surgery, in critical condition"
+      },
+      "plainDiagnosis": "A fast-spreading infection that kills the tissue under the skin of the groin and genitals (Fournier gangrene).",
+      "science": [
+        {
+          "tag": "Pressure and blood flow",
+          "title": "Why antibiotics alone cannot cure this",
+          "text": "A medicine reaches tissue only in flowing blood. This infection clots the small vessels, so flow into the dying tissue falls to nothing and the antibiotics never arrive. Surgery removes what blood can no longer reach.",
+          "lesson": "circulatory-flow",
+          "lessonTitle": "Connect pressure to blood flow"
+        },
+        {
+          "tag": "Genes and proteins",
+          "title": "How one antibiotic switches off the toxins",
+          "text": "Bacterial toxins are proteins, built on the bacteria’s ribosomes from their own genes. Clindamycin and linezolid jam the bacterial ribosome, so fewer toxins are made while the other antibiotics do the killing.",
+          "lesson": "gene-expression",
+          "lessonTitle": "Follow a gene into a protein"
+        },
+        {
+          "tag": "Glycolysis",
+          "title": "Why his lactate is high",
+          "text": "A cell that is short of oxygen makes its energy by glycolysis alone, and turns pyruvate into lactate to keep glycolysis running. His lactate of 4.2 is one sign that parts of his body are not getting enough blood flow.",
+          "lesson": "glycolysis",
+          "lessonTitle": "Account for glycolysis"
+        }
+      ],
+      "sources": [
+        {
+          "title": "IDSA practice guidelines for skin and soft tissue infections (2014)",
+          "url": "https://academic.oup.com/cid/article/59/2/e10/2895845"
+        },
+        {
+          "title": "2018 WSES/SIS-E consensus conference: management of skin and soft-tissue infections",
+          "url": "https://link.springer.com/doi/10.1186/s13017-018-0219-9"
+        },
+        {
+          "title": "Systematic review and meta-analysis (2020): timing of surgery in necrotizing soft tissue infections",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6950871"
+        },
+        {
+          "title": "Surviving Sepsis Campaign: international guidelines for sepsis and septic shock 2021",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/34605781/"
+        },
+        {
+          "title": "StatPearls: Fournier gangrene",
+          "url": "https://www.statpearls.com/articlelibrary/viewarticle/21939/"
+        }
+      ]
+    },
+    "em-033": {
+      "sourceCheckedOn": "2026-11-24",
+      "independentReview": "pending",
+      "title": "Sudden belly pain, _then she nearly fainted._",
+      "setting": "Emergency department",
+      "start": {
+        "status": "unstable",
+        "alarm": "Low blood pressure · fast heart rate"
+      },
+      "handoff": "A 29-year-old woman had sudden, severe pain low in her belly an hour ago and then nearly passed out. She is pale and sweating.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask whether she could be pregnant",
+            "finding": "Her last period was about seven weeks ago. She has had light bleeding from the vagina for two days. She does not always use condoms."
+          },
+          {
+            "prompt": "Ask about the pain and the near-faint",
+            "finding": "The pain came on suddenly, low on the left side of her belly, and has spread across it. Then she nearly passed out. She feels weaker and cold, and her right shoulder has started to ache."
+          },
+          {
+            "prompt": "Ask about earlier pregnancies and pelvic infections",
+            "finding": "She had one earlier pregnancy that grew outside the womb (an ectopic pregnancy), which was treated with medicine. She has also had a pelvic infection caused by chlamydia."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Check how she looks and how well blood is reaching her skin",
+            "finding": "Pale and sweating, with cool, clammy skin. She is slow to answer. When you press on a fingernail, the color is slow to come back."
+          },
+          {
+            "prompt": "Press gently on her belly",
+            "finding": "Her whole belly is tender, worst low on the left, and a little swollen. Her muscles tense when you press, and it hurts more when you let go."
+          },
+          {
+            "prompt": "Do a pelvic exam",
+            "finding": "There is a little dark blood at the opening of the womb. Moving the cervix is very painful. The area beside the womb on the left is very tender and feels full."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Bedside tests",
+          "content": "Urine pregnancy test: positive.\nPregnancy hormone in her blood (hCG): 4,800.\nHemoglobin, the oxygen carrier in blood: 8.1. Hers is usually 13, so she has lost a lot of blood.\nBedside ultrasound of her belly: free fluid beside the liver and in the pelvis. Free fluid there is most likely blood.\nUltrasound through the vagina: the womb is empty. There is a mass beside it on the left, and a moderate amount of fluid behind it.\nBlood type: O negative."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "Her blood pressure is 84/52 and her heart rate is 126. She is pale, cold and slow to answer.",
+          "question": "What do we do first?",
+          "options": [
+            "Send her for a CT scan of her belly and pelvis to find where she is bleeding",
+            "Large IV lines, blood and the surgeon called, and a bedside pregnancy test",
+            "Start antibiotics through a vein for a suspected pelvic infection",
+            "Give methotrexate, the medicine used for a pregnancy outside the womb"
+          ],
+          "fix": "Start IV lines and call for blood",
+          "terms": [
+            {
+              "term": "Shock",
+              "meaning": "Blood pressure too low to supply the organs. A fast heart, cold clammy skin and slow answers are signs of it."
+            },
+            {
+              "term": "Large IV line",
+              "meaning": "A wide tube placed in a vein. Blood and fluid can run through it quickly."
+            },
+            {
+              "term": "Type and crossmatch",
+              "meaning": "A lab test that matches donor blood to the patient before a transfusion."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "delay",
+              "minutes": 30,
+              "story": "You send her to the scanner. On the table her blood pressure drops further and she nearly passes out again. The scan has to be stopped.",
+              "reply": "A patient in shock does not leave for a scanner. Whatever is bleeding, she needs IV lines, blood and a surgeon first. A bedside ultrasound can look for blood without moving her.",
+              "vitals": {
+                "BP": "76/46 mmHg",
+                "HR": "134 bpm"
+              },
+              "trend": {
+                "BP": "down",
+                "HR": "up"
+              },
+              "status": "worse",
+              "alarm": "Blood pressure falling · nearly passed out"
+            },
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "Two large IV lines are in. Blood has been sent for matching, and the gynecology surgeon is on the way. The bedside tests are done, and the results are in her chart.",
+              "reply": "Good. You treated the shock and looked for the cause at the same time. In a patient this sick, neither one waits for the other."
+            },
+            {
+              "kind": "delay",
+              "minutes": 20,
+              "story": "You start antibiotics for a pelvic infection and wait to see whether she improves. Twenty minutes later she is paler, and her blood pressure has dropped again.",
+              "reply": "Sudden pain, a near-faint and a missed period mean bleeding from a pregnancy in the wrong place until a test says otherwise. IV lines, blood and a pregnancy test, now.",
+              "vitals": {
+                "BP": "78/48 mmHg"
+              },
+              "trend": {
+                "BP": "down"
+              },
+              "status": "worse",
+              "alarm": "Paler · blood pressure falling"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write the order for methotrexate. The pharmacist calls before it is drawn up.",
+              "reply": "We have not even confirmed that she is pregnant. And methotrexate works over days, in a patient who is stable. She is in shock now."
+            }
+          ]
+        },
+        "3": {
+          "resident": "The gynecology surgeon has seen the ultrasound. She is bleeding into her belly from a burst tube.",
+          "question": "What will stop the bleeding?",
+          "options": [
+            "Methotrexate by injection, with repeat blood tests",
+            "Watch and wait, with another ultrasound in two days",
+            "Emergency surgery to remove the bleeding tube",
+            "A procedure to empty the womb (a D&C)"
+          ],
+          "fix": "Go to surgery",
+          "terms": [
+            {
+              "term": "Methotrexate",
+              "meaning": "A medicine that stops pregnancy tissue growing. It works over days and is only for an ectopic pregnancy that has not burst, in a stable patient."
+            },
+            {
+              "term": "Salpingectomy",
+              "meaning": "Surgery to remove a fallopian tube. It stops the bleeding at its source."
+            },
+            {
+              "term": "D&C",
+              "meaning": "A procedure that empties the inside of the womb."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write the order for methotrexate. The surgeon stops it before it is sent.",
+              "reply": "Methotrexate takes days to work and is only for an ectopic pregnancy that has not burst. Hers has, and she is bleeding now. No medicine closes a torn tube."
+            },
+            {
+              "kind": "delay",
+              "minutes": 30,
+              "story": "You plan to watch her and scan again in two days. Half an hour later her blood pressure falls again, and she can barely answer you.",
+              "reply": "Watching is only ever for a stable patient whose pregnancy hormone is low and falling. She is bleeding into her belly. She goes to the operating room now.",
+              "vitals": {
+                "BP": "68/40 mmHg",
+                "HR": "142 bpm"
+              },
+              "trend": {
+                "BP": "down",
+                "HR": "up"
+              },
+              "status": "critical",
+              "alarm": "Barely responding · blood pressure falling"
+            },
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "The surgeon agrees and books the operating room. It will be ready in a few minutes.",
+              "reply": "Right. Surgery finds the torn tube and removes it. That is the only thing that stops this bleeding."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a D&C. The surgeon stops you.",
+              "reply": "A D&C empties the womb, and her womb is already empty. The pregnancy is in the tube, and that is where she is bleeding."
+            }
+          ]
+        },
+        "4": {
+          "resident": "The operating room needs a few more minutes. She is still bleeding, and her blood pressure is still low.",
+          "question": "What do we give her while we wait?",
+          "options": [
+            "More salt-water fluid, bag after bag, up to 4 liters",
+            "O-negative blood now, with more blood products ready",
+            "A medicine drip that squeezes blood vessels to raise her pressure",
+            "Tranexamic acid on its own, and check her again in 30 minutes"
+          ],
+          "fix": "Give blood",
+          "terms": [
+            {
+              "term": "O-negative blood",
+              "meaning": "The blood type that can be given to almost anyone in an emergency, before matching is finished. It is also her own type."
+            },
+            {
+              "term": "Massive transfusion",
+              "meaning": "A hospital plan that sends red cells, plasma and platelets together, fast, for a patient who is bleeding heavily."
+            },
+            {
+              "term": "Tranexamic acid",
+              "meaning": "A medicine that keeps blood clots from breaking down. It can help, but it does not replace lost blood."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "delay",
+              "minutes": 20,
+              "story": "Bag after bag of salt water runs in. Her blood pressure will not hold, and she is cold and shivering.",
+              "reply": "Salt water carries no oxygen and has nothing in it to form clots. Too much of it thins her blood and chills her, and both make bleeding worse. She needs blood.",
+              "vitals": {
+                "BP": "64/38 mmHg",
+                "Temp": "35.4 °C"
+              },
+              "trend": {
+                "BP": "down",
+                "Temp": "down"
+              },
+              "status": "critical",
+              "alarm": "Cold · blood pressure not holding"
+            },
+            {
+              "kind": "safe",
+              "minutes": 70,
+              "story": "O-negative blood is running within minutes, and the blood bank sends more. She goes to the operating room with it still running. The surgeons remove the torn tube, and the bleeding stops. About an hour later she is in the recovery room.",
+              "reply": "Good. She was losing blood, so we gave her blood. It carries oxygen and helps her clot. Then surgery stopped the loss at its source.",
+              "vitals": {
+                "BP": "104/64 mmHg",
+                "HR": "98 bpm"
+              },
+              "trend": {
+                "BP": "up",
+                "HR": "down"
+              },
+              "status": "better",
+              "alarm": ""
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a drip to raise her blood pressure. The resident stops the order.",
+              "reply": "That medicine squeezes the blood vessels. Her problem is that she is running out of blood to fill them. A better number on the monitor would hide the bleeding, not treat it."
+            },
+            {
+              "kind": "delay",
+              "minutes": 30,
+              "story": "The tranexamic acid goes in, and you wait. Half an hour later she is barely awake, and her heart is racing even faster.",
+              "reply": "Tranexamic acid can help a clot hold, alongside blood. It cannot replace the blood she has lost, and it cannot close a torn tube. She needs blood now.",
+              "vitals": {
+                "BP": "62/36 mmHg",
+                "HR": "148 bpm"
+              },
+              "trend": {
+                "BP": "down",
+                "HR": "up"
+              },
+              "status": "critical",
+              "alarm": "Barely awake · heart rate rising"
+            }
+          ]
+        },
+        "5": {
+          "resident": "She is out of surgery. The torn tube has been removed and the bleeding has stopped. Her blood type is O negative.",
+          "question": "What else does she need?",
+          "options": [
+            "Nothing more. The surgery fixed the problem",
+            "An injection of anti-D",
+            "Iron tablets, and home later today",
+            "Antibiotics for two weeks, to prevent infection"
+          ],
+          "fix": "Give anti-D",
+          "terms": [
+            {
+              "term": "Rh negative",
+              "meaning": "Red blood cells either carry a protein called Rh (D) or they do not. Hers do not, which is the “negative” in O negative."
+            },
+            {
+              "term": "Anti-D",
+              "meaning": "Ready-made antibodies, given by injection. They clear away any Rh-positive cells before her body learns to attack them."
+            },
+            {
+              "term": "Sensitization",
+              "meaning": "When the immune system has learned to attack Rh-positive blood. It can harm a baby in a later pregnancy."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You write “no further treatment” in the plan. The resident points to her blood type before it is signed.",
+              "reply": "One thing is left. Her blood is Rh negative, and a US guideline still advises anti-D after an ectopic pregnancy, to protect a later pregnancy. UK guidance changed in 2026 and no longer gives it this early, so the rule depends on where she is treated. Here, she is offered it."
+            },
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "The anti-D is ordered and given as an injection, well inside the 72 hours allowed for it.",
+              "reply": "Good. Her blood is Rh negative. If the pregnancy’s blood was Rh positive, her immune system could learn to attack it, and that can harm a later pregnancy. Anti-D prevents that. A US guideline still advises it after an ectopic pregnancy. UK guidance changed in 2026 and no longer gives it this early, so the rule depends on where she is treated."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You plan iron tablets and a discharge for this afternoon. The nurse asks the resident to look at the plan.",
+              "reply": "She lost a lot of blood and had emergency surgery today. She needs to be watched, with her blood count checked again. And iron does nothing about her Rh-negative blood."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for two weeks of antibiotics. The pharmacist calls.",
+              "reply": "This was bleeding, not an infection. The antibiotic given around the operation is enough. Two weeks more would bring side effects and no benefit."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "The bedside tests are in her chart. Put them together with her pain and her blood pressure.",
+        "question": "What explains all of this?",
+        "options": [
+          "A normal pregnancy in the womb, with a harmless cyst on the ovary",
+          "A pregnancy in a fallopian tube that has burst and is bleeding",
+          "A pregnancy in the womb that is at risk of miscarriage",
+          "A bleeding cyst on the ovary that has nothing to do with pregnancy"
+        ],
+        "reveal": "It is a pregnancy in a fallopian tube that has burst, called a ruptured ectopic pregnancy. No single test proves it. A positive pregnancy test, an empty womb, a mass beside it, fluid in the belly and shock together make it the emergency to act on.",
+        "terms": [
+          {
+            "term": "Ectopic pregnancy",
+            "meaning": "A pregnancy that implants outside the womb, most often in a fallopian tube. The tube cannot stretch, so it can tear and bleed."
+          },
+          {
+            "term": "Fallopian tube",
+            "meaning": "The tube that carries an egg from the ovary to the womb."
+          }
+        ]
+      },
+      "ending": {
+        "better": "In the recovery room after surgery, with the bleeding stopped",
+        "stable": "In the recovery room after surgery, with the bleeding stopped",
+        "worse": "In intensive care after surgery",
+        "critical": "In intensive care after surgery, in critical condition"
+      },
+      "plainDiagnosis": "A pregnancy growing in a fallopian tube that burst and bled into her belly (a ruptured ectopic pregnancy).",
+      "science": [
+        {
+          "tag": "Flow through a tube",
+          "title": "Why the IV lines have to be wide",
+          "text": "In the simple model of smooth flow, the flow through a tube rises with the fourth power of its radius. A line twice as wide can carry about sixteen times as much at the same pressure, and that is how blood gets into her fast enough.",
+          "lesson": "fluid-flow",
+          "lessonTitle": "Follow flow through a narrowing"
+        },
+        {
+          "tag": "Oxygen transport",
+          "title": "Why salt water cannot stand in for blood",
+          "text": "Almost all the oxygen in blood rides on hemoglobin. Hers fell from 13 to 8.1, so each liter of her blood carries far less oxygen, even though the monitor reads 98%. That number shows how full each hemoglobin is, not how much hemoglobin is left.",
+          "lesson": "gas-exchange",
+          "lessonTitle": "Move oxygen across a barrier"
+        },
+        {
+          "tag": "Inheritance",
+          "title": "Why her blood type still matters after surgery",
+          "text": "Rh negative is a recessive trait: she has no working copy of the Rh (D) gene. A pregnancy gets one copy from each parent, so with a working copy from the other parent its red cells are Rh positive. Her immune system can treat those cells as foreign.",
+          "lesson": "inheritance-linkage",
+          "lessonTitle": "Reason through inheritance"
+        }
+      ],
+      "sources": [
+        {
+          "title": "ACOG Practice Bulletin No. 193: tubal ectopic pregnancy",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/29470343/"
+        },
+        {
+          "title": "MSD Manual Professional: ectopic pregnancy",
+          "url": "https://www.msdmanuals.com/professional/gynecology-and-obstetrics/abnormalities-of-pregnancy/ectopic-pregnancy"
+        },
+        {
+          "title": "Damage control resuscitation (Military Medicine, 2018)",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/30189070/"
+        },
+        {
+          "title": "Review: resuscitation of hemorrhagic shock with blood products rather than crystalloid",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5131713"
+        },
+        {
+          "title": "ACOG Practice Bulletin No. 181: prevention of Rh D alloimmunization",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/28742673/"
+        },
+        {
+          "title": "ACOG Clinical Practice Update (2024): Rh D immune globulin after abortion or pregnancy loss before 12 weeks",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/39255498/"
+        },
+        {
+          "title": "NICE guideline NG126: anti-D immunoglobulin prophylaxis (updated June 2026)",
+          "url": "https://www.nice.org.uk/guidance/ng126/chapter/anti-d-immunoglobulin-prophylaxis"
+        }
+      ]
+    },
+    "em-101": {
+      "sourceCheckedOn": "2026-11-24",
+      "independentReview": "pending",
+      "title": "She went down _at the blood draw._",
+      "setting": "Emergency department, after a collapse in a clinic",
+      "handoff": "A 22-year-old woman passed out for about 20 seconds while watching a friend have blood drawn. She is awake now and feels well.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask the nurse who saw it what happened",
+            "finding": "She had been standing for a long time at the blood draw. She felt hot and sweaty, then went down. She looked pale, her arms and legs jerked three times, and she woke within about 20 seconds, knowing where she was."
+          },
+          {
+            "prompt": "Ask about exercise, her heart and her family",
+            "finding": "She was not exercising. She felt no pounding heartbeat and no chest pain. She has no known heart disease, and no one in her family has died suddenly at a young age."
+          },
+          {
+            "prompt": "Ask whether she was hurt and how she feels now",
+            "finding": "The nurse caught her and lowered her to the floor. She did not hit her head or bite her tongue. She feels back to normal."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Check how alert she is and look for injuries",
+            "finding": "Wide awake and clear-headed. Her strength and speech are normal, and she has no injuries."
+          },
+          {
+            "prompt": "Listen to her heart and feel her pulse",
+            "finding": "Her pulse is regular. Her heart sounds are normal, with no whooshing sounds. Her vital signs are steady."
+          },
+          {
+            "prompt": "Help her stand up and see how she feels",
+            "finding": "With someone beside her, she stands without feeling faint."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "First checks",
+          "content": "The nurse’s account: a warm, sweaty feeling while standing for a long time at the blood draw, then a pale collapse, and a clear head as soon as she woke.\nHeart tracing (ECG): a normal rhythm with normal timing. Nothing abnormal is reported.\nNo warning sign of a heart or brain problem was found in this assessment."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "She is awake, comfortable and back to normal. We still need to know what kind of collapse this was.",
+          "question": "How do we start?",
+          "options": [
+            "Book a brain-wave test (EEG) and a first-seizure clinic visit",
+            "Go over what the nurse saw, examine her, and get a heart tracing (ECG)",
+            "Get a CT scan of her head and watch her for a few hours",
+            "Get a heart ultrasound and book an exercise test"
+          ],
+          "fix": "Start with the story, the exam and an ECG",
+          "terms": [
+            {
+              "term": "ECG",
+              "meaning": "A tracing of the heart’s electrical signals. It takes a few minutes and can show a dangerous rhythm problem."
+            },
+            {
+              "term": "EEG",
+              "meaning": "A recording of the brain’s electrical activity, used when a seizure disorder is suspected."
+            },
+            {
+              "term": "Witness account",
+              "meaning": "What someone saw before, during and after a collapse. It is often the most useful clue there is."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You start the referral to the seizure clinic. The resident reads it over your shoulder.",
+              "reply": "A few jerks do not make it a seizure. Jerking is common in a simple faint. We need the whole story first: what came before, during and after."
+            },
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "The nurse walks you through it from start to finish. You examine her, and the heart tracing is done at the bedside. All of it is in her chart.",
+              "reply": "Good. The order of events tells us more than any scan. And everyone who blacks out gets a heart tracing, because the heart is the cause we cannot afford to miss."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You fill in the request for a head CT. The resident stops it before it is sent.",
+              "reply": "She did not hit her head, and her exam is normal. A scan would give her radiation and no answer. The story and a heart tracing come first."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request a heart ultrasound and an exercise test. The resident holds the forms.",
+              "reply": "Those are for when the story, the exam or the heart tracing points to the heart. We have not done those yet. We start there."
+            }
+          ]
+        },
+        "3": {
+          "resident": "Everything so far points to a simple faint, and she feels well.",
+          "question": "What is the right plan?",
+          "options": [
+            "Explain what happened, how to head off the next one, and when to come back",
+            "Send her for seizure testing first, then decide on follow-up",
+            "Do a tilt-table test to prove the cause before giving any advice",
+            "Fit a heart monitor to wear at home, and hold the advice until the results are in"
+          ],
+          "fix": "Explain it and plan follow-up",
+          "terms": [
+            {
+              "term": "Trigger",
+              "meaning": "What sets off the reflex. For her it was watching a blood draw while standing for a long time."
+            },
+            {
+              "term": "Warning signs",
+              "meaning": "Feeling hot, sweaty or sick just before a faint. They are the cue to sit or lie down."
+            },
+            {
+              "term": "Tilt-table test",
+              "meaning": "A test that tilts a patient upright, while they are watched, to bring on a faint. It is for cases where the cause is unclear."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "You sit down with her and explain the reflex, her triggers and the warning signs. If she feels hot and sweaty again, she should lie down, or sit and tense her legs and hands. A follow-up visit is booked, and she knows that a second collapse, or one that is different, needs a fresh look.",
+              "reply": "That is the right size of plan. One normal heart tracing is reassuring. It is not a promise about every future event, so we tell her that too."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You start the seizure clinic referral. The resident stops it.",
+              "reply": "Nothing in her story points to a seizure, so this would be a test with no question to answer. A clear faint is managed with an explanation and follow-up."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request a tilt-table test and plan to hold the advice until it is done. The resident cancels the request.",
+              "reply": "That test is for when the cause is unclear. Hers is clear from the story. And she needs the advice today, before her next blood draw."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a take-home heart monitor and plan to say nothing until the results are back. The resident stops you.",
+              "reply": "Her story, her exam and her heart tracing gave no sign of a heart cause. A monitor is for when one of them does. Either way, she should not leave without knowing what to do if it happens again."
+            }
+          ]
+        },
+        "4": {
+          "resident": "Last step. Her discharge sheet should name the kind of collapse that is not a simple faint and needs an urgent heart check.",
+          "question": "Which one do we write down?",
+          "options": [
+            "A collapse that comes after feeling warm and sweaty for a few moments",
+            "A collapse where she turns pale and looks unwell to people nearby",
+            "A collapse she wakes from within seconds, knowing where she is",
+            "A collapse during exercise, or a sudden early death in the family"
+          ],
+          "fix": "Write down the real warning",
+          "terms": [
+            {
+              "term": "Collapse during exercise",
+              "meaning": "A blackout in the middle of hard effort. It can mean a heart rhythm problem, and it needs an urgent heart check."
+            },
+            {
+              "term": "Sudden death in the family",
+              "meaning": "A close relative who died suddenly and without explanation at a young age can point to a heart condition that runs in families."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 2,
+              "story": "You start to write “come back if you feel warm before a collapse”. The resident reads it before it is printed.",
+              "reply": "That warm feeling is the usual warning of a simple faint. It is reassuring. The warning to write down is a collapse during exercise, or a close relative who died suddenly when young."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 2,
+              "story": "You start to write “come back if you turn pale”. The resident reads it before it is printed.",
+              "reply": "Turning pale is what a simple faint looks like. It does not point to the heart. The one that does is a collapse during exercise, or a close relative who died suddenly when young."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 2,
+              "story": "You start to write “come back if you wake up quickly”. The resident reads it before it is printed.",
+              "reply": "Waking fast with a clear head is typical of a simple faint. The warning that matters is a collapse during exercise, or a close relative who died suddenly when young."
+            },
+            {
+              "kind": "safe",
+              "minutes": 3,
+              "story": "You write it on her discharge sheet and go through it with her. She reads it back to you.",
+              "reply": "Exactly. Either of those changes the picture, even when the collapse itself looks just like today’s. Neither was true for her today."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "The nurse’s account and the heart tracing are in her chart. Put the whole story together.",
+        "question": "What best explains her collapse?",
+        "options": [
+          "A first seizure: a burst of abnormal electrical activity in the brain",
+          "A heart rhythm problem that briefly stopped blood reaching the brain",
+          "A simple faint: a reflex that briefly drops her blood pressure",
+          "A drop in blood pressure on standing, from being low on fluid"
+        ],
+        "reveal": "It fits a simple faint best. There was a trigger, a warning of warmth and sweating, a pale collapse and a clear head within seconds. A few jerks can happen in a faint. This is a working diagnosis, not a certainty.",
+        "terms": [
+          {
+            "term": "Simple faint (vasovagal syncope)",
+            "meaning": "A reflex set off by things like the sight of blood, pain or long standing. The heart slows and the blood vessels widen, so the brain is briefly short of blood."
+          },
+          {
+            "term": "Working diagnosis",
+            "meaning": "The best explanation for now. It is changed if new facts do not fit."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "Going home with a plan for next time",
+        "worse": "Kept in the emergency department for more checks",
+        "critical": "In the resuscitation room"
+      },
+      "plainDiagnosis": "A simple faint (vasovagal syncope), set off by watching a blood draw while standing.",
+      "science": [
+        {
+          "tag": "Pressure and blood flow",
+          "title": "What the reflex did to her blood pressure",
+          "text": "Blood pressure comes from blood flow pushing against the resistance of the vessels. The faint reflex slowed her heart, which cut the flow, and widened her vessels, which cut the resistance. Both at once dropped the pressure.",
+          "lesson": "circulatory-flow",
+          "lessonTitle": "Connect pressure to blood flow"
+        },
+        {
+          "tag": "Pressure in a fluid",
+          "title": "Why lying flat woke her up",
+          "text": "While she stood, her brain was well above her heart, and blood had to be pushed up that height against gravity. On the floor her brain was level with her heart, so even a low pressure was enough to supply it.",
+          "lesson": "hydrostatics",
+          "lessonTitle": "Read pressure in a fluid"
+        }
+      ],
+      "sources": [
+        {
+          "title": "NICE guideline CG109: transient loss of consciousness (“blackouts”) in over 16s, recommendations",
+          "url": "https://www.nice.org.uk/guidance/CG109/chapter/recommendations"
+        },
+        {
+          "title": "2018 ESC guidelines for the diagnosis and management of syncope",
+          "url": "https://doi.org/10.1093/eurheartj/ehy037"
+        },
+        {
+          "title": "StatPearls: vasovagal episode",
+          "url": "https://www.ncbi.nlm.nih.gov/books/NBK470277/"
         }
       ]
     }

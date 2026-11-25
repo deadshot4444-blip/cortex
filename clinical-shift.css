@@ -501,7 +501,8 @@
   .cshift-two-col .cshift-vitals span { flex: 1 0 100%; }
   .cshift-two-col .cshift-vitals strong { font-size: 24px; }
   .cshift-two-col .cshift-vitals small { min-height: 0; }
-  .cshift-two-col .cshift-vitals > div:nth-child(5):last-child { display: none; }
+  /* The small monitor leaves the fifth reading off unless it has just changed or is on the move. */
+  .cshift-two-col .cshift-vitals > div:nth-child(5):last-child:not(.is-changed):not(.is-good):not(.is-bad) { display: none; }
   .cshift-two-col .cshift-monitor-alarm { padding-top: 9px; }
 }
 @media (max-width: 680px) {
