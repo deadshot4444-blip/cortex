@@ -6,8 +6,10 @@ and syncs it across devices. Without Supabase the app runs fully offline.
 
 ## Schema
 
-`schema.sql` is the complete database: one table, `public.progress`, with row-level
-security so a user can only read and write their own row.
+`schema.sql` is the complete database: `public.progress`, with row-level security so a user
+can only read and write their own row and a 16 MB cap on one account's document, and
+`public.preview_access` (below). No policy names the `anon` role: a visitor who is not signed
+in can read and write nothing.
 
 | column       | type        | notes                                             |
 | ------------ | ----------- | ------------------------------------------------- |
@@ -67,14 +69,49 @@ test accounts using tokens from `CORTEX_TEST_ACCOUNT_A_TOKEN` and
 `CORTEX_TEST_ACCOUNT_B_TOKEN`. It performs no writes. The write policies were exercised
 directly in the SQL Editor on 2026-09-06 (see `context/STATE.md`, local only).
 
+A signed-out visitor's view can be checked from any terminal without reading a row. Both
+counts must be `*/0`:
+
+```sh
+URL=https://<project>.supabase.co; KEY=<the publishable key from auth.js>
+for t in progress preview_access; do
+  curl -sI "$URL/rest/v1/$t?select=*" -H "apikey: $KEY" -H "Prefer: count=exact" | grep -i content-range
+done
+```
+
+## Dashboard settings the repository cannot see
+
+These live in the Supabase dashboard, so nothing here can test them. Check them after any
+change to sign-in:
+
+- **Authentication → URL Configuration.** Site URL `https://cortexmedical.academy`. Redirect
+  URLs: that address and the localhost one, nothing with a `*`. A wildcard that covers Netlify
+  preview addresses lets a stranger's pull-request preview receive a real sign-in link.
+- **Authentication → Rate Limits.** Keep the email limits on; they bound how many sign-in
+  emails the project will send.
+- **Authentication → Attack Protection → Enable CAPTCHA protection.** A CAPTCHA stops the
+  "Email me a link" form from being used to send mail to strangers. It is a code change
+  first: `auth.js` has to pass a `captchaToken` with the sign-in request (and the provider's
+  script and host have to be added to the Content-Security-Policy). Turning the toggle on
+  before that ships breaks sign-in for everyone.
+- **Advisors → Security.** It lists any table without row-level security.
+- **Account.** Two-step sign-in on the Supabase account itself; it can read every row.
+
 ## Retired: `usage_events`
 
-An earlier analytics table (`usage_events`, insert-only for the anon role) was only
-written by the retired UTSA Genetics, CCMA and Cognitive Psychology modules. No shipped
-code references it. If the table still exists in the project, drop it so the public key
-cannot be used to fill it:
+An earlier analytics table (`usage_events`) was only written by the retired UTSA Genetics,
+CCMA and Cognitive Psychology modules. No shipped code references it. Its one policy lets
+anyone holding the public key insert rows without limit, which can fill the database and stop
+progress from saving. It must not exist in the live project with that policy.
+
+Close it without losing the rows already collected (they stay readable in the dashboard):
 
 ```sql
 drop policy if exists "anon insert events" on public.usage_events;
+```
+
+Or, once the old rows are exported or no longer wanted, remove it entirely:
+
+```sql
 drop table if exists public.usage_events;
 ```

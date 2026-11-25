@@ -1,9 +1,24 @@
-# Global security headers (defense-in-depth; no functional impact)
+# Global security headers.
+#
+# Content-Security-Policy is the backstop for the sign-in session, which lives in browser
+# storage: if markup ever reaches a page unescaped, the browser still refuses to run it.
+#   * script-src has no 'unsafe-inline' and no 'unsafe-eval'. The one inline script, the three.js
+#     import map, is allowed by its hash; every other script is a file of ours.
+#   * The only outside hosts are the Supabase project (accounts) and the pinned Pyodide folder on
+#     jsDelivr (the Python exercises; 'wasm-unsafe-eval' lets its WebAssembly start).
+#   * Styles keep 'unsafe-inline' because the app sets style="" attributes.
+#   * connect-src allows blob: so a page can read back a file it has just prepared itself
+#     (downloads, exports). A blob: address never leaves the browser.
+# scripts/test-security.cjs fails when this line stops matching the pages, auth.js or the Python
+# worker, and scripts/serve.py sends these headers too, so a change the policy would block shows
+# up locally before it ships. Netlify needs the whole policy on one line.
 /*
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: geolocation=(), microphone=(), camera=()
+  Cross-Origin-Opener-Policy: same-origin
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'sha256-MK8d2msvtiVJMzH0y8hZ0YVGCxu4nDJyXLH9EoCEMWw=' 'wasm-unsafe-eval' https://cdn.jsdelivr.net/pyodide/v0.26.4/full/; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; media-src 'self' blob:; connect-src 'self' blob: https://fpsqsntbhilrdtlemoos.supabase.co wss://fpsqsntbhilrdtlemoos.supabase.co https://cdn.jsdelivr.net/pyodide/v0.26.4/full/; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'
 
 # Data is author-authored and changes rarely; short TTL + SWR avoids re-downloading
 # ~0.9MB specialty files on every reload while keeping content fresh within minutes.

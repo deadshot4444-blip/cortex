@@ -7,8 +7,10 @@
   * serves the repository root,
   * applies the rules in _redirects (200 rewrites, 301/302 redirects, and the /* SPA
     fallback, which Netlify only applies when no real file matches),
-  * answers proxied external rules (the visitor counter) with 404 so the app degrades
-    the same way it does offline,
+  * answers the visitor counter (an edge function in production) and any proxied external
+    rule with 404, so the app degrades the same way it does offline,
+  * sends the site-wide security headers from _headers (the /* block, Content-Security-Policy
+    included), so whatever the policy would block in production is blocked here first,
   * sends Cache-Control: no-cache so browsers revalidate every file while developing
     (no-store would stop headless Chromium from finishing unread error bodies).
 
@@ -44,6 +46,32 @@ def load_rules() -> list[tuple[str, str, int]]:
 
 RULES = load_rules()
 
+# Paths that netlify/edge-functions answers in production. Nothing runs them locally.
+EDGE_ONLY = ('/cx-visits/',)
+
+
+def load_site_headers() -> list[tuple[str, str]]:
+    """Headers of the /* block in _headers, minus caching (this server always revalidates)."""
+    source = ROOT / '_headers'
+    if not source.exists():
+        return []
+    headers: list[tuple[str, str]] = []
+    inside = False
+    for raw in source.read_text().splitlines():
+        if not raw.strip() or raw.lstrip().startswith('#'):
+            continue
+        if not raw[0].isspace():  # an unindented line is a path and starts a new block
+            inside = raw.strip() == '/*'
+            continue
+        if inside and ':' in raw:
+            name, value = raw.split(':', 1)
+            if name.strip().lower() != 'cache-control':
+                headers.append((name.strip(), value.strip()))
+    return headers
+
+
+SITE_HEADERS = load_site_headers()
+
 
 def match(rule: str, path: str) -> str | None:
     """Return the splat for a matching rule ('' for exact matches), else None."""
@@ -61,6 +89,8 @@ class Handler(SimpleHTTPRequestHandler):
 
     def end_headers(self):
         self.send_header('Cache-Control', 'no-cache')
+        for name, value in SITE_HEADERS:
+            self.send_header(name, value)
         super().end_headers()
 
     def log_message(self, fmt, *args):  # quieter than the default, still shows each request
@@ -71,6 +101,8 @@ class Handler(SimpleHTTPRequestHandler):
         path = parsed.path
         if self.file_exists(path):
             return super().do_GET()
+        if path.startswith(EDGE_ONLY):
+            return self.send_error(404, 'Edge functions are not available locally')
         for source, target, status in RULES:
             splat = match(source, path)
             if splat is None:
