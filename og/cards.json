@@ -43,12 +43,7 @@
    "patGenerators": 6
   },
   "clinical": {
-   "rotations": [
-    "Emergency Medicine",
-    "Cardiology",
-    "Neurology"
-   ],
-   "encounters": 18,
+   "specialties": 26,
    "bankFloor": 2600
   },
   "neuro": {
@@ -81,9 +76,9 @@
    "sha256": "a59ec5a42fc52b154c6e095c065108ec56b4c207e3f3dd4aae1e99bf22377178"
   },
   "clinical": {
-   "file": "og/clinical-1.jpg",
-   "alt": "Cortex Medical Academy, Clinical Scenarios. Start your shift: 18 shift encounters in Emergency Medicine, Cardiology, Neurology, and a case bank of 2,600+.",
-   "sha256": "e71ba51d9fdb92f9e61cc8999d9b9cc1c61991f23e7316e95f26840844f6f962"
+   "file": "og/clinical-2.jpg",
+   "alt": "Cortex Medical Academy, Clinical Scenarios. Start your shift: meet a patient, make the calls and see what happens to them. Shift rotations and a case bank of 2,600+ across 26 specialties.",
+   "sha256": "ff183f911adfb352228a7f511ecf5c86eb3a9e5ca7766c0edaeb97e8973d4a0e"
   },
   "neuro": {
    "file": "og/neuro-1.jpg",

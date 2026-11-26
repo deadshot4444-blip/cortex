@@ -6,10 +6,10 @@
 const OG = {
   title: 'Clinical Scenarios — Cortex Medical Academy',
   description:
-    'Start your shift: review the chart, lock your decisions, rank a differential, and write your note. Shift rotations and a case bank across 26 specialties. Free.',
-  image: 'https://cortexmedical.academy/og/clinical-1.jpg',
+    'Start your shift: meet a patient, make the calls, and see what happens to them. Shift rotations and a case bank across 26 specialties. Free.',
+  image: 'https://cortexmedical.academy/og/clinical-2.jpg',
   imageAlt:
-    'Cortex Medical Academy, Clinical Scenarios. Start your shift: 18 shift encounters in Emergency Medicine, Cardiology, Neurology, and a case bank of 2,600+.',
+    'Cortex Medical Academy, Clinical Scenarios. Start your shift: meet a patient, make the calls and see what happens to them. Shift rotations and a case bank of 2,600+ across 26 specialties.',
   url: 'https://cortexmedical.academy/practice',
 };
 

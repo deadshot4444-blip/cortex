@@ -80,7 +80,7 @@ test('every number on a card still matches the site, and og/cards.json describes
   assert.equal(facts.neuro.units, JSON.parse(read('data/neuro.json')).learningPaths[0].steps.length);
   assert.equal(facts.neuro.exercises, JSON.parse(read('data/neuro.json')).neuroCodeLessons.length);
   assert.equal(facts.mcat.lessons, JSON.parse(read('data/mcat-course.json')).units.length);
-  assert.equal(facts.clinical.encounters, 6 * facts.clinical.rotations.length);
+  assert.equal(facts.clinical.specialties, new Set(JSON.parse(read('data/index.json')).map(entry => entry.key)).size);
   assert.ok(JSON.parse(read('data/index.json')).length >= facts.clinical.bankFloor);
   assert.ok(facts.courses.length >= 5, 'the open courses');
 });
@@ -182,7 +182,7 @@ test('Clinical Scenarios gets its card at the edge, and both share links carry t
   // The description's one number is the case bank's. Neither it nor the card says the note is
   // compared with a model or with a clinician's.
   const description = meta(html, 'property', 'og:description');
-  assert.match(description, /^Start your shift: review the chart/);
+  assert.match(description, /^Start your shift: meet a patient/);
   assert.doesNotMatch(description, /model|clinician|compare/i);
   const { CARDS, cardFacts } = await generator();
   const drawn = CARDS.find(card => card.id === 'clinical').build(cardFacts());

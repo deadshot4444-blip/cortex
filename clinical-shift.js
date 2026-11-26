@@ -7,7 +7,7 @@
   'use strict';
 
   const SHIFT_STORAGE_KEY = 'cs-clinical-shift-v1';
-  const SHIFT_MANIFEST_URL = 'data/clinical-shift-pilot.json?v=12';
+  const SHIFT_MANIFEST_URL = 'data/clinical-shift-pilot.json?v=13';
   const SHIFT_STEPS = ['Handoff', 'Investigate', 'Decide', 'Debrief'];
   /* One tap answers a question. A second tap that lands just after it (a double click, a bounced touch)
      must not answer the next question or skip an outcome, so the buttons that commit a call start inert
@@ -533,6 +533,25 @@
     const reactingRotations = rotations.filter(rotation => reactingIn(rotation) > 0);
     const everyPatientReacts = rotations.every(rotation => reactingIn(rotation) === rotation.caseIds.length);
     const rotationCode = rotation => String(rotation.caseIds[0]).split('-')[0].toUpperCase();
+    // The board has room for three rotations; the rest share one last row.
+    const boardRotations = rotations.slice(0, 3);
+    const offBoard = rotations.slice(3);
+    const offBoardWaiting = offBoard.reduce(
+      (sum, rotation) => sum + rotation.caseIds.length - completedCount(rotation),
+      0
+    );
+    const longDate = iso =>
+      new Date(`${iso}T12:00:00`).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+    const checkedOn = rotations
+      .flatMap(rotation => rotation.caseIds)
+      .flatMap(id => [shiftManifest.caseReviews?.[id]?.sourceCheckedOn, shiftManifest.reactions?.[id]?.sourceCheckedOn])
+      .filter(date => /^\d{4}-\d{2}-\d{2}$/.test(date || ''))
+      .sort();
+    const sourceChecks = !checkedOn.length
+      ? 'Source checks are recorded with each encounter'
+      : checkedOn[0] === checkedOn.at(-1)
+        ? `Case sources checked ${longDate(checkedOn[0])}`
+        : `Case sources checked between ${longDate(checkedOn[0])} and ${longDate(checkedOn.at(-1))}`;
     const lede = everyPatientReacts
       ? 'Pick a rotation and meet your patient. What you decide changes what happens to them. No clinical experience needed: a resident works beside you.'
       : reactingRotations.length
@@ -558,18 +577,22 @@
           <div class="cshift-ward-case"><div class="cshift-ward-screen">
             <div class="cshift-ward-top"><span>WARD BOARD</span><strong><i></i>SHIFT OPEN</strong></div>
             <svg class="cshift-ecg" viewBox="0 0 360 64">${ecgMarkup(72, false)}</svg>
-            <ul>${rotations
+            <ul>${boardRotations
               .map(rotation => {
                 const waiting = rotation.caseIds.length - completedCount(rotation);
                 return `<li><b>${esc(rotationCode(rotation))}</b><span>${esc(rotation.name)}</span><em>${waiting ? `${waiting} waiting` : 'all seen'}</em></li>`;
               })
-              .join('')}</ul>
+              .join('')}${
+              offBoard.length
+                ? `<li><b>+${offBoard.length}</b><span>more ${offBoard.length === 1 ? 'rotation' : 'rotations'}</span><em>${offBoardWaiting ? `${offBoardWaiting} waiting` : 'all seen'}</em></li>`
+                : ''
+            }</ul>
             <p>&gt; pick a rotation to meet your patient</p>
           </div></div>
           <span class="cshift-ward-neck"></span><span class="cshift-ward-foot"></span>
           <div class="cshift-ward-desk"><span></span><span></span></div>
         </div>
-        <p class="cshift-content-status">Beta. ${encounterCount} fictional encounters, about 5–10 minutes each. Case sources checked September 7, 2026; independent clinician review remains pending. Practice decisions do not establish clinical competence, and nothing here is medical advice.</p>
+        <p class="cshift-content-status">Beta. ${encounterCount} fictional encounters, about 5–10 minutes each. ${sourceChecks}; independent clinician review remains pending. Practice decisions do not establish clinical competence, and nothing here is medical advice.</p>
       </header>
       ${
         active

@@ -40,7 +40,6 @@ export function cardFacts() {
   const outline = json('data/dat-outline.json');
   const datItems = outline.files.questions.reduce((sum, file) => sum + json(`data/${file}.json`).items.length, 0);
   const rc = json('data/dat-rc.json').passages.reduce((sum, passage) => sum + passage.questions.length, 0);
-  const shift = json('data/clinical-shift-pilot.json').rotations;
   const bank = json('data/index.json');
   const neuro = json('data/neuro.json');
   return {
@@ -61,8 +60,7 @@ export function cardFacts() {
       patGenerators: json('data/dat-pat.json').subtests.length,
     },
     clinical: {
-      rotations: shift.map(rotation => rotation.name),
-      encounters: shift.reduce((sum, rotation) => sum + rotation.caseIds.length, 0),
+      specialties: new Set(bank.map(entry => entry.key)).size,
       // The classic case bank, rounded down to the hundred so a few new cases do not date the card.
       bankFloor: Math.floor(bank.length / 100) * 100,
     },
@@ -270,7 +268,8 @@ function ecg(width, beats, base = 74) {
 
 function clinical(facts) {
   const c = facts.clinical;
-  const rows = c.rotations
+  // A shift in three lines. Nothing here is counted, so new rotations do not date the card.
+  const rows = ['Meet the patient', 'Make your calls', 'See what happens']
     .map((name, i) => `<li><span class="n">0${i + 1}</span><span class="name">${esc(name)}</span></li>`)
     .join('');
   const css = `
@@ -292,7 +291,7 @@ function clinical(facts) {
       <p class="eyebrow">Clinical reasoning · Beta</p>
       <h1>Start<br><em>your shift.</em></h1>
       <span class="rule"></span>
-      <p class="sub">Review the chart, lock your decisions, rank a differential, and write your note.</p>
+      <p class="sub">A patient is waiting. What you decide changes what happens to them.</p>
     </main>
     <aside class="figure">
       <div class="monitor">
@@ -301,7 +300,7 @@ function clinical(facts) {
       </div>
       <ol class="ledger">${rows}</ol>
     </aside>
-    ${foot(['Free', `${c.encounters} shift encounters`, `${count(c.bankFloor)}+ case bank`], 'cortexmedical.academy/practice')}`
+    ${foot(['Free', `${c.specialties} specialties`, `${count(c.bankFloor)}+ case bank`], 'cortexmedical.academy/practice')}`
   );
 }
 
@@ -500,10 +499,10 @@ export const CARDS = [
   },
   {
     id: 'clinical',
-    rev: 1,
+    rev: 2,
     build: clinical,
     alt: f =>
-      `Cortex Medical Academy, Clinical Scenarios. Start your shift: ${f.clinical.encounters} shift encounters in ${f.clinical.rotations.join(', ')}, and a case bank of ${count(f.clinical.bankFloor)}+.`,
+      `Cortex Medical Academy, Clinical Scenarios. Start your shift: meet a patient, make the calls and see what happens to them. Shift rotations and a case bank of ${count(f.clinical.bankFloor)}+ across ${f.clinical.specialties} specialties.`,
   },
   {
     id: 'neuro',

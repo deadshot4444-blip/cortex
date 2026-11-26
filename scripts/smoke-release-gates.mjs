@@ -22,6 +22,9 @@ const publicNotes = runInNewContext(
 ).filter(release => release.tag !== 'LOCAL');
 const latestPublic = publicNotes[0];
 const previousPublic = publicNotes.slice(1).find(release => release.version);
+const clinicalRotations = JSON.parse(
+  readFileSync(new URL('../data/clinical-shift-pilot.json', import.meta.url), 'utf8')
+).rotations.length;
 const base = new URL(process.env.CORTEX_URL || 'http://localhost:8765/');
 const viewports = [
   { name: 'desktop', width: 1280, height: 900 },
@@ -97,7 +100,7 @@ for (const viewport of viewports) {
   const clinicalReviewStatus = (await page.locator('.cshift-content-status').textContent())?.trim() || '';
   if (
     clinicalShiftHeading !== 'Start your shift.' ||
-    clinicalRotationCount !== 3 ||
+    clinicalRotationCount !== clinicalRotations ||
     clinicalLegacyClutterCount !== 0 ||
     !clinicalReviewStatus.includes('fictional encounters') ||
     !clinicalReviewStatus.includes('independent clinician review remains pending') ||

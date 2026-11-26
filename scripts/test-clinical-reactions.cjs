@@ -283,7 +283,11 @@ async function play(h, entry, pick, { resumeAtBeat = false, rightDiagnosis = tru
   // the resident's note is there to read, in clinical language
   assert.ok(h.text('.cshift-clinical-note').includes(pilot.modelNotes[id].assessment));
   assert.ok(h.text('.cshift-clinical-note').includes(pilot.modelNotes[id].plan));
-  assert.doesNotMatch(h.text('.cshift-debrief'), /model note|compare/i);
+  // The wording rule covers everything the shift writes. The bank's own clinical text is quoted as it stands.
+  const written = h.w.document.querySelector('.cshift-debrief').cloneNode(true);
+  for (const quoted of written.querySelectorAll('.cshift-original, .cshift-pearls, .cshift-diagnosis-line'))
+    quoted.remove();
+  assert.doesNotMatch(written.textContent, /model note|compare/i);
   const safetyTile = h.text('.cshift-domain-grid > article:first-child');
   assert.match(
     safetyTile,
