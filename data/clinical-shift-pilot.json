@@ -1,7 +1,7 @@
 {
-  "version": 14,
+  "version": 15,
   "title": "Clinical Shift foundations and rotation practice",
-  "reviewStatus": "Source and consistency checks are recorded with each encounter. Independent clinician review remains pending for all 27 encounters.",
+  "reviewStatus": "Source and consistency checks are recorded with each encounter. Independent clinician review remains pending for all 30 encounters.",
   "rotations": [
     {
       "key": "emergency-medicine",
@@ -70,6 +70,16 @@
         "pd-027",
         "pd-064",
         "pd-081"
+      ]
+    },
+    {
+      "key": "obgyn",
+      "name": "OB/GYN",
+      "description": "Pregnancy changes the rules. Learn the emergencies that cannot wait.",
+      "caseIds": [
+        "ob-001",
+        "ob-010",
+        "ob-064"
       ]
     }
   ],
@@ -181,6 +191,18 @@
     "pd-081": {
       "assessment": "Well-appearing 4-year-old boy with 48 hours of petechiae, bruising, and minor epistaxis two weeks after a viral illness. Platelets are 11 ×10³/µL with normal hemoglobin, white count, smear morphology, and coagulation, and there is no organomegaly or lymphadenopathy: immune thrombocytopenia.",
       "plan": "Observation, because bleeding is limited to the skin and brief epistaxis. Counsel the parents: avoid contact sports, NSAIDs, and aspirin, and seek emergency care for headache, vomiting, or altered mental status. Recheck the count. Reserve IVIG, anti-D, or corticosteroids for significant bleeding, and platelet transfusion for life-threatening hemorrhage."
+    },
+    "ob-001": {
+      "assessment": "31-year-old G2P1 at 34 weeks 2 days with new severe-range hypertension (168/112 mmHg), headache, visual symptoms, hyperreflexia with clonus, and a urine protein/creatinine ratio of 0.6, with normal platelets, creatinine, and transaminases: preeclampsia with severe features.",
+      "plan": "Admit. Treat the severe-range blood pressure promptly with IV labetalol (or hydralazine or immediate-release nifedipine) and give IV magnesium sulfate for seizure prophylaxis, monitoring reflexes, respiration, and urine output. Give betamethasone, continue fetal monitoring, and proceed toward delivery after maternal stabilization; the route is individualized."
+    },
+    "ob-010": {
+      "assessment": "26-year-old G2P1 about 7 weeks from her last period with right lower abdominal pain, spotting, and risk factors (prior PID, pelvic surgery, smoking). Beta-hCG is 3,200 mIU/mL with an empty uterus and a 3 cm right adnexal mass with a tubal ring: ectopic pregnancy, which then ruptures with hemorrhagic shock.",
+      "plan": "While stable and unruptured she meets criteria for methotrexate with serial hCG follow-up. With rupture and instability: large-bore IV access, blood products, and emergent surgery (laparoscopy or laparotomy, usually salpingectomy). Give anti-D immune globulin because she is Rh-negative."
+    },
+    "ob-064": {
+      "assessment": "22-year-old woman with three hours of sudden severe colicky right pelvic pain and vomiting and a known right ovarian cyst. Pregnancy test negative. Ultrasound shows a 6.5 cm edematous right ovary with peripherally displaced follicles, a 5 cm cyst, and absent Doppler flow: ovarian torsion.",
+      "plan": "Emergent diagnostic laparoscopy with detorsion. Conserve the ovary even if it appears dusky, and remove the cyst (cystectomy); reserve oophorectomy for frankly necrotic or suspicious tissue. Analgesia and antiemetics before surgery. Routine oophoropexy is not required."
     }
   },
   "investigations": {
@@ -993,6 +1015,96 @@
           "finding": "No pallor or jaundice, no bone or joint tenderness, and a normal neurologic exam."
         }
       ]
+    },
+    "ob-001": {
+      "interview": [
+        {
+          "prompt": "Characterize the headache and visual symptoms",
+          "finding": "Two days of frontal throbbing headache unrelieved by acetaminophen, with intermittent blurred vision and flashing lights."
+        },
+        {
+          "prompt": "Ask about swelling, abdominal pain and fetal movement",
+          "finding": "New swelling of the hands and face over the past week. No abdominal pain. Fetal movement is normal."
+        },
+        {
+          "prompt": "Review the pregnancy and blood pressure history",
+          "finding": "G2P1 at 34 weeks 2 days by first-trimester dating. Her first pregnancy was uncomplicated, and her blood pressure was normal earlier in this one. Her mother has chronic hypertension."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Repeat the blood pressure and examine for edema",
+          "finding": "168/112 mmHg on repeat. 2+ pitting edema of the legs with mild periorbital and facial edema."
+        },
+        {
+          "prompt": "Test the reflexes and look for clonus",
+          "finding": "Patellar reflexes are brisk (3+) with 2 beats of clonus bilaterally. Cranial nerves are intact, with no focal deficit."
+        },
+        {
+          "prompt": "Examine the abdomen and assess the fetus",
+          "finding": "Fundal height appropriate for 34 weeks, with a soft, nontender uterus and a nontender right upper quadrant. Fetal heart rate 140 bpm and reactive."
+        }
+      ]
+    },
+    "ob-010": {
+      "interview": [
+        {
+          "prompt": "Characterize the pain and bleeding",
+          "finding": "Three days of progressively worsening sharp, intermittent right lower abdominal pain, worse with movement, with light vaginal spotting and right shoulder discomfort today."
+        },
+        {
+          "prompt": "Establish the menstrual and pregnancy history",
+          "finding": "Last menstrual period about 7 weeks ago with a positive home pregnancy test; no prenatal care or ultrasound yet. G2P1 with one term vaginal delivery."
+        },
+        {
+          "prompt": "Ask about risk factors for ectopic pregnancy",
+          "finding": "Chlamydial pelvic inflammatory disease treated two years ago, prior pelvic surgery for an ovarian cyst, an intrauterine device removed several months ago, and smoking half a pack per day."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Palpate the abdomen",
+          "finding": "Soft, with focal right lower quadrant tenderness and mild voluntary guarding; no rebound at rest."
+        },
+        {
+          "prompt": "Perform a speculum and bimanual exam",
+          "finding": "Closed cervix with scant dark blood in the vault. Right adnexal tenderness and fullness with cervical motion tenderness; the uterus is smaller than expected for 7 weeks."
+        },
+        {
+          "prompt": "Assess for signs of blood loss",
+          "finding": "Mild pallor and borderline tachycardia; otherwise hemodynamically stable."
+        }
+      ]
+    },
+    "ob-064": {
+      "interview": [
+        {
+          "prompt": "Characterize the pain",
+          "finding": "Three hours of sudden severe, sharp right lower quadrant and pelvic pain that began abruptly at the gym. It is intermittent, comes in waves and radiates to the right flank and groin, with nausea and two episodes of vomiting."
+        },
+        {
+          "prompt": "Take a menstrual and sexual history",
+          "finding": "Last menstrual period two weeks ago with regular cycles. Sexually active with one partner, using condoms. No vaginal bleeding or discharge."
+        },
+        {
+          "prompt": "Ask about fever, urinary or bowel symptoms and known ovarian problems",
+          "finding": "No fever, dysuria or diarrhea. She was told months ago of a cyst on her right ovary."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Palpate the abdomen",
+          "finding": "Soft, with marked right lower quadrant tenderness and voluntary guarding but no rebound or rigidity."
+        },
+        {
+          "prompt": "Perform a pelvic exam",
+          "finding": "Severe right adnexal tenderness with a palpable enlarged, tender right adnexa. Normal cervix without discharge, mild cervical motion tenderness and a non-tender left adnexa."
+        },
+        {
+          "prompt": "Check for flank tenderness and bowel sounds",
+          "finding": "No costovertebral angle tenderness. Bowel sounds are present."
+        }
+      ]
     }
   },
   "caseReviews": {
@@ -1429,6 +1541,54 @@
         {
           "title": "Provan et al. (Blood Adv 2019): updated international consensus report on the investigation and management of primary immune thrombocytopenia",
           "url": "https://pubmed.ncbi.nlm.nih.gov/31770441/"
+        }
+      ]
+    },
+    "ob-001": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Recognize preeclampsia with severe features, treat the blood pressure, prevent seizures and plan delivery.",
+      "alternativesAndLimits": "The choice among first-line antihypertensives varies by unit, and the timing of delivery relative to the steroid course is individualized.",
+      "sources": [
+        {
+          "title": "ACOG Practice Bulletin No. 222 (Obstet Gynecol 2020): gestational hypertension and preeclampsia",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/32443079/"
+        },
+        {
+          "title": "Magpie Trial (Lancet 2002): do women with pre-eclampsia, and their babies, benefit from magnesium sulphate?",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/12057549/"
+        }
+      ]
+    },
+    "ob-010": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Locate an early pregnancy, recognize an ectopic and act at once when it ruptures.",
+      "alternativesAndLimits": "Thresholds for the discriminatory zone and for methotrexate vary by institution. Rupture while awaiting treatment is uncommon; it is written into this patient for teaching.",
+      "sources": [
+        {
+          "title": "ACOG Practice Bulletin No. 193 (Obstet Gynecol 2018): tubal ectopic pregnancy",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/29470343/"
+        },
+        {
+          "title": "Barnhart (N Engl J Med 2009): ectopic pregnancy",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/19625718/"
+        }
+      ]
+    },
+    "ob-064": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Exclude pregnancy, recognize ovarian torsion and treat it as a surgical emergency that spares the ovary.",
+      "alternativesAndLimits": "Doppler flow can be present in early or intermittent torsion, so the decision to operate is clinical. How long an ovary survives without blood flow varies and cannot be predicted for one patient.",
+      "sources": [
+        {
+          "title": "ACOG Committee Opinion No. 783 (Obstet Gynecol 2019): adnexal torsion in adolescents",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/31348225/"
+        },
+        {
+          "title": "Huchon and Fauconnier (Eur J Obstet Gynecol Reprod Biol 2010): adnexal torsion, a literature review",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/20189289/"
         }
       ]
     }
@@ -9494,6 +9654,825 @@
         {
           "title": "Provan et al. (Blood Adv 2019): updated international consensus report on the investigation and management of primary immune thrombocytopenia",
           "url": "https://pubmed.ncbi.nlm.nih.gov/31770441/"
+        }
+      ]
+    },
+    "ob-001": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "34 weeks pregnant, _with a headache that will not lift._",
+      "setting": "Labor and delivery triage",
+      "start": {
+        "status": "unstable",
+        "alarm": "Blood pressure 168 over 112 · headache · flashing lights"
+      },
+      "handoff": "A 31-year-old woman is 34 weeks pregnant. Her blood pressure at clinic today was very high. She has had a throbbing headache for two days and sees flashing lights.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask about the headache and her vision",
+            "finding": "A throbbing headache across her forehead for two days. Acetaminophen does not touch it. Her vision blurs at times, and she sees flashing lights."
+          },
+          {
+            "prompt": "Ask about swelling, belly pain and the baby’s movements",
+            "finding": "Her hands and face have swollen over the past week. She has no belly pain. The baby is moving normally."
+          },
+          {
+            "prompt": "Ask about this pregnancy and her blood pressure before",
+            "finding": "This is her second pregnancy. The first was healthy. Her blood pressure was normal at her earlier visits. Her mother has high blood pressure."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Take her blood pressure again, and look for swelling",
+            "finding": "168 over 112, the same as before. Her lower legs hold a dent when pressed, and her face and eyelids are puffy."
+          },
+          {
+            "prompt": "Tap her knee reflexes, and flex her ankles quickly",
+            "finding": "Her knees jerk much more briskly than normal. When each foot is pushed up quickly, it beats twice by itself. Both are signs that her nerves are irritable."
+          },
+          {
+            "prompt": "Feel her belly, and listen to the baby",
+            "finding": "Her womb is the right size and soft. Pressing under her right ribs does not hurt. The baby’s heart rate is 140 and responds normally."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Blood tests, urine test and baby’s tracing",
+          "content": "Platelets: 188, normal.\nKidney test (creatinine): normal.\nLiver tests: normal.\nTest for broken-down red cells (LDH): normal.\nUrine protein: 0.6, raised (normal is under 0.3). Her kidneys are leaking protein.\nBaby’s heart tracing: normal, with no contractions."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "Blood pressure this high in late pregnancy, with a headache and flashing lights, can be the start of something dangerous for her and the baby.",
+          "question": "What do we do first?",
+          "options": [
+            "Reassure her and send her home, with a clinic visit in a week",
+            "Send blood and urine tests that look for organ damage, and put the baby on a monitor",
+            "Get a CT scan of her head before anything else",
+            "Give a blood pressure tablet and send her home once the number is normal"
+          ],
+          "fix": "Send the tests and monitor the baby",
+          "terms": [
+            {
+              "term": "Preeclampsia",
+              "meaning": "A condition of late pregnancy with high blood pressure and signs that organs are under strain."
+            },
+            {
+              "term": "Proteinuria",
+              "meaning": "Protein in the urine. Healthy kidneys keep protein in the blood."
+            },
+            {
+              "term": "Fetal monitoring",
+              "meaning": "A belt on the belly that traces the baby’s heart rate and any contractions."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You start her discharge papers. The resident takes them back.",
+              "reply": "With that blood pressure and those symptoms she could have a seizure or a stroke at home. She stays until we know what this is."
+            },
+            {
+              "kind": "safe",
+              "minutes": 30,
+              "story": "Blood and urine are sent, and a monitor is strapped on to trace the baby’s heart. The results go in her chart.",
+              "reply": "Right. The tests show whether her kidneys, liver and blood are being damaged, and the monitor shows how the baby is coping."
+            },
+            {
+              "kind": "delay",
+              "minutes": 45,
+              "story": "She is taken for a head scan, which is normal. Forty-five minutes have passed with nothing done about her blood pressure. Her headache is worse, and the number has climbed.",
+              "reply": "Her symptoms already have an explanation, and it is not one a scan can see. The scan cost her time at a dangerous blood pressure. Send the blood and urine now.",
+              "vitals": {
+                "BP": "176/116 mmHg"
+              },
+              "trend": {
+                "BP": "up"
+              },
+              "status": "worse",
+              "alarm": "Headache worse · blood pressure higher"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest a tablet and home. The resident shakes their head.",
+              "reply": "Lowering the number does not treat the disease. She needs tests, seizure protection and a plan for delivery, all in hospital."
+            }
+          ]
+        },
+        "3": {
+          "resident": "This is preeclampsia with severe features. The two immediate dangers are a stroke from the pressure, and a seizure.",
+          "question": "What do we start now?",
+          "options": [
+            "Labetalol into a vein for the blood pressure, and magnesium sulfate into a vein to prevent seizures",
+            "Methyldopa tablets alone, and follow her as an outpatient",
+            "Magnesium alone, holding blood pressure medicine until she passes 180 over 120",
+            "A water tablet and less to drink, to bring down the swelling"
+          ],
+          "fix": "Start labetalol and magnesium",
+          "terms": [
+            {
+              "term": "Magnesium sulfate",
+              "meaning": "A drip that calms irritable nerves and prevents the seizures of preeclampsia. It is not a blood pressure medicine."
+            },
+            {
+              "term": "Eclampsia",
+              "meaning": "Seizures caused by preeclampsia."
+            },
+            {
+              "term": "Severe-range blood pressure",
+              "meaning": "160 over 110 or higher in pregnancy. It needs treatment within the hour."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 30,
+              "story": "Labetalol is given into a vein in small doses, and a magnesium drip is started. Her reflexes, her breathing and her urine output are checked every hour. Over half an hour her blood pressure comes down.",
+              "reply": "Both, and now. One protects her brain from the pressure, and the other protects it from seizures. Neither does the other’s job.",
+              "vitals": {
+                "BP": "148/94 mmHg"
+              },
+              "trend": {
+                "BP": "down"
+              },
+              "alarm": "Blood pressure coming down · magnesium running"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for methyldopa and a clinic visit. The resident stops the order.",
+              "reply": "That tablet takes days to work, and she has severe features. She cannot be an outpatient today."
+            },
+            {
+              "kind": "delay",
+              "minutes": 40,
+              "story": "The magnesium runs, and no blood pressure medicine is given. Forty minutes later her pressure is higher still. Her headache is severe and her vision is blurring.",
+              "reply": "Magnesium prevents seizures. It does not lower blood pressure. At 160 over 110 we treat within the hour, because that is the pressure at which strokes happen. Give the labetalol.",
+              "vitals": {
+                "BP": "184/118 mmHg"
+              },
+              "trend": {
+                "BP": "up"
+              },
+              "status": "worse",
+              "alarm": "Blood pressure 184 over 118 · vision blurring"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for a water tablet. The resident cancels it.",
+              "reply": "The swelling is not the danger, and her blood vessels are already short of fluid. A water tablet would make that worse."
+            }
+          ]
+        },
+        "4": {
+          "resident": "Her pressure is controlled and the magnesium is running. The medicines hold the disease back. They do not cure it.",
+          "question": "What is the plan for delivery?",
+          "options": [
+            "Wait until 39 weeks, with weekly blood pressure checks",
+            "A cesarean right now, whatever the baby’s tracing shows",
+            "Steroids for the baby’s lungs, steady her, and then move toward delivery now instead of prolonging the pregnancy",
+            "Home on labetalol tablets, and continue to 37 weeks"
+          ],
+          "fix": "Plan delivery after steroids",
+          "terms": [
+            {
+              "term": "Betamethasone",
+              "meaning": "A steroid given to the mother before an early birth. It helps the baby’s lungs mature."
+            },
+            {
+              "term": "Delivery",
+              "meaning": "The only cure for preeclampsia, because the placenta drives the disease."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest waiting to 39 weeks. The obstetrician says no.",
+              "reply": "With severe features, every extra week risks a seizure, a stroke or the placenta failing. At 34 weeks the baby does well outside. We do not wait."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest an immediate cesarean. The obstetrician shakes their head.",
+              "reply": "She needs delivering, but not necessarily by surgery. The baby’s tracing is normal, so labor can be started and a vaginal birth is possible."
+            },
+            {
+              "kind": "safe",
+              "minutes": 20,
+              "story": "The first steroid injection is given. The obstetrician explains the plan to her: she stays on the labor ward, and labor will be started once she is steady.",
+              "reply": "Yes. Delivery is the cure. The steroids give the baby’s lungs a head start, and at 34 weeks the balance favors delivering."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest home on tablets. The obstetrician says no.",
+              "reply": "Severe preeclampsia is never managed at home. It can turn into seizures or organ failure within hours."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "Her blood tests, urine test and the baby’s tracing are in the chart.",
+        "question": "What is the diagnosis?",
+        "options": [
+          "High blood pressure of pregnancy alone (gestational hypertension)",
+          "Long-standing high blood pressure (chronic hypertension)",
+          "Preeclampsia with severe features",
+          "HELLP syndrome: broken red cells, a strained liver and low platelets"
+        ],
+        "reveal": "It is preeclampsia with severe features. Her blood pressure was normal earlier in pregnancy and is now very high, her kidneys are leaking protein, and she has a headache and flashing lights. Pressure that high, or those symptoms, is enough to call it severe. Her platelets, liver tests and red cells are normal, so it is not HELLP.",
+        "terms": [
+          {
+            "term": "Severe features",
+            "meaning": "Signs that preeclampsia is threatening the brain, liver, kidneys, blood or lungs."
+          },
+          {
+            "term": "Placenta",
+            "meaning": "The organ that feeds the baby. In preeclampsia it releases substances that damage the mother’s blood vessels."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "On the labor ward with her blood pressure controlled, being prepared for delivery",
+        "unstable": "On the labor ward with her blood pressure controlled, being prepared for delivery",
+        "worse": "On the labor ward being prepared for delivery, after too long at a dangerous blood pressure",
+        "critical": "In intensive care after a seizure"
+      },
+      "plainDiagnosis": "A dangerous rise in blood pressure in late pregnancy that is straining her brain and kidneys (preeclampsia with severe features).",
+      "science": [
+        {
+          "tag": "Pressure and resistance",
+          "title": "Why her blood pressure rose",
+          "text": "Blood pressure depends on how hard the heart pumps and how narrow the small arteries are. In preeclampsia, substances from the placenta make those arteries tighten all over the body, so the same flow needs a much higher pressure.",
+          "lesson": "circulatory-flow",
+          "lessonTitle": "Connect pressure to blood flow"
+        },
+        {
+          "tag": "Membranes",
+          "title": "Why magnesium quiets irritable nerves",
+          "text": "A nerve fires when calcium flows in through channels in its membrane. Magnesium competes with calcium at those channels. With less calcium getting in, nerves fire less readily, which is why her brisk reflexes are used to judge the dose.",
+          "lesson": "membrane-transport",
+          "lessonTitle": "Cross a membrane"
+        }
+      ],
+      "sources": [
+        {
+          "title": "ACOG Practice Bulletin No. 222 (Obstet Gynecol 2020): gestational hypertension and preeclampsia",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/32443079/"
+        },
+        {
+          "title": "Magpie Trial (Lancet 2002): do women with pre-eclampsia, and their babies, benefit from magnesium sulphate?",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/12057549/"
+        }
+      ]
+    },
+    "ob-010": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "Pregnant, in pain, _and the scan shows an empty womb._",
+      "setting": "Emergency department",
+      "start": {
+        "status": "stable",
+        "alarm": "Pain low on the right · positive pregnancy test"
+      },
+      "handoff": "A 26-year-old woman has had worsening pain low on the right side of her belly for three days, with light spotting. Her period is about three weeks late, and a home pregnancy test was positive.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask about the pain and the bleeding",
+            "finding": "A sharp pain low on the right side for three days, coming and going and getting worse. Moving makes it worse. She has had light spotting. Today her right shoulder aches."
+          },
+          {
+            "prompt": "Ask about her periods and this pregnancy",
+            "finding": "Her last period was about seven weeks ago, and a home test was positive. She has not seen anyone about this pregnancy yet. She has one child, born at term."
+          },
+          {
+            "prompt": "Ask about past infections, operations and contraception",
+            "finding": "She was treated for a chlamydia infection of the pelvis two years ago, and she has had an operation for an ovarian cyst. She had a coil removed some months ago. She smokes half a pack a day."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Press on her belly",
+            "finding": "It is soft. The lower right side is tender, and she tenses when it is pressed."
+          },
+          {
+            "prompt": "Do an internal exam",
+            "finding": "The neck of the womb is closed, with a little dark blood. The right side is tender and feels full, and moving the neck of the womb hurts. The womb is smaller than it should be at seven weeks."
+          },
+          {
+            "prompt": "Look for signs she is losing blood",
+            "finding": "She is a little pale, and her pulse is slightly fast. Her blood pressure is normal."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Blood tests and ultrasound",
+          "content": "Pregnancy hormone level (hCG): 3,200. At this level a pregnancy in the womb should be visible on a scan.\nInternal ultrasound: the womb is empty. Beside the right ovary, and separate from it, is a 3 cm mass with a bright ring around it, sitting in the fallopian tube. A small amount of free fluid lies behind the womb.\nHemoglobin: 11.8, slightly low.\nBlood group: O negative."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "Pain and bleeding in early pregnancy. Before anything else, we need to know where this pregnancy is.",
+          "question": "Which two tests tell us?",
+          "options": [
+            "A repeat urine pregnancy test and a plain X-ray of her belly",
+            "A blood test for the level of pregnancy hormone, and an internal ultrasound",
+            "A CT scan of her belly and pelvis, and a urine test",
+            "A CA-125 blood test and a cervical smear"
+          ],
+          "fix": "Send the hormone level and get the ultrasound",
+          "terms": [
+            {
+              "term": "hCG",
+              "meaning": "The pregnancy hormone. Its level in the blood rises quickly in the first weeks."
+            },
+            {
+              "term": "Transvaginal ultrasound",
+              "meaning": "An ultrasound probe placed in the vagina. It sits close to the womb and ovaries, so it sees an early pregnancy clearly."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for another urine test and an X-ray. The resident changes the order.",
+              "reply": "We already know she is pregnant, and an X-ray cannot show an early pregnancy. We need to know where it is."
+            },
+            {
+              "kind": "safe",
+              "minutes": 40,
+              "story": "Blood is sent, and the ultrasound is done at the bedside. The results go in her chart.",
+              "reply": "Right. The hormone level tells us whether a pregnancy should be visible yet, and the ultrasound shows whether it is in the womb."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a CT scan. The resident changes the order.",
+              "reply": "A CT gives radiation to an early pregnancy and is worse than ultrasound at finding one. Ultrasound is the test."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a CA-125 and a smear. The resident cancels them.",
+              "reply": "Neither has anything to do with pain in early pregnancy. The question is where the pregnancy is."
+            }
+          ]
+        },
+        "3": {
+          "resident": "The pregnancy is in her right tube, and it has not burst. She is steady, the mass is small, there is no heartbeat in it, and her liver and kidney tests are normal.",
+          "question": "How can this be treated?",
+          "options": [
+            "An open operation now to remove her womb",
+            "Send her home with no follow-up",
+            "Methotrexate, because she meets the conditions for treatment with medicine",
+            "High-dose estrogen"
+          ],
+          "fix": "Offer methotrexate",
+          "terms": [
+            {
+              "term": "Ectopic pregnancy",
+              "meaning": "A pregnancy growing outside the womb, most often in a fallopian tube. It cannot survive, and it can burst the tube."
+            },
+            {
+              "term": "Methotrexate",
+              "meaning": "A medicine that stops fast-dividing cells from copying their DNA. One injection can end a small ectopic pregnancy without surgery."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest removing her womb. The gynecologist says no.",
+              "reply": "Her womb is healthy. Even when an ectopic needs surgery, the operation is keyhole surgery on the tube."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You start a discharge with no follow-up. The gynecologist stops it.",
+              "reply": "An ectopic can burst without warning. Nobody with one goes home without a plan and blood tests to follow."
+            },
+            {
+              "kind": "safe",
+              "minutes": 30,
+              "story": "The gynecologist agrees, and pharmacy prepares the dose. While she waits, she suddenly cries out with severe pain all over her belly. She turns pale and sweaty, and her blood pressure drops.",
+              "reply": "That was the right plan for a steady patient. She is not steady any more. Something has just changed.",
+              "vitals": {
+                "BP": "80/48 mmHg",
+                "HR": "130 bpm"
+              },
+              "trend": {
+                "BP": "down",
+                "HR": "up"
+              },
+              "status": "unstable",
+              "alarm": "Sudden severe pain · blood pressure 80 over 48"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest estrogen. The gynecologist says no.",
+              "reply": "Estrogen does nothing to an ectopic pregnancy. The choices are methotrexate or surgery."
+            }
+          ]
+        },
+        "4": {
+          "resident": "Sudden severe pain, a blood pressure of 80 over 48 and a heart rate of 130. The tube has burst, and she is bleeding into her belly.",
+          "question": "What do we do this minute?",
+          "options": [
+            "Go ahead with the methotrexate",
+            "Emergency surgery, with fluids and blood on the way",
+            "Watch her, and repeat the hormone level in 48 hours",
+            "Painkillers by mouth, and home"
+          ],
+          "fix": "Call for emergency surgery",
+          "terms": [
+            {
+              "term": "Rupture",
+              "meaning": "The tube tearing open. The torn vessels bleed into the belly."
+            },
+            {
+              "term": "Hemorrhagic shock",
+              "meaning": "Too little blood left in the circulation to supply the organs."
+            },
+            {
+              "term": "Anti-D",
+              "meaning": "An injection for mothers with an Rh-negative blood group. It stops them making antibodies that could harm a later baby."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "delay",
+              "minutes": 15,
+              "story": "The injection is given. Methotrexate takes days to work, and it does nothing for bleeding. Fifteen minutes later she can no longer sit up, and she barely answers.",
+              "reply": "Medicine is only for a tube that has not burst. Hers has, and she is bleeding fast. She needs blood and a surgeon now.",
+              "vitals": {
+                "BP": "66/38 mmHg",
+                "HR": "146 bpm"
+              },
+              "trend": {
+                "BP": "down",
+                "HR": "up"
+              },
+              "status": "critical",
+              "alarm": "Barely answering · bleeding inside"
+            },
+            {
+              "kind": "safe",
+              "minutes": 20,
+              "story": "Two large drips go in, and blood is called for. The gynecologist takes her straight to the operating room, removes the torn tube and stops the bleeding. She is given anti-D because her blood group is Rh negative.",
+              "reply": "Yes. A burst ectopic is a surgical emergency. Fluids and blood keep her alive on the way, and only the operation stops the bleeding.",
+              "vitals": {
+                "BP": "100/62 mmHg",
+                "HR": "110 bpm"
+              },
+              "alarm": "In the operating room · bleeding stopped"
+            },
+            {
+              "kind": "delay",
+              "minutes": 30,
+              "story": "She is left on the monitor to be watched. Half an hour later she slumps over. Her blood pressure can barely be measured.",
+              "reply": "Waiting two days is for a steady patient with a small ectopic. She is bleeding to death in front of us. Surgery, now.",
+              "vitals": {
+                "BP": "60/34 mmHg",
+                "HR": "150 bpm"
+              },
+              "trend": {
+                "BP": "down",
+                "HR": "up"
+              },
+              "status": "critical",
+              "alarm": "Collapsed · blood pressure barely measurable"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest painkillers and home. The attending steps between you and the door.",
+              "reply": "She is in shock from bleeding inside her belly. She goes to the operating room, not home."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "The hormone level and the scan are in her chart.",
+        "question": "What is this?",
+        "options": [
+          "A normal early pregnancy that is still too small to see",
+          "An ectopic pregnancy: the pregnancy is growing outside the womb",
+          "A molar pregnancy",
+          "A harmless ovarian cyst of normal pregnancy"
+        ],
+        "reveal": "It is an ectopic pregnancy in her right fallopian tube. At a hormone level of 3,200, a pregnancy in the womb should be visible, and her womb is empty. The ringed mass beside the ovary is the pregnancy. Her earlier pelvic infection and surgery scarred the tube, which is how a fertilized egg came to be stuck there.",
+        "terms": [
+          {
+            "term": "Fallopian tube",
+            "meaning": "The tube that carries an egg from the ovary to the womb."
+          },
+          {
+            "term": "Discriminatory zone",
+            "meaning": "The hormone level above which an ultrasound should be able to see a pregnancy in the womb."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "In the recovery room after emergency surgery, with the bleeding stopped",
+        "unstable": "In the recovery room after emergency surgery, with the bleeding stopped",
+        "worse": "In the recovery room after emergency surgery, having lost more blood than she needed to",
+        "critical": "In intensive care after emergency surgery and a large blood transfusion"
+      },
+      "plainDiagnosis": "A pregnancy growing in a fallopian tube, which then burst (ruptured ectopic pregnancy).",
+      "science": [
+        {
+          "tag": "Sensing",
+          "title": "Why her shoulder ached",
+          "text": "Blood in the belly irritates the diaphragm. The diaphragm’s sensory nerve enters the spinal cord at the same level as nerves from the shoulder, and the brain cannot tell the two apart. So it reports the pain as coming from the shoulder.",
+          "lesson": "sensory-coding",
+          "lessonTitle": "From stimulus to perception"
+        },
+        {
+          "tag": "Copying DNA",
+          "title": "Why methotrexate can end an early pregnancy",
+          "text": "Cells that divide must first copy their DNA, and that takes a supply of building blocks made with the help of folate. Methotrexate blocks that supply. The cells of an early pregnancy divide faster than almost any others, so they are hit hardest.",
+          "lesson": "dna-copying",
+          "lessonTitle": "Copy and repair DNA"
+        }
+      ],
+      "sources": [
+        {
+          "title": "ACOG Practice Bulletin No. 193 (Obstet Gynecol 2018): tubal ectopic pregnancy",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/29470343/"
+        },
+        {
+          "title": "Barnhart (N Engl J Med 2009): ectopic pregnancy",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/19625718/"
+        }
+      ]
+    },
+    "ob-064": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "Sudden pain _that came out of nowhere._",
+      "setting": "Emergency department",
+      "start": {
+        "status": "stable",
+        "alarm": "Severe pain in waves · vomiting"
+      },
+      "handoff": "A 22-year-old woman was at the gym three hours ago when a severe pain started low on her right side. It comes in waves, and she has vomited twice.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask about the pain",
+            "finding": "It began all at once, three hours ago, in the middle of a workout. It is sharp and severe, low on the right, and it comes in waves that spread to her right side and groin. She feels sick and has vomited twice."
+          },
+          {
+            "prompt": "Ask about her periods and sexual history",
+            "finding": "Her last period was two weeks ago and her cycle is regular. She has one partner, and they use condoms. She has no bleeding or discharge."
+          },
+          {
+            "prompt": "Ask about fever, urine, bowels and her ovaries",
+            "finding": "No fever, no burning when she passes urine and no diarrhea. Months ago a scan done for another reason showed a cyst on her right ovary."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Press on her belly",
+            "finding": "It is soft. The lower right side is very tender, and she tenses when it is pressed. Letting go quickly does not make it worse."
+          },
+          {
+            "prompt": "Do an internal exam",
+            "finding": "The right side is very tender, and a swollen lump can be felt there. The neck of the womb looks normal, with no discharge. The left side does not hurt."
+          },
+          {
+            "prompt": "Tap over her kidneys, and listen to her belly",
+            "finding": "Tapping over her kidneys does not hurt. Her bowel sounds are normal."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Pregnancy test, blood tests and ultrasound",
+          "content": "Pregnancy test: negative.\nWhite blood cells: 11.6, slightly high. Hemoglobin: normal. Urine: normal.\nInternal ultrasound: the right ovary is swollen to 6.5 cm, with a 5 cm cyst inside it. Its small egg sacs are pushed out to the edge.\nBlood-flow scan (Doppler): almost no blood flowing into or out of the right ovary. The left ovary has normal flow.\nA small amount of free fluid in the pelvis."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "Sudden one-sided pelvic pain in a young woman. There is one test we do before any scan, every time.",
+          "question": "Which test comes first?",
+          "options": [
+            "A CA-125 blood test",
+            "A pregnancy test",
+            "An ESR, a blood test for inflammation",
+            "A CT scan of her pelvis"
+          ],
+          "fix": "Send a pregnancy test, then scan",
+          "terms": [
+            {
+              "term": "Pelvis",
+              "meaning": "The lowest part of the belly, which holds the womb, ovaries and bladder."
+            },
+            {
+              "term": "Doppler ultrasound",
+              "meaning": "An ultrasound that shows whether blood is flowing through a vessel."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request a CA-125. The resident cancels it.",
+              "reply": "That marker goes up with almost anything that irritates the belly, and it would not change what we do. Pregnancy test first."
+            },
+            {
+              "kind": "safe",
+              "minutes": 40,
+              "story": "The pregnancy test is run in minutes, and she is taken for an ultrasound with a blood-flow scan. The results go in her chart.",
+              "reply": "Right. A pregnancy in the wrong place can kill, and it changes every decision. Once we know, the ultrasound can look at the ovary."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request an ESR. The resident cancels it.",
+              "reply": "It says only that something is inflamed, somewhere. It cannot guide an emergency. Pregnancy test first."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request a CT scan. The resident changes the order.",
+              "reply": "Not before a pregnancy test, and a CT is worse than ultrasound at looking at ovaries. It also gives radiation she does not need."
+            }
+          ]
+        },
+        "3": {
+          "resident": "Her right ovary is swollen and has almost no blood flowing through it. It has twisted on its own stalk.",
+          "question": "What happens next?",
+          "options": [
+            "Admit her, and repeat the ultrasound in 24 hours",
+            "Emergency keyhole surgery to untwist the ovary",
+            "Painkillers by mouth, and a gynecology appointment",
+            "Antibiotics into a vein, and reassess"
+          ],
+          "fix": "Call the gynecologist for emergency surgery",
+          "terms": [
+            {
+              "term": "Laparoscopy",
+              "meaning": "Keyhole surgery: a camera and fine instruments passed through small cuts in the belly."
+            },
+            {
+              "term": "Detorsion",
+              "meaning": "Untwisting. It lets blood flow into the ovary again."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "delay",
+              "minutes": 360,
+              "story": "She is admitted to wait for a repeat scan. Six hours later the pain is constant, and she has a fever. The gynecologist who finally sees her is dismayed at how long the ovary has gone without blood.",
+              "reply": "An ovary with no blood supply is dying, and a second scan tells us nothing new. She has lost six hours. She goes to the operating room now.",
+              "vitals": {
+                "HR": "120 bpm",
+                "Temp": "38.1 °C"
+              },
+              "trend": {
+                "HR": "up",
+                "Temp": "up"
+              },
+              "status": "worse",
+              "alarm": "Pain now constant · fever"
+            },
+            {
+              "kind": "safe",
+              "minutes": 30,
+              "story": "The gynecologist sees her at once, gives her pain relief and takes her to the operating room.",
+              "reply": "Yes. A twisted ovary is an emergency. The sooner it is untwisted, the better its chance of surviving."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You start a discharge with painkillers. The attending stops it.",
+              "reply": "She would be going home with an ovary that has no blood supply. This needs surgery today."
+            },
+            {
+              "kind": "delay",
+              "minutes": 180,
+              "story": "Antibiotics run in. Three hours later nothing has improved. Her pain is worse, and her heart rate is climbing.",
+              "reply": "This is not an infection. The ovary’s blood supply is twisted shut, and antibiotics cannot untwist it. Three hours have been lost. Call the gynecologist now.",
+              "vitals": {
+                "HR": "116 bpm"
+              },
+              "trend": {
+                "HR": "up"
+              },
+              "status": "worse",
+              "alarm": "Pain worse · heart rate climbing"
+            }
+          ]
+        },
+        "4": {
+          "resident": "You are watching the keyhole surgery. The right ovary is twisted and dark blue, with a 5 cm cyst that looks harmless. She is 22.",
+          "question": "What should the surgeon do?",
+          "options": [
+            "Remove the ovary, because it looks dead",
+            "Untwist it, keep it and remove the cyst, even though it looks dark",
+            "Untwist it, and stitch both ovaries in place as a routine",
+            "Close up without doing anything, and plan an operation later"
+          ],
+          "fix": "Say the ovary should be kept",
+          "terms": [
+            {
+              "term": "Cystectomy",
+              "meaning": "Removing a cyst while leaving the rest of the ovary."
+            },
+            {
+              "term": "Oophorectomy",
+              "meaning": "Removing an ovary."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest removing it. The surgeon shakes their head.",
+              "reply": "How an ovary looks is a poor guide to whether it will survive. Many dark ovaries recover once the blood returns. In a young woman we keep it unless it is plainly dead."
+            },
+            {
+              "kind": "safe",
+              "minutes": 45,
+              "story": "The surgeon untwists the ovary, removes the cyst and leaves the ovary in place to recover.",
+              "reply": "Right. Untwist it and keep it. The cyst was the weight that made it turn, so that comes out."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest stitching both ovaries down. The surgeon shakes their head.",
+              "reply": "That is not routine. It is considered only if an ovary twists again, or if it is the only one she has."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest closing and coming back later. The surgeon shakes their head.",
+              "reply": "Leaving it twisted means losing it. It has to be untwisted now."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "The pregnancy test and the scan are in her chart.",
+        "question": "What is this?",
+        "options": [
+          "A burst ectopic pregnancy",
+          "A twisted ovary (ovarian torsion)",
+          "Appendicitis",
+          "Pelvic inflammatory disease, an infection of the womb and tubes"
+        ],
+        "reveal": "Her right ovary has twisted on the stalk that carries its blood supply. The cyst made it heavy enough to turn. The scan shows a swollen ovary with almost no blood flow. A negative pregnancy test rules out an ectopic, appendicitis would not change the ovary, and a pelvic infection causes pain on both sides, with discharge and fever.",
+        "terms": [
+          {
+            "term": "Torsion",
+            "meaning": "An organ twisting on its own stalk, which cuts off its blood supply."
+          },
+          {
+            "term": "Ovarian cyst",
+            "meaning": "A fluid-filled sac in the ovary. Most are harmless, but a large one can make the ovary twist."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "Recovering after keyhole surgery, with her ovary untwisted and kept",
+        "worse": "Recovering after keyhole surgery. Her ovary went hours longer without blood than it needed to, and only time will show how well it recovers",
+        "critical": "In intensive care"
+      },
+      "plainDiagnosis": "An ovary twisted on its own blood supply (ovarian torsion).",
+      "science": [
+        {
+          "tag": "Waves",
+          "title": "How the scan saw that blood had stopped",
+          "text": "Sound that bounces off something moving comes back at a slightly different pitch. A Doppler scan listens for that shift from moving red blood cells. From her right ovary there was almost none, which meant almost nothing was moving.",
+          "lesson": "wave-sound",
+          "lessonTitle": "Read a wave and a logarithmic level"
+        },
+        {
+          "tag": "Forces",
+          "title": "Why a cyst makes an ovary twist",
+          "text": "The ovary hangs from a stalk. A cyst adds weight away from that stalk, so a sudden movement, like a jump at the gym, produces a turning force. A heavier, more lopsided ovary needs less of a push to rotate.",
+          "lesson": "work-energy",
+          "lessonTitle": "Choose a force or energy model"
+        }
+      ],
+      "sources": [
+        {
+          "title": "ACOG Committee Opinion No. 783 (Obstet Gynecol 2019): adnexal torsion in adolescents",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/31348225/"
+        },
+        {
+          "title": "Huchon and Fauconnier (Eur J Obstet Gynecol Reprod Biol 2010): adnexal torsion, a literature review",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/20189289/"
         }
       ]
     }
