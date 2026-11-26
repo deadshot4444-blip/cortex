@@ -126,10 +126,15 @@ async function play(h, entry, pick, { resumeAtBeat = false, rightDiagnosis = tru
         .sort(),
       [...reaction.differential.options].sort()
     );
-    for (const result of Object.values(reaction.results))
-      assert.ok(
+    /* Only the reports that have come back by now: a case can file a later one after the diagnosis. */
+    const diagnosisAt = caseData.stages.indexOf(diagnosisStage);
+    for (const [stage, result] of Object.entries(reaction.results))
+      assert.equal(
         h.text('.cshift-evidence').includes(result.content.replace(/\s+/g, ' ')),
-        'the plain report is in front of the question'
+        Number(stage) < diagnosisAt,
+        Number(stage) < diagnosisAt
+          ? 'the plain report is in front of the question'
+          : 'a report from later in the case is not shown early'
       );
     assert.ok(!h.text('.cshift-task').includes(reaction.differential.reveal), 'no reveal before the answer');
     assert.equal(h.text('.cshift-task > p'), 'Pick one. Your answer is final.');

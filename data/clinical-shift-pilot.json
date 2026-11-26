@@ -1,5 +1,5 @@
 {
-  "version": 9,
+  "version": 10,
   "title": "Clinical Shift foundations and rotation practice",
   "reviewStatus": "Local source and consistency checks recorded September 7, 2026. Independent clinician review remains pending for all 18 encounters.",
   "rotations": [
@@ -2889,6 +2889,1858 @@
         {
           "title": "StatPearls: vasovagal episode",
           "url": "https://www.ncbi.nlm.nih.gov/books/NBK470277/"
+        }
+      ]
+    },
+    "cd-001": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "A tight chest _on every hill._",
+      "setting": "Outpatient clinic",
+      "handoff": "A 61-year-old man gets a tight band across his chest whenever he walks uphill. It goes away within minutes of stopping. It has been the same for three months.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask him to describe the chest discomfort",
+            "finding": "It feels like a tight band behind his breastbone that spreads to his left shoulder. It lasts three to five minutes and is gone within minutes of resting."
+          },
+          {
+            "prompt": "Ask what brings it on, and whether it is changing",
+            "finding": "It comes on every time after about two blocks uphill or two flights of stairs. It has not changed in three months. He has never had it at rest or at night."
+          },
+          {
+            "prompt": "Ask about his risks and his medicines",
+            "finding": "He has high blood pressure and high cholesterol. He smokes half a pack a day and has smoked for decades. His father had a heart attack at 58. He often forgets his cholesterol tablet."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Listen to his heart and lungs, and look at his neck veins",
+            "finding": "His heartbeat is regular, with normal sounds and nothing extra. His lungs are clear, and the veins in his neck are not swollen."
+          },
+          {
+            "prompt": "Feel his pulses and check for swelling",
+            "finding": "His pulses are strong and equal on both sides. There is no whooshing sound over the arteries in his neck or groin, no swelling in his legs and no pulsing lump in his belly."
+          },
+          {
+            "prompt": "Press on his chest and move his arm, to see if that brings on the pain",
+            "finding": "Pressing on his chest does not hurt. Moving his arm or taking a deep breath does not bring the pain on."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Heart tracing and blood tests",
+          "content": "Heart tracing (ECG) at rest: a normal rhythm at 74 beats a minute, with no sign of an old heart attack and no sign of strain.\nRed blood cell level (hemoglobin): normal, so he is not anemic.\nKidney function: normal.\nBlood sugar: slightly above normal, below the diabetes range (HbA1c 5.8%).\n“Bad” cholesterol (LDL): 128 mg/dL, higher than it should be for someone with his risks.\nThyroid test: normal."
+        },
+        "3": {
+          "label": "Treadmill test",
+          "content": "He walked on the treadmill for 7 minutes and reached a moderate workload (8.5 METs).\nAt peak effort his usual chest pressure came on. At the same time the heart tracing showed a pattern of strain (the ST segment dipped 1.5 mm) in the leads over the front and side of the heart.\nBoth the pressure and the tracing went back to normal within 3 minutes of rest.\nHis blood pressure rose as it should. No dangerous rhythm appeared.\nOverall risk on the test’s score: intermediate."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "His story is steady and predictable, and he is comfortable right now. We start simple.",
+          "question": "Which test do we get first, here in the clinic?",
+          "options": [
+            "Dye pictures of his heart arteries through a thin tube (angiogram)",
+            "A heart tracing at rest (ECG)",
+            "A CT scan that measures the calcium in his heart arteries",
+            "An urgent blood test for heart damage and a trip to the emergency department",
+            "An ultrasound of his heart (echocardiogram)"
+          ],
+          "fix": "Get the heart tracing first",
+          "terms": [
+            {
+              "term": "ECG",
+              "meaning": "A tracing of the heart’s electrical signals. It takes a few minutes and cannot hurt the patient."
+            },
+            {
+              "term": "Angiogram",
+              "meaning": "X-ray pictures of the heart’s arteries, taken by passing a thin tube up from the wrist or groin and injecting dye. It is an invasive test, with small but real risks."
+            },
+            {
+              "term": "Troponin",
+              "meaning": "A protein that leaks into the blood when heart muscle is damaged. It is the blood test for a heart attack."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You start the referral for an angiogram. The resident reads it before it is sent.",
+              "reply": "That is a tube inside his heart arteries, with real risks. He is stable, so we begin with tests that cannot hurt him and see what they show."
+            },
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "The nurse runs the tracing in the clinic room. It takes a few minutes. Blood is drawn for some basic tests while he is here, and the results go in his chart.",
+              "reply": "Good. It is quick and harmless. It can show an old heart attack, and it tells us whether a simple treadmill test will be readable."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You fill in the request for a calcium scan. The resident holds the form.",
+              "reply": "A calcium scan shows how much hardened plaque he has. It cannot show whether a narrowing is choking off blood flow when he walks, and that is the question his symptoms are asking."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You start to arrange an ambulance to the emergency department. The resident stops you at the desk.",
+              "reply": "That is the right call for chest pain at rest, or pain that is getting worse or more frequent. His comes only with effort, goes with rest and has not changed in three months. He can be worked up here."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request a heart ultrasound. The resident sets the request aside.",
+              "reply": "An ultrasound is the test when we suspect a weak heart or a faulty valve: breathlessness, swollen legs, a murmur. He has none of those. The tracing comes first."
+            }
+          ]
+        },
+        "2": {
+          "resident": "His tracing at rest is normal, and he walks every day with no trouble from his joints.",
+          "question": "How do we test his heart under strain?",
+          "options": [
+            "A treadmill test with a heart tracing, and no scan",
+            "A scan using adenosine, a drug that stands in for exercise",
+            "A heart ultrasound using dobutamine, a drug that makes the heart work harder",
+            "Dye pictures of his heart arteries through a thin tube (angiogram)",
+            "A heart monitor worn at home for 48 hours"
+          ],
+          "fix": "Book the treadmill test",
+          "terms": [
+            {
+              "term": "Stress test",
+              "meaning": "A test that makes the heart work hard, by exercise or by a drug, while the team watches for signs that part of it is short of blood."
+            },
+            {
+              "term": "Ischemia",
+              "meaning": "Heart muscle that is not getting enough blood for the work it is doing."
+            },
+            {
+              "term": "Holter monitor",
+              "meaning": "A small recorder worn for a day or two that tracks the heart’s rhythm."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 45,
+              "story": "The clinic’s exercise lab fits him in. He walks on the treadmill while the slope and speed go up every three minutes, with a tracing running the whole time. The report goes in his chart.",
+              "reply": "He can exercise and his resting tracing is easy to read, so a plain treadmill test is a reasonable choice. A scan-based test would also have been acceptable. This shows whether effort leaves his heart short of blood. It does not show the arteries themselves."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request the adenosine scan. The resident reads the form.",
+              "reply": "A drug stands in for exercise when a patient cannot walk on a treadmill. He can. Exercise also shows us how much he can do and what brings the pain on."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request the dobutamine ultrasound. The resident reads the form.",
+              "reply": "Dobutamine is for people who cannot exercise. He walks every day. We let his own legs do the work."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You start a referral for an angiogram. The resident shakes their head.",
+              "reply": "Too soon. He is stable, and we have not yet shown that effort leaves his heart short of blood. An invasive test waits until there is a reason for it."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a 48-hour heart monitor. The resident sets it aside.",
+              "reply": "That monitor looks for rhythm problems, like skipped or racing beats. His problem is pain with effort. A monitor would not tell us whether his heart muscle is short of blood."
+            }
+          ]
+        },
+        "5": {
+          "resident": "The treadmill test brought on his usual pressure, and the tracing showed strain at the same moment. He needs a medicine plan, along with work on his risks.",
+          "question": "Which plan eases his angina day to day and also gives him something for an attack?",
+          "options": [
+            "Ranolazine every day",
+            "A long-acting nitrate every day, and nothing else",
+            "Metoprolol every day, plus a nitroglycerin tablet under the tongue when pain starts",
+            "Send him now for a stent to open the artery",
+            "Diltiazem and verapamil together"
+          ],
+          "fix": "Start metoprolol and give him nitroglycerin",
+          "terms": [
+            {
+              "term": "Angina",
+              "meaning": "Chest pain or pressure that comes when the heart muscle needs more blood than its arteries can deliver."
+            },
+            {
+              "term": "Beta-blocker (metoprolol)",
+              "meaning": "A medicine that slows the heart and softens each beat, so the heart needs less oxygen."
+            },
+            {
+              "term": "Nitroglycerin",
+              "meaning": "A tablet or spray under the tongue that relaxes blood vessels within minutes and eases an attack."
+            },
+            {
+              "term": "Stent",
+              "meaning": "A tiny mesh tube placed inside a narrowed artery to hold it open."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write a prescription for ranolazine alone. The pharmacist calls the clinic before filling it.",
+              "reply": "Ranolazine is an add-on for people whose pain continues on the first medicines. It does not slow the heart, and it gives him nothing to take when the pain comes on."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write a prescription for a long-acting nitrate on its own. The resident reads it before he leaves.",
+              "reply": "A long-acting nitrate can ease angina through the day, but it does not slow the heart, and it works too slowly to stop an attack that has started. He would have nothing to take on the hill."
+            },
+            {
+              "kind": "safe",
+              "minutes": 15,
+              "story": "You go through it with him: metoprolol every morning, and a nitroglycerin tablet under the tongue if the pressure comes on. If it has not eased five minutes after one tablet, he calls an ambulance. His cholesterol medicine is stepped up, a low-dose aspirin is added, and you talk about stopping smoking. A follow-up visit is booked.",
+              "reply": "That covers both jobs: fewer attacks, and a way to stop one. A calcium channel blocker would also have been a fair first choice. And if the pain ever comes at rest, or more often, that is an emergency visit and not a clinic one."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You start an urgent referral for a stent. The resident takes the form.",
+              "reply": "For stable angina like his, a large trial found that starting with medicines prevented heart attacks and deaths about as well as going straight to a procedure. A stent is for pain that persists on good medicines, or for high-risk findings. We start with medicines."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for diltiazem and verapamil together. The pharmacist calls before filling it.",
+              "reply": "Those two are the same kind of medicine, and both slow the heart’s electrical signals. Together they can slow the heart dangerously. He would also still have nothing for an attack."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "The treadmill report is in his chart. Put it together with his story.",
+        "question": "What is this chest pressure?",
+        "options": [
+          "Unstable angina: heart pain that is new, getting worse or coming at rest",
+          "Artery spasm (vasospastic angina): a heart artery clamps down, usually at rest or at night",
+          "Acid reflux: stomach acid rising into the food pipe",
+          "Stable angina: predictable heart pain with effort, most likely from a narrowed artery",
+          "A badly narrowed heart valve (aortic stenosis) straining the heart"
+        ],
+        "reveal": "It is stable angina. The pressure comes at the same level of effort every time, goes with rest and has not changed in three months, and the treadmill test brought it on together with signs of strain. A narrowed heart artery is the likely cause, but no one has seen the artery yet. Pain at rest, or a pattern that is getting worse, would make it unstable and urgent.",
+        "terms": [
+          {
+            "term": "Stable",
+            "meaning": "The same trigger, the same pain and the same relief, week after week."
+          },
+          {
+            "term": "Coronary arteries",
+            "meaning": "The arteries that feed the heart muscle itself."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "Going home with a medicine plan and a follow-up visit",
+        "worse": "Sent to the emergency department for more tests",
+        "critical": "In the emergency department"
+      },
+      "plainDiagnosis": "Predictable chest pain with effort (stable angina), most likely from a narrowed heart artery.",
+      "science": [
+        {
+          "tag": "Flow through a narrowing",
+          "title": "Why the pressure only comes on hills",
+          "text": "If one of his heart arteries is narrowed, as the test suggests, enough blood still gets past it at rest. On a hill his heart needs several times more, and flow through a narrow tube cannot rise to match. The muscle downstream runs short, and that is the pressure he feels.",
+          "lesson": "fluid-flow",
+          "lessonTitle": "Follow flow through a narrowing"
+        },
+        {
+          "tag": "Making ATP",
+          "title": "Why heart muscle cannot wait for oxygen",
+          "text": "Heart muscle makes almost all of its ATP using oxygen, and it stores very little. When the oxygen supply falls behind the work, the muscle signals trouble within moments. When he stops walking, the demand drops and the pain fades.",
+          "lesson": "oxidative-phosphorylation",
+          "lessonTitle": "Link electrons to ATP"
+        },
+        {
+          "tag": "Pressure and blood flow",
+          "title": "How his two medicines help",
+          "text": "Metoprolol slows his heart and softens each beat, so the muscle needs less oxygen. Nitroglycerin relaxes his veins, so less blood returns to the heart. A less full heart does less work with each beat.",
+          "lesson": "circulatory-flow",
+          "lessonTitle": "Connect pressure to blood flow"
+        }
+      ],
+      "sources": [
+        {
+          "title": "2023 AHA/ACC guideline: management of patients with chronic coronary disease",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/37471501/"
+        },
+        {
+          "title": "2021 AHA/ACC guideline: evaluation and diagnosis of chest pain",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/34709879/"
+        },
+        {
+          "title": "ISCHEMIA trial (NEJM 2020): initial invasive or conservative strategy for stable coronary disease",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/32227755/"
+        }
+      ]
+    },
+    "cd-006": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "A heartbeat that _lost its rhythm._",
+      "setting": "Emergency department",
+      "start": {
+        "status": "stable",
+        "alarm": "Fast, irregular heart rate"
+      },
+      "handoff": "A 68-year-old man has felt his heart pounding and fluttering since breakfast, six hours ago. He gets a little short of breath when he walks. He drank much more than usual at a wedding last night.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask when it started and what else he feels",
+            "finding": "It began all at once six hours ago. He is a little short of breath when he walks, and tired. No chest pain, no fainting, no fever and no cough."
+          },
+          {
+            "prompt": "Ask what might have set it off",
+            "finding": "He had five or six drinks at a wedding last night, far more than his usual one or two. He takes no cold remedies or stimulants."
+          },
+          {
+            "prompt": "Ask about his health and his risk of stroke",
+            "finding": "He is 68, with high blood pressure and diabetes. He has never had a stroke, heart failure or blocked arteries."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Listen to his heart and feel his pulse",
+            "finding": "Fast and completely irregular, with no pattern to it. Some beats are too weak to reach his wrist, so the pulse there is slower than the heartbeat you hear."
+          },
+          {
+            "prompt": "Check that enough blood is reaching his body, and look for fluid backing up",
+            "finding": "He is alert, with warm hands and feet. His lungs are clear, the veins in his neck are not swollen and his legs are not swollen."
+          },
+          {
+            "prompt": "Check his thyroid gland and look for a tremor",
+            "finding": "His thyroid gland is a normal size, with no lumps. His hands are steady."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Heart tracing and tests",
+          "content": "Heart tracing (ECG): a completely irregular rhythm at 138 to 152 beats a minute. The small wave that should come before each beat (the P wave) is missing, and the baseline quivers instead. The beats themselves are narrow, and there is no sign of strain on the heart muscle.\nBlood test for heart damage (troponin): normal.\nBlood salts, kidney function and thyroid test: normal.\nBlood sugar: 162, raised, as expected with his diabetes.\nBlood count: normal.\nChest X-ray: a normal-sized heart and clear lungs.\nHeart ultrasound on file: a normal squeeze (60%), with no badly narrowed valve and no artificial valve."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "He is awake and talking in full sentences. His blood pressure is fine, and his pulse is fast and uneven.",
+          "question": "What do we do first?",
+          "options": [
+            "Shock his heart back to a normal rhythm right away",
+            "Get a 12-lead heart tracing (ECG)",
+            "Push adenosine into a vein",
+            "Send him for a CT scan to look for a clot in his lungs",
+            "Press on the artery in his neck to slow the heart"
+          ],
+          "fix": "Get the heart tracing",
+          "terms": [
+            {
+              "term": "ECG",
+              "meaning": "A tracing of the heart’s electrical signals. It takes a few minutes and cannot hurt the patient."
+            },
+            {
+              "term": "Cardioversion",
+              "meaning": "A timed electric shock that resets the heart’s rhythm. The patient is sedated for it."
+            },
+            {
+              "term": "Stable",
+              "meaning": "Blood pressure holding, thinking clearly, no chest pain and no fluid in the lungs. A stable patient gives the team time to find out what the rhythm is."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for the shock pads and sedation. The resident stops the cart before anyone opens it.",
+              "reply": "A shock is for a patient who is crashing: low blood pressure, chest pain, confusion, fluid in the lungs. He has none of those. And we do not yet know what rhythm we would be shocking."
+            },
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "The tracing is run at the bedside in a couple of minutes, and blood is drawn at the same time. The results go in his chart.",
+              "reply": "Right. Name the rhythm before you treat it. The tracing also checks for a heart attack, and for wiring problems that would change which medicines are safe."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask the nurse to draw up adenosine. The resident stops the syringe.",
+              "reply": "Adenosine stops rhythms that run in a loop through the heart’s relay station, and those are regular. His pulse is completely irregular. We need the tracing before any rhythm medicine."
+            },
+            {
+              "kind": "delay",
+              "minutes": 40,
+              "story": "He is wheeled to the scanner for a CT of his lungs. It shows no clot. Forty minutes later he is back in his bay with his heart still racing, and he is more breathless than when he left.",
+              "reply": "Nothing in his story pointed to a lung clot: no sharp pain on breathing in, no low oxygen, no swollen leg. He has spent forty more minutes with a racing heart and no one knowing his rhythm. The tracing takes two minutes. We do it now.",
+              "vitals": {
+                "RR": "24 /min"
+              },
+              "trend": {
+                "RR": "up"
+              },
+              "status": "worse",
+              "alarm": "Still racing · more short of breath"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You reach for his neck. The resident catches your hand.",
+              "reply": "That maneuver is for fast rhythms that are regular. His is plainly irregular, so it would tell us nothing. In an older patient, pressing on a neck artery can also, rarely, cause a stroke."
+            }
+          ]
+        },
+        "3": {
+          "resident": "The tracing shows atrial fibrillation at about 145. His blood pressure is holding, his heart’s squeeze is normal, and there is no sign of an extra electrical pathway.",
+          "question": "How do we treat him right now?",
+          "options": [
+            "Diltiazem through a vein, to slow the heart rate",
+            "Shock his heart back to a normal rhythm right away",
+            "Adenosine, pushed fast into a vein",
+            "Amiodarone, a strong rhythm medicine, through a vein",
+            "Digoxin tablets, starting with a large first dose"
+          ],
+          "fix": "Give diltiazem",
+          "terms": [
+            {
+              "term": "Rate control",
+              "meaning": "Slowing how often the lower chambers beat, without trying to fix the rhythm itself. It eases symptoms and takes strain off the heart."
+            },
+            {
+              "term": "Diltiazem",
+              "meaning": "A medicine that blocks calcium channels in the heart’s relay station, so fewer signals get through to the lower chambers."
+            },
+            {
+              "term": "Relay station (AV node)",
+              "meaning": "The one normal electrical link between the heart’s upper and lower chambers."
+            },
+            {
+              "term": "Digoxin",
+              "meaning": "An old heart medicine that slows the relay station. It can take an hour or more to start working."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 15,
+              "story": "The diltiazem goes in over two minutes, with the monitor running. Within a quarter of an hour his rate settles to 92. The rhythm is still irregular, but he says the pounding has eased and he can breathe more easily.",
+              "reply": "That is the goal for now: a slower rate. His heart is still in atrial fibrillation. Whether to reset the rhythm is a decision for later, once his stroke risk has been dealt with.",
+              "vitals": {
+                "HR": "92 bpm (irregular)",
+                "RR": "18 /min"
+              },
+              "trend": {
+                "HR": "down",
+                "RR": "down"
+              },
+              "status": "better",
+              "alarm": ""
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for the shock pads. The resident shakes their head.",
+              "reply": "He is stable, so there is no need to shock him now. A shock also carries a stroke risk if a clot has formed in the heart, so the team plans it with blood thinning in mind. First we slow the rate."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for adenosine. The resident stops the order.",
+              "reply": "Adenosine blocks the relay station for a few seconds and then wears off. It does not stop atrial fibrillation, so his heart would be racing again before the syringe was put down."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write the order for amiodarone. The pharmacist calls before it is mixed.",
+              "reply": "Amiodarone is kept for patients who are very sick or whose heart is failing. It can also flip the rhythm back to normal without warning, before his stroke risk has been dealt with. He has a simpler, faster choice."
+            },
+            {
+              "kind": "delay",
+              "minutes": 60,
+              "story": "He swallows the first digoxin tablets. An hour later his heart is still racing at over 140. He is more tired and more breathless, and his blood pressure has started to slip.",
+              "reply": "Digoxin by mouth takes hours to slow the heart, and it works poorly when the body is revved up. He has now spent another hour racing. His pressure is still good enough for diltiazem, so we give it now.",
+              "vitals": {
+                "BP": "108/68 mmHg"
+              },
+              "trend": {
+                "BP": "down"
+              },
+              "status": "worse",
+              "alarm": "Still racing · blood pressure slipping"
+            }
+          ]
+        },
+        "4": {
+          "resident": "His rate is down to 92 and he feels better. Atrial fibrillation lets blood pool in the heart’s upper chambers, where clots can form and travel to the brain. He is 68, with high blood pressure and diabetes.",
+          "question": "How do we protect him from a stroke?",
+          "options": [
+            "A low-dose aspirin every day",
+            "Nothing, because the episode has lasted less than 48 hours",
+            "Warfarin, but only if the rate medicine stops working",
+            "Start a blood thinner such as apixaban",
+            "Aspirin plus clopidogrel"
+          ],
+          "fix": "Start apixaban",
+          "terms": [
+            {
+              "term": "Blood thinner (anticoagulant)",
+              "meaning": "A medicine that slows the clotting proteins in the blood. It does not actually thin it."
+            },
+            {
+              "term": "Apixaban",
+              "meaning": "One of the newer blood thinners (a DOAC). It needs no regular blood test, unlike warfarin."
+            },
+            {
+              "term": "Stroke risk score (CHA2DS2-VASc)",
+              "meaning": "A points score built from age, blood pressure, diabetes and other conditions. He scores 3: one each for his age, his blood pressure and his diabetes."
+            },
+            {
+              "term": "Aspirin and clopidogrel",
+              "meaning": "Medicines that make platelets less sticky. They act on a different part of clotting than a blood thinner does."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for a daily aspirin. The pharmacist calls to check.",
+              "reply": "Aspirin does little to stop the kind of clot that forms in a fibrillating heart, and it still causes bleeding. For someone at his level of risk, the guidelines advise against using it in place of a blood thinner."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You tell him he needs nothing more, since it has only been six hours. The resident steps back into the room.",
+              "reply": "The 48-hour mark matters when planning a shock. It says nothing about his long-term risk. Atrial fibrillation often comes back, and his age, blood pressure and diabetes put him in the group that benefits from a blood thinner."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You plan to hold off unless the rate medicine fails. The resident stops you.",
+              "reply": "Stroke risk does not depend on how well the rate is controlled. A slow, comfortable heart in atrial fibrillation can still form a clot. The decision rests on his risk score."
+            },
+            {
+              "kind": "safe",
+              "minutes": 15,
+              "story": "You check his kidney function and his bleeding risk, and ask about anything that would rule a blood thinner out. Then you go through apixaban with him: twice a day, no skipped doses, and what bleeding to watch for. He is asked to cut back on alcohol, and a heart clinic visit is booked.",
+              "reply": "Good. His risk score drives the decision, not the length of this episode. Apixaban fits because he has no artificial valve and no badly narrowed mitral valve."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for aspirin with clopidogrel. The pharmacist calls before filling it.",
+              "reply": "The guidelines advise against that pair too. Two platelet medicines add bleeding risk and protect him less than a blood thinner would. A blood thinner is the right tool for this kind of clot."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "The heart tracing is in his chart. Look at the rhythm, then tell me what it is.",
+        "question": "What rhythm is this?",
+        "options": [
+          "Multifocal atrial tachycardia: several spots in the upper chambers fire in turn, mostly in people with severe lung disease",
+          "Atrial flutter: the upper chambers beat in a fast, regular loop, giving a steady pulse near 150",
+          "Atrial fibrillation: the upper chambers quiver, so the pulse is fast and completely irregular",
+          "A short circuit near the relay station (AVNRT): fast and perfectly regular",
+          "A fast but normal rhythm with frequent early beats"
+        ],
+        "reveal": "It is atrial fibrillation with a fast heart rate. The rhythm has no pattern at all, and the small wave that should come before each beat is missing because the upper chambers are quivering instead of squeezing. A night of heavy drinking is a well-known trigger, sometimes called “holiday heart”.",
+        "terms": [
+          {
+            "term": "Atrial",
+            "meaning": "To do with the atria, the heart’s two upper chambers."
+          },
+          {
+            "term": "Fibrillation",
+            "meaning": "Fast, disorganized quivering in place of a coordinated beat."
+          }
+        ]
+      },
+      "ending": {
+        "better": "Heart rate controlled and on a blood thinner, with a heart clinic visit booked",
+        "stable": "Heart rate controlled and on a blood thinner, with a heart clinic visit booked",
+        "worse": "Still on the monitor in the emergency department",
+        "critical": "In the resuscitation room"
+      },
+      "plainDiagnosis": "A fast, irregular heart rhythm from quivering upper chambers (atrial fibrillation), most likely set off by heavy drinking.",
+      "science": [
+        {
+          "tag": "Circuits",
+          "title": "Why his pulse had no pattern",
+          "text": "Normally one spot in the upper chambers fires and the signal spreads in order. In atrial fibrillation, signals swirl through the upper chambers hundreds of times a minute. The relay station lets only some of them through, at uneven intervals, so his pulse was fast and irregular.",
+          "lesson": "circuit-paths",
+          "lessonTitle": "Follow current through a circuit"
+        },
+        {
+          "tag": "Membranes",
+          "title": "How diltiazem slowed him down",
+          "text": "The cells of the relay station fire by letting calcium flow in through channels in their membranes. Diltiazem blocks those channels. Each cell takes longer to be ready to fire again, so fewer signals reach the lower chambers.",
+          "lesson": "membrane-transport",
+          "lessonTitle": "Cross a membrane"
+        },
+        {
+          "tag": "Enzymes",
+          "title": "How apixaban lowers his stroke risk",
+          "text": "Blood that pools in a quivering upper chamber can clot. Clotting is a chain of enzymes, each switching on the next. Apixaban sits in the active site of one of them, factor Xa, and competes with its normal target, so the chain slows down.",
+          "lesson": "enzyme-rates",
+          "lessonTitle": "Read an enzyme curve"
+        }
+      ],
+      "sources": [
+        {
+          "title": "2023 ACC/AHA/ACCP/HRS guideline: diagnosis and management of atrial fibrillation",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/38033089/"
+        },
+        {
+          "title": "2023 atrial fibrillation guideline: recommendations for acute rate control",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11095842/table/T64"
+        },
+        {
+          "title": "AVERROES trial (NEJM 2011): apixaban versus aspirin in atrial fibrillation",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/21309657/"
+        },
+        {
+          "title": "2015 ACC/AHA/HRS guideline: management of adults with supraventricular tachycardia",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/26409259/"
+        },
+        {
+          "title": "AHA guidelines: adult advanced life support (2025)",
+          "url": "https://cpr.heart.org/en/resuscitation-science/cpr-and-ecc-guidelines/adult-advanced-life-support"
+        },
+        {
+          "title": "StatPearls: adenosine",
+          "url": "https://www.ncbi.nlm.nih.gov/books/NBK519049/"
+        },
+        {
+          "title": "StatPearls: amiodarone",
+          "url": "https://www.ncbi.nlm.nih.gov/books/NBK482154/"
+        }
+      ]
+    },
+    "cd-055": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "Down on the court, _mid-sprint._",
+      "setting": "Sports medicine clinic",
+      "handoff": "A 17-year-old basketball player collapsed during a game yesterday while sprinting. He was out for about 20 seconds and woke up clear-headed. He feels fine today.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask exactly what happened when he went down and when he woke",
+            "finding": "He fell with no warning in the middle of a sprint. His coach says he was out for about 20 seconds. He woke knowing where he was, with no confusion, no bitten tongue and no loss of bladder control."
+          },
+          {
+            "prompt": "Ask whether anything like this has happened before during exercise",
+            "finding": "Twice this season he felt lightheaded during sprints. He sometimes gets a tight chest when he pushes hard. He put it down to being out of shape and told no one."
+          },
+          {
+            "prompt": "Ask about heart problems in his family",
+            "finding": "His father’s brother died suddenly at 38 while swimming. It was called a heart attack, and no autopsy was done. His father was once told he has “thick heart walls” and never followed it up."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Listen to his heart while he bears down, stands, squats and grips",
+            "finding": "There is a harsh whooshing sound (a murmur) with each beat, low on the left side of his breastbone. It gets louder when he bears down or stands up, and softer when he squats or squeezes his fists."
+          },
+          {
+            "prompt": "Feel his heartbeat on his chest and the pulse in his neck",
+            "finding": "The heartbeat against his chest wall is forceful but in the normal place. There is an extra heart sound just before each beat. The pulse in his neck rises fast and has a double tap."
+          },
+          {
+            "prompt": "Check his nervous system and look for fluid backing up",
+            "finding": "His strength, sensation, balance and reflexes are normal. The veins in his neck are not swollen, his lungs are clear and his legs are not swollen."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Heart tracing and ultrasound",
+          "content": "Heart tracing (ECG): a normal rhythm, but with the tall signals of a thickened heart and abnormal patterns (deep Q waves and flipped T waves) in the leads over the left side.\nHeart ultrasound (echo): the wall between the two lower chambers is 21 mm thick, about twice normal. The back wall is a normal 9 mm.\nWith each beat, a flap of the mitral valve is pulled toward that thick wall and partly blocks the way out of the heart. Some blood also leaks backward through the valve.\nPressure drop across the blockage: 60 mmHg at rest, rising to 95 when he bears down. Normally there is almost none.\nThe heart squeezes strongly (70%). The valve that leads out of the heart is normal.\nBlood test for heart damage, blood count and thyroid test: normal."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "A blackout in the middle of hard exercise, with no warning, is never brushed off. And there is that murmur.",
+          "question": "What do we do next?",
+          "options": [
+            "Put him on a treadmill today, to see if exercise brings it on again",
+            "A heart tracing (ECG) and a heart ultrasound",
+            "A tilt-table test, looking for a simple faint",
+            "A brain-wave test (EEG) and a visit to the nerve specialists, in case it was a seizure",
+            "Tell the family that fainting is common in teenagers, and send him home"
+          ],
+          "fix": "Get the heart tracing and the ultrasound",
+          "terms": [
+            {
+              "term": "Heart ultrasound (echocardiogram)",
+              "meaning": "Moving pictures of the heart made with sound waves. It shows how thick the walls are and how blood flows through."
+            },
+            {
+              "term": "Simple faint (vasovagal syncope)",
+              "meaning": "A reflex that briefly drops the blood pressure. It usually happens while standing still, after a warning of warmth, sweating or nausea."
+            },
+            {
+              "term": "Tilt-table test",
+              "meaning": "A test that tilts a patient upright, while they are watched, to bring on a faint. It is for cases where the cause is unclear."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "delay",
+              "minutes": 25,
+              "story": "He starts on the treadmill with a tracing running. A few minutes in, as the slope steepens, he turns pale and says the room is going gray. His blood pressure has fallen when it should be climbing. The test is stopped and he is laid flat. He feels normal again within a minute.",
+              "reply": "Exercise is what made him black out yesterday, and we have not looked at his heart yet. An exercise test can be useful later, at a heart center, with the right team watching. Not today. Now we get the tracing and the ultrasound.",
+              "vitals": {
+                "BP": "100/60 mmHg",
+                "HR": "96 bpm"
+              },
+              "trend": {
+                "BP": "down",
+                "HR": "up"
+              },
+              "status": "unstable",
+              "alarm": "Nearly passed out on the treadmill · blood pressure fell with exercise"
+            },
+            {
+              "kind": "safe",
+              "minutes": 30,
+              "story": "The tracing takes a few minutes. The ultrasound is done down the hall, and he lies still for it. The reports go in his chart.",
+              "reply": "Right. When a young athlete blacks out during exercise, you look at the heart first: its electrical pattern and its structure. Everything else waits."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request a tilt-table test. The resident sets the form aside.",
+              "reply": "A tilt test is for repeated faints once the heart has been cleared. A simple faint comes on while standing still, with a warning. He went down mid-sprint with none. The heart comes first."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You start the referral for a brain-wave test. The resident reads it over your shoulder.",
+              "reply": "Nothing here looks like a seizure. He had no warning feeling and no bitten tongue, and he woke clear-headed. A blackout during hard exercise points to the heart."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You begin to tell his mother it was a simple faint. The resident steps in before she picks up her bag.",
+              "reply": "This is the one kind of faint we never wave through. A blackout during exercise with no warning, a murmur, and a relative who died suddenly at 38: each is a red flag for a dangerous heart condition. He does not leave without a heart check."
+            }
+          ]
+        },
+        "3": {
+          "resident": "The ultrasound shows a very thick heart wall that partly blocks the way out with every beat. The blockage gets worse when his heart is less full.",
+          "question": "What is the plan now?",
+          "options": [
+            "Start lisinopril, to relax his arteries and shrink the muscle",
+            "Start furosemide, a water tablet, to lower the pressure across the blockage",
+            "Start verapamil, with nitroglycerin under the tongue for chest tightness",
+            "Start a beta-blocker, and send him urgently to heart specialists to be assessed for an implanted defibrillator"
+          ],
+          "fix": "Start a beta-blocker and refer him",
+          "terms": [
+            {
+              "term": "Beta-blocker",
+              "meaning": "A medicine that slows the heart and softens each beat. A slower heart has longer to fill, and a fuller heart is less blocked."
+            },
+            {
+              "term": "Implanted defibrillator (ICD)",
+              "meaning": "A small device under the skin that watches the heart’s rhythm and gives a shock if a deadly rhythm starts."
+            },
+            {
+              "term": "Vasodilator",
+              "meaning": "A medicine that relaxes blood vessels. Lisinopril and nitroglycerin are two."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write a prescription for lisinopril. The resident reads it before it is printed.",
+              "reply": "Lisinopril relaxes the arteries. With less to push against, his heart empties faster and more completely, and the thick wall and the valve flap close in on each other. The blockage gets worse. And it has not been shown to shrink this kind of muscle."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write a prescription for furosemide. The pharmacist calls the clinic before filling it.",
+              "reply": "A water tablet drains fluid, so his heart fills less. In this condition a less full heart is a more blocked heart. He needs to stay well filled, and well hydrated."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for verapamil and nitroglycerin. The resident stops at the second line.",
+              "reply": "Nitroglycerin relaxes the veins, so less blood returns to the heart and the blockage tightens. It could make him black out. Verapamil has a place in this condition, but it is the second choice, for when a beta-blocker does not work or cannot be taken."
+            },
+            {
+              "kind": "safe",
+              "minutes": 20,
+              "story": "You explain the medicine to him and his mother. The resident calls the heart center, and he is given an urgent appointment for a full risk assessment, including a monitor to wear and an MRI of his heart. He is told to stay well hydrated.",
+              "reply": "The beta-blocker eases the blockage. It does not protect him from a dangerous rhythm. That is what the specialists will weigh up, and why they will discuss a defibrillator with him and his family."
+            }
+          ]
+        },
+        "4": {
+          "resident": "One more conversation before they leave. This condition usually runs in families, and he wants to know about Friday’s game.",
+          "question": "What do we tell them about sports and about his relatives?",
+          "options": [
+            "He can keep playing if he drinks plenty of water and takes his beta-blocker",
+            "His relatives need checking only if they get symptoms",
+            "No hard competitive sport until the specialists have assessed him, and his parents and any brothers or sisters all need a heart check",
+            "No family checks are needed, because his uncle died of a heart attack"
+          ],
+          "fix": "Pause competitive sport and check the family",
+          "terms": [
+            {
+              "term": "First-degree relatives",
+              "meaning": "Parents, brothers, sisters and children. This condition is usually passed on so that each child of an affected parent has a 1 in 2 chance of inheriting it."
+            },
+            {
+              "term": "Screening",
+              "meaning": "Checking people who feel well, here with a heart tracing and a heart ultrasound, to find a condition before it causes harm."
+            },
+            {
+              "term": "Shared decision",
+              "meaning": "A choice made by the patient, the family and the specialists together, once the risks are understood."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You start to tell him Friday’s game is fine. The resident cuts in.",
+              "reply": "Not yet. He blacked out during a sprint yesterday, and no one has sized up his risk. Some people with this condition do go back to sport, but that is decided with the specialists after a full assessment, not before it."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You tell his mother the rest of the family can wait and see. The resident steps in.",
+              "reply": "In this condition the first symptom can be a sudden death. That is why relatives are checked while they feel well. Waiting for symptoms throws away the chance to protect them."
+            },
+            {
+              "kind": "safe",
+              "minutes": 15,
+              "story": "You explain it to them both. He is unhappy about missing Friday’s game, and his mother has a lot of questions. She starts arranging heart checks for the family, beginning with his father.",
+              "reply": "That is the right message. Sitting out is a pause, not a verdict: the specialists will decide with him what he can return to. His father’s “thick heart walls” and his uncle’s death may well be the same condition, which makes the family checks urgent."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You tell them the uncle’s heart attack is a separate matter. The resident shakes their head.",
+              "reply": "A 38-year-old dying suddenly while swimming, with no autopsy, is how this condition often hides in a family. “Heart attack” was a guess. It makes checking the family more important, not less."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "The heart tracing and the ultrasound are in his chart. Read them, then tell me what he has.",
+        "question": "What explains his blackout and his murmur?",
+        "options": [
+          "Hypertrophic cardiomyopathy with obstruction: an inherited thickening of the heart muscle that blocks the way out",
+          "Athlete’s heart: normal, even thickening from years of training",
+          "A thin shelf of tissue below the valve that leads out of the heart, causing a fixed blockage",
+          "A narrowed valve where blood leaves the heart (aortic stenosis)"
+        ],
+        "reveal": "It is hypertrophic cardiomyopathy with obstruction. One wall of his heart is 21 mm thick while the other is normal, and a valve flap is pulled into the path of the blood with each beat. Training thickens the heart evenly, and rarely past 13 to 15 mm. The murmur that gets louder when he bears down was the clue at the bedside: the heart fills less, and the blockage tightens.",
+        "terms": [
+          {
+            "term": "Hypertrophic",
+            "meaning": "Overgrown. The muscle cells are larger than normal."
+          },
+          {
+            "term": "Cardiomyopathy",
+            "meaning": "A disease of the heart muscle itself."
+          },
+          {
+            "term": "Obstruction",
+            "meaning": "A blockage. Here the thick wall and a valve flap narrow the way out of the heart."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "Home with his family, off the court for now, with an urgent heart center visit booked",
+        "unstable": "Seen by the heart specialists the same day, after a scare on the treadmill",
+        "worse": "Kept in hospital for heart monitoring",
+        "critical": "In the resuscitation room"
+      },
+      "plainDiagnosis": "An inherited thickening of the heart muscle that blocks blood leaving the heart (hypertrophic cardiomyopathy with obstruction).",
+      "science": [
+        {
+          "tag": "Flow through a narrowing",
+          "title": "Why a thick wall becomes a blockage",
+          "text": "Blood leaving his heart has to pass between the thick wall and the mitral valve. In a narrow channel the same flow has to move faster, and the pressure at its edges drops. That drop pulls the valve flap toward the wall, and the channel narrows further.",
+          "lesson": "fluid-flow",
+          "lessonTitle": "Follow flow through a narrowing"
+        },
+        {
+          "tag": "Pressure and blood flow",
+          "title": "Why bearing down made the murmur louder",
+          "text": "Bearing down squeezes the chest, and less blood returns to the heart. A less full heart is smaller, so the wall and the valve flap sit closer together and the blockage tightens. Squatting does the opposite: it pushes blood back to the heart, and his murmur softened.",
+          "lesson": "circulatory-flow",
+          "lessonTitle": "Connect pressure to blood flow"
+        },
+        {
+          "tag": "Inheritance",
+          "title": "Why his whole family needs a heart check",
+          "text": "This condition is usually passed on by a single changed copy of a gene, so each child of an affected parent has a 1 in 2 chance of inheriting it. His father’s thick heart walls and his uncle’s sudden death fit that pattern. His own gene test has not been done yet.",
+          "lesson": "inheritance-linkage",
+          "lessonTitle": "Reason through inheritance"
+        }
+      ],
+      "sources": [
+        {
+          "title": "2024 AHA/ACC guideline: management of hypertrophic cardiomyopathy",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/38718139/"
+        },
+        {
+          "title": "Frenneaux et al. (Circulation 1990): abnormal blood pressure response during exercise in hypertrophic cardiomyopathy",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/2242524/"
+        },
+        {
+          "title": "Conway et al. (Circulation 2023): exercise test abnormalities and outcomes in childhood hypertrophic cardiomyopathy",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/36335467/"
+        },
+        {
+          "title": "2017 ACC/AHA/HRS guideline: evaluation and management of patients with syncope",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/28280231/"
+        }
+      ]
+    },
+    "cd-061": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "Ten days of fever, _and now his breathing._",
+      "setting": "Hospital ward",
+      "start": {
+        "status": "unstable",
+        "alarm": "High fever · fast heart rate · low oxygen"
+      },
+      "handoff": "A 26-year-old man has had fevers and drenching sweats for ten days. For the last three days he has been short of breath, with chest pain when he breathes in. He injects heroin several times a day.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask about the fevers and how he has been overall",
+            "finding": "Ten days of fever, drenching night sweats and exhaustion. He has no appetite and has lost about 4 kg without trying."
+          },
+          {
+            "prompt": "Ask how he injects and what he may have been exposed to",
+            "finding": "He injects heroin several times a day and reuses needles. He has no stable place to live. He has never been tested for HIV."
+          },
+          {
+            "prompt": "Ask about his chest and his breathing",
+            "finding": "For three days it has hurt to take a deep breath, and he has been getting more breathless. He coughs up phlegm that is sometimes streaked with blood."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Listen to his heart and look at his neck veins",
+            "finding": "A soft whooshing sound (a murmur) runs through each beat, low on the left side of his breastbone. It gets louder when he breathes in. The veins in his neck are a little swollen."
+          },
+          {
+            "prompt": "Listen to his lungs and watch his breathing",
+            "finding": "He is working a little harder than normal to breathe. There are crackling sounds scattered through both lungs."
+          },
+          {
+            "prompt": "Look at his injection sites, and at his hands, feet and eyes",
+            "finding": "There are fresh and healed needle marks inside both elbows, with no skin infection around them. His nails, fingers, toes and the lining of his eyes show none of the small spots that a heart valve infection can cause."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Blood tests and chest X-ray",
+          "content": "White blood cells: 18.6, well above normal. That is a sign the body is fighting an infection.\nRed blood cell level (hemoglobin): 10.4, mildly low.\nPlatelets and kidney function: normal.\nLactate: 2.4, slightly raised. It rises when the body is under strain from an infection.\nBlood cultures (3 sets): still growing. No result yet.\nChest X-ray: many round patches near the edges of both lungs. Several have a hollow center.\nHeart tracing (ECG): a fast but normal rhythm, with normal timing between the upper and lower chambers.\nHIV test: not back yet."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "He looks sick. He has a fever of 39.1, a murmur and low oxygen. We need antibiotics in him soon, and one thing has to happen first.",
+          "question": "What do we do before the first dose?",
+          "options": [
+            "Start vancomycin now, and take blood cultures once his fever has gone",
+            "Draw at least three sets of blood cultures, each from a different vein",
+            "Send one blood culture and a urine culture",
+            "Start antibiotic tablets and book a heart ultrasound as an outpatient"
+          ],
+          "fix": "Draw three sets of blood cultures",
+          "terms": [
+            {
+              "term": "Blood culture",
+              "meaning": "A sample of blood kept warm in a bottle of broth, to see whether bacteria grow. One “set” is two bottles filled from one needle stick."
+            },
+            {
+              "term": "Empiric antibiotics",
+              "meaning": "Antibiotics chosen as a best guess, before the lab has named the bacteria."
+            },
+            {
+              "term": "Vancomycin",
+              "meaning": "A strong antibiotic given through a vein. It covers staph, including the resistant kind called MRSA."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask the nurse to hang the vancomycin. The nurse is holding the culture bottles, and checks with the resident first.",
+              "reply": "Once an antibiotic is in his blood, the cultures may grow nothing, and we would be treating blind for weeks. Drawing them takes minutes. Cultures first, then the antibiotic straight after."
+            },
+            {
+              "kind": "safe",
+              "minutes": 15,
+              "story": "Three sets are drawn from three separate veins, a few minutes apart. While that is done, the nurse starts oxygen through a small tube at his nose, and a chest X-ray and basic blood tests are sent. His oxygen level comes up.",
+              "reply": "Good. Three sets from separate sites give the lab the best chance of naming the bacteria. They also show whether it is in his blood all the time, which is the mark of an infection inside the heart or a blood vessel. The antibiotic follows as soon as the bottles are filled.",
+              "vitals": {
+                "SpO2": "95% on oxygen"
+              },
+              "trend": {
+                "SpO2": "up"
+              },
+              "alarm": "High fever · fast heart rate"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You send one blood culture and a urine sample. The resident sees the single set on the trolley.",
+              "reply": "One set is not enough. If it grows a skin germ, we cannot tell contamination from real infection, and if it grows nothing we have learned little. Nothing points to his urine, either. Three sets, from three veins."
+            },
+            {
+              "kind": "delay",
+              "minutes": 30,
+              "story": "You write a prescription for antibiotic tablets and start his discharge papers. Half an hour later he is still waiting on the ward, breathing room air. His oxygen has dropped, and he cannot finish a sentence without stopping for breath.",
+              "reply": "He cannot go home. A fever, a murmur, low oxygen and failing breath mean an infection that is treated in hospital, with antibiotics through a vein and close watching. Oxygen on, cultures now, then the first dose.",
+              "vitals": {
+                "SpO2": "87% RA",
+                "RR": "30 /min"
+              },
+              "trend": {
+                "SpO2": "down",
+                "RR": "up"
+              },
+              "status": "worse",
+              "alarm": "Oxygen falling · struggling to breathe"
+            }
+          ]
+        },
+        "3": {
+          "resident": "The picture is a heart valve infection that is sending infected clots to his lungs. The cultures are drawn. In someone who injects drugs, staph is the most likely germ, and it may be the resistant kind.",
+          "question": "Which antibiotic has to be in the first treatment?",
+          "options": [
+            "Vancomycin through a vein, to cover resistant staph (MRSA)",
+            "Ceftriaxone through a vein, on its own",
+            "Linezolid tablets",
+            "Ampicillin plus gentamicin through a vein"
+          ],
+          "fix": "Start vancomycin",
+          "terms": [
+            {
+              "term": "Staph (Staphylococcus aureus)",
+              "meaning": "A common skin bacterium. It is the usual cause of heart valve infection in people who inject drugs."
+            },
+            {
+              "term": "MRSA",
+              "meaning": "Staph that has become resistant to the penicillin family of antibiotics."
+            },
+            {
+              "term": "Narrowing",
+              "meaning": "Switching from a broad antibiotic to the one that best fits the germ, once the lab has named it and tested it."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 30,
+              "story": "The pharmacy sends the vancomycin up and the first dose is started. The infection specialists are called to help choose the rest of his treatment. He stays on oxygen and on the monitor.",
+              "reply": "Right. Until the lab says otherwise, we assume the staph may be resistant, and vancomycin covers that. When the cultures name the germ and show what kills it, the team will narrow to the antibiotic that fits best."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write the order for ceftriaxone alone. The pharmacist calls the ward.",
+              "reply": "Ceftriaxone does not kill resistant staph, and that is a real possibility for him. If we guess wrong, he gets days of the wrong drug while the infection damages his valve. The first treatment has to cover MRSA."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for linezolid tablets. The pharmacist calls before sending them.",
+              "reply": "Linezolid only holds staph back. It does not kill it outright. An infection on a heart valve is started on a drug that kills, given through a vein. He is also too sick to rely on tablets."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write the order for ampicillin with gentamicin. The pharmacist calls the ward.",
+              "reply": "That pair is aimed at other valve germs, such as enterococci. It misses resistant staph, and gentamicin can harm the kidneys. For him, staph cover comes first."
+            }
+          ]
+        },
+        "4": {
+          "resident": "The vancomycin is running. Now we need to look at the valve itself.",
+          "question": "Which scan of his heart do we ask for first?",
+          "options": [
+            "An ultrasound from inside the food pipe (TEE), skipping the one through the chest wall",
+            "An ultrasound through the chest wall (TTE)",
+            "An MRI of his heart",
+            "A CT scan of his chest in a week, to follow the patches in his lungs"
+          ],
+          "fix": "Ask for the ultrasound through the chest wall",
+          "terms": [
+            {
+              "term": "Vegetation",
+              "meaning": "A clump of bacteria and clot stuck to a heart valve. Pieces can break off and travel in the blood."
+            },
+            {
+              "term": "TTE",
+              "meaning": "Transthoracic echocardiogram: an ultrasound probe on the chest. It is quick and painless, and needs no sedation."
+            },
+            {
+              "term": "TEE",
+              "meaning": "Transesophageal echocardiogram: a probe passed down the food pipe under sedation. It gives sharper pictures, and is used when the first scan is not enough."
+            },
+            {
+              "term": "Tricuspid valve",
+              "meaning": "The valve on the right side of the heart, between its upper and lower chambers. Blood from the veins passes through it on the way to the lungs."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request the scan through the food pipe. The heart ultrasound team calls back.",
+              "reply": "That scan needs sedation and a probe down the throat of a man who is short of breath. The scan through the chest wall is quick and safe, and it often shows the tricuspid valve well. We go on to the other one if the first is unclear, or if we still suspect more."
+            },
+            {
+              "kind": "safe",
+              "minutes": 40,
+              "story": "The ultrasound team brings the machine to his bedside. He lies on his left side while they scan. The heart specialists will read it and decide whether a closer look from the food pipe is needed.",
+              "reply": "Good. We ask for it early. We do not wait for the lab to finish naming the germ. And a clear scan through the chest wall would not rule the infection out."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request a heart MRI. The resident cancels it.",
+              "reply": "An MRI is slow, and he would have to lie flat in a tunnel while breathless. It is also not the test for finding clumps on a valve. Ultrasound is."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You plan a chest CT for next week. The resident stops you.",
+              "reply": "The patches in his lungs came from somewhere. A lung scan next week tells us nothing about the valve they are breaking off from, and a week is a long time for a valve infection. We look at the heart now."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "His blood tests and chest X-ray are in the chart. Put them together with the murmur and with how he got sick.",
+        "question": "What ties all of this together?",
+        "options": [
+          "Pneumonia with fluid around the lung",
+          "Tuberculosis that has become active again",
+          "An infection on a right-sided heart valve, sending infected clots to the lungs",
+          "A blood clot in the lungs that has killed a patch of lung"
+        ],
+        "reveal": "It is an infection on a heart valve on the right side of the heart. The murmur gets louder when he breathes in, which points to the tricuspid valve. Clumps break off that valve and are carried straight to the lungs, where they form the round, hollow patches on his X-ray. Pneumonia would not explain the murmur, or patches scattered through both lungs.",
+        "terms": [
+          {
+            "term": "Endocarditis",
+            "meaning": "An infection of the heart’s inner lining, usually on a valve."
+          },
+          {
+            "term": "Septic emboli",
+            "meaning": "Infected clumps that break off and lodge in blood vessels further on."
+          },
+          {
+            "term": "Right side of the heart",
+            "meaning": "The side that receives blood from the veins and pumps it to the lungs. Whatever breaks off there goes to the lungs."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "On the ward, on oxygen and antibiotics through a vein",
+        "unstable": "On the ward, on oxygen and antibiotics through a vein, being watched closely",
+        "worse": "On the ward, on oxygen and antibiotics, after getting worse while he waited",
+        "critical": "In intensive care"
+      },
+      "plainDiagnosis": "A staph infection on a heart valve on the right side of the heart (infective endocarditis), with infected clots carried to the lungs.",
+      "science": [
+        {
+          "tag": "Pressure and blood flow",
+          "title": "Why the infection landed in his lungs",
+          "text": "Blood from his veins enters the right side of the heart, passes through the tricuspid valve and is pumped straight to the lungs. Bacteria injected into a vein reach that valve first, and anything that breaks off it is caught in the fine vessels of the lungs.",
+          "lesson": "circulatory-flow",
+          "lessonTitle": "Connect pressure to blood flow"
+        },
+        {
+          "tag": "Gas exchange",
+          "title": "Why his oxygen was 91%",
+          "text": "Each infected clump blocks and inflames a patch of lung. Oxygen crosses from air to blood only where the two meet across a thin, healthy wall, and he has fewer such places working. Less oxygen reaches his blood with every breath.",
+          "lesson": "gas-exchange",
+          "lessonTitle": "Move oxygen across a barrier"
+        },
+        {
+          "tag": "Microbes",
+          "title": "Why the team assumed resistant staph",
+          "text": "Staph can carry a gene that makes the whole penicillin family useless against it, and bacteria can pass such genes to one another. Resistant staph is common enough that his first antibiotic had to cover it until the lab had tested his own.",
+          "lesson": "microbial-strategies",
+          "lessonTitle": "Distinguish cells from viral passengers"
+        }
+      ],
+      "sources": [
+        {
+          "title": "AHA scientific statement (2015): infective endocarditis in adults",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/26373316/"
+        },
+        {
+          "title": "AHA scientific statement (2022): management of infective endocarditis in people who inject drugs",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/36043414/"
+        },
+        {
+          "title": "2023 ESC guidelines: management of endocarditis",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/37622656/"
+        }
+      ]
+    },
+    "cd-019": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "Crushing chest pain, _three weeks after giving birth._",
+      "setting": "Emergency department",
+      "start": {
+        "status": "unstable",
+        "alarm": "Severe chest pain · sweating"
+      },
+      "handoff": "A 39-year-old woman had her first baby three weeks ago. An hour ago, while she was resting, a crushing pain started in her chest and spread to her left arm. She is sweating and feels sick.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask her to describe the chest pain",
+            "finding": "A heavy, crushing pressure behind her breastbone that spreads to her left arm. It started suddenly an hour ago while she was resting, with sweating and nausea, and it has not let up."
+          },
+          {
+            "prompt": "Ask about the birth and the weeks since",
+            "finding": "Her first baby was born three weeks ago. The delivery was straightforward, and she is breastfeeding."
+          },
+          {
+            "prompt": "Ask about her risks for heart and artery disease",
+            "finding": "She has no diabetes, high blood pressure or high cholesterol. She has never smoked and does not use cocaine. No one in her family had early heart disease. An old kidney scan noted a mild irregularity in her artery walls (fibromuscular features)."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Check how she looks, and whether enough blood is reaching her body",
+            "finding": "She is frightened, sweating and still in pain. Her blood pressure is holding, and her hands and feet are warm."
+          },
+          {
+            "prompt": "Listen to her heart and lungs",
+            "finding": "Her heartbeat is regular, with normal sounds and nothing extra. Her lungs are clear. There is no sign of fluid backing up."
+          },
+          {
+            "prompt": "Feel the pulses on both sides and check her legs for a clot",
+            "finding": "Her pulses are equal on both sides. There is no whooshing sound over her arteries. Her legs are not swollen and her calves are not tender."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Heart tracing, blood tests and bedside scan",
+          "content": "Heart tracing (ECG): the pattern of a heart attack in progress (ST elevation) in the leads that look at the underside of the heart.\nBlood test for heart damage (troponin): raised, and rising.\nRed blood cell level and kidney function: normal.\nPregnancy test: negative.\nBedside heart ultrasound: the underside of the heart is not squeezing as it should. The overall squeeze is at the low end of normal (50%). There is no fluid around the heart.\nShe is taken straight to the catheter lab for dye pictures of her heart arteries (an angiogram)."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "She is young and fit, with none of the usual risks. She also has crushing chest pain and she is drenched in sweat.",
+          "question": "What happens in the next ten minutes?",
+          "options": [
+            "Tell her a heart attack is unlikely at her age, and send her home",
+            "Send her for a CT scan first, to rule out a clot in her lungs",
+            "Give a clot-busting drug right away, before any tests",
+            "Get a heart tracing (ECG) and a blood test for heart damage now, and give aspirin"
+          ],
+          "fix": "Get the tracing, the blood test and aspirin",
+          "terms": [
+            {
+              "term": "Heart attack (myocardial infarction)",
+              "meaning": "Heart muscle dying because its blood supply has been cut off."
+            },
+            {
+              "term": "ECG",
+              "meaning": "A tracing of the heart’s electrical signals. It takes a few minutes and cannot hurt the patient."
+            },
+            {
+              "term": "Troponin",
+              "meaning": "A protein that leaks into the blood when heart muscle is damaged. It is the blood test for a heart attack."
+            },
+            {
+              "term": "Clot-busting drug (thrombolytic)",
+              "meaning": "A medicine that dissolves blood clots. It also raises the risk of bleeding anywhere in the body."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You start to tell her it is probably not her heart. The resident is already wheeling in the tracing machine.",
+              "reply": "Young women have heart attacks too, and the weeks after childbirth carry risks of their own. Crushing pain with sweating gets a heart tracing within ten minutes, at any age."
+            },
+            {
+              "kind": "delay",
+              "minutes": 40,
+              "story": "She is taken to the scanner. Her lungs are clear of clots. Forty minutes later she is back, gray and sweating, with the pain worse than before. No one has yet looked at her heart.",
+              "reply": "A lung clot was worth a thought so soon after a birth. But her pain is a classic heart pain, and the tracing takes two minutes. Her heart has gone forty more minutes without help. Tracing, blood test and aspirin, now.",
+              "vitals": {
+                "HR": "112 bpm"
+              },
+              "trend": {
+                "HR": "up"
+              },
+              "status": "worse",
+              "alarm": "Pain getting worse · no heart tracing yet"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a clot-busting drug. The pharmacist will not release it without a heart tracing.",
+              "reply": "We never give that drug blind. We do not know yet that this is a heart attack, or what kind. In some heart attacks the problem is a tear in the artery wall, and a clot-buster can make a tear bleed and spread."
+            },
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "The tracing is run at the bedside within minutes, blood is drawn and she chews an aspirin. The tracing shows a heart attack in progress. The heart team is called, and she is taken to the catheter lab for dye pictures of her arteries.",
+              "reply": "That is the right first move for anyone with chest pain like this. The tracing gave the answer in minutes, and the artery pictures will show us why it is happening."
+            }
+          ]
+        },
+        "3": {
+          "resident": "The pictures show a tear in the wall of her right heart artery, with blood trapped inside the wall. Blood is still flowing down the artery, her blood pressure is steady and her pain is easing.",
+          "question": "How do we treat the torn artery?",
+          "options": [
+            "Put stents along the whole torn section",
+            "Emergency bypass surgery, as for every torn heart artery",
+            "Medicines and close monitoring, keeping a procedure in reserve in case the blood flow fails",
+            "A full dose of a clot-busting drug to clear the blockage"
+          ],
+          "fix": "Monitor her closely on medicines",
+          "terms": [
+            {
+              "term": "Dissection",
+              "meaning": "A tear in an artery’s inner lining that lets blood track into the wall itself."
+            },
+            {
+              "term": "Stent",
+              "meaning": "A tiny mesh tube placed inside a narrowed artery to hold it open."
+            },
+            {
+              "term": "Bypass surgery",
+              "meaning": "An operation that sews a new vessel around a blocked heart artery."
+            },
+            {
+              "term": "Catheter lab",
+              "meaning": "The room where doctors pass thin tubes into the heart’s arteries to take dye pictures and, if needed, to open a blockage."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask the heart specialist to stent the whole tear. The specialist declines.",
+              "reply": "A torn artery is fragile. Wires and stents can push the tear further along, and the results are worse than in ordinary heart attacks. Most of these tears heal on their own within weeks to months. While blood is flowing, we leave it alone and watch."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You call to book emergency bypass surgery. The heart surgeon asks about her blood flow, then says no.",
+              "reply": "Surgery is kept for tears in the main artery, or for when blood flow fails and a stent cannot fix it. Hers is in one artery, with blood still flowing. Open-heart surgery would add risk and no benefit right now."
+            },
+            {
+              "kind": "safe",
+              "minutes": 120,
+              "story": "She is moved to the cardiac unit on a monitor, with medicines to ease the load on her heart. For a while her pain settles. Two hours later it comes back, hard, and the monitor alarms. The heart attack pattern has returned on her tracing, and her blood pressure is falling.",
+              "reply": "Watching closely was the right plan for a tear with good flow, and this is exactly what the watching is for. The tear has spread, or the trapped blood is squeezing the artery shut. The plan has to change.",
+              "vitals": {
+                "BP": "86/52 mmHg",
+                "HR": "118 bpm"
+              },
+              "alarm": "Chest pain back · blood pressure low"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a full dose of a clot-busting drug. The pharmacist calls the catheter lab to check.",
+              "reply": "There is no clot to dissolve. The artery is narrowed by blood trapped inside its own wall. A clot-buster can make that bleed more and spread the tear, so it is avoided in this condition."
+            }
+          ]
+        },
+        "4": {
+          "resident": "Her pain is back, the heart attack pattern on her tracing is not going away, and her blood pressure is 86 over 52.",
+          "question": "What do we do now?",
+          "options": [
+            "Take her back for new artery pictures now, and open the artery with a stent or surgery",
+            "Keep to the watching plan and give more pain relief",
+            "Send her home on a beta-blocker, with a clinic visit",
+            "Give a full dose of a clot-busting drug right away"
+          ],
+          "fix": "Take her back to the catheter lab",
+          "terms": [
+            {
+              "term": "Unstable",
+              "meaning": "Blood pressure falling, or the heart being starved of blood. An unstable patient cannot wait."
+            },
+            {
+              "term": "Revascularization",
+              "meaning": "Restoring blood flow through a blocked artery, with a stent or with bypass surgery."
+            },
+            {
+              "term": "Shock",
+              "meaning": "Blood pressure too low to supply the body’s organs."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 90,
+              "story": "The team is called back, and she is in the catheter lab within minutes. The new pictures show the artery now almost closed. The specialists restore the blood flow. Her pain eases, the tracing settles and her blood pressure comes back up.",
+              "reply": "Yes. Watching is the plan only while she is stable and blood is flowing. Falling pressure and a heart attack that will not settle change that at once.",
+              "vitals": {
+                "BP": "112/70 mmHg",
+                "HR": "94 bpm"
+              },
+              "trend": {
+                "HR": "down"
+              },
+              "status": "stable",
+              "alarm": ""
+            },
+            {
+              "kind": "delay",
+              "minutes": 30,
+              "story": "You give more pain relief and keep watching. Half an hour later she is cold, clammy and barely answering. Her blood pressure has fallen further.",
+              "reply": "Pain relief quiets the alarm. It does not fix the artery. Her heart is being starved of blood, and it is failing as a pump. She goes back to the catheter lab now.",
+              "vitals": {
+                "BP": "74/46 mmHg",
+                "HR": "128 bpm"
+              },
+              "trend": {
+                "BP": "down",
+                "HR": "up"
+              },
+              "status": "critical",
+              "alarm": "Blood pressure very low · cold and clammy"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You start her discharge papers. The nurse looks at the monitor, then at you, and calls the resident.",
+              "reply": "She is having a heart attack in front of us, with falling blood pressure. No one in that state leaves the cardiac unit, let alone the hospital. She needs her artery opened."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a clot-busting drug. The resident stops the order.",
+              "reply": "It is still the wrong drug for a torn artery, because it can spread the tear. What she needs is the artery opened, in the catheter lab or the operating room."
+            }
+          ]
+        },
+        "5": {
+          "resident": "Her artery is open, and she is recovering in the cardiac unit. Before she goes home, we plan what comes next.",
+          "question": "What do we check for, and what do we tell her?",
+          "options": [
+            "Get a calcium scan of her heart arteries right away, to confirm fatty plaque",
+            "Start a strong statin and two platelet medicines for life, the same as after any heart attack",
+            "Tell her it will not happen again, and that she needs no follow-up",
+            "Scan her other arteries for fibromuscular dysplasia, and explain that a tear can happen again and that another pregnancy carries extra risk"
+          ],
+          "fix": "Scan her other arteries and talk it through",
+          "terms": [
+            {
+              "term": "Fibromuscular dysplasia (FMD)",
+              "meaning": "A condition in which the walls of medium-sized arteries grow unevenly, which leaves them prone to narrowing, bulging or tearing. It is common in people who have had a torn heart artery."
+            },
+            {
+              "term": "Statin",
+              "meaning": "A cholesterol-lowering medicine. It protects arteries that are clogged with fatty plaque."
+            },
+            {
+              "term": "Recurrence",
+              "meaning": "The same problem happening again."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request a calcium scan. The resident cancels it.",
+              "reply": "A calcium scan looks for hardened fatty plaque. Her heart attack was caused by a tear, and the pictures we already have showed that. There is no plaque to confirm."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write the standard after-heart-attack prescriptions for life. The heart specialist goes through them with you.",
+              "reply": "The standard package was built for arteries clogged with plaque. Hers tore. A statin is not routine here unless she has another reason for one, and her platelet medicines are chosen for her own case, which includes the fact that she is breastfeeding."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You start to tell her it was a one-off. The resident steps in.",
+              "reply": "That is not true, and it would leave her unprotected. A torn heart artery can happen again. She needs to know the warning signs, and to be followed by people who know this condition."
+            },
+            {
+              "kind": "safe",
+              "minutes": 15,
+              "story": "You sit down with her. Scans of the arteries from her head to her hips are booked. She hears that a tear can happen again, that chest pain always means calling for help, and that another pregnancy would carry extra risk and should be talked through with specialists first. Heart rehab is arranged.",
+              "reply": "That is what she needs to hear, said plainly and kindly. Her old kidney scan already hinted at fibromuscular dysplasia. Finding it elsewhere would change how she is followed for life."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "The artery pictures are back. Her right heart artery has a long, smooth narrowing. Beside it is a thin flap, and dye is sitting inside the wall of the artery. There is no lump of plaque.",
+        "question": "What caused her heart attack?",
+        "options": [
+          "A tear in the artery wall (spontaneous coronary artery dissection, or SCAD)",
+          "A fatty plaque that broke open and clotted",
+          "A spasm that clamped the artery shut for a while",
+          "A clot that formed in the heart and travelled into the artery"
+        ],
+        "reveal": "It is a spontaneous coronary artery dissection, or SCAD. The inner lining of the artery tore, and blood tracked into the wall and squeezed the channel from the outside. That gives a long, smooth narrowing with a flap, not a ragged lump of plaque. It is the most common cause of a heart attack around pregnancy, and it often strikes young women with none of the usual risks.",
+        "terms": [
+          {
+            "term": "Spontaneous",
+            "meaning": "Happening on its own, with no injury and no procedure to cause it."
+          },
+          {
+            "term": "Coronary artery",
+            "meaning": "One of the arteries that feed the heart muscle."
+          },
+          {
+            "term": "Plaque",
+            "meaning": "A fatty build-up in an artery wall. It is the usual cause of heart attacks in older people."
+          }
+        ]
+      },
+      "ending": {
+        "better": "In the cardiac unit with her artery reopened, and a plan for the years ahead",
+        "stable": "In the cardiac unit with her artery reopened, and a plan for the years ahead",
+        "unstable": "In the cardiac unit, still being watched closely",
+        "worse": "In the cardiac unit, after a long wait for her heart attack to be found",
+        "critical": "In intensive care"
+      },
+      "plainDiagnosis": "A heart attack caused by a tear in the wall of a heart artery (spontaneous coronary artery dissection, or SCAD).",
+      "science": [
+        {
+          "tag": "Flow through a narrowing",
+          "title": "How a tear starves the heart without a clot",
+          "text": "Blood that leaks into the artery’s wall is trapped there and bulges inward. The channel left for flowing blood gets narrower, and flow through a tube falls steeply as it narrows. The muscle fed by that artery runs short.",
+          "lesson": "fluid-flow",
+          "lessonTitle": "Follow flow through a narrowing"
+        },
+        {
+          "tag": "Making ATP",
+          "title": "Why starved heart muscle fails so fast",
+          "text": "Heart muscle makes almost all its ATP with oxygen. When her artery narrowed, the underside of her heart ran short within minutes and stopped squeezing properly. Cells that stay starved die and spill their troponin into the blood, which is what her blood test picked up.",
+          "lesson": "oxidative-phosphorylation",
+          "lessonTitle": "Link electrons to ATP"
+        },
+        {
+          "tag": "Pressure and blood flow",
+          "title": "Why her blood pressure fell when the artery closed",
+          "text": "Blood pressure depends on how much blood the heart pumps each minute. When more of her heart muscle lost its supply, each beat pushed out less. Her pressure dropped even as her heart beat faster to make up for it.",
+          "lesson": "circulatory-flow",
+          "lessonTitle": "Connect pressure to blood flow"
+        }
+      ],
+      "sources": [
+        {
+          "title": "AHA scientific statement (2018): spontaneous coronary artery dissection",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5957087/"
+        },
+        {
+          "title": "Hayes et al. (JACC 2020): spontaneous coronary artery dissection, state-of-the-art review",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/32819471/"
+        },
+        {
+          "title": "ESC-ACCA position paper (2018): spontaneous coronary artery dissection",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/29481627/"
+        },
+        {
+          "title": "2025 ACC/AHA guideline: management of patients with acute coronary syndromes",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/40014670/"
+        },
+        {
+          "title": "2021 AHA/ACC guideline: evaluation and diagnosis of chest pain",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/34709879/"
+        }
+      ]
+    },
+    "cd-101": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "Dizzy every time _he stands up._",
+      "setting": "Same-day heart and circulation clinic",
+      "handoff": "A 73-year-old man has felt light-headed soon after getting up for the past three days. Yesterday he briefly collapsed, and came round as soon as he was lying down. He recently started a new blood pressure tablet.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask what he is doing when it happens, and how he recovers",
+            "finding": "It comes on soon after he gets up, and eases when he lies down. After yesterday’s brief collapse he came round quickly once he was lying flat."
+          },
+          {
+            "prompt": "Go through his medicines, how much he is drinking, and any bleeding",
+            "finding": "He recently started a thiazide, a water tablet for blood pressure. He has been drinking less during the hot weather. He has seen no bleeding. Either change could be playing a part. Neither is proven."
+          },
+          {
+            "prompt": "Ask about warning signs of a heart cause",
+            "finding": "He has never collapsed during exercise. He has no chest pain and no racing or skipping heartbeat. No one in his family died suddenly at a young age."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Check that it is safe to measure him standing",
+            "finding": "He is steady and comfortable lying down. He can stand with a member of staff beside him, who will help him back down if the dizziness comes on."
+          },
+          {
+            "prompt": "Check how well filled he is, and listen to his heart and lungs",
+            "finding": "His mouth is a little dry. His pulse is regular, there is no significant murmur, and his lungs are clear."
+          },
+          {
+            "prompt": "Look for injuries and check his nervous system",
+            "finding": "He has no injury from the collapse. His strength, sensation and speech are normal."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Lying and standing blood pressure, and heart tracing",
+          "content": "Lying down: 148/82.\nAfter one minute standing: 112/64, with his usual light-headedness. That is a fall of 36 in the top number and 18 in the bottom one.\nAfter three minutes standing: 118/68.\nHe was helped back to a safe position.\nHeart tracing (ECG): a normal rhythm, with no problem reported in the timing or shape of the signals.\nNo sign of active bleeding, and no sudden chemical upset in his blood, was found."
+        },
+        "4": {
+          "label": "Follow-up visit",
+          "content": "The team reviewed his tablets, dealt with his fluid intake in a way that suits his health, and gave advice on avoiding falls.\nAt his follow-up visit he is still getting light-headed on standing, despite those steps.\nHe has not been injured, and no new warning sign has appeared."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "His story points to his blood pressure dropping when he stands. Along with the questions about his collapse and a heart tracing, one measurement tests that idea directly.",
+          "question": "Which measurement is it?",
+          "options": [
+            "His sitting blood pressure at several visits, set beside his readings at home",
+            "His blood pressure in both arms while lying down, using the higher one",
+            "His blood pressure lying down, then again after at least a minute standing, noting any symptoms",
+            "His heart rate and oxygen level while he stands with support"
+          ],
+          "fix": "Measure him lying, then standing",
+          "terms": [
+            {
+              "term": "Postural hypotension",
+              "meaning": "A drop in blood pressure on standing up. It is also called orthostatic hypotension."
+            },
+            {
+              "term": "Top and bottom numbers",
+              "meaning": "Blood pressure is written as two numbers. The top one (systolic) is the pressure as the heart beats. The bottom one (diastolic) is the pressure between beats."
+            },
+            {
+              "term": "Symptoms",
+              "meaning": "What the patient feels. A drop that brings on his usual light-headedness means more than a number alone."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You start a chart for sitting readings over the next few visits. The resident looks at it.",
+              "reply": "Sitting readings tell us about his blood pressure in general. His trouble comes with the change from lying to standing, and a sitting cuff never sees that. We need a reading on each side of the change."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You reach for a second cuff to check both arms. The resident stops you.",
+              "reply": "Checking both arms answers other questions. Both readings would be taken lying down, so neither can show what happens when he stands."
+            },
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "He rests lying down and you take his pressure. Then he stands, with a nurse at his elbow, and you measure again at one minute and at three. At one minute he says the light-headed feeling is back. He is helped down, and a heart tracing is done.",
+              "reply": "That is the test. Measure across the change in posture, keep him safe while you do it, and write down what he feels. A high reading lying down does not rule out a drop on standing."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You clip on the oxygen probe and get ready to stand him up. The resident asks where the blood pressure cuff is.",
+              "reply": "Heart rate and oxygen are worth knowing, but they do not measure the thing we suspect. The idea is that his pressure falls. So we measure his pressure, lying and then standing."
+            }
+          ]
+        },
+        "3": {
+          "resident": "His pressure fell from 148 over 82 to 112 over 64 at one minute, and his symptoms came with it. His new water tablet and his low fluid intake are possible reasons, not proven ones.",
+          "question": "What is the plan?",
+          "options": [
+            "Adjust his treatment to bring down his lying blood pressure, and go over his sitting readings from home",
+            "Send him for nerve function tests before changing any medicine",
+            "Have him check his pressure at home for four weeks before looking into the dizziness",
+            "Review his tablets and his fluids, lower his risk of falling, and recheck his standing pressure"
+          ],
+          "fix": "Review tablets and fluids, and recheck him standing",
+          "terms": [
+            {
+              "term": "Thiazide",
+              "meaning": "A water tablet for high blood pressure. It makes the kidneys pass more salt and water."
+            },
+            {
+              "term": "Autonomic nerves",
+              "meaning": "The nerves that adjust heart rate and blood vessels automatically, for example when a person stands up."
+            },
+            {
+              "term": "Fall risk",
+              "meaning": "The chance of a fall and an injury. Dizziness on standing raises it, most of all in older people."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write up a stronger blood pressure plan aimed at his lying reading. The resident reads it before he leaves.",
+              "reply": "His lying reading is high, but his symptoms come from the fall on standing. Pushing his pressure lower would deepen that fall. When someone is dizzy on standing, we treat to the standing pressure."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request nerve function tests and leave his tablets as they are. The resident sets the request aside.",
+              "reply": "Those tests may be needed one day. But two likely and fixable reasons are in front of us: a new water tablet and too little fluid. We deal with those first and see what changes."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You hand him a home blood pressure diary for the next four weeks. The resident stops him at the door.",
+              "reply": "He collapsed yesterday. Four weeks of waiting is four weeks in which he could fall and be badly hurt. We act on the likely causes today."
+            },
+            {
+              "kind": "safe",
+              "minutes": 15,
+              "story": "The team goes through his tablets with him and adjusts them, and agrees how much he should drink given his health. You talk about getting up in stages, and what to do if the dizziness starts. A visit is booked to measure his standing pressure again.",
+              "reply": "Good. We treat what we found and what is likely behind it, without claiming we have proved the cause. The recheck on standing tells us whether it worked."
+            }
+          ]
+        },
+        "5": {
+          "resident": "He is back for his follow-up. He made the changes, and he is still getting light-headed when he stands. He has not fallen or hurt himself.",
+          "question": "What do we do now?",
+          "options": [
+            "Carry on with the same plan, and see him at next year’s blood pressure check",
+            "Look again for causes, and consider sending him to a specialist",
+            "Put the remaining spells down to simple faints, and book a tilt-table test",
+            "Treat it as failure of the autonomic nerves, and start treatment for that"
+          ],
+          "fix": "Look again and consider a specialist",
+          "terms": [
+            {
+              "term": "Reassess",
+              "meaning": "Go back over the story, the examination and the tests with fresh eyes when a plan has not worked."
+            },
+            {
+              "term": "A finding and a cause",
+              "meaning": "The measured drop in pressure is a finding. Why it happens is the cause. Knowing the first does not settle the second."
+            },
+            {
+              "term": "Tilt-table test",
+              "meaning": "A test that tilts a patient upright, while they are watched, to bring on a faint. It is for cases where the cause is unclear."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You book him in for next year. The resident looks at the date.",
+              "reply": "The plan has not worked, and he is at risk of a fall every day. Symptoms that persist after the obvious causes are dealt with need a fresh look now, not in a year."
+            },
+            {
+              "kind": "safe",
+              "minutes": 15,
+              "story": "You go back over his story, his medicines and his examination, and repeat his lying and standing pressures. The resident agrees that he should also be seen by a specialist, and you explain to him why.",
+              "reply": "Right. The first measurement was useful, and it still stands. But a finding is not a full explanation, and when the simple fixes fail we widen the search."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write “simple faints” in his notes and request a tilt-table test. The resident reads the note.",
+              "reply": "Nothing new points to simple faints. His spells still come with standing, as before. Changing the label without new evidence would send the search down the wrong road."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write a prescription for an autonomic failure medicine. The resident stops it.",
+              "reply": "That is a diagnosis nobody has made. His drop in pressure has several possible causes, and nerve failure is only one of them. We find out first, and treat after."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "His lying and standing readings and his heart tracing are in the chart. Work out the size of the drop, then tell me what fits.",
+        "question": "What is the best working diagnosis?",
+        "options": [
+          "A drop in blood pressure on standing (postural hypotension), with causes that may be fixable",
+          "Failure of the nerves that control blood pressure (primary autonomic failure)",
+          "A dangerous heart rhythm that comes and goes",
+          "Simple faints brought on by standing a long time in the heat"
+        ],
+        "reveal": "It fits a drop in blood pressure on standing. The top number fell by 36 and the bottom by 18 within a minute, and his usual symptoms came with it. A fall of 20 or more in the top number counts. This tells us what is happening. It does not yet tell us why, and it does not rule out every other cause.",
+        "terms": [
+          {
+            "term": "Working diagnosis",
+            "meaning": "The best explanation for now. It is changed if new facts do not fit."
+          },
+          {
+            "term": "Hypotension",
+            "meaning": "Low blood pressure."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "Referred to a specialist, with a plan to keep him safe from falls",
+        "worse": "Kept in for more checks",
+        "critical": "In the resuscitation room"
+      },
+      "plainDiagnosis": "A drop in blood pressure on standing (postural hypotension) that makes him light-headed. Its cause is still being worked out.",
+      "science": [
+        {
+          "tag": "Pressure in a fluid",
+          "title": "Why standing up tests the circulation",
+          "text": "When he stands, the veins in his legs sit under a tall column of blood, and the pressure inside them rises. They stretch and hold more blood, so less returns to the heart and it has less to pump up to the brain. A healthy body corrects this within seconds. His did not.",
+          "lesson": "hydrostatics",
+          "lessonTitle": "Read pressure in a fluid"
+        },
+        {
+          "tag": "Kidneys",
+          "title": "How a water tablet and hot weather could add up",
+          "text": "A thiazide makes his kidneys pass more salt, and water follows the salt. He was also drinking less in the heat. Both would leave less fluid in his circulation, and so less blood to refill the heart when he stands. This is a likely explanation. It has not been proven.",
+          "lesson": "renal-water",
+          "lessonTitle": "Regulate water in the nephron"
+        },
+        {
+          "tag": "Pressure and blood flow",
+          "title": "What should have happened when he stood",
+          "text": "Sensors in the large arteries detect a fall in pressure and signal the heart to speed up and the blood vessels to tighten. That reflex normally holds the pressure steady. In him it still fell by 36, so either the reflex had too little blood to work with or it is not working fully. The follow-up is there to find out which.",
+          "lesson": "circulatory-flow",
+          "lessonTitle": "Connect pressure to blood flow"
+        }
+      ],
+      "sources": [
+        {
+          "title": "NICE NG136: hypertension in adults, measuring blood pressure and postural hypotension (recommendations amended 2023)",
+          "url": "https://www.nice.org.uk/guidance/ng136/chapter/Recommendations"
+        },
+        {
+          "title": "NICE CG109: transient loss of consciousness, initial assessment",
+          "url": "https://www.nice.org.uk/guidance/cg109/chapter/Recommendations"
+        },
+        {
+          "title": "Consensus statement (Clin Auton Res 2011): definition of orthostatic hypotension",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/21431947/"
+        },
+        {
+          "title": "2017 ACC/AHA/HRS guideline: evaluation and management of patients with syncope",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/28280231/"
         }
       ]
     }
