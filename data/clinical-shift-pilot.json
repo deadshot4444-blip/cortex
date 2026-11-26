@@ -1,7 +1,7 @@
 {
-  "version": 16,
+  "version": 17,
   "title": "Clinical Shift foundations and rotation practice",
-  "reviewStatus": "Source and consistency checks are recorded with each encounter. Independent clinician review remains pending for all 33 encounters.",
+  "reviewStatus": "Source and consistency checks are recorded with each encounter. Independent clinician review remains pending for all 36 encounters.",
   "rotations": [
     {
       "key": "emergency-medicine",
@@ -90,6 +90,16 @@
         "im-034",
         "im-024",
         "im-019"
+      ]
+    },
+    {
+      "key": "pulmonology",
+      "name": "Pulmonology",
+      "description": "What fills a lung, what squeezes it, and what hides in it quietly.",
+      "caseIds": [
+        "pm-018",
+        "pm-028",
+        "pm-023"
       ]
     }
   ],
@@ -225,6 +235,18 @@
     "im-019": {
       "assessment": "36-year-old man found down after at least 12 hours of immobilization, with muscle pain and tea-colored urine. CK 38,000 U/L, creatinine 2.6 mg/dL from a baseline near 0.9, potassium 6.1 with peaked T waves, hyperphosphatemia, hypocalcemia, and a dipstick positive for blood without red cells: rhabdomyolysis with acute kidney injury.",
       "plan": "Early aggressive IV isotonic fluids titrated to urine output; no early diuretics. IV calcium gluconate now for the ECG changes, then insulin with glucose and other measures to shift and remove potassium. Monitor potassium, CK, kidney function, urine output, and limb compartments; dialysis for refractory hyperkalemia, acidosis, or volume overload."
+    },
+    "pm-018": {
+      "assessment": "50-year-old man with diabetes and heavy alcohol use, febrile on day 6 of antibiotics for pneumonia, with a right pleural effusion. Thoracentesis yields frank pus (pH 6.9, glucose 28 mg/dL, LDH 2,400 IU/L, mixed organisms), and CT shows a loculated collection with the split-pleura sign: empyema.",
+      "plan": "Continue IV antibiotics with anaerobic coverage and place a chest tube for source control, adding intrapleural tPA and DNase when loculations limit drainage. If sepsis and loculated collections persist with trapped lung, refer for VATS debridement and decortication."
+    },
+    "pm-028": {
+      "assessment": "78-year-old woman 5 days after an ischemic stroke with dysphagia, now with fever, productive cough, hypoxemia, leukocytosis, a failed swallow screen, and right lower-lobe consolidation: aspiration pneumonia from post-stroke dysphagia.",
+      "plan": "Nothing by mouth pending a formal swallow evaluation, supplemental oxygen, and empiric antibiotics such as ampicillin-sulbactam chosen by severity and local resistance; routine added anaerobic coverage is not needed. Then speech-language assessment, texture and liquid modification, upright positioning, and oral care to prevent recurrence."
+    },
+    "pm-023": {
+      "assessment": "Asymptomatic 28-year-old nurse with a positive IGRA on pre-employment screening, a normal examination, a clear chest radiograph, negative HIV testing, normal transaminases, and a negative pregnancy test: latent tuberculosis infection.",
+      "plan": "Active disease is excluded by symptom review and chest radiograph. Offer a short rifamycin-based regimen such as 12 weeks of once-weekly isoniazid plus rifapentine, with pyridoxine. Counsel about hepatitis symptoms, alcohol, harmless orange discoloration of body fluids from rifapentine, and drug interactions."
     }
   },
   "investigations": {
@@ -1217,6 +1239,96 @@
           "finding": "Slightly dry mucous membranes and a regular tachycardia. Strength is limited by pain, with no focal neurologic deficit."
         }
       ]
+    },
+    "pm-018": {
+      "interview": [
+        {
+          "prompt": "Review the course since admission",
+          "finding": "Admitted 6 days ago with community-acquired pneumonia on ceftriaxone and azithromycin. After slight initial improvement he has persistent fevers and night sweats."
+        },
+        {
+          "prompt": "Characterize the chest pain and breathlessness",
+          "finding": "Worsening right-sided pleuritic chest pain with increasing breathlessness."
+        },
+        {
+          "prompt": "Ask about risk factors for aspiration and poor healing",
+          "finding": "Poorly controlled type 2 diabetes (HbA1c 9.2%) and heavy alcohol use, with several recent episodes of choking on food while intoxicated."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Percuss and auscultate the chest",
+          "finding": "Dullness to percussion, decreased breath sounds and reduced tactile fremitus over the right lower hemithorax, with bronchial breathing and crackles just above."
+        },
+        {
+          "prompt": "Examine the heart, neck veins and legs",
+          "finding": "Regular tachycardia without murmur, normal jugular venous pressure, no peripheral edema and nontender calves."
+        },
+        {
+          "prompt": "Inspect the mouth and general appearance",
+          "finding": "Ill-appearing and diaphoretic, with poor dentition and gingival disease."
+        }
+      ]
+    },
+    "pm-028": {
+      "interview": [
+        {
+          "prompt": "Review the new symptoms",
+          "finding": "New fever, productive cough and worsening confusion 5 days after admission for an acute ischemic stroke."
+        },
+        {
+          "prompt": "Ask nursing about eating and swallowing",
+          "finding": "Coughing during meals and pocketing food. An oral diet was resumed before a formal swallow evaluation."
+        },
+        {
+          "prompt": "Review the stroke deficits and medications",
+          "finding": "Right-sided weakness and dysarthria. Atrial fibrillation and hypertension, on apixaban, metoprolol and atorvastatin."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Auscultate and percuss the lungs",
+          "finding": "Crackles and bronchial breath sounds at the right base posteriorly, with dullness to percussion."
+        },
+        {
+          "prompt": "Inspect the mouth and watch her swallow water",
+          "finding": "Poor dentition with pooled secretions, and a wet-sounding cough on attempting to swallow water."
+        },
+        {
+          "prompt": "Assess the heart rhythm and mental status",
+          "finding": "Irregularly irregular rhythm without murmur. More somnolent than her baseline, with residual right-sided weakness."
+        }
+      ]
+    },
+    "pm-023": {
+      "interview": [
+        {
+          "prompt": "Screen for symptoms of active tuberculosis",
+          "finding": "Feels completely well. No cough, fever, night sweats, hemoptysis or weight loss, and no chest pain or dyspnea."
+        },
+        {
+          "prompt": "Ask about exposure and risk factors",
+          "finding": "Positive IGRA on pre-employment screening as a nurse. She previously volunteered in a TB-endemic country. No injection drug use."
+        },
+        {
+          "prompt": "Review medications and medical history",
+          "finding": "Unremarkable history. Takes an oral contraceptive pill and a multivitamin; one or two alcoholic drinks per month."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Auscultate the lungs",
+          "finding": "Clear bilaterally, with no crackles, wheeze or bronchial breath sounds."
+        },
+        {
+          "prompt": "Palpate the lymph nodes",
+          "finding": "No cervical, supraclavicular, axillary or inguinal lymphadenopathy."
+        },
+        {
+          "prompt": "Examine the abdomen and skin",
+          "finding": "Soft abdomen without hepatosplenomegaly. No rashes, nodules or clubbing."
+        }
+      ]
     }
   },
   "caseReviews": {
@@ -1749,6 +1861,54 @@
         {
           "title": "Chavez et al. (Crit Care 2016): beyond muscle destruction, a systematic review of rhabdomyolysis for clinical practice",
           "url": "https://pubmed.ncbi.nlm.nih.gov/27301374/"
+        }
+      ]
+    },
+    "pm-018": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Sample an effusion that persists despite antibiotics, recognize empyema and drain it.",
+      "alternativesAndLimits": "Tube size, the timing of fibrinolytics and the threshold for early surgery vary between centers.",
+      "sources": [
+        {
+          "title": "Rahman et al. (N Engl J Med 2011): intrapleural use of tissue plasminogen activator and DNase in pleural infection (MIST2)",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/21830966/"
+        },
+        {
+          "title": "Shen et al. (J Thorac Cardiovasc Surg 2017): AATS consensus guidelines for the management of empyema",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/28274565/"
+        }
+      ]
+    },
+    "pm-028": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Recognize aspiration pneumonia after a stroke, treat it and prevent the next episode.",
+      "alternativesAndLimits": "Antibiotic choice depends on severity, recent healthcare exposure and local resistance. Telling chemical pneumonitis from infection rests on the clinical course.",
+      "sources": [
+        {
+          "title": "Mandell and Niederman (N Engl J Med 2019): aspiration pneumonia",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/30763196/"
+        },
+        {
+          "title": "Metlay et al. (Am J Respir Crit Care Med 2019): diagnosis and treatment of adults with community-acquired pneumonia, an ATS/IDSA guideline",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/31573350/"
+        }
+      ]
+    },
+    "pm-023": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Tell latent tuberculosis infection from active disease and choose a short preventive regimen.",
+      "alternativesAndLimits": "Several regimens are acceptable (3HP, four months of rifampin, three months of isoniazid with rifampin). Rifamycins reduce the effect of hormonal contraception, which needs a separate discussion.",
+      "sources": [
+        {
+          "title": "Sterling et al. (MMWR Recomm Rep 2020): guidelines for the treatment of latent tuberculosis infection, recommendations from the NTCA and CDC",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/32053584/"
+        },
+        {
+          "title": "Sterling et al. (N Engl J Med 2011): three months of rifapentine and isoniazid for latent tuberculosis infection",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/22150035/"
         }
       ]
     }
@@ -11477,6 +11637,816 @@
         {
           "title": "Chavez et al. (Crit Care 2016): beyond muscle destruction, a systematic review of rhabdomyolysis for clinical practice",
           "url": "https://pubmed.ncbi.nlm.nih.gov/27301374/"
+        }
+      ]
+    },
+    "pm-018": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "Six days of antibiotics, _and the fever is back._",
+      "setting": "Hospital ward",
+      "start": {
+        "status": "unstable",
+        "alarm": "Fever on day 6 of antibiotics · oxygen 92%"
+      },
+      "handoff": "A 50-year-old man was admitted six days ago with pneumonia. He improved a little on antibiotics, and now his fevers have returned. The right side of his chest hurts when he breathes, and he is short of breath.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask how he has been since he was admitted",
+            "finding": "He felt slightly better for a day or two on antibiotics. Now the fevers are back, and he is soaked with sweat at night."
+          },
+          {
+            "prompt": "Ask about the chest pain and his breathing",
+            "finding": "A sharp pain on the right side of his chest that catches when he breathes in. It is getting worse, and so is his breathlessness."
+          },
+          {
+            "prompt": "Ask about his diabetes and his drinking",
+            "finding": "His diabetes is poorly controlled. He drinks heavily, and several times recently he has choked on food while drunk."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Tap on his chest and listen to it",
+            "finding": "The lower right side of his chest sounds dull when tapped, like a full barrel, and almost no breath sounds can be heard there. Just above it, the breathing sounds harsh and crackly."
+          },
+          {
+            "prompt": "Check his heart, his neck veins and his legs",
+            "finding": "His heart is fast and regular. His neck veins are not swollen. His legs are not swollen, and his calves are not tender."
+          },
+          {
+            "prompt": "Look in his mouth",
+            "finding": "His teeth are in poor condition, and his gums are inflamed. He looks ill and sweaty."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Chest fluid sample and CT scan",
+          "content": "Needle sample from the chest: thick, foul-smelling pus.\nFluid acid level (pH): 6.9, very acidic (infected fluid is below 7.2).\nFluid sugar: 28, very low. Bacteria are using it up.\nFluid LDH: 2,400, very high.\nUnder the microscope: several kinds of bacteria.\nCT scan of the chest: the collection on the right is divided into pockets by thin walls, and the lining around it is thick and inflamed."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "He is on the right antibiotics for pneumonia and is getting worse, and his X-ray shows fluid building up around the right lung.",
+          "question": "What is the most important next step?",
+          "options": [
+            "Draw off a sample of the fluid with a needle, and test it",
+            "Switch to stronger antibiotics and watch for 48 hours, without sampling the fluid",
+            "A CT scan for a blood clot in the lung",
+            "Start a blood thinner in case of a clot",
+            "Repeat the blood cultures only, and carry on as before"
+          ],
+          "fix": "Sample the fluid",
+          "terms": [
+            {
+              "term": "Pleural effusion",
+              "meaning": "Fluid in the space between the lung and the chest wall."
+            },
+            {
+              "term": "Thoracentesis",
+              "meaning": "Passing a needle between the ribs, under ultrasound guidance, to draw off fluid from around the lung."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 45,
+              "story": "The skin is numbed, and a needle is guided into the fluid with ultrasound. What comes out goes to the lab, and a CT scan is done. The results go in his chart.",
+              "reply": "Right. Fluid around a pneumonia that is not improving has to be sampled. What it looks like and what it contains decide everything that follows."
+            },
+            {
+              "kind": "delay",
+              "minutes": 480,
+              "story": "Stronger antibiotics are started, and he is watched. By the next morning his fever is higher and he is working harder to breathe.",
+              "reply": "Antibiotics cannot get into a walled-off pocket of fluid, however strong they are. He has lost a night. Sample the fluid now.",
+              "vitals": {
+                "Temp": "39.2 °C",
+                "RR": "28 /min",
+                "SpO2": "90% RA"
+              },
+              "trend": {
+                "Temp": "up",
+                "RR": "up",
+                "SpO2": "down"
+              },
+              "status": "worse",
+              "alarm": "Fever higher · working harder to breathe"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request a scan for a lung clot. The resident redirects you.",
+              "reply": "A clot does not cause fever with fluid that keeps growing. The answer is in the fluid."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for a blood thinner. The resident cancels it.",
+              "reply": "There is nothing here to suggest a clot, and a blood thinner makes the needle procedure he needs more dangerous."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request more blood cultures and no change. The resident adds to the plan.",
+              "reply": "Cultures are reasonable, but carrying on as before is not. The fluid is the new finding, and it has to be sampled."
+            }
+          ]
+        },
+        "3": {
+          "resident": "The needle drew out pus. He has an infected collection around his lung, divided into pockets.",
+          "question": "Besides continuing antibiotics, what does he need?",
+          "options": [
+            "A chest drain, with clot-dissolving medicine through it if the pockets stop the pus from draining",
+            "Antibiotics alone, with no drainage",
+            "Repeated needle drainage only",
+            "Removal of the whole lung",
+            "Talc put into the chest to stick the lung to the chest wall"
+          ],
+          "fix": "Ask for a chest drain",
+          "terms": [
+            {
+              "term": "Chest drain",
+              "meaning": "A tube placed between the ribs into the space around the lung, to let fluid or pus out."
+            },
+            {
+              "term": "Loculated",
+              "meaning": "Divided into separate pockets by walls of scar-like tissue, so the fluid cannot flow to one drain."
+            },
+            {
+              "term": "tPA and DNase",
+              "meaning": "Two medicines put through the drain. One dissolves the walls between pockets, and the other thins the pus."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 60,
+              "story": "A chest drain is placed under local anesthetic, and thick pus runs into the bottle. Medicine is put through the drain to break up the pockets. His breathing eases.",
+              "reply": "Yes. Pus has to come out. Antibiotics treat the bacteria, and the drain removes what the antibiotics cannot reach.",
+              "vitals": {
+                "RR": "22 /min",
+                "SpO2": "94% RA"
+              },
+              "trend": {
+                "RR": "down",
+                "SpO2": "up"
+              },
+              "alarm": "Chest drain in · pus draining"
+            },
+            {
+              "kind": "delay",
+              "minutes": 360,
+              "story": "The antibiotics continue, and no drain is placed. Six hours later he has shaking chills, and his heart is racing.",
+              "reply": "An abscess anywhere in the body needs draining, and this is an abscess around the lung. Six more hours of pus sitting there have made him sicker. Call for the drain.",
+              "vitals": {
+                "Temp": "39.5 °C",
+                "HR": "122 bpm"
+              },
+              "trend": {
+                "Temp": "up",
+                "HR": "up"
+              },
+              "status": "worse",
+              "alarm": "Shaking chills · heart racing"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest drawing it off with a needle each day. The resident shakes their head.",
+              "reply": "A needle empties one pocket, and he has many. Thick pus needs a tube that stays in."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest removing the lung. The resident looks startled.",
+              "reply": "The lung itself is fine. The infection is in the space around it. We drain that space."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest talc. The resident shakes their head.",
+              "reply": "Talc is for fluid that keeps coming back, usually from cancer. It would seal the infection inside."
+            }
+          ]
+        },
+        "4": {
+          "resident": "Three days on, the drain has slowed to a trickle and he still has fevers. A new scan shows pockets of pus the drain cannot reach, and a thick rind holding the lung down.",
+          "question": "What now?",
+          "options": [
+            "Take the drain out and switch to antibiotic tablets",
+            "Carry on with the same treatment for two more weeks",
+            "Start steroids",
+            "Put talc in through the drain",
+            "Refer him for keyhole surgery to clear out the pus and peel the lung free"
+          ],
+          "fix": "Refer him to the chest surgeon",
+          "terms": [
+            {
+              "term": "VATS",
+              "meaning": "Keyhole surgery in the chest, done with a camera and instruments passed between the ribs."
+            },
+            {
+              "term": "Decortication",
+              "meaning": "Peeling the thick rind of scar off the lung, so that it can expand again."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest removing the drain. The resident shakes their head.",
+              "reply": "He is still infected, and pus is still in there. Taking away the only drainage would let it build up again."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest two more weeks of the same. The resident shakes their head.",
+              "reply": "It has had three days and it is not working. More of the same only delays what he needs."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest steroids. The resident shakes their head.",
+              "reply": "Steroids damp down the immune system. With an active infection that is the opposite of helpful."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest talc. The resident shakes their head.",
+              "reply": "Talc would glue the lining shut over infected pockets. The pus has to come out first."
+            },
+            {
+              "kind": "safe",
+              "minutes": 20,
+              "story": "The chest surgeon reviews the scan and books him for keyhole surgery tomorrow.",
+              "reply": "Right. When a drain and the medicines through it fail, a surgeon clears out the pockets and frees the lung. Waiting longer lets the rind harden."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "The fluid results and the scan are in his chart.",
+        "question": "What is this?",
+        "options": [
+          "A simple, thin collection of fluid beside a pneumonia",
+          "Fluid caused by a cancer",
+          "Fluid from heart failure",
+          "Empyema: pus in the space around the lung",
+          "Leaked lymph fluid (chylothorax)"
+        ],
+        "reveal": "It is an empyema. The pneumonia spread into the space around his lung, and the fluid there became infected and turned to pus. Acidic fluid, very low sugar, bacteria under the microscope and walled-off pockets on the scan all say so. A simple collection beside a pneumonia is thin and clear and settles with antibiotics alone.",
+        "terms": [
+          {
+            "term": "Empyema",
+            "meaning": "Pus in the space between the lung and the chest wall."
+          },
+          {
+            "term": "Pleura",
+            "meaning": "The thin lining that covers the lung and the inside of the chest wall."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "On the ward with a chest drain, booked for keyhole surgery to clear the infection",
+        "unstable": "On the ward with a chest drain, booked for keyhole surgery to clear the infection",
+        "worse": "On the ward with a chest drain, sicker than he needed to be, booked for surgery",
+        "critical": "In intensive care with sepsis"
+      },
+      "plainDiagnosis": "Pus in the space around the lung, after a pneumonia (empyema).",
+      "science": [
+        {
+          "tag": "Energy without oxygen",
+          "title": "Why infected fluid is acidic and low in sugar",
+          "text": "Bacteria and white blood cells packed into a closed space burn glucose fast, with little oxygen, and turn it into acid. So the sugar in the fluid falls and its pH drops. Those two numbers measure how hard the fight is going.",
+          "lesson": "glycolysis",
+          "lessonTitle": "Account for glycolysis"
+        },
+        {
+          "tag": "Gas exchange",
+          "title": "Why fluid around a lung lowers oxygen",
+          "text": "Oxygen enters the blood across the thin walls of air sacs. Fluid pressing on the lung squashes those sacs flat. Blood still flows past them but picks up no oxygen, and it mixes back in and pulls the oxygen level down.",
+          "lesson": "gas-exchange",
+          "lessonTitle": "Move oxygen across a barrier"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Rahman et al. (N Engl J Med 2011): intrapleural use of tissue plasminogen activator and DNase in pleural infection (MIST2)",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/21830966/"
+        },
+        {
+          "title": "Shen et al. (J Thorac Cardiovasc Surg 2017): AATS consensus guidelines for the management of empyema",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/28274565/"
+        }
+      ]
+    },
+    "pm-028": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "Five days after a stroke, _coughing at every meal._",
+      "setting": "Hospital ward",
+      "start": {
+        "status": "unstable",
+        "alarm": "Fever · oxygen 91% · more confused"
+      },
+      "handoff": "A 78-year-old woman had a stroke five days ago. Today she has a fever, a wet cough and is more confused. The nurses say she coughs whenever she eats.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask what is new today",
+            "finding": "A fever, a cough that brings up phlegm, and more confusion than yesterday."
+          },
+          {
+            "prompt": "Ask the nurses about her meals",
+            "finding": "She coughs during meals and holds food in her cheek. She was put back on normal food before anyone had formally tested her swallowing."
+          },
+          {
+            "prompt": "Check what the stroke left her with, and her medicines",
+            "finding": "The stroke left her right side weak and her speech slurred. She has an irregular heartbeat and takes a blood thinner for it, with tablets for blood pressure and cholesterol."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Listen to her lungs and tap on her chest",
+            "finding": "At the bottom of her right lung, at the back, the breath sounds are harsh and crackly, and the chest sounds dull when tapped."
+          },
+          {
+            "prompt": "Look in her mouth, and watch her sip water",
+            "finding": "Saliva is pooling in her mouth, and her teeth are in poor condition. When she sips water she gives a wet, gurgling cough."
+          },
+          {
+            "prompt": "Check her pulse and how alert she is",
+            "finding": "Her pulse is irregular. She is sleepier than she was yesterday. Her right arm and leg are weak, as before."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Chest X-ray, blood tests and swallow test",
+          "content": "Chest X-ray: a solid white patch at the bottom of the right lung.\nWhite blood cells: 15.8, high.\nLactate: 1.8, normal.\nBedside swallow test: failed. She coughs and splutters on sips of water.\nBlood cultures: sent, results pending."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "She coughs when she eats, and now she has a fever. I think food or saliva has gone down into her lungs. Before the X-ray comes back, tell me where you expect it to show.",
+          "question": "Why the bottom of the right lung?",
+          "options": [
+            "The right middle lobe is the lowest point when a person is upright",
+            "The airway to the right lung is straighter and wider, so what goes down the wrong way tends to end up there",
+            "The heart protects the left lower lobe",
+            "Aspiration always lands in the same small part of the left lung"
+          ],
+          "fix": "Explain the straighter right airway",
+          "terms": [
+            {
+              "term": "Aspiration",
+              "meaning": "Food, drink, saliva or vomit going down the windpipe into the lungs."
+            },
+            {
+              "term": "Bronchus",
+              "meaning": "One of the two main airways that branch from the windpipe, one to each lung."
+            },
+            {
+              "term": "Dysphagia",
+              "meaning": "Difficulty swallowing."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You pick the right middle lobe. The resident shakes their head.",
+              "reply": "It is not the lowest part. Material falls into the lower lobe, and it goes right because that airway is straighter and wider."
+            },
+            {
+              "kind": "safe",
+              "minutes": 30,
+              "story": "You answer, and the resident nods. Her meals are stopped and she is given oxygen. A chest X-ray and bloods are done, and a nurse tests her swallow at the bedside. The results go in her chart.",
+              "reply": "Right. The windpipe runs almost straight into the right main airway, so that is the easy path. In someone propped up in bed, gravity takes it to the bottom.",
+              "vitals": {
+                "SpO2": "95% on oxygen"
+              },
+              "trend": {
+                "SpO2": "up"
+              }
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say the heart protects the left side. The resident shakes their head.",
+              "reply": "The heart does not shield the airway. The left airway branches off at a sharper angle, and that is the reason less ends up there."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say it always lands in the left lung. The resident shakes their head.",
+              "reply": "It usually goes right, and where it settles depends on how the person was lying at the time."
+            }
+          ]
+        },
+        "3": {
+          "resident": "The X-ray shows pneumonia at the bottom of her right lung, and she failed her swallow test. She has a fever and a high white count.",
+          "question": "What about antibiotics?",
+          "options": [
+            "None. This is only irritation from stomach contents",
+            "Ampicillin-sulbactam into a vein, or a similar choice fitted to how sick she is and to local resistance",
+            "Add extra cover against anaerobic bacteria, as a routine for everyone who aspirates",
+            "Azithromycin tablets, at home"
+          ],
+          "fix": "Start antibiotics through a vein",
+          "terms": [
+            {
+              "term": "Pneumonitis",
+              "meaning": "Inflammation of the lung from something irritating, such as stomach acid. It often settles without antibiotics."
+            },
+            {
+              "term": "Pneumonia",
+              "meaning": "Infection of the lung. It needs antibiotics."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "delay",
+              "minutes": 240,
+              "story": "No antibiotics are given. Four hours later her temperature is higher, she is breathing faster and her oxygen level has dropped despite the oxygen.",
+              "reply": "Irritation alone settles within a day or two. Fever, a rising white count and a solid patch on the X-ray mean infection, and she has gone four hours without treatment. Start the antibiotics.",
+              "vitals": {
+                "Temp": "39.0 °C",
+                "RR": "28 /min",
+                "SpO2": "89% on oxygen"
+              },
+              "trend": {
+                "Temp": "up",
+                "RR": "up",
+                "SpO2": "down"
+              },
+              "status": "worse",
+              "alarm": "Breathing faster · oxygen falling"
+            },
+            {
+              "kind": "safe",
+              "minutes": 30,
+              "story": "The first dose goes in through her drip. She stays on oxygen, with nothing by mouth for now.",
+              "reply": "Yes. She has a true infection, so she needs antibiotics, and through a vein because she cannot swallow safely."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You add extra anaerobic cover. The resident takes it off.",
+              "reply": "That used to be routine and no longer is. It is kept for lung abscesses, pus around the lung or badly infected gums. Her antibiotic already covers what she needs."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for tablets and a discharge. The resident stops the order.",
+              "reply": "She needs oxygen, and she cannot swallow safely. Tablets at home are the one thing she must not have."
+            }
+          ]
+        },
+        "4": {
+          "resident": "The antibiotics will treat this infection. Unless something changes, the next meal will cause another.",
+          "question": "What matters most for preventing the next one?",
+          "options": [
+            "A formal swallowing assessment, with a plan for safe eating",
+            "Preventive antibiotics, indefinitely",
+            "Strict bed rest, lying flat",
+            "An acid-reducing tablet, and nothing else"
+          ],
+          "fix": "Request a swallowing assessment",
+          "terms": [
+            {
+              "term": "Speech and language therapist",
+              "meaning": "A specialist who assesses swallowing and teaches safe ways to eat and drink."
+            },
+            {
+              "term": "Thickened fluids",
+              "meaning": "Drinks made thicker so that they move slowly and are easier to control when swallowing."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "You request the assessment. Until it is done she stays off food and drink, sits upright, and has her mouth cleaned regularly.",
+              "reply": "Right. The therapist finds out what she can swallow safely. Thicker drinks, softer food, sitting upright and a clean mouth all cut the risk."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest long-term antibiotics. The resident shakes their head.",
+              "reply": "They do not stop food going down the wrong way. They breed resistant bacteria and cause gut infections."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest lying flat. The nurse raises the head of her bed.",
+              "reply": "Flat is the worst position. It lets whatever is in her mouth and stomach run toward her lungs. She should be propped upright."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest an acid-reducing tablet alone. The resident shakes their head.",
+              "reply": "That changes how acidic the stomach contents are. It does nothing about her swallowing."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "The X-ray, blood tests and swallow test are in her chart.",
+        "question": "What is this?",
+        "options": [
+          "A blood clot in the lung",
+          "Aspiration pneumonia: food or saliva went down the wrong way after her stroke and infected the lung",
+          "Heart failure",
+          "Tuberculosis"
+        ],
+        "reveal": "It is aspiration pneumonia. The stroke weakened her swallowing, so food and saliva have been slipping into her airway, carrying bacteria from her mouth. The patch sits at the bottom of the right lung, where swallowed material ends up. A clot would not cause a solid patch with fever and phlegm, and heart failure shows fluid in both lungs.",
+        "terms": [
+          {
+            "term": "Consolidation",
+            "meaning": "Lung that has filled with pus and fluid, so it looks solid white on an X-ray."
+          },
+          {
+            "term": "Swallow screen",
+            "meaning": "A quick bedside test with sips of water, to see whether swallowing is safe."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "On the ward on antibiotics and oxygen, with a plan for safe swallowing",
+        "unstable": "On the ward on antibiotics and oxygen, with a plan for safe swallowing",
+        "worse": "On the ward on antibiotics and more oxygen, after hours without treatment",
+        "critical": "In intensive care on a breathing machine"
+      },
+      "plainDiagnosis": "A lung infection from food or saliva going down the wrong way after a stroke (aspiration pneumonia).",
+      "science": [
+        {
+          "tag": "Flow",
+          "title": "Why it went to the right lung",
+          "text": "Anything moving down a tube follows the straighter, wider branch. The right main airway leaves the windpipe at a gentle angle and is wider than the left, which turns off sharply. So most of what is inhaled by accident goes right.",
+          "lesson": "fluid-flow",
+          "lessonTitle": "Follow flow through a narrowing"
+        },
+        {
+          "tag": "Gas exchange",
+          "title": "Why her oxygen was low",
+          "text": "Oxygen crosses from air into blood through the walls of tiny air sacs. In pneumonia those sacs fill with pus. Blood flowing past them meets no air, picks up no oxygen, and lowers the level in the blood leaving the lungs.",
+          "lesson": "gas-exchange",
+          "lessonTitle": "Move oxygen across a barrier"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Mandell and Niederman (N Engl J Med 2019): aspiration pneumonia",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/30763196/"
+        },
+        {
+          "title": "Metlay et al. (Am J Respir Crit Care Med 2019): diagnosis and treatment of adults with community-acquired pneumonia, an ATS/IDSA guideline",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/31573350/"
+        }
+      ]
+    },
+    "pm-023": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "A positive test _in a nurse who feels fine._",
+      "setting": "Occupational health clinic",
+      "start": {
+        "status": "stable",
+        "alarm": "Positive tuberculosis blood test · feels well"
+      },
+      "handoff": "A 28-year-old nurse had a routine blood test for tuberculosis before starting a new job, and it came back positive. She feels completely well.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask about symptoms",
+            "finding": "She feels well. No cough, no fever, no night sweats, no coughing up blood and no weight loss. Her breathing is normal."
+          },
+          {
+            "prompt": "Ask how she might have been exposed",
+            "finding": "She once volunteered in a country where tuberculosis is common. She has never injected drugs."
+          },
+          {
+            "prompt": "Ask about her health and her medicines",
+            "finding": "She has no medical problems. She takes a contraceptive pill and a multivitamin, and has a drink or two a month."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Listen to her lungs",
+            "finding": "Clear on both sides."
+          },
+          {
+            "prompt": "Feel for swollen glands",
+            "finding": "None in her neck, above her collarbones, in her armpits or in her groin."
+          },
+          {
+            "prompt": "Feel her belly, and look at her skin and fingers",
+            "finding": "Her belly is soft, and her liver and spleen are not enlarged. Her skin and fingertips look normal."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Chest X-ray and blood tests",
+          "content": "Chest X-ray: clear. No shadows, no cavities and no swollen glands.\nHIV test: negative.\nLiver tests: normal.\nPregnancy test: negative."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "A positive blood test tells us tuberculosis bacteria have been in her body at some point. It does not tell us whether they are active now.",
+          "question": "What has to happen before any treatment?",
+          "options": [
+            "A chest X-ray, to rule out active tuberculosis",
+            "Start isoniazid straight away",
+            "Repeat the blood test, to be sure it is really positive",
+            "Collect three phlegm samples, whether or not she has symptoms"
+          ],
+          "fix": "Get a chest X-ray",
+          "terms": [
+            {
+              "term": "IGRA",
+              "meaning": "A blood test for tuberculosis infection. It checks whether her immune cells react to tuberculosis proteins."
+            },
+            {
+              "term": "Active tuberculosis",
+              "meaning": "Tuberculosis bacteria that are multiplying and causing illness. It can spread to others."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 30,
+              "story": "She has a chest X-ray and a few blood tests that are needed before treatment. The results go in her chart.",
+              "reply": "Right. Active disease needs four drugs. Latent infection needs one or two. Treating active disease as if it were latent breeds resistant bacteria, so we rule it out first."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for isoniazid. The resident holds the prescription.",
+              "reply": "Not until we know it is not active disease. One drug against active tuberculosis is how resistance starts."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask to repeat the test. The resident shakes their head.",
+              "reply": "This test is very specific, and she has a believable exposure. A repeat only delays the X-ray she needs."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for phlegm samples. The resident shakes their head.",
+              "reply": "She has no cough and nothing to bring up. Phlegm tests are for people with symptoms or an abnormal X-ray."
+            }
+          ]
+        },
+        "3": {
+          "resident": "She has latent infection. Treating it now makes it much less likely to wake up later.",
+          "question": "Which treatment is recommended?",
+          "options": [
+            "Four drugs for six months",
+            "Rifampin alone for two months",
+            "Isoniazid with rifapentine once a week for 12 weeks",
+            "Isoniazid alone for two months"
+          ],
+          "fix": "Offer the 12-week course",
+          "terms": [
+            {
+              "term": "Isoniazid",
+              "meaning": "An antibiotic that kills tuberculosis bacteria."
+            },
+            {
+              "term": "Rifapentine",
+              "meaning": "A long-acting antibiotic in the same family as rifampin. It turns urine and tears orange."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest four drugs. The resident shakes their head.",
+              "reply": "That is the treatment for active tuberculosis. For sleeping bacteria it is far more than she needs."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest two months of rifampin. The resident corrects the length.",
+              "reply": "Rifampin alone is a good option, but it takes four months. Two is too short to clear the bacteria."
+            },
+            {
+              "kind": "safe",
+              "minutes": 15,
+              "story": "You go through the course with her: one dose a week for twelve weeks, with a check-in each month.",
+              "reply": "Yes. Short courses are the ones people actually finish, and this one works as well as nine months of the older treatment."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest two months of isoniazid. The resident corrects the length.",
+              "reply": "Isoniazid alone takes six to nine months. Two would leave her unprotected."
+            }
+          ]
+        },
+        "4": {
+          "resident": "Her course includes isoniazid, which has one side effect that a simple supplement prevents.",
+          "question": "What do we tell her?",
+          "options": [
+            "Take vitamin B6, to protect her nerves",
+            "Avoid all dairy products",
+            "Expect harmless orange tears, from the isoniazid",
+            "Take high-dose acetaminophen for any muscle aches"
+          ],
+          "fix": "Add vitamin B6",
+          "terms": [
+            {
+              "term": "Peripheral neuropathy",
+              "meaning": "Damage to the nerves of the hands and feet, felt as numbness, tingling or burning."
+            },
+            {
+              "term": "Pyridoxine",
+              "meaning": "Vitamin B6."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "You add vitamin B6 to her prescription and tell her why.",
+              "reply": "Right. Isoniazid uses up vitamin B6, and nerves suffer without it. One small tablet prevents the problem."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You tell her to avoid dairy. The resident corrects you.",
+              "reply": "Dairy makes no difference to these medicines. The advice she needs is vitamin B6."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You blame orange tears on isoniazid. The resident corrects you.",
+              "reply": "The orange color is real and harmless, but it comes from the rifapentine. What isoniazid needs is vitamin B6."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest high-dose acetaminophen. The resident says no.",
+              "reply": "Isoniazid can strain the liver, and so can large doses of acetaminophen. She should tell us about aches, not treat them heavily."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "Her X-ray and blood tests are in the chart.",
+        "question": "What does she have?",
+        "options": [
+          "Active tuberculosis of the lungs",
+          "Latent tuberculosis infection: the bacteria are in her body, walled off and asleep",
+          "A false-positive test in someone who was never infected",
+          "A positive result caused by an old BCG vaccination"
+        ],
+        "reveal": "She has latent tuberculosis infection. Her immune system has met the bacteria and walled them off. They are alive but not multiplying, so she has no symptoms, a clear X-ray and cannot infect anyone. The blood test is not affected by BCG vaccination, and with her exposure a false positive is unlikely.",
+        "terms": [
+          {
+            "term": "Latent",
+            "meaning": "Present but inactive."
+          },
+          {
+            "term": "BCG",
+            "meaning": "A tuberculosis vaccine given in many countries. It can make the older skin test positive, but not this blood test."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "Cleared to start work, with a 12-week course of treatment",
+        "worse": "Admitted for observation",
+        "critical": "In intensive care"
+      },
+      "plainDiagnosis": "Tuberculosis bacteria that are present but asleep (latent tuberculosis infection).",
+      "science": [
+        {
+          "tag": "Evidence",
+          "title": "What a positive test did and did not show",
+          "text": "The test shows that her immune cells recognize tuberculosis proteins, which proves her body has met the bacteria. It cannot show whether they are multiplying. Answering that took different evidence: her symptoms and an X-ray.",
+          "lesson": "uncertainty-controls",
+          "lessonTitle": "Match evidence to a conclusion"
+        },
+        {
+          "tag": "Enzymes",
+          "title": "Why isoniazid can hurt nerves",
+          "text": "Many enzymes only work with a small helper molecule attached. Nerve cells depend on enzymes whose helper is made from vitamin B6. Isoniazid binds B6 and carries it out in the urine, so those enzymes slow down unless the vitamin is topped up.",
+          "lesson": "enzyme-rates",
+          "lessonTitle": "Read an enzyme curve"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Sterling et al. (MMWR Recomm Rep 2020): guidelines for the treatment of latent tuberculosis infection, recommendations from the NTCA and CDC",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/32053584/"
+        },
+        {
+          "title": "Sterling et al. (N Engl J Med 2011): three months of rifapentine and isoniazid for latent tuberculosis infection",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/22150035/"
         }
       ]
     }
