@@ -1,7 +1,7 @@
 {
-  "version": 15,
+  "version": 16,
   "title": "Clinical Shift foundations and rotation practice",
-  "reviewStatus": "Source and consistency checks are recorded with each encounter. Independent clinician review remains pending for all 30 encounters.",
+  "reviewStatus": "Source and consistency checks are recorded with each encounter. Independent clinician review remains pending for all 33 encounters.",
   "rotations": [
     {
       "key": "emergency-medicine",
@@ -80,6 +80,16 @@
         "ob-001",
         "ob-010",
         "ob-064"
+      ]
+    },
+    {
+      "key": "internal-medicine",
+      "name": "Internal Medicine",
+      "description": "The body’s chemistry goes wrong quietly. Read the numbers, and act on them.",
+      "caseIds": [
+        "im-034",
+        "im-024",
+        "im-019"
       ]
     }
   ],
@@ -203,6 +213,18 @@
     "ob-064": {
       "assessment": "22-year-old woman with three hours of sudden severe colicky right pelvic pain and vomiting and a known right ovarian cyst. Pregnancy test negative. Ultrasound shows a 6.5 cm edematous right ovary with peripherally displaced follicles, a 5 cm cyst, and absent Doppler flow: ovarian torsion.",
       "plan": "Emergent diagnostic laparoscopy with detorsion. Conserve the ovary even if it appears dusky, and remove the cyst (cystectomy); reserve oophorectomy for frankly necrotic or suspicious tissue. Analgesia and antiemetics before surgery. Routine oophoropexy is not required."
+    },
+    "im-034": {
+      "assessment": "38-year-old man with autoimmune hypothyroidism and vitiligo, weeks of fatigue, weight loss, salt craving, and hyperpigmentation, now hypotensive after a vomiting illness. Sodium 126, potassium 6.1 with peaked T waves, glucose 62, cortisol 2.8 µg/dL with markedly elevated ACTH: primary adrenal insufficiency in adrenal crisis.",
+      "plan": "Draw cortisol and ACTH, then give IV isotonic saline (with dextrose) and IV hydrocortisone at once without waiting for confirmatory testing. Give IV calcium gluconate for the ECG changes; the hyperkalemia corrects with fluids and steroid. Long term: lifelong hydrocortisone and fludrocortisone, sick-day dosing, an emergency injection kit, and a medical alert."
+    },
+    "im-024": {
+      "assessment": "62-year-old woman with a new lung mass and two days of confusion. Sodium 118 mEq/L, serum osmolality 248, urine osmolality 540, urine sodium 58, clinically euvolemic with normal thyroid and cortisol: symptomatic hypotonic hyponatremia from SIADH, likely paraneoplastic.",
+      "plan": "Cautious 3% hypertonic saline to raise sodium about 4-6 mEq/L over the first hours, checking sodium every 2-4 hours. Limit correction to about 6-8 mEq/L in 24 hours and re-lower with free water or desmopressin if exceeded. Then fluid restriction and treatment of the underlying tumor, with salt tablets or a vasopressin antagonist if restriction is inadequate."
+    },
+    "im-019": {
+      "assessment": "36-year-old man found down after at least 12 hours of immobilization, with muscle pain and tea-colored urine. CK 38,000 U/L, creatinine 2.6 mg/dL from a baseline near 0.9, potassium 6.1 with peaked T waves, hyperphosphatemia, hypocalcemia, and a dipstick positive for blood without red cells: rhabdomyolysis with acute kidney injury.",
+      "plan": "Early aggressive IV isotonic fluids titrated to urine output; no early diuretics. IV calcium gluconate now for the ECG changes, then insulin with glucose and other measures to shift and remove potassium. Monitor potassium, CK, kidney function, urine output, and limb compartments; dialysis for refractory hyperkalemia, acidosis, or volume overload."
     }
   },
   "investigations": {
@@ -1105,6 +1127,96 @@
           "finding": "No costovertebral angle tenderness. Bowel sounds are present."
         }
       ]
+    },
+    "im-034": {
+      "interview": [
+        {
+          "prompt": "Characterize the fatigue, dizziness and weight loss",
+          "finding": "Several weeks of progressive fatigue, anorexia, nausea and orthostatic dizziness with a 7 kg weight loss and salt craving, culminating in near-syncope today."
+        },
+        {
+          "prompt": "Ask about recent illness and skin changes",
+          "finding": "Two days of vomiting and abdominal pain with a viral gastroenteritis. His skin and old scars have darkened over recent months."
+        },
+        {
+          "prompt": "Review medical history and steroid exposure",
+          "finding": "Autoimmune hypothyroidism on levothyroxine and recently diagnosed vitiligo. No oral, inhaled or topical corticosteroids. A sister has type 1 diabetes."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Measure lying and standing blood pressure",
+          "finding": "84/52 mmHg supine, falling to 70/44 mmHg on standing with reflex tachycardia. Dry mucous membranes and delayed capillary refill."
+        },
+        {
+          "prompt": "Inspect the skin and mouth",
+          "finding": "Hyperpigmentation of the palmar creases, knuckles and buccal mucosa, with depigmented vitiligo patches on the forearms."
+        },
+        {
+          "prompt": "Examine the abdomen and neurologic status",
+          "finding": "Soft abdomen with mild diffuse tenderness and no guarding or rebound. Lethargic, with no focal deficit and no neck stiffness."
+        }
+      ]
+    },
+    "im-024": {
+      "interview": [
+        {
+          "prompt": "Establish the time course of the confusion",
+          "finding": "Increasing confusion and lethargy over two days with one episode of disorientation. No headache, vomiting, seizures or focal weakness reported."
+        },
+        {
+          "prompt": "Review medications and fluid losses",
+          "finding": "Amlodipine only; no diuretics, SSRIs or carbamazepine. No diarrhea, excessive sweating or water loading, with normal oral intake."
+        },
+        {
+          "prompt": "Ask about the lung mass and smoking history",
+          "finding": "Admitted for a newly discovered lung mass. 40 pack-years of smoking with chronic cough and recent unintentional weight loss."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Assess mental status and neurologic function",
+          "finding": "Drowsy but arousable, oriented to person only, with slowed responses. No focal deficit and no nuchal rigidity."
+        },
+        {
+          "prompt": "Assess volume status",
+          "finding": "Moist mucous membranes, normal skin turgor, normal jugular venous pressure and no peripheral edema: clinically euvolemic."
+        },
+        {
+          "prompt": "Examine the chest and abdomen",
+          "finding": "Decreased breath sounds at the right apex. Regular heart sounds without a gallop. Soft abdomen with no ascites."
+        }
+      ]
+    },
+    "im-019": {
+      "interview": [
+        {
+          "prompt": "Establish what happened before admission",
+          "finding": "Found down at home after an alcohol binge, thought to have been immobile on a hard floor for at least 12 hours."
+        },
+        {
+          "prompt": "Characterize the muscle and urinary symptoms",
+          "finding": "Severe diffuse muscle pain and weakness, worst in the legs and back, with tea-colored urine since this morning. No chest pain."
+        },
+        {
+          "prompt": "Review medications, substances and kidney history",
+          "finding": "Alcohol use disorder with past cocaine use; recently started a statin with unclear adherence. No prior kidney disease and no other nephrotoxins."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Palpate the muscles and limb compartments",
+          "finding": "Diffuse muscle tenderness in the thighs, calves and lower back with mild calf swelling. The compartments are not tense."
+        },
+        {
+          "prompt": "Inspect the skin and the urine",
+          "finding": "Pressure-related erythema over the sacrum and hip. Urine in the catheter bag is dark and cola-colored."
+        },
+        {
+          "prompt": "Assess hydration, the heart and strength",
+          "finding": "Slightly dry mucous membranes and a regular tachycardia. Strength is limited by pain, with no focal neurologic deficit."
+        }
+      ]
     }
   },
   "caseReviews": {
@@ -1589,6 +1701,54 @@
         {
           "title": "Huchon and Fauconnier (Eur J Obstet Gynecol Reprod Biol 2010): adnexal torsion, a literature review",
           "url": "https://pubmed.ncbi.nlm.nih.gov/20189289/"
+        }
+      ]
+    },
+    "im-034": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Recognize adrenal crisis and treat it before the diagnosis is confirmed.",
+      "alternativesAndLimits": "Hydrocortisone doses and fluid volumes follow local protocols. Dexamethasone is an alternative when a stimulation test is planned at once.",
+      "sources": [
+        {
+          "title": "Bornstein et al. (J Clin Endocrinol Metab 2016): diagnosis and treatment of primary adrenal insufficiency, an Endocrine Society clinical practice guideline",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/26760044/"
+        },
+        {
+          "title": "Rushworth, Torpy and Falhammar (N Engl J Med 2019): adrenal crisis",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/31461595/"
+        }
+      ]
+    },
+    "im-024": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Work up hyponatremia in order, treat symptoms promptly and avoid correcting too fast.",
+      "alternativesAndLimits": "Correction limits differ slightly between guidelines and are lower for high-risk patients. A seizure after delayed treatment is written into one path for teaching.",
+      "sources": [
+        {
+          "title": "Verbalis et al. (Am J Med 2013): diagnosis, evaluation, and treatment of hyponatremia, expert panel recommendations",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/24074529/"
+        },
+        {
+          "title": "Spasovski et al. (Eur J Endocrinol 2014): clinical practice guideline on diagnosis and treatment of hyponatraemia",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/24569125/"
+        }
+      ]
+    },
+    "im-019": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Recognize rhabdomyolysis from the urine and the story, protect the kidneys with fluids and treat the potassium.",
+      "alternativesAndLimits": "Fluid targets vary between sources, and bicarbonate and mannitol remain debated. The rhythm change on one path is written for teaching.",
+      "sources": [
+        {
+          "title": "Bosch, Poch and Grau (N Engl J Med 2009): rhabdomyolysis and acute kidney injury",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/19571284/"
+        },
+        {
+          "title": "Chavez et al. (Crit Care 2016): beyond muscle destruction, a systematic review of rhabdomyolysis for clinical practice",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/27301374/"
         }
       ]
     }
@@ -10473,6 +10633,850 @@
         {
           "title": "Huchon and Fauconnier (Eur J Obstet Gynecol Reprod Biol 2010): adnexal torsion, a literature review",
           "url": "https://pubmed.ncbi.nlm.nih.gov/20189289/"
+        }
+      ]
+    },
+    "im-034": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "Weeks of feeling weak, _and now he cannot stand._",
+      "setting": "Emergency department",
+      "start": {
+        "status": "unstable",
+        "alarm": "Blood pressure 84 over 52 · nearly collapsed"
+      },
+      "handoff": "A 38-year-old man nearly collapsed today. He has been tired, dizzy and losing weight for weeks, and he has been vomiting for two days with a stomach bug. His blood pressure is very low.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask how the last few weeks have been",
+            "finding": "Weeks of worsening tiredness, poor appetite and feeling sick. He gets dizzy when he stands. He has lost about 7 kg and craves salty food. Today he nearly passed out."
+          },
+          {
+            "prompt": "Ask about recent illness and his skin",
+            "finding": "He has had a stomach bug for two days, with vomiting and belly pain. Over recent months his skin and old scars have turned darker. Friends say he looks tanned, in winter."
+          },
+          {
+            "prompt": "Ask about his medical history and any steroids",
+            "finding": "He has an underactive thyroid caused by his immune system and takes thyroid tablets. He was recently told he has vitiligo. He has never taken steroids in any form. His sister has type 1 diabetes."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Take his blood pressure lying down, then standing",
+            "finding": "84 over 52 lying down. It falls to 70 over 44 when he stands, and his heart races. His mouth is dry."
+          },
+          {
+            "prompt": "Look at his skin and inside his mouth",
+            "finding": "The creases of his palms, his knuckles and the inside of his cheeks are darkly pigmented. His forearms have pale patches with no pigment at all."
+          },
+          {
+            "prompt": "Press on his belly, and check how alert he is",
+            "finding": "His belly is soft and mildly tender all over. He is drowsy but answers sensibly. His neck is not stiff."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Blood tests and heart tracing",
+          "content": "Sodium: 126, low. Potassium: 6.1, high.\nBlood sugar: 62, low.\nKidney tests: raised, from dehydration.\nCortisol: 2.8, far too low for someone this ill.\nACTH, the pituitary signal that tells the adrenal glands to make cortisol: very high.\nHeart tracing (ECG): tall, pointed T waves, a sign that the high potassium is affecting the heart."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "Low blood pressure, darkened skin, salt craving, and an illness that tipped him over. I think his body cannot make cortisol. Blood for cortisol and ACTH is being drawn now.",
+          "question": "What do we do while the results are pending?",
+          "options": [
+            "Hold all steroids until a stimulation test confirms the diagnosis",
+            "Give salt-water fluids and hydrocortisone into a vein now",
+            "Start antibiotics and admit him for observation only",
+            "Give dexamethasone only once the morning cortisol is back"
+          ],
+          "fix": "Give fluids and hydrocortisone now",
+          "terms": [
+            {
+              "term": "Cortisol",
+              "meaning": "A hormone from the adrenal glands. The body needs more of it during illness, to keep blood pressure and blood sugar up."
+            },
+            {
+              "term": "Hydrocortisone",
+              "meaning": "Cortisol given as a medicine."
+            },
+            {
+              "term": "Adrenal crisis",
+              "meaning": "Shock caused by too little cortisol. It can kill within hours, and it is easy to treat."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "delay",
+              "minutes": 60,
+              "story": "The stimulation test is booked and no steroid is given. An hour later his blood pressure has fallen further, and he is hard to rouse.",
+              "reply": "The test can wait. He cannot. The blood we already drew will give us the diagnosis, and steroid given now does not spoil it. Give the hydrocortisone.",
+              "vitals": {
+                "BP": "76/46 mmHg",
+                "HR": "126 bpm"
+              },
+              "trend": {
+                "BP": "down",
+                "HR": "up"
+              },
+              "status": "worse",
+              "alarm": "Blood pressure 76 over 46 · hard to rouse"
+            },
+            {
+              "kind": "safe",
+              "minutes": 20,
+              "story": "Fluids run in fast, with sugar added, and hydrocortisone is given into a vein. Within minutes his blood pressure starts to come up. His results go in the chart.",
+              "reply": "Right. In a suspected adrenal crisis we treat first and confirm afterward. Waiting for proof is what kills people.",
+              "vitals": {
+                "BP": "98/60 mmHg",
+                "HR": "106 bpm"
+              },
+              "trend": {
+                "BP": "up",
+                "HR": "down"
+              },
+              "alarm": "Fluids and hydrocortisone running"
+            },
+            {
+              "kind": "delay",
+              "minutes": 90,
+              "story": "Antibiotics are started, and he is admitted to be watched. Ninety minutes later his blood pressure is lower still, and he is confused.",
+              "reply": "Nothing here points to a bacterial infection, and watching him does not replace the hormone he is missing. He needs hydrocortisone and fluids now.",
+              "vitals": {
+                "BP": "72/42 mmHg",
+                "HR": "130 bpm"
+              },
+              "trend": {
+                "BP": "down",
+                "HR": "up"
+              },
+              "status": "worse",
+              "alarm": "Blood pressure 72 over 42 · confused"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest waiting for a morning cortisol. The resident shakes their head.",
+              "reply": "Morning is ten hours away, and he is in shock now. We have drawn the blood we need. Treat him."
+            }
+          ]
+        },
+        "3": {
+          "resident": "His potassium is 6.1, and his heart tracing shows it. The cause is the missing adrenal hormones and the dehydration.",
+          "question": "How do we deal with the potassium?",
+          "options": [
+            "Give calcium into a vein to protect his heart, and carry on with fluids and hydrocortisone, which bring the potassium down",
+            "Start emergency dialysis",
+            "Give a large dose of a potassium-binding powder, and recheck in 24 hours",
+            "Give a potassium-sparing water tablet, so he keeps more sodium"
+          ],
+          "fix": "Give calcium and continue treatment",
+          "terms": [
+            {
+              "term": "Potassium",
+              "meaning": "A blood salt that sets the electrical state of heart cells. Too much can stop the heart."
+            },
+            {
+              "term": "Calcium gluconate",
+              "meaning": "Calcium given into a vein. It steadies the heart’s electrical activity within minutes, though it does not lower the potassium."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 15,
+              "story": "Calcium is given slowly into a vein, and the pointed T waves settle. The fluids and hydrocortisone keep running, and a repeat potassium an hour later is already lower.",
+              "reply": "Yes. Calcium protects the heart now, and treating the cause does the rest. With the hormone replaced, his kidneys start getting rid of potassium again."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask about dialysis. The resident shakes their head.",
+              "reply": "Dialysis is for potassium that will not come down any other way. His will fall with fluids and hydrocortisone. He needs calcium to cover his heart in the meantime."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for the binding powder and a recheck tomorrow. The resident adds to the order.",
+              "reply": "The powder takes hours, and his heart tracing is already abnormal. Calcium first, and a recheck within the hour."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for a potassium-sparing water tablet. The pharmacist calls at once.",
+              "reply": "That tablet makes the body hold on to potassium. It is the opposite of what he needs."
+            }
+          ]
+        },
+        "4": {
+          "resident": "He is steady now. His adrenal glands will not recover, so what he is taught before he leaves matters as much as today’s treatment.",
+          "question": "What does he need for the long term?",
+          "options": [
+            "Lifelong replacement of both adrenal hormones, with extra doses when he is ill and an emergency injection to carry",
+            "Cortisol replacement only",
+            "A two-week course of steroids that tapers off and stops",
+            "A strict no-salt diet"
+          ],
+          "fix": "Explain lifelong replacement and sick-day rules",
+          "terms": [
+            {
+              "term": "Fludrocortisone",
+              "meaning": "A tablet that replaces aldosterone, the adrenal hormone that makes the kidneys keep sodium."
+            },
+            {
+              "term": "Sick-day rules",
+              "meaning": "Doubling or tripling the steroid dose during illness, the way healthy adrenal glands would raise cortisol."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "You go through it with him: two tablets for life, more when he is ill, an injection kit for emergencies and a medical alert bracelet.",
+              "reply": "Exactly. Both hormones are missing, so both are replaced. The sick-day rules are what stop him ending up here again."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest cortisol alone. The resident corrects you.",
+              "reply": "His adrenal glands make no aldosterone either. Without it he keeps losing salt and holding potassium. He needs both."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest a short course that stops. The resident corrects you.",
+              "reply": "A taper is for people coming off steroid tablets. His glands cannot make cortisol at all, so stopping would bring him straight back in crisis."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest avoiding salt. The resident corrects you.",
+              "reply": "He loses salt in his urine. He needs more of it than most people, not less."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "His blood tests are in the chart. Look at the cortisol next to the ACTH.",
+        "question": "Where is the problem?",
+        "options": [
+          "In the adrenal glands themselves (primary adrenal insufficiency, Addison disease)",
+          "In the pituitary gland, which is not signaling the adrenals",
+          "In the hypothalamus, which is not signaling the pituitary",
+          "Too much water-retaining hormone (SIADH)"
+        ],
+        "reveal": "His adrenal glands have failed. The pituitary is shouting, with a very high ACTH, and the adrenals are not answering, so cortisol stays low. The high potassium shows that aldosterone is missing too, which only happens when the glands themselves are damaged. The darkened skin comes from the high ACTH. His thyroid disease and vitiligo point to his immune system as the cause.",
+        "terms": [
+          {
+            "term": "ACTH",
+            "meaning": "The pituitary hormone that tells the adrenal glands to make cortisol."
+          },
+          {
+            "term": "Autoimmune",
+            "meaning": "Caused by the immune system attacking the body’s own tissue."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "Admitted to the ward on hydrocortisone, with his blood pressure recovering",
+        "unstable": "Admitted to the ward on hydrocortisone, with his blood pressure recovering",
+        "worse": "In intensive care, after too long in shock without hydrocortisone",
+        "critical": "In intensive care on life support"
+      },
+      "plainDiagnosis": "Adrenal glands that have stopped making their hormones, tipped into shock by an illness (adrenal crisis from Addison disease).",
+      "science": [
+        {
+          "tag": "Feedback",
+          "title": "Why his ACTH was so high",
+          "text": "Cortisol normally switches off its own signal: when it rises, the pituitary makes less ACTH. With no cortisol coming back, nothing applied the brake. The molecule ACTH is cut from also yields a hormone that darkens skin, which explains his tan.",
+          "lesson": "endocrine-feedback",
+          "lessonTitle": "Trace a hormonal feedback loop"
+        },
+        {
+          "tag": "The nephron",
+          "title": "Why he craved salt",
+          "text": "Aldosterone tells the last part of the kidney tubule to pull sodium back into the blood and push potassium out. Without it he lost sodium, and water with it, in his urine, and kept potassium. His body asked for the salt back.",
+          "lesson": "renal-water",
+          "lessonTitle": "Regulate water in the nephron"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Bornstein et al. (J Clin Endocrinol Metab 2016): diagnosis and treatment of primary adrenal insufficiency, an Endocrine Society clinical practice guideline",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/26760044/"
+        },
+        {
+          "title": "Rushworth, Torpy and Falhammar (N Engl J Med 2019): adrenal crisis",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/31461595/"
+        }
+      ]
+    },
+    "im-024": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "More confused each day, _with a sodium of 118._",
+      "setting": "Hospital ward",
+      "start": {
+        "status": "unstable",
+        "alarm": "Confused and drowsy · sodium 118"
+      },
+      "handoff": "A 62-year-old woman is in hospital because a mass was found in her lung. Over the last two days she has become confused and sleepy. A routine blood test shows her sodium is 118.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask the nurses how the confusion has developed",
+            "finding": "She has grown more confused and sleepy over two days, and at one point did not know where she was. She has had no headache, vomiting, seizure or weakness that anyone has seen."
+          },
+          {
+            "prompt": "Check her medicines, and how much she has been drinking",
+            "finding": "She takes one blood pressure tablet. She is not on water tablets, antidepressants or seizure medicines. She has had no diarrhea or heavy sweating, and she has been drinking a normal amount."
+          },
+          {
+            "prompt": "Ask about her lungs and smoking",
+            "finding": "She smoked a pack a day for 40 years. She has a long-standing cough and has lost weight without trying."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Check how alert she is",
+            "finding": "She is drowsy but wakes when spoken to. She knows her name, but not the place or the date, and she is slow to answer. Her face and limbs move equally, and her neck is not stiff."
+          },
+          {
+            "prompt": "Check whether she is dry or overloaded with fluid",
+            "finding": "Her mouth is moist and her skin springs back normally. Her neck veins are not swollen, and her ankles are not puffy. She has a normal amount of fluid on board."
+          },
+          {
+            "prompt": "Listen to her chest, and feel her belly",
+            "finding": "Breath sounds are quiet at the top of her right lung. Her heart sounds are normal. Her belly is soft."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Blood and urine tests",
+          "content": "Sodium: 118, very low (normal is 135 to 145).\nBlood concentration (osmolality): 248, low. Her blood is diluted.\nUrine concentration: 540, high. Her kidneys are holding on to water when they should be letting it go.\nUrine sodium: 58, high.\nThyroid and cortisol: normal.\nKidney tests and blood sugar: normal."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "A sodium of 118 has many possible causes, and the treatments are opposite to each other. We have to know which kind this is.",
+          "question": "What is the first step?",
+          "options": [
+            "Run in strong salt solution at once, going by the number alone",
+            "Check how dilute her blood is and how much fluid she has on board, and send urine for its concentration and sodium",
+            "Stop all fluids completely, and recheck the sodium in 24 hours",
+            "Start fludrocortisone on a hunch"
+          ],
+          "fix": "Send the blood and urine tests",
+          "terms": [
+            {
+              "term": "Hyponatremia",
+              "meaning": "A low level of sodium in the blood. It usually means too much water, not too little salt."
+            },
+            {
+              "term": "Osmolality",
+              "meaning": "How concentrated a fluid is: the amount of dissolved particles in each kilogram of water."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for strong salt solution at once. The resident holds the order.",
+              "reply": "She may well need it. But the number alone does not tell us, and given blindly it can do harm. The tests take minutes."
+            },
+            {
+              "kind": "safe",
+              "minutes": 30,
+              "story": "You confirm she is neither dry nor overloaded. Blood and urine are sent, and the results go in her chart.",
+              "reply": "Right. Blood concentration, fluid status and urine tests sort low sodium into its causes. Then the treatment follows from the cause."
+            },
+            {
+              "kind": "delay",
+              "minutes": 360,
+              "story": "Her drinks are taken away and a recheck is booked for tomorrow. By evening, six hours on, she is much harder to wake.",
+              "reply": "She already has symptoms, and waiting a day tells us nothing about the cause. She has lost six hours. Send the tests now.",
+              "status": "worse",
+              "alarm": "Much harder to wake"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for fludrocortisone. The resident cancels it.",
+              "reply": "That treats a missing adrenal hormone, and nothing so far says she is missing it. Test first."
+            }
+          ]
+        },
+        "3": {
+          "resident": "She is confused and drowsy with a sodium of 118. Her brain cells are swollen with water.",
+          "question": "What do we do right now?",
+          "options": [
+            "Limit her drinks to one liter a day, and nothing else",
+            "Give small, careful doses of strong (3%) salt solution to raise the sodium by about 4 to 6 over a few hours, checking it often",
+            "Run in ordinary saline fast, to correct the sodium quickly",
+            "Start high-dose tolvaptan at once"
+          ],
+          "fix": "Give careful 3% saline",
+          "terms": [
+            {
+              "term": "Hypertonic saline",
+              "meaning": "Salt solution about three times saltier than blood. It draws water out of swollen brain cells."
+            },
+            {
+              "term": "Fluid restriction",
+              "meaning": "Limiting how much a patient drinks. It raises sodium slowly, over days."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "delay",
+              "minutes": 180,
+              "story": "Her drinks are limited and nothing else is done. Three hours later her sodium has not moved. She stiffens and has a seizure.",
+              "reply": "Limiting drinks is the right long-term treatment, and it takes days. With symptoms like hers, the brain needs relief within hours. Give the strong saline.",
+              "vitals": {
+                "HR": "118 bpm"
+              },
+              "trend": {
+                "HR": "up"
+              },
+              "status": "critical",
+              "alarm": "Seizure"
+            },
+            {
+              "kind": "safe",
+              "minutes": 60,
+              "story": "A small dose of 3% saline is run in and her sodium is rechecked. After a second dose it is 122. She is more awake and knows where she is.",
+              "reply": "Yes. A rise of only 4 to 6 is enough to take the pressure off her brain. We go no faster than that.",
+              "alarm": "More awake · sodium 122"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a fast bag of ordinary saline. The resident stops it.",
+              "reply": "In her condition the kidneys keep the water from that bag and pass the salt out. Her sodium can even fall. It has to be the concentrated solution."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for high-dose tolvaptan. The resident cancels it.",
+              "reply": "That drug can raise sodium much too fast, and it is not what we reach for in an emergency. Small doses of strong saline give us control."
+            }
+          ]
+        },
+        "4": {
+          "resident": "Her sodium is coming up and she is waking. From here, the danger is going too fast.",
+          "question": "What limit do we keep to?",
+          "options": [
+            "None. Correct it as fast as possible",
+            "No more than about 6 to 8 in 24 hours, checking every 2 to 4 hours, and ready to bring it back down if it overshoots",
+            "Back to a normal 140 within 12 hours",
+            "One point a day, with no checks in between"
+          ],
+          "fix": "Set the safe limit and the checks",
+          "terms": [
+            {
+              "term": "Osmotic demyelination",
+              "meaning": "Damage to the insulation of nerve fibers in the brainstem, caused by raising a long-standing low sodium too fast. It can leave a person paralyzed."
+            },
+            {
+              "term": "Desmopressin",
+              "meaning": "A medicine that makes the kidneys hold water. It can stop a sodium that is rising too quickly."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You say faster is better. The resident turns the pump down.",
+              "reply": "Her brain has adapted to the low sodium over days. Raise it too fast and the cells shrink and tear their own insulation. The damage is permanent."
+            },
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "You write the limit on her chart and set sodium checks for every two hours.",
+              "reply": "Exactly. A small early rise for her symptoms, then slow and measured, with a plan ready if it runs ahead."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You aim for 140 by the morning. The resident rewrites the target.",
+              "reply": "That is a rise of more than 20 in half a day, and it is how people end up paralyzed. No more than about 6 to 8 in a day."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest one point a day, unchecked. The resident shakes their head.",
+              "reply": "That is too slow for someone with symptoms, and without checks we would never know if it ran ahead."
+            }
+          ]
+        },
+        "5": {
+          "resident": "She is awake and her sodium is rising slowly. The biopsy shows small cell lung cancer, a tumor that makes the water-retaining hormone itself.",
+          "question": "How do we manage this from here?",
+          "options": [
+            "Encourage her to drink plenty of water",
+            "Limit her drinks and treat the cancer, adding salt tablets or a hormone blocker if that is not enough",
+            "Daily infusions of strong salt solution for life",
+            "Large bags of ordinary saline as her regular fluid"
+          ],
+          "fix": "Plan fluid restriction and cancer treatment",
+          "terms": [
+            {
+              "term": "Paraneoplastic",
+              "meaning": "An effect of a cancer caused by something the tumor releases, not by the tumor pressing on anything."
+            },
+            {
+              "term": "Vasopressin antagonist",
+              "meaning": "A medicine that blocks the water-retaining hormone at the kidney. Tolvaptan is one."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest plenty of water. The resident shakes their head.",
+              "reply": "Her kidneys cannot get rid of water. Every extra glass dilutes her sodium further."
+            },
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "You write the plan: limited drinks, a referral to the cancer team, and other options if her sodium stalls.",
+              "reply": "Right. Limit the water going in, and treat the tumor that is making the hormone. If the cancer responds, the sodium often corrects itself."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest strong saline for life. The resident shakes their head.",
+              "reply": "It is an emergency treatment that needs a hospital and constant checks. It cannot be a way of life."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest ordinary saline as her regular fluid. The resident shakes their head.",
+              "reply": "Her kidneys keep the water and pass out the salt, so it does not help and can make things worse."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "Her blood and urine results are in the chart. Remember that she has a normal amount of fluid on board.",
+        "question": "Why is her sodium low?",
+        "options": [
+          "She is drinking far too much water",
+          "SIADH: too much of the hormone that makes the kidneys hold water",
+          "She has lost salt and water through her gut",
+          "Heart failure, with too much fluid on board"
+        ],
+        "reveal": "It is SIADH. A hormone is telling her kidneys to hold on to water, so her blood is diluted while her urine stays concentrated. Someone who simply drank too much would pass very dilute urine. She is not dry and not swollen, and her thyroid and cortisol are normal. The likely source of the hormone is the mass in her lung.",
+        "terms": [
+          {
+            "term": "SIADH",
+            "meaning": "Syndrome of inappropriate antidiuretic hormone: the body makes water-retaining hormone when it should not."
+          },
+          {
+            "term": "ADH",
+            "meaning": "Antidiuretic hormone, also called vasopressin. It tells the kidneys to keep water."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "On the ward, more awake, with her sodium rising slowly and safely",
+        "unstable": "On the ward, more awake, with her sodium rising slowly and safely",
+        "worse": "On the ward with her sodium rising slowly, after hours of delay",
+        "critical": "In intensive care after a seizure"
+      },
+      "plainDiagnosis": "A low blood sodium caused by a hormone that makes the kidneys hold water (SIADH), probably from a lung tumor.",
+      "science": [
+        {
+          "tag": "The nephron",
+          "title": "Why her urine was concentrated while her blood was dilute",
+          "text": "ADH opens water channels in the last stretch of the kidney tubule, so water flows back into the blood. Normally dilute blood switches ADH off. Her tumor makes it regardless, so the kidneys kept saving water she did not need.",
+          "lesson": "renal-water",
+          "lessonTitle": "Regulate water in the nephron"
+        },
+        {
+          "tag": "Membranes",
+          "title": "Why low sodium swells the brain",
+          "text": "Water crosses cell membranes toward the side with more dissolved particles. When the blood is diluted, the inside of each cell is the more concentrated side, so water moves in. Brain cells swell inside a skull that cannot stretch.",
+          "lesson": "membrane-transport",
+          "lessonTitle": "Cross a membrane"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Verbalis et al. (Am J Med 2013): diagnosis, evaluation, and treatment of hyponatremia, expert panel recommendations",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/24074529/"
+        },
+        {
+          "title": "Spasovski et al. (Eur J Endocrinol 2014): clinical practice guideline on diagnosis and treatment of hyponatraemia",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/24569125/"
+        }
+      ]
+    },
+    "im-019": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "Twelve hours on a hard floor, _and urine like cola._",
+      "setting": "Hospital ward",
+      "start": {
+        "status": "stable",
+        "alarm": "Severe muscle pain · dark brown urine"
+      },
+      "handoff": "A 36-year-old man was found on his floor after a night of heavy drinking. He had not moved for at least 12 hours. His muscles are very painful, and his urine is dark brown.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask what happened",
+            "finding": "His roommate found him on the floor this morning after a drinking binge. He had been lying in one position on a hard floor for at least 12 hours."
+          },
+          {
+            "prompt": "Ask about the pain and his urine",
+            "finding": "His muscles hurt all over and feel weak, worst in his legs and back. His urine has been the color of tea or cola since this morning. He has no chest pain."
+          },
+          {
+            "prompt": "Ask about medicines, drugs and his kidneys",
+            "finding": "He drinks heavily and has used cocaine in the past. He was recently started on a cholesterol tablet. He has never had kidney trouble."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Press on his muscles",
+            "finding": "His thighs, calves and lower back are tender, and his calves are slightly swollen. The muscles are not hard or tight."
+          },
+          {
+            "prompt": "Look at his skin and at his urine",
+            "finding": "There is a red pressure mark over his hip and the base of his spine. The urine in his catheter bag is dark brown."
+          },
+          {
+            "prompt": "Check whether he is dry, and test his strength",
+            "finding": "His mouth is a little dry, and his heart is fast. Pain limits how hard he can push, but nothing is paralyzed."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Blood tests, urine microscopy and heart tracing",
+          "content": "Creatine kinase (CK), an enzyme that leaks from damaged muscle: 38,000, hugely raised (normal is under about 200).\nKidney test (creatinine): 2.6, up from his usual 0.9.\nPotassium: 6.1, high. Phosphate: high. Calcium: low.\nBicarbonate: 18, slightly low, so his blood is a little acidic.\nUrine: the test strip reads strongly for blood, but under the microscope there are almost no red cells. There are dark, grainy clumps shed from the kidney tubules.\nHeart tracing (ECG): tall, pointed T waves."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "His urine test strip reads strongly positive for blood. Under the microscope there are almost no red blood cells.",
+          "question": "What does that mismatch mean?",
+          "options": [
+            "Inflamed kidney filters leaking misshapen red cells",
+            "Myoglobin from broken-down muscle, which the test strip mistakes for blood",
+            "A contaminated sample",
+            "Bleeding from a bladder cancer"
+          ],
+          "fix": "Call it myoglobin and send a CK",
+          "terms": [
+            {
+              "term": "Myoglobin",
+              "meaning": "The protein that stores oxygen in muscle. It spills into the blood when muscle is crushed."
+            },
+            {
+              "term": "Urine dipstick",
+              "meaning": "A test strip dipped in urine. Its blood square reacts to the iron-containing part of hemoglobin."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest inflamed kidney filters. The resident shakes their head.",
+              "reply": "Then the microscope would show plenty of red cells, many of them misshapen. It shows almost none."
+            },
+            {
+              "kind": "safe",
+              "minutes": 30,
+              "story": "You say it is muscle protein, not blood. A CK and a full set of blood salts are sent, and the results go in his chart.",
+              "reply": "Right. The strip reacts to myoglobin exactly as it does to blood. A positive strip with no red cells, in a man who lay crushed on his own muscles all night, means muscle breakdown."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest a contaminated sample. The resident shakes their head.",
+              "reply": "It came straight from his catheter, and his urine is brown. The strip is reacting to something real."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest bladder cancer. The resident shakes their head.",
+              "reply": "A bleeding tumor puts red cells in the urine, and the microscope would show them. It shows almost none."
+            }
+          ]
+        },
+        "3": {
+          "resident": "His CK is 38,000, and his kidneys are already struggling. Myoglobin is clogging and poisoning the kidney tubules.",
+          "question": "What protects his kidneys?",
+          "options": [
+            "Salt-water fluid into a vein, fast and early, in large amounts",
+            "A strong water tablet at once, to force urine out",
+            "Limiting his fluids, so he does not get overloaded",
+            "Dialysis for anyone with a high CK"
+          ],
+          "fix": "Start fast fluids",
+          "terms": [
+            {
+              "term": "Rhabdomyolysis",
+              "meaning": "Breakdown of muscle, which releases its contents into the blood."
+            },
+            {
+              "term": "Acute kidney injury",
+              "meaning": "A sudden drop in how well the kidneys work."
+            },
+            {
+              "term": "Loop diuretic",
+              "meaning": "A strong water tablet, such as furosemide, that makes the kidneys pass more urine."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 30,
+              "story": "Two drips are run fast, and his urine output is measured every hour. The aim is a steady, generous flow.",
+              "reply": "Yes. Fluid refills his circulation and flushes the myoglobin through before it can settle in the tubules. Early and plentiful is what works."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for a strong water tablet. The resident stops it.",
+              "reply": "He is dry already. Forcing out urine before he is refilled concentrates the myoglobin in his tubules. Fluids first."
+            },
+            {
+              "kind": "delay",
+              "minutes": 180,
+              "story": "His fluids are held back. Three hours later he has passed almost no urine, and his heart rate is climbing.",
+              "reply": "He is not overloaded. He is dry, and his kidneys need a flood. Three hours without it have made the injury worse. Open the drips.",
+              "vitals": {
+                "HR": "116 bpm"
+              },
+              "trend": {
+                "HR": "up"
+              },
+              "status": "worse",
+              "alarm": "Almost no urine in three hours"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask about dialysis. The resident shakes their head.",
+              "reply": "Dialysis is for kidneys that have failed despite treatment, or for potassium that will not come down. Most patients need fluids and nothing more."
+            }
+          ]
+        },
+        "4": {
+          "resident": "His potassium is 6.1, and the T waves on his heart tracing are tall and pointed. Dying muscle is still releasing potassium.",
+          "question": "What is the first thing to give?",
+          "options": [
+            "Calcium into a vein, to steady the heart",
+            "A potassium-binding powder by mouth, and recheck in 4 hours",
+            "A potassium-sparing water tablet",
+            "A blood transfusion"
+          ],
+          "fix": "Give calcium now",
+          "terms": [
+            {
+              "term": "Hyperkalemia",
+              "meaning": "Too much potassium in the blood."
+            },
+            {
+              "term": "Arrhythmia",
+              "meaning": "An abnormal heart rhythm. High potassium can cause one that stops the heart."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "Calcium is given slowly into a vein, and within minutes the T waves settle. Insulin with glucose follows, to push potassium back into cells, and his potassium is rechecked within the hour.",
+              "reply": "Right. Calcium does not lower the potassium. It protects the heart for the next half hour while the other treatments bring the level down."
+            },
+            {
+              "kind": "delay",
+              "minutes": 30,
+              "story": "He swallows the powder. Half an hour later the monitor alarms: his heartbeats have become slow and wide, and his blood pressure is falling.",
+              "reply": "The powder takes hours, and his heart tracing was already warning us. This is the rhythm we were afraid of. Calcium, now.",
+              "vitals": {
+                "HR": "44 bpm",
+                "BP": "88/50 mmHg"
+              },
+              "trend": {
+                "HR": "down",
+                "BP": "down"
+              },
+              "status": "critical",
+              "alarm": "Slow, wide heartbeats · blood pressure falling"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for a potassium-sparing water tablet. The pharmacist calls at once.",
+              "reply": "That makes the body hold on to potassium. It would push the level higher."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest a transfusion. The resident shakes their head.",
+              "reply": "He is not short of blood, and stored blood carries extra potassium. He needs calcium for his heart."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "His blood tests and urine results are in the chart.",
+        "question": "What is this?",
+        "options": [
+          "A kidney reaction to a painkiller (interstitial nephritis)",
+          "Rhabdomyolysis with kidney injury: muscle has broken down, and its contents are damaging the kidneys",
+          "Hemolytic uremic syndrome",
+          "Inflammation of the kidneys’ filters (glomerulonephritis)"
+        ],
+        "reveal": "Lying on a hard floor for 12 hours crushed his muscles under his own weight. The dying muscle released its contents into his blood: CK, myoglobin, potassium and phosphate. Myoglobin turned his urine brown and is blocking his kidney tubules. A CK of 38,000 confirms it. The other conditions would put real red cells or white cells in the urine.",
+        "terms": [
+          {
+            "term": "Creatine kinase",
+            "meaning": "An enzyme found inside muscle cells. A high level in the blood means muscle has been damaged."
+          },
+          {
+            "term": "Casts",
+            "meaning": "Tiny molds of the kidney tubules, washed out in the urine. Dark, grainy ones point to pigment damage."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "On the ward on fast fluids, with his urine clearing and his heart rhythm steady",
+        "worse": "On the ward on fast fluids, with his kidneys struggling after a slow start",
+        "critical": "In the cardiac care unit after a dangerous heart rhythm"
+      },
+      "plainDiagnosis": "Muscle breakdown from lying still too long, with kidney injury and a high potassium (rhabdomyolysis).",
+      "science": [
+        {
+          "tag": "Membranes",
+          "title": "Why broken muscle raised his potassium",
+          "text": "Cells pump potassium in and keep it there, so almost all of the body’s potassium sits inside cells, and muscle holds most of it. When muscle cells burst, that store pours into the blood, where even a small rise changes the voltage across heart cells.",
+          "lesson": "membrane-transport",
+          "lessonTitle": "Cross a membrane"
+        },
+        {
+          "tag": "Proteins",
+          "title": "Why the test strip was fooled",
+          "text": "Myoglobin and hemoglobin are different proteins built around the same iron-containing heme group. The strip reacts to heme, so it cannot tell them apart. The microscope can, because only hemoglobin comes packed in red cells.",
+          "lesson": "protein-structure",
+          "lessonTitle": "From amino acid to protein"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Bosch, Poch and Grau (N Engl J Med 2009): rhabdomyolysis and acute kidney injury",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/19571284/"
+        },
+        {
+          "title": "Chavez et al. (Crit Care 2016): beyond muscle destruction, a systematic review of rhabdomyolysis for clinical practice",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/27301374/"
         }
       ]
     }
