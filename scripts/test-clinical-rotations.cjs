@@ -9,11 +9,12 @@ const manifest = read('clinical-shift-pilot'),
 const banks = Object.fromEntries(manifest.rotations.map(rotation => [rotation.key, read(rotation.key)]));
 const checked = validate(manifest, banks, index, counts);
 assert.deepEqual(checked.errors, []);
-assert.equal(checked.queue.length, 18);
+const registered = manifest.rotations.reduce((sum, rotation) => sum + rotation.caseIds.length, 0);
+assert.equal(checked.queue.length, registered);
 assert.equal(
   checked.queue.filter(row => row.independentReview === 'pending' && row.reviewer === null && row.reviewedAt === null)
     .length,
-  18
+  registered
 );
 assert.equal(
   Object.values(counts).reduce((sum, count) => sum + count, 0),
@@ -235,7 +236,7 @@ const source = fs
 vm.runInContext(source, context);
 context.window.testContent.setManifest(manifest);
 context.window.testContent.render();
-assert.equal((markup.match(/<details id="case-/g) || []).length, 18);
+assert.equal((markup.match(/<details id="case-/g) || []).length, registered);
 assert.match(markup, /Questions for review/);
 assert.match(markup, /Independent clinician review: pending/);
 assert.match(markup, /lesson=med-ecg-av-timing/);

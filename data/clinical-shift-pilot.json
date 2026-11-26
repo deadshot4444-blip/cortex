@@ -1,7 +1,7 @@
 {
-  "version": 11,
+  "version": 12,
   "title": "Clinical Shift foundations and rotation practice",
-  "reviewStatus": "Local source and consistency checks recorded September 7, 2026. Independent clinician review remains pending for all 18 encounters.",
+  "reviewStatus": "Source and consistency checks are recorded with each encounter. Independent clinician review remains pending for all 21 encounters.",
   "rotations": [
     {
       "key": "emergency-medicine",
@@ -40,6 +40,16 @@
         "nr-016",
         "nr-008",
         "nr-101"
+      ]
+    },
+    {
+      "key": "neurosurgery",
+      "name": "Neurosurgery",
+      "description": "Recognize pressure on the brain or spinal cord, and act in time.",
+      "caseIds": [
+        "ns-006",
+        "ns-030",
+        "ns-010"
       ]
     }
   ],
@@ -115,6 +125,18 @@
     "nr-101": {
       "assessment": "The witnessed convulsive episode, post-event confusion and lateral tongue injury support a first suspected epileptic seizure. Onset and cause remain unclassified. Initial ECG and metabolic evaluation are reassuring but not exhaustive. The later normal routine EEG does not exclude epilepsy.",
       "plan": "Complete a first-seizure specialist assessment, using the cited NICE urgent referral pathway as the course example. Provide individual interim safety advice and a contact plan if another event occurs. Arrange further testing and any treatment according to the specialist assessment; do not select a permanent regimen or withdraw precautions solely because the routine EEG is normal."
+    },
+    "ns-006": {
+      "assessment": "35-year-old woman with bilateral sciatica, saddle anesthesia, reduced anal tone, and painless urinary retention (post-void residual 650 mL). MRI shows a large central L4-L5 disc herniation compressing the cauda equina, confirming cauda equina syndrome.",
+      "plan": "Catheterize the bladder, keep her nil by mouth, and obtain emergent spine-surgery review for urgent decompression (laminectomy and discectomy). Do not delay for steroids or outpatient treatment. Document baseline perianal sensation, anal tone, and strength, and counsel that earlier decompression improves the chance of bladder, bowel, and motor recovery."
+    },
+    "ns-030": {
+      "assessment": "7-year-old boy with a VP shunt presenting with headache, vomiting, lethargy, sunsetting eyes, papilledema, hypertension, and relative bradycardia. CT shows ventricles enlarged from baseline and the shunt series shows catheter discontinuity at the clavicle, confirming mechanical shunt malfunction with raised intracranial pressure; he then develops a dilated pupil and worsening bradycardia.",
+      "plan": "Emergent CSF drainage by shunt tap or ventricular access, with immediate neurosurgical shunt revision. Elevate the head, avoid lumbar puncture, give hyperosmolar therapy as a bridge, send CSF for culture, and monitor in intensive care after surgery."
+    },
+    "ns-010": {
+      "assessment": "58-year-old man with untreated hypertension and sudden right hemiplegia, dysarthria, headache, and vomiting; BP 214/118 mmHg. CT shows a 25-mL acute left putaminal hemorrhage without significant midline shift or hydrocephalus, and coagulation is normal, consistent with hypertensive intracerebral hemorrhage.",
+      "plan": "No thrombolysis or antithrombotics. Lower the systolic blood pressure in a controlled way toward 130-140 mmHg with a titratable IV agent, avoiding precipitous drops. Monitor airway and neurologic status in a stroke or neurocritical care unit, repeat imaging for any deterioration, manage glucose and temperature, and consult neurosurgery, with surgery reserved for selected cases."
     }
   },
   "investigations": {
@@ -657,6 +679,96 @@
           "finding": "Regular pulse, no audible murmur and stable current vital signs."
         }
       ]
+    },
+    "ns-006": {
+      "interview": [
+        {
+          "prompt": "Characterize the back and leg pain",
+          "finding": "Two days of severe low back pain after moving furniture, now radiating down both legs."
+        },
+        {
+          "prompt": "Ask about bladder, bowel, and saddle sensation",
+          "finding": "No urination since morning and no urge to void, earlier incomplete emptying, reduced sensation when wiping, perineal numbness for 12 hours, and new constipation."
+        },
+        {
+          "prompt": "Screen for infection, malignancy, and other risks",
+          "finding": "No fever, weight loss, IV drug use, or immunosuppression. She has chronic low back pain and takes a combined oral contraceptive and ibuprofen."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Test perianal sensation, anal tone, and the anal reflex",
+          "finding": "Saddle pinprick sensation is reduced, anal sphincter tone is decreased, and the anal wink is absent."
+        },
+        {
+          "prompt": "Examine lower-limb strength and reflexes",
+          "finding": "Straight-leg raise is positive bilaterally, ankle reflexes are diminished, and there is mild bilateral foot weakness, without clonus or a Babinski sign."
+        },
+        {
+          "prompt": "Palpate the abdomen and spine",
+          "finding": "The bladder is palpably distended and the lower lumbar spine is tender, with no step-off and no fever."
+        }
+      ]
+    },
+    "ns-030": {
+      "interview": [
+        {
+          "prompt": "Ask about the symptoms and their time course",
+          "finding": "Two days of worsening headache and repeated vomiting. Today he is increasingly sleepy, and his eyes appear to look downward."
+        },
+        {
+          "prompt": "Review the shunt history",
+          "finding": "Post-hemorrhagic hydrocephalus of prematurity with a VP shunt placed in infancy; last revision at age 4. His parents say this resembles a previous malfunction."
+        },
+        {
+          "prompt": "Ask about fever, illness, and trauma",
+          "finding": "No fever, neck stiffness, recent illness, abdominal pain, trauma, or seizures."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Assess level of consciousness and eye movements",
+          "finding": "Lethargic but arousable to voice and irritable. Bilateral upgaze paresis with downward eye deviation (sunsetting); pupils equal and reactive."
+        },
+        {
+          "prompt": "Examine the fundi and the shunt",
+          "finding": "Early papilledema. The reservoir behind the right ear pumps sluggishly and refills slowly; tubing is palpable along the neck and chest."
+        },
+        {
+          "prompt": "Check for meningism and focal deficits",
+          "finding": "No neck stiffness or fever. Tone and strength are symmetric, and he moves all four limbs."
+        }
+      ]
+    },
+    "ns-010": {
+      "interview": [
+        {
+          "prompt": "Establish onset and last known well",
+          "finding": "Sudden right-sided weakness, slurred speech, and severe headache began 60 minutes ago at rest. He became drowsy and vomited once; the deficits have not improved."
+        },
+        {
+          "prompt": "Review blood pressure history and adherence",
+          "finding": "Long-standing hypertension; he stopped amlodipine and lisinopril months ago. He also has type 2 diabetes on metformin and smokes one pack daily."
+        },
+        {
+          "prompt": "Ask about anticoagulants, trauma, and drugs",
+          "finding": "No anticoagulants, no trauma, and no recreational drugs. He drinks alcohol several times a week."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Assess level of consciousness and speech",
+          "finding": "Drowsy but arousable, with marked dysarthria."
+        },
+        {
+          "prompt": "Examine motor, sensory, and visual function",
+          "finding": "Dense right hemiplegia of the face, arm, and leg with right hemisensory loss, right homonymous hemianopia, a left gaze preference, and an extensor right plantar response."
+        },
+        {
+          "prompt": "Check the pupils, neck, and head",
+          "finding": "Pupils are equal and reactive, the neck is supple, and there is no external head trauma."
+        }
+      ]
     }
   },
   "caseReviews": {
@@ -946,6 +1058,58 @@
         "Check the interpretation against every finding available at each stage.",
         "Check whether the distractors or written plan exclude a legitimate alternative.",
         "Verify the follow-up and any regional guidance before public use."
+      ]
+    },
+    "ns-006": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Recognize cauda equina red flags and act on the time-critical need for imaging and decompression.",
+      "alternativesAndLimits": "Exact timing thresholds for surgery are debated; the case teaches that decompression should not be delayed once compression is confirmed. Outcome also depends on the deficit at presentation.",
+      "sources": [
+        {
+          "title": "Ahn et al. (Spine 2000): cauda equina syndrome secondary to lumbar disc herniation, a meta-analysis of surgical outcomes",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/10851100/"
+        },
+        {
+          "title": "Lavy et al. (BMJ 2009): cauda equina syndrome",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/19336488/"
+        }
+      ]
+    },
+    "ns-030": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Recognize raised intracranial pressure from shunt failure and escalate to emergent CSF diversion.",
+      "alternativesAndLimits": "A shunt tap is performed by clinicians trained to do it. Infection and malfunction can coexist, so CSF is sampled at the tap or revision. The choice between CT and rapid-sequence MRI depends on local availability.",
+      "sources": [
+        {
+          "title": "Hanak et al. (Pediatr Neurosurg 2017): cerebrospinal fluid shunting complications in children",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/28249297/"
+        },
+        {
+          "title": "Yue et al. (J Neurosurg Pediatr 2015): test characteristics of quick brain MRI for shunt evaluation in children",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/25634816/"
+        }
+      ]
+    },
+    "ns-010": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Image before treating an acute focal deficit, and manage a deep hypertensive hemorrhage medically.",
+      "alternativesAndLimits": "Blood-pressure targets follow current guideline ranges and are individualized. Minimally invasive evacuation is an evolving area and may be considered for selected patients at experienced centers.",
+      "sources": [
+        {
+          "title": "2022 AHA/ASA guideline: management of patients with spontaneous intracerebral hemorrhage",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/35579034/"
+        },
+        {
+          "title": "INTERACT2 trial (NEJM 2013): rapid blood-pressure lowering in acute intracerebral hemorrhage",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/23713578/"
+        },
+        {
+          "title": "STICH II trial (Lancet 2013): early surgery versus initial conservative treatment in lobar intracerebral hematomas",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/23726393/"
+        }
       ]
     }
   },
@@ -6465,6 +6629,816 @@
         {
           "title": "ILAE official report (2014): a practical clinical definition of epilepsy",
           "url": "https://pubmed.ncbi.nlm.nih.gov/24730690/"
+        }
+      ]
+    },
+    "ns-006": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "Numb, and _unable to pass urine._",
+      "setting": "Emergency department",
+      "start": {
+        "status": "stable",
+        "alarm": "Cannot pass urine · numb between the legs"
+      },
+      "handoff": "A 35-year-old woman hurt her back moving furniture two days ago. The pain now runs down both legs. Since this morning she has been numb between her legs and has not been able to pass urine.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask about the back and leg pain",
+            "finding": "Severe low back pain for two days, since she moved furniture. It now shoots down both legs."
+          },
+          {
+            "prompt": "Ask about her bladder, her bowels and the feeling between her legs",
+            "finding": "She has not passed urine since this morning and feels no urge to. Earlier she could not empty her bladder fully. She is numb between her legs and when she wipes, and she has become constipated."
+          },
+          {
+            "prompt": "Ask about fever, weight loss and other risks",
+            "finding": "No fever and no weight loss. She does not inject drugs and has no immune problem. She has had back pain on and off for years."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Test the feeling around her bottom and the muscle tone there",
+            "finding": "A pinprick feels dull over the area that would touch a saddle. The ring of muscle at her anus is slack, and the reflex that should tighten it is missing."
+          },
+          {
+            "prompt": "Test her leg strength and reflexes",
+            "finding": "Lifting either straight leg sends pain shooting down it. Both ankle reflexes are weak, and her feet are slightly weak. There are no signs of damage to the spinal cord higher up."
+          },
+          {
+            "prompt": "Feel her belly and her spine",
+            "finding": "Her bladder can be felt above her pubic bone, full and swollen. Her lower spine is tender. She has no fever."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Bladder scan and MRI",
+          "content": "Bladder scan after she tried to pass urine: 650 mL still inside. Normally very little is left.\nMRI of the lower spine: a large slipped disc in the middle of the spine, between the fourth and fifth lumbar bones. It is squeezing the bundle of nerves that runs below the end of the spinal cord.\nNo abscess, tumor or bleed.\nFeeling around her anus is reduced, and the muscle tone there is low."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "Back pain with numbness between the legs and a bladder that will not empty is an emergency until proven otherwise.",
+          "question": "What do we do right now?",
+          "options": [
+            "Give anti-inflammatory tablets and book physical therapy",
+            "Scan her bladder after she tries to pass urine, and get an emergency MRI of her lower spine",
+            "Get plain X-rays of her lower back, and send her home with advice",
+            "Get a CT scan of her head"
+          ],
+          "fix": "Bladder scan and emergency MRI",
+          "terms": [
+            {
+              "term": "Saddle numbness",
+              "meaning": "Loss of feeling in the area that would touch a saddle: the inner thighs, the genitals and around the anus. It means the lowest spinal nerves are in trouble."
+            },
+            {
+              "term": "Urinary retention",
+              "meaning": "A bladder that fills but cannot empty. When the nerves fail, it is often painless."
+            },
+            {
+              "term": "MRI",
+              "meaning": "A scan that uses a magnet to show soft tissues such as discs and nerves, which X-rays cannot show."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write a prescription for anti-inflammatories and a physical therapy referral. The resident reads it.",
+              "reply": "That is the plan for ordinary back pain. Numbness between the legs and a bladder that will not empty mean the nerves to her bladder and bowel are being crushed. She cannot go home."
+            },
+            {
+              "kind": "safe",
+              "minutes": 45,
+              "story": "The nurse scans her bladder after she tries to pass urine, and a catheter is put in to drain it. She is taken for an MRI within the hour. The results go in her chart.",
+              "reply": "Right. The bladder scan puts a number on the nerve damage, and the MRI shows what is pressing on the nerves. Every hour counts here."
+            },
+            {
+              "kind": "delay",
+              "minutes": 60,
+              "story": "The X-rays look normal, and you start her discharge papers. While she waits she leaks urine without feeling it, and when she stands her feet are weaker than before.",
+              "reply": "X-rays show bones. They cannot show a disc pressing on nerves, so normal films mean nothing here. She has lost an hour, and her nerves are worse for it. She needs the MRI now.",
+              "status": "worse",
+              "alarm": "Leaking urine without feeling it · feet weaker"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request a CT of her head. The resident cancels it.",
+              "reply": "Her brain is not the problem. Leg pain, saddle numbness and a failed bladder all point to the nerves at the bottom of the spine."
+            }
+          ]
+        },
+        "3": {
+          "resident": "The MRI shows a large disc crushing the nerves at the bottom of her spine. Her bladder was holding 650 mL.",
+          "question": "What will fix this?",
+          "options": [
+            "High-dose steroids through a vein, and watch her",
+            "Antibiotics through a vein",
+            "Emergency surgery to take the pressure off the nerves",
+            "A steroid injection into the spine, at a clinic in two weeks"
+          ],
+          "fix": "Send her for emergency surgery",
+          "terms": [
+            {
+              "term": "Decompression",
+              "meaning": "Surgery that removes whatever is pressing on nerves. Here that means part of the bone at the back of the spine, and the slipped disc."
+            },
+            {
+              "term": "Cauda equina",
+              "meaning": "The bundle of nerves that hangs below the end of the spinal cord. It serves the legs, the bladder, the bowel and sexual function."
+            },
+            {
+              "term": "Slipped disc (herniation)",
+              "meaning": "The soft center of a spinal disc bulging out through its outer ring."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "delay",
+              "minutes": 120,
+              "story": "The steroids run in and you watch her. Two hours later the numbness has spread down the backs of her thighs, and she can barely lift her feet.",
+              "reply": "Steroids do not move a disc. The nerves are still being crushed, and they are failing while we watch. Only surgery takes the pressure off. She goes now.",
+              "status": "worse",
+              "alarm": "Numbness spreading · feet barely lifting"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for antibiotics. The pharmacist calls to ask what infection is being treated.",
+              "reply": "Antibiotics treat an abscess in the spine, and the MRI showed none. Her problem is mechanical: a disc pressing on nerves."
+            },
+            {
+              "kind": "safe",
+              "minutes": 30,
+              "story": "The spine surgeon sees her straight away and books the operating room. She signs the consent form and is taken up.",
+              "reply": "Yes. This is one of the few true emergencies in spine surgery. The sooner the pressure comes off, the better her chance of getting bladder and bowel control back."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You start a referral for a spinal injection in two weeks. The resident takes the form.",
+              "reply": "In two weeks the damage could be permanent. Injections ease pain from an irritated nerve. They do not lift a disc off nerves that are being crushed."
+            }
+          ]
+        },
+        "4": {
+          "resident": "Her partner asks whether the operation could wait until things settle down. What we say next has to be accurate.",
+          "question": "What is true about timing?",
+          "options": [
+            "Surgery can safely wait several weeks, because the damage is already done",
+            "Once the bladder has stopped working, surgery has nothing to offer",
+            "Surgery should wait until feeling starts to come back by itself",
+            "The sooner the pressure is taken off, the better the recovery of bladder, bowel and leg function, so surgery should not wait"
+          ],
+          "fix": "Explain why it cannot wait",
+          "terms": [
+            {
+              "term": "Prognosis",
+              "meaning": "The likely outcome."
+            },
+            {
+              "term": "Recovery of function",
+              "meaning": "Nerves that have been squeezed can recover once the pressure is off, but less so the longer they were squeezed."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You tell her partner it could wait a few weeks. The resident steps in.",
+              "reply": "The damage is still happening. Every hour of pressure makes permanent loss of bladder and bowel control more likely. It cannot wait weeks."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say that surgery will not help now that her bladder has failed. The resident corrects you.",
+              "reply": "That is not so. Taking the pressure off can still bring function back, or stop it getting worse, even after the bladder has stopped working. It is still worth doing, and soon."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest waiting to see whether feeling returns. The resident shakes their head.",
+              "reply": "It will not return while the disc is still pressing on the nerves. The cause is mechanical, and it gets worse with time."
+            },
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "You explain it to them both, and the resident nods. She is wheeled to the operating room.",
+              "reply": "Exactly. How well she recovers depends on how bad things were when she arrived, and on how fast the pressure comes off. We can only change the second one."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "The bladder scan and the MRI are in her chart.",
+        "question": "What is this?",
+        "options": [
+          "Cauda equina syndrome: the nerve bundle at the bottom of the spine is being crushed",
+          "A stroke of the lower end of the spinal cord",
+          "Inflammation across the spinal cord (transverse myelitis)",
+          "Guillain-Barré syndrome: the immune system attacking the nerves, with weakness that climbs from the feet"
+        ],
+        "reveal": "It is cauda equina syndrome. A large slipped disc is crushing the bundle of nerves below the end of the spinal cord. Those nerves run the bladder, the bowel and the feeling in the saddle area, which is why she is numb there and cannot pass urine. Her weak reflexes fit damage to nerves, not to the spinal cord itself.",
+        "terms": [
+          {
+            "term": "Syndrome",
+            "meaning": "A set of findings that occur together."
+          },
+          {
+            "term": "Nerve roots",
+            "meaning": "The nerves as they leave the spine, before they branch out to the body."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "In the operating room for emergency surgery on her spine",
+        "worse": "In the operating room, weaker than when she arrived",
+        "critical": "In intensive care"
+      },
+      "plainDiagnosis": "A slipped disc crushing the nerves at the bottom of the spine (cauda equina syndrome).",
+      "science": [
+        {
+          "tag": "Sensing",
+          "title": "Why she could not feel her bladder filling",
+          "text": "Stretch sensors in the bladder wall report fullness through the lowest spinal nerves, and the same nerves carry the order to empty. With those nerves crushed, the signal never arrived and the order never left. Her bladder held 650 mL and she felt no urge.",
+          "lesson": "sensory-coding",
+          "lessonTitle": "From stimulus to perception"
+        },
+        {
+          "tag": "Membranes",
+          "title": "Why squeezed nerves stop working",
+          "text": "A nerve carries signals by moving ions across its membrane, and the pumps that reset it after each signal need a steady blood supply. Pressure cuts that supply off. The fibers fall silent first and die later, which is why speed matters.",
+          "lesson": "membrane-transport",
+          "lessonTitle": "Cross a membrane"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Ahn et al. (Spine 2000): cauda equina syndrome secondary to lumbar disc herniation, a meta-analysis of surgical outcomes",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/10851100/"
+        },
+        {
+          "title": "Lavy et al. (BMJ 2009): cauda equina syndrome",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/19336488/"
+        }
+      ]
+    },
+    "ns-030": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "A boy with a shunt, _harder and harder to wake._",
+      "setting": "Emergency department",
+      "start": {
+        "status": "unstable",
+        "alarm": "Very sleepy · eyes turned down · slow heart rate"
+      },
+      "handoff": "A 7-year-old boy has a shunt, a tube that drains extra fluid from his brain. He has had headaches and vomiting for two days. Today he is very sleepy, and his parents say his eyes keep looking down.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask his parents how this has gone",
+            "finding": "Two days of headache that keeps getting worse, with repeated vomiting. Today he is very sleepy and hard to wake from naps, and his eyes seem to look downward."
+          },
+          {
+            "prompt": "Ask about his shunt",
+            "finding": "He was born early and had bleeding in the brain that blocked its fluid drainage. The shunt was put in when he was a baby and was last repaired when he was 4. His parents say this looks like the last time it failed."
+          },
+          {
+            "prompt": "Ask about fever, illness and injury",
+            "finding": "No fever, no stiff neck, no recent illness, no belly pain, no injury and no seizures."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Check how awake he is, and watch his eyes",
+            "finding": "He wakes to your voice, but he is irritable and wants to keep his eyes shut. Both eyes are turned downward, and he cannot look up. His pupils are equal and react to light."
+          },
+          {
+            "prompt": "Look at the back of his eyes, and press the shunt’s reservoir",
+            "finding": "The nerve at the back of each eye is starting to swell, a sign of pressure. The small bubble of the shunt behind his right ear is slow to press and slow to refill."
+          },
+          {
+            "prompt": "Check his neck and his limbs",
+            "finding": "His neck is not stiff. He moves both arms and both legs equally."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "CT scan and shunt X-rays",
+          "content": "CT scan of the head: the fluid spaces inside his brain are much larger than on his scan a year ago. The grooves on the surface of the brain are squeezed flat, and fluid is seeping into the tissue around the spaces.\nShunt X-rays: the tubing has come apart at the level of his collarbone.\nTemperature and white blood cell count: normal, so infection is unlikely."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "A child with a shunt who is sleepy and vomiting has a blocked shunt until we prove otherwise. Look at his heart rate and his blood pressure, too.",
+          "question": "What do we get first?",
+          "options": [
+            "A spinal tap",
+            "A brain-wave test (EEG)",
+            "A CT scan of his head (or a quick MRI), and X-rays along the whole shunt",
+            "Reassure his parents and watch him"
+          ],
+          "fix": "Scan his head and X-ray the shunt",
+          "terms": [
+            {
+              "term": "Shunt",
+              "meaning": "A thin tube with a valve that drains extra fluid from the brain to the belly, where the body absorbs it."
+            },
+            {
+              "term": "Hydrocephalus",
+              "meaning": "Too much fluid in the spaces inside the brain. The pressure squeezes the brain against the skull."
+            },
+            {
+              "term": "Shunt X-rays (shunt series)",
+              "meaning": "X-rays of the skull, neck, chest and belly that follow the tubing from end to end, looking for a break or a kink."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a spinal tap tray. The resident stops you.",
+              "reply": "Never when the fluid in the brain is blocked. Draining from below could pull the brain downward and kill him. A spinal tap also tells us nothing about the shunt."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request a brain-wave test. The resident cancels it.",
+              "reply": "That is a test for seizures, and he has had none. His sleepiness comes from pressure, and the test would cost time he does not have."
+            },
+            {
+              "kind": "safe",
+              "minutes": 20,
+              "story": "He is taken for a quick CT, and X-rays are taken along the tubing from his head to his belly. The neurosurgeon is called while the pictures come up, and his scan from last year is put up beside the new one.",
+              "reply": "Right. The scan shows whether fluid is building up, once it is set beside his old one. The X-rays show whether the tubing is broken."
+            },
+            {
+              "kind": "delay",
+              "minutes": 60,
+              "story": "You tell his parents it may be a stomach bug and that you will keep an eye on him. An hour later he is very hard to wake, and he vomits again without stirring.",
+              "reply": "A stomach bug does not turn a child’s eyes downward or slow his heart. Those are signs of pressure on the brain, and it has been rising for another hour. Scan him now.",
+              "vitals": {
+                "HR": "58 bpm",
+                "BP": "132/84 mmHg"
+              },
+              "trend": {
+                "HR": "down",
+                "BP": "up"
+              },
+              "status": "worse",
+              "alarm": "Very hard to wake · heart rate slowing"
+            }
+          ]
+        },
+        "3": {
+          "resident": "The fluid spaces in his brain have ballooned since last year, and the tubing has come apart at his collarbone. The shunt is not draining.",
+          "question": "What is the plan?",
+          "options": [
+            "Send him home with anti-sickness medicine",
+            "Start antibiotics through a vein and send him home",
+            "Book an MRI as an outpatient in a week",
+            "Urgent surgery to repair the shunt, with a needle into the shunt’s reservoir to check it and let some fluid off"
+          ],
+          "fix": "Call the neurosurgeons for urgent repair",
+          "terms": [
+            {
+              "term": "Shunt revision",
+              "meaning": "An operation to repair or replace the part of a shunt that has failed."
+            },
+            {
+              "term": "Shunt tap",
+              "meaning": "A fine needle passed through the skin into the shunt’s reservoir. It measures the pressure, and it can let fluid out to buy time."
+            },
+            {
+              "term": "Intracranial pressure",
+              "meaning": "The pressure inside the skull."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You start his discharge papers. The resident takes them out of your hand.",
+              "reply": "The vomiting is not from his stomach. It is from pressure in his head, and that pressure can kill him. He is going to the operating room, not home."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for antibiotics and a discharge. The resident reads it.",
+              "reply": "He has no fever and a normal blood count, so infection is unlikely. Even if the shunt were infected, antibiotics would not mend a broken tube. He needs it repaired."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You book an MRI for next week. The resident cancels it.",
+              "reply": "We already know what is wrong, and he will not last a week like this. The pressure is rising now."
+            },
+            {
+              "kind": "safe",
+              "minutes": 15,
+              "story": "The neurosurgeon comes down, and the operating room is booked. While it is being readied he gets sleepier. His right pupil is now larger than his left, and his heart rate is falling.",
+              "reply": "That was the right plan, made quickly. But the pressure is rising faster than the room can be set up. He needs fluid let off right now.",
+              "vitals": {
+                "HR": "52 bpm",
+                "BP": "138/86 mmHg"
+              },
+              "alarm": "Right pupil larger · heart rate falling"
+            }
+          ]
+        },
+        "4": {
+          "resident": "His right pupil is wide, his heart rate is 52 and he is barely rousable. His brain is being squeezed downward.",
+          "question": "What do we do this minute?",
+          "options": [
+            "Drain fluid at once, through the shunt’s reservoir or straight from the brain’s fluid space, with the neurosurgeon operating immediately",
+            "A spinal tap to let the pressure off",
+            "Give a triptan for the headache",
+            "Repeat the shunt X-rays first"
+          ],
+          "fix": "Drain fluid now",
+          "terms": [
+            {
+              "term": "Herniation",
+              "meaning": "Part of the brain being forced downward by pressure. It crushes the centers that control breathing and the heart."
+            },
+            {
+              "term": "Cushing response",
+              "meaning": "A slow heart rate with high blood pressure. It is the body’s last-ditch reaction to dangerous pressure in the skull."
+            },
+            {
+              "term": "Ventricles",
+              "meaning": "The fluid-filled spaces inside the brain."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "The neurosurgeon slides a fine needle into the reservoir behind his ear, and fluid comes out under pressure. Within minutes his pupil comes down, his heart rate climbs and he stirs. He is taken straight to the operating room.",
+              "reply": "That is what saved him. Letting fluid off through the shunt dropped the pressure in seconds and bought the time to repair it properly.",
+              "vitals": {
+                "HR": "88 bpm",
+                "BP": "112/70 mmHg"
+              },
+              "trend": {
+                "HR": "up",
+                "BP": "down"
+              },
+              "alarm": "Pressure relieved · on the way to surgery"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a spinal tap tray. The neurosurgeon says no.",
+              "reply": "With a blocked system, draining from below pulls the brain down through the base of the skull. The fluid has to come off from above, through the shunt or the brain’s own fluid space."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a migraine medicine. The resident stares at you.",
+              "reply": "This is not a migraine. A wide pupil and a falling heart rate mean his brain is being crushed. Only draining fluid will help."
+            },
+            {
+              "kind": "delay",
+              "minutes": 20,
+              "story": "He is wheeled to X-ray for another set of films. On the table he stops responding. Both pupils are wide, and his breathing is slow and uneven.",
+              "reply": "We already knew where the tube was broken. Those films cost him twenty minutes he did not have. Drain the fluid, now.",
+              "vitals": {
+                "HR": "44 bpm",
+                "BP": "150/92 mmHg",
+                "RR": "10 /min"
+              },
+              "trend": {
+                "HR": "down",
+                "BP": "up",
+                "RR": "down"
+              },
+              "status": "critical",
+              "alarm": "Not responding · both pupils wide"
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "The scan and the shunt X-rays are in his chart. Set the new scan beside last year’s.",
+        "question": "What has gone wrong?",
+        "options": [
+          "An infected shunt",
+          "A migraine",
+          "A shunt that has stopped working because the tubing has come apart",
+          "A stomach bug"
+        ],
+        "reveal": "His shunt has failed. The tubing has come apart at his collarbone, so fluid can no longer drain, and it is building up inside his brain. No fever and a normal blood count make infection unlikely. The downward-turned eyes come from pressure on the part of the brainstem that moves the eyes upward.",
+        "terms": [
+          {
+            "term": "Mechanical failure",
+            "meaning": "A break, blockage or disconnection in the shunt itself, as opposed to an infection."
+          },
+          {
+            "term": "Sunsetting eyes",
+            "meaning": "Eyes forced to look downward. In a child with a shunt it is a sign of high pressure in the brain."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "In the operating room having his shunt repaired, with the pressure off his brain",
+        "unstable": "In the operating room having his shunt repaired, with the pressure off his brain",
+        "worse": "In the operating room, after getting worse while he waited",
+        "critical": "In the operating room in critical condition, after the pressure was left too long"
+      },
+      "plainDiagnosis": "A broken shunt, with fluid building up and pressing on the brain (shunt malfunction with hydrocephalus).",
+      "science": [
+        {
+          "tag": "Pressure in a fluid",
+          "title": "Why a broken tube is an emergency",
+          "text": "His brain makes fluid around the clock. With the drain broken, the fluid has nowhere to go inside a closed skull, so the pressure climbs and the brain is squeezed.",
+          "lesson": "hydrostatics",
+          "lessonTitle": "Read pressure in a fluid"
+        },
+        {
+          "tag": "Pressure and blood flow",
+          "title": "Why his heart slowed as he got worse",
+          "text": "As the pressure in the skull rises, less blood can get in. The body pushes the blood pressure up to force blood through, and a reflex then slows the heart. A slow pulse with high blood pressure in a sleepy child is a late warning.",
+          "lesson": "circulatory-flow",
+          "lessonTitle": "Connect pressure to blood flow"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Hanak et al. (Pediatr Neurosurg 2017): cerebrospinal fluid shunting complications in children",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/28249297/"
+        },
+        {
+          "title": "Yue et al. (J Neurosurg Pediatr 2015): test characteristics of quick brain MRI for shunt evaluation in children",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/25634816/"
+        }
+      ]
+    },
+    "ns-010": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "Half his body _stopped working._",
+      "setting": "Emergency department",
+      "start": {
+        "status": "unstable",
+        "alarm": "Right side paralyzed · very high blood pressure"
+      },
+      "handoff": "A 58-year-old man was watching television an hour ago when his right side went weak, his speech slurred and a severe headache began. He has high blood pressure and stopped taking his tablets months ago.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask his wife when it started and how it has gone",
+            "finding": "It came on all at once an hour ago, while he was sitting still: weakness down his right side, slurred speech and a severe headache. He has grown drowsy and vomited once. Nothing has improved."
+          },
+          {
+            "prompt": "Ask about his blood pressure and his medicines",
+            "finding": "He has had high blood pressure for years and stopped both his tablets months ago. He also has diabetes, and he smokes a pack a day."
+          },
+          {
+            "prompt": "Ask about blood thinners, injuries and drugs",
+            "finding": "He takes no blood thinners. He has had no fall and no blow to the head, and he uses no recreational drugs."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Check how awake he is, and listen to his speech",
+            "finding": "He is drowsy but wakes when spoken to. His words are badly slurred."
+          },
+          {
+            "prompt": "Test his strength, feeling and vision",
+            "finding": "His right face, arm and leg do not move, and he cannot feel touch on that side. He cannot see things to his right, and his eyes stay turned to the left. His right big toe turns up when the sole is stroked."
+          },
+          {
+            "prompt": "Check his pupils, his neck and his head",
+            "finding": "His pupils are equal and react to light. His neck is not stiff, and there is no sign of a head injury."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "CT scan and blood tests",
+          "content": "CT scan of the head: fresh blood deep in the left side of the brain, about 25 mL (a little under two tablespoons), with little swelling around it.\nThe brain has not been pushed off center, and its fluid spaces are open.\nClotting tests and platelets: normal.\nBlood sugar: 168, raised. Blood salts: normal.\nHis stroke score is high, which means a severe loss of function."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "This is a stroke, and he arrived inside the time window for the clot-busting drug. But a stroke can be a blocked artery or a burst one, and the two look the same at the bedside.",
+          "question": "What has to happen before any treatment?",
+          "options": [
+            "Give the clot-busting drug right away, going by how bad his weakness is",
+            "An emergency CT scan of his head, to tell a blocked artery from a bleed",
+            "Start aspirin and clopidogrel",
+            "Do a spinal tap"
+          ],
+          "fix": "Get the CT first",
+          "terms": [
+            {
+              "term": "Stroke",
+              "meaning": "Sudden loss of brain function because an artery is blocked or has burst."
+            },
+            {
+              "term": "Clot-busting drug (thrombolytic)",
+              "meaning": "A medicine that dissolves the clot in a blocked artery. In a bleed it makes the bleeding worse."
+            },
+            {
+              "term": "Spinal tap (lumbar puncture)",
+              "meaning": "A needle in the lower back to sample the fluid around the brain and spinal cord. It looks for infection or bleeding."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for the clot-busting drug. The pharmacist will not release it without a scan.",
+              "reply": "His headache, his vomiting and a blood pressure of 214 all raise the chance that this is a bleed. A clot-buster in a bleeding brain is a disaster. Nobody gets it before a scan."
+            },
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "He goes straight to the scanner with the stroke team beside him. The pictures are up within minutes, and blood is sent for clotting tests.",
+              "reply": "Right. The scan takes minutes and it decides everything, because the two kinds of stroke need opposite treatments."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for aspirin and clopidogrel. The resident stops the order.",
+              "reply": "Those make platelets less sticky. That helps when an artery is blocked, and it harms when one has burst. We do not know yet which this is."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a spinal tap tray. The resident stops you.",
+              "reply": "A spinal tap answers nothing here, and it is dangerous if a large bleed is pressing on the brain. The scan comes first."
+            }
+          ]
+        },
+        "3": {
+          "resident": "The scan shows a bleed deep in the left side of his brain. His clotting is normal, and his blood pressure is still 214 over 118.",
+          "question": "What is the core of his treatment?",
+          "options": [
+            "The clot-busting drug, now",
+            "A full-dose blood thinner",
+            "Bring his blood pressure down in a controlled way, to a top number of about 130 to 140, watch his breathing and brain function closely, and correct any clotting problem",
+            "A drain placed in his lower back"
+          ],
+          "fix": "Lower his blood pressure carefully",
+          "terms": [
+            {
+              "term": "Hematoma expansion",
+              "meaning": "The bleed getting bigger in the first hours. It is the main reason patients get worse early."
+            },
+            {
+              "term": "Controlled lowering",
+              "meaning": "Bringing blood pressure down with a medicine through a vein that can be adjusted minute by minute, without letting it crash."
+            },
+            {
+              "term": "Neuro checks",
+              "meaning": "Regular checks of wakefulness, pupils, speech and strength, to catch a change early."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for the clot-busting drug. The stroke team says no.",
+              "reply": "That drug dissolves clots. In a bleed, the clot is the only thing plugging the hole. It is ruled out completely."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for a blood thinner. The pharmacist calls at once.",
+              "reply": "A blood thinner would make the bleed bigger. In a bleeding brain we want clotting to be as normal as it can be."
+            },
+            {
+              "kind": "safe",
+              "minutes": 60,
+              "story": "A blood pressure medicine is started through a vein and adjusted every few minutes. Over the hour his top number comes down to 148. He is moved to the brain intensive care unit, where his wakefulness, pupils and strength are checked every fifteen minutes. A neurosurgeon reviews the scan.",
+              "reply": "That is the treatment. High pressure pushes more blood out of the torn vessel, so we bring it down, steadily and not too far. Then we watch for the bleed growing or the pressure in his skull rising.",
+              "vitals": {
+                "BP": "148/88 mmHg"
+              },
+              "trend": {
+                "BP": "down"
+              },
+              "alarm": "Blood pressure coming down · checks every 15 minutes"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a drain in his lower back. The neurosurgeon says no.",
+              "reply": "Draining fluid from below, with a mass of blood above, risks pulling the brain downward. It is not a treatment for this."
+            }
+          ]
+        },
+        "4": {
+          "resident": "His family asks why the surgeons are not operating to take the blood out.",
+          "question": "What is the honest answer?",
+          "options": [
+            "Because surgery is not possible anywhere in the brain",
+            "Because deep bleeds never cause symptoms",
+            "Because medicines reliably dissolve the clot within hours",
+            "Because reaching a deep bleed means cutting through healthy brain, and for most patients it has not been shown to help, so surgery is kept for selected cases"
+          ],
+          "fix": "Explain why surgery is held back",
+          "terms": [
+            {
+              "term": "Basal ganglia",
+              "meaning": "Clusters of nerve cells deep in the brain that help control movement."
+            },
+            {
+              "term": "Selected cases",
+              "meaning": "For example, a large bleed in the cerebellum at the back of the brain, or one squeezing the brainstem, or a patient who is getting worse from a clot the surgeon can reach."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You tell them brain surgery is not possible. The resident corrects you.",
+              "reply": "Brain surgery is done every day. The real reason is that this bleed is deep, and reaching it means cutting through healthy brain, which has not been shown to help most patients."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You tell them deep bleeds do not cause symptoms. The resident looks at the patient, then at you.",
+              "reply": "He cannot move half his body. Deep bleeds cause severe symptoms. Surgery is held back because reaching the clot means cutting through healthy brain, with no proven benefit for most patients."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You tell them the medicines will dissolve the clot. The resident corrects you.",
+              "reply": "No medicine dissolves this clot. The body clears it slowly, over weeks. Our treatment stops it growing. Surgery is held back because, for most patients, reaching it does more harm than good."
+            },
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "You explain it to his family. The resident adds that the neurosurgeon is still watching him, in case that changes.",
+              "reply": "That is accurate, and kind. In trials, routinely operating on bleeds like his did not improve outcomes. If he gets worse, or if the bleed were somewhere a surgeon could reach safely, the answer could change."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "The scan is in his chart. Look at where the blood is, and remember his blood pressure.",
+        "question": "What kind of stroke is this?",
+        "options": [
+          "A bleed deep in the brain from long-standing high blood pressure",
+          "A blocked artery (ischemic stroke)",
+          "A burst aneurysm bleeding around the brain (subarachnoid hemorrhage)",
+          "A brain abscess"
+        ],
+        "reveal": "It is a bleed deep in the brain, caused by years of high blood pressure. The pressure weakens the tiny arteries that feed the deep parts of the brain until one bursts. A blocked artery shows no fresh blood on the scan. A burst aneurysm bleeds around the brain, not into the middle of it.",
+        "terms": [
+          {
+            "term": "Intracerebral hemorrhage",
+            "meaning": "Bleeding into the brain tissue itself."
+          },
+          {
+            "term": "Hypertensive",
+            "meaning": "Caused by high blood pressure."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "In the brain intensive care unit with his blood pressure controlled",
+        "unstable": "In the brain intensive care unit with his blood pressure controlled, being watched closely",
+        "worse": "In the brain intensive care unit, after getting worse",
+        "critical": "In the brain intensive care unit in critical condition"
+      },
+      "plainDiagnosis": "Bleeding deep in the left side of the brain from long-standing high blood pressure (hypertensive intracerebral hemorrhage).",
+      "science": [
+        {
+          "tag": "Pressure and blood flow",
+          "title": "Why years of high pressure burst a small artery",
+          "text": "The deep parts of the brain are fed by tiny arteries that branch straight off large ones, so they take close to the full force of each heartbeat. Years of high pressure damage their thin walls until one gives way.",
+          "lesson": "circulatory-flow",
+          "lessonTitle": "Connect pressure to blood flow"
+        },
+        {
+          "tag": "Flow through a narrowing",
+          "title": "Why lowering his pressure limits the bleed",
+          "text": "Blood leaves a torn vessel faster when the pressure behind it is higher. Bringing his blood pressure down slows the leak and gives a clot the chance to seal the tear. Lowering it too far, too fast, would starve the rest of the brain.",
+          "lesson": "fluid-flow",
+          "lessonTitle": "Follow flow through a narrowing"
+        }
+      ],
+      "sources": [
+        {
+          "title": "2022 AHA/ASA guideline: management of patients with spontaneous intracerebral hemorrhage",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/35579034/"
+        },
+        {
+          "title": "INTERACT2 trial (NEJM 2013): rapid blood-pressure lowering in acute intracerebral hemorrhage",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/23713578/"
+        },
+        {
+          "title": "STICH II trial (Lancet 2013): early surgery versus initial conservative treatment in lobar intracerebral hematomas",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/23726393/"
         }
       ]
     }

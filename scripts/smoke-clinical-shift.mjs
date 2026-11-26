@@ -106,7 +106,7 @@ async function runViewport(browser, viewport) {
     if (
       heading !== 'Start your shift.' ||
       howSteps !== 'Meet the patient > Ask and examine > Decide > Debrief' ||
-      rotationCount !== 3 ||
+      rotationCount !== pilot.rotations.length ||
       legacyControlCount !== 0 ||
       exposedTitles.length ||
       !hubText.includes('independent clinician review remains pending') ||

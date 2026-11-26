@@ -90,7 +90,10 @@ for (const rotation of manifest.rotations) {
     assert.equal(engine.activeIsCompatible(active, c), false);
   }
 }
-assert.equal(ids.size, 18);
+assert.equal(
+  ids.size,
+  manifest.rotations.reduce((sum, rotation) => sum + rotation.caseIds.length, 0)
+);
 saved = { version: 1, active: null, completed: { 'legacy-case': { attempts: 2, lastAt: 44 } }, history: [] };
 const priorWrites = writes;
 assert.equal(engine.loadShiftState().completed['legacy-case'].lastAt, 44);
@@ -107,5 +110,5 @@ const bank = new Set(
 assert.ok(revisions.changes.length >= 60);
 assert.ok(revisions.changes.every(change => ids.has(change.caseId) || bank.has(change.caseId)));
 console.log(
-  '18 case structures, frozen content, preserved prior records, corrupt-session protection, and idempotent completion after save failure passed.'
+  `${ids.size} case structures, frozen content, preserved prior records, corrupt-session protection, and idempotent completion after save failure passed.`
 );

@@ -2,9 +2,11 @@
 
 # The share cards moved to /og/ (one per main area). The old image addresses still answer.
 /og-v5.jpg        /og/home-1.jpg      301
-/og-clinical.jpg  /og/clinical-1.jpg  301
+/og-clinical.jpg  /og/clinical-2.jpg  301
 /og-neuro-2.jpg   /og/neuro-1.jpg     301
 /og-lab.jpg       /og/lab-1.jpg       301
+# A redrawn card gets a new file name; the one it replaces still answers.
+/og/clinical-1.jpg  /og/clinical-2.jpg  301
 
 # Clinical Scenarios share link — its own og card, then an instant client
 # redirect to /practice. Share THIS url to get the clinical thumbnail.
