@@ -1,4 +1,4 @@
-/* Every step of a shift is one tap. Each classic encounter is played through the real screens (jsdom, real
+/* Every step of a shift is one tap. Each encounter is played in the classic format through the real screens (jsdom, real
    StudyStorage) with every call right and with every call wrong: a tap answers a question and the next one
    opens, nothing is typed, and the last call leads to the debrief. Also checks the hold that keeps a stray
    second tap from answering the next question, the optional notepad, the hub's wording, and that an
@@ -7,7 +7,12 @@
 const { test } = require('node:test'),
   assert = require('node:assert/strict');
 const { KEY, pause, pilot, encounters, harness, holdMs, assertTapOnly, flat } = require('./clinical-shift-harness.cjs');
-const classic = encounters.filter(entry => !entry.reaction);
+/* Every registered encounter now has a reaction layer. The classic format is still what an encounter
+   falls back to when its layer no longer lines up with its case, and what shifts saved before the layers
+   were written reopen in, so it is played here with the layers withheld. */
+const withoutLayers = { ...pilot, reactions: {} };
+const classic = encounters.map(entry => ({ ...entry, reaction: null }));
+const classicHarness = (options = {}) => harness({ manifest: withoutLayers, ...options });
 const NOTES_MAX = 4000;
 const questionsOf = caseData =>
   caseData.stages.map((stage, index) => ({ stage, index })).filter(({ stage }) => stage.type === 'question');
@@ -180,7 +185,7 @@ async function play(h, entry, pick, { ask = true, notes = '' } = {}) {
 }
 
 test('the hub describes four steps and asks for no writing', async () => {
-  const h = harness();
+  const h = classicHarness();
   await h.w.renderClinicalShift();
   assert.equal(h.text('#cshift-how-title'), 'Four steps, one patient at a time.');
   assert.deepEqual(
@@ -195,14 +200,14 @@ test('the hub describes four steps and asks for no writing', async () => {
 
 for (const entry of classic) {
   test(`${entry.id}: one tap answers each question, and every call right is a full score`, async () => {
-    const h = harness();
+    const h = classicHarness();
     const { active } = await play(h, entry, keyed);
     assert.equal(active.scores.total, 100);
     h.close();
   });
 
   test(`${entry.id}: every call wrong earns only the points for asking, and the debrief says why`, async () => {
-    const h = harness();
+    const h = classicHarness();
     const { active } = await play(h, entry, wrong);
     assert.equal(active.scores.total, 15);
     assert.equal(active.scores.correct, 0);
@@ -213,7 +218,7 @@ for (const entry of classic) {
 
 test('a finished shift reopens from the saved shifts with its calls and without a write', async () => {
   const entry = classic[0];
-  const h = harness();
+  const h = classicHarness();
   const { active, picks, questions } = await play(h, entry, wrong, { ask: false, notes: 'Check the potassium first' });
   assert.equal(active.scores.total, 0, 'nothing asked and nothing right');
   const saved = h.raw();
@@ -234,7 +239,7 @@ test('the notepad is optional, keeps what is written, and is never scored', asyn
   const scores = [];
   // the same shift three times: no notes, a note longer than the notepad holds, and only blank space
   for (const notes of ['', `<img src=x onerror=alert(1)> ${'x'.repeat(NOTES_MAX + 500)}`, ' \n \n']) {
-    const h = harness();
+    const h = classicHarness();
     const { active } = await play(h, entry, keyed, { notes });
     assert.equal((active.notes || '').length, Math.min(notes.length, NOTES_MAX));
     assert.equal(h.find('.cshift-debrief img'), null, 'a note is text, never markup');
@@ -245,7 +250,7 @@ test('the notepad is optional, keeps what is written, and is never scored', asyn
   assert.deepEqual(scores[2], scores[0]);
 
   // its title bar says whether there is anything in it, and blank space is nothing
-  const h = harness();
+  const h = classicHarness();
   await start(h, entry);
   h.click('#cshift-open-chart');
   assert.equal(h.text('.cshift-notepad summary'), 'notepad · optional');
@@ -272,7 +277,7 @@ test('the notepad is optional, keeps what is written, and is never scored', asyn
 
 test('the notepad is written to disk when the typing stops, or at once when it is left', async () => {
   const entry = classic[0];
-  const h = harness();
+  const h = classicHarness();
   await start(h, entry);
   h.click('#cshift-open-chart');
   h.notepad(true);
@@ -313,7 +318,7 @@ test('a stray second tap cannot answer the next question or skip an outcome', as
   const held = h => h.all('.cshift-option').map(button => button.disabled && button.hasAttribute('data-cshift-hold'));
   const answered = h => Object.keys(h.state().active.locks).length + (h.state().active.differential.lockedAt ? 1 : 0);
 
-  const h = harness({ hold: true });
+  const h = classicHarness({ hold: true });
   await start(h, classic[0]);
   h.click('#cshift-open-chart');
   h.click('#cshift-begin-reasoning');
@@ -361,7 +366,7 @@ test('an answer is given once: a tap that reaches an answered question changes n
   // classic: the first question's buttons are tapped again after the shift has moved on
   const entry = classic[0],
     questions = questionsOf(entry.caseData);
-  const h = harness();
+  const h = classicHarness();
   await start(h, entry);
   h.click('#cshift-open-chart');
   h.click('#cshift-begin-reasoning');
@@ -407,9 +412,9 @@ test('an answer is given once: a tap that reaches an answered question changes n
 });
 
 /* Encounters begun before every step became a tap can be saved on a screen that no longer exists. */
-function begun(entry, change) {
-  const source = harness();
-  source.w.testShift.setManifest(structuredClone(pilot));
+function begun(entry, change, manifest = withoutLayers) {
+  const source = harness({ manifest });
+  source.w.testShift.setManifest(structuredClone(manifest));
   const active = JSON.parse(JSON.stringify(source.w.testShift.newActiveShift(entry.rotation, entry.caseData)));
   source.close();
   delete active.notes;
@@ -536,11 +541,15 @@ test('a differential that was being ranked becomes one pick', async () => {
 test('a reacting call that was picked but never confirmed is simply asked again', async () => {
   const entry = encounters.find(item => item.reaction),
     first = questionsOf(entry.caseData)[0];
-  const active = begun(entry, run => {
-    run.phase = 'decision';
-    run.stageCursor = first.index;
-    run.drafts[first.index] = wrong(first.stage);
-  });
+  const active = begun(
+    entry,
+    run => {
+      run.phase = 'decision';
+      run.stageCursor = first.index;
+      run.drafts[first.index] = wrong(first.stage);
+    },
+    pilot
+  );
   const h = await reopen(active);
   assert.equal(h.all('.cshift-option').length, first.stage.options.length);
   assert.equal(h.find('.cshift-beat'), null);

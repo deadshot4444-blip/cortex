@@ -72,6 +72,12 @@ async function runViewport(browser, viewport) {
   await context.route('**/cx-visits/**', route =>
     route.fulfill({ status: 200, contentType: 'application/json', body: '{"value":0}' })
   );
+  // Every rotation's patients now react. This suite covers the classic format, which an encounter falls
+  // back to when its reaction layer cannot be used, so the layers are withheld from the page here.
+  await context.route('**/data/clinical-shift-pilot.json*', async route => {
+    const response = await route.fetch();
+    await route.fulfill({ response, json: { ...(await response.json()), reactions: {} } });
+  });
   const pageErrors = [];
   const consoleErrors = [];
   const overflowChecks = [];
