@@ -1,7 +1,7 @@
 {
-  "version": 12,
+  "version": 13,
   "title": "Clinical Shift foundations and rotation practice",
-  "reviewStatus": "Source and consistency checks are recorded with each encounter. Independent clinician review remains pending for all 21 encounters.",
+  "reviewStatus": "Source and consistency checks are recorded with each encounter. Independent clinician review remains pending for all 24 encounters.",
   "rotations": [
     {
       "key": "emergency-medicine",
@@ -50,6 +50,16 @@
         "ns-006",
         "ns-030",
         "ns-010"
+      ]
+    },
+    {
+      "key": "general-surgery",
+      "name": "General Surgery",
+      "description": "Decide who needs an operation, and what has to happen first.",
+      "caseIds": [
+        "gs-023",
+        "gs-058",
+        "gs-052"
       ]
     }
   ],
@@ -137,6 +147,18 @@
     "ns-010": {
       "assessment": "58-year-old man with untreated hypertension and sudden right hemiplegia, dysarthria, headache, and vomiting; BP 214/118 mmHg. CT shows a 25-mL acute left putaminal hemorrhage without significant midline shift or hydrocephalus, and coagulation is normal, consistent with hypertensive intracerebral hemorrhage.",
       "plan": "No thrombolysis or antithrombotics. Lower the systolic blood pressure in a controlled way toward 130-140 mmHg with a titratable IV agent, avoiding precipitous drops. Monitor airway and neurologic status in a stroke or neurocritical care unit, repeat imaging for any deterioration, manage glucose and temperature, and consult neurosurgery, with surgery reserved for selected cases."
+    },
+    "gs-023": {
+      "assessment": "66-year-old man with a prior laparotomy and 8 hours of constant severe abdominal pain, obstipation, fever, tachycardia, peritoneal signs, and a rising lactate. CT shows a C-shaped closed loop with a whirl sign and reduced bowel-wall enhancement: closed-loop small bowel obstruction with strangulation.",
+      "plan": "Resuscitate with IV fluids, give broad-spectrum antibiotics, and take him for immediate exploratory laparotomy. No nonoperative trial and no contrast challenge. Release the band, assess viability, resect nonviable bowel, and plan a second look if viability is marginal."
+    },
+    "gs-058": {
+      "assessment": "57-year-old man with poorly controlled type 2 diabetes and recent diverticulitis, with five days of fever, rigors, and right-upper-quadrant pain, leukocytosis, and cholestatic liver tests. CT shows a 6 cm rim-enhancing multiloculated right-lobe collection: pyogenic liver abscess with sepsis.",
+      "plan": "Draw blood cultures, start broad-spectrum IV antibiotics covering enteric gram-negatives, streptococci, and anaerobes, and arrange image-guided percutaneous drainage with cultures to narrow therapy. Control glucose. Look for the source, and with monomicrobial Klebsiella evaluate the colon and watch for metastatic infection such as endophthalmitis."
+    },
+    "gs-052": {
+      "assessment": "46-year-old man with paroxysmal headache, palpitations, and sweating, resistant hypertension, and a 4.5 cm lipid-poor right adrenal mass. Plasma and urinary metanephrines are markedly elevated with normal cortisol suppression and aldosterone-renin ratio: pheochromocytoma, with a family history suggesting MEN2.",
+      "plan": "Alpha-blockade for 7-14 days before surgery with liberal salt and fluids, adding a beta-blocker only after alpha-blockade is established. Laparoscopic adrenalectomy with early adrenal vein ligation, minimal tumor handling, and close communication with anesthesia. No biopsy. Refer for genetic counseling and germline testing (RET, VHL, SDHx) and screen for associated tumors."
     }
   },
   "investigations": {
@@ -769,6 +791,96 @@
           "finding": "Pupils are equal and reactive, the neck is supple, and there is no external head trauma."
         }
       ]
+    },
+    "gs-023": {
+      "interview": [
+        {
+          "prompt": "Characterize the pain and its time course",
+          "finding": "Sudden severe, constant, diffuse abdominal pain for 8 hours that has steadily intensified, unlike his earlier bouts of intermittent cramping, with bilious vomiting."
+        },
+        {
+          "prompt": "Ask about bowel function",
+          "finding": "No stool and no flatus since the pain began."
+        },
+        {
+          "prompt": "Review surgical history and medications",
+          "finding": "Exploratory laparotomy for a stab wound 20 years ago and a remote inguinal hernia repair. Takes amlodipine and atorvastatin; no drug allergies."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Inspect and palpate the abdomen",
+          "finding": "Distended, with focal mid-abdominal tenderness, early involuntary guarding and localized rebound. Bowel sounds are diminished."
+        },
+        {
+          "prompt": "Check the hernia sites and perform a rectal exam",
+          "finding": "No hernia at the groin or the old incision. The rectal vault is empty and guaiac-negative."
+        },
+        {
+          "prompt": "Assess perfusion and mental status",
+          "finding": "Restless, then lethargic and mildly confused. The skin is cool and mottled at the knees."
+        }
+      ]
+    },
+    "gs-058": {
+      "interview": [
+        {
+          "prompt": "Characterize the fever and pain",
+          "finding": "Five days of fevers to 39 °C with rigors, malaise, anorexia and dull right-upper-quadrant pain, plus night sweats and a 3 kg weight loss."
+        },
+        {
+          "prompt": "Ask about travel, diarrhea and recent infections",
+          "finding": "No travel abroad and no diarrhea or bloody stools. He had diverticulitis two months ago, treated with oral antibiotics."
+        },
+        {
+          "prompt": "Review diabetes control and medications",
+          "finding": "Type 2 diabetes with an HbA1c of 9.6% and poor adherence to metformin and lisinopril. No alcohol and no IV drug use."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Palpate and percuss the liver",
+          "finding": "Tender hepatomegaly with right-upper-quadrant tenderness and pain on percussion over the liver. Murphy sign is negative."
+        },
+        {
+          "prompt": "Look for jaundice and peritonitis",
+          "finding": "Sclerae are anicteric. No rebound or guarding elsewhere."
+        },
+        {
+          "prompt": "Examine the chest and hydration",
+          "finding": "Decreased breath sounds at the right base. He is tachycardic, with dry mucous membranes."
+        }
+      ]
+    },
+    "gs-052": {
+      "interview": [
+        {
+          "prompt": "Characterize the spells",
+          "finding": "Months of 15- to 30-minute paroxysms of pounding bitemporal headache, palpitations, drenching sweats, tremor and a sense of doom, triggered by bending, exertion or straining. He is well between episodes."
+        },
+        {
+          "prompt": "Review the blood pressure history and medications",
+          "finding": "Hypertension labeled hard to control on lisinopril, hydrochlorothiazide and amlodipine. Unintended weight loss and constipation."
+        },
+        {
+          "prompt": "Take a family history",
+          "finding": "A paternal uncle had thyroid cancer, and an aunt had tumors on both adrenal glands."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Measure supine and standing blood pressure",
+          "finding": "176/104 mmHg supine, falling to 150/92 mmHg on standing with reflex tachycardia."
+        },
+        {
+          "prompt": "Examine the heart and abdomen",
+          "finding": "Tachycardic and regular, with a forceful apical impulse and no murmur. The abdomen is soft, with no bruit and no palpable mass."
+        },
+        {
+          "prompt": "Look for features of a hereditary syndrome",
+          "finding": "Fine resting tremor and warm, moist skin. No café-au-lait macules, neck mass or mucosal neuromas, and no papilledema."
+        }
+      ]
     }
   },
   "caseReviews": {
@@ -1109,6 +1221,54 @@
         {
           "title": "STICH II trial (Lancet 2013): early surgery versus initial conservative treatment in lobar intracerebral hematomas",
           "url": "https://pubmed.ncbi.nlm.nih.gov/23726393/"
+        }
+      ]
+    },
+    "gs-023": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Tell a strangulated obstruction from a simple one, and recognize that it needs an operation now.",
+      "alternativesAndLimits": "Most adhesive obstructions without ischemia are managed without surgery at first; this case teaches the exception. Viability is judged by the operating surgeon.",
+      "sources": [
+        {
+          "title": "Ten Broek et al. (World J Emerg Surg 2018): Bologna guidelines for diagnosis and management of adhesive small bowel obstruction",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/29946347/"
+        },
+        {
+          "title": "Maung et al. (J Trauma Acute Care Surg 2012): evaluation and management of small-bowel obstruction, an EAST practice management guideline",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/23114494/"
+        }
+      ]
+    },
+    "gs-058": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Recognize a pyogenic liver abscess and pair antibiotics with drainage.",
+      "alternativesAndLimits": "Small single abscesses can sometimes be treated with antibiotics alone; size thresholds vary between sources. The colorectal evaluation after a Klebsiella abscess rests on observational studies.",
+      "sources": [
+        {
+          "title": "Lardière-Deguelte et al. (J Visc Surg 2015): hepatic abscess, diagnosis and management",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/25770745/"
+        },
+        {
+          "title": "Siu et al. (Lancet Infect Dis 2012): Klebsiella pneumoniae liver abscess, a new invasive syndrome",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/23099082/"
+        }
+      ]
+    },
+    "gs-052": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Confirm a pheochromocytoma biochemically and prepare safely for its removal.",
+      "alternativesAndLimits": "The choice of alpha-blocker and the length of preparation vary between centers. The clinic crisis after a first beta-blocker dose is written for teaching; its timing and size differ between patients.",
+      "sources": [
+        {
+          "title": "Lenders et al. (J Clin Endocrinol Metab 2014): pheochromocytoma and paraganglioma, an Endocrine Society clinical practice guideline",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/24893135/"
+        },
+        {
+          "title": "Neumann, Young and Eng (N Engl J Med 2019): pheochromocytoma and paraganglioma",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/31390501/"
         }
       ]
     }
@@ -7439,6 +7599,885 @@
         {
           "title": "STICH II trial (Lancet 2013): early surgery versus initial conservative treatment in lobar intracerebral hematomas",
           "url": "https://pubmed.ncbi.nlm.nih.gov/23726393/"
+        }
+      ]
+    },
+    "gs-023": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "The worst pain _he has ever felt._",
+      "setting": "Emergency department",
+      "start": {
+        "status": "unstable",
+        "alarm": "Severe constant pain · fast heart rate · fever"
+      },
+      "handoff": "A 66-year-old man has had severe belly pain for eight hours, and it keeps getting worse. He is vomiting and has passed nothing since it began. He had an abdominal operation 20 years ago.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask about the pain",
+            "finding": "It came on suddenly eight hours ago. It is severe, all over his belly and constant. He has had crampy belly pain before that came and went, and he says this is different: it never lets up. He is vomiting green fluid."
+          },
+          {
+            "prompt": "Ask about his bowels",
+            "finding": "He has passed no stool and no gas since the pain began."
+          },
+          {
+            "prompt": "Ask about past operations and medicines",
+            "finding": "He had an operation on his abdomen for a stab wound 20 years ago, and a groin hernia repaired long ago. He takes tablets for blood pressure and cholesterol."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Look at his belly and press on it",
+            "finding": "His belly is swollen. The middle is very tender, and the muscles there tighten against your hand without him meaning to. Letting go quickly hurts him more. Few bowel sounds can be heard."
+          },
+          {
+            "prompt": "Check for a hernia, and examine his rectum",
+            "finding": "There is no bulge in either groin or along his old scar. His rectum is empty, with no blood."
+          },
+          {
+            "prompt": "Check his skin and how alert he is",
+            "finding": "He was restless and is now drowsy and slightly confused. His knees are cool and blotchy."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Blood tests and CT scan",
+          "content": "White blood cells: 18.4, high.\nLactate: 4.8 and rising (it was 3.1). Lactate builds up when tissue is starved of oxygen.\nKidney tests: mildly raised, a sign that he is short of fluid.\nCT scan: two swollen loops of small bowel that meet at a single point, where the blood vessels are twisted into a whirl. The wall of the trapped loop is not taking up dye, which means little blood is reaching it. A small amount of free fluid."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "Scar tissue from an old operation can block the bowel. Most of those blockages settle without surgery. Something here tells me this one will not.",
+          "question": "What sets him apart from a simple blockage?",
+          "options": [
+            "He is vomiting green fluid",
+            "Constant, severe pain that is far worse than his belly looks, with fever, a fast heart rate and guarding",
+            "He has had an abdominal operation before",
+            "He has passed no gas for hours"
+          ],
+          "fix": "Point out the danger signs",
+          "terms": [
+            {
+              "term": "Obstruction",
+              "meaning": "A blockage of the bowel. Food, fluid and gas cannot get past it."
+            },
+            {
+              "term": "Strangulation",
+              "meaning": "A trapped piece of bowel whose blood supply is being cut off. Without blood it dies within hours."
+            },
+            {
+              "term": "Guarding",
+              "meaning": "Belly muscles that tighten by reflex when the lining of the abdomen is inflamed."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You point to the green vomit. The resident shakes their head.",
+              "reply": "Any blockage of the small bowel causes that. It tells us there is a blockage, not how dangerous it is."
+            },
+            {
+              "kind": "safe",
+              "minutes": 30,
+              "story": "You tell the resident what worries you. Blood is drawn, fluids are started and he is sent for a CT scan. The results go in his chart.",
+              "reply": "Exactly. Crampy pain that comes and goes is a simple blockage. Constant pain with fever and a racing heart means the bowel itself is in trouble."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You point to his old operation. The resident shakes their head.",
+              "reply": "That explains why he has a blockage, because old scar tissue is the usual cause. It does not tell us whether this one is simple or dangerous."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You point out that he has passed no gas. The resident shakes their head.",
+              "reply": "That happens in any complete blockage. Look at the pain, the fever and his heart rate instead."
+            }
+          ]
+        },
+        "3": {
+          "resident": "The scan shows a trapped, twisted loop with almost no blood reaching it. His lactate is climbing.",
+          "question": "What do we do?",
+          "options": [
+            "Pass a tube through his nose to empty the stomach, and wait 48 hours",
+            "Fluids and antibiotics through a vein now, and straight to the operating room",
+            "Give a contrast drink and see whether it passes through",
+            "Admit him, examine his belly every few hours and repeat the lactate in 12 hours"
+          ],
+          "fix": "Call the surgeon and get him to the operating room",
+          "terms": [
+            {
+              "term": "Laparotomy",
+              "meaning": "An operation that opens the abdomen so the surgeon can see and fix the problem."
+            },
+            {
+              "term": "Lactate",
+              "meaning": "A substance cells make when they run short of oxygen. A rising level is a warning."
+            },
+            {
+              "term": "Perforation",
+              "meaning": "A hole in the bowel wall. Bowel contents leak into the abdomen and cause severe infection."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "delay",
+              "minutes": 120,
+              "story": "The tube goes down and he is admitted to wait. Two hours later his belly is hard all over, and his blood pressure is falling.",
+              "reply": "Waiting works for a simple blockage. His bowel has no blood supply, and it has been dying for two more hours. He goes to the operating room now.",
+              "vitals": {
+                "BP": "88/52 mmHg",
+                "HR": "134 bpm"
+              },
+              "trend": {
+                "BP": "down",
+                "HR": "up"
+              },
+              "status": "worse",
+              "alarm": "Belly hard all over · blood pressure falling"
+            },
+            {
+              "kind": "safe",
+              "minutes": 30,
+              "story": "Fluids run in fast and antibiotics are given. The surgeon sees him within minutes, and he is taken to the operating room.",
+              "reply": "Right. Fluids and antibiotics buy a little time, and only an operation can untwist the loop. Every hour of waiting costs him bowel.",
+              "vitals": {
+                "BP": "108/66 mmHg",
+                "HR": "112 bpm"
+              },
+              "trend": {
+                "BP": "up",
+                "HR": "down"
+              }
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for the contrast drink. The surgeon cancels it.",
+              "reply": "That test is for a simple blockage, to see whether it will open by itself. With a strangled loop it only wastes time."
+            },
+            {
+              "kind": "delay",
+              "minutes": 240,
+              "story": "He is admitted for checks every few hours. By the time anyone looks closely again, four hours have passed. He is cold and confused, and his belly is rigid.",
+              "reply": "A strangled loop does not wait twelve hours. Part of his bowel has died, and he is now in shock. He goes to the operating room this minute.",
+              "vitals": {
+                "BP": "78/46 mmHg",
+                "HR": "140 bpm",
+                "RR": "32 /min"
+              },
+              "trend": {
+                "BP": "down",
+                "HR": "up",
+                "RR": "up"
+              },
+              "status": "critical",
+              "alarm": "Confused · cold · belly rigid"
+            }
+          ]
+        },
+        "4": {
+          "resident": "You are watching in the operating room. The surgeon cuts a band of scar tissue and frees the loop. Twenty minutes later the loop is still dark, limp and not moving.",
+          "question": "What should happen to that loop?",
+          "options": [
+            "Put it back and close the abdomen",
+            "Cut out the dead segment and join the healthy ends, or plan a second look if it is borderline",
+            "Wrap it in warm packs for two more hours, then close whatever it looks like",
+            "Leave it in place and build a bypass around it"
+          ],
+          "fix": "Say it has to come out",
+          "terms": [
+            {
+              "term": "Viable",
+              "meaning": "Alive and able to recover. Healthy bowel is pink and shiny, and it moves."
+            },
+            {
+              "term": "Resection",
+              "meaning": "Cutting out a damaged piece of bowel."
+            },
+            {
+              "term": "Anastomosis",
+              "meaning": "Joining two cut ends of bowel so that it is one tube again."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest putting it back. The surgeon answers without looking up.",
+              "reply": "Dead bowel left inside breaks down and leaks within days. It has to come out."
+            },
+            {
+              "kind": "safe",
+              "minutes": 60,
+              "story": "The surgeon removes the dead segment and joins the two healthy ends. The rest of the bowel is pink and moving.",
+              "reply": "Yes. Bowel that stays dark and still after its blood supply is restored will not recover. When the surgeon is unsure, they look again a day or two later."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest warming it for two more hours. The surgeon shakes their head.",
+              "reply": "Twenty minutes is long enough to see whether it will recover. Closing over bowel that is still dark means closing over dead tissue."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest a bypass. The surgeon shakes their head.",
+              "reply": "A bypass would leave dead bowel inside as a source of infection. It has to be removed."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "The blood tests and the scan are in his chart.",
+        "question": "What is this?",
+        "options": [
+          "A simple partial blockage from scar tissue",
+          "A trapped, twisted loop of bowel that is losing its blood supply (closed-loop obstruction with strangulation)",
+          "A colon that has swollen without any blockage",
+          "A bowel that has stopped moving, without any blockage (ileus)"
+        ],
+        "reveal": "A loop of his small bowel is trapped at two points by a band of scar tissue and has twisted on its own blood supply. The whirl of vessels on the scan is that twist, and the wall that takes up no dye is bowel with no blood reaching it. A simple blockage would still have a healthy blood supply.",
+        "terms": [
+          {
+            "term": "Closed loop",
+            "meaning": "A length of bowel blocked at both ends, so nothing can get in or out and pressure builds inside."
+          },
+          {
+            "term": "Adhesion",
+            "meaning": "A band of scar tissue inside the abdomen, usually left by an earlier operation."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "Recovering in intensive care after surgery, with the dead bowel removed",
+        "unstable": "Recovering in intensive care after surgery, with the dead bowel removed",
+        "worse": "In intensive care after surgery, sicker than he needed to be",
+        "critical": "In intensive care on life support, after an operation that came late"
+      },
+      "plainDiagnosis": "A trapped, twisted loop of small bowel that had lost its blood supply (closed-loop obstruction with strangulation).",
+      "science": [
+        {
+          "tag": "Energy without oxygen",
+          "title": "Why his lactate kept climbing",
+          "text": "Cells cut off from blood get no oxygen, so they fall back on glycolysis alone and turn the pyruvate into lactate. A rising lactate was his bowel reporting that it was running out of oxygen.",
+          "lesson": "glycolysis",
+          "lessonTitle": "Account for glycolysis"
+        },
+        {
+          "tag": "Pressure and blood flow",
+          "title": "Why a twist stops blood both ways",
+          "text": "Veins have thin walls and low pressure, so a twist closes them first. Blood can still get in but cannot get out. The loop swells until the pressure inside it stops the arteries too.",
+          "lesson": "circulatory-flow",
+          "lessonTitle": "Connect pressure to blood flow"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Ten Broek et al. (World J Emerg Surg 2018): Bologna guidelines for diagnosis and management of adhesive small bowel obstruction",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/29946347/"
+        },
+        {
+          "title": "Maung et al. (J Trauma Acute Care Surg 2012): evaluation and management of small-bowel obstruction, an EAST practice management guideline",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/23114494/"
+        }
+      ]
+    },
+    "gs-058": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "Five days of fever _and shaking chills._",
+      "setting": "Hospital ward",
+      "start": {
+        "status": "unstable",
+        "alarm": "High fever · fast heart rate"
+      },
+      "handoff": "A 57-year-old man with diabetes was admitted today. He has had five days of high fevers with shaking chills and a dull pain under his right ribs. He was treated for a bowel infection two months ago.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask about the fever and the pain",
+            "finding": "Five days of fevers up to 39 °C with shaking chills. He feels weak, has no appetite and has a dull pain under his right ribs. He has had night sweats and has lost 3 kg."
+          },
+          {
+            "prompt": "Ask about travel, diarrhea and recent infections",
+            "finding": "He has not traveled abroad. No diarrhea and no blood in his stool. Two months ago he had diverticulitis, an infection of small pouches in the bowel wall, and was treated with antibiotic tablets."
+          },
+          {
+            "prompt": "Ask about his diabetes and his medicines",
+            "finding": "His diabetes is poorly controlled, and he admits he often misses his tablets. He does not drink alcohol or inject drugs."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Feel his liver, and tap over it",
+            "finding": "His liver is enlarged and tender. A light tap over his lower right ribs makes him wince."
+          },
+          {
+            "prompt": "Look for yellow eyes, and press on the rest of his belly",
+            "finding": "The whites of his eyes are not yellow. The rest of his belly is soft."
+          },
+          {
+            "prompt": "Listen to his chest, and check whether he is dry",
+            "finding": "Breath sounds are quiet at the bottom of his right lung, just above the liver. His heart is fast, and his mouth is dry."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Blood tests and CT scan",
+          "content": "White blood cells: 18.4, high.\nLiver tests: raised, in the pattern seen when something inside the liver is blocking the flow of bile.\nBlood sugar: 244, high.\nLactate: 2.1, borderline.\nCT scan: a 6 cm pocket of fluid in the right side of the liver, divided into compartments, with a bright rim. A little fluid around the base of the right lung.\nBlood cultures: sent, results pending."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "Fever, a tender liver and a high white count in a man with diabetes. I am worried there is an infection inside his liver.",
+          "question": "Which test will show it?",
+          "options": [
+            "A plain X-ray of his abdomen",
+            "A CT scan of his abdomen with contrast (or an ultrasound), and blood cultures",
+            "A camera test of his stomach (upper endoscopy)",
+            "A nuclear scan of his gallbladder (HIDA scan)"
+          ],
+          "fix": "Get the CT and blood cultures",
+          "terms": [
+            {
+              "term": "Abscess",
+              "meaning": "A walled-off pocket of pus."
+            },
+            {
+              "term": "Blood cultures",
+              "meaning": "Blood samples kept warm to see whether bacteria grow. They are taken before antibiotics, so the bacteria can still be found."
+            },
+            {
+              "term": "Contrast",
+              "meaning": "A dye given into a vein that makes blood vessels and inflamed tissue show up on a scan."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request a plain X-ray. The resident changes the order.",
+              "reply": "An X-ray cannot see inside the liver. We need a scan that shows soft tissue."
+            },
+            {
+              "kind": "safe",
+              "minutes": 45,
+              "story": "Blood cultures are drawn first. He goes for a CT scan, and the results go in his chart.",
+              "reply": "Right. The scan shows the liver itself, and it will guide a drain if there is pus. Cultures first, so the antibiotics do not hide the bacteria."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request an endoscopy. The resident cancels it.",
+              "reply": "That looks at the inside of the stomach. His problem is in the liver, which a camera in the stomach cannot see."
+            },
+            {
+              "kind": "delay",
+              "minutes": 120,
+              "story": "The gallbladder scan takes two hours, and it is normal. While he lies in the scanner he has another shaking chill, and his blood pressure drops.",
+              "reply": "That scan only asks whether the gallbladder is blocked. His gallbladder was never the problem, and he has gone two more hours without a diagnosis. Get the CT now.",
+              "vitals": {
+                "Temp": "39.6 °C",
+                "HR": "122 bpm",
+                "BP": "96/58 mmHg"
+              },
+              "trend": {
+                "Temp": "up",
+                "HR": "up",
+                "BP": "down"
+              },
+              "status": "worse",
+              "alarm": "Shaking chills · blood pressure dropping"
+            }
+          ]
+        },
+        "3": {
+          "resident": "He has a 6 cm pocket of pus in his liver, and the infection is spilling into his blood.",
+          "question": "How do we treat it?",
+          "options": [
+            "Antibiotics alone, with no drainage",
+            "Antibiotics through a vein, plus a drain placed through the skin under scan guidance",
+            "An emergency operation to remove that part of the liver",
+            "Metronidazole tablets alone"
+          ],
+          "fix": "Start antibiotics and call for a drain",
+          "terms": [
+            {
+              "term": "Percutaneous drainage",
+              "meaning": "A thin tube passed through the skin into the abscess, guided by ultrasound or CT, to let the pus out."
+            },
+            {
+              "term": "Broad-spectrum antibiotics",
+              "meaning": "Antibiotics that cover many kinds of bacteria, used until the lab names the one responsible."
+            },
+            {
+              "term": "Sepsis",
+              "meaning": "The body’s dangerous, whole-body reaction to an infection."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for antibiotics only. The resident adds to the order.",
+              "reply": "For a small abscess that can work. At 6 cm, antibiotics cannot get deep enough into the pus. It has to be drained as well."
+            },
+            {
+              "kind": "safe",
+              "minutes": 90,
+              "story": "Antibiotics are started through a vein. A radiologist numbs the skin and slides a thin drain into the abscess under ultrasound. Thick pus comes out, and a sample goes to the lab. Within the hour his temperature starts to fall.",
+              "reply": "That is the treatment: antibiotics for the bacteria, and a drain for the pus. The sample will tell us which bacteria, so we can narrow the antibiotics.",
+              "vitals": {
+                "Temp": "38.4 °C",
+                "HR": "104 bpm",
+                "BP": "112/70 mmHg"
+              },
+              "trend": {
+                "Temp": "down",
+                "HR": "down",
+                "BP": "up"
+              },
+              "alarm": "Drain in · antibiotics running"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask about removing that part of his liver. The surgeon shakes their head.",
+              "reply": "Surgery is kept for abscesses that a drain cannot empty. A needle and a tube do the same job with far less risk."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for metronidazole tablets. The pharmacist calls.",
+              "reply": "Tablets of metronidazole alone treat an abscess caused by an ameba, a parasite. His is bacterial. He needs broader antibiotics through a vein, and a drain."
+            }
+          ]
+        },
+        "4": {
+          "resident": "The lab has grown a single bacterium from the pus: Klebsiella pneumoniae. His fever is settling.",
+          "question": "What else needs doing?",
+          "options": [
+            "Look for where the infection came from, check his colon for a hidden cancer, and get his blood sugar under control",
+            "Nothing more",
+            "Start lifelong antifungal medicine",
+            "Order an ultrasound of his thyroid"
+          ],
+          "fix": "Plan the search for a source",
+          "terms": [
+            {
+              "term": "Source",
+              "meaning": "The place an infection started. Bacteria usually reach the liver from the bile ducts or from the bowel."
+            },
+            {
+              "term": "Colonoscopy",
+              "meaning": "A camera test of the whole colon."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "You add a colonoscopy, a diabetes review and an eye check to his plan.",
+              "reply": "Good. Bacteria reach the liver from somewhere, often the bowel or the bile ducts. This particular bacterium, growing alone, has been linked to hidden colon cancer and to infection spreading to the eye."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say nothing more is needed. The resident disagrees.",
+              "reply": "An abscess has a source, and if we do not find it, it can come back. With this bacterium we also check the colon, and we fix his blood sugar."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest antifungal medicine. The resident shakes their head.",
+              "reply": "This is a bacterial infection, and antifungals do nothing for it. What he needs is a search for the source."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest a thyroid ultrasound. The resident looks puzzled.",
+              "reply": "His thyroid has nothing to do with a liver infection. Bacteria reach the liver from the bowel or the bile ducts, so that is where we look."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "The blood tests and the scan are in his chart. Remember that he has not traveled.",
+        "question": "What is in his liver?",
+        "options": [
+          "An abscess caused by an ameba, a parasite picked up abroad",
+          "An abscess caused by bacteria (pyogenic liver abscess)",
+          "A simple fluid-filled cyst",
+          "A hydatid cyst, from a tapeworm carried by sheep and dogs"
+        ],
+        "reveal": "It is a bacterial abscess. Diabetes, a recent bowel infection, a high white count and a pocket with a bright rim and several compartments all fit. An amebic abscess needs travel to a place where the parasite is common. A simple cyst does not cause fever, and a hydatid cyst needs contact with livestock.",
+        "terms": [
+          {
+            "term": "Pyogenic",
+            "meaning": "Pus-forming. It means the cause is bacteria."
+          },
+          {
+            "term": "Rim enhancement",
+            "meaning": "A bright ring on a contrast scan. It is the inflamed wall around a pocket of pus."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "On the ward with a drain in his liver, and his fever coming down",
+        "unstable": "On the ward with a drain in his liver, and his fever coming down",
+        "worse": "On the ward with a drain in his liver, after a rougher day than he needed",
+        "critical": "In intensive care with sepsis"
+      },
+      "plainDiagnosis": "A pocket of pus in the liver caused by bacteria (pyogenic liver abscess).",
+      "science": [
+        {
+          "tag": "Heat balance",
+          "title": "Why he shook with cold while his temperature climbed",
+          "text": "Infection raises the brain’s temperature set point. His body then treats 37 °C as too cold, so it shivers to make heat and narrows skin vessels to keep it. The chill is the body heating itself.",
+          "lesson": "thermal-balance",
+          "lessonTitle": "Build a heat balance"
+        },
+        {
+          "tag": "Fuel and hormones",
+          "title": "Why infection pushed his blood sugar up",
+          "text": "Stress hormones released during infection tell the liver to put more glucose into the blood. Insulin normally answers that. With diabetes it cannot, so his sugar rose to 244, and high sugar in turn makes infection harder to clear.",
+          "lesson": "fuel-regulation",
+          "lessonTitle": "Choose a fuel pathway"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Lardière-Deguelte et al. (J Visc Surg 2015): hepatic abscess, diagnosis and management",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/25770745/"
+        },
+        {
+          "title": "Siu et al. (Lancet Infect Dis 2012): Klebsiella pneumoniae liver abscess, a new invasive syndrome",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/23099082/"
+        }
+      ]
+    },
+    "gs-052": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "Attacks of pounding headache, _a racing heart and sweat._",
+      "setting": "Surgery clinic",
+      "start": {
+        "status": "stable",
+        "alarm": "Blood pressure 176 over 104 on three medicines"
+      },
+      "handoff": "A 46-year-old man has had months of attacks: a pounding headache, a racing heart and drenching sweat, each lasting about 20 minutes. His blood pressure stays high on three medicines. A scan done for another reason found a lump on his right adrenal gland.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask about the attacks",
+            "finding": "They last 15 to 30 minutes: a pounding headache at both temples, a racing heart, drenching sweat, shaking and a feeling that something terrible is about to happen. Bending over, exercise or straining can set one off. Between attacks he feels well."
+          },
+          {
+            "prompt": "Ask about his blood pressure and his medicines",
+            "finding": "His doctors call his blood pressure hard to control. He takes three medicines for it. He has lost weight without trying and has become constipated."
+          },
+          {
+            "prompt": "Ask about his family",
+            "finding": "An uncle had thyroid cancer. An aunt had tumors on both of her adrenal glands."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Take his blood pressure lying down, then standing",
+            "finding": "176 over 104 lying down. It falls to 150 over 92 when he stands, and his heart speeds up."
+          },
+          {
+            "prompt": "Examine his heart and his belly",
+            "finding": "His heart is fast and regular, and it beats hard against the chest wall. His belly is soft, and no lump can be felt."
+          },
+          {
+            "prompt": "Look at his skin, his neck and his eyes",
+            "finding": "His hands have a fine shake, and his skin is warm and damp. There are no unusual skin marks and no lump in his neck. The backs of his eyes look normal."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Hormone tests and CT scan",
+          "content": "Blood test for the breakdown products of adrenaline (metanephrines): about ten times the upper limit.\nUrine collected over 24 hours: the same products, very high.\nCortisol test: normal.\nAldosterone test: normal. Potassium: normal.\nCT scan: a 4.5 cm lump in the right adrenal gland. It is dense, not fatty, and patchy, and it is slow to clear contrast dye."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "Attacks like these, with a lump on the adrenal gland, make me think the lump is releasing bursts of adrenaline.",
+          "question": "Which test checks that first?",
+          "options": [
+            "A blood test for the breakdown products of adrenaline (plasma metanephrines)",
+            "A cortisol test after a dose of dexamethasone",
+            "A blood test of aldosterone and renin",
+            "A chromogranin A level alone"
+          ],
+          "fix": "Send the metanephrines",
+          "terms": [
+            {
+              "term": "Adrenal gland",
+              "meaning": "A small gland on top of each kidney. It makes adrenaline, cortisol and aldosterone."
+            },
+            {
+              "term": "Metanephrines",
+              "meaning": "What adrenaline and noradrenaline are broken down into. A tumor leaks them all the time, even between attacks."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 15,
+              "story": "Blood is drawn today, and he takes home a container to collect his urine for 24 hours. When he comes back, the results are in his chart with the rest of his adrenal tests.",
+              "reply": "Right. Adrenaline comes in bursts and is easy to miss. Its breakdown products leak out steadily, so the test catches the tumor even on a quiet day."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request the cortisol test. The resident adds another.",
+              "reply": "Worth doing for any adrenal lump, and we will. But too much cortisol does not cause attacks like his. Start with the test that fits the story."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request aldosterone and renin. The resident adds another.",
+              "reply": "Too much aldosterone causes steady high blood pressure with low potassium, not attacks of headache and sweating. We need the adrenaline test."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request chromogranin A. The resident changes it.",
+              "reply": "That marker goes up with many tumors and many other things. It cannot confirm this. The metanephrines can."
+            }
+          ]
+        },
+        "3": {
+          "resident": "It is a tumor that makes adrenaline, and it has to come out. But an operation on an unprepared patient can set off a flood of adrenaline.",
+          "question": "What do we start first?",
+          "options": [
+            "A beta-blocker, to slow his heart",
+            "An alpha-blocker for one to two weeks, with extra salt and fluids, and a beta-blocker only after that if it is needed",
+            "A calcium-channel blocker alone, and operate in 48 hours",
+            "An ACE inhibitor and a water tablet"
+          ],
+          "fix": "Start the alpha-blocker",
+          "terms": [
+            {
+              "term": "Alpha-blocker",
+              "meaning": "A medicine that stops adrenaline from squeezing the blood vessels. The vessels relax and the pressure falls."
+            },
+            {
+              "term": "Beta-blocker",
+              "meaning": "A medicine that stops adrenaline from speeding the heart. It also blocks the small relaxing effect adrenaline has on some vessels."
+            },
+            {
+              "term": "Hypertensive crisis",
+              "meaning": "A sudden, dangerous surge in blood pressure."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "delay",
+              "minutes": 45,
+              "story": "He takes the first beta-blocker tablet in clinic. Within the hour his headache is blinding, he is pale and sweating, and his blood pressure has shot up.",
+              "reply": "This is why the order matters. With beta blocked, adrenaline can only squeeze his vessels, and nothing relaxes them. He needs an alpha-blocker now, and no more beta-blocker until that is working.",
+              "vitals": {
+                "BP": "232/128 mmHg"
+              },
+              "trend": {
+                "BP": "up"
+              },
+              "status": "worse",
+              "alarm": "Blood pressure 232 over 128 · blinding headache"
+            },
+            {
+              "kind": "safe",
+              "minutes": 20,
+              "story": "An alpha-blocker is started, and he is told to eat salt freely and drink plenty. Over the next two weeks the dose is raised until his blood pressure is controlled. A beta-blocker is added only then, for his fast heart.",
+              "reply": "Yes. Alpha first, always. It relaxes vessels that adrenaline has kept squeezed for months, and the salt and fluid refill them. Then the surgery is safe.",
+              "vitals": {
+                "BP": "132/80 mmHg",
+                "HR": "84 bpm"
+              },
+              "trend": {
+                "BP": "down",
+                "HR": "down"
+              }
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest a calcium-channel blocker and surgery in two days. The surgeon says no.",
+              "reply": "Two days is not enough, and that medicine alone does not block adrenaline. He needs one to two weeks of an alpha-blocker before anyone operates."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest an ACE inhibitor and a water tablet. The resident points at his list.",
+              "reply": "He is already on both, and they have not worked. A water tablet also dries him out, when adrenaline has already shrunk the volume of his blood."
+            }
+          ]
+        },
+        "4": {
+          "resident": "Two weeks later you are in the operating room. His blood pressure is controlled, and the surgeon is about to remove the gland through keyhole cuts.",
+          "question": "What keeps his blood pressure from surging during the operation?",
+          "options": [
+            "Handling the tumor firmly from the start, to speed things up",
+            "Tying off the gland’s vein early, and handling the tumor as little as possible",
+            "Taking a biopsy first, to confirm what it is",
+            "Removing it without telling the anesthetist when"
+          ],
+          "fix": "Name the vein-first approach",
+          "terms": [
+            {
+              "term": "Adrenal vein",
+              "meaning": "The vein that carries the gland’s hormones into the bloodstream."
+            },
+            {
+              "term": "Biopsy",
+              "meaning": "Taking a small sample of tissue with a needle."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest firm handling to save time. The surgeon shakes their head.",
+              "reply": "Squeezing this tumor squeezes adrenaline into his blood. It is handled as little as possible."
+            },
+            {
+              "kind": "safe",
+              "minutes": 90,
+              "story": "The surgeon clips the adrenal vein early, tells the anesthetist, then frees the gland gently and removes it. His blood pressure dips once the tumor is out, and fluids bring it back.",
+              "reply": "Right. Once the vein is closed, the tumor’s adrenaline has no route into the blood. The anesthetist needs warning, because the pressure can fall quickly when it comes out.",
+              "vitals": {
+                "BP": "118/72 mmHg",
+                "HR": "78 bpm"
+              },
+              "trend": {
+                "BP": "down",
+                "HR": "down"
+              }
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest a biopsy. The surgeon says never.",
+              "reply": "A needle into this tumor can release a flood of adrenaline or make it bleed. The blood tests and the scan already tell us what it is."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say the anesthetist does not need to know. The anesthetist looks over the drape.",
+              "reply": "They very much do. His pressure can spike while the tumor is handled and drop the moment it is out. They have to be ready for both."
+            }
+          ]
+        },
+        "5": {
+          "resident": "The tumor is out and he is recovering well. Remember his uncle’s thyroid cancer and his aunt’s adrenal tumors.",
+          "question": "What should happen next?",
+          "options": [
+            "Reassure him, with no more tests",
+            "Refer him for genetic counseling and testing, and check for the tumors that travel with this one",
+            "Start lifelong high-dose steroids",
+            "Remove his other adrenal gland now"
+          ],
+          "fix": "Refer him to genetics",
+          "terms": [
+            {
+              "term": "Hereditary",
+              "meaning": "Passed down in a family through a gene."
+            },
+            {
+              "term": "MEN2",
+              "meaning": "An inherited condition that causes adrenal tumors, a type of thyroid cancer and overactive parathyroid glands."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say he needs nothing more. The resident disagrees.",
+              "reply": "Up to four in ten of these tumors run in families. With his family history, stopping here could miss a thyroid cancer in him or in his relatives."
+            },
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "You book the genetics referral. The counselor will also offer testing to his relatives if a gene is found.",
+              "reply": "Good. If he carries one of these genes, we screen his thyroid and his other adrenal gland, and his family can be tested too."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest lifelong steroids. The resident shakes their head.",
+              "reply": "His other adrenal gland is healthy and makes all the cortisol he needs. He does not need replacement."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest removing the other gland. The surgeon says no.",
+              "reply": "There is no tumor in it. Taking it out would leave him dependent on steroid tablets for life, for nothing."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "The hormone tests and the scan are in his chart.",
+        "question": "What is the lump?",
+        "options": [
+          "A tumor making too much cortisol (Cushing syndrome)",
+          "A tumor making too much aldosterone (Conn syndrome)",
+          "A tumor making adrenaline-type hormones (pheochromocytoma)",
+          "A harmless fatty lump in the adrenal gland"
+        ],
+        "reveal": "It is a pheochromocytoma, a tumor of the adrenal gland that releases adrenaline and noradrenaline in bursts. That explains the attacks and the stubborn blood pressure. His cortisol and aldosterone tests are normal, and a harmless lump would look fatty on the scan and clear the dye quickly.",
+        "terms": [
+          {
+            "term": "Pheochromocytoma",
+            "meaning": "A tumor of the adrenal gland’s inner part that makes adrenaline-type hormones."
+          },
+          {
+            "term": "Paroxysm",
+            "meaning": "A sudden attack of symptoms that comes and goes."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "Home after surgery with a normal blood pressure, and a genetics appointment booked",
+        "worse": "Home after surgery, after a blood pressure crisis in clinic that could have been avoided",
+        "critical": "In intensive care after a blood pressure crisis"
+      },
+      "plainDiagnosis": "An adrenal gland tumor that releases bursts of adrenaline (pheochromocytoma).",
+      "science": [
+        {
+          "tag": "Feedback",
+          "title": "Why the tumor would not switch off",
+          "text": "A healthy adrenal gland releases adrenaline only when nerves tell it to, and stops when the signal stops. The tumor ignores those signals and releases it whenever it is squeezed or stirred, which is why bending over could set off an attack.",
+          "lesson": "endocrine-feedback",
+          "lessonTitle": "Trace a hormonal feedback loop"
+        },
+        {
+          "tag": "Pressure and resistance",
+          "title": "Why adrenaline drives blood pressure up",
+          "text": "Blood pressure depends on how hard the heart pumps and on how narrow the vessels are. Adrenaline-type hormones do both: they narrow the vessels through alpha receptors and drive the heart through beta receptors. Blocking alpha opens the vessels again.",
+          "lesson": "circulatory-flow",
+          "lessonTitle": "Connect pressure to blood flow"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Lenders et al. (J Clin Endocrinol Metab 2014): pheochromocytoma and paraganglioma, an Endocrine Society clinical practice guideline",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/24893135/"
+        },
+        {
+          "title": "Neumann, Young and Eng (N Engl J Med 2019): pheochromocytoma and paraganglioma",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/31390501/"
         }
       ]
     }
