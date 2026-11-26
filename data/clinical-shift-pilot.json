@@ -1,5 +1,5 @@
 {
-  "version": 10,
+  "version": 11,
   "title": "Clinical Shift foundations and rotation practice",
   "reviewStatus": "Local source and consistency checks recorded September 7, 2026. Independent clinician review remains pending for all 18 encounters.",
   "rotations": [
@@ -4741,6 +4741,1730 @@
         {
           "title": "2017 ACC/AHA/HRS guideline: evaluation and management of patients with syncope",
           "url": "https://pubmed.ncbi.nlm.nih.gov/28280231/"
+        }
+      ]
+    },
+    "nr-011": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "The room spins _when she rolls over._",
+      "setting": "Outpatient clinic",
+      "handoff": "A 58-year-old woman has had a week of brief spinning spells. Each one starts when she rolls over in bed or looks up, lasts about half a minute and then stops completely.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask what sets the spinning off and how long it lasts",
+            "finding": "It starts a few seconds after she rolls onto her right side, looks up to a high shelf or bends to tie her shoes. The room whirls for 20 to 40 seconds, then stops completely."
+          },
+          {
+            "prompt": "Ask about her hearing and her ears",
+            "finding": "No hearing loss, no ringing and no feeling of fullness in either ear."
+          },
+          {
+            "prompt": "Ask about signs of a brain problem",
+            "finding": "No headache, double vision or slurred speech. No numbness, no weakness and no trouble walking between spells."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Watch her eyes for jerking movements while she sits still",
+            "finding": "Her eyes are steady, whether she looks straight ahead or to the side. Nothing abnormal shows while she sits quietly between spells."
+          },
+          {
+            "prompt": "Test her walking and her coordination",
+            "finding": "She touches her nose and your finger accurately, walks steadily, can walk heel to toe, and stands steady with her feet together and her eyes closed."
+          },
+          {
+            "prompt": "Check her hearing and look in her ears",
+            "finding": "She hears a finger rub equally on both sides. Both eardrums look normal."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Positioning test",
+          "content": "Head turned to the right and lowered back quickly (the Dix-Hallpike test, right ear down): after a 5-second pause, her eyes beat upward and twist toward the right ear for about 20 seconds, and her spinning comes on. Repeating it straight away gives a weaker response.\nThe same test with the left ear down: no eye movements and no spinning.\nRolling her head from side to side while she lies flat: no sideways eye movements."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "Her spells are short, they come with a change in head position, and she is completely well in between. Her exam just now was normal.",
+          "question": "How do we test this?",
+          "options": [
+            "An MRI of her brain and inner ears",
+            "Lay her back quickly with her head turned, and watch her eyes (the Dix-Hallpike test)",
+            "A full hearing test",
+            "An ultrasound of the arteries in her neck"
+          ],
+          "fix": "Do the positioning test",
+          "terms": [
+            {
+              "term": "Vertigo",
+              "meaning": "A false feeling that you or the room are spinning."
+            },
+            {
+              "term": "Dix-Hallpike test",
+              "meaning": "The patient is laid back quickly with the head turned to one side and hanging slightly below the table. If loose crystals are in that ear’s canal, the eyes jerk in a telltale pattern."
+            },
+            {
+              "term": "Nystagmus",
+              "meaning": "Rhythmic jerking of the eyes. Its direction and timing show which part of the balance system is misfiring."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You fill in the request for an MRI. The resident reads it before it is sent.",
+              "reply": "A scan is for vertigo that does not stop, or that comes with hearing loss in one ear or signs of a brain problem. She has none of those. A bedside test can answer this in a minute."
+            },
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "You explain that the test may bring the spinning on for a few seconds. With her head turned to the right, you lay her back quickly and watch her eyes. Then you repeat it to the left. What you saw goes in her chart.",
+              "reply": "Good. It takes seconds and needs no machine. It shows whether this is the crystal problem, and which ear it is in."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You book a full hearing test. The resident cancels it.",
+              "reply": "A hearing test is for dizziness that comes with hearing loss, ringing or ear fullness. She has none of those. It would not explain her spells."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request a scan of her neck arteries. The resident sets the form aside.",
+              "reply": "Those arteries feed the front of the brain. Dizziness from poor blood flow comes from the arteries at the back, and it does not switch on and off with rolling over. This test would tell us nothing."
+            }
+          ]
+        },
+        "3": {
+          "resident": "The test brought on her spinning with the right ear down, and her eyes did exactly what loose crystals make them do.",
+          "question": "How do we treat it?",
+          "options": [
+            "Guide her head through a set of positions to roll the crystals out (the Epley maneuver)",
+            "Meclizine three times a day for two weeks",
+            "A course of steroid tablets",
+            "A low-salt diet and a water tablet"
+          ],
+          "fix": "Do the Epley maneuver",
+          "terms": [
+            {
+              "term": "Crystals (otoconia)",
+              "meaning": "Tiny grains of calcium carbonate that normally sit on a sensor in the inner ear and help it detect gravity."
+            },
+            {
+              "term": "Semicircular canals",
+              "meaning": "Three fluid-filled loops in each inner ear that sense head turns."
+            },
+            {
+              "term": "Meclizine",
+              "meaning": "A medicine that dulls the balance system. It can ease nausea, but it does not move the crystals."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 15,
+              "story": "You check that her neck and back can manage the movements. Then you guide her head through four positions, holding each for about half a minute. She is dizzy at first, and it fades by the last position. You give her advice on avoiding falls, and book a visit in a few weeks to see how she is.",
+              "reply": "That treats the cause. The movements roll the loose crystals out of the canal, to a place where they no longer set off the sensor. It often works in one or two sessions."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write a prescription for meclizine. The resident reads it.",
+              "reply": "Meclizine dulls the whole balance system. It does not move the crystals, and it can leave her drowsy and unsteady. Guidelines advise against using it routinely for this."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write a prescription for steroids. The resident stops it.",
+              "reply": "Steroids are sometimes used for an inflamed balance nerve, which causes spinning that lasts for days. Hers lasts seconds and comes from loose crystals. Steroids do nothing for that."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You start writing advice on a low-salt diet and a water tablet. The resident reads it.",
+              "reply": "That is the treatment for Ménière’s disease, where the spinning lasts for hours and comes with hearing loss and ringing. She has none of that."
+            }
+          ]
+        },
+        "4": {
+          "resident": "Three months have passed. The maneuver cleared her spinning, and now the same brief spells are back when she rolls to the right. The positioning test shows the same pattern as before.",
+          "question": "What do we do this time?",
+          "options": [
+            "An MRI of her brain and inner ears",
+            "Send her for surgery to plug the canal",
+            "Start meclizine every day, to be taken indefinitely",
+            "Repeat the Epley maneuver"
+          ],
+          "fix": "Repeat the Epley maneuver",
+          "terms": [
+            {
+              "term": "Recurrence",
+              "meaning": "The same problem coming back after it had cleared."
+            },
+            {
+              "term": "Canal plugging surgery",
+              "meaning": "An operation that blocks the affected canal. It is kept for rare cases that keep coming back despite many maneuvers."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request an MRI. The resident reads the request.",
+              "reply": "These are the same spells with the same test result, and nothing new. That is the crystal problem again, and a scan would add nothing. New or different symptoms would change that."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You start a referral to the ear surgeons. The resident stops it.",
+              "reply": "Surgery is a last resort for rare cases that do not respond. One return after three good months is common, and the maneuver worked well for her last time."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write a long-term prescription for meclizine. The pharmacist calls the clinic.",
+              "reply": "Taking it every day would leave her drowsy, and would slow her balance system’s own recovery. It still would not move the crystals."
+            },
+            {
+              "kind": "safe",
+              "minutes": 15,
+              "story": "You repeat the maneuver, and her spinning settles again. You show her what to watch for, go over the advice on falls once more, and book a check in a month.",
+              "reply": "Right. This often comes back, and the answer is the same maneuver. We still check each time that it really is the same problem and not something new."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "The positioning test is in her chart. Look at what her eyes did, and on which side.",
+        "question": "What is causing her spinning?",
+        "options": [
+          "An inflamed balance nerve (vestibular neuritis): constant spinning for days",
+          "Ménière’s disease: attacks lasting hours, with hearing loss and ringing",
+          "Loose crystals in the right inner ear (benign paroxysmal positional vertigo, or BPPV)",
+          "Vestibular migraine: dizzy spells in someone who gets migraines",
+          "A drop in blood pressure on standing"
+        ],
+        "reveal": "It is BPPV, in her right ear. Tiny crystals have come loose and drifted into one of the balance canals. When she moves her head a certain way they roll, and the canal reports a spin that is not happening. The short delay, the eye movements toward the lower ear and the fading on repeat testing are its signature.",
+        "terms": [
+          {
+            "term": "Benign",
+            "meaning": "Not dangerous."
+          },
+          {
+            "term": "Paroxysmal",
+            "meaning": "Coming in sudden, short bursts."
+          },
+          {
+            "term": "Positional",
+            "meaning": "Brought on by a change in the position of the head."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "Going home steady, with a check booked in a month",
+        "worse": "Kept for more tests",
+        "critical": "In the emergency department"
+      },
+      "plainDiagnosis": "Brief spinning spells caused by loose crystals in the right inner ear (benign paroxysmal positional vertigo, or BPPV).",
+      "science": [
+        {
+          "tag": "Sensing",
+          "title": "Why a head turn became a spin",
+          "text": "Each balance canal holds fluid and a sensor that bends when the fluid moves. Her loose crystals roll when she tips her head, and they drag the fluid along. The sensor bends and reports a turn that her eyes and body do not confirm, and that mismatch is felt as spinning.",
+          "lesson": "sensory-coding",
+          "lessonTitle": "From stimulus to perception"
+        },
+        {
+          "tag": "Pressure in a fluid",
+          "title": "Why the maneuver works",
+          "text": "The crystals are denser than the fluid around them, so they sink. Each position in the maneuver tilts the canal so that gravity carries them further along it, until they drop out of the canal altogether.",
+          "lesson": "hydrostatics",
+          "lessonTitle": "Read pressure in a fluid"
+        }
+      ],
+      "sources": [
+        {
+          "title": "AAO-HNS clinical practice guideline (2017 update): benign paroxysmal positional vertigo",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/28248609/"
+        },
+        {
+          "title": "GRACE-3 guideline (2023): acute dizziness and vertigo in the emergency department",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/37166022/"
+        }
+      ]
+    },
+    "nr-025": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "A first seizure, _in front of his coworkers._",
+      "setting": "Emergency department",
+      "handoff": "A 24-year-old man had a convulsion at work, in front of his coworkers. He was confused for about 20 minutes afterward. He is back to normal now and wants to go home.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask his coworker exactly what happened",
+            "finding": "He cried out, went stiff and fell. All four limbs shook for 60 to 90 seconds, with froth at his mouth, and he wet himself. He was confused and groggy for about 20 minutes afterward."
+          },
+          {
+            "prompt": "Ask about anything that could have set it off",
+            "finding": "He has been sleeping only three or four hours a night to finish a project. He uses no drugs. He has not been drinking heavily and has not just stopped. He has had no head injury, fever or headache."
+          },
+          {
+            "prompt": "Ask about earlier seizures and his family",
+            "finding": "He has never had a seizure before and takes no medicines. No one in his family has epilepsy or died suddenly."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Check how well he has recovered, and look for injuries",
+            "finding": "He is fully awake and himself again. There is a fresh bite on the left side of his tongue."
+          },
+          {
+            "prompt": "Do a full check of his nervous system",
+            "finding": "His eye movements, face, speech, strength, reflexes, sensation, coordination and walking are all normal."
+          },
+          {
+            "prompt": "Look for signs of infection or other illness",
+            "finding": "His neck is not stiff, light does not bother him and he has no rash. His heart and lungs are normal."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Blood tests, scans and brain-wave test",
+          "content": "Blood sugar: 96, normal.\nBlood salts (sodium, calcium, magnesium): normal.\nDrug screen: negative. Blood alcohol: none found.\nCT and MRI of his brain: normal, with no injury, bleeding or growth.\nBrain-wave test (EEG): normal, with none of the spikes that can mark a tendency to seizures."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "He is awake, safe and breathing well. Now we have to find out why this happened.",
+          "question": "What do we check?",
+          "options": [
+            "Start an antiseizure medicine now, before any tests",
+            "Send him home now with no tests",
+            "Check his blood sugar and salts, look for triggers, and get a brain scan and a brain-wave test (EEG)",
+            "Do a spinal tap, as for every first seizure"
+          ],
+          "fix": "Check sugar and salts, then scan and EEG",
+          "terms": [
+            {
+              "term": "Seizure",
+              "meaning": "A burst of abnormal electrical activity in the brain. It can cause stiffening, shaking and loss of awareness."
+            },
+            {
+              "term": "Provoked seizure",
+              "meaning": "A seizure with an immediate cause, such as very low blood sugar, a salt imbalance, a drug or alcohol withdrawal."
+            },
+            {
+              "term": "EEG",
+              "meaning": "A recording of the brain’s electrical activity, made through small sensors on the scalp."
+            },
+            {
+              "term": "Spinal tap (lumbar puncture)",
+              "meaning": "A needle in the lower back to sample the fluid around the brain and spinal cord. It looks for infection or bleeding."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write the order for an antiseizure medicine. The resident reads it.",
+              "reply": "Not yet. If this seizure had a fixable cause, like low blood sugar or a salt imbalance, he would not need the medicine at all. We find out why first."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You start his discharge papers. The resident takes them.",
+              "reply": "He feels fine, but a first seizure can be the first sign of something treatable: a chemical imbalance, a drug, a growth, a bleed. We do not send him home without looking."
+            },
+            {
+              "kind": "safe",
+              "minutes": 120,
+              "story": "A fingerstick sugar is done at once and blood is sent. You go back over possible triggers with him and his coworker. He has a CT and then an MRI, and the EEG team records his brain waves. The results go in his chart.",
+              "reply": "That covers the causes we can fix, and it tells us about his risk of another seizure. An MRI is the better scan for this. A CT is the fast one."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a spinal tap tray. The resident stops you.",
+              "reply": "A spinal tap is for a suspected brain infection or bleed: fever, a stiff neck, a weak immune system, a sudden terrible headache. He has none of those. It is not a routine test after a first seizure."
+            }
+          ]
+        },
+        "3": {
+          "resident": "Every test is normal, and nothing we can find set this off. He asks whether he has to start medicine.",
+          "question": "What do we tell him about medicine?",
+          "options": [
+            "Talk through the benefits and risks with him. Holding off, with a prompt visit to a neurologist, is a reasonable choice",
+            "Yes: medicine for life is required after any seizure",
+            "Yes: start two medicines, to be sure of control",
+            "Yes: admit him for a levetiracetam drip"
+          ],
+          "fix": "Talk it through with him",
+          "terms": [
+            {
+              "term": "Antiseizure medicine",
+              "meaning": "A daily medicine that makes seizures less likely. It does not cure their cause."
+            },
+            {
+              "term": "Recurrence risk",
+              "meaning": "The chance of another seizure. It is highest in the first two years."
+            },
+            {
+              "term": "Neurologist",
+              "meaning": "A doctor who specializes in the brain and nerves."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 15,
+              "story": "You sit down with him. Medicine now would lower his chance of another seizure over the next two years. It is unlikely to change his long-term outlook, and it can have side effects. He thinks about his job and decides to hold off for now. A neurology visit is booked.",
+              "reply": "That is the honest conversation. Either choice can be right, and it is his to make once he knows the facts. Normal tests do not mean no risk."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You tell him he will need medicine for life. The resident steps in.",
+              "reply": "One seizure is not epilepsy, and many people never have another. Treatment after a first seizure is a choice made with the patient. It is not automatic, and it is not for life."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for two antiseizure medicines. The pharmacist calls.",
+              "reply": "When treatment is started, it is with one medicine. Two at once add side effects, and no one has shown that he needs even one."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a bed and a levetiracetam drip. The resident cancels it.",
+              "reply": "A drip is for someone who is still seizing or cannot swallow. He has recovered fully. He does not need a hospital bed for a decision that is made in a conversation."
+            }
+          ]
+        },
+        "4": {
+          "resident": "He is ready to go home. What he does over the next few months matters more than anything we did today.",
+          "question": "What is the most important thing to tell him?",
+          "options": [
+            "He can drive right away, with no limits",
+            "Follow the local driving rules after a seizure, do not swim alone or work at unprotected heights, and get enough sleep",
+            "He must give up work for good",
+            "A moderate amount of alcohol will help prevent another seizure"
+          ],
+          "fix": "Go through driving and safety",
+          "terms": [
+            {
+              "term": "Seizure precautions",
+              "meaning": "Avoiding places where a sudden blackout could kill: deep water alone, heights, dangerous machinery, a bath with a baby."
+            },
+            {
+              "term": "Driving restriction",
+              "meaning": "A set period without driving after a seizure. Its length is set by local law."
+            },
+            {
+              "term": "Trigger",
+              "meaning": "Something that makes a seizure more likely, such as lost sleep or heavy drinking."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You tell him he is fine to drive home. The resident stops him at the door.",
+              "reply": "A second seizure at the wheel could kill him or someone else. The law sets a seizure-free period before driving again, and it varies from place to place. He needs to know that before he leaves."
+            },
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "You go through it with him and his coworker: no driving until the law allows it, no swimming alone, no ladders or roofs, and regular sleep. He knows to come back if it happens again, and that a seizure lasting more than five minutes means calling an ambulance.",
+              "reply": "That is the advice that keeps him alive if there is a second seizure. Too little sleep may have played a part this time, so it is worth fixing."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You tell him he will have to stop working. The resident steps in.",
+              "reply": "That goes far beyond the evidence. He is a graphic designer with one seizure and normal tests. He can work. He needs sensible precautions, not the loss of his job."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You tell him a drink or two will help. The resident corrects you.",
+              "reply": "Alcohol does not prevent seizures. Heavy drinking, and the withdrawal after it, both make one more likely. The advice is to go easy on it."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "All his results are in the chart. Put them together with what his coworkers saw.",
+        "question": "How do we classify what happened?",
+        "options": [
+          "A provoked seizure: set off by an immediate cause such as low sugar, a drug or alcohol",
+          "Epilepsy: an established tendency to repeated seizures",
+          "A non-epileptic event: one that looks like a seizure without the abnormal electrical activity",
+          "A first unprovoked seizure: a real seizure with no immediate cause found"
+        ],
+        "reveal": "It is a first unprovoked seizure. The cry, the stiffening and shaking, the bitten side of the tongue and the long confusion afterward all point to a real seizure, and no immediate cause was found. One seizure is not yet epilepsy. Normal scans and a normal EEG do not rule epilepsy out, either.",
+        "terms": [
+          {
+            "term": "Unprovoked",
+            "meaning": "With no immediate cause, such as low blood sugar, a drug or a fresh injury."
+          },
+          {
+            "term": "Epilepsy",
+            "meaning": "A lasting tendency to have unprovoked seizures. It is usually diagnosed after two, or after one when the risk of another is high."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "Going home with safety advice and a neurology visit booked",
+        "worse": "Kept in for observation",
+        "critical": "In the resuscitation room"
+      },
+      "plainDiagnosis": "A first seizure with no immediate cause found (a first unprovoked seizure).",
+      "science": [
+        {
+          "tag": "Membranes",
+          "title": "What a seizure is at the level of a cell",
+          "text": "A nerve cell fires when ions rush through channels in its membrane. Normally the cells that excite their neighbors are held in check by cells that quiet them. In his seizure that balance failed for a minute and a half, and huge numbers of cells fired together.",
+          "lesson": "membrane-transport",
+          "lessonTitle": "Cross a membrane"
+        },
+        {
+          "tag": "Glucose",
+          "title": "Why his blood sugar was the first test",
+          "text": "The brain runs almost entirely on glucose and keeps almost none in reserve. A very low blood sugar can starve nerve cells of fuel within minutes and set off a seizure. His was a normal 96, so that was not the cause.",
+          "lesson": "glycolysis",
+          "lessonTitle": "Account for glycolysis"
+        },
+        {
+          "tag": "Memory",
+          "title": "Why he remembers none of it",
+          "text": "Storing a memory needs orderly activity in the brain’s memory circuits. During the seizure and the confused spell after it, that activity was disrupted, so nothing was stored. A gap like his is typical after this kind of seizure.",
+          "lesson": "memory-retrieval",
+          "lessonTitle": "Build and retrieve a memory"
+        }
+      ],
+      "sources": [
+        {
+          "title": "AAN/AES guideline (2015): management of an unprovoked first seizure in adults",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/25901057/"
+        },
+        {
+          "title": "AAN/AES practice parameter (2007): evaluating an apparent unprovoked first seizure in adults",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/18025394/"
+        },
+        {
+          "title": "ILAE official report (2014): a practical clinical definition of epilepsy",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/24730690/"
+        }
+      ]
+    },
+    "nr-012": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "Spinning _that will not stop._",
+      "setting": "Emergency department",
+      "start": {
+        "status": "stable",
+        "alarm": "Constant spinning · vomiting"
+      },
+      "handoff": "A 45-year-old man has had constant, severe spinning for 18 hours. He has vomited four times and cannot walk straight. He had a cold about a week ago.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask how long it has lasted, and whether position changes it",
+            "finding": "It has been constant for 18 hours. It is there even when he lies perfectly still, and any head movement makes it much worse. He has vomited four times."
+          },
+          {
+            "prompt": "Ask about his hearing and his ears",
+            "finding": "No change in hearing, no ringing and no feeling of fullness in either ear."
+          },
+          {
+            "prompt": "Ask about signs of a stroke, and his risks for one",
+            "finding": "No headache, neck pain, double vision, slurred speech, trouble swallowing, numbness or weakness. He has high blood pressure and has smoked a pack a day for 20 years."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Watch his eyes for jerking movements",
+            "finding": "When he looks straight ahead, his eyes drift and jerk sideways, beating to the left. The jerking gets stronger when he looks left and weaker when he looks right, and it settles when he fixes on a target."
+          },
+          {
+            "prompt": "Test his face, speech, hearing, strength and coordination",
+            "finding": "His hearing, speech and face are normal. His arms and legs are strong, and he touches his nose and your finger accurately."
+          },
+          {
+            "prompt": "Watch him stand and walk",
+            "finding": "He can stand without help. When he walks, he veers to the right."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Bedside eye tests",
+          "content": "Head impulse test (a quick, small turn of the head while he stares at the examiner’s nose): when his head is turned to the right, his eyes slip off target and have to jump back. Turned to the left, they stay on target.\nEye jerking: it always beats to the left, whichever way he looks. It gets stronger looking left and settles when he fixes on a target.\nCover test (covering each eye in turn): no vertical shift of either eye.\nHearing to a finger rub: normal on both sides.\nBlood sugar: 108, normal."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "This is constant spinning with jerking eyes. It is usually an inner-ear nerve problem, but a stroke at the back of the brain can look just like it. A doctor trained in the bedside eye exam is here.",
+          "question": "How do we tell the two apart?",
+          "options": [
+            "A CT scan of his head",
+            "An MRI of his brain right away",
+            "The three-part bedside eye exam (HINTS)",
+            "Lay him back with his head turned (the Dix-Hallpike test)",
+            "A full hearing test"
+          ],
+          "fix": "Do the bedside eye exam",
+          "terms": [
+            {
+              "term": "HINTS",
+              "meaning": "Three bedside checks of the eyes: a quick head turn, the direction of the eye jerking, and a cover test. In trained hands they separate an inner-ear problem from a stroke."
+            },
+            {
+              "term": "Balance nerve (vestibular nerve)",
+              "meaning": "The nerve that carries balance signals from the inner ear to the brain."
+            },
+            {
+              "term": "Stroke at the back of the brain",
+              "meaning": "A blocked artery to the brainstem or cerebellum, the parts that handle balance and coordination."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request a CT of his head. The resident stops the request.",
+              "reply": "A CT misses most early strokes at the back of the brain, so a normal result would reassure us falsely. Guidelines advise against it for this."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request an urgent MRI. The resident holds the request.",
+              "reply": "An MRI is the right test if the bedside exam points to the brain or is unclear. But it can miss a small stroke in the first day or two, and a trained examiner at the bedside does at least as well. The exam comes first."
+            },
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "The trained doctor does the three checks while you watch, and tests his hearing with a finger rub. Each step is explained to him first, because the head turn makes the spinning worse for a moment. The findings go in his chart.",
+              "reply": "Right. In constant spinning with jerking eyes, these three checks are the best first test, as long as the examiner is trained. Any result that points to the brain, or is unclear, means an urgent MRI."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You get ready to lay him back with his head turned. The resident stops you.",
+              "reply": "That test is for brief spells set off by position. His spinning is constant, so it would only make him vomit and would tell us nothing."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You book a full hearing test. The resident cancels it.",
+              "reply": "His hearing is normal to a simple finger rub, and a formal test will not separate an ear problem from a stroke. It can wait."
+            }
+          ]
+        },
+        "3": {
+          "resident": "The bedside exam points to the balance nerve on the right, and nothing points to the brain.",
+          "question": "How do we treat him?",
+          "options": [
+            "A clot-busting drug, as for a stroke",
+            "Meclizine around the clock for four weeks",
+            "Surgery to relieve pressure at the back of the brain",
+            "Anti-sickness and calming medicines for no more than three days, early movement with balance exercises, and a talk about a short steroid course"
+          ],
+          "fix": "Short-term relief and early movement",
+          "terms": [
+            {
+              "term": "Vestibular suppressant",
+              "meaning": "A medicine such as meclizine that dulls the balance system and eases spinning and nausea."
+            },
+            {
+              "term": "Balance exercises (vestibular rehabilitation)",
+              "meaning": "Head and eye movements that train the brain to adjust to a weak balance nerve."
+            },
+            {
+              "term": "Compensation",
+              "meaning": "The brain’s gradual adjustment to a lopsided balance signal. It needs movement to happen."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a clot-busting drug. The pharmacist calls the stroke team, who say no.",
+              "reply": "That drug is for a stroke, and it can cause bleeding in the brain. His exam points to the balance nerve. We do not give it without a stroke to treat."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for meclizine around the clock for a month. The resident reads it.",
+              "reply": "A few days of relief is kind. A month is harmful. The brain learns to adjust to a weak balance nerve by moving, and a drug that dulls the system slows that down."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You call the brain surgeons. The resident takes the phone.",
+              "reply": "That operation is for a large stroke at the back of the brain that is swelling. Nothing here points to one."
+            },
+            {
+              "kind": "safe",
+              "minutes": 30,
+              "story": "He gets fluid through a vein and an anti-sickness medicine, and the vomiting stops. Once he can sit up, a therapist starts him on simple head and eye movements. You explain that a short steroid course is an option with uncertain benefit, and he chooses to try it. He knows which new symptoms should bring him straight back.",
+              "reply": "That is the balance: ease the worst of it for a day or two, then get him moving. And we keep an open mind. If anything new appears, such as double vision, slurred speech, weakness or hearing loss, the stroke question is open again.",
+              "vitals": {
+                "BP": "138/84 mmHg",
+                "HR": "80 bpm"
+              },
+              "trend": {
+                "BP": "down",
+                "HR": "down"
+              },
+              "status": "better",
+              "alarm": ""
+            }
+          ]
+        },
+        "4": {
+          "resident": "One more thing before he goes. I want you to know which finding would have sent him straight for an MRI and a full stroke workup.",
+          "question": "Which one is it?",
+          "options": [
+            "Spinning that had lasted more than 24 hours",
+            "Eyes that stayed on target during the quick head turn, on both sides",
+            "Eye jerking that settled when he fixed on a target",
+            "Vomiting more than three times",
+            "Veering to one side while still able to walk without help"
+          ],
+          "fix": "Name the real warning sign",
+          "terms": [
+            {
+              "term": "Head impulse test",
+              "meaning": "A quick, small turn of the head while the patient stares at a target. A healthy balance nerve keeps the eyes locked on. A weak one lets them slip, so they have to jump back."
+            },
+            {
+              "term": "A normal test that is bad news",
+              "meaning": "In constant spinning, eyes that stay on target mean the balance nerve is working. The fault is then more likely to be in the brain."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say it is the 24-hour mark. The resident shakes their head.",
+              "reply": "How long it lasts does not separate the two. A balance nerve problem often spins for days. The warning sign is a quick head turn that looks normal on both sides, because then the nerve is working and the fault is likely in the brain."
+            },
+            {
+              "kind": "safe",
+              "minutes": 3,
+              "story": "You say it is a normal head turn test on both sides. The resident nods.",
+              "reply": "Yes. It sounds backward, and it is the heart of this exam. In a patient who is spinning constantly, a normal test is the worrying result. Eye jerking that changes direction, a vertical shift on the cover test, or being unable to stand at all would worry us too."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say it is jerking that settles when he fixes on something. The resident shakes their head.",
+              "reply": "That is a reassuring sign, typical of an inner-ear problem. The warning sign is a quick head turn that looks normal on both sides."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say it is the vomiting. The resident shakes their head.",
+              "reply": "Vomiting tells us how miserable he is. It does not tell us where the problem is. The warning sign is a quick head turn that looks normal on both sides."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say it is the veering. The resident shakes their head.",
+              "reply": "Veering toward the weak side while still walking fits a balance nerve problem. Being unable to stand at all would be a different matter. The warning sign is a quick head turn that looks normal on both sides."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "The bedside tests are in his chart. Three things matter: what the quick head turn showed, which way his eyes beat, and the cover test.",
+        "question": "What is the most likely cause?",
+        "options": [
+          "An inflamed balance nerve on the right (vestibular neuritis)",
+          "A stroke at the back of the brain on the right",
+          "An inflamed inner ear on the right (labyrinthitis): the same, but with hearing loss",
+          "Loose crystals in the inner ear (BPPV): brief spells set off by position",
+          "Ménière’s disease: attacks lasting hours, with hearing loss and ringing"
+        ],
+        "reveal": "The best fit is an inflamed balance nerve on the right. His eyes slipped when his head was turned to the right, the jerking always beat the same way, the cover test was normal and his hearing is intact. That pattern points to the nerve and not the brain. It is the most likely answer, not a guarantee, so he is watched for anything new.",
+        "terms": [
+          {
+            "term": "Vestibular neuritis",
+            "meaning": "Inflammation of the balance nerve, often after a viral illness. It causes days of constant spinning without hearing loss."
+          },
+          {
+            "term": "Labyrinthitis",
+            "meaning": "The same problem with the hearing part of the inner ear involved as well."
+          }
+        ]
+      },
+      "ending": {
+        "better": "Going home steadier, with balance exercises and clear warning signs to watch for",
+        "stable": "Going home steadier, with balance exercises and clear warning signs to watch for",
+        "worse": "Kept in for a brain scan",
+        "critical": "In the stroke unit"
+      },
+      "plainDiagnosis": "Constant spinning from an inflamed balance nerve on the right (vestibular neuritis).",
+      "science": [
+        {
+          "tag": "Sensing",
+          "title": "Why losing one balance nerve feels like spinning",
+          "text": "Each inner ear sends the brain a steady stream of signals, and the brain reads a difference between the two sides as a head turn. With his right nerve inflamed, the right side went quiet. The brain reads that lopsided signal as a constant turn to the left, even while he lies still.",
+          "lesson": "sensory-coding",
+          "lessonTitle": "From stimulus to perception"
+        },
+        {
+          "tag": "Evidence",
+          "title": "Why steroids were offered as a maybe",
+          "text": "In one trial, steroids helped the balance nerve recover more of its function on testing. Whether patients feel or function better in the long run has not been shown. A better test result and a better life are different claims, which is why this was his choice to make.",
+          "lesson": "research-inference",
+          "lessonTitle": "Decide what a study can claim"
+        }
+      ],
+      "sources": [
+        {
+          "title": "GRACE-3 guideline (2023): acute dizziness and vertigo in the emergency department",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/37166022/"
+        },
+        {
+          "title": "Kattah et al. (Stroke 2009): HINTS to diagnose stroke in the acute vestibular syndrome",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/19762709/"
+        },
+        {
+          "title": "Strupp et al. (NEJM 2004): methylprednisolone, valacyclovir, or the combination for vestibular neuritis",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/15269315/"
+        }
+      ]
+    },
+    "nr-016": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "Knocked out, woke up, _now fading._",
+      "setting": "Emergency department",
+      "start": {
+        "status": "unstable",
+        "alarm": "Getting drowsier · left pupil larger · slow heart rate"
+      },
+      "handoff": "A 22-year-old man was hit on the left side of the head with a bat 90 minutes ago. He was knocked out for a minute, then woke up and talked normally. Over the last half hour he has become confused and very sleepy.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask the paramedics what happened right after the blow",
+            "finding": "He was hit over the left temple and was out for about a minute. Then he woke, stood up and talked normally. He even argued with bystanders before he started to get worse."
+          },
+          {
+            "prompt": "Ask how he has changed since then",
+            "finding": "Over the last 30 minutes he has had a severe, worsening headache on the left, has vomited twice, and has become confused and more and more sleepy."
+          },
+          {
+            "prompt": "Ask about medicines and bleeding problems",
+            "finding": "He takes no medicines and no blood thinners, and has no known bleeding disorder. He had two beers earlier in the evening."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Check how awake he is, and look at his pupils",
+            "finding": "He is drowsy and sometimes agitated. He opens his eyes to your voice, his words do not make sense, and he pushes your hand away when you press on his nail (a coma score of 11 out of 15). His left pupil is large and slow to react. The right is normal."
+          },
+          {
+            "prompt": "Test the strength in his arms and legs",
+            "finding": "His right arm drifts down when he holds both out, and his right side is weaker than his left. His right big toe turns up when the sole is stroked, a sign of pressure on the brain’s movement pathway."
+          },
+          {
+            "prompt": "Look at his head for signs of injury",
+            "finding": "There is a soft, swollen bruise over his left temple. There is no bruising behind his ears or around his eyes yet."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "CT scan and clotting tests",
+          "content": "CT scan of the head: a lens-shaped collection of fresh blood between the skull and the brain’s outer covering, on the left side, 22 mm thick. It stops at the seams of the skull. The bone over it is cracked.\nThe blood has pushed the brain 9 mm off center, squeezed the fluid space on the left and begun to force the inner edge of the brain downward.\nNo bleeding inside the brain tissue itself.\nClotting tests and platelets: normal."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "His airway, breathing and circulation have been checked and are secure for now. He is getting worse in front of us, and his left pupil is larger than his right.",
+          "question": "What is the very next step?",
+          "options": [
+            "A spinal tap, to look for bleeding around the brain",
+            "An emergency CT scan of his head",
+            "An MRI of his brain",
+            "Give mannitol through a vein and watch him for an hour"
+          ],
+          "fix": "Get the CT now",
+          "terms": [
+            {
+              "term": "Lucid interval",
+              "meaning": "A stretch of normal wakefulness between a head injury and a later collapse. It is a warning sign of bleeding inside the skull."
+            },
+            {
+              "term": "Blown pupil",
+              "meaning": "A pupil that widens and stops reacting to light, because the nerve to it is being squeezed by a swollen or shifted brain."
+            },
+            {
+              "term": "Mannitol",
+              "meaning": "A medicine that draws water out of the brain and lowers the pressure in the skull for a short time."
+            },
+            {
+              "term": "Spinal tap (lumbar puncture)",
+              "meaning": "A needle in the lower back to sample the fluid around the brain and spinal cord. It looks for infection or bleeding."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a spinal tap tray. The resident stops you before it is opened.",
+              "reply": "Never, with a pupil like that. Something is pressing on his brain from above. Draining fluid from below could pull the brain downward and kill him."
+            },
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "He is taken straight to the scanner, with a nurse and the resident beside him. The scan takes minutes. The neurosurgeon is called while the pictures are still coming up.",
+              "reply": "Right. A CT is fast and shows fresh blood clearly. And we call the neurosurgeon now, without waiting for the report."
+            },
+            {
+              "kind": "delay",
+              "minutes": 40,
+              "story": "He is slid into the MRI scanner, where no one can reach him easily. Halfway through he stops answering. He is pulled out barely rousable, with his left pupil wider than before.",
+              "reply": "An MRI takes far too long for a man who is getting worse by the minute, and he cannot be watched properly inside it. A CT shows this kind of bleeding in seconds. He goes there now.",
+              "vitals": {
+                "BP": "184/98 mmHg",
+                "HR": "46 bpm"
+              },
+              "trend": {
+                "BP": "up",
+                "HR": "down"
+              },
+              "status": "worse",
+              "alarm": "Barely rousable · left pupil wider"
+            },
+            {
+              "kind": "delay",
+              "minutes": 60,
+              "story": "The mannitol goes in, and for a while he seems a little brighter. Before the hour is up he is harder to wake than before, and his right side is weaker.",
+              "reply": "Mannitol buys minutes. It does not stop an artery bleeding inside his skull. We have spent an hour and still do not know what we are treating. He needs the scan and a neurosurgeon now.",
+              "vitals": {
+                "BP": "180/96 mmHg",
+                "HR": "48 bpm"
+              },
+              "trend": {
+                "BP": "up",
+                "HR": "down"
+              },
+              "status": "worse",
+              "alarm": "Harder to wake · right side weaker"
+            }
+          ]
+        },
+        "3": {
+          "resident": "The scan shows a large collection of blood pressing on his brain and pushing it 9 mm off center. His clotting is normal. The neurosurgeon is looking at the pictures.",
+          "question": "What will actually fix this?",
+          "options": [
+            "Emergency surgery to open the skull and remove the blood",
+            "Admit him for regular checks, and repeat the CT in six hours",
+            "A dose of antiseizure medicine and blood pressure control, and nothing else",
+            "Cool his body in intensive care (therapeutic hypothermia)"
+          ],
+          "fix": "Send him for emergency surgery",
+          "terms": [
+            {
+              "term": "Craniotomy",
+              "meaning": "An operation that opens a window in the skull so the surgeon can remove a clot and stop the bleeding."
+            },
+            {
+              "term": "Midline shift",
+              "meaning": "How far the brain has been pushed off center. More than 5 mm is a sign that surgeons act on."
+            },
+            {
+              "term": "Herniation",
+              "meaning": "Part of the brain being forced out of its normal compartment by pressure. It crushes vital structures, and is quickly fatal if it is not relieved."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "The neurosurgeon looks at the scan and books the operating room at once. While it is being readied he gets worse again: his left pupil is wider and his right side is weaker than when the scan was done.",
+              "reply": "Surgery is the only thing that fixes this, and the decision was made without delay. But the blood is still collecting, and he is getting worse faster than the room can be set up. We have to buy him those minutes.",
+              "alarm": "Getting worse while the operating room is readied"
+            },
+            {
+              "kind": "delay",
+              "minutes": 60,
+              "story": "He is moved to a ward bed for hourly checks. At the first check he cannot be woken. His left pupil is wide and does not react, and his breathing is slow and uneven.",
+              "reply": "Watching is for a small bleed in a patient who is awake and well. His is large, his brain is shifted, and he was already getting worse. An hour of watching nearly cost him his life. He goes to surgery now.",
+              "vitals": {
+                "BP": "204/104 mmHg",
+                "HR": "40 bpm",
+                "RR": "8 /min"
+              },
+              "trend": {
+                "BP": "up",
+                "HR": "down",
+                "RR": "down"
+              },
+              "status": "critical",
+              "alarm": "Cannot be woken · left pupil fixed · slow, uneven breathing"
+            },
+            {
+              "kind": "delay",
+              "minutes": 40,
+              "story": "The antiseizure medicine runs in, and his blood pressure is brought down to normal. Forty minutes later he no longer opens his eyes, and his right side barely moves.",
+              "reply": "Neither of those removes the blood. And his high blood pressure was his body’s way of forcing blood into a squeezed brain. Lowering it took that away. He needs the clot out, now.",
+              "vitals": {
+                "BP": "126/70 mmHg",
+                "HR": "44 bpm"
+              },
+              "trend": {
+                "BP": "down",
+                "HR": "down"
+              },
+              "status": "critical",
+              "alarm": "No longer opens his eyes · blood pressure lowered"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask intensive care to start cooling him. The neurosurgeon overhears.",
+              "reply": "Cooling does not remove a clot. It would only delay the one thing that will save him. He is going to the operating room."
+            }
+          ]
+        },
+        "4": {
+          "resident": "The operating room needs a few more minutes. His left pupil is wider and his right side is weaker than when he was scanned. His brain is being squeezed downward.",
+          "question": "How do we buy him those minutes?",
+          "options": [
+            "Breathe for him very fast, and keep that up for hours",
+            "Raise the head of the bed to 30 degrees, breathe for him a little faster for a short time, and give a strong salt solution or mannitol",
+            "Run in a large amount of dilute (hypotonic) fluid, fast",
+            "Bring his blood pressure down below 100 with nitroprusside"
+          ],
+          "fix": "Head up, brief faster breathing, salt solution",
+          "terms": [
+            {
+              "term": "Pressure in the skull (intracranial pressure)",
+              "meaning": "The skull is a closed box. Blood, brain and fluid share the space, so extra blood raises the pressure on everything else."
+            },
+            {
+              "term": "Hypertonic saline",
+              "meaning": "A very salty solution given through a vein. It draws water out of the brain and into the blood."
+            },
+            {
+              "term": "Controlled faster breathing (hyperventilation)",
+              "meaning": "Breathing off extra carbon dioxide narrows the brain’s blood vessels and lowers the pressure for a few minutes. Too much, or too long, starves the brain of blood."
+            },
+            {
+              "term": "Cushing response",
+              "meaning": "High blood pressure with a slow pulse and slow breathing. It is the body’s last-ditch reaction to dangerous pressure in the skull."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask the anesthetist to breathe for him as fast as possible, and to keep it going. The anesthetist says no.",
+              "reply": "A little faster, for a few minutes, narrows the brain’s blood vessels and eases the pressure. Much faster, for hours, narrows them so far that the brain is starved of blood. It is a brief bridge and nothing more."
+            },
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "The head of the bed goes up, with his neck kept straight. A strong salt solution runs into a vein, and the anesthetist breathes for him a little faster for a few minutes. His left pupil comes down slightly. He is wheeled into the operating room.",
+              "reply": "Each of those eases the pressure a little: blood drains from the head more easily, the vessels narrow, and water is drawn out of the brain. Together they bought the minutes he needed. The surgery is what saves him.",
+              "alarm": "On the way to surgery · pressure eased for now"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for two liters of dilute fluid, run in fast. The nurse reads the bag and checks with the resident.",
+              "reply": "Dilute fluid moves into brain cells and makes the brain swell. That is the opposite of what he needs. In a head injury we give salty fluids, never dilute ones."
+            },
+            {
+              "kind": "delay",
+              "minutes": 10,
+              "story": "The nitroprusside runs in, and his blood pressure falls to 96 over 54. Within minutes he stops responding altogether.",
+              "reply": "His blood pressure was high on purpose. With that much pressure in his skull, a high blood pressure is the only thing pushing blood into his brain. Bringing it down cut off the supply. We stop the drip and treat the pressure in his skull.",
+              "vitals": {
+                "BP": "96/54 mmHg"
+              },
+              "trend": {
+                "BP": "down"
+              },
+              "status": "critical",
+              "alarm": "Blood pressure dropped · not responding"
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "The scan is in his chart. Look at the shape of the blood, and at where it stops.",
+        "question": "What kind of bleed is this?",
+        "options": [
+          "Subdural hematoma: bleeding from torn veins, spread in a crescent over the brain",
+          "Epidural hematoma: bleeding from a torn artery, between the skull and the brain’s covering",
+          "Diffuse axonal injury: nerve fibers torn throughout the brain, with a nearly normal scan",
+          "Bleeding into the fluid spaces around the brain (subarachnoid hemorrhage)",
+          "A bruise within the brain tissue itself (contusion)"
+        ],
+        "reveal": "It is an epidural hematoma. The blow cracked the thin bone at his temple and tore the artery that runs along its inner surface. Blood under arterial pressure peels the brain’s covering off the skull, which is why it bulges like a lens and stops at the skull’s seams. Being knocked out, waking up and then fading fast is the classic story.",
+        "terms": [
+          {
+            "term": "Epidural",
+            "meaning": "Outside the dura, the tough outer covering of the brain, and just under the skull."
+          },
+          {
+            "term": "Hematoma",
+            "meaning": "A collection of blood outside the blood vessels."
+          },
+          {
+            "term": "Middle meningeal artery",
+            "meaning": "An artery that runs in a groove on the inside of the skull at the temple, where the bone is thinnest."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "In the operating room",
+        "unstable": "In the operating room, in time",
+        "worse": "In the operating room, after getting worse on the way",
+        "critical": "In the operating room, in critical condition"
+      },
+      "plainDiagnosis": "Bleeding from a torn artery between the skull and the brain’s covering (an epidural hematoma), pressing on the brain.",
+      "science": [
+        {
+          "tag": "Pressure in a fluid",
+          "title": "Why blood inside a closed box is deadly",
+          "text": "The skull is rigid and closed. The blood collecting inside it has nowhere to go, so the pressure on everything else rises, and the soft brain is pushed sideways and downward.",
+          "lesson": "hydrostatics",
+          "lessonTitle": "Read pressure in a fluid"
+        },
+        {
+          "tag": "Pressure and blood flow",
+          "title": "Why his blood pressure was high and his pulse slow",
+          "text": "Blood enters the brain only if the pressure pushing it in beats the pressure inside the skull. As that inside pressure climbed, his body drove his blood pressure up to keep blood flowing, and a reflex slowed his heart in response. Lowering his blood pressure would have cut the brain’s supply.",
+          "lesson": "circulatory-flow",
+          "lessonTitle": "Connect pressure to blood flow"
+        },
+        {
+          "tag": "Membranes",
+          "title": "How a salty drip shrinks a swollen brain",
+          "text": "Water moves across membranes toward the saltier side. A very salty solution in his blood draws water out of the brain tissue and into the vessels, so the brain takes up a little less room. Dilute fluid would do the reverse.",
+          "lesson": "membrane-transport",
+          "lessonTitle": "Cross a membrane"
+        },
+        {
+          "tag": "Buffers",
+          "title": "How a few fast breaths lower the pressure",
+          "text": "Carbon dioxide dissolved in the blood forms an acid. Breathing faster blows it off, and the blood turns slightly less acidic. The brain’s blood vessels narrow in response and hold less blood, which frees a little room in the skull for a few minutes.",
+          "lesson": "buffer-balance",
+          "lessonTitle": "Balance a buffer"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Brain Trauma Foundation (2006): surgical management of acute epidural hematomas",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/16710967/"
+        },
+        {
+          "title": "Brain Trauma Foundation (2017): guidelines for the management of severe traumatic brain injury, fourth edition",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/27654000/"
+        },
+        {
+          "title": "Brain Trauma Foundation: guidelines for the surgical management of traumatic brain injury",
+          "url": "https://braintrauma.org/coma/guidelines/surgical"
+        }
+      ]
+    },
+    "nr-008": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "A drooping eyelid _after a neck adjustment._",
+      "setting": "Emergency department",
+      "start": {
+        "status": "stable",
+        "alarm": "Neck pain · right eyelid drooping"
+      },
+      "handoff": "A 38-year-old man has had pain in the right side of his neck and face for two days. It began the day after a chiropractor adjusted his neck. He has noticed that his right eyelid droops and his right pupil looks smaller.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask when it started, and what happened to his neck beforehand",
+            "finding": "The pain in his right neck and face began the day after a chiropractor adjusted his neck for stiffness. The drooping eyelid and the smaller pupil appeared over the next two days."
+          },
+          {
+            "prompt": "Ask about his eyes and his vision",
+            "finding": "He has seen in the mirror that his right eyelid droops and his right pupil is smaller. He has no double vision and no loss of vision."
+          },
+          {
+            "prompt": "Ask about any passing symptoms, and his risks",
+            "finding": "His left hand tingled for a short while and then recovered. He has no weakness or slurred speech now. He is healthy and has never smoked."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Look at his pupils, eyelids and eye movements",
+            "finding": "His right upper eyelid droops a little, and his right pupil is smaller than the left, though it still reacts to light. Sweating on his face looks normal. His eye movements, eyesight and side vision are normal."
+          },
+          {
+            "prompt": "Do a full check of his nervous system",
+            "finding": "Apart from the eyelid and the pupil, everything is normal: speech, face, strength, sensation, coordination and walking."
+          },
+          {
+            "prompt": "Examine his neck",
+            "finding": "The front of his neck on the right is tender. No whooshing sound is heard over the artery, and his heartbeat is regular."
+          }
+        ]
+      },
+      "results": {
+        "2": {
+          "label": "Artery scan",
+          "content": "CT scan of the neck arteries with dye (CT angiogram): the right internal carotid artery narrows to a long, tapering point, like a flame. Its wall is thickened on one side by a crescent of blood, starting about 2 cm above the point where the artery forks.\nCT scan of the brain: no bleeding and no stroke.\nHeart tracing (ECG): a normal rhythm."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "Look at his right eye. The lid droops and the pupil is small. Those two findings together have a name.",
+          "question": "Which pattern is this?",
+          "options": [
+            "Third nerve palsy: a drooping lid with a large pupil, and an eye turned down and out",
+            "Horner syndrome: a drooping lid with a small pupil",
+            "Myasthenia gravis: lids that droop more as the day goes on, with double vision",
+            "Bell’s palsy: weakness of one whole side of the face"
+          ],
+          "fix": "Call it Horner syndrome",
+          "terms": [
+            {
+              "term": "Sympathetic nerves",
+              "meaning": "The nerves that widen the pupil, lift the eyelid slightly and control sweating. They run a long route from the brain down to the chest and back up the neck to the eye."
+            },
+            {
+              "term": "Miosis",
+              "meaning": "A small pupil."
+            },
+            {
+              "term": "Ptosis",
+              "meaning": "A drooping upper eyelid."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You write “third nerve palsy” in his notes. The resident points at his pupil.",
+              "reply": "A third nerve palsy gives a large pupil, and the eye turns down and out. His pupil is small and his eye moves normally. A drooping lid with a small pupil is Horner syndrome."
+            },
+            {
+              "kind": "safe",
+              "minutes": 3,
+              "story": "You name it, and the resident nods. You write it in his notes, with the neck pain underlined.",
+              "reply": "Yes. Horner syndrome means the sympathetic nerve supply to the eye has been interrupted somewhere along its route. Those nerves run up the neck wrapped around the carotid artery. With new neck pain after a neck adjustment, the artery is where we look."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You write “myasthenia gravis?” in his notes. The resident reads it.",
+              "reply": "Myasthenia makes the lids droop more with tiredness, and causes double vision. It never changes the pupil. His pupil is small, so this is Horner syndrome."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You write “Bell’s palsy” in his notes. The resident shakes their head.",
+              "reply": "Bell’s palsy weakens the muscles of one side of the face: the smile, the forehead, closing the eye. It does not make the lid droop like this or shrink the pupil. This is Horner syndrome."
+            }
+          ]
+        },
+        "1": {
+          "resident": "Horner syndrome with new neck pain, the day after his neck was adjusted. I am worried about a tear in the wall of his carotid artery.",
+          "question": "Which test will show it?",
+          "options": [
+            "A CT or MRI scan of the arteries in his head and neck",
+            "A plain CT scan of his head only",
+            "A spinal tap",
+            "A blood test for myasthenia gravis antibodies"
+          ],
+          "fix": "Scan the neck arteries",
+          "terms": [
+            {
+              "term": "Carotid artery",
+              "meaning": "One of the two large arteries in the front of the neck that carry blood to the brain."
+            },
+            {
+              "term": "Angiogram (CTA or MRA)",
+              "meaning": "A scan that outlines the arteries, using dye for CT or a magnet for MRI. It shows both the channel and the wall."
+            },
+            {
+              "term": "Dissection",
+              "meaning": "A tear in an artery’s inner lining that lets blood track into the wall. Clots can form there and travel to the brain."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 30,
+              "story": "He goes for a CT scan with dye that outlines the arteries from his chest to his brain. A plain scan of the brain and a heart tracing are done on the same visit. The report goes in his chart.",
+              "reply": "Right. We need to see the wall of the artery and the channel inside it, and this scan shows both."
+            },
+            {
+              "kind": "delay",
+              "minutes": 50,
+              "story": "The plain head CT is normal, and you tell him so. While he waits to be sent home, his left hand goes numb and clumsy for ten minutes, then recovers.",
+              "reply": "A plain head CT shows the brain. It cannot show the wall of an artery in the neck, so a normal result told us nothing about a tear. That spell in his hand was most likely a small clot from the artery reaching his brain. He needs the artery scan now.",
+              "status": "worse",
+              "alarm": "Left hand went numb and clumsy for ten minutes"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a spinal tap tray. The resident stops you.",
+              "reply": "A spinal tap looks for infection or bleeding around the brain. Nothing here suggests either, and it would tell us nothing about an artery."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You send blood for myasthenia antibodies. The resident cancels the request.",
+              "reply": "Myasthenia does not cause a small pupil or neck pain. The result would take days and would not explain him. The artery cannot wait."
+            }
+          ]
+        },
+        "4": {
+          "resident": "The scan confirms a tear in the wall of his right carotid artery. His brain scan is clear. A clot can form on the torn wall and travel to the brain, and his left hand has already given one warning.",
+          "question": "How do we protect him?",
+          "options": [
+            "Start a medicine to prevent clots (an antiplatelet drug or a blood thinner), and no more neck adjustments",
+            "Emergency surgery to clean out the artery (carotid endarterectomy)",
+            "High-dose steroids",
+            "No treatment: reassure him and send him home"
+          ],
+          "fix": "Start a clot-preventing medicine",
+          "terms": [
+            {
+              "term": "Antithrombotic",
+              "meaning": "Any medicine that prevents clots. Antiplatelet drugs such as aspirin make platelets less sticky. Anticoagulants slow the clotting proteins."
+            },
+            {
+              "term": "Stroke team",
+              "meaning": "The specialists who decide on treatment to prevent or treat a stroke."
+            },
+            {
+              "term": "Carotid endarterectomy",
+              "meaning": "An operation that removes fatty plaque from inside the carotid artery. It is for narrowing caused by plaque."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 20,
+              "story": "The stroke team reviews him, checks for any reason he should not have a clot-preventing medicine, and starts one. He is admitted to the stroke unit for regular checks. He is told plainly: no more neck adjustments.",
+              "reply": "That is the treatment. The medicine keeps clots from forming on the torn wall while it heals over the coming months. Whether to use an antiplatelet drug or a blood thinner is a choice the stroke team makes for each patient."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You call the vascular surgeons to book the operation. The surgeon asks what the scan showed, then declines.",
+              "reply": "That operation scrapes out fatty plaque. He has no plaque. He has a tear in a fragile wall, and cutting into it would make things worse. Tears like this are treated with medicine, and most heal."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for high-dose steroids. The resident reads the order.",
+              "reply": "Steroids treat inflamed arteries, as in giant cell arteritis. His artery is torn, not inflamed. Steroids would do nothing for it."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You start to tell him it will settle on its own. The resident steps in.",
+              "reply": "The pain may settle. The danger does not. A torn neck artery is one of the main causes of stroke in young adults, and the risk is highest in the first few weeks. He does not go home without treatment and a plan."
+            }
+          ]
+        },
+        "5": {
+          "resident": "He has a good question. His eyelid droops and his pupil is small, but the right side of his face still sweats normally. He wants to know why.",
+          "question": "What do we tell him?",
+          "options": [
+            "Because the first nerve cell on the route, the one inside the brain, is undamaged",
+            "Because the sweat fibers for the face follow a different artery, the external carotid, so a tear in the internal carotid spares them",
+            "Because Horner syndrome never affects sweating",
+            "Because the damaged fibers are parasympathetic ones"
+          ],
+          "fix": "Explain the two arteries",
+          "terms": [
+            {
+              "term": "Internal and external carotid",
+              "meaning": "The carotid artery forks in the neck. The internal branch goes to the brain and the eye. The external branch supplies the face and scalp."
+            },
+            {
+              "term": "Partial Horner syndrome",
+              "meaning": "A drooping lid and a small pupil with normal sweating on the face. It points to a problem along the internal carotid artery."
+            },
+            {
+              "term": "Parasympathetic nerves",
+              "meaning": "The nerves that narrow the pupil. They are the counterpart to the sympathetic nerves that widen it."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You tell him the first nerve cell on the route was spared. The resident shakes their head.",
+              "reply": "It was spared, but that is not why he sweats. The reason is further along. In the neck the fibers split up: the ones for sweating on the face follow the external carotid artery, and his tear is in the internal carotid."
+            },
+            {
+              "kind": "safe",
+              "minutes": 3,
+              "story": "You draw the fork in the artery for him. The sweat fibers go one way, and the fibers for the eye go the other, along the artery that tore. He nods.",
+              "reply": "Exactly. That is why a drooping lid and a small pupil with normal sweating points straight at the internal carotid artery. The pattern itself tells you where the damage is."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You tell him Horner syndrome never affects sweating. The resident corrects you.",
+              "reply": "It often does. When the damage is lower down, in the brain, the spinal cord or the chest, that side of the face stops sweating too. His sweating is spared because of where his damage is."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You tell him his parasympathetic fibers are damaged. The resident corrects you.",
+              "reply": "Those are the fibers that make the pupil smaller, and his are working. That is the point: with the sympathetic supply cut, nothing opposes them, so the pupil stays small."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "The artery scan is in his chart. Look at the shape of the narrowing, and at the wall.",
+        "question": "What does he have?",
+        "options": [
+          "Carotid narrowing from fatty plaque (atherosclerosis)",
+          "A tear in the wall of the internal carotid artery (carotid dissection)",
+          "A growth at the fork of the carotid artery (carotid body tumor)",
+          "An inflamed artery (giant cell arteritis)"
+        ],
+        "reveal": "It is a carotid dissection. Blood has tracked into the wall of his right internal carotid artery, which gives the long, flame-shaped narrowing and the crescent in the wall. Plaque sits at the fork of the artery, in older people. A tear like this can follow minor strain on the neck, and a neck adjustment is a recognized trigger.",
+        "terms": [
+          {
+            "term": "Intramural hematoma",
+            "meaning": "Blood trapped within the wall of an artery."
+          },
+          {
+            "term": "Atherosclerosis",
+            "meaning": "Fatty plaque that builds up in artery walls over decades."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "In the stroke unit on a clot-preventing medicine",
+        "worse": "In the stroke unit on a clot-preventing medicine, after a second warning spell",
+        "critical": "In the stroke unit after a stroke"
+      },
+      "plainDiagnosis": "A tear in the wall of the right carotid artery in the neck (carotid dissection), which cut off part of the nerve supply to his eye.",
+      "science": [
+        {
+          "tag": "Flow through a narrowing",
+          "title": "Why a tear in the wall threatens the brain",
+          "text": "Blood trapped in the artery’s wall bulges inward and narrows the channel. Flow is disturbed as it passes the damaged lining, and platelets stick there. A clot that breaks free is carried straight up to the brain.",
+          "lesson": "fluid-flow",
+          "lessonTitle": "Follow flow through a narrowing"
+        },
+        {
+          "tag": "Enzymes",
+          "title": "How either medicine would protect him",
+          "text": "Both kinds of medicine he might be given work on enzymes. Aspirin switches off an enzyme that platelets need in order to clump. Blood thinners block enzymes in the chain that builds a clot. Either way, a clot is less likely to form on the torn wall.",
+          "lesson": "enzyme-rates",
+          "lessonTitle": "Read an enzyme curve"
+        }
+      ],
+      "sources": [
+        {
+          "title": "AHA scientific statement (2024): treatment and outcomes of cervical artery dissection in adults",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/38299330/"
+        },
+        {
+          "title": "CADISS trial (Lancet Neurol 2015): antiplatelet treatment versus anticoagulation for cervical artery dissection",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/25684164/"
+        },
+        {
+          "title": "TREAT-CAD trial (Lancet Neurol 2021): aspirin versus anticoagulation in cervical artery dissection",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/33765420/"
+        }
+      ]
+    },
+    "nr-101": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "She went stiff, _then began to shake._",
+      "setting": "Assessment unit, after emergency care",
+      "handoff": "A 31-year-old woman became unresponsive while sitting down. Her partner saw her stiffen and jerk on both sides for about 90 seconds. She was confused for 15 minutes afterward. She is back to normal now.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask her partner what the movements looked like, and how she recovered",
+            "finding": "Both sides of her body stiffened and then jerked for about 90 seconds. She was confused for about 15 minutes afterward. Her partner did not see the very first seconds clearly."
+          },
+          {
+            "prompt": "Ask about triggers and anything that could have set it off",
+            "finding": "She was sitting, not standing, and had no warm, sweaty warning. She has had no fever, no head injury and no alcohol withdrawal. Nothing like this has happened before."
+          },
+          {
+            "prompt": "Ask how she feels now",
+            "finding": "She feels back to normal. She has no lasting headache, and no weakness, numbness or trouble speaking."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Check her thinking and her nervous system",
+            "finding": "She knows where she is and what day it is. Her strength, sensation, speech and coordination are normal, and her neck is not stiff."
+          },
+          {
+            "prompt": "Look for injuries",
+            "finding": "There is a small bite on the side of her tongue. She has no significant head injury."
+          },
+          {
+            "prompt": "Listen to her heart and check her pulse",
+            "finding": "Her pulse is regular, there is no murmur, and her vital signs are steady."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "First checks",
+          "content": "Her partner’s detailed account confirms a long confused spell afterward, and the bite is on the side of her tongue.\nBlood sugar: 94, normal. Blood salts: no relevant upset.\nHeart tracing (ECG): a normal rhythm, with no problem reported in the timing or shape of the signals.\nNo immediate cause has been found. That is not proof that every cause has been ruled out."
+        },
+        "4": {
+          "label": "Brain-wave test and follow-up",
+          "content": "A routine brain-wave test (EEG), done while she was awake, showed no seizure-type activity.\nShe has had no second event.\nThe specialist assessment is still under way."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "She has recovered and she is safe. Before anyone puts a label on this, we need the basics.",
+          "question": "What do we do first?",
+          "options": [
+            "Book an MRI as an outpatient, and classify the event from how the shaking looked",
+            "Watch her for another event before doing any tests",
+            "Ask for an urgent brain-wave test (EEG), and hold everything else until it is reported",
+            "Go over what her partner saw, examine her, check her blood sugar and salts, and get a heart tracing (ECG)"
+          ],
+          "fix": "Story, exam, blood tests and ECG",
+          "terms": [
+            {
+              "term": "Witness account",
+              "meaning": "What someone saw before, during and after an event. It is often the most useful clue there is."
+            },
+            {
+              "term": "ECG",
+              "meaning": "A tracing of the heart’s electrical signals. Some heart rhythm problems cause blackouts with jerking that look like seizures."
+            },
+            {
+              "term": "Classify",
+              "meaning": "To put a precise label on an event, such as where in the brain a seizure began. A label given too early can be wrong, and hard to remove."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You book an MRI for next month and write “generalized seizure” in her notes. The resident reads the note.",
+              "reply": "Shaking on both sides does not tell us where it started, and her partner missed the first seconds. A scan next month also skips the checks she needs today. We start with the story, the exam, blood tests and a heart tracing."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You plan to keep her on a monitor and wait for another event. The resident shakes their head.",
+              "reply": "She may not have another for months, or ever. The event she has already had is reason enough to assess her now, while her partner’s memory is fresh."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request an urgent EEG and put everything else on hold. The resident reads the request.",
+              "reply": "An EEG has its place, but a normal one would not rule a seizure out, and it cannot find a heart cause or a chemical one. Those are quick to check and dangerous to miss."
+            },
+            {
+              "kind": "safe",
+              "minutes": 20,
+              "story": "You sit with her partner and go through the event second by second. You examine her, a fingerstick sugar and blood tests are done, and a heart tracing is recorded. The findings go in her chart.",
+              "reply": "Good. The account is the most useful test we have. The heart tracing matters because some rhythm problems cause blackouts with jerking, and those can kill."
+            }
+          ]
+        },
+        "3": {
+          "resident": "This looks like a first seizure. We do not know where in the brain it began, or why. Her first checks are reassuring.",
+          "question": "What is the plan from here?",
+          "options": [
+            "Give safety advice, and ask for a specialist only if it happens again",
+            "Book a routine EEG as an outpatient, then decide whether she needs a specialist",
+            "Arrange an urgent first-seizure assessment with a specialist, give safety advice for the meantime, and order the tests that are indicated",
+            "Start a daily antiseizure medicine, and book a routine visit once the dose is settled"
+          ],
+          "fix": "Arrange the urgent specialist assessment",
+          "terms": [
+            {
+              "term": "First-seizure assessment",
+              "meaning": "A prompt visit with a specialist who takes the full story, examines the patient and decides which tests and treatment, if any, are needed."
+            },
+            {
+              "term": "Interim safety advice",
+              "meaning": "What to do, and what to avoid, until the specialist visit: for example, not swimming or bathing alone, and what others should do if it happens again."
+            },
+            {
+              "term": "Indicated tests",
+              "meaning": "Tests chosen because of what the story and the examination show, not ordered by routine."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You give her a safety leaflet and tell her to come back if it happens again. The resident stops her at the door.",
+              "reply": "Waiting for a second seizure means the next one may happen on the stairs or in the bath. After a first suspected seizure she should see a specialist promptly. The pathway we follow aims for within two weeks."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You book a routine EEG and plan to decide afterward. The resident reads the plan.",
+              "reply": "An EEG cannot decide this. It is normal in many people with epilepsy, so a normal result would wrongly end the matter. The specialist sees her first, and chooses the tests."
+            },
+            {
+              "kind": "safe",
+              "minutes": 15,
+              "story": "You make the urgent referral, and she is given an appointment within two weeks. You go through the safety advice with her and her partner: what to do if it happens again, who to call, and what to avoid for now. The tests the specialist will want are requested.",
+              "reply": "Right. She gets expert eyes on this quickly, and she is safer in the meantime. Whether she needs any long-term treatment is decided at that visit, not today."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write a prescription for a daily antiseizure medicine. The resident reads it.",
+              "reply": "We do not know yet what this was, or why it happened. A daily medicine is a long-term decision with side effects, and it is made with a specialist after a proper assessment."
+            }
+          ]
+        },
+        "5": {
+          "resident": "Her routine EEG has come back normal. She has had no second event, and the specialist assessment is still going on.",
+          "question": "What does the normal EEG change?",
+          "options": [
+            "Epilepsy is still possible: read the EEG together with the story and the rest of the assessment",
+            "A simple faint is now the leading explanation: switch her follow-up to a heart and circulation check",
+            "Her risk of another event is now low enough to lift the safety advice",
+            "A functional seizure is now the leading explanation: arrange a psychological assessment"
+          ],
+          "fix": "Keep epilepsy on the list",
+          "terms": [
+            {
+              "term": "Routine EEG",
+              "meaning": "About half an hour of brain-wave recording. It samples a short window, and can easily miss activity that comes and goes."
+            },
+            {
+              "term": "Functional seizure",
+              "meaning": "An event that looks like a seizure but is not caused by abnormal electrical activity in the brain. It is a real condition, and it is diagnosed on positive evidence."
+            },
+            {
+              "term": "Exclusion test",
+              "meaning": "A test good enough that a normal result rules a condition out. A routine EEG is not one."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "You explain to her that a normal recording is good news, but only a short sample. Her safety advice stays in place, and the specialist will decide whether any further recording is needed.",
+              "reply": "Exactly. Many people with epilepsy have a normal routine EEG. The story still carries the most weight, and it has not changed."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You rewrite her follow-up as a heart check for fainting. The resident reads it.",
+              "reply": "A normal EEG does not turn a seizure into a faint. Her event had none of a faint’s features: she was sitting, she had no warning, and she was confused for 15 minutes afterward. The plan stays as it was."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You tell her she can drop the precautions. The resident steps in.",
+              "reply": "A normal EEG does not make another event unlikely. The precautions exist for the chance of a second one, and that chance has not gone away."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You refer her for a psychological assessment. The resident stops the referral.",
+              "reply": "A functional seizure is diagnosed from positive findings, not because a test came back normal. Nothing in her story points that way, and a normal EEG does not either."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "Her first checks are in the chart. Be careful how much you claim.",
+        "question": "What is the best way to describe this event right now?",
+        "options": [
+          "A simple faint that came with some jerking",
+          "A first suspected seizure, with its starting point and its cause not yet known",
+          "A first generalized tonic-clonic seizure, as part of a generalized epilepsy syndrome",
+          "A functional seizure that needs a specialist in non-epileptic events"
+        ],
+        "reveal": "The best description is a first suspected seizure, with where it started and why still unknown. The long confusion afterward and the bite on the side of her tongue support a seizure. Jerking on both sides does not show where it began, and one event does not make an epilepsy syndrome. Normal first checks do not make it a functional event, either.",
+        "terms": [
+          {
+            "term": "Suspected",
+            "meaning": "Likely enough to act on, but not proven."
+          },
+          {
+            "term": "Generalized",
+            "meaning": "Involving both sides of the brain from the start. That cannot be judged when the first seconds were not seen."
+          },
+          {
+            "term": "Syndrome",
+            "meaning": "A recognized pattern of seizures, age and test findings. One event is not enough to diagnose one."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "Going home with safety advice, with the specialist assessment under way",
+        "worse": "Kept in for observation",
+        "critical": "In the resuscitation room"
+      },
+      "plainDiagnosis": "A first suspected seizure. Where in the brain it began, and why, are not yet known.",
+      "science": [
+        {
+          "tag": "Evidence",
+          "title": "Why a normal test did not close the question",
+          "text": "A routine EEG records about half an hour of brain activity. In many people with epilepsy the telltale activity comes and goes, so a short recording often misses it. A test that often misses a condition cannot be used to rule it out.",
+          "lesson": "uncertainty-controls",
+          "lessonTitle": "Match evidence to a conclusion"
+        },
+        {
+          "tag": "Pressure and blood flow",
+          "title": "Why a heart tracing was part of a brain workup",
+          "text": "The brain needs a constant supply of blood. If a heart rhythm fault stops the pump for a few seconds, the brain shuts down and the body can stiffen and jerk, which looks like a seizure. Her tracing showed a normal rhythm.",
+          "lesson": "circulatory-flow",
+          "lessonTitle": "Connect pressure to blood flow"
+        },
+        {
+          "tag": "Glucose",
+          "title": "Why her blood sugar was checked",
+          "text": "Nerve cells run on glucose and store almost none. A very low blood sugar can set off a seizure, and it is fixed in minutes once it is found. Hers was a normal 94.",
+          "lesson": "glycolysis",
+          "lessonTitle": "Account for glycolysis"
+        }
+      ],
+      "sources": [
+        {
+          "title": "NICE NG217: epilepsies in children, young people and adults, diagnosis and assessment",
+          "url": "https://www.nice.org.uk/guidance/ng217/chapter/1-Diagnosis-and-assessment-of-epilepsy"
+        },
+        {
+          "title": "NICE CG109: transient loss of consciousness, initial assessment",
+          "url": "https://www.nice.org.uk/guidance/cg109/chapter/Recommendations"
+        },
+        {
+          "title": "AAN/AES practice parameter (2007): evaluating an apparent unprovoked first seizure in adults",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/18025394/"
+        },
+        {
+          "title": "ILAE official report (2014): a practical clinical definition of epilepsy",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/24730690/"
         }
       ]
     }
