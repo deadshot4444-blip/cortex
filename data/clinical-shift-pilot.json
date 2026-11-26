@@ -1,7 +1,7 @@
 {
-  "version": 13,
+  "version": 14,
   "title": "Clinical Shift foundations and rotation practice",
-  "reviewStatus": "Source and consistency checks are recorded with each encounter. Independent clinician review remains pending for all 24 encounters.",
+  "reviewStatus": "Source and consistency checks are recorded with each encounter. Independent clinician review remains pending for all 27 encounters.",
   "rotations": [
     {
       "key": "emergency-medicine",
@@ -60,6 +60,16 @@
         "gs-023",
         "gs-058",
         "gs-052"
+      ]
+    },
+    {
+      "key": "pediatrics",
+      "name": "Pediatrics",
+      "description": "Children are not small adults. Learn what changes, and what cannot wait.",
+      "caseIds": [
+        "pd-027",
+        "pd-064",
+        "pd-081"
       ]
     }
   ],
@@ -159,6 +169,18 @@
     "gs-052": {
       "assessment": "46-year-old man with paroxysmal headache, palpitations, and sweating, resistant hypertension, and a 4.5 cm lipid-poor right adrenal mass. Plasma and urinary metanephrines are markedly elevated with normal cortisol suppression and aldosterone-renin ratio: pheochromocytoma, with a family history suggesting MEN2.",
       "plan": "Alpha-blockade for 7-14 days before surgery with liberal salt and fluids, adding a beta-blocker only after alpha-blockade is established. Laparoscopic adrenalectomy with early adrenal vein ligation, minimal tumor handling, and close communication with anesthesia. No biopsy. Refer for genetic counseling and germline testing (RET, VHL, SDHx) and screen for associated tumors."
+    },
+    "pd-027": {
+      "assessment": "9-year-old girl with weeks of polyuria, polydipsia, and weight loss, now vomiting and drowsy with Kussmaul breathing. Glucose 512 mg/dL, pH 7.18, bicarbonate 9 mEq/L, anion gap 24, and large ketones with HbA1c 11.6%: new-onset type 1 diabetes in diabetic ketoacidosis.",
+      "plan": "Isotonic IV fluids first, then a continuous low-dose insulin infusion without a bolus once potassium is known; add potassium to fluids and monitor glucose, electrolytes, and neurologic status hourly. No routine bicarbonate. Watch for cerebral edema (headache, altered mental status, bradycardia with hypertension) and treat at once with hypertonic saline or mannitol, head elevation, and a reduced fluid rate."
+    },
+    "pd-064": {
+      "assessment": "5-day-old term boy with abrupt bilious emesis, poor perfusion, and blood per rectum. The upper GI series shows the duodenum failing to cross the midline with a corkscrew configuration and a right-sided ligament of Treitz; lactate is 4.2 mmol/L: malrotation with midgut volvulus and evolving bowel ischemia.",
+      "plan": "Nothing by mouth, nasogastric decompression, IV access and isotonic fluid resuscitation, and emergent pediatric surgery consultation. Emergent laparotomy with detorsion and a Ladd procedure, assessing bowel viability. Counsel the family about short bowel syndrome if extensive resection is needed."
+    },
+    "pd-081": {
+      "assessment": "Well-appearing 4-year-old boy with 48 hours of petechiae, bruising, and minor epistaxis two weeks after a viral illness. Platelets are 11 ×10³/µL with normal hemoglobin, white count, smear morphology, and coagulation, and there is no organomegaly or lymphadenopathy: immune thrombocytopenia.",
+      "plan": "Observation, because bleeding is limited to the skin and brief epistaxis. Counsel the parents: avoid contact sports, NSAIDs, and aspirin, and seek emergency care for headache, vomiting, or altered mental status. Recheck the count. Reserve IVIG, anti-D, or corticosteroids for significant bleeding, and platelet transfusion for life-threatening hemorrhage."
     }
   },
   "investigations": {
@@ -881,6 +903,96 @@
           "finding": "Fine resting tremor and warm, moist skin. No café-au-lait macules, neck mass or mucosal neuromas, and no papilledema."
         }
       ]
+    },
+    "pd-027": {
+      "interview": [
+        {
+          "prompt": "Characterize the thirst, urination and weight change",
+          "finding": "Several weeks of increasing thirst and urination with new bedwetting, and about 4 kg of weight loss despite a good appetite."
+        },
+        {
+          "prompt": "Ask about the last 24 hours",
+          "finding": "Nausea, vomiting, diffuse abdominal pain and progressive fatigue; today rapid breathing and difficulty staying awake. Her parents notice a fruity odor on her breath."
+        },
+        {
+          "prompt": "Review past, family and exposure history",
+          "finding": "Previously healthy, on no medications, with no known ingestion. She had a viral illness a few weeks ago. An aunt has type 1 diabetes."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Observe the breathing and smell the breath",
+          "finding": "Deep, rapid (Kussmaul) respirations with an acetone odor."
+        },
+        {
+          "prompt": "Assess hydration and perfusion",
+          "finding": "Dry mucous membranes, mildly sunken eyes, skin tenting and a capillary refill of 3 seconds: moderate dehydration."
+        },
+        {
+          "prompt": "Examine the abdomen and neurologic status",
+          "finding": "Diffusely tender abdomen without guarding or rebound. Drowsy but follows commands, with no focal deficit and no neck stiffness."
+        }
+      ]
+    },
+    "pd-064": {
+      "interview": [
+        {
+          "prompt": "Characterize the vomiting",
+          "finding": "Abrupt onset 4 hours ago of bright green (bilious) emesis during a feed, with three further episodes. He now refuses to feed."
+        },
+        {
+          "prompt": "Ask about stooling and behavior",
+          "finding": "He passed meconium on day 1 and has stooled normally; one stool today had a streak of dark blood. He is fussy, then intermittently lethargic."
+        },
+        {
+          "prompt": "Review the birth and family history",
+          "finding": "Term vaginal delivery after an unremarkable pregnancy with normal prenatal ultrasounds; exclusively breastfed. No fever and no family history of gastrointestinal disease."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Assess perfusion and hydration",
+          "finding": "Capillary refill of 3-4 seconds with cool extremities, tacky mucous membranes and a slightly sunken fontanelle."
+        },
+        {
+          "prompt": "Examine the abdomen",
+          "finding": "Mild distension with diffuse tenderness and decreased bowel sounds. No abdominal wall erythema."
+        },
+        {
+          "prompt": "Perform a rectal exam and assess tone",
+          "finding": "Patent anus with a small amount of dark blood. Tone is mildly decreased, and he is irritable when handled."
+        }
+      ]
+    },
+    "pd-081": {
+      "interview": [
+        {
+          "prompt": "Characterize the bleeding",
+          "finding": "Petechiae on the shins and several large bruises on the trunk and arms appearing over 48 hours without significant trauma, plus two brief nosebleeds yesterday."
+        },
+        {
+          "prompt": "Ask about recent illness and constitutional symptoms",
+          "finding": "Runny nose, low-grade fever and cough about 2 weeks ago that resolved. He is now afebrile, eating and playing normally, with no bone pain, weight loss, night sweats or fatigue."
+        },
+        {
+          "prompt": "Review medications and family history",
+          "finding": "No medications and no recent NSAIDs or aspirin. No family history of bleeding disorders, leukemia or autoimmune disease."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Inspect the skin and mucous membranes",
+          "finding": "Scattered petechiae over both lower extremities and ecchymoses up to 3 cm on the trunk and extremities. Dried blood at the right naris; no oral mucosal bleeding."
+        },
+        {
+          "prompt": "Palpate the lymph nodes, liver and spleen",
+          "finding": "No cervical, axillary or inguinal lymphadenopathy. No hepatomegaly and no splenomegaly."
+        },
+        {
+          "prompt": "Check for pallor, bone tenderness and neurologic signs",
+          "finding": "No pallor or jaundice, no bone or joint tenderness, and a normal neurologic exam."
+        }
+      ]
     }
   },
   "caseReviews": {
@@ -1269,6 +1381,54 @@
         {
           "title": "Neumann, Young and Eng (N Engl J Med 2019): pheochromocytoma and paraganglioma",
           "url": "https://pubmed.ncbi.nlm.nih.gov/31390501/"
+        }
+      ]
+    },
+    "pd-027": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Recognize diabetic ketoacidosis in a child, treat it in the right order and catch cerebral edema.",
+      "alternativesAndLimits": "Fluid rates and insulin timing follow current pediatric consensus guidance and differ from adult protocols. Clinically apparent cerebral edema is uncommon; it is written into this patient for teaching.",
+      "sources": [
+        {
+          "title": "Glaser et al. (Pediatr Diabetes 2022): ISPAD clinical practice consensus guidelines, diabetic ketoacidosis and hyperglycemic hyperosmolar state",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/36250645/"
+        },
+        {
+          "title": "Kuppermann et al. (N Engl J Med 2018): clinical trial of fluid infusion rates for pediatric diabetic ketoacidosis",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/29897851/"
+        }
+      ]
+    },
+    "pd-064": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Treat bilious vomiting in a newborn as midgut volvulus and get the baby to surgery quickly.",
+      "alternativesAndLimits": "Many newborns with bilious vomiting turn out not to have volvulus, but it must be excluded urgently. A very unstable baby may go to surgery without contrast imaging.",
+      "sources": [
+        {
+          "title": "Langer (Surg Clin North Am 2017): intestinal rotation abnormalities and midgut volvulus",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/27894424/"
+        },
+        {
+          "title": "Applegate (Pediatr Radiol 2009): evidence-based diagnosis of malrotation and volvulus",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/19308378/"
+        }
+      ]
+    },
+    "pd-081": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Recognize childhood immune thrombocytopenia and manage by bleeding, not by the platelet count.",
+      "alternativesAndLimits": "Some families and clinicians choose a short course of treatment even for mild bleeding; observation is the guideline-preferred default. Findings that suggest another diagnosis call for further testing.",
+      "sources": [
+        {
+          "title": "Neunert et al. (Blood Adv 2019): American Society of Hematology 2019 guidelines for immune thrombocytopenia",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/31794604/"
+        },
+        {
+          "title": "Provan et al. (Blood Adv 2019): updated international consensus report on the investigation and management of primary immune thrombocytopenia",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/31770441/"
         }
       ]
     }
@@ -8478,6 +8638,862 @@
         {
           "title": "Neumann, Young and Eng (N Engl J Med 2019): pheochromocytoma and paraganglioma",
           "url": "https://pubmed.ncbi.nlm.nih.gov/31390501/"
+        }
+      ]
+    },
+    "pd-027": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "Thirsty for weeks, _now hard to wake._",
+      "setting": "Emergency department",
+      "start": {
+        "status": "unstable",
+        "alarm": "Breathing deep and fast · very sleepy"
+      },
+      "handoff": "A 9-year-old girl has been very thirsty and passing a lot of urine for three weeks, and she has lost weight. Since yesterday she has been vomiting. Today she is breathing fast and is hard to keep awake.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask about the thirst, the urine and her weight",
+            "finding": "For several weeks she has been drinking and passing urine far more than usual, and she has started wetting the bed again after years of being dry. She has lost about 4 kg even though she eats well."
+          },
+          {
+            "prompt": "Ask about the last day",
+            "finding": "Since yesterday she has felt sick, vomited and had belly pain all over. Today she is breathing fast and keeps falling asleep. Her parents say her breath smells like fruit or nail-polish remover."
+          },
+          {
+            "prompt": "Ask about her health and her family",
+            "finding": "She has always been healthy and takes no medicines. She could not have swallowed anything harmful. She had a cold a few weeks ago. An aunt has type 1 diabetes."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Watch her breathe, and smell her breath",
+            "finding": "Her breaths are deep and fast, as if she had just run a race. Her breath smells sweet and sharp."
+          },
+          {
+            "prompt": "Check how dry she is",
+            "finding": "Her mouth is dry and her eyes are slightly sunken. Pinched skin is slow to flatten, and a pressed fingertip takes three seconds to turn pink again."
+          },
+          {
+            "prompt": "Press on her belly, and check how alert she is",
+            "finding": "Her belly is tender all over, but it stays soft. She is sleepy and slow to answer, though she follows instructions. Her neck is not stiff."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Blood and urine tests",
+          "content": "Finger-prick blood sugar: 512, very high (normal is under about 140).\nBlood acid level (pH): 7.18, acidic (normal is about 7.40). Bicarbonate, the blood’s main buffer: 9, very low.\nKetones in blood and urine: very high.\nPotassium: 5.1, at the top of normal.\nKidney tests: mildly raised from dehydration.\nHbA1c: 11.6%, which means her sugar has been high for weeks.\nUrine: full of sugar and ketones, with no sign of infection."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "Weeks of thirst and weight loss, and now deep fast breathing with that smell on her breath. I think I know what this is, and a few quick tests will prove it.",
+          "question": "What do we check first?",
+          "options": [
+            "A CT scan of her head and a spinal tap, before anything else",
+            "A finger-prick blood sugar, a blood gas, blood salts and ketones",
+            "Thyroid and cortisol levels only",
+            "An ultrasound of her belly, for the pain"
+          ],
+          "fix": "Check her sugar, blood gas, salts and ketones",
+          "terms": [
+            {
+              "term": "Blood gas",
+              "meaning": "A quick blood test that shows how acidic the blood is."
+            },
+            {
+              "term": "Ketones",
+              "meaning": "Acids the body makes when it burns fat because it cannot use sugar. They give the breath a fruity smell."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "delay",
+              "minutes": 45,
+              "story": "She is taken for a head scan, which is normal. By the time she is back, 45 minutes have gone. She is harder to wake and is breathing even harder.",
+              "reply": "Her sleepiness comes from her blood chemistry, not from something a scan can see. A finger-prick would have told us in one minute. Do it now.",
+              "vitals": {
+                "HR": "142 bpm",
+                "RR": "36 /min (deep)"
+              },
+              "trend": {
+                "HR": "up",
+                "RR": "up"
+              },
+              "status": "worse",
+              "alarm": "Harder to wake · breathing harder"
+            },
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "The nurse pricks her finger while blood and urine are collected. The results are back within minutes and go in her chart.",
+              "reply": "Right. Sugar, acid, salts and ketones together make this diagnosis in minutes, at the bedside."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request thyroid and cortisol levels. The resident adds the tests she needs.",
+              "reply": "Those take hours and would not explain this. Her story points at sugar, so check the sugar."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request a belly ultrasound. The resident holds it.",
+              "reply": "Her belly hurts because her blood is acidic. An ultrasound would look normal and miss the emergency."
+            }
+          ]
+        },
+        "3": {
+          "resident": "She is dry, her blood is acidic and she has no insulin of her own. The order we fix things in matters a great deal in a child.",
+          "question": "What is the right order?",
+          "options": [
+            "A large dose of insulin into a vein at once, then fluids",
+            "Bicarbonate into a vein, to correct the acid quickly",
+            "Salt-water fluids into a vein first, check her potassium, then a slow, steady insulin drip",
+            "Drinks by mouth and insulin injections at home"
+          ],
+          "fix": "Start fluids, then the insulin drip",
+          "terms": [
+            {
+              "term": "Insulin",
+              "meaning": "The hormone that lets sugar move from the blood into cells. In type 1 diabetes the body stops making it."
+            },
+            {
+              "term": "Insulin drip",
+              "meaning": "Insulin given slowly and steadily into a vein, so sugar and acid come down gradually."
+            },
+            {
+              "term": "Potassium",
+              "meaning": "A blood salt the heart depends on. Insulin pushes it into cells, so the blood level can fall fast."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a large dose of insulin straight away. The resident stops the order.",
+              "reply": "Never in a child. A sudden dose shifts fluid and potassium too fast, and it raises the risk of brain swelling. Fluids first, then a slow drip."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for bicarbonate. The resident stops the order.",
+              "reply": "It seems logical, and it makes children worse. Fluids and insulin stop the body making acid, and the blood then corrects itself."
+            },
+            {
+              "kind": "safe",
+              "minutes": 240,
+              "story": "Fluids run for an hour, her potassium is confirmed and the insulin drip is started. Over the next few hours her sugar and her acid level improve. Then she says her head hurts badly. She is confused, her heart rate has dropped and her blood pressure has risen.",
+              "reply": "That was the right treatment in the right order. But something new is happening now, and it needs a name fast.",
+              "vitals": {
+                "HR": "72 bpm",
+                "BP": "128/86 mmHg",
+                "RR": "22 /min"
+              },
+              "alarm": "Bad headache · confused · heart rate dropping"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest treating her at home. The resident shakes their head.",
+              "reply": "She is too sick to drink, and her blood is dangerously acidic. She needs a drip and hourly checks in hospital."
+            }
+          ]
+        },
+        "4": {
+          "resident": "Four hours into treatment she has a bad headache and is confused. Her heart rate has fallen to 72, and her blood pressure has climbed.",
+          "question": "What is happening?",
+          "options": [
+            "Her brain is swelling (cerebral edema)",
+            "Her blood sugar has gone too low",
+            "A blood clot in her lung",
+            "Appendicitis"
+          ],
+          "fix": "Call it brain swelling and treat it",
+          "terms": [
+            {
+              "term": "Cerebral edema",
+              "meaning": "Swelling of the brain. In a child being treated for ketoacidosis it is rare, and it is the complication doctors fear most."
+            },
+            {
+              "term": "Hypertonic saline",
+              "meaning": "Very salty fluid given into a vein. It draws water out of the swollen brain."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 20,
+              "story": "You say it out loud. The team gives very salty fluid through her drip, raises the head of her bed and slows her other fluids. Within twenty minutes she is more awake and her heart rate recovers. She is moved to intensive care.",
+              "reply": "Yes. Headache, confusion, a slowing heart and a rising blood pressure during treatment mean brain swelling. It is treated on suspicion, without waiting for a scan.",
+              "vitals": {
+                "HR": "98 bpm",
+                "BP": "108/68 mmHg"
+              },
+              "alarm": "Treated for brain swelling · more awake"
+            },
+            {
+              "kind": "delay",
+              "minutes": 15,
+              "story": "You ask for a blood sugar. It is 240, nowhere near low. In the minutes that took she has stopped answering, and one pupil is larger than the other.",
+              "reply": "A low sugar causes shaking and sweating. It does not slow the heart and raise the blood pressure. This is her brain swelling, and she needs treatment this second.",
+              "vitals": {
+                "HR": "58 bpm",
+                "BP": "142/94 mmHg"
+              },
+              "trend": {
+                "HR": "down",
+                "BP": "up"
+              },
+              "status": "critical",
+              "alarm": "Not answering · one pupil larger"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest a clot in her lung. The resident points at the monitor.",
+              "reply": "A lung clot makes the heart race and the oxygen level fall. Her heart is slowing and her pressure is rising. That pattern means pressure in the skull."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest appendicitis. The resident shakes their head.",
+              "reply": "Her belly pain came from the acid and is already easing. A headache with confusion and a slowing heart points to her brain."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "The blood and urine tests are in her chart.",
+        "question": "What is this?",
+        "options": [
+          "Very high blood sugar without acid in the blood (hyperosmolar state)",
+          "Diabetic ketoacidosis: high blood sugar, acid in the blood and ketones",
+          "Acid in the blood from a severe infection",
+          "Simple dehydration"
+        ],
+        "reveal": "It is diabetic ketoacidosis, the first sign of type 1 diabetes in many children. Without insulin her cells cannot use sugar, so her body burns fat and makes acidic ketones. The three findings are all here: sugar of 512, acidic blood and large ketones. Her HbA1c shows this has been building for weeks.",
+        "terms": [
+          {
+            "term": "Type 1 diabetes",
+            "meaning": "A condition in which the immune system destroys the cells that make insulin."
+          },
+          {
+            "term": "Acidosis",
+            "meaning": "Blood that is more acidic than normal."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "In the children’s intensive care unit, awake, on an insulin drip",
+        "unstable": "In the children’s intensive care unit, awake, on an insulin drip",
+        "worse": "In the children’s intensive care unit on an insulin drip, after a slow start",
+        "critical": "In the children’s intensive care unit, after her brain swelling went untreated for too long"
+      },
+      "plainDiagnosis": "A first attack of type 1 diabetes, with acid building up in the blood (diabetic ketoacidosis).",
+      "science": [
+        {
+          "tag": "Buffers",
+          "title": "Why she was breathing so deep and fast",
+          "text": "Ketones are acids, and they used up her bicarbonate buffer. Her body fought back the only fast way it can: by breathing out carbon dioxide, which pulls the buffer equation away from acid.",
+          "lesson": "buffer-balance",
+          "lessonTitle": "Balance a buffer"
+        },
+        {
+          "tag": "Fuel choice",
+          "title": "Why her body made ketones",
+          "text": "Insulin is the signal that sugar is available. With none, her cells behaved as if she were starving: they broke down fat, and her liver turned it into ketones faster than she could use them.",
+          "lesson": "fuel-regulation",
+          "lessonTitle": "Choose a fuel pathway"
+        },
+        {
+          "tag": "Membranes",
+          "title": "Why her potassium was checked before insulin",
+          "text": "Insulin switches on pumps that move potassium from the blood into cells. Her blood level looked normal, but her body was short of it. Starting insulin without checking could have dropped it far enough to disturb her heartbeat.",
+          "lesson": "membrane-transport",
+          "lessonTitle": "Cross a membrane"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Glaser et al. (Pediatr Diabetes 2022): ISPAD clinical practice consensus guidelines, diabetic ketoacidosis and hyperglycemic hyperosmolar state",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/36250645/"
+        },
+        {
+          "title": "Kuppermann et al. (N Engl J Med 2018): clinical trial of fluid infusion rates for pediatric diabetic ketoacidosis",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/29897851/"
+        }
+      ]
+    },
+    "pd-064": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "A five-day-old _vomiting bright green._",
+      "setting": "Emergency department",
+      "start": {
+        "status": "unstable",
+        "alarm": "Green vomit · cool hands and feet · floppy"
+      },
+      "handoff": "A 5-day-old boy was feeding well until four hours ago, when he suddenly vomited bright green fluid. He has vomited three more times, will not feed and is becoming floppy and quiet.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask his parents about the vomiting",
+            "finding": "It began suddenly four hours ago in the middle of a feed. The vomit is bright green. He has vomited three more times and now refuses the breast."
+          },
+          {
+            "prompt": "Ask about his diapers and how he has been acting",
+            "finding": "He passed his first stool on day one and has had normal diapers since. Today’s diaper had a streak of dark blood. He was fussy and now has spells of being limp and quiet."
+          },
+          {
+            "prompt": "Ask about the pregnancy and the birth",
+            "finding": "He was born on time after a healthy pregnancy with normal scans. He has had no fever. Nobody in the family has had bowel problems."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Check his circulation, and whether he is dry",
+            "finding": "His hands and feet are cool. A pressed fingertip takes three to four seconds to turn pink again. His mouth is sticky, and the soft spot on his head is slightly sunken."
+          },
+          {
+            "prompt": "Look at his belly and press on it",
+            "finding": "His belly is slightly swollen and tender all over. Few bowel sounds can be heard. The skin over it looks normal."
+          },
+          {
+            "prompt": "Check his bottom and his muscle tone",
+            "finding": "His anus is normal, and there is a little dark blood there. He feels floppier than a newborn should and cries when handled."
+          }
+        ]
+      },
+      "results": {
+        "2": {
+          "label": "Contrast X-ray study and blood tests",
+          "content": "Contrast study (dye is given down the stomach tube and followed on X-ray): the first part of the small bowel does not cross to the left side as it should, and the dye spirals downward like a corkscrew.\nPlain X-ray: very little gas in the lower bowel.\nBlood gas: acidic, with a lactate of 4.2, raised. Lactate builds up when tissue is starved of oxygen.\nWhite blood cells: 18.5, high."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "Green vomit in a newborn. The color matters more than anything else in this story.",
+          "question": "What do we assume until it is proven otherwise?",
+          "options": [
+            "Normal spitting up (reflux)",
+            "A twisted bowel, which is a surgical emergency",
+            "A thickened stomach outlet (pyloric stenosis)",
+            "Overfeeding"
+          ],
+          "fix": "Treat it as a twisted bowel",
+          "terms": [
+            {
+              "term": "Bilious vomiting",
+              "meaning": "Vomit stained green by bile. Bile enters the gut just past the stomach, so green vomit means a blockage below that point."
+            },
+            {
+              "term": "Volvulus",
+              "meaning": "A twist of the bowel around its own blood supply."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You call it reflux. The resident shakes their head.",
+              "reply": "Spit-up is milky, and the baby stays well. Green means the bowel is blocked below the stomach, and in a newborn that is an emergency until proven otherwise."
+            },
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "You say it plainly, and the resident nods. The team moves fast.",
+              "reply": "Exactly. If his bowel has twisted, the whole of it can die within hours. Everything we do next is built around that possibility."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest pyloric stenosis. The resident shakes their head.",
+              "reply": "That causes forceful vomiting at three to six weeks of age, and the vomit is never green, because the blockage is above where bile enters."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest overfeeding. The resident shakes their head.",
+              "reply": "Overfed babies spit up milk and stay pink and hungry. He is green-vomiting, cool and floppy."
+            }
+          ]
+        },
+        "1": {
+          "resident": "He needs an X-ray study with contrast, and it will take a few minutes to set up. He is cool, floppy and dry right now.",
+          "question": "What do we do while it is arranged?",
+          "options": [
+            "Give rehydration fluid by mouth and watch him",
+            "A tube into his stomach, a drip with a fluid bolus, nothing by mouth, and the children’s surgeon called now",
+            "Anti-sickness medicine, and home with advice about reflux",
+            "Erythromycin by mouth, to speed up his gut"
+          ],
+          "fix": "Stabilize him and call the surgeon",
+          "terms": [
+            {
+              "term": "Nasogastric tube",
+              "meaning": "A thin tube passed through the nose into the stomach to empty it."
+            },
+            {
+              "term": "Fluid bolus",
+              "meaning": "A measured amount of fluid given quickly into a vein to support the circulation."
+            },
+            {
+              "term": "Nothing by mouth",
+              "meaning": "No feeds or drinks at all, to rest the gut and prepare for possible surgery."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "delay",
+              "minutes": 60,
+              "story": "He is offered fluid by mouth and vomits it all back, green. An hour later his belly is more swollen, and he is limp and gray.",
+              "reply": "A blocked gut cannot take fluid from above, and he has gone another hour without a drip or a surgeon. Tube, drip, fluids, and call surgery now.",
+              "vitals": {
+                "HR": "198 bpm",
+                "BP": "52/30 mmHg"
+              },
+              "trend": {
+                "HR": "up",
+                "BP": "down"
+              },
+              "status": "worse",
+              "alarm": "Limp and gray · belly more swollen"
+            },
+            {
+              "kind": "safe",
+              "minutes": 20,
+              "story": "A tube is passed into his stomach and drains green fluid. A drip goes in, and fluid is pushed. His feeds are stopped. The children’s surgeon is on the way, and the contrast study is done at once. The results go in his chart.",
+              "reply": "Right. Empty the stomach, refill his circulation, and get the surgeon moving before the pictures are even back.",
+              "vitals": {
+                "HR": "168 bpm",
+                "BP": "68/42 mmHg"
+              },
+              "trend": {
+                "HR": "down",
+                "BP": "up"
+              }
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for anti-sickness medicine and a discharge. The attending stops it.",
+              "reply": "Sending home a newborn who vomits green could kill him. He stays, and he needs a surgeon."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for erythromycin. The resident cancels it.",
+              "reply": "Pushing a blocked gut to squeeze harder does not help, and it could do harm. He needs his stomach emptied and a drip."
+            }
+          ]
+        },
+        "4": {
+          "resident": "The contrast study shows his bowel twisted into a corkscrew, and his lactate is up. His gut is running out of blood.",
+          "question": "What is the treatment?",
+          "options": [
+            "An emergency operation to untwist the bowel and fix its position (Ladd procedure)",
+            "Rest the bowel, and examine his belly every few hours",
+            "An operation to open the stomach outlet (pyloromyotomy)",
+            "An air enema to push the bowel back"
+          ],
+          "fix": "Send him to the operating room",
+          "terms": [
+            {
+              "term": "Ladd procedure",
+              "meaning": "The operation for this condition. The surgeon untwists the bowel, cuts the bands that hold it wrongly and lays it out so that it cannot twist again."
+            },
+            {
+              "term": "Ischemia",
+              "meaning": "Too little blood reaching a tissue."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 30,
+              "story": "The surgeon reviews the pictures and takes him straight to the operating room.",
+              "reply": "Yes. Nothing but an operation untwists it, and every hour of twisting costs him bowel."
+            },
+            {
+              "kind": "delay",
+              "minutes": 180,
+              "story": "He is admitted for bowel rest and checks every few hours. Three hours later his belly is tight and discolored, and he hardly responds when touched.",
+              "reply": "A twisted bowel does not untwist by resting. He has lost three hours of blood supply to his gut. He goes to the operating room now.",
+              "vitals": {
+                "HR": "206 bpm",
+                "BP": "44/26 mmHg"
+              },
+              "trend": {
+                "HR": "up",
+                "BP": "down"
+              },
+              "status": "critical",
+              "alarm": "Belly tight and discolored · barely responding"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest the stomach-outlet operation. The surgeon shakes their head.",
+              "reply": "That fixes pyloric stenosis, which this is not. His stomach outlet is fine. His bowel is twisted further down."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest an air enema. The surgeon shakes their head.",
+              "reply": "That treats a different problem, where one piece of bowel slides inside the next. It cannot untwist a volvulus."
+            }
+          ]
+        },
+        "5": {
+          "resident": "The surgeon has untwisted his bowel and is checking how much of it will recover. His parents ask what happens if a long piece has to be removed.",
+          "question": "What would they need to know?",
+          "options": [
+            "He could be left with too little bowel to absorb food, and need feeding through a vein (short bowel syndrome)",
+            "He would need a permanent stoma bag and could never be fed",
+            "The bowel grows back completely within weeks",
+            "It would cause pyloric stenosis"
+          ],
+          "fix": "Explain short bowel syndrome",
+          "terms": [
+            {
+              "term": "Short bowel syndrome",
+              "meaning": "Too little small bowel left to absorb enough food and water."
+            },
+            {
+              "term": "Parenteral nutrition",
+              "meaning": "Feeding through a vein, with a mix of sugar, protein, fat and vitamins."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "You explain it gently, and the resident fills in the details for his parents.",
+              "reply": "That is right. It is the reason speed mattered so much today: the more bowel that survives, the less likely he is to need it."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say he could never be fed. The resident corrects you.",
+              "reply": "That is too bleak. Feeds are built up slowly as the remaining bowel adapts. The real risk is having too little bowel to absorb enough."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say the bowel grows back. The resident corrects you.",
+              "reply": "Removed bowel does not grow back. What is left can adapt and absorb more over time, but if too little is left he needs feeding through a vein."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You mention pyloric stenosis. The resident shakes their head.",
+              "reply": "The two are unrelated. The risk after losing a long piece of bowel is not being able to absorb enough food."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "The contrast study and the blood tests are in his chart.",
+        "question": "What is this?",
+        "options": [
+          "A first part of the bowel that never formed an opening (duodenal atresia)",
+          "A thickened stomach outlet (pyloric stenosis)",
+          "A bowel that is not anchored in its normal position and has twisted (malrotation with midgut volvulus)",
+          "A severe bowel inflammation of newborns (necrotizing enterocolitis)"
+        ],
+        "reveal": "His bowel did not settle into its normal position before birth, so it hangs on a narrow stalk, and it has twisted around its own artery. The corkscrew of dye is the twist. A bowel with no opening causes vomiting from the first day and shows a different pattern, and pyloric stenosis never causes green vomit.",
+        "terms": [
+          {
+            "term": "Malrotation",
+            "meaning": "A bowel that did not rotate and anchor into its normal position before birth."
+          },
+          {
+            "term": "Midgut",
+            "meaning": "Most of the small bowel and the first half of the colon, all fed by one artery."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "In the newborn intensive care unit after surgery, with his bowel untwisted",
+        "unstable": "In the newborn intensive care unit after surgery, with his bowel untwisted",
+        "worse": "In the newborn intensive care unit after surgery, after losing time at the start",
+        "critical": "In the newborn intensive care unit after surgery, with part of his bowel removed"
+      },
+      "plainDiagnosis": "A bowel that was never anchored properly and twisted around its own blood supply (malrotation with midgut volvulus).",
+      "science": [
+        {
+          "tag": "Pressure and blood flow",
+          "title": "Why one twist threatens the whole gut",
+          "text": "Nearly all of his small bowel is fed by a single artery that runs through the stalk it hangs from. A twist of that stalk closes the artery, the way a kink closes a garden hose, and everything beyond it loses its supply at once.",
+          "lesson": "circulatory-flow",
+          "lessonTitle": "Connect pressure to blood flow"
+        },
+        {
+          "tag": "Buffers",
+          "title": "Why his blood turned acidic",
+          "text": "Bowel without oxygen makes lactic acid. The acid used up the bicarbonate that keeps his blood near neutral, so his blood gas read acidic. It was an early signal that tissue was in trouble.",
+          "lesson": "buffer-balance",
+          "lessonTitle": "Balance a buffer"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Langer (Surg Clin North Am 2017): intestinal rotation abnormalities and midgut volvulus",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/27894424/"
+        },
+        {
+          "title": "Applegate (Pediatr Radiol 2009): evidence-based diagnosis of malrotation and volvulus",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/19308378/"
+        }
+      ]
+    },
+    "pd-081": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "Red spots and bruises _on a child who feels fine._",
+      "setting": "Children’s clinic",
+      "start": {
+        "status": "stable",
+        "alarm": "Red spots and bruises · playing happily"
+      },
+      "handoff": "A 4-year-old boy has come out in tiny red spots on his shins and several large bruises over the last two days. He had two short nosebleeds yesterday. He is playing happily in the waiting room.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask his mother about the spots and bruises",
+            "finding": "Tiny red dots appeared on his shins two days ago, then large bruises on his chest, back and arms. He had not fallen or been hit. He had two short nosebleeds yesterday."
+          },
+          {
+            "prompt": "Ask about recent illness and how he has been",
+            "finding": "He had a runny nose, a cough and a slight fever about two weeks ago, and it cleared up without treatment. He is eating, playing and sleeping normally. No fever, no bone pain and no weight loss."
+          },
+          {
+            "prompt": "Ask about medicines and his family",
+            "finding": "He takes no medicines and has had no ibuprofen or aspirin. Nobody in the family bleeds easily or has had leukemia."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Look at his skin and inside his mouth",
+            "finding": "Pinpoint red dots are scattered over both lower legs, and they do not fade when pressed. There are bruises up to 3 cm across on his chest, back, arms and legs. A little dried blood sits at one nostril. Nothing is bleeding inside his mouth."
+          },
+          {
+            "prompt": "Feel for swollen glands, and for his liver and spleen",
+            "finding": "No swollen glands in his neck, armpits or groin. His liver and spleen are not enlarged."
+          },
+          {
+            "prompt": "Check for paleness and bone pain, and watch him move",
+            "finding": "He is not pale or yellow. Pressing on his bones and joints does not hurt. He walks, talks and plays normally."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Blood count",
+          "content": "White blood cells: 7.8, normal, with a normal mix of cell types.\nHemoglobin: 12.6, normal.\nPlatelets: 11, very low (normal is 150 to 450).\nBlood film under the microscope: very few platelets, and some of them large and young. Red and white cells look normal.\nClotting tests: normal."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "Spots and bruises like these mean his blood is not clotting well. Every parent in this room is thinking the same word: leukemia. One part of what you found argues strongly against it.",
+          "question": "Which finding is most reassuring?",
+          "options": [
+            "He had a cold two weeks ago",
+            "The red dots on his legs",
+            "He looks well, and he has no swollen glands, liver or spleen",
+            "He is 4 years old"
+          ],
+          "fix": "Point to the normal exam",
+          "terms": [
+            {
+              "term": "Petechiae",
+              "meaning": "Pinpoint red dots in the skin, caused by tiny bleeds. They do not fade when pressed."
+            },
+            {
+              "term": "Platelets",
+              "meaning": "Small blood cells that plug holes in blood vessels and start clotting."
+            },
+            {
+              "term": "Leukemia",
+              "meaning": "A cancer of the blood-forming cells in the bone marrow."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You point to the recent cold. The resident says it helps, but only a little.",
+              "reply": "A cold often comes before the harmless cause, but a child with leukemia can catch a cold too. The stronger clue is on the exam."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You point to the red dots. The resident shakes their head.",
+              "reply": "The dots only tell us his platelets are low. They look the same whatever the cause."
+            },
+            {
+              "kind": "safe",
+              "minutes": 20,
+              "story": "You point out how well he looks and his normal exam. A blood count is sent, and the result goes in his chart.",
+              "reply": "Right. Leukemia fills the marrow and spills into the glands, liver and spleen, and the child looks ill. He looks well, and none of those are enlarged. The blood count will confirm it."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You point to his age. The resident shakes their head.",
+              "reply": "Four is a peak age for the harmless cause and for leukemia alike. His age does not separate them."
+            }
+          ]
+        },
+        "3": {
+          "resident": "His platelets are 11, which is very low. But all he has is skin bruising and two nosebleeds that stopped.",
+          "question": "What do we do?",
+          "options": [
+            "An urgent platelet transfusion",
+            "Remove his spleen",
+            "Watch and wait, with clear advice for his parents and no rough play",
+            "High-dose cyclophosphamide into a vein"
+          ],
+          "fix": "Explain watchful waiting",
+          "terms": [
+            {
+              "term": "Watchful waiting",
+              "meaning": "Checking a child regularly without giving treatment, because the condition usually clears up by itself."
+            },
+            {
+              "term": "Transfusion",
+              "meaning": "Giving blood or part of blood, such as platelets, from a donor."
+            },
+            {
+              "term": "Spleen",
+              "meaning": "An organ in the upper left belly that filters blood. It is where most of his platelets are being destroyed."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for platelets. The blood doctor on the phone says no.",
+              "reply": "His immune system would destroy donated platelets within hours, just as it destroys his own. Transfusion is kept for life-threatening bleeding."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest removing his spleen. The resident shakes their head.",
+              "reply": "That is a last resort for the rare child still affected years later. Most children recover fully within weeks to months without any treatment."
+            },
+            {
+              "kind": "safe",
+              "minutes": 15,
+              "story": "You sit down with his mother. No contact sports or climbing frames for now, no ibuprofen or aspirin, and a repeat blood count next week.",
+              "reply": "Yes. We treat the child, not the number. He is bleeding only into his skin, so watching is safer than any drug. If he had serious bleeding there are medicines that raise the count quickly."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest cyclophosphamide. The resident says no.",
+              "reply": "That is a strong drug that suppresses the immune system, with serious side effects. It has no place in a well child whose condition should clear up without treatment."
+            }
+          ]
+        },
+        "4": {
+          "resident": "His mother asks what she should watch for at home. One warning sign matters far more than the rest.",
+          "question": "What should bring them straight to the emergency department?",
+          "options": [
+            "A few new red dots on his legs",
+            "Headache, vomiting, or being drowsy or confused",
+            "A mild bruise after rough play",
+            "A short nosebleed that stops with pressure"
+          ],
+          "fix": "Warn about signs of bleeding in the head",
+          "terms": [
+            {
+              "term": "Intracranial hemorrhage",
+              "meaning": "Bleeding inside the skull. It is rare in this condition, fewer than 1 in 100 children, and it is the one real danger."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You mention new red dots. The resident adds something.",
+              "reply": "New dots are expected while his platelets are low and are not an emergency. The sign that matters is headache, vomiting or drowsiness."
+            },
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "You tell his mother, and she repeats it back. She takes home a sheet with the clinic number.",
+              "reply": "Exactly. Those are signs of bleeding inside the head. It is rare, but it is the one thing that cannot wait."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You mention bruising. The resident adds something.",
+              "reply": "Bruises are expected, and they are the reason for avoiding rough play. The emergency sign is headache, vomiting or drowsiness."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You mention nosebleeds. The resident adds something.",
+              "reply": "A nosebleed that stops with pressure can be handled at home. One that will not stop needs a doctor. But the sign to act on at once is headache, vomiting or drowsiness."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "The blood count is in his chart. Look at which cells are low and which are normal.",
+        "question": "What is this?",
+        "options": [
+          "Immune thrombocytopenia (ITP): his immune system is destroying his platelets",
+          "Acute leukemia",
+          "A clotting system being used up throughout the body (DIC)",
+          "Hemolytic uremic syndrome: destroyed red cells with kidney failure"
+        ],
+        "reveal": "It is immune thrombocytopenia. After a viral infection, his immune system has started destroying his own platelets by mistake. Only the platelets are low. His red cells, white cells and clotting tests are normal, and the large young platelets show that his marrow is working hard to replace them. Leukemia would disturb the other cells too.",
+        "terms": [
+          {
+            "term": "Thrombocytopenia",
+            "meaning": "A low platelet count."
+          },
+          {
+            "term": "Bone marrow",
+            "meaning": "The soft center of bones, where blood cells are made."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "Home with his parents, with a blood count booked for next week",
+        "worse": "Admitted to the children’s ward",
+        "critical": "In the children’s intensive care unit"
+      },
+      "plainDiagnosis": "A low platelet count caused by the immune system, after a viral infection (immune thrombocytopenia).",
+      "science": [
+        {
+          "tag": "Pressure in a fluid",
+          "title": "Why the spots came out on his shins",
+          "text": "Pressure in a column of fluid rises with depth. In a standing child the small vessels of the lower legs carry the highest pressure, so with too few platelets to plug tiny leaks, that is where blood escapes first.",
+          "lesson": "hydrostatics",
+          "lessonTitle": "Read pressure in a fluid"
+        },
+        {
+          "tag": "Evidence",
+          "title": "Why one low number was reassuring",
+          "text": "A marrow crowded by leukemia fails at everything it makes: red cells, white cells and platelets. His count showed one low line and two normal ones. That pattern fits platelets being destroyed after they are made, not a marrow that cannot make them.",
+          "lesson": "uncertainty-controls",
+          "lessonTitle": "Match evidence to a conclusion"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Neunert et al. (Blood Adv 2019): American Society of Hematology 2019 guidelines for immune thrombocytopenia",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/31794604/"
+        },
+        {
+          "title": "Provan et al. (Blood Adv 2019): updated international consensus report on the investigation and management of primary immune thrombocytopenia",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/31770441/"
         }
       ]
     }

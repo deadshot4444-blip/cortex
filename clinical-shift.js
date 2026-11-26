@@ -7,7 +7,7 @@
   'use strict';
 
   const SHIFT_STORAGE_KEY = 'cs-clinical-shift-v1';
-  const SHIFT_MANIFEST_URL = 'data/clinical-shift-pilot.json?v=14';
+  const SHIFT_MANIFEST_URL = 'data/clinical-shift-pilot.json?v=15';
   const SHIFT_STEPS = ['Handoff', 'Investigate', 'Decide', 'Debrief'];
   /* One tap answers a question. A second tap that lands just after it (a double click, a bounced touch)
      must not answer the next question or skip an outcome, so the buttons that commit a call start inert
