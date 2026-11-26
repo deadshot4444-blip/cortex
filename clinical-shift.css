@@ -108,6 +108,11 @@
 #app .cshift-rotation-copy strong { display: block; font-size: 32px; line-height: 1.06; }
 #app .cshift-rotation-copy span { display: block; margin-top: 10px; color: var(--body); font-size: 16px; line-height: 1.5; }
 .cshift-rotation-tag { grid-area: tag; justify-self: start; padding: 4px 10px; border: 1px solid var(--line-bright); color: var(--body); font-size: 13px; font-weight: 600; line-height: 1.35; }
+/* Shuffle leads the rotations as a full-width card, so it reads as its own choice. */
+.cshift-rotation-shuffle { grid-column: 1 / -1; min-height: 0; background: var(--navy); border-color: var(--navy); color: #fff; }
+#app .cshift-rotation-shuffle .cshift-rotation-copy strong, #app .cshift-rotation-shuffle .cshift-rotation-go { color: #fff; }
+#app .cshift-rotation-shuffle .cshift-rotation-copy span, #app .cshift-rotation-shuffle .cshift-rotation-progress { color: rgba(255, 255, 255, .78); }
+.cshift-rotation-shuffle .cshift-rotation-num, .cshift-rotation-shuffle .cshift-rotation-tag { border-color: rgba(255, 255, 255, .38); color: #fff; }
 .cshift-rotation-tag.is-reacting { border-color: var(--cs-safe); background: var(--cs-safe-wash); color: var(--cs-safe-ink); }
 #app .cshift-rotation-go { grid-area: go; font-size: 16px; }
 

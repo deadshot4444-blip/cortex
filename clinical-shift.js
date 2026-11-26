@@ -448,7 +448,8 @@
   }
 
   function activeRotationName() {
-    return rotationFor(shiftState.active?.key)?.name || NAME_BY_KEY[shiftState.active?.key] || 'Clinical Shift';
+    const name = rotationFor(shiftState.active?.key)?.name || NAME_BY_KEY[shiftState.active?.key] || 'Clinical Shift';
+    return shiftState.active?.shuffle ? `Shuffle · ${name}` : name;
   }
 
   function confirmShiftEnd(trigger, onConfirm, replacement = false) {
@@ -527,6 +528,7 @@
     const active = shiftInProgress() ? shiftState.active : null;
     const rotations = shiftManifest.rotations;
     const encounterCount = rotations.reduce((sum, rotation) => sum + rotation.caseIds.length, 0);
+    const seenCount = rotations.reduce((sum, rotation) => sum + completedCount(rotation), 0);
     const reactingIn = rotation => rotation.caseIds.filter(id => shiftManifest.reactions?.[id]).length;
     const reactingRotations = rotations.filter(rotation => reactingIn(rotation) > 0);
     const everyPatientReacts = rotations.every(rotation => reactingIn(rotation) === rotation.caseIds.length);
@@ -594,6 +596,13 @@
       <section class="cshift-rotations" aria-labelledby="cshift-rotations-title">
         <div class="cshift-section-head"><div><span class="label">Choose a rotation</span><h2 id="cshift-rotations-title" tabindex="-1">Where do you want to work today?</h2></div><span>${rotations.length} rotations · ${encounterCount} patients</span></div>
         <div class="cshift-rotation-cards">
+          <button class="cshift-rotation cshift-rotation-shuffle" data-shift-shuffle aria-label="Start a shuffle shift · ${seenCount} of ${encounterCount} completed · a patient from any rotation each time">
+            <span class="cshift-rotation-num">MIX</span>
+            <span class="cshift-rotation-progress">${seenCount}/${encounterCount} completed</span>
+            <span class="cshift-rotation-copy"><strong>Shuffle</strong><span>A patient from any rotation each time. You find out where you are working when you meet them.</span></span>
+            <span class="cshift-rotation-tag">All ${rotations.length} rotations · new patients first</span>
+            <span class="cshift-rotation-go" aria-hidden="true"><span>Start</span> →</span>
+          </button>
           ${rotations
             .map(
               rotation => `<button class="cshift-rotation" data-shift-specialty="${esc(rotation.key)}" aria-label="Start ${esc(rotation.name)} shift · ${completedCount(rotation)} of ${rotation.caseIds.length} completed · ${esc(rotationTag(rotation))}">
@@ -637,6 +646,10 @@
         else start();
       })
     );
+    main.querySelector('[data-shift-shuffle]').addEventListener('click', event => {
+      if (shiftInProgress()) confirmShiftEnd(event.currentTarget, () => startShuffleShift(), true);
+      else startShuffleShift();
+    });
     main.querySelector('#cshift-resume')?.addEventListener('click', resumeClinicalShift);
     main.querySelector('#cshift-end-active')?.addEventListener('click', event => {
       confirmShiftEnd(event.currentTarget, () => {
@@ -779,10 +792,11 @@
     }
   }
 
-  function newActiveShift(rotation, caseData) {
+  function newActiveShift(rotation, caseData, { shuffle = false } = {}) {
     const authored = shiftManifest.reactions?.[caseData.id];
     const reactions = reactionUsable(caseData, authored) ? authored : null;
     return {
+      ...(shuffle ? { shuffle: true } : {}),
       runId: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
       caseId: caseData.id,
       key: rotation.key,
@@ -815,8 +829,27 @@
     };
   }
 
-  /* A rotation hands out its reacting patients first. `caseId` replays one specific patient. */
-  async function startClinicalShift(key, { caseId = null } = {}) {
+  /* Shuffle draws one patient from every rotation at once: those not yet seen first, and never the one
+     just finished while another is left. The shift it starts remembers that it is a shuffle, so the
+     debrief hands on to another draw. */
+  function shufflePick(justSeen = null) {
+    const everyone = shiftManifest.rotations.flatMap(rotation =>
+      rotation.caseIds.map(caseId => ({ key: rotation.key, caseId }))
+    );
+    const unseen = everyone.filter(entry => !shiftState.completed[entry.caseId]?.attempts);
+    const waiting = unseen.length ? unseen : everyone;
+    const fresh = waiting.filter(entry => entry.caseId !== justSeen);
+    const pool = fresh.length ? fresh : waiting;
+    return pool[Math.floor(Math.random() * pool.length)];
+  }
+
+  function startShuffleShift(justSeen = null) {
+    const pick = shufflePick(justSeen);
+    return startClinicalShift(pick.key, { caseId: pick.caseId, shuffle: true });
+  }
+
+  /* A rotation hands out its reacting patients first. `caseId` asks for one specific patient. */
+  async function startClinicalShift(key, { caseId = null, shuffle = false } = {}) {
     if (StudyStorage.paused) return;
     const previousRun = shiftState.active?.runId;
     renderShiftLoading('Assigning a patient…');
@@ -838,7 +871,7 @@
       const pool = reacting.length ? reacting : waiting;
       const caseData =
         eligible.find(caseData => caseData.id === caseId) || pool[Math.floor(Math.random() * pool.length)];
-      shiftState.active = newActiveShift(rotation, caseData);
+      shiftState.active = newActiveShift(rotation, caseData, { shuffle });
       shiftSession = { rotation, caseData, active: shiftState.active };
       shiftNotesOpen = false;
       if (saveShiftState()) {
@@ -847,7 +880,7 @@
       }
     } catch (error) {
       console.error('Clinical Shift patient assignment failed', error);
-      renderShiftError('The patient download failed.', () => startClinicalShift(key, { caseId }));
+      renderShiftError('The patient download failed.', () => startClinicalShift(key, { caseId, shuffle }));
     }
   }
 
@@ -1189,7 +1222,7 @@
       ? `<span class="topstat cshift-clock" id="cshift-clock" data-minutes="${normalizeReactiveState(active).clock}">${SHIFT_ICONS.clock}<span>${phase === 'debrief' ? 'Shift time' : 'On shift'} <b>${shiftClock(active.clock)}</b></span></span>`
       : `<span class="topstat">${readOnly ? 'Saved encounter' : 'Patient assigned'}</span>`;
     const root = el(`<div>
-      <header class="topbar cshift-runbar"><div class="side"><button class="backbtn" id="cshift-exit">${readOnly ? '← Saved shifts' : '← Save &amp; exit'}</button></div><div class="center"><span class="topstat">${esc(rotation.name)} · Clinical Shift</span></div><div class="side right">${status}</div></header>
+      <header class="topbar cshift-runbar"><div class="side"><button class="backbtn" id="cshift-exit">${readOnly ? '← Saved shifts' : '← Save &amp; exit'}</button></div><div class="center"><span class="topstat">${active.shuffle ? 'Shuffle · ' : ''}${esc(rotation.name)} · Clinical Shift</span></div><div class="side right">${status}</div></header>
       <main class="panel cshift-workspace" id="main">${shiftProgressMarkup(phase)}${content}</main>
     </div>`);
     root.querySelector('#cshift-exit').addEventListener('click', () => {
@@ -1908,7 +1941,7 @@
     const root = shiftFrame(
       `<section class="cshift-debrief ${reacting ? 'cshift-debrief-ward' : ''}">
       ${body}
-      <div class="cshift-end-actions">${readOnly ? '<button class="btn" id="cshift-back-history">Back to saved shifts</button><button class="btn" id="cshift-history-rotations">Back to rotations</button>' : `<button class="btn btn-solid" id="cshift-next-patient">Next patient in ${esc(rotation.name)} →</button>${reacting ? '<button class="btn" id="cshift-replay">Replay this patient</button>' : ''}<button class="btn" id="cshift-choose-rotation">Choose another rotation</button><button class="ghostbtn" id="cshift-classic">Classic case bank</button>`}</div>
+      <div class="cshift-end-actions">${readOnly ? '<button class="btn" id="cshift-back-history">Back to saved shifts</button><button class="btn" id="cshift-history-rotations">Back to rotations</button>' : `<button class="btn btn-solid" id="cshift-next-patient">${active.shuffle ? 'Next patient · shuffle' : `Next patient in ${esc(rotation.name)}`} →</button>${reacting ? '<button class="btn" id="cshift-replay">Replay this patient</button>' : ''}<button class="btn" id="cshift-choose-rotation">Choose another rotation</button><button class="ghostbtn" id="cshift-classic">Classic case bank</button>`}</div>
     </section>`,
       'debrief',
       { readOnly }
@@ -1918,10 +1951,16 @@
       shiftRoute();
       renderClinicalShift();
     });
-    root.querySelector('#cshift-next-patient')?.addEventListener('click', () => startClinicalShift(rotation.key));
+    root
+      .querySelector('#cshift-next-patient')
+      ?.addEventListener('click', () =>
+        active.shuffle ? startShuffleShift(caseData.id) : startClinicalShift(rotation.key)
+      );
     root
       .querySelector('#cshift-replay')
-      ?.addEventListener('click', () => startClinicalShift(rotation.key, { caseId: caseData.id }));
+      ?.addEventListener('click', () =>
+        startClinicalShift(rotation.key, { caseId: caseData.id, shuffle: !!active.shuffle })
+      );
     root.querySelector('#cshift-choose-rotation')?.addEventListener('click', () => {
       shiftState.active = null;
       shiftSession = null;
