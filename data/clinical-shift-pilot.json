@@ -1,7 +1,7 @@
 {
-  "version": 32,
+  "version": 33,
   "title": "Clinical Shift foundations and rotation practice",
-  "reviewStatus": "Source and consistency checks are recorded with each encounter. Independent clinician review remains pending for all 81 encounters.",
+  "reviewStatus": "Source and consistency checks are recorded with each encounter. Independent clinician review remains pending for all 84 encounters.",
   "rotations": [
     {
       "key": "emergency-medicine",
@@ -250,6 +250,16 @@
         "oph-027",
         "oph-032",
         "oph-037"
+      ]
+    },
+    {
+      "key": "pmr",
+      "name": "Physical Medicine & Rehab",
+      "description": "Weak muscles, a curving spine and a hip that is turning to bone. This specialty treats what a person can do.",
+      "caseIds": [
+        "pmr-099",
+        "pmr-095",
+        "pmr-073"
       ]
     }
   ],
@@ -577,6 +587,18 @@
     "oph-037": {
       "assessment": "31-year-old woman with obesity, recent weight gain, and isotretinoin use, with six weeks of positional headaches, transient visual obscurations, pulsatile tinnitus, bilateral papilledema, and a left sixth-nerve palsy. MRI and MR venography show no mass or thrombosis; opening pressure 32 cm H2O with normal CSF: idiopathic intracranial hypertension.",
       "plan": "Acetazolamide and weight-loss support; stop isotretinoin. Serial visual fields and acuity with ophthalmology. Escalate to surgery (optic nerve sheath fenestration or shunting) if vision is threatened despite medical therapy."
+    },
+    "pmr-099": {
+      "assessment": "48-year-old woman with three months of symmetric proximal weakness, no rash, no sensory loss, and no fatigability. Creatine kinase 4,200 U/L, irritable myopathy on EMG, and symmetric proximal muscle edema on MRI: polymyositis.",
+      "plan": "High-dose corticosteroids with an early steroid-sparing agent such as methotrexate or azathioprine. Supervised, progressive exercise beginning with range of motion and submaximal strengthening. Age-appropriate cancer screening, and monitoring for dysphagia and lung involvement."
+    },
+    "pmr-095": {
+      "assessment": "13-year-old girl, six months after menarche, with a painless right thoracic curve found on screening and a normal neurologic examination. Standing radiographs show a Cobb angle of 28° with Risser grade 1: adolescent idiopathic scoliosis with substantial growth remaining and a meaningful risk of progression.",
+      "plan": "Thoracolumbosacral brace worn as many hours a day as prescribed, with repeat radiographs every four to six months until skeletal maturity. Continue sports. Surgery is considered if the curve passes about 45 to 50 degrees."
+    },
+    "pmr-073": {
+      "assessment": "31-year-old man 40 days after severe traumatic brain injury with a week of progressive loss of right hip motion and a deep, firm, warm periarticular mass. Alkaline phosphatase 412 U/L, a three-phase bone scan positive in all phases, faint immature ossification on radiograph, and no DVT on duplex: heterotopic ossification of the right hip.",
+      "plan": "Bisphosphonate (etidronate) or an NSAID to limit progression, with gentle, pain-limited range-of-motion exercises and positioning. No forceful manipulation. Consider surgical resection only after the bone has matured and activity has quieted, if function remains limited."
     }
   },
   "investigations": {
@@ -3009,6 +3031,96 @@
           "finding": "A mild left abducens palsy with limited left lateral gaze and horizontal diplopia. The neck is supple. No other focal deficit. BMI 36 kg/m²."
         }
       ]
+    },
+    "pmr-099": {
+      "interview": [
+        {
+          "prompt": "Characterize the weakness",
+          "finding": "Three months of gradually worsening, symmetric weakness of the shoulders and hips: difficulty climbing stairs, rising from a low chair, lifting groceries to a shelf and washing her hair. Muscles are mildly achy, but pain is not the main problem."
+        },
+        {
+          "prompt": "Screen for ocular, bulbar, sensory and fatigable symptoms",
+          "finding": "No ptosis, diplopia, dysphagia or dyspnea. No numbness, tingling or bowel or bladder change. The weakness does not worsen toward the end of the day."
+        },
+        {
+          "prompt": "Review history, medications and systemic symptoms",
+          "finding": "Hypothyroidism on stable levothyroxine with a recent normal TSH; no statin. No rash, fever, weight loss or Raynaud phenomenon. A sister has rheumatoid arthritis."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Test proximal and distal strength",
+          "finding": "Deltoids and hip flexors 4-/5 and neck flexors 4/5, symmetric. Distal strength 5/5 with preserved grip. She uses her arms to rise from a chair."
+        },
+        {
+          "prompt": "Examine reflexes, sensation and muscle bulk",
+          "finding": "Reflexes 2+ and symmetric, with intact sensation. No atrophy, fasciculations or significant muscle tenderness."
+        },
+        {
+          "prompt": "Inspect the skin, and test for fatigability",
+          "finding": "No heliotrope rash, Gottron papules, shawl sign or mechanic’s hands. No ptosis, and no fatigable weakness on sustained upgaze. Lungs clear."
+        }
+      ]
+    },
+    "pmr-095": {
+      "interview": [
+        {
+          "prompt": "Establish how the curve was noticed and screen for red flags",
+          "finding": "Flagged at a school scoliosis screening. Her mother has noticed a prominent shoulder blade and clothing that hangs unevenly. No back pain, night pain, leg weakness, numbness or bowel or bladder change."
+        },
+        {
+          "prompt": "Assess growth and maturity",
+          "finding": "Menarche six months ago, with a recent growth spurt and changing shoe size."
+        },
+        {
+          "prompt": "Review history, activity and family history",
+          "finding": "Healthy, on no medications, and active in volleyball. A maternal aunt wore a back brace as a teenager. No developmental delay or foot deformity."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Inspect standing posture, and perform the forward-bend test",
+          "finding": "Right shoulder slightly elevated, right scapular prominence and asymmetric waist creases. The Adams forward-bend test shows a right thoracic rib hump. Leg lengths equal and pelvis level."
+        },
+        {
+          "prompt": "Inspect the skin over the spine",
+          "finding": "No café-au-lait macules, midline hair tuft, sacral dimple or lipoma."
+        },
+        {
+          "prompt": "Perform a neurologic examination",
+          "finding": "Strength 5/5 throughout, intact sensation, symmetric reflexes including abdominal reflexes, flexor plantar responses, no clonus and normal gait."
+        }
+      ]
+    },
+    "pmr-073": {
+      "interview": [
+        {
+          "prompt": "Establish the course of the hip problem",
+          "finding": "Day 40 of rehabilitation after a severe traumatic brain injury. Over the past week the right hip has progressively lost range of motion, and he grimaces and becomes agitated with flexion and abduction. New warmth and a firm, deep swelling of the proximal thigh."
+        },
+        {
+          "prompt": "Review the hospital course and medications",
+          "finding": "Motorcycle collision with a prolonged ICU stay and mechanical ventilation. On levetiracetam, prophylactic enoxaparin, famotidine and acetaminophen. No documented fever spikes."
+        },
+        {
+          "prompt": "Assess function",
+          "finding": "Speaks in simple words and follows one-step commands. Needs maximal assistance for mobility; the hip now limits sitting tolerance and transfer training."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Examine the right hip",
+          "finding": "Markedly reduced passive range of motion with a firm end-feel: flexion to about 70 degrees, with abduction and rotation severely restricted and painful. The left hip moves more freely."
+        },
+        {
+          "prompt": "Palpate around the joint, and inspect the skin",
+          "finding": "A deep, firm, warm fullness anterior and lateral to the joint that feels continuous with deep tissue. No erythema, fluctuance or skin breakdown."
+        },
+        {
+          "prompt": "Examine the calves, pulses and tone",
+          "finding": "No calf tenderness or cord, with equal calf circumferences and intact distal pulses. Spasticity in both lower limbs with brisk reflexes."
+        }
+      ]
     }
   },
   "caseReviews": {
@@ -4309,6 +4421,54 @@
         {
           "title": "Wall et al., NORDIC Idiopathic Intracranial Hypertension Study Group (JAMA 2014): effect of acetazolamide on visual function in patients with idiopathic intracranial hypertension and mild visual loss",
           "url": "https://pubmed.ncbi.nlm.nih.gov/24756514/"
+        }
+      ]
+    },
+    "pmr-099": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Work up symmetric weakness of the shoulders and hips, recognize an inflammatory muscle disease and pair drug treatment with graded exercise.",
+      "alternativesAndLimits": "A muscle biopsy is often used to confirm the diagnosis and to exclude conditions that look similar. Antibody results refine it.",
+      "sources": [
+        {
+          "title": "Dalakas (N Engl J Med 2015): inflammatory muscle diseases",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/25923553/"
+        },
+        {
+          "title": "Alexanderson (Curr Rheumatol Rep 2012): exercise in inflammatory myopathies, including inclusion body myositis",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/22467380/"
+        }
+      ]
+    },
+    "pmr-095": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Measure a spinal curve, judge how much growth remains and choose between watching, bracing and surgery.",
+      "alternativesAndLimits": "Thresholds are approximate. A curve with pain, an abnormal neurologic exam or an unusual pattern needs an MRI.",
+      "sources": [
+        {
+          "title": "Weinstein et al. (N Engl J Med 2013): effects of bracing in adolescents with idiopathic scoliosis",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/24047455/"
+        },
+        {
+          "title": "Hresko (N Engl J Med 2013): idiopathic scoliosis in adolescents",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/23445094/"
+        }
+      ]
+    },
+    "pmr-073": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Recognize new bone forming around a joint after brain injury, confirm it early and protect movement without forcing the joint.",
+      "alternativesAndLimits": "Evidence for drug treatment is limited, and practice varies. A clot and a joint infection must be excluded first.",
+      "sources": [
+        {
+          "title": "Cipriano et al. (J Am Acad Orthop Surg 2009): heterotopic ossification following traumatic brain injury and spinal cord injury",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/19880679/"
+        },
+        {
+          "title": "Ranganathan et al. (J Bone Joint Surg Am 2015): heterotopic ossification, basic-science principles and clinical correlates",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/26135077/"
         }
       ]
     }
@@ -27057,6 +27217,819 @@
         {
           "title": "Wall et al., NORDIC Idiopathic Intracranial Hypertension Study Group (JAMA 2014): effect of acetazolamide on visual function in patients with idiopathic intracranial hypertension and mild visual loss",
           "url": "https://pubmed.ncbi.nlm.nih.gov/24756514/"
+        }
+      ]
+    },
+    "pmr-099": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "She cannot lift her arms _or get up from a chair._",
+      "setting": "Rehabilitation clinic",
+      "start": {
+        "status": "stable",
+        "alarm": "Weak shoulders and hips · three months"
+      },
+      "handoff": "A 48-year-old teacher has grown weaker in her shoulders and hips over three months. She struggles with stairs, with getting up from a low chair and with washing her hair.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask about the weakness",
+            "finding": "It has crept up over three months, the same on both sides, in her shoulders and hips. Stairs, low chairs, lifting groceries onto a shelf and washing her hair are all hard. Her muscles ache a little, but weakness is the problem."
+          },
+          {
+            "prompt": "Ask about her eyes, swallowing and feeling",
+            "finding": "Her eyelids do not droop, and she does not see double. She swallows and breathes normally. She has no numbness or tingling. She is no weaker in the evening than in the morning."
+          },
+          {
+            "prompt": "Ask about her health and medicines",
+            "finding": "She has an underactive thyroid, well controlled on her usual tablet. She does not take a cholesterol medicine. She has had no rash, fever or weight loss. Her sister has rheumatoid arthritis."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Test her strength",
+            "finding": "Her shoulders, hips and neck are weak on both sides. Her hands and feet are strong, and her grip is firm. To stand up from the chair she has to push off with her arms."
+          },
+          {
+            "prompt": "Test her reflexes and feeling, and look at her muscles",
+            "finding": "Reflexes and feeling are normal. Her muscles are not wasted, do not twitch and are not tender."
+          },
+          {
+            "prompt": "Look at her skin, and ask her to look up for a minute",
+            "finding": "No rash on her eyelids, knuckles or shoulders. Her eyelids stay up for the whole minute."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Blood tests, muscle test and MRI",
+          "content": "Creatine kinase, an enzyme that leaks from damaged muscle: 4,200. Normal is under 200.\nAldolase, another muscle enzyme: high.\nLiver enzymes: mildly raised. Muscle releases these too.\nThyroid test: normal.\nInflammation marker (ESR): 38, raised.\nAntinuclear antibody: positive.\nElectrical test of the muscles (EMG): small, brief signals from irritable muscle fibers, the pattern of a muscle disease.\nMRI: swelling in the muscles of the shoulders and thighs, the same on both sides."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "Weakness close to the trunk on both sides, with normal feeling, and no worse at the end of the day. That points at the muscles themselves.",
+          "question": "Which blood test comes first?",
+          "options": [
+            "Antibodies against the acetylcholine receptor",
+            "Creatine kinase",
+            "Nerve conduction speeds only",
+            "A spinal tap"
+          ],
+          "fix": "Check creatine kinase",
+          "terms": [
+            {
+              "term": "Creatine kinase (CK)",
+              "meaning": "An enzyme found inside muscle cells. A high blood level means muscle is being damaged."
+            },
+            {
+              "term": "Proximal",
+              "meaning": "Close to the trunk: the shoulders, upper arms, hips and thighs."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for acetylcholine receptor antibodies. The specialist shakes their head.",
+              "reply": "That tests for myasthenia gravis. In myasthenia the weakness comes and goes and worsens with use, and it usually starts in the eyelids. Hers is steady."
+            },
+            {
+              "kind": "safe",
+              "minutes": 20,
+              "story": "Blood is drawn. With the result back, the specialist adds an electrical test of her muscles and an MRI. Everything goes in her chart.",
+              "reply": "Right. If muscle is the problem, damaged fibers leak this enzyme into the blood. One cheap test tells us whether we are on the right track."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for nerve conduction speeds alone. The specialist shakes their head.",
+              "reply": "That studies nerves. Her feeling and reflexes are normal, so her nerves are probably fine. Start with the muscle."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a spinal tap. The specialist shakes their head.",
+              "reply": "Spinal fluid tells us about the nerve roots and the brain. Nothing in her story points there."
+            }
+          ]
+        },
+        "3": {
+          "resident": "Her immune system is attacking her own muscle fibers.",
+          "question": "What is the first treatment?",
+          "options": [
+            "High-dose steroids",
+            "Pyridostigmine",
+            "Immunoglobulin infusions alone, as the first treatment",
+            "Plasma exchange"
+          ],
+          "fix": "Start steroids",
+          "terms": [
+            {
+              "term": "Corticosteroid",
+              "meaning": "A drug such as prednisone that damps down the immune system."
+            },
+            {
+              "term": "Steroid-sparing drug",
+              "meaning": "A second medicine, such as methotrexate, added so that the steroid dose can be reduced."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 15,
+              "story": "She starts high-dose prednisone, and a second medicine is planned so that the steroid can be reduced later.",
+              "reply": "Right. Steroids quiet the attack on her muscles. They cause trouble over the long run, so we add a second drug early and bring the dose down."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for pyridostigmine. The specialist shakes their head.",
+              "reply": "That strengthens the signal from nerve to muscle. Her signal is fine. Her muscle is inflamed."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for immunoglobulin alone. The specialist shakes their head.",
+              "reply": "It is a good extra treatment when steroids are not enough. It is not where we start."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for plasma exchange. The specialist shakes their head.",
+              "reply": "Trials have not shown it to help in this disease."
+            }
+          ]
+        },
+        "4": {
+          "resident": "She asks whether she should rest her muscles until the medicine works, or push hard at the gym to rebuild them.",
+          "question": "What do you advise?",
+          "options": [
+            "Strict bed rest until her strength is back",
+            "The hardest weight training she can manage, starting now",
+            "A supervised program that starts gently and builds as the inflammation settles",
+            "No exercise at all, because activity makes this disease worse"
+          ],
+          "fix": "Refer her for supervised exercise",
+          "terms": [
+            {
+              "term": "Range of motion",
+              "meaning": "Moving each joint through its full arc to keep it from stiffening."
+            },
+            {
+              "term": "Deconditioning",
+              "meaning": "Loss of strength and fitness from not using the body."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You advise bed rest. The specialist shakes their head.",
+              "reply": "Rest costs her the muscle she still has and stiffens her joints. She would end up weaker."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You advise heavy training now. The specialist shakes their head.",
+              "reply": "Inflamed muscle cannot take maximum loads yet. We build up to that."
+            },
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "She is booked with a physiotherapist for a program that starts with stretching and light strengthening.",
+              "reply": "Right. Studies show that graded, supervised exercise improves function in this disease and does not make it flare. It is part of the treatment."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You advise no exercise. The specialist shakes their head.",
+              "reply": "Doctors used to believe that. The evidence says otherwise."
+            }
+          ]
+        },
+        "5": {
+          "resident": "One more thing has to be checked in an adult who develops this disease.",
+          "question": "What is it?",
+          "options": [
+            "A hidden cancer",
+            "Multiple sclerosis",
+            "Diabetes insipidus",
+            "Narrowed arteries in the legs"
+          ],
+          "fix": "Arrange the screening",
+          "terms": [
+            {
+              "term": "Screening",
+              "meaning": "Testing for a disease before it causes symptoms."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "She is booked for the cancer screening recommended for her age, and she is asked about any new symptoms.",
+              "reply": "Right. Inflammatory muscle diseases sometimes appear alongside a cancer nobody has found yet. We look around the time of diagnosis and keep looking for the first few years."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say multiple sclerosis. The specialist shakes their head.",
+              "reply": "That is a disease of the brain and spinal cord. It has no link with this one."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say diabetes insipidus. The specialist shakes their head.",
+              "reply": "That is a hormone problem that causes great thirst. It is unrelated."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say narrowed arteries. The specialist shakes their head.",
+              "reply": "Narrowed arteries cause pain on walking. They do not cause this weakness and have no link with it."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "Her test results are in the chart. Remember what her skin looked like.",
+        "question": "What is the diagnosis?",
+        "options": [
+          "Dermatomyositis",
+          "Polymyositis",
+          "Myasthenia gravis",
+          "Amyotrophic lateral sclerosis (ALS)"
+        ],
+        "reveal": "This is polymyositis, an immune attack on muscle. It causes weakness close to the trunk on both sides, a very high muscle enzyme, an irritable pattern on the electrical test and swollen muscle on MRI. Dermatomyositis looks the same in the muscles and adds a rash on the eyelids and knuckles, which she does not have. Myasthenia fluctuates and leaves the muscle enzyme normal. ALS damages the nerves that drive muscle and causes wasting and twitching.",
+        "terms": [
+          {
+            "term": "Myositis",
+            "meaning": "Inflammation of muscle."
+          },
+          {
+            "term": "Autoimmune",
+            "meaning": "Caused by the immune system attacking the body’s own tissue."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "Home on steroids, with physiotherapy and cancer screening booked",
+        "worse": "Sent to the emergency department",
+        "critical": "In hospital"
+      },
+      "plainDiagnosis": "Muscle inflammation caused by her own immune system (polymyositis).",
+      "science": [
+        {
+          "tag": "Membranes",
+          "title": "Why a muscle enzyme was in her blood",
+          "text": "Creatine kinase works inside muscle cells, where it passes phosphate between creatine and ATP to supply quick energy. An intact cell membrane keeps it in. When immune cells damage the fibers it leaks out, and the blood level rises with the damage.",
+          "lesson": "membrane-transport",
+          "lessonTitle": "Cross a membrane"
+        },
+        {
+          "tag": "Forces",
+          "title": "Why stairs and chairs were the first things to go",
+          "text": "Standing up from a chair or climbing a step means raising the whole body’s weight. The muscles that do it are those of the hips and thighs, working at a poor angle of leverage. Carrying a cup uses a tiny fraction of that force, so hand tasks stay easy.",
+          "lesson": "work-energy",
+          "lessonTitle": "Choose a force or energy model"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Dalakas (N Engl J Med 2015): inflammatory muscle diseases",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/25923553/"
+        },
+        {
+          "title": "Alexanderson (Curr Rheumatol Rep 2012): exercise in inflammatory myopathies, including inclusion body myositis",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/22467380/"
+        }
+      ]
+    },
+    "pmr-095": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "A school screening, _and a shirt that hangs crooked._",
+      "setting": "Rehabilitation clinic",
+      "start": {
+        "status": "stable",
+        "alarm": "Curve found at school screening · no pain"
+      },
+      "handoff": "A 13-year-old girl was picked up at a school screening for a curve in her back. Her mother has noticed that one shoulder blade sticks out and her clothes hang unevenly. She has no pain.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask how it was noticed, and about pain or weakness",
+            "finding": "The school nurse noticed it at a screening. Her mother sees one shoulder blade sticking out and shirts hanging crooked. She has no back pain, by day or night. Her legs are strong, with no numbness, and her bladder and bowels are normal."
+          },
+          {
+            "prompt": "Ask about growth",
+            "finding": "Her periods started six months ago. She has shot up recently, and her shoe size keeps changing."
+          },
+          {
+            "prompt": "Ask about her health, sports and family",
+            "finding": "She is healthy, takes no medicines and plays volleyball. An aunt wore a back brace as a teenager."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Look at her standing, then ask her to bend forward and touch her toes",
+            "finding": "Her right shoulder sits a little higher, and the right shoulder blade sticks out. When she bends forward, the ribs on the right side of her back rise higher than the left."
+          },
+          {
+            "prompt": "Look at the skin over her spine",
+            "finding": "Normal. There are no birthmarks, no patch of hair and no dimple over the spine."
+          },
+          {
+            "prompt": "Test her strength, feeling, reflexes and walking",
+            "finding": "All normal."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Standing X-rays of the spine",
+          "content": "Front view: the spine curves to the right in the upper back. The angle of the curve, called the Cobb angle, is 28 degrees. Scoliosis means 10 degrees or more.\nSide view: normal.\nGrowth marker on the hip bone (Risser sign): grade 1, on a scale from 0 to 5.\nNo misshapen bones in the spine."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "The bend test shows a rib hump. Now the curve needs to be measured.",
+          "question": "What is the next step?",
+          "options": [
+            "An MRI of her whole spine",
+            "Standing X-rays of the whole spine, from the front and the side",
+            "A bone scan",
+            "Send her straight to a spine surgeon"
+          ],
+          "fix": "Get standing X-rays",
+          "terms": [
+            {
+              "term": "Scoliosis",
+              "meaning": "A sideways curve of the spine, usually with some twisting."
+            },
+            {
+              "term": "Cobb angle",
+              "meaning": "The angle between the most tilted bones at the top and bottom of a curve, measured on an X-ray."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for an MRI. The specialist shakes their head.",
+              "reply": "MRI is for curves with warning signs: pain, an abnormal nerve exam or an unusual pattern. She has none."
+            },
+            {
+              "kind": "safe",
+              "minutes": 20,
+              "story": "She has two X-rays standing up. The specialist measures the curve, and the results go in her chart.",
+              "reply": "Right. Every decision about scoliosis starts from that one measured angle, taken standing, with gravity acting on the spine."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a bone scan. The specialist shakes their head.",
+              "reply": "That looks for infection, tumor or hidden fractures, usually in a child with pain. It cannot measure a curve."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You send her to a surgeon. The specialist shakes their head.",
+              "reply": "Most curves never need surgery. Nobody can say whether hers will until it is measured."
+            }
+          ]
+        },
+        "3": {
+          "resident": "Her curve is 28 degrees, and she has a lot of growing left to do.",
+          "question": "What is the right treatment?",
+          "options": [
+            "A brace around her trunk, to stop the curve growing",
+            "Watch only, and repeat the X-ray in four to six months",
+            "An operation to fuse the spine",
+            "Stop all sports and physical activity"
+          ],
+          "fix": "Prescribe a brace",
+          "terms": [
+            {
+              "term": "Brace",
+              "meaning": "A fitted plastic shell worn around the trunk under clothes. It holds the curve while the spine grows."
+            },
+            {
+              "term": "Spinal fusion",
+              "meaning": "An operation that straightens the curve with rods and joins the bones so that it cannot return."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 15,
+              "story": "She is measured for a brace and booked for an X-ray in four months.",
+              "reply": "Right. A brace will not straighten the curve she has. It keeps the curve from growing while she grows, and it works better the more hours a day she wears it."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest watching only. The specialist shakes their head.",
+              "reply": "That is right for a curve under about 25 degrees, or for a teenager who has finished growing. Hers is past that, and she is still growing fast."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest fusion. The specialist shakes their head.",
+              "reply": "Surgery is for curves approaching 50 degrees. At 28 the aim is never to get there."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You tell her to stop sports. The specialist shakes their head.",
+              "reply": "Exercise does not worsen scoliosis. She can keep playing volleyball, and the brace comes off for games."
+            }
+          ]
+        },
+        "4": {
+          "resident": "Her parents ask how bad a curve has to be before surgery is advised.",
+          "question": "At about what angle?",
+          "options": [
+            "More than 10 degrees",
+            "More than 20 degrees",
+            "More than about 45 to 50 degrees",
+            "Only beyond 90 degrees"
+          ],
+          "fix": "Answer their question",
+          "terms": [
+            {
+              "term": "Threshold",
+              "meaning": "The level at which the recommended action changes."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say 10 degrees. The specialist shakes their head.",
+              "reply": "Ten degrees is only where a curve starts to be called scoliosis. Most of those are simply watched."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say 20 degrees. The specialist shakes their head.",
+              "reply": "Curves in the twenties are watched or braced."
+            },
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "Her parents are relieved to hear how far she is from that number.",
+              "reply": "Right. Curves past about 50 degrees tend to keep growing even in adults, and very large ones can crowd the lungs. That is where surgery is advised."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say 90 degrees. The specialist shakes their head.",
+              "reply": "By then the lungs are already affected. Surgeons act long before that."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "Her growth marker is grade 1 out of 5, and her periods began only six months ago.",
+        "question": "What does that tell you about her curve?",
+        "options": [
+          "Her skeleton is mature, so the curve will hardly change",
+          "She has a lot of growing left, so the curve has a real chance of getting worse",
+          "Growth has nothing to do with how scoliosis behaves",
+          "The curve is certain to need surgery"
+        ],
+        "reveal": "She has adolescent idiopathic scoliosis, and she is still growing. A curve gets worse mainly while the spine is growing, so two things predict what happens: how large the curve is now and how much growth is left. Hers is moderate, at 28 degrees, with years of growth ahead. That is the group with the most to gain from treatment. It does not mean surgery is certain, and most braced curves never reach it.",
+        "terms": [
+          {
+            "term": "Risser sign",
+            "meaning": "A marker on a hip X-ray that shows how far the skeleton has matured, from 0 to 5."
+          },
+          {
+            "term": "Idiopathic",
+            "meaning": "With no cause that can be found."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "Home, to be fitted with a brace, with volleyball to continue and an X-ray in four months",
+        "worse": "Sent to the emergency department",
+        "critical": "In hospital"
+      },
+      "plainDiagnosis": "A sideways curve of the spine in a teenager who is still growing (adolescent idiopathic scoliosis).",
+      "science": [
+        {
+          "tag": "Forces",
+          "title": "How a brace holds a curve",
+          "text": "A brace pushes on the trunk at three points: one at the peak of the curve, and one above and one below it on the opposite side. Together they bend the spine back toward straight. Growing bone responds to the loads on it, so the forces have to be there for most of the day.",
+          "lesson": "work-energy",
+          "lessonTitle": "Choose a force or energy model"
+        },
+        {
+          "tag": "Evidence",
+          "title": "How we know bracing works",
+          "text": "A large trial followed teenagers who wore a brace and others who were only watched. Far more of the braced group stayed below the angle for surgery. Sensors inside the braces recorded the hours worn, and more hours meant better results. A matching dose and response strengthens the case for cause.",
+          "lesson": "research-inference",
+          "lessonTitle": "Decide what a study can claim"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Weinstein et al. (N Engl J Med 2013): effects of bracing in adolescents with idiopathic scoliosis",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/24047455/"
+        },
+        {
+          "title": "Hresko (N Engl J Med 2013): idiopathic scoliosis in adolescents",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/23445094/"
+        }
+      ]
+    },
+    "pmr-073": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "Six weeks after a head injury, _his hip is seizing up._",
+      "setting": "Inpatient rehabilitation unit",
+      "start": {
+        "status": "stable",
+        "alarm": "Right hip stiffening · warm and firm"
+      },
+      "handoff": "A 31-year-old man is on day 40 of rehabilitation after a severe head injury in a motorcycle crash. Over the past week his right hip has become harder and harder to move, and it is warm and firm.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask the therapists what they have noticed",
+            "finding": "Over the past week his right hip has moved less each day. He grimaces and becomes agitated when they bend it or move it outward. The top of his thigh is newly warm and feels firm deep down."
+          },
+          {
+            "prompt": "Review his hospital stay and medicines",
+            "finding": "After the crash he spent weeks in intensive care on a breathing machine. He takes a seizure-prevention medicine and has a daily injection to prevent blood clots. He has had no high fevers."
+          },
+          {
+            "prompt": "Ask how the hip is affecting his rehabilitation",
+            "finding": "He speaks in single words and follows simple requests. He needs a great deal of help to move, and the stiff hip now makes it hard to sit him up and to practice moving from bed to chair."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Move both hips gently",
+            "finding": "The right hip bends only partway and then stops firmly. Moving it outward or rotating it is painful and very limited. The left hip moves much more freely."
+          },
+          {
+            "prompt": "Feel around the right hip, and look at the skin",
+            "finding": "There is a deep, firm, warm swelling at the front and side of the joint. The skin over it is not red or broken, and nothing feels like a pocket of fluid."
+          },
+          {
+            "prompt": "Check his calves, foot pulses and muscle tone",
+            "finding": "His calves are soft and equal in size, and they are not tender. His foot pulses are normal. Both legs are stiff, with jumpy reflexes, from the brain injury."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Blood tests, bone scan, X-ray and vein ultrasound",
+          "content": "Alkaline phosphatase, an enzyme released where bone is being made: 412, high.\nWhite cells: 8.4, normal.\nInflammation markers: mildly raised.\nCalcium and phosphate: normal.\nBone scan: strong uptake around the right hip in all three phases.\nHip X-ray: a faint haze in the soft tissue in front of the joint.\nVein ultrasound of the right leg: no clot."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "A deep, firm, warm swelling at the hip, and a joint that moves less every day, six weeks after a severe brain injury.",
+          "question": "What is the most likely explanation?",
+          "options": [
+            "An infected hip joint",
+            "A clot in the main vein of the thigh",
+            "An inflamed bursa on the outside of the hip",
+            "Heterotopic ossification: new bone forming in the soft tissue around the joint"
+          ],
+          "fix": "Name the likely problem and test for it",
+          "terms": [
+            {
+              "term": "Heterotopic ossification",
+              "meaning": "Bone forming where it does not belong, in muscle and other soft tissue."
+            },
+            {
+              "term": "Range of motion",
+              "meaning": "How far a joint can move in each direction."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You say an infected joint. The specialist shakes their head.",
+              "reply": "An infected joint is worth ruling out, and the blood tests will help. It brings a high fever and a joint too painful to move at all. It does not form a firm mass."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You say a clot. The specialist adds a vein ultrasound.",
+              "reply": "A clot must be ruled out, because he has been immobile for weeks. It swells the calf and the whole leg, though. It does not stiffen a hip."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You say bursitis. The specialist shakes their head.",
+              "reply": "That causes tenderness at one spot on the outside of the hip. It does not block the joint’s movement."
+            },
+            {
+              "kind": "safe",
+              "minutes": 60,
+              "story": "The specialist orders blood tests, a bone scan, a hip X-ray and a vein ultrasound to exclude a clot. The results go in his chart.",
+              "reply": "Right. After a severe brain or spinal cord injury, the tissue around large joints can start making bone. The hip is the commonest site, and this is the usual timing."
+            }
+          ]
+        },
+        "3": {
+          "resident": "New bone is being laid down around his hip, and it is still soft and growing.",
+          "question": "Which medicine can limit it?",
+          "options": [
+            "Steroids",
+            "Vancomycin into a vein, in case of infection",
+            "A bisphosphonate, such as etidronate",
+            "Calcium and vitamin D supplements"
+          ],
+          "fix": "Start a bisphosphonate",
+          "terms": [
+            {
+              "term": "Bisphosphonate",
+              "meaning": "A medicine that binds to bone mineral. It slows the hardening of newly formed bone."
+            },
+            {
+              "term": "Mineralization",
+              "meaning": "The laying down of calcium and phosphate crystals that makes soft new bone hard."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for steroids. The specialist shakes their head.",
+              "reply": "Steroids are not a treatment for this, and they add risks he does not need."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for vancomycin. The specialist shakes their head.",
+              "reply": "His white cells are normal, and there is no pus and no fluid in the joint. This is not an infection."
+            },
+            {
+              "kind": "safe",
+              "minutes": 15,
+              "story": "He is started on etidronate. An anti-inflammatory medicine is another option some teams use.",
+              "reply": "Right. It slows the new bone from hardening while it is still immature. It will not remove bone that has already formed."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for calcium and vitamin D. The specialist shakes their head.",
+              "reply": "Those supply the very minerals this unwanted bone is built from. His calcium is normal, and he does not need more."
+            }
+          ]
+        },
+        "4": {
+          "resident": "His family asks whether a surgeon can simply cut the new bone out.",
+          "question": "When is surgery considered?",
+          "options": [
+            "Now, to stop it from growing",
+            "Later, once the bone has matured and gone quiet, if the hip is still limiting him",
+            "Never. Surgery has no place in this condition",
+            "As soon as the alkaline phosphatase first rises"
+          ],
+          "fix": "Explain the timing",
+          "terms": [
+            {
+              "term": "Resection",
+              "meaning": "Removing tissue by surgery."
+            },
+            {
+              "term": "Mature bone",
+              "meaning": "Bone that has finished forming and hardening."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say to operate now. The specialist shakes their head.",
+              "reply": "Cutting into bone that is still actively forming makes it grow back, often worse than before."
+            },
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "You explain it to his family, and they agree to wait.",
+              "reply": "Right. Surgeons wait until the blood tests and scans show that the bone has stopped growing. If the hip still blocks sitting or walking then, they remove it."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say never. The specialist shakes their head.",
+              "reply": "Mature bone that locks a joint or presses on a nerve can be removed, with good results."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say as soon as the blood test rises. The specialist shakes their head.",
+              "reply": "A rising level means the bone is at its most active. That is the worst time to operate."
+            }
+          ]
+        },
+        "5": {
+          "resident": "Until then, the therapists need to know how to handle that hip every day.",
+          "question": "What do you tell them?",
+          "options": [
+            "Hold the hip completely still in a cast",
+            "Force the hip through its full movement under anesthesia, to break up the bone",
+            "Gentle movement every day, stopping at pain",
+            "Complete bed rest, with no movement of the leg"
+          ],
+          "fix": "Set the therapy plan",
+          "terms": [
+            {
+              "term": "Contracture",
+              "meaning": "Permanent shortening of the tissues around a joint, which fixes it in one position."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You say a cast. The specialist shakes their head.",
+              "reply": "Holding it still does not stop the bone, and the joint would stiffen in whatever position we cast it."
+            },
+            {
+              "kind": "delay",
+              "minutes": 720,
+              "story": "The hip is forced through its range under anesthesia. By the next morning the thigh is more swollen and hot, and the hip moves less than before.",
+              "reply": "Force tears the tissue and makes it bleed, and injured tissue is exactly where this bone forms. That has fed the process. Movement has to be gentle.",
+              "status": "worse",
+              "alarm": "Thigh more swollen · hip stiffer than before"
+            },
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "The therapists move his hip gently through whatever range it allows, twice a day, and position him to keep it from stiffening.",
+              "reply": "Right. Gentle movement keeps the range he still has without injuring the tissue. He will need every degree of it to sit and to transfer."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You say bed rest. The specialist shakes their head.",
+              "reply": "Rest adds stiffness, weakness, pressure sores and clots. It takes nothing away from the bone."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "New bone is forming around his hip. The X-ray shows only a faint haze, because the new bone has barely begun to harden.",
+        "question": "Which test picks this up earliest?",
+        "options": [
+          "A three-phase bone scan",
+          "A plain X-ray of the hip",
+          "A blood calcium level",
+          "Drawing fluid from the joint to look for crystals"
+        ],
+        "reveal": "A three-phase bone scan finds heterotopic ossification first. A small dose of radioactive tracer is injected, and it collects wherever blood flow is high and bone is being built. That shows up weeks before the new bone holds enough mineral to appear on an X-ray. His blood calcium is normal, as it usually is. Joint fluid is tested for infection or gout, and neither is the problem here.",
+        "terms": [
+          {
+            "term": "Bone scan",
+            "meaning": "A scan that uses a small dose of radioactive tracer to show where bone is being made."
+          },
+          {
+            "term": "Ossification",
+            "meaning": "The formation of bone."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "On the rehabilitation unit on a bone medicine, with gentle hip movement twice a day",
+        "worse": "On the rehabilitation unit with a more swollen, stiffer hip, on a bone medicine",
+        "critical": "Transferred to the acute hospital"
+      },
+      "plainDiagnosis": "New bone forming in the muscles around his hip after a brain injury (heterotopic ossification).",
+      "science": [
+        {
+          "tag": "Radioactivity",
+          "title": "How a bone scan sees bone being made",
+          "text": "The tracer is a phosphate compound carrying technetium-99m, an unstable atom that gives off gamma rays as it decays. Growing bone takes up phosphate, so the tracer gathers there, and a camera maps the rays. Half of it has decayed within six hours.",
+          "lesson": "nuclear-decay",
+          "lessonTitle": "Follow a decay model"
+        },
+        {
+          "tag": "Genes",
+          "title": "How muscle ends up making bone",
+          "text": "Connective tissue in muscle holds cells that can still become several cell types. Signals released after a major injury switch on the genes of a bone-making cell in some of them. The DNA is the same as before. A different set of genes is being read.",
+          "lesson": "gene-expression",
+          "lessonTitle": "Follow a gene into a protein"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Cipriano et al. (J Am Acad Orthop Surg 2009): heterotopic ossification following traumatic brain injury and spinal cord injury",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/19880679/"
+        },
+        {
+          "title": "Ranganathan et al. (J Bone Joint Surg Am 2015): heterotopic ossification, basic-science principles and clinical correlates",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/26135077/"
         }
       ]
     }
