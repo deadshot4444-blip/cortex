@@ -1,7 +1,7 @@
 {
-  "version": 33,
+  "version": 34,
   "title": "Clinical Shift foundations and rotation practice",
-  "reviewStatus": "Source and consistency checks are recorded with each encounter. Independent clinician review remains pending for all 84 encounters.",
+  "reviewStatus": "Source and consistency checks are recorded with each encounter. Independent clinician review remains pending for all 87 encounters.",
   "rotations": [
     {
       "key": "emergency-medicine",
@@ -260,6 +260,16 @@
         "pmr-099",
         "pmr-095",
         "pmr-073"
+      ]
+    },
+    {
+      "key": "psychiatry",
+      "name": "Psychiatry",
+      "description": "The mind and the body share one bloodstream. Three patients in whom you have to check both.",
+      "caseIds": [
+        "py-003",
+        "py-038",
+        "py-096"
       ]
     }
   ],
@@ -599,6 +609,18 @@
     "pmr-073": {
       "assessment": "31-year-old man 40 days after severe traumatic brain injury with a week of progressive loss of right hip motion and a deep, firm, warm periarticular mass. Alkaline phosphatase 412 U/L, a three-phase bone scan positive in all phases, faint immature ossification on radiograph, and no DVT on duplex: heterotopic ossification of the right hip.",
       "plan": "Bisphosphonate (etidronate) or an NSAID to limit progression, with gentle, pain-limited range-of-motion exercises and positioning. No forceful manipulation. Consider surgical resection only after the bone has matured and activity has quieted, if function remains limited."
+    },
+    "py-003": {
+      "assessment": "27-year-old man with recurrent, unexpected episodes of chest tightness, palpitations, dyspnea, paresthesias, and fear of dying that peak within minutes and resolve within 30, with persistent worry and avoidance between attacks. ECG, serial troponins, D-dimer, TSH, toxicology, and chest radiograph are normal: panic disorder.",
+      "plan": "Explain the diagnosis and the physiology of an attack. Start an SSRI and/or cognitive behavioral therapy, and reduce caffeine. Avoid long-term scheduled benzodiazepines. Arrange outpatient follow-up."
+    },
+    "py-038": {
+      "assessment": "60-year-old woman on long-term lithium with four days of coarse tremor, ataxia, dysarthria, confusion, and myoclonus after starting hydrochlorothiazide and frequent ibuprofen, with volume depletion. Lithium 2.6 mEq/L and creatinine 1.7 mg/dL (baseline 0.9): chronic lithium toxicity precipitated by reduced renal clearance.",
+      "plan": "Stop lithium, hydrochlorothiazide, and ibuprofen. Isotonic IV saline to restore volume and renal lithium clearance, with serial lithium levels, electrolytes, and neurologic checks. Early nephrology consultation; hemodialysis for severe neurologic dysfunction, a level above 4 mEq/L, or a high level with impaired kidney function. Review her mood-stabilizer plan with psychiatry."
+    },
+    "py-096": {
+      "assessment": "46-year-old woman requesting an antidepressant for months of low mood, fatigue, and slowed thinking, with weight gain, cold intolerance, constipation, menorrhagia, bradycardia, a firm goiter, and delayed-relaxation reflexes. TSH 22.5 µIU/mL, free T4 0.5 ng/dL, anti-TPO antibodies strongly positive: primary hypothyroidism (Hashimoto thyroiditis) presenting with depressive symptoms.",
+      "plan": "Start levothyroxine and recheck TSH about six weeks after starting or changing the dose, titrating to a normal TSH. Re-evaluate mood once she is euthyroid, and add an antidepressant only if depression persists. Recheck lipids and blood count after treatment."
     }
   },
   "investigations": {
@@ -3121,6 +3143,96 @@
           "finding": "No calf tenderness or cord, with equal calf circumferences and intact distal pulses. Spasticity in both lower limbs with brisk reflexes."
         }
       ]
+    },
+    "py-003": {
+      "interview": [
+        {
+          "prompt": "Characterize the episodes",
+          "finding": "Fourth visit in three months for sudden chest tightness, palpitations, shortness of breath, lightheadedness, tingling in the hands and a sense of impending doom. Episodes begin abruptly, peak within about 10 minutes and resolve within 30. They occur unpredictably, including at rest, and one woke him from sleep."
+        },
+        {
+          "prompt": "Ask about the time between episodes",
+          "finding": "Increasingly anxious about having another attack. He has begun avoiding the gym and driving alone."
+        },
+        {
+          "prompt": "Screen for medical causes and substances",
+          "finding": "No past medical history and no medications. Three to four energy drinks daily; denies cocaine and stimulants. No fever, cough, leg swelling, hemoptysis, recent immobilization or long travel. Prior visits showed a normal ECG, troponins and chest radiograph."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Observe him, and follow his breathing and pulse",
+          "finding": "Anxious, diaphoretic and hyperventilating early in the visit, settling over 20 minutes. As his breathing normalizes, the tachycardia and the tingling resolve. Alert and fully oriented."
+        },
+        {
+          "prompt": "Examine the heart and lungs",
+          "finding": "Regular tachycardia with no murmurs, rubs or gallops, equal peripheral pulses, clear lungs and no chest-wall tenderness."
+        },
+        {
+          "prompt": "Check the legs, neck veins and thyroid",
+          "finding": "No leg edema, tenderness or calf asymmetry and no jugular venous distention. No thyromegaly or tremor."
+        }
+      ]
+    },
+    "py-038": {
+      "interview": [
+        {
+          "prompt": "Characterize the neurologic symptoms",
+          "finding": "Four days of worsening coarse hand tremor, unsteady gait, slurred speech and intermittent confusion. Her daughter says the tremor is much coarser than her long-standing fine tremor. No fever, head trauma or recent infection."
+        },
+        {
+          "prompt": "Review medications and recent changes",
+          "finding": "Lithium carbonate 900 mg daily for years with stable levels. Hydrochlorothiazide was started three weeks ago for hypertension, and she has taken ibuprofen 600 mg three times daily for knee pain. Also takes lisinopril."
+        },
+        {
+          "prompt": "Ask about fluid losses and intake",
+          "finding": "Several days of nausea, loose stools and reduced fluid intake. No alcohol or drug use."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Assess mental status and speech",
+          "finding": "Alert but mildly confused, oriented to person and place and not to date. Mildly dysarthric speech."
+        },
+        {
+          "prompt": "Examine tremor, gait and reflexes",
+          "finding": "Prominent coarse, irregular hand tremor at rest and with action. Wide-based ataxic gait with inability to tandem walk. Mild hyperreflexia with intermittent myoclonic jerks. No focal weakness, rigidity or nuchal rigidity."
+        },
+        {
+          "prompt": "Assess hydration, heart and lungs",
+          "finding": "Dry mucous membranes and skin tenting. Normal cardiac and pulmonary examination."
+        }
+      ]
+    },
+    "py-096": {
+      "interview": [
+        {
+          "prompt": "Characterize mood, energy and thinking",
+          "finding": "Four to five months of persistent low mood, marked fatigue, poor concentration and feeling mentally slow. Sleeps long hours and wakes unrefreshed. Still enjoys time with her grandchildren when energy allows; no anhedonia for all activities and no suicidal ideation. No prior psychiatric diagnosis."
+        },
+        {
+          "prompt": "Review physical symptoms",
+          "finding": "About 12 pounds of weight gain without a change in diet, cold intolerance, dry skin, constipation, heavier menses, muscle aches and hair thinning."
+        },
+        {
+          "prompt": "Review medications and family history",
+          "finding": "No regular medications. Mother with thyroid problems and an aunt with autoimmune disease. No recent bloodwork."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Inspect the face, skin and hair",
+          "finding": "Tired-appearing with mildly puffy facies and non-pitting periorbital puffiness. Dry, cool skin; thinning hair, including the lateral eyebrows."
+        },
+        {
+          "prompt": "Palpate the thyroid, and count the pulse",
+          "finding": "Thyroid mildly enlarged, firm and non-tender without a discrete nodule. Regular bradycardia at 58 beats per minute."
+        },
+        {
+          "prompt": "Test reflexes, and assess mental state",
+          "finding": "Deep tendon reflexes with a delayed relaxation phase, most evident at the ankles. Affect mildly constricted but reactive, with a linear thought process and no psychotic features."
+        }
+      ]
     }
   },
   "caseReviews": {
@@ -4469,6 +4581,54 @@
         {
           "title": "Ranganathan et al. (J Bone Joint Surg Am 2015): heterotopic ossification, basic-science principles and clinical correlates",
           "url": "https://pubmed.ncbi.nlm.nih.gov/26135077/"
+        }
+      ]
+    },
+    "py-003": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Exclude dangerous causes of chest symptoms with a focused workup, then recognize and treat panic disorder.",
+      "alternativesAndLimits": "The extent of testing depends on age and risk factors. An older patient or one with risk factors for heart disease needs a fuller cardiac evaluation.",
+      "sources": [
+        {
+          "title": "Roy-Byrne, Craske and Stein (Lancet 2006): panic disorder",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/16980119/"
+        },
+        {
+          "title": "Katon (N Engl J Med 2006): panic disorder",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/16738272/"
+        }
+      ]
+    },
+    "py-038": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Recognize lithium toxicity, find the drug interaction that caused it and treat with fluids while watching for the need for dialysis.",
+      "alternativesAndLimits": "Thresholds for dialysis vary between guidelines. Neurologic recovery can lag behind the blood level by days.",
+      "sources": [
+        {
+          "title": "Decker et al. (Clin J Am Soc Nephrol 2015): extracorporeal treatment for lithium poisoning, systematic review and recommendations from the EXTRIP workgroup",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/25583292/"
+        },
+        {
+          "title": "Timmer and Sands (J Am Soc Nephrol 1999): lithium intoxication",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/10073618/"
+        }
+      ]
+    },
+    "py-096": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Look for a medical cause before treating depressive symptoms, recognize hypothyroidism and treat the thyroid first.",
+      "alternativesAndLimits": "Depression and hypothyroidism can coexist. Mood is reassessed after the thyroid is corrected, and treated on its own merits if it has not lifted.",
+      "sources": [
+        {
+          "title": "Jonklaas et al. (Thyroid 2014): guidelines for the treatment of hypothyroidism, American Thyroid Association task force on thyroid hormone replacement",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/25266247/"
+        },
+        {
+          "title": "Chaker et al. (Lancet 2017): hypothyroidism",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/28336049/"
         }
       ]
     }
@@ -28030,6 +28190,756 @@
         {
           "title": "Ranganathan et al. (J Bone Joint Surg Am 2015): heterotopic ossification, basic-science principles and clinical correlates",
           "url": "https://pubmed.ncbi.nlm.nih.gov/26135077/"
+        }
+      ]
+    },
+    "py-003": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "“I felt like I was dying again.” _His fourth visit in three months._",
+      "setting": "Emergency department",
+      "start": {
+        "status": "stable",
+        "alarm": "Tight chest · pounding heart · fourth visit"
+      },
+      "handoff": "A 27-year-old man has come in for the fourth time in three months. His chest tightened, his heart pounded and he could not catch his breath. He was sure he was dying. It is already starting to pass.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask what the episodes are like",
+            "finding": "They start without warning: a tight chest, a pounding heart, shortness of breath, lightheadedness, tingling hands and a certainty that he is about to die. They peak within ten minutes and are gone within half an hour. One came while he was watching television, and one woke him from sleep."
+          },
+          {
+            "prompt": "Ask how he is between episodes",
+            "finding": "He worries constantly about the next one. He has stopped going to the gym and no longer drives alone, in case it happens there."
+          },
+          {
+            "prompt": "Ask about his health, drugs and caffeine",
+            "finding": "He is healthy and takes no medicines. He drinks three or four energy drinks a day. He does not use cocaine or other stimulants. He has had no cough, leg swelling or long journeys. His heart tests were normal on each earlier visit."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Watch him for a few minutes, and count his breathing and pulse",
+            "finding": "At first he is sweating, frightened and breathing fast. Over 20 minutes his breathing slows, and his pulse and the tingling settle with it."
+          },
+          {
+            "prompt": "Listen to his heart and lungs",
+            "finding": "His heart is fast and regular with normal sounds. His lungs are clear. Pressing on his chest does not hurt."
+          },
+          {
+            "prompt": "Check his legs, neck and hands",
+            "finding": "His calves are soft and equal. The veins in his neck are flat. His thyroid is not enlarged, and his hands are steady."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Heart and lung tests",
+          "content": "Heart tracing: a fast, normal rhythm with no sign of strain or damage.\nTroponin, the blood test for heart damage: undetectable, twice.\nD-dimer, a screening test for blood clots: normal.\nThyroid test: normal.\nUrine drug screen: no cocaine or amphetamines.\nChest X-ray: clear lungs and a normal heart."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "His heart tracing and first blood test are normal again. He is young and healthy, and every episode has passed by itself. We still have to take chest symptoms seriously.",
+          "question": "What is the right next step tonight?",
+          "options": [
+            "A dye test of his heart arteries, now",
+            "Finish a focused check of his heart and lungs. If it is clear, reassure him and ask about panic attacks",
+            "Start a blood thinner, in case of a clot in the lungs",
+            "Give a clot-dissolving drug, in case of a heart attack"
+          ],
+          "fix": "Finish the focused workup",
+          "terms": [
+            {
+              "term": "Panic attack",
+              "meaning": "A sudden surge of intense fear with strong physical symptoms that peaks within minutes."
+            },
+            {
+              "term": "Workup",
+              "meaning": "The set of tests chosen to confirm or rule out the possible causes."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a dye test of his arteries. The resident shakes their head.",
+              "reply": "That is an invasive test with real risks. Nothing in a healthy 27-year-old with normal tracings and blood tests justifies it."
+            },
+            {
+              "kind": "safe",
+              "minutes": 45,
+              "story": "A second troponin, a clot screen, a thyroid test, a urine drug screen and a chest X-ray are done. While they run, his breathing settles and his heart rate comes down. The results go in his chart.",
+              "reply": "Right. We rule out the few dangerous things that can look like this with tests that carry no risk. Then we can say honestly that his heart is fine, and ask about panic.",
+              "vitals": {
+                "HR": "82 bpm",
+                "RR": "16 /min"
+              },
+              "trend": {
+                "HR": "down",
+                "RR": "down"
+              },
+              "alarm": "Breathing settled · heart rate 82",
+              "status": "better"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a blood thinner. The resident shakes their head.",
+              "reply": "He has no risk factors for a clot and no signs of one. We test before treating, because blood thinners cause bleeding."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a clot-dissolving drug. The resident stops you.",
+              "reply": "That drug can cause bleeding in the brain. It is for a proven heart attack, and his tracing and blood test are normal."
+            }
+          ]
+        },
+        "3": {
+          "resident": "His heart and lungs are healthy. The attacks are real, they are treatable and they have a name.",
+          "question": "What long-term treatment do we recommend?",
+          "options": [
+            "Lorazepam every day, indefinitely",
+            "An SSRI, cognitive behavioral therapy or both, and less caffeine",
+            "A beta-blocker alone, with no follow-up",
+            "Nothing, since the attacks are harmless"
+          ],
+          "fix": "Offer an SSRI, therapy and less caffeine",
+          "terms": [
+            {
+              "term": "SSRI",
+              "meaning": "A family of medicines, such as sertraline, that reduce anxiety and depression over several weeks."
+            },
+            {
+              "term": "Cognitive behavioral therapy (CBT)",
+              "meaning": "A structured talking therapy that teaches a person to read the body’s alarm signals differently and to stop avoiding what they fear."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest daily lorazepam. The resident shakes their head.",
+              "reply": "It works quickly, but the body gets used to it and comes to depend on it. It is for short-term use at most."
+            },
+            {
+              "kind": "safe",
+              "minutes": 15,
+              "story": "He is referred for cognitive behavioral therapy and offered an SSRI. He agrees to cut back on energy drinks.",
+              "reply": "Right. Both treatments reduce attacks and the dread between them, and the benefit lasts. Four energy drinks a day would make anyone’s heart pound."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest a beta-blocker alone. The resident shakes their head.",
+              "reply": "It slows the pulse and leaves the fear untouched. With no follow-up, he would be back here next month."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest no treatment. The resident shakes their head.",
+              "reply": "The attacks do not damage his heart, but he has stopped driving and going to the gym. That is not harmless."
+            }
+          ]
+        },
+        "4": {
+          "resident": "He is afraid his heart has been damaged. He asks what is physically happening during an attack.",
+          "question": "What is the most accurate explanation?",
+          "options": [
+            "They are silent heart attacks that will scar his heart over time",
+            "His body’s alarm system fires by mistake. The symptoms are real, they peak quickly and they pass without harming his heart",
+            "His lungs are collapsing off and on and will need surgery",
+            "They mean he has an undiagnosed seizure disorder"
+          ],
+          "fix": "Explain what an attack is",
+          "terms": [
+            {
+              "term": "Fight-or-flight response",
+              "meaning": "The body’s emergency setting. Adrenaline speeds the heart and breathing to prepare for danger."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say silent heart attacks. The resident corrects you.",
+              "reply": "His tests have ruled that out four times. Telling him so would be untrue, and it would feed the fear that drives the attacks."
+            },
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "You explain it. He listens closely and says nobody had told him that before.",
+              "reply": "Right. Knowing what the symptoms are takes away much of their power. Fear of the symptoms is what turns one attack into the next."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say his lungs are collapsing. The resident shakes their head.",
+              "reply": "His chest X-ray is clear, and a collapsed lung does not come and go in half an hour."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say seizures. The resident shakes their head.",
+              "reply": "He is awake and remembers every second of each episode. That is not a seizure."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "His tests are in the chart, and all of them are normal.",
+        "question": "Which diagnosis best explains all of this?",
+        "options": [
+          "Panic disorder",
+          "A specific phobia",
+          "A heart attack or a threatened one",
+          "Generalized anxiety disorder"
+        ],
+        "reveal": "This is panic disorder: repeated panic attacks that come out of nowhere, followed by at least a month of worrying about the next one or changing his life to avoid it. He has both. A phobia is fear of one particular thing, and his attacks have no trigger. Generalized anxiety is constant worry about many things, without sudden surges. His heart has been checked and is healthy.",
+        "terms": [
+          {
+            "term": "Panic disorder",
+            "meaning": "Recurrent unexpected panic attacks with ongoing worry about having more."
+          },
+          {
+            "term": "Avoidance",
+            "meaning": "Staying away from places or activities for fear of having an attack there."
+          }
+        ]
+      },
+      "ending": {
+        "better": "Home with an explanation, a therapy referral and a plan to cut back on energy drinks",
+        "stable": "Home with an explanation, a therapy referral and a plan to cut back on energy drinks",
+        "worse": "Kept in the emergency department for observation",
+        "critical": "In hospital"
+      },
+      "plainDiagnosis": "Repeated sudden surges of fear with strong physical symptoms, and a healthy heart (panic disorder).",
+      "science": [
+        {
+          "tag": "Acids and bases",
+          "title": "Why his hands tingled",
+          "text": "Breathing fast blows off carbon dioxide, and carbon dioxide dissolved in blood acts as an acid. With less of it the blood turns slightly alkaline. That change makes nerves fire more easily, and it is felt as tingling in the hands and around the mouth. It reverses when breathing slows.",
+          "lesson": "buffer-balance",
+          "lessonTitle": "Balance a buffer"
+        },
+        {
+          "tag": "Learning",
+          "title": "How avoidance keeps the fear going",
+          "text": "Each time he skips the gym, his dread falls. That relief rewards the skipping, so he avoids more. He also never gets the chance to learn that the gym is safe. Therapy reverses this by having him return, step by step, and stay until the fear fades.",
+          "lesson": "learning-consequences",
+          "lessonTitle": "Read a behavioral consequence"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Roy-Byrne, Craske and Stein (Lancet 2006): panic disorder",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/16980119/"
+        },
+        {
+          "title": "Katon (N Engl J Med 2006): panic disorder",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/16738272/"
+        }
+      ]
+    },
+    "py-038": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "Shaking, unsteady and confused, _three weeks after a new tablet._",
+      "setting": "Emergency department",
+      "start": {
+        "status": "unstable",
+        "alarm": "Shaking · unsteady · confused"
+      },
+      "handoff": "A 60-year-old woman with bipolar disorder has had four days of badly shaking hands, an unsteady walk, slurred speech and spells of confusion. She has taken lithium for years without trouble.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask her daughter how this started",
+            "finding": "Over four days her hands have begun to shake badly, she has become unsteady and her speech is slurred. At times she is confused. She has always had a slight tremor, but this is far worse. She has had no fever and no fall."
+          },
+          {
+            "prompt": "Ask about her medicines and anything new",
+            "finding": "She has taken lithium for years, and her levels have always been steady. Three weeks ago her doctor added a water tablet, hydrochlorothiazide, for blood pressure. She has also been taking ibuprofen three times a day for a sore knee."
+          },
+          {
+            "prompt": "Ask about eating, drinking and stomach upset",
+            "finding": "For several days she has felt sick, had loose stools and drunk very little."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Talk to her",
+            "finding": "She is awake and knows who and where she is. She does not know the date. Her words are slurred."
+          },
+          {
+            "prompt": "Watch her hands and her walking, and test her reflexes",
+            "finding": "Her hands shake coarsely, at rest and when she reaches for something. She walks with her feet wide apart and cannot walk heel to toe. Her reflexes are brisk, and now and then a limb jerks by itself."
+          },
+          {
+            "prompt": "Check how well hydrated she is",
+            "finding": "Her mouth is dry. Pinched skin on the back of her hand is slow to flatten."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Blood tests, heart tracing and CT scan",
+          "content": "Lithium level: 2.6. The safe range is 0.6 to 1.2.\nKidney test (creatinine): 1.7, up from her usual 0.9.\nSodium 134 and potassium 3.4: slightly low.\nThyroid and calcium: normal.\nHeart tracing: normal rhythm, with flattened T waves.\nUrine: concentrated, with no infection.\nCT scan of the head: normal."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "She has taken the same dose of lithium safely for years. Something changed. Look at her medicine list.",
+          "question": "Which two recent medicines most likely raised her lithium level?",
+          "options": [
+            "Lisinopril and acetaminophen",
+            "Hydrochlorothiazide, the water tablet, and ibuprofen",
+            "A stomach acid tablet and a cholesterol tablet",
+            "Metformin and amlodipine"
+          ],
+          "fix": "Find the interaction",
+          "terms": [
+            {
+              "term": "Lithium",
+              "meaning": "A mood-stabilizing medicine for bipolar disorder. The safe dose and the harmful dose are close together."
+            },
+            {
+              "term": "Drug interaction",
+              "meaning": "One medicine changing the level or the effect of another."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You pick lisinopril and acetaminophen. The resident shakes their head.",
+              "reply": "Lisinopril can raise lithium a little, but she has taken it for a long time. Acetaminophen does not affect it. Look for what is new."
+            },
+            {
+              "kind": "safe",
+              "minutes": 20,
+              "story": "Both are stopped, and so is the lithium. Blood is sent with a lithium level, and she has a heart tracing and a head CT. The results go in her chart.",
+              "reply": "Right. Both make the kidneys hold on to lithium. Add a few days of poor drinking and loose stools, and the level climbs."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You pick the stomach and cholesterol tablets. The resident shakes their head.",
+              "reply": "Neither changes how the kidneys handle lithium, and she is not taking either one."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You pick metformin and amlodipine. The resident shakes their head.",
+              "reply": "Neither is on her list, and neither affects lithium."
+            }
+          ]
+        },
+        "3": {
+          "resident": "The lithium and the two drugs that trapped it are stopped. Her kidneys are the only way out for what is already in her body, and she is dry.",
+          "question": "What is the main treatment?",
+          "options": [
+            "Activated charcoal, to bind the lithium",
+            "Salt-water fluid into a vein at a brisk rate",
+            "A strong water tablet, to flush the lithium out",
+            "Potassium tablets, and home"
+          ],
+          "fix": "Start a saline drip",
+          "terms": [
+            {
+              "term": "Normal saline",
+              "meaning": "Sterile salt water at the same strength as blood, given into a vein."
+            },
+            {
+              "term": "Clearance",
+              "meaning": "How quickly the kidneys remove a substance from the blood."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for charcoal. The resident shakes their head.",
+              "reply": "Charcoal does not bind lithium at all. She is also too confused to swallow it safely."
+            },
+            {
+              "kind": "safe",
+              "minutes": 60,
+              "story": "A salt-water drip runs briskly. Within the hour she is passing more urine. Her lithium level will be rechecked every few hours, and the kidney specialists have been told.",
+              "reply": "Right. Once she has enough salt and water on board, her kidneys stop holding on to lithium and start clearing it.",
+              "vitals": {
+                "BP": "118/72 mmHg",
+                "HR": "88 bpm"
+              },
+              "trend": {
+                "BP": "up",
+                "HR": "down"
+              },
+              "alarm": "Passing more urine · level being rechecked"
+            },
+            {
+              "kind": "delay",
+              "minutes": 240,
+              "story": "A strong water tablet makes her pass a lot of urine. Four hours later she is drier and more confused, and her lithium level has risen to 3.1.",
+              "reply": "A water tablet is how this began. It takes salt and water out, and the kidneys respond by holding on to more lithium. She needs fluid put in.",
+              "vitals": {
+                "BP": "94/58 mmHg",
+                "HR": "112 bpm"
+              },
+              "trend": {
+                "BP": "down",
+                "HR": "up"
+              },
+              "status": "worse",
+              "alarm": "More confused · lithium level 3.1"
+            },
+            {
+              "kind": "delay",
+              "minutes": 720,
+              "story": "She goes home with potassium tablets. The next morning her daughter cannot wake her properly, and she has a seizure in the ambulance.",
+              "reply": "A level of 2.6 with confusion and kidneys that are failing is an emergency. Nothing was done to bring it down. She needs a drip, a monitor and the kidney team.",
+              "status": "critical",
+              "alarm": "Seizure · hard to wake"
+            }
+          ]
+        },
+        "4": {
+          "resident": "Fluids are running. If they are not enough, a dialysis machine can remove lithium directly.",
+          "question": "Which finding would most strongly call for dialysis?",
+          "options": [
+            "A level of 1.3 with no symptoms",
+            "Seizures or falling consciousness, or a level above 4, especially when the kidneys are impaired",
+            "Mild nausea with a level of 1.5",
+            "A fine tremor alone, with normal kidneys"
+          ],
+          "fix": "Know when to call for dialysis",
+          "terms": [
+            {
+              "term": "Hemodialysis",
+              "meaning": "A machine that filters the blood directly, doing the work of the kidneys."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say a level of 1.3 without symptoms. The resident shakes their head.",
+              "reply": "That is barely above the safe range. Stopping the drug and waiting is enough."
+            },
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "The kidney team reviews her and stays on standby. Her repeat level has started to fall.",
+              "reply": "Right. Dialysis is for severe poisoning: a very high level, or a brain that is clearly affected, when the kidneys cannot clear it fast enough. With her kidneys and her confusion, she is close to that line."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say mild nausea at 1.5. The resident shakes their head.",
+              "reply": "That is mild toxicity. Fluids and time will deal with it."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say a fine tremor alone. The resident shakes their head.",
+              "reply": "A fine tremor is a common side effect at normal levels. It is not poisoning."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "Her lithium level is more than double the safe limit, and her kidney test is nearly twice her usual.",
+        "question": "What best describes what happened?",
+        "options": [
+          "A sudden overdose in someone who had never taken lithium",
+          "Lithium built up slowly because her kidneys were clearing less of it",
+          "A harmless rise that needs no treatment",
+          "Only lithium’s effect on how the kidneys concentrate urine"
+        ],
+        "reveal": "This is chronic lithium toxicity. She took her usual dose, and it built up. The water tablet and the ibuprofen each made her kidneys hold on to lithium, and days of poor drinking made it worse. When lithium builds up slowly it soaks into the brain, so the shaking, unsteadiness and confusion are worse than the number alone suggests. A level of 2.6 with these signs is dangerous.",
+        "terms": [
+          {
+            "term": "Toxicity",
+            "meaning": "Harm caused by too high a level of a drug."
+          },
+          {
+            "term": "Chronic",
+            "meaning": "Developing or lasting over a long time."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "Admitted on a drip with her lithium level falling and the kidney team on standby",
+        "unstable": "Admitted on a drip with her lithium level falling and the kidney team on standby",
+        "worse": "Admitted on a drip, more confused than when she arrived, with dialysis being arranged",
+        "critical": "In intensive care on dialysis"
+      },
+      "plainDiagnosis": "Lithium built up to a poisonous level after two new medicines made her kidneys hold on to it (chronic lithium toxicity).",
+      "science": [
+        {
+          "tag": "The periodic table",
+          "title": "Why the kidney mistakes lithium for sodium",
+          "text": "Lithium sits directly above sodium in the first column of the periodic table. Both form small ions with a single positive charge. The channels in the kidney that reclaim sodium from the urine cannot fully tell them apart, so lithium is carried back as well.",
+          "lesson": "periodic-trends",
+          "lessonTitle": "Explain a periodic trend"
+        },
+        {
+          "tag": "Kidneys",
+          "title": "Why being dry raised her level",
+          "text": "When the body is short of salt and water, the kidneys reclaim more sodium to hold on to fluid. Lithium travels with the sodium. The water tablet and her stomach upset both left her dry, so her kidneys kept more lithium with every pass.",
+          "lesson": "renal-water",
+          "lessonTitle": "Regulate water in the nephron"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Decker et al. (Clin J Am Soc Nephrol 2015): extracorporeal treatment for lithium poisoning, systematic review and recommendations from the EXTRIP workgroup",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/25583292/"
+        },
+        {
+          "title": "Timmer and Sands (J Am Soc Nephrol 1999): lithium intoxication",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/10073618/"
+        }
+      ]
+    },
+    "py-096": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "She came for an antidepressant. _She has also been cold for months._",
+      "setting": "Primary care clinic",
+      "start": {
+        "status": "stable",
+        "alarm": "Low mood and exhaustion for months"
+      },
+      "handoff": "A 46-year-old accountant asks for an antidepressant. For four or five months she has felt low, exhausted and slowed down. She has also gained weight and feels cold when nobody else does.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask about her mood, energy and thinking",
+            "finding": "For months she has felt low and worn out, and her thinking feels slow. She sleeps long hours and wakes unrefreshed. She still enjoys her grandchildren when she has the energy. She has no thoughts of harming herself, and she has never had depression before."
+          },
+          {
+            "prompt": "Ask about changes in her body",
+            "finding": "She has gained about 12 pounds without eating more. She feels cold when others are comfortable. Her skin is dry, she is constipated, her periods are heavier, her muscles ache and her hair is thinning."
+          },
+          {
+            "prompt": "Ask about medicines and her family",
+            "finding": "She takes no regular medicines. Her mother had thyroid problems, and an aunt has an autoimmune disease. She has not had a blood test in years."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Look at her face, skin and hair",
+            "finding": "She looks tired, and her face is slightly puffy, most of all around the eyes. Her skin is dry and cool. Her hair is thin, and the outer ends of her eyebrows are sparse."
+          },
+          {
+            "prompt": "Feel the front of her neck, and count her pulse",
+            "finding": "Her thyroid gland is a little enlarged and firm, with no lumps. Her pulse is 58 and regular."
+          },
+          {
+            "prompt": "Tap her ankle reflexes, and note how she talks and responds",
+            "finding": "Her foot jerks normally and then relaxes back slowly. She is subdued but smiles at times, and she thinks and speaks clearly."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Blood tests and mood questionnaire",
+          "content": "TSH, the pituitary signal that drives the thyroid: 22.5, very high. Normal is about 0.4 to 4.\nThyroid hormone (free T4): 0.5, low.\nAntibodies against the thyroid: strongly positive.\nBlood count: mild anemia.\nLDL cholesterol: 162, high.\nSodium and blood sugar: normal.\nDepression questionnaire (PHQ-9): 14 out of 27, moderate symptoms."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "She is asking for an antidepressant, and her mood is clearly low. Think about everything else she told you before you write the prescription.",
+          "question": "What comes first?",
+          "options": [
+            "Prescribe sertraline today, and see her in six weeks",
+            "Blood tests, including thyroid tests, to look for a medical cause",
+            "Refer her to psychiatry for talking therapy",
+            "Start a stimulant for her tiredness and poor concentration"
+          ],
+          "fix": "Send blood tests first",
+          "terms": [
+            {
+              "term": "TSH",
+              "meaning": "Thyroid-stimulating hormone. The pituitary gland releases it to tell the thyroid to work."
+            },
+            {
+              "term": "Medical mimic",
+              "meaning": "A physical illness that produces the symptoms of a psychiatric one."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for sertraline. The doctor stops you.",
+              "reply": "It might take the edge off, and the real cause would go on untreated. Weight gain, feeling cold, constipation and a slow pulse are not symptoms of depression alone."
+            },
+            {
+              "kind": "safe",
+              "minutes": 20,
+              "story": "Blood is drawn, and she fills in a short mood questionnaire while she waits. The results go in her chart.",
+              "reply": "Right. New low mood always deserves a look for a physical cause, and her body is pointing at one."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You refer her to psychiatry. The doctor shakes their head.",
+              "reply": "Therapy may be part of her care in the end. We do not send her on before a simple blood test has been done."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest a stimulant. The doctor shakes their head.",
+              "reply": "That covers up tiredness without asking why she is tired."
+            }
+          ]
+        },
+        "3": {
+          "resident": "Her thyroid is badly underactive, and she has moderate depressive symptoms.",
+          "question": "How do we treat her?",
+          "options": [
+            "An antidepressant now, and recheck the thyroid in a year",
+            "Thyroid hormone (levothyroxine) now. Reassess her mood once her thyroid level is normal, and add an antidepressant only if the low mood persists",
+            "Thyroid hormone and a high-dose stimulant together",
+            "The fast-acting thyroid hormone, T3, alone"
+          ],
+          "fix": "Start levothyroxine",
+          "terms": [
+            {
+              "term": "Levothyroxine",
+              "meaning": "A tablet form of the main thyroid hormone, taken once a day."
+            },
+            {
+              "term": "Euthyroid",
+              "meaning": "Having a normal level of thyroid hormone."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You choose the antidepressant. The doctor shakes their head.",
+              "reply": "Her thyroid would go untreated for a year. Her cholesterol, her heart and her mood would all keep suffering."
+            },
+            {
+              "kind": "safe",
+              "minutes": 15,
+              "story": "She starts levothyroxine each morning and is booked to come back in six weeks.",
+              "reply": "Right. Replace what is missing and her mood has a good chance of lifting without anything else. If it does not, we treat the depression then."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You add a stimulant. The doctor shakes their head.",
+              "reply": "Her energy will return as the hormone does. A stimulant adds strain on her heart and no benefit."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You choose T3 alone. The doctor shakes their head.",
+              "reply": "T3 wears off within hours and makes levels swing. The standard is the long-acting form, which the body converts as it needs."
+            }
+          ]
+        },
+        "4": {
+          "resident": "She asks how you will know whether the dose is right.",
+          "question": "How is the treatment monitored?",
+          "options": [
+            "Check TSH every week, and change the dose each time",
+            "No more blood tests once she feels better",
+            "Check TSH about six weeks after starting or changing a dose, adjust until it is normal, then check from time to time",
+            "Follow the thyroid hormone level alone and ignore the TSH"
+          ],
+          "fix": "Plan her blood tests",
+          "terms": [
+            {
+              "term": "Titrate",
+              "meaning": "To adjust a dose step by step until the target is reached."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say every week. The doctor shakes their head.",
+              "reply": "TSH takes about six weeks to settle after a dose change. A weekly reading would be chasing a moving target."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say no more tests. The doctor shakes their head.",
+              "reply": "Feeling better is not the same as the right dose. Too little leaves her unwell, and too much thins bones and strains the heart."
+            },
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "Her next blood test is booked for six weeks, with a mood check at the same visit.",
+              "reply": "Right. TSH is the body’s own measure of whether it has enough thyroid hormone. We wait for it to settle, adjust the dose and repeat."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say thyroid hormone level alone. The doctor shakes their head.",
+              "reply": "In her kind of thyroid failure, TSH is the more sensitive guide."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "Her blood tests are in the chart.",
+        "question": "What is the most likely diagnosis?",
+        "options": [
+          "An underactive thyroid from Hashimoto thyroiditis, showing itself as low mood",
+          "Major depression with no medical cause",
+          "Subclinical hypothyroidism, a mild form with normal thyroid hormone",
+          "Central hypothyroidism, a failure of the pituitary"
+        ],
+        "reveal": "Her thyroid is underactive, and her own immune system is the cause. That is Hashimoto thyroiditis. Too little thyroid hormone slows everything down, including mood, thinking, heart rate, the bowel and heat production, so one cause accounts for all of her symptoms. The mild form leaves the hormone level normal, and hers is low. In pituitary failure the TSH is low or normal, and hers is very high.",
+        "terms": [
+          {
+            "term": "Hypothyroidism",
+            "meaning": "Too little thyroid hormone."
+          },
+          {
+            "term": "Hashimoto thyroiditis",
+            "meaning": "A common condition in which the immune system slowly damages the thyroid gland."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "Home on thyroid hormone, with a blood test and a mood check in six weeks",
+        "worse": "Sent to the emergency department",
+        "critical": "In hospital"
+      },
+      "plainDiagnosis": "An underactive thyroid causing low mood and exhaustion (hypothyroidism from Hashimoto thyroiditis).",
+      "science": [
+        {
+          "tag": "Hormones",
+          "title": "Why her TSH was high when her thyroid hormone was low",
+          "text": "The pituitary releases TSH to make the thyroid work, and thyroid hormone in the blood tells the pituitary to ease off. When the thyroid fails, that brake is released, and the pituitary sends more and more TSH. A high TSH is the pituitary calling for hormone that never comes.",
+          "lesson": "endocrine-feedback",
+          "lessonTitle": "Trace a hormonal feedback loop"
+        },
+        {
+          "tag": "Heat",
+          "title": "Why she was always cold",
+          "text": "Thyroid hormone sets how fast cells burn fuel, and most of the energy from burning fuel is released as heat. With too little hormone, every cell runs slower and makes less heat. The body responds by sending less blood to the skin, which is why her skin feels cool.",
+          "lesson": "thermal-balance",
+          "lessonTitle": "Build a heat balance"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Jonklaas et al. (Thyroid 2014): guidelines for the treatment of hypothyroidism, American Thyroid Association task force on thyroid hormone replacement",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/25266247/"
+        },
+        {
+          "title": "Chaker et al. (Lancet 2017): hypothyroidism",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/28336049/"
         }
       ]
     }
