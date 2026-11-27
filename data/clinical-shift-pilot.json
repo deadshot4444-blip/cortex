@@ -1,7 +1,7 @@
 {
-  "version": 19,
+  "version": 20,
   "title": "Clinical Shift foundations and rotation practice",
-  "reviewStatus": "Source and consistency checks are recorded with each encounter. Independent clinician review remains pending for all 42 encounters.",
+  "reviewStatus": "Source and consistency checks are recorded with each encounter. Independent clinician review remains pending for all 45 encounters.",
   "rotations": [
     {
       "key": "emergency-medicine",
@@ -120,6 +120,16 @@
         "inf-048",
         "inf-093",
         "inf-032"
+      ]
+    },
+    {
+      "key": "family-medicine",
+      "name": "Family Medicine",
+      "description": "The clinic sees everything first. Sort the common from the dangerous.",
+      "caseIds": [
+        "fm-095",
+        "fm-076",
+        "fm-023"
       ]
     }
   ],
@@ -291,6 +301,18 @@
     "inf-032": {
       "assessment": "32-year-old woman with three days of dysuria followed by fever, rigors, right flank pain, and vomiting, with marked costovertebral angle tenderness. WBC 16.8, pyuria with white cell casts, positive nitrites, and gram-negative rods on urine stain; pregnancy test negative: acute pyelonephritis.",
       "plan": "Urine and blood cultures before antibiotics. Admit because she cannot keep down fluids or tablets; IV fluids and IV ceftriaxone (or a fluoroquinolone), narrowed to culture results, then an oral agent to complete the course. Image the kidneys if she is not improving after 48-72 hours."
+    },
+    "fm-095": {
+      "assessment": "59-year-old woman with a week of brief vertigo triggered by head position, a normal neurologic examination at rest, and a right Dix-Hallpike test producing latent, fatigable, upbeating-torsional nystagmus with reproduction of her vertigo: right posterior-canal benign paroxysmal positional vertigo.",
+      "plan": "Epley canalith repositioning maneuver in clinic, repeated if needed. Avoid long-term vestibular suppressants. No imaging, because the history and Dix-Hallpike are typical and there are no central signs. Advise return for vertical or direction-changing nystagmus, gait ataxia, or any new neurologic symptom."
+    },
+    "fm-076": {
+      "assessment": "18-year-old woman with 2 weeks of fatigue, exudative pharyngitis, posterior cervical lymphadenopathy, and splenomegaly, and a rash after amoxicillin. Monospot positive, lymphocytosis with atypical lymphocytes, mildly elevated transaminases, and a negative rapid strep test: infectious mononucleosis from Epstein-Barr virus.",
+      "plan": "Supportive care: rest, fluids, and analgesics; stop the amoxicillin. No contact sports or heavy lifting for at least 3-4 weeks, and longer if the spleen remains enlarged. Explain that the aminopenicillin rash is usually not a true allergy; consider allergy evaluation later. Return for severe abdominal pain, difficulty swallowing or breathing, or jaundice."
+    },
+    "fm-023": {
+      "assessment": "34-year-old woman with four months of fatigue, pica, pallor, and koilonychia and two years of heavy menstrual bleeding. Hemoglobin 9.2 g/dL, MCV 71 fL, RDW 17%, ferritin 6 ng/mL, and transferrin saturation 8%: iron deficiency anemia from menorrhagia.",
+      "plan": "Oral iron such as ferrous sulfate, taken with vitamin C and away from calcium, antacids, and tea. Evaluate and treat the heavy menstrual bleeding. Recheck hemoglobin in 2-4 weeks, and continue iron for 3-6 months after it normalizes to replete stores. IV iron if oral iron fails or is not tolerated."
     }
   },
   "investigations": {
@@ -1553,6 +1575,96 @@
           "finding": "No discharge and no cervical motion tenderness."
         }
       ]
+    },
+    "fm-095": {
+      "interview": [
+        {
+          "prompt": "Characterize the dizziness and its triggers",
+          "finding": "One week of recurrent spinning vertigo that begins abruptly on rolling over in bed, looking up or lying back; each episode lasts 20-40 seconds with brief nausea and stops when the head is still."
+        },
+        {
+          "prompt": "Ask about hearing and neurologic symptoms",
+          "finding": "No hearing loss, ear fullness or tinnitus. No headache, diplopia, dysarthria, facial or limb weakness, or difficulty walking between episodes."
+        },
+        {
+          "prompt": "Review recent illness, history and medications",
+          "finding": "No recent upper respiratory illness, fever or ear pain. Hypertension on hydrochlorothiazide and infrequent migraine; no sedating medications. She is worried about stroke."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Examine the cranial nerves and eye movements at rest",
+          "finding": "Cranial nerves II-XII intact, with normal extraocular movements and no spontaneous or gaze-evoked nystagmus. No facial asymmetry or dysarthria."
+        },
+        {
+          "prompt": "Test coordination, gait and balance",
+          "finding": "Finger-to-nose and heel-to-shin normal. Steady gait with intact tandem walking and a negative Romberg test."
+        },
+        {
+          "prompt": "Test hearing and check orthostatic blood pressure",
+          "finding": "Hearing grossly normal bilaterally with a midline Weber and air conduction greater than bone. No orthostatic drop."
+        }
+      ]
+    },
+    "fm-076": {
+      "interview": [
+        {
+          "prompt": "Characterize the fatigue and sore throat",
+          "finding": "About 2 weeks of profound fatigue, sore throat, low-grade fevers and tender swelling at the back of the neck, with decreased appetite and mild left upper abdominal fullness."
+        },
+        {
+          "prompt": "Ask about treatment so far",
+          "finding": "An urgent-care clinician prescribed amoxicillin 4 days ago for presumed strep throat, after which she developed a diffuse maculopapular rash."
+        },
+        {
+          "prompt": "Ask about exposures and medications",
+          "finding": "College freshman living in a dorm with a new partner; shares drinks with roommates. No known strep contacts. Takes a combined oral contraceptive pill."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Examine the throat and neck",
+          "finding": "Erythematous pharynx with enlarged, exudative tonsils and no peritonsillar bulge or uvular deviation. Tender bilateral posterior cervical lymphadenopathy with some anterior nodes."
+        },
+        {
+          "prompt": "Palpate the abdomen",
+          "finding": "Spleen tip palpable about 2 cm below the left costal margin and mildly tender. No hepatomegaly and no rebound."
+        },
+        {
+          "prompt": "Inspect the skin and eyes",
+          "finding": "Faint diffuse maculopapular rash on the trunk. No jaundice."
+        }
+      ]
+    },
+    "fm-023": {
+      "interview": [
+        {
+          "prompt": "Characterize the fatigue",
+          "finding": "About four months of progressive fatigue, reduced exercise tolerance, lightheadedness on standing, difficulty concentrating and mild exertional dyspnea, with a craving to chew ice."
+        },
+        {
+          "prompt": "Take a menstrual history",
+          "finding": "Heavy periods for two years, lasting seven days, soaking a pad every two hours on the heaviest days and passing clots. Never evaluated."
+        },
+        {
+          "prompt": "Screen for other sources of blood loss and review diet and medications",
+          "finding": "No melena, hematochezia or weight loss. Varied omnivorous diet. Occasional ibuprofen for cramps. Her mother had low iron."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Inspect the conjunctivae, skin and nails",
+          "finding": "Conjunctival pallor, pale nail beds and mild koilonychia of several fingernails. No jaundice or petechiae."
+        },
+        {
+          "prompt": "Auscultate the heart and lungs",
+          "finding": "Soft grade I/VI systolic flow murmur at the left sternal border without gallops. Lungs clear."
+        },
+        {
+          "prompt": "Examine the abdomen and lymph nodes",
+          "finding": "Soft, nontender abdomen without hepatosplenomegaly or masses. No lymphadenopathy."
+        }
+      ]
     }
   },
   "caseReviews": {
@@ -2229,6 +2341,54 @@
         {
           "title": "Johnson and Russo (N Engl J Med 2018): acute pyelonephritis in adults",
           "url": "https://pubmed.ncbi.nlm.nih.gov/29298155/"
+        }
+      ]
+    },
+    "fm-095": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Confirm positional vertigo at the bedside, treat it with a repositioning maneuver and know the signs of a central cause.",
+      "alternativesAndLimits": "Symptoms recur in a minority of patients and the maneuver can be repeated. Atypical nystagmus or any neurologic sign changes the workup.",
+      "sources": [
+        {
+          "title": "Bhattacharyya et al. (Otolaryngol Head Neck Surg 2017): clinical practice guideline, benign paroxysmal positional vertigo (update)",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/28248609/"
+        },
+        {
+          "title": "Kim and Zee (N Engl J Med 2014): benign paroxysmal positional vertigo",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/24645946/"
+        }
+      ]
+    },
+    "fm-076": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Recognize infectious mononucleosis, avoid needless antibiotics and protect an enlarged spleen.",
+      "alternativesAndLimits": "The Monospot can be falsely negative early in the illness. How long to avoid contact sports is based on expert opinion.",
+      "sources": [
+        {
+          "title": "Luzuriaga and Sullivan (N Engl J Med 2010): infectious mononucleosis",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/20505178/"
+        },
+        {
+          "title": "Ebell et al. (JAMA 2016): does this patient have infectious mononucleosis? The rational clinical examination systematic review",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/27115266/"
+        }
+      ]
+    },
+    "fm-023": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Confirm iron deficiency, replace iron by mouth and address the source of blood loss.",
+      "alternativesAndLimits": "Alternate-day dosing is used by some clinicians and may be better tolerated. Iron deficiency without an evident source, or in men and postmenopausal women, needs evaluation of the gut.",
+      "sources": [
+        {
+          "title": "Camaschella (N Engl J Med 2015): iron-deficiency anemia",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/25946282/"
+        },
+        {
+          "title": "Pasricha et al. (Lancet 2021): iron deficiency",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/33285139/"
         }
       ]
     }
@@ -14542,6 +14702,738 @@
         {
           "title": "Johnson and Russo (N Engl J Med 2018): acute pyelonephritis in adults",
           "url": "https://pubmed.ncbi.nlm.nih.gov/29298155/"
+        }
+      ]
+    },
+    "fm-095": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "The room spins _every time she rolls over._",
+      "setting": "Family medicine clinic",
+      "start": {
+        "status": "stable",
+        "alarm": "Spinning spells with head movement"
+      },
+      "handoff": "A 59-year-old woman has had a week of sudden spinning spells. They come on when she rolls over in bed or looks up at a high shelf, and each lasts less than a minute. A friend recently had a stroke, and she is afraid this is one.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask about the spinning and what sets it off",
+            "finding": "The room spins when she rolls over in bed, looks up at a shelf or lies back at the hairdresser. Each spell lasts 20 to 40 seconds and makes her feel sick. It stops when she keeps her head still."
+          },
+          {
+            "prompt": "Ask about her hearing, and about weakness or speech",
+            "finding": "Her hearing is normal, with no ringing or fullness in her ears. She has had no headache, double vision, slurred speech, weakness or trouble walking."
+          },
+          {
+            "prompt": "Ask about recent illness and her medicines",
+            "finding": "She has not had a cold, a fever or ear pain. She takes one blood pressure tablet and nothing that causes drowsiness. She used to get migraines."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Check her face, speech and eye movements while she sits still",
+            "finding": "Her face moves evenly and her speech is clear. Her eyes move fully in every direction and hold steady, with no flickering."
+          },
+          {
+            "prompt": "Test her coordination and watch her walk",
+            "finding": "She touches her nose and your finger accurately. She walks steadily, even heel to toe, and stands firm with her feet together and eyes closed."
+          },
+          {
+            "prompt": "Test her hearing, and take her blood pressure standing",
+            "finding": "She hears equally well in both ears. Her blood pressure does not fall when she stands."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Positional test",
+          "content": "Lying her back quickly with her head turned to the right: after about 3 seconds her eyes beat upward with a twist toward the right ear, and the spinning she knows comes on.\nThe eye movement fades and stops within 30 seconds.\nThe same test with her head turned to the left: nothing happens.\nThe eye movement never changes direction and does not persist."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "Short spinning spells set off by head position, with a normal exam in between. That pattern usually comes from the inner ear, and one bedside test can show it.",
+          "question": "Which test?",
+          "options": [
+            "Standing with her feet together and eyes closed (Romberg test)",
+            "Lying her back quickly with her head turned to one side (Dix-Hallpike test)",
+            "Running cold water into her ear in the office",
+            "A quick head turn while she fixes on your nose, and nothing else"
+          ],
+          "fix": "Do the Dix-Hallpike test",
+          "terms": [
+            {
+              "term": "Vertigo",
+              "meaning": "A false feeling that you or the room are spinning."
+            },
+            {
+              "term": "Nystagmus",
+              "meaning": "A rhythmic flicking of the eyes. Its direction and timing help show where a balance problem is."
+            },
+            {
+              "term": "Dix-Hallpike test",
+              "meaning": "Moving a patient quickly from sitting to lying with the head turned and hanging back slightly, while watching the eyes."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You ask her to stand with her eyes closed. She stands firm.",
+              "reply": "That tests position sense in the legs. It was normal, and it cannot bring out a positional problem in the ear."
+            },
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "You warn her that it may bring on the spinning, then lie her back quickly with her head turned to the right. You watch her eyes, then repeat it on the left. What you saw goes in her chart.",
+              "reply": "Right. This test puts the suspect canal of the inner ear in line with gravity. If loose crystals are in it, they move, and her eyes show it."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest cold water in her ear. The resident shakes their head.",
+              "reply": "That is a hospital test of a different part of the inner ear. It is unpleasant, and it does not answer this question."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You do the quick head turn. Her eyes stay on your nose.",
+              "reply": "That test helps when dizziness is constant. Hers comes in short spells with position, and for that we need the lying-back test."
+            }
+          ]
+        },
+        "3": {
+          "resident": "The test brought on her spinning, with exactly the eye movement we expected. Loose crystals are sitting in the back canal of her right inner ear.",
+          "question": "How do we treat it?",
+          "options": [
+            "Meclizine every day, long term, to damp the symptoms",
+            "Move her head through a set sequence of positions to roll the crystals out (Epley maneuver)",
+            "An urgent MRI of her brain before any treatment",
+            "Refer her for surgery to block the canal"
+          ],
+          "fix": "Do the Epley maneuver",
+          "terms": [
+            {
+              "term": "Epley maneuver",
+              "meaning": "A sequence of four head and body positions, each held for about 30 seconds, that rolls loose crystals out of the canal."
+            },
+            {
+              "term": "Meclizine",
+              "meaning": "A tablet that dulls the sense of motion. It can ease nausea for a day or two and does not fix the cause."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for daily meclizine. The resident stops you.",
+              "reply": "It blunts the spinning and leaves the crystals where they are. It also makes people drowsy and unsteady. We can fix the cause in five minutes."
+            },
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "You guide her head through the four positions, holding each one. She feels one last spin on the second position. When she sits up, you repeat the lying-back test, and nothing happens.",
+              "reply": "Yes. Most people are cured by one or two treatments. You have moved the crystals back to where they belong.",
+              "status": "better",
+              "alarm": "Spinning gone on the repeat test"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request an urgent MRI. The resident shakes their head.",
+              "reply": "Her story is typical, her exam is normal and the test was positive in the expected way. A scan would find nothing and delay the cure."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest surgery. The resident shakes their head.",
+              "reply": "Surgery is for the rare person whom repeated maneuvers have failed. Nobody starts there."
+            }
+          ]
+        },
+        "4": {
+          "resident": "She is relieved, and she still asks how she would know if it ever were a stroke. It is a good question.",
+          "question": "Which finding would send her for urgent brain tests?",
+          "options": [
+            "Spinning that lasts about 30 seconds and weakens when the movement is repeated",
+            "Eye flicking that is purely up and down or changes direction, with unsteady walking",
+            "Symptoms that come only with a change of position",
+            "A short pause before the eye flicking starts"
+          ],
+          "fix": "Explain the warning signs",
+          "terms": [
+            {
+              "term": "Central cause",
+              "meaning": "A cause in the brain itself, such as a stroke at the back of the brain, as opposed to the inner ear."
+            },
+            {
+              "term": "Ataxia",
+              "meaning": "Clumsy, unsteady movement or walking."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You pick short, fading spells. The resident shakes their head.",
+              "reply": "That describes what she has. Short spells that tire out with repetition are the mark of the harmless inner ear kind."
+            },
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "You tell her which signs to act on: trouble walking, double vision, slurred speech, weakness, or dizziness that does not stop.",
+              "reply": "Right. Eye movements that go straight up and down or switch direction, with unsteady walking, point to the brain. Those need a scan the same day."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You pick symptoms that come only with position. The resident shakes their head.",
+              "reply": "That is reassuring, not worrying. It is what the inner ear kind does."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You pick the short pause. The resident shakes their head.",
+              "reply": "The pause is typical of the harmless kind: the crystals take a moment to start moving. A brain cause tends to start at once."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "The positional test is written up in her chart.",
+        "question": "What is this?",
+        "options": [
+          "Vestibular neuritis, an inflamed balance nerve",
+          "Benign paroxysmal positional vertigo (BPPV)",
+          "Meniere disease",
+          "A stroke in the cerebellum"
+        ],
+        "reveal": "It is benign paroxysmal positional vertigo. Tiny crystals that belong in one part of the inner ear have come loose and drifted into a canal that senses turning. When her head moves, they roll and send a false signal of spinning. An inflamed nerve causes constant dizziness for days, Meniere disease brings hearing loss and ringing, and a stroke would show on her exam.",
+        "terms": [
+          {
+            "term": "Benign",
+            "meaning": "Not dangerous."
+          },
+          {
+            "term": "Paroxysmal",
+            "meaning": "Coming in sudden, short attacks."
+          }
+        ]
+      },
+      "ending": {
+        "better": "Home, with the spinning gone after one treatment in clinic",
+        "stable": "Home, with the spinning gone after one treatment in clinic",
+        "worse": "Sent to the emergency department",
+        "critical": "In hospital"
+      },
+      "plainDiagnosis": "Loose crystals in the inner ear that cause short spinning spells with head movement (benign paroxysmal positional vertigo).",
+      "science": [
+        {
+          "tag": "Sensing",
+          "title": "How loose crystals fool the brain",
+          "text": "The inner ear’s canals are filled with fluid. When the head turns, the fluid lags, bends sensory hairs, and the brain reads rotation. Crystals rolling through a canal drag the fluid the same way, so the brain is told the head is turning when it is still.",
+          "lesson": "sensory-coding",
+          "lessonTitle": "From stimulus to perception"
+        },
+        {
+          "tag": "Forces",
+          "title": "Why the treatment is done slowly, in a set order",
+          "text": "The crystals are denser than the fluid around them, so gravity pulls them to the lowest point of the canal. Each position in the sequence makes a new part of the canal the lowest, and holding it gives them time to sink there, step by step, until they drop out.",
+          "lesson": "work-energy",
+          "lessonTitle": "Choose a force or energy model"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Bhattacharyya et al. (Otolaryngol Head Neck Surg 2017): clinical practice guideline, benign paroxysmal positional vertigo (update)",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/28248609/"
+        },
+        {
+          "title": "Kim and Zee (N Engl J Med 2014): benign paroxysmal positional vertigo",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/24645946/"
+        }
+      ]
+    },
+    "fm-076": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "Two weeks of exhaustion _and a sore throat._",
+      "setting": "Family medicine clinic",
+      "start": {
+        "status": "stable",
+        "alarm": "Exhausted for two weeks · rash after amoxicillin"
+      },
+      "handoff": "An 18-year-old college student has been exhausted for two weeks, with a sore throat, slight fevers and tender lumps at the back of her neck. Another clinic gave her amoxicillin four days ago, and she then came out in a rash.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask about the tiredness and the throat",
+            "finding": "For about two weeks she has been exhausted however much she sleeps, with a sore throat, slight fevers and tender lumps at the back of her neck. She has little appetite and a feeling of fullness under her left ribs."
+          },
+          {
+            "prompt": "Ask what treatment she has had",
+            "finding": "A clinic gave her amoxicillin four days ago for a presumed strep throat. Afterward a rash came up all over her body."
+          },
+          {
+            "prompt": "Ask about college life and her medicines",
+            "finding": "She lives in a dorm, has a new partner and shares drinks with her roommates. Nobody around her has had strep. She takes a contraceptive pill."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Look at her throat and feel her neck",
+            "finding": "Her throat is red, and her tonsils are large and coated with white patches. Tender glands can be felt on both sides, most of them at the back of the neck."
+          },
+          {
+            "prompt": "Feel her belly",
+            "finding": "The tip of her spleen can be felt 2 cm below her left ribs, and it is slightly tender. Normally a spleen cannot be felt at all. Her liver is not enlarged."
+          },
+          {
+            "prompt": "Look at her skin and eyes",
+            "finding": "A faint rash of flat and slightly raised pink spots covers her chest and back. Her eyes are not yellow."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Blood tests and throat swab",
+          "content": "Monospot, a quick antibody test for mononucleosis: positive.\nWhite blood cells: 13.5, raised, and 62% of them are lymphocytes.\nBlood film under the microscope: many large, unusual-looking lymphocytes.\nLiver tests: about twice normal.\nRapid strep test on a throat swab: negative."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "A sore throat with white patches on the tonsils could be strep. Several things about her do not fit strep.",
+          "question": "Which group of findings points to mononucleosis instead?",
+          "options": [
+            "Glands at the front of the neck and white patches on the tonsils",
+            "Glands at the back of the neck, an enlarged spleen and deep tiredness, with a rash after amoxicillin",
+            "A sudden high fever with no swollen glands",
+            "A runny nose and a cough"
+          ],
+          "fix": "Name the pattern and send tests",
+          "terms": [
+            {
+              "term": "Mononucleosis",
+              "meaning": "An infection, usually with Epstein-Barr virus, spread in saliva. It causes weeks of tiredness, a sore throat and swollen glands."
+            },
+            {
+              "term": "Spleen",
+              "meaning": "An organ under the left ribs that filters blood. It swells in mononucleosis."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You point to the front glands and the white patches. The resident shakes their head.",
+              "reply": "Strep causes exactly those too. They do not separate the two."
+            },
+            {
+              "kind": "safe",
+              "minutes": 20,
+              "story": "You list them, and the resident nods. Blood is sent and her throat is swabbed. The results go in her chart.",
+              "reply": "Right. Glands at the back of the neck, a spleen you can feel and tiredness that lasts weeks all point to mononucleosis. The amoxicillin rash is almost a signature."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You pick fever without swollen glands. The resident shakes their head.",
+              "reply": "Swollen glands are one of the main features of mononucleosis. Their absence would argue against it."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You pick a runny nose and cough. The resident shakes their head.",
+              "reply": "Those suggest an ordinary cold. She has neither."
+            }
+          ]
+        },
+        "3": {
+          "resident": "She has mononucleosis, and her spleen is enlarged. She asks when she can get back to her usual activities.",
+          "question": "What is the most important advice?",
+          "options": [
+            "Go back to contact sports straight away, to keep fit",
+            "No contact sports or heavy lifting for at least three to four weeks, and longer if her spleen is still enlarged",
+            "Strict bed rest for six months",
+            "No limits at all"
+          ],
+          "fix": "Warn her about her spleen",
+          "terms": [
+            {
+              "term": "Splenic rupture",
+              "meaning": "A tear in the spleen that bleeds into the belly. It is rare in mononucleosis, and it can kill."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You tell her sport is fine. The resident stops her at the door.",
+              "reply": "An enlarged spleen is soft and sticks out from under the ribs that normally shield it. One knock can tear it. No contact sports for now."
+            },
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "You explain the risk and the time frame. Walking and light activity are fine once she feels up to it, and the antibiotic is stopped.",
+              "reply": "Yes. The spleen is at its most fragile in the first three to four weeks. She should come straight in if she gets sudden pain under her left ribs."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You advise six months in bed. The resident shakes their head.",
+              "reply": "Far too much. She should rest as she needs and build back up. Only contact sports and heavy lifting are off limits."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You say there are no limits. The resident corrects you.",
+              "reply": "There is one, and it matters: nothing that could hit or strain her spleen for at least three to four weeks."
+            }
+          ]
+        },
+        "4": {
+          "resident": "She asks why the amoxicillin gave her a rash, and whether she is now allergic to penicillin for life.",
+          "question": "What do we tell her?",
+          "options": [
+            "She has a true penicillin allergy and must avoid that whole family for life",
+            "The rash means the infection has turned bacterial and needs antibiotics through a vein",
+            "This rash is common when amoxicillin is taken during mononucleosis, and it does not by itself prove a lifelong allergy",
+            "She should take high-dose steroids, as everyone with mononucleosis does"
+          ],
+          "fix": "Explain the rash",
+          "terms": [
+            {
+              "term": "Allergy",
+              "meaning": "An immune reaction to a substance that can come back, sometimes more severely, each time the substance is met."
+            },
+            {
+              "term": "Supportive care",
+              "meaning": "Treating symptoms with rest, fluids and pain relief while the body clears the infection."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You tell her she is allergic for life. The resident corrects you.",
+              "reply": "Most people who get this rash can take penicillins safely later. Labeling her allergic for life would deny her useful antibiotics. An allergy clinic can test her properly."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say the infection has turned bacterial. The resident corrects you.",
+              "reply": "It is a virus, and it is behaving as expected. Antibiotics do nothing against it. The rash came from the amoxicillin meeting the virus."
+            },
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "You explain it, and she is relieved. A note goes in her chart that the rash happened during mononucleosis.",
+              "reply": "Right. The virus stirs up the immune system so that it reacts to the drug. Once she is well, that reaction usually does not happen again."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest steroids. The resident shakes their head.",
+              "reply": "Steroids are kept for the rare case where swollen tonsils threaten to block the airway. For everyone else the treatment is rest and time."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "Her blood tests and throat swab are in the chart.",
+        "question": "What is causing this?",
+        "options": [
+          "Strep bacteria, with a rise in neutrophils",
+          "Cytomegalovirus, which always gives a positive Monospot",
+          "Epstein-Barr virus, with a rise in unusual-looking lymphocytes and mildly raised liver tests",
+          "A new HIV infection, with a positive Monospot"
+        ],
+        "reveal": "It is Epstein-Barr virus, the usual cause of mononucleosis. Her Monospot is positive, most of her white cells are lymphocytes, many of them the large unusual kind made to fight this virus, and her liver tests are mildly raised. Strep raises a different kind of white cell, and her strep test is negative. Cytomegalovirus can look similar but usually gives a negative Monospot.",
+        "terms": [
+          {
+            "term": "Lymphocyte",
+            "meaning": "A type of white blood cell that fights viruses."
+          },
+          {
+            "term": "Monospot",
+            "meaning": "A rapid blood test for antibodies that appear during mononucleosis."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "Home to rest, with no contact sports for at least a month",
+        "worse": "Sent to the emergency department",
+        "critical": "In hospital"
+      },
+      "plainDiagnosis": "Mononucleosis, a viral infection with an enlarged spleen (Epstein-Barr virus).",
+      "science": [
+        {
+          "tag": "Microbes",
+          "title": "Why antibiotics could never have helped",
+          "text": "Antibiotics attack things only bacteria have, such as their cell walls and their own kind of ribosome. A virus has neither. It is a set of genes in a protein coat that borrows our cells’ machinery, so there is nothing for the antibiotic to hit.",
+          "lesson": "microbial-strategies",
+          "lessonTitle": "Distinguish cells from viral passengers"
+        },
+        {
+          "tag": "Cell division",
+          "title": "Why her spleen and glands swelled",
+          "text": "This virus infects one kind of lymphocyte, and other lymphocytes multiply fast to kill the infected ones. The spleen and lymph glands are where that multiplying happens. They swell because they are packed with dividing cells.",
+          "lesson": "cell-cycle-checkpoints",
+          "lessonTitle": "Explain a cell-cycle pause"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Luzuriaga and Sullivan (N Engl J Med 2010): infectious mononucleosis",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/20505178/"
+        },
+        {
+          "title": "Ebell et al. (JAMA 2016): does this patient have infectious mononucleosis? The rational clinical examination systematic review",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/27115266/"
+        }
+      ]
+    },
+    "fm-023": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "Tired for months, _and craving ice._",
+      "setting": "Family medicine clinic",
+      "start": {
+        "status": "stable",
+        "alarm": "Tired for four months · pale"
+      },
+      "handoff": "A 34-year-old woman has felt more and more tired for four months. She gets lightheaded when she stands, is short of breath on the stairs, and has an odd craving to chew ice.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask about the tiredness",
+            "finding": "It has built up over four months. She tires quickly, gets lightheaded when she stands, is slightly breathless on stairs and finds it hard to concentrate. She craves ice and chews it constantly."
+          },
+          {
+            "prompt": "Ask about her periods",
+            "finding": "They have been heavy for two years. They last seven days, with clots, and on the worst days she soaks through a pad every two hours. Nobody has ever looked into it."
+          },
+          {
+            "prompt": "Ask about other bleeding, her diet and her medicines",
+            "finding": "No black or bloody stools and no weight loss. She eats a varied diet that includes meat. She takes ibuprofen now and then for cramps. Her mother had low iron."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Look at her eyelids, skin and nails",
+            "finding": "The insides of her lower eyelids are pale, and so are her nail beds. Several fingernails are slightly scooped, like a spoon. She is not yellow and has no bruises or red spots."
+          },
+          {
+            "prompt": "Listen to her heart and lungs",
+            "finding": "There is a soft whooshing sound with each heartbeat, the kind heard when thin blood flows fast. Her lungs are clear."
+          },
+          {
+            "prompt": "Feel her belly and her glands",
+            "finding": "Her belly is soft, with nothing enlarged. No swollen glands."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Blood tests",
+          "content": "Hemoglobin: 9.2, low (normal for a woman is about 12 to 16).\nRed cell size (MCV): 71, small (normal is 80 to 100).\nRed cell size variation: wide. New cells are smaller than older ones.\nFerritin, the measure of stored iron: 6, very low.\nIron in the blood: low. The proteins that carry iron are mostly empty.\nPlatelets: slightly high."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "Months of tiredness, pale eyelids, spoon-shaped nails and a craving for ice. I have a strong suspicion, and one cheap test starts to check it.",
+          "question": "Which test comes first?",
+          "options": [
+            "A full blood count, with the size of the red cells",
+            "A look at a blood film under the microscope, and nothing else",
+            "A bone marrow biopsy",
+            "Vitamin B12 and folate levels"
+          ],
+          "fix": "Send a full blood count",
+          "terms": [
+            {
+              "term": "Anemia",
+              "meaning": "Too little hemoglobin in the blood, so less oxygen reaches the tissues."
+            },
+            {
+              "term": "Hemoglobin",
+              "meaning": "The iron-containing protein in red blood cells that carries oxygen."
+            },
+            {
+              "term": "Pica",
+              "meaning": "A craving to eat things that are not food, such as ice or clay. It is a clue to iron deficiency."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 20,
+              "story": "Blood is drawn in clinic, and iron studies are added. The results go in her chart.",
+              "reply": "Right. The count shows whether she is anemic, and the size of her red cells points to the cause. Small cells suggest too little iron."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a blood film only. The resident adds the count.",
+              "reply": "A film is useful later. The count comes first, because it gives the numbers everything else builds on."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a bone marrow biopsy. The resident looks alarmed.",
+              "reply": "That is a needle into the hip bone. It is for unexplained problems in several kinds of blood cell, not a first test for tiredness."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for B12 and folate. The resident shakes their head.",
+              "reply": "Those cause anemia with large red cells. Start with the count, and let the cell size tell us which tests come next."
+            }
+          ]
+        },
+        "3": {
+          "resident": "She has iron deficiency anemia, and the cause is her heavy periods, which we will also have looked into. She is steady, with a hemoglobin of 9.2.",
+          "question": "How do we treat the anemia?",
+          "options": [
+            "A blood transfusion right away",
+            "Iron tablets, taken with vitamin C and not with calcium",
+            "Iron through a vein, as the first choice for everyone",
+            "Vitamin B12 injections, just in case"
+          ],
+          "fix": "Start iron tablets",
+          "terms": [
+            {
+              "term": "Ferrous sulfate",
+              "meaning": "The commonest iron tablet."
+            },
+            {
+              "term": "Ferritin",
+              "meaning": "The protein that stores iron. A low level in the blood means the body’s iron stores are empty."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest a transfusion. The resident shakes their head.",
+              "reply": "Transfusion is for severe anemia or a patient who is unstable. She walked in here. She needs iron, and her marrow will make the cells."
+            },
+            {
+              "kind": "safe",
+              "minutes": 15,
+              "story": "You write for iron tablets and explain how to take them: with orange juice, on an empty stomach if she can manage it, and away from calcium, antacids and tea. You warn her about dark stools and constipation. She is referred for her heavy periods.",
+              "reply": "Yes. Tablets are cheap, and they work. Vitamin C helps iron get absorbed, and calcium and tea block it. Stopping the blood loss matters just as much."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest iron through a vein. The resident shakes their head.",
+              "reply": "That is for people who cannot absorb or tolerate tablets, or who keep losing blood faster than tablets can replace it. Tablets come first."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest B12 injections. The resident shakes their head.",
+              "reply": "Her red cells are small and her iron stores are empty. B12 deficiency makes large cells. Treat what the tests show."
+            }
+          ]
+        },
+        "4": {
+          "resident": "She has her prescription. Iron works slowly, so we need a plan for checking that it is working and for when to stop.",
+          "question": "What is the plan?",
+          "options": [
+            "Stop the iron as soon as the hemoglobin is normal, with no more checks",
+            "Recheck the hemoglobin in two to four weeks, and continue iron for three to six months after it is normal",
+            "Repeat a bone marrow biopsy at three months",
+            "Iron every day for life, whatever happens"
+          ],
+          "fix": "Book the recheck and explain the course",
+          "terms": [
+            {
+              "term": "Iron stores",
+              "meaning": "The reserve of iron kept in the liver and marrow. It refills only after the hemoglobin has recovered."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You plan to stop when the hemoglobin is normal. The resident corrects you.",
+              "reply": "At that point her blood looks normal, but her stores are still empty. One heavy period and she is back where she started. She needs months more."
+            },
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "You book a blood test in three weeks and explain that she will take iron for several months after her count recovers.",
+              "reply": "Right. A rise in hemoglobin by then shows it is working. If it has not risen, we ask why: tablets not taken, not absorbed, or blood still being lost."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You plan a bone marrow biopsy. The resident shakes their head.",
+              "reply": "A blood test tells us everything we need. Nobody needs a biopsy to follow iron treatment."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You plan lifelong iron. The resident shakes their head.",
+              "reply": "Once her stores are full and her periods are under control, she can stop. Too much iron over years does its own harm."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "Her blood results are in the chart.",
+        "question": "What kind of anemia is this?",
+        "options": [
+          "Anemia of long-term illness",
+          "Beta-thalassemia trait, an inherited cause of small red cells",
+          "Iron deficiency anemia",
+          "Vitamin B12 deficiency"
+        ],
+        "reveal": "It is iron deficiency anemia. Her red cells are small and her ferritin is 6, which means her iron stores are empty. Two years of heavy periods have used iron faster than her diet could replace it. Long-term illness gives a normal or high ferritin, thalassemia trait gives small cells with normal iron stores, and B12 deficiency gives large cells.",
+        "terms": [
+          {
+            "term": "Microcytic",
+            "meaning": "Having red cells that are smaller than normal."
+          },
+          {
+            "term": "Menorrhagia",
+            "meaning": "Heavy menstrual bleeding."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "Home on iron tablets, with a blood test booked in three weeks and a referral for her heavy periods",
+        "worse": "Sent to the emergency department",
+        "critical": "In hospital"
+      },
+      "plainDiagnosis": "Too little iron to make enough hemoglobin, because of heavy periods (iron deficiency anemia).",
+      "science": [
+        {
+          "tag": "Proteins",
+          "title": "Why no iron means no hemoglobin",
+          "text": "Each hemoglobin molecule is four protein chains, and each chain holds a heme group with one iron atom at its center. That iron is what binds oxygen. Without iron the heme cannot be finished, so less hemoglobin is made and each red cell comes out small and pale.",
+          "lesson": "protein-structure",
+          "lessonTitle": "From amino acid to protein"
+        },
+        {
+          "tag": "Carrying oxygen",
+          "title": "Why she was breathless with a normal oxygen reading",
+          "text": "Her finger probe read 99% because the hemoglobin she has is fully loaded. But she has about a quarter less of it than she should. Each heartbeat delivers less oxygen, so on the stairs her heart and lungs have to work harder.",
+          "lesson": "gas-exchange",
+          "lessonTitle": "Move oxygen across a barrier"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Camaschella (N Engl J Med 2015): iron-deficiency anemia",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/25946282/"
+        },
+        {
+          "title": "Pasricha et al. (Lancet 2021): iron deficiency",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/33285139/"
         }
       ]
     }
