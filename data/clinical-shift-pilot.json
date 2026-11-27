@@ -1,7 +1,7 @@
 {
-  "version": 18,
+  "version": 19,
   "title": "Clinical Shift foundations and rotation practice",
-  "reviewStatus": "Source and consistency checks are recorded with each encounter. Independent clinician review remains pending for all 39 encounters.",
+  "reviewStatus": "Source and consistency checks are recorded with each encounter. Independent clinician review remains pending for all 42 encounters.",
   "rotations": [
     {
       "key": "emergency-medicine",
@@ -110,6 +110,16 @@
         "gi-004",
         "gi-014",
         "gi-065"
+      ]
+    },
+    {
+      "key": "infectious-disease",
+      "name": "Infectious Disease",
+      "description": "Some infections can wait for a culture. Learn the ones that cannot.",
+      "caseIds": [
+        "inf-048",
+        "inf-093",
+        "inf-032"
       ]
     }
   ],
@@ -269,6 +279,18 @@
     "gi-065": {
       "assessment": "38-year-old man with a 3 cm fluctuant perianal abscess and fever, on a background of months of bloody diarrhea, weight loss, oral ulcers, and arthralgias. After drainage a fistulous opening persists; hemoglobin 11.2 g/dL with microcytosis and raised CRP and ESR: perianal abscess with fistula as the presentation of Crohn disease.",
       "plan": "Incision and drainage now. Then ileocolonoscopy with biopsies to confirm Crohn disease and pelvic MRI to map the fistula. For a complex fistula in active disease: seton placement for drainage with anti-TNF therapy such as infliximab, with antibiotics as a bridge; avoid wide fistulotomy."
+    },
+    "inf-048": {
+      "assessment": "58-year-old man with poorly controlled diabetes, two days of leg pain out of proportion after a puncture wound, hemorrhagic bullae, crepitus, skin anesthesia, and septic shock. WBC 24.5, sodium 128, creatinine 2.1, lactate 4.8, and fascial gas on plain film (LRINEC 9): necrotizing fasciitis.",
+      "plan": "Fluid resuscitation and vasopressors as needed, broad empiric antibiotics (vancomycin plus piperacillin-tazobactam plus clindamycin), and immediate operative exploration and debridement without waiting for further imaging. Planned re-exploration every 24-48 hours until no necrosis remains; continue antibiotics and narrow to cultures."
+    },
+    "inf-093": {
+      "assessment": "45-year-old landscaper in North Carolina with five days of fever and severe headache, a rash that began on the wrists and ankles and involves the palms and soles, and a tick bite a week ago. Sodium 129, platelets 88, AST 96, creatinine 1.6, and mild lymphocytic CSF pleocytosis: Rocky Mountain spotted fever.",
+      "plan": "Start doxycycline immediately on clinical suspicion and send serology, which is usually negative in the first week. Admit for fluids and monitoring. Doxycycline is first-line at any age; sulfonamides are contraindicated. Continue for at least 3 days after the fever resolves."
+    },
+    "inf-032": {
+      "assessment": "32-year-old woman with three days of dysuria followed by fever, rigors, right flank pain, and vomiting, with marked costovertebral angle tenderness. WBC 16.8, pyuria with white cell casts, positive nitrites, and gram-negative rods on urine stain; pregnancy test negative: acute pyelonephritis.",
+      "plan": "Urine and blood cultures before antibiotics. Admit because she cannot keep down fluids or tablets; IV fluids and IV ceftriaxone (or a fluoroquinolone), narrowed to culture results, then an oral agent to complete the course. Image the kidneys if she is not improving after 48-72 hours."
     }
   },
   "investigations": {
@@ -1441,6 +1463,96 @@
           "finding": "Soft, with mild right lower quadrant tenderness, no peritoneal signs and normal bowel sounds."
         }
       ]
+    },
+    "inf-048": {
+      "interview": [
+        {
+          "prompt": "Characterize the leg pain and its progression",
+          "finding": "Two days of rapidly worsening left leg pain, far more severe than the skin changes suggest, starting near a small puncture wound from yard work."
+        },
+        {
+          "prompt": "Ask the family about the last 12 hours",
+          "finding": "Increasing swelling and discoloration of the leg, with fever, lethargy and intermittent confusion."
+        },
+        {
+          "prompt": "Review the medical history",
+          "finding": "Poorly controlled type 2 diabetes."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Inspect the leg",
+          "finding": "Markedly swollen left lower leg with dusky, mottled, erythematous skin, tense hemorrhagic bullae and a small wound draining thin, foul, dishwater-colored fluid. The margin advances visibly."
+        },
+        {
+          "prompt": "Palpate the leg and test skin sensation",
+          "finding": "Crepitus on palpation, with patches of skin anesthetic to light touch despite severe pain. Tenderness extends beyond the erythema."
+        },
+        {
+          "prompt": "Assess perfusion and mental status",
+          "finding": "Toxic-appearing, diaphoretic and intermittently confused."
+        }
+      ]
+    },
+    "inf-093": {
+      "interview": [
+        {
+          "prompt": "Characterize the fever, headache and rash",
+          "finding": "Five days of fever, severe headache, diffuse myalgias and malaise. A rash appeared on the wrists and ankles two days ago, spread to the palms and soles, and is extending toward the trunk."
+        },
+        {
+          "prompt": "Ask about outdoor and tick exposure",
+          "finding": "Landscaper in rural North Carolina who removed an engorged tick from his calf about a week ago and often finds ticks on his dogs."
+        },
+        {
+          "prompt": "Ask about today’s symptoms",
+          "finding": "Nausea and intermittent confusion today."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Inspect the skin, including the palms and soles",
+          "finding": "Blanching-to-petechial macular rash on the wrists, ankles, palms and soles, extending onto the forearms and lower trunk."
+        },
+        {
+          "prompt": "Assess mental status and meningeal signs",
+          "finding": "Intermittently inattentive but arousable, oriented to person and place. Photophobia and conjunctival injection without true nuchal rigidity."
+        },
+        {
+          "prompt": "Examine the heart, lungs and abdomen",
+          "finding": "Regular tachycardia, clear lungs, and a soft, mildly tender abdomen without organomegaly."
+        }
+      ]
+    },
+    "inf-032": {
+      "interview": [
+        {
+          "prompt": "Characterize the fever and flank pain",
+          "finding": "One day of fever to 39.4 °C with shaking chills, steady right flank pain, nausea and two episodes of vomiting."
+        },
+        {
+          "prompt": "Ask about urinary symptoms",
+          "finding": "Three days of dysuria and urinary frequency before the fever began."
+        },
+        {
+          "prompt": "Ask about pregnancy, discharge and past infections",
+          "finding": "Last menstrual period two weeks ago. No vaginal discharge or abnormal bleeding. One prior bladder infection, no prior kidney infection, and no diabetes."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Percuss the costovertebral angles",
+          "finding": "Marked right costovertebral angle tenderness."
+        },
+        {
+          "prompt": "Palpate the abdomen",
+          "finding": "Soft, with mild right-sided tenderness and no rebound, guarding, masses or suprapubic fullness."
+        },
+        {
+          "prompt": "Perform a pelvic exam",
+          "finding": "No discharge and no cervical motion tenderness."
+        }
+      ]
     }
   },
   "caseReviews": {
@@ -2069,6 +2181,54 @@
         {
           "title": "Present et al. (N Engl J Med 1999): infliximab for the treatment of fistulas in patients with Crohn’s disease",
           "url": "https://pubmed.ncbi.nlm.nih.gov/10228190/"
+        }
+      ]
+    },
+    "inf-048": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Recognize a necrotizing soft-tissue infection and get the patient to surgery without delay.",
+      "alternativesAndLimits": "The LRINEC score can be low in true disease and must not be used to rule it out. Antibiotic choices follow local protocols.",
+      "sources": [
+        {
+          "title": "Stevens and Bryant (N Engl J Med 2017): necrotizing soft-tissue infections",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/29211672/"
+        },
+        {
+          "title": "Stevens et al. (Clin Infect Dis 2014): practice guidelines for the diagnosis and management of skin and soft tissue infections, 2014 update by the IDSA",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/24973422/"
+        }
+      ]
+    },
+    "inf-093": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Treat suspected Rocky Mountain spotted fever at once, without waiting for confirmation.",
+      "alternativesAndLimits": "Covering for meningococcal disease with a second antibiotic is reasonable until cultures are negative, provided doxycycline is not withheld.",
+      "sources": [
+        {
+          "title": "Biggs et al. (MMWR Recomm Rep 2016): diagnosis and management of tickborne rickettsial diseases, United States",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/27172113/"
+        },
+        {
+          "title": "Kirkland et al. (Clin Infect Dis 1995): therapeutic delay and mortality in cases of Rocky Mountain spotted fever",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/7619985/"
+        }
+      ]
+    },
+    "inf-032": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Recognize a kidney infection, decide who needs admission and choose an antibiotic that reaches the kidney.",
+      "alternativesAndLimits": "Many women with mild pyelonephritis who can take tablets are treated at home. Worsening after discharge is written into one path for teaching.",
+      "sources": [
+        {
+          "title": "Gupta et al. (Clin Infect Dis 2011): international clinical practice guidelines for the treatment of acute uncomplicated cystitis and pyelonephritis in women",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/21292654/"
+        },
+        {
+          "title": "Johnson and Russo (N Engl J Med 2018): acute pyelonephritis in adults",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/29298155/"
         }
       ]
     }
@@ -13522,6 +13682,866 @@
         {
           "title": "Present et al. (N Engl J Med 1999): infliximab for the treatment of fistulas in patients with Crohn’s disease",
           "url": "https://pubmed.ncbi.nlm.nih.gov/10228190/"
+        }
+      ]
+    },
+    "inf-048": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "A small cut, _and pain far beyond what the skin shows._",
+      "setting": "Intensive care unit",
+      "start": {
+        "status": "unstable",
+        "alarm": "Unbearable leg pain · blood pressure 88 over 52 · confused"
+      },
+      "handoff": "A 58-year-old man with diabetes pricked his left leg while gardening two days ago. The pain has become unbearable, the leg is swollen and discolored, and since this morning he has had a fever and is confused.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask about the pain",
+            "finding": "It began near a small puncture wound from working in his yard two days ago. It has grown quickly, and it is far worse than the look of the skin would explain."
+          },
+          {
+            "prompt": "Ask his family about the last 12 hours",
+            "finding": "The leg has swollen and changed color. He has a fever, is drowsy and at times does not make sense."
+          },
+          {
+            "prompt": "Ask about his health",
+            "finding": "He has type 2 diabetes, and it is poorly controlled."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Look at the leg",
+            "finding": "The lower leg is very swollen. The skin is dusky and blotchy, with tight blisters full of dark, bloody fluid. A small wound leaks thin, gray, foul-smelling fluid. The edge of the redness can be seen creeping upward."
+          },
+          {
+            "prompt": "Feel the leg, and test the skin with a light touch",
+            "finding": "Pressing on the leg gives a crackling feel, like bubble wrap under the skin. Some patches of skin are numb, even though he says the leg is agony. It is tender well beyond the red area."
+          },
+          {
+            "prompt": "Check how he looks and how alert he is",
+            "finding": "He is sweaty and gray, and he drifts in and out of making sense."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Blood tests and X-ray",
+          "content": "White blood cells: 24.5, very high.\nSodium: 128, low. Blood sugar: 412, very high.\nKidney test (creatinine): 2.1, double his usual.\nCRP, a marker of inflammation: 280, very high.\nLactate: 4.8, high.\nCreatine kinase, which leaks from dying muscle: raised.\nX-ray of the leg: gas bubbles tracking along the layers between the muscles.\nRisk score for this kind of infection: 9 out of 13, high."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "Pain far beyond the look of the skin, blisters, crackling under the fingers and a falling blood pressure. Fluids are running. I am very worried about what is happening under that skin.",
+          "question": "What is the most important thing to do now?",
+          "options": [
+            "Call the surgeon urgently, to open and explore the leg",
+            "Get an MRI of the leg before anything else",
+            "Apply warm compresses and raise the leg",
+            "Start a blood thinner for a clot in the leg"
+          ],
+          "fix": "Call the surgeon now",
+          "terms": [
+            {
+              "term": "Fascia",
+              "meaning": "The sheet of tough tissue under the skin that wraps the muscles. Infection can race along it."
+            },
+            {
+              "term": "Debridement",
+              "meaning": "Cutting away dead and infected tissue."
+            },
+            {
+              "term": "Crepitus",
+              "meaning": "A crackling feel under the skin, caused by gas that bacteria produce."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 15,
+              "story": "The surgeon is called and is on the way. Blood is sent and a quick X-ray is taken at the bedside. The results go in his chart.",
+              "reply": "Right. If this is what it looks like, the only thing that saves him is a surgeon cutting out the dead tissue. Everything else supports that."
+            },
+            {
+              "kind": "delay",
+              "minutes": 90,
+              "story": "He is sent for an MRI. Ninety minutes later the redness has climbed past his knee, and his blood pressure has fallen further.",
+              "reply": "This diagnosis is made at the bedside and in the operating room, not in a scanner. The infection moved several centimeters while he lay in it. Call the surgeon.",
+              "vitals": {
+                "BP": "80/46 mmHg",
+                "HR": "134 bpm"
+              },
+              "trend": {
+                "BP": "down",
+                "HR": "up"
+              },
+              "status": "worse",
+              "alarm": "Redness past the knee · blood pressure falling"
+            },
+            {
+              "kind": "delay",
+              "minutes": 120,
+              "story": "The leg is raised and wrapped in warm cloths. Two hours later the skin around the wound has turned black, and his blood pressure is lower still.",
+              "reply": "That is the treatment for a mild skin infection. This one is killing tissue by the hour, and two hours have gone. Call the surgeon.",
+              "vitals": {
+                "BP": "78/44 mmHg",
+                "HR": "136 bpm"
+              },
+              "trend": {
+                "BP": "down",
+                "HR": "up"
+              },
+              "status": "worse",
+              "alarm": "Skin turning black · blood pressure falling"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for a blood thinner. The resident cancels it.",
+              "reply": "A clot does not cause blisters, gas under the skin or shock. And he is about to need surgery, which a blood thinner makes more dangerous."
+            }
+          ]
+        },
+        "3": {
+          "resident": "The operating room is being made ready. He needs antibiotics running before he gets there.",
+          "question": "Which antibiotics?",
+          "options": [
+            "Cephalexin tablets",
+            "Ceftriaxone alone",
+            "Metronidazole alone",
+            "Vancomycin, piperacillin-tazobactam and clindamycin together"
+          ],
+          "fix": "Start all three",
+          "terms": [
+            {
+              "term": "Broad-spectrum",
+              "meaning": "Covering many kinds of bacteria at once. It is used when the cause is unknown and the stakes are high."
+            },
+            {
+              "term": "Clindamycin",
+              "meaning": "An antibiotic that stops bacteria from making proteins, including the toxins that destroy tissue."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for tablets. The pharmacist calls.",
+              "reply": "He is in shock, so nothing by mouth will be absorbed, and that tablet covers only a few of the bacteria this could be."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for ceftriaxone alone. The resident adds to the order.",
+              "reply": "That leaves out resistant staph and the bacteria that live without oxygen, and it does nothing about toxins."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for metronidazole alone. The resident adds to the order.",
+              "reply": "That covers only the bacteria that live without oxygen. These infections usually involve several kinds at once."
+            },
+            {
+              "kind": "safe",
+              "minutes": 15,
+              "story": "All three are hung. The anesthetist arrives to take him to the operating room.",
+              "reply": "Right. One for resistant staph, one for gut bacteria and those that live without oxygen, and clindamycin to switch off the toxins. They help the surgeon. They do not replace one."
+            }
+          ]
+        },
+        "4": {
+          "resident": "The surgeon is held up in another operation. Someone suggests getting an MRI in the meantime, to confirm the diagnosis before operating.",
+          "question": "What do we do?",
+          "options": [
+            "Go to the operating room as soon as a surgeon is free. Do not wait for a scan",
+            "Wait for the MRI to confirm it before any surgery",
+            "Try 24 hours of antibiotics, and reassess",
+            "Send him home on antibiotic tablets with close follow-up"
+          ],
+          "fix": "Insist on surgery without a scan",
+          "terms": [
+            {
+              "term": "Necrosis",
+              "meaning": "Death of tissue. Dead tissue has no blood supply, so neither antibiotics nor immune cells can reach it."
+            },
+            {
+              "term": "Septic shock",
+              "meaning": "Dangerously low blood pressure caused by severe infection."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 20,
+              "story": "A second surgeon is found. He is taken straight to the operating room, where the dead tissue is cut away back to healthy, bleeding edges. He returns on a breathing machine, with medicine supporting his blood pressure.",
+              "reply": "Yes. With gas on the X-ray, blisters and shock, a scan adds nothing. Every hour before surgery raises the chance that he dies.",
+              "vitals": {
+                "BP": "98/58 mmHg",
+                "HR": "112 bpm"
+              },
+              "trend": {
+                "BP": "up",
+                "HR": "down"
+              },
+              "alarm": "Back from surgery · dead tissue removed"
+            },
+            {
+              "kind": "delay",
+              "minutes": 120,
+              "story": "He waits for the scanner. Two hours later the leg is black to mid-thigh, and his blood pressure cannot be held with fluids.",
+              "reply": "We already knew what this was. Those two hours cost him tissue he will not get back. He goes to the operating room now.",
+              "vitals": {
+                "BP": "70/40 mmHg",
+                "HR": "144 bpm"
+              },
+              "trend": {
+                "BP": "down",
+                "HR": "up"
+              },
+              "status": "critical",
+              "alarm": "Leg black to mid-thigh · blood pressure 70 over 40"
+            },
+            {
+              "kind": "delay",
+              "minutes": 180,
+              "story": "The antibiotics run and he is watched. Three hours later his kidneys have stopped making urine, and the discoloration has reached his groin.",
+              "reply": "Antibiotics cannot get into dead tissue. Without surgery the infection keeps spreading whatever is in the drip. He goes to the operating room now.",
+              "vitals": {
+                "BP": "68/38 mmHg",
+                "HR": "146 bpm"
+              },
+              "trend": {
+                "BP": "down",
+                "HR": "up"
+              },
+              "status": "critical",
+              "alarm": "Discoloration at the groin · no urine"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest sending him home. The resident stares.",
+              "reply": "He is in shock in intensive care with an infection that kills within hours. He is going to the operating room."
+            }
+          ]
+        },
+        "5": {
+          "resident": "He is back from the operating room. The surgeons removed all the dead tissue they could find.",
+          "question": "What has to be part of the plan from here?",
+          "options": [
+            "Nothing more. One operation is enough",
+            "Amputation of the leg, as in every case",
+            "A planned return to the operating room in 24 to 48 hours, to look again and remove any new dead tissue",
+            "Stopping the antibiotics now that surgery is done"
+          ],
+          "fix": "Plan the second look",
+          "terms": [
+            {
+              "term": "Second look",
+              "meaning": "A planned repeat operation a day or two later, to check for and remove tissue that has died since the first."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say one operation is enough. The surgeon shakes their head.",
+              "reply": "It almost never is. The infection often runs further than anyone can see on the first day."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say the leg must come off. The surgeon shakes their head.",
+              "reply": "Sometimes it must, when the infection cannot be controlled or the limb cannot survive. It is not automatic."
+            },
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "The second operation is booked for tomorrow. The antibiotics continue and will be narrowed once the lab names the bacteria.",
+              "reply": "Right. We go back every day or two until we find nothing left to remove."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest stopping the antibiotics. The resident shakes their head.",
+              "reply": "Surgery removes the dead tissue. The antibiotics protect the living tissue around it. He needs both."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "The blood tests and the X-ray are in his chart.",
+        "question": "What is this?",
+        "options": [
+          "An ordinary skin infection (cellulitis)",
+          "A large clot in the leg veins",
+          "Necrotizing fasciitis: an infection destroying the tissue under the skin",
+          "A sharp-edged infection of the skin surface (erysipelas)"
+        ],
+        "reveal": "It is necrotizing fasciitis. Bacteria got in through the puncture wound and are spreading along the sheet of tissue under the skin, killing it as they go. The gas on the X-ray, the blisters, the numb skin and the shock all say so. An ordinary skin infection does none of that. The surface looked mild at first because the damage starts underneath.",
+        "terms": [
+          {
+            "term": "Necrotizing",
+            "meaning": "Causing tissue to die."
+          },
+          {
+            "term": "Cellulitis",
+            "meaning": "A common infection of the skin and the fat beneath it. It is treated with antibiotics alone."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "In intensive care after surgery, with a second operation planned",
+        "unstable": "In intensive care after surgery, with a second operation planned",
+        "worse": "In intensive care after surgery, having lost more tissue than he needed to",
+        "critical": "In intensive care on life support, after a late operation and the loss of his leg"
+      },
+      "plainDiagnosis": "A fast-spreading infection destroying the tissue under the skin of his leg (necrotizing fasciitis).",
+      "science": [
+        {
+          "tag": "Sensing",
+          "title": "Why the skin was numb while the leg was agony",
+          "text": "The fine nerves that carry touch run through the skin and the layer beneath it. As that layer dies, those nerves die with it, and the skin goes numb. Deeper nerves, still alive, are being flooded with pain signals from dying tissue.",
+          "lesson": "sensory-coding",
+          "lessonTitle": "From stimulus to perception"
+        },
+        {
+          "tag": "From gene to protein",
+          "title": "Why clindamycin was added",
+          "text": "The toxins that destroy tissue are proteins, built on the bacteria’s ribosomes. Clindamycin jams those ribosomes. Even before the bacteria die, they stop making toxin, which is why it is added to antibiotics that only kill.",
+          "lesson": "gene-expression",
+          "lessonTitle": "Follow a gene into a protein"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Stevens and Bryant (N Engl J Med 2017): necrotizing soft-tissue infections",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/29211672/"
+        },
+        {
+          "title": "Stevens et al. (Clin Infect Dis 2014): practice guidelines for the diagnosis and management of skin and soft tissue infections, 2014 update by the IDSA",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/24973422/"
+        }
+      ]
+    },
+    "inf-093": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "Fever, a brutal headache _and spots on his wrists._",
+      "setting": "Emergency department",
+      "start": {
+        "status": "unstable",
+        "alarm": "Fever 39.4 · spreading rash · confused at times"
+      },
+      "handoff": "A 45-year-old landscaper has had five days of high fever and a severe headache. Two days ago spots appeared on his wrists and ankles, and they are spreading. Today he has been confused at times.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask about the fever, the headache and the rash",
+            "finding": "Five days of fever, a severe headache and aching all over. Two days ago spots came up on his wrists and ankles. They have spread to his palms and the soles of his feet and are moving toward his chest and belly."
+          },
+          {
+            "prompt": "Ask about his work and any tick bites",
+            "finding": "He works outdoors in rural North Carolina. About a week ago he pulled a swollen tick off his calf while clearing brush. His dogs often carry ticks."
+          },
+          {
+            "prompt": "Ask about today",
+            "finding": "He feels sick, and his wife says he has been confused on and off."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Look at his skin, including his palms and soles",
+            "finding": "Flat red spots cover his wrists, ankles, palms and soles, and reach onto his forearms and lower belly. Some fade when pressed. Others are tiny purple dots that do not."
+          },
+          {
+            "prompt": "Check how alert he is, and bend his neck",
+            "finding": "His attention drifts, but he wakes easily and knows who and where he is. Light hurts his eyes, which are red. His neck bends freely."
+          },
+          {
+            "prompt": "Listen to his heart and lungs, and feel his belly",
+            "finding": "His heart is fast and regular. His lungs are clear. His belly is soft and slightly tender."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Blood tests and spinal fluid",
+          "content": "Sodium: 129, low.\nPlatelets: 88, low.\nWhite blood cells: 7.8, normal.\nLiver tests: about twice normal.\nKidney test (creatinine): 1.6, raised.\nSpinal fluid, taken because of his confusion: a few extra white cells and a normal sugar.\nAntibody test for Rocky Mountain spotted fever: sent, result pending.\nBlood cultures: nothing growing at 24 hours."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "Fever, headache, a rash that started at the wrists and ankles and reached the palms and soles, and a tick bite a week ago. The test that would confirm what I suspect takes days.",
+          "question": "What do we do right now?",
+          "options": [
+            "Wait for the antibody test before starting any antibiotic",
+            "Start doxycycline now, and send the tests",
+            "Start ceftriaxone for a meningococcal infection, and hold the doxycycline",
+            "Take a skin biopsy, and hold antibiotics until it is back"
+          ],
+          "fix": "Start doxycycline now",
+          "terms": [
+            {
+              "term": "Doxycycline",
+              "meaning": "An antibiotic that works against the bacteria ticks carry."
+            },
+            {
+              "term": "Empiric treatment",
+              "meaning": "Treatment started on strong suspicion, before tests confirm the cause."
+            },
+            {
+              "term": "Serology",
+              "meaning": "A blood test that looks for antibodies the body has made against an infection."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "delay",
+              "minutes": 360,
+              "story": "No antibiotic is given while the test is awaited. Six hours later he is more confused, and the spots are turning purple and running together.",
+              "reply": "That test is usually negative in the first week even when the disease is there. People die of this on the days spent waiting for it. Start doxycycline.",
+              "vitals": {
+                "BP": "94/58 mmHg",
+                "HR": "122 bpm"
+              },
+              "trend": {
+                "BP": "down",
+                "HR": "up"
+              },
+              "status": "worse",
+              "alarm": "More confused · rash turning purple"
+            },
+            {
+              "kind": "safe",
+              "minutes": 20,
+              "story": "The first dose of doxycycline is given within minutes. Blood is sent, and because of his confusion a spinal tap is done. The results go in his chart.",
+              "reply": "Right. This is treated on the story and the rash. Deaths rise sharply when treatment starts after the fifth day, and today is day five."
+            },
+            {
+              "kind": "delay",
+              "minutes": 360,
+              "story": "Ceftriaxone runs in, and doxycycline is held. Six hours later his fever is no lower, he is more confused, and the rash is darker.",
+              "reply": "Covering for meningococcus is reasonable. Holding the doxycycline is not, because ceftriaxone does nothing to the bacteria ticks carry. Give it now.",
+              "vitals": {
+                "BP": "92/56 mmHg",
+                "HR": "124 bpm"
+              },
+              "trend": {
+                "BP": "down",
+                "HR": "up"
+              },
+              "status": "worse",
+              "alarm": "No better on ceftriaxone · more confused"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a biopsy before any antibiotic. The resident starts the antibiotic.",
+              "reply": "A biopsy can help, but it must not hold up treatment. Antibiotic first."
+            }
+          ]
+        },
+        "3": {
+          "resident": "His first dose is in. A question that comes up every summer: suppose he were a 5-year-old child with the same illness.",
+          "question": "Which antibiotic would a child get?",
+          "options": [
+            "Chloramphenicol, to spare the teeth",
+            "Amoxicillin",
+            "Doxycycline, the same as an adult",
+            "Trimethoprim-sulfamethoxazole"
+          ],
+          "fix": "Say doxycycline at any age",
+          "terms": [
+            {
+              "term": "Tooth staining",
+              "meaning": "A side effect of older, related antibiotics given in long courses to young children. A short course of doxycycline has not been shown to cause it."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You pick chloramphenicol. The resident shakes their head.",
+              "reply": "It works less well and can harm the bone marrow. The worry about teeth came from older drugs given for months. A week of doxycycline does not stain them."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You pick amoxicillin. The resident shakes their head.",
+              "reply": "It does nothing to these bacteria. Children have died of this illness while taking it."
+            },
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "You say doxycycline. The resident nods.",
+              "reply": "Right, at every age. Doctors once held it back from children out of fear for their teeth, and children died for that mistake."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You pick a sulfa drug. The resident says never.",
+              "reply": "Sulfa drugs are linked to worse outcomes in this disease. They are the one group to avoid."
+            }
+          ]
+        },
+        "4": {
+          "resident": "His family asks why we treated before the test came back, and what happens if it comes back negative.",
+          "question": "Which statement is true?",
+          "options": [
+            "Sulfa drugs work just as well and can be swapped in",
+            "The antibiotic can stop once the rash fades",
+            "Treatment is optional, because this usually clears up without it",
+            "The antibody test is often negative in the first week, so treatment must not wait for it"
+          ],
+          "fix": "Explain why treatment cannot wait",
+          "terms": [
+            {
+              "term": "Antibody",
+              "meaning": "A protein the immune system makes to target one specific germ. It takes a week or more to appear in the blood."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say sulfa drugs can be swapped in. The resident corrects you.",
+              "reply": "They make this disease worse. Doxycycline is the treatment."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say it can stop when the rash fades. The resident corrects you.",
+              "reply": "The rash is not the guide. Treatment runs until at least three days after the fever has gone."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say treatment is optional. The resident corrects you.",
+              "reply": "Untreated, this disease kills a large share of the people who get it. It does not clear up by itself."
+            },
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "You explain it to his family: the test looks for antibodies, and his body has not had time to make them yet.",
+              "reply": "Exactly. A negative test this early rules nothing out. We repeat it in a couple of weeks to confirm, long after the treatment has done its work."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "His blood tests and spinal fluid results are in the chart.",
+        "question": "What is the most likely diagnosis?",
+        "options": [
+          "Rocky Mountain spotted fever",
+          "A meningococcal blood infection",
+          "Gonorrhea that has spread through the blood",
+          "Immune thrombocytopenia (ITP)"
+        ],
+        "reveal": "It is Rocky Mountain spotted fever, an infection carried by ticks. The bacteria invade the cells that line small blood vessels, which leak. That gives the rash, starting at the wrists and ankles and reaching the palms and soles, and it explains the low sodium, the low platelets and the strained liver. Meningococcal infection moves faster, and its rash is mostly on the trunk.",
+        "terms": [
+          {
+            "term": "Rickettsia",
+            "meaning": "The family of bacteria that causes this disease. They can only live inside the cells of an animal."
+          },
+          {
+            "term": "Vasculitis",
+            "meaning": "Inflammation of blood vessels, which makes them leak."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "Admitted on doxycycline, with his fever starting to settle",
+        "unstable": "Admitted on doxycycline, with his fever starting to settle",
+        "worse": "In intensive care on doxycycline, after six hours without it",
+        "critical": "In intensive care on life support"
+      },
+      "plainDiagnosis": "An infection carried by ticks that attacks the lining of blood vessels (Rocky Mountain spotted fever).",
+      "science": [
+        {
+          "tag": "Microbes",
+          "title": "A bacterium that lives like a virus",
+          "text": "These bacteria are true cells, with their own ribosomes and their own membrane. But they can only grow inside our cells, as a virus does. That is why they do not show up in ordinary cultures, and why antibiotics that cannot get into cells, such as ceftriaxone, do not touch them.",
+          "lesson": "microbial-strategies",
+          "lessonTitle": "Distinguish cells from viral passengers"
+        },
+        {
+          "tag": "Evidence",
+          "title": "Why a negative test did not mean no disease",
+          "text": "The test detects antibodies, and the body needs a week or more to make them. Early on, a sick person and a healthy one give the same negative result. A test only counts as evidence at a time when it is able to turn positive.",
+          "lesson": "uncertainty-controls",
+          "lessonTitle": "Match evidence to a conclusion"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Biggs et al. (MMWR Recomm Rep 2016): diagnosis and management of tickborne rickettsial diseases, United States",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/27172113/"
+        },
+        {
+          "title": "Kirkland et al. (Clin Infect Dis 1995): therapeutic delay and mortality in cases of Rocky Mountain spotted fever",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/7619985/"
+        }
+      ]
+    },
+    "inf-032": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "It burned for three days. _Now the fever._",
+      "setting": "Emergency department",
+      "start": {
+        "status": "stable",
+        "alarm": "Fever 39.2 · pain in the right side"
+      },
+      "handoff": "A 32-year-old woman has had a high fever with shaking chills and a steady pain in her right side since yesterday. For three days before that it burned when she passed urine. She has vomited twice.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask about the fever and the pain",
+            "finding": "Since yesterday: a fever up to 39.4 °C, shaking chills and a steady pain in her right side, at the back. She feels sick and has vomited twice."
+          },
+          {
+            "prompt": "Ask about passing urine",
+            "finding": "For three days before the fever it burned when she passed urine, and she was going far more often than usual. She ignored it."
+          },
+          {
+            "prompt": "Ask about pregnancy, discharge and past infections",
+            "finding": "Her last period was two weeks ago. She has no discharge or unusual bleeding. She has had one bladder infection before, never a kidney infection, and she does not have diabetes."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Tap gently over each kidney, at the back",
+            "finding": "A light tap over her right kidney makes her flinch and cry out. The left side does not hurt."
+          },
+          {
+            "prompt": "Press on her belly",
+            "finding": "It is soft, and slightly tender on the right. Nothing else is found."
+          },
+          {
+            "prompt": "Do an internal exam",
+            "finding": "It is normal, with no discharge and no tenderness."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Urine and blood tests",
+          "content": "White blood cells: 16.8, high.\nKidney test (creatinine): normal. Lactate: normal.\nUrine test strip: positive for white cells, and for nitrites, a chemical made by bacteria from the gut.\nUrine under the microscope: many white cells, some packed into tube-shaped clumps called casts, which form only inside the kidney.\nUrine stain: rod-shaped bacteria of the kind that live in the gut.\nBlood cultures: sent, results pending.\nPregnancy test: negative."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "Burning urine, and now a fever and pain over one kidney. She looks ill.",
+          "question": "Which tests do we send?",
+          "options": [
+            "A urine test and culture, a blood count, blood salts and kidney tests, and blood cultures",
+            "A urine culture only, with no blood tests",
+            "A CT scan of her belly straight away, before any lab tests",
+            "No tests: reassure her and give nitrofurantoin to take at home"
+          ],
+          "fix": "Send urine and blood tests",
+          "terms": [
+            {
+              "term": "Urine culture",
+              "meaning": "Growing bacteria from a urine sample to identify them and test which antibiotics kill them."
+            },
+            {
+              "term": "Flank",
+              "meaning": "The side of the body between the ribs and the hip, over the kidney."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 30,
+              "story": "Urine and blood are collected before any antibiotic is given. The results go in her chart.",
+              "reply": "Right. The urine shows where the infection is. The blood tests show how sick she is and whether bacteria have reached her bloodstream."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request a urine culture only. The resident adds the blood tests.",
+              "reply": "She has a high fever and a racing heart. We need to know whether her kidneys are coping and whether bacteria are in her blood."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request a CT first. The resident changes the order.",
+              "reply": "A scan is for when we suspect a blocked kidney or an abscess, or when treatment is not working. It does not come before a urine test."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for nitrofurantoin and a discharge. The resident stops it.",
+              "reply": "She is too ill to go untested. And that antibiotic only works in the bladder, which matters more in a moment."
+            }
+          ]
+        },
+        "3": {
+          "resident": "She has a kidney infection. Her blood pressure, kidney tests and lactate are fine. But she has vomited twice and cannot keep fluids down.",
+          "question": "Where should she be treated?",
+          "options": [
+            "At home, on ciprofloxacin tablets, with a check in 48 hours",
+            "At home, on nitrofurantoin tablets",
+            "In hospital, with antibiotics and fluids through a vein, because she cannot keep anything down",
+            "At home with no antibiotics until the culture is back"
+          ],
+          "fix": "Admit her for treatment through a vein",
+          "terms": [
+            {
+              "term": "Admission",
+              "meaning": "Staying in hospital. For a kidney infection the usual reasons are vomiting, low blood pressure, pregnancy or a blocked kidney."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "delay",
+              "minutes": 480,
+              "story": "She goes home with tablets and vomits each one back up. Eight hours later she returns, shaking, with a higher fever and a low blood pressure.",
+              "reply": "Tablets only work if they stay down. For eight hours she has had no antibiotic at all, and the infection has reached her blood. She should have been admitted.",
+              "vitals": {
+                "BP": "88/50 mmHg",
+                "HR": "128 bpm",
+                "Temp": "39.8 °C"
+              },
+              "trend": {
+                "BP": "down",
+                "HR": "up",
+                "Temp": "up"
+              },
+              "status": "worse",
+              "alarm": "Back in the department · blood pressure 88 over 50"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for nitrofurantoin at home. The pharmacist calls.",
+              "reply": "That drug collects in the urine and treats the bladder. It never reaches a useful level in the kidney. And she cannot keep tablets down."
+            },
+            {
+              "kind": "safe",
+              "minutes": 20,
+              "story": "She is admitted. A drip is started, and fluids run in.",
+              "reply": "Yes. Plenty of women with a kidney infection can go home on tablets. One who vomits everything cannot."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest waiting for the culture. The resident shakes their head.",
+              "reply": "Cultures take two days. A kidney infection is treated at once, and the antibiotic is adjusted when the result arrives."
+            }
+          ]
+        },
+        "4": {
+          "resident": "She is admitted, and her drip is running. Her urine shows gut bacteria.",
+          "question": "Which antibiotic do we start?",
+          "options": [
+            "Nitrofurantoin by mouth",
+            "Ceftriaxone into a vein, narrowed once the culture is back",
+            "Amoxicillin by mouth",
+            "Vancomycin into a vein, alone"
+          ],
+          "fix": "Start ceftriaxone",
+          "terms": [
+            {
+              "term": "Ceftriaxone",
+              "meaning": "A once-a-day antibiotic given into a vein that covers most of the gut bacteria behind kidney infections."
+            },
+            {
+              "term": "Narrowing",
+              "meaning": "Switching to a more targeted antibiotic once the lab has identified the bacteria."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for nitrofurantoin. The pharmacist calls.",
+              "reply": "It treats the bladder, not the kidney. And she is vomiting."
+            },
+            {
+              "kind": "safe",
+              "minutes": 15,
+              "story": "The first dose of ceftriaxone goes in with her fluids. Over the next hours her temperature starts to come down.",
+              "reply": "Right. It reaches the kidney, covers the likely bacteria and does not have to be swallowed. In two days the culture tells us whether to change it.",
+              "vitals": {
+                "HR": "100 bpm",
+                "Temp": "38.6 °C"
+              },
+              "trend": {
+                "HR": "down",
+                "Temp": "down"
+              },
+              "alarm": "Antibiotics and fluids running"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for amoxicillin. The resident changes it.",
+              "reply": "Too many of these bacteria are resistant to it now, and it would have to be swallowed."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for vancomycin alone. The resident changes it.",
+              "reply": "Vancomycin covers a different family of bacteria altogether. It would miss the gut bacteria seen in her urine."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "Her urine and blood results are in the chart.",
+        "question": "What is this?",
+        "options": [
+          "A simple bladder infection (cystitis)",
+          "A kidney infection (acute pyelonephritis)",
+          "A kidney stone",
+          "Pelvic inflammatory disease, an infection of the womb and tubes"
+        ],
+        "reveal": "It is a kidney infection. Bacteria from a bladder infection climbed up to her right kidney. The fever, the pain over the kidney and the white-cell casts in her urine place the infection in the kidney itself. A bladder infection causes burning without fever or flank pain, and a stone causes pain in waves with blood in the urine.",
+        "terms": [
+          {
+            "term": "Pyelonephritis",
+            "meaning": "Infection of the kidney."
+          },
+          {
+            "term": "Casts",
+            "meaning": "Tiny molds of the kidney’s tubules, washed out in the urine. White-cell casts mean inflammation inside the kidney."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "On the ward on antibiotics through a vein, with her fever coming down",
+        "worse": "On the ward on antibiotics, after a night of sepsis that could have been avoided",
+        "critical": "In intensive care with septic shock"
+      },
+      "plainDiagnosis": "A kidney infection that climbed up from the bladder (acute pyelonephritis).",
+      "science": [
+        {
+          "tag": "The nephron",
+          "title": "Why casts pointed to the kidney",
+          "text": "Each kidney is built from about a million fine tubules. White cells fighting infection inside a tubule get stuck together in its shape, like jelly in a mold, and are then flushed out. Only the kidney has tubules, so only the kidney can make casts.",
+          "lesson": "renal-water",
+          "lessonTitle": "Regulate water in the nephron"
+        },
+        {
+          "tag": "Heat balance",
+          "title": "Why she shook with chills as her fever rose",
+          "text": "Infection raised her brain’s temperature set point. Her body then read its normal temperature as too cold, so it shivered to make heat and tightened skin vessels to keep it. The shaking was her own body driving the fever up.",
+          "lesson": "thermal-balance",
+          "lessonTitle": "Build a heat balance"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Gupta et al. (Clin Infect Dis 2011): international clinical practice guidelines for the treatment of acute uncomplicated cystitis and pyelonephritis in women",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/21292654/"
+        },
+        {
+          "title": "Johnson and Russo (N Engl J Med 2018): acute pyelonephritis in adults",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/29298155/"
         }
       ]
     }
