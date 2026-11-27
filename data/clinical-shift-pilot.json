@@ -1,7 +1,7 @@
 {
-  "version": 24,
+  "version": 25,
   "title": "Clinical Shift foundations and rotation practice",
-  "reviewStatus": "Source and consistency checks are recorded with each encounter. Independent clinician review remains pending for all 57 encounters.",
+  "reviewStatus": "Source and consistency checks are recorded with each encounter. Independent clinician review remains pending for all 60 encounters.",
   "rotations": [
     {
       "key": "emergency-medicine",
@@ -170,6 +170,16 @@
         "rh-008",
         "rh-003",
         "rh-035"
+      ]
+    },
+    {
+      "key": "orthopedics",
+      "name": "Orthopedics",
+      "description": "Bones break in patterns. Learn the ones that threaten a limb, a hip or the years ahead.",
+      "caseIds": [
+        "orth-034",
+        "orth-045",
+        "orth-009"
       ]
     }
   ],
@@ -401,6 +411,18 @@
     "rh-035": {
       "assessment": "3-year-old boy with five days of high fever, bilateral nonexudative conjunctivitis, fissured lips and strawberry tongue, polymorphous rash, extremity changes with periungual desquamation, and a 1.8 cm cervical node. Platelets 620, ESR 78, CRP 12.4, sterile pyuria, and coronary artery dilation on echocardiography: Kawasaki disease.",
       "plan": "High-dose IVIG (2 g/kg) with aspirin, given promptly and within 10 days of fever onset. Serial echocardiography at diagnosis, 1-2 weeks, and 4-6 weeks, with low-dose aspirin continued and cardiology follow-up; escalate therapy for persistent fever after IVIG."
+    },
+    "orth-034": {
+      "assessment": "27-year-old man with a closed, completely displaced mid-shaft tibial fracture and fibular fracture after a motorcycle crash, with pain out of proportion unrelieved by opioids, tense compartments, severe pain on passive toe stretch, and early first web space numbness: acute compartment syndrome of the leg.",
+      "plan": "Keep the leg at heart level, remove any constricting dressing, and call orthopedics at once. Compartment pressures support the diagnosis but must not delay emergent four-compartment fasciotomy. Stabilize the fracture, with intramedullary nailing as definitive fixation. Monitor for rhabdomyolysis."
+    },
+    "orth-045": {
+      "assessment": "13-year-old boy with obesity and three weeks of left groin and knee pain with a limp, limited internal rotation of the left hip, and obligate external rotation on flexion. Radiographs show posteroinferior displacement of the left femoral epiphysis with a positive Klein line: slipped capital femoral epiphysis.",
+      "plan": "Strict non-weight-bearing immediately and urgent orthopedic consultation for in situ screw fixation. No forceful reduction. Follow the contralateral hip, and consider endocrine evaluation given his age and stature. Counsel about avascular necrosis and chondrolysis."
+    },
+    "orth-009": {
+      "assessment": "68-year-old right-handed woman with osteoporosis who fell on an outstretched hand, with a dinner-fork deformity and intact neurovascular status. Radiographs show an extra-articular distal radius fracture with dorsal angulation, displacement, and shortening and an ulnar styloid avulsion: Colles fracture, a fragility fracture.",
+      "plan": "Analgesia, closed reduction under a hematoma block or sedation, and a well-molded below-elbow splint, with post-reduction radiographs and repeat neurovascular checks. Orthopedic follow-up within a week to confirm alignment; surgery if the reduction is lost. Review osteoporosis treatment, adherence, and fall risk."
     }
   },
   "investigations": {
@@ -2113,6 +2135,96 @@
           "finding": "Diffuse polymorphous erythematous rash accentuated in the groin, with erythema and edema of the hands and feet and early periungual desquamation."
         }
       ]
+    },
+    "orth-034": {
+      "interview": [
+        {
+          "prompt": "Characterize the mechanism and the pain",
+          "finding": "Motorcycle collision with the left lower leg striking a curb at high speed. Severe, worsening pain out of proportion that now involves the whole calf; unable to bear weight."
+        },
+        {
+          "prompt": "Screen for other injuries",
+          "finding": "Helmeted, with no head injury or loss of consciousness and no chest, abdominal or pelvic pain. The rest of the trauma survey is unremarkable."
+        },
+        {
+          "prompt": "Review history and response to analgesia",
+          "finding": "Unremarkable past history, no medications or allergies, tetanus up to date. Pain rated 10/10 and not relieved by initial IV opioids."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Inspect and palpate the leg",
+          "finding": "Obvious mid-shaft deformity with swelling and tense, firm compartments. Skin intact. Exquisite tenderness over the mid-tibia."
+        },
+        {
+          "prompt": "Passively stretch the toes",
+          "finding": "Passive dorsiflexion and plantarflexion of the toes elicit severe, disproportionate pain."
+        },
+        {
+          "prompt": "Check sensation, pulses and capillary refill",
+          "finding": "Sensation beginning to diminish in the first web space. Dorsalis pedis and posterior tibial pulses palpable only with firm pressure; capillary refill 3 seconds."
+        }
+      ]
+    },
+    "orth-045": {
+      "interview": [
+        {
+          "prompt": "Characterize the pain and limp",
+          "finding": "Three weeks of dull, aching left groin and anteromedial knee pain with a worsening limp and no specific injury; worse with activity, with more difficulty bearing weight over the past two days."
+        },
+        {
+          "prompt": "Screen for infection and systemic illness",
+          "finding": "No fever, night sweats, weight loss, rash, recent illness or other joint involvement."
+        },
+        {
+          "prompt": "Review growth, weight and family history",
+          "finding": "Obesity with a BMI of 31 (above the 97th percentile); prepubertal-appearing for age and sedentary. Maternal obesity and type 2 diabetes; no known endocrine disease."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Watch him walk",
+          "finding": "Antalgic gait with the left leg externally rotated, avoiding full weight on the left."
+        },
+        {
+          "prompt": "Examine the left hip",
+          "finding": "Limited internal rotation, abduction and flexion with pain at end range. On passive flexion the thigh obligately rotates externally and abducts (Drehmann sign)."
+        },
+        {
+          "prompt": "Examine the knee and leg lengths",
+          "finding": "Unremarkable knee with full painless range of motion and no effusion. Slight shortening of the left leg."
+        }
+      ]
+    },
+    "orth-009": {
+      "interview": [
+        {
+          "prompt": "Establish the mechanism and other injuries",
+          "finding": "Slipped on ice 45 minutes ago, landing on her outstretched right hand. No head strike, loss of consciousness or other injuries."
+        },
+        {
+          "prompt": "Ask about hand symptoms and hand dominance",
+          "finding": "Severe pain and swelling with no numbness or tingling in the fingers. Right-hand dominant."
+        },
+        {
+          "prompt": "Review bone health and medications",
+          "finding": "Postmenopausal osteoporosis (T-score about -2.7) on alendronate, calcium and vitamin D; hypertension and hypothyroidism. Her mother had a hip fracture. She lives independently."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Inspect the wrist",
+          "finding": "Dorsally angulated dinner-fork deformity with marked swelling and tenderness over the distal radius. No skin break."
+        },
+        {
+          "prompt": "Check circulation and sensation in the hand",
+          "finding": "Brisk capillary refill, a 2+ radial pulse and a warm, pink hand. Sensation intact in the median, ulnar and radial distributions."
+        },
+        {
+          "prompt": "Examine the elbow, forearm and anatomic snuffbox",
+          "finding": "No tenderness at the elbow, the forearm midshaft or the anatomic snuffbox. Finger flexion and extension present but limited by pain."
+        }
+      ]
     }
   },
   "caseReviews": {
@@ -3029,6 +3141,54 @@
         {
           "title": "Newburger et al. (N Engl J Med 1986): the treatment of Kawasaki syndrome with intravenous gamma globulin",
           "url": "https://pubmed.ncbi.nlm.nih.gov/2426590/"
+        }
+      ]
+    },
+    "orth-034": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Recognize acute compartment syndrome from pain and passive stretch, and get the compartments released in time.",
+      "alternativesAndLimits": "Pressure thresholds are a guide, and a clear clinical picture is enough to operate. Pulses are usually still present, so their presence does not exclude the diagnosis.",
+      "sources": [
+        {
+          "title": "Schmidt (Injury 2017): acute compartment syndrome",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/28449851/"
+        },
+        {
+          "title": "von Keudell et al. (Lancet 2015): diagnosis and treatment of acute extremity compartment syndrome",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/26460664/"
+        }
+      ]
+    },
+    "orth-045": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Image the hip in an adolescent with knee pain, recognize a slipped epiphysis and stop weight bearing at once.",
+      "alternativesAndLimits": "Whether to pin the other hip preventively is decided case by case. Progression to an unstable slip is written into two paths for teaching.",
+      "sources": [
+        {
+          "title": "Peck, Voss and Voss (Am Fam Physician 2017): slipped capital femoral epiphysis, diagnosis and management",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/28671425/"
+        },
+        {
+          "title": "Loder et al. (J Bone Joint Surg Am 1993): acute slipped capital femoral epiphysis, the importance of physeal stability",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/8354671/"
+        }
+      ]
+    },
+    "orth-009": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Check nerves and circulation, reduce and splint a displaced wrist fracture, and treat it as a warning about bone health.",
+      "alternativesAndLimits": "Whether an older adult benefits from surgery over a cast depends on alignment and demands. The swelling in a tight cast on one path is written for teaching.",
+      "sources": [
+        {
+          "title": "Kamal and Shapiro (J Am Acad Orthop Surg 2022): AAOS/ASSH clinical practice guideline summary, management of distal radius fractures",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/35143462/"
+        },
+        {
+          "title": "Mauck and Swigler (Orthop Clin North Am 2018): evidence-based review of distal radius fractures",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/29499822/"
         }
       ]
     }
@@ -19505,6 +19665,783 @@
         {
           "title": "Newburger et al. (N Engl J Med 1986): the treatment of Kawasaki syndrome with intravenous gamma globulin",
           "url": "https://pubmed.ncbi.nlm.nih.gov/2426590/"
+        }
+      ]
+    },
+    "orth-034": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "A broken shin, _and pain that morphine does not touch._",
+      "setting": "Emergency department",
+      "start": {
+        "status": "unstable",
+        "alarm": "Broken shin · pain rising despite morphine"
+      },
+      "handoff": "A 27-year-old man crashed his motorcycle and his left shin hit a curb. The leg is deformed and swollen. He has had morphine, and the pain is still getting worse.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask what happened and about the pain",
+            "finding": "His shin hit a curb at speed. He cannot stand on it. The pain is severe and still climbing, worse than he expected from a break, and it has spread through the whole calf."
+          },
+          {
+            "prompt": "Ask about other injuries",
+            "finding": "He wore a helmet and did not hit his head or black out. Nothing hurts in his chest, belly or hips, and the trauma team found no other injury."
+          },
+          {
+            "prompt": "Ask about his health and whether the morphine helped",
+            "finding": "He is healthy and takes no medicines. The morphine has made no difference. He rates the pain ten out of ten."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Look at the leg and feel it",
+            "finding": "The middle of his shin is bent and swollen. The skin is not broken. The calf feels hard as wood, and the bone is extremely tender."
+          },
+          {
+            "prompt": "Gently bend his toes up and down",
+            "finding": "Moving his toes, even slightly, makes him cry out. The pain is far beyond what the movement should cause."
+          },
+          {
+            "prompt": "Check the feeling, pulses and color of his foot",
+            "finding": "The skin between his first two toes is going numb. Both foot pulses are there, but you have to press hard to find them. A pressed toenail takes three seconds to turn pink again."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "X-rays",
+          "content": "X-rays of the left shin, including the knee and ankle: the shin bone (tibia) is broken straight across in the middle, and the two ends are completely out of line.\nThe thinner bone beside it (fibula) is broken too.\nThe knee and ankle joints are not involved.\nThe soft tissue of the whole leg is swollen."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "The shin is obviously broken. Before we plan anything, we need pictures of it.",
+          "question": "Which imaging comes first?",
+          "options": [
+            "Plain X-rays of the shin that include the knee and the ankle",
+            "An MRI of the lower leg",
+            "An ultrasound of the calf",
+            "A bone scan"
+          ],
+          "fix": "Get X-rays with the joints above and below",
+          "terms": [
+            {
+              "term": "Tibia",
+              "meaning": "The shin bone, the larger of the two bones in the lower leg."
+            },
+            {
+              "term": "Displaced",
+              "meaning": "Describes a broken bone whose ends have moved out of line."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 20,
+              "story": "A portable X-ray is taken at the bedside, from knee to ankle. The pictures go in his chart.",
+              "reply": "Right. X-rays show the break, and we always include the joint above and the joint below, because a second injury there is easy to miss."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request an MRI. The resident changes it.",
+              "reply": "An MRI takes an hour and adds nothing to a broken shin. Plain X-rays show bone clearly and take minutes."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request an ultrasound. The resident changes it.",
+              "reply": "Ultrasound looks for clots in veins. It does not show a fracture."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request a bone scan. The resident changes it.",
+              "reply": "That is a slow test for hidden problems such as stress fractures or tumors. This break is not hidden."
+            }
+          ]
+        },
+        "3": {
+          "resident": "The fracture is bad. But the pain, the rock-hard calf and the numbness are the bigger problem. Pressure is building inside his leg and cutting off its blood supply.",
+          "question": "What do we do right now?",
+          "options": [
+            "Raise the leg above his heart and watch it",
+            "Apply ice and a tight compression wrap",
+            "Measure the pressure in the leg, and get him ready for emergency surgery to open the compartments",
+            "Start a full-dose blood thinner"
+          ],
+          "fix": "Call for emergency fasciotomy",
+          "terms": [
+            {
+              "term": "Compartment",
+              "meaning": "A group of muscles wrapped in a tough sheet of tissue that does not stretch. The lower leg has four."
+            },
+            {
+              "term": "Fasciotomy",
+              "meaning": "An operation that slits those sheets open along the leg so that the swollen muscle can expand and blood can flow again."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "delay",
+              "minutes": 120,
+              "story": "The leg is propped on pillows above his heart. Two hours later his foot is numb, and he cannot lift his toes.",
+              "reply": "Raising the leg lowers the pressure of the blood arriving, while the pressure inside stays the same, so even less gets through. Muscle and nerve have been dying for two hours. Call the surgeon.",
+              "vitals": {
+                "HR": "122 bpm"
+              },
+              "trend": {
+                "HR": "up"
+              },
+              "status": "worse",
+              "alarm": "Foot numb · toes will not lift"
+            },
+            {
+              "kind": "delay",
+              "minutes": 90,
+              "story": "The leg is iced and wrapped firmly. Ninety minutes later his foot is pale and numb, and the pain is unbearable.",
+              "reply": "The pressure in that leg is already too high. A tight wrap adds more from outside, and ice narrows the vessels. Take the wrap off, and call the surgeon.",
+              "vitals": {
+                "HR": "126 bpm"
+              },
+              "trend": {
+                "HR": "up"
+              },
+              "status": "worse",
+              "alarm": "Foot pale and numb"
+            },
+            {
+              "kind": "safe",
+              "minutes": 30,
+              "story": "The leg is laid flat, level with his heart. A needle gauge confirms very high pressure, and the surgeon takes him straight to the operating room. Long cuts are made on both sides of the calf, and the muscle bulges out, dark at first and then pink. His foot warms up.",
+              "reply": "Right. Only opening the compartments lets blood back in. Muscle survives about six hours without it, so the clock started at the crash.",
+              "vitals": {
+                "HR": "100 bpm"
+              },
+              "trend": {
+                "HR": "down"
+              },
+              "alarm": "Compartments opened · foot pink and warm"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for a blood thinner. The resident stops it.",
+              "reply": "This is not a clot. It is swelling in a closed space. A blood thinner would add bleeding to the swelling."
+            }
+          ]
+        },
+        "4": {
+          "resident": "The pressure is off and his foot is alive. The bone is still in two pieces.",
+          "question": "How should the fracture be fixed for good?",
+          "options": [
+            "A cast from thigh to toes",
+            "A frame of pins outside the leg, as the permanent treatment",
+            "A removable brace only",
+            "A metal rod down the middle of the bone"
+          ],
+          "fix": "Name the rod down the bone",
+          "terms": [
+            {
+              "term": "Intramedullary nail",
+              "meaning": "A metal rod placed down the hollow center of a long bone and locked with screws at each end."
+            },
+            {
+              "term": "External fixator",
+              "meaning": "A frame outside the limb joined to the bone by pins. It usually holds a fracture for a while, until a final repair."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest a long cast. The surgeon shakes their head.",
+              "reply": "A cast cannot hold a break this far out of line, and his leg now has open wounds that need looking after."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest a frame for good. The surgeon shakes their head.",
+              "reply": "A frame is useful for a few days while swelling and wounds settle. As a final treatment it heals this bone less reliably."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest a brace. The surgeon shakes their head.",
+              "reply": "A brace suits a stable break that has stayed in line. His is completely out of line."
+            },
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "The surgeon plans to pass a rod down the bone once the leg has settled.",
+              "reply": "Right. A rod inside the bone holds it straight, lets him put weight on it early, and heals well."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "The X-rays are in his chart. Think about the pain, the hard calf and what happened when you moved his toes.",
+        "question": "What must not be missed here?",
+        "options": [
+          "A clot in the veins of the leg",
+          "Fat from the bone marrow lodging in the lungs",
+          "An infected ankle joint",
+          "Acute compartment syndrome: pressure building inside the leg and cutting off its blood supply"
+        ],
+        "reveal": "He has compartment syndrome. Bleeding and swelling from the fracture are trapped inside the tight sheets that wrap the calf muscles. The pressure has risen high enough to squeeze the small blood vessels shut, so muscle and nerve are being starved. Pain that drugs do not touch, and pain when the toes are moved, are the early signs. The pulses can stay present until very late.",
+        "terms": [
+          {
+            "term": "Ischemia",
+            "meaning": "Too little blood reaching a tissue."
+          },
+          {
+            "term": "Passive stretch",
+            "meaning": "The examiner moving a part of the body while the patient relaxes. Pain on it is an early sign here."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "In the recovery room after surgery to release the pressure, with his leg saved",
+        "unstable": "In the recovery room after surgery to release the pressure, with his leg saved",
+        "worse": "In the recovery room after surgery, with muscle and nerve damage that came from the wait",
+        "critical": "In intensive care"
+      },
+      "plainDiagnosis": "Dangerous pressure inside the lower leg after a broken shin, cutting off blood to the muscles (acute compartment syndrome).",
+      "science": [
+        {
+          "tag": "Pressure and blood flow",
+          "title": "Why blood stopped flowing while the pulse was still there",
+          "text": "Blood moves through tissue only if the pressure pushing it in is higher than the pressure around the small vessels. The pulse you feel is in a large artery at high pressure. The capillaries inside the swollen compartment work at a much lower pressure, and they were squeezed shut first.",
+          "lesson": "circulatory-flow",
+          "lessonTitle": "Connect pressure to blood flow"
+        },
+        {
+          "tag": "Pressure in a fluid",
+          "title": "Why raising the leg makes it worse",
+          "text": "Pressure in a column of fluid falls with height. Lifting the leg above the heart lowers the arterial pressure reaching it, while the pressure trapped in the compartment does not change. The difference that drives blood in gets smaller.",
+          "lesson": "hydrostatics",
+          "lessonTitle": "Read pressure in a fluid"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Schmidt (Injury 2017): acute compartment syndrome",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/28449851/"
+        },
+        {
+          "title": "von Keudell et al. (Lancet 2015): diagnosis and treatment of acute extremity compartment syndrome",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/26460664/"
+        }
+      ]
+    },
+    "orth-045": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "A limp for three weeks, _and he points to his knee._",
+      "setting": "Emergency department",
+      "start": {
+        "status": "stable",
+        "alarm": "Limping for three weeks · knee and groin pain"
+      },
+      "handoff": "A 13-year-old boy has had an aching left knee and groin for three weeks, and a limp that is getting worse. He did not injure it. For two days he has found it harder to put weight on that leg.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask about the pain and the limp",
+            "finding": "A dull ache in his left groin and the inner side of his knee for three weeks, with a limp. He points mostly to the knee. It is worse when he is active. There was no fall or injury."
+          },
+          {
+            "prompt": "Ask about fever and other illness",
+            "finding": "No fever, no night sweats, no weight loss and no rash. He has not been ill, and no other joint hurts."
+          },
+          {
+            "prompt": "Ask his mother about his growth and the family",
+            "finding": "He has always been big for his age and is well above a healthy weight. He has not started puberty. He is not very active. His mother has type 2 diabetes."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Watch him walk",
+            "finding": "He limps, spending as little time as he can on the left leg. The left foot points outward."
+          },
+          {
+            "prompt": "Move his left hip",
+            "finding": "It will not turn inward and is stiff and sore in other directions. When you bend the hip up, the thigh swings outward by itself, and he cannot stop it."
+          },
+          {
+            "prompt": "Examine his knee, and measure his legs",
+            "finding": "The knee he points to is normal: no swelling, and it bends fully without pain. The left leg is slightly shorter than the right."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "X-rays of both hips",
+          "content": "X-rays from the front and with the legs turned out: on the left, the ball of the hip has slipped backward and downward off the neck of the thigh bone.\nA line drawn along the top of the neck should cut through the ball. On the left it misses.\nThe growth plate on the left is widened and irregular.\nThe right hip is normal."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "He points to his knee, and his knee is normal. What will not move properly is his hip.",
+          "question": "Which pictures do we need?",
+          "options": [
+            "An MRI of the knee",
+            "X-rays of both hips, from the front and with the legs turned out",
+            "An ultrasound of the knee",
+            "A CT scan of his lower spine"
+          ],
+          "fix": "X-ray both hips",
+          "terms": [
+            {
+              "term": "Referred pain",
+              "meaning": "Pain felt in one place when the problem is somewhere else. Hip problems in children are often felt in the knee."
+            },
+            {
+              "term": "Growth plate",
+              "meaning": "A layer of soft, growing cartilage near the end of a child’s bone. It is the weakest part."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "delay",
+              "minutes": 180,
+              "story": "He walks to the scanner and waits. The knee MRI is normal. As he walks back, his leg gives way, and now he cannot stand on it.",
+              "reply": "The knee was never the problem, and three hours of walking on that hip have made the real one worse. X-ray both hips, and keep him off his feet.",
+              "vitals": {
+                "HR": "102 bpm"
+              },
+              "trend": {
+                "HR": "up"
+              },
+              "status": "worse",
+              "alarm": "Cannot put weight on the leg"
+            },
+            {
+              "kind": "safe",
+              "minutes": 30,
+              "story": "He is taken to X-ray in a wheelchair, and both hips are filmed. The pictures go in his chart.",
+              "reply": "Right. In a child with knee pain and a normal knee, look at the hip. And film both sides, because this condition can affect both."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request a knee ultrasound. The resident changes it.",
+              "reply": "His knee has no swelling and moves normally. The stiffness is in the hip."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request a CT of his spine. The resident changes it.",
+              "reply": "His back does not hurt, and his nerves work. Follow the exam: it is the hip that will not turn."
+            }
+          ]
+        },
+        "3": {
+          "resident": "The ball of his left hip is slipping off the thigh bone through the growth plate. He walked in here on it.",
+          "question": "What do we do?",
+          "options": [
+            "Encourage weight loss, and arrange physical therapy",
+            "No weight on that leg from this moment, and an urgent surgical opinion about pinning it in place",
+            "A body cast from chest to ankle for six weeks",
+            "A course of steroid tablets"
+          ],
+          "fix": "Stop weight bearing and call the surgeon",
+          "terms": [
+            {
+              "term": "Non-weight-bearing",
+              "meaning": "Putting no weight at all on a leg, using a wheelchair or crutches."
+            },
+            {
+              "term": "Pinning in place",
+              "meaning": "Passing a single screw across the growth plate through a small cut, to stop any more slipping. Nobody tries to push the ball back."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "delay",
+              "minutes": 720,
+              "story": "He goes home walking, with an exercise sheet. The next morning he is carried in. The hip gave way on the stairs, and he cannot move the leg at all.",
+              "reply": "Every step put his body weight across a slipping growth plate. It has now come right off, and the blood supply to the ball of the hip is at risk. He should not have walked out of here.",
+              "vitals": {
+                "HR": "108 bpm"
+              },
+              "trend": {
+                "HR": "up"
+              },
+              "status": "worse",
+              "alarm": "Hip has slipped further · cannot move the leg"
+            },
+            {
+              "kind": "safe",
+              "minutes": 30,
+              "story": "He stays in the wheelchair, and he and his mother are told why. The orthopedic surgeon sees him and books a screw for the morning.",
+              "reply": "Right. No weight on it, and a screw to hold it where it is. Done early and gently, he keeps a good hip."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest a body cast. The surgeon shakes their head.",
+              "reply": "A cast does not hold the growth plate reliably, and it carries its own harms. A single screw does the job."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest steroids. The resident shakes their head.",
+              "reply": "Nothing here is inflamed. It is a mechanical slip, and tablets cannot hold a bone in place."
+            }
+          ]
+        },
+        "4": {
+          "resident": "His mother asks why this cannot wait a week or two.",
+          "question": "What is the complication everyone is trying to avoid?",
+          "options": [
+            "The hip dislocating again and again",
+            "Death of the ball of the hip from loss of its blood supply",
+            "Infection of the hip joint",
+            "The leg growing too long"
+          ],
+          "fix": "Explain the risk to the blood supply",
+          "terms": [
+            {
+              "term": "Avascular necrosis",
+              "meaning": "Death of bone because its blood supply has been cut off. In the hip it leads to collapse and early arthritis."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say dislocation. The surgeon shakes their head.",
+              "reply": "The ball stays in its socket. It is the neck of the thigh bone that moves away from it."
+            },
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "You explain it to his mother, and she understands why he has to stay.",
+              "reply": "Right. The small vessels that feed the ball of the hip run along the neck and cross the growth plate. A sudden, complete slip can tear or kink them."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say infection. The surgeon shakes their head.",
+              "reply": "Infection is not a feature of this condition. The danger is to the blood supply."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say overgrowth. The surgeon shakes their head.",
+              "reply": "If anything, the leg ends up a little short. The serious risk is the bone dying."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "The X-rays of both hips are in his chart.",
+        "question": "What is this?",
+        "options": [
+          "Perthes disease: loss of blood supply to the ball of the hip, in a younger child",
+          "Slipped capital femoral epiphysis: the ball of the hip has slipped off the thigh bone at the growth plate",
+          "An infected hip joint",
+          "A brief inflammation of the hip after a viral illness"
+        ],
+        "reveal": "He has a slipped capital femoral epiphysis. In early adolescence the growth plate at the top of the thigh bone is at its weakest, and in heavier children the load across it is high. The ball has slid backward off the neck. Perthes disease affects younger children, an infected hip brings fever and severe pain, and a simple inflammation settles within days.",
+        "terms": [
+          {
+            "term": "Epiphysis",
+            "meaning": "The end of a long bone, beyond the growth plate. At the hip it is the ball."
+          },
+          {
+            "term": "Femur",
+            "meaning": "The thigh bone."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "Admitted and off his feet, with an operation to pin the hip booked for the morning",
+        "worse": "Admitted for a harder operation, after the hip slipped further",
+        "critical": "In intensive care"
+      },
+      "plainDiagnosis": "The ball of the hip slipping off the thigh bone through the growth plate (slipped capital femoral epiphysis).",
+      "science": [
+        {
+          "tag": "Forces",
+          "title": "Why his weight mattered",
+          "text": "The growth plate at the hip sits at an angle, so body weight does not only press it together. Part of the force pushes sideways along the plate. The heavier the child and the steeper the angle, the larger that sliding force on the weakest tissue in the bone.",
+          "lesson": "work-energy",
+          "lessonTitle": "Choose a force or energy model"
+        },
+        {
+          "tag": "Sensing",
+          "title": "Why a hip problem hurt in his knee",
+          "text": "One nerve carries sensation from both the hip joint and the skin on the inner side of the knee. Their signals reach the spinal cord together, and the brain, which seldom hears from the hip, blames the knee.",
+          "lesson": "sensory-coding",
+          "lessonTitle": "From stimulus to perception"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Peck, Voss and Voss (Am Fam Physician 2017): slipped capital femoral epiphysis, diagnosis and management",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/28671425/"
+        },
+        {
+          "title": "Loder et al. (J Bone Joint Surg Am 1993): acute slipped capital femoral epiphysis, the importance of physeal stability",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/8354671/"
+        }
+      ]
+    },
+    "orth-009": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "A slip on the ice, _and a wrist bent like a fork._",
+      "setting": "Emergency department",
+      "start": {
+        "status": "stable",
+        "alarm": "Swollen, bent wrist after a fall"
+      },
+      "handoff": "A 68-year-old woman slipped on an icy sidewalk 45 minutes ago and landed on her outstretched right hand. Her wrist is swollen, very painful and bent out of shape.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask how she fell and whether anything else hurts",
+            "finding": "She slipped on ice and put her right hand out to break the fall. She did not hit her head or black out. Nothing else hurts."
+          },
+          {
+            "prompt": "Ask about her hand",
+            "finding": "The wrist is very painful and swollen. Her fingers are not numb and do not tingle. She is right-handed."
+          },
+          {
+            "prompt": "Ask about her bones and her medicines",
+            "finding": "She has osteoporosis and takes a weekly tablet for it, with calcium and vitamin D. She also takes tablets for blood pressure and her thyroid. Her mother broke a hip. She lives alone and manages by herself."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Look at the wrist",
+            "finding": "It is swollen, and seen from the side it is bent upward and back, like the curve of a dinner fork. The skin is not broken."
+          },
+          {
+            "prompt": "Check the blood flow and feeling in her hand",
+            "finding": "Her hand is warm and pink, and the pulse at the wrist is strong. She can feel a light touch on every finger and on the back of her hand."
+          },
+          {
+            "prompt": "Press on her elbow, her forearm and the base of her thumb",
+            "finding": "None of them is tender. She can bend and straighten her fingers a little, though it hurts."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "X-rays of the wrist",
+          "content": "X-rays from the front and the side: the radius, the larger forearm bone, is broken straight across about 2 cm above the wrist joint.\nThe broken end is tilted and shifted toward the back of the hand, and the bone has shortened.\nThe tip of the ulna, the other forearm bone, has been pulled off.\nThe small bones of the wrist are intact, and the break does not reach the joint surface."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "That wrist is broken, and it is out of line. Before anyone touches it, there are three things to do.",
+          "question": "What comes first?",
+          "options": [
+            "Pull it straight now, with no X-ray and no pain relief",
+            "Check and record the feeling and blood flow in her hand, give pain relief and get X-rays",
+            "Wrap it and send her home, with a clinic appointment",
+            "Get an MRI of the wrist at once"
+          ],
+          "fix": "Check her hand, treat her pain and get X-rays",
+          "terms": [
+            {
+              "term": "Neurovascular check",
+              "meaning": "Testing the feeling, movement, pulse and color beyond an injury, to be sure nerves and blood vessels are working."
+            },
+            {
+              "term": "Median nerve",
+              "meaning": "The nerve that runs through the front of the wrist and supplies feeling to the thumb and the next two fingers."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You take hold of her wrist. The resident stops you.",
+              "reply": "Not without knowing what the break looks like, and never without pain relief. Check her hand, treat her pain, then look at the X-ray."
+            },
+            {
+              "kind": "safe",
+              "minutes": 30,
+              "story": "You record that her hand has normal feeling and a strong pulse. She is given pain relief, and X-rays are taken. The pictures go in her chart.",
+              "reply": "Right. If her fingers go numb later, we need to know they were normal at the start. Then pain relief, and pictures before any pulling."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You wrap it and start a discharge. The resident stops you.",
+              "reply": "A wrist this bent heals bent unless someone straightens it. She would lose grip and movement in her writing hand."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request an MRI. The resident changes it.",
+              "reply": "Plain X-rays show a broken wrist perfectly well, in minutes."
+            }
+          ]
+        },
+        "3": {
+          "resident": "The end of her radius is tilted back and out of place. Nerves and circulation are fine for now.",
+          "question": "What do we do in the emergency department?",
+          "options": [
+            "Numb it, pull it straight, hold it in a splint and repeat the X-ray",
+            "Put on a full cast as it lies, without straightening, and send her home",
+            "Operate on it here, straight away",
+            "A sling only"
+          ],
+          "fix": "Straighten and splint it",
+          "terms": [
+            {
+              "term": "Closed reduction",
+              "meaning": "Moving a broken bone back into line by pulling and pressing from outside, without an operation."
+            },
+            {
+              "term": "Hematoma block",
+              "meaning": "Local anesthetic injected into the pool of blood around a fracture. It numbs the break within minutes."
+            },
+            {
+              "term": "Splint",
+              "meaning": "A support that holds a limb still and leaves room for swelling, unlike a full cast."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 40,
+              "story": "Local anesthetic is injected into the fracture. The resident pulls the wrist out to length and presses the end back into place, and a molded splint is applied. A repeat X-ray shows the bone in line. Her fingers are checked again and are normal.",
+              "reply": "Right. Restore the shape, hold it with something that allows for swelling, confirm it on X-ray and recheck the hand."
+            },
+            {
+              "kind": "delay",
+              "minutes": 120,
+              "story": "A snug full cast goes on over the bent wrist. Two hours later, still waiting for her ride, she says her fingers are numb. They are swollen and dusky.",
+              "reply": "A fresh fracture keeps swelling, and a full cast gives it nowhere to go. It is squeezing the nerve and the blood vessels. Split the cast now. And the bone was never straightened.",
+              "vitals": {
+                "HR": "104 bpm"
+              },
+              "trend": {
+                "HR": "up"
+              },
+              "status": "worse",
+              "alarm": "Fingers numb and dusky in the cast"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest operating here and now. The resident shakes their head.",
+              "reply": "Most of these are pulled straight and splinted first. If it will not stay in line, surgery is planned properly in an operating room."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest a sling alone. The resident shakes their head.",
+              "reply": "A sling rests the arm and holds nothing in place. The break would heal crooked."
+            }
+          ]
+        },
+        "4": {
+          "resident": "Her wrist is straight and splinted. She fell from standing height and broke a bone.",
+          "question": "What else should this prompt?",
+          "options": [
+            "Regular MRI scans of the wrist",
+            "A review of her osteoporosis treatment, to prevent the next fracture",
+            "Six weeks of preventive antibiotics",
+            "Permanent rest, with as little activity as possible"
+          ],
+          "fix": "Review her bone health",
+          "terms": [
+            {
+              "term": "Fragility fracture",
+              "meaning": "A break from a fall at standing height or less. Healthy bone should withstand it."
+            },
+            {
+              "term": "Osteoporosis",
+              "meaning": "Bones that have lost density and strength, so they break easily."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest MRI scans. The resident shakes their head.",
+              "reply": "Follow-up X-rays check the healing. The larger question is why the bone broke so easily."
+            },
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "You arrange a review of her bone treatment and a check of her risk of falling, alongside the fracture clinic.",
+              "reply": "Right. A wrist broken this way often comes a few years before a broken hip. It is a chance to ask whether her treatment is working and how to stop her falling."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest antibiotics. The resident shakes their head.",
+              "reply": "The skin was never broken, so there is nothing to prevent."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest permanent rest. The resident shakes their head.",
+              "reply": "Bones weaken with rest. Walking and strength exercises protect them, and they improve balance too."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "The X-rays are in her chart.",
+        "question": "What is this injury?",
+        "options": [
+          "A Smith fracture: a wrist break tilted toward the palm",
+          "A Colles fracture: a break of the radius just above the wrist, tilted toward the back of the hand",
+          "A break of the scaphoid, a small bone at the base of the thumb",
+          "A Galeazzi fracture: a break in the shaft of the radius with a dislocated wrist joint"
+        ],
+        "reveal": "It is a Colles fracture, the classic break from landing on an outstretched hand. The end of the radius snaps just above the wrist and tilts toward the back of the hand, which gives the fork shape. A Smith fracture tilts the other way. A scaphoid break is tender at the base of the thumb and causes no deformity.",
+        "terms": [
+          {
+            "term": "Radius",
+            "meaning": "The larger of the two forearm bones at the wrist, on the thumb side."
+          },
+          {
+            "term": "Angulation",
+            "meaning": "The tilt between the two parts of a broken bone."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "Home in a splint with her wrist straightened, and a bone health review booked",
+        "worse": "Home in a splint after a tight cast had to be cut off, with the feeling in her fingers returning",
+        "critical": "In intensive care"
+      },
+      "plainDiagnosis": "A broken wrist tilted toward the back of the hand, in bone weakened by osteoporosis (Colles fracture).",
+      "science": [
+        {
+          "tag": "Energy",
+          "title": "Why the bone broke where it did",
+          "text": "Her hand stopped her fall, so the energy of her moving body had to go somewhere in a fraction of a second. It traveled up the arm and broke the bone at its weakest point: the wide, spongy end of the radius, where thinning from osteoporosis is greatest.",
+          "lesson": "work-energy",
+          "lessonTitle": "Choose a force or energy model"
+        },
+        {
+          "tag": "Hormones",
+          "title": "Why bones thin after menopause",
+          "text": "Bone is constantly dissolved by one kind of cell and rebuilt by another. Estrogen holds the dissolving cells in check. When it falls at menopause, removal runs ahead of rebuilding, and bone is lost year after year.",
+          "lesson": "endocrine-feedback",
+          "lessonTitle": "Trace a hormonal feedback loop"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Kamal and Shapiro (J Am Acad Orthop Surg 2022): AAOS/ASSH clinical practice guideline summary, management of distal radius fractures",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/35143462/"
+        },
+        {
+          "title": "Mauck and Swigler (Orthop Clin North Am 2018): evidence-based review of distal radius fractures",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/29499822/"
         }
       ]
     }
