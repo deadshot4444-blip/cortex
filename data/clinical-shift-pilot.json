@@ -1,7 +1,7 @@
 {
-  "version": 23,
+  "version": 24,
   "title": "Clinical Shift foundations and rotation practice",
-  "reviewStatus": "Source and consistency checks are recorded with each encounter. Independent clinician review remains pending for all 54 encounters.",
+  "reviewStatus": "Source and consistency checks are recorded with each encounter. Independent clinician review remains pending for all 57 encounters.",
   "rotations": [
     {
       "key": "emergency-medicine",
@@ -160,6 +160,16 @@
         "ho-064",
         "ho-016",
         "ho-048"
+      ]
+    },
+    {
+      "key": "rheumatology",
+      "name": "Rheumatology",
+      "description": "A hot joint, or a fever that will not break. Inflammation leaves damage when it is missed.",
+      "caseIds": [
+        "rh-008",
+        "rh-003",
+        "rh-035"
       ]
     }
   ],
@@ -379,6 +389,18 @@
     "ho-048": {
       "assessment": "39-year-old woman with days of mucocutaneous and vaginal bleeding, pancytopenia (platelets 18), PT 22 s, aPTT 48 s, fibrinogen 90 mg/dL, and markedly elevated D-dimer. Smear shows hypergranular promyelocytes with bundled Auer rods; PML-RARA positive: acute promyelocytic leukemia with DIC.",
       "plan": "Start all-trans retinoic acid immediately on morphologic suspicion, with aggressive product support (platelets, cryoprecipitate or fibrinogen, plasma) to set targets. Add arsenic trioxide or chemotherapy by risk group. Watch for differentiation syndrome (fever, dyspnea, hypoxia, infiltrates, weight gain) and treat at once with dexamethasone."
+    },
+    "rh-008": {
+      "assessment": "60-year-old man with diabetes and a recent intra-articular steroid injection, with two days of a hot, swollen right knee, fever, and inability to bear weight. Synovial WBC 78,000/µL with 90% neutrophils, gram-positive cocci in clusters, and no crystals: septic arthritis, most likely Staphylococcus aureus.",
+      "plan": "Arthrocentesis and blood cultures, then IV antibiotics covering Staphylococcus aureus including MRSA, narrowed to cultures. Urgent joint drainage by arthroscopic or open washout or serial aspiration, with orthopedic consultation. No intra-articular steroids. Optimize glycemic control."
+    },
+    "rh-003": {
+      "assessment": "52-year-old man on hydrochlorothiazide with abrupt nocturnal pain, swelling, and erythema of the right first MTP joint after a weekend of meat and beer, and two prior milder attacks. Synovial fluid shows 28,000 WBC/µL with needle-shaped, negatively birefringent crystals and a negative Gram stain: acute gout.",
+      "plan": "Anti-inflammatory treatment for the flare: an NSAID, colchicine, or a short corticosteroid course, chosen by comorbidity. Do not start high-dose allopurinol alone during the flare. Afterward: replace hydrochlorothiazide, counsel on alcohol, red meat, and fructose, and offer urate-lowering therapy titrated to a serum urate below 6 mg/dL with flare prophylaxis."
+    },
+    "rh-035": {
+      "assessment": "3-year-old boy with five days of high fever, bilateral nonexudative conjunctivitis, fissured lips and strawberry tongue, polymorphous rash, extremity changes with periungual desquamation, and a 1.8 cm cervical node. Platelets 620, ESR 78, CRP 12.4, sterile pyuria, and coronary artery dilation on echocardiography: Kawasaki disease.",
+      "plan": "High-dose IVIG (2 g/kg) with aspirin, given promptly and within 10 days of fever onset. Serial echocardiography at diagnosis, 1-2 weeks, and 4-6 weeks, with low-dose aspirin continued and cardiology follow-up; escalate therapy for persistent fever after IVIG."
     }
   },
   "investigations": {
@@ -2001,6 +2023,96 @@
           "finding": "Mildly confused, with no focal neurologic deficit and no nuchal rigidity."
         }
       ]
+    },
+    "rh-008": {
+      "interview": [
+        {
+          "prompt": "Characterize the knee symptoms",
+          "finding": "Two days of severe right knee pain, swelling and warmth with inability to bear weight, plus fevers, chills, malaise and sweats. No significant trauma."
+        },
+        {
+          "prompt": "Ask about recent procedures on the joint",
+          "finding": "Intra-articular corticosteroid injection into that knee a few weeks ago for osteoarthritis."
+        },
+        {
+          "prompt": "Review medical history and other symptoms",
+          "finding": "Type 2 diabetes (A1c 8.6%) and stage 3 chronic kidney disease, on metformin and lisinopril. No prior similar episodes, urethral discharge, diarrhea, eye symptoms or injection drug use."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Inspect and palpate the knee",
+          "finding": "Markedly swollen right knee with a large tense effusion, diffuse warmth and erythema, and exquisite tenderness. A small healed injection site without drainage."
+        },
+        {
+          "prompt": "Test range of motion and weight bearing",
+          "finding": "Severe pain on any active or passive movement. He holds the knee in slight flexion and refuses to bear weight."
+        },
+        {
+          "prompt": "Examine the leg and the other knee",
+          "finding": "No ascending lymphangitis. The contralateral knee is normal."
+        }
+      ]
+    },
+    "rh-003": {
+      "interview": [
+        {
+          "prompt": "Characterize the toe pain",
+          "finding": "Severe right great toe pain that woke him around 3 a.m.; within hours the joint was swollen, red and too tender to tolerate a bedsheet. No trauma, fever or chills."
+        },
+        {
+          "prompt": "Ask about previous attacks and triggers",
+          "finding": "Two similar, milder episodes over the past year that resolved within a week. This attack followed a weekend of steak and several beers."
+        },
+        {
+          "prompt": "Review medications and history",
+          "finding": "Hypertension on hydrochlorothiazide, obesity and dyslipidemia. Drinks 4-6 beers most weekends. His father had crystal arthritis and kidney stones."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Inspect and palpate the first MTP joint",
+          "finding": "Markedly swollen, warm, dusky-red and exquisitely tender right first metatarsophalangeal joint, with tight overlying skin and severely limited range of motion."
+        },
+        {
+          "prompt": "Look for a skin break or spreading infection",
+          "finding": "No break in the skin, no purulent drainage and no ascending lymphangitis."
+        },
+        {
+          "prompt": "Examine the other joints",
+          "finding": "No other joints are warm or swollen."
+        }
+      ]
+    },
+    "rh-035": {
+      "interview": [
+        {
+          "prompt": "Characterize the fever",
+          "finding": "Five days of persistent high fevers up to 39.8 °C, poorly responsive to antipyretics, with irritability and poor feeding."
+        },
+        {
+          "prompt": "Ask about the eyes, mouth, skin and extremities",
+          "finding": "Red eyes without discharge, very red cracked lips, a bumpy red tongue, a diffuse rash over the trunk and groin, a right neck swelling, puffy red hands and feet, and peeling around the fingertips since today."
+        },
+        {
+          "prompt": "Review exposures and past history",
+          "finding": "Previously healthy and fully immunized; attends daycare. No sick contacts, travel, or new medications or foods. No cough, coryza, diarrhea, vesicles or oral ulcers."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Examine the eyes and mouth",
+          "finding": "Bilateral bulbar conjunctival injection with perilimbal sparing and no exudate. Bright red, dry, fissured lips and a strawberry tongue; erythematous pharynx without exudate."
+        },
+        {
+          "prompt": "Palpate the neck",
+          "finding": "A single 1.8 cm tender right anterior cervical lymph node."
+        },
+        {
+          "prompt": "Inspect the skin, hands and feet",
+          "finding": "Diffuse polymorphous erythematous rash accentuated in the groin, with erythema and edema of the hands and feet and early periungual desquamation."
+        }
+      ]
     }
   },
   "caseReviews": {
@@ -2869,6 +2981,54 @@
         {
           "title": "Lo-Coco et al. (N Engl J Med 2013): retinoic acid and arsenic trioxide for acute promyelocytic leukemia",
           "url": "https://pubmed.ncbi.nlm.nih.gov/23841729/"
+        }
+      ]
+    },
+    "rh-008": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Treat an acute hot joint with fever as septic arthritis, aspirate it and drain it.",
+      "alternativesAndLimits": "Antibiotics are not withheld in an unstable patient when aspiration would be delayed. The choice between repeated aspiration and surgical washout depends on the joint and the response.",
+      "sources": [
+        {
+          "title": "Mathews et al. (Lancet 2010): bacterial septic arthritis in adults",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/20206778/"
+        },
+        {
+          "title": "Margaretten et al. (JAMA 2007): does this adult patient have septic arthritis?",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/17405973/"
+        }
+      ]
+    },
+    "rh-003": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Confirm gout by finding crystals, exclude infection and treat the flare before the cause.",
+      "alternativesAndLimits": "Current guidance allows urate-lowering therapy to be started during a flare when anti-inflammatory treatment is given with it. A serum urate can be normal during an attack.",
+      "sources": [
+        {
+          "title": "FitzGerald et al. (Arthritis Care Res 2020): 2020 American College of Rheumatology guideline for the management of gout",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/32391934/"
+        },
+        {
+          "title": "Dalbeth et al. (Lancet 2021): gout",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/33798500/"
+        }
+      ]
+    },
+    "rh-035": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Recognize Kawasaki disease from its clinical pattern and treat with IVIG in time to protect the coronary arteries.",
+      "alternativesAndLimits": "Incomplete presentations exist and are diagnosed with laboratory and echocardiographic support. Additional treatment for high-risk children varies between centers.",
+      "sources": [
+        {
+          "title": "McCrindle et al. (Circulation 2017): diagnosis, treatment, and long-term management of Kawasaki disease, a scientific statement from the American Heart Association",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/28356445/"
+        },
+        {
+          "title": "Newburger et al. (N Engl J Med 1986): the treatment of Kawasaki syndrome with intravenous gamma globulin",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/2426590/"
         }
       ]
     }
@@ -18519,6 +18679,832 @@
         {
           "title": "Lo-Coco et al. (N Engl J Med 2013): retinoic acid and arsenic trioxide for acute promyelocytic leukemia",
           "url": "https://pubmed.ncbi.nlm.nih.gov/23841729/"
+        }
+      ]
+    },
+    "rh-008": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "A knee that is hot, swollen _and will not bend._",
+      "setting": "Emergency department",
+      "start": {
+        "status": "unstable",
+        "alarm": "Hot, swollen knee · fever 38.7"
+      },
+      "handoff": "A 60-year-old man has had a hot, swollen, very painful right knee for two days, with fevers and chills. He cannot put weight on it. He had a steroid injection into that knee a few weeks ago.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask about the knee",
+            "finding": "It came on over two days: severe pain, swelling and heat. He cannot stand on it. He has had fevers, chills and sweats. He did not injure it."
+          },
+          {
+            "prompt": "Ask whether anything has been done to the knee",
+            "finding": "A few weeks ago he had a cortisone injection into it for arthritis."
+          },
+          {
+            "prompt": "Ask about his health",
+            "finding": "He has diabetes that is not well controlled, and his kidneys work at reduced strength. He has never had an attack like this. He has had no diarrhea, eye trouble or discharge, and does not inject drugs."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Look at the knee and feel it",
+            "finding": "It is tight with fluid, red and hot all round, and too tender to touch. There is a small healed needle mark where the injection went in."
+          },
+          {
+            "prompt": "Try to bend the knee, and ask him to stand",
+            "finding": "Any movement, by him or by you, causes severe pain. He holds it slightly bent and will not put weight on it."
+          },
+          {
+            "prompt": "Look at the rest of the leg and the other knee",
+            "finding": "There are no red streaks up the leg. His left knee is normal."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Joint fluid, blood tests and X-ray",
+          "content": "Joint fluid: cloudy, with 78,000 white cells (a healthy joint has fewer than 200). Nine in ten are neutrophils.\nJoint fluid stain: round bacteria in clusters.\nJoint fluid crystals: none. Joint fluid sugar: low.\nBlood white cells: 16.4, high. Inflammation markers: both very high.\nUric acid in the blood: normal.\nBlood cultures: sent, results pending.\nKnee X-ray: a large amount of fluid in the joint. No fracture."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "One hot, swollen joint with a fever. Until we prove otherwise, there are bacteria in that knee.",
+          "question": "What is the most urgent step?",
+          "options": [
+            "Take blood cultures and start antibiotics, and leave the joint alone for now",
+            "Draw fluid from the knee with a needle now, before antibiotics if we can",
+            "Get an MRI of the knee first",
+            "Start colchicine for a presumed gout attack"
+          ],
+          "fix": "Tap the knee",
+          "terms": [
+            {
+              "term": "Arthrocentesis",
+              "meaning": "Drawing fluid out of a joint with a needle, after numbing the skin. The fluid is checked for white cells, bacteria and crystals."
+            },
+            {
+              "term": "Septic arthritis",
+              "meaning": "Infection inside a joint. It can destroy the joint’s cartilage within days."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for cultures and antibiotics, and plan to leave the knee. The resident picks up a needle.",
+              "reply": "Blood cultures help. But the answer is in the joint, and tapping it takes five minutes. If antibiotics go in first, the bacteria may never grow in the lab. Tap it, then treat."
+            },
+            {
+              "kind": "safe",
+              "minutes": 30,
+              "story": "The skin is numbed, and cloudy yellow fluid is drawn from the knee. Blood is sent, and an X-ray is taken. The results go in his chart.",
+              "reply": "Right. The fluid tells us whether this is infection or crystals, and which bacteria. Nothing else can."
+            },
+            {
+              "kind": "delay",
+              "minutes": 120,
+              "story": "He waits two hours for the scanner. The MRI shows fluid in the joint, which you could see from the door. His fever is higher, and the knee is tighter.",
+              "reply": "A scan cannot tell pus from any other fluid. Bacteria have had two more hours inside his joint. Tap the knee.",
+              "vitals": {
+                "Temp": "39.3 °C",
+                "HR": "118 bpm"
+              },
+              "trend": {
+                "Temp": "up",
+                "HR": "up"
+              },
+              "status": "worse",
+              "alarm": "Fever higher · knee tighter"
+            },
+            {
+              "kind": "delay",
+              "minutes": 240,
+              "story": "He is given colchicine and watched. Four hours later he is shaking with chills, and the knee is no better.",
+              "reply": "Gout can look like this, and so can infection, and infection is the one that destroys a joint. Nobody treats for gout until the fluid has been checked. Tap the knee.",
+              "vitals": {
+                "Temp": "39.5 °C",
+                "HR": "122 bpm"
+              },
+              "trend": {
+                "Temp": "up",
+                "HR": "up"
+              },
+              "status": "worse",
+              "alarm": "Shaking chills · knee no better"
+            }
+          ]
+        },
+        "3": {
+          "resident": "The fluid is full of white cells and bacteria. Antibiotics are going in now.",
+          "question": "What else is essential?",
+          "options": [
+            "Strict rest in a splint for six weeks, with no drainage",
+            "Urgent drainage of the joint: washing it out, or repeated needle drainage",
+            "A steroid injection into the joint, to calm the inflammation",
+            "Antibiotic tablets at home, with a visit in two weeks"
+          ],
+          "fix": "Call for the joint to be washed out",
+          "terms": [
+            {
+              "term": "Washout",
+              "meaning": "Flushing a joint with fluid through a keyhole camera or an open cut, to remove pus."
+            },
+            {
+              "term": "Cartilage",
+              "meaning": "The smooth lining on the ends of bones in a joint. It has no blood supply and does not grow back."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest a splint and no drainage. The resident shakes their head.",
+              "reply": "Pus left in a joint keeps eating the cartilage, whatever the antibiotics do. It has to come out."
+            },
+            {
+              "kind": "safe",
+              "minutes": 60,
+              "story": "The orthopedic surgeon takes him to the operating room and washes out the knee through a keyhole camera. Antibiotics continue through a vein.",
+              "reply": "Yes. Antibiotics and drainage, both. An infected joint is treated like an abscess: the pus is removed.",
+              "vitals": {
+                "Temp": "38.2 °C",
+                "HR": "98 bpm"
+              },
+              "trend": {
+                "Temp": "down",
+                "HR": "down"
+              },
+              "alarm": "Knee washed out · antibiotics running"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest a steroid injection. The resident stops you.",
+              "reply": "Never into an infected joint. Steroids switch off the defenses that are holding the bacteria back."
+            },
+            {
+              "kind": "delay",
+              "minutes": 720,
+              "story": "He goes home with tablets. Twelve hours later he comes back by ambulance, shaking, with a low blood pressure. The knee is rigid with pus.",
+              "reply": "Tablets could not clear a joint full of pus, and the bacteria have now spread into his blood. He needed a washout and antibiotics through a vein from the start.",
+              "vitals": {
+                "Temp": "39.7 °C",
+                "HR": "128 bpm",
+                "BP": "98/60 mmHg"
+              },
+              "trend": {
+                "Temp": "up",
+                "HR": "up",
+                "BP": "down"
+              },
+              "status": "worse",
+              "alarm": "Back by ambulance · bacteria in his blood"
+            }
+          ]
+        },
+        "4": {
+          "resident": "He asks how bacteria got into his knee in the first place.",
+          "question": "What put him most at risk?",
+          "options": [
+            "The recent steroid injection into the joint, and his poorly controlled diabetes",
+            "Drinking alcohol now and then",
+            "His kidney disease alone",
+            "Taking metformin"
+          ],
+          "fix": "Explain his risk factors",
+          "terms": [
+            {
+              "term": "Risk factor",
+              "meaning": "Something that makes an illness more likely."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "You explain it to him plainly, without blame.",
+              "reply": "Right. Any needle through the skin can carry bacteria into a joint, though it is rare. High blood sugar weakens the white cells that would normally deal with them."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You point to alcohol. The resident shakes their head.",
+              "reply": "An occasional drink plays almost no part. Look at what went into the joint, and at his sugar."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You point to his kidneys. The resident shakes their head.",
+              "reply": "Kidney disease weakens defenses a little. It matters far less than a needle into the joint and a high sugar."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You point to metformin. The resident shakes their head.",
+              "reply": "Metformin does not cause infections. His diabetes does, when it is not controlled."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "The joint fluid, blood tests and X-ray are in his chart.",
+        "question": "What is this?",
+        "options": [
+          "Gout",
+          "Septic arthritis: bacteria inside the joint, most likely staph",
+          "Reactive arthritis after a gut infection",
+          "Pseudogout"
+        ],
+        "reveal": "It is septic arthritis. A white cell count that high, nearly all neutrophils, with bacteria visible in the fluid, means infection inside the joint. Round bacteria in clusters are typical of staph, which lives on skin. Gout and pseudogout would show crystals and no bacteria. Reactive arthritis follows an infection elsewhere, and the joint fluid has no bacteria in it.",
+        "terms": [
+          {
+            "term": "Staphylococcus aureus",
+            "meaning": "A bacterium that lives on skin and is the commonest cause of joint infection."
+          },
+          {
+            "term": "Effusion",
+            "meaning": "Extra fluid inside a joint."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "Admitted after a washout of the knee, on antibiotics through a vein",
+        "unstable": "Admitted after a washout of the knee, on antibiotics through a vein",
+        "worse": "Admitted after a washout of the knee, with more damage to the joint than there needed to be",
+        "critical": "In intensive care with sepsis"
+      },
+      "plainDiagnosis": "A bacterial infection inside the knee joint (septic arthritis).",
+      "science": [
+        {
+          "tag": "Enzymes",
+          "title": "Why an infected joint is ruined so fast",
+          "text": "White cells that rush into the joint release enzymes meant to digest bacteria. The same enzymes digest cartilage. Enzymes are not used up as they work, so as long as pus stays in the joint, the damage continues.",
+          "lesson": "enzyme-rates",
+          "lessonTitle": "Read an enzyme curve"
+        },
+        {
+          "tag": "Energy without oxygen",
+          "title": "Why the sugar in his joint fluid was low",
+          "text": "Joint fluid normally holds about as much glucose as blood. Tens of thousands of white cells and a growing colony of bacteria were all burning it, with little oxygen, faster than it could seep in from the blood.",
+          "lesson": "glycolysis",
+          "lessonTitle": "Account for glycolysis"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Mathews et al. (Lancet 2010): bacterial septic arthritis in adults",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/20206778/"
+        },
+        {
+          "title": "Margaretten et al. (JAMA 2007): does this adult patient have septic arthritis?",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/17405973/"
+        }
+      ]
+    },
+    "rh-003": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "Woken at 3 a.m. _by his big toe._",
+      "setting": "Emergency department",
+      "start": {
+        "status": "stable",
+        "alarm": "Red, swollen big toe · too tender to touch"
+      },
+      "handoff": "A 52-year-old man was woken at 3 a.m. by severe pain in his right big toe. Within hours it was swollen and red, and so tender that he could not bear a bedsheet on it.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask about the pain",
+            "finding": "It woke him at 3 a.m. Within hours the joint was swollen, red and so tender that the weight of a sheet was unbearable. He did not injure it, and he has no fever."
+          },
+          {
+            "prompt": "Ask whether it has happened before, and what came before it",
+            "finding": "Twice in the past year, in a milder form, clearing up within a week each time. This attack came after a weekend of grilled steak and several beers."
+          },
+          {
+            "prompt": "Ask about his medicines and his family",
+            "finding": "He takes hydrochlorothiazide, a water tablet, for blood pressure. He drinks four to six beers most weekends. His father had the same kind of joint attacks, and kidney stones."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Look at the toe and touch it lightly",
+            "finding": "The joint at the base of his right big toe is swollen, hot and dusky red, with tight, shiny skin. He pulls away from the lightest touch and can barely move it."
+          },
+          {
+            "prompt": "Look for a cut, pus or red streaks",
+            "finding": "The skin is unbroken. There is no pus, and no red streak runs up the foot."
+          },
+          {
+            "prompt": "Check his other joints",
+            "finding": "No other joint is warm or swollen."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Joint fluid, blood tests and X-ray",
+          "content": "Joint fluid: 28,000 white cells, mostly neutrophils.\nUnder polarized light: needle-shaped crystals that glow yellow when they line up with the filter.\nJoint fluid stain: no bacteria. Culture: pending.\nUric acid in the blood: 6.2, within the normal range.\nBlood white cells and kidney test: normal.\nFoot X-ray: swelling of the soft tissue only."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "A red-hot big toe that came on overnight. I think I know what this is. But an infected joint can look identical, and guessing wrong costs him the joint.",
+          "question": "Which test settles it?",
+          "options": [
+            "A blood uric acid level",
+            "Fluid drawn from the joint, examined under a microscope for crystals and bacteria",
+            "An X-ray of the foot",
+            "Blood cultures and a CRP"
+          ],
+          "fix": "Tap the joint",
+          "terms": [
+            {
+              "term": "Arthrocentesis",
+              "meaning": "Drawing fluid out of a joint with a needle, after numbing the skin. The fluid is checked for white cells, bacteria and crystals."
+            },
+            {
+              "term": "Uric acid",
+              "meaning": "A waste product of breaking down DNA and some foods. In excess it can form crystals in joints."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request a uric acid level. The resident adds a test.",
+              "reply": "During an attack the blood level is often normal, because the uric acid has moved into the joint. And it cannot rule out infection."
+            },
+            {
+              "kind": "safe",
+              "minutes": 25,
+              "story": "The skin is numbed, and a few drops of fluid are drawn from the joint. Blood and an X-ray are done too. The results go in his chart.",
+              "reply": "Right. Seeing the crystals proves it, and the stain and culture rule out bacteria in the same sample."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request an X-ray only. The resident adds a test.",
+              "reply": "An X-ray shows swelling and no more. It is normal in early attacks of anything."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request blood cultures and a CRP. The resident adds a test.",
+              "reply": "Both can be abnormal with crystals and with infection. Only the joint fluid tells them apart."
+            }
+          ]
+        },
+        "3": {
+          "resident": "Crystals, and no bacteria. He is in severe pain now.",
+          "question": "How do we treat this attack?",
+          "options": [
+            "Start high-dose allopurinol straight away",
+            "An anti-inflammatory such as indomethacin (or colchicine, or a short course of steroids)",
+            "Vancomycin into a vein, and wash out the joint",
+            "Probenecid, to make his kidneys pass more uric acid"
+          ],
+          "fix": "Give an anti-inflammatory",
+          "terms": [
+            {
+              "term": "NSAID",
+              "meaning": "A non-steroidal anti-inflammatory medicine, such as indomethacin or naproxen."
+            },
+            {
+              "term": "Allopurinol",
+              "meaning": "A daily tablet that lowers uric acid over weeks. It prevents attacks and does not treat one."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for high-dose allopurinol. The resident changes the order.",
+              "reply": "That lowers uric acid over weeks and does nothing for tonight’s pain. A sudden change in the level can even stir up the attack. Treat the inflammation first."
+            },
+            {
+              "kind": "safe",
+              "minutes": 20,
+              "story": "He takes the first dose and rests with the foot raised and uncovered. Within the hour the pain is easing.",
+              "reply": "Right. The crystals are already there. What hurts is his immune system’s reaction to them, and an anti-inflammatory turns that down.",
+              "status": "better",
+              "alarm": "Pain easing after the first dose"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for vancomycin and a washout. The resident shakes their head.",
+              "reply": "The fluid showed crystals and no bacteria. He does not need antibiotics or an operation."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for probenecid. The resident shakes their head.",
+              "reply": "That is another long-term medicine. Starting it in the middle of an attack does not help the attack."
+            }
+          ]
+        },
+        "4": {
+          "resident": "This is his third attack in a year. Once it has settled, he needs a plan to stop the next one.",
+          "question": "What should the plan be?",
+          "options": [
+            "Change his water tablet to another blood pressure medicine, talk about diet and alcohol, and consider a uric acid-lowering medicine",
+            "Indomethacin every day, indefinitely, and nothing else",
+            "Drink more alcohol, to dilute the uric acid",
+            "Never have a joint tapped again, in case it causes infection"
+          ],
+          "fix": "Plan prevention",
+          "terms": [
+            {
+              "term": "Thiazide",
+              "meaning": "A kind of water tablet. It makes the kidneys hold on to uric acid, which raises the level in the blood."
+            },
+            {
+              "term": "Urate-lowering therapy",
+              "meaning": "Long-term medicine, usually allopurinol, that keeps uric acid low enough for crystals to dissolve."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "You go through it with him: a different blood pressure tablet, less beer and red meat, and a clinic visit to discuss allopurinol.",
+              "reply": "Right. His water tablet has been raising his uric acid all along. With three attacks in a year, he is also someone who should be offered medicine to lower it."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest daily indomethacin for life. The resident shakes their head.",
+              "reply": "That treats attacks without preventing them, and years of it can damage the stomach and kidneys."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest more alcohol. The resident laughs, then corrects you.",
+              "reply": "Alcohol raises uric acid, and beer most of all. He needs less of it."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest never tapping a joint again. The resident shakes their head.",
+              "reply": "Done cleanly, it is very safe, and it is the only way to tell crystals from infection. If a joint flares differently next time, it should be tapped."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "The joint fluid results are in his chart.",
+        "question": "What is this?",
+        "options": [
+          "Pseudogout: calcium crystals in the joint",
+          "Septic arthritis",
+          "Acute gout: uric acid crystals in the joint",
+          "Reactive arthritis"
+        ],
+        "reveal": "It is gout. The needle-shaped crystals that glow yellow under polarized light are uric acid, and nothing else looks like them. Pseudogout crystals are stubby and glow blue. An infected joint would show bacteria and usually a far higher white cell count. His normal blood uric acid does not argue against gout, because the level often dips during an attack.",
+        "terms": [
+          {
+            "term": "Gout",
+            "meaning": "Attacks of joint inflammation caused by uric acid crystals."
+          },
+          {
+            "term": "Polarized light",
+            "meaning": "Light filtered to vibrate in one direction. Under it, crystals of different substances show different colors."
+          }
+        ]
+      },
+      "ending": {
+        "better": "Home with the pain easing, and a plan to prevent the next attack",
+        "stable": "Home with the pain easing, and a plan to prevent the next attack",
+        "worse": "Admitted to hospital",
+        "critical": "In intensive care"
+      },
+      "plainDiagnosis": "Uric acid crystals inflaming the joint at the base of the big toe (acute gout).",
+      "science": [
+        {
+          "tag": "Equilibrium",
+          "title": "Why the big toe, and why at night",
+          "text": "Uric acid stays dissolved only up to a limit, and the limit falls as temperature falls. The big toe is the coolest joint in the body, and it cools further at night. When the fluid there holds more uric acid than it can keep dissolved, crystals form.",
+          "lesson": "rate-equilibrium",
+          "lessonTitle": "Separate speed from destination"
+        },
+        {
+          "tag": "The nephron",
+          "title": "Why his water tablet made it worse",
+          "text": "The kidney tubule both reabsorbs uric acid and secretes it. Thiazide tablets shift that balance toward keeping it, partly by competing for the same transporters. Less leaves in the urine, and the level in his blood rises.",
+          "lesson": "renal-water",
+          "lessonTitle": "Regulate water in the nephron"
+        }
+      ],
+      "sources": [
+        {
+          "title": "FitzGerald et al. (Arthritis Care Res 2020): 2020 American College of Rheumatology guideline for the management of gout",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/32391934/"
+        },
+        {
+          "title": "Dalbeth et al. (Lancet 2021): gout",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/33798500/"
+        }
+      ]
+    },
+    "rh-035": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "Five days of fever, _red eyes and cracked lips._",
+      "setting": "Children’s ward",
+      "start": {
+        "status": "unstable",
+        "alarm": "Fever for five days · very irritable"
+      },
+      "handoff": "A 3-year-old boy has had a high fever for five days that medicine barely touches. His eyes are red, his lips are cracked, he has a rash, and today the skin on his fingertips started to peel.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask his parents about the fever",
+            "finding": "Five days of high fever, up to 39.8 °C. Fever medicine barely brings it down. He is miserable and hardly eating."
+          },
+          {
+            "prompt": "Ask what else they have noticed",
+            "finding": "Red eyes with no stickiness, very red cracked lips and a bumpy red tongue. A rash over his chest, belly and groin. A lump on the right side of his neck. His hands and feet were puffy and red, and today the skin around his fingertips began to peel."
+          },
+          {
+            "prompt": "Ask about illness around him and his past health",
+            "finding": "He has always been healthy and has had all his vaccines. He goes to daycare, and nobody there is known to be ill. He has no cough, runny nose or diarrhea, and no blisters or mouth ulcers."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Look at his eyes and his mouth",
+            "finding": "The whites of both eyes are red, except for a pale ring around the colored part, and there is no pus. His lips are bright red, dry and split. His tongue is red and bumpy, like a strawberry."
+          },
+          {
+            "prompt": "Feel his neck",
+            "finding": "There is one tender gland on the right side, nearly 2 cm across."
+          },
+          {
+            "prompt": "Look at his skin, hands and feet",
+            "finding": "A red, blotchy rash covers his trunk and is strongest in the groin. His palms and soles are red and puffy, and the skin is peeling around his fingernails."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Blood tests, urine and heart ultrasound",
+          "content": "White blood cells: 16.8, high. Hemoglobin: 10.4, low.\nPlatelets: 620, high.\nInflammation markers: both very high.\nLiver test: mildly raised. Albumin and sodium: low.\nUrine: white cells, with no bacteria growing.\nThroat swab for strep: negative. Blood cultures: nothing growing so far.\nHeart ultrasound: one of the arteries that feed the heart muscle is wider than it should be. No clot."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "Five days of fever in a small child, with changes in his eyes, mouth, skin, hands and neck. No single test diagnoses what I am thinking of. It is recognized from a set of findings.",
+          "question": "Which set fits him?",
+          "options": [
+            "Cough, runny nose, sticky red eyes and white spots inside the cheeks",
+            "A rough rash like sandpaper, a pale ring around the mouth and pus on the tonsils",
+            "Target-shaped skin spots with raw sores in the mouth and eyes",
+            "Red eyes without pus, red cracked lips and strawberry tongue, a blotchy rash, red swollen hands and feet that then peel, and a swollen neck gland",
+            "Arthritis that moves from joint to joint, with heart inflammation and lumps under the skin"
+          ],
+          "fix": "Name the pattern and send tests",
+          "terms": [
+            {
+              "term": "Kawasaki disease",
+              "meaning": "An illness of young children in which blood vessels become inflamed throughout the body. The cause is unknown."
+            },
+            {
+              "term": "Conjunctivitis",
+              "meaning": "Redness of the white of the eye."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You pick the cough and white spots. The resident shakes their head.",
+              "reply": "That is measles. He has no cough or runny nose, his eyes are not sticky, and he is vaccinated."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You pick the sandpaper rash. The resident shakes their head.",
+              "reply": "That is scarlet fever, which comes with pus on the tonsils. His throat has none, and his rash is blotchy, not rough."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You pick target spots and raw sores. The resident shakes their head.",
+              "reply": "That describes a severe drug reaction. He has had no new medicines and has no sores or blisters."
+            },
+            {
+              "kind": "safe",
+              "minutes": 30,
+              "story": "You list them, and he has all five. Blood and urine are sent, and a heart ultrasound is arranged for today. The results go in his chart.",
+              "reply": "Right. Fever for five days with at least four of those five is Kawasaki disease. The heart scan matters because of what this illness does to the coronary arteries."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You pick the moving arthritis. The resident shakes their head.",
+              "reply": "That is rheumatic fever, which follows strep in older children. His joints are fine."
+            }
+          ]
+        },
+        "3": {
+          "resident": "It is Kawasaki disease, and one of his coronary arteries is already widened. Today is day five. Treatment protects his heart best inside the first ten days.",
+          "question": "What do we give?",
+          "options": [
+            "Immunoglobulin into a vein (IVIG), with aspirin",
+            "Ceftriaxone and vancomycin into a vein",
+            "Steroids alone",
+            "Fever medicine and fluids only",
+            "Acyclovir by mouth"
+          ],
+          "fix": "Give IVIG and aspirin",
+          "terms": [
+            {
+              "term": "IVIG",
+              "meaning": "Intravenous immunoglobulin: antibodies pooled from thousands of blood donors, given as one long infusion. It calms the inflammation in his blood vessels."
+            },
+            {
+              "term": "Coronary arteries",
+              "meaning": "The arteries that supply the heart muscle."
+            },
+            {
+              "term": "Aneurysm",
+              "meaning": "A weak, ballooned-out section of an artery."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 60,
+              "story": "The infusion is started and runs through the night, with aspirin by mouth. When you see him the next morning, his fever has broken and he is asking for breakfast.",
+              "reply": "Right. Given in time, this cuts the chance of a coronary aneurysm from about one in four to about one in twenty-five. Aspirin is normally avoided in children. Here it is part of the treatment.",
+              "vitals": {
+                "Temp": "37.4 °C",
+                "HR": "118 bpm"
+              },
+              "trend": {
+                "Temp": "down",
+                "HR": "down"
+              },
+              "alarm": "Fever gone after the infusion"
+            },
+            {
+              "kind": "delay",
+              "minutes": 720,
+              "story": "Antibiotics run through the night. In the morning his fever is as high as ever, and every culture is still negative. Day six has begun without treatment.",
+              "reply": "Nothing has grown, because this is not a bacterial infection. Each day of inflammation is another day of injury to his coronary arteries. Give the immunoglobulin.",
+              "vitals": {
+                "Temp": "39.9 °C",
+                "HR": "158 bpm"
+              },
+              "trend": {
+                "Temp": "up",
+                "HR": "up"
+              },
+              "status": "worse",
+              "alarm": "Fever 39.9 · a day lost"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest steroids alone. The specialist shakes their head.",
+              "reply": "Steroids are sometimes added for children at the highest risk. They do not replace immunoglobulin, which is the treatment proven to protect the heart."
+            },
+            {
+              "kind": "delay",
+              "minutes": 720,
+              "story": "He is given fluids and fever medicine. In the morning nothing has changed, except that another day of the ten has gone.",
+              "reply": "The fever would burn out by itself in a couple of weeks. The damage to his arteries would not. He needs the immunoglobulin.",
+              "vitals": {
+                "Temp": "40.0 °C",
+                "HR": "160 bpm"
+              },
+              "trend": {
+                "Temp": "up",
+                "HR": "up"
+              },
+              "status": "worse",
+              "alarm": "Fever 40.0 · a day lost"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest acyclovir. The specialist shakes their head.",
+              "reply": "That treats herpes viruses. Nothing here is herpes."
+            }
+          ]
+        },
+        "4": {
+          "resident": "His fever is gone and he is playing. His parents ask whether that is the end of it.",
+          "question": "What follow-up does he need?",
+          "options": [
+            "None, now that the fever has gone",
+            "Repeat heart ultrasounds over the coming weeks, low-dose aspirin and a heart specialist",
+            "A throat swab every year",
+            "Steroids for life",
+            "Kidney ultrasounds only"
+          ],
+          "fix": "Book heart scans and follow-up",
+          "terms": [
+            {
+              "term": "Echocardiogram",
+              "meaning": "An ultrasound scan of the heart and the vessels around it."
+            },
+            {
+              "term": "Antiplatelet",
+              "meaning": "A medicine, such as low-dose aspirin, that makes platelets less sticky, so clots are less likely to form."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say no follow-up is needed. The specialist corrects you.",
+              "reply": "A widened coronary artery can keep changing for weeks after the fever is gone. Missing a growing aneurysm could mean a heart attack in a small child."
+            },
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "You book heart scans at two weeks and at six weeks, and explain the daily low-dose aspirin.",
+              "reply": "Right. We watch the arteries until we know they have settled. The aspirin keeps clots from forming where an artery is widened."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest yearly throat swabs. The specialist shakes their head.",
+              "reply": "This has nothing to do with strep. The organ to watch is the heart."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest lifelong steroids. The specialist shakes their head.",
+              "reply": "The illness burns out. He needs watching, not years of a drug with serious side effects."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest kidney scans. The specialist shakes their head.",
+              "reply": "His kidneys are not what is at risk. His coronary arteries are."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "His blood tests, urine result and heart ultrasound are in the chart.",
+        "question": "What is the most likely diagnosis?",
+        "options": [
+          "Scarlet fever",
+          "Measles",
+          "Kawasaki disease",
+          "Staphylococcal scalded skin syndrome",
+          "Systemic juvenile arthritis"
+        ],
+        "reveal": "It is Kawasaki disease. He has five days of fever with all five features: red eyes without pus, red cracked lips and strawberry tongue, a rash, swollen hands and feet that are starting to peel, and a large neck gland. The very high platelets and the widened coronary artery fit, and no infection has been found. Scarlet fever would show strep, and measles a cough and a runny nose.",
+        "terms": [
+          {
+            "term": "Vasculitis",
+            "meaning": "Inflammation of blood vessels."
+          },
+          {
+            "term": "Platelets",
+            "meaning": "Small blood cells that start clots. They rise in the second week of this illness."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "On the children’s ward with his fever gone, and heart scans booked for the coming weeks",
+        "unstable": "On the children’s ward with his fever gone, and heart scans booked for the coming weeks",
+        "worse": "On the children’s ward after a day’s delay in treatment, with heart scans booked",
+        "critical": "In the children’s intensive care unit"
+      },
+      "plainDiagnosis": "An inflammation of blood vessels in a young child that can damage the arteries of the heart (Kawasaki disease).",
+      "science": [
+        {
+          "tag": "Flow",
+          "title": "Why a widened artery is dangerous",
+          "text": "When a tube widens, the fluid in it slows down, and it can swirl in the wide part. Blood that is slow and swirling is far more likely to clot. In an artery that feeds the heart, a clot cuts off heart muscle.",
+          "lesson": "fluid-flow",
+          "lessonTitle": "Follow flow through a narrowing"
+        },
+        {
+          "tag": "Evidence",
+          "title": "How a disease with no test gets diagnosed",
+          "text": "Each of his findings alone is common in childhood infections. Together, with five days of fever, they are rare in anything else. The diagnosis rests on how unlikely the whole pattern is by chance, which is why the criteria ask for at least four of five.",
+          "lesson": "uncertainty-controls",
+          "lessonTitle": "Match evidence to a conclusion"
+        }
+      ],
+      "sources": [
+        {
+          "title": "McCrindle et al. (Circulation 2017): diagnosis, treatment, and long-term management of Kawasaki disease, a scientific statement from the American Heart Association",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/28356445/"
+        },
+        {
+          "title": "Newburger et al. (N Engl J Med 1986): the treatment of Kawasaki syndrome with intravenous gamma globulin",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/2426590/"
         }
       ]
     }
