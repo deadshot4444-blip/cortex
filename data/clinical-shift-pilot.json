@@ -1,7 +1,7 @@
 {
-  "version": 29,
+  "version": 30,
   "title": "Clinical Shift foundations and rotation practice",
-  "reviewStatus": "Source and consistency checks are recorded with each encounter. Independent clinician review remains pending for all 72 encounters.",
+  "reviewStatus": "Source and consistency checks are recorded with each encounter. Independent clinician review remains pending for all 75 encounters.",
   "rotations": [
     {
       "key": "emergency-medicine",
@@ -220,6 +220,16 @@
         "no-001",
         "no-042",
         "no-032"
+      ]
+    },
+    {
+      "key": "pediatric-neurology",
+      "name": "Pediatric Neurology",
+      "description": "A seizure that will not stop, a baby with a tense soft spot and a teenager who falls asleep mid-sentence.",
+      "caseIds": [
+        "pn-014",
+        "pn-017",
+        "pn-016"
       ]
     }
   ],
@@ -511,6 +521,18 @@
     "no-032": {
       "assessment": "48-year-old man with thunderclap headache, a right third-nerve palsy, bitemporal field loss, and hypotension, after a year of fatigue, low libido, and cold intolerance. Cortisol 2 µg/dL, free T4 0.5 ng/dL, sodium 129, glucose 58; MRI shows hemorrhage into a pituitary macroadenoma displacing the optic chiasm: pituitary apoplexy with acute hypopituitarism.",
       "plan": "IV fluids and stress-dose IV hydrocortisone immediately, without waiting for results. Urgent neurosurgical evaluation for transsphenoidal decompression given progressive visual loss and ophthalmoplegia. Replace glucocorticoid before or with thyroid hormone; fludrocortisone is not needed in secondary adrenal insufficiency."
+    },
+    "pn-014": {
+      "assessment": "3-year-old boy with known epilepsy, missed levetiracetam doses, and a febrile viral illness, in a generalized convulsion for over 20 minutes despite intramuscular midazolam. Glucose and electrolytes normal, levetiracetam level subtherapeutic, head CT normal: convulsive status epilepticus precipitated by a subtherapeutic drug level and fever.",
+      "plan": "Airway, oxygen, and IV access; a second benzodiazepine dose (IV lorazepam), then a second-line IV load of levetiracetam, fosphenytoin, or valproate. Admit for monitoring, resume levetiracetam (IV while vomiting), treat the febrile illness, and give the family a rescue-medication plan and adherence counseling."
+    },
+    "pn-017": {
+      "assessment": "11-month-old under-immunized boy with one day of high fever, lethargy, vomiting, a tense fontanelle, nuchal rigidity, paradoxical irritability, and poor perfusion. CSF shows 3,200 white cells (90% neutrophils), glucose 22 mg/dL, protein 180 mg/dL, and gram-positive diplococci: bacterial meningitis due to Streptococcus pneumoniae.",
+      "plan": "Fluid resuscitation, blood cultures, and immediate empiric IV antibiotics (a third-generation cephalosporin plus vancomycin) without waiting for lumbar puncture or imaging. Consider adjunctive dexamethasone with or just before the first antibiotic dose. Admit to intensive care; formal audiology before or soon after discharge, and catch-up immunizations."
+    },
+    "pn-016": {
+      "assessment": "16-year-old boy with six months of severe daytime sleepiness despite adequate sleep, laughter-triggered cataplexy, sleep paralysis, and hypnagogic hallucinations. MSLT mean sleep latency 4 minutes with three sleep-onset REM periods; CSF hypocretin-1 low: narcolepsy type 1.",
+      "plan": "Scheduled short naps and regular sleep hours, with a wake-promoting agent such as modafinil or a stimulant for sleepiness; add treatment for cataplexy if it remains troublesome. No driving until sleepiness is controlled. School accommodations and follow-up in sleep clinic."
     }
   },
   "investigations": {
@@ -2673,6 +2695,96 @@
           "finding": "Ill-appearing and diaphoretic, with cool clammy skin, dry mucous membranes and a regular tachycardia. No nuchal rigidity and no limb weakness."
         }
       ]
+    },
+    "pn-014": {
+      "interview": [
+        {
+          "prompt": "Establish the timeline and treatment so far",
+          "finding": "Generalized tonic-clonic seizure that began at home about 22 minutes ago and has not stopped. Paramedics gave one dose of intramuscular midazolam eight minutes ago without effect; their point-of-care glucose was 84 mg/dL."
+        },
+        {
+          "prompt": "Review the epilepsy history and adherence",
+          "finding": "Epilepsy diagnosed at age two, on levetiracetam. Yesterday’s doses were missed because he was vomiting. His usual seizures last under two minutes, and none has been this long."
+        },
+        {
+          "prompt": "Ask about the current illness and other causes",
+          "finding": "Two days of fever, runny nose and poor oral intake. No head trauma, toxic ingestion or shunt, and immunizations are up to date. A sibling had febrile seizures."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Assess responsiveness and movements",
+          "finding": "Unresponsive, with ongoing rhythmic clonic jerking of all four limbs, eye deviation and oral secretions. No focal asymmetry."
+        },
+        {
+          "prompt": "Assess airway, breathing and circulation",
+          "finding": "Transmitted upper-airway sounds with adequate air entry on positioning and oxygen. Capillary refill under two seconds, with strong pulses."
+        },
+        {
+          "prompt": "Check pupils, the neck and the skin",
+          "finding": "Pupils 4 mm and reactive. No nuchal rigidity appreciated, no signs of trauma, and warm flushed skin without petechiae or purpura."
+        }
+      ]
+    },
+    "pn-017": {
+      "interview": [
+        {
+          "prompt": "Characterize the illness",
+          "finding": "One day of high fever and worsening fussiness after two days of mild upper respiratory symptoms. Poor feeding, two episodes of vomiting, and increasing lethargy; he became harder to rouse on the way in."
+        },
+        {
+          "prompt": "Ask how he responds to handling",
+          "finding": "He arches his back and cries inconsolably when picked up. No seizures, and no rash noticed by his parents."
+        },
+        {
+          "prompt": "Review immunizations and exposures",
+          "finding": "Immunizations are delayed: he has not received the Haemophilus influenzae type b or pneumococcal conjugate series. Attends daycare. Born at term; no known immunodeficiency, trauma or travel."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Palpate the fontanelle and flex the neck",
+          "finding": "The anterior fontanelle is full and tense. Nuchal rigidity is present, he resists neck flexion and Brudzinski sign appears positive."
+        },
+        {
+          "prompt": "Assess alertness and consolability",
+          "finding": "Ill-appearing and lethargic, difficult to console and more irritable when picked up. Pupils equal and reactive; he moves all extremities."
+        },
+        {
+          "prompt": "Inspect the skin and assess perfusion",
+          "finding": "A few faint non-blanching petechiae on the trunk. Capillary refill three seconds with cool extremities. Lungs clear; tachycardic without murmur."
+        }
+      ]
+    },
+    "pn-016": {
+      "interview": [
+        {
+          "prompt": "Characterize the sleepiness",
+          "finding": "Six months of irresistible daytime sleepiness despite 8 to 9 hours of sleep at night. He falls asleep in class, while texting and mid-sentence; brief naps refresh him for an hour or two."
+        },
+        {
+          "prompt": "Ask about episodes of weakness and their triggers",
+          "finding": "With hard laughter or surprise his head nods, his jaw slackens and his knees buckle. He once slumped to the floor but stayed fully aware and recovered within seconds."
+        },
+        {
+          "prompt": "Ask about sleep-onset phenomena, breathing and consequences",
+          "finding": "Vivid dream-like images and an inability to move as he falls asleep. No snoring or witnessed apneas. Falling grades and a near-miss car accident from drowsiness. No medications or drug use."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Assess alertness",
+          "finding": "Alert and oriented but visibly drowsy, yawning frequently. Mood appropriate."
+        },
+        {
+          "prompt": "Examine strength, reflexes, coordination and gait",
+          "finding": "Strength 5/5 with normal tone, symmetric reflexes, full eye movements without ptosis, and normal coordination and gait."
+        },
+        {
+          "prompt": "Observe a provoked episode, and examine the airway",
+          "finding": "A hearty laugh triggers transient head droop and jaw slackening with preserved awareness, resolving in seconds. No tonsillar hypertrophy or retrognathia."
+        }
+      ]
     }
   },
   "caseReviews": {
@@ -3829,6 +3941,54 @@
         {
           "title": "Briet et al. (Endocr Rev 2015): pituitary apoplexy",
           "url": "https://pubmed.ncbi.nlm.nih.gov/26414232/"
+        }
+      ]
+    },
+    "pn-014": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Treat a seizure lasting more than five minutes as an emergency: two benzodiazepine doses, then a second-line drug.",
+      "alternativesAndLimits": "Doses are weight-based and set by local protocol. A child who does not wake as expected needs further testing.",
+      "sources": [
+        {
+          "title": "Glauser et al. (Epilepsy Curr 2016): evidence-based guideline, treatment of convulsive status epilepticus in children and adults",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/26900382/"
+        },
+        {
+          "title": "Kapur et al. (N Engl J Med 2019): randomized trial of three anticonvulsant medications for status epilepticus",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/31774955/"
+        }
+      ]
+    },
+    "pn-017": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Give antibiotics immediately when bacterial meningitis is suspected, read the spinal fluid and screen for hearing loss afterward.",
+      "alternativesAndLimits": "The antibiotic choice follows local resistance patterns. The benefit of steroids in children with pneumococcal meningitis is less certain than for Haemophilus influenzae type b.",
+      "sources": [
+        {
+          "title": "Tunkel et al. (Clin Infect Dis 2004): practice guidelines for the management of bacterial meningitis",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/15494903/"
+        },
+        {
+          "title": "Brouwer et al. (Cochrane Database Syst Rev 2015): corticosteroids for acute bacterial meningitis",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/26362566/"
+        }
+      ]
+    },
+    "pn-016": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Recognize cataplexy, confirm narcolepsy with sleep testing and treat sleepiness while counseling about driving.",
+      "alternativesAndLimits": "Drug choice in adolescents depends on age, licensing and side effects. Spinal fluid testing is not needed when cataplexy and the nap test are both clear.",
+      "sources": [
+        {
+          "title": "Scammell (N Engl J Med 2015): narcolepsy",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/26716917/"
+        },
+        {
+          "title": "Maski et al. (J Clin Sleep Med 2021): treatment of central disorders of hypersomnolence, an American Academy of Sleep Medicine clinical practice guideline",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/34743789/"
         }
       ]
     }
@@ -24300,6 +24460,753 @@
         {
           "title": "Briet et al. (Endocr Rev 2015): pituitary apoplexy",
           "url": "https://pubmed.ncbi.nlm.nih.gov/26414232/"
+        }
+      ]
+    },
+    "pn-014": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "A three-year-old, _seizing for twenty minutes._",
+      "setting": "Emergency department",
+      "start": {
+        "status": "unstable",
+        "alarm": "Seizing for 22 minutes"
+      },
+      "handoff": "A 3-year-old boy with epilepsy has been having a full-body seizure for 22 minutes. Paramedics gave one dose of medicine on the way in, and it did not stop. He has had a fever for two days.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask the paramedics what has happened so far",
+            "finding": "The seizure began at home about 22 minutes ago and has not stopped. They gave one injection of midazolam into his thigh eight minutes ago, with no effect. His blood sugar was 84, normal."
+          },
+          {
+            "prompt": "Ask his mother about his epilepsy",
+            "finding": "It was diagnosed a year ago, and he takes levetiracetam twice a day. He missed yesterday’s doses because he could not keep anything down. His seizures usually stop within two minutes."
+          },
+          {
+            "prompt": "Ask his mother about the last few days",
+            "finding": "Two days of fever and a runny nose, and he has hardly eaten or drunk. He has not hit his head, and he could not have swallowed any medicines or chemicals. His vaccines are up to date."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Look at him",
+            "finding": "He does not respond. Both arms and both legs are jerking in rhythm, his eyes are turned to one side, and saliva is pooling in his mouth."
+          },
+          {
+            "prompt": "Check his airway, breathing and circulation",
+            "finding": "His breathing is noisy. With his jaw lifted and oxygen on, air moves well. His pulses are strong."
+          },
+          {
+            "prompt": "Check his pupils, neck and skin",
+            "finding": "His pupils react to light. His neck does not seem stiff. His skin is hot and flushed, with no rash and no bruises."
+          }
+        ]
+      },
+      "results": {
+        "2": {
+          "label": "Blood tests and CT scan",
+          "content": "Blood sugar: 84, normal.\nSodium, potassium, calcium and magnesium: all normal.\nLevel of his seizure medicine in the blood: too low.\nBlood acid level (pH): 7.21, acidic, with a high lactate of 6.5. Both are improving now that the seizure has stopped.\nCT scan of the head: no bleeding, no mass and no build-up of fluid."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "Oxygen is on, his sugar is normal and a line is in his vein. He has been seizing for over 20 minutes, through one dose of midazolam.",
+          "question": "What is the next step, right now?",
+          "options": [
+            "An emergency MRI of his brain, before any more medicine",
+            "A second dose of the same class of fast drug, lorazepam, into his vein",
+            "Start his usual seizure medicine as a slow drip over an hour, and wait",
+            "A spinal tap at once"
+          ],
+          "fix": "Give lorazepam",
+          "terms": [
+            {
+              "term": "Status epilepticus",
+              "meaning": "A seizure that lasts more than five minutes, or seizures that follow one another without waking in between."
+            },
+            {
+              "term": "Benzodiazepine",
+              "meaning": "A family of fast-acting calming drugs, such as midazolam and lorazepam. They are the first treatment for a seizure."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for an MRI. The resident shakes their head.",
+              "reply": "Nobody scans a child who is still convulsing. The longer a seizure runs, the harder it is to stop. Treat first."
+            },
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "Lorazepam goes into his vein. Five minutes later he is still jerking.",
+              "reply": "That was the right drug, in a full dose. A seizure this long does not always answer to it. We move to the next step without waiting.",
+              "alarm": "Still seizing after two doses"
+            },
+            {
+              "kind": "delay",
+              "minutes": 20,
+              "story": "A slow drip is started, and the team waits. Twenty minutes later he is still convulsing, and his lips are turning dusky.",
+              "reply": "A slow drip tops up a level. It does not stop a seizure. He needed a fast drug at once. Give lorazepam now.",
+              "status": "worse",
+              "alarm": "Seizing for over 40 minutes · lips dusky"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a spinal tap. The resident shakes their head.",
+              "reply": "It cannot be done safely on a convulsing child, and it will not stop the seizure. If we still suspect infection once he is still, we do it then."
+            }
+          ]
+        },
+        "1": {
+          "resident": "He has now had two doses of that kind of drug, and he is still seizing.",
+          "question": "What comes next?",
+          "options": [
+            "A third dose of the same kind",
+            "A full dose of a different, longer-acting seizure medicine into his vein, such as levetiracetam, fosphenytoin or valproate",
+            "A breathing tube at once, with no more seizure medicine",
+            "Clobazam by mouth"
+          ],
+          "fix": "Give a second-line drug",
+          "terms": [
+            {
+              "term": "Second-line",
+              "meaning": "The treatment used when the first one has not worked."
+            },
+            {
+              "term": "Loading dose",
+              "meaning": "A large first dose, given to bring a drug to a working level quickly."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "delay",
+              "minutes": 10,
+              "story": "A third dose goes in. The jerking continues. His breathing slows to a few shallow breaths a minute, and a nurse has to breathe for him with a bag and mask.",
+              "reply": "After two doses, more of that drug rarely stops the seizure. It does stop the breathing. He needs a different drug. Give it now.",
+              "status": "critical",
+              "alarm": "Breathing failing · still seizing"
+            },
+            {
+              "kind": "safe",
+              "minutes": 15,
+              "story": "A full dose of levetiracetam runs into his vein over ten minutes. The jerking slows, then stops. He is breathing by himself, deeply asleep. Blood is sent, and he has a CT. The results go in his chart.",
+              "reply": "Right. Three drugs are equally good at this step. Levetiracetam makes sense for him because his own level is probably low.",
+              "vitals": {
+                "HR": "132 bpm"
+              },
+              "trend": {
+                "HR": "down"
+              },
+              "alarm": "Seizure stopped · asleep and breathing"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a breathing tube and nothing else. The resident shakes their head.",
+              "reply": "A tube protects his airway, and he may yet need one. It does not stop the seizure in his brain. The drugs used to place it would only hide the jerking."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a tablet. The resident shakes their head.",
+              "reply": "He cannot swallow while he is convulsing, and a tablet takes far too long to work."
+            }
+          ]
+        },
+        "4": {
+          "resident": "The seizure has stopped. He is sleepy from the seizure and from three doses of sedating medicine, and he still has a fever.",
+          "question": "What is the plan?",
+          "options": [
+            "Send him home now that the seizure has stopped",
+            "Admit him for monitoring, restart his seizure medicine, treat his illness and give his family a rescue plan",
+            "Switch him to phenobarbital for life and send him home",
+            "Refer him to psychiatry for spells that are not true seizures"
+          ],
+          "fix": "Admit him and restart his medicine",
+          "terms": [
+            {
+              "term": "Rescue medicine",
+              "meaning": "A fast seizure drug that parents can give at home, in the nose or cheek, if a seizure lasts too long."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "delay",
+              "minutes": 240,
+              "story": "He goes home, still drowsy. Four hours later the ambulance brings him back. He vomited his evening dose and is seizing again.",
+              "reply": "He was still vomiting, so the cause of this had not been fixed. He also needed watching while the sedating drugs wore off.",
+              "status": "worse",
+              "alarm": "Second seizure at home"
+            },
+            {
+              "kind": "safe",
+              "minutes": 20,
+              "story": "He is admitted to the children’s ward on a monitor. His levetiracetam is given into his vein until he can keep liquids down. His mother is shown how to give a rescue medicine at home.",
+              "reply": "Right. We watch his breathing while he wakes, and we fix what set this off: the missed doses and the fever."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest changing his medicine for good. The resident shakes their head.",
+              "reply": "His medicine did not fail. He missed it. One long seizure with a clear trigger is no reason to switch drugs."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest psychiatry. The resident shakes their head.",
+              "reply": "He has known epilepsy, his blood turned acidic, and the seizure stopped with a seizure drug. This was real."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "The seizure has stopped, and his blood tests and CT are in the chart.",
+        "question": "What best explains tonight?",
+        "options": [
+          "Bacterial meningitis that has just begun",
+          "A prolonged seizure in a child with epilepsy, set off by missed medicine and a fever",
+          "Spells that look like seizures but have a psychological cause",
+          "A seizure from low blood sugar"
+        ],
+        "reveal": "This was a prolonged seizure, called status epilepticus, in a child who already has epilepsy. Two things set it off together: he vomited his medicine for a day, so its level fell, and fever makes seizures more likely. His sugar was normal. He had no stiff neck or rash to suggest meningitis, although the team keeps that in mind until he wakes up normally. Acid in the blood after a long convulsion is expected and clears by itself.",
+        "terms": [
+          {
+            "term": "Epilepsy",
+            "meaning": "A tendency to have repeated seizures."
+          },
+          {
+            "term": "Trigger",
+            "meaning": "Something that sets off a seizure in a person who is prone to them, such as a missed dose, fever or lack of sleep."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "Admitted to the children’s ward, asleep and breathing well, with his seizure medicine restarted",
+        "unstable": "Admitted to the children’s ward, asleep and breathing well, with his seizure medicine restarted",
+        "worse": "Admitted to the children’s ward after a longer seizure, with his seizure medicine restarted",
+        "critical": "In pediatric intensive care, with help for his breathing"
+      },
+      "plainDiagnosis": "A seizure that would not stop (status epilepticus), set off by missed epilepsy medicine and a fever.",
+      "science": [
+        {
+          "tag": "Ion channels",
+          "title": "How the first drug quiets a seizure",
+          "text": "Nerve cells are calmed by a messenger called GABA. It opens channels that let chloride ions into the cell, and that makes the cell harder to fire. Benzodiazepines make those channels open more often. During a long seizure the cells pull the channels inside, so the drug has less to act on.",
+          "lesson": "membrane-transport",
+          "lessonTitle": "Cross a membrane"
+        },
+        {
+          "tag": "Energy",
+          "title": "Why his blood turned acidic",
+          "text": "Muscles that convulse without rest use oxygen faster than blood can deliver it. They fall back on breaking down glucose without oxygen, which makes far less ATP and leaves lactate behind. The acid clears once the seizure stops.",
+          "lesson": "glycolysis",
+          "lessonTitle": "Account for glycolysis"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Glauser et al. (Epilepsy Curr 2016): evidence-based guideline, treatment of convulsive status epilepticus in children and adults",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/26900382/"
+        },
+        {
+          "title": "Kapur et al. (N Engl J Med 2019): randomized trial of three anticonvulsant medications for status epilepticus",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/31774955/"
+        }
+      ]
+    },
+    "pn-017": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "A baby with a high fever _who cries harder when he is picked up._",
+      "setting": "Emergency department",
+      "start": {
+        "status": "unstable",
+        "alarm": "High fever · hard to wake · tight soft spot"
+      },
+      "handoff": "An 11-month-old boy has had a high fever for a day. He is feeding poorly, has vomited twice and is getting harder to wake. When his parents pick him up, he arches his back and screams.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask his parents how the illness has gone",
+            "finding": "He had a cold for two days. Yesterday a high fever started and he became very fussy. He has fed poorly and vomited twice. Today he has been sleepy and floppy, and in the car he was hard to wake."
+          },
+          {
+            "prompt": "Ask what happens when they hold him",
+            "finding": "Picking him up makes him cry harder, and he arches his back. He has not had a seizure. They have not seen a rash."
+          },
+          {
+            "prompt": "Ask about his vaccines",
+            "finding": "He is behind. He missed several visits and has not had the vaccines against Hib or pneumococcus, two bacteria that cause meningitis. He goes to daycare. He was born on time and has been healthy."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Feel the soft spot on his head, and bend his neck gently",
+            "finding": "The soft spot is full and tight. He resists when you bend his neck, and his knees draw up as you do it."
+          },
+          {
+            "prompt": "Watch how he responds",
+            "finding": "He looks ill and drowsy. He is hard to settle, and he cries more when he is picked up. He moves both arms and both legs."
+          },
+          {
+            "prompt": "Look at his skin, and check his circulation",
+            "finding": "On his chest and belly there are a few tiny red-purple dots that do not fade when pressed. His hands and feet are cool, and a pressed fingertip takes three seconds to turn pink again."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Spinal fluid, blood count and CT scan",
+          "content": "White cells in the spinal fluid: 3,200, nearly all neutrophils, the cells that fight bacteria. Normal is fewer than 5.\nSugar in the spinal fluid: 22, when his blood sugar is 96. Very low.\nProtein in the spinal fluid: 180, high.\nUnder the microscope: round bacteria in pairs, staining purple.\nWhite cells in the blood: 22,000, high.\nCT scan of the head, done before the spinal tap: no mass and no blocked fluid."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "Fever, a tight soft spot, a stiff neck and a baby who is getting harder to wake. A line is in and fluids are running.",
+          "question": "What is the most important thing to do right now?",
+          "options": [
+            "An MRI of his brain before any treatment",
+            "Draw blood cultures and give antibiotics into his vein now, without waiting for the spinal tap",
+            "Give acetaminophen by mouth and watch him for six hours",
+            "Start the antiviral drug acyclovir alone, and wait for the cultures"
+          ],
+          "fix": "Give antibiotics now",
+          "terms": [
+            {
+              "term": "Meningitis",
+              "meaning": "Infection of the membranes that cover the brain and spinal cord."
+            },
+            {
+              "term": "Blood culture",
+              "meaning": "A blood sample kept warm for days to see whether bacteria grow from it."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "delay",
+              "minutes": 90,
+              "story": "An MRI for a baby needs sedation and takes 90 minutes to arrange. While he waits, with no antibiotic given, he has a seizure.",
+              "reply": "In bacterial meningitis every hour without antibiotics costs brain. No scan comes before the first dose. Give it now.",
+              "vitals": {
+                "HR": "188 bpm"
+              },
+              "trend": {
+                "HR": "up"
+              },
+              "status": "worse",
+              "alarm": "Seizure · no antibiotic given yet"
+            },
+            {
+              "kind": "safe",
+              "minutes": 20,
+              "story": "Blood cultures are drawn, and the first antibiotics go in within minutes. Because he is so drowsy he has a quick CT, and then a spinal tap. The results go in his chart.",
+              "reply": "Right. Antibiotics come first. The spinal tap still shows the infection when it is done soon afterward."
+            },
+            {
+              "kind": "delay",
+              "minutes": 360,
+              "story": "He is given acetaminophen and watched. Six hours later he is limp and grey. The dots on his skin have spread into purple blotches, and he has had a seizure.",
+              "reply": "This was never a fever to watch. A tight soft spot and a stiff neck in a drowsy baby mean meningitis until proven otherwise. Give antibiotics now.",
+              "vitals": {
+                "HR": "196 bpm",
+                "BP": "70/40 mmHg"
+              },
+              "trend": {
+                "HR": "up",
+                "BP": "down"
+              },
+              "status": "critical",
+              "alarm": "Seizure · rash spreading · blood pressure 70 over 40"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for acyclovir alone. The resident adds antibiotics.",
+              "reply": "Acyclovir treats the herpes virus. At his age, and without his vaccines, bacteria are the danger, and they need antibiotics now."
+            }
+          ]
+        },
+        "3": {
+          "resident": "Antibiotics kill the bacteria. Much of the damage in meningitis comes from the inflammation that follows, so a steroid is sometimes added.",
+          "question": "Which statement about steroids in children with bacterial meningitis is correct?",
+          "options": [
+            "Steroids must never be given to a child with meningitis",
+            "Dexamethasone most clearly protects hearing in meningitis caused by Hib, and when it is used it is given with or just before the first antibiotic dose",
+            "Steroids should be started only after seven days of antibiotics",
+            "In pneumococcal meningitis, steroids replace antibiotics"
+          ],
+          "fix": "State what is known",
+          "terms": [
+            {
+              "term": "Dexamethasone",
+              "meaning": "A strong steroid that damps down inflammation."
+            },
+            {
+              "term": "Hib",
+              "meaning": "Haemophilus influenzae type b, a bacterium that was a leading cause of childhood meningitis before its vaccine."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say steroids are never allowed. The resident shakes their head.",
+              "reply": "They are not forbidden. For some bacteria they clearly help."
+            },
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "The team talks it through with the infectious disease doctor.",
+              "reply": "Right. The proof is strongest for Hib. For pneumococcus in children it is less certain, so it is decided case by case. Timing matters: it has to be on board as the bacteria start to die."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say to start after a week. The resident shakes their head.",
+              "reply": "By then the inflammation has already done its damage. If a steroid is used, it goes in at the start."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say steroids replace antibiotics. The resident stops you.",
+              "reply": "Never. A steroid kills nothing. Antibiotics are the treatment."
+            }
+          ]
+        },
+        "4": {
+          "resident": "If he recovers, one long-term problem is common enough that every child is tested for it before going home.",
+          "question": "Which one?",
+          "options": [
+            "Permanent weakness of one side of the body",
+            "Hearing loss from damage to the inner ear",
+            "A tremor and stiffness like Parkinson disease",
+            "Damage to the nerves of the hands and feet"
+          ],
+          "fix": "Book the screening test",
+          "terms": [
+            {
+              "term": "Sensorineural hearing loss",
+              "meaning": "Hearing loss from damage to the inner ear or its nerve."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say weakness of one side. The resident shakes their head.",
+              "reply": "It can happen, but it is much less common."
+            },
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "A hearing test is booked for before he leaves hospital.",
+              "reply": "Right. The infection spreads easily to the inner ear. Finding hearing loss early matters, because a baby who cannot hear does not learn to speak."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say a tremor. The resident shakes their head.",
+              "reply": "That is not something meningitis leaves behind."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say nerve damage in the hands and feet. The resident shakes their head.",
+              "reply": "Meningitis injures the brain and the inner ear, not the nerves of the limbs."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "His spinal fluid results are in the chart.",
+        "question": "What is the diagnosis?",
+        "options": [
+          "Viral meningitis",
+          "Bacterial meningitis, caused by pneumococcus",
+          "Tuberculous meningitis",
+          "Bleeding around the brain"
+        ],
+        "reveal": "This is bacterial meningitis. Thousands of neutrophils, a very low sugar and a high protein are the pattern bacteria produce, and the microscope showed the bacteria themselves. Round bacteria in pairs are typical of pneumococcus, one of the two vaccines he missed. A virus leaves the sugar normal and draws a different kind of white cell. Tuberculosis builds up over weeks. Bleeding would fill the fluid with red cells.",
+        "terms": [
+          {
+            "term": "Pneumococcus",
+            "meaning": "Streptococcus pneumoniae, a bacterium that causes pneumonia, ear infections and meningitis."
+          },
+          {
+            "term": "Spinal tap",
+            "meaning": "A needle in the lower back that takes a sample of the fluid around the brain and spinal cord."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "In pediatric intensive care on antibiotics, with a hearing test booked",
+        "unstable": "In pediatric intensive care on antibiotics, with a hearing test booked",
+        "worse": "In pediatric intensive care on antibiotics and a seizure medicine",
+        "critical": "In pediatric intensive care on antibiotics, with drugs to support his blood pressure"
+      },
+      "plainDiagnosis": "A bacterial infection of the lining of the brain (pneumococcal meningitis).",
+      "science": [
+        {
+          "tag": "Microbes",
+          "title": "What the microscope showed in minutes",
+          "text": "Bacteria are complete cells with their own walls. A stain that sticks to thick cell walls turns some of them purple, and their shape narrows down the species long before a culture grows. Antibiotics attack parts that bacteria have and viruses lack, which is why they do nothing against a virus.",
+          "lesson": "microbial-strategies",
+          "lessonTitle": "Distinguish cells from viral passengers"
+        },
+        {
+          "tag": "Sensing",
+          "title": "Why hearing is at risk",
+          "text": "Sound is turned into nerve signals by hair cells in the inner ear. The fluid around them connects with the fluid around the brain, so infection and inflammation reach them easily. Hair cells that die are not replaced.",
+          "lesson": "sensory-coding",
+          "lessonTitle": "From stimulus to perception"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Tunkel et al. (Clin Infect Dis 2004): practice guidelines for the management of bacterial meningitis",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/15494903/"
+        },
+        {
+          "title": "Brouwer et al. (Cochrane Database Syst Rev 2015): corticosteroids for acute bacterial meningitis",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/26362566/"
+        }
+      ]
+    },
+    "pn-016": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "He falls asleep mid-sentence, _and his knees give way when he laughs._",
+      "setting": "Pediatric neurology clinic",
+      "start": {
+        "status": "stable",
+        "alarm": "Falls asleep in class · knees buckle with laughter"
+      },
+      "handoff": "A 16-year-old boy has been overwhelmingly sleepy in the daytime for six months, although he sleeps eight or nine hours a night. His mother says his knees buckle when he laughs hard.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask about the sleepiness",
+            "finding": "For six months he has not been able to stay awake in the day, although he sleeps eight or nine hours at night. He falls asleep in class, while texting and in the middle of a sentence. A short nap leaves him fresh for an hour or two."
+          },
+          {
+            "prompt": "Ask his mother about the buckling",
+            "finding": "When he laughs hard or is startled, his head nods, his jaw goes slack and his knees give way. Once he slid to the floor. He was awake the whole time, heard everything and was normal within seconds."
+          },
+          {
+            "prompt": "Ask about falling asleep, snoring and daily life",
+            "finding": "As he drifts off he sees vivid, dream-like images, and sometimes he cannot move at all, which frightens him. He does not snore. His grades have dropped, and he nearly crashed the car when he dozed off. He takes no drugs or medicines."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Watch him during the visit",
+            "finding": "He is awake and makes sense, but he yawns constantly and his eyelids droop."
+          },
+          {
+            "prompt": "Test his strength, reflexes and walking",
+            "finding": "All normal. His arms and legs are strong, and he walks steadily, heel to toe."
+          },
+          {
+            "prompt": "Tell him a joke, and look in his throat",
+            "finding": "He laughs hard. His head drops and his jaw sags for a few seconds, and he hears you the whole time. His tonsils are small, and his jaw is a normal shape."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Sleep studies and spinal fluid",
+          "content": "Overnight sleep study: a normal amount of sleep and no pauses in breathing. Dream sleep began unusually soon after he fell asleep.\nDaytime nap test, five naps: he fell asleep in 4 minutes on average, when more than 10 is normal. In three of the naps he went straight into dream sleep.\nSpinal fluid: hypocretin, a brain chemical that keeps people awake, is low.\nUrine drug screen: negative.\nThyroid and iron tests: normal."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "Before we order anything, think about what his mother described: his knees give way when he laughs, and he stays wide awake throughout.",
+          "question": "What is that called?",
+          "options": [
+            "Drop seizures",
+            "Cataplexy",
+            "Fainting",
+            "Brief blockages of blood flow to the brain"
+          ],
+          "fix": "Name what his mother saw",
+          "terms": [
+            {
+              "term": "Cataplexy",
+              "meaning": "Sudden, brief loss of muscle strength set off by strong emotion, with the person fully awake."
+            },
+            {
+              "term": "Muscle tone",
+              "meaning": "The slight, constant tension that keeps muscles ready and the body upright."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You say drop seizures. The specialist shakes their head.",
+              "reply": "Those are not set off by laughter, and awareness is usually lost for a moment. He hears everything."
+            },
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "The specialist books an overnight sleep study with a daytime nap test, and some blood and spinal fluid tests. He comes back to clinic with the results in his chart.",
+              "reply": "Right. Strength that goes with emotion while the mind stays clear is cataplexy. Only one condition causes it, and the tests will confirm it."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You say fainting. The specialist shakes their head.",
+              "reply": "In a faint the brain briefly loses its blood supply and the person blacks out. He never does."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You say blocked blood flow. The specialist shakes their head.",
+              "reply": "That would be extraordinary at sixteen, would not be set off by a joke and would not affect both sides at once."
+            }
+          ]
+        },
+        "3": {
+          "resident": "He will take planned short naps and keep regular sleep hours. He also needs a medicine for the daytime sleepiness.",
+          "question": "Which kind of medicine is the first choice?",
+          "options": [
+            "A medicine that promotes wakefulness, such as modafinil, or a stimulant",
+            "A sedative of the diazepam family at bedtime",
+            "An antipsychotic",
+            "A long-acting opioid"
+          ],
+          "fix": "Start a wake-promoting medicine",
+          "terms": [
+            {
+              "term": "Wake-promoting medicine",
+              "meaning": "A drug that helps the brain stay awake, taken in the morning."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "He starts a wake-promoting medicine each morning, with two planned 15-minute naps a day.",
+              "reply": "Right. It does not cure the condition, but most people can stay awake through a school day on it. If the buckling stays troublesome, other medicines treat that."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest a bedtime sedative. The specialist shakes their head.",
+              "reply": "He does not have trouble sleeping. A sedative would leave him sleepier the next day."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest an antipsychotic. The specialist shakes their head.",
+              "reply": "The images he sees as he falls asleep are dreams starting early. They are not psychosis, and those drugs are sedating."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest an opioid. The specialist shakes their head.",
+              "reply": "Opioids cause sleepiness and dependence. They have no place here."
+            }
+          ]
+        },
+        "4": {
+          "resident": "He is sixteen and has just got his license. He has already had one near miss.",
+          "question": "What is the most important safety advice?",
+          "options": [
+            "Avoid all physical activity for good",
+            "Do not drive until the sleepiness is under control, and keep to treatment and naps once he does",
+            "Drink less in the evening",
+            "Start a strict ketogenic diet"
+          ],
+          "fix": "Talk about driving",
+          "terms": [
+            {
+              "term": "Sleep attack",
+              "meaning": "A sudden, overwhelming need to sleep that cannot be resisted."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You tell him to give up sports. The specialist shakes their head.",
+              "reply": "He can be as active as he likes. He just needs to know what sets off the buckling."
+            },
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "He agrees to hand his keys to his mother until the medicine is working.",
+              "reply": "Right. Falling asleep or losing strength at the wheel is the one way this condition kills people. That conversation comes first."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You tell him to drink less in the evening. The specialist shakes their head.",
+              "reply": "That helps people who wake at night to pass urine. It is not his problem."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest a ketogenic diet. The specialist shakes their head.",
+              "reply": "That diet is used for some kinds of epilepsy. It does not treat this."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "His sleep studies and spinal fluid result are in the chart.",
+        "question": "What is the diagnosis?",
+        "options": [
+          "Obstructive sleep apnea",
+          "Narcolepsy with cataplexy (narcolepsy type 1)",
+          "Idiopathic hypersomnia, sleepiness with no known cause",
+          "Simply not getting enough sleep"
+        ],
+        "reveal": "He has narcolepsy type 1. His brain has lost the cells that make hypocretin, the chemical that holds a person steadily awake. Without it, sleep breaks into the day, and pieces of dream sleep appear at the wrong times. The paralysis that belongs to dreaming shows up as buckling when he laughs and as being unable to move at the edge of sleep. Sleep apnea would show pauses in breathing overnight. The other two do not cause cataplexy or a low hypocretin.",
+        "terms": [
+          {
+            "term": "Narcolepsy",
+            "meaning": "A lifelong condition in which the brain cannot keep sleep and wakefulness apart."
+          },
+          {
+            "term": "REM sleep",
+            "meaning": "The stage of sleep with vivid dreams, in which the body’s muscles are switched off."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "Home with a morning medicine, planned naps and no driving until his sleepiness is controlled",
+        "worse": "Sent to the emergency department",
+        "critical": "In hospital"
+      },
+      "plainDiagnosis": "A condition in which the brain cannot stay steadily awake, with sudden weakness on laughing (narcolepsy type 1).",
+      "science": [
+        {
+          "tag": "Proteins",
+          "title": "One small protein that keeps the brain awake",
+          "text": "Hypocretin is a short chain of amino acids made by a few thousand nerve cells deep in the brain. It works by binding to receptors on other cells. When the cells that make it are lost, nothing else supplies it, and the receptors stay empty.",
+          "lesson": "protein-structure",
+          "lessonTitle": "From amino acid to protein"
+        },
+        {
+          "tag": "Evidence",
+          "title": "Why a drug screen and thyroid test were part of it",
+          "text": "Sleepiness has many causes, including drugs, an underactive thyroid, low iron and poor sleep. A positive nap test means more once each of those has been checked and ruled out. The other tests were controls.",
+          "lesson": "uncertainty-controls",
+          "lessonTitle": "Match evidence to a conclusion"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Scammell (N Engl J Med 2015): narcolepsy",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/26716917/"
+        },
+        {
+          "title": "Maski et al. (J Clin Sleep Med 2021): treatment of central disorders of hypersomnolence, an American Academy of Sleep Medicine clinical practice guideline",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/34743789/"
         }
       ]
     }
