@@ -1,7 +1,7 @@
 {
-  "version": 17,
+  "version": 18,
   "title": "Clinical Shift foundations and rotation practice",
-  "reviewStatus": "Source and consistency checks are recorded with each encounter. Independent clinician review remains pending for all 36 encounters.",
+  "reviewStatus": "Source and consistency checks are recorded with each encounter. Independent clinician review remains pending for all 39 encounters.",
   "rotations": [
     {
       "key": "emergency-medicine",
@@ -100,6 +100,16 @@
         "pm-018",
         "pm-028",
         "pm-023"
+      ]
+    },
+    {
+      "key": "gastroenterology",
+      "name": "Gastroenterology",
+      "description": "From the gallbladder to the gut: find the bleed, the blockage or the inflammation.",
+      "caseIds": [
+        "gi-004",
+        "gi-014",
+        "gi-065"
       ]
     }
   ],
@@ -247,6 +257,18 @@
     "pm-023": {
       "assessment": "Asymptomatic 28-year-old nurse with a positive IGRA on pre-employment screening, a normal examination, a clear chest radiograph, negative HIV testing, normal transaminases, and a negative pregnancy test: latent tuberculosis infection.",
       "plan": "Active disease is excluded by symptom review and chest radiograph. Offer a short rifamycin-based regimen such as 12 weeks of once-weekly isoniazid plus rifapentine, with pyridoxine. Counsel about hepatitis symptoms, alcohol, harmless orange discoloration of body fluids from rifapentine, and drug interactions."
+    },
+    "gi-004": {
+      "assessment": "48-year-old woman with 8 hours of constant right upper quadrant pain after a fatty meal, fever, a positive Murphy sign, and leukocytosis. Ultrasound shows gallstones, a 5 mm gallbladder wall, pericholecystic fluid, and a normal-caliber common bile duct with normal bilirubin and liver enzymes: acute calculous cholecystitis.",
+      "plan": "Admit; IV fluids, analgesia, and IV antibiotics, with early laparoscopic cholecystectomy during this admission. No ERCP, because there is no evidence of a common duct stone. Percutaneous cholecystostomy is reserved for patients unfit for surgery."
+    },
+    "gi-014": {
+      "assessment": "64-year-old man in the ICU with sudden massive painless hematemesis and hemorrhagic shock (BP 84/52 mmHg, HR 126); hemoglobin 7.1 g/dL from 12.8, with normal INR and liver tests. Endoscopy shows a 5 mm mucosal defect on the lesser curve with a protruding, spurting artery and no ulcer: Dieulafoy lesion.",
+      "plan": "Resuscitate first: two large-bore IVs, crystalloid and blood products, crossmatch, and massive-transfusion readiness; protect the airway before endoscopy. IV PPI and urgent EGD with mechanical hemostasis (clip or band), with or without thermal therapy, and tattoo the site. For rebleeding, repeat endoscopy, then angiographic embolization, with surgery last."
+    },
+    "gi-065": {
+      "assessment": "38-year-old man with a 3 cm fluctuant perianal abscess and fever, on a background of months of bloody diarrhea, weight loss, oral ulcers, and arthralgias. After drainage a fistulous opening persists; hemoglobin 11.2 g/dL with microcytosis and raised CRP and ESR: perianal abscess with fistula as the presentation of Crohn disease.",
+      "plan": "Incision and drainage now. Then ileocolonoscopy with biopsies to confirm Crohn disease and pelvic MRI to map the fistula. For a complex fistula in active disease: seton placement for drainage with anti-TNF therapy such as infliximab, with antibiotics as a bridge; avoid wide fistulotomy."
     }
   },
   "investigations": {
@@ -1329,6 +1351,96 @@
           "finding": "Soft abdomen without hepatosplenomegaly. No rashes, nodules or clubbing."
         }
       ]
+    },
+    "gi-004": {
+      "interview": [
+        {
+          "prompt": "Characterize the pain",
+          "finding": "Eight hours of severe, constant right upper quadrant pain that began an hour after a fried meal, radiating to the right scapula, with nausea and two episodes of vomiting."
+        },
+        {
+          "prompt": "Ask about previous episodes",
+          "finding": "Several milder episodes over the past few months after fatty meals, each resolving within an hour."
+        },
+        {
+          "prompt": "Review risk factors and medications",
+          "finding": "Obesity, two pregnancies and a combined oral contraceptive. She now feels feverish."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Palpate the right upper quadrant during inspiration",
+          "finding": "Marked right upper quadrant tenderness with voluntary guarding and a positive Murphy sign."
+        },
+        {
+          "prompt": "Look for jaundice",
+          "finding": "Sclerae are anicteric, with no jaundice."
+        },
+        {
+          "prompt": "Check for peritonitis elsewhere and for flank tenderness",
+          "finding": "No rebound elsewhere, no palpable mass or hepatomegaly, and no costovertebral angle tenderness."
+        }
+      ]
+    },
+    "gi-014": {
+      "interview": [
+        {
+          "prompt": "Characterize the bleeding episode",
+          "finding": "Sudden large-volume vomiting of bright-red blood and clots, painless and without preceding retching, epigastric pain or dyspepsia. He was lightheaded and clammy within minutes."
+        },
+        {
+          "prompt": "Ask about prior bleeding, ulcers and liver disease",
+          "finding": "No prior gastrointestinal bleeding and no known ulcer disease. Former alcohol use, stopped 5 years ago."
+        },
+        {
+          "prompt": "Review the admission and medications",
+          "finding": "Admitted to the ICU two days ago with community-acquired pneumonia. Hypertension and COPD, on amlodipine and inhalers, with prophylactic subcutaneous heparin."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Assess perfusion",
+          "finding": "Pale, diaphoretic and anxious, with cool extremities, dry mucous membranes and a capillary refill of 3-4 seconds."
+        },
+        {
+          "prompt": "Examine the abdomen and look for stigmata of liver disease",
+          "finding": "Soft, non-tender abdomen without hepatosplenomegaly. No caput medusae, spider angiomata, palmar erythema or asterixis."
+        },
+        {
+          "prompt": "Perform a rectal exam",
+          "finding": "Melena is present."
+        }
+      ]
+    },
+    "gi-065": {
+      "interview": [
+        {
+          "prompt": "Characterize the perianal pain and swelling",
+          "finding": "Three days of progressively worsening throbbing pain and a tender swelling beside the anus, with subjective fevers and difficulty sitting."
+        },
+        {
+          "prompt": "Ask about bowel habit, bleeding and weight",
+          "finding": "Several months of loose, occasionally bloody stools with intermittent crampy abdominal pain, a 4 kg unintentional weight loss and low-grade fevers."
+        },
+        {
+          "prompt": "Ask about mouth ulcers, joint pain and prior anorectal surgery",
+          "finding": "Recurrent aphthous oral ulcers and arthralgias. No prior anorectal surgery."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Inspect and palpate the perianal region",
+          "finding": "A 3 cm erythematous, warm, fluctuant swelling lateral to the anal verge with surrounding induration; pressure expresses pus. A skin tag and a tiny secondary opening with serous drainage."
+        },
+        {
+          "prompt": "Perform a digital rectal exam",
+          "finding": "Markedly tender, with fullness in the ischiorectal region."
+        },
+        {
+          "prompt": "Examine the abdomen",
+          "finding": "Soft, with mild right lower quadrant tenderness, no peritoneal signs and normal bowel sounds."
+        }
+      ]
     }
   },
   "caseReviews": {
@@ -1909,6 +2021,54 @@
         {
           "title": "Sterling et al. (N Engl J Med 2011): three months of rifapentine and isoniazid for latent tuberculosis infection",
           "url": "https://pubmed.ncbi.nlm.nih.gov/22150035/"
+        }
+      ]
+    },
+    "gi-004": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Recognize acute cholecystitis, image it correctly and plan early surgery.",
+      "alternativesAndLimits": "The timing of surgery within the admission depends on local resources. Worsening after discharge is written into one path for teaching and does not happen to every patient sent home.",
+      "sources": [
+        {
+          "title": "Okamoto et al. (J Hepatobiliary Pancreat Sci 2018): Tokyo Guidelines 2018, flowchart for the management of acute cholecystitis",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/29045062/"
+        },
+        {
+          "title": "Gutt et al. (Ann Surg 2013): acute cholecystitis, early versus delayed cholecystectomy, a multicenter randomized trial",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/24022431/"
+        }
+      ]
+    },
+    "gi-014": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Resuscitate a massive upper gastrointestinal bleed before endoscopy and treat the lesion that is found.",
+      "alternativesAndLimits": "Transfusion thresholds and the decision to intubate are individualized. The second bleed is part of this teaching case; most treated lesions do not rebleed.",
+      "sources": [
+        {
+          "title": "Laine et al. (Am J Gastroenterol 2021): ACG clinical guideline, upper gastrointestinal and ulcer bleeding",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/33929377/"
+        },
+        {
+          "title": "Baxter and Aly (Ann R Coll Surg Engl 2010): Dieulafoy’s lesion, current trends in diagnosis and management",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/20883603/"
+        }
+      ]
+    },
+    "gi-065": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Drain a perianal abscess promptly and recognize when it points to Crohn disease.",
+      "alternativesAndLimits": "Adjunctive antibiotics and the choice of biologic vary with the patient and local practice. Spread of infection after a day on tablets is written into one path for teaching.",
+      "sources": [
+        {
+          "title": "Lichtenstein et al. (Am J Gastroenterol 2018): ACG clinical guideline, management of Crohn’s disease in adults",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/29610508/"
+        },
+        {
+          "title": "Present et al. (N Engl J Med 1999): infliximab for the treatment of fistulas in patients with Crohn’s disease",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/10228190/"
         }
       ]
     }
@@ -12447,6 +12607,921 @@
         {
           "title": "Sterling et al. (N Engl J Med 2011): three months of rifapentine and isoniazid for latent tuberculosis infection",
           "url": "https://pubmed.ncbi.nlm.nih.gov/22150035/"
+        }
+      ]
+    },
+    "gi-004": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "Pain under the ribs _after a fried dinner._",
+      "setting": "Emergency department",
+      "start": {
+        "status": "stable",
+        "alarm": "Severe pain under the right ribs · fever"
+      },
+      "handoff": "A 48-year-old woman has had severe, constant pain under her right ribs for eight hours. It started an hour after a fried chicken dinner. She has vomited twice and feels feverish.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask about the pain",
+            "finding": "It started an hour after a fried meal, eight hours ago. It is severe and constant, under her right ribs, and it spreads to her right shoulder blade. She feels sick and has vomited twice."
+          },
+          {
+            "prompt": "Ask whether this has happened before",
+            "finding": "Several times in the past few months, after fatty meals, but milder. Each time it passed within an hour. This time it has not let up."
+          },
+          {
+            "prompt": "Ask about her health and her medicines",
+            "finding": "She has two children and takes a combined contraceptive pill. She is otherwise well. She feels hot and shivery now."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Press under her right ribs while she breathes in",
+            "finding": "The area is very tender. As she breathes in against your hand, she suddenly stops and catches her breath with pain."
+          },
+          {
+            "prompt": "Look at her eyes and skin for yellowing",
+            "finding": "The whites of her eyes are white. Her skin is not yellow."
+          },
+          {
+            "prompt": "Press on the rest of her belly, and tap over her kidneys",
+            "finding": "The rest of her belly is soft, and no lump can be felt. Tapping over her kidneys does not hurt."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Blood tests and ultrasound",
+          "content": "White blood cells: 13.8, high.\nBilirubin and liver tests: normal.\nLipase, a test of the pancreas: normal.\nUltrasound: several gallstones. The gallbladder wall is thickened to 5 mm (normal is under 3), with a rim of fluid around it. Pressing the probe over the gallbladder brings on her pain. The main bile duct is a normal width."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "Pain under the right ribs after a fatty meal, a fever, and she catches her breath when I press there. I am thinking about her gallbladder.",
+          "question": "Which scan do we get first?",
+          "options": [
+            "An ultrasound of the upper right belly",
+            "A CT scan without contrast",
+            "A nuclear scan of the gallbladder (HIDA scan)",
+            "An MRI of the bile ducts (MRCP)",
+            "A set of plain X-rays"
+          ],
+          "fix": "Get the ultrasound",
+          "terms": [
+            {
+              "term": "Gallbladder",
+              "meaning": "A small bag under the liver that stores bile and squeezes it into the gut after a meal."
+            },
+            {
+              "term": "Gallstones",
+              "meaning": "Hard lumps, usually of cholesterol, that form in the gallbladder."
+            },
+            {
+              "term": "Murphy sign",
+              "meaning": "Catching the breath with pain when the examiner presses under the right ribs during a breath in."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 30,
+              "story": "The ultrasound is done at the bedside while her blood is sent. The results go in her chart.",
+              "reply": "Right. Ultrasound is the best first look at the gallbladder. It is quick, uses no radiation, and shows stones, a swollen wall and fluid."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request a CT. The resident changes it.",
+              "reply": "CT misses many gallstones. It is for when we suspect something else or a complication."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request a HIDA scan. The resident changes it.",
+              "reply": "That is the back-up test, for when the ultrasound is unclear. It takes hours. Ultrasound first."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request an MRI of the bile ducts. The resident changes it.",
+              "reply": "That looks for stones in the ducts, once we have a reason to suspect one. We do not yet."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request plain X-rays. The resident changes it.",
+              "reply": "Most gallstones do not show on an X-ray, and an inflamed gallbladder never does."
+            }
+          ]
+        },
+        "3": {
+          "resident": "She has an inflamed gallbladder, blocked by a stone. Her bile duct and her liver tests are normal.",
+          "question": "What is the right treatment?",
+          "options": [
+            "Send her home on antibiotic tablets, and see her in clinic",
+            "An urgent camera procedure on the bile duct (ERCP)",
+            "A drain through the skin into the gallbladder, as the first choice",
+            "Fluids, pain relief and antibiotics through a vein, and keyhole surgery to remove the gallbladder during this admission",
+            "Tablets that slowly dissolve gallstones"
+          ],
+          "fix": "Admit her for early surgery",
+          "terms": [
+            {
+              "term": "Cholecystectomy",
+              "meaning": "An operation to remove the gallbladder, usually by keyhole surgery."
+            },
+            {
+              "term": "ERCP",
+              "meaning": "A camera passed through the mouth to the opening of the bile duct, used to remove stones from the duct."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "delay",
+              "minutes": 720,
+              "story": "She goes home with tablets. Twelve hours later she comes back by ambulance. Her fever is higher, her heart is racing, and the whole upper part of her belly is rigid.",
+              "reply": "An inflamed, blocked gallbladder does not settle on tablets. Part of its wall has started to die, and the operation is now harder. She is admitted, as she should have been.",
+              "vitals": {
+                "Temp": "39.4 °C",
+                "HR": "124 bpm",
+                "BP": "104/62 mmHg"
+              },
+              "trend": {
+                "Temp": "up",
+                "HR": "up",
+                "BP": "down"
+              },
+              "status": "worse",
+              "alarm": "Back by ambulance · fever 39.4"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest an urgent ERCP. The resident shakes their head.",
+              "reply": "That removes stones from the bile duct. Her duct is a normal width, and her liver tests are normal. The stone is in the gallbladder’s own outlet."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest a drain into the gallbladder. The surgeon shakes their head.",
+              "reply": "A drain is for people too frail for an operation. She is fit, and surgery fixes the problem for good."
+            },
+            {
+              "kind": "safe",
+              "minutes": 60,
+              "story": "A drip is started with fluids, pain relief and antibiotics. The surgeon sees her and books keyhole surgery for the morning. Her pain eases.",
+              "reply": "Yes. Settle her, then take the gallbladder out within a day or two. Early surgery means fewer complications and a shorter stay than waiting weeks.",
+              "vitals": {
+                "HR": "92 bpm",
+                "Temp": "37.9 °C"
+              },
+              "trend": {
+                "HR": "down",
+                "Temp": "down"
+              }
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest dissolving tablets. The resident shakes their head.",
+              "reply": "Those take months and work only on some stones. They do nothing for a gallbladder that is inflamed tonight."
+            }
+          ]
+        },
+        "4": {
+          "resident": "While she waits for surgery she asks why she got gallstones. Her own history holds most of the answer.",
+          "question": "Which features raise the risk of gallstones?",
+          "options": [
+            "Being male, young and thin",
+            "Smoking and heavy drinking",
+            "A vegetarian diet with plenty of fiber",
+            "Regular anti-inflammatory painkillers and a stomach infection",
+            "Being female, around 40, heavier, having had children, and taking estrogen"
+          ],
+          "fix": "Explain her risk factors",
+          "terms": [
+            {
+              "term": "Estrogen",
+              "meaning": "A hormone that raises the amount of cholesterol the liver puts into bile."
+            },
+            {
+              "term": "Bile",
+              "meaning": "A fluid made by the liver that helps digest fat."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You pick young thin men. The resident shakes their head.",
+              "reply": "That is nearly the reverse. Gallstones are commonest in women around 40 who carry extra weight and have had children."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You pick smoking and drinking. The resident shakes their head.",
+              "reply": "Neither is a main cause of cholesterol stones. Think about what raises cholesterol in bile."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You pick a high-fiber diet. The resident shakes their head.",
+              "reply": "If anything that protects. The risks are female sex, age, weight, pregnancies and estrogen."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You pick painkillers and a stomach infection. The resident shakes their head.",
+              "reply": "Those cause stomach ulcers, not gallstones."
+            },
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "You explain it to her. She nods: it describes her closely.",
+              "reply": "Right. Estrogen, from pregnancies and from the pill, pushes more cholesterol into bile, and extra weight does the same. Too much cholesterol in bile hardens into stones."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "Her blood tests and ultrasound are in the chart.",
+        "question": "What is this?",
+        "options": [
+          "A gallstone stuck in the main bile duct",
+          "An infection of the bile ducts (cholangitis)",
+          "Acute cholecystitis: an inflamed gallbladder, blocked by a stone",
+          "Pancreatitis",
+          "Gallstone pain that passes without inflammation (biliary colic)"
+        ],
+        "reveal": "It is acute cholecystitis. A stone has blocked the gallbladder’s outlet, and the trapped gallbladder has become inflamed: hence the fever, the high white count, the thick wall and the fluid around it. Her bile duct is a normal width and her liver tests are normal, so no stone is stuck in the duct. Her earlier attacks were the same stone blocking briefly and then moving.",
+        "terms": [
+          {
+            "term": "Cholecystitis",
+            "meaning": "Inflammation of the gallbladder."
+          },
+          {
+            "term": "Biliary colic",
+            "meaning": "Pain from a gallstone briefly blocking the gallbladder’s outlet. It passes within hours and causes no fever."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "Admitted, with keyhole surgery to remove her gallbladder booked for the morning",
+        "worse": "Admitted for a harder operation, after coming back sicker",
+        "critical": "In intensive care"
+      },
+      "plainDiagnosis": "A gallbladder inflamed because a stone is blocking its outlet (acute cholecystitis).",
+      "science": [
+        {
+          "tag": "Hormone signals",
+          "title": "Why the pain followed a fatty meal",
+          "text": "Fat arriving in the gut makes its lining release a hormone that tells the gallbladder to squeeze out bile. Hers squeezed hard against a stone wedged in its outlet. With nowhere for the bile to go, pressure built and the wall became inflamed.",
+          "lesson": "endocrine-feedback",
+          "lessonTitle": "Trace a hormonal feedback loop"
+        },
+        {
+          "tag": "Sensing",
+          "title": "Why she felt it in her shoulder blade",
+          "text": "Pain nerves from the gallbladder enter the spinal cord alongside nerves from the skin over the right shoulder blade. The brain is far more used to signals from skin, so it places some of the pain there.",
+          "lesson": "sensory-coding",
+          "lessonTitle": "From stimulus to perception"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Okamoto et al. (J Hepatobiliary Pancreat Sci 2018): Tokyo Guidelines 2018, flowchart for the management of acute cholecystitis",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/29045062/"
+        },
+        {
+          "title": "Gutt et al. (Ann Surg 2013): acute cholecystitis, early versus delayed cholecystectomy, a multicenter randomized trial",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/24022431/"
+        }
+      ]
+    },
+    "gi-014": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "Without warning, _he vomits bright red blood._",
+      "setting": "Intensive care unit",
+      "start": {
+        "status": "unstable",
+        "alarm": "Vomiting blood · blood pressure 84 over 52"
+      },
+      "handoff": "A 64-year-old man has been in intensive care for two days with pneumonia. A few minutes ago he suddenly vomited a large amount of bright red blood. He had no pain beforehand. He is now pale, clammy and lightheaded.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask about the bleeding",
+            "finding": "It came out of nowhere: a large amount of bright red blood with clots. He had no stomach pain, no heartburn and no retching first. Within minutes he felt faint and sweaty."
+          },
+          {
+            "prompt": "Ask about past bleeding, ulcers and his liver",
+            "finding": "He has never bled like this and has never had an ulcer. He used to drink and stopped five years ago."
+          },
+          {
+            "prompt": "Check why he is in hospital, and his medicines",
+            "finding": "He came in two days ago with pneumonia. He has high blood pressure and long-term lung disease. In hospital he has been getting small injections of a blood thinner to prevent clots."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Check his circulation",
+            "finding": "He is pale, sweaty and anxious. His hands and feet are cool, his mouth is dry, and a pressed fingertip takes three to four seconds to turn pink again."
+          },
+          {
+            "prompt": "Feel his belly, and look for signs of liver disease",
+            "finding": "His belly is soft and does not hurt. His liver and spleen are not enlarged, and he has none of the skin signs of long-term liver disease."
+          },
+          {
+            "prompt": "Examine his rectum",
+            "finding": "The stool is black and tarry, which means blood has passed through his gut."
+          }
+        ]
+      },
+      "results": {
+        "2": {
+          "label": "Blood tests",
+          "content": "Hemoglobin: 7.1, down from 12.8 two days ago. He has lost close to half of his red cells.\nPlatelets and clotting test: normal.\nLactate: 3.6, raised.\nUrea: 38, raised, as it is when blood is digested in the gut.\nLiver tests: normal.\nBlood bank: 4 units of red cells are ready."
+        },
+        "4": {
+          "label": "Camera test of the stomach",
+          "content": "High on the inner curve of the stomach there is a pit about 5 mm across, with an artery sticking out of it and pumping blood.\nThere is no ulcer, no swollen veins and no tear. The rest of the stomach lining is normal.\nThe spot has been marked with ink, so it can be found again."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "He is bleeding fast from somewhere in his stomach or gullet, and his blood pressure is 84 over 52. He needs a camera test to find the source.",
+          "question": "What comes before the camera test?",
+          "options": [
+            "Nothing. Rush him straight to the camera test",
+            "Two large drips, fluids and blood, a cross-match, and the transfusion team warned",
+            "A CT scan of the blood vessels first, to find the bleed",
+            "Activated charcoal by mouth, to bind the blood"
+          ],
+          "fix": "Resuscitate him first",
+          "terms": [
+            {
+              "term": "Hematemesis",
+              "meaning": "Vomiting blood."
+            },
+            {
+              "term": "Cross-match",
+              "meaning": "Testing a patient’s blood against donor blood so that a transfusion is safe."
+            },
+            {
+              "term": "Endoscopy",
+              "meaning": "A camera on a flexible tube passed through the mouth into the stomach."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You call for the camera team at once. The anesthetist refuses to start.",
+              "reply": "He is in shock. Sedating him for a procedure now could stop his heart, and he could breathe in blood. Fill him up first."
+            },
+            {
+              "kind": "safe",
+              "minutes": 15,
+              "story": "Two large drips go in. Fluid runs fast, blood is cross-matched, and the first unit is hung. His blood pressure comes up a little.",
+              "reply": "Right. Blood and fluid first. A camera test is safer and works better once his circulation has been refilled.",
+              "vitals": {
+                "BP": "96/58 mmHg",
+                "HR": "114 bpm"
+              },
+              "trend": {
+                "BP": "up",
+                "HR": "down"
+              },
+              "alarm": "Fluids and blood running"
+            },
+            {
+              "kind": "delay",
+              "minutes": 30,
+              "story": "He is wheeled to the scanner with a single small drip. On the table he vomits blood again. His blood pressure drops further, and he is barely responding.",
+              "reply": "A scan can wait, and the camera will find the source anyway. He has lost half an hour and more blood with almost nothing going back in. Resuscitate him now.",
+              "vitals": {
+                "BP": "72/42 mmHg",
+                "HR": "138 bpm"
+              },
+              "trend": {
+                "BP": "down",
+                "HR": "up"
+              },
+              "status": "worse",
+              "alarm": "Vomiting blood again · blood pressure 72 over 42"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for charcoal. The nurse looks at the resident.",
+              "reply": "Charcoal is for swallowed poisons. It does nothing for bleeding, and it would black out the camera’s view."
+            }
+          ]
+        },
+        "1": {
+          "resident": "Blood and fluids are running. He is awake, but he is still vomiting blood, and the camera test means lying flat under sedation.",
+          "question": "What else should be done around the camera test?",
+          "options": [
+            "Pass a balloon tube into his gullet to press on the bleed",
+            "Consider a breathing tube first, to keep blood out of his lungs",
+            "Give barium by mouth to outline the bleeding point",
+            "Give ceftriaxone, as the most important step"
+          ],
+          "fix": "Protect his airway",
+          "terms": [
+            {
+              "term": "Intubation",
+              "meaning": "Placing a breathing tube in the windpipe. A cuff around it seals the lungs off from the throat."
+            },
+            {
+              "term": "Proton pump inhibitor",
+              "meaning": "A medicine that switches off stomach acid. Clots hold better when the stomach is less acidic."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a balloon tube. The resident says no.",
+              "reply": "That is a last resort for bleeding from swollen veins in liver disease. He has no liver disease, and the tube can tear the gullet."
+            },
+            {
+              "kind": "safe",
+              "minutes": 15,
+              "story": "The anesthetist places a breathing tube, so blood cannot run into his lungs. An acid-suppressing drip is started. His blood results go in the chart, and the camera team sets up.",
+              "reply": "Yes. A man vomiting this much blood, sedated and flat, can drown in it. The tube makes the procedure safe.",
+              "vitals": {
+                "SpO2": "98% on ventilator"
+              },
+              "trend": {
+                "SpO2": "up"
+              }
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for barium. The resident says no.",
+              "reply": "Barium coats the stomach white and hides everything the camera needs to see."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for ceftriaxone first. The resident shakes their head.",
+              "reply": "Antibiotics matter in bleeding from liver disease, which he does not have. His airway is the priority."
+            }
+          ]
+        },
+        "5": {
+          "resident": "The camera has found the source: an artery poking through a tiny pit in the stomach lining, spurting blood.",
+          "question": "How should it be stopped?",
+          "options": [
+            "An injection of adrenaline around it, and nothing else",
+            "A metal clip or a rubber band on the vessel, often with heat sealing as well",
+            "An operation straight away, without trying through the camera",
+            "An octreotide drip as the only treatment"
+          ],
+          "fix": "Ask for a clip",
+          "terms": [
+            {
+              "term": "Hemostasis",
+              "meaning": "Stopping bleeding."
+            },
+            {
+              "term": "Hemoclip",
+              "meaning": "A tiny metal clip, placed through the camera, that pinches a bleeding vessel shut."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest adrenaline alone. The specialist adds a clip.",
+              "reply": "Adrenaline narrows the artery for a while, and then it wears off and the bleeding comes back. It needs something permanent with it."
+            },
+            {
+              "kind": "safe",
+              "minutes": 30,
+              "story": "The specialist closes a clip across the artery and seals around it with heat. The spurting stops. His blood pressure settles as the transfusion catches up.",
+              "reply": "Right. An artery needs to be physically closed. Clips and bands hold far better than an injection.",
+              "vitals": {
+                "BP": "110/66 mmHg",
+                "HR": "96 bpm"
+              },
+              "trend": {
+                "BP": "up",
+                "HR": "down"
+              },
+              "alarm": "Bleeding stopped · clip in place"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest surgery now. The specialist shakes their head.",
+              "reply": "Surgery is for when the camera fails. Nearly all of these can be stopped without an operation."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest octreotide alone. The specialist shakes their head.",
+              "reply": "That drug lowers pressure in the veins of people with liver disease. This is an artery, and it needs closing."
+            }
+          ]
+        },
+        "6": {
+          "resident": "Twelve hours later he vomits a cupful of fresh blood, and his blood count has dropped again. His blood pressure is holding for now.",
+          "question": "What now?",
+          "options": [
+            "Remove his whole stomach",
+            "Repeat the camera test and treat the spot again. If that fails, block the artery through a catheter",
+            "Switch to acid-suppressing tablets and watch",
+            "Start an octreotide-type drug, and avoid any more camera tests"
+          ],
+          "fix": "Call the camera team back",
+          "terms": [
+            {
+              "term": "Rebleeding",
+              "meaning": "Bleeding that starts again after it has been stopped."
+            },
+            {
+              "term": "Embolization",
+              "meaning": "Blocking a bleeding artery from the inside, with tiny coils passed through a catheter under X-ray."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest removing his stomach. The surgeon shakes their head.",
+              "reply": "That is an enormous operation for a 5 mm spot. There are two smaller steps to try first."
+            },
+            {
+              "kind": "safe",
+              "minutes": 40,
+              "story": "The camera goes back in, and the ink mark leads straight to the spot. A second clip is placed and the bleeding stops. The X-ray team is on standby in case it starts again.",
+              "reply": "Yes. Go back and treat it again first. If that fails, the artery can be blocked from the inside. Surgery comes last."
+            },
+            {
+              "kind": "delay",
+              "minutes": 60,
+              "story": "He is given tablets and watched. An hour later he vomits a large amount of blood, and his blood pressure collapses.",
+              "reply": "Tablets do not close an artery. He has had a second big bleed that we saw coming. Get the camera team now.",
+              "vitals": {
+                "BP": "68/40 mmHg",
+                "HR": "142 bpm"
+              },
+              "trend": {
+                "BP": "down",
+                "HR": "up"
+              },
+              "status": "critical",
+              "alarm": "Large bleed · blood pressure 68 over 40"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest avoiding more camera tests. The specialist disagrees.",
+              "reply": "The camera is exactly what he needs. We know where the spot is, and we can treat it again."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "The camera shows a normal stomach lining apart from one tiny pit, with an artery sticking out of it and spurting. There is no ulcer around it.",
+        "question": "What is that?",
+        "options": [
+          "A bleeding stomach ulcer",
+          "Swollen veins in the gullet (esophageal varices)",
+          "A Dieulafoy lesion: an oversized artery that has broken through the stomach lining",
+          "A tear at the bottom of the gullet from retching (Mallory-Weiss tear)"
+        ],
+        "reveal": "It is a Dieulafoy lesion. Some people have an artery in the stomach wall that is much wider than it should be and runs just under the lining. It can wear through a pinpoint spot and bleed heavily, with no pain and no warning. An ulcer would show a crater, swollen veins come with liver disease, and a tear follows retching.",
+        "terms": [
+          {
+            "term": "Submucosa",
+            "meaning": "The layer just beneath the lining of the gut, where its blood vessels run."
+          },
+          {
+            "term": "Ulcer",
+            "meaning": "A crater eaten into the lining of the stomach, usually by acid."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "In intensive care, with the bleeding artery clipped and no further bleeding",
+        "unstable": "In intensive care, with the bleeding artery clipped and no further bleeding",
+        "worse": "In intensive care with the bleeding stopped, after a slow start",
+        "critical": "In intensive care after a second large bleed that could have been prevented"
+      },
+      "plainDiagnosis": "An oversized artery that broke through the stomach lining and bled heavily (Dieulafoy lesion).",
+      "science": [
+        {
+          "tag": "Pressure and blood flow",
+          "title": "Why an artery bleeds so much faster than a vein",
+          "text": "Flow through an opening depends on the pressure behind it. Arteries carry blood at many times the pressure of veins, so the same pinhole loses blood far faster. It is also why the bleeding came in spurts, in time with his pulse.",
+          "lesson": "circulatory-flow",
+          "lessonTitle": "Connect pressure to blood flow"
+        },
+        {
+          "tag": "Carrying oxygen",
+          "title": "Why his oxygen reading stayed fair while his tissues starved",
+          "text": "A finger probe reports what share of his hemoglobin is carrying oxygen. It says nothing about how much hemoglobin is left. With half his red cells gone, each liter of blood delivered half the oxygen, and his rising lactate showed it.",
+          "lesson": "gas-exchange",
+          "lessonTitle": "Move oxygen across a barrier"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Laine et al. (Am J Gastroenterol 2021): ACG clinical guideline, upper gastrointestinal and ulcer bleeding",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/33929377/"
+        },
+        {
+          "title": "Baxter and Aly (Ann R Coll Surg Engl 2010): Dieulafoy’s lesion, current trends in diagnosis and management",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/20883603/"
+        }
+      ]
+    },
+    "gi-065": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "A painful swelling, _and months of something more._",
+      "setting": "Emergency department",
+      "start": {
+        "status": "stable",
+        "alarm": "Painful swelling beside the anus · fever"
+      },
+      "handoff": "A 38-year-old man has had a throbbing, painful swelling beside his anus for three days, with fevers. He cannot sit comfortably.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask about the swelling",
+            "finding": "It began three days ago, beside his anus, and has grown and throbbed more each day. He feels feverish and cannot sit on it."
+          },
+          {
+            "prompt": "Ask about his bowels and his weight",
+            "finding": "For several months he has had loose stools, sometimes with blood, and crampy belly pain. He has lost 4 kg without trying and has had slight fevers. He put it down to stress."
+          },
+          {
+            "prompt": "Ask about his mouth and his joints, and any past operations",
+            "finding": "He gets mouth ulcers that come and go, and his joints ache. He has never had an operation near his anus."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Look at the area around his anus, and press on it gently",
+            "finding": "Beside the anus there is a red, hot swelling 3 cm across that feels as if it holds fluid. A little pus comes out when it is pressed. Nearby there is a skin tag and a pinpoint opening that weeps clear fluid."
+          },
+          {
+            "prompt": "Examine his rectum with a finger",
+            "finding": "It is very tender, and one side feels full."
+          },
+          {
+            "prompt": "Press on his belly",
+            "finding": "It is soft, and slightly tender low on the right."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Drainage and blood tests",
+          "content": "Drainage: about 15 mL of pus released, and the cavity packed with gauze.\nPus culture: a mix of gut bacteria.\nWhite blood cells: 14.8, high.\nHemoglobin: 11.2, low, with small red cells.\nInflammation markers (CRP and ESR): both raised.\nOnce the abscess had emptied, a small opening remained that leaks stool-stained fluid."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "That swelling is hot, soft in the middle and leaking pus. It is an abscess.",
+          "question": "What do we do about it now?",
+          "options": [
+            "Antibiotic tablets alone, and see him in clinic",
+            "Open it and drain it",
+            "Warm baths and stool softeners only",
+            "An urgent CT scan before anything is done",
+            "Metronidazole cream, and send him home"
+          ],
+          "fix": "Drain the abscess",
+          "terms": [
+            {
+              "term": "Abscess",
+              "meaning": "A walled-off pocket of pus."
+            },
+            {
+              "term": "Incision and drainage",
+              "meaning": "Numbing the skin, cutting into an abscess and letting the pus out."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "delay",
+              "minutes": 720,
+              "story": "He is sent home with tablets. He is back twelve hours later. The swelling has doubled, the redness has spread across his buttock, and his fever is higher.",
+              "reply": "Antibiotics cannot get into a pocket of pus, so the infection kept spreading. It should have been drained this morning. Drain it now.",
+              "vitals": {
+                "Temp": "39.2 °C",
+                "HR": "118 bpm"
+              },
+              "trend": {
+                "Temp": "up",
+                "HR": "up"
+              },
+              "status": "worse",
+              "alarm": "Redness spreading · fever higher"
+            },
+            {
+              "kind": "safe",
+              "minutes": 40,
+              "story": "The area is numbed, and the surgeon opens the abscess and lets the pus out. The relief is immediate. Blood is sent, and the results go in his chart.",
+              "reply": "Right. Pus has to come out. Draining it is the treatment, and it also stops the infection tracking deeper."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest warm baths. The resident shakes their head.",
+              "reply": "Baths soothe, and they help after drainage. They do not empty an abscess."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request a CT first. The resident shakes their head.",
+              "reply": "We can see it and feel it. A scan would only delay the drainage. Scans are for abscesses that are deep or hidden."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest a cream. The resident shakes their head.",
+              "reply": "A cream on the skin cannot reach pus underneath it. It has to be opened."
+            }
+          ]
+        },
+        "3": {
+          "resident": "The abscess is drained, but an opening is still leaking stool. Put that with his months of bloody diarrhea, weight loss, mouth ulcers and low blood count.",
+          "question": "Which tests will confirm what is behind this?",
+          "options": [
+            "A camera test of the colon and the end of the small bowel with tissue samples, and an MRI of the pelvis",
+            "Drain it again in a week",
+            "A stool test for parasites, and nothing else",
+            "Pressure testing of the anal muscles",
+            "Lifelong antibiotics, with no more tests"
+          ],
+          "fix": "Book the colonoscopy and MRI",
+          "terms": [
+            {
+              "term": "Fistula",
+              "meaning": "An abnormal tunnel between two surfaces. Here it runs from inside the bowel to the skin."
+            },
+            {
+              "term": "Colonoscopy",
+              "meaning": "A camera test of the whole colon. Small tissue samples can be taken through it."
+            },
+            {
+              "term": "Biopsy",
+              "meaning": "A small sample of tissue, examined under a microscope."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 15,
+              "story": "You book both tests. The gut specialist will see him as soon as the results are back.",
+              "reply": "Right. The camera shows the inflammation and lets us sample it. The MRI maps where the tunnel runs, which the surgeon needs before touching it."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You plan to drain it again next week. The resident shakes their head.",
+              "reply": "Draining treats the pus, not the cause. We need to find out why a tunnel formed."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request a parasite test only. The resident adds to it.",
+              "reply": "Worth ruling out infection, but a stool test cannot show the bowel wall. He needs the camera test."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request pressure testing. The resident cancels it.",
+              "reply": "That measures how strong the anal muscles are. It says nothing about why he has a tunnel and bloody diarrhea."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest lifelong antibiotics. The resident shakes their head.",
+              "reply": "That treats a guess, forever, with a drug that has its own harms. He needs a diagnosis."
+            }
+          ]
+        },
+        "4": {
+          "resident": "A week later the results are back. He has Crohn disease, and the tunnel beside his anus branches and passes through the muscle that keeps him continent.",
+          "question": "How should the tunnel be treated?",
+          "options": [
+            "Cut the whole tunnel open widely, now",
+            "A soft thread through the tunnel to keep it draining, with a medicine that blocks TNF",
+            "Antibiotics alone, indefinitely",
+            "A stoma to divert the stool, as the first step",
+            "Watch it and do nothing"
+          ],
+          "fix": "Plan a seton and anti-TNF treatment",
+          "terms": [
+            {
+              "term": "Seton",
+              "meaning": "A soft thread looped through a fistula. It keeps the tunnel open so pus drains out and no new abscess forms."
+            },
+            {
+              "term": "Anti-TNF medicine",
+              "meaning": "An antibody, such as infliximab, that blocks TNF, one of the signals driving the inflammation."
+            },
+            {
+              "term": "Sphincter",
+              "meaning": "The ring of muscle that holds the anus closed."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest cutting it open. The surgeon says no.",
+              "reply": "This tunnel passes through the muscle that keeps him continent. Cutting it open could leave him unable to hold his stool, and inflamed tissue heals badly."
+            },
+            {
+              "kind": "safe",
+              "minutes": 15,
+              "story": "The surgeon will place the thread, and the gut specialist starts the paperwork for infliximab. You explain the plan to him.",
+              "reply": "Yes. The thread keeps it draining so that no new abscess forms, and the medicine calms the disease so the tunnel can heal."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest antibiotics alone. The specialist shakes their head.",
+              "reply": "They help for a few weeks as a bridge. They do not treat Crohn disease, and the tunnel comes back when they stop."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest a stoma. The surgeon shakes their head.",
+              "reply": "That is kept for severe disease that nothing else controls. It is not where we start."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest watching it. The specialist shakes their head.",
+              "reply": "An untreated tunnel in active Crohn disease forms abscess after abscess. It needs draining and the disease needs treating."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "The drainage findings and blood tests are in his chart.",
+        "question": "What underlying condition do they point to?",
+        "options": [
+          "Ulcerative colitis",
+          "Crohn disease",
+          "Irritable bowel syndrome",
+          "Celiac disease",
+          "Diverticular disease"
+        ],
+        "reveal": "They point to Crohn disease. It inflames the full thickness of the bowel wall, so it can burrow through and form tunnels and abscesses around the anus. The months of bloody diarrhea, weight loss, mouth ulcers, joint aches and a low blood count fit. Ulcerative colitis affects only the inner lining and does not tunnel. Irritable bowel causes no bleeding, fever or weight loss.",
+        "terms": [
+          {
+            "term": "Crohn disease",
+            "meaning": "A long-term inflammation that can affect any part of the gut, through the full thickness of its wall."
+          },
+          {
+            "term": "Inflammatory bowel disease",
+            "meaning": "The family that Crohn disease and ulcerative colitis belong to."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "Home with the abscess drained, and a treatment plan for Crohn disease",
+        "worse": "Home after a longer stay, with the abscess drained and a treatment plan for Crohn disease",
+        "critical": "In intensive care"
+      },
+      "plainDiagnosis": "An abscess and a tunnel beside the anus, caused by Crohn disease.",
+      "science": [
+        {
+          "tag": "Blood flow",
+          "title": "Why antibiotics cannot clear an abscess",
+          "text": "Medicines travel in the blood, and the middle of an abscess has no blood vessels. The drug reaches the wall and goes no further, while the bacteria sit in the pus beyond its reach. Opening it removes them directly.",
+          "lesson": "circulatory-flow",
+          "lessonTitle": "Connect pressure to blood flow"
+        },
+        {
+          "tag": "Proteins",
+          "title": "How an antibody medicine switches off a signal",
+          "text": "TNF is a small protein that immune cells release to call in more inflammation. Infliximab is an antibody shaped to fit TNF exactly. Once bound, TNF can no longer dock on its receptor, and the signal stops.",
+          "lesson": "protein-structure",
+          "lessonTitle": "From amino acid to protein"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Lichtenstein et al. (Am J Gastroenterol 2018): ACG clinical guideline, management of Crohn’s disease in adults",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/29610508/"
+        },
+        {
+          "title": "Present et al. (N Engl J Med 1999): infliximab for the treatment of fistulas in patients with Crohn’s disease",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/10228190/"
         }
       ]
     }
