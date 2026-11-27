@@ -1,7 +1,7 @@
 {
-  "version": 26,
+  "version": 27,
   "title": "Clinical Shift foundations and rotation practice",
-  "reviewStatus": "Source and consistency checks are recorded with each encounter. Independent clinician review remains pending for all 63 encounters.",
+  "reviewStatus": "Source and consistency checks are recorded with each encounter. Independent clinician review remains pending for all 66 encounters.",
   "rotations": [
     {
       "key": "emergency-medicine",
@@ -190,6 +190,16 @@
         "ur-001",
         "ur-059",
         "ur-049"
+      ]
+    },
+    {
+      "key": "otolaryngology",
+      "name": "Otolaryngology (ENT)",
+      "description": "A nosebleed that will not stop, a swallowed battery and a voice that keeps giving out.",
+      "caseIds": [
+        "ent-042",
+        "ent-011",
+        "ent-069"
       ]
     }
   ],
@@ -445,6 +455,18 @@
     "ur-049": {
       "assessment": "61-year-old woman with poorly controlled diabetes (HbA1c 12.0%) and septic shock after three days of fever and right flank pain unresponsive to oral antibiotics. WBC 21.8, glucose 468, lactate 4.6, creatinine 3.2, platelets 96; CT shows gas within the right renal parenchyma extending into the collecting system: emphysematous pyelonephritis.",
       "plan": "Resuscitation with IV fluids and vasopressors, broad IV antibiotics, an insulin infusion, and percutaneous drainage of the kidney. Repeat imaging if she does not improve; refractory shock with extensive parenchymal destruction requires emergency nephrectomy."
+    },
+    "ent-042": {
+      "assessment": "70-year-old man on apixaban with poorly controlled hypertension and 75 minutes of brisk epistaxis. No anterior source is seen, blood streams down the posterior pharynx, and bleeding continues despite bilateral anterior packing; hemoglobin 10.8 g/dL: posterior epistaxis.",
+      "plan": "IV access, CBC, type and screen, and continuous monitoring. Posterior nasal pack (balloon catheter) with anterior packing, then admission with continuous pulse oximetry and cardiac monitoring. Hold apixaban and discuss with the prescriber; treat blood pressure once volume status is addressed. If packing fails, endoscopic sphenopalatine artery ligation or embolization."
+    },
+    "ent-011": {
+      "assessment": "18-month-old girl with three hours of drooling and refusal to swallow after access to loose button batteries. Radiographs show a 20 mm disc in the proximal esophagus with a double-ring sign on the AP view and a step-off on the lateral view: esophageal button battery.",
+      "plan": "Nothing else by mouth except honey 10 mL every 10 minutes (up to 6 doses) while the team is mobilized, without delaying removal. Emergent endoscopic removal in the operating room, ideally within 2 hours, with inspection of the mucosa. Admit, and watch for delayed complications over the following weeks: perforation, tracheoesophageal fistula, stricture, and aortoesophageal fistula."
+    },
+    "ent-069": {
+      "assessment": "38-year-old teacher and choir leader, a nonsmoker, with months of use-related hoarseness and vocal fatigue. Laryngoscopy shows symmetric bilateral thickenings at the junction of the anterior and middle thirds of fully mobile vocal folds, with an hourglass glottic gap: vocal fold nodules.",
+      "plan": "Voice therapy with a speech-language pathologist and vocal hygiene: hydration, amplification in the classroom, avoiding shouting and throat clearing, and rest breaks. Treat reflux if it contributes. Surgery is reserved for nodules that persist after therapy."
     }
   },
   "investigations": {
@@ -2337,6 +2359,96 @@
           "finding": "Tachycardia with clear lungs."
         }
       ]
+    },
+    "ent-042": {
+      "interview": [
+        {
+          "prompt": "Characterize the bleeding",
+          "finding": "Spontaneous brisk epistaxis for 75 minutes, with large amounts of blood spat and swallowed and a sensation of blood running down the posterior pharynx despite pinching the nose. No trauma, nasal sprays, nasal surgery or intranasal drug use."
+        },
+        {
+          "prompt": "Review medications and bleeding history",
+          "finding": "Apixaban 5 mg twice daily for atrial fibrillation, last dose this morning; amlodipine and metoprolol for hypertension. No prior major bleeding and no known bleeding disorder."
+        },
+        {
+          "prompt": "Ask about symptoms of blood loss and recent blood pressure control",
+          "finding": "Mild lightheadedness on standing; no chest pain, dyspnea or melena. Ran out of antihypertensives last week."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Perform anterior rhinoscopy after suction and decongestant",
+          "finding": "No discrete anterior septal bleeding point, mass or telangiectasia. Blood wells up from deep within the nasal cavity."
+        },
+        {
+          "prompt": "Inspect the oropharynx",
+          "finding": "A steady stream of fresh blood runs down the posterior pharyngeal wall."
+        },
+        {
+          "prompt": "Assess general appearance, heart and lungs",
+          "finding": "Anxious and pale, with blood-stained clothing. Irregularly irregular rhythm; lungs clear. No facial deformity or signs of trauma."
+        }
+      ]
+    },
+    "ent-011": {
+      "interview": [
+        {
+          "prompt": "Establish what happened and when",
+          "finding": "Found crying and drooling about three hours ago after playing unsupervised near a table with a TV remote and loose hearing-aid and watch batteries. The battery compartment of a small remote was open and empty. Ingestion window estimated at under four hours."
+        },
+        {
+          "prompt": "Ask about swallowing, breathing and vomiting",
+          "finding": "Refuses her bottle and solids, gags when she tries to swallow and points to her chest. No vomiting, fever or respiratory distress."
+        },
+        {
+          "prompt": "Review past history",
+          "finding": "Previously healthy, developing normally, immunizations up to date, no medications and no known allergies. No prior choking episodes."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Observe swallowing and general appearance",
+          "finding": "Alert, fussy and consolable. Drooling pooled saliva and gagging with attempts to swallow. Well perfused, with no cyanosis."
+        },
+        {
+          "prompt": "Assess the airway and lungs",
+          "finding": "No stridor, retractions or wheeze. Air entry is symmetric, and the lungs are clear."
+        },
+        {
+          "prompt": "Inspect the mouth, and palpate the neck and abdomen",
+          "finding": "No visible foreign body, burns or erythema in the oropharynx. No neck swelling, crepitus or tenderness. Abdomen soft and non-tender."
+        }
+      ]
+    },
+    "ent-069": {
+      "interview": [
+        {
+          "prompt": "Characterize the voice change",
+          "finding": "Several months of progressive hoarseness and vocal fatigue. Her voice gives out by the end of a teaching day, is worse with heavy use and improves after weekends. Symptoms have plateaued."
+        },
+        {
+          "prompt": "Ask about voice use",
+          "finding": "Elementary school teacher and part-time choir leader who often raises her voice over a noisy classroom, rarely uses amplification and drinks little water during the day."
+        },
+        {
+          "prompt": "Screen for red flags and contributing factors",
+          "finding": "No pain, dysphagia, hemoptysis, weight loss or neck mass. Never smoked, and rarely drinks alcohol. Mild intermittent heartburn."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Listen to the voice",
+          "finding": "Breathy, slightly rough voice with reduced projection and visible strain on sustained phonation. No stridor."
+        },
+        {
+          "prompt": "Palpate the neck",
+          "finding": "Supple, with no masses or lymphadenopathy, a normal thyroid and no laryngeal tenderness."
+        },
+        {
+          "prompt": "Examine the mouth, throat and cranial nerves",
+          "finding": "No oral or oropharyngeal lesions; mild posterior pharyngeal cobblestoning. Normal gag and palatal elevation."
+        }
+      ]
     }
   },
   "caseReviews": {
@@ -3349,6 +3461,50 @@
         {
           "title": "Somani et al. (J Urol 2008): is percutaneous drainage the new gold standard in the management of emphysematous pyelonephritis? Evidence from a systematic review",
           "url": "https://pubmed.ncbi.nlm.nih.gov/18353396/"
+        }
+      ]
+    },
+    "ent-042": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Recognize a posterior nosebleed when anterior packing fails, control it with a posterior pack and monitor for the pack’s complications.",
+      "alternativesAndLimits": "Many centers now move early to endoscopic artery ligation. Decisions about reversing or restarting a blood thinner are individual.",
+      "sources": [
+        {
+          "title": "Tunkel et al. (Otolaryngol Head Neck Surg 2020): clinical practice guideline, nosebleed (epistaxis)",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/31910111/"
+        },
+        {
+          "title": "Kucik and Clenney (Am Fam Physician 2005): management of epistaxis",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/15686301/"
+        }
+      ]
+    },
+    "ent-011": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Tell a swallowed button battery from a coin on X-ray and treat it as an emergency, removing it within two hours.",
+      "alternativesAndLimits": "Honey is only for children over 12 months, within 12 hours of swallowing, and must never delay removal. Follow-up imaging after removal varies by center.",
+      "sources": [
+        {
+          "title": "Litovitz et al. (Pediatrics 2010): emerging battery-ingestion hazard, clinical implications",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/20498173/"
+        },
+        {
+          "title": "Anfang et al. (Laryngoscope 2019): pH-neutralizing esophageal irrigations as a novel mitigation strategy for button battery injury",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/29889306/"
+        }
+      ]
+    },
+    "ent-069": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Examine the larynx when hoarseness lasts for weeks, recognize vocal fold nodules and treat them with voice therapy first.",
+      "alternativesAndLimits": "Guidelines advise laryngoscopy when hoarseness has not resolved within four weeks, and sooner when a serious cause is suspected.",
+      "sources": [
+        {
+          "title": "Stachler et al. (Otolaryngol Head Neck Surg 2018): clinical practice guideline, hoarseness (dysphonia), update",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/29494321/"
         }
       ]
     }
@@ -21372,6 +21528,825 @@
         {
           "title": "Somani et al. (J Urol 2008): is percutaneous drainage the new gold standard in the management of emphysematous pyelonephritis? Evidence from a systematic review",
           "url": "https://pubmed.ncbi.nlm.nih.gov/18353396/"
+        }
+      ]
+    },
+    "ent-042": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "A nosebleed for over an hour, _running down the back of his throat._",
+      "setting": "Emergency department",
+      "start": {
+        "status": "unstable",
+        "alarm": "Nosebleed for 75 minutes · on a blood thinner"
+      },
+      "handoff": "A 70-year-old man has had a heavy nosebleed for 75 minutes. Pinching his nose does not stop it, and blood keeps running down his throat. He takes a blood thinner for an irregular heartbeat.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask about the bleeding",
+            "finding": "It started without warning 75 minutes ago. He has been spitting and swallowing a lot of blood, and he feels it running down the back of his throat even when he pinches his nose. Nothing hit his nose, and he uses no nasal sprays."
+          },
+          {
+            "prompt": "Ask about his medicines",
+            "finding": "He takes apixaban, a blood thinner, twice a day for an irregular heartbeat, and he took it this morning. He also takes two blood pressure tablets. He has never had a serious bleed before."
+          },
+          {
+            "prompt": "Ask how he feels, and about his blood pressure",
+            "finding": "He feels lightheaded when he stands. He has no chest pain and is not short of breath. He ran out of his blood pressure tablets a week ago."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Look into the front of his nose, after suction and a spray to shrink the lining",
+            "finding": "There is no bleeding point at the front. Blood is welling up from deep inside."
+          },
+          {
+            "prompt": "Look at the back of his throat",
+            "finding": "A steady stream of fresh blood is running down the back wall."
+          },
+          {
+            "prompt": "Look at him, and listen to his heart and lungs",
+            "finding": "He is pale and anxious, and his shirt is stained with blood. His heartbeat is irregular. His lungs are clear."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Blood tests and first packing",
+          "content": "Hemoglobin: 10.8, low.\nPlatelets: 210, normal.\nStandard clotting tests: near normal. They do not measure the effect of his blood thinner.\nKidney test (creatinine): 1.3, slightly high.\nBoth nostrils have been packed at the front. Blood is still running down the back of his throat."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "He is pale, his heart is fast and he is on a blood thinner. We will spray his nose and pack the front. What else has to happen right now?",
+          "question": "What do you do alongside the packing?",
+          "options": [
+            "Place a line in a vein, send blood tests and a sample to match blood, and watch his heart rate and blood pressure",
+            "Bring his blood pressure down to normal fast with a strong drip, before anything else",
+            "Give a transfusion of platelets",
+            "Send him home to see a nose specialist in clinic"
+          ],
+          "fix": "Place a line and send bloods",
+          "terms": [
+            {
+              "term": "Type and screen",
+              "meaning": "A blood sample that finds his blood group, so matched blood is ready if he needs it."
+            },
+            {
+              "term": "Packing",
+              "meaning": "Soft material or a small balloon placed in the nose to press on a bleeding vessel."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 20,
+              "story": "A line goes in and blood is sent. His nose is sprayed, and both nostrils are packed at the front. The results go in his chart.",
+              "reply": "Right. A nosebleed like this can cost a lot of blood. We prepare for that while we work on the nose."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You reach for a blood pressure drip. The resident stops you.",
+              "reply": "His pressure is high partly from fear and partly from missed tablets. He has also lost blood. Dropping it fast could starve his brain and heart. Stop the bleeding first."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for platelets. The resident shakes their head.",
+              "reply": "His platelets are not the problem. His blood thinner blocks a clotting protein, and extra platelets do not change that."
+            },
+            {
+              "kind": "delay",
+              "minutes": 120,
+              "story": "He is sent home holding a towel to his face. Two hours later an ambulance brings him back. He fainted in his kitchen, and he is still bleeding.",
+              "reply": "Most nosebleeds are harmless. An older man on a blood thinner who has bled for over an hour is the exception. He needed a line, blood tests and monitoring.",
+              "vitals": {
+                "BP": "104/60 mmHg",
+                "HR": "124 bpm"
+              },
+              "trend": {
+                "BP": "down",
+                "HR": "up"
+              },
+              "status": "worse",
+              "alarm": "Fainted at home · still bleeding"
+            }
+          ]
+        },
+        "3": {
+          "resident": "The bleed is at the back of the nose, where the front packs cannot press on it.",
+          "question": "How do we stop it?",
+          "options": [
+            "Take out all the packing and watch",
+            "An emergency operation to tie off the main artery in his neck",
+            "Add a pack at the back of the nose, and admit him for monitoring",
+            "Repack the front with more gauze"
+          ],
+          "fix": "Place a posterior pack and admit him",
+          "terms": [
+            {
+              "term": "Posterior pack",
+              "meaning": "A balloon or pad passed through the nostril and seated at the very back of the nose, where it presses on the bleeding artery."
+            },
+            {
+              "term": "Sphenopalatine artery",
+              "meaning": "The main artery to the back of the nose."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "delay",
+              "minutes": 15,
+              "story": "The packs come out. Blood pours from his nose and mouth, and he coughs and chokes on it. His blood pressure falls.",
+              "reply": "The packs were at least slowing it. He needs more pressure, in the right place. Put a pack at the back.",
+              "vitals": {
+                "BP": "92/54 mmHg",
+                "HR": "132 bpm"
+              },
+              "trend": {
+                "BP": "down",
+                "HR": "up"
+              },
+              "status": "critical",
+              "alarm": "Bleeding from nose and mouth · pressure falling"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for the artery in his neck to be tied off. The ENT surgeon shakes their head.",
+              "reply": "That is far too big a step. If a pack at the back fails, the next move is to clip or block the small artery inside the nose."
+            },
+            {
+              "kind": "safe",
+              "minutes": 25,
+              "story": "A balloon is passed through his nostril, inflated at the back of his nose and pulled snug. The front is packed again. The stream down his throat slows, then stops. He is admitted to a monitored bed.",
+              "reply": "Right. The balloon presses on the artery where it enters the back of the nose. He stays in hospital while it is in.",
+              "alarm": "Bleeding stopped · admitted for monitoring"
+            },
+            {
+              "kind": "delay",
+              "minutes": 30,
+              "story": "The front is packed again, tighter. Half an hour later blood is still running down his throat, and he has vomited a bowl of swallowed blood.",
+              "reply": "More of the same pressure in the wrong place cannot work. The bleed is behind the packs. Put a pack at the back.",
+              "vitals": {
+                "BP": "98/58 mmHg",
+                "HR": "128 bpm"
+              },
+              "trend": {
+                "BP": "down",
+                "HR": "up"
+              },
+              "status": "worse",
+              "alarm": "Still bleeding · vomited blood"
+            }
+          ]
+        },
+        "4": {
+          "resident": "The bleeding is controlled, and he is on a heart monitor with an oxygen probe on his finger. A pack at the back of the nose has its own dangers.",
+          "question": "Which one are we monitoring him for?",
+          "options": [
+            "Permanent loss of his sense of smell",
+            "Low oxygen and a slow heart rate from a reflex the pack can set off, and a blocked airway",
+            "A sudden rise of pressure inside the eye",
+            "A storm of thyroid hormone"
+          ],
+          "fix": "Explain why he is on a monitor",
+          "terms": [
+            {
+              "term": "Reflex",
+              "meaning": "An automatic response carried by nerves. Pressure at the back of the nose can slow the breathing and the heart."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say he could lose his sense of smell. The resident shakes their head.",
+              "reply": "The smell nerves are at the roof of the nose, away from the pack. That is not the risk."
+            },
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "You check that the alarm limits on his monitor are set.",
+              "reply": "Right. Pressure at the back of the nose can slow his breathing and his heart, and a pack that slips can block his airway. That is why he is not going home tonight."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say the eye. The resident shakes their head.",
+              "reply": "A pack in the nose has no way to raise the pressure in the eye."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say the thyroid. The resident shakes their head.",
+              "reply": "The thyroid has nothing to do with a nasal pack."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "Both nostrils are packed at the front, and blood is still running down his throat.",
+        "question": "Where is the bleeding coming from?",
+        "options": [
+          "A small artery high at the front of the nose",
+          "The cluster of vessels at the front of the nose, missed by the packs",
+          "A bleeding stomach ulcer",
+          "The back of the nose (a posterior nosebleed)"
+        ],
+        "reveal": "The bleed is at the back of his nose. Packs at the front press on the front, and they would have stopped a bleed there. Blood that keeps running down the throat behind good packs has to be coming from behind them. Bleeds at the back are less common and heavier, and they happen most in older people with high blood pressure or on blood thinners. A stomach ulcer does not send fresh blood down from the nose.",
+        "terms": [
+          {
+            "term": "Posterior",
+            "meaning": "Toward the back."
+          },
+          {
+            "term": "Epistaxis",
+            "meaning": "A nosebleed."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "Admitted to a monitored bed with the bleeding stopped",
+        "unstable": "Admitted to a monitored bed with the bleeding stopped",
+        "worse": "Admitted to a monitored bed, weak from blood loss, with the bleeding stopped",
+        "critical": "In intensive care after heavy blood loss, with the bleeding stopped"
+      },
+      "plainDiagnosis": "A nosebleed from the back of the nose, in a man on a blood thinner (posterior epistaxis).",
+      "science": [
+        {
+          "tag": "Pressure",
+          "title": "How a balloon stops an artery",
+          "text": "Blood leaves a torn artery because the pressure inside is higher than the pressure outside. A balloon pressed against the tear raises the outside pressure. When the two match, flow stops, and a clot has time to form.",
+          "lesson": "hydrostatics",
+          "lessonTitle": "Read pressure in a fluid"
+        },
+        {
+          "tag": "Enzymes",
+          "title": "Why his blood would not clot",
+          "text": "A clot forms through a chain of enzymes, each switching on the next. Apixaban fits into the active site of one of them, factor Xa, and blocks it. That protects him from a stroke, and it also means a torn vessel takes far longer to seal.",
+          "lesson": "enzyme-rates",
+          "lessonTitle": "Read an enzyme curve"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Tunkel et al. (Otolaryngol Head Neck Surg 2020): clinical practice guideline, nosebleed (epistaxis)",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/31910111/"
+        },
+        {
+          "title": "Kucik and Clenney (Am Fam Physician 2005): management of epistaxis",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/15686301/"
+        }
+      ]
+    },
+    "ent-011": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "Drooling, _and an empty battery slot in the remote._",
+      "setting": "Emergency department",
+      "start": {
+        "status": "stable",
+        "alarm": "Drooling · will not swallow"
+      },
+      "handoff": "An 18-month-old girl was found crying and drooling three hours ago. She will not drink, and she gags when she tries to swallow. The battery cover of a small remote was lying open on the floor.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask her parents what happened",
+            "finding": "She was playing alone near a table where they keep a TV remote and loose watch and hearing-aid batteries. They found her crying and drooling about three hours ago. The battery slot of a small remote was open and empty."
+          },
+          {
+            "prompt": "Ask about swallowing, breathing and vomiting",
+            "finding": "She pushed away her bottle and a cracker. She gags when she tries to swallow, and she points to her chest. She has not vomited and has no fever. Her breathing has been normal."
+          },
+          {
+            "prompt": "Ask about her health",
+            "finding": "She is healthy and has had her vaccines. She takes no medicines and has no allergies. She has never choked on anything before."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Watch her for a minute",
+            "finding": "She is alert and fussy, and she settles in her mother’s arms. Saliva is pooling in her mouth and running out. She gags when she tries to swallow. Her color is good."
+          },
+          {
+            "prompt": "Listen to her breathing",
+            "finding": "No noisy breathing and no wheeze. She is not working hard to breathe, and both lungs sound the same."
+          },
+          {
+            "prompt": "Look in her mouth, and feel her neck and belly",
+            "finding": "Nothing is stuck in her mouth or throat, and there are no burns. Her neck is not swollen. Her belly is soft."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "X-rays of the neck, chest and belly",
+          "content": "Front view: a round metal disc, 20 mm across, in the upper food pipe at the base of the neck. A faint second ring shows just inside its edge.\nSide view: the edge of the disc has a step in it.\nNo air has leaked around the food pipe.\nLungs: clear."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "A toddler, loose batteries, sudden drooling. She is breathing comfortably, so we have a moment to find out what she swallowed and where it is.",
+          "question": "What is the most important step right now?",
+          "options": [
+            "Reassure her parents and arrange a clinic visit, since her breathing is fine",
+            "X-rays now, from front and side, of her neck, chest and belly",
+            "Activated charcoal, to bind what she swallowed",
+            "A medicine to make her vomit it up"
+          ],
+          "fix": "Get X-rays now",
+          "terms": [
+            {
+              "term": "Button battery",
+              "meaning": "A flat, coin-shaped battery from a watch, remote or hearing aid."
+            },
+            {
+              "term": "Food pipe",
+              "meaning": "The tube that carries food from the throat to the stomach (the esophagus)."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "delay",
+              "minutes": 240,
+              "story": "The family goes home. Four hours later they are back. She has a fever, and she has vomited saliva streaked with blood.",
+              "reply": "A child who suddenly drools and cannot swallow has something stuck. If it is a battery, it starts burning within two hours. She needed X-rays the moment she arrived.",
+              "vitals": {
+                "HR": "164 bpm",
+                "Temp": "38.3 °C"
+              },
+              "trend": {
+                "HR": "up",
+                "Temp": "up"
+              },
+              "status": "worse",
+              "alarm": "Fever · vomit streaked with blood"
+            },
+            {
+              "kind": "safe",
+              "minutes": 20,
+              "story": "She has X-rays in her mother’s arms within minutes. The pictures go in her chart.",
+              "reply": "Right. Metal shows clearly on X-ray. Two views tell us where it is and what it is."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for charcoal. The resident shakes their head.",
+              "reply": "Charcoal binds drugs. It does not bind metal. It would also coat her food pipe and hide the view for the surgeon."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a medicine to make her vomit. The resident stops you.",
+              "reply": "Never. On the way back up, an object can lodge in the airway, and a battery burns again wherever it touches."
+            }
+          ]
+        },
+        "3": {
+          "resident": "The surgeon and the operating room are being called. That takes a few minutes. She can still swallow small sips.",
+          "question": "What can we give her while we wait?",
+          "options": [
+            "Two teaspoons of honey every ten minutes",
+            "Large drinks of water to wash it down into her stomach",
+            "An acid-blocking medicine into a vein, as the main treatment",
+            "Baking soda in water, to neutralize it"
+          ],
+          "fix": "Give honey while the team gathers",
+          "terms": [
+            {
+              "term": "Honey",
+              "meaning": "Thick and slightly acidic. It coats the battery and weakens the burn. Never for babies under 12 months."
+            },
+            {
+              "term": "Alkali",
+              "meaning": "The chemical opposite of an acid. Strong alkalis dissolve living tissue."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "She takes the honey from a spoon, two teaspoons at a time, while the operating room is prepared.",
+              "reply": "Right. Honey slows the burn. It does not stop it, and it must never hold up getting the battery out."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You offer a big cup of water. The resident takes it away.",
+              "reply": "Water will not move a battery that is wedged in place, and she could breathe it in. We also want her stomach empty for the anesthetic."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for an acid blocker. The resident shakes their head.",
+              "reply": "That lowers acid in the stomach. The burn here is an alkali made at the battery’s surface, in her food pipe."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for baking soda. The resident stops you.",
+              "reply": "Baking soda is itself an alkali. The battery is already making alkali, so this would add to the burn."
+            }
+          ]
+        },
+        "4": {
+          "resident": "The honey is a stopgap. The battery is still in her food pipe, and it is still burning.",
+          "question": "What is the treatment?",
+          "options": [
+            "Admit her, and repeat the X-ray in 24 hours to see whether it has passed",
+            "Book a camera test as an outpatient within 48 hours",
+            "Take it out now with a camera, under anesthesia, within two hours",
+            "A medicine to relax the lower food pipe so that it passes"
+          ],
+          "fix": "Call the surgeon for emergency removal",
+          "terms": [
+            {
+              "term": "Endoscopy",
+              "meaning": "Passing a thin camera down the throat. Small tools on it can grasp and remove an object."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "delay",
+              "minutes": 720,
+              "story": "She is admitted to wait. By morning she has a high fever and noisy breathing, and a new X-ray shows air around her food pipe.",
+              "reply": "Waiting is for a battery that has reached the stomach in a child with no symptoms. Hers is stuck in the food pipe, and overnight it has burned through the wall. It has to come out now.",
+              "vitals": {
+                "HR": "176 bpm",
+                "Temp": "39.0 °C",
+                "RR": "44 /min"
+              },
+              "trend": {
+                "HR": "up",
+                "Temp": "up",
+                "RR": "up"
+              },
+              "status": "critical",
+              "alarm": "High fever · air leaking around the food pipe"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest a camera test within two days. The surgeon shakes their head.",
+              "reply": "In two days the battery could be through the wall and into a major blood vessel. It comes out within two hours."
+            },
+            {
+              "kind": "safe",
+              "minutes": 45,
+              "story": "Under anesthesia, the surgeon passes a camera down and lifts the battery out. Where it sat there is a ring-shaped burn. A feeding tube is placed, and she is admitted.",
+              "reply": "Right. The battery is the source of the injury, and every minute it stays the burn gets deeper.",
+              "alarm": "Battery out · burn on the wall of the food pipe"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest a medicine to relax the food pipe. The surgeon shakes their head.",
+              "reply": "It is stuck at the top, and that medicine works at the bottom. Even if it moved, it would have burned the whole way down."
+            }
+          ]
+        },
+        "5": {
+          "resident": "The battery is out. The surgeon tells her parents that the burn can keep getting deeper for days, even now. Suppose a child like her came back two weeks later, vomiting large amounts of blood.",
+          "question": "What would have happened?",
+          "options": [
+            "A small tear in the lining, from vomiting",
+            "The burn has worn through into a major blood vessel, such as the aorta",
+            "A yeast infection of the food pipe",
+            "A stomach ulcer"
+          ],
+          "fix": "Name the complication to watch for",
+          "terms": [
+            {
+              "term": "Aorta",
+              "meaning": "The body’s main artery. It runs just behind the food pipe in the chest."
+            },
+            {
+              "term": "Fistula",
+              "meaning": "An abnormal opening between two parts of the body that are normally separate."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say a small tear. The surgeon shakes their head.",
+              "reply": "A tear like that bleeds a little and stops. It would not put a child into shock."
+            },
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "Her parents are told to bring her straight back for any blood in her vomit or stool, even weeks from now.",
+              "reply": "Right. Burned tissue keeps dying after the battery is out. The aorta lies just behind the food pipe, and an opening between them is the most feared result."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say a yeast infection. The surgeon shakes their head.",
+              "reply": "That makes swallowing sore. It does not cause heavy bleeding."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say a stomach ulcer. The surgeon shakes their head.",
+              "reply": "Her injury was in the food pipe, and that is where the danger stays."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "Her X-rays are in the chart. Look at the edge of the disc.",
+        "question": "What has she swallowed?",
+        "options": [
+          "A coin, stuck in the food pipe",
+          "A button battery, stuck in the food pipe",
+          "Something breathed into the right lung",
+          "A lump of food, stuck in the food pipe"
+        ],
+        "reveal": "It is a button battery. A coin is one solid piece of metal, so on X-ray it shows as a plain disc with a smooth edge. A battery is built in two layers. From the front the layers show as a ring inside a ring, and from the side as a step. The disc lies behind the windpipe, in the food pipe, and her lungs are clear. Food does not show on X-ray.",
+        "terms": [
+          {
+            "term": "Double ring",
+            "meaning": "A ring within a ring on X-ray. It is the mark of a button battery."
+          },
+          {
+            "term": "Foreign body",
+            "meaning": "An object stuck where it does not belong."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "Admitted for observation after the battery was removed, with a feeding tube while the burn heals",
+        "worse": "In intensive care after a late removal, with a deep burn to the food pipe",
+        "critical": "In intensive care after a late removal, with a hole in the food pipe"
+      },
+      "plainDiagnosis": "A swallowed button battery stuck in the food pipe (esophageal button battery).",
+      "science": [
+        {
+          "tag": "Circuits",
+          "title": "Why a battery burns and a coin does not",
+          "text": "A battery drives current through any conductor that joins its two faces. Wet tissue is a conductor. The current splits water at the negative face and produces hydroxide, a strong alkali, right against the lining. A coin has no voltage, so it only blocks.",
+          "lesson": "circuit-paths",
+          "lessonTitle": "Follow current through a circuit"
+        },
+        {
+          "tag": "Acids and bases",
+          "title": "What the honey was doing",
+          "text": "Hydroxide raises the pH at the battery’s surface high enough to dissolve tissue. Honey is mildly acidic and thick. It neutralizes some of the hydroxide and puts a layer between the battery and the lining.",
+          "lesson": "buffer-balance",
+          "lessonTitle": "Balance a buffer"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Litovitz et al. (Pediatrics 2010): emerging battery-ingestion hazard, clinical implications",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/20498173/"
+        },
+        {
+          "title": "Anfang et al. (Laryngoscope 2019): pH-neutralizing esophageal irrigations as a novel mitigation strategy for button battery injury",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/29889306/"
+        }
+      ]
+    },
+    "ent-069": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "A teacher _whose voice is gone by the afternoon._",
+      "setting": "Ear, nose and throat clinic",
+      "start": {
+        "status": "stable",
+        "alarm": "Hoarse for several months"
+      },
+      "handoff": "A 38-year-old teacher has been hoarse for several months. By the end of each school day her voice gives out. She also leads a choir, and the season is about to start.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask about her voice",
+            "finding": "It has been getting hoarse for several months. It tires quickly and gives out by the end of a teaching day. It is worse after heavy use and better after a weekend. Lately it has stayed about the same."
+          },
+          {
+            "prompt": "Ask how she uses her voice",
+            "finding": "She teaches young children and often raises her voice over the noise. She has no microphone. She also leads a choir. She drinks very little water during the day."
+          },
+          {
+            "prompt": "Ask about other symptoms and habits",
+            "finding": "No pain, no trouble swallowing, no coughing up blood, no weight loss and no lump in her neck. She has never smoked. She gets mild heartburn now and then."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Listen to her voice",
+            "finding": "It is breathy and a little rough, and it does not carry. When she holds a note you can see her straining. Her breathing is quiet."
+          },
+          {
+            "prompt": "Feel her neck",
+            "finding": "No lumps and no swollen glands. Her voice box is not tender."
+          },
+          {
+            "prompt": "Look in her mouth and throat",
+            "finding": "No sores or patches. The back of her throat looks mildly irritated. Her palate moves normally."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Camera view of the voice box",
+          "content": "Both vocal folds have a small, pale, firm bump. The two bumps sit directly opposite each other, a third of the way back.\nBoth folds move fully and equally.\nWhen she makes a sound, the bumps meet first and leave a gap in front of and behind them, like an hourglass.\nNo ulcers, no white patches and no other growths."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "She has been hoarse for months. Her story sounds like overuse, but a story is not enough for hoarseness that has lasted this long.",
+          "question": "What is the next step?",
+          "options": [
+            "Reassure her, and see her again in six months without examining the voice box",
+            "Look at her voice box with a thin camera passed through the nose",
+            "A CT scan of her neck first",
+            "Start cancer drugs, in case it is cancer of the voice box"
+          ],
+          "fix": "Look at the voice box",
+          "terms": [
+            {
+              "term": "Laryngoscopy",
+              "meaning": "Looking at the voice box with a thin camera, done in clinic in a few minutes."
+            },
+            {
+              "term": "Vocal folds",
+              "meaning": "Two bands of tissue in the voice box that vibrate to make the voice. Also called vocal cords."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You plan to see her in six months. The specialist shakes their head.",
+              "reply": "Hoarseness that lasts beyond a few weeks needs a look, however harmless it sounds. Occasionally it is something that should not wait."
+            },
+            {
+              "kind": "safe",
+              "minutes": 15,
+              "story": "The specialist numbs her nose and passes a thin camera through it. Her vocal folds appear on the screen, and the findings go in her chart.",
+              "reply": "Right. It takes a few minutes, and we see the folds directly while she speaks and sings."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request a CT scan. The specialist changes it.",
+              "reply": "A CT does not show the surface of the vocal folds or how they move. The camera does."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest cancer drugs. The specialist stares.",
+              "reply": "Nobody treats a cancer that has not been found. Look first."
+            }
+          ]
+        },
+        "3": {
+          "resident": "She has nodules on both vocal folds. They are like calluses, from the folds striking each other too hard and too often.",
+          "question": "What is the first treatment?",
+          "options": [
+            "An operation now to cut both nodules away",
+            "Voice therapy with a speech therapist, and better voice habits",
+            "Radiation to the voice box",
+            "Long-term antibiotics"
+          ],
+          "fix": "Refer her for voice therapy",
+          "terms": [
+            {
+              "term": "Voice therapy",
+              "meaning": "Sessions with a speech therapist to learn to produce the voice with less force and strain."
+            },
+            {
+              "term": "Nodule",
+              "meaning": "A small, firm bump."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest surgery now. The specialist shakes their head.",
+              "reply": "Cutting can scar a vocal fold, and a scar changes a voice for good. If her habits stay the same, the nodules would also grow back. Surgery is for the few that therapy does not fix."
+            },
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "She is booked with a speech therapist for a course of sessions.",
+              "reply": "Right. Remove the cause, and most nodules shrink or disappear without any other treatment."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest radiation. The specialist shakes their head.",
+              "reply": "Radiation treats cancer. These are harmless calluses."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest antibiotics. The specialist shakes their head.",
+              "reply": "There is no infection here. The cause is mechanical."
+            }
+          ]
+        },
+        "4": {
+          "resident": "She asks what she can do herself. She has a class of six-year-olds and a choir season ahead.",
+          "question": "What do you tell her?",
+          "options": [
+            "Stop speaking altogether, permanently",
+            "Drink water through the day, use a microphone in class, avoid shouting and take voice breaks. Treating her heartburn may help",
+            "She must have surgery before she can sing again",
+            "Nodules usually turn into cancer, so they need a biopsy whatever happens"
+          ],
+          "fix": "Give her a voice plan",
+          "terms": [
+            {
+              "term": "Vocal hygiene",
+              "meaning": "Everyday habits that protect the voice."
+            },
+            {
+              "term": "Amplification",
+              "meaning": "A small microphone and speaker, so she does not have to raise her voice."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You tell her to stop speaking for good. The specialist smiles.",
+              "reply": "A teacher cannot do that, and she does not need to. She needs to use her voice differently."
+            },
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "She writes the list down and says the school has a microphone nobody uses.",
+              "reply": "Right. Each of those lowers the force on her vocal folds, and they are what keeps the nodules from coming back."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You tell her she needs surgery before singing. The specialist shakes their head.",
+              "reply": "Most singers with nodules recover with therapy alone."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You tell her nodules turn into cancer. The specialist corrects you.",
+              "reply": "They do not. Saying so would frighten her for nothing."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "The camera findings are in her chart.",
+        "question": "What is this?",
+        "options": [
+          "A polyp on one vocal fold",
+          "Nodules on both vocal folds",
+          "Cancer of the voice box",
+          "Swelling of the vocal folds from smoking (Reinke edema)"
+        ],
+        "reveal": "She has vocal fold nodules. They are matched bumps on both folds, at the point where the folds strike each other hardest. A polyp is usually single and on one side. Cancer looks irregular or ulcerated, usually in a smoker, and often stops a fold from moving. Smoking-related swelling puffs up the whole length of both folds.",
+        "terms": [
+          {
+            "term": "Benign",
+            "meaning": "Not cancer."
+          },
+          {
+            "term": "Bilateral",
+            "meaning": "On both sides."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "Home with a voice therapy referral and a plan for the classroom",
+        "worse": "Sent to the emergency department",
+        "critical": "In hospital"
+      },
+      "plainDiagnosis": "Small calluses on both vocal cords from overusing the voice (vocal fold nodules).",
+      "science": [
+        {
+          "tag": "Sound",
+          "title": "Why the nodules make her voice breathy",
+          "text": "The voice starts as a vibration. The vocal folds close, air pressure from the lungs pushes them apart, and they spring shut again, hundreds of times a second. Her nodules meet first and hold the folds apart, so air leaks through the gaps without being turned into sound.",
+          "lesson": "wave-sound",
+          "lessonTitle": "Read a wave and a logarithmic level"
+        },
+        {
+          "tag": "Learning",
+          "title": "How therapy changes a habit",
+          "text": "Shouting over a class is a habit kept going by its result: it works in the moment. Voice therapy replaces it with a different way of producing sound and practices that until it becomes automatic.",
+          "lesson": "learning-consequences",
+          "lessonTitle": "Read a behavioral consequence"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Stachler et al. (Otolaryngol Head Neck Surg 2018): clinical practice guideline, hoarseness (dysphonia), update",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/29494321/"
         }
       ]
     }
