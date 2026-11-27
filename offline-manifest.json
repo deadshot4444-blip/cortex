@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "build": "e6ce4ddd0794ac72d7fc",
+  "build": "047e52ae34b1c0efde4a",
   "packs": [
     {
       "id": "mcat",
@@ -57,7 +57,7 @@
         {
           "url": "/app.js",
           "bytes": 113942,
-          "sha256": "b530d47622215fcfa2cd0242816521e3f738eb0598fce9fb04c4a79a43e56df0"
+          "sha256": "a1c31a6ad4a65700e97a070213a7afbc80553a55755fae4463b9fbbb44509849"
         },
         {
           "url": "/assets/fonts/cormorant-garamond-latin-wght-italic.woff2",
@@ -111,8 +111,8 @@
         },
         {
           "url": "/data/academy-curriculum.json",
-          "bytes": 209669,
-          "sha256": "99aee6e31c3520adb3d07378a518794f364786f556b88bbec9219e423102ad19"
+          "bytes": 211377,
+          "sha256": "8153d9d2d829aaf8bf913fc705674be56bbe6b55dd26e38fc836a1666b6d8b76"
         },
         {
           "url": "/data/index.json",
@@ -197,7 +197,7 @@
         {
           "url": "/index.html",
           "bytes": 9499,
-          "sha256": "632a0e0eaec140ee5c8d97bf018de95af855e50c3e033c5f8b56845636a835cf"
+          "sha256": "9c717a9861944dc436a199cae277fa7ef7be3c96158741c75745dd9abe489ee6"
         },
         {
           "url": "/lab.css",
@@ -381,7 +381,7 @@
         {
           "url": "/app.js",
           "bytes": 113942,
-          "sha256": "b530d47622215fcfa2cd0242816521e3f738eb0598fce9fb04c4a79a43e56df0"
+          "sha256": "a1c31a6ad4a65700e97a070213a7afbc80553a55755fae4463b9fbbb44509849"
         },
         {
           "url": "/assets/fonts/cormorant-garamond-latin-wght-italic.woff2",
@@ -495,8 +495,8 @@
         },
         {
           "url": "/data/academy-curriculum.json",
-          "bytes": 209669,
-          "sha256": "99aee6e31c3520adb3d07378a518794f364786f556b88bbec9219e423102ad19"
+          "bytes": 211377,
+          "sha256": "8153d9d2d829aaf8bf913fc705674be56bbe6b55dd26e38fc836a1666b6d8b76"
         },
         {
           "url": "/data/dat-cards-bio-cell.json",
@@ -761,7 +761,7 @@
         {
           "url": "/index.html",
           "bytes": 9499,
-          "sha256": "632a0e0eaec140ee5c8d97bf018de95af855e50c3e033c5f8b56845636a835cf"
+          "sha256": "9c717a9861944dc436a199cae277fa7ef7be3c96158741c75745dd9abe489ee6"
         },
         {
           "url": "/lab.css",
@@ -880,7 +880,7 @@
         {
           "url": "/app.js",
           "bytes": 113942,
-          "sha256": "b530d47622215fcfa2cd0242816521e3f738eb0598fce9fb04c4a79a43e56df0"
+          "sha256": "a1c31a6ad4a65700e97a070213a7afbc80553a55755fae4463b9fbbb44509849"
         },
         {
           "url": "/assets/fonts/cormorant-garamond-latin-wght-italic.woff2",
@@ -934,8 +934,8 @@
         },
         {
           "url": "/data/academy-curriculum.json",
-          "bytes": 209669,
-          "sha256": "99aee6e31c3520adb3d07378a518794f364786f556b88bbec9219e423102ad19"
+          "bytes": 211377,
+          "sha256": "8153d9d2d829aaf8bf913fc705674be56bbe6b55dd26e38fc836a1666b6d8b76"
         },
         {
           "url": "/data/index.json",
@@ -960,7 +960,7 @@
         {
           "url": "/index.html",
           "bytes": 9499,
-          "sha256": "632a0e0eaec140ee5c8d97bf018de95af855e50c3e033c5f8b56845636a835cf"
+          "sha256": "9c717a9861944dc436a199cae277fa7ef7be3c96158741c75745dd9abe489ee6"
         },
         {
           "url": "/lab.css",
@@ -1084,7 +1084,7 @@
         {
           "url": "/app.js",
           "bytes": 113942,
-          "sha256": "b530d47622215fcfa2cd0242816521e3f738eb0598fce9fb04c4a79a43e56df0"
+          "sha256": "a1c31a6ad4a65700e97a070213a7afbc80553a55755fae4463b9fbbb44509849"
         },
         {
           "url": "/assets/fonts/cormorant-garamond-latin-wght-italic.woff2",
@@ -1144,7 +1144,7 @@
         {
           "url": "/clinical-shift.js",
           "bytes": 111741,
-          "sha256": "58344cf04edbfb92dbb3c7b6f359d122bbd737b40ffa36909ea07e79479b4db6"
+          "sha256": "35ab04c6797be2eddac9f197db4b14f3f68a163b1fb0d35eb0a16563f7eb414f"
         },
         {
           "url": "/dat.css",
@@ -1153,8 +1153,8 @@
         },
         {
           "url": "/data/academy-curriculum.json",
-          "bytes": 209669,
-          "sha256": "99aee6e31c3520adb3d07378a518794f364786f556b88bbec9219e423102ad19"
+          "bytes": 211377,
+          "sha256": "8153d9d2d829aaf8bf913fc705674be56bbe6b55dd26e38fc836a1666b6d8b76"
         },
         {
           "url": "/data/cardiology.json",
@@ -1168,8 +1168,8 @@
         },
         {
           "url": "/data/clinical-shift-pilot.json",
-          "bytes": 1137178,
-          "sha256": "cb7dae27b8fd6983895e0c32e2812f1e00cd326c91150d3bd5a39b9f489ed9d7"
+          "bytes": 1186875,
+          "sha256": "7dc7b16882b173adec7bc4a3ba733df5ff40cb7c5174668ff7a23fa92478b813"
         },
         {
           "url": "/data/clinical-shift-revisions.json",
@@ -1314,7 +1314,7 @@
         {
           "url": "/index.html",
           "bytes": 9499,
-          "sha256": "632a0e0eaec140ee5c8d97bf018de95af855e50c3e033c5f8b56845636a835cf"
+          "sha256": "9c717a9861944dc436a199cae277fa7ef7be3c96158741c75745dd9abe489ee6"
         },
         {
           "url": "/lab.css",
@@ -1443,7 +1443,7 @@
         {
           "url": "/app.js",
           "bytes": 113942,
-          "sha256": "b530d47622215fcfa2cd0242816521e3f738eb0598fce9fb04c4a79a43e56df0"
+          "sha256": "a1c31a6ad4a65700e97a070213a7afbc80553a55755fae4463b9fbbb44509849"
         },
         {
           "url": "/assets/fonts/cormorant-garamond-latin-wght-italic.woff2",
@@ -1502,8 +1502,8 @@
         },
         {
           "url": "/data/academy-curriculum.json",
-          "bytes": 209669,
-          "sha256": "99aee6e31c3520adb3d07378a518794f364786f556b88bbec9219e423102ad19"
+          "bytes": 211377,
+          "sha256": "8153d9d2d829aaf8bf913fc705674be56bbe6b55dd26e38fc836a1666b6d8b76"
         },
         {
           "url": "/data/anatomy-foundations.json",
@@ -1538,7 +1538,7 @@
         {
           "url": "/index.html",
           "bytes": 9499,
-          "sha256": "632a0e0eaec140ee5c8d97bf018de95af855e50c3e033c5f8b56845636a835cf"
+          "sha256": "9c717a9861944dc436a199cae277fa7ef7be3c96158741c75745dd9abe489ee6"
         },
         {
           "url": "/lab.css",
@@ -1662,7 +1662,7 @@
         {
           "url": "/app.js",
           "bytes": 113942,
-          "sha256": "b530d47622215fcfa2cd0242816521e3f738eb0598fce9fb04c4a79a43e56df0"
+          "sha256": "a1c31a6ad4a65700e97a070213a7afbc80553a55755fae4463b9fbbb44509849"
         },
         {
           "url": "/assets/fonts/cormorant-garamond-latin-wght-italic.woff2",
@@ -1716,8 +1716,8 @@
         },
         {
           "url": "/data/academy-curriculum.json",
-          "bytes": 209669,
-          "sha256": "99aee6e31c3520adb3d07378a518794f364786f556b88bbec9219e423102ad19"
+          "bytes": 211377,
+          "sha256": "8153d9d2d829aaf8bf913fc705674be56bbe6b55dd26e38fc836a1666b6d8b76"
         },
         {
           "url": "/data/ecg-patterns.json",
@@ -1777,7 +1777,7 @@
         {
           "url": "/index.html",
           "bytes": 9499,
-          "sha256": "632a0e0eaec140ee5c8d97bf018de95af855e50c3e033c5f8b56845636a835cf"
+          "sha256": "9c717a9861944dc436a199cae277fa7ef7be3c96158741c75745dd9abe489ee6"
         },
         {
           "url": "/lab.css",
@@ -1906,7 +1906,7 @@
         {
           "url": "/app.js",
           "bytes": 113942,
-          "sha256": "b530d47622215fcfa2cd0242816521e3f738eb0598fce9fb04c4a79a43e56df0"
+          "sha256": "a1c31a6ad4a65700e97a070213a7afbc80553a55755fae4463b9fbbb44509849"
         },
         {
           "url": "/assets/fonts/cormorant-garamond-latin-wght-italic.woff2",
@@ -1965,8 +1965,8 @@
         },
         {
           "url": "/data/academy-curriculum.json",
-          "bytes": 209669,
-          "sha256": "99aee6e31c3520adb3d07378a518794f364786f556b88bbec9219e423102ad19"
+          "bytes": 211377,
+          "sha256": "8153d9d2d829aaf8bf913fc705674be56bbe6b55dd26e38fc836a1666b6d8b76"
         },
         {
           "url": "/data/index.json",
@@ -2006,7 +2006,7 @@
         {
           "url": "/index.html",
           "bytes": 9499,
-          "sha256": "632a0e0eaec140ee5c8d97bf018de95af855e50c3e033c5f8b56845636a835cf"
+          "sha256": "9c717a9861944dc436a199cae277fa7ef7be3c96158741c75745dd9abe489ee6"
         },
         {
           "url": "/lab.css",
