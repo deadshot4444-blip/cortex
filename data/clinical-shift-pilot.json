@@ -1,7 +1,7 @@
 {
-  "version": 28,
+  "version": 29,
   "title": "Clinical Shift foundations and rotation practice",
-  "reviewStatus": "Source and consistency checks are recorded with each encounter. Independent clinician review remains pending for all 69 encounters.",
+  "reviewStatus": "Source and consistency checks are recorded with each encounter. Independent clinician review remains pending for all 72 encounters.",
   "rotations": [
     {
       "key": "emergency-medicine",
@@ -210,6 +210,16 @@
         "vn-001",
         "vn-072",
         "vn-018"
+      ]
+    },
+    {
+      "key": "neuro-oncology",
+      "name": "Neuro-Oncology",
+      "description": "Tumors of the brain, the spine and the pituitary gland, and the hours when treatment still changes the outcome.",
+      "caseIds": [
+        "no-001",
+        "no-042",
+        "no-032"
       ]
     }
   ],
@@ -489,6 +499,18 @@
     "vn-018": {
       "assessment": "64-year-old smoker with untreated hypertension and four stereotyped, increasingly frequent episodes of right arm weakness and aphasia in 24 hours, a left carotid bruit, and a normal exam between spells. MRI shows a punctate left frontal cortical infarct, and CTA shows an 85% ulcerated left internal carotid stenosis: crescendo TIA from artery-to-artery embolism.",
       "plan": "Urgent admission. Dual antiplatelet therapy and a high-intensity statin; avoid aggressive blood pressure lowering while the stenosis limits flow. Early carotid revascularization, ideally within about two weeks of symptom onset. Smoking cessation and long-term risk factor control."
+    },
+    "no-001": {
+      "assessment": "62-year-old man with six weeks of morning-predominant headaches with vomiting and two weeks of progressive right-hand weakness. MRI shows a 4.2 cm thick-walled, ring-enhancing left frontal mass with central necrosis crossing the corpus callosum, extensive vasogenic edema, and 8 mm of midline shift: probable glioblastoma.",
+      "plan": "Dexamethasone for vasogenic edema and urgent neurosurgical consultation. Maximal safe resection, or stereotactic biopsy if resection is unsafe, with histopathology and molecular analysis (IDH status, MGMT promoter methylation). No lumbar puncture. Radiotherapy with temozolomide follows a tissue diagnosis."
+    },
+    "no-042": {
+      "assessment": "67-year-old man with prostate cancer and a rising PSA, two weeks of nocturnal thoracic back pain, two days of bilateral leg weakness with a T10 sensory level, hyperreflexia, and urinary retention. MRI shows a T9–T10 epidural mass with vertebral marrow replacement compressing the cord: metastatic epidural spinal cord compression.",
+      "plan": "Dexamethasone immediately on suspicion, bladder catheter, and emergent whole-spine MRI. For a fit patient with a single compressive level, surgical decompression and stabilization followed by postoperative radiotherapy. Treat hypercalcemia. Neurologic status when treatment starts is the main determinant of walking afterward."
+    },
+    "no-032": {
+      "assessment": "48-year-old man with thunderclap headache, a right third-nerve palsy, bitemporal field loss, and hypotension, after a year of fatigue, low libido, and cold intolerance. Cortisol 2 µg/dL, free T4 0.5 ng/dL, sodium 129, glucose 58; MRI shows hemorrhage into a pituitary macroadenoma displacing the optic chiasm: pituitary apoplexy with acute hypopituitarism.",
+      "plan": "IV fluids and stress-dose IV hydrocortisone immediately, without waiting for results. Urgent neurosurgical evaluation for transsphenoidal decompression given progressive visual loss and ophthalmoplegia. Replace glucocorticoid before or with thyroid hormone; fludrocortisone is not needed in secondary adrenal insufficiency."
     }
   },
   "investigations": {
@@ -2561,6 +2583,96 @@
           "finding": "Regular rhythm, with no murmur."
         }
       ]
+    },
+    "no-001": {
+      "interview": [
+        {
+          "prompt": "Characterize the headache",
+          "finding": "Six weeks of dull, holocephalic headaches that are worse in the early morning and occasionally wake him, with two episodes of vomiting without nausea. No fever, neck stiffness, trauma or visual loss."
+        },
+        {
+          "prompt": "Ask about focal symptoms",
+          "finding": "Two weeks of dropping objects with the right hand and illegible handwriting, a brief episode of word-finding difficulty this morning and several days of feeling foggy."
+        },
+        {
+          "prompt": "Review history and systemic symptoms",
+          "finding": "Hypertension and hyperlipidemia, on lisinopril and atorvastatin; a 30 pack-year smoker. No anticoagulants. No weight loss, night sweats or hemoptysis, and no family history of cancer."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Assess mental status and the optic discs",
+          "finding": "Alert and oriented but mildly inattentive. Pupils equal and reactive; no papilledema on bedside fundoscopy."
+        },
+        {
+          "prompt": "Test strength and pronator drift",
+          "finding": "Right upper extremity 4/5 with a subtle pronator drift and a weak grip. Left side and both legs 5/5."
+        },
+        {
+          "prompt": "Test coordination, handwriting and gait",
+          "finding": "Mild right-hand dysgraphia and mild right dysmetria on finger-to-nose. Steady gait. Reflexes symmetric with flexor plantar responses."
+        }
+      ]
+    },
+    "no-042": {
+      "interview": [
+        {
+          "prompt": "Characterize the back pain",
+          "finding": "Two weeks of progressively severe, constant mid-thoracic back pain that is worse at night and when lying flat and is unrelieved by acetaminophen. No trauma, fever or prior back surgery."
+        },
+        {
+          "prompt": "Ask about leg, sensory and bladder symptoms",
+          "finding": "Two days of weak, heavy legs, numbness from the umbilicus downward and inability to urinate for 12 hours with a feeling of abdominal fullness. Fully ambulatory until this week."
+        },
+        {
+          "prompt": "Review the cancer history",
+          "finding": "Prostate cancer diagnosed three years ago and treated with radiation, with a recently rising PSA; on leuprolide and tamsulosin. A 5 kg unintentional weight loss over two months."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Test leg strength, tone and reflexes",
+          "finding": "Symmetric 3/5 weakness at the hips, knees and ankles, with increased tone, brisk patellar reflexes and bilateral upgoing toes. Arms and cranial nerves normal."
+        },
+        {
+          "prompt": "Map sensation to pinprick",
+          "finding": "A sensory level at T10."
+        },
+        {
+          "prompt": "Palpate the spine and the bladder",
+          "finding": "Focal tenderness over the lower thoracic spinous processes. The bladder is palpable and distended, with a 700 mL post-void residual, and rectal tone is reduced."
+        }
+      ]
+    },
+    "no-032": {
+      "interview": [
+        {
+          "prompt": "Characterize the headache",
+          "finding": "Sudden severe retro-orbital and bifrontal headache four hours ago that peaked within seconds, the worst of his life, followed by nausea, two episodes of vomiting and horizontal diplopia. No trauma, neck stiffness or fever."
+        },
+        {
+          "prompt": "Ask about symptoms over the preceding months",
+          "finding": "A year of fatigue and reduced libido, with cold intolerance, less frequent shaving, occasional mild headaches and reduced peripheral vision noticed when driving."
+        },
+        {
+          "prompt": "Ask about lightheadedness, medications and history",
+          "finding": "Lightheaded with near-syncope on standing. Untreated hypertension, on no regular medications and no anticoagulants. Drinks two to three beers nightly."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Examine the eyes and eye movements",
+          "finding": "The right eye is deviated down and out with ptosis, and the right pupil is dilated and sluggish. Left eye movements are intact."
+        },
+        {
+          "prompt": "Test visual fields by confrontation",
+          "finding": "A bitemporal field deficit."
+        },
+        {
+          "prompt": "Assess perfusion, the neck and the limbs",
+          "finding": "Ill-appearing and diaphoretic, with cool clammy skin, dry mucous membranes and a regular tachycardia. No nuchal rigidity and no limb weakness."
+        }
+      ]
     }
   },
   "caseReviews": {
@@ -3669,6 +3781,54 @@
         {
           "title": "Johnston et al. (N Engl J Med 2018): clopidogrel and aspirin in acute ischemic stroke and high-risk TIA",
           "url": "https://pubmed.ncbi.nlm.nih.gov/29766750/"
+        }
+      ]
+    },
+    "no-001": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Image a progressive headache with a focal deficit, recognize a likely glioblastoma, reduce swelling with a steroid and obtain tissue.",
+      "alternativesAndLimits": "Imaging can suggest the diagnosis, but only tissue confirms it. Steroids are held before biopsy when lymphoma is suspected.",
+      "sources": [
+        {
+          "title": "Stupp et al. (N Engl J Med 2005): radiotherapy plus concomitant and adjuvant temozolomide for glioblastoma",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/15758009/"
+        },
+        {
+          "title": "Louis et al. (Neuro Oncol 2021): the 2021 WHO classification of tumors of the central nervous system, a summary",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/34185076/"
+        }
+      ]
+    },
+    "no-042": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Treat back pain with weak legs in a cancer patient as cord compression: steroid first, MRI of the whole spine and early decompression.",
+      "alternativesAndLimits": "Radiation alone is used when surgery is not suitable or many levels are involved. Steroid dose varies between centers.",
+      "sources": [
+        {
+          "title": "Patchell et al. (Lancet 2005): direct decompressive surgical resection in the treatment of spinal cord compression caused by metastatic cancer, a randomised trial",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/16112300/"
+        },
+        {
+          "title": "Cole and Patchell (Lancet Neurol 2008): metastatic epidural spinal cord compression",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/18420159/"
+        }
+      ]
+    },
+    "no-032": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Recognize pituitary apoplexy, give hydrocortisone immediately and refer for decompression when vision is failing.",
+      "alternativesAndLimits": "Stable patients with mild deficits can be managed without surgery. The timing of surgery is decided case by case.",
+      "sources": [
+        {
+          "title": "Rajasekaran et al. (Clin Endocrinol 2011): UK guidelines for the management of pituitary apoplexy",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/21044119/"
+        },
+        {
+          "title": "Briet et al. (Endocr Rev 2015): pituitary apoplexy",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/26414232/"
         }
       ]
     }
@@ -23331,6 +23491,815 @@
         {
           "title": "Johnston et al. (N Engl J Med 2018): clopidogrel and aspirin in acute ischemic stroke and high-risk TIA",
           "url": "https://pubmed.ncbi.nlm.nih.gov/29766750/"
+        }
+      ]
+    },
+    "no-001": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "Morning headaches for six weeks, _and now a clumsy right hand._",
+      "setting": "Emergency department",
+      "start": {
+        "status": "stable",
+        "alarm": "Headaches for six weeks · weak right hand"
+      },
+      "handoff": "A 62-year-old accountant has had headaches for six weeks. They are worst in the early morning. For two weeks he has been dropping things with his right hand, and this morning he could not find his words for a few minutes.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask about the headaches",
+            "finding": "A dull ache all over his head for six weeks. It is worst in the early morning and sometimes wakes him. Twice he has vomited suddenly without feeling sick first. He has had no fever and no injury."
+          },
+          {
+            "prompt": "Ask about his hand and his speech",
+            "finding": "For two weeks he has dropped things with his right hand, and his handwriting has become unreadable. This morning he could not find words for a few minutes. He has felt foggy for several days."
+          },
+          {
+            "prompt": "Ask about his health",
+            "finding": "He has high blood pressure and high cholesterol, and he takes a tablet for each. He has smoked for 30 years. He has not lost weight, and he takes no blood thinner. Nobody in his family has had cancer."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Talk to him, and look into his eyes",
+            "finding": "He is awake and knows where he is, but his attention drifts. His pupils are equal. The backs of his eyes look normal."
+          },
+          {
+            "prompt": "Test the strength of his arms and legs",
+            "finding": "His right arm is slightly weak. When he holds both arms out, the right one slowly turns and sinks. His right grip is weak. His left arm and both legs are strong."
+          },
+          {
+            "prompt": "Ask him to write, touch his nose and walk",
+            "finding": "His writing with the right hand is shaky and hard to read, and his right finger wavers on the way to his nose. He walks steadily."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "CT and MRI of the brain",
+          "content": "CT scan: a dark, poorly defined area in the left frontal lobe with swelling around it. No bleeding.\nMRI with contrast dye: a 4.2 cm mass in the left frontal lobe. Its wall is thick and uneven and lights up with the dye. Its center is dead tissue.\nThe mass crosses the bridge of fibers that joins the two halves of the brain and spreads into the right side.\nA wide zone of swelling surrounds it.\nThe midline of the brain is pushed 8 mm to the right."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "Headaches that are worst in the morning, vomiting and a hand that has been getting weaker for two weeks. Something is taking up space inside his skull.",
+          "question": "Which test comes first?",
+          "options": [
+            "A CT scan of his head now, then an MRI with contrast dye",
+            "A spinal tap, to measure the pressure and test the fluid",
+            "An ultrasound of the arteries in his neck",
+            "A brain-wave recording, to look for seizures"
+          ],
+          "fix": "Scan his brain",
+          "terms": [
+            {
+              "term": "MRI with contrast",
+              "meaning": "A detailed scan. A dye given into a vein makes abnormal tissue light up."
+            },
+            {
+              "term": "Spinal tap",
+              "meaning": "A needle in the lower back that takes a sample of the fluid around the brain and spine."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 60,
+              "story": "He has a CT within minutes and an MRI within the hour. The pictures go in his chart.",
+              "reply": "Right. CT quickly rules out bleeding, and MRI with dye shows what a mass is made of and how far it reaches."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a spinal tap. The resident stops you.",
+              "reply": "If a mass has raised the pressure in his skull, draining fluid from below can pull the brain downward. A scan always comes before a spinal tap."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a neck ultrasound. The resident shakes their head.",
+              "reply": "That looks for narrowed arteries, which cause sudden strokes. His symptoms have crept up over six weeks."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a brain-wave recording. The resident shakes their head.",
+              "reply": "It can show a seizure. It cannot show what is causing his headaches and his weakness. He needs a picture."
+            }
+          ]
+        },
+        "3": {
+          "resident": "The neurosurgeon is on the way. The swelling around the mass is causing most of his symptoms, and we can treat that tonight.",
+          "question": "Which medicine do we start?",
+          "options": [
+            "Mannitol into a vein, and a breathing tube, to lower the pressure",
+            "Broad antibiotics",
+            "Dexamethasone, a steroid, to shrink the swelling around the mass",
+            "Heparin, a blood thinner, in case this is a blocked vein"
+          ],
+          "fix": "Start dexamethasone",
+          "terms": [
+            {
+              "term": "Dexamethasone",
+              "meaning": "A strong steroid. It makes leaky tumor vessels less leaky, so the swelling around a tumor goes down."
+            },
+            {
+              "term": "Edema",
+              "meaning": "Swelling caused by extra fluid in a tissue."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for mannitol and a breathing tube. The resident shakes their head.",
+              "reply": "Those are for a patient who is going downhill in front of us. He is awake, talking and steady."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for antibiotics. The resident shakes their head.",
+              "reply": "An abscess can look a little like this, but it has a thin, smooth wall and usually comes with a fever. Nothing here points to infection."
+            },
+            {
+              "kind": "safe",
+              "minutes": 20,
+              "story": "He is given dexamethasone into a vein and admitted under the neurosurgeons.",
+              "reply": "Right. It does nothing to the tumor itself, but it shrinks the swelling within hours, and most patients feel much better."
+            },
+            {
+              "kind": "delay",
+              "minutes": 240,
+              "story": "Heparin is started. Four hours later his headache becomes violent and he is hard to wake. A CT shows fresh bleeding inside the mass.",
+              "reply": "A tumor like this is full of fragile new blood vessels, and a blood thinner makes them bleed. Stop the heparin. The swelling is what needs treating.",
+              "vitals": {
+                "BP": "176/98 mmHg",
+                "HR": "58 bpm"
+              },
+              "trend": {
+                "BP": "up",
+                "HR": "down"
+              },
+              "status": "critical",
+              "alarm": "Hard to wake · bleeding into the mass"
+            }
+          ]
+        },
+        "4": {
+          "resident": "The scan strongly suggests one diagnosis. Suggesting is not enough to plan months of treatment.",
+          "question": "What is the next step?",
+          "options": [
+            "Radiation to the whole brain, without a tissue sample",
+            "An operation to remove as much as is safe, or a biopsy, with the tissue tested under the microscope and for its genes",
+            "Start the chemotherapy drug temozolomide on the strength of the scan",
+            "A whole-body PET scan to look for a cancer elsewhere, before anything is done"
+          ],
+          "fix": "Arrange surgery for tissue",
+          "terms": [
+            {
+              "term": "Biopsy",
+              "meaning": "Taking a small sample of tissue so that a pathologist can name it."
+            },
+            {
+              "term": "Resection",
+              "meaning": "Removing a tumor by surgery."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest radiation now. The neurosurgeon shakes their head.",
+              "reply": "We do not irradiate a brain without knowing what we are treating. The tissue comes first."
+            },
+            {
+              "kind": "safe",
+              "minutes": 15,
+              "story": "The neurosurgeon explains the operation to his wife and to him and puts him on the operating list. The tissue will go to the pathology laboratory.",
+              "reply": "Right. Surgery takes pressure off his brain and provides the tissue. The tumor’s genes then decide which treatments follow."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest starting chemotherapy. The neurosurgeon shakes their head.",
+              "reply": "That drug is used after surgery, together with radiation, and how well it works depends on the tumor’s genes. We do not have those yet."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a whole-body scan first. The neurosurgeon shakes their head.",
+              "reply": "A single mass spreading across the midline like this is almost always a tumor that started in the brain. He needs the operation either way."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "The scans are in his chart. The mass has a thick, uneven wall and a dead center, and it has spread across the midline.",
+        "question": "What is the most likely diagnosis?",
+        "options": [
+          "A brain abscess",
+          "Glioblastoma, a fast-growing tumor that starts in the brain",
+          "A meningioma, a slow-growing tumor of the brain’s covering",
+          "A stroke from a blocked artery, a few weeks old"
+        ],
+        "reveal": "This is most likely a glioblastoma. It grows fast enough to outrun its blood supply, which leaves a dead center inside a thick, ragged wall. It also spreads along the brain’s own fiber tracts, which is how it crosses to the other side. An abscess has a thin, smooth wall and usually a fever. A meningioma grows from the covering and pushes on the brain from outside. A stroke follows the territory of one artery and does not cross the midline.",
+        "terms": [
+          {
+            "term": "Glioblastoma",
+            "meaning": "The most common fast-growing cancer that starts in the brain in adults."
+          },
+          {
+            "term": "Corpus callosum",
+            "meaning": "The thick bridge of nerve fibers that joins the two halves of the brain."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "Admitted under the neurosurgeons on a steroid, on the list for an operation this week",
+        "worse": "Admitted under the neurosurgeons, more drowsy than when he arrived",
+        "critical": "In intensive care after bleeding into the tumor, on the list for an operation"
+      },
+      "plainDiagnosis": "A fast-growing brain tumor, most likely a glioblastoma. Tissue from surgery will confirm it.",
+      "science": [
+        {
+          "tag": "Pressure",
+          "title": "Why the headaches were worst in the morning",
+          "text": "The skull is a closed box filled with brain, blood and fluid. Anything added raises the pressure inside. Lying flat all night lets less blood drain from the head, so the pressure is highest on waking and falls once he is upright.",
+          "lesson": "hydrostatics",
+          "lessonTitle": "Read pressure in a fluid"
+        },
+        {
+          "tag": "Cell division",
+          "title": "Why the center of the mass was dead",
+          "text": "Healthy cells stop at checkpoints before they divide. Cancer cells have lost them and divide without pause. A mass of them can grow faster than new blood vessels can reach it, and the cells in the middle die for lack of oxygen.",
+          "lesson": "cell-cycle-checkpoints",
+          "lessonTitle": "Explain a cell-cycle pause"
+        },
+        {
+          "tag": "Genes",
+          "title": "Why the tissue is tested for its genes",
+          "text": "Some glioblastomas have chemically switched off a gene called MGMT, which repairs the kind of DNA damage chemotherapy causes. With that repair gene silent, the drug works better. The gene is still there. It is just not being read.",
+          "lesson": "gene-expression",
+          "lessonTitle": "Follow a gene into a protein"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Stupp et al. (N Engl J Med 2005): radiotherapy plus concomitant and adjuvant temozolomide for glioblastoma",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/15758009/"
+        },
+        {
+          "title": "Louis et al. (Neuro Oncol 2021): the 2021 WHO classification of tumors of the central nervous system, a summary",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/34185076/"
+        }
+      ]
+    },
+    "no-042": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "Back pain for two weeks, _and now his legs are giving way._",
+      "setting": "Emergency department",
+      "start": {
+        "status": "unstable",
+        "alarm": "Legs weak · cannot pass urine"
+      },
+      "handoff": "A 67-year-old man with prostate cancer has had severe pain in the middle of his back for two weeks. For two days his legs have felt weak and heavy. He has not been able to pass urine for 12 hours.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask about the back pain",
+            "finding": "Constant pain in the middle of his back for two weeks, getting worse. It is worst at night and when he lies flat, and painkillers do not help. He has had no fall or injury."
+          },
+          {
+            "prompt": "Ask about his legs and his bladder",
+            "finding": "Both legs have been weak and heavy for two days. He is numb from the navel down. He has not passed urine for 12 hours, and his belly feels full. He was walking normally until this week."
+          },
+          {
+            "prompt": "Ask about his cancer",
+            "finding": "Prostate cancer was found three years ago and treated with radiation. His blood marker for it has been rising lately. He has hormone injections for it. He has lost 5 kg in two months without trying."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Test his legs",
+            "finding": "Both legs are weak. He can lift them off the bed but not against your hand. They feel stiff, his knee reflexes are jumpy, and both big toes go up when you stroke the soles."
+          },
+          {
+            "prompt": "Test feeling with a pin, working up from his feet",
+            "finding": "He cannot feel the pin properly anywhere below the navel. Above it, feeling is normal."
+          },
+          {
+            "prompt": "Press along his spine, and feel his lower belly",
+            "finding": "One spot in the lower part of the mid-back is very tender. His bladder can be felt as a firm swelling up to the navel."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Blood tests and MRI of the whole spine",
+          "content": "Hemoglobin: 10.9, low.\nCalcium: 11.4, high.\nAlkaline phosphatase, an enzyme released by bone: 280, high.\nPSA, the blood marker for prostate cancer: 96, very high.\nMRI: the T9 and T10 bones, in the middle of the back, no longer show normal marrow. At that level a mass lies in the spinal canal, outside the cord’s covering, and it is squeezing the spinal cord."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "A man with cancer, back pain that is worse lying down, weak legs and a bladder that will not empty. I do not need a scan to be worried about his spinal cord.",
+          "question": "What do we do right now?",
+          "options": [
+            "Plain X-rays of his mid-back",
+            "Give dexamethasone, a steroid, now and get an emergency MRI of his whole spine",
+            "Book an MRI as an outpatient within a week",
+            "Painkillers and physiotherapy"
+          ],
+          "fix": "Give the steroid and get the MRI",
+          "terms": [
+            {
+              "term": "Spinal cord",
+              "meaning": "The bundle of nerves running down inside the backbone. It carries every signal between the brain and the body."
+            },
+            {
+              "term": "Dexamethasone",
+              "meaning": "A strong steroid. It reduces swelling around a tumor within hours."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request X-rays. The resident changes it.",
+              "reply": "X-rays show bone. They do not show the cord or what is pressing on it, and a normal one would not reassure me."
+            },
+            {
+              "kind": "safe",
+              "minutes": 45,
+              "story": "Dexamethasone goes into his vein within minutes. A catheter drains 700 mL from his bladder. He has an MRI of his whole spine within the hour, and the results go in his chart.",
+              "reply": "Right. The steroid buys the cord some time, so it goes in before the scan. We image the whole spine because cancer often sits at more than one level."
+            },
+            {
+              "kind": "delay",
+              "minutes": 720,
+              "story": "He is sent home with an appointment. The next morning his wife calls an ambulance. He cannot lift either leg off the bed.",
+              "reply": "A cord that is being squeezed loses function by the hour, and what is lost may not come back. This could not wait a week. He needs the steroid and the scan now.",
+              "status": "worse",
+              "alarm": "Cannot lift either leg"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest painkillers and physiotherapy. The resident shakes their head.",
+              "reply": "A strained back does not cause numbness to the navel or stop the bladder. Those come from the spinal cord."
+            }
+          ]
+        },
+        "3": {
+          "resident": "The steroid is in. He is otherwise fit, and the MRI shows the cord compressed at one level only.",
+          "question": "What is the best treatment from here?",
+          "options": [
+            "Radiation alone",
+            "Chemotherapy alone",
+            "An operation to take the pressure off the cord, followed by radiation",
+            "Cement injected into the bone, and nothing else"
+          ],
+          "fix": "Call the spine surgeon",
+          "terms": [
+            {
+              "term": "Decompression",
+              "meaning": "Surgery that removes whatever is pressing on the cord or a nerve."
+            },
+            {
+              "term": "Radiation therapy",
+              "meaning": "Focused high-energy beams that kill tumor cells over days to weeks."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest radiation alone. The oncologist shakes their head.",
+              "reply": "That is the choice when someone is too unwell for surgery or has many levels involved. In a fit patient with one level, surgery first keeps more people walking."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest chemotherapy. The oncologist shakes their head.",
+              "reply": "Far too slow. It works over weeks, and his cord is failing over hours."
+            },
+            {
+              "kind": "safe",
+              "minutes": 120,
+              "story": "The spine surgeon takes him to the operating room that evening, removes the tumor pressing on the cord and fixes the spine with rods. Radiation is planned for when the wound has healed.",
+              "reply": "Right. Surgery frees the cord at once, and radiation then treats whatever tumor is left.",
+              "alarm": "In surgery · pressure taken off the cord"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest cement alone. The surgeon shakes their head.",
+              "reply": "Cement strengthens a painful, crumbling bone. It does nothing about a mass inside the canal."
+            }
+          ]
+        },
+        "4": {
+          "resident": "His wife asks whether he will walk again.",
+          "question": "What best predicts that?",
+          "options": [
+            "How high his PSA was before treatment",
+            "How well his legs were working at the moment treatment started",
+            "His high calcium",
+            "His age"
+          ],
+          "fix": "Answer her honestly",
+          "terms": [
+            {
+              "term": "Prognosis",
+              "meaning": "The likely course and outcome of an illness."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say the PSA. The oncologist shakes their head.",
+              "reply": "The PSA tells us how much cancer there is. It does not tell us what the cord will do."
+            },
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "You explain it to her, and she nods.",
+              "reply": "Right. People who can still walk when treatment begins usually keep walking. People who have already lost it often do not get it back. That is why hours matter."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say the calcium. The oncologist shakes their head.",
+              "reply": "It needs treating, and it tells us the cancer is in his bones. It does not predict walking."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say his age. The oncologist shakes their head.",
+              "reply": "Age matters far less than how much function he still has."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "His blood tests and MRI are in the chart.",
+        "question": "What is pressing on his spinal cord, and where did it come from?",
+        "options": [
+          "A deposit of cancer growing inside the spinal cord itself",
+          "Cancer cells spread in a thin layer over the surface of the cord",
+          "Prostate cancer that has spread to the backbone and grown out of the bone to press on the cord",
+          "A separate, slow-growing tumor of the cord’s covering"
+        ],
+        "reveal": "His prostate cancer has spread to the bones of his spine. In two of them it has replaced the marrow, grown backward out of the bone and into the canal, and it is now pressing on the cord from outside. This is the usual way cancer injures the spinal cord. The mass is outside the cord and its covering, which rules out a deposit inside the cord. A thin coating of cells would not form a mass, and the diseased bone and very high PSA point to his known cancer.",
+        "terms": [
+          {
+            "term": "Metastasis",
+            "meaning": "A cancer deposit that has spread from where the cancer started."
+          },
+          {
+            "term": "Epidural",
+            "meaning": "In the space between the bone of the spine and the tough covering of the cord."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "In the recovery room after surgery to free his spinal cord, with radiation planned",
+        "unstable": "In the recovery room after surgery to free his spinal cord, with radiation planned",
+        "worse": "In the recovery room after surgery to free his spinal cord. He could not move his legs when it began",
+        "critical": "In intensive care after surgery"
+      },
+      "plainDiagnosis": "Prostate cancer that has spread to the spine and is pressing on the spinal cord (metastatic spinal cord compression).",
+      "science": [
+        {
+          "tag": "Wiring",
+          "title": "How the exam found the level before the scan",
+          "text": "Each segment of the spinal cord supplies its own band of skin. The band at the navel belongs to the tenth segment in the chest, T10. Signals from below a blockage cannot get past it, so numbness that starts at the navel points to T10.",
+          "lesson": "sensory-coding",
+          "lessonTitle": "From stimulus to perception"
+        },
+        {
+          "tag": "Hormones",
+          "title": "What his hormone injections do",
+          "text": "Prostate cancer grows in response to testosterone. The testes make testosterone on a signal from the pituitary, which answers pulses of a hormone from the brain. His injection supplies that hormone constantly. A constant signal makes the pituitary stop responding, and testosterone falls.",
+          "lesson": "endocrine-feedback",
+          "lessonTitle": "Trace a hormonal feedback loop"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Patchell et al. (Lancet 2005): direct decompressive surgical resection in the treatment of spinal cord compression caused by metastatic cancer, a randomised trial",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/16112300/"
+        },
+        {
+          "title": "Cole and Patchell (Lancet Neurol 2008): metastatic epidural spinal cord compression",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/18420159/"
+        }
+      ]
+    },
+    "no-032": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "The worst headache of his life, _and now he sees double._",
+      "setting": "Emergency department",
+      "start": {
+        "status": "unstable",
+        "alarm": "Worst headache of his life · double vision · blood pressure 86 over 54"
+      },
+      "handoff": "A 48-year-old construction worker had a sudden, severe headache four hours ago. He has vomited twice, he sees double and he nearly fainted when he stood up. His blood pressure is 86 over 54.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask about the headache",
+            "finding": "It came on four hours ago, behind his eyes and across his forehead, and reached full strength within seconds. It is the worst he has ever had. He has vomited twice, and soon afterward he began to see double. He did not hit his head, and his neck is not stiff."
+          },
+          {
+            "prompt": "Ask how he has been over the past year",
+            "finding": "He has been tired and has lost interest in sex. He feels the cold more, and he shaves less often than he used to. When driving he has noticed he sees less at the sides."
+          },
+          {
+            "prompt": "Ask about dizziness, medicines and habits",
+            "finding": "He nearly fainted when he stood up today. He has high blood pressure but takes nothing for it, and he is not on a blood thinner. He drinks two or three beers a night."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Look at his eyes, and ask him to follow your finger",
+            "finding": "His right eyelid droops. The right eye points down and out, and its pupil is large and slow to react. His left eye moves normally."
+          },
+          {
+            "prompt": "Test his side vision",
+            "finding": "He cannot see your fingers at the outer edge on either side. Toward the nose, he sees them."
+          },
+          {
+            "prompt": "Look at his skin, and check his neck, arms and legs",
+            "finding": "He looks ill. His skin is cool and sweaty, and his mouth is dry. His pulse is fast. His neck bends freely, and his arms and legs are strong."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Blood tests and scans",
+          "content": "Sodium: 129, low.\nBlood sugar: 58, low.\nCortisol, the stress hormone: 2, far too low for someone this ill.\nThyroid hormone: 0.5, low. The pituitary signal that should be driving it up has not risen.\nProlactin, another pituitary hormone: 4, low.\nCT scan of the head: a bright mass in and above the bony pocket that holds the pituitary gland.\nMRI: a large growth on the pituitary gland with fresh bleeding inside it. It is pushing up on the point where the optic nerves cross."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "A sudden headache, an eye that will not move and a blood pressure of 86 over 54, in a man who has been running down for a year. Fluids are going in. One drug cannot wait for any test.",
+          "question": "Which one?",
+          "options": [
+            "Hydrocortisone into a vein",
+            "Labetalol into a vein, to control his blood pressure",
+            "A large dose of thyroid hormone",
+            "No drug yet. Do a spinal tap to look for bleeding around the brain"
+          ],
+          "fix": "Give hydrocortisone now",
+          "terms": [
+            {
+              "term": "Hydrocortisone",
+              "meaning": "Cortisol given as a medicine. The body cannot hold its blood pressure during illness without it."
+            },
+            {
+              "term": "Pituitary gland",
+              "meaning": "A pea-sized gland under the brain that directs the adrenal, thyroid and sex glands."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 20,
+              "story": "Hydrocortisone and fluids go in. Over 20 minutes his blood pressure comes up and his color improves. Blood is sent, and he is scanned. The results go in his chart.",
+              "reply": "Right. A year of tiredness, feeling cold and losing interest in sex says his pituitary has been failing. If it has now stopped, he has no cortisol. We replace it first and prove it afterward.",
+              "vitals": {
+                "BP": "108/68 mmHg"
+              },
+              "trend": {
+                "BP": "up"
+              },
+              "alarm": "Blood pressure recovering after hydrocortisone"
+            },
+            {
+              "kind": "delay",
+              "minutes": 10,
+              "story": "Labetalol goes in. His pressure falls to 70 over 40, and he slumps on the bed, grey and barely answering.",
+              "reply": "Look at the monitor. His pressure was already low, and that drug lowers it. He needs cortisol. Give hydrocortisone now.",
+              "vitals": {
+                "BP": "70/40 mmHg"
+              },
+              "trend": {
+                "BP": "down"
+              },
+              "status": "critical",
+              "alarm": "Blood pressure 70 over 40 · barely responsive"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for thyroid hormone. The resident stops you.",
+              "reply": "Thyroid hormone speeds the body up, and the body then needs more cortisol. He has none. Cortisol always goes in first."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a spinal tap. The resident shakes their head.",
+              "reply": "Bleeding around the brain is a fair thought for a headache like this, but the first test for it is a CT. And nothing comes before treating his shock."
+            }
+          ]
+        },
+        "3": {
+          "resident": "Look at his right eye again. The lid droops, the eye points down and out and the pupil is wide.",
+          "question": "Which structure is being squeezed to cause that?",
+          "options": [
+            "The crossing of the optic nerves",
+            "The sixth cranial nerve, which turns the eye outward",
+            "The third cranial nerve, which lifts the lid, narrows the pupil and moves the eye up, down and inward",
+            "The nerve that carries feeling from the forehead and eye"
+          ],
+          "fix": "Name the nerve",
+          "terms": [
+            {
+              "term": "Cranial nerves",
+              "meaning": "Twelve pairs of nerves that leave the brain directly. Three pairs move the eyes."
+            },
+            {
+              "term": "Cavernous sinus",
+              "meaning": "A space on each side of the pituitary gland through which the nerves to the eye muscles pass."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say the optic nerve crossing. The resident shakes their head.",
+              "reply": "Pressure there explains his lost side vision. It does not move an eye or drop a lid."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say the sixth nerve. The resident shakes their head.",
+              "reply": "If only that nerve failed, the eye would drift inward, with a normal lid and pupil."
+            },
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "You recheck him. Over the last two hours his side vision has narrowed further, and his right eye now barely moves.",
+              "reply": "Right. The third nerve runs beside the pituitary. With it knocked out, the two muscles it does not supply pull the eye down and out. And he is getting worse.",
+              "alarm": "Side vision narrowing · right eye barely moves"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say the nerve of feeling. The resident shakes their head.",
+              "reply": "That nerve carries sensation only. Squeezing it would cause numbness or pain, not a drooping lid."
+            }
+          ]
+        },
+        "4": {
+          "resident": "His blood pressure is holding on hydrocortisone, but his sight and eye movements are getting worse by the hour.",
+          "question": "What is the next step?",
+          "options": [
+            "A clinic appointment with a hormone specialist in two weeks",
+            "An urgent neurosurgery review, for an operation through the nose to take the pressure off",
+            "Start cabergoline to shrink the growth",
+            "Radiation to the whole brain"
+          ],
+          "fix": "Call the neurosurgeon",
+          "terms": [
+            {
+              "term": "Transsphenoidal surgery",
+              "meaning": "An operation on the pituitary done through the nose, with no opening made in the skull."
+            },
+            {
+              "term": "Optic chiasm",
+              "meaning": "The point just above the pituitary where the two optic nerves cross."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "delay",
+              "minutes": 720,
+              "story": "No surgeon is called. Twelve hours later, on the ward, he can see nothing to either side and his right eye has stopped moving.",
+              "reply": "Nerves that stay squeezed die. His sight was failing in front of us, and that is the signal to take the pressure off. Call the neurosurgeon now.",
+              "status": "worse",
+              "alarm": "Side vision gone in both eyes"
+            },
+            {
+              "kind": "safe",
+              "minutes": 60,
+              "story": "The neurosurgeon reviews the scans and operates that night. Working through the nose, they remove the blood and the growth pressing on the nerves.",
+              "reply": "Right. Vision that is getting worse is the reason to operate. The sooner the pressure comes off, the more sight he keeps.",
+              "alarm": "In surgery · pressure coming off the optic nerves"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest cabergoline. The resident shakes their head.",
+              "reply": "That shrinks growths that make prolactin, and it takes weeks. His prolactin is low, and he is losing sight today."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest radiation. The resident shakes their head.",
+              "reply": "Radiation works over months and does nothing for blood under pressure."
+            }
+          ]
+        },
+        "5": {
+          "resident": "After this he will need hormone replacement for life, including cortisol and thyroid hormone. The order they are started in matters.",
+          "question": "Which rule is correct?",
+          "options": [
+            "Always start thyroid hormone first, then add cortisol",
+            "Cortisol must be started before thyroid hormone, or together with it",
+            "He must also take fludrocortisone, the salt-retaining hormone",
+            "Everyone needs desmopressin, the water-retaining hormone, after this"
+          ],
+          "fix": "State the rule",
+          "terms": [
+            {
+              "term": "Hormone replacement",
+              "meaning": "Taking by mouth or injection the hormones a failed gland no longer makes."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say thyroid first. The endocrinologist stops you.",
+              "reply": "That is the classic mistake. Thyroid hormone raises the body’s need for cortisol and clears it faster, and that can tip a patient into collapse."
+            },
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "The endocrinologist writes his discharge plan in that order.",
+              "reply": "Right. Cortisol first or together, never thyroid alone."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say he needs fludrocortisone. The endocrinologist shakes their head.",
+              "reply": "The salt-retaining hormone is controlled by the kidneys, not the pituitary. His adrenal glands still make it."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say everyone needs desmopressin. The endocrinologist shakes their head.",
+              "reply": "Only if the back part of the pituitary fails and he passes huge amounts of dilute urine. Most patients do not."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "His blood tests and scans are in the chart.",
+        "question": "What is the diagnosis?",
+        "options": [
+          "Bleeding around the brain from a burst aneurysm",
+          "Pituitary apoplexy: sudden bleeding into a growth on the pituitary gland",
+          "A clot in the vein channel beside the pituitary",
+          "Bacterial meningitis"
+        ],
+        "reveal": "This is pituitary apoplexy. A growth on his pituitary has been there for months, slowly shutting down his hormones and pressing on his side vision. Today it bled and swelled suddenly. That caused the headache, squeezed the nerve to his right eye and stopped what was left of the gland, so his cortisol fell and his blood pressure with it. A burst aneurysm puts blood around the brain, not inside a pituitary mass. Meningitis brings fever and a stiff neck.",
+        "terms": [
+          {
+            "term": "Apoplexy",
+            "meaning": "A sudden bleed into an organ, or a sudden loss of its blood supply."
+          },
+          {
+            "term": "Adenoma",
+            "meaning": "A growth of gland tissue that is not a cancer."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "In the recovery room after surgery through the nose, on hormone replacement",
+        "unstable": "In the recovery room after surgery through the nose, on hormone replacement",
+        "worse": "In the recovery room after a late operation, with his side vision gone when it began",
+        "critical": "In intensive care after surgery, on hormone replacement"
+      },
+      "plainDiagnosis": "Sudden bleeding into a growth on the pituitary gland, with the gland’s hormones shut down (pituitary apoplexy).",
+      "science": [
+        {
+          "tag": "Hormones",
+          "title": "Why a bleed in the head dropped his blood pressure",
+          "text": "The pituitary releases a hormone, ACTH, that tells the adrenal glands to make cortisol. Cortisol keeps blood vessels responsive to adrenaline. When the pituitary stopped, the ACTH signal stopped, cortisol fell and his vessels relaxed.",
+          "lesson": "endocrine-feedback",
+          "lessonTitle": "Trace a hormonal feedback loop"
+        },
+        {
+          "tag": "Vision",
+          "title": "Why he lost the outer half of each visual field",
+          "text": "Light from the outer part of each visual field lands on the inner half of each retina. The fibers from those inner halves cross to the other side at one point, directly above the pituitary. Pressure there cuts both sets of crossing fibers at once.",
+          "lesson": "sensory-coding",
+          "lessonTitle": "From stimulus to perception"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Rajasekaran et al. (Clin Endocrinol 2011): UK guidelines for the management of pituitary apoplexy",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/21044119/"
+        },
+        {
+          "title": "Briet et al. (Endocr Rev 2015): pituitary apoplexy",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/26414232/"
         }
       ]
     }
