@@ -1,7 +1,7 @@
 {
-  "version": 21,
+  "version": 22,
   "title": "Clinical Shift foundations and rotation practice",
-  "reviewStatus": "Source and consistency checks are recorded with each encounter. Independent clinician review remains pending for all 48 encounters.",
+  "reviewStatus": "Source and consistency checks are recorded with each encounter. Independent clinician review remains pending for all 51 encounters.",
   "rotations": [
     {
       "key": "emergency-medicine",
@@ -140,6 +140,16 @@
         "nph-067",
         "nph-076",
         "nph-063"
+      ]
+    },
+    {
+      "key": "endocrinology",
+      "name": "Endocrinology",
+      "description": "Hormones run the body from a distance. Trace the signal, and replace what is missing.",
+      "caseIds": [
+        "endo-046",
+        "endo-042",
+        "endo-001"
       ]
     }
   ],
@@ -335,6 +345,18 @@
     "nph-063": {
       "assessment": "66-year-old woman with heavy smoking, weight loss, and a 5 cm right hilar mass, with two weeks of confusion, polyuria, and constipation. Corrected calcium 14.6 mg/dL, creatinine 2.1 from 0.9, PTH suppressed below 5 pg/mL, and PTHrP markedly elevated: humoral hypercalcemia of malignancy with AKI.",
       "plan": "Aggressive isotonic saline; stop hydrochlorothiazide and the calcium-vitamin D supplement. Then an IV bisphosphonate such as zoledronic acid (dose adjusted for kidney function), with calcitonin for faster short-term effect if needed; denosumab is an alternative. Loop diuretics only for volume overload after rehydration. Tissue diagnosis and oncology referral."
+    },
+    "endo-046": {
+      "assessment": "50-year-old man with a thunderclap headache, right third nerve palsy, reduced right visual acuity, and hypotension. Sodium 130, glucose 64, pre-treatment cortisol 1.8 µg/dL; MRI shows hemorrhage into a pituitary adenoma compressing the optic chiasm and extending toward the right cavernous sinus: pituitary apoplexy with acute secondary adrenal insufficiency.",
+      "plan": "Empiric stress-dose IV hydrocortisone immediately after drawing cortisol, with IV fluids and glucose. Urgent neurosurgical consultation for transsphenoidal decompression because vision and eye movements are deteriorating. Assess the remaining pituitary axes; lifelong endocrine follow-up with replacement of deficient hormones."
+    },
+    "endo-042": {
+      "assessment": "30-year-old man four days after a basilar skull fracture with more than 6 L/day of dilute urine and intense thirst. Sodium 152, serum osmolality 312, urine osmolality 110, normal glucose, and loss of the posterior pituitary bright spot; urine osmolality rises to 480 after desmopressin: post-traumatic central diabetes insipidus.",
+      "plan": "Desmopressin on a schedule, free access to water, and gradual correction of the free-water deficit, with serum sodium and urine output monitored closely. Reassess regularly, because post-traumatic central DI may be transient or follow a triphasic course. Evaluate the anterior pituitary axes."
+    },
+    "endo-001": {
+      "assessment": "54-year-old man with obesity, hypertension, hyperlipidemia, and a family history of diabetes, with three months of polyuria, polydipsia, and weight loss and acanthosis nigricans. HbA1c 9.2%, fasting glucose 214 mg/dL, glucosuria without ketones, and normal kidney function: new type 2 diabetes mellitus.",
+      "plan": "Lifestyle counseling and metformin, titrated as tolerated. Dilated retinal examination and comprehensive foot examination now, with annual urine albumin and kidney function. Address blood pressure and LDL cholesterol, and review the choice of additional agents by cardiovascular and kidney risk. Recheck HbA1c in three months."
     }
   },
   "investigations": {
@@ -1777,6 +1799,96 @@
           "finding": "Mild right supraclavicular fullness, with decreased breath sounds and dullness at the right base. Soft abdomen with hypoactive bowel sounds."
         }
       ]
+    },
+    "endo-046": {
+      "interview": [
+        {
+          "prompt": "Characterize the headache",
+          "finding": "Sudden excruciating retro-orbital and frontal headache three hours ago, peaking within seconds, with nausea, vomiting and lightheadedness."
+        },
+        {
+          "prompt": "Ask about visual symptoms",
+          "finding": "Double vision, a drooping right eyelid and dimmed vision in the right eye, worsening over the last hour."
+        },
+        {
+          "prompt": "Review prior symptoms, history and medications",
+          "finding": "Several months of mild fatigue, decreased libido and occasional headaches. Hypertension on amlodipine; no anticoagulants, no trauma and no known intracranial disease."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Examine the eyes",
+          "finding": "Right ptosis with a dilated pupil and limited adduction, elevation and depression (third nerve palsy). Right visual acuity reduced to counting fingers; left eye normal."
+        },
+        {
+          "prompt": "Check for meningeal signs and fever",
+          "finding": "No nuchal rigidity and no fever."
+        },
+        {
+          "prompt": "Assess perfusion and the remaining neurologic exam",
+          "finding": "Hypotensive, tachycardic and diaphoretic with cool skin. Normal strength and no other cranial nerve deficits."
+        }
+      ]
+    },
+    "endo-042": {
+      "interview": [
+        {
+          "prompt": "Characterize the urine output and thirst",
+          "finding": "Very large volumes of dilute urine over 48 hours, more than 6 liters in the last 24 hours, with unquenchable thirst. Weak and lightheaded on standing."
+        },
+        {
+          "prompt": "Review the injury and hospital course",
+          "finding": "Motorcycle collision four days ago with a basilar skull fracture and a small frontal contusion. Mental status at baseline since admission."
+        },
+        {
+          "prompt": "Review medications and medical history",
+          "finding": "No diabetes mellitus, kidney disease or psychiatric illness. No diuretics or lithium; only acetaminophen and a stool softener."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Assess hydration and orthostatic blood pressure",
+          "finding": "Dry mucous membranes and decreased skin turgor, with an orthostatic drop in blood pressure and tachycardia."
+        },
+        {
+          "prompt": "Examine the eyes and visual fields",
+          "finding": "Pupils equal and reactive, extraocular movements intact and no visual field defect. Periorbital ecchymosis from the skull fracture."
+        },
+        {
+          "prompt": "Palpate the abdomen and bladder",
+          "finding": "Soft, nontender abdomen. The bladder is not distended."
+        }
+      ]
+    },
+    "endo-001": {
+      "interview": [
+        {
+          "prompt": "Characterize the thirst, urination and weight change",
+          "finding": "Three months of polydipsia and nocturia three to four times nightly, with a 12-pound unintentional weight loss, fatigue and occasional blurry vision."
+        },
+        {
+          "prompt": "Review medical history and medications",
+          "finding": "Hypertension and hyperlipidemia on lisinopril and atorvastatin. No physician visit in four years."
+        },
+        {
+          "prompt": "Take a family and lifestyle history",
+          "finding": "Type 2 diabetes in his mother and a brother. Sedentary work, a diet high in fast food and sugary beverages, and two beers most nights."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Measure body mass index and inspect the skin",
+          "finding": "BMI 33 kg/m². Velvety hyperpigmentation in the axillae and posterior neck consistent with acanthosis nigricans."
+        },
+        {
+          "prompt": "Examine the feet",
+          "finding": "Intact distal pulses, preserved monofilament sensation in both feet, intact skin and no ulceration."
+        },
+        {
+          "prompt": "Assess hydration and breathing",
+          "finding": "Slightly dry mucous membranes. No Kussmaul breathing and no fruity breath odor."
+        }
+      ]
     }
   },
   "caseReviews": {
@@ -2549,6 +2661,54 @@
         {
           "title": "El-Hajj Fuleihan et al. (J Clin Endocrinol Metab 2023): treatment of hypercalcemia of malignancy in adults, an Endocrine Society clinical practice guideline",
           "url": "https://pubmed.ncbi.nlm.nih.gov/36545746/"
+        }
+      ]
+    },
+    "endo-046": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Recognize pituitary apoplexy, give hydrocortisone before confirmation and refer for decompression when vision is threatened.",
+      "alternativesAndLimits": "Patients with mild, stable visual signs can be managed without surgery; the decision is made jointly by neurosurgery, endocrinology and ophthalmology.",
+      "sources": [
+        {
+          "title": "Rajasekaran et al. (Clin Endocrinol 2011): UK guidelines for the management of pituitary apoplexy",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/21044119/"
+        },
+        {
+          "title": "Briet et al. (Endocr Rev 2015): pituitary apoplexy",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/26414232/"
+        }
+      ]
+    },
+    "endo-042": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Recognize diabetes insipidus from a concentrated blood and dilute urine, and tell central from nephrogenic with desmopressin.",
+      "alternativesAndLimits": "After head injury the condition can pass through a phase of water retention, so desmopressin doses are reviewed daily. Hypernatremia is corrected gradually.",
+      "sources": [
+        {
+          "title": "Christ-Crain et al. (Nat Rev Dis Primers 2019): diabetes insipidus",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/31395885/"
+        },
+        {
+          "title": "Refardt, Winzeler and Christ-Crain (Endocrinol Metab Clin North Am 2020): diabetes insipidus, an update",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/32741486/"
+        }
+      ]
+    },
+    "endo-001": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Confirm type 2 diabetes, start first-line treatment and screen for complications at diagnosis.",
+      "alternativesAndLimits": "Current guidance tailors the first medicines to heart, kidney and weight goals, and some patients start more than one. Metformin remains a standard first choice.",
+      "sources": [
+        {
+          "title": "American Diabetes Association (Diabetes Care 2024): pharmacologic approaches to glycemic treatment, Standards of Care in Diabetes 2024",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/38078590/"
+        },
+        {
+          "title": "UK Prospective Diabetes Study Group (Lancet 1998): effect of intensive blood-glucose control with metformin on complications in overweight patients with type 2 diabetes (UKPDS 34)",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/9742977/"
         }
       ]
     }
@@ -16437,6 +16597,893 @@
         {
           "title": "El-Hajj Fuleihan et al. (J Clin Endocrinol Metab 2023): treatment of hypercalcemia of malignancy in adults, an Endocrine Society clinical practice guideline",
           "url": "https://pubmed.ncbi.nlm.nih.gov/36545746/"
+        }
+      ]
+    },
+    "endo-046": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "The worst headache of his life, _then double vision._",
+      "setting": "Emergency department",
+      "start": {
+        "status": "unstable",
+        "alarm": "Worst headache of his life · blood pressure 92 over 58"
+      },
+      "handoff": "A 50-year-old man had a sudden, excruciating headache three hours ago. He is vomiting, sees double, and his right eyelid has drooped. His blood pressure is low.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask about the headache",
+            "finding": "It hit within seconds, three hours ago, behind his eyes and across his forehead. He calls it the worst pain of his life. He has vomited and feels faint."
+          },
+          {
+            "prompt": "Ask about his eyes",
+            "finding": "He sees double. His right eyelid is drooping and the sight in that eye has gone dim. Both have got worse in the last hour."
+          },
+          {
+            "prompt": "Ask about the months before, and his medicines",
+            "finding": "Looking back, he has been tired for months, with a lower sex drive and occasional headaches that he ignored. He takes amlodipine for blood pressure and no blood thinners. He has not hit his head."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Examine his eyes",
+            "finding": "His right eyelid droops, and the pupil beneath it is wide. That eye barely moves inward, up or down. With it he can only count fingers. His left eye is normal."
+          },
+          {
+            "prompt": "Bend his neck, and check his temperature",
+            "finding": "His neck bends freely. He has no fever."
+          },
+          {
+            "prompt": "Check his circulation and the rest of his nerves",
+            "finding": "He is sweaty, his skin is cool and his pulse is fast. His arms and legs are strong, and his face moves normally."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Blood tests and scans",
+          "content": "Sodium: 130, low. Blood sugar: 64, low.\nCortisol, drawn before any steroid: 1.8, far too low for someone this ill.\nCT scan of the head: a mass with fresh blood in it, sitting in the pocket of bone that holds the pituitary gland. There is no blood around the brain.\nMRI: bleeding into an enlarged pituitary tumor. It bulges upward onto the crossing of the optic nerves and sideways toward the nerves that move the right eye.\nBlood count: normal."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "A thunderclap headache with a paralyzed eye makes me think of the pituitary gland. And look at his blood pressure. If the pituitary has failed, his body cannot make cortisol. He is on his way to a scan.",
+          "question": "What do we give right now?",
+          "options": [
+            "Hydrocortisone into a vein",
+            "Mannitol into a vein, for brain swelling",
+            "A nicardipine drip, to lower his blood pressure",
+            "Nothing yet: do a spinal tap first",
+            "Broad antibiotics and acyclovir"
+          ],
+          "fix": "Give hydrocortisone now",
+          "terms": [
+            {
+              "term": "Pituitary gland",
+              "meaning": "A pea-sized gland under the brain that controls the thyroid, the adrenal glands and the sex glands."
+            },
+            {
+              "term": "Cortisol",
+              "meaning": "A hormone the adrenal glands make on a signal from the pituitary. Without it, blood pressure and blood sugar fall."
+            },
+            {
+              "term": "Thunderclap headache",
+              "meaning": "A severe headache that reaches full strength within seconds."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 20,
+              "story": "Blood is drawn, and hydrocortisone is given into a vein with fluids. He goes straight for a CT and an MRI. His blood pressure comes up, and the results go in his chart.",
+              "reply": "Right. If his pituitary has stopped signaling, he has no cortisol, and that is what is dropping his pressure. Hydrocortisone costs nothing to give and can save his life.",
+              "vitals": {
+                "BP": "108/66 mmHg",
+                "HR": "96 bpm"
+              },
+              "trend": {
+                "BP": "up",
+                "HR": "down"
+              },
+              "alarm": "Hydrocortisone given · blood pressure recovering"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for mannitol. The resident stops it.",
+              "reply": "Mannitol makes the kidneys pass water, and it would drop a pressure that is already low. It is not what he needs."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a drip to lower his blood pressure. The pharmacist calls.",
+              "reply": "His pressure is 92 over 58. Lowering it further could starve his brain. The problem is that it is too low."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a spinal tap tray. The resident stops you.",
+              "reply": "Not before a scan. If there is a mass in his head, draining fluid from below can pull the brain downward."
+            },
+            {
+              "kind": "delay",
+              "minutes": 60,
+              "story": "Antibiotics and an antiviral run in. An hour later his blood pressure is lower and he is drowsy.",
+              "reply": "He has no fever and no stiff neck, so infection is unlikely. What he lacks is cortisol, and he has gone another hour without it. Give the hydrocortisone.",
+              "vitals": {
+                "BP": "82/50 mmHg",
+                "HR": "122 bpm"
+              },
+              "trend": {
+                "BP": "down",
+                "HR": "up"
+              },
+              "status": "worse",
+              "alarm": "Blood pressure 82 over 50 · drowsy"
+            }
+          ]
+        },
+        "3": {
+          "resident": "A bleed has wiped out his pituitary gland, so several hormones are about to run short. His sodium is 130, his sugar is 64 and his cortisol was 1.8.",
+          "question": "Which missing hormone is the immediate danger?",
+          "options": [
+            "Growth hormone",
+            "ACTH, and with it cortisol",
+            "The hormones that drive the sex glands",
+            "Prolactin",
+            "Thyroid hormone"
+          ],
+          "fix": "Name ACTH and cortisol",
+          "terms": [
+            {
+              "term": "ACTH",
+              "meaning": "The pituitary hormone that tells the adrenal glands to make cortisol."
+            },
+            {
+              "term": "Hypopituitarism",
+              "meaning": "A pituitary gland that makes too little of one or more of its hormones."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say growth hormone. The resident shakes their head.",
+              "reply": "In an adult, missing growth hormone causes problems over years. It never causes an emergency."
+            },
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "You say cortisol. The resident nods and checks that his next dose of hydrocortisone is written up.",
+              "reply": "Right. Without ACTH the adrenal glands stop making cortisol, and blood pressure, sodium and sugar all fall. It is the one that kills within hours."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say the sex hormones. The resident shakes their head.",
+              "reply": "Those explain his months of low sex drive. They matter for his life later, not for his survival tonight."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say prolactin. The resident shakes their head.",
+              "reply": "Too little prolactin causes no illness in a man."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say thyroid hormone. The resident shakes their head.",
+              "reply": "He will need it replaced, but the body holds weeks of thyroid hormone in reserve. Cortisol runs out in hours."
+            }
+          ]
+        },
+        "4": {
+          "resident": "His blood pressure is holding on hydrocortisone. But the sight in his right eye is fading, and the eye moves less than it did an hour ago.",
+          "question": "What now?",
+          "options": [
+            "Watch him, and repeat the eye tests from time to time",
+            "Call the neurosurgeon urgently, to take the pressure off through the nose",
+            "Start cabergoline and send him home",
+            "Start a full-dose blood thinner",
+            "Radiation to the whole brain"
+          ],
+          "fix": "Call the neurosurgeon",
+          "terms": [
+            {
+              "term": "Optic chiasm",
+              "meaning": "The place just above the pituitary where the two optic nerves cross."
+            },
+            {
+              "term": "Transsphenoidal surgery",
+              "meaning": "An operation that reaches the pituitary through the nose and the bone behind it, with no cut on the head."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "delay",
+              "minutes": 180,
+              "story": "He is watched. Three hours later his right eye can make out only light and dark, and the edges of the left eye’s vision are starting to blur.",
+              "reply": "Watching is for sight that is mildly affected and steady. His was getting worse by the hour, and he has lost three more. Nerves crushed too long do not recover. Call the surgeon.",
+              "status": "worse",
+              "alarm": "Right eye sees only light · left eye blurring"
+            },
+            {
+              "kind": "safe",
+              "minutes": 30,
+              "story": "The neurosurgeon reviews the scans and takes him to the operating room, to remove the blood and tumor through his nose.",
+              "reply": "Yes. Failing vision is the reason to operate. Taking the pressure off quickly gives his optic nerves the best chance."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest a tablet and home. The resident stops the discharge.",
+              "reply": "That tablet shrinks one kind of pituitary tumor over weeks. He is losing his sight today, in hospital, with a bleed in his head."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for a blood thinner. The pharmacist calls at once.",
+              "reply": "He has just bled into his pituitary. A blood thinner would make it bleed more."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest radiation. The resident shakes their head.",
+              "reply": "Radiation works over months and does nothing for pressure now. He needs the blood taken out."
+            }
+          ]
+        },
+        "5": {
+          "resident": "The operation went well. His pituitary gland may never work fully again.",
+          "question": "What follow-up does he need?",
+          "options": [
+            "None, once he is over the illness",
+            "Lifelong checks of his pituitary hormones, with replacement of whatever is missing",
+            "A yearly eye test and nothing else",
+            "Preventive antibiotics, indefinitely",
+            "Regular repeat spinal taps"
+          ],
+          "fix": "Plan lifelong hormone follow-up",
+          "terms": [
+            {
+              "term": "Hormone replacement",
+              "meaning": "Taking as a medicine the hormones the body can no longer make, such as hydrocortisone and thyroid hormone."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say he needs no follow-up. The resident corrects you.",
+              "reply": "Most people are left short of several hormones after this. If he stops hydrocortisone and then gets ill, he could die of it."
+            },
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "You book him into the hormone clinic and explain his hydrocortisone, including taking extra when he is unwell.",
+              "reply": "Right. Cortisol first, then thyroid and sex hormones, with checks over the years. Some of the gland’s work comes back, and some shortfalls show up later."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest eye tests alone. The resident shakes their head.",
+              "reply": "His eyes need following, and so do his hormones. Missing the hormones is what puts his life at risk."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest antibiotics. The resident shakes their head.",
+              "reply": "This was a bleed, not an infection. He has no need for them."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest repeat spinal taps. The resident shakes their head.",
+              "reply": "They would tell us nothing about his pituitary. Blood tests do that."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "His blood tests and scans are in the chart.",
+        "question": "What is this?",
+        "options": [
+          "Bleeding around the brain from a burst aneurysm",
+          "Pituitary apoplexy: bleeding into a tumor of the pituitary gland",
+          "Bacterial meningitis",
+          "A clot in the veins behind the eye (cavernous sinus thrombosis)",
+          "Migraine with aura"
+        ],
+        "reveal": "He has bled into a pituitary tumor that had been growing quietly for months, which is where his tiredness and low sex drive came from. The sudden swelling caused the headache, pressed on the nerves to his right eye and stopped the gland working. A burst aneurysm would put blood around the brain, and his scan shows none. Meningitis brings fever and a stiff neck.",
+        "terms": [
+          {
+            "term": "Apoplexy",
+            "meaning": "A sudden bleed into an organ, or loss of its blood supply."
+          },
+          {
+            "term": "Adenoma",
+            "meaning": "A growth of gland tissue that is not a cancer. In the pituitary it can still press on what lies nearby."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "In the neurosurgical unit after surgery to take the pressure off his optic nerves, on hydrocortisone",
+        "unstable": "In the neurosurgical unit after surgery to take the pressure off his optic nerves, on hydrocortisone",
+        "worse": "In the neurosurgical unit after surgery, sicker than he needed to be before he got there",
+        "critical": "In intensive care"
+      },
+      "plainDiagnosis": "A sudden bleed into a tumor of the pituitary gland, which cut off his cortisol and threatened his sight (pituitary apoplexy).",
+      "science": [
+        {
+          "tag": "Feedback",
+          "title": "Why a bleed under the brain dropped his blood pressure",
+          "text": "Cortisol is made in the adrenal glands, but only on orders: the pituitary sends ACTH, and the adrenals respond. The bleed destroyed the sender. His adrenal glands were healthy and idle, and without cortisol his blood vessels could not hold their tone.",
+          "lesson": "endocrine-feedback",
+          "lessonTitle": "Trace a hormonal feedback loop"
+        },
+        {
+          "tag": "Sensing",
+          "title": "Why a swelling there dims vision",
+          "text": "Signals from both eyes travel along the optic nerves, which cross just above the pituitary. A mass pushing up from below squeezes those fibers. Light still reaches the retina, but the signal is blocked on its way to the brain.",
+          "lesson": "sensory-coding",
+          "lessonTitle": "From stimulus to perception"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Rajasekaran et al. (Clin Endocrinol 2011): UK guidelines for the management of pituitary apoplexy",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/21044119/"
+        },
+        {
+          "title": "Briet et al. (Endocr Rev 2015): pituitary apoplexy",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/26414232/"
+        }
+      ]
+    },
+    "endo-042": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "Six liters of urine a day, _and a thirst that never ends._",
+      "setting": "Neurosurgery ward",
+      "start": {
+        "status": "unstable",
+        "alarm": "Passing 320 mL of urine an hour · dizzy on standing"
+      },
+      "handoff": "A 30-year-old man fractured the base of his skull in a motorcycle crash four days ago. For two days he has been passing huge amounts of pale urine and asking for water constantly. He gets dizzy when he stands.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask about the urine and the thirst",
+            "finding": "For two days he has passed very large amounts of pale urine, more than six liters in the last day. He is thirsty all the time and keeps asking for water. He feels weak and dizzy when he stands."
+          },
+          {
+            "prompt": "Check what happened in the crash, and since",
+            "finding": "Four days ago he fractured the base of his skull and bruised the front of his brain. He has been alert and clear-headed throughout."
+          },
+          {
+            "prompt": "Ask about his health and his medicines",
+            "finding": "He has no diabetes or kidney disease. He takes no water tablets and no lithium. In hospital he has had only acetaminophen and a stool softener."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Check whether he is dry, and take his blood pressure standing",
+            "finding": "His mouth is dry, and pinched skin is slow to flatten. His blood pressure falls when he stands, and his pulse speeds up."
+          },
+          {
+            "prompt": "Examine his eyes",
+            "finding": "His pupils react normally, his eyes move fully and he can see to both sides. He has dark bruising around both eyes from the fracture."
+          },
+          {
+            "prompt": "Feel his belly",
+            "finding": "It is soft. His bladder is not swollen."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Blood tests, urine tests and MRI",
+          "content": "Sodium: 152, high (normal is 135 to 145).\nBlood concentration (osmolality): 312, high. His blood is too concentrated.\nUrine concentration: 110, very dilute. With blood this concentrated, healthy kidneys would make urine several times stronger.\nBlood sugar: normal.\nUrine output: 320 mL an hour.\nMRI of the pituitary: the bright spot at the back of the gland, which marks its store of water-retaining hormone, is missing."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "Liters of pale urine and a raging thirst after a head injury. Before we treat it, we need to know why he is losing water.",
+          "question": "Which tests?",
+          "options": [
+            "The concentration of his blood and of his urine, his sodium and his blood sugar",
+            "A blood count and blood cultures",
+            "Thyroid and cortisol levels only",
+            "A urine test with culture",
+            "A 24-hour urine collection for protein"
+          ],
+          "fix": "Send blood and urine concentrations",
+          "terms": [
+            {
+              "term": "Osmolality",
+              "meaning": "How concentrated a fluid is."
+            },
+            {
+              "term": "ADH",
+              "meaning": "Antidiuretic hormone, also called vasopressin. The pituitary releases it to tell the kidneys to keep water."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 30,
+              "story": "Blood and urine are sent together, and an MRI of his pituitary is arranged. The results go in his chart.",
+              "reply": "Right. Putting the two concentrations side by side shows whether his kidneys are saving water as they should. The sugar rules out the commoner kind of diabetes."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request a blood count and cultures. The resident shakes their head.",
+              "reply": "Those look for infection. He has no fever, and infection does not cause six liters of urine."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request thyroid and cortisol only. The resident adds to the order.",
+              "reply": "Worth checking after a head injury, but they do not explain the urine. We need the concentrations."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request a urine culture. The resident shakes their head.",
+              "reply": "An infection makes people pass urine often, in small amounts. He is passing liters."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request a 24-hour urine for protein. The resident shakes their head.",
+              "reply": "That takes a day and looks for leaky kidney filters. His problem is water, and he is drying out now."
+            }
+          ]
+        },
+        "3": {
+          "resident": "His kidneys are pouring out water while his blood grows too concentrated. Either the water-retaining hormone is missing, or his kidneys are ignoring it.",
+          "question": "How do we tell which?",
+          "options": [
+            "Stop all his drinks for 24 hours, without checks",
+            "Give desmopressin, and measure how his urine concentration changes",
+            "Start a thiazide water tablet and see what happens",
+            "Give a large bag of saline and recheck his sodium",
+            "Measure copeptin alone, and stop there"
+          ],
+          "fix": "Give a test dose of desmopressin",
+          "terms": [
+            {
+              "term": "Desmopressin",
+              "meaning": "A man-made copy of the water-retaining hormone."
+            },
+            {
+              "term": "Central",
+              "meaning": "Caused by the brain or the pituitary not releasing the hormone."
+            },
+            {
+              "term": "Nephrogenic",
+              "meaning": "Caused by the kidneys not responding to the hormone."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "delay",
+              "minutes": 240,
+              "story": "His water jug is taken away. He goes on passing urine at the same rate. Four hours later he is confused, his sodium is 160 and his blood pressure has dropped.",
+              "reply": "His kidneys cannot hold water, so stopping his drinks only dries him out faster. That test is dangerous in someone whose sodium is already high. Give him water, and give the desmopressin.",
+              "vitals": {
+                "BP": "92/56 mmHg",
+                "HR": "124 bpm"
+              },
+              "trend": {
+                "BP": "down",
+                "HR": "up"
+              },
+              "status": "worse",
+              "alarm": "Confused · sodium 160"
+            },
+            {
+              "kind": "safe",
+              "minutes": 60,
+              "story": "A dose of desmopressin is given. Over the next hour his urine output falls, and the urine turns darker. A repeat test shows its concentration has risen from 110 to 480.",
+              "reply": "Right. If the kidneys respond to the hormone when we supply it, the kidneys are fine and the hormone was missing. If nothing changes, the kidneys are the problem.",
+              "alarm": "Urine output falling after desmopressin"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for a thiazide. The resident stops it.",
+              "reply": "That is a treatment for the kidney form, and we do not yet know which form he has. Test first."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a large bag of saline. The resident changes the order.",
+              "reply": "Saline carries a lot of sodium, and he has too much already. It also does not answer the question."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest one blood test and no more. The resident shakes their head.",
+              "reply": "That test can help, but stopping there leaves him untreated. The desmopressin test answers the question and starts the treatment."
+            }
+          ]
+        },
+        "4": {
+          "resident": "After desmopressin his urine concentration rose from 110 to 480, and his output fell. The hormone was missing, and his kidneys work.",
+          "question": "How do we treat him from here?",
+          "options": [
+            "High-dose hydrochlorothiazide, indefinitely",
+            "Limit his water, and nothing else",
+            "Regular desmopressin, with sodium checks and free access to water",
+            "Demeclocycline, to block the hormone",
+            "A drip of strong salt solution"
+          ],
+          "fix": "Start regular desmopressin",
+          "terms": [
+            {
+              "term": "Free water",
+              "meaning": "Water without salt, by mouth or as a sugar-water drip. It brings a high sodium back down."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for a thiazide. The resident shakes their head.",
+              "reply": "That helps when the kidneys ignore the hormone. His kidneys respond to it. He needs the hormone replaced."
+            },
+            {
+              "kind": "delay",
+              "minutes": 240,
+              "story": "His drinks are limited. With nothing replacing the hormone, he keeps losing water. Four hours later his sodium has climbed further, and he is confused and desperately thirsty.",
+              "reply": "Limiting water is the treatment for too much of this hormone. He has too little. He needs the hormone, and as much water as he wants.",
+              "vitals": {
+                "BP": "88/52 mmHg",
+                "HR": "128 bpm"
+              },
+              "trend": {
+                "BP": "down",
+                "HR": "up"
+              },
+              "status": "worse",
+              "alarm": "Sodium climbing · confused and very thirsty"
+            },
+            {
+              "kind": "safe",
+              "minutes": 20,
+              "story": "Desmopressin is written up twice a day. His water jug stays full, and his sodium is checked every few hours.",
+              "reply": "Yes. Replace the hormone, let his thirst guide his drinking, and watch the sodium. After a head injury this sometimes passes, so we recheck whether he still needs it.",
+              "vitals": {
+                "BP": "112/70 mmHg",
+                "HR": "88 bpm"
+              },
+              "trend": {
+                "BP": "up",
+                "HR": "down"
+              },
+              "alarm": "On desmopressin · drinking freely"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for demeclocycline. The pharmacist calls.",
+              "reply": "That drug blocks the hormone’s action. It would cause the very problem he already has."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for strong salt solution. The pharmacist calls at once.",
+              "reply": "His sodium is already too high. That would push it higher."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "His blood tests, urine tests and MRI are in the chart.",
+        "question": "What is this?",
+        "options": [
+          "Drinking too much water from habit",
+          "Sugar in the urine dragging water out with it",
+          "Diabetes insipidus: his kidneys are not holding on to water",
+          "SIADH: too much water-retaining hormone",
+          "Damaged kidney tubules (acute tubular necrosis)"
+        ],
+        "reveal": "It is diabetes insipidus. His blood is too concentrated, and his kidneys are still passing dilute urine, which means the signal to save water is not getting through. Someone who simply drank too much would have a low sodium, not a high one. His sugar is normal. Too much of the hormone would do the reverse: a low sodium and concentrated urine.",
+        "terms": [
+          {
+            "term": "Diabetes insipidus",
+            "meaning": "Loss of large amounts of dilute urine because water-retaining hormone is missing or the kidneys ignore it. It has nothing to do with blood sugar."
+          },
+          {
+            "term": "Hypernatremia",
+            "meaning": "A high level of sodium in the blood. It usually means too little water."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "On the ward on desmopressin, drinking freely, with his sodium coming down slowly",
+        "unstable": "On the ward on desmopressin, drinking freely, with his sodium coming down slowly",
+        "worse": "On the ward on desmopressin, after hours of going without the water he needed",
+        "critical": "In intensive care"
+      },
+      "plainDiagnosis": "Loss of the hormone that tells the kidneys to keep water, after a head injury (central diabetes insipidus).",
+      "science": [
+        {
+          "tag": "The nephron",
+          "title": "Why he could not stop passing urine",
+          "text": "The last stretch of the kidney tubule is watertight unless ADH is present. ADH inserts water channels into its wall, and water flows back into the blood. With no ADH the channels stay out, and whatever reaches that stretch leaves as urine.",
+          "lesson": "renal-water",
+          "lessonTitle": "Regulate water in the nephron"
+        },
+        {
+          "tag": "Feedback",
+          "title": "Why his thirst worked while his kidneys did not",
+          "text": "Sensors in the brain detect when blood becomes too concentrated. They do two things: trigger thirst, and tell the pituitary to release ADH. The injury cut the second line and spared the first. So he knew he needed water and could not keep it.",
+          "lesson": "endocrine-feedback",
+          "lessonTitle": "Trace a hormonal feedback loop"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Christ-Crain et al. (Nat Rev Dis Primers 2019): diabetes insipidus",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/31395885/"
+        },
+        {
+          "title": "Refardt, Winzeler and Christ-Crain (Endocrinol Metab Clin North Am 2020): diabetes insipidus, an update",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/32741486/"
+        }
+      ]
+    },
+    "endo-001": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "Up four times a night, _and twelve pounds lighter._",
+      "setting": "Primary care clinic",
+      "start": {
+        "status": "stable",
+        "alarm": "Thirsty for three months · 12 pounds lost"
+      },
+      "handoff": "A 54-year-old man has come for a routine physical. For three months he has been drinking water constantly and getting up three or four times a night to pass urine. He has lost 12 pounds without trying.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask about the thirst, the urine and his weight",
+            "finding": "For three months he has been thirsty all the time and up three or four times a night to pass urine. He has lost 12 pounds without trying, feels tired, and his vision is sometimes blurry."
+          },
+          {
+            "prompt": "Ask about his health and his medicines",
+            "finding": "He has high blood pressure and high cholesterol, and takes a tablet for each. He has not seen a doctor in four years."
+          },
+          {
+            "prompt": "Ask about his family and how he lives",
+            "finding": "His mother and his brother have type 2 diabetes. He has a desk job and does little exercise. He eats a lot of fast food, drinks sugary drinks and has two beers most nights."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Work out his body mass index, and look at his skin",
+            "finding": "His body mass index is 33, in the obese range. The skin of his armpits and the back of his neck is dark, thickened and velvety."
+          },
+          {
+            "prompt": "Examine his feet",
+            "finding": "The pulses in his feet are strong. He feels a fine nylon thread on every part of both soles. The skin is unbroken."
+          },
+          {
+            "prompt": "Check his mouth and his breathing",
+            "finding": "His mouth is slightly dry. He is breathing normally, and his breath has no unusual smell."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Blood and urine tests",
+          "content": "HbA1c: 9.2% (diabetes is 6.5% or more). It reflects his average blood sugar over about three months.\nFasting blood sugar: 214, high (normal is under 100).\nBlood salts and kidney test: normal.\nUrine: a lot of sugar, and no ketones.\nLDL cholesterol: 142, high.\nUrine protein check: normal."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "Thirst, passing urine all night and weight loss, in a man whose mother and brother have diabetes. He is comfortable and in no danger today.",
+          "question": "Which test best confirms it?",
+          "options": [
+            "A single finger-prick blood sugar, and nothing else",
+            "A hemoglobin A1c",
+            "A fasting C-peptide",
+            "A glucose tolerance test with insulin levels"
+          ],
+          "fix": "Send a hemoglobin A1c",
+          "terms": [
+            {
+              "term": "Hemoglobin A1c",
+              "meaning": "The share of hemoglobin that has sugar stuck to it. It shows the average blood sugar over about three months."
+            },
+            {
+              "term": "Diabetes",
+              "meaning": "A condition in which blood sugar stays too high because insulin is missing or not working well."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You prick his finger and stop there. The resident adds a test.",
+              "reply": "One reading shows this moment only, and it shifts with his last meal. We want the average."
+            },
+            {
+              "kind": "safe",
+              "minutes": 20,
+              "story": "Blood and urine are collected in clinic, with a few tests that will matter if this is diabetes. The results go in his chart.",
+              "reply": "Right. The A1c needs no fasting and shows three months of sugar in one number. At 6.5% or above, it is diabetes."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request a C-peptide. The resident shakes their head.",
+              "reply": "That measures how much insulin he still makes. It is useful when the type of diabetes is in doubt. First we need to know whether he has diabetes at all."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request a glucose tolerance test with insulin levels. The resident shakes their head.",
+              "reply": "That takes hours, and the insulin levels add nothing. One blood test answers the question."
+            }
+          ]
+        },
+        "3": {
+          "resident": "He has type 2 diabetes. We have talked about food, exercise and weight. His kidneys are healthy.",
+          "question": "Which medicine do we start with?",
+          "options": [
+            "Metformin",
+            "Insulin injections several times a day",
+            "Glipizide",
+            "Empagliflozin alone"
+          ],
+          "fix": "Start metformin",
+          "terms": [
+            {
+              "term": "Metformin",
+              "meaning": "A tablet that lowers blood sugar, mainly by reducing the amount of sugar the liver releases."
+            },
+            {
+              "term": "Hypoglycemia",
+              "meaning": "A blood sugar that is too low. It causes shaking, sweating and confusion."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 15,
+              "story": "You write for metformin, starting low and building up, to be taken with food. You explain that an upset stomach in the first weeks usually settles.",
+              "reply": "Right. It works, it is cheap, it does not cause weight gain or low sugars, and decades of experience stand behind it."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest insulin several times a day. The resident shakes their head.",
+              "reply": "Insulin is for sugars much higher than his, or for people losing weight fast with ketones. He has no ketones and is not that ill."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest glipizide. The resident shakes their head.",
+              "reply": "It lowers sugar by forcing out more insulin, so it can cause low sugars and weight gain. It is not where we start."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest empagliflozin alone. The resident shakes their head.",
+              "reply": "A good medicine, often added for people with heart or kidney disease. He has neither, and metformin is the usual first step."
+            }
+          ]
+        },
+        "4": {
+          "resident": "His sugar has probably been high for years before today. Some damage from diabetes is silent until it is advanced.",
+          "question": "Which checks should be arranged now?",
+          "options": [
+            "An ultrasound of the arteries in his neck",
+            "An eye exam with the pupils dilated, and a full foot exam",
+            "A CT scan of the arteries of his heart",
+            "An ultrasound of his thyroid"
+          ],
+          "fix": "Book the eye and foot checks",
+          "terms": [
+            {
+              "term": "Retinopathy",
+              "meaning": "Damage to the small blood vessels at the back of the eye. It causes no symptoms until late."
+            },
+            {
+              "term": "Neuropathy",
+              "meaning": "Nerve damage. In diabetes it starts in the feet, as numbness."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You request a neck artery scan. The resident shakes their head.",
+              "reply": "That is not a routine check in diabetes. It is for people with symptoms of a stroke."
+            },
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "You refer him for an eye exam and record a full foot exam today. He is booked back in three months.",
+              "reply": "Right. High sugar damages the smallest vessels first: in the eyes, the kidneys and the nerves of the feet. In type 2 diabetes we check at diagnosis, because it has often been there for years."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You request a heart CT. The resident shakes their head.",
+              "reply": "He has no chest symptoms. Scanning well people exposes them to dye and radiation and changes little. We treat his blood pressure and cholesterol."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You request a thyroid ultrasound. The resident shakes their head.",
+              "reply": "Nothing about him suggests a thyroid problem, and it is not part of diabetes care."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "His blood and urine results are in the chart.",
+        "question": "What does he have?",
+        "options": [
+          "Type 1 diabetes",
+          "Diabetes insipidus",
+          "Type 2 diabetes",
+          "A rare inherited diabetes of young adults (MODY)"
+        ],
+        "reveal": "He has type 2 diabetes. He is middle-aged and carries extra weight, his mother and brother have it, and the dark velvety skin on his neck is a sign that his body resists insulin. There are no ketones, so he still makes insulin. Type 1 usually starts younger, in leaner people, often with ketones. Diabetes insipidus puts no sugar in the urine.",
+        "terms": [
+          {
+            "term": "Insulin resistance",
+            "meaning": "Cells that respond weakly to insulin, so more of it is needed to move sugar out of the blood."
+          },
+          {
+            "term": "Acanthosis nigricans",
+            "meaning": "Dark, velvety skin in the folds of the body. It is a sign of high insulin levels."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "Home with metformin, an eye appointment and a visit booked in three months",
+        "worse": "Sent to the emergency department",
+        "critical": "In hospital"
+      },
+      "plainDiagnosis": "High blood sugar because the body no longer responds well to insulin (type 2 diabetes).",
+      "science": [
+        {
+          "tag": "Fuel and hormones",
+          "title": "Why his sugar stayed high with insulin present",
+          "text": "Insulin tells muscle and fat to take in sugar, and tells the liver to stop releasing it. His cells have grown deaf to that signal. Sugar stays in the blood, and the liver keeps adding more. Metformin mainly quiets the liver.",
+          "lesson": "fuel-regulation",
+          "lessonTitle": "Choose a fuel pathway"
+        },
+        {
+          "tag": "The nephron",
+          "title": "Why high sugar made him thirsty",
+          "text": "The kidney filters sugar and normally takes all of it back. Above a certain level its transporters are full, and the extra sugar stays in the urine. Sugar holds water with it, so he passed more urine, dried out and grew thirsty.",
+          "lesson": "renal-water",
+          "lessonTitle": "Regulate water in the nephron"
+        },
+        {
+          "tag": "Proteins",
+          "title": "Why one test showed three months of sugar",
+          "text": "Glucose slowly attaches itself to hemoglobin, with no enzyme involved, and stays attached for the life of the red cell, about three months. The higher the sugar over that time, the larger the share of hemoglobin carrying it.",
+          "lesson": "protein-structure",
+          "lessonTitle": "From amino acid to protein"
+        }
+      ],
+      "sources": [
+        {
+          "title": "American Diabetes Association (Diabetes Care 2024): pharmacologic approaches to glycemic treatment, Standards of Care in Diabetes 2024",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/38078590/"
+        },
+        {
+          "title": "UK Prospective Diabetes Study Group (Lancet 1998): effect of intensive blood-glucose control with metformin on complications in overweight patients with type 2 diabetes (UKPDS 34)",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/9742977/"
         }
       ]
     }
