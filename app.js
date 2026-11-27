@@ -215,7 +215,7 @@ const SECTION_SCRIPTS = {
     'study-storage.js?v=6',
     'clinical-longitudinal-engine.js?v=3',
     'clinical-longitudinal.js?v=4',
-    'clinical-shift.js?v=41',
+    'clinical-shift.js?v=43',
   ],
   mcat: [
     'study-storage.js?v=6',

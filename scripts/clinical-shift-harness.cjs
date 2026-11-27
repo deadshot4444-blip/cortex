@@ -28,7 +28,7 @@ function shiftSource(hold) {
   assert.ok(source.includes(EXPORT));
   return (hold ? source : source.replace(HOLD, 'const SHIFT_TAP_HOLD_MS = 0;')).replace(
     EXPORT,
-    `window.testShift={reactionUsable,caseIsCompatible,activeIsCompatible,newActiveShift,shiftTimeline,applyDecisionOutcome,applyResidentFix,setManifest:value=>shiftManifest=value,setSession:value=>shiftSession=value}; ${EXPORT}`
+    `window.testShift={reactionUsable,statusAfterOutcome,caseIsCompatible,activeIsCompatible,newActiveShift,shiftTimeline,applyDecisionOutcome,applyResidentFix,setManifest:value=>shiftManifest=value,setSession:value=>shiftSession=value}; ${EXPORT}`
   );
 }
 const holdMs = Number(fs.readFileSync('clinical-shift.js', 'utf8').match(HOLD)?.[1]);
