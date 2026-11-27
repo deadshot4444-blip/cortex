@@ -1,7 +1,7 @@
 {
-  "version": 27,
+  "version": 28,
   "title": "Clinical Shift foundations and rotation practice",
-  "reviewStatus": "Source and consistency checks are recorded with each encounter. Independent clinician review remains pending for all 66 encounters.",
+  "reviewStatus": "Source and consistency checks are recorded with each encounter. Independent clinician review remains pending for all 69 encounters.",
   "rotations": [
     {
       "key": "emergency-medicine",
@@ -200,6 +200,16 @@
         "ent-042",
         "ent-011",
         "ent-069"
+      ]
+    },
+    {
+      "key": "vascular-neurology",
+      "name": "Vascular Neurology",
+      "description": "A stroke, something that only looks like one, and the warning that comes before one.",
+      "caseIds": [
+        "vn-001",
+        "vn-072",
+        "vn-018"
       ]
     }
   ],
@@ -467,6 +477,18 @@
     "ent-069": {
       "assessment": "38-year-old teacher and choir leader, a nonsmoker, with months of use-related hoarseness and vocal fatigue. Laryngoscopy shows symmetric bilateral thickenings at the junction of the anterior and middle thirds of fully mobile vocal folds, with an hourglass glottic gap: vocal fold nodules.",
       "plan": "Voice therapy with a speech-language pathologist and vocal hygiene: hydration, amplification in the classroom, avoiding shouting and throat clearing, and rest breaks. Treat reflux if it contributes. Surgery is reserved for nodules that persist after therapy."
+    },
+    "vn-001": {
+      "assessment": "68-year-old man with atrial fibrillation, off apixaban for three months, last known well at 07:40, with global aphasia, right face, arm and leg weakness, left gaze deviation, and NIHSS 14. CT shows no hemorrhage and a hyperdense left MCA sign; glucose 112, INR 1.0: acute left middle cerebral artery ischemic stroke, likely cardioembolic, within the thrombolysis window.",
+      "plan": "Lower blood pressure to below 185/110 mmHg, then give IV alteplase or tenecteplase; obtain vessel imaging to assess for thrombectomy without delaying the lytic. Admit to a stroke unit or ICU with neurologic checks and blood pressure below 180/105 for 24 hours; no antithrombotics until a 24-hour CT excludes hemorrhage."
+    },
+    "vn-072": {
+      "assessment": "63-year-old woman with insulin-treated type 2 diabetes who took mealtime insulin and skipped lunch, with 30 minutes of confusion, diaphoresis, tremor, and left face and arm weakness. Fingerstick glucose 38 mg/dL; CT normal. Complete resolution ten minutes after IV dextrose: hypoglycemia presenting as a stroke mimic.",
+      "plan": "25 g of IV dextrose, then recheck glucose and the neurologic exam. Observe for several hours because long-acting insulin is still active, give a carbohydrate meal, and review insulin dosing against her new diet and exercise, with diabetes education before discharge. No thrombolysis or antithrombotics."
+    },
+    "vn-018": {
+      "assessment": "64-year-old smoker with untreated hypertension and four stereotyped, increasingly frequent episodes of right arm weakness and aphasia in 24 hours, a left carotid bruit, and a normal exam between spells. MRI shows a punctate left frontal cortical infarct, and CTA shows an 85% ulcerated left internal carotid stenosis: crescendo TIA from artery-to-artery embolism.",
+      "plan": "Urgent admission. Dual antiplatelet therapy and a high-intensity statin; avoid aggressive blood pressure lowering while the stenosis limits flow. Early carotid revascularization, ideally within about two weeks of symptom onset. Smoking cessation and long-term risk factor control."
     }
   },
   "investigations": {
@@ -2449,6 +2471,96 @@
           "finding": "No oral or oropharyngeal lesions; mild posterior pharyngeal cobblestoning. Normal gag and palatal elevation."
         }
       ]
+    },
+    "vn-001": {
+      "interview": [
+        {
+          "prompt": "Establish the time last known well",
+          "finding": "Seen normal at 07:40 pouring his coffee and found slumped at the table at 08:00 with a facial droop and unable to answer. No headache, seizure activity or loss of consciousness."
+        },
+        {
+          "prompt": "Review history and anticoagulant use",
+          "finding": "Hypertension, hyperlipidemia and atrial fibrillation. Prescribed apixaban but stopped it three months ago because of cost. Takes amlodipine and atorvastatin."
+        },
+        {
+          "prompt": "Screen for contraindications to thrombolysis",
+          "finding": "No recent surgery, trauma or bleeding, and no prior intracranial hemorrhage. No known drug allergies."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Assess language",
+          "finding": "Alert but globally aphasic, with minimal verbal output and poor comprehension."
+        },
+        {
+          "prompt": "Test face, arm and leg strength",
+          "finding": "Right facial droop sparing the forehead. The right arm drifts and falls within five seconds, and the right leg drifts."
+        },
+        {
+          "prompt": "Check gaze, visual fields and attention",
+          "finding": "Eyes deviated to the left, a partial right visual field cut and right-sided sensory inattention. NIHSS 14. Pulse irregularly irregular."
+        }
+      ]
+    },
+    "vn-072": {
+      "interview": [
+        {
+          "prompt": "Establish onset and associated symptoms",
+          "finding": "Sudden confusion, diaphoresis and inability to use the left arm while preparing dinner; completely normal 30 minutes earlier. No headache, seizure, chest pain or trauma."
+        },
+        {
+          "prompt": "Review diabetes treatment and today’s meals",
+          "finding": "Type 2 diabetes for 15 years on insulin glargine 24 units at night and insulin aspart with meals. She has started exercising and eating less, and probably took her mealtime insulin today and then skipped lunch."
+        },
+        {
+          "prompt": "Review other history and bleeding risk",
+          "finding": "Hypertension and hyperlipidemia, on lisinopril and atorvastatin. No recent surgery, bleeding or anticoagulant use. A brother had a stroke at 60."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Assess mental status and skin",
+          "finding": "Drowsy and confused, oriented only to person, with cool diaphoretic skin and a fine tremor."
+        },
+        {
+          "prompt": "Test face, arm and leg strength and speech",
+          "finding": "Left facial droop, left arm drift with 3/5 strength and left leg 4/5. Mildly slurred speech. NIHSS about 6."
+        },
+        {
+          "prompt": "Check pupils, visual fields and for signs of seizure",
+          "finding": "Pupils equal and reactive, with no visual field cut. No tongue laceration or incontinence. Regular tachycardia."
+        }
+      ]
+    },
+    "vn-018": {
+      "interview": [
+        {
+          "prompt": "Characterize the episodes",
+          "finding": "Four discrete, stereotyped episodes in 24 hours of sudden right arm weakness and word-finding difficulty, each lasting 5 to 15 minutes and resolving completely. They are becoming more frequent; the most recent was two hours ago."
+        },
+        {
+          "prompt": "Review vascular risk factors and medications",
+          "finding": "Hypertension and hyperlipidemia with poor adherence to hydrochlorothiazide and simvastatin. A 35 pack-year smoker who still smokes. On no antiplatelet agent. Father had a stroke at 60."
+        },
+        {
+          "prompt": "Screen for other causes",
+          "finding": "No prior stroke, known atrial fibrillation, recent illness or trauma. He feels entirely normal between episodes and has not seen a physician in two years."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Perform a neurologic examination",
+          "finding": "Alert and fully oriented with fluent speech. Cranial nerves intact, strength 5/5 throughout with no pronator drift, intact sensation, symmetric reflexes, and normal coordination and gait."
+        },
+        {
+          "prompt": "Auscultate the carotid arteries",
+          "finding": "A bruit is heard over the left carotid artery."
+        },
+        {
+          "prompt": "Examine the heart",
+          "finding": "Regular rhythm, with no murmur."
+        }
+      ]
     }
   },
   "caseReviews": {
@@ -3505,6 +3617,58 @@
         {
           "title": "Stachler et al. (Otolaryngol Head Neck Surg 2018): clinical practice guideline, hoarseness (dysphonia), update",
           "url": "https://pubmed.ncbi.nlm.nih.gov/29494321/"
+        }
+      ]
+    },
+    "vn-001": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Exclude bleeding with a CT, give clot-dissolving treatment within the time window and monitor closely afterward.",
+      "alternativesAndLimits": "Eligibility rules are detailed, and local protocols differ. Clot removal by catheter is assessed in parallel when a large artery is blocked.",
+      "sources": [
+        {
+          "title": "Powers et al. (Stroke 2019): guidelines for the early management of patients with acute ischemic stroke, 2019 update",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/31662037/"
+        },
+        {
+          "title": "NINDS rt-PA Stroke Study Group (N Engl J Med 1995): tissue plasminogen activator for acute ischemic stroke",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/7477192/"
+        }
+      ]
+    },
+    "vn-072": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Check a bedside blood sugar in every patient with stroke symptoms, and treat a low reading before anything else.",
+      "alternativesAndLimits": "A deficit that does not clear fully after sugar is corrected still needs a stroke workup.",
+      "sources": [
+        {
+          "title": "Powers et al. (Stroke 2019): guidelines for the early management of patients with acute ischemic stroke, 2019 update",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/31662037/"
+        },
+        {
+          "title": "Foster and Hart (Stroke 1987): hypoglycemic hemiplegia, two cases and a clinical review",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/3629655/"
+        }
+      ]
+    },
+    "vn-018": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Recognize repeated, accelerating warning strokes as an emergency, find the narrowed carotid artery and arrange early surgery.",
+      "alternativesAndLimits": "The choice between surgery and a stent, and the exact timing, are individual decisions. Antiplatelet regimens around surgery vary.",
+      "sources": [
+        {
+          "title": "Kleindorfer et al. (Stroke 2021): guideline for the prevention of stroke in patients with stroke and transient ischemic attack",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/34024117/"
+        },
+        {
+          "title": "Rothwell et al. (Lancet 2004): endarterectomy for symptomatic carotid stenosis in relation to clinical subgroups and timing of surgery",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/15043958/"
+        },
+        {
+          "title": "Johnston et al. (N Engl J Med 2018): clopidogrel and aspirin in acute ischemic stroke and high-risk TIA",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/29766750/"
         }
       ]
     }
@@ -22347,6 +22511,826 @@
         {
           "title": "Stachler et al. (Otolaryngol Head Neck Surg 2018): clinical practice guideline, hoarseness (dysphonia), update",
           "url": "https://pubmed.ncbi.nlm.nih.gov/29494321/"
+        }
+      ]
+    },
+    "vn-001": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "Slumped at the breakfast table, _unable to speak._",
+      "setting": "Emergency department",
+      "start": {
+        "status": "unstable",
+        "alarm": "Right side weak · cannot speak · 80 minutes"
+      },
+      "handoff": "A 68-year-old man was found by his wife slumped at the breakfast table 80 minutes ago. His face droops on the right, his right side is weak and he cannot speak. He was normal 20 minutes before she found him.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask his wife exactly when he was last normal",
+            "finding": "At 7:40 he poured his coffee and was fine. At 8:00 she found him slumped, with his face drooping, and he could not answer her. He had no headache, and he did not shake or pass out."
+          },
+          {
+            "prompt": "Ask about his health and medicines",
+            "finding": "He has high blood pressure, high cholesterol and an irregular heartbeat called atrial fibrillation. He was prescribed a blood thinner for it and stopped three months ago because of the cost."
+          },
+          {
+            "prompt": "Ask about recent bleeding, surgery or injury",
+            "finding": "None. He has never had bleeding in his brain, and he has no drug allergies."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Talk to him",
+            "finding": "He is awake. He says almost nothing, and he does not follow simple requests."
+          },
+          {
+            "prompt": "Check his face, arms and legs",
+            "finding": "The right side of his mouth droops, but his forehead still wrinkles on both sides. His right arm falls to the bed within five seconds, and his right leg sags."
+          },
+          {
+            "prompt": "Check his eyes, and feel his pulse",
+            "finding": "Both eyes are turned to the left. He does not notice things on his right side. His pulse is irregular."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "CT scan, blood tests and heart tracing",
+          "content": "CT scan of the head: no bleeding. One artery on the left side of the brain shows up brighter than it should, a sign of a clot inside it. The brain around it has barely changed yet.\nBlood sugar: 112, normal.\nClotting tests and platelets: normal.\nHeart tracing: atrial fibrillation, 88 beats a minute."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "This looks like a stroke, and we know when it started. His airway and breathing are fine. Every decision from here depends on one test.",
+          "question": "What comes first?",
+          "options": [
+            "A CT scan of his head, as fast as possible",
+            "Bring his blood pressure down hard with a drip",
+            "An MRI of his brain",
+            "Give the clot-dissolving drug now, since the picture is so typical",
+            "Start heparin, a blood thinner, as a drip"
+          ],
+          "fix": "Get a CT of his head",
+          "terms": [
+            {
+              "term": "Stroke",
+              "meaning": "Sudden loss of brain function because a blood vessel is blocked or has burst."
+            },
+            {
+              "term": "CT scan",
+              "meaning": "A fast X-ray scan. It shows fresh bleeding in the brain within minutes."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 15,
+              "story": "He goes straight to the scanner. Blood is drawn on the way, and the results go in his chart.",
+              "reply": "Right. A blocked artery and a burst one look the same at the bedside, and their treatments are opposites. The CT tells them apart."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You reach for a blood pressure drip. The resident stops you.",
+              "reply": "The brain beyond a blockage is kept alive by that pressure. Drop it hard and more brain dies. We only bring it down a little, and only when we are ready to treat."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request an MRI. The resident changes it.",
+              "reply": "MRI shows an early stroke better, but it takes much longer. CT answers the one question we need right now, in two minutes."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for the clot-dissolving drug. The resident stops you.",
+              "reply": "If this is a bleed, that drug would be a disaster. Nobody can tell a clot from a bleed without a scan."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for heparin. The resident shakes their head.",
+              "reply": "Heparin does not dissolve a clot that is already there, and in a fresh stroke it causes bleeding."
+            }
+          ]
+        },
+        "3": {
+          "resident": "It is 95 minutes since he was last normal. There is no bleeding, his clotting tests are normal, and his pressure is 182 over 98.",
+          "question": "What now?",
+          "options": [
+            "Hold the clot-dissolving drug, because he has atrial fibrillation",
+            "Give aspirin and admit him for observation",
+            "Bring his pressure just under 185 over 110, then give the clot-dissolving drug",
+            "Go straight to removing the clot with a catheter, without the drug",
+            "Hold the clot-dissolving drug, because he was once prescribed a blood thinner"
+          ],
+          "fix": "Treat his pressure, then give the drug",
+          "terms": [
+            {
+              "term": "Thrombolysis",
+              "meaning": "Dissolving a clot with a drug such as alteplase. In stroke it must start within four and a half hours."
+            },
+            {
+              "term": "Thrombectomy",
+              "meaning": "Pulling a clot out of a large artery with a thin tube passed up from the groin or wrist."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "delay",
+              "minutes": 60,
+              "story": "The drug is held, and an hour goes by. His right leg, which could move a little, now lies still.",
+              "reply": "Atrial fibrillation is where his clot came from. It is no reason to hold the drug. He is still inside the time window, so give it now.",
+              "status": "worse",
+              "alarm": "Right leg no longer moves"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for aspirin. The resident stops you.",
+              "reply": "Aspirin does not dissolve a clot. He qualifies for the drug that does, and aspirin is held for a day after it."
+            },
+            {
+              "kind": "safe",
+              "minutes": 25,
+              "story": "A small dose of labetalol brings his pressure to 172 over 94. The clot-dissolving drug is then run into his vein over an hour. The team also scans his arteries to see whether the clot can be pulled out.",
+              "reply": "Right. He is inside the window, with no bleeding and nothing that rules him out. The sooner it goes in, the more brain it saves.",
+              "vitals": {
+                "BP": "172/94 mmHg"
+              },
+              "trend": {
+                "BP": "down"
+              }
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You say to skip the drug and go for the catheter. The resident shakes their head.",
+              "reply": "The catheter team is being called, and he may well need them. The drug goes in first. It starts working now, and it does not hold them up."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You hold the drug because of his old prescription. The resident checks the chart.",
+              "reply": "He stopped that blood thinner three months ago, and his clotting tests are normal. It is not a barrier."
+            }
+          ]
+        },
+        "4": {
+          "resident": "The clot-dissolving drug is running. For the next day, the main danger is bleeding into the damaged brain.",
+          "question": "Where does he go, and how is he watched?",
+          "options": [
+            "Home after four hours, if he is improving",
+            "A stroke unit or intensive care, with checks every 15 minutes at first and his pressure kept under 180 over 105 for a day",
+            "Start a full-dose blood thinner for his heart rhythm as soon as the drug finishes",
+            "Repeat the CT in one hour to confirm the artery has opened, before any monitoring",
+            "A general ward, with routine checks every eight hours"
+          ],
+          "fix": "Admit him to the stroke unit",
+          "terms": [
+            {
+              "term": "Stroke unit",
+              "meaning": "A ward where nurses trained in stroke check strength, speech and blood pressure very often."
+            },
+            {
+              "term": "Neuro check",
+              "meaning": "A quick repeat exam of alertness, speech and strength, done to catch any change early."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You plan to send him home in four hours. The resident shakes their head.",
+              "reply": "The risk of bleeding lasts a full day after this drug. Nobody goes home in that time."
+            },
+            {
+              "kind": "safe",
+              "minutes": 20,
+              "story": "He is moved to the stroke unit. A nurse checks his strength, speech and blood pressure every 15 minutes, and a repeat scan is booked for tomorrow.",
+              "reply": "Right. If he bleeds, the first sign is a change in his exam or a jump in his pressure. Someone has to be watching.",
+              "alarm": "In the stroke unit · checks every 15 minutes"
+            },
+            {
+              "kind": "delay",
+              "minutes": 360,
+              "story": "Heparin is started as the clot-dissolving drug finishes. Six hours later he has a severe headache and is hard to wake. A CT shows bleeding into the stroke.",
+              "reply": "Two drugs that stop clotting, on top of freshly damaged brain. His heart rhythm does need a blood thinner, but only after tomorrow’s scan shows no bleeding, and often days later.",
+              "vitals": {
+                "BP": "198/108 mmHg"
+              },
+              "trend": {
+                "BP": "up"
+              },
+              "status": "critical",
+              "alarm": "Hard to wake · bleeding into the stroke"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for another CT in an hour. The resident shakes their head.",
+              "reply": "A plain CT cannot show whether the artery has opened. He is rescanned at 24 hours, or at once if his exam changes."
+            },
+            {
+              "kind": "delay",
+              "minutes": 480,
+              "story": "He goes to a general ward. At the next round of checks, eight hours later, his pressure is 212 over 116 and he has a new headache. A CT shows a small bleed in the stroke.",
+              "reply": "His pressure climbed for hours with nobody looking. After this drug, pressure must stay under 180 over 105, and that takes checks every few minutes.",
+              "vitals": {
+                "BP": "212/116 mmHg"
+              },
+              "trend": {
+                "BP": "up"
+              },
+              "status": "worse",
+              "alarm": "Blood pressure 212 over 116 · new headache"
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "The CT and his exam are in the chart. He cannot speak or understand, his right side is weak and his eyes are turned to the left.",
+        "question": "What is this, and where?",
+        "options": [
+          "A blocked artery to the right side of the brain",
+          "A blocked artery to the left side of the brain, the left middle cerebral artery",
+          "A blocked artery to the back of the brain on the left",
+          "A tiny stroke deep in the left side of the brain",
+          "Bleeding deep in the left side of the brain"
+        ],
+        "reveal": "A clot is blocking his left middle cerebral artery. Each side of the brain moves the opposite side of the body, so right-sided weakness points to the left. In most people language also sits on the left, which is why he can neither speak nor understand. That artery supplies both areas. A tiny deep stroke causes weakness without loss of language, and the CT showed no bleeding.",
+        "terms": [
+          {
+            "term": "Ischemic stroke",
+            "meaning": "A stroke caused by a blocked artery. Most strokes are of this kind."
+          },
+          {
+            "term": "Aphasia",
+            "meaning": "Loss of the ability to produce or understand language."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "In the stroke unit after clot-dissolving treatment, checked every 15 minutes",
+        "unstable": "In the stroke unit after clot-dissolving treatment, checked every 15 minutes",
+        "worse": "In the stroke unit after clot-dissolving treatment and a setback, checked every 15 minutes",
+        "critical": "In intensive care with bleeding into the stroke"
+      },
+      "plainDiagnosis": "A stroke from a clot blocking the main artery to the left side of the brain (left middle cerebral artery ischemic stroke).",
+      "science": [
+        {
+          "tag": "Energy",
+          "title": "Why minutes matter",
+          "text": "Neurons store almost no fuel. They need a constant supply of oxygen to make ATP, and most of that ATP runs the pumps that keep each cell’s electrical charge. When blood stops, the pumps fail within minutes, and the cells swell and die.",
+          "lesson": "oxidative-phosphorylation",
+          "lessonTitle": "Link electrons to ATP"
+        },
+        {
+          "tag": "Enzymes",
+          "title": "How a clot is dissolved",
+          "text": "Alteplase is an enzyme. It converts plasminogen, a protein already in the blood, into plasmin. Plasmin cuts the strands of fibrin that hold a clot together. It cannot tell a harmful clot from a useful one, which is why bleeding is the risk.",
+          "lesson": "enzyme-rates",
+          "lessonTitle": "Read an enzyme curve"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Powers et al. (Stroke 2019): guidelines for the early management of patients with acute ischemic stroke, 2019 update",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/31662037/"
+        },
+        {
+          "title": "NINDS rt-PA Stroke Study Group (N Engl J Med 1995): tissue plasminogen activator for acute ischemic stroke",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/7477192/"
+        }
+      ]
+    },
+    "vn-072": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "Confused and sweating, _and her left arm will not lift._",
+      "setting": "Emergency department",
+      "start": {
+        "status": "unstable",
+        "alarm": "Confused · sweating · left arm weak"
+      },
+      "handoff": "A 63-year-old woman with diabetes became confused and sweaty while cooking dinner 30 minutes ago, and she could not use her left arm. Her husband says she was completely normal before that.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask her husband how it started",
+            "finding": "She was cooking dinner and was fine. Then, within minutes, she was confused and sweating, and her left arm would not work. She had no headache, did not shake and did not fall."
+          },
+          {
+            "prompt": "Ask about her diabetes and what she has eaten",
+            "finding": "She has had diabetes for 15 years. She takes a long-acting insulin at night and a fast one with meals. She has started exercising and eating less. Today he thinks she took her mealtime insulin and then skipped lunch."
+          },
+          {
+            "prompt": "Ask about her other health",
+            "finding": "She has high blood pressure and high cholesterol, and she takes tablets for both. She is not on a blood thinner and has had no recent surgery or bleeding. Her brother had a stroke at 60."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Talk to her, and touch her skin",
+            "finding": "She is drowsy and knows her name but nothing else. Her skin is cool and wet with sweat, and her hands are trembling."
+          },
+          {
+            "prompt": "Check her face, arms, legs and speech",
+            "finding": "The left side of her face droops. Her left arm drifts down when she holds both arms up, and her left leg is a little weak. Her speech is slightly slurred."
+          },
+          {
+            "prompt": "Check her eyes, tongue and pulse",
+            "finding": "Her pupils are equal and react to light. She has not bitten her tongue. Her pulse is fast and regular."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Bedside sugar, CT scan and heart tracing",
+          "content": "Finger-prick blood sugar: 38, dangerously low. Normal is above 70.\nBlood sugar from a vein: 41, confirming it.\nCT scan of the head, done at the same time: no bleeding and no stroke seen.\nHeart tracing: fast, regular rhythm, 108 a minute."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "Sudden weakness on one side. The stroke team is on the way and the scanner is free. One bedside test has to happen before any of it.",
+          "question": "Which one?",
+          "options": [
+            "A finger-prick blood sugar",
+            "A CT scan of her head",
+            "A heart tracing",
+            "A blood test for heart damage",
+            "An ultrasound of the arteries in her neck"
+          ],
+          "fix": "Check her blood sugar",
+          "terms": [
+            {
+              "term": "Finger-prick test",
+              "meaning": "A drop of blood on a test strip. It gives a blood sugar reading in seconds."
+            },
+            {
+              "term": "Stroke mimic",
+              "meaning": "Another condition that produces the same sudden weakness or speech trouble as a stroke."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 3,
+              "story": "A nurse pricks her finger while the scanner is readied. She is scanned moments later, and everything goes in her chart.",
+              "reply": "Right. It takes ten seconds, and it is required before any stroke treatment. A low sugar can copy a stroke exactly."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You send her to the scanner first. The resident pricks her finger on the way.",
+              "reply": "She needs the CT too. The sugar comes first because it takes ten seconds and can change everything."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a heart tracing first. The resident pricks her finger while it is set up.",
+              "reply": "The tracing is worth having, but it will not explain a weak arm. The sugar might."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a heart blood test. The resident shakes their head.",
+              "reply": "That result takes an hour and answers a different question."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a neck ultrasound. The resident shakes their head.",
+              "reply": "That belongs later in a stroke workup, if this turns out to be a stroke."
+            }
+          ]
+        },
+        "2": {
+          "resident": "Her sugar is 38, and her head CT is clear. She is drowsy and still weak on the left.",
+          "question": "What is the treatment, right now?",
+          "options": [
+            "The clot-dissolving drug for stroke",
+            "Sugar into her vein, then recheck her sugar and her strength",
+            "An insulin drip to steady her sugar",
+            "An MRI of her brain before any treatment",
+            "Sugar tablets by mouth only"
+          ],
+          "fix": "Give sugar into her vein",
+          "terms": [
+            {
+              "term": "Dextrose",
+              "meaning": "Glucose, the sugar the body runs on, in a strong solution for giving into a vein."
+            },
+            {
+              "term": "Hypoglycemia",
+              "meaning": "A blood sugar low enough to cause symptoms."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for the clot-dissolving drug. The resident stops you.",
+              "reply": "That drug can cause bleeding in the brain. A sugar of 38 explains everything we see. Fix that first and look again."
+            },
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "A syringe of strong sugar solution is pushed into her vein. Within ten minutes she is awake and asking what happened. The sweating stops, and her left arm lifts as well as her right.",
+              "reply": "That was fast. A brain short of sugar switches off, and it switches back on when the sugar returns.",
+              "vitals": {
+                "HR": "84 bpm"
+              },
+              "trend": {
+                "HR": "down"
+              },
+              "alarm": "Awake · left arm strong again",
+              "status": "better"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for an insulin drip. The resident stops you.",
+              "reply": "Insulin lowers blood sugar. Hers is already dangerously low."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for an MRI first. The resident shakes their head.",
+              "reply": "Her brain is running out of fuel while we talk. The sugar takes one minute to give. Scans can wait for that."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You hand her sugar tablets. The resident takes them back.",
+              "reply": "She is too drowsy to swallow safely and could choke. When someone cannot swallow safely, the sugar goes into a vein."
+            }
+          ]
+        },
+        "4": {
+          "resident": "She is back to normal and wants to go home and finish making dinner. Remember which insulins she takes.",
+          "question": "What is the plan?",
+          "options": [
+            "Send her home now, since she has no symptoms",
+            "Watch her for several hours, give her a meal, and review her insulin doses before she leaves",
+            "Admit her to intensive care on an insulin drip",
+            "Start aspirin and clopidogrel to prevent a stroke",
+            "Start a blood thinner while she is tested for a source of clots"
+          ],
+          "fix": "Observe her, feed her and review her insulin",
+          "terms": [
+            {
+              "term": "Long-acting insulin",
+              "meaning": "An insulin that keeps working for about a day after one injection."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "delay",
+              "minutes": 180,
+              "story": "She goes home. Three hours later her husband brings her back. She is confused and sweating again, and her sugar is 44.",
+              "reply": "The sugar we gave lasts less than an hour, and her insulin is still working. She needed a meal and a few hours of watching.",
+              "vitals": {
+                "HR": "112 bpm"
+              },
+              "trend": {
+                "HR": "up"
+              },
+              "status": "worse",
+              "alarm": "Confused again · blood sugar 44"
+            },
+            {
+              "kind": "safe",
+              "minutes": 20,
+              "story": "She eats a sandwich and stays for the evening, with her sugar checked every hour. The diabetes nurse goes through her insulin doses with her.",
+              "reply": "Right. Her doses were set for the way she used to eat. With less food and more exercise they need to come down."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You ask for an insulin drip. The resident shakes their head.",
+              "reply": "Too much insulin is what brought her here."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You write for aspirin and clopidogrel. The resident shakes their head.",
+              "reply": "Those prevent strokes. She has not had one."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You ask for a blood thinner. The resident shakes their head.",
+              "reply": "Nothing here points to a clot. That would add a bleeding risk and no benefit."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "Ten minutes after the sugar, her blood sugar is 122. Her confusion and weakness are gone, and her exam is normal.",
+        "question": "What was this?",
+        "options": [
+          "A transient ischemic attack, a brief blockage that cleared by itself",
+          "A small stroke deep in the brain",
+          "A low blood sugar copying a stroke",
+          "Weakness after a seizure that nobody saw",
+          "A migraine with weakness"
+        ],
+        "reveal": "A low blood sugar was copying a stroke. Her sugar was 38, and everything cleared within minutes of correcting it. A brief blockage clears on its own schedule and would not follow the sugar. A true stroke would not reverse with sugar. She had no jerking or bitten tongue to suggest a seizure, and no headache to suggest migraine. The sweating, trembling and fast pulse were the body’s alarm at a low sugar.",
+        "terms": [
+          {
+            "term": "Mimic",
+            "meaning": "A condition that looks like another one."
+          },
+          {
+            "term": "Transient ischemic attack",
+            "meaning": "A brief blockage of blood flow to part of the brain that clears without lasting damage."
+          }
+        ]
+      },
+      "ending": {
+        "better": "Under observation for the evening, fully recovered, with a meal and a new insulin plan",
+        "stable": "Under observation for the evening, fully recovered, with a meal and a new insulin plan",
+        "worse": "Admitted overnight after her blood sugar fell a second time at home",
+        "critical": "In intensive care"
+      },
+      "plainDiagnosis": "A low blood sugar that looked like a stroke (hypoglycemia, a stroke mimic).",
+      "science": [
+        {
+          "tag": "Fuel",
+          "title": "Why insulin without lunch dropped her sugar",
+          "text": "Insulin tells muscle and fat to take glucose out of the blood and tells the liver to stop releasing it. A mealtime dose is sized to match the meal. With no meal there was nothing to balance it, and exercise had already made her muscles take up more.",
+          "lesson": "fuel-regulation",
+          "lessonTitle": "Choose a fuel pathway"
+        },
+        {
+          "tag": "Hormones",
+          "title": "Where the sweating and trembling came from",
+          "text": "When blood sugar falls, the body answers with adrenaline and other hormones that push it back up. Adrenaline also causes sweating, trembling and a fast pulse. Those are the early warnings of a low sugar, and at a stroke bedside they are a clue.",
+          "lesson": "endocrine-feedback",
+          "lessonTitle": "Trace a hormonal feedback loop"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Powers et al. (Stroke 2019): guidelines for the early management of patients with acute ischemic stroke, 2019 update",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/31662037/"
+        },
+        {
+          "title": "Foster and Hart (Stroke 1987): hypoglycemic hemiplegia, two cases and a clinical review",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/3629655/"
+        }
+      ]
+    },
+    "vn-018": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "Four times in one day, _his right arm went dead._",
+      "setting": "Emergency department",
+      "start": {
+        "status": "stable",
+        "alarm": "Four spells of arm weakness in 24 hours · normal now"
+      },
+      "handoff": "A 64-year-old man has had four spells in 24 hours. Each time his right arm went weak and he could not get his words out, and each time it cleared within 15 minutes. He feels fine now and asks whether he can go home.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask about the spells",
+            "finding": "Four in the last 24 hours, all the same. His right arm goes weak without warning and he cannot find words. Each lasts 5 to 15 minutes and clears completely. They are coming closer together, and the last one was two hours ago."
+          },
+          {
+            "prompt": "Ask about his health and habits",
+            "finding": "He has high blood pressure and high cholesterol, and he often skips his tablets. He has smoked for 35 years and still does. He takes no aspirin. His father had a stroke at 60."
+          },
+          {
+            "prompt": "Ask about anything else",
+            "finding": "He has never had a stroke or been told his heartbeat is irregular. He has not been ill or injured. Between spells he feels normal. He has not seen a doctor in two years."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Examine his speech, strength and walking",
+            "finding": "All normal. His speech is fluent, both arms are strong and steady, and he walks normally."
+          },
+          {
+            "prompt": "Listen over the arteries in his neck",
+            "finding": "On the left there is a whooshing sound with each heartbeat. The right is quiet."
+          },
+          {
+            "prompt": "Listen to his heart",
+            "finding": "The rhythm is regular, with no extra sounds."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Scans, blood tests and heart tracing",
+          "content": "CT scan of the head: no bleeding and no large stroke.\nMRI of the brain: one tiny new stroke at the surface of the left side.\nScan of the neck arteries: the left carotid artery is 85% narrowed by a rough, ulcerated plaque.\nBlood sugar: 110, normal. LDL cholesterol: 158, high.\nHeart tracing: normal, regular rhythm.\nStroke risk score (ABCD2): 6 out of 7, high."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "He is completely normal now, and he wants to leave. Four identical spells in a day, each one sooner than the last.",
+          "question": "What is this pattern, and what do we do?",
+          "options": [
+            "A harmless inner-ear problem. He can go home and see his own doctor",
+            "Warning strokes that are speeding up. Admit him now and scan his brain and neck arteries today",
+            "A reaction to stress. Reassure him and send him home",
+            "Seizures. Start a seizure medicine and send him home"
+          ],
+          "fix": "Admit him and scan today",
+          "terms": [
+            {
+              "term": "Transient ischemic attack (TIA)",
+              "meaning": "A brief blockage of blood flow to part of the brain. The symptoms clear, but a stroke often follows."
+            },
+            {
+              "term": "Crescendo",
+              "meaning": "Coming more and more often."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "delay",
+              "minutes": 360,
+              "story": "He goes home. That night an ambulance brings him back. His right arm went weak again and he could not speak, and this time it lasted 40 minutes.",
+              "reply": "An inner-ear problem causes spinning. It does not take away an arm and speech. Those spells were warnings, and the stroke they warn of usually comes within days.",
+              "status": "worse",
+              "alarm": "Fifth spell · lasted 40 minutes"
+            },
+            {
+              "kind": "safe",
+              "minutes": 60,
+              "story": "He is admitted and put on a monitor. He has a CT, an MRI and a scan of the arteries in his neck within the hour. The results go in his chart.",
+              "reply": "Right. A TIA is an emergency even when the patient looks perfect. Several in one day, speeding up, is the most urgent kind."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest it is stress. The resident shakes their head.",
+              "reply": "Every spell hit the same arm and the same function. A single spot in the brain is losing its blood supply again and again."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest seizures. The resident shakes their head.",
+              "reply": "Seizures usually add something, such as jerking or tingling. These spells only take function away. In a 64-year-old smoker with high blood pressure, that is a blood vessel until proven otherwise."
+            }
+          ]
+        },
+        "3": {
+          "resident": "The surgeons have been called. Until they operate, we need to keep that plaque from throwing another clot.",
+          "question": "What do we start?",
+          "options": [
+            "Bring his blood pressure down to normal fast, and start a heparin drip",
+            "Aspirin with a second antiplatelet drug and a high-dose statin, and leave his blood pressure alone for now",
+            "No anti-clotting drugs at all until after surgery",
+            "Warfarin"
+          ],
+          "fix": "Start antiplatelet drugs and a statin",
+          "terms": [
+            {
+              "term": "Antiplatelet drug",
+              "meaning": "A drug such as aspirin or clopidogrel that stops platelets from sticking together to start a clot."
+            },
+            {
+              "term": "Statin",
+              "meaning": "A drug that lowers cholesterol and steadies fatty plaques in artery walls."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "delay",
+              "minutes": 30,
+              "story": "A drip brings his pressure down to 118 over 70. Twenty minutes later his right arm goes weak and his words come out jumbled.",
+              "reply": "Blood has to squeeze through a gap 85% closed. Take away the pressure behind it, and the brain beyond goes short. Stop the drip. Heparin is not the standard treatment here either.",
+              "status": "worse",
+              "alarm": "Right arm weak again after his pressure was lowered"
+            },
+            {
+              "kind": "safe",
+              "minutes": 15,
+              "story": "He takes aspirin, clopidogrel and a high-dose statin. His blood pressure is watched and left where it is.",
+              "reply": "Right. Clots on a plaque begin with platelets, so we block platelets. The pressure can come down gradually once the artery is fixed."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You hold all anti-clotting drugs until surgery. The resident shakes their head.",
+              "reply": "The days before surgery are when a stroke is most likely. Surgeons operate on patients who are taking aspirin all the time."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest warfarin. The resident shakes their head.",
+              "reply": "Warfarin is for clots that form in the heart. His form on a plaque, where antiplatelet drugs work better."
+            }
+          ]
+        },
+        "4": {
+          "resident": "His left carotid artery is 85% narrowed, and it is causing symptoms. Tablets will not be enough.",
+          "question": "What is the lasting fix, and when?",
+          "options": [
+            "An operation or stent to open the artery, booked for three months from now",
+            "An operation or stent to open the artery soon, within about two weeks",
+            "Medicines for life, with no procedure",
+            "The clot-dissolving drug, now"
+          ],
+          "fix": "Arrange early surgery",
+          "terms": [
+            {
+              "term": "Carotid endarterectomy",
+              "meaning": "An operation that opens the artery in the neck and peels out the plaque."
+            },
+            {
+              "term": "Stent",
+              "meaning": "A small mesh tube placed inside an artery to hold it open."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest booking it for three months. The surgeon shakes their head.",
+              "reply": "His highest risk of a stroke is in the next two weeks. In three months he would have been through the danger with no protection."
+            },
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "The vascular surgeon sees him that afternoon and puts him on the operating list for this week.",
+              "reply": "Right. Surgery helps most when it is done early, inside the two weeks when a stroke is most likely."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest medicines alone. The surgeon shakes their head.",
+              "reply": "For a narrowing this tight that is already causing symptoms, removing the plaque prevents many more strokes than tablets do."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest the clot-dissolving drug. The resident shakes their head.",
+              "reply": "That is for a stroke in progress. Right now he has no symptoms to treat, and the drug carries a real risk of bleeding."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "His scans are in the chart. The spells affect his right arm and his speech.",
+        "question": "What is causing them?",
+        "options": [
+          "Clots thrown from the heart by an irregular rhythm",
+          "Bits of clot breaking off the narrowed left carotid artery and lodging in the brain",
+          "Disease of the tiny arteries deep in the brain",
+          "Low blood flow to the whole brain from dehydration"
+        ],
+        "reveal": "Clot is breaking off the rough plaque in his left carotid artery and traveling up into the left side of his brain, the side that controls the right arm and, in most people, speech. Each piece blocks a small branch and then breaks up, so each spell clears. His heart rhythm is normal, which makes the heart an unlikely source. Disease of the tiny deep arteries does not cause trouble with speech like this, and low flow to the whole brain would not pick out one arm.",
+        "terms": [
+          {
+            "term": "Carotid artery",
+            "meaning": "One of the two large arteries in the neck that carry blood to the brain."
+          },
+          {
+            "term": "Embolus",
+            "meaning": "A piece of clot that travels in the blood and lodges farther along."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "Admitted to the stroke unit, with surgery on his neck artery booked for this week",
+        "worse": "Admitted to the stroke unit after another spell, with surgery on his neck artery booked for this week",
+        "critical": "In the stroke unit with a completed stroke"
+      },
+      "plainDiagnosis": "Repeated warning strokes from a badly narrowed artery in the neck (crescendo TIAs from carotid stenosis).",
+      "science": [
+        {
+          "tag": "Flow",
+          "title": "What the whooshing sound was",
+          "text": "Blood normally moves through an artery in smooth layers and makes no sound. Forced through a narrow gap, it speeds up and breaks into turbulence. Turbulent flow shakes the artery wall, and a stethoscope picks that up.",
+          "lesson": "fluid-flow",
+          "lessonTitle": "Follow flow through a narrowing"
+        },
+        {
+          "tag": "Pressure",
+          "title": "Why his pressure was left alone",
+          "text": "Flow through a vessel depends on the pressure pushing it and on the resistance in the way. A tight narrowing is a large resistance. With the resistance fixed, the only thing keeping flow up is pressure, so lowering it quickly lowers flow to the brain.",
+          "lesson": "circulatory-flow",
+          "lessonTitle": "Connect pressure to blood flow"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Kleindorfer et al. (Stroke 2021): guideline for the prevention of stroke in patients with stroke and transient ischemic attack",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/34024117/"
+        },
+        {
+          "title": "Rothwell et al. (Lancet 2004): endarterectomy for symptomatic carotid stenosis in relation to clinical subgroups and timing of surgery",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/15043958/"
+        },
+        {
+          "title": "Johnston et al. (N Engl J Med 2018): clopidogrel and aspirin in acute ischemic stroke and high-risk TIA",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/29766750/"
         }
       ]
     }
