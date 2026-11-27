@@ -1,7 +1,7 @@
 {
-  "version": 20,
+  "version": 21,
   "title": "Clinical Shift foundations and rotation practice",
-  "reviewStatus": "Source and consistency checks are recorded with each encounter. Independent clinician review remains pending for all 45 encounters.",
+  "reviewStatus": "Source and consistency checks are recorded with each encounter. Independent clinician review remains pending for all 48 encounters.",
   "rotations": [
     {
       "key": "emergency-medicine",
@@ -130,6 +130,16 @@
         "fm-095",
         "fm-076",
         "fm-023"
+      ]
+    },
+    {
+      "key": "nephrology",
+      "name": "Nephrology",
+      "description": "Read the kidneys through blood and urine, and find what is blocking or poisoning them.",
+      "caseIds": [
+        "nph-067",
+        "nph-076",
+        "nph-063"
       ]
     }
   ],
@@ -313,6 +323,18 @@
     "fm-023": {
       "assessment": "34-year-old woman with four months of fatigue, pica, pallor, and koilonychia and two years of heavy menstrual bleeding. Hemoglobin 9.2 g/dL, MCV 71 fL, RDW 17%, ferritin 6 ng/mL, and transferrin saturation 8%: iron deficiency anemia from menorrhagia.",
       "plan": "Oral iron such as ferrous sulfate, taken with vitamin C and away from calcium, antacids, and tea. Evaluate and treat the heavy menstrual bleeding. Recheck hemoglobin in 2-4 weeks, and continue iron for 3-6 months after it normalizes to replete stores. IV iron if oral iron fails or is not tolerated."
+    },
+    "nph-067": {
+      "assessment": "76-year-old man with two years of obstructive urinary symptoms and 18 hours of acute retention after starting a pseudoephedrine-diphenhydramine cold remedy. Palpable bladder; 1,400 mL drained on catheterization; creatinine 2.6 mg/dL from 1.0 with bilateral hydronephrosis: acute urinary retention with post-renal AKI from benign prostatic hyperplasia.",
+      "plan": "Immediate urethral catheterization. Stop the cold remedy. Monitor urine output, electrolytes, and creatinine for post-obstructive diuresis and recovery. Start an alpha-blocker such as tamsulosin before a voiding trial; avoid anticholinergics. Urology follow-up."
+    },
+    "nph-076": {
+      "assessment": "36-year-old man found confused beside an empty antifreeze container, with Kussmaul breathing. pH 7.18, bicarbonate 8, anion gap 30, osmolar gap 35, undetectable ethanol, rising creatinine, hypocalcemia, and calcium oxalate crystalluria: ethylene glycol poisoning.",
+      "plan": "Fomepizole immediately to block alcohol dehydrogenase, IV fluids, and urgent hemodialysis for severe acidosis and kidney injury, with bicarbonate for the acidosis. Replace calcium only for symptomatic hypocalcemia. Give thiamine and pyridoxine as cofactors. Psychiatric evaluation and safety planning once he is medically stable."
+    },
+    "nph-063": {
+      "assessment": "66-year-old woman with heavy smoking, weight loss, and a 5 cm right hilar mass, with two weeks of confusion, polyuria, and constipation. Corrected calcium 14.6 mg/dL, creatinine 2.1 from 0.9, PTH suppressed below 5 pg/mL, and PTHrP markedly elevated: humoral hypercalcemia of malignancy with AKI.",
+      "plan": "Aggressive isotonic saline; stop hydrochlorothiazide and the calcium-vitamin D supplement. Then an IV bisphosphonate such as zoledronic acid (dose adjusted for kidney function), with calcitonin for faster short-term effect if needed; denosumab is an alternative. Loop diuretics only for volume overload after rehydration. Tissue diagnosis and oncology referral."
     }
   },
   "investigations": {
@@ -1665,6 +1687,96 @@
           "finding": "Soft, nontender abdomen without hepatosplenomegaly or masses. No lymphadenopathy."
         }
       ]
+    },
+    "nph-067": {
+      "interview": [
+        {
+          "prompt": "Characterize the inability to void",
+          "finding": "Unable to urinate for 18 hours, with progressive lower abdominal fullness and discomfort. No fever, dysuria, hematuria or flank pain."
+        },
+        {
+          "prompt": "Ask about prior urinary symptoms",
+          "finding": "Two years of worsening hesitancy, weak stream, nocturia three to four times nightly and a sensation of incomplete emptying. No prior episode of complete retention."
+        },
+        {
+          "prompt": "Review recent medications",
+          "finding": "Started an over-the-counter cold remedy containing pseudoephedrine and diphenhydramine three days ago, after which symptoms acutely worsened. Takes amlodipine for hypertension."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Palpate and percuss the lower abdomen",
+          "finding": "Distended, dull, tender suprapubic mass extending toward the umbilicus, consistent with a palpable bladder. No rebound or guarding elsewhere."
+        },
+        {
+          "prompt": "Perform a digital rectal exam",
+          "finding": "Symmetrically enlarged, smooth, firm, non-tender prostate without nodules. Normal sphincter tone and no saddle anesthesia."
+        },
+        {
+          "prompt": "Check the flanks and lower-limb neurology",
+          "finding": "No costovertebral angle tenderness. Lower-extremity strength, sensation and reflexes are intact."
+        }
+      ]
+    },
+    "nph-076": {
+      "interview": [
+        {
+          "prompt": "Obtain collateral history from the roommate",
+          "finding": "Found confused with slurred speech and appearing intoxicated over several hours, with no access to alcohol today; progressively more lethargic with deep, rapid breathing. No seizure, fever or trauma."
+        },
+        {
+          "prompt": "Ask what was found at the scene",
+          "finding": "An empty container of automobile antifreeze was found near him in the garage. No other medications or rubbing alcohol are thought to have been taken; the time of ingestion is uncertain, likely within several hours."
+        },
+        {
+          "prompt": "Review psychiatric and substance history",
+          "finding": "Depression with uncertain adherence to an SSRI, recently distraught after a breakup. Prior alcohol use disorder."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Assess mental status, speech and gait",
+          "finding": "Lethargic but arousable to voice, with slurred speech, nystagmus and ataxia. No alcohol odor on the breath and no focal deficit."
+        },
+        {
+          "prompt": "Observe the breathing pattern",
+          "finding": "Deep, rapid (Kussmaul) respirations with clear lungs."
+        },
+        {
+          "prompt": "Examine the abdomen and flanks and look for tetany",
+          "finding": "Soft abdomen with mild flank discomfort. No tetany, though he reports tingling."
+        }
+      ]
+    },
+    "nph-063": {
+      "interview": [
+        {
+          "prompt": "Characterize the confusion and associated symptoms",
+          "finding": "Two weeks of progressive confusion, profound fatigue, constipation, polyuria and polydipsia, with bone aches, nausea and poor appetite."
+        },
+        {
+          "prompt": "Ask about weight loss, cough and smoking",
+          "finding": "9 kg weight loss over three months, chronic cough, one episode of hemoptysis last month and a 45-pack-year smoking history. She was recently told of a spot on her lung."
+        },
+        {
+          "prompt": "Review medications",
+          "finding": "Hydrochlorothiazide for hypertension and a calcium-vitamin D supplement for osteoporosis."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Assess mental status and reflexes",
+          "finding": "Lethargic but arousable, oriented to person and place only, with symmetrically diminished deep tendon reflexes and no focal deficit."
+        },
+        {
+          "prompt": "Assess hydration",
+          "finding": "Dry mucous membranes and reduced skin turgor."
+        },
+        {
+          "prompt": "Examine the chest, neck and abdomen",
+          "finding": "Mild right supraclavicular fullness, with decreased breath sounds and dullness at the right base. Soft abdomen with hypoactive bowel sounds."
+        }
+      ]
     }
   },
   "caseReviews": {
@@ -2389,6 +2501,54 @@
         {
           "title": "Pasricha et al. (Lancet 2021): iron deficiency",
           "url": "https://pubmed.ncbi.nlm.nih.gov/33285139/"
+        }
+      ]
+    },
+    "nph-067": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Relieve acute urinary retention at once and recognize obstruction as a reversible cause of kidney injury.",
+      "alternativesAndLimits": "How long the catheter stays and when to attempt a voiding trial vary. Brisk urine output after relief needs monitoring.",
+      "sources": [
+        {
+          "title": "Lerner et al. (J Urol 2021): management of lower urinary tract symptoms attributed to benign prostatic hyperplasia, AUA guideline part I",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/34384237/"
+        },
+        {
+          "title": "Selius and Subedi (Am Fam Physician 2008): urinary retention in adults, diagnosis and initial management",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/18350762/"
+        }
+      ]
+    },
+    "nph-076": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Recognize a toxic alcohol from the anion and osmolar gaps and block its metabolism before the kidneys fail.",
+      "alternativesAndLimits": "Fomepizole is often started on suspicion, before a level is available. Thresholds for dialysis vary. The osmolar gap can be normal late, after the alcohol has been metabolized.",
+      "sources": [
+        {
+          "title": "Brent et al. (N Engl J Med 1999): fomepizole for the treatment of ethylene glycol poisoning",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/10080845/"
+        },
+        {
+          "title": "Kraut and Mullins (N Engl J Med 2018): toxic alcohols",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/29342392/"
+        }
+      ]
+    },
+    "nph-063": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Recognize hypercalcemia, identify its cause from PTH and PTHrP and treat with fluids before anything else.",
+      "alternativesAndLimits": "Recent guidance gives denosumab or an IV bisphosphonate as options, with kidney function guiding the choice. The outlook depends on the underlying cancer.",
+      "sources": [
+        {
+          "title": "Stewart (N Engl J Med 2005): hypercalcemia associated with cancer",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/15673803/"
+        },
+        {
+          "title": "El-Hajj Fuleihan et al. (J Clin Endocrinol Metab 2023): treatment of hypercalcemia of malignancy in adults, an Endocrine Society clinical practice guideline",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/36545746/"
         }
       ]
     }
@@ -15434,6 +15594,849 @@
         {
           "title": "Pasricha et al. (Lancet 2021): iron deficiency",
           "url": "https://pubmed.ncbi.nlm.nih.gov/33285139/"
+        }
+      ]
+    },
+    "nph-067": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "Eighteen hours _without passing a drop._",
+      "setting": "Emergency department",
+      "start": {
+        "status": "stable",
+        "alarm": "Cannot pass urine · swollen, painful lower belly"
+      },
+      "handoff": "A 76-year-old man has not been able to pass urine for 18 hours. His lower belly is swollen and painful. For two years his stream has been getting weaker, and three days ago he started a cold remedy from the pharmacy.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask about not being able to pass urine",
+            "finding": "Nothing has come out for 18 hours, and his lower belly feels fuller and more painful by the hour. He has no fever, no burning and no blood in his urine."
+          },
+          {
+            "prompt": "Ask how his urine flow has been over the years",
+            "finding": "For two years it has been slow to start and weak, and he gets up three or four times a night. He never feels he has emptied fully. It has never stopped completely before."
+          },
+          {
+            "prompt": "Ask about his medicines",
+            "finding": "Three days ago he started a cold remedy that contains pseudoephedrine and diphenhydramine. Things got much worse after that. He also takes amlodipine for blood pressure."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Feel and tap his lower belly",
+            "finding": "There is a tense, tender swelling that rises from his pubic bone almost to his navel. It sounds dull when tapped, like something full of fluid."
+          },
+          {
+            "prompt": "Examine his prostate with a finger",
+            "finding": "His prostate is enlarged, smooth and firm on both sides, with no lumps. The muscle tone at his anus is normal, and feeling around it is normal."
+          },
+          {
+            "prompt": "Tap over his kidneys, and test his legs",
+            "finding": "Tapping over his kidneys does not hurt. The strength, feeling and reflexes in his legs are normal."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Catheter, blood tests and ultrasound",
+          "content": "Catheter: 1,400 mL of urine drained at once (a full bladder normally holds about 400 to 500).\nKidney test (creatinine): 2.6, up from his usual 1.0.\nPotassium: 4.8, at the top of normal.\nUrine test: no infection.\nUltrasound: both kidneys are swollen with backed-up urine.\nPSA, a prostate blood test: mildly raised."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "He cannot pass urine, and I can feel his bladder up near his navel.",
+          "question": "What do we do first?",
+          "options": [
+            "A CT scan of his belly before doing anything",
+            "Pass a catheter into his bladder to drain it now",
+            "Start an alpha-blocker tablet and send him home",
+            "Emergency dialysis"
+          ],
+          "fix": "Drain his bladder now",
+          "terms": [
+            {
+              "term": "Urinary retention",
+              "meaning": "Being unable to empty the bladder."
+            },
+            {
+              "term": "Catheter",
+              "meaning": "A soft tube passed through the urethra into the bladder to drain urine."
+            },
+            {
+              "term": "Prostate",
+              "meaning": "A gland that surrounds the urethra just below the bladder in men. It enlarges with age and can squeeze the urethra."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "delay",
+              "minutes": 90,
+              "story": "He waits for a scanner and then for the report, which says what you could already feel: a huge bladder. Ninety minutes on he is in more pain, and still nothing has drained.",
+              "reply": "We could feel the diagnosis with one hand. Every hour of back-pressure hurts his kidneys, and he has just spent another ninety minutes in pain. Put the catheter in.",
+              "vitals": {
+                "BP": "174/98 mmHg",
+                "HR": "106 bpm"
+              },
+              "trend": {
+                "BP": "up",
+                "HR": "up"
+              },
+              "status": "worse",
+              "alarm": "In more pain · still no urine"
+            },
+            {
+              "kind": "safe",
+              "minutes": 15,
+              "story": "A catheter is passed, and urine pours out. His face relaxes within a minute. Blood is sent and an ultrasound is done, and the results go in his chart.",
+              "reply": "Right. Draining the bladder treats the pain, proves the diagnosis and takes the pressure off his kidneys, all at once.",
+              "vitals": {
+                "BP": "138/82 mmHg",
+                "HR": "80 bpm"
+              },
+              "trend": {
+                "BP": "down",
+                "HR": "down"
+              },
+              "alarm": "Catheter in · bladder emptying"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for a tablet and a discharge. The resident stops it.",
+              "reply": "With a liter and a half trapped in his bladder? A tablet takes days to help. He needs draining first."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest dialysis. The resident shakes their head.",
+              "reply": "His kidneys are being squeezed from below. Take the pressure off and they recover. Dialysis would not touch the cause."
+            }
+          ]
+        },
+        "3": {
+          "resident": "His prostate has been narrowing his flow for two years. Something tipped him into a complete blockage three days ago.",
+          "question": "What was it?",
+          "options": [
+            "The cold remedy, with pseudoephedrine and diphenhydramine",
+            "His amlodipine",
+            "Dehydration",
+            "A urine infection"
+          ],
+          "fix": "Name the cold remedy",
+          "terms": [
+            {
+              "term": "Pseudoephedrine",
+              "meaning": "A decongestant. It tightens smooth muscle, including the muscle at the outlet of the bladder."
+            },
+            {
+              "term": "Diphenhydramine",
+              "meaning": "An older antihistamine. It blocks the nerve signal that makes the bladder squeeze."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "You name the cold remedy. It is stopped, and he is told which pharmacy medicines to avoid.",
+              "reply": "Right. One ingredient tightens the outlet, and the other weakens the bladder’s squeeze. In a man whose prostate is already in the way, that combination shuts the door."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You blame the amlodipine. The resident shakes their head.",
+              "reply": "He has taken that for years with no trouble, and it is not known for this. Look at what changed three days ago."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest dehydration. The resident shakes their head.",
+              "reply": "A dry man makes less urine. He would not end up with a liter and a half trapped in his bladder."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest an infection. The resident shakes their head.",
+              "reply": "His urine test shows no infection, and he has had no burning or fever."
+            }
+          ]
+        },
+        "4": {
+          "resident": "His bladder is drained, and his kidney test is already improving. In a few days the catheter will come out, to see whether he can pass urine by himself.",
+          "question": "Which medicine gives that the best chance?",
+          "options": [
+            "An anticholinergic, such as oxybutynin",
+            "An alpha-blocker, such as tamsulosin",
+            "A strong water tablet",
+            "None. Leave the catheter in long term"
+          ],
+          "fix": "Start an alpha-blocker",
+          "terms": [
+            {
+              "term": "Alpha-blocker",
+              "meaning": "A medicine that relaxes the smooth muscle of the prostate and the bladder outlet, so urine flows more easily."
+            },
+            {
+              "term": "Voiding trial",
+              "meaning": "Taking a catheter out to see whether the patient can pass urine without it."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for oxybutynin. The pharmacist calls.",
+              "reply": "That weakens the bladder’s squeeze. It is the same effect that helped put him here. He needs the outlet relaxed."
+            },
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "Tamsulosin is started tonight, and he is booked to see a urologist.",
+              "reply": "Yes. It relaxes the muscle around the outlet, and men who take it are more likely to pass urine when the catheter comes out."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for a water tablet. The resident cancels it.",
+              "reply": "Making more urine does not open a blocked outlet. It only fills the bladder faster."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest a long-term catheter. The resident shakes their head.",
+              "reply": "A permanent catheter brings infections and discomfort. It is a last resort, and he has not yet had a fair try without one."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "The catheter result, blood tests and ultrasound are in his chart.",
+        "question": "Why are his kidneys struggling?",
+        "options": [
+          "Too little blood is reaching them (prerenal)",
+          "The kidney tissue itself is damaged (acute tubular necrosis)",
+          "Urine is blocked downstream and is backing up into them (post-renal, obstructive)",
+          "Their filters are inflamed (glomerulonephritis)"
+        ],
+        "reveal": "His kidneys are being squeezed from below. The enlarged prostate blocked the outlet of his bladder, the bladder filled to nearly three times its normal size, and urine backed up into both kidneys. The ultrasound shows them swollen with it. Relieving the blockage usually lets the kidneys recover.",
+        "terms": [
+          {
+            "term": "Hydronephrosis",
+            "meaning": "A kidney swollen with urine that cannot drain."
+          },
+          {
+            "term": "Acute kidney injury",
+            "meaning": "A sudden drop in how well the kidneys work."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "Admitted overnight with a catheter, his kidney tests already improving",
+        "worse": "Admitted with a catheter, after a longer wait than his kidneys needed",
+        "critical": "In intensive care"
+      },
+      "plainDiagnosis": "A bladder blocked by an enlarged prostate, with urine backing up into the kidneys (urinary retention with obstructive kidney injury).",
+      "science": [
+        {
+          "tag": "Pressure in a fluid",
+          "title": "Why a blocked bladder stops the kidneys",
+          "text": "The kidney filters blood because pressure in its tiny blood vessels is higher than pressure in the tubules they empty into. When urine backs up, the pressure in the tubules climbs toward the pressure in the vessels, and filtering slows to a stop.",
+          "lesson": "hydrostatics",
+          "lessonTitle": "Read pressure in a fluid"
+        },
+        {
+          "tag": "Flow through a narrowing",
+          "title": "Why a slightly larger prostate matters so much",
+          "text": "Flow through a tube depends very steeply on its width: halve the radius, and flow falls to about a sixteenth. The urethra runs through the middle of the prostate, so a little swelling or tightening there costs a great deal of flow.",
+          "lesson": "fluid-flow",
+          "lessonTitle": "Follow flow through a narrowing"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Lerner et al. (J Urol 2021): management of lower urinary tract symptoms attributed to benign prostatic hyperplasia, AUA guideline part I",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/34384237/"
+        },
+        {
+          "title": "Selius and Subedi (Am Fam Physician 2008): urinary retention in adults, diagnosis and initial management",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/18350762/"
+        }
+      ]
+    },
+    "nph-076": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "He seems drunk, _but there is no alcohol in him._",
+      "setting": "Emergency department",
+      "start": {
+        "status": "unstable",
+        "alarm": "Confused · breathing deep and fast"
+      },
+      "handoff": "A 36-year-old man was found by his roommate, confused and slurring his words, and has been getting sleepier for hours. He is breathing deep and fast. The roommate says he had no alcohol today, and found an empty container of car antifreeze beside him.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask the roommate what he saw",
+            "finding": "Over several hours he became confused and unsteady, and slurred his words as if drunk, though he had no alcohol today. He has grown sleepier and is breathing hard. He has not had a seizure or a fall."
+          },
+          {
+            "prompt": "Ask what was found near him",
+            "finding": "An empty container of car antifreeze was beside him in the garage. Nothing else seems to be missing, and nobody knows exactly when he drank it."
+          },
+          {
+            "prompt": "Ask about his health",
+            "finding": "He has depression and may not have been taking his medicine. He has been very low since a breakup. He used to drink heavily."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Check how alert he is, his speech and his balance",
+            "finding": "He is drowsy but wakes to your voice. His speech is slurred, his eyes flick from side to side, and he is unsteady when he moves. His breath does not smell of alcohol."
+          },
+          {
+            "prompt": "Watch his breathing",
+            "finding": "His breaths are deep and fast. His lungs sound clear."
+          },
+          {
+            "prompt": "Press on his belly and his sides",
+            "finding": "His belly is soft. He is slightly tender over both kidneys. He says his fingers and lips are tingling."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Blood and urine tests",
+          "content": "Blood acid level (pH): 7.18, acidic. Bicarbonate: 8, very low.\nAnion gap: 30, high. An unmeasured acid is in his blood.\nBlood sugar: normal. Lactate: only slightly raised, not enough to explain the acid.\nOsmolar gap: 35, high. Something is dissolved in his blood that the standard tests do not measure.\nAlcohol (ethanol) level: zero.\nKidney test (creatinine): 1.6, and rising. Calcium: low.\nUrine: envelope-shaped and needle-shaped crystals of calcium oxalate. The urine glows under ultraviolet light."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "He looks drunk with no alcohol, he is breathing as if his blood were acidic, and there was antifreeze beside him.",
+          "question": "Which tests will sort this out fastest?",
+          "options": [
+            "A CT scan of his head only",
+            "A blood alcohol level only",
+            "A blood gas, blood salts, a measured blood concentration (osmolality) and a lactate",
+            "A urine drug screen only"
+          ],
+          "fix": "Send the blood gas, salts and osmolality",
+          "terms": [
+            {
+              "term": "Anion gap",
+              "meaning": "A sum worked out from the blood salts. A high result means an extra acid is in the blood."
+            },
+            {
+              "term": "Osmolar gap",
+              "meaning": "The difference between how concentrated the blood measures and how concentrated it should be from its known contents. A high gap means an unmeasured substance is present."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "delay",
+              "minutes": 45,
+              "story": "He goes for a head scan, which is normal. Forty-five minutes have passed. He is harder to rouse and is breathing faster.",
+              "reply": "His brain is being poisoned, not injured. A scan cannot see that. While he lay there, his body turned more of the antifreeze into acid. Send the bloods.",
+              "vitals": {
+                "RR": "32 /min",
+                "HR": "114 bpm"
+              },
+              "trend": {
+                "RR": "up",
+                "HR": "up"
+              },
+              "status": "worse",
+              "alarm": "Harder to rouse · breathing faster"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request an alcohol level only. The resident adds to the order.",
+              "reply": "Worth having, and it will be zero. It cannot tell us what he did drink. We need the acid level and the two gaps."
+            },
+            {
+              "kind": "safe",
+              "minutes": 15,
+              "story": "Blood is drawn, and urine is sent to be looked at under the microscope. The results go in his chart.",
+              "reply": "Right. Those tests show an acid we cannot name and a substance we cannot see. Together they point to a toxic alcohol within minutes."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request a urine drug screen only. The resident adds to the order.",
+              "reply": "A drug screen does not look for antifreeze. It would come back clean while he gets worse."
+            }
+          ]
+        },
+        "3": {
+          "resident": "It is antifreeze. The antifreeze itself does little harm. His liver is turning it into acids that are destroying his kidneys.",
+          "question": "What do we give first?",
+          "options": [
+            "Fomepizole, which blocks the enzyme that makes the poisons",
+            "Sodium nitroprusside",
+            "High-dose insulin",
+            "Activated charcoal, and nothing else"
+          ],
+          "fix": "Give fomepizole",
+          "terms": [
+            {
+              "term": "Ethylene glycol",
+              "meaning": "The main ingredient of most car antifreeze. It tastes sweet and causes drunkenness at first."
+            },
+            {
+              "term": "Fomepizole",
+              "meaning": "An antidote that blocks alcohol dehydrogenase, the liver enzyme that turns ethylene glycol into toxic acids."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 15,
+              "story": "Fomepizole is given into a vein, with fluids. From this point his liver stops making new poison.",
+              "reply": "Right. Block the enzyme, and the antifreeze stays in its harmless form until it is cleared. The earlier it goes in, the more kidney is saved."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for nitroprusside. The pharmacist calls.",
+              "reply": "That lowers blood pressure, and his is normal. It has no place here."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for high-dose insulin. The resident shakes their head.",
+              "reply": "That is an antidote for overdoses of certain heart medicines. It does nothing for antifreeze."
+            },
+            {
+              "kind": "delay",
+              "minutes": 60,
+              "story": "He is given charcoal to drink and nothing more. An hour later he is drowsier, and his kidney test has risen again.",
+              "reply": "Charcoal does not bind alcohols, and this one was absorbed hours ago. For an hour his liver has kept making acid. Give the fomepizole.",
+              "vitals": {
+                "RR": "34 /min",
+                "HR": "120 bpm"
+              },
+              "trend": {
+                "RR": "up",
+                "HR": "up"
+              },
+              "status": "worse",
+              "alarm": "Drowsier · kidney test rising"
+            }
+          ]
+        },
+        "4": {
+          "resident": "The antidote stops new poison being made. He still has severe acid in his blood, and his kidneys are failing.",
+          "question": "What else does he need?",
+          "options": [
+            "All fluids stopped, to limit crystals forming",
+            "Dialysis, to clear the antifreeze and its acids and to correct his blood",
+            "Broad antibiotics",
+            "High-dose potassium chloride"
+          ],
+          "fix": "Call for dialysis",
+          "terms": [
+            {
+              "term": "Dialysis",
+              "meaning": "A machine that passes blood alongside a clean fluid, separated by a thin membrane, so that small unwanted molecules move out."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest stopping fluids. The resident shakes their head.",
+              "reply": "His kidneys need a good flow of fluid to keep crystals moving through. Drying him out would make them settle."
+            },
+            {
+              "kind": "safe",
+              "minutes": 60,
+              "story": "The kidney team places a dialysis line and starts the machine. Over the next hour his blood becomes less acidic and his breathing slows.",
+              "reply": "Yes. Dialysis takes out the antifreeze and the acids already made, and it does the work his kidneys cannot do right now.",
+              "vitals": {
+                "RR": "22 /min",
+                "HR": "96 bpm"
+              },
+              "trend": {
+                "RR": "down",
+                "HR": "down"
+              },
+              "alarm": "On dialysis · blood acid correcting"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest antibiotics. The resident shakes their head.",
+              "reply": "Nothing here is an infection. He has no fever, and the cause is known."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for potassium chloride. The pharmacist calls at once.",
+              "reply": "His potassium is normal, and his kidneys are failing. A large dose could stop his heart."
+            }
+          ]
+        },
+        "5": {
+          "resident": "His calcium is low and his fingers tingle. Calcium has to be given carefully in this poisoning.",
+          "question": "Why?",
+          "options": [
+            "Calcium makes the osmolar gap worse",
+            "Calcium blocks fomepizole",
+            "Extra calcium can join with oxalate and form more crystals in his kidneys, so it is given mainly for symptoms",
+            "Low calcium here never causes symptoms and is never treated"
+          ],
+          "fix": "Explain the crystal risk",
+          "terms": [
+            {
+              "term": "Oxalate",
+              "meaning": "One of the acids made from ethylene glycol. It binds calcium into hard crystals that lodge in the kidneys."
+            },
+            {
+              "term": "Tetany",
+              "meaning": "Painful muscle spasms caused by low calcium."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say calcium worsens the gap. The resident shakes their head.",
+              "reply": "Calcium has no effect on that. The worry is what it does when it meets oxalate."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say calcium blocks fomepizole. The resident shakes their head.",
+              "reply": "The two do not interact. The worry is crystals."
+            },
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "You explain it. His calcium is watched closely, with a dose ready if he develops spasms or a heart rhythm change.",
+              "reply": "Right. His calcium is low because oxalate has grabbed it. Pour in more and you make more crystals. So we treat symptoms, not the number."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say it is never treated. The resident corrects you.",
+              "reply": "Spasms, seizures or heart rhythm changes from low calcium must be treated. The point is to be careful, not to withhold it."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "His blood and urine results are in the chart.",
+        "question": "Which poisoning is this?",
+        "options": [
+          "Methanol poisoning",
+          "Diabetic ketoacidosis",
+          "Aspirin overdose",
+          "Ethylene glycol (antifreeze) poisoning"
+        ],
+        "reveal": "It is ethylene glycol poisoning. The high anion gap shows an extra acid, and the high osmolar gap shows an unmeasured substance in his blood. The low calcium and the envelope-shaped crystals in his urine are calcium bound to oxalate, which only this poison makes. Methanol raises both gaps too, but it damages the eyes and forms no crystals.",
+        "terms": [
+          {
+            "term": "Toxic alcohol",
+            "meaning": "An alcohol other than the drinking kind, such as ethylene glycol or methanol, whose breakdown products are poisonous."
+          },
+          {
+            "term": "Metabolic acidosis",
+            "meaning": "Blood made acidic by an acid the body has produced or taken in."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "In intensive care on dialysis and waking up, with the psychiatry team asked to see him",
+        "unstable": "In intensive care on dialysis and waking up, with the psychiatry team asked to see him",
+        "worse": "In intensive care on dialysis, with more kidney damage than he needed to have",
+        "critical": "In intensive care on life support"
+      },
+      "plainDiagnosis": "Poisoning with car antifreeze, which the body turns into acids that injure the kidneys (ethylene glycol poisoning).",
+      "science": [
+        {
+          "tag": "Enzymes",
+          "title": "How the antidote works",
+          "text": "Alcohol dehydrogenase has a pocket that ethylene glycol fits into, and that is where it gets converted. Fomepizole fits the same pocket and holds on far more tightly. With the pocket occupied, the antifreeze cannot be converted and leaves the body unchanged.",
+          "lesson": "enzyme-rates",
+          "lessonTitle": "Read an enzyme curve"
+        },
+        {
+          "tag": "Separation",
+          "title": "How dialysis pulls a poison out of blood",
+          "text": "The dialysis membrane has pores that let small molecules through and hold back blood cells and proteins. Small molecules move from where they are concentrated, in the blood, to where they are not, in the clean fluid. Ethylene glycol and its acids are small enough to cross.",
+          "lesson": "separation-methods",
+          "lessonTitle": "Choose a separation method"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Brent et al. (N Engl J Med 1999): fomepizole for the treatment of ethylene glycol poisoning",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/10080845/"
+        },
+        {
+          "title": "Kraut and Mullins (N Engl J Med 2018): toxic alcohols",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/29342392/"
+        }
+      ]
+    },
+    "nph-063": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "Confused, constipated _and always thirsty._",
+      "setting": "Hospital ward",
+      "start": {
+        "status": "unstable",
+        "alarm": "Confused · very thirsty · dry"
+      },
+      "handoff": "A 66-year-old woman has been getting more confused for two weeks. She is constipated, drinks constantly and passes a great deal of urine. She has smoked heavily for decades and was recently told there was a spot on her lung.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask her family about the last two weeks",
+            "finding": "She has grown confused and exhausted. She is constipated, always thirsty and passing urine all the time. Her bones ache, she feels sick and she is hardly eating."
+          },
+          {
+            "prompt": "Ask about her weight, her chest and smoking",
+            "finding": "She has lost 9 kg in three months. She has a long-standing cough and coughed up blood once last month. She smoked for 45 years. She was told recently about a spot on her lung and has not had it looked into."
+          },
+          {
+            "prompt": "Check her medicines",
+            "finding": "A water tablet (hydrochlorothiazide) for blood pressure, and a calcium and vitamin D supplement for thin bones."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Check how alert she is, and tap her reflexes",
+            "finding": "She is drowsy but wakes when spoken to. She knows her name and that she is in hospital, but not the date. Her reflexes are sluggish on both sides."
+          },
+          {
+            "prompt": "Check whether she is dry",
+            "finding": "Her mouth is dry, and pinched skin is slow to flatten."
+          },
+          {
+            "prompt": "Examine her chest, her neck and her belly",
+            "finding": "There is a fullness above her right collarbone. The bottom of her right lung sounds dull, with quiet breath sounds. Her belly is soft, with few bowel sounds."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Blood tests and chest X-ray",
+          "content": "Calcium: 14.6, very high (normal is about 8.5 to 10.5).\nPhosphate: low.\nKidney test (creatinine): 2.1, up from her usual 0.9.\nParathyroid hormone (PTH): too low to measure. Her parathyroid glands have switched off, as they should when calcium is high.\nPTHrP, a protein that mimics parathyroid hormone: very high.\nVitamin D: normal. Thyroid: normal.\nChest X-ray: a 5 cm mass at the root of the right lung, with fluid at the base."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "Confusion, constipation, thirst and passing a lot of urine, in someone who may have a lung tumor. One blood result would tie all of that together.",
+          "question": "Which one?",
+          "options": [
+            "A low sodium",
+            "A high calcium",
+            "A low blood sugar",
+            "A high potassium"
+          ],
+          "fix": "Check her calcium",
+          "terms": [
+            {
+              "term": "Hypercalcemia",
+              "meaning": "Too much calcium in the blood. It slows nerves, the gut and thinking, and it makes the kidneys lose water."
+            },
+            {
+              "term": "Polyuria",
+              "meaning": "Passing an unusually large amount of urine."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest a low sodium. The resident shakes their head.",
+              "reply": "Low sodium can cause confusion, but not thirst with floods of urine and constipation. One abnormality explains all four."
+            },
+            {
+              "kind": "safe",
+              "minutes": 30,
+              "story": "Blood is sent for calcium and the tests that explain it, and a chest X-ray is done. The results go in her chart.",
+              "reply": "Right. High calcium dulls the brain, slows the bowel and stops the kidneys holding on to water. In a smoker with a lung mass, it is the first thing to check."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest a low blood sugar. The resident shakes their head.",
+              "reply": "Low sugar comes on over minutes, with sweating and shaking. This has built up over two weeks."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest a high potassium. The resident shakes their head.",
+              "reply": "High potassium affects the heart and muscles. It does not cause thirst, constipation and confusion."
+            }
+          ]
+        },
+        "3": {
+          "resident": "Her calcium is 14.6, and her kidneys are struggling. She has been passing urine for days and is very dry.",
+          "question": "What is the first treatment?",
+          "options": [
+            "Plenty of salt-water fluid into a vein",
+            "A strong water tablet (furosemide) and nothing else",
+            "Phosphate by mouth",
+            "Dialysis"
+          ],
+          "fix": "Start fluids",
+          "terms": [
+            {
+              "term": "Isotonic saline",
+              "meaning": "Salt water at the same concentration as blood, used to refill the circulation."
+            },
+            {
+              "term": "Loop diuretic",
+              "meaning": "A strong water tablet, such as furosemide, that makes the kidneys pass more urine."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 60,
+              "story": "Fluid runs in steadily, and her water tablet and calcium supplement are stopped. Over the hour her pulse settles, and she starts to follow the conversation.",
+              "reply": "Right. The high calcium has drained her of water, and a dry kidney cannot get rid of calcium. Fluid breaks that circle.",
+              "vitals": {
+                "HR": "88 bpm"
+              },
+              "trend": {
+                "HR": "down"
+              },
+              "alarm": "Fluids running"
+            },
+            {
+              "kind": "delay",
+              "minutes": 120,
+              "story": "Furosemide is given with no fluids. She passes still more urine. Two hours later she is drier and more confused, and her blood pressure has dropped.",
+              "reply": "She was already dry. A water tablet took more fluid out, and her calcium is now more concentrated than before. Fluids first, always.",
+              "vitals": {
+                "BP": "104/62 mmHg",
+                "HR": "114 bpm"
+              },
+              "trend": {
+                "BP": "down",
+                "HR": "up"
+              },
+              "status": "worse",
+              "alarm": "Drier and more confused"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest phosphate. The resident shakes their head.",
+              "reply": "It does very little here, and it can cause calcium to deposit in her tissues. She needs fluid."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest dialysis. The resident shakes their head.",
+              "reply": "That is for the rare patient whose kidneys cannot handle fluid at all. Hers should recover once she is refilled."
+            }
+          ]
+        },
+        "4": {
+          "resident": "After fluids her calcium is still 13.8. Fluids alone will not hold it down while the tumor keeps sending its signal.",
+          "question": "Which medicine brings it down for longest?",
+          "options": [
+            "Calcitriol by mouth",
+            "A bisphosphonate into a vein, such as zoledronic acid",
+            "A thiazide water tablet",
+            "Calcium gluconate"
+          ],
+          "fix": "Give a bisphosphonate",
+          "terms": [
+            {
+              "term": "Bisphosphonate",
+              "meaning": "A medicine that switches off the cells that dissolve bone, so less calcium is released into the blood."
+            },
+            {
+              "term": "Osteoclast",
+              "meaning": "A cell that breaks down bone."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for calcitriol. The pharmacist calls.",
+              "reply": "That is active vitamin D. It makes the gut absorb more calcium, which is the last thing she needs."
+            },
+            {
+              "kind": "safe",
+              "minutes": 15,
+              "story": "The infusion is given, at a dose adjusted for her kidneys. The cancer team is asked to see her about the lung mass.",
+              "reply": "Yes. It takes two or three days to work, and it lasts for weeks. The lasting answer is treating the cancer itself."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for a thiazide. The resident points at her chart.",
+              "reply": "A thiazide makes the kidneys hold on to calcium. She was on one, and we stopped it this morning for that reason."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for calcium gluconate. The pharmacist calls at once.",
+              "reply": "That is calcium. Her problem is too much of it."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "Her blood tests and chest X-ray are in the chart. Look at the PTH beside the PTHrP.",
+        "question": "Why is her calcium high?",
+        "options": [
+          "An overactive parathyroid gland",
+          "A cancer releasing a protein that acts like parathyroid hormone (humoral hypercalcemia of malignancy)",
+          "Too much vitamin D",
+          "Too much calcium and antacid by mouth (milk-alkali syndrome)"
+        ],
+        "reveal": "A tumor is releasing PTHrP, a protein that imitates parathyroid hormone. It tells her bones to give up calcium and her kidneys to keep it. Her own parathyroid glands have shut down, which is why her PTH is unmeasurable. An overactive gland would show a high PTH, and vitamin D excess a high vitamin D level. The mass in her lung is the likely source.",
+        "terms": [
+          {
+            "term": "PTH",
+            "meaning": "Parathyroid hormone, which raises blood calcium by acting on bone and kidney."
+          },
+          {
+            "term": "PTHrP",
+            "meaning": "Parathyroid hormone-related protein. Some cancers make it, and the body responds as if it were PTH."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "On the ward on fluids, more alert, with her calcium falling and the cancer team involved",
+        "unstable": "On the ward on fluids, more alert, with her calcium falling and the cancer team involved",
+        "worse": "On the ward on fluids, with her calcium falling after a harder start than she needed",
+        "critical": "In intensive care"
+      },
+      "plainDiagnosis": "A dangerously high blood calcium caused by a hormone-like protein from a tumor (hypercalcemia of malignancy).",
+      "science": [
+        {
+          "tag": "Feedback",
+          "title": "Why her own parathyroid hormone was unmeasurable",
+          "text": "Parathyroid glands sense calcium directly: when it rises, they stop releasing PTH. Hers did exactly that. The tumor’s look-alike protein answers to no such sensor, so it kept pushing calcium up after the body’s own control had switched off.",
+          "lesson": "endocrine-feedback",
+          "lessonTitle": "Trace a hormonal feedback loop"
+        },
+        {
+          "tag": "The nephron",
+          "title": "Why high calcium made her pass so much urine",
+          "text": "The kidney saves water by drawing it out of the last part of the tubule, on a signal from ADH. High calcium blunts the tubule’s response to that signal. Water stays in the urine, she loses liters, and the thirst never catches up.",
+          "lesson": "renal-water",
+          "lessonTitle": "Regulate water in the nephron"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Stewart (N Engl J Med 2005): hypercalcemia associated with cancer",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/15673803/"
+        },
+        {
+          "title": "El-Hajj Fuleihan et al. (J Clin Endocrinol Metab 2023): treatment of hypercalcemia of malignancy in adults, an Endocrine Society clinical practice guideline",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/36545746/"
         }
       ]
     }
