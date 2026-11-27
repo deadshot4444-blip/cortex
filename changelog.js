@@ -5,6 +5,21 @@
 
 const CHANGELOG = [
   {
+    version: '2.44.0',
+    tag: 'NEW',
+    date: 'November 26, 2026',
+    title: 'Clinical Shift: patients who react, in all 26 specialties',
+    items: [
+      'Patients in Clinical Shift now react to what you decide. Each call moves a shift clock, and an unsafe one can leave the patient worse on the bedside monitor before the resident steps in.',
+      'Every specialty has a rotation: 26 in all, with 87 patients. Emergency Medicine, Cardiology and Neurology have six patients each, and the other 23 specialties have three each.',
+      'Shuffle, the first card on the rotation list, draws a patient from any rotation, starting with those you have not met.',
+      'A shift is four steps: handoff, investigate, decide, debrief. One tap answers each question and nothing has to be typed. Questions, exams and results are in plain words, with the clinical wording one tap away.',
+      'The debrief shows a timeline of what happened to your patient, reviews each call and links the science behind the case to MCAT lessons.',
+      'Each case lists its sources, and every source was checked. Independent clinician review is still pending. These are fictional patients for practice, and nothing here is medical advice.',
+      'Shifts you finished earlier keep their scores, and the classic case bank is still one click away.',
+    ],
+  },
+  {
     version: '2.43.0',
     tag: 'UPDATE',
     date: 'November 18, 2026',
