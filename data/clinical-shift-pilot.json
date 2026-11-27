@@ -1,7 +1,7 @@
 {
-  "version": 22,
+  "version": 23,
   "title": "Clinical Shift foundations and rotation practice",
-  "reviewStatus": "Source and consistency checks are recorded with each encounter. Independent clinician review remains pending for all 51 encounters.",
+  "reviewStatus": "Source and consistency checks are recorded with each encounter. Independent clinician review remains pending for all 54 encounters.",
   "rotations": [
     {
       "key": "emergency-medicine",
@@ -150,6 +150,16 @@
         "endo-046",
         "endo-042",
         "endo-001"
+      ]
+    },
+    {
+      "key": "hematology-oncology",
+      "name": "Hematology & Oncology",
+      "description": "White cells that cannot fight, blood that will not clot, and a transfusion gone wrong.",
+      "caseIds": [
+        "ho-064",
+        "ho-016",
+        "ho-048"
       ]
     }
   ],
@@ -357,6 +367,18 @@
     "endo-001": {
       "assessment": "54-year-old man with obesity, hypertension, hyperlipidemia, and a family history of diabetes, with three months of polyuria, polydipsia, and weight loss and acanthosis nigricans. HbA1c 9.2%, fasting glucose 214 mg/dL, glucosuria without ketones, and normal kidney function: new type 2 diabetes mellitus.",
       "plan": "Lifestyle counseling and metformin, titrated as tolerated. Dilated retinal examination and comprehensive foot examination now, with annual urine albumin and kidney function. Address blood pressure and LDL cholesterol, and review the choice of additional agents by cardiovascular and kidney risk. Recheck HbA1c in three months."
+    },
+    "ho-064": {
+      "assessment": "52-year-old woman 10 days after dose-dense chemotherapy for breast cancer with a temperature of 38.7 °C, tachycardia, and no localizing source. WBC 0.8, absolute neutrophil count 180 cells/µL, lactate 1.8, clear chest radiograph: febrile neutropenia.",
+      "plan": "Blood cultures from a peripheral vein and the port, then an empiric antipseudomonal beta-lactam (cefepime or piperacillin-tazobactam) within one hour of arrival. Add vancomycin only for specific indications. Admit for IV antibiotics and monitoring given profound neutropenia with an expected prolonged nadir."
+    },
+    "ho-016": {
+      "assessment": "55-year-old man who develops rigors, flank pain, hypotension, fever, and hemoglobinuria 10 minutes into a red cell transfusion. Positive direct antiglobulin test, pink plasma, undetectable haptoglobin, rising creatinine, falling fibrinogen; clerical check shows a group A unit given to a group O patient: acute hemolytic transfusion reaction from ABO incompatibility.",
+      "plan": "Stop the transfusion at once, keep the line open with saline through new tubing, and notify the blood bank, returning the unit and tubing with fresh samples. Aggressive IV fluids to support blood pressure and maintain brisk urine output; monitor for kidney injury, hyperkalemia, and DIC. Report the event; prevention is bedside identity checking before every transfusion."
+    },
+    "ho-048": {
+      "assessment": "39-year-old woman with days of mucocutaneous and vaginal bleeding, pancytopenia (platelets 18), PT 22 s, aPTT 48 s, fibrinogen 90 mg/dL, and markedly elevated D-dimer. Smear shows hypergranular promyelocytes with bundled Auer rods; PML-RARA positive: acute promyelocytic leukemia with DIC.",
+      "plan": "Start all-trans retinoic acid immediately on morphologic suspicion, with aggressive product support (platelets, cryoprecipitate or fibrinogen, plasma) to set targets. Add arsenic trioxide or chemotherapy by risk group. Watch for differentiation syndrome (fever, dyspnea, hypoxia, infiltrates, weight gain) and treat at once with dexamethasone."
     }
   },
   "investigations": {
@@ -1889,6 +1911,96 @@
           "finding": "Slightly dry mucous membranes. No Kussmaul breathing and no fruity breath odor."
         }
       ]
+    },
+    "ho-064": {
+      "interview": [
+        {
+          "prompt": "Characterize the fever",
+          "finding": "Temperature of 38.6 °C at home with chills and malaise since this afternoon, with mild fatigue and a slightly sore throat."
+        },
+        {
+          "prompt": "Review the chemotherapy timeline",
+          "finding": "Dose-dense chemotherapy for breast cancer, last infusion 10 days ago, at the expected count nadir. A tunneled central venous port is in place."
+        },
+        {
+          "prompt": "Screen for a source",
+          "finding": "No cough, dysuria, abdominal pain, diarrhea or rash."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Inspect the mouth and throat",
+          "finding": "Mildly erythematous posterior pharynx without exudate. No mucositis ulceration."
+        },
+        {
+          "prompt": "Examine the port site and skin",
+          "finding": "Port site clean, without erythema, tenderness or discharge. No rash or cellulitis."
+        },
+        {
+          "prompt": "Examine the chest, abdomen and perianal area",
+          "finding": "Clear lungs, sinus tachycardia, a soft nontender abdomen, and no perianal tenderness or fluctuance."
+        }
+      ]
+    },
+    "ho-016": {
+      "interview": [
+        {
+          "prompt": "Characterize the symptoms and their timing",
+          "finding": "About 10 minutes into a packed red cell transfusion: shaking chills, a sense of impending doom, severe back and flank pain, pain at the IV site and dark red urine."
+        },
+        {
+          "prompt": "Review why he is being transfused",
+          "finding": "Admitted after a motor vehicle collision with a pelvic fracture and blood loss; hemoglobin 6.8 g/dL on day two."
+        },
+        {
+          "prompt": "Ask about breathing, itching and swelling",
+          "finding": "No shortness of breath, itching, wheeze or throat tightness."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Check the airway, skin and chest",
+          "finding": "No stridor, wheeze, facial swelling or urticaria. Lungs are clear."
+        },
+        {
+          "prompt": "Examine the flanks, the IV site and the urine",
+          "finding": "Tenderness along both flanks and at the transfusion IV site. The Foley catheter drains grossly red-tinged urine."
+        },
+        {
+          "prompt": "Assess perfusion",
+          "finding": "Diaphoretic, flushed and anxious, with tachycardia and mildly delayed capillary refill. No jaundice yet."
+        }
+      ]
+    },
+    "ho-048": {
+      "interview": [
+        {
+          "prompt": "Characterize the bleeding",
+          "finding": "Several days of worsening spontaneous bruising, epistaxis and gum bleeding, now with heavy vaginal bleeding."
+        },
+        {
+          "prompt": "Ask about constitutional symptoms",
+          "finding": "Two weeks of feeling increasingly unwell with low-grade fevers, profound fatigue and dyspnea."
+        },
+        {
+          "prompt": "Review medications and risk factors for bleeding",
+          "finding": "No trauma, anticoagulant use or known liver disease. Takes only an oral contraceptive."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Inspect the skin, gums and venipuncture sites",
+          "finding": "Diffuse ecchymoses and petechiae over the trunk and extremities, with active oozing from the gingiva and venipuncture sites."
+        },
+        {
+          "prompt": "Examine the heart, lungs and abdomen",
+          "finding": "Tachycardic with a flow murmur and clear lungs. Soft abdomen without marked hepatosplenomegaly. Active vaginal bleeding."
+        },
+        {
+          "prompt": "Assess mental status and neurologic signs",
+          "finding": "Mildly confused, with no focal neurologic deficit and no nuchal rigidity."
+        }
+      ]
     }
   },
   "caseReviews": {
@@ -2709,6 +2821,54 @@
         {
           "title": "UK Prospective Diabetes Study Group (Lancet 1998): effect of intensive blood-glucose control with metformin on complications in overweight patients with type 2 diabetes (UKPDS 34)",
           "url": "https://pubmed.ncbi.nlm.nih.gov/9742977/"
+        }
+      ]
+    },
+    "ho-064": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Treat fever during chemotherapy as an emergency and give broad antibiotics within the hour.",
+      "alternativesAndLimits": "Carefully selected low-risk patients can be treated with oral antibiotics as outpatients after formal risk scoring. The antibiotic chosen follows local resistance patterns.",
+      "sources": [
+        {
+          "title": "Freifeld et al. (Clin Infect Dis 2011): clinical practice guideline for the use of antimicrobial agents in neutropenic patients with cancer, 2010 update by the IDSA",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/21258094/"
+        },
+        {
+          "title": "Taplitz et al. (J Clin Oncol 2018): outpatient management of fever and neutropenia in adults treated for malignancy, ASCO and IDSA clinical practice guideline update",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/29461916/"
+        }
+      ]
+    },
+    "ho-016": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Stop a transfusion at the first sign of a reaction and protect the kidneys with fluids.",
+      "alternativesAndLimits": "The severity depends on how much incompatible blood was given. Vasopressors, dialysis or blood products for DIC may be needed in severe reactions.",
+      "sources": [
+        {
+          "title": "Delaney et al. (Lancet 2016): transfusion reactions, prevention, diagnosis, and treatment",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/27083327/"
+        },
+        {
+          "title": "Panch, Montemayor-Garcia and Klein (N Engl J Med 2019): hemolytic transfusion reactions",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/31291517/"
+        }
+      ]
+    },
+    "ho-048": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Recognize acute promyelocytic leukemia from the smear and the clotting tests and start ATRA without waiting for genetics.",
+      "alternativesAndLimits": "Bleeding into the brain on one path is a recognized cause of early death in this disease and is written here for teaching. Transfusion targets follow expert guidance.",
+      "sources": [
+        {
+          "title": "Sanz et al. (Blood 2019): management of acute promyelocytic leukemia, updated recommendations from an expert panel of the European LeukemiaNet",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/30803991/"
+        },
+        {
+          "title": "Lo-Coco et al. (N Engl J Med 2013): retinoic acid and arsenic trioxide for acute promyelocytic leukemia",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/23841729/"
         }
       ]
     }
@@ -17484,6 +17644,881 @@
         {
           "title": "UK Prospective Diabetes Study Group (Lancet 1998): effect of intensive blood-glucose control with metformin on complications in overweight patients with type 2 diabetes (UKPDS 34)",
           "url": "https://pubmed.ncbi.nlm.nih.gov/9742977/"
+        }
+      ]
+    },
+    "ho-064": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "A fever, _ten days after chemotherapy._",
+      "setting": "Emergency department",
+      "start": {
+        "status": "unstable",
+        "alarm": "Fever 38.7 · ten days after chemotherapy"
+      },
+      "handoff": "A 52-year-old woman is having chemotherapy for breast cancer. Her last treatment was ten days ago. This afternoon she developed a fever of 38.6 °C with chills.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask about the fever",
+            "finding": "It started this afternoon: 38.6 °C at home, with chills. She feels unwell and tired, and her throat is slightly sore."
+          },
+          {
+            "prompt": "Ask about her chemotherapy",
+            "finding": "She is on an intensive schedule for breast cancer, and her last dose was ten days ago. Her cancer team told her that her blood counts would be at their lowest about now. She has a port under the skin of her chest for the infusions."
+          },
+          {
+            "prompt": "Ask about symptoms that might show where an infection is",
+            "finding": "No cough, no burning when she passes urine, no belly pain, no diarrhea and no rash."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Look in her mouth and throat",
+            "finding": "The back of her throat is slightly red. There are no ulcers and no pus."
+          },
+          {
+            "prompt": "Look at her port and her skin",
+            "finding": "The skin over the port is clean, with no redness, tenderness or discharge. There is no rash anywhere."
+          },
+          {
+            "prompt": "Listen to her chest, feel her belly and check around her anus",
+            "finding": "Her lungs are clear and her heart is fast. Her belly is soft. The skin around her anus is not tender or swollen."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Blood tests, chest X-ray and urine",
+          "content": "White blood cells: 0.8, very low.\nNeutrophils, the white cells that kill bacteria: 180 (normal is above 1,500, and below 500 is dangerous).\nHemoglobin: 10.4, low. Platelets: 95, low.\nLactate: 1.8, normal.\nChest X-ray: clear. Urine: clear.\nBlood cultures: sent, results pending."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "A fever ten days after chemotherapy, right when her white cells are at their lowest. She looks fairly well. That should not reassure anyone.",
+          "question": "What is the most important thing to do now?",
+          "options": [
+            "Take a blood count and blood cultures, and give antibiotics within the hour",
+            "Wait for the neutrophil count to confirm it before giving any antibiotic",
+            "Give acetaminophen and watch her for six hours",
+            "Get a CT scan of her chest and belly before starting treatment"
+          ],
+          "fix": "Take cultures and give antibiotics within the hour",
+          "terms": [
+            {
+              "term": "Neutrophils",
+              "meaning": "The white blood cells that find and kill bacteria. Chemotherapy wipes them out for a week or two."
+            },
+            {
+              "term": "Nadir",
+              "meaning": "The lowest point of the blood counts after a dose of chemotherapy."
+            },
+            {
+              "term": "Blood cultures",
+              "meaning": "Blood samples kept warm to see whether bacteria grow."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 15,
+              "story": "Blood is taken from her arm and from her port, and the count is sent urgently. The first antibiotic will go in as soon as it is chosen. The results go in her chart.",
+              "reply": "Right. With no neutrophils, an infection can go from a fever to shock in hours. The antibiotic goes in within the hour, whatever the count turns out to be."
+            },
+            {
+              "kind": "delay",
+              "minutes": 90,
+              "story": "The lab is busy, and the count takes ninety minutes. By then she is shaking with chills, and her blood pressure has dropped.",
+              "reply": "We already knew when her last chemotherapy was, and that was enough to act on. Bacteria double every twenty minutes, and she has nothing to stop them. Give the antibiotic now.",
+              "vitals": {
+                "BP": "92/56 mmHg",
+                "HR": "122 bpm"
+              },
+              "trend": {
+                "BP": "down",
+                "HR": "up"
+              },
+              "status": "worse",
+              "alarm": "Shaking chills · blood pressure dropping"
+            },
+            {
+              "kind": "delay",
+              "minutes": 360,
+              "story": "The acetaminophen brings her temperature down, and she is left to rest. Six hours later a nurse finds her confused, with a very low blood pressure.",
+              "reply": "The medicine hid the fever, and the infection carried on underneath. She is now in septic shock. She needed antibiotics six hours ago.",
+              "vitals": {
+                "BP": "80/46 mmHg",
+                "HR": "134 bpm",
+                "RR": "28 /min"
+              },
+              "trend": {
+                "BP": "down",
+                "HR": "up",
+                "RR": "up"
+              },
+              "status": "critical",
+              "alarm": "Confused · blood pressure 80 over 46"
+            },
+            {
+              "kind": "delay",
+              "minutes": 60,
+              "story": "She waits for the scanner. An hour passes with no antibiotic. Her heart rate climbs and her blood pressure drifts down.",
+              "reply": "A scan can come later if we need to find a source. It must never hold up the first dose. Give the antibiotic.",
+              "vitals": {
+                "BP": "96/58 mmHg",
+                "HR": "118 bpm"
+              },
+              "trend": {
+                "BP": "down",
+                "HR": "up"
+              },
+              "status": "worse",
+              "alarm": "Heart rate climbing · no antibiotic yet"
+            }
+          ]
+        },
+        "3": {
+          "resident": "Her neutrophil count is 180. There is no obvious source, which is usual: without white cells, infections make little pus or redness.",
+          "question": "Which antibiotic goes in?",
+          "options": [
+            "Azithromycin tablets",
+            "Cefepime or piperacillin-tazobactam into a vein, which cover Pseudomonas",
+            "Vancomycin alone",
+            "Fluconazole alone"
+          ],
+          "fix": "Give an antipseudomonal antibiotic",
+          "terms": [
+            {
+              "term": "Pseudomonas",
+              "meaning": "A bacterium that lives in water and soil. It rarely harms healthy people and can kill people without neutrophils within a day."
+            },
+            {
+              "term": "Empiric",
+              "meaning": "Chosen to cover the likely causes before any test has named one."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for azithromycin tablets. The pharmacist calls.",
+              "reply": "That misses most of the dangerous bacteria here, and tablets are too slow and too uncertain. She needs a broad antibiotic into a vein."
+            },
+            {
+              "kind": "safe",
+              "minutes": 15,
+              "story": "Cefepime is run in through her drip, forty minutes after she arrived.",
+              "reply": "Right. The bacteria that kill fastest in this situation come from the gut, and Pseudomonas is the one we must not miss. This covers them.",
+              "alarm": "First antibiotic dose running"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for vancomycin alone. The resident adds to the order.",
+              "reply": "Vancomycin covers skin bacteria and misses the gut bacteria completely. It is added only if her port or her skin looks infected."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for fluconazole alone. The resident changes the order.",
+              "reply": "That treats yeast. Fungal infection becomes a worry after days of fever on antibiotics, not on day one."
+            }
+          ]
+        },
+        "4": {
+          "resident": "The first dose is in, and her blood pressure is holding. A few people with this condition can go home on tablets. She is not one of them.",
+          "question": "What is the main reason to admit her?",
+          "options": [
+            "Her neutrophil count is very low, and it is expected to stay low for days",
+            "She has an underactive thyroid",
+            "Breast cancer runs in her family",
+            "She takes ondansetron at home"
+          ],
+          "fix": "Explain why she needs admission",
+          "terms": [
+            {
+              "term": "Risk score",
+              "meaning": "A checklist that sorts patients with this condition into those who are safe at home and those who need hospital care."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "You explain it to her, and she is admitted to the cancer ward.",
+              "reply": "Right. The lower the count and the longer it will last, the higher the risk. Treatment at home is for people whose counts will recover within a few days."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You point to her thyroid. The resident shakes their head.",
+              "reply": "A thyroid that is well controlled on tablets makes no difference to this risk."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You point to her family history. The resident shakes their head.",
+              "reply": "That bears on why she got cancer. It has nothing to do with tonight’s infection."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You point to the ondansetron. The resident shakes their head.",
+              "reply": "An anti-sickness tablet does not change her risk. Her neutrophil count does."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "Her blood count, X-ray and urine results are in the chart.",
+        "question": "What is this?",
+        "options": [
+          "A simple cold",
+          "Febrile neutropenia: a fever in someone with almost no infection-fighting white cells",
+          "A fever caused by her thyroid tablet",
+          "A clot around her chest port"
+        ],
+        "reveal": "It is febrile neutropenia. Chemotherapy has knocked out her bone marrow, and her neutrophil count of 180 is far below the 500 that marks danger. A fever in that state is treated as a serious bacterial infection until proven otherwise, even when no source can be found. It may turn out to be a cold, but nobody can safely assume so tonight.",
+        "terms": [
+          {
+            "term": "Neutropenia",
+            "meaning": "Too few neutrophils in the blood."
+          },
+          {
+            "term": "Sepsis",
+            "meaning": "The body’s dangerous, whole-body reaction to an infection."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "Admitted to the cancer ward, with antibiotics started inside the first hour",
+        "unstable": "Admitted to the cancer ward, with antibiotics started inside the first hour",
+        "worse": "Admitted on antibiotics, after a delay that let the infection take hold",
+        "critical": "In intensive care with septic shock"
+      },
+      "plainDiagnosis": "A fever while chemotherapy has wiped out the white cells that fight bacteria (febrile neutropenia).",
+      "science": [
+        {
+          "tag": "Cell division",
+          "title": "Why her counts were lowest on day ten",
+          "text": "Chemotherapy kills cells that are dividing. Cancer cells divide fast, and so do the bone marrow cells that make blood. Neutrophils live only a day or so, and the marrow’s reserve lasts about a week. When it ran out, nothing was coming up to replace them.",
+          "lesson": "cell-cycle-checkpoints",
+          "lessonTitle": "Explain a cell-cycle pause"
+        },
+        {
+          "tag": "Evidence",
+          "title": "Why finding nothing did not mean nothing was there",
+          "text": "Redness, swelling and pus are produced by neutrophils arriving at an infection. With no neutrophils, an infected lung can look clear on an X-ray, and an infected skin site can look normal. A normal exam is weak evidence when the body cannot make the signs.",
+          "lesson": "uncertainty-controls",
+          "lessonTitle": "Match evidence to a conclusion"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Freifeld et al. (Clin Infect Dis 2011): clinical practice guideline for the use of antimicrobial agents in neutropenic patients with cancer, 2010 update by the IDSA",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/21258094/"
+        },
+        {
+          "title": "Taplitz et al. (J Clin Oncol 2018): outpatient management of fever and neutropenia in adults treated for malignancy, ASCO and IDSA clinical practice guideline update",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/29461916/"
+        }
+      ]
+    },
+    "ho-016": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "Ten minutes into a transfusion, _something is wrong._",
+      "setting": "Hospital ward",
+      "start": {
+        "status": "unstable",
+        "alarm": "Shaking, back pain and red urine · transfusion running"
+      },
+      "handoff": "A 55-year-old man broke his pelvis in a car crash two days ago and lost a lot of blood. A blood transfusion was started ten minutes ago. He is now shaking, has severe pain in his back, and says something terrible is happening. His urine has turned red.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask what he is feeling",
+            "finding": "About ten minutes after the blood started he began shaking with chills. He has severe pain in his back and sides and pain in the arm with the drip. He feels that something terrible is about to happen. His urine has turned dark red."
+          },
+          {
+            "prompt": "Check why he is having blood",
+            "finding": "He fractured his pelvis in a car crash two days ago and bled. His hemoglobin fell to 6.8 today."
+          },
+          {
+            "prompt": "Ask about his breathing, itching and swelling",
+            "finding": "He is not short of breath. He has no itching, and his throat does not feel tight."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Check his airway, his skin and his chest",
+            "finding": "He breathes without noise or wheeze. His face is not swollen, and he has no hives. His lungs are clear."
+          },
+          {
+            "prompt": "Feel his sides and his drip site, and look at his urine bag",
+            "finding": "Both sides of his back are tender, and so is the vein the blood is running into. The urine in his catheter bag is red."
+          },
+          {
+            "prompt": "Check his circulation",
+            "finding": "He is flushed, sweaty and frightened. His pulse is fast, and a pressed fingertip is slow to turn pink again."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Blood tests, urine and paperwork check",
+          "content": "Antibody test on his red cells (direct Coombs test): positive.\nHis plasma: pink, from hemoglobin spilled out of burst red cells.\nPaperwork check: he is blood group O. The unit that was hung is group A.\nHaptoglobin, a protein that mops up free hemoglobin: used up.\nLDH: very high.\nUrine: positive for blood on the test strip, with no red cells under the microscope.\nKidney test (creatinine): 1.4 and rising, from 0.9.\nClotting: fibrinogen is falling."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "Chills, back pain, red urine and a falling blood pressure, minutes after blood was started. The bag is still running.",
+          "question": "What is the single most important thing to do?",
+          "options": [
+            "Slow the transfusion and give acetaminophen",
+            "Stop the transfusion now, keep the drip open with saline and call the blood bank",
+            "Give adrenaline into the muscle",
+            "Give furosemide to protect his kidneys"
+          ],
+          "fix": "Stop the transfusion",
+          "terms": [
+            {
+              "term": "Transfusion reaction",
+              "meaning": "Any harmful response to donated blood."
+            },
+            {
+              "term": "Blood bank",
+              "meaning": "The hospital laboratory that matches donor blood to patients."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "delay",
+              "minutes": 15,
+              "story": "The drip is slowed, and he is given acetaminophen. The blood keeps running. Fifteen minutes later his blood pressure has collapsed, and his urine is the color of cola.",
+              "reply": "Every milliliter of that blood is being destroyed inside him. Slowing it only spreads the harm over a longer time. Stop it.",
+              "vitals": {
+                "BP": "76/44 mmHg",
+                "HR": "138 bpm"
+              },
+              "trend": {
+                "BP": "down",
+                "HR": "up"
+              },
+              "status": "critical",
+              "alarm": "Blood pressure 76 over 44 · urine dark brown"
+            },
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "You clamp the line. The nurse disconnects the blood, runs saline through new tubing and phones the blood bank. The bag goes back to the lab with fresh samples of his blood and urine. The results go in his chart.",
+              "reply": "Right. Stop first, think second. The less of that unit he gets, the better he does. Then the lab can work out what went wrong."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You reach for adrenaline. The nurse clamps the blood line first.",
+              "reply": "Adrenaline is for an allergic reaction, with hives, wheeze or a swelling throat. He has none of those. And the first step in any reaction is to stop the blood."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for furosemide. The nurse clamps the blood line first.",
+              "reply": "Protecting his kidneys matters, and fluids do that better. But nothing comes before stopping the blood."
+            }
+          ]
+        },
+        "3": {
+          "resident": "The transfusion is stopped. The red cells he was given are bursting, and free hemoglobin is on its way to his kidneys. His blood pressure is low.",
+          "question": "What protects his kidneys now?",
+          "options": [
+            "Plenty of fluid into a vein, to keep his blood pressure up and his urine flowing",
+            "Dialysis straight away",
+            "High-dose steroids",
+            "Limiting his fluids, to avoid fluid on the lungs"
+          ],
+          "fix": "Run fluids fast",
+          "terms": [
+            {
+              "term": "Hemoglobinuria",
+              "meaning": "Free hemoglobin in the urine, which turns it red or brown."
+            },
+            {
+              "term": "Hemolysis",
+              "meaning": "Red blood cells bursting open."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 30,
+              "story": "Saline is run in fast, and his urine output is measured every hour. His blood pressure recovers, and his urine starts to clear.",
+              "reply": "Yes. A good flow of urine washes the hemoglobin through before it can clog and poison the kidney tubules. It also holds his blood pressure up.",
+              "vitals": {
+                "BP": "108/66 mmHg",
+                "HR": "104 bpm"
+              },
+              "trend": {
+                "BP": "up",
+                "HR": "down"
+              },
+              "alarm": "Fluids running · urine clearing"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for dialysis. The resident shakes their head.",
+              "reply": "Dialysis is for kidneys that have already failed. His are still working, and fluids are how we keep them that way."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for steroids. The resident shakes their head.",
+              "reply": "Steroids do not stop this kind of destruction once it has begun. Fluids are what protect him."
+            },
+            {
+              "kind": "delay",
+              "minutes": 120,
+              "story": "His fluids are kept low. Two hours later he has passed almost no urine, and his kidney test has climbed.",
+              "reply": "His lungs are clear, and his kidneys are being clogged with hemoglobin. Holding back fluid let it settle. Open the drip.",
+              "status": "worse",
+              "alarm": "Almost no urine · kidney test rising"
+            }
+          ]
+        },
+        "4": {
+          "resident": "The blood bank has the answer: he is group O, and the unit was group A. It was meant for the patient in the next bed.",
+          "question": "What prevents this from happening?",
+          "options": [
+            "Giving acetaminophen and an antihistamine before every transfusion",
+            "Using blood with the white cells filtered out",
+            "Checking the patient’s identity against the unit at the bedside, every time, before the blood is hung",
+            "Washing the red cells before they are given"
+          ],
+          "fix": "Name the bedside check",
+          "terms": [
+            {
+              "term": "Bedside check",
+              "meaning": "Two members of staff confirming the patient’s name, date of birth and wristband against the label on the unit, at the bedside, just before starting."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest medicines beforehand. The resident shakes their head.",
+              "reply": "Those blunt mild fevers and itching. They do nothing if the wrong blood goes into the wrong person."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest filtered blood. The resident shakes their head.",
+              "reply": "Filtering out white cells reduces fever reactions. It does not change the blood group of the red cells."
+            },
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "You say it plainly. The ward manager starts an incident report, and the event is explained honestly to him.",
+              "reply": "Right. Almost every reaction like this comes from a mix-up of patient or sample, not from a failure of the lab. The check at the bedside is the last chance to catch it."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest washing the cells. The resident shakes their head.",
+              "reply": "Washing removes plasma proteins, for patients with severe allergic reactions. The cells would still be the wrong group."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "The blood tests, urine result and paperwork check are in his chart.",
+        "question": "What kind of reaction is this?",
+        "options": [
+          "A fever reaction to the donor’s white cells, with no damage to red cells",
+          "An acute hemolytic reaction: his antibodies are destroying the donor red cells because the blood group is wrong",
+          "A severe allergic reaction (anaphylaxis)",
+          "Too much fluid in his circulation from the transfusion"
+        ],
+        "reveal": "He was given blood of the wrong group. He is group O, so his blood carries ready-made antibodies against group A. They attached to the donor cells within seconds and burst them inside his blood vessels. The pink plasma and red urine are the spilled hemoglobin. A simple fever reaction destroys no red cells, and an allergic reaction brings hives and wheeze.",
+        "terms": [
+          {
+            "term": "ABO blood groups",
+            "meaning": "The four main blood groups: A, B, AB and O, named for the markers on red cells."
+          },
+          {
+            "term": "Antibody",
+            "meaning": "A protein made by the immune system that sticks to one specific target."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "On the ward on fluids, with his kidneys holding and the mix-up being investigated",
+        "unstable": "On the ward on fluids, with his kidneys holding and the mix-up being investigated",
+        "worse": "On the ward on fluids, with his kidneys injured",
+        "critical": "In intensive care with kidney failure and a clotting disorder"
+      },
+      "plainDiagnosis": "Destruction of transfused red cells because the blood group was wrong (acute hemolytic transfusion reaction).",
+      "science": [
+        {
+          "tag": "Inheritance",
+          "title": "Why group O blood attacks group A cells",
+          "text": "The A and B genes each add a different sugar to the surface of red cells, and the O version adds none. A person makes antibodies against whichever sugars their own cells lack. Group O lacks both, so it carries antibodies against A and against B from early childhood.",
+          "lesson": "inheritance-linkage",
+          "lessonTitle": "Reason through inheritance"
+        },
+        {
+          "tag": "Membranes",
+          "title": "How antibodies burst a red cell",
+          "text": "Antibodies on the donor cell’s surface set off a chain of blood proteins that ends by punching pores through its membrane. Water rushes in, the cell swells and splits, and its hemoglobin spills into the plasma.",
+          "lesson": "membrane-transport",
+          "lessonTitle": "Cross a membrane"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Delaney et al. (Lancet 2016): transfusion reactions, prevention, diagnosis, and treatment",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/27083327/"
+        },
+        {
+          "title": "Panch, Montemayor-Garcia and Klein (N Engl J Med 2019): hemolytic transfusion reactions",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/31291517/"
+        }
+      ]
+    },
+    "ho-048": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "Bruises everywhere, _and bleeding that will not stop._",
+      "setting": "Intensive care unit",
+      "start": {
+        "status": "unstable",
+        "alarm": "Bleeding from gums, nose and vagina · bruises everywhere"
+      },
+      "handoff": "A 39-year-old woman has been bruising for days without any injury. Her gums and nose bleed, and she now has heavy vaginal bleeding. She has felt unwell and feverish for two weeks.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask about the bleeding",
+            "finding": "Bruises have been appearing for several days without any knocks. Her nose and gums bleed, and today she has heavy vaginal bleeding."
+          },
+          {
+            "prompt": "Ask how she has been feeling",
+            "finding": "For two weeks she has felt more and more unwell, with slight fevers. She is exhausted and gets breathless easily."
+          },
+          {
+            "prompt": "Ask about medicines and anything that could cause bleeding",
+            "finding": "She has had no injury. She takes no blood thinners and has no liver disease. Her only medicine is a contraceptive pill."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Look at her skin, her gums and where blood was taken",
+            "finding": "Bruises and pinpoint red spots cover her chest, back, arms and legs. Her gums are oozing, and so is every site where a needle went in."
+          },
+          {
+            "prompt": "Listen to her heart and lungs, and feel her belly",
+            "finding": "Her heart is fast, with the soft whoosh of thin blood. Her lungs are clear. Her belly is soft, and her liver and spleen are not enlarged. She is bleeding from the vagina."
+          },
+          {
+            "prompt": "Check how alert she is",
+            "finding": "She is mildly confused. Her face and limbs move normally, and her neck is not stiff."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Blood tests, blood film and bone marrow",
+          "content": "White blood cells: 1.9, low. Hemoglobin: 7.6, low. Platelets: 18, very low.\nClotting times: both prolonged. Fibrinogen, the raw material of clots: 90, low. D-dimer, a product of clots being broken down: very high.\nBlood film: abnormal immature white cells packed with granules, some holding bundles of needle-shaped rods.\nBone marrow: full of the same cells.\nGenetic test: pieces of chromosomes 15 and 17 have swapped places, fusing two genes (PML-RARA)."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "She is bleeding from several places at once. Low platelets alone do not usually do this. I think her clotting system is being used up faster than it can be made.",
+          "question": "Which pattern of results would show that?",
+          "options": [
+            "Normal clotting times, with only the platelets low",
+            "Long clotting times, low fibrinogen, a high D-dimer and falling platelets",
+            "One clotting time prolonged, which corrects when normal plasma is added",
+            "A high fibrinogen with a normal D-dimer"
+          ],
+          "fix": "Name the pattern and send the tests",
+          "terms": [
+            {
+              "term": "DIC",
+              "meaning": "Disseminated intravascular coagulation: clotting switched on throughout the bloodstream. It uses up platelets and clotting proteins, so the patient bleeds."
+            },
+            {
+              "term": "Fibrinogen",
+              "meaning": "The blood protein that is turned into the strands of a clot."
+            },
+            {
+              "term": "D-dimer",
+              "meaning": "A fragment released when clots are broken down."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You pick low platelets alone. The resident shakes their head.",
+              "reply": "That would be a platelet problem only. She oozes from every needle site, which means the clotting proteins are failing too."
+            },
+            {
+              "kind": "safe",
+              "minutes": 30,
+              "story": "You describe the pattern. Clotting tests, a blood film and an urgent bone marrow sample are sent, and the results go in her chart.",
+              "reply": "Right. When clotting runs unchecked, everything is consumed: the clotting times lengthen, fibrinogen and platelets fall, and the debris shows up as D-dimer."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You pick a single prolonged time that corrects. The resident shakes their head.",
+              "reply": "That means one clotting protein is missing, as in hemophilia. She is using up all of them."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You pick a high fibrinogen. The resident shakes their head.",
+              "reply": "Fibrinogen is consumed in this process, so it falls. And the D-dimer rises as clots are broken down."
+            }
+          ]
+        },
+        "3": {
+          "resident": "This is acute promyelocytic leukemia. The leukemia cells themselves are setting off the clotting. People with this disease die of bleeding in the first days, before treatment starts.",
+          "question": "What cannot wait?",
+          "options": [
+            "Nothing. Wait for the full genetic report before any treatment",
+            "Start ATRA now, on what the blood film shows, with platelets and clotting proteins by transfusion",
+            "Standard leukemia chemotherapy, and nothing else",
+            "Platelets alone, and watch"
+          ],
+          "fix": "Start ATRA now",
+          "terms": [
+            {
+              "term": "ATRA",
+              "meaning": "All-trans retinoic acid, a form of vitamin A given as capsules. It makes these leukemia cells mature, which switches off the clotting."
+            },
+            {
+              "term": "Cryoprecipitate",
+              "meaning": "A concentrate of fibrinogen and other clotting proteins made from donated plasma."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "delay",
+              "minutes": 360,
+              "story": "Treatment is held for the genetic report. Six hours later she has a sudden, severe headache, vomits and becomes hard to rouse. A scan shows bleeding into her brain.",
+              "reply": "This is exactly the death we are trying to prevent. The blood film was enough to start. ATRA is safe to give on suspicion, and every hour without it she was at risk.",
+              "vitals": {
+                "HR": "134 bpm"
+              },
+              "trend": {
+                "HR": "up"
+              },
+              "status": "critical",
+              "alarm": "Severe headache · hard to rouse · bleeding in the brain"
+            },
+            {
+              "kind": "safe",
+              "minutes": 30,
+              "story": "ATRA is given within the hour, with platelets, cryoprecipitate and plasma. Over the next days her bleeding stops. Then, on day four, she becomes breathless and feverish, and her oxygen level falls.",
+              "reply": "That was the right call, and it stopped the bleeding. Now something new is happening, and it is linked to the treatment.",
+              "vitals": {
+                "SpO2": "89% RA",
+                "RR": "28 /min",
+                "Temp": "38.6 °C"
+              },
+              "trend": {
+                "SpO2": "down",
+                "RR": "up",
+                "Temp": "up"
+              },
+              "alarm": "Day 4 · breathless · oxygen 89%"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest standard chemotherapy alone. The specialist shakes their head.",
+              "reply": "Killing these cells with chemotherapy makes them spill their contents and worsens the bleeding. ATRA makes them mature instead. It has to be there from the start."
+            },
+            {
+              "kind": "delay",
+              "minutes": 240,
+              "story": "Platelets are given and nothing else. Four hours later she is still oozing, a nosebleed will not stop, and her fibrinogen is lower.",
+              "reply": "Platelets poured into this are used up as fast as they go in. The leukemia cells are driving it, and only ATRA switches them off.",
+              "vitals": {
+                "HR": "126 bpm"
+              },
+              "trend": {
+                "HR": "up"
+              },
+              "status": "worse",
+              "alarm": "Still bleeding · fibrinogen falling"
+            }
+          ]
+        },
+        "4": {
+          "resident": "Four days into ATRA her bleeding has stopped. Now she has a fever, she is breathless, her oxygen level is 89%, her chest X-ray shows hazy patches and she has gained 3 kg.",
+          "question": "What is happening, and what do we do?",
+          "options": [
+            "Tumor lysis syndrome: give rasburicase only",
+            "Differentiation syndrome: start dexamethasone now",
+            "Hospital pneumonia: stop ATRA for good and give antibiotics alone",
+            "A lung clot: start a full-dose blood thinner"
+          ],
+          "fix": "Start dexamethasone",
+          "terms": [
+            {
+              "term": "Differentiation syndrome",
+              "meaning": "A reaction to ATRA. As the leukemia cells mature all at once, they release signals that make blood vessels leak fluid into the lungs."
+            },
+            {
+              "term": "Dexamethasone",
+              "meaning": "A strong steroid that calms that reaction."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You say tumor lysis. The specialist shakes their head.",
+              "reply": "Tumor lysis upsets blood salts and the kidneys. It does not fill the lungs with fluid or add 3 kg in days."
+            },
+            {
+              "kind": "safe",
+              "minutes": 20,
+              "story": "Dexamethasone is given into a vein, with oxygen. Within hours her breathing eases.",
+              "reply": "Right. It comes from the treatment working: the cells are maturing all at once. Steroids settle it, and ATRA is paused only if it is severe.",
+              "vitals": {
+                "SpO2": "94% on oxygen",
+                "RR": "22 /min"
+              },
+              "alarm": "Steroids started · breathing easier"
+            },
+            {
+              "kind": "delay",
+              "minutes": 180,
+              "story": "ATRA is stopped and antibiotics are started. Three hours later she is fighting for breath, and her oxygen level has fallen further.",
+              "reply": "Antibiotics are reasonable alongside, but this is not an infection, and without steroids it gets worse fast. Stopping ATRA for good would take away her cure. Give dexamethasone.",
+              "vitals": {
+                "SpO2": "84% RA",
+                "RR": "34 /min"
+              },
+              "trend": {
+                "SpO2": "down",
+                "RR": "up"
+              },
+              "status": "worse",
+              "alarm": "Oxygen 84% · fighting for breath"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for a full-dose blood thinner. The pharmacist calls at once.",
+              "reply": "Her platelets are still very low, and she was bleeding four days ago. A blood thinner could kill her."
+            }
+          ]
+        },
+        "5": {
+          "resident": "She is through the most dangerous days. Her family asks what her chances are.",
+          "question": "How does this leukemia do, with treatment?",
+          "options": [
+            "It has the worst outlook of all the acute leukemias",
+            "It was once the deadliest in the first days, and with prompt treatment it is now among the most curable",
+            "The same as every other acute leukemia",
+            "It cannot be cured"
+          ],
+          "fix": "Give them the honest answer",
+          "terms": [
+            {
+              "term": "Remission",
+              "meaning": "No detectable leukemia after treatment."
+            },
+            {
+              "term": "Arsenic trioxide",
+              "meaning": "A medicine used with ATRA. Together they cure most people with this leukemia, often without standard chemotherapy."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say it has the worst outlook. The specialist corrects you.",
+              "reply": "That was true decades ago. The early bleeding is still dangerous, but once past it, most people are cured."
+            },
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "You tell them, and the specialist adds the numbers. Her family is in tears, for a different reason now.",
+              "reply": "Right. ATRA with arsenic cures most people with this leukemia. That is why recognizing it on the first day matters so much."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say it is like any other. The specialist corrects you.",
+              "reply": "It behaves differently at both ends: more dangerous in the first days, and far more curable afterward."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say it cannot be cured. The specialist corrects you.",
+              "reply": "It is one of the great successes of cancer medicine. Most people treated promptly are cured."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "Her blood tests, blood film and bone marrow results are in the chart.",
+        "question": "What is this?",
+        "options": [
+          "Acute promyelocytic leukemia (APL)",
+          "Chronic myeloid leukemia that has turned aggressive",
+          "Acute lymphoblastic leukemia",
+          "TTP, a clotting disorder of the small blood vessels"
+        ],
+        "reveal": "It is acute promyelocytic leukemia. A swap between chromosomes 15 and 17 has fused two genes, and the fused protein stops one kind of white cell from maturing. Those cells pile up, crowd out normal blood, and carry granules that set off clotting all through her bloodstream. The granule-packed cells with bundles of rods are found in no other leukemia.",
+        "terms": [
+          {
+            "term": "Leukemia",
+            "meaning": "A cancer of the blood-forming cells in the bone marrow."
+          },
+          {
+            "term": "Promyelocyte",
+            "meaning": "An immature white cell, one step on the way to becoming a neutrophil."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "In intensive care with the bleeding stopped, breathing easier, and a leukemia that most people are cured of",
+        "unstable": "In intensive care with the bleeding stopped, breathing easier, and a leukemia that most people are cured of",
+        "worse": "In intensive care, recovering more slowly than she needed to",
+        "critical": "In intensive care on life support, after bleeding into her brain"
+      },
+      "plainDiagnosis": "A leukemia whose cells set off clotting throughout the blood, causing severe bleeding (acute promyelocytic leukemia with DIC).",
+      "science": [
+        {
+          "tag": "From gene to protein",
+          "title": "How a vitamin treats a leukemia",
+          "text": "The fused gene makes a protein that sits on the DNA and keeps the genes for maturing switched off. ATRA binds that protein and changes its shape, so it lets go. The genes switch on, and the leukemia cells grow up into ordinary white cells that live a few days and die.",
+          "lesson": "gene-expression",
+          "lessonTitle": "Follow a gene into a protein"
+        },
+        {
+          "tag": "Cell division",
+          "title": "Why cells that cannot mature are dangerous",
+          "text": "Blood cells normally stop dividing when they mature. A cell stuck at an immature stage never gets that signal, so it keeps dividing. The marrow fills with copies that do no useful work and leave no room for normal cells.",
+          "lesson": "cell-cycle-checkpoints",
+          "lessonTitle": "Explain a cell-cycle pause"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Sanz et al. (Blood 2019): management of acute promyelocytic leukemia, updated recommendations from an expert panel of the European LeukemiaNet",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/30803991/"
+        },
+        {
+          "title": "Lo-Coco et al. (N Engl J Med 2013): retinoic acid and arsenic trioxide for acute promyelocytic leukemia",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/23841729/"
         }
       ]
     }

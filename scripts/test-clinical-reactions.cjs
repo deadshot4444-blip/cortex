@@ -6,6 +6,7 @@ const { test } = require('node:test'),
   assert = require('node:assert/strict');
 const { pause, pilot, encounters, harness, assertTapOnly } = require('./clinical-shift-harness.cjs');
 const reacting = encounters.filter(entry => entry.reaction);
+const RANK = { better: 0, stable: 0, unstable: 1, worse: 2, critical: 3 };
 const STATUS = {
   better: 'Improving',
   stable: 'Stable for now',
@@ -36,7 +37,8 @@ function expectedRun({ caseData, reaction }, pick) {
     const apply = result => {
       clock += result.minutes;
       Object.assign(vitals, result.vitals || {});
-      if (result.status) status = result.status;
+      // A delay never moves the patient to a better status than the one they were in.
+      if (result.status && !(result.kind === 'delay' && RANK[result.status] < RANK[status])) status = result.status;
     };
     apply(outcome);
     events++;
@@ -551,4 +553,14 @@ test('a reacting encounter saved on the old write-up step opens at its debrief',
   assert.equal(h.find('textarea'), null);
   assert.equal(h.state().completed[id].attempts, 1);
   h.close();
+});
+
+test('an unsafe delay never moves the patient to a better status than the one they were in', () => {
+  const h = harness();
+  const { statusAfterOutcome } = h.w.testShift;
+  assert.equal(statusAfterOutcome('critical', { kind: 'delay', status: 'worse' }), 'critical');
+  assert.equal(statusAfterOutcome('worse', { kind: 'delay', status: 'critical' }), 'critical');
+  assert.equal(statusAfterOutcome('unstable', { kind: 'delay', status: 'worse' }), 'worse');
+  assert.equal(statusAfterOutcome('critical', { kind: 'safe', status: 'stable' }), 'stable');
+  assert.equal(statusAfterOutcome('worse', { kind: 'near-miss' }), 'worse');
 });

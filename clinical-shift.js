@@ -7,7 +7,7 @@
   'use strict';
 
   const SHIFT_STORAGE_KEY = 'cs-clinical-shift-v1';
-  const SHIFT_MANIFEST_URL = 'data/clinical-shift-pilot.json?v=23';
+  const SHIFT_MANIFEST_URL = 'data/clinical-shift-pilot.json?v=24';
   const SHIFT_STEPS = ['Handoff', 'Investigate', 'Decide', 'Debrief'];
   /* One tap answers a question. A second tap that lands just after it (a double click, a bounced touch)
      must not answer the next question or skip an outcome, so the buttons that commit a call start inert
@@ -1491,11 +1491,18 @@
     return { number: decisions.indexOf(stageIndex) + 1, total: decisions.length };
   }
 
+  /* An unsafe delay leaves the patient where they were or worse off. It never moves them to a better status. */
+  function statusAfterOutcome(current, outcome) {
+    if (!outcome.status) return current;
+    const from = SHIFT_STATUS[current]?.rank ?? 0;
+    return outcome.kind === 'delay' && SHIFT_STATUS[outcome.status].rank < from ? current : outcome.status;
+  }
+
   function applyOutcomeToPatient(patient, outcome) {
     if (outcome.vitals) Object.assign(patient.vitals, outcome.vitals);
     patient.trend = outcome.trend ? { ...outcome.trend } : {};
     patient.tone = outcome.kind === 'safe' ? 'good' : 'bad';
-    if (outcome.status) patient.status = outcome.status;
+    patient.status = statusAfterOutcome(patient.status, outcome);
     if (typeof outcome.alarm === 'string') patient.alarm = outcome.alarm;
   }
 
