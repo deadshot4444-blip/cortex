@@ -1,7 +1,7 @@
 {
-  "version": 25,
+  "version": 26,
   "title": "Clinical Shift foundations and rotation practice",
-  "reviewStatus": "Source and consistency checks are recorded with each encounter. Independent clinician review remains pending for all 60 encounters.",
+  "reviewStatus": "Source and consistency checks are recorded with each encounter. Independent clinician review remains pending for all 63 encounters.",
   "rotations": [
     {
       "key": "emergency-medicine",
@@ -180,6 +180,16 @@
         "orth-034",
         "orth-045",
         "orth-009"
+      ]
+    },
+    {
+      "key": "urology",
+      "name": "Urology",
+      "description": "From a simple bladder infection to a kidney that cannot be saved. Learn where the line is.",
+      "caseIds": [
+        "ur-001",
+        "ur-059",
+        "ur-049"
       ]
     }
   ],
@@ -423,6 +433,18 @@
     "orth-009": {
       "assessment": "68-year-old right-handed woman with osteoporosis who fell on an outstretched hand, with a dinner-fork deformity and intact neurovascular status. Radiographs show an extra-articular distal radius fracture with dorsal angulation, displacement, and shortening and an ulnar styloid avulsion: Colles fracture, a fragility fracture.",
       "plan": "Analgesia, closed reduction under a hematoma block or sedation, and a well-molded below-elbow splint, with post-reduction radiographs and repeat neurovascular checks. Orthopedic follow-up within a week to confirm alignment; surgery if the reduction is lost. Review osteoporosis treatment, adherence, and fall risk."
+    },
+    "ur-001": {
+      "assessment": "24-year-old nonpregnant woman with two days of dysuria, frequency, and urgency, no fever or flank pain, mild suprapubic tenderness, and a urinalysis positive for leukocyte esterase and nitrites with pyuria: acute uncomplicated cystitis. Sulfa allergy.",
+      "plan": "Nitrofurantoin 100 mg twice daily for 5 days; trimethoprim-sulfamethoxazole is avoided because of her sulfa allergy, and fluoroquinolones are reserved. No culture is required for a first uncomplicated episode. Counsel on hydration and on the diaphragm-spermicide method as a risk factor; return for fever, flank pain, or persistent symptoms."
+    },
+    "ur-059": {
+      "assessment": "23-year-old man with severe right scrotal pain and a tense, ecchymotic hemiscrotum two hours after a kick. Doppler ultrasound shows disruption of the tunica albuginea with extruded seminiferous tubules, a large hematocele, and reduced flow in part of the testis: testicular rupture.",
+      "plan": "Analgesia, antiemetic, nothing by mouth, and emergent urologic exploration with evacuation of the hematocele, debridement of nonviable tubules, and repair of the tunica albuginea. Early surgery gives the best chance of salvage and of preserved hormonal and reproductive function."
+    },
+    "ur-049": {
+      "assessment": "61-year-old woman with poorly controlled diabetes (HbA1c 12.0%) and septic shock after three days of fever and right flank pain unresponsive to oral antibiotics. WBC 21.8, glucose 468, lactate 4.6, creatinine 3.2, platelets 96; CT shows gas within the right renal parenchyma extending into the collecting system: emphysematous pyelonephritis.",
+      "plan": "Resuscitation with IV fluids and vasopressors, broad IV antibiotics, an insulin infusion, and percutaneous drainage of the kidney. Repeat imaging if she does not improve; refractory shock with extensive parenchymal destruction requires emergency nephrectomy."
     }
   },
   "investigations": {
@@ -2225,6 +2247,96 @@
           "finding": "No tenderness at the elbow, the forearm midshaft or the anatomic snuffbox. Finger flexion and extension present but limited by pain."
         }
       ]
+    },
+    "ur-001": {
+      "interview": [
+        {
+          "prompt": "Characterize the urinary symptoms",
+          "finding": "Two days of dysuria, frequency about every hour and persistent urgency, with mild suprapubic discomfort."
+        },
+        {
+          "prompt": "Screen for upper tract and vaginal symptoms",
+          "finding": "No fever, chills, flank pain, nausea or vomiting. No vaginal discharge, pruritus or new dyspareunia."
+        },
+        {
+          "prompt": "Review contraception, past infections and allergies",
+          "finding": "Sexually active with one partner, using a diaphragm with spermicide. One similar episode 18 months ago. Hives with sulfa drugs."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Palpate the abdomen",
+          "finding": "Mild suprapubic tenderness to deep palpation, without rebound or guarding."
+        },
+        {
+          "prompt": "Percuss the costovertebral angles",
+          "finding": "No costovertebral angle tenderness on either side."
+        },
+        {
+          "prompt": "Inspect the external genitalia and inguinal nodes",
+          "finding": "Unremarkable, with no discharge, lesions or erythema and no inguinal lymphadenopathy."
+        }
+      ]
+    },
+    "ur-059": {
+      "interview": [
+        {
+          "prompt": "Establish the mechanism and timing",
+          "finding": "Kicked forcefully in the scrotum during a soccer match two hours ago, with immediate severe right testicular pain, rapid swelling, nausea and one episode of vomiting. No improvement since."
+        },
+        {
+          "prompt": "Ask about urinary symptoms and prior testicular problems",
+          "finding": "No fever, dysuria or prior testicular problems, and no earlier intermittent pain to suggest torsion."
+        },
+        {
+          "prompt": "Review history and bleeding risk",
+          "finding": "Healthy, on no medications, with no drug allergies and no family history of bleeding disorders."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Inspect and palpate the scrotum",
+          "finding": "Markedly swollen, tense, ecchymotic right hemiscrotum. The right testis is exquisitely tender, and its contour cannot be defined because of a tense surrounding collection."
+        },
+        {
+          "prompt": "Examine the left testis and the cremasteric reflexes",
+          "finding": "Left testis normal in size, lie and consistency, with a normal cremasteric reflex. The right reflex cannot be assessed."
+        },
+        {
+          "prompt": "Check the penis, groin and abdomen",
+          "finding": "No penile discharge, no blood at the meatus and no inguinal hernia. Soft abdomen with mild referred lower-quadrant discomfort."
+        }
+      ]
+    },
+    "ur-049": {
+      "interview": [
+        {
+          "prompt": "Characterize the illness",
+          "finding": "Three days of high fever, rigors, severe right flank pain, nausea and vomiting with progressive confusion, plus dysuria and decreased urine output."
+        },
+        {
+          "prompt": "Ask about treatment so far",
+          "finding": "Oral antibiotics started two days ago for a presumed urinary tract infection, without improvement."
+        },
+        {
+          "prompt": "Review the medical history",
+          "finding": "Type 2 diabetes (HbA1c 12.0%) with poor adherence to insulin, stage 3 chronic kidney disease and hypertension. No history of kidney stones or urinary instrumentation."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Assess mental status and perfusion",
+          "finding": "Lethargic and confused, oriented to person only. Dry mucous membranes; extremities becoming mottled, with delayed capillary refill."
+        },
+        {
+          "prompt": "Percuss the flanks and palpate the abdomen",
+          "finding": "Marked right costovertebral angle tenderness with guarding. Soft abdomen with right-sided tenderness and no rebound; no suprapubic mass and no flank crepitus."
+        },
+        {
+          "prompt": "Examine the heart and lungs",
+          "finding": "Tachycardia with clear lungs."
+        }
+      ]
     }
   },
   "caseReviews": {
@@ -3189,6 +3301,54 @@
         {
           "title": "Mauck and Swigler (Orthop Clin North Am 2018): evidence-based review of distal radius fractures",
           "url": "https://pubmed.ncbi.nlm.nih.gov/29499822/"
+        }
+      ]
+    },
+    "ur-001": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Diagnose a simple bladder infection from symptoms and a urinalysis, and choose a first-line antibiotic that fits the patient.",
+      "alternativesAndLimits": "A culture is sent when symptoms persist or recur or when the infection is complicated. First-line choices depend on allergy and local resistance.",
+      "sources": [
+        {
+          "title": "Gupta et al. (Clin Infect Dis 2011): international clinical practice guidelines for the treatment of acute uncomplicated cystitis and pyelonephritis in women",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/21292654/"
+        },
+        {
+          "title": "Hooton (N Engl J Med 2012): uncomplicated urinary tract infection",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/22417256/"
+        }
+      ]
+    },
+    "ur-059": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Image blunt scrotal trauma with Doppler ultrasound and recognize rupture as a reason for emergency exploration.",
+      "alternativesAndLimits": "Ultrasound can miss a tear, so a large hematocele alone can justify exploration. Salvage rates fall with delay beyond about 72 hours.",
+      "sources": [
+        {
+          "title": "Morey et al. (J Urol 2014): urotrauma, AUA guideline",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/24857651/"
+        },
+        {
+          "title": "Buckley and McAninch (J Urol 2006): use of ultrasonography for the diagnosis of testicular injuries in blunt scrotal trauma",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/16406902/"
+        }
+      ]
+    },
+    "ur-049": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Image a kidney infection that is not responding, recognize gas in the kidney and escalate from drainage to nephrectomy when needed.",
+      "alternativesAndLimits": "Most patients are now managed with drainage and keep the kidney. Failure of drainage is written into this case for teaching.",
+      "sources": [
+        {
+          "title": "Huang and Tseng (Arch Intern Med 2000): emphysematous pyelonephritis, clinicoradiological classification, management, prognosis, and pathogenesis",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/10737279/"
+        },
+        {
+          "title": "Somani et al. (J Urol 2008): is percutaneous drainage the new gold standard in the management of emphysematous pyelonephritis? Evidence from a systematic review",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/18353396/"
         }
       ]
     }
@@ -20442,6 +20602,776 @@
         {
           "title": "Mauck and Swigler (Orthop Clin North Am 2018): evidence-based review of distal radius fractures",
           "url": "https://pubmed.ncbi.nlm.nih.gov/29499822/"
+        }
+      ]
+    },
+    "ur-001": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "It burns, _and she has to go every hour._",
+      "setting": "Primary care clinic",
+      "start": {
+        "status": "stable",
+        "alarm": "Burning when passing urine · two days"
+      },
+      "handoff": "A 24-year-old woman has had two days of burning when she passes urine. She needs to go about every hour and never feels empty. She has no fever.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask about the symptoms",
+            "finding": "For two days it has burned when she passes urine. She goes about every hour and still feels the urge afterward. There is a mild ache low in her belly."
+          },
+          {
+            "prompt": "Ask about fever, back pain and discharge",
+            "finding": "No fever or chills, no pain in her sides or back, and no vomiting. She has no vaginal discharge or itching."
+          },
+          {
+            "prompt": "Ask about contraception, past infections and allergies",
+            "finding": "She has one partner and uses a diaphragm with spermicide. She had one infection like this 18 months ago. Sulfa drugs give her hives."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Press on her belly",
+            "finding": "It is slightly tender just above the pubic bone and soft everywhere else."
+          },
+          {
+            "prompt": "Tap gently over each kidney, at the back",
+            "finding": "Neither side is tender."
+          },
+          {
+            "prompt": "Look at the skin of the vulva, and feel the groin",
+            "finding": "The skin looks normal, with no discharge or sores. No swollen glands in the groin."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Urine test",
+          "content": "Urine: cloudy.\nTest strip: positive for white cells, and positive for nitrites, a chemical that gut bacteria make.\nUnder the microscope: 35 white cells per field (normal is fewer than 5), and a few red cells.\nPregnancy test: negative.\nUrine culture: not needed for a first simple infection."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "Burning, going often and feeling the urge all the time, in a healthy young woman with no fever. One quick test in clinic will back up what we suspect.",
+          "question": "Which test?",
+          "options": [
+            "A test strip and microscope check on a clean, midstream urine sample",
+            "A urine culture, holding treatment until the result is back",
+            "An ultrasound of her kidneys",
+            "A CT scan of her belly"
+          ],
+          "fix": "Test a midstream urine sample",
+          "terms": [
+            {
+              "term": "Midstream sample",
+              "meaning": "Urine caught partway through passing it, after the first part has rinsed the opening clean."
+            },
+            {
+              "term": "Nitrites",
+              "meaning": "A chemical that many bacteria make from the nitrate normally in urine. Finding it means bacteria are present."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 15,
+              "story": "She gives a sample, and it is tested in the clinic within minutes. The result goes in her chart.",
+              "reply": "Right. With symptoms this typical, a positive strip is enough to treat. It takes five minutes."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You plan to wait for a culture. The resident shakes their head.",
+              "reply": "A culture takes two days, and she is uncomfortable now. For a first simple infection it is not needed at all."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request a kidney ultrasound. The resident shakes their head.",
+              "reply": "That looks for a blockage. Nothing in her story suggests one."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request a CT scan. The resident shakes their head.",
+              "reply": "Radiation and expense, for a problem a test strip can confirm."
+            }
+          ]
+        },
+        "3": {
+          "resident": "She has a bladder infection. Remember what sulfa drugs do to her.",
+          "question": "Which antibiotic?",
+          "options": [
+            "Trimethoprim-sulfamethoxazole for three days",
+            "Nitrofurantoin for five days",
+            "Ciprofloxacin for three days",
+            "Amoxicillin for seven days"
+          ],
+          "fix": "Prescribe nitrofurantoin",
+          "terms": [
+            {
+              "term": "Nitrofurantoin",
+              "meaning": "An antibiotic that collects in the urine and works in the bladder."
+            },
+            {
+              "term": "First-line",
+              "meaning": "The treatment to try first, because it works well with the fewest downsides."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for trimethoprim-sulfamethoxazole. The pharmacist calls.",
+              "reply": "It is a good first choice for many people, but it contains a sulfa drug, and those give her hives. Always check the allergy list."
+            },
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "You write for nitrofurantoin, twice a day for five days, to take with food.",
+              "reply": "Right. It is a first-line choice, it stays effective against most bladder bacteria, and she can take it safely."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for ciprofloxacin. The resident changes it.",
+              "reply": "It would work, but it is a broad antibiotic with rare, serious side effects. We keep it for infections that need it."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You write for amoxicillin. The resident changes it.",
+              "reply": "Too many bladder bacteria resist amoxicillin now. It fails often enough that it is not a first choice."
+            }
+          ]
+        },
+        "4": {
+          "resident": "This is her second infection in 18 months. She asks what she can do to avoid another.",
+          "question": "Which advice is best supported?",
+          "options": [
+            "Start a daily preventive antibiotic, indefinitely",
+            "Stop all sexual activity for good",
+            "Consider a different contraceptive from the diaphragm with spermicide, and drink plenty of fluids",
+            "Have a urine culture every month, even when she feels well"
+          ],
+          "fix": "Talk about contraception and fluids",
+          "terms": [
+            {
+              "term": "Spermicide",
+              "meaning": "A gel that kills sperm. It also kills the helpful bacteria of the vagina, which lets gut bacteria move in."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest a daily antibiotic. The resident shakes their head.",
+              "reply": "That is for women with frequent infections, after simpler steps have failed. Two infections in 18 months does not call for it."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest giving up sex. The resident raises an eyebrow.",
+              "reply": "That is neither reasonable nor necessary. There is a specific risk factor she can change."
+            },
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "You explain the link, and she says she will think about another method.",
+              "reply": "Right. A diaphragm with spermicide is a known cause of repeat infections. Changing it, and drinking enough to pass urine regularly, are the simple steps."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest monthly cultures. The resident shakes their head.",
+              "reply": "Testing urine when she has no symptoms finds harmless bacteria and leads to antibiotics she does not need."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "Her urine result is in the chart.",
+        "question": "What is this?",
+        "options": [
+          "A kidney infection",
+          "Vaginitis",
+          "A simple bladder infection (uncomplicated cystitis)",
+          "Urethritis from a sexually transmitted infection"
+        ],
+        "reveal": "It is a simple bladder infection. She has the three typical symptoms, tenderness over the bladder and urine full of white cells and bacteria. No fever and no pain over the kidneys mean the infection has stayed in the bladder. Vaginitis causes discharge and itching, and a sexually transmitted infection would not usually turn the nitrite test positive.",
+        "terms": [
+          {
+            "term": "Cystitis",
+            "meaning": "Infection of the bladder."
+          },
+          {
+            "term": "Uncomplicated",
+            "meaning": "In a healthy, non-pregnant woman with a normal urinary tract."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "Home with a five-day course of nitrofurantoin",
+        "worse": "Sent to the emergency department",
+        "critical": "In hospital"
+      },
+      "plainDiagnosis": "A simple bladder infection (uncomplicated cystitis).",
+      "science": [
+        {
+          "tag": "Evidence",
+          "title": "Why no culture was needed",
+          "text": "A test is worth doing when its result could change the decision. Typical symptoms with a positive strip already make infection very likely, and the first-line antibiotics cover the usual bacteria. A culture would only confirm it, two days later.",
+          "lesson": "uncertainty-controls",
+          "lessonTitle": "Match evidence to a conclusion"
+        },
+        {
+          "tag": "Flow",
+          "title": "Why drinking and passing urine helps",
+          "text": "Bacteria reach the bladder by climbing the short tube that drains it. Each time the bladder empties, the stream washes most of them back out. A steady flow leaves them less time to multiply and stick to the wall.",
+          "lesson": "fluid-flow",
+          "lessonTitle": "Follow flow through a narrowing"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Gupta et al. (Clin Infect Dis 2011): international clinical practice guidelines for the treatment of acute uncomplicated cystitis and pyelonephritis in women",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/21292654/"
+        },
+        {
+          "title": "Hooton (N Engl J Med 2012): uncomplicated urinary tract infection",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/22417256/"
+        }
+      ]
+    },
+    "ur-059": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "A kick in a soccer game, _and swelling that keeps growing._",
+      "setting": "Emergency department",
+      "start": {
+        "status": "stable",
+        "alarm": "Severe pain and swelling after a kick"
+      },
+      "handoff": "A 23-year-old man was kicked hard in the scrotum during a soccer game two hours ago. The right side swelled quickly and is extremely painful. He has vomited once.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask what happened",
+            "finding": "He took a hard kick to the scrotum two hours ago. The pain in his right testicle was immediate and severe, and the swelling came up fast. He felt sick and vomited once. It has not eased at all."
+          },
+          {
+            "prompt": "Ask about fever, urine and earlier problems",
+            "finding": "No fever and no burning when he passes urine. He has never had testicle pain or swelling before today."
+          },
+          {
+            "prompt": "Ask about his health",
+            "finding": "He is healthy and takes no medicines. Nobody in his family bleeds easily."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Look at the scrotum and feel it gently",
+            "finding": "The right side is very swollen, tight and bruised. The testicle is too tender to examine properly, and its outline is lost in a tense swelling around it."
+          },
+          {
+            "prompt": "Examine the left side",
+            "finding": "The left testicle is normal in size and position and is not tender."
+          },
+          {
+            "prompt": "Check his penis, groin and belly",
+            "finding": "There is no blood at the tip of the penis and no bulge in the groin. His belly is soft."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Ultrasound and blood count",
+          "content": "Ultrasound with a blood-flow scan: the tough white coat of the right testicle is torn, and tissue from inside is pushing out through the gap.\nA large collection of blood surrounds the testicle.\nBlood flow to the torn part is reduced or absent.\nThe left testicle is normal.\nHemoglobin: 13.6, normal."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "A hard blow, a tense swelling and a testicle I cannot feel properly. We need to see inside.",
+          "question": "Which scan comes first?",
+          "options": [
+            "An MRI of the scrotum",
+            "An ultrasound of the scrotum with a blood-flow scan",
+            "A CT scan of his belly and pelvis",
+            "A dye X-ray of the urethra"
+          ],
+          "fix": "Get a Doppler ultrasound",
+          "terms": [
+            {
+              "term": "Doppler ultrasound",
+              "meaning": "An ultrasound that also shows whether blood is flowing."
+            },
+            {
+              "term": "Scrotum",
+              "meaning": "The pouch of skin that holds the testicles."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request an MRI. The resident changes it.",
+              "reply": "An MRI can help when the ultrasound is unclear, but it is slow. Ultrasound is at the bedside and answers the question in minutes."
+            },
+            {
+              "kind": "safe",
+              "minutes": 30,
+              "story": "He is given pain relief, and the ultrasound is done at the bedside. The result goes in his chart.",
+              "reply": "Right. Ultrasound shows whether the testicle’s outer coat is intact, whether blood is reaching it, and how much blood has collected around it."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request a CT of his belly. The resident changes it.",
+              "reply": "CT shows the scrotum poorly and gives radiation to the wrong place. The injury is in front of us."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request a dye X-ray of the urethra. The resident shakes their head.",
+              "reply": "That looks for a torn urethra. He has no blood at the tip of the penis and passes urine normally."
+            }
+          ]
+        },
+        "3": {
+          "resident": "The outer coat of the testicle is torn, and its contents are spilling into a pool of blood.",
+          "question": "What is the treatment?",
+          "options": [
+            "A scrotal support, ice and a clinic visit",
+            "An emergency operation to clear the blood and stitch the tear",
+            "Antibiotics alone",
+            "Draw the blood off with a needle, under ultrasound"
+          ],
+          "fix": "Call the urologist for surgery",
+          "terms": [
+            {
+              "term": "Tunica albuginea",
+              "meaning": "The tough white coat around the testicle. It holds the delicate tubes inside under slight pressure."
+            },
+            {
+              "term": "Hematocele",
+              "meaning": "A collection of blood in the sac around the testicle."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "delay",
+              "minutes": 720,
+              "story": "He goes home with ice and a support. The next morning he is back. The swelling has doubled, the skin is dark purple, and he has a fever.",
+              "reply": "Ice is for a bruise. His testicle is torn open, and overnight the exposed tissue has been dying under a growing pool of blood. He should have gone to the operating room.",
+              "vitals": {
+                "Temp": "38.2 °C",
+                "HR": "110 bpm"
+              },
+              "trend": {
+                "Temp": "up",
+                "HR": "up"
+              },
+              "status": "worse",
+              "alarm": "Swelling doubled · fever"
+            },
+            {
+              "kind": "safe",
+              "minutes": 40,
+              "story": "The urologist takes him to the operating room, clears out the blood, trims the tissue that cannot survive and stitches the coat closed.",
+              "reply": "Right. A torn testicle is repaired, and the sooner the better. Nearly all are saved when the repair is early."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest antibiotics alone. The urologist shakes their head.",
+              "reply": "Antibiotics do not close a tear. The tissue spilling out needs to be put back and covered."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest drawing the blood off with a needle. The urologist shakes their head.",
+              "reply": "Clotted blood will not come through a needle, and the tear would still be open underneath."
+            }
+          ]
+        },
+        "4": {
+          "resident": "He asks why this could not have waited a few days, to see how it settled.",
+          "question": "What does early surgery achieve?",
+          "options": [
+            "It removes any future risk of testicular cancer",
+            "It makes it much more likely that the testicle is saved and keeps working",
+            "It is the only way to make the diagnosis, since scans cannot suggest it",
+            "It stops the other testicle from twisting"
+          ],
+          "fix": "Explain why timing matters",
+          "terms": [
+            {
+              "term": "Salvage",
+              "meaning": "Saving an organ that would otherwise be lost."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say it prevents cancer. The urologist shakes their head.",
+              "reply": "Injury and cancer are unrelated, and surgery for one does nothing about the other."
+            },
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "You explain it to him before he goes to the operating room.",
+              "reply": "Right. Repaired within the first days, most torn testicles survive and go on making hormones and sperm. Left alone, many are lost."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say scans cannot show it. The urologist points at the screen.",
+              "reply": "The ultrasound showed the tear clearly. Surgery is the treatment here, not the test."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say it protects the other side. The urologist shakes their head.",
+              "reply": "Twisting is a separate problem, with a different cause. This operation is about the injured side."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "The ultrasound is in his chart.",
+        "question": "What is this?",
+        "options": [
+          "Epididymitis, an infection of the coiled tube behind the testicle",
+          "Testicular rupture: the tough outer coat of the testicle has torn",
+          "Testicular torsion: the testicle has twisted on its cord",
+          "A simple collection of clear fluid (hydrocele)"
+        ],
+        "reveal": "The kick tore the outer coat of his right testicle. The tubes that make sperm are pushing out through the tear, and blood has pooled around them. An infection comes on over days, with fever and burning urine. A twisted testicle has an intact coat and no blow to explain it, and a hydrocele is painless.",
+        "terms": [
+          {
+            "term": "Rupture",
+            "meaning": "A tear through the wall of an organ."
+          },
+          {
+            "term": "Blunt trauma",
+            "meaning": "An injury from a blow that does not break the skin."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "In the recovery room after surgery, with the testicle repaired",
+        "worse": "In the recovery room after a late operation, with part of the testicle lost",
+        "critical": "In intensive care"
+      },
+      "plainDiagnosis": "A torn testicle from a direct blow (testicular rupture).",
+      "science": [
+        {
+          "tag": "Waves",
+          "title": "How ultrasound drew the tear",
+          "text": "The probe sends pulses of sound and listens for echoes. Sound bounces back wherever tissue changes, and the time it takes shows how deep that boundary lies. The testicle’s coat normally shows as an unbroken bright line. In his, the line had a gap.",
+          "lesson": "wave-sound",
+          "lessonTitle": "Read a wave and a logarithmic level"
+        },
+        {
+          "tag": "Pressure and blood flow",
+          "title": "Why trapped blood threatens what is left",
+          "text": "Blood that leaks into a closed sac cannot escape, so the pressure there rises. Once it is higher than the pressure in the small vessels of the testicle, those vessels are squeezed flat, and tissue that survived the blow loses its supply.",
+          "lesson": "circulatory-flow",
+          "lessonTitle": "Connect pressure to blood flow"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Morey et al. (J Urol 2014): urotrauma, AUA guideline",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/24857651/"
+        },
+        {
+          "title": "Buckley and McAninch (J Urol 2006): use of ultrasonography for the diagnosis of testicular injuries in blunt scrotal trauma",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/16406902/"
+        }
+      ]
+    },
+    "ur-049": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "A kidney infection _that tablets did not touch._",
+      "setting": "Intensive care unit",
+      "start": {
+        "status": "unstable",
+        "alarm": "Fever 39.5 · blood pressure 92 over 56 · confused"
+      },
+      "handoff": "A 61-year-old woman with poorly controlled diabetes has had three days of high fever and severe pain in her right side. Antibiotic tablets started two days ago did nothing. She is now confused, and her blood pressure is low.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask her daughter how the illness has gone",
+            "finding": "Three days of high fever with shaking chills, severe pain in her right side and vomiting. It burned when she passed urine, and she has been passing very little. She has become more and more confused."
+          },
+          {
+            "prompt": "Ask what treatment she has had",
+            "finding": "A doctor gave her antibiotic tablets two days ago for a urine infection. She has only got worse."
+          },
+          {
+            "prompt": "Ask about her health",
+            "finding": "Her diabetes is poorly controlled, and she often misses her insulin. Her kidneys already work at reduced strength, and she has high blood pressure. She has never had kidney stones."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Check how alert she is, and her circulation",
+            "finding": "She is drowsy and knows her name but nothing else. Her mouth is dry. Her hands and feet are turning blotchy, and a pressed fingertip is slow to turn pink again."
+          },
+          {
+            "prompt": "Tap over her kidneys, and press on her belly",
+            "finding": "A light tap over the right kidney makes her cry out, and the muscles there are tight. The right side of her belly is tender, and the rest is soft."
+          },
+          {
+            "prompt": "Listen to her heart and lungs",
+            "finding": "Her heart is fast. Her lungs are clear."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Blood tests, urine and CT scan",
+          "content": "White blood cells: 21.8, very high. Platelets: 96, low.\nBlood sugar: 468, very high.\nLactate: 4.6, high. Blood acid level (pH): 7.26, acidic.\nKidney test (creatinine): 3.2, double her usual.\nUrine: full of white cells, with rod-shaped bacteria.\nCT scan: bubbles of gas inside the right kidney, spreading into its drainage system, with patches where the tissue has been destroyed. No pocket of pus, and no stone blocking the kidney."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "She is in septic shock from a kidney infection that has not answered to tablets. Fluids and antibiotics through a vein are running. Something about this infection is not ordinary.",
+          "question": "Which scan will show what is going on in that kidney?",
+          "options": [
+            "A plain X-ray of her belly",
+            "A kidney ultrasound, and nothing else",
+            "A CT scan of her belly and pelvis",
+            "An X-ray of her bladder while she passes urine"
+          ],
+          "fix": "Get a CT scan",
+          "terms": [
+            {
+              "term": "Septic shock",
+              "meaning": "Dangerously low blood pressure caused by severe infection."
+            },
+            {
+              "term": "Complicated infection",
+              "meaning": "An infection with something extra that antibiotics alone cannot fix, such as a blockage, an abscess or dead tissue."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request a plain X-ray. The resident changes it.",
+              "reply": "An X-ray might show gas if there is a lot of it, and it would tell us nothing more. We need to see the kidney itself."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request an ultrasound only. The resident adds a CT.",
+              "reply": "Ultrasound can show a blocked kidney, but gas scatters the sound and hides everything behind it. CT sees through it."
+            },
+            {
+              "kind": "safe",
+              "minutes": 40,
+              "story": "She is taken to the scanner with a nurse and a monitor. Her blood results come back while she is there, and everything goes in her chart.",
+              "reply": "Right. When a kidney infection is not improving, CT looks for the things antibiotics cannot treat: a blockage, an abscess or gas."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You request a bladder X-ray during urination. The resident shakes their head.",
+              "reply": "That test looks for urine flowing backward toward the kidneys. It is never done in a patient this ill."
+            }
+          ]
+        },
+        "3": {
+          "resident": "There is gas inside her right kidney. Bacteria are fermenting her high blood sugar and destroying the tissue. She is in shock.",
+          "question": "How do we treat this first?",
+          "options": [
+            "Remove the kidney at once, as in every case",
+            "Antibiotic tablets, and home once the fever is gone",
+            "Fluids, antibiotics through a vein, insulin for her sugar, and a drain placed into the kidney through the skin",
+            "Stop the antibiotics and watch how it develops"
+          ],
+          "fix": "Resuscitate her and drain the kidney",
+          "terms": [
+            {
+              "term": "Percutaneous drainage",
+              "meaning": "A thin tube passed through the skin into the kidney, guided by a scan, to let out gas and infected fluid."
+            },
+            {
+              "term": "Insulin infusion",
+              "meaning": "Insulin given steadily into a vein, adjusted every hour to bring blood sugar down."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You say the kidney must come out now. The urologist shakes their head.",
+              "reply": "That used to be the rule. Most patients now do as well or better with a drain first, and they keep the kidney. Removal is for when that fails."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest tablets and home. The resident stares.",
+              "reply": "She is in intensive care, in shock, with gas in her kidney. Tablets have already failed her once."
+            },
+            {
+              "kind": "safe",
+              "minutes": 60,
+              "story": "An insulin drip is started, and the radiologist places a drain in her kidney. Gas and cloudy fluid come out. Over the next six hours she does not turn the corner. Her blood pressure needs more and more support, and a repeat scan shows that more of the kidney has been destroyed.",
+              "reply": "That was the right first move, and for most patients it is enough. For her it has not been.",
+              "vitals": {
+                "BP": "84/48 mmHg",
+                "HR": "128 bpm"
+              },
+              "trend": {
+                "BP": "down",
+                "HR": "up"
+              },
+              "alarm": "Blood pressure falling despite the drain"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest stopping antibiotics. The resident shakes their head.",
+              "reply": "She would be dead by morning. Nothing here says the antibiotics are wrong. They are not enough alone."
+            }
+          ]
+        },
+        "4": {
+          "resident": "She has had a drain and the right antibiotics, and she is still in shock. The repeat scan shows more gas and more of the kidney destroyed.",
+          "question": "What now?",
+          "options": [
+            "An emergency operation to remove the kidney",
+            "Switch to antibiotic tablets",
+            "High-pressure oxygen treatment, as the answer",
+            "Carry on exactly as we are"
+          ],
+          "fix": "Call for emergency nephrectomy",
+          "terms": [
+            {
+              "term": "Nephrectomy",
+              "meaning": "An operation to remove a kidney."
+            },
+            {
+              "term": "Source control",
+              "meaning": "Physically removing the place an infection is coming from, when drugs cannot reach it."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 60,
+              "story": "The urologist takes her to the operating room and removes the right kidney. Within hours her blood pressure needs less support.",
+              "reply": "Yes. The kidney had become a mass of dead, infected tissue that nothing could reach. Taking it out removes the source. She can live well on the other one.",
+              "vitals": {
+                "BP": "104/62 mmHg",
+                "HR": "106 bpm"
+              },
+              "trend": {
+                "BP": "up",
+                "HR": "down"
+              },
+              "alarm": "Infected kidney removed · blood pressure recovering"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest switching to tablets. The resident shakes their head.",
+              "reply": "Tablets are for patients who are getting better. She is getting worse on the strongest drugs we have."
+            },
+            {
+              "kind": "delay",
+              "minutes": 180,
+              "story": "She is taken to the pressure chamber. Three hours later she is back with a lower blood pressure, and her lungs are starting to fail.",
+              "reply": "That treatment has no proven place here, and it cost three hours with the source still inside her. The kidney has to come out.",
+              "vitals": {
+                "BP": "72/40 mmHg",
+                "HR": "140 bpm"
+              },
+              "trend": {
+                "BP": "down",
+                "HR": "up"
+              },
+              "status": "critical",
+              "alarm": "Blood pressure 72 over 40 · lungs failing"
+            },
+            {
+              "kind": "delay",
+              "minutes": 240,
+              "story": "Nothing is changed. Four hours later her blood pressure cannot be held, and her other organs are starting to fail.",
+              "reply": "The plan was failing, and repeating it could not work. Dead tissue full of bacteria does not respond to antibiotics. The kidney has to come out.",
+              "vitals": {
+                "BP": "70/38 mmHg",
+                "HR": "142 bpm"
+              },
+              "trend": {
+                "BP": "down",
+                "HR": "up"
+              },
+              "status": "critical",
+              "alarm": "Blood pressure 70 over 38 · organs failing"
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "Her blood tests, urine result and CT scan are in the chart.",
+        "question": "What is this?",
+        "options": [
+          "An ordinary kidney infection",
+          "Emphysematous pyelonephritis: a kidney infection in which gas-forming bacteria are destroying the tissue",
+          "A kidney cancer with a dead center",
+          "A stone blocking the kidney"
+        ],
+        "reveal": "It is emphysematous pyelonephritis, a rare and dangerous kidney infection that occurs almost only in people with poorly controlled diabetes. The bacteria are ordinary gut bacteria. In tissue soaked in sugar and short of oxygen, they ferment the sugar and release gas, and the kidney dies around them. An ordinary infection never puts gas in the kidney.",
+        "terms": [
+          {
+            "term": "Emphysematous",
+            "meaning": "Containing gas."
+          },
+          {
+            "term": "Pyelonephritis",
+            "meaning": "Infection of the kidney."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "In intensive care after removal of the infected kidney, with her blood pressure recovering",
+        "unstable": "In intensive care after removal of the infected kidney, with her blood pressure recovering",
+        "worse": "In intensive care after removal of the infected kidney",
+        "critical": "In intensive care on life support, after the operation came late"
+      },
+      "plainDiagnosis": "A kidney infection in which bacteria make gas and destroy the kidney, in poorly controlled diabetes (emphysematous pyelonephritis).",
+      "science": [
+        {
+          "tag": "Energy without oxygen",
+          "title": "Where the gas came from",
+          "text": "With oxygen, cells burn glucose completely. Without it, these bacteria ferment glucose, and their fermentation gives off carbon dioxide and hydrogen. Her blood sugar of 468 gave them an almost unlimited supply.",
+          "lesson": "glycolysis",
+          "lessonTitle": "Account for glycolysis"
+        },
+        {
+          "tag": "Blood flow",
+          "title": "Why antibiotics could not reach it",
+          "text": "Years of high sugar narrow and damage small blood vessels, so her kidney was poorly supplied to begin with. Once tissue dies, no blood reaches it at all. Antibiotics and white cells travel in blood, so the infection’s center was out of their reach.",
+          "lesson": "circulatory-flow",
+          "lessonTitle": "Connect pressure to blood flow"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Huang and Tseng (Arch Intern Med 2000): emphysematous pyelonephritis, clinicoradiological classification, management, prognosis, and pathogenesis",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/10737279/"
+        },
+        {
+          "title": "Somani et al. (J Urol 2008): is percutaneous drainage the new gold standard in the management of emphysematous pyelonephritis? Evidence from a systematic review",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/18353396/"
         }
       ]
     }
