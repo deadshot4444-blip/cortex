@@ -1,7 +1,7 @@
 {
-  "version": 31,
+  "version": 32,
   "title": "Clinical Shift foundations and rotation practice",
-  "reviewStatus": "Source and consistency checks are recorded with each encounter. Independent clinician review remains pending for all 78 encounters.",
+  "reviewStatus": "Source and consistency checks are recorded with each encounter. Independent clinician review remains pending for all 81 encounters.",
   "rotations": [
     {
       "key": "emergency-medicine",
@@ -240,6 +240,16 @@
         "dm-061",
         "dm-074",
         "dm-025"
+      ]
+    },
+    {
+      "key": "ophthalmology",
+      "name": "Ophthalmology",
+      "description": "Three red or failing eyes. One could be lost within days, and one is a warning from behind the eye.",
+      "caseIds": [
+        "oph-027",
+        "oph-032",
+        "oph-037"
       ]
     }
   ],
@@ -555,6 +565,18 @@
     "dm-025": {
       "assessment": "21-year-old athlete in a warm, humid climate with recurrent, finely scaly hypopigmented macules on the upper trunk that do not tan. KOH preparation shows short hyphae with clusters of yeast, and Wood’s lamp shows pale yellow-green fluorescence: tinea (pityriasis) versicolor due to Malassezia.",
       "plan": "Topical antifungal such as selenium sulfide or ketoconazole shampoo applied to the trunk, or zinc pyrithione. Counsel that color returns over weeks to months after the yeast is cleared, that recurrence is common, and that periodic preventive washes can help. Oral terbinafine is not effective."
+    },
+    "oph-027": {
+      "assessment": "23-year-old soft contact lens wearer who sleeps and swims in her lenses, with two days of a rapidly worsening painful red right eye, acuity 20/100, a 3 mm central corneal ulcer with stromal infiltrate and melting edges, and a hypopyon. Scrapings grow Pseudomonas aeruginosa: contact-lens-related bacterial keratitis.",
+      "plan": "Corneal scrapings for Gram stain and culture, then intensive topical antibiotics at once: an hourly fluoroquinolone around the clock or fortified tobramycin with a cephalosporin, with daily review. No patching and no initial corticosteroid. No lens wear until healed; counsel on lens hygiene."
+    },
+    "oph-032": {
+      "assessment": "34-year-old man with three days of aching left eye pain, photophobia, ciliary flush, and a miotic pupil, plus two prior episodes and months of inflammatory back pain. Slit lamp shows 3+ cells and 2+ flare, keratic precipitates, and early posterior synechiae with normal pressure: acute anterior uveitis, likely HLA-B27-associated.",
+      "plan": "Topical corticosteroid (prednisolone acetate) with a cycloplegic to relieve ciliary spasm and prevent posterior synechiae; review within days and taper slowly. Test for HLA-B27 and refer to rheumatology for suspected ankylosing spondylitis."
+    },
+    "oph-037": {
+      "assessment": "31-year-old woman with obesity, recent weight gain, and isotretinoin use, with six weeks of positional headaches, transient visual obscurations, pulsatile tinnitus, bilateral papilledema, and a left sixth-nerve palsy. MRI and MR venography show no mass or thrombosis; opening pressure 32 cm H2O with normal CSF: idiopathic intracranial hypertension.",
+      "plan": "Acetazolamide and weight-loss support; stop isotretinoin. Serial visual fields and acuity with ophthalmology. Escalate to surgery (optic nerve sheath fenestration or shunting) if vision is threatened despite medical therapy."
     }
   },
   "investigations": {
@@ -2897,6 +2919,96 @@
           "finding": "Sensation is fully intact, and no nerves are thickened."
         }
       ]
+    },
+    "oph-027": {
+      "interview": [
+        {
+          "prompt": "Characterize the eye symptoms",
+          "finding": "Two days of rapidly worsening right eye pain, redness, marked photophobia, blurred vision and thick discharge, with a foreign-body sensation. A white spot on the eye has grown since yesterday. No trauma."
+        },
+        {
+          "prompt": "Take a contact lens history",
+          "finding": "Daily soft contact lens wearer who frequently sleeps and swims in her lenses and tops off old solution. She napped in her lenses two nights ago and has worn glasses since."
+        },
+        {
+          "prompt": "Review history and systemic symptoms",
+          "finding": "Myopia, otherwise healthy, on an oral contraceptive. No fever, joint pains or oral ulcers, and no symptoms in the left eye."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Measure visual acuity and inspect both eyes",
+          "finding": "Right eye 20/100 with marked conjunctival injection, ciliary flush and copious mucopurulent discharge. Left eye 20/20, white and quiet."
+        },
+        {
+          "prompt": "Examine the right cornea at the slit lamp",
+          "finding": "A 3 mm central round epithelial defect over a dense stromal infiltrate with indistinct, melting edges and surrounding corneal haze."
+        },
+        {
+          "prompt": "Examine the anterior chamber, pupil and eye movements",
+          "finding": "A 1.2 mm hypopyon with significant cell and flare. The pupil is reactive. Normal intraocular pressure, full painless eye movements and no preauricular node."
+        }
+      ]
+    },
+    "oph-032": {
+      "interview": [
+        {
+          "prompt": "Characterize the eye symptoms",
+          "finding": "Three days of dull, aching left eye pain with severe photophobia, tearing and mildly blurred vision. Redness forms a ring around the iris. No purulent discharge, itching, trauma, contact lens use or foreign-body sensation."
+        },
+        {
+          "prompt": "Ask about previous episodes",
+          "finding": "Two similar but milder episodes in the past, each resolving over a couple of weeks."
+        },
+        {
+          "prompt": "Review systems and family history",
+          "finding": "Several months of low-back pain with morning stiffness lasting over an hour that improves with exercise. Father with chronic back stiffness; a maternal uncle with inflammatory bowel disease. No urinary symptoms, diarrhea or joint swelling."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Measure acuity and inspect the pattern of redness",
+          "finding": "Acuity 20/20 right and 20/30 left. Ciliary injection of the left eye, most intense at the limbus, with no discharge and normal lids. The right eye is normal."
+        },
+        {
+          "prompt": "Examine the pupils and test for consensual photophobia",
+          "finding": "The left pupil is smaller than the right and sluggish. Light shone in the right eye causes pain in the left."
+        },
+        {
+          "prompt": "Stain the cornea, and examine the spine",
+          "finding": "Clear cornea with no fluorescein uptake. Reduced lumbar flexion and tenderness over the sacroiliac joints."
+        }
+      ]
+    },
+    "oph-037": {
+      "interview": [
+        {
+          "prompt": "Characterize the headache",
+          "finding": "Six weeks of daily dull headaches that are worse in the morning and on lying down, bending or straining. No fever, neck stiffness, trauma, weakness, numbness or speech difficulty."
+        },
+        {
+          "prompt": "Ask about visual and auditory symptoms",
+          "finding": "Brief episodes lasting seconds in which vision in both eyes grays or blacks out, often on standing, and now more frequent. A pulsatile whooshing in the ears, intermittent horizontal diplopia and a sense that her side vision has narrowed."
+        },
+        {
+          "prompt": "Review weight change and medications",
+          "finding": "Obesity, with about 14 kg gained over the past year. Oral isotretinoin for acne started three months ago; takes a combined oral contraceptive."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Examine the optic discs",
+          "finding": "Bilateral optic disc swelling with blurred margins and obscured vessels at the disc. No hemorrhages."
+        },
+        {
+          "prompt": "Test acuity, pupils and visual fields",
+          "finding": "Acuity 20/20 in both eyes, with equal reactive pupils and no relative afferent pupillary defect. Enlarged blind spots bilaterally with early nasal constriction."
+        },
+        {
+          "prompt": "Test eye movements, and examine the neck",
+          "finding": "A mild left abducens palsy with limited left lateral gaze and horizontal diplopia. The neck is supple. No other focal deficit. BMI 36 kg/m²."
+        }
+      ]
     }
   },
   "caseReviews": {
@@ -4149,6 +4261,54 @@
         {
           "title": "Gupta and Foley (J Fungi 2015): antifungal treatment for pityriasis versicolor",
           "url": "https://pubmed.ncbi.nlm.nih.gov/29376896/"
+        }
+      ]
+    },
+    "oph-027": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Treat a painful red eye in a contact lens wearer as a corneal infection: scrape, culture and start hourly antibiotic drops.",
+      "alternativesAndLimits": "Small peripheral ulcers are often treated without culture. Steroid drops are sometimes added later by a specialist once the infection is controlled.",
+      "sources": [
+        {
+          "title": "Lin et al. (Ophthalmology 2019): bacterial keratitis preferred practice pattern",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/30366799/"
+        },
+        {
+          "title": "Stapleton and Carnt (Eye 2012): contact lens-related microbial keratitis, how have epidemiology and genetics helped us with pathogenesis and prophylaxis",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/22134592/"
+        }
+      ]
+    },
+    "oph-032": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Tell inflammation inside the eye from conjunctivitis, treat it with steroid and dilating drops and look for a linked disease.",
+      "alternativesAndLimits": "Steroid drops for uveitis are prescribed after a slit-lamp examination, because they can worsen an infection of the cornea.",
+      "sources": [
+        {
+          "title": "Jabs et al. (Am J Ophthalmol 2005): standardization of uveitis nomenclature for reporting clinical data",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/16196117/"
+        },
+        {
+          "title": "Agrawal et al. (Indian J Ophthalmol 2010): current approach in diagnosis and management of anterior uveitis",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/20029142/"
+        }
+      ]
+    },
+    "oph-037": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Recognize swollen optic nerves as raised pressure in the skull, image before a spinal tap and treat to protect vision.",
+      "alternativesAndLimits": "The diagnosis is one of exclusion. Rapid visual loss needs urgent surgical treatment, not tablets alone.",
+      "sources": [
+        {
+          "title": "Friedman, Liu and Digre (Neurology 2013): revised diagnostic criteria for the pseudotumor cerebri syndrome in adults and children",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/23966248/"
+        },
+        {
+          "title": "Wall et al., NORDIC Idiopathic Intracranial Hypertension Study Group (JAMA 2014): effect of acetazolamide on visual function in patients with idiopathic intracranial hypertension and mild visual loss",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/24756514/"
         }
       ]
     }
@@ -26170,6 +26330,733 @@
         {
           "title": "Gupta and Foley (J Fungi 2015): antifungal treatment for pityriasis versicolor",
           "url": "https://pubmed.ncbi.nlm.nih.gov/29376896/"
+        }
+      ]
+    },
+    "oph-027": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "A painful red eye, _and a white spot that grew overnight._",
+      "setting": "Eye clinic",
+      "start": {
+        "status": "unstable",
+        "alarm": "Very painful red eye · vision blurred"
+      },
+      "handoff": "A 23-year-old student has had a very painful, red right eye for two days. Light hurts, her vision is blurred and there is thick discharge. She wears contact lenses.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask about the eye",
+            "finding": "The pain, redness and blur have worsened quickly over two days. Light is unbearable, and it feels as if something is in the eye. A white spot on the eye is clearly larger than yesterday. Nothing hit or scratched it."
+          },
+          {
+            "prompt": "Ask how she looks after her contact lenses",
+            "finding": "She wears soft lenses every day. She often sleeps in them and swims in them, and she tops up the old solution in the case without replacing it. Two nights ago she fell asleep with them in."
+          },
+          {
+            "prompt": "Ask about her health",
+            "finding": "She is short-sighted and otherwise healthy. She has no fever, no sore joints and no mouth ulcers. Her left eye is fine."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Test her vision, and look at both eyes",
+            "finding": "With the right eye she reads only the large letters, 20/100. That eye is very red, most of all around the cornea, and thick yellow discharge clings to the lashes. The left eye is white and reads 20/20."
+          },
+          {
+            "prompt": "Look at the right cornea through the microscope",
+            "finding": "In the center is a round, raw patch 3 mm across, with a dense white area in the cornea beneath it. Its edges are soft and blurred, and the cornea around it is hazy."
+          },
+          {
+            "prompt": "Look at the space behind the cornea, and check the pupil",
+            "finding": "A thin layer of white pus has settled at the bottom of the space between the cornea and the iris. The pupil still reacts to light."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Scraping and cultures",
+          "content": "Stain of the corneal scraping: rod-shaped bacteria that stain pink (gram-negative).\nCulture from the cornea: Pseudomonas aeruginosa.\nAntibiotics that work against it: fluoroquinolone drops and strengthened aminoglycoside drops.\nCulture from her lens case: the same bacterium.\nVision in the right eye: 20/100."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "A contact lens wearer with an ulcer in the center of the cornea and pus inside the eye. This can cost her the eye.",
+          "question": "What is the most important step right now?",
+          "options": [
+            "Steroid drops to settle the inflammation",
+            "Scrape the ulcer for a stain and culture, then start antibiotic drops straight away",
+            "Patch the eye, and see her again in a week",
+            "Reassure her, and let her keep wearing a lens in the other eye"
+          ],
+          "fix": "Scrape, culture and start antibiotics",
+          "terms": [
+            {
+              "term": "Cornea",
+              "meaning": "The clear window at the front of the eye. It does most of the eye’s focusing."
+            },
+            {
+              "term": "Corneal ulcer",
+              "meaning": "An open sore in the cornea, usually from infection."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "delay",
+              "minutes": 720,
+              "story": "Steroid drops ease the pain for a night. By morning the white spot has doubled in size, and the layer of pus is deeper.",
+              "reply": "A steroid switches off the eye’s defenses and leaves the bacteria untouched, so the infection runs free. The ulcer needs a scraping and antibiotics now.",
+              "status": "worse",
+              "alarm": "White spot doubled overnight"
+            },
+            {
+              "kind": "safe",
+              "minutes": 20,
+              "story": "Numbing drops go in. The eye doctor scrapes the edge of the ulcer onto slides and culture plates and scrapes her lens case too. Antibiotic drops start within minutes. The results go in her chart.",
+              "reply": "Right. We take the sample first, so we learn exactly which bacterium it is, and then treat hard without waiting for the answer."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You reach for an eye patch. The eye doctor stops you.",
+              "reply": "Never patch an infected eye. A patch makes a warm, dark pocket where bacteria thrive. A week is also far too long. She will be seen every day."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You reassure her. The eye doctor shakes their head.",
+              "reply": "This is an emergency, and lenses are what caused it. No lens goes in either eye until this has healed."
+            }
+          ]
+        },
+        "3": {
+          "resident": "The bacterium is Pseudomonas, and we know which antibiotics kill it.",
+          "question": "How do we give them?",
+          "options": [
+            "Amoxicillin by mouth once a day for a week",
+            "Antiviral eye drops",
+            "A fluoroquinolone or strengthened antibiotic drop every hour, day and night, with a check every day",
+            "One injection of vancomycin into the back of the eye"
+          ],
+          "fix": "Give hourly antibiotic drops",
+          "terms": [
+            {
+              "term": "Topical",
+              "meaning": "Applied straight onto the surface, here as eye drops."
+            },
+            {
+              "term": "Fortified drops",
+              "meaning": "Antibiotic eye drops mixed specially at a much higher strength than standard ones."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "delay",
+              "minutes": 720,
+              "story": "She goes home with tablets. The next morning the ulcer is deeper, and the cornea beneath it has thinned.",
+              "reply": "The cornea has no blood vessels, so very little of a tablet reaches it. Amoxicillin does not kill Pseudomonas anyway. She needs drops every hour.",
+              "status": "worse",
+              "alarm": "Ulcer deeper · cornea thinning"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for antiviral drops. The eye doctor shakes their head.",
+              "reply": "The culture grew a bacterium. An antiviral does nothing to it."
+            },
+            {
+              "kind": "safe",
+              "minutes": 30,
+              "story": "She is started on fluoroquinolone drops every hour, day and night, with an alarm set on her phone. She will be seen in clinic every day.",
+              "reply": "Right. Drops put a very high dose of antibiotic exactly where the infection is. For the first days, hourly means through the night as well.",
+              "alarm": "Antibiotic drops every hour"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for an injection into the eye. The eye doctor shakes their head.",
+              "reply": "Injections are for infection deep inside the eye. Hers is in the cornea, and vancomycin does not kill this bacterium."
+            }
+          ]
+        },
+        "4": {
+          "resident": "When this heals she will want to wear lenses again. Her habits are what let it happen.",
+          "question": "What does she need to change?",
+          "options": [
+            "Sleeping in lenses is safe if they are rinsed in tap water",
+            "No sleeping, swimming or showering in lenses, fresh solution every time, a new case regularly and clean hands",
+            "Switch to colored fashion lenses bought without a prescription",
+            "Wear a lens only in the eye that was infected, to rest the other"
+          ],
+          "fix": "Go through lens care with her",
+          "terms": [
+            {
+              "term": "Disinfecting solution",
+              "meaning": "The liquid that kills germs on contact lenses. It stops working once it has been used."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say tap water is fine. The eye doctor stops you.",
+              "reply": "Tap water carries Pseudomonas and an amoeba that is even harder to treat. It never touches a lens."
+            },
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "She throws her old case in the clinic bin and asks about daily disposable lenses.",
+              "reply": "Right. Sleeping in lenses is the single biggest risk, and old solution in an old case is a culture dish. Every item on that list removes a way in."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest fashion lenses. The eye doctor shakes their head.",
+              "reply": "Lenses sold without a fitting cause some of the worst infections we see."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You suggest a lens in the infected eye only. The eye doctor shakes their head.",
+              "reply": "That eye will have a scar and is the last place for a lens. Resting one eye was never the problem."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "The culture grew Pseudomonas. Her ulcer doubled in size in a day, and its edges look as if they are dissolving.",
+        "question": "What makes this infection so fast and destructive?",
+        "options": [
+          "It spreads in branching lines across the surface, as a herpes virus does",
+          "It grows slowly, with feathery side spots, as a fungus does",
+          "It is an amoeba from water, which causes a ring and extreme pain",
+          "The bacteria release enzymes and toxins that digest the cornea"
+        ],
+        "reveal": "Pseudomonas makes enzymes that cut up collagen, the protein the cornea is built from. That is why the edges of her ulcer look as if they are melting, and why it grows by the hour. Untreated, it can eat through the cornea in days. The other three are real infections of the cornea, and each looks different: herpes draws branching lines, fungus grows slowly, and the amoeba forms a ring.",
+        "terms": [
+          {
+            "term": "Keratitis",
+            "meaning": "Inflammation of the cornea, here from infection."
+          },
+          {
+            "term": "Pseudomonas",
+            "meaning": "A bacterium that lives in water and damp places and resists many antibiotics."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "Home on antibiotic drops every hour, to be seen in clinic every day",
+        "unstable": "Home on antibiotic drops every hour, to be seen in clinic every day",
+        "worse": "Admitted for antibiotic drops every hour, with a deeper ulcer that will leave a scar",
+        "critical": "Admitted, with the cornea close to breaking open"
+      },
+      "plainDiagnosis": "A bacterial infection eating into the cornea, caused by sleeping and swimming in contact lenses (Pseudomonas keratitis).",
+      "science": [
+        {
+          "tag": "Proteins",
+          "title": "What the bacteria were dissolving",
+          "text": "The cornea is clear because its collagen fibers are all the same width and evenly spaced. The enzymes Pseudomonas releases cut collagen into pieces. Where the pattern is broken the cornea turns white, and scar tissue laid down later is never as regular.",
+          "lesson": "protein-structure",
+          "lessonTitle": "From amino acid to protein"
+        },
+        {
+          "tag": "Oxygen",
+          "title": "Why sleeping in lenses matters",
+          "text": "The cornea has no blood vessels. It takes its oxygen straight from the air. A lens slows that down, and a closed eyelid over a lens slows it much more. Surface cells short of oxygen break down, and bacteria on the lens get in through the gaps.",
+          "lesson": "gas-exchange",
+          "lessonTitle": "Move oxygen across a barrier"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Lin et al. (Ophthalmology 2019): bacterial keratitis preferred practice pattern",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/30366799/"
+        },
+        {
+          "title": "Stapleton and Carnt (Eye 2012): contact lens-related microbial keratitis, how have epidemiology and genetics helped us with pathogenesis and prophylaxis",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/22134592/"
+        }
+      ]
+    },
+    "oph-032": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "A deep ache in one eye, _and he cannot stand the light._",
+      "setting": "Eye clinic",
+      "start": {
+        "status": "stable",
+        "alarm": "Aching left eye · pain in light"
+      },
+      "handoff": "A 34-year-old man has had a deep ache in his left eye for three days. Light is painful, the eye waters and it is red in a ring around the colored part. His vision is slightly blurred.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask about the eye",
+            "finding": "A dull ache deep in the left eye for three days. Light hurts badly, and the eye waters. The redness sits in a ring around the colored part. There is no sticky discharge and no itch. Nothing went into the eye, and he does not wear contact lenses."
+          },
+          {
+            "prompt": "Ask whether this has happened before",
+            "finding": "Twice, more mildly. Each time it settled over a couple of weeks."
+          },
+          {
+            "prompt": "Ask about the rest of his health and his family",
+            "finding": "For months his lower back has been painful and stiff for over an hour each morning, and it eases once he moves around. He put it down to his desk job. His father has a stiff back, and an uncle has inflammatory bowel disease."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Test his vision, and look at where the redness is",
+            "finding": "Vision is 20/20 in the right eye and 20/30 in the left. The redness is deepest in a ring at the edge of the cornea and fades outward. There is no discharge."
+          },
+          {
+            "prompt": "Look at his pupils, and shine a light in the good eye",
+            "finding": "The left pupil is smaller than the right and slow to react. Light in the right eye makes the left eye hurt."
+          },
+          {
+            "prompt": "Put dye on the cornea, and examine his back",
+            "finding": "The dye shows no scratch or ulcer. He cannot bend forward fully, and the joints at the base of his spine are tender."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Microscope examination of the eye",
+          "content": "Left cornea: clear, with small clumps of cells stuck to its back surface.\nFront chamber of the left eye: many white cells floating in the fluid, and the fluid is hazy with protein. No layer of pus.\nLeft pupil: small and slightly irregular. The iris has begun to stick to the lens behind it.\nEye pressure: 12 left and 15 right, both normal.\nBack of both eyes: normal."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "Most red eyes in clinic are conjunctivitis, an infection of the surface. This one is not.",
+          "question": "Which feature tells you so?",
+          "options": [
+            "A red eye that waters",
+            "Slightly blurred vision",
+            "A deep ache, pain in light, and redness in a ring around the cornea",
+            "It has happened before"
+          ],
+          "fix": "Pick out the warning features",
+          "terms": [
+            {
+              "term": "Conjunctivitis",
+              "meaning": "Inflammation of the thin skin over the white of the eye. It feels gritty and sticky more than painful."
+            },
+            {
+              "term": "Photophobia",
+              "meaning": "Pain on looking at light."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You point to the watering. The eye doctor shakes their head.",
+              "reply": "Nearly every red eye waters. That does not separate one cause from another."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You point to the blur. The eye doctor shakes their head.",
+              "reply": "Discharge across the surface can blur vision a little too. It is not the best clue."
+            },
+            {
+              "kind": "safe",
+              "minutes": 15,
+              "story": "The eye doctor nods and sits him at the microscope. The findings go in his chart.",
+              "reply": "Right. A surface infection feels gritty. A deep ache and pain in light come from inside the eye, and that ring of redness lies over the inflamed tissue."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You point to the earlier episodes. The eye doctor shakes their head.",
+              "reply": "That is a useful clue to the cause. Allergic conjunctivitis also comes back, though, so it does not settle the question."
+            }
+          ]
+        },
+        "3": {
+          "resident": "Inflammation inside the eye often travels with a disease elsewhere. Think about his back: stiff for an hour every morning, better with movement.",
+          "question": "Which blood test fits that picture?",
+          "options": [
+            "Antinuclear antibody (ANA)",
+            "Rheumatoid factor",
+            "HLA-B27",
+            "ACE level, for sarcoidosis"
+          ],
+          "fix": "Order HLA-B27",
+          "terms": [
+            {
+              "term": "HLA-B27",
+              "meaning": "An inherited immune marker. It is common in people who get this eye inflammation together with spinal arthritis."
+            },
+            {
+              "term": "Ankylosing spondylitis",
+              "meaning": "A long-term inflammatory arthritis of the spine and the joints at its base."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for ANA. The eye doctor shakes their head.",
+              "reply": "ANA goes with a quieter, long-lasting eye inflammation in young children with arthritis. That is not his picture."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for rheumatoid factor. The eye doctor shakes their head.",
+              "reply": "Rheumatoid arthritis affects the hands and causes a different eye problem. It does not cause a stiff lower back in a young man."
+            },
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "Blood is sent for HLA-B27, and he is referred to a rheumatologist about his back.",
+              "reply": "Right. Repeated attacks like this in a young man with that kind of back pain point to spinal arthritis. Sometimes the eye doctor is the first to find it."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for an ACE level. The eye doctor shakes their head.",
+              "reply": "Sarcoidosis can inflame the eye, but it does not explain his back."
+            }
+          ]
+        },
+        "4": {
+          "resident": "The eye needs treating today, before the iris sticks to the lens for good.",
+          "question": "What do we prescribe?",
+          "options": [
+            "Steroid drops, with a drop that widens the pupil and rests the focusing muscle",
+            "Antibiotic drops four times a day",
+            "Acyclovir tablets and an eye patch",
+            "Antihistamine drops"
+          ],
+          "fix": "Prescribe steroid and dilating drops",
+          "terms": [
+            {
+              "term": "Cycloplegic",
+              "meaning": "A drop that relaxes the eye’s focusing muscle and widens the pupil."
+            },
+            {
+              "term": "Synechiae",
+              "meaning": "Places where the inflamed iris has stuck to the lens behind it."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "He starts steroid drops every hour while awake and a dilating drop twice a day. He will be seen again in two days.",
+              "reply": "Right. The steroid quiets the inflammation. The second drop stops the muscle spasm that causes the ache and keeps the iris moving so that it cannot stick."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for antibiotic drops. The eye doctor shakes their head.",
+              "reply": "There is no infection. This is the immune system inflaming the eye, and antibiotics will not touch it."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for acyclovir and a patch. The eye doctor shakes their head.",
+              "reply": "Nothing here looks like herpes, and a patch does nothing for inflammation."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for antihistamine drops. The eye doctor shakes their head.",
+              "reply": "Those are for itchy, allergic eyes. His eye aches, and it does not itch."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "The microscope findings are in his chart.",
+        "question": "What is the diagnosis?",
+        "options": [
+          "Acute angle-closure glaucoma, a sudden rise in eye pressure",
+          "Acute anterior uveitis, inflammation of the iris and the front of the eye",
+          "Episcleritis, inflammation of the surface of the white of the eye",
+          "A viral infection of the surface of the eye"
+        ],
+        "reveal": "This is acute anterior uveitis. White cells and protein floating in the front chamber are inflammation that can be seen directly. The pupil is small because the inflamed iris is in spasm, and it is starting to stick to the lens. In angle-closure glaucoma the pressure is very high and the pupil is fixed half open. His pressure is normal. The other two affect the surface only and leave the inside of the eye clear.",
+        "terms": [
+          {
+            "term": "Uveitis",
+            "meaning": "Inflammation of the middle layer of the eye, which includes the iris."
+          },
+          {
+            "term": "Anterior chamber",
+            "meaning": "The fluid-filled space between the cornea and the iris."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "Home on steroid and dilating drops, with a review in two days and a rheumatology referral",
+        "worse": "Sent to the emergency department",
+        "critical": "In hospital"
+      },
+      "plainDiagnosis": "Inflammation inside the front of the eye (acute anterior uveitis), probably linked to an inflammatory arthritis of the spine.",
+      "science": [
+        {
+          "tag": "Inheritance",
+          "title": "What a positive HLA-B27 would mean",
+          "text": "HLA-B27 is one inherited version of a gene for a protein that shows fragments to the immune system. Most people who carry it stay well, so the test alone diagnoses nothing. In someone with his eye and back symptoms, it makes spinal arthritis much more likely.",
+          "lesson": "inheritance-linkage",
+          "lessonTitle": "Reason through inheritance"
+        },
+        {
+          "tag": "Optics",
+          "title": "Why the dilating drop blurs his reading",
+          "text": "To focus on something near, a ring of muscle inside the eye tightens and lets the lens grow rounder, which bends light more. The drop relaxes that muscle. The lens stays flat, so near objects are blurred until the drop wears off.",
+          "lesson": "thin-lenses",
+          "lessonTitle": "Predict a thin-lens image"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Jabs et al. (Am J Ophthalmol 2005): standardization of uveitis nomenclature for reporting clinical data",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/16196117/"
+        },
+        {
+          "title": "Agrawal et al. (Indian J Ophthalmol 2010): current approach in diagnosis and management of anterior uveitis",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/20029142/"
+        }
+      ]
+    },
+    "oph-037": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "Headaches every day, _and her vision grays out for seconds._",
+      "setting": "Emergency department",
+      "start": {
+        "status": "stable",
+        "alarm": "Daily headaches · vision graying out for seconds"
+      },
+      "handoff": "A 31-year-old woman has had a headache every day for six weeks. Several times a day her vision grays out in both eyes for a few seconds. She hears a whooshing in her ears in time with her pulse.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask about the headaches",
+            "finding": "A dull headache every day for six weeks. It is worse in the morning, when she lies down and when she bends over or strains. She has no fever and no stiff neck, and her arms, legs and speech are normal."
+          },
+          {
+            "prompt": "Ask about her vision and hearing",
+            "finding": "For a few seconds at a time, everything goes gray or black in both eyes, often when she stands up. It is happening more often. She hears a whoosh in her ears with each heartbeat, sometimes sees double, and feels her side vision has narrowed."
+          },
+          {
+            "prompt": "Ask about her weight and medicines",
+            "finding": "She has gained about 14 kg in the past year. Three months ago she started isotretinoin for acne. She also takes the contraceptive pill."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Look at the back of her eyes",
+            "finding": "In both eyes the optic nerve, where it enters the eye, is swollen. Its edges are blurred, and the blood vessels crossing it are partly buried."
+          },
+          {
+            "prompt": "Test her vision, pupils and side vision",
+            "finding": "She reads 20/20 with each eye, and her pupils react normally. Her natural blind spots are larger than they should be, and her side vision is slightly narrowed toward the nose."
+          },
+          {
+            "prompt": "Test her eye movements, and bend her neck",
+            "finding": "Her left eye does not turn fully outward, and she sees double when she looks to the left. Her neck bends freely."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "MRI, vein scan and spinal tap",
+          "content": "MRI of the brain: no tumor and no blocked fluid. Signs of high pressure: the backs of the eyeballs are flattened, and the sleeves around the optic nerves are stretched.\nScan of the brain’s veins: all open, with no clot.\nSpinal tap: opening pressure 32. Normal is 25 or less.\nSpinal fluid: normal cells, protein and sugar."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "Both optic nerves are swollen. That means the pressure inside her skull is high, and we need to know why.",
+          "question": "What is the first test?",
+          "options": [
+            "A spinal tap now, without a scan",
+            "An MRI of her brain, with a scan of the brain’s veins",
+            "Start acetazolamide, and send her home",
+            "A CT scan of her eye sockets only"
+          ],
+          "fix": "Get an MRI with a vein scan",
+          "terms": [
+            {
+              "term": "Papilledema",
+              "meaning": "Swelling of the optic nerves caused by raised pressure inside the skull."
+            },
+            {
+              "term": "MR venography",
+              "meaning": "An MRI that shows the large veins that drain blood from the brain."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a spinal tap first. The resident stops you.",
+              "reply": "If a tumor is causing the pressure, draining fluid from below can pull the brain downward. A scan comes first, every time."
+            },
+            {
+              "kind": "safe",
+              "minutes": 90,
+              "story": "She has an MRI with a scan of the veins. Both are clear, so a spinal tap follows. The results go in her chart.",
+              "reply": "Right. Two dangerous things raise the pressure like this: a mass, and a clot in the veins that drain the brain. The scan looks for both. After that the spinal tap is safe."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You start treatment and plan to send her home. The resident shakes their head.",
+              "reply": "That treats a diagnosis nobody has made. A tumor or a clot can look exactly like this at the bedside."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a CT of her eye sockets. The resident shakes their head.",
+              "reply": "The problem is behind the eyes, inside the skull. We need to see the brain and its veins."
+            }
+          ]
+        },
+        "3": {
+          "resident": "The pressure is high, and nothing structural explains it. She will get help with losing weight, and her acne medicine has to stop, because it can cause this.",
+          "question": "Which medicine comes first?",
+          "options": [
+            "Acetazolamide",
+            "Prednisone tablets, long term",
+            "Topiramate alone, as the first choice",
+            "A blood thinner"
+          ],
+          "fix": "Start acetazolamide",
+          "terms": [
+            {
+              "term": "Acetazolamide",
+              "meaning": "A tablet that slows the production of the fluid around the brain."
+            },
+            {
+              "term": "Isotretinoin",
+              "meaning": "A strong acne medicine related to vitamin A. Raised pressure in the skull is a known side effect."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 15,
+              "story": "She starts acetazolamide. Her isotretinoin is stopped, and she is referred to a weight-management clinic.",
+              "reply": "Right. It lowers the pressure by slowing the production of fluid. Weight loss is what lasts: losing even a tenth of her weight often settles this."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for long-term prednisone. The resident shakes their head.",
+              "reply": "Steroids cause weight gain, and the pressure rebounds when they stop. Both make this worse."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for topiramate. The resident shakes their head.",
+              "reply": "It is sometimes used as a second option. The drug with the best evidence comes first."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a blood thinner. The resident shakes their head.",
+              "reply": "That would be the treatment for a clot in the veins. Her vein scan was clear."
+            }
+          ]
+        },
+        "4": {
+          "resident": "Her headaches are what bother her most. They are not the reason she will be followed so closely.",
+          "question": "What are we trying to prevent?",
+          "options": [
+            "Permanent loss of vision from long-standing swelling of the optic nerves",
+            "Long-term migraine",
+            "Hearing loss from the whooshing",
+            "A turned-in eye that stays that way"
+          ],
+          "fix": "Explain what is at stake",
+          "terms": [
+            {
+              "term": "Visual field test",
+              "meaning": "A test that maps how far a person can see to each side while looking straight ahead."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "She is booked for a visual field test next week and regular checks with the eye doctors.",
+              "reply": "Right. A swollen optic nerve slowly loses fibers. The loss starts at the edges, where she will not notice it, and it does not come back."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say migraine. The resident shakes their head.",
+              "reply": "The headaches matter to her, and they usually improve. They do not threaten her sight."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say hearing loss. The resident shakes their head.",
+              "reply": "The whooshing is the sound of blood flow under pressure. It fades with treatment and does not damage hearing."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say the turned-in eye. The resident shakes their head.",
+              "reply": "That nerve usually recovers once the pressure falls. The optic nerves do not."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "Her scans and spinal tap are in the chart.",
+        "question": "What is the diagnosis?",
+        "options": [
+          "A clot in the veins that drain the brain",
+          "A brain tumor pressing on the brain",
+          "Idiopathic intracranial hypertension: high pressure in the skull with no mass and no clot",
+          "Dangerously high blood pressure"
+        ],
+        "reveal": "This is idiopathic intracranial hypertension. The pressure of the fluid around her brain is high, the fluid itself is normal, and the scans found no tumor and no clot. It happens mostly in young women who have recently gained weight, and her acne medicine can also cause it. Her blood pressure is normal.",
+        "terms": [
+          {
+            "term": "Idiopathic",
+            "meaning": "With no cause that can be found."
+          },
+          {
+            "term": "Intracranial hypertension",
+            "meaning": "Raised pressure inside the skull."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "Home on acetazolamide, off her acne medicine, with a visual field test booked",
+        "worse": "Sent back to the emergency department",
+        "critical": "In hospital"
+      },
+      "plainDiagnosis": "High pressure in the fluid around the brain with no tumor or clot (idiopathic intracranial hypertension).",
+      "science": [
+        {
+          "tag": "Pressure",
+          "title": "Why the pressure is given as a height",
+          "text": "During a spinal tap the needle is joined to a thin upright tube, and the spinal fluid rises in it until its weight balances the pressure inside. The height of that column is the reading. Hers rose to 32 centimeters, when 25 is the upper limit.",
+          "lesson": "hydrostatics",
+          "lessonTitle": "Read pressure in a fluid"
+        },
+        {
+          "tag": "Acids and bases",
+          "title": "How the tablet slows fluid production",
+          "text": "The cells that make spinal fluid depend on an enzyme, carbonic anhydrase, which turns carbon dioxide and water into bicarbonate and acid. Moving those ions draws water along with them. Acetazolamide blocks the enzyme, so less fluid is made.",
+          "lesson": "buffer-balance",
+          "lessonTitle": "Balance a buffer"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Friedman, Liu and Digre (Neurology 2013): revised diagnostic criteria for the pseudotumor cerebri syndrome in adults and children",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/23966248/"
+        },
+        {
+          "title": "Wall et al., NORDIC Idiopathic Intracranial Hypertension Study Group (JAMA 2014): effect of acetazolamide on visual function in patients with idiopathic intracranial hypertension and mild visual loss",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/24756514/"
         }
       ]
     }
