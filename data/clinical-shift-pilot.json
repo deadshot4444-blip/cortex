@@ -1,7 +1,7 @@
 {
-  "version": 30,
+  "version": 31,
   "title": "Clinical Shift foundations and rotation practice",
-  "reviewStatus": "Source and consistency checks are recorded with each encounter. Independent clinician review remains pending for all 75 encounters.",
+  "reviewStatus": "Source and consistency checks are recorded with each encounter. Independent clinician review remains pending for all 78 encounters.",
   "rotations": [
     {
       "key": "emergency-medicine",
@@ -230,6 +230,16 @@
         "pn-014",
         "pn-017",
         "pn-016"
+      ]
+    },
+    {
+      "key": "dermatology",
+      "name": "Dermatology",
+      "description": "The skin can be the first sign of trouble inside, or the whole problem. Learn to tell which.",
+      "caseIds": [
+        "dm-061",
+        "dm-074",
+        "dm-025"
       ]
     }
   ],
@@ -533,6 +543,18 @@
     "pn-016": {
       "assessment": "16-year-old boy with six months of severe daytime sleepiness despite adequate sleep, laughter-triggered cataplexy, sleep paralysis, and hypnagogic hallucinations. MSLT mean sleep latency 4 minutes with three sleep-onset REM periods; CSF hypocretin-1 low: narcolepsy type 1.",
       "plan": "Scheduled short naps and regular sleep hours, with a wake-promoting agent such as modafinil or a stimulant for sleepiness; add treatment for cataplexy if it remains troublesome. No driving until sleepiness is controlled. School accommodations and follow-up in sleep clinic."
+    },
+    "dm-061": {
+      "assessment": "45-year-old man with stage 3 chronic kidney disease, six weeks into allopurinol 300 mg daily, with a morbilliform eruption over 60% of the body surface, facial edema, fever, and lymphadenopathy. Eosinophils 2.4 ×10³/µL with atypical lymphocytes, AST 188, ALT 224, creatinine 1.9 (baseline 1.6): DRESS syndrome due to allopurinol.",
+      "plan": "Stop allopurinol immediately and record it as an allergy. Start systemic corticosteroids with a slow taper given hepatic and renal involvement; monitor liver and kidney function and blood counts. Do not substitute another urate-lowering drug during the reaction. Monitor thyroid function for several months for autoimmune sequelae."
+    },
+    "dm-074": {
+      "assessment": "63-year-old man with long-standing plaque psoriasis and two weeks of erythema and scale over 90% of the body surface after abrupt withdrawal of oral prednisone. Hypothermic (35.4 °C), tachycardic, and hypotensive, with sodium 132, potassium 3.4, albumin 2.6, creatinine 1.4, and a hyperdynamic heart on echo: erythrodermic psoriasis.",
+      "plan": "Admit. Warm environment, IV fluids with electrolyte repletion, nutritional support, bland emollients with wet wraps, and cardiac monitoring. Start psoriasis-directed systemic therapy such as cyclosporine or a biologic; avoid systemic corticosteroids. Watch for secondary infection and high-output heart failure."
+    },
+    "dm-025": {
+      "assessment": "21-year-old athlete in a warm, humid climate with recurrent, finely scaly hypopigmented macules on the upper trunk that do not tan. KOH preparation shows short hyphae with clusters of yeast, and Wood’s lamp shows pale yellow-green fluorescence: tinea (pityriasis) versicolor due to Malassezia.",
+      "plan": "Topical antifungal such as selenium sulfide or ketoconazole shampoo applied to the trunk, or zinc pyrithione. Counsel that color returns over weeks to months after the yeast is cleared, that recurrence is common, and that periodic preventive washes can help. Oral terbinafine is not effective."
     }
   },
   "investigations": {
@@ -2785,6 +2807,96 @@
           "finding": "A hearty laugh triggers transient head droop and jaw slackening with preserved awareness, resolving in seconds. No tonsillar hypertrophy or retrognathia."
         }
       ]
+    },
+    "dm-061": {
+      "interview": [
+        {
+          "prompt": "Characterize the rash and its course",
+          "finding": "Four days of pink spots that began on the trunk and spread to the limbs and face, with pruritus, malaise, low-grade fevers and swelling around the eyes and cheeks. No mucosal pain, blistering or sloughing."
+        },
+        {
+          "prompt": "Take a full medication history with start dates",
+          "finding": "Allopurinol 300 mg daily started six weeks ago for recurrent gout. Long-term lisinopril and hydrochlorothiazide. IV cefazolin started two days ago for cellulitis. No known drug allergies."
+        },
+        {
+          "prompt": "Review past history and systemic symptoms",
+          "finding": "Gout, hypertension and stage 3 chronic kidney disease. Fatigue and mild right-upper-quadrant discomfort; no sore throat, eye pain or joint swelling."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Inspect the skin and the face",
+          "finding": "Confluent morbilliform erythematous macules and papules over more than 60% of the body surface, accentuated in the flexures, with marked periorbital and facial edema. No pustules."
+        },
+        {
+          "prompt": "Examine the mucosae and test for skin fragility",
+          "finding": "Oral, ocular and genital mucosae are spared. No targetoid lesions, no Nikolsky sign and no epidermal detachment."
+        },
+        {
+          "prompt": "Palpate lymph nodes and the abdomen",
+          "finding": "Tender, firm cervical and axillary lymphadenopathy. Mild hepatomegaly with right-upper-quadrant tenderness."
+        }
+      ]
+    },
+    "dm-074": {
+      "interview": [
+        {
+          "prompt": "Characterize the eruption",
+          "finding": "Two weeks of progressive generalized redness and scaling that began on the trunk and now covers nearly the entire body, with intense pruritus, skin tightness and heavy shedding of scale."
+        },
+        {
+          "prompt": "Review skin history and recent treatment",
+          "finding": "Plaque psoriasis for 20 years, controlled on topical therapy until he ran out a month ago. An urgent-care clinician then gave a course of oral prednisone for a flare, and it was stopped abruptly. Takes lisinopril and atorvastatin."
+        },
+        {
+          "prompt": "Ask about systemic symptoms",
+          "finding": "Feels cold despite blankets, with chills and rigors, malaise, poor oral intake and lightheadedness on standing. Lives alone."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Inspect the skin, nails, palms and soles",
+          "finding": "Confluent erythema over about 90% of the body surface with diffuse fine scale and tight, edematous skin. Thickened palms and soles; nail pitting and onycholysis. Mucous membranes spared; no bullae and no Nikolsky sign."
+        },
+        {
+          "prompt": "Assess temperature and perfusion",
+          "finding": "Shivering and ill-appearing. The trunk is warm, and the hands and feet are cool."
+        },
+        {
+          "prompt": "Examine lymph nodes, legs, heart and lungs",
+          "finding": "Diffuse non-tender cervical and inguinal lymphadenopathy. Pitting edema of the lower extremities. Regular tachycardia, mildly elevated jugular venous pressure and clear lungs."
+        }
+      ]
+    },
+    "dm-025": {
+      "interview": [
+        {
+          "prompt": "Characterize the patches",
+          "finding": "Multiple light-colored patches on the upper chest, shoulders and back, noticed after a summer outdoors when the surrounding skin tanned. Mildly itchy with sweating and occasionally slightly scaly."
+        },
+        {
+          "prompt": "Ask about previous episodes and symptoms",
+          "finding": "Similar patches in previous summers that faded in cooler months. No pain, numbness or systemic symptoms."
+        },
+        {
+          "prompt": "Review history, medications and environment",
+          "finding": "Healthy college athlete on no regular medications. Lives in a warm, humid climate, sweats heavily every day and shares a locker room. Worried about vitiligo."
+        }
+      ],
+      "exam": [
+        {
+          "prompt": "Inspect the distribution and borders",
+          "finding": "Numerous well-demarcated hypopigmented macules and patches, 0.5 to 1.5 cm, coalescing over the upper trunk, shoulders and upper back. A few are faintly salmon-tan. Face, palms, soles and mucosae are spared."
+        },
+        {
+          "prompt": "Scrape a patch lightly",
+          "finding": "Light scraping produces a fine, branny scale. No induration, vesicles or surrounding erythema."
+        },
+        {
+          "prompt": "Test sensation over the patches",
+          "finding": "Sensation is fully intact, and no nerves are thickened."
+        }
+      ]
     }
   },
   "caseReviews": {
@@ -3989,6 +4101,54 @@
         {
           "title": "Maski et al. (J Clin Sleep Med 2021): treatment of central disorders of hypersomnolence, an American Academy of Sleep Medicine clinical practice guideline",
           "url": "https://pubmed.ncbi.nlm.nih.gov/34743789/"
+        }
+      ]
+    },
+    "dm-061": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Recognize a severe drug reaction from its timing, facial swelling and blood results, stop the drug and treat organ inflammation.",
+      "alternativesAndLimits": "Steroid dose and duration are individual. Mild cases without organ involvement may be managed with skin treatment alone.",
+      "sources": [
+        {
+          "title": "Kardaun et al. (Br J Dermatol 2013): drug reaction with eosinophilia and systemic symptoms (DRESS), results from the prospective RegiSCAR study",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/23855313/"
+        },
+        {
+          "title": "Husain et al. (J Am Acad Dermatol 2013): DRESS syndrome, part II, management and therapeutics",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/23602183/"
+        }
+      ]
+    },
+    "dm-074": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Recognize erythroderma as an emergency of heat, fluid and protein loss, support the patient and treat the underlying psoriasis without systemic steroids.",
+      "alternativesAndLimits": "The choice of systemic drug depends on kidney function, infection risk and local practice.",
+      "sources": [
+        {
+          "title": "Rosenbach et al. (J Am Acad Dermatol 2010): treatment of erythrodermic psoriasis, from the medical board of the National Psoriasis Foundation",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/19665821/"
+        },
+        {
+          "title": "Mistry et al. (Adv Skin Wound Care 2015): a review of the diagnosis and management of erythroderma (generalized red skin)",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/25882661/"
+        }
+      ]
+    },
+    "dm-025": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "objective": "Confirm tinea versicolor with a skin scraping, treat it with a topical antifungal and set expectations about color and recurrence.",
+      "alternativesAndLimits": "Extensive or frequently recurring disease may be treated with oral itraconazole or fluconazole.",
+      "sources": [
+        {
+          "title": "Renati et al. (BMJ 2015): pityriasis versicolor",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/25852089/"
+        },
+        {
+          "title": "Gupta and Foley (J Fungi 2015): antifungal treatment for pityriasis versicolor",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/29376896/"
         }
       ]
     }
@@ -25207,6 +25367,809 @@
         {
           "title": "Maski et al. (J Clin Sleep Med 2021): treatment of central disorders of hypersomnolence, an American Academy of Sleep Medicine clinical practice guideline",
           "url": "https://pubmed.ncbi.nlm.nih.gov/34743789/"
+        }
+      ]
+    },
+    "dm-061": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "A rash that is still spreading, _and a swollen face._",
+      "setting": "Hospital ward",
+      "start": {
+        "status": "unstable",
+        "alarm": "Rash over most of his body · swollen face · fever"
+      },
+      "handoff": "A 45-year-old man was admitted two days ago for a skin infection of his calf. Over four days a rash has spread from his chest to his limbs and face. His face is puffy, and he has a fever.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask about the rash",
+            "finding": "Pink spots began on his chest four days ago and spread to his arms, legs and face. It itches. He feels unwell and feverish, and the skin around his eyes and cheeks has swollen. His mouth and eyes are not sore, and nothing has blistered."
+          },
+          {
+            "prompt": "Ask about every medicine and when each was started",
+            "finding": "Six weeks ago his doctor started allopurinol for gout. He has taken two blood pressure tablets for years. An antibiotic drip was started two days ago for his leg. He has never reacted to a drug before."
+          },
+          {
+            "prompt": "Ask about his health and other symptoms",
+            "finding": "He has gout, high blood pressure and kidneys that work at about half strength. He is tired, and he has a dull ache under his right ribs. His throat and joints are fine."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Look at his skin and face",
+            "finding": "Red spots and small bumps have merged over more than half of his body. They are densest in the skin folds. His eyelids and cheeks are swollen. There are no pus spots."
+          },
+          {
+            "prompt": "Look in his mouth and eyes, and rub the skin gently",
+            "finding": "The lining of his mouth and his eyes are normal. The skin does not blister or slide when rubbed."
+          },
+          {
+            "prompt": "Feel his neck, armpits and belly",
+            "finding": "The glands in his neck and armpits are firm and tender. His liver is slightly enlarged and tender."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Blood tests",
+          "content": "White cells: 16.8, high.\nEosinophils, the white cells of allergy: 2.4, about five times the upper limit.\nBlood film: unusual-looking lymphocytes.\nLiver enzymes: AST 188 and ALT 224, about five times normal.\nKidney test (creatinine): 1.9, up from his usual 1.6.\nPlatelets and hemoglobin: normal.\nInflammation marker (CRP): 62, high."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "Rashes from drugs are common in hospital, and most are harmless. Something about this one is different.",
+          "question": "Which feature worries you most?",
+          "options": [
+            "The rash looks like measles",
+            "A swollen face, fever and tender glands, six weeks after a new drug",
+            "The rash itches",
+            "The rash is densest in the skin folds"
+          ],
+          "fix": "Name the warning sign",
+          "terms": [
+            {
+              "term": "Drug eruption",
+              "meaning": "A rash caused by a medicine."
+            },
+            {
+              "term": "Lymph nodes",
+              "meaning": "Small glands that swell when the immune system is active."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You point to the measles-like pattern. The resident shakes their head.",
+              "reply": "That is the most common pattern of all, and most rashes that look like it are harmless."
+            },
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "The resident nods and sends a blood count with liver and kidney tests. The results go in his chart.",
+              "reply": "Right. A swollen face, fever and glands mean the whole immune system is reacting. The six-week delay is typical of the dangerous kind."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You point to the itch. The resident shakes their head.",
+              "reply": "Nearly every drug rash itches. It tells us nothing about how serious this is."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You point to the skin folds. The resident shakes their head.",
+              "reply": "Many rashes gather in the folds. The clue is in his face and his glands."
+            }
+          ]
+        },
+        "3": {
+          "resident": "Allopurinol is one of the commonest causes of this reaction, and some patients are at much higher risk.",
+          "question": "What put him at risk?",
+          "options": [
+            "His weak kidneys, together with a full starting dose",
+            "The beer he drinks",
+            "Having gout",
+            "His blood pressure tablet"
+          ],
+          "fix": "Name the risk factor",
+          "terms": [
+            {
+              "term": "Clearance",
+              "meaning": "How quickly the body removes a drug, mostly through the kidneys or the liver."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "You write it in his chart for the team that will treat his gout in future.",
+              "reply": "Right. The kidneys clear the active form of allopurinol. With weak kidneys it builds up, so the dose should start low and rise slowly."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say the beer. The resident shakes their head.",
+              "reply": "Beer can bring on gout. It does not cause this reaction."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say the gout. The resident shakes their head.",
+              "reply": "Gout is why he was given the drug. It does not make him react to it."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say his blood pressure tablet. The resident shakes their head.",
+              "reply": "He has taken that for years without trouble. The new drug is the suspect."
+            }
+          ]
+        },
+        "4": {
+          "resident": "His liver and kidneys are inflamed, and the rash is still spreading.",
+          "question": "What is the next step?",
+          "options": [
+            "Continue allopurinol, and add antihistamines for the itch",
+            "Swap allopurinol for febuxostat, another gout drug, and watch",
+            "Stop allopurinol now, and start steroids by mouth or vein",
+            "Stop allopurinol, and start broad antibiotics"
+          ],
+          "fix": "Stop the drug and start steroids",
+          "terms": [
+            {
+              "term": "Corticosteroid",
+              "meaning": "A drug such as prednisone that damps down the immune system."
+            },
+            {
+              "term": "Culprit drug",
+              "meaning": "The medicine that set off a reaction."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "delay",
+              "minutes": 720,
+              "story": "Allopurinol is continued. The next morning the whites of his eyes are yellow, he is drowsy and his liver tests have tripled.",
+              "reply": "Every dose fed the reaction, and antihistamines only quieten an itch. The drug has to stop, now and for good.",
+              "vitals": {
+                "Temp": "39.4 °C",
+                "HR": "122 bpm"
+              },
+              "trend": {
+                "Temp": "up",
+                "HR": "up"
+              },
+              "status": "worse",
+              "alarm": "Eyes turning yellow · liver tests tripled"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You swap one gout drug for another. The resident shakes their head.",
+              "reply": "Stopping allopurinol is right. Starting a new drug in the middle of a reaction is not. With his liver and kidneys involved, he also needs steroids."
+            },
+            {
+              "kind": "safe",
+              "minutes": 20,
+              "story": "Allopurinol is stopped and recorded in his chart as a serious allergy. Prednisone is started, and his liver and kidney tests are booked daily.",
+              "reply": "Right. Taking away the cause is the treatment. The steroid protects his organs while the reaction burns out, and it has to be reduced slowly over weeks."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for broad antibiotics. The resident shakes their head.",
+              "reply": "Fever and a high white count can look like infection. The eosinophils and the timing say drug reaction. More drugs would only confuse the picture."
+            }
+          ]
+        },
+        "5": {
+          "resident": "Most patients recover over weeks. One group of problems can appear months later, and we follow patients for them.",
+          "question": "Which should he be monitored for?",
+          "options": [
+            "Permanent loss of skin color where the rash was",
+            "Autoimmune disease, such as thyroid inflammation or type 1 diabetes",
+            "Repeated skin infections",
+            "Long-lasting hives"
+          ],
+          "fix": "Plan his follow-up",
+          "terms": [
+            {
+              "term": "Autoimmune disease",
+              "meaning": "A condition in which the immune system attacks the body’s own tissue."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say loss of skin color. The resident shakes their head.",
+              "reply": "The skin usually heals fully. That is not a known result of this reaction."
+            },
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "Thyroid blood tests are booked for the months after he goes home.",
+              "reply": "Right. After a reaction like this the immune system can stay unsettled and turn on the thyroid or the pancreas. We check for several months."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say skin infections. The resident shakes their head.",
+              "reply": "That was his reason for coming in. It has nothing to do with the drug reaction."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say hives. The resident shakes their head.",
+              "reply": "Hives are a different, faster kind of allergy. They are not what follows this."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "His blood tests are in the chart.",
+        "question": "What is the diagnosis?",
+        "options": [
+          "Stevens-Johnson syndrome, a drug reaction that blisters the skin and mouth",
+          "A drug reaction that covers the skin in tiny pus spots",
+          "DRESS syndrome, a drug reaction with rash, high eosinophils and inflamed organs",
+          "A staphylococcal infection that makes the skin peel"
+        ],
+        "reveal": "This is DRESS syndrome. It starts two to eight weeks after a new drug, later than most drug rashes. The face swells, the glands enlarge and eosinophils flood the blood. The reaction also inflames organs, most often the liver, and his kidneys are affected too. Stevens-Johnson syndrome blisters the skin and the lining of the mouth and eyes, and his are untouched. He has no pus spots and no peeling.",
+        "terms": [
+          {
+            "term": "Eosinophil",
+            "meaning": "A white blood cell that multiplies in allergies and some drug reactions."
+          },
+          {
+            "term": "Syndrome",
+            "meaning": "A set of findings that occur together."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "On the ward on steroids, with allopurinol stopped for good and daily blood tests",
+        "unstable": "On the ward on steroids, with allopurinol stopped for good and daily blood tests",
+        "worse": "On the ward on steroids, with a badly inflamed liver after another day of allopurinol",
+        "critical": "In intensive care with liver failure"
+      },
+      "plainDiagnosis": "A severe reaction to allopurinol, with a rash and inflamed liver and kidneys (DRESS syndrome).",
+      "science": [
+        {
+          "tag": "Enzymes",
+          "title": "What allopurinol was meant to do",
+          "text": "Uric acid is the last product when the body breaks down purines, and one enzyme, xanthine oxidase, makes it. Allopurinol blocks that enzyme, so less uric acid forms and fewer crystals settle in the joints. The reaction he had is unrelated to that action.",
+          "lesson": "enzyme-rates",
+          "lessonTitle": "Read an enzyme curve"
+        },
+        {
+          "tag": "Genes",
+          "title": "Why a few people react and most do not",
+          "text": "The reaction is far more common in people who inherit one version of an immune gene, called HLA-B*58:01. HLA proteins display fragments to T cells. That version seems to display the drug in a way T cells treat as foreign. A blood test can find it before the drug is started.",
+          "lesson": "inheritance-linkage",
+          "lessonTitle": "Reason through inheritance"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Kardaun et al. (Br J Dermatol 2013): drug reaction with eosinophilia and systemic symptoms (DRESS), results from the prospective RegiSCAR study",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/23855313/"
+        },
+        {
+          "title": "Husain et al. (J Am Acad Dermatol 2013): DRESS syndrome, part II, management and therapeutics",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/23602183/"
+        }
+      ]
+    },
+    "dm-074": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "Red from head to foot, _and he cannot stop shivering._",
+      "setting": "Hospital ward",
+      "start": {
+        "status": "unstable",
+        "alarm": "Red all over · shivering · temperature 35.4"
+      },
+      "handoff": "A 63-year-old man has been admitted with red, scaly skin over almost his whole body. It began two weeks ago. He is shivering under blankets, and his temperature is low.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask about his skin",
+            "finding": "Redness and scaling began on his chest two weeks ago and now cover almost all of him. It itches badly and feels tight. So much skin is flaking off that his sheets are covered."
+          },
+          {
+            "prompt": "Ask about his skin problems before this, and recent treatment",
+            "finding": "He has had patches of psoriasis for 20 years, controlled with creams. He ran out a month ago. An urgent-care doctor gave him steroid tablets for a flare, and they were then stopped all at once."
+          },
+          {
+            "prompt": "Ask how he feels in himself",
+            "finding": "He is cold all the time, even under blankets, and gets shaking chills. He is weak, has eaten little and feels faint when he stands. He lives alone."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Look at his skin, nails, palms and soles",
+            "finding": "About nine-tenths of his skin is red, with fine flaking, and it feels thick and tight. His palms and soles are thickened. His nails are pitted and lifting from their beds. The inside of his mouth is normal, and there are no blisters."
+          },
+          {
+            "prompt": "Feel his skin temperature, and watch him",
+            "finding": "He looks ill and shivers constantly. His chest feels warm, and his hands and feet are cool."
+          },
+          {
+            "prompt": "Check his glands, legs, heart and lungs",
+            "finding": "The glands in his neck and groin are enlarged and not tender. Both lower legs are swollen and hold a dent when pressed. His heart is fast and regular, and his lungs are clear."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Blood tests, heart scan and skin sample",
+          "content": "White cells: 13.8, high.\nSodium 132 and potassium 3.4: both low.\nAlbumin, the main protein in blood: 2.6, low.\nKidney tests: creatinine 1.4, up from his usual 0.9. He is short of fluid.\nBedside heart scan: the heart is pumping hard and fast, with no fluid around it.\nBlood cultures: pending.\nSkin sample: thickened skin with the pattern seen in psoriasis."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "Nearly all of his skin is inflamed. He is cold, and his heart is racing. Before we treat him, work out why.",
+          "question": "What explains his low temperature and fast heart?",
+          "options": [
+            "The blood vessels in his skin have narrowed and are holding heat in",
+            "The blood vessels in his skin are wide open, so he is losing heat and fluid, and his heart has to pump harder",
+            "Psoriasis has damaged the temperature center in his brain",
+            "Steroid creams have shut down his thyroid"
+          ],
+          "fix": "Explain what the skin is doing",
+          "terms": [
+            {
+              "term": "Erythroderma",
+              "meaning": "Redness and inflammation of nearly all of the skin."
+            },
+            {
+              "term": "Vasodilation",
+              "meaning": "Widening of blood vessels."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You say the vessels have narrowed. The resident shakes their head.",
+              "reply": "Narrow vessels would make him pale and keep heat in. He is red all over."
+            },
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "The resident has warm blankets put on him, sends blood, takes a small skin sample and scans his heart at the bedside. The results go in his chart.",
+              "reply": "Right. Red skin is skin full of blood. All of that blood is at the surface giving away heat, water leaks out through the damaged surface, and the heart races to keep up."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You say brain damage. The resident shakes their head.",
+              "reply": "Psoriasis does not affect the brain. His temperature control is working, which is why he shivers. It is being overwhelmed."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You say the thyroid. The resident shakes their head.",
+              "reply": "Creams do not do that, and an underactive thyroid slows the heart."
+            }
+          ]
+        },
+        "3": {
+          "resident": "He is cold, dry and short of salts and protein, and his psoriasis is out of control.",
+          "question": "How do we treat him?",
+          "options": [
+            "Send him home with steroid creams and a clinic appointment",
+            "Restart high-dose steroid tablets at once",
+            "Admit him to a warm room for fluids, salts and skin care, and start a medicine made for psoriasis",
+            "Start chemotherapy for a suspected skin lymphoma"
+          ],
+          "fix": "Admit, warm and rehydrate him",
+          "terms": [
+            {
+              "term": "Emollient",
+              "meaning": "A plain, greasy moisturizer that seals water into the skin."
+            },
+            {
+              "term": "Cyclosporine",
+              "meaning": "A fast-acting medicine that calms the immune cells driving psoriasis."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "delay",
+              "minutes": 720,
+              "story": "He goes home with creams. The next morning a neighbor finds him on the floor, cold and confused, and calls an ambulance.",
+              "reply": "He lives alone, and he was already cold with a low blood pressure. This is a skin emergency. He needed a warm room, fluids and a monitor.",
+              "vitals": {
+                "Temp": "33.8 °C",
+                "BP": "82/50 mmHg",
+                "HR": "124 bpm"
+              },
+              "trend": {
+                "Temp": "down",
+                "BP": "down",
+                "HR": "up"
+              },
+              "status": "critical",
+              "alarm": "Temperature 33.8 · blood pressure 82 over 50"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You restart the steroid tablets. The dermatologist stops you.",
+              "reply": "Those tablets are how he got here. They quiet psoriasis and set it up to come back harder. He needs a drug meant for psoriasis."
+            },
+            {
+              "kind": "safe",
+              "minutes": 180,
+              "story": "He is moved to a warm room. Warmed fluids and potassium run into his vein. His skin is covered in plain ointment under damp wraps, and the dermatologist starts cyclosporine. Three hours later he has stopped shivering.",
+              "reply": "Right. We replace what the skin is losing, which is heat, water, salts and protein, and we treat the psoriasis itself.",
+              "vitals": {
+                "Temp": "36.2 °C",
+                "BP": "108/66 mmHg",
+                "HR": "98 bpm"
+              },
+              "trend": {
+                "Temp": "up",
+                "BP": "up",
+                "HR": "down"
+              },
+              "alarm": "Warming up · blood pressure improving"
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for chemotherapy. The dermatologist shakes their head.",
+              "reply": "A skin lymphoma can cause red skin all over, but his skin sample shows psoriasis. We treat what the sample shows."
+            }
+          ]
+        },
+        "4": {
+          "resident": "He is warmer, and fluids are running. He is not safe yet.",
+          "question": "Which life-threatening problems do we watch for?",
+          "options": [
+            "Infection through the damaged skin, and a heart that cannot keep up",
+            "A sudden rise of pressure inside the eye",
+            "Inflammation of the pancreas",
+            "A collapsed lung"
+          ],
+          "fix": "Set up his monitoring",
+          "terms": [
+            {
+              "term": "Sepsis",
+              "meaning": "A dangerous whole-body response to infection."
+            },
+            {
+              "term": "Heart failure",
+              "meaning": "The heart being unable to pump as much blood as the body needs."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "He stays on a heart monitor, and the nurses check his temperature and his skin every few hours.",
+              "reply": "Right. Skin is a barrier, and his has failed, so bacteria get in. His heart has been running at full speed for two weeks. Those are the two things that kill patients like him."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say the eye. The dermatologist shakes their head.",
+              "reply": "Nothing about red skin raises the pressure in the eye."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say the pancreas. The dermatologist shakes their head.",
+              "reply": "This condition has no link to the pancreas."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say a collapsed lung. The dermatologist shakes their head.",
+              "reply": "His lungs are not involved. Think about what skin normally does, and what happens when it stops."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "His skin sample shows psoriasis. He has had it for 20 years, and it has never done this before.",
+        "question": "What most likely set this off?",
+        "options": [
+          "Stopping a course of steroid tablets suddenly",
+          "His cholesterol tablet, atorvastatin",
+          "His blood pressure tablet, lisinopril",
+          "Drinking alcohol now and then"
+        ],
+        "reveal": "This is erythrodermic psoriasis, set off by stopping steroid tablets suddenly. Steroid tablets press psoriasis down hard. When they stop all at once it rebounds, sometimes into this whole-body form. That is why doctors avoid steroid tablets for psoriasis and use creams or other medicines. His cholesterol tablet is not a known trigger, and he has taken the blood pressure tablet for years.",
+        "terms": [
+          {
+            "term": "Psoriasis",
+            "meaning": "A long-term immune condition that makes skin cells multiply too fast and form red, scaly patches."
+          },
+          {
+            "term": "Rebound",
+            "meaning": "A condition coming back worse than before when a treatment is stopped."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "Admitted to a warm room on fluids, skin wraps and a psoriasis medicine, on a heart monitor",
+        "unstable": "Admitted to a warm room on fluids, skin wraps and a psoriasis medicine, on a heart monitor",
+        "worse": "Admitted to a warm room on fluids, skin wraps and a psoriasis medicine, on a heart monitor",
+        "critical": "In intensive care, being rewarmed, on fluids and a psoriasis medicine"
+      },
+      "plainDiagnosis": "Psoriasis that spread to cover almost all of his skin (erythrodermic psoriasis), set off by stopping steroid tablets suddenly.",
+      "science": [
+        {
+          "tag": "Heat",
+          "title": "Why red skin made him cold",
+          "text": "The body loses heat mainly through the skin, and it controls the loss by changing how much blood flows there. Inflammation held every skin vessel open, and the damaged surface let water evaporate freely. He lost heat faster than shivering could make it.",
+          "lesson": "thermal-balance",
+          "lessonTitle": "Build a heat balance"
+        },
+        {
+          "tag": "Circulation",
+          "title": "Why his heart was racing",
+          "text": "Blood pressure depends on how much blood the heart pumps and on the resistance of the vessels. With the skin’s vessels wide open, resistance fell. To hold his pressure the heart had to pump more blood each minute, and it did so with less fluid in the system.",
+          "lesson": "circulatory-flow",
+          "lessonTitle": "Connect pressure to blood flow"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Rosenbach et al. (J Am Acad Dermatol 2010): treatment of erythrodermic psoriasis, from the medical board of the National Psoriasis Foundation",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/19665821/"
+        },
+        {
+          "title": "Mistry et al. (Adv Skin Wound Care 2015): a review of the diagnosis and management of erythroderma (generalized red skin)",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/25882661/"
+        }
+      ]
+    },
+    "dm-025": {
+      "sourceCheckedOn": "2026-11-26",
+      "independentReview": "pending",
+      "title": "Pale patches on his back _that would not tan._",
+      "setting": "Dermatology clinic",
+      "start": {
+        "status": "stable",
+        "alarm": "Pale patches on his chest and back"
+      },
+      "handoff": "A 21-year-old college athlete has pale patches across his chest, shoulders and back. They showed up after a summer in the sun, when the skin around them tanned. He is worried it is something permanent.",
+      "investigation": {
+        "interview": [
+          {
+            "prompt": "Ask about the patches",
+            "finding": "He noticed them at the end of the summer. The skin around them tanned, and they stayed pale. They itch a little when he sweats and sometimes look slightly flaky."
+          },
+          {
+            "prompt": "Ask whether this has happened before",
+            "finding": "Yes, in the last few summers. Each time they faded over the winter. They are not painful and not numb, and he feels well."
+          },
+          {
+            "prompt": "Ask about his health and routine",
+            "finding": "He is healthy and takes no medicines. He lives somewhere hot and humid, trains every day and sweats heavily. He is afraid it is vitiligo."
+          }
+        ],
+        "exam": [
+          {
+            "prompt": "Look at where the patches are, and at their edges",
+            "finding": "Dozens of small, pale, sharp-edged patches run together across his upper chest, shoulders and upper back. A few are faintly pink-tan. His face and hands are clear."
+          },
+          {
+            "prompt": "Scrape a patch gently with the edge of a glass slide",
+            "finding": "A fine, powdery scale comes off."
+          },
+          {
+            "prompt": "Test feeling over the patches with a wisp of cotton",
+            "finding": "He feels it normally everywhere."
+          }
+        ]
+      },
+      "results": {
+        "1": {
+          "label": "Skin scraping under the microscope",
+          "content": "Scraping in potassium hydroxide, which dissolves skin cells and leaves any fungus: many short threads mixed with clusters of round yeast cells.\nUnder ultraviolet light: several patches glow pale yellow-green.\nFeeling over the patches: normal."
+        }
+      },
+      "decisions": {
+        "0": {
+          "resident": "Pale, slightly scaly patches on the upper body that come back every summer. One quick test in clinic will settle it.",
+          "question": "Which test?",
+          "options": [
+            "A skin biopsy with special stains",
+            "A scraping of the scale, examined under the microscope",
+            "Patch testing for skin allergies",
+            "A blood test for sarcoidosis"
+          ],
+          "fix": "Scrape the scale",
+          "terms": [
+            {
+              "term": "KOH preparation",
+              "meaning": "A skin scraping mixed with potassium hydroxide, which clears away skin cells so that fungus can be seen."
+            },
+            {
+              "term": "Scale",
+              "meaning": "Flakes of the dead outer layer of skin."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a biopsy. The dermatologist shakes their head.",
+              "reply": "A biopsy leaves a scar and takes a week. A scraping takes five minutes and does not hurt."
+            },
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "The dermatologist scrapes a patch onto a slide, adds a drop of potassium hydroxide and looks. The room lights go off for an ultraviolet lamp. The findings go in his chart.",
+              "reply": "Right. Scale means something is living in the top layer of skin, and the microscope can show what it is."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for patch testing. The dermatologist shakes their head.",
+              "reply": "That finds allergies to things that touch the skin. An allergy gives a red, itchy rash where the thing touched, not pale patches."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You ask for a sarcoidosis blood test. The dermatologist shakes their head.",
+              "reply": "Nothing here suggests it. Start with the simple test on the skin itself."
+            }
+          ]
+        },
+        "3": {
+          "resident": "A yeast is overgrowing on his skin. He is otherwise healthy, and it is limited to his upper body.",
+          "question": "What is the first treatment?",
+          "options": [
+            "An antifungal wash or cream, such as selenium sulfide or ketoconazole",
+            "Terbinafine tablets",
+            "A steroid cream",
+            "Acyclovir tablets"
+          ],
+          "fix": "Prescribe an antifungal wash",
+          "terms": [
+            {
+              "term": "Topical",
+              "meaning": "Applied to the skin, not swallowed."
+            },
+            {
+              "term": "Antifungal",
+              "meaning": "A medicine that kills fungi, including yeasts."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "safe",
+              "minutes": 10,
+              "story": "He is given an antifungal shampoo to lather onto his chest and back, leave on for ten minutes and rinse off, each day for a week.",
+              "reply": "Right. The yeast lives on the surface, so a treatment applied to the surface reaches it, with almost no side effects."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest terbinafine tablets. The dermatologist shakes their head.",
+              "reply": "Terbinafine by mouth works for ringworm and nail fungus. It does not work against this yeast. A common mix-up."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest a steroid cream. The dermatologist shakes their head.",
+              "reply": "A steroid does not kill yeast, and it can thin the skin. It would make things worse."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 5,
+              "story": "You suggest acyclovir. The dermatologist shakes their head.",
+              "reply": "That treats herpes viruses. This is a yeast."
+            }
+          ]
+        },
+        "4": {
+          "resident": "He has a beach trip in three weeks and wants to know when his skin will look normal.",
+          "question": "What do you tell him?",
+          "options": [
+            "The color will return as soon as the yeast is dead",
+            "It rarely comes back, so nothing more is needed",
+            "The pale patches can last weeks to months after the yeast is gone, and it often comes back, so a preventive wash now and then helps",
+            "He must stay out of the sun for good"
+          ],
+          "fix": "Set his expectations",
+          "terms": [
+            {
+              "term": "Pigment",
+              "meaning": "Melanin, the brown coloring made by cells in the skin."
+            },
+            {
+              "term": "Recurrence",
+              "meaning": "A condition coming back after treatment."
+            }
+          ],
+          "outcomes": [
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You promise quick results. The dermatologist corrects you.",
+              "reply": "The yeast dies in a week. The color takes much longer. If he expects it by the beach trip, he will think the treatment failed."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You say it rarely returns. The dermatologist shakes their head.",
+              "reply": "He has had it for several summers already. In heat and sweat it comes back in most people."
+            },
+            {
+              "kind": "safe",
+              "minutes": 5,
+              "story": "He is disappointed about the trip and glad it is not permanent. He will use the wash once a month through the summer.",
+              "reply": "Right. The treatment has worked even while the patches still show. The skin needs weeks of normal pigment-making to catch up."
+            },
+            {
+              "kind": "near-miss",
+              "minutes": 3,
+              "story": "You tell him to avoid the sun for good. The dermatologist shakes their head.",
+              "reply": "The sun did not cause this. It only made the patches easier to see. He does not need to hide from it."
+            }
+          ]
+        }
+      },
+      "differential": {
+        "resident": "The microscope and lamp findings are in his chart.",
+        "question": "What is the diagnosis?",
+        "options": [
+          "Vitiligo",
+          "Tinea versicolor, an overgrowth of a skin yeast called Malassezia",
+          "Ringworm of the body",
+          "Pityriasis alba, pale patches linked to dry skin"
+        ],
+        "reveal": "This is tinea versicolor. Malassezia is a yeast that lives on everyone’s skin and feeds on skin oil. In heat and sweat it overgrows. The mix of short threads and round yeast under the microscope is its signature, and so is the yellow-green glow. Vitiligo has no scale and no yeast, and its patches are completely white. Ringworm forms rings with a raised, scaly edge.",
+        "terms": [
+          {
+            "term": "Yeast",
+            "meaning": "A single-celled fungus."
+          },
+          {
+            "term": "Versicolor",
+            "meaning": "“Of varied color.” The patches can be paler or darker than the skin around them."
+          }
+        ]
+      },
+      "ending": {
+        "stable": "Home with an antifungal wash and a plan to repeat it through the summer",
+        "worse": "Sent to the emergency department",
+        "critical": "In hospital"
+      },
+      "plainDiagnosis": "A harmless overgrowth of skin yeast that leaves pale patches (tinea versicolor).",
+      "science": [
+        {
+          "tag": "Enzymes",
+          "title": "Why the patches stayed pale",
+          "text": "Skin color comes from melanin, and an enzyme called tyrosinase carries out the key step in making it. As the yeast digests skin oil it releases an acid that blocks tyrosinase. Where the yeast is thick, the skin cannot respond to the sun by making more melanin.",
+          "lesson": "enzyme-rates",
+          "lessonTitle": "Read an enzyme curve"
+        },
+        {
+          "tag": "Light",
+          "title": "Why the patches glowed",
+          "text": "Some molecules absorb ultraviolet light, which we cannot see, and give part of that energy back as visible light. Compounds made by this yeast do so in yellow-green. Skin without the yeast does not, so the lamp shows where it is.",
+          "lesson": "absorbance",
+          "lessonTitle": "Turn absorbance into evidence"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Renati et al. (BMJ 2015): pityriasis versicolor",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/25852089/"
+        },
+        {
+          "title": "Gupta and Foley (J Fungi 2015): antifungal treatment for pityriasis versicolor",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/29376896/"
         }
       ]
     }
